@@ -49,10 +49,6 @@ class Seasoner {
 		return new FolderFluent(controller);
 	}
 
-	loadJson(json) {
-		// TODO: Implement
-	}
-
 	getAllPropertyControllers_() {
 		let cons = [this.rootController_];
 		const result = [];
@@ -82,6 +78,10 @@ class Seasoner {
 		});
 		return json;
 	}
+
+	loadJson(json) {
+		// TODO: Implement
+	}
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -97,7 +97,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	};
 	const ss = new Seasoner();
 	ss.add(params, 'easing').min(0).max(10);
-	ss.add(params, 'param1').label('Very long long label');
+	ss.add(params, 'param1').label('Very long long label').min(0).max(10).step(0.1);
 	ss.add(params, 'param2');
 	const fol1 = ss.addFolder('Motion');
 	fol1.add(params, 'rotationAmount');

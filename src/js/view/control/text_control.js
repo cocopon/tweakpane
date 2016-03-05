@@ -1,6 +1,13 @@
+const Display = require('../../display/display');
 const Control = require('./control');
 
 class TextControl extends Control {
+	constructor(model) {
+		super(model);
+
+		this.display_ = new Display();
+	}
+
 	createElement_() {
 		super.createElement_();
 
@@ -17,10 +24,23 @@ class TextControl extends Control {
 		this.inputElem_ = inputElem;
 	}
 
+	getDisplay() {
+		return this.display_;
+	}
+
+	setDisplay(display) {
+		this.display_ = display;
+		this.applyModel_();
+	}
+
 	applyModel_() {
 		super.applyModel_();
 
-		this.inputElem_.value = String(this.getModel().getValue());
+		if (this.display_) {
+			this.inputElem_.value = this.display_.display(
+				this.getModel().getValue()
+			);
+		}
 	}
 
 	onInputElementChange_() {

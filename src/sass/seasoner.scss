@@ -49,6 +49,7 @@ $folder-view-title-height: 30px;
 			overflow: hidden;
 			padding-left: 10px;
 			text-overflow: ellipsis;
+			user-select: none;
 			white-space: nowrap;
 
 			&:hover {
@@ -85,6 +86,7 @@ $folder-view-title-height: 30px;
 			padding: 0 10px;
 			position: absolute;
 			text-overflow: ellipsis;
+			user-select: none;
 			white-space: nowrap;
 			width: 50%;
 		}
@@ -149,6 +151,13 @@ $folder-view-title-height: 30px;
 
 	cursor: pointer;
 
+	&:hover &_outer {
+		background-color: $input-hover-background-color;
+	}
+	&:hover &_inner {
+		background-color: $input-hover-foreground-color;
+	}
+
 	&#{&}-sliderText {
 		right: 50 + 5px;
 		width: auto;
@@ -161,10 +170,6 @@ $folder-view-title-height: 30px;
 			background-color: $input-background-color;
 			border-radius: 2px;
 			overflow: hidden;
-
-			&:hover {
-				background-color: $input-hover-background-color;
-			}
 		}
 		&_inner {
 			background-color: $input-foreground-color;
@@ -172,10 +177,6 @@ $folder-view-title-height: 30px;
 			left: 0;
 			position: absolute;
 			top: 0;
-
-			&:hover {
-				background-color: $input-hover-foreground-color;
-			}
 		}
 	}
 }

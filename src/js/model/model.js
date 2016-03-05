@@ -16,10 +16,11 @@ class Model {
 		return this.value_;
 	}
 
-	format_(value) {
-		return this.formatters_.reduce((v, formatter) => {
+	format_() {
+		this.value_ = this.formatters_.reduce((v, formatter) => {
 			return formatter.format(v);
-		}, value);
+		}, this.value_);
+		this.emitter_.notifyObservers(Model.EVENT_CHANGE);
 	}
 
 	setValue(value) {
@@ -27,7 +28,8 @@ class Model {
 			return false;
 		}
 
-		this.value_ = this.format_(value);
+		this.value_ = value;
+		this.format_();
 		this.emitter_.notifyObservers(Model.EVENT_CHANGE);
 
 		return true;
@@ -50,12 +52,13 @@ class Model {
 			this.onFormatterChange_,
 			this
 		);
-
 		this.formatters_.push(formatter);
+
+		this.format_();
 	}
 
 	onFormatterChange_() {
-		this.emitter_.notifyObservers(Model.EVENT_CHANGE);
+		this.format_();
 	}
 }
 
