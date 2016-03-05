@@ -1,0 +1,181 @@
+$background-color: hsl(0, 0, 10%);
+$folder-view-title-color: hsl(0, 0, 50%);
+$folder-view-title-hover-color: lighten($folder-view-title-color, 10%);
+$input-background-color: hsl(0, 0, 25%);
+$input-foreground-color: hsl(0, 0, 90%);
+$input-hover-foreground-color: lighten($input-foreground-color, 10%);
+$input-focus-background-color: lighten($input-background-color, 5%);
+$input-hover-background-color: lighten($input-background-color, 10%);
+$prop-view-background-color: hsl(0, 0, 20%);
+$prop-view-label-color: hsl(0, 0, 80%);
+$prop-view-separator-color: darken($prop-view-background-color, 3%);
+
+$prop-view-height: 35px;
+$folder-view-title-height: 30px;
+
+@mixin fill() {
+	display: block;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+
+.seasoner {
+	background-color: $background-color;
+	font-size: 11px;
+
+	* {
+		box-sizing: border-box;
+	}
+}
+
+.seasonerDefaultContainer {
+	width: 250px;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+.folderView {
+	overflow: hidden;
+
+	@at-root {
+		&_title {
+			color: $folder-view-title-color;
+			cursor: pointer;
+			height: $folder-view-title-height;
+			line-height: $folder-view-title-height;
+			overflow: hidden;
+			padding-left: 10px;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+
+			&:hover {
+				color: $folder-view-title-hover-color;
+			}
+		}
+		&_container {
+			overflow: hidden;
+			padding: 0 5px;
+
+			&#{&}-animated {
+				transition: height 0.1s ease-in-out;
+			}
+		}
+	}
+}
+
+.propView {
+	background-color: $prop-view-background-color;
+	height: $prop-view-height;
+	position: relative;
+
+	& + .propView {
+		border-top: $prop-view-separator-color solid 1px;
+	}
+
+	@at-root {
+		&_label {
+			color: $prop-view-label-color;
+			height: $prop-view-height;
+			left: 0;
+			line-height: $prop-view-height;
+			overflow: hidden;
+			padding: 0 10px;
+			position: absolute;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			width: 50%;
+		}
+		&_container {
+			bottom: 5px;
+			left: 50%;
+			position: absolute;
+			right: 5px;
+			top: 5px;
+		}
+	}
+}
+
+.checkboxControl {
+	@include fill();
+
+	@at-root {
+		&_input {
+			cursor: pointer;
+			display: block;
+			height: 100%;
+			left: 0;
+			margin: 0;
+			padding: 0;
+			top: 0;
+			width: 100%;
+		}
+	}
+}
+.textControl {
+	@include fill();
+
+	&#{&}-sliderText {
+		left: auto;
+		right: 0;
+		width: 50px;
+	}
+
+	@at-root {
+		&_input {
+			@include fill();
+
+			background-color: $input-background-color;
+			border-radius: 2px;
+			border-width: 0;
+			color: $input-foreground-color;
+			outline: none;
+			padding: 0 5px;
+
+			&:focus {
+				background-color: $input-focus-background-color;
+			}
+			&:hover {
+				background-color: $input-hover-background-color;
+				color: $input-hover-foreground-color;
+			}
+		}
+	}
+}
+.sliderControl {
+	@include fill();
+
+	cursor: pointer;
+
+	&#{&}-sliderText {
+		right: 50 + 5px;
+		width: auto;
+	}
+
+	@at-root {
+		&_outer {
+			@include fill();
+
+			background-color: $input-background-color;
+			border-radius: 2px;
+			overflow: hidden;
+
+			&:hover {
+				background-color: $input-hover-background-color;
+			}
+		}
+		&_inner {
+			background-color: $input-foreground-color;
+			bottom: 0;
+			left: 0;
+			position: absolute;
+			top: 0;
+
+			&:hover {
+				background-color: $input-hover-foreground-color;
+			}
+		}
+	}
+}

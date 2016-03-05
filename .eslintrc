@@ -1,0 +1,23 @@
+{
+	"env": {
+		"browser": true,
+		"es6": true,
+		"node": true
+	},
+	"rules": {
+		"camelcase": 0,  /* Avoid detecting 'opt_foobar' */
+		"dot-notation": 0,
+		"eqeqeq": 2,
+		"no-multi-spaces": 0,
+		"no-undef": 2,
+		"no-underscore-dangle": 0,
+		"no-unused-vars": 1,
+		"no-use-before-define": 2,
+		"semi-spacing": 0,
+		"strict": 0,
+		"quotes": [1, "single"]
+	},
+	"globals": {
+	}
+}
+/* vim: set filetype=javascript: */
