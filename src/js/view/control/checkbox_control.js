@@ -7,15 +7,21 @@ class CheckboxControl extends Control {
 
 		this.addClass(ClassName.get('CheckboxControl'));
 
+		const elem = this.getElement();
+
 		const inputElem = document.createElement('input');
 		inputElem.className += ClassName.get('CheckboxControl', 'input');
 		inputElem.type = 'checkbox';
-		this.getElement().appendChild(inputElem);
+		elem.appendChild(inputElem);
 		inputElem.addEventListener(
 			'change',
 			this.onInputElementChange_.bind(this)
 		);
 		this.inputElem_ = inputElem;
+
+		const macheElem = document.createElement('div');
+		macheElem.className += ClassName.get('CheckboxControl', 'mache');
+		elem.appendChild(macheElem);
 	}
 
 	applyDisabled_() {

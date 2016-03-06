@@ -108,17 +108,38 @@ $folder-view-title-height: 30px;
 	&#{&}-disabled {
 		opacity: 0.5;
 	}
+	&#{&}-disabled &_input:hover &_mache {
+		background-color: $input-background-color;
+		color: $input-foreground-color;
+	}
 
 	@at-root {
 		&_input {
+			@include fill();
+
 			cursor: pointer;
-			display: block;
-			height: 100%;
-			left: 0;
 			margin: 0;
+			opacity: 0.001;
 			padding: 0;
-			top: 0;
-			width: 100%;
+		}
+		&_input:checked + &_mache {
+			background-color: $input-foreground-color;
+		}
+		&_input:hover + &_mache {
+			background-color: $input-hover-background-color;
+		}
+		&_input:checked:hover + &_mache {
+			background-color: $input-hover-foreground-color;
+		}
+		&_input:checked:hover + &_mache {
+			background-color: $input-hover-foreground-color;
+		}
+		&_mache {
+			@include fill();
+
+			background-color: $input-background-color;
+			border-radius: 2px;
+			position: static;
 		}
 	}
 }

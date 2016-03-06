@@ -52,13 +52,19 @@ class Seasoner {
 
 	getAllProperties_() {
 		let cons = [this.rootController_];
-		const result = [];
+		const result = {};
 
 		while (cons.length > 0) {
 			const con = cons.splice(0, 1)[0];
 
 			if (con instanceof PropertyController) {
-				result.push(con.getProperty());
+				const prop = con.getProperty();
+				const propId = prop.getId();
+				if (result[propId] !== undefined) {
+					// TODO: Found duplicated key
+					throw new Error();
+				}
+				result[propId] = prop;
 			}
 
 			cons = cons.concat(con.getSubcontrollers());
@@ -68,20 +74,23 @@ class Seasoner {
 	}
 
 	getJson() {
-		const json = {};
-		this.getAllProperties_().forEach((prop) => {
-			const key = prop.getId();
-			if (json[key] !== undefined) {
-				// TODO: Found duplicated key
-				throw new Error();
-			}
-			json[key] = prop.getModel().getValue();
-		});
-		return json;
+		const props = this.getAllProperties_();
+		return Object.keys(props).reduce((result, propId) => {
+			result[propId] = props[propId].getModel().getValue();
+			return result;
+		}, {});
 	}
 
 	loadJson(json) {
-		// TODO: Implement
+		const props = this.getAllProperties_();
+		Object.keys(json).forEach((propId) => {
+			const prop = props[propId];
+			if (prop === undefined) {
+				return;
+			}
+
+			prop.getModel().setValue(json[propId]);
+		});
 	}
 }
 
@@ -98,7 +107,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	};
 	const ss = new Seasoner();
 	ss.add(params, 'easing').min(0).max(10);
-	ss.add(params, 'param1').label('Very long long label').min(0).max(10).step(0.1).sync();
+	ss.add(params, 'param1').label('Very long long label').step(0.1).sync();
 	ss.add(params, 'param2');
 	const fol1 = ss.addFolder('Motion');
 	fol1.add(params, 'rotationAmount');
