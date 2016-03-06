@@ -1,5 +1,6 @@
-const Display = require('../../display/display');
-const Control = require('./control');
+const Display   = require('../../display/display');
+const ClassName = require('../../misc/class_name');
+const Control   = require('./control');
 
 class TextControl extends Control {
 	constructor(model) {
@@ -11,10 +12,10 @@ class TextControl extends Control {
 	createElement_() {
 		super.createElement_();
 
-		this.addClass('textControl');
+		this.addClass(ClassName.get(TextControl.BLOCK_CLASS));
 
 		const inputElem = document.createElement('input');
-		inputElem.className += 'textControl_input';
+		inputElem.className += ClassName.get(TextControl.BLOCK_CLASS, 'input');
 		inputElem.type = 'text';
 		this.getElement().appendChild(inputElem);
 		inputElem.addEventListener(
@@ -31,6 +32,12 @@ class TextControl extends Control {
 	setDisplay(display) {
 		this.display_ = display;
 		this.applyModel_();
+	}
+
+	applyDisabled_() {
+		super.applyDisabled_();
+
+		this.inputElem_.readOnly = this.isDisabled();
 	}
 
 	applyModel_() {
@@ -50,5 +57,7 @@ class TextControl extends Control {
 		);
 	}
 }
+
+TextControl.BLOCK_CLASS = 'TextControl';
 
 module.exports = TextControl;

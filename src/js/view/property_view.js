@@ -1,4 +1,5 @@
-const View = require('./view');
+const ClassName = require('../misc/class_name');
+const View      = require('./view');
 
 class PropertyView extends View {
 	constructor() {
@@ -10,17 +11,17 @@ class PropertyView extends View {
 	createElement_() {
 		super.createElement_();
 
-		this.addClass('propView');
+		this.addClass(ClassName.get('PropView'));
 
 		const elem = this.getElement();
 
 		const labelElem = document.createElement('div');
-		labelElem.className += 'propView_label';
+		labelElem.className += ClassName.get('PropView', 'label');
 		elem.appendChild(labelElem);
 		this.labelElem_ = labelElem;
 
 		const containerElem = document.createElement('div');
-		containerElem.className += 'propView_container';
+		containerElem.className += ClassName.get('PropView', 'container');
 		elem.appendChild(containerElem);
 		this.containerElem_ = containerElem;
 	}

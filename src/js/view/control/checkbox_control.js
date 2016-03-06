@@ -1,13 +1,14 @@
-const Control = require('./control');
+const ClassName = require('../../misc/class_name');
+const Control   = require('./control');
 
 class CheckboxControl extends Control {
 	createElement_() {
 		super.createElement_();
 
-		this.addClass('checkboxControl');
+		this.addClass(ClassName.get('CheckboxControl'));
 
 		const inputElem = document.createElement('input');
-		inputElem.className += 'checkboxControl_input';
+		inputElem.className += ClassName.get('CheckboxControl', 'input');
 		inputElem.type = 'checkbox';
 		this.getElement().appendChild(inputElem);
 		inputElem.addEventListener(
@@ -15,6 +16,12 @@ class CheckboxControl extends Control {
 			this.onInputElementChange_.bind(this)
 		);
 		this.inputElem_ = inputElem;
+	}
+
+	applyDisabled_() {
+		super.applyDisabled_();
+
+		this.inputElem_.readOnly = this.isDisabled();
 	}
 
 	applyModel_() {

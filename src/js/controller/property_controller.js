@@ -11,6 +11,8 @@ class PropertyController extends Controller {
 		this.propName_ = propName;
 		this.id_ = propName;
 
+		this.disabled_ = false;
+
 		this.model_ = this.instanciateModel_();
 		this.model_.getEmitter().on(
 			Model.EVENT_CHANGE,
@@ -50,6 +52,23 @@ class PropertyController extends Controller {
 		return this.model_;
 	}
 
+	isDisabled_() {
+		return this.disabled_;
+	}
+
+	setDisabled_(disabled) {
+		this.disabled_ = disabled;
+		this.applyDisabled_();
+	}
+
+	applyDisabled_() {
+		const control = this.getView().getControl();
+		if (control === null) {
+			return;
+		}
+		control.setDisabled(this.disabled_);
+	}
+
 	applySourceValue() {
 		this.model_.setValue(this.target_[this.propName_]);
 	}
@@ -76,6 +95,19 @@ class PropertyController extends Controller {
 			this.onControlChange_,
 			this
 		);
+
+		this.applyDisabled_();
+	}
+
+	startSync(opt_interval) {
+		const interval = (opt_interval !== undefined) ?
+			opt_interval :
+			1000 / 30;
+		setInterval(() => {
+			this.applySourceValue();
+		}, interval);
+
+		this.setDisabled_(true);
 	}
 
 	applyModel_() {

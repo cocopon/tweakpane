@@ -10,6 +10,10 @@ class PropertyFluent extends Fluent {
 		this.getController().getView().setLabel(label);
 		return this;
 	}
+
+	sync(opt_interval) {
+		this.getController().startSync(opt_interval);
+	}
 }
 
 module.exports = PropertyFluent;

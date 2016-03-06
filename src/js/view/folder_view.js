@@ -1,4 +1,5 @@
-const View = require('./view');
+const ClassName = require('../misc/class_name');
+const View      = require('./view');
 
 class FolderView extends View {
 	constructor() {
@@ -11,18 +12,18 @@ class FolderView extends View {
 	createElement_() {
 		super.createElement_();
 
-		this.addClass('folderView');
+		this.addClass(ClassName.get('FolderView'));
 
 		const elem = this.getElement();
 
 		const titleElem = document.createElement('div');
-		titleElem.className += 'folderView_title';
+		titleElem.className += ClassName.get('FolderView', 'title');
 		titleElem.addEventListener('click', this.onTitleElementClick_.bind(this));
 		elem.appendChild(titleElem);
 		this.titleElem_ = titleElem;
 
 		const containerElem = document.createElement('div');
-		containerElem.className += 'folderView_container';
+		containerElem.className += ClassName.get('FolderView', 'container');
 		elem.appendChild(containerElem);
 		this.containerElem_ = containerElem;
 	}
@@ -42,7 +43,7 @@ class FolderView extends View {
 
 	applyExpandingAnimationEnabled_(enabled) {
 		let classes = this.containerElem_.className.split(' ');
-		let className = 'folderView_container-animated';
+		let className = ClassName.get('FolderView', 'container', 'animated');
 		if (enabled) {
 			if (classes.indexOf(className) < 0) {
 				classes.push(className);

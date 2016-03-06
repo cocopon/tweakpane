@@ -1,3 +1,5 @@
+$prefix: 'ssjs';
+
 $background-color: hsl(0, 0, 10%);
 $folder-view-title-color: hsl(0, 0, 50%);
 $folder-view-title-hover-color: lighten($folder-view-title-color, 10%);
@@ -22,7 +24,7 @@ $folder-view-title-height: 30px;
 	width: 100%;
 }
 
-.seasoner {
+.#{$prefix} {
 	background-color: $background-color;
 	font-size: 11px;
 
@@ -31,13 +33,13 @@ $folder-view-title-height: 30px;
 	}
 }
 
-.seasonerDefaultContainer {
+.#{$prefix}DefaultContainer {
 	width: 250px;
 	position: absolute;
 	right: 0;
 	top: 0;
 }
-.folderView {
+.#{$prefix}FolderView {
 	overflow: hidden;
 
 	@at-root {
@@ -67,12 +69,12 @@ $folder-view-title-height: 30px;
 	}
 }
 
-.propView {
+.#{$prefix}PropView {
 	background-color: $prop-view-background-color;
 	height: $prop-view-height;
 	position: relative;
 
-	& + .propView {
+	& + & {
 		border-top: $prop-view-separator-color solid 1px;
 	}
 
@@ -100,8 +102,12 @@ $folder-view-title-height: 30px;
 	}
 }
 
-.checkboxControl {
+.#{$prefix}CheckboxControl {
 	@include fill();
+
+	&#{&}-disabled {
+		opacity: 0.5;
+	}
 
 	@at-root {
 		&_input {
@@ -116,9 +122,16 @@ $folder-view-title-height: 30px;
 		}
 	}
 }
-.textControl {
+.#{$prefix}TextControl {
 	@include fill();
 
+	&#{&}-disabled {
+		opacity: 0.5;
+	}
+	&#{&}-disabled &_input:hover {
+		background-color: $input-background-color;
+		color: $input-foreground-color;
+	}
 	&#{&}-sliderText {
 		left: auto;
 		right: 0;
@@ -146,7 +159,7 @@ $folder-view-title-height: 30px;
 		}
 	}
 }
-.sliderControl {
+.#{$prefix}SliderControl {
 	@include fill();
 
 	cursor: pointer;
@@ -158,6 +171,16 @@ $folder-view-title-height: 30px;
 		background-color: $input-hover-foreground-color;
 	}
 
+	&#{&}-disabled {
+		cursor: default;
+		opacity: 0.5;
+	}
+	&#{&}-disabled:hover &_outer {
+		background-color: $input-background-color;
+	}
+	&#{&}-disabled:hover &_inner {
+		background-color: $input-foreground-color;
+	}
 	&#{&}-sliderText {
 		right: 50 + 5px;
 		width: auto;

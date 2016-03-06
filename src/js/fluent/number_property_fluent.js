@@ -4,6 +4,11 @@ const StepNumberFormatter = require('../formatter/step_number_formatter');
 const PropertyFluent      = require('./property_fluent');
 
 class NumberPropertyFluent extends PropertyFluent {
+	/**
+	 * Set the minimum value.
+	 * @param {number} minValue The minimum value.
+	 * @return {NumberPropertyFluent}
+	 */
 	min(minValue) {
 		const model = this.getController().getModel();
 		let formatter = model.findFormatterByClass(MinNumberFormatter);
@@ -17,6 +22,11 @@ class NumberPropertyFluent extends PropertyFluent {
 		return this;
 	}
 
+	/**
+	 * Set the maximum value.
+	 * @param {number} maxValue The maximum value.
+	 * @return {NumberPropertyFluent}
+	 */
 	max(maxValue) {
 		const model = this.getController().getModel();
 		let formatter = model.findFormatterByClass(MaxNumberFormatter);
@@ -30,6 +40,11 @@ class NumberPropertyFluent extends PropertyFluent {
 		return this;
 	}
 
+	/**
+	 * Set the step value.
+	 * @param {number} stepValue The step value.
+	 * @return {NumberPropertyFluent}
+	 */
 	step(stepValue) {
 		const model = this.getController().getModel();
 		let formatter = model.findFormatterByClass(StepNumberFormatter);

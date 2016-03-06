@@ -1,6 +1,7 @@
-const Control = require('./control');
+const ClassName     = require('../../misc/class_name');
+const Control       = require('./control');
 const SliderControl = require('./slider_control');
-const TextControl = require('./text_control');
+const TextControl   = require('./text_control');
 
 class SliderTextControl extends Control {
 	constructor(model) {
@@ -10,7 +11,7 @@ class SliderTextControl extends Control {
 		// このため、ここに書く必要がある。
 		// そもそもcreateElement_って必要？
 		const sliderControl = new SliderControl(this.getModel());
-		sliderControl.addClass('sliderControl-sliderText');
+		sliderControl.addClass(ClassName.get(SliderControl.BLOCK_CLASS, null, 'sliderText'));
 		sliderControl.getEmitter().on(
 			Control.EVENT_CHANGE,
 			this.onSubcontrolChange_,
@@ -20,7 +21,7 @@ class SliderTextControl extends Control {
 		this.sliderControl_ = sliderControl;
 
 		const textControl = new TextControl(this.getModel());
-		textControl.addClass('textControl-sliderText');
+		textControl.addClass(ClassName.get(TextControl.BLOCK_CLASS, null, 'sliderText'));
 		textControl.getEmitter().on(
 			Control.EVENT_CHANGE,
 			this.onSubcontrolChange_,
@@ -33,7 +34,7 @@ class SliderTextControl extends Control {
 	createElement_() {
 		super.createElement_();
 
-		this.addClass('SliderTextControl');
+		this.addClass(ClassName.get(SliderTextControl.BLOCK_CLASS));
 	}
 
 	getSliderControl() {
@@ -44,6 +45,14 @@ class SliderTextControl extends Control {
 		return this.textControl_;
 	}
 
+	applyDisabled_() {
+		super.applyDisabled_();
+
+		const disabled = this.isDisabled();
+		this.sliderControl_.setDisabled(disabled);
+		this.textControl_.setDisabled(disabled);
+	}
+
 	onSubcontrolChange_(sender, value) {
 		this.getEmitter().notifyObservers(
 			Control.EVENT_CHANGE,
@@ -51,5 +60,7 @@ class SliderTextControl extends Control {
 		);
 	}
 }
+
+SliderTextControl.BLOCK_CLASS = 'SliderTextControl';
 
 module.exports = SliderTextControl;

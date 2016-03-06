@@ -1,3 +1,4 @@
+const ClassName                  = require('./misc/class_name');
 const PropertyControllerProvider = require('./misc/property_controller_provider');
 const FluentProvider             = require('./misc/fluent_provider');
 const FolderFluent               = require('./fluent/folder_fluent');
@@ -9,7 +10,7 @@ class Seasoner {
 	constructor(opt_options) {
 		const rootController = new Controller();
 		const rootView = rootController.getView();
-		rootView.addClass('seasoner');
+		rootView.addClass(ClassName.get(''));
 		this.rootController_ = rootController;
 
 		const options = (opt_options !== undefined) ?
@@ -21,7 +22,7 @@ class Seasoner {
 			true;
 		if (autoPlace) {
 			const containerElem = document.createElement('div');
-			containerElem.className += 'seasonerDefaultContainer';
+			containerElem.className += ClassName.get('DefaultContainer');
 			containerElem.appendChild(rootView.getElement());
 			document.body.appendChild(containerElem);
 		}
@@ -97,7 +98,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	};
 	const ss = new Seasoner();
 	ss.add(params, 'easing').min(0).max(10);
-	ss.add(params, 'param1').label('Very long long label').min(0).max(10).step(0.1);
+	ss.add(params, 'param1').label('Very long long label').min(0).max(10).step(0.1).sync();
 	ss.add(params, 'param2');
 	const fol1 = ss.addFolder('Motion');
 	fol1.add(params, 'rotationAmount');
@@ -106,6 +107,12 @@ window.addEventListener('DOMContentLoaded', () => {
 	fol2.add(params, 'softness').list(['foo', 'bar', 'baz']);
 	fol2.add(params, 'toothCount');
 	fol2.add(params, 'shapeFactor');
+
+	let t = 0;
+	setInterval(() => {
+		params.param1 = Math.sin(t * 2 * Math.PI) * 10;
+		t = (t + 0.01) % 1.0;
+	}, 1000 / 30);
 
 	setInterval(() => {
 		document.getElementById('log').textContent = JSON.stringify(ss.getJson());
