@@ -17,6 +17,15 @@ class PropertyFluent extends Fluent {
 		this.getController().startSync(opt_interval);
 		return this;
 	}
+
+	on(eventName, handler, opt_scope) {
+		const model = this.getController().getView().getProperty().getModel();
+		model.getEmitter().on(
+			eventName,
+			handler,
+			opt_scope
+		);
+	}
 }
 
 module.exports = PropertyFluent;

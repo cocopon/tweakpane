@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{{ title }} | seasoner.js</title>
+	<link rel="stylesheet" href="assets/doc.css">
+	<link rel="stylesheet" href="assets/seasoner.css">
+</head>
+<body>
+	<div class="header">Hello</div>
+	<div class="content">
+		<h1>{{ title }}</h1>
+		{% block content %}{% endblock %}
+	</div>
+
+	<div class="menu">
+		{% include "_menu.html" %}
+	</div>
+
+	<script src="assets/seasoner.js"></script>
+	<script>
+	{% block script %}{% endblock %}
+	</script>
+</body>
+</html>

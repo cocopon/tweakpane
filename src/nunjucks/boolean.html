@@ -1,0 +1,20 @@
+{% extends "_template.html" %}
+
+{% set title = 'Overview' %}
+
+{% block content %}
+{% endblock %}
+
+{% block script %}
+var params = {
+	bool: true,
+	list: false
+};
+
+var ss = new Seasoner();
+ss.add(params, 'bool');
+ss.add(params, 'bool').list({
+	yep: true,
+	nope: false
+});
+{% endblock %}

@@ -1,0 +1,55 @@
+$font-family-sans: sans-serif;
+$font-family-mono: Menlo, Courier, monospace;
+
+* {
+	box-sizing: border-box;
+}
+html {
+	margin: 0;
+	padding: 0;
+}
+body {
+	background-color: #f0f0f0;
+	font-family: $font-family-sans;
+	font-size: 13px;
+	margin: 0;
+	padding: 0;
+}
+pre {
+	background-color: #eee;
+	border-radius: 2px;
+	color: #888;
+	font-family: $font-family-mono;
+	line-height: 1.8;
+	margin: 1.0rem 0;
+	padding: 10px;
+}
+p {
+	line-height: 1.8;
+	margin: 1.0rem 0;
+}
+p + p {
+	margin-top: 0.5rem;
+}
+code {
+	background-color: #eee;
+	border-radius: 2px;
+	color: #888;
+	font-family: $font-family-mono;
+	padding: 0 2px;
+}
+
+.header {
+	background-color: black;
+	color: white;
+}
+.content {
+	background-color: white;
+	margin: 0 auto;
+	padding: 30px;
+	width: 600px;
+}
+.exampleContainer {
+	margin: 2.0rem auto;
+	width: 250px;
+}

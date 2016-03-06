@@ -1,0 +1,58 @@
+{% extends "_template.html" %}
+
+{% set title = 'Overview' %}
+
+{% block content %}
+<p>seasoner.js provides a user interface for changing parameters. It's inspired by the popular library <a href="http://workshop.chromeexperiments.com/examples/gui/" target="_blank">dat.GUI</a> and hoge a lot improvements.</p>
+<ul>
+	<li>Super easy to use</li>
+	<li>Clean and simple interface</li>
+	<li>Mobile-friendly</li>
+	<li>Well-documented</li>
+</ul>
+
+<pre>
+&lt;script src=&quot;seasoner.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+var ss = new Seasoner();
+&lt;/script&gt;
+</pre>
+
+<div id="log"></div>
+{% endblock %}
+
+{% block script %}
+var params = {
+	easing: 2,
+	rotationAmount: 'str',
+	speed: true,
+	softness: 'foo',
+	toothCount: false,
+	shapeFactor: 4,
+	param1: 2,
+	param2: 'str'
+};
+var ss = new Seasoner();
+ss.add(params, 'easing').min(0).max(10).on('change', function(value) {
+	console.log(value);
+});
+ss.add(params, 'param1').label('Very long long label').step(0.1).sync();
+ss.add(params, 'param2');
+var fol1 = ss.addFolder('Motion');
+fol1.add(params, 'rotationAmount');
+fol1.add(params, 'speed');
+var fol2 = ss.addFolder('Appearance');
+fol2.add(params, 'softness').list(['foo', 'bar', 'baz']);
+fol2.add(params, 'toothCount');
+fol2.add(params, 'shapeFactor');
+
+var t = 0;
+setInterval(function() {
+	params.param1 = Math.sin(t * 2 * Math.PI) * 10;
+	t = (t + 0.01) % 1.0;
+}, 1000 / 30);
+
+setInterval(function() {
+	document.getElementById('log').textContent = JSON.stringify(ss.getJson());
+}, 1000);
+{% endblock %}

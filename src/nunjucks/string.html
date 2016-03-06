@@ -1,0 +1,21 @@
+{% extends "_template.html" %}
+
+{% set title = 'Overview' %}
+
+{% block content %}
+{% endblock %}
+
+{% block script %}
+var params = {
+	string: 'hello',
+	list: 'foo'
+};
+
+var ss = new Seasoner();
+ss.add(params, 'string');
+ss.add(params, 'list').list([
+	'foo',
+	'bar',
+	'baz'
+]);
+{% endblock %}

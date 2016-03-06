@@ -20,7 +20,10 @@ class Model {
 		this.value_ = this.formatters_.reduce((v, formatter) => {
 			return formatter.format(v);
 		}, this.value_);
-		this.emitter_.notifyObservers(Model.EVENT_CHANGE);
+		this.emitter_.notifyObservers(
+			Model.EVENT_CHANGE,
+			[this.value_]
+		);
 	}
 
 	setValue(value) {
@@ -30,7 +33,6 @@ class Model {
 
 		this.value_ = value;
 		this.format_();
-		this.emitter_.notifyObservers(Model.EVENT_CHANGE);
 
 		return true;
 	}

@@ -29,7 +29,7 @@ class Seasoner {
 	}
 
 	getElement() {
-		return this.rootController_.getView();
+		return this.rootController_.getView().getElement();
 	}
 
 	add(target, propName) {
@@ -94,36 +94,4 @@ class Seasoner {
 	}
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-	const params = {
-		easing: 2,
-		rotationAmount: 'str',
-		speed: true,
-		softness: 'foo',
-		toothCount: false,
-		shapeFactor: 4,
-		param1: 2,
-		param2: 'str'
-	};
-	const ss = new Seasoner();
-	ss.add(params, 'easing').min(0).max(10);
-	ss.add(params, 'param1').label('Very long long label').step(0.1).sync();
-	ss.add(params, 'param2');
-	const fol1 = ss.addFolder('Motion');
-	fol1.add(params, 'rotationAmount');
-	fol1.add(params, 'speed');
-	const fol2 = ss.addFolder('Appearance');
-	fol2.add(params, 'softness').list(['foo', 'bar', 'baz']);
-	fol2.add(params, 'toothCount');
-	fol2.add(params, 'shapeFactor');
-
-	let t = 0;
-	setInterval(() => {
-		params.param1 = Math.sin(t * 2 * Math.PI) * 10;
-		t = (t + 0.01) % 1.0;
-	}, 1000 / 30);
-
-	setInterval(() => {
-		document.getElementById('log').textContent = JSON.stringify(ss.getJson());
-	}, 1000);
-});
+window.Seasoner = Seasoner;

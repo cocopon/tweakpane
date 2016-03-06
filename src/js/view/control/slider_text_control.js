@@ -53,7 +53,7 @@ class SliderTextControl extends Control {
 		this.textControl_.setDisabled(disabled);
 	}
 
-	onSubcontrolChange_(sender, value) {
+	onSubcontrolChange_(value) {
 		this.getEmitter().notifyObservers(
 			Control.EVENT_CHANGE,
 			[value]

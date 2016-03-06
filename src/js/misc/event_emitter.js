@@ -34,8 +34,8 @@ class EventEmitter {
 				observer.opt_scope :
 				this;
 			const args = (opt_args !== undefined) ?
-				[this].concat(opt_args) :
-				[this];
+				[].concat(opt_args) :
+				[];
 			observer.handler.apply(scope, args);
 		});
 	}

@@ -66,7 +66,7 @@ class PropertyController extends Controller {
 		this.applyModel_();
 	}
 
-	onControlChange_(sender, value) {
+	onControlChange_(value) {
 		this.prop_.getModel().setValue(value);
 	}
 }

@@ -5,23 +5,31 @@ class CheckboxControl extends Control {
 	createElement_() {
 		super.createElement_();
 
-		this.addClass(ClassName.get('CheckboxControl'));
+		this.addClass(ClassName.get(CheckboxControl.BLOCK_CLASS));
 
 		const elem = this.getElement();
 
+		const labelElem = document.createElement('label');
+		labelElem.className += ClassName.get(CheckboxControl.BLOCK_CLASS, 'hitArea');
+		elem.appendChild(labelElem);
+
 		const inputElem = document.createElement('input');
-		inputElem.className += ClassName.get('CheckboxControl', 'input');
+		inputElem.className += ClassName.get(CheckboxControl.BLOCK_CLASS, 'input');
 		inputElem.type = 'checkbox';
-		elem.appendChild(inputElem);
+		labelElem.appendChild(inputElem);
 		inputElem.addEventListener(
 			'change',
 			this.onInputElementChange_.bind(this)
 		);
 		this.inputElem_ = inputElem;
 
-		const macheElem = document.createElement('div');
-		macheElem.className += ClassName.get('CheckboxControl', 'mache');
-		elem.appendChild(macheElem);
+		const outerElem = document.createElement('div');
+		outerElem.className += ClassName.get(CheckboxControl.BLOCK_CLASS, 'outer');
+		labelElem.appendChild(outerElem);
+
+		const innerElem = document.createElement('div');
+		innerElem.className += ClassName.get(CheckboxControl.BLOCK_CLASS, 'inner');
+		outerElem.appendChild(innerElem);
 	}
 
 	applyDisabled_() {
@@ -43,6 +51,8 @@ class CheckboxControl extends Control {
 		);
 	}
 }
+
+CheckboxControl.BLOCK_CLASS = 'CheckboxControl';
 
 module.exports = CheckboxControl;
 
