@@ -1,11 +1,20 @@
 const ClassName = require('../misc/class_name');
+const Property  = require('../model/property');
 const View      = require('./view');
 
 class PropertyView extends View {
-	constructor() {
+	constructor(property) {
 		super();
 
 		this.control_ = null;
+
+		this.prop_ = property;
+		this.prop_.getEmitter().on(
+			Property.EVENT_CHANGE,
+			this.onPropertyChange_,
+			this
+		);
+		this.applyProperty_();
 	}
 
 	createElement_() {
@@ -26,6 +35,10 @@ class PropertyView extends View {
 		this.containerElem_ = containerElem;
 	}
 
+	getProperty() {
+		return this.prop_;
+	}
+
 	getContainerElement_() {
 		return this.containerElem_;
 	}
@@ -41,19 +54,18 @@ class PropertyView extends View {
 
 		this.addSubview(control);
 		this.control_ = control;
+		this.applyProperty_();
 	}
 
-	getLabel() {
-		return this.label_;
+	applyProperty_() {
+		this.labelElem_.textContent = this.prop_.getDisplayName();
+		if (this.control_ !== null) {
+			this.control_.setDisabled(this.prop_.isDisabled());
+		}
 	}
 
-	setLabel(label) {
-		this.label_ = label;
-		this.applyLabel_();
-	}
-
-	applyLabel_() {
-		this.labelElem_.textContent = this.label_;
+	onPropertyChange_() {
+		this.applyProperty_();
 	}
 }
 

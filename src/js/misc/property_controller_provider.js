@@ -18,7 +18,7 @@ class PropertyControllerProvider {
 		}
 
 		if (controller !== null) {
-			controller.applySourceValue();
+			controller.getProperty().applySourceValue();
 		}
 
 		return controller;

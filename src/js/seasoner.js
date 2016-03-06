@@ -50,7 +50,7 @@ class Seasoner {
 		return new FolderFluent(controller);
 	}
 
-	getAllPropertyControllers_() {
+	getAllProperties_() {
 		let cons = [this.rootController_];
 		const result = [];
 
@@ -58,7 +58,7 @@ class Seasoner {
 			const con = cons.splice(0, 1)[0];
 
 			if (con instanceof PropertyController) {
-				result.push(con);
+				result.push(con.getProperty());
 			}
 
 			cons = cons.concat(con.getSubcontrollers());
@@ -69,13 +69,13 @@ class Seasoner {
 
 	getJson() {
 		const json = {};
-		this.getAllPropertyControllers_().forEach((con) => {
-			const key = con.getId();
+		this.getAllProperties_().forEach((prop) => {
+			const key = prop.getId();
 			if (json[key] !== undefined) {
 				// TODO: Found duplicated key
 				throw new Error();
 			}
-			json[key] = con.getModel().getValue();
+			json[key] = prop.getModel().getValue();
 		});
 		return json;
 	}

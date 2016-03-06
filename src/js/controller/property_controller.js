@@ -1,4 +1,5 @@
 const Model        = require('../model/model');
+const Property     = require('../model/property');
 const Control      = require('../view/control/control');
 const PropertyView = require('../view/property_view');
 const Controller   = require('./controller');
@@ -7,24 +8,15 @@ class PropertyController extends Controller {
 	constructor(target, propName) {
 		super();
 
-		this.target_ = target;
-		this.propName_ = propName;
-		this.id_ = propName;
-
-		this.disabled_ = false;
-
-		this.model_ = this.instanciateModel_();
-		this.model_.getEmitter().on(
+		const model = this.instanciateModel_();
+		model.getEmitter().on(
 			Model.EVENT_CHANGE,
 			this.onModelChange_,
 			this
 		);
+		this.prop_ = new Property(target, propName, model);
 
-		this.view_.setLabel(this.propName_);
-	}
-
-	instanciateView_() {
-		return new PropertyView();
+		this.view_ = new PropertyView(this.prop_);
 	}
 
 	instanciateModel_() {
@@ -32,49 +24,8 @@ class PropertyController extends Controller {
 		throw new Error();
 	}
 
-	getTarget() {
-		return this.target_;
-	}
-
-	getPropertyName() {
-		return this.propName_;
-	}
-
-	getId() {
-		return this.id_;
-	}
-
-	setId(id) {
-		this.id_ = id;
-	}
-
-	getModel() {
-		return this.model_;
-	}
-
-	isDisabled_() {
-		return this.disabled_;
-	}
-
-	setDisabled_(disabled) {
-		this.disabled_ = disabled;
-		this.applyDisabled_();
-	}
-
-	applyDisabled_() {
-		const control = this.getView().getControl();
-		if (control === null) {
-			return;
-		}
-		control.setDisabled(this.disabled_);
-	}
-
-	applySourceValue() {
-		this.model_.setValue(this.target_[this.propName_]);
-	}
-
-	updateSourceValue() {
-		this.target_[this.propName_] = this.model_.getValue();
+	getProperty() {
+		return this.prop_;
 	}
 
 	setControl_(control) {
@@ -95,8 +46,6 @@ class PropertyController extends Controller {
 			this.onControlChange_,
 			this
 		);
-
-		this.applyDisabled_();
 	}
 
 	startSync(opt_interval) {
@@ -104,10 +53,10 @@ class PropertyController extends Controller {
 			opt_interval :
 			1000 / 30;
 		setInterval(() => {
-			this.applySourceValue();
+			this.getProperty().applySourceValue();
 		}, interval);
 
-		this.setDisabled_(true);
+		this.getProperty().setDisabled(true);
 	}
 
 	applyModel_() {
@@ -118,7 +67,7 @@ class PropertyController extends Controller {
 	}
 
 	onControlChange_(sender, value) {
-		this.model_.setValue(value);
+		this.prop_.getModel().setValue(value);
 	}
 }
 

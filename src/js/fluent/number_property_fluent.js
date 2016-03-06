@@ -10,7 +10,7 @@ class NumberPropertyFluent extends PropertyFluent {
 	 * @return {NumberPropertyFluent}
 	 */
 	min(minValue) {
-		const model = this.getController().getModel();
+		const model = this.getController().getProperty().getModel();
 		let formatter = model.findFormatterByClass(MinNumberFormatter);
 		if (formatter === null) {
 			formatter = new MinNumberFormatter();
@@ -28,7 +28,7 @@ class NumberPropertyFluent extends PropertyFluent {
 	 * @return {NumberPropertyFluent}
 	 */
 	max(maxValue) {
-		const model = this.getController().getModel();
+		const model = this.getController().getProperty().getModel();
 		let formatter = model.findFormatterByClass(MaxNumberFormatter);
 		if (formatter === null) {
 			formatter = new MaxNumberFormatter();
@@ -46,7 +46,7 @@ class NumberPropertyFluent extends PropertyFluent {
 	 * @return {NumberPropertyFluent}
 	 */
 	step(stepValue) {
-		const model = this.getController().getModel();
+		const model = this.getController().getProperty().getModel();
 		let formatter = model.findFormatterByClass(StepNumberFormatter);
 		if (formatter === null) {
 			formatter = new StepNumberFormatter();

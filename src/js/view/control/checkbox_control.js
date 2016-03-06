@@ -21,7 +21,7 @@ class CheckboxControl extends Control {
 	applyDisabled_() {
 		super.applyDisabled_();
 
-		this.inputElem_.readOnly = this.isDisabled();
+		this.inputElem_.disabled = this.isDisabled();
 	}
 
 	applyModel_() {

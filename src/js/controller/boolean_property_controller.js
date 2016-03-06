@@ -6,7 +6,7 @@ class BooleanPropertyController extends PropertyController {
 	constructor(target, propName) {
 		super(target, propName);
 
-		this.setControl_(new CheckboxControl(this.getModel()));
+		this.setControl_(new CheckboxControl(this.getProperty().getModel()));
 	}
 
 	instanciateModel_() {

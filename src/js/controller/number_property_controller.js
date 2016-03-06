@@ -13,7 +13,7 @@ class NumberPropertyController extends PropertyController {
 		this.display_ = new DefaultNumberDisplay();
 
 		const ControlClass = this.getPreferredControlClass_();
-		this.setControl_(new ControlClass(this.getModel()));
+		this.setControl_(new ControlClass(this.getProperty().getModel()));
 	}
 
 	getDisplay() {
@@ -39,7 +39,7 @@ class NumberPropertyController extends PropertyController {
 	}
 
 	getPreferredControlClass_() {
-		const model = this.model_;
+		const model = this.getProperty().getModel();
 		if (model.findFormatterByClass(MinNumberFormatter) !== null &&
 				model.findFormatterByClass(MaxNumberFormatter) !== null) {
 			return SliderTextControl;
@@ -68,7 +68,7 @@ class NumberPropertyController extends PropertyController {
 	applyModel_() {
 		const ControlClass = this.getPreferredControlClass_();
 		if (!(this.getView().getControl() instanceof ControlClass)) {
-			this.setControl_(new ControlClass(this.getModel()));
+			this.setControl_(new ControlClass(this.getProperty().getModel()));
 		}
 
 		super.applyModel_();

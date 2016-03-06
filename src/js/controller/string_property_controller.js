@@ -6,7 +6,7 @@ class StringPropertyController extends PropertyController {
 	constructor(target, propName) {
 		super(target, propName);
 
-		this.setControl_(new TextControl(this.getModel()));
+		this.setControl_(new TextControl(this.getProperty().getModel()));
 	}
 
 	instanciateModel_() {

@@ -3,11 +3,7 @@ const View = require('../view/view');
 class Controller {
 	constructor() {
 		this.subcons_ = [];
-		this.view_ = this.instanciateView_();
-	}
-
-	instanciateView_() {
-		return new View();
+		this.view_ = new View();
 	}
 
 	getView() {
