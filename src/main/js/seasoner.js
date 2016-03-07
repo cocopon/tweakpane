@@ -1,5 +1,6 @@
 const Appearance                 = require('./misc/appearance');
 const ClassName                  = require('./misc/class_name');
+const Errors                     = require('./misc/errors');
 const PropertyControllerProvider = require('./misc/property_controller_provider');
 const FluentProvider             = require('./misc/fluent_provider');
 const FolderFluent               = require('./fluent/folder_fluent');
@@ -37,11 +38,6 @@ class Seasoner {
 
 	add(target, propName) {
 		const controller = PropertyControllerProvider.provide(target, propName);
-		if (controller === null) {
-			// TODO: Error
-			return null;
-		}
-
 		this.rootController_.addSubcontroller(controller);
 		return FluentProvider.provide(controller);
 	}
@@ -64,8 +60,7 @@ class Seasoner {
 				const prop = con.getProperty();
 				const propId = prop.getId();
 				if (result[propId] !== undefined) {
-					// TODO: Found duplicated key
-					throw new Error();
+					throw Errors.duplicatedPropertyId(propId);
 				}
 				result[propId] = prop;
 			}

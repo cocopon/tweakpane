@@ -1,0 +1,75 @@
+{% extends "_template.html" %}
+
+{% set title = 'Event' %}
+
+{% block content %}
+<h2>Handling events</h2>
+<p>You can use <code>on()</code> of specific property to detect its changes.</p>
+<p>
+<code>'change'</code> event will be called continuously when the user controls a slider. If you want to detect a change just one time, use <code>'TODO'</code> event instead.
+</p>
+
+<pre>
+var ss = new Seasoner();
+ss.add(target, 'someProperty').min(0).max(100).on(
+  'change', function(value) {
+    console.log(value);
+  }
+);
+</pre>
+
+<div id="eventExampleContainer" class="exampleContainer">
+</div>
+
+<div id="logWindow" class="log"></div>
+
+<p>You can also detect all changes by <code>on()</code> of the root object.</p>
+
+<pre>
+var ss = new Seasoner();
+ss.add(target, 'someProperty').min(0).max(100);
+ss.on(
+  'change', function(value) {
+    console.log(value);
+  }
+);
+</pre>
+
+TODO: Seasoner
+
+TODO: Log
+{% endblock %}
+
+{% block script %}
+var params = {
+	someProperty: 50
+};
+
+function appendLog(eventName, value) {
+	const elem = document.getElementById('logWindow');
+	elem.innerHTML = [
+		eventName,
+		': ',
+		String(value),
+		'<br>'
+	].join('') + elem.innerHTML;
+}
+
+(function() {
+	appendLog('', ')');
+
+	var ss = new Seasoner({
+		autoPlace: false
+	});
+	document.getElementById('eventExampleContainer').appendChild(
+		ss.getElement()
+	);
+	ss.add(params, 'someProperty').min(0).max(100).on(
+		'change',
+		function(value) {
+			appendLog('change', value);
+		}
+	);
+	ss.getJson();
+})();
+{% endblock %}

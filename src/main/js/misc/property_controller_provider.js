@@ -1,6 +1,7 @@
+const Errors                    = require('../misc/errors');
 const BooleanPropertyController = require('../controller/boolean_property_controller');
-const NumberPropertyController = require('../controller/number_property_controller');
-const StringPropertyController = require('../controller/string_property_controller');
+const NumberPropertyController  = require('../controller/number_property_controller');
+const StringPropertyController  = require('../controller/string_property_controller');
 
 class PropertyControllerProvider {
 	static provide(target, propName) {
@@ -17,10 +18,14 @@ class PropertyControllerProvider {
 			controller = new StringPropertyController(target, propName);
 		}
 
-		if (controller !== null) {
-			controller.getProperty().applySourceValue();
+		if (controller === null) {
+			throw Errors.propertyTypeNotSupported(
+				propName,
+				target[propName]
+			);
 		}
 
+		controller.getProperty().applySourceValue();
 		return controller;
 	}
 }

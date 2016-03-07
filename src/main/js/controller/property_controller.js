@@ -1,3 +1,4 @@
+const Errors       = require('../misc/errors');
 const Model        = require('../model/model');
 const Property     = require('../model/property');
 const Control      = require('../view/control/control');
@@ -20,8 +21,7 @@ class PropertyController extends Controller {
 	}
 
 	instanciateModel_() {
-		// TODO: Error
-		throw new Error();
+		throw Errors.notImplemented('instanciateModel_');
 	}
 
 	getProperty() {

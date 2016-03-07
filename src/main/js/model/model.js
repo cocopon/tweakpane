@@ -1,4 +1,5 @@
 const Constraint    = require('../constraint/constraint');
+const Errors        = require('../misc/errors');
 const EventEmitter  = require('../misc/event_emitter');
 
 class Model {
@@ -47,7 +48,9 @@ class Model {
 	}
 
 	addConstraint(constraint) {
-		// TODO: Check duplication
+		if (this.findConstraintByClass(constraint.constructor)) {
+			throw Errors.constraintAlreadyExists(constraint);
+		}
 
 		constraint.getEmitter().on(
 			Constraint.EVENT_CHANGE,
