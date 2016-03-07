@@ -13,8 +13,8 @@ class PropertyFluent extends Fluent {
 		return this;
 	}
 
-	sync(opt_interval) {
-		this.getController().startSync(opt_interval);
+	monitor(opt_interval) {
+		this.getController().startMonitoring(opt_interval);
 		return this;
 	}
 

@@ -1,3 +1,4 @@
+const Appearance                 = require('./misc/appearance');
 const ClassName                  = require('./misc/class_name');
 const PropertyControllerProvider = require('./misc/property_controller_provider');
 const FluentProvider             = require('./misc/fluent_provider');
@@ -26,6 +27,8 @@ class Seasoner {
 			containerElem.appendChild(rootView.getElement());
 			document.body.appendChild(containerElem);
 		}
+
+		Appearance.apply();
 	}
 
 	getElement() {

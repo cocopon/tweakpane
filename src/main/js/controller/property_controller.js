@@ -48,7 +48,7 @@ class PropertyController extends Controller {
 		);
 	}
 
-	startSync(opt_interval) {
+	startMonitoring(opt_interval) {
 		const interval = (opt_interval !== undefined) ?
 			opt_interval :
 			1000 / 30;

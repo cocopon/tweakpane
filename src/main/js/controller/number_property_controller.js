@@ -1,6 +1,6 @@
 const DefaultNumberDisplay = require('../display/default_number_display');
-const MaxNumberFormatter   = require('../formatter/max_number_formatter');
-const MinNumberFormatter   = require('../formatter/min_number_formatter');
+const MaxNumberConstraint  = require('../constraint/max_number_constraint');
+const MinNumberConstraint  = require('../constraint/min_number_constraint');
 const NumberModel          = require('../model/number_model');
 const SliderTextControl    = require('../view/control/slider_text_control');
 const TextControl          = require('../view/control/text_control');
@@ -40,8 +40,8 @@ class NumberPropertyController extends PropertyController {
 
 	getPreferredControlClass_() {
 		const model = this.getProperty().getModel();
-		if (model.findFormatterByClass(MinNumberFormatter) !== null &&
-				model.findFormatterByClass(MaxNumberFormatter) !== null) {
+		if (model.findConstraintByClass(MinNumberConstraint) !== null &&
+				model.findConstraintByClass(MaxNumberConstraint) !== null) {
 			return SliderTextControl;
 		}
 

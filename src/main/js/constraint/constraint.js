@@ -1,6 +1,6 @@
 const EventEmitter = require('../misc/event_emitter');
 
-class Formatter {
+class Constraint {
 	constructor() {
 		this.emitter_ = new EventEmitter();
 	}
@@ -14,6 +14,6 @@ class Formatter {
 	}
 }
 
-Formatter.EVENT_CHANGE = 'change';
+Constraint.EVENT_CHANGE = 'change';
 
-module.exports = Formatter;
+module.exports = Constraint;

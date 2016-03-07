@@ -1,11 +1,11 @@
-const Formatter    = require('../formatter/formatter');
-const EventEmitter = require('../misc/event_emitter');
+const Constraint    = require('../constraint/constraint');
+const EventEmitter  = require('../misc/event_emitter');
 
 class Model {
 	constructor() {
 		this.emitter_ = new EventEmitter();
 		this.value_ = null;
-		this.formatters_ = [];
+		this.constraints_ = [];
 	}
 
 	getEmitter() {
@@ -17,8 +17,8 @@ class Model {
 	}
 
 	format_() {
-		this.value_ = this.formatters_.reduce((v, formatter) => {
-			return formatter.format(v);
+		this.value_ = this.constraints_.reduce((v, constraint) => {
+			return constraint.format(v);
 		}, this.value_);
 		this.emitter_.notifyObservers(
 			Model.EVENT_CHANGE,
@@ -37,29 +37,29 @@ class Model {
 		return true;
 	}
 
-	findFormatterByClass(FormatterClass) {
-		const result = this.formatters_.filter((formatter) => {
-			return formatter instanceof FormatterClass;
+	findConstraintByClass(ConstraintClass) {
+		const result = this.constraints_.filter((constraint) => {
+			return constraint instanceof ConstraintClass;
 		});
 		return (result.length > 0) ?
 			result[0] :
 			null;
 	}
 
-	addFormatter(formatter) {
+	addConstraint(constraint) {
 		// TODO: Check duplication
 
-		formatter.getEmitter().on(
-			Formatter.EVENT_CHANGE,
-			this.onFormatterChange_,
+		constraint.getEmitter().on(
+			Constraint.EVENT_CHANGE,
+			this.onConstraintChange_,
 			this
 		);
-		this.formatters_.push(formatter);
+		this.constraints_.push(constraint);
 
 		this.format_();
 	}
 
-	onFormatterChange_() {
+	onConstraintChange_() {
 		this.format_();
 	}
 }

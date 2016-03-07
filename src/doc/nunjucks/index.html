@@ -36,7 +36,7 @@ var ss = new Seasoner();
 ss.add(params, 'easing').min(0).max(10).on('change', function(value) {
 	console.log(value);
 });
-ss.add(params, 'param1').label('Very long long label').step(0.1).sync();
+ss.add(params, 'param1').label('Very long long label').step(0.1).monitor();
 ss.add(params, 'param2');
 var fol1 = ss.addFolder('Motion');
 fol1.add(params, 'rotationAmount');

@@ -15,12 +15,24 @@ class FolderFluent extends Fluent {
 		return FluentProvider.provide(controller);
 	}
 
+	/**
+	 * Open a folder.
+	 * @return {FolderFluent}
+	 */
 	open() {
-		this.view_.setExpanded(true, false);
+		const folderView = this.getController().getView();
+		folderView.setExpanded(true, false);
+		return this;
 	}
 
+	/**
+	 * Close a folder.
+	 * @return {FolderFluent}
+	 */
 	close() {
-		this.view_.setExpanded(false, false);
+		const folderView = this.getController().getView();
+		folderView.setExpanded(false, false);
+		return this;
 	}
 }
 

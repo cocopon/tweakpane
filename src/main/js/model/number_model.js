@@ -1,4 +1,4 @@
-const DefaultNumberFormatter = require('../formatter/default_number_formatter');
+const DefaultNumberConstraint = require('../constraint/default_number_constraint');
 const Model                  = require('./model');
 
 class NumberModel extends Model {
@@ -6,7 +6,7 @@ class NumberModel extends Model {
 		super();
 
 		this.value_ = 0.0;
-		this.addFormatter(new DefaultNumberFormatter());
+		this.addConstraint(new DefaultNumberConstraint());
 	}
 
 	validate(value) {

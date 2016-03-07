@@ -4,7 +4,7 @@
 
 {% block content %}
 <h2>Range</h2>
-Use <code>min()</code> or <code>max()</code> to specify a minimum/maximum value.
+Use <code>min()</code> or <code>max()</code> to specify minimum/maximum value.
 
 <pre>
 var ss = new Seasoner();
@@ -25,7 +25,7 @@ ss.add(target, 'someProperty').min(0).max(100);
 </div>
 
 <h2>Stepping</h2>
-<p>You can also specify a step of value using <code>step()</code>.</p>
+<p>You can also specify a step of changing value by using <code>step()</code>.</p>
 
 <pre>
 var ss = new Seasoner();
@@ -41,21 +41,6 @@ TODO:
 {% endblock %}
 
 {% block script %}
-var params = {
-	number: 0,
-	min: 10,
-	max: 25,
-	min_max: 50,
-	step: 50
-};
-
-var ss = new Seasoner();
-ss.add(params, 'number');
-ss.add(params, 'min').min(0);
-ss.add(params, 'max').max(100);
-ss.add(params, 'min_max').min(0).max(100);
-ss.add(params, 'step').min(0).max(100).step(10);
-
 var minParams = {
 	someProperty: 50
 };

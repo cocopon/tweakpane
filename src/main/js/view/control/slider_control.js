@@ -1,7 +1,7 @@
-const MaxNumberFormatter = require('../../formatter/max_number_formatter');
-const MinNumberFormatter = require('../../formatter/min_number_formatter');
-const ClassName          = require('../../misc/class_name');
-const Control            = require('./control');
+const MaxNumberConstraint = require('../../constraint/max_number_constraint');
+const MinNumberConstraint = require('../../constraint/min_number_constraint');
+const ClassName           = require('../../misc/class_name');
+const Control             = require('./control');
 
 class SliderControl extends Control {
 	constructor(model) {
@@ -33,16 +33,16 @@ class SliderControl extends Control {
 		super.applyModel_();
 
 		const model = this.getModel();
-		const minValue = model.findFormatterByClass(MinNumberFormatter).getMinValue();
-		const maxValue = model.findFormatterByClass(MaxNumberFormatter).getMaxValue();
+		const minValue = model.findConstraintByClass(MinNumberConstraint).getMinValue();
+		const maxValue = model.findConstraintByClass(MaxNumberConstraint).getMaxValue();
 		const p = (model.getValue() - minValue) / (maxValue - minValue);
 		this.sliderBarElem_.style.width = `${p * 100}%`;
 	}
 
 	getValueFromX_(x) {
 		const model = this.getModel();
-		const minValue = model.findFormatterByClass(MinNumberFormatter).getMinValue();
-		const maxValue = model.findFormatterByClass(MaxNumberFormatter).getMaxValue();
+		const minValue = model.findConstraintByClass(MinNumberConstraint).getMinValue();
+		const maxValue = model.findConstraintByClass(MaxNumberConstraint).getMaxValue();
 		const width = this.sliderElem_.clientWidth;
 		const p = Math.min(Math.max(x / width, 0), 1.0);
 		return minValue + (maxValue - minValue) * p;
