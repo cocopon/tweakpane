@@ -38,6 +38,10 @@ ss.add(target, 'someProperty').min(0).max(100).step(10);
 
 <h2>List</h2>
 TODO:
+<div id="listExampleContainer" class="exampleContainer"></div>
+
+<h2>TODO</h2>
+See <a href="TODO"><code>NumberPropertyFluent</code></a> for full features.
 {% endblock %}
 
 {% block script %}
@@ -73,4 +77,19 @@ document.getElementById('stepExampleContainer').appendChild(
 	stepExample.getElement()
 );
 stepExample.add(stepParams, 'someProperty').min(0).max(100).step(10);
+
+var listParams = {
+	someProperty: 0
+};
+var listExample = new Seasoner({
+	autoPlace: false
+});
+document.getElementById('listExampleContainer').appendChild(
+	listExample.getElement()
+);
+listExample.add(listParams, 'someProperty').list({
+	foo: 0,
+	bar: 1,
+	baz: 2
+}).on('change', function(v) {console.log(v);});
 {% endblock %}

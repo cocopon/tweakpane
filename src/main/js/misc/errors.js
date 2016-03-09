@@ -29,7 +29,7 @@ class Errors {
 			`Property type not supported: '${propertyName}'`,
 			String(value)
 		].join('\n'));
-		e.name = 'Seasoner.DuplicatedPropertyIdError';
+		e.name = 'Seasoner.propertyTypeNotSupportedError';
 		return e;
 	}
 

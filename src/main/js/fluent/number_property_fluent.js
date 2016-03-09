@@ -1,3 +1,4 @@
+const ListConstraint       = require('../constraint/list_constraint');
 const MaxNumberConstraint  = require('../constraint/max_number_constraint');
 const MinNumberConstraint  = require('../constraint/min_number_constraint');
 const StepNumberConstraint = require('../constraint/step_number_constraint');
@@ -55,6 +56,29 @@ class NumberPropertyFluent extends PropertyFluent {
 
 		constraint.setStepValue(stepValue);
 		
+		return this;
+	}
+
+	/**
+	 * Set the list of values.
+	 * @param {Object.<string, number>} values The list of values.
+	 * @return {NumberPropertyFluent}
+	 */
+	list(values) {
+		const model = this.getController().getProperty().getModel();
+		let constraint = model.findConstraintByClass(ListConstraint);
+		if (constraint === null) {
+			constraint = new ListConstraint();
+			model.addConstraint(constraint);
+		}
+
+		constraint.setItems(Object.keys(values).map((key) => {
+			return {
+				name: key,
+				value: values[key]
+			};
+		}));
+
 		return this;
 	}
 }

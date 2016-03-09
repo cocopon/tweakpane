@@ -1,21 +1,45 @@
 {% extends "_template.html" %}
 
-{% set title = 'Overview' %}
+{% set title = 'String' %}
 
 {% block content %}
+<h2>List</h2>
+<p>You can choose a value from list.</p>
+
+<pre>
+var ss = new Seasoner();
+ss.add(target, 'someProperty').list([
+  'foo',
+  'bar',
+  'baz'
+]);
+</pre>
+
+<div id="ssListContainer" class="exampleContainer"></div>
+
+<h2>Named List</h2>
+<p>TODO:</p>
 {% endblock %}
 
 {% block script %}
-var params = {
-	string: 'hello',
-	list: 'foo'
+var ssListParams = {
+	someProperty1: 'foo',
+	someProperty2: 'foo'
 };
-
-var ss = new Seasoner();
-ss.add(params, 'string');
-ss.add(params, 'list').list([
+var ssList = new Seasoner({
+	autoPlace: false
+});
+document.getElementById('ssListContainer').appendChild(
+	ssList.getElement()
+);
+ssList.add(ssListParams, 'someProperty1').list([
 	'foo',
 	'bar',
 	'baz'
 ]);
+ssList.add(ssListParams, 'someProperty2').list({
+	foo: 'FOO',
+	bar: 'BAR',
+	baz: 'BAZ'
+});
 {% endblock %}
