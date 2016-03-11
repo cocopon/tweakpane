@@ -17,6 +17,10 @@ class Model {
 		return this.value_;
 	}
 
+	static validate(value) {
+		return value !== null;
+	}
+
 	format_() {
 		this.value_ = this.constraints_.reduce((v, constraint) => {
 			return constraint.format(v);
@@ -36,6 +40,10 @@ class Model {
 		this.format_();
 
 		return true;
+	}
+
+	getConstraints() {
+		return this.constraints_;
 	}
 
 	findConstraintByClass(ConstraintClass) {

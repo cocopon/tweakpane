@@ -1,0 +1,9 @@
+{
+	"globals": {
+		"assert": false,
+		"describe": false,
+		"it": false,
+		"sinon": false
+	}
+}
+/* vim: set filetype=javascript: */
