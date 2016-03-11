@@ -35,16 +35,15 @@ ss.on(
 );
 </pre>
 
+<div id="globalEventExampleContainer" class="exampleContainer">
+</div>
+
 TODO: Seasoner
 
 TODO: Log
 {% endblock %}
 
 {% block script %}
-var params = {
-	someProperty: 50
-};
-
 function appendLog(eventName, value) {
 	const elem = document.getElementById('logWindow');
 	elem.innerHTML = [
@@ -58,6 +57,9 @@ function appendLog(eventName, value) {
 (function() {
 	appendLog('', ')');
 
+	var params = {
+		someProperty: 50
+	};
 	var ss = new Seasoner({
 		autoPlace: false
 	});
@@ -70,6 +72,28 @@ function appendLog(eventName, value) {
 			appendLog('change', value);
 		}
 	);
-	ss.getJson();
+})();
+
+(function() {
+	appendLog('', ')');
+
+	var params = {
+		foo: 50,
+		bar: 50
+	};
+	var ss = new Seasoner({
+		autoPlace: false
+	});
+	document.getElementById('globalEventExampleContainer').appendChild(
+		ss.getElement()
+	);
+	ss.add(params, 'foo').min(0).max(100);
+	ss.add(params, 'bar').min(0).max(100);
+	ss.on('change', function(value, prop) {
+	appendLog(
+		'change(' + prop.getDisplayName() + ')',
+		value
+	);
+	});
 })();
 {% endblock %}

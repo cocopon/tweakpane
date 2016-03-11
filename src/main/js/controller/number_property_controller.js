@@ -62,7 +62,9 @@ class NumberPropertyController extends PropertyController {
 			return control;
 		}
 		if (control instanceof SliderTextControl) {
-			return control.getTextControl();
+			return control.getSubviews().filter((subview) => {
+				return subview instanceof TextControl;
+			})[0];
 		}
 		return null;
 	}

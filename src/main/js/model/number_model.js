@@ -1,5 +1,11 @@
-const DefaultNumberConstraint = require('../constraint/default_number_constraint');
-const Model                  = require('./model');
+const Constraint = require('../constraint/constraint');
+const Model      = require('./model');
+
+class DefaultNumberConstraint extends Constraint {
+	format(value) {
+		return Number(value);
+	}
+}
 
 class NumberModel extends Model {
 	constructor() {
@@ -9,7 +15,7 @@ class NumberModel extends Model {
 		this.addConstraint(new DefaultNumberConstraint());
 	}
 
-	validate(value) {
+	static validate(value) {
 		return !isNaN(Number(value));
 	}
 }

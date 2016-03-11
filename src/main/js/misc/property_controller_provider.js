@@ -1,7 +1,9 @@
-const Errors                    = require('../misc/errors');
 const BooleanPropertyController = require('../controller/boolean_property_controller');
+const ColorPropertyController   = require('../controller/color_property_controller');
 const NumberPropertyController  = require('../controller/number_property_controller');
 const StringPropertyController  = require('../controller/string_property_controller');
+const Errors                    = require('../misc/errors');
+const ColorModel                = require('../model/color_model');
 
 class PropertyControllerProvider {
 	static provide(target, propName) {
@@ -15,7 +17,12 @@ class PropertyControllerProvider {
 			controller = new NumberPropertyController(target, propName);
 		}
 		if (typeof(value) === 'string') {
-			controller = new StringPropertyController(target, propName);
+			if (ColorModel.validate(value)) {
+				controller = new ColorPropertyController(target, propName);
+			}
+			else {
+				controller = new StringPropertyController(target, propName);
+			}
 		}
 
 		if (controller === null) {

@@ -28,24 +28,32 @@ class PropertyController extends Controller {
 		return this.prop_;
 	}
 
-	setControl_(control) {
-		const view = this.getView();
-		const prevControl = view.getControl();
-		if (prevControl !== null) {
-			prevControl.getEmitter().off(
-				Control.EVENT_CHANGE,
-				this.onControlChange_,
-				this
-			);
-		}
-
-		view.setControl(control);
-
+	attachControl_(control) {
 		control.getEmitter().on(
 			Control.EVENT_CHANGE,
 			this.onControlChange_,
 			this
 		);
+	}
+
+	detachControl_(control) {
+		control.getEmitter().off(
+			Control.EVENT_CHANGE,
+			this.onControlChange_,
+			this
+		);
+	}
+
+	setControl_(control) {
+		const view = this.getView();
+		const prevControl = view.getControl();
+		if (prevControl !== null) {
+			this.detachControl_(prevControl);
+		}
+
+		view.setControl(control);
+
+		this.attachControl_(control);
 	}
 
 	startMonitoring(opt_interval) {

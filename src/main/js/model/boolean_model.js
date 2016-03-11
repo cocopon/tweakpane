@@ -1,5 +1,11 @@
-const DefaultBooleanConstraint = require('../constraint/default_boolean_constraint');
-const Model                    = require('./model');
+const Constraint = require('../constraint/constraint');
+const Model      = require('./model');
+
+class DefaultBooleanConstraint extends Constraint {
+	format(value) {
+		return !!value;
+	}
+}
 
 class BooleanModel extends Model {
 	constructor() {
@@ -9,7 +15,7 @@ class BooleanModel extends Model {
 		this.addConstraint(new DefaultBooleanConstraint());
 	}
 
-	validate(value) {
+	static validate(value) {
 		return typeof(value) === 'boolean';
 	}
 }

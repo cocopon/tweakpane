@@ -5,17 +5,13 @@ const Control        = require('./control');
 class ListControl extends Control {
 	constructor(model) {
 		super(model);
-	}
-
-	createElement_() {
-		super.createElement_();
 
 		this.addClass(ClassName.get(ListControl.BLOCK_CLASS));
 
 		const elem = this.getElement();
 
 		const selectElem = document.createElement('select');
-		selectElem.className += ClassName.get(ListControl.BLOCK_CLASS, 'select');
+		selectElem.className = ClassName.get(ListControl.BLOCK_CLASS, 'select');
 		elem.appendChild(selectElem);
 		selectElem.addEventListener(
 			'change',
@@ -26,6 +22,10 @@ class ListControl extends Control {
 
 	applyModel_() {
 		super.applyModel_();
+
+		if (this.selectElem_ === undefined) {
+			return;
+		}
 
 		while (this.selectElem_.hasChildNodes()) {
 			this.selectElem_.removeChild(this.selectElem_.lastChild);
@@ -51,6 +51,6 @@ class ListControl extends Control {
 	}
 }
 
-ListControl.BLOCK_CLASS = 'ListControl';
+ListControl.BLOCK_CLASS = 'lc';
 
 module.exports = ListControl;

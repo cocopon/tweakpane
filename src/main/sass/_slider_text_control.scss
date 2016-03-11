@@ -1,0 +1,13 @@
+.#{$prefix}sc {
+	&#{&}-st {
+		right: 50 + 5px;
+		width: auto;
+	}
+}
+.#{$prefix}tc {
+	&#{&}-st {
+		left: auto;
+		right: 0;
+		width: 50px;
+	}
+}

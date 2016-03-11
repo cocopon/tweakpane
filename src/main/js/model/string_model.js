@@ -7,7 +7,7 @@ class StringModel extends Model {
 		this.value_ = '';
 	}
 
-	validate(value) {
+	static validate(value) {
 		return typeof(value) === 'string';
 	}
 }

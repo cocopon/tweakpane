@@ -1,0 +1,21 @@
+{% extends "_template.html" %}
+
+{% set title = 'Color' %}
+
+{% block content %}
+<div id="colorExample" class="exampleContainer"></div>
+{% endblock %}
+
+{% block script %}
+var params = {
+	color: '#ff0000'
+};
+
+var ssColor = new Seasoner({
+	autoPlace: false
+});
+document.getElementById('colorExample').appendChild(
+	ssColor.getElement()
+);
+ssColor.add(params, 'color');
+{% endblock %}

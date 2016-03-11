@@ -7,7 +7,7 @@ class StepNumberConstraint extends Constraint {
 		this.stepValue_ = null;
 	}
 
-	getStep() {
+	getStepValue() {
 		return this.stepValue_;
 	}
 

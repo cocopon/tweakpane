@@ -1,0 +1,29 @@
+.#{$prefix}fv {
+	overflow: hidden;
+
+	@at-root {
+		&_title {
+			color: $folder-view-title-color;
+			cursor: pointer;
+			height: $folder-view-title-height;
+			line-height: $folder-view-title-height;
+			overflow: hidden;
+			padding-left: 10px;
+			text-overflow: ellipsis;
+			user-select: none;
+			white-space: nowrap;
+
+			&:hover {
+				color: $folder-view-title-hover-color;
+			}
+		}
+		&_container {
+			overflow: hidden;
+			padding: 0 5px;
+
+			&#{&}-animated {
+				transition: height 0.1s ease-in-out;
+			}
+		}
+	}
+}

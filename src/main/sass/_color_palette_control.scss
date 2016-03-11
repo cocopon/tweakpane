@@ -1,0 +1,15 @@
+.#{$prefix}cpc {
+	@at-root {
+		&_outer {
+			background-color: $input-background-color;
+			border-radius: 2px;
+			height: $color-palette-control-outer-size;
+			overflow: hidden;
+			position: relative;
+			width: $color-palette-control-outer-size;
+		}
+		&_inner {
+			@include fill();
+		}
+	}
+}

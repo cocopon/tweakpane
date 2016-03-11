@@ -6,23 +6,24 @@ class TextControl extends Control {
 	constructor(model) {
 		super(model);
 
-		this.display_ = new Display();
-	}
-
-	createElement_() {
-		super.createElement_();
-
 		this.addClass(ClassName.get(TextControl.BLOCK_CLASS));
 
 		const inputElem = document.createElement('input');
-		inputElem.className += ClassName.get(TextControl.BLOCK_CLASS, 'input');
+		inputElem.className = ClassName.get(TextControl.BLOCK_CLASS, 'input');
 		inputElem.type = 'text';
+		this.getElement().appendChild(inputElem);
+		inputElem.addEventListener(
+			'blur',
+			this.onInputElementBlur_.bind(this)
+		);
 		this.getElement().appendChild(inputElem);
 		inputElem.addEventListener(
 			'change',
 			this.onInputElementChange_.bind(this)
 		);
 		this.inputElem_ = inputElem;
+
+		this.display_ = new Display();
 	}
 
 	getDisplay() {
@@ -50,7 +51,12 @@ class TextControl extends Control {
 		}
 	}
 
+	onInputElementBlur_() {
+		this.applyModel_();
+	}
+
 	onInputElementChange_() {
+		console.log('change');
 		this.getEmitter().notifyObservers(
 			Control.EVENT_CHANGE,
 			[this.inputElem_.value]
@@ -58,6 +64,6 @@ class TextControl extends Control {
 	}
 }
 
-TextControl.BLOCK_CLASS = 'TextControl';
+TextControl.BLOCK_CLASS = 'tc';
 
 module.exports = TextControl;

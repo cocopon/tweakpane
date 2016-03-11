@@ -1,0 +1,32 @@
+.#{$prefix}tc {
+	@include fill();
+
+	&#{&}-disabled {
+		opacity: 0.5;
+	}
+	&#{&}-disabled &_input:hover {
+		background-color: $input-background-color;
+		color: $input-foreground-color;
+	}
+
+	@at-root {
+		&_input {
+			@include fill($workaround: true);
+
+			background-color: $input-background-color;
+			border-radius: 2px;
+			border-width: 0;
+			color: $input-foreground-color;
+			outline: none;
+			padding: 0 5px;
+
+			&:focus {
+				background-color: $input-focus-background-color;
+			}
+			&:hover {
+				background-color: $input-hover-background-color;
+				color: $input-hover-foreground-color;
+			}
+		}
+	}
+}

@@ -28,7 +28,7 @@ class Model {
 	}
 
 	setValue(value) {
-		if (!this.validate(value)) {
+		if (!this.constructor.validate(value)) {
 			return false;
 		}
 

@@ -5,27 +5,22 @@ class FolderView extends View {
 	constructor() {
 		super();
 
-		this.title_ = '';
-		this.setExpanded(true, false);
-	}
-
-	createElement_() {
-		super.createElement_();
-
-		this.addClass(ClassName.get('FolderView'));
+		this.addClass(ClassName.get(FolderView.BLOCK_CLASS));
 
 		const elem = this.getElement();
-
 		const titleElem = document.createElement('div');
-		titleElem.className += ClassName.get('FolderView', 'title');
+		titleElem.className = ClassName.get(FolderView.BLOCK_CLASS, 'title');
 		titleElem.addEventListener('click', this.onTitleElementClick_.bind(this));
 		elem.appendChild(titleElem);
 		this.titleElem_ = titleElem;
 
 		const containerElem = document.createElement('div');
-		containerElem.className += ClassName.get('FolderView', 'container');
+		containerElem.className = ClassName.get(FolderView.BLOCK_CLASS, 'container');
 		elem.appendChild(containerElem);
 		this.containerElem_ = containerElem;
+
+		this.title_ = '';
+		this.setExpanded(true, false);
 	}
 
 	getContainerElement_() {
@@ -43,7 +38,7 @@ class FolderView extends View {
 
 	applyExpandingAnimationEnabled_(enabled) {
 		let classes = this.containerElem_.className.split(' ');
-		let className = ClassName.get('FolderView', 'container', 'animated');
+		let className = ClassName.get(FolderView.BLOCK_CLASS, 'container', 'animated');
 		if (enabled) {
 			if (classes.indexOf(className) < 0) {
 				classes.push(className);
@@ -98,5 +93,7 @@ class FolderView extends View {
 		this.setExpanded(!this.isExpanded());
 	}
 }
+
+FolderView.BLOCK_CLASS = 'fv';
 
 module.exports = FolderView;

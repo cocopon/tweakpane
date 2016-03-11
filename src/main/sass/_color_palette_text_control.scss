@@ -1,0 +1,10 @@
+.#{$prefix}cpc {
+	&#{&}-cpt {
+	}
+}
+.#{$prefix}tc {
+	&#{&}-cpt {
+		left: 24px + 5px;
+		right: 0;
+	}
+}

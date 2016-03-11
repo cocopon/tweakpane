@@ -1,0 +1,26 @@
+.#{$prefix}lc {
+	@include fill();
+
+	@at-root {
+		&_select {
+			@include fill($workaround: true);
+
+			appearance: none;
+			background-color: $input-background-color;
+			border-radius: 2px;
+			border-width: 0;
+			color: $input-foreground-color;
+			cursor: pointer;
+			outline: none;
+			padding: 0 5px;
+
+			&:focus {
+				background-color: $input-focus-background-color;
+			}
+			&:hover {
+				background-color: $input-hover-background-color;
+				color: $input-hover-foreground-color;
+			}
+		}
+	}
+}
