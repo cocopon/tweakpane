@@ -16,8 +16,10 @@ $checkbox-control-outer-size: 24px;
 $color-palette-control-outer-size: 24px;
 $folder-view-title-height: 30px;
 $folder-view-arrow-size: 10px;
-$prop-view-height: 35px;
+$input-height: 24px;
+$prop-view-height: 34px;
 $list-control-arrow-size: 10px;
+$slider-control-height: 24px;
 
 @mixin fill($workaround: false) {
 	bottom: 0;
@@ -33,6 +35,14 @@ $list-control-arrow-size: 10px;
 		height: 100%;
 		right: auto;
 		width: 100%;
+	}
+}
+
+@mixin clearfix() {
+	&:after {
+		clear: both;
+		content: "";
+		display: block;
 	}
 }
 

@@ -1,6 +1,6 @@
 {% extends "_template.html" %}
 
-{% set title = 'Event' %}
+{% set title = 'Events' %}
 
 {% block content %}
 <h2>Handling events</h2>
@@ -9,31 +9,29 @@
 <code>'change'</code> event will be called continuously when the user controls a slider. If you want to detect a change just one time, use <code>'TODO'</code> event instead.
 </p>
 
-<pre>
-var ss = new Seasoner();
+<pre><code class="js">var ss = new Seasoner();
 ss.add(target, 'someProperty').min(0).max(100).on(
   'change', function(value) {
     console.log(value);
   }
 );
-</pre>
+</code></pre>
 
 <div id="eventExampleContainer" class="exampleContainer">
 </div>
 
 <div id="logWindow" class="log"></div>
 
-<p>You can also detect all changes by <code>on()</code> of the root object.</p>
+<p>You can also detect all changes by <code>on()</code> of the Seasoner instance.</p>
 
-<pre>
-var ss = new Seasoner();
+<pre><code class="js">var ss = new Seasoner();
 ss.add(target, 'someProperty').min(0).max(100);
 ss.on(
   'change', function(value) {
     console.log(value);
   }
 );
-</pre>
+</code></pre>
 
 <div id="globalEventExampleContainer" class="exampleContainer">
 </div>

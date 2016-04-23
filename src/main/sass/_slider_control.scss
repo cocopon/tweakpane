@@ -1,7 +1,7 @@
 .#{$prefix}sc {
-	@include fill();
-
 	cursor: pointer;
+	height: $slider-control-height;
+	position: relative;
 
 	&:hover &_outer {
 		background-color: $input-hover-background-color;
@@ -23,11 +23,11 @@
 
 	@at-root {
 		&_outer {
-			@include fill();
-
 			background-color: $input-background-color;
 			border-radius: 2px;
+			height: 100%;
 			overflow: hidden;
+			position: relative;
 		}
 		&_inner {
 			background-color: $input-foreground-color;

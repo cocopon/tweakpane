@@ -1,5 +1,6 @@
 .#{$prefix}cc {
-	@include fill();
+	height: $checkbox-control-outer-size;
+	width: 100%;
 
 	&#{&}-disabled {
 		opacity: 0.5;
@@ -13,15 +14,16 @@
 
 	@at-root {
 		&_hitArea {
-			@include fill();
+			display: block;
+			height: $checkbox-control-outer-size;
+			width: 100%;
 		}
 		&_input {
-			@include fill();
-
 			cursor: pointer;
 			margin: 0;
 			opacity: 0.001;
 			padding: 0;
+			position: absolute;
 		}
 		&_input:focus + &_outer {
 			background-color: $input-focus-background-color;
@@ -37,11 +39,10 @@
 			background-color: $input-hover-foreground-color;
 		}
 		&_outer {
-			@include fill();
-
 			background-color: $input-background-color;
 			border-radius: 2px;
 			height: $checkbox-control-outer-size;
+			position: relative;
 			width: $checkbox-control-outer-size;
 		}
 		&_inner {

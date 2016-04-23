@@ -1,6 +1,7 @@
 .#{$prefix}PropView {
+	@include clearfix();
+
 	background-color: $prop-view-background-color;
-	height: $prop-view-height;
 	position: relative;
 
 	& + & {
@@ -10,23 +11,21 @@
 	@at-root {
 		&_label {
 			color: $prop-view-label-color;
+			float: left;
 			height: $prop-view-height;
 			left: 0;
 			line-height: $prop-view-height;
 			overflow: hidden;
 			padding: 0 10px;
-			position: absolute;
 			text-overflow: ellipsis;
 			user-select: none;
 			white-space: nowrap;
 			width: 50%;
 		}
 		&_container {
-			bottom: 5px;
-			left: 50%;
-			position: absolute;
-			right: 5px;
-			top: 5px;
+			float: right;
+			padding: 5px;
+			width: 50%;
 		}
 	}
 }

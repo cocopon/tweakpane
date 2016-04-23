@@ -1,13 +1,21 @@
+.#{$prefix}stc {
+	height: $input-height;
+	position: relative;
+	width: 100%;
+}
 .#{$prefix}sc {
 	&#{&}-st {
-		right: 50 + 5px;
-		width: auto;
+		left: 0;
+		right: 50px + 5px;
+		position: absolute;
+		top: 0;
 	}
 }
 .#{$prefix}tc {
 	&#{&}-st {
-		left: auto;
+		position: absolute;
 		right: 0;
+		top: 0;
 		width: 50px;
 	}
 }

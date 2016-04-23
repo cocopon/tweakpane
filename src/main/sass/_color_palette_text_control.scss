@@ -1,10 +1,16 @@
+.#{$prefix}cptc {
+	height: $color-palette-control-outer-size;
+	position: relative;
+}
 .#{$prefix}cpc {
 	&#{&}-cpt {
+		position: absolute;
 	}
 }
 .#{$prefix}tc {
 	&#{&}-cpt {
-		left: 24px + 5px;
+		position: absolute;
+		left: $color-palette-control-outer-size + 5px;
 		right: 0;
 	}
 }

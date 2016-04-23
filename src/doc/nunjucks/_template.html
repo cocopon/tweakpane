@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>{{ title }} | seasoner.js</title>
 	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
 </head>
 <body>
 	<div class="header">Hello</div>
@@ -16,8 +17,11 @@
 		{% include "_menu.html" %}
 	</div>
 
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
 	<script src="seasoner.js"></script>
 	<script>
+	hljs.initHighlightingOnLoad();
+
 	{% block script %}{% endblock %}
 	</script>
 </body>

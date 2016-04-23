@@ -6,8 +6,7 @@
 <h2>Adding a folder</h2>
 <p>Use <code>addFolder()</code> to add a collapsible folder. It returns a instance of added folder, so you can add all types of property by using its <code>add()</code> just like other properties.</p>
 
-<pre>
-var ss = new Seasoner();
+<pre><code class="js">var ss = new Seasoner();
 
 var folder1 = ss.addFolder('Folder1');
 folder1.add(target, 'foo');
@@ -16,15 +15,14 @@ folder1.add(target, 'bar');
 var folder2 = ss.addFolder('Folder2');
 folder2.add(target, 'baz');
 folder2.add(target, 'qux');
-</pre>
+</code></pre>
 
 <div id="folderExampleContainer1" class="exampleContainer">
 </div>
 
 To close a folder, use <code>close()</code>.
 
-<pre>
-var ss = new Seasoner();
+<pre><code class="js">var ss = new Seasoner();
 
 var folder1 = ss.addFolder('Folder1');
 folder1.add(target, 'foo');
@@ -34,7 +32,7 @@ folder1.close();
 var folder2 = ss.addFolder('Folder2');
 folder2.add(target, 'baz');
 folder2.add(target, 'qux');
-</pre>
+</code></pre>
 
 <div id="folderExampleContainer2" class="exampleContainer">
 </div>

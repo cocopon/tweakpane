@@ -1,5 +1,6 @@
 .#{$prefix}tc {
-	@include fill();
+	height: $input-height;
+	position: relative;
 
 	&#{&}-disabled {
 		opacity: 0.5;
@@ -11,14 +12,15 @@
 
 	@at-root {
 		&_input {
-			@include fill($workaround: true);
-
 			background-color: $input-background-color;
 			border-radius: 2px;
 			border-width: 0;
 			color: $input-foreground-color;
+			height: $input-height;
+			line-height: $input-height;
 			outline: none;
 			padding: 0 5px;
+			width: 100%;
 
 			&:focus {
 				background-color: $input-focus-background-color;
