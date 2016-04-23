@@ -6,16 +6,22 @@ class PropertyView extends View {
 	constructor(property) {
 		super();
 
-		this.addClass(ClassName.get('PropView'));
-
 		const elem = this.getElement();
+		elem.classList.add(
+			ClassName.get(PropertyView.BLOCK_CLASS)
+		);
+
 		const labelElem = document.createElement('div');
-		labelElem.className = ClassName.get('PropView', 'label');
+		labelElem.classList.add(
+			ClassName.get(PropertyView.BLOCK_CLASS, 'label')
+		);
 		elem.appendChild(labelElem);
 		this.labelElem_ = labelElem;
 
 		const containerElem = document.createElement('div');
-		containerElem.className = ClassName.get('PropView', 'container');
+		containerElem.classList.add(
+			ClassName.get(PropertyView.BLOCK_CLASS, 'container')
+		);
 		elem.appendChild(containerElem);
 		this.containerElem_ = containerElem;
 
@@ -63,5 +69,7 @@ class PropertyView extends View {
 		this.applyProperty_();
 	}
 }
+
+PropertyView.BLOCK_CLASS = 'PropView';
 
 module.exports = PropertyView;

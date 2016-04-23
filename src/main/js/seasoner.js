@@ -14,7 +14,7 @@ class Seasoner {
 	constructor(opt_options) {
 		const rootController = new Controller();
 		const rootView = rootController.getView();
-		rootView.addClass(ClassName.get(''));
+		rootView.getElement().classList.add(ClassName.get(''));
 		this.rootController_ = rootController;
 
 		const options = (opt_options !== undefined) ?
@@ -26,7 +26,7 @@ class Seasoner {
 			true;
 		if (autoPlace) {
 			const containerElem = document.createElement('div');
-			containerElem.className = ClassName.get('DefaultContainer');
+			containerElem.classList.add(ClassName.get('DefaultContainer'));
 			containerElem.appendChild(rootView.getElement());
 			document.body.appendChild(containerElem);
 		}

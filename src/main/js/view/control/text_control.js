@@ -6,17 +6,23 @@ class TextControl extends Control {
 	constructor(model) {
 		super(model);
 
-		this.addClass(ClassName.get(TextControl.BLOCK_CLASS));
+		const elem = this.getElement();
+
+		elem.classList.add(
+			ClassName.get(TextControl.BLOCK_CLASS)
+		);
 
 		const inputElem = document.createElement('input');
-		inputElem.className = ClassName.get(TextControl.BLOCK_CLASS, 'input');
+		inputElem.classList.add(
+			ClassName.get(TextControl.BLOCK_CLASS, 'input')
+		);
 		inputElem.type = 'text';
-		this.getElement().appendChild(inputElem);
+		elem.appendChild(inputElem);
 		inputElem.addEventListener(
 			'blur',
 			this.onInputElementBlur_.bind(this)
 		);
-		this.getElement().appendChild(inputElem);
+		elem.appendChild(inputElem);
 		inputElem.addEventListener(
 			'change',
 			this.onInputElementChange_.bind(this)

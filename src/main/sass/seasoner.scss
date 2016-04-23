@@ -15,7 +15,9 @@ $prop-view-separator-color: darken($prop-view-background-color, 3%);
 $checkbox-control-outer-size: 24px;
 $color-palette-control-outer-size: 24px;
 $folder-view-title-height: 30px;
+$folder-view-arrow-size: 10px;
 $prop-view-height: 35px;
+$list-control-arrow-size: 10px;
 
 @mixin fill($workaround: false) {
 	bottom: 0;
@@ -50,6 +52,7 @@ $prop-view-height: 35px;
 	top: 0;
 }
 
+@import 'data';
 @import 'checkbox_control';
 @import 'color_palette_control';
 @import 'color_palette_text_control';

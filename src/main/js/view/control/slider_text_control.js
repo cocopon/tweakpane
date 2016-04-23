@@ -8,22 +8,28 @@ class SliderTextControl extends CompositeControl {
 	constructor(model) {
 		super(model);
 
-		this.addClass(ClassName.get(SliderTextControl.BLOCK_CLASS));
+		this.getElement().classList.add(
+			ClassName.get(SliderTextControl.BLOCK_CLASS)
+		);
 
 		const sliderControl = new SliderControl(this.getModel());
-		sliderControl.addClass(ClassName.get(
-			SliderControl.BLOCK_CLASS,
-			null,
-			SliderTextControl.MODIFIER_CLASS
-		));
+		sliderControl.getElement().classList.add(
+			ClassName.get(
+				SliderControl.BLOCK_CLASS,
+				null,
+				SliderTextControl.MODIFIER_CLASS
+			)
+		);
 		this.addSubview(sliderControl);
 
 		const textControl = new NumberTextControl(this.getModel());
-		textControl.addClass(ClassName.get(
-			TextControl.BLOCK_CLASS,
-			null,
-			SliderTextControl.MODIFIER_CLASS
-		));
+		textControl.getElement().classList.add(
+			ClassName.get(
+				TextControl.BLOCK_CLASS,
+				null,
+				SliderTextControl.MODIFIER_CLASS
+			)
+		);
 		this.addSubview(textControl);
 	}
 }

@@ -29,6 +29,7 @@
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^0.2.2",
     "karma-mocha": "^0.2.2",
+    "karma-mocha-reporter": "^2.0.0",
     "karma-sinon": "^1.0.4",
     "mocha": "^2.4.5",
     "run-sequence": "^1.1.5",

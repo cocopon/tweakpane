@@ -7,22 +7,28 @@ class ColorPaletteTextControl extends CompositeControl {
 	constructor(model) {
 		super(model);
 
-		this.addClass(ClassName.get(ColorPaletteTextControl.BLOCK_CLASS));
+		this.getElement().classList.add(
+			ClassName.get(ColorPaletteTextControl.BLOCK_CLASS)
+		);
 
 		const paletteControl = new ColorPaletteControl(this.getModel());
-		paletteControl.addClass(ClassName.get(
-			ColorPaletteControl.BLOCK_CLASS,
-			null,
-			ColorPaletteTextControl.MODIFIER_CLASS
-		));
+		paletteControl.getElement().classList.add(
+			ClassName.get(
+				ColorPaletteControl.BLOCK_CLASS,
+				null,
+				ColorPaletteTextControl.MODIFIER_CLASS
+			)
+		);
 		this.addSubview(paletteControl);
 
 		const textControl = new TextControl(this.getModel());
-		textControl.addClass(ClassName.get(
-			TextControl.BLOCK_CLASS,
-			null,
-			ColorPaletteTextControl.MODIFIER_CLASS
-		));
+		textControl.getElement().classList.add(
+			ClassName.get(
+				TextControl.BLOCK_CLASS,
+				null,
+				ColorPaletteTextControl.MODIFIER_CLASS
+			)
+		);
 		this.addSubview(textControl);
 	}
 }

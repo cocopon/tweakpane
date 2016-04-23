@@ -6,18 +6,27 @@ class ListControl extends Control {
 	constructor(model) {
 		super(model);
 
-		this.addClass(ClassName.get(ListControl.BLOCK_CLASS));
-
 		const elem = this.getElement();
+		elem.classList.add(
+			ClassName.get(ListControl.BLOCK_CLASS)
+		);
 
 		const selectElem = document.createElement('select');
-		selectElem.className = ClassName.get(ListControl.BLOCK_CLASS, 'select');
+		selectElem.classList.add(
+			ClassName.get(ListControl.BLOCK_CLASS, 'select')
+		);
 		elem.appendChild(selectElem);
 		selectElem.addEventListener(
 			'change',
 			this.onSelectElementChange_.bind(this)
 		);
 		this.selectElem_ = selectElem;
+
+		const arrowElem = document.createElement('div');
+		arrowElem.classList.add(
+			ClassName.get(ListControl.BLOCK_CLASS, 'arrow')
+		);
+		elem.appendChild(arrowElem);
 	}
 
 	applyModel_() {

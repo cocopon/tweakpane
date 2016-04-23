@@ -22,5 +22,16 @@
 				color: $input-hover-foreground-color;
 			}
 		}
+		&_arrow {
+			background: url($list-control-arrow-image) no-repeat center center;
+			bottom: 0;
+			height: $list-control-arrow-size;
+			margin: auto 0;
+			opacity: 0.3;
+			position: absolute;
+			right: 10px;
+			top: 0;
+			width: $list-control-arrow-size;
+		}
 	}
 }

@@ -38,12 +38,18 @@ class Control extends View {
 	}
 
 	applyDisabled_() {
-		const disabledClass = ClassName.get(this.constructor.BLOCK_CLASS, null, 'disabled');
+		const disabledClass = ClassName.get(
+			this.constructor.BLOCK_CLASS,
+			null,
+			'disabled'
+		);
+
+		const elem = this.getElement();
 		if (this.disabled_) {
-			this.addClass(disabledClass);
+			elem.classList.add(disabledClass);
 		}
 		else {
-			this.removeClass(disabledClass);
+			elem.classList.remove(disabledClass);
 		}
 	}
 

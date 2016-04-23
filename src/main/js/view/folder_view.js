@@ -5,17 +5,30 @@ class FolderView extends View {
 	constructor() {
 		super();
 
-		this.addClass(ClassName.get(FolderView.BLOCK_CLASS));
-
 		const elem = this.getElement();
+		elem.classList.add(
+			ClassName.get(FolderView.BLOCK_CLASS)
+		);
+
+		const arrowElem = document.createElement('div');
+		arrowElem.classList.add(
+			ClassName.get(FolderView.BLOCK_CLASS, 'arrow')
+		);
+		elem.appendChild(arrowElem);
+		this.arrowElem = arrowElem;
+
 		const titleElem = document.createElement('div');
-		titleElem.className = ClassName.get(FolderView.BLOCK_CLASS, 'title');
+		titleElem.classList.add(
+			ClassName.get(FolderView.BLOCK_CLASS, 'title')
+		);
 		titleElem.addEventListener('click', this.onTitleElementClick_.bind(this));
 		elem.appendChild(titleElem);
 		this.titleElem_ = titleElem;
 
 		const containerElem = document.createElement('div');
-		containerElem.className = ClassName.get(FolderView.BLOCK_CLASS, 'container');
+		containerElem.classList.add(
+			ClassName.get(FolderView.BLOCK_CLASS, 'container')
+		);
 		elem.appendChild(containerElem);
 		this.containerElem_ = containerElem;
 
@@ -37,20 +50,16 @@ class FolderView extends View {
 	}
 
 	applyExpandingAnimationEnabled_(enabled) {
-		let classes = this.containerElem_.className.split(' ');
-		let className = ClassName.get(FolderView.BLOCK_CLASS, 'container', 'animated');
+		let className = ClassName.get(
+			FolderView.BLOCK_CLASS, null, 'animated'
+		);
+
 		if (enabled) {
-			if (classes.indexOf(className) < 0) {
-				classes.push(className);
-			}
+			this.elem_.classList.add(className);
 		}
 		else {
-			classes = classes.filter((klass) => {
-				return klass !== className;
-			});
+			this.elem_.classList.remove(className);
 		}
-
-		this.containerElem_.className = classes.join(' ');
 	}
 
 	applyExpanded_(opt_animated) {
@@ -58,6 +67,18 @@ class FolderView extends View {
 			opt_animated :
 			true;
 		this.applyExpandingAnimationEnabled_(animated);
+
+		const arrowClass = ClassName.get(
+			FolderView.BLOCK_CLASS,
+			'arrow',
+			'expanded'
+		);
+		if (this.expanded_) {
+			this.arrowElem.classList.add(arrowClass);
+		}
+		else {
+			this.arrowElem.classList.remove(arrowClass);
+		}
 
 		const contentHeight = this.expanded_ ?
 			this.getContentHeight_() :

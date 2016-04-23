@@ -21,22 +21,6 @@ class View {
 		return this.elem_;
 	}
 
-	addClass(className) {
-		this.classes_.push(className);
-		this.applyClass_();
-	}
-
-	removeClass(className) {
-		this.classes_ = this.classes_.filter((c) => {
-			return c !== className;
-		});
-		this.applyClass_();
-	}
-
-	applyClass_() {
-		this.elem_.className = this.classes_.join(' ');
-	}
-
 	/**
 	 * @return {View[]}
 	 */

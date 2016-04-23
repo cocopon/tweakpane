@@ -5,14 +5,21 @@ class CheckboxControl extends Control {
 	constructor(model) {
 		super(model);
 
-		this.addClass(ClassName.get(CheckboxControl.BLOCK_CLASS));
+		const elem = this.getElement();
+		elem.classList.add(
+			ClassName.get(CheckboxControl.BLOCK_CLASS)
+		);
 
 		const labelElem = document.createElement('label');
-		labelElem.className = ClassName.get(CheckboxControl.BLOCK_CLASS, 'hitArea');
-		this.getElement().appendChild(labelElem);
+		labelElem.classList.add(
+			ClassName.get(CheckboxControl.BLOCK_CLASS, 'hitArea')
+		);
+		elem.appendChild(labelElem);
 
 		const inputElem = document.createElement('input');
-		inputElem.className = ClassName.get(CheckboxControl.BLOCK_CLASS, 'input');
+		inputElem.classList.add(
+			ClassName.get(CheckboxControl.BLOCK_CLASS, 'input')
+		);
 		inputElem.type = 'checkbox';
 		labelElem.appendChild(inputElem);
 		inputElem.addEventListener(
@@ -22,11 +29,15 @@ class CheckboxControl extends Control {
 		this.inputElem_ = inputElem;
 
 		const outerElem = document.createElement('div');
-		outerElem.className = ClassName.get(CheckboxControl.BLOCK_CLASS, 'outer');
+		outerElem.classList.add(
+			ClassName.get(CheckboxControl.BLOCK_CLASS, 'outer')
+		);
 		labelElem.appendChild(outerElem);
 
 		const innerElem = document.createElement('div');
-		innerElem.className = ClassName.get(CheckboxControl.BLOCK_CLASS, 'inner');
+		innerElem.classList.add(
+			ClassName.get(CheckboxControl.BLOCK_CLASS, 'inner')
+		);
 		outerElem.appendChild(innerElem);
 	}
 

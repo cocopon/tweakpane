@@ -7,18 +7,32 @@ class SliderControl extends Control {
 	constructor(model) {
 		super(model);
 
-		this.addClass(ClassName.get(SliderControl.BLOCK_CLASS));
+		const elem = this.getElement();
+		elem.classList.add(
+			ClassName.get(SliderControl.BLOCK_CLASS)
+		);
 
 		const sliderElem = document.createElement('div');
-		sliderElem.className = ClassName.get(SliderControl.BLOCK_CLASS, 'outer');
-		sliderElem.addEventListener('mousedown', this.onSliderElementMouseDown_.bind(this));
-		window.addEventListener('mousemove', this.onWindowMouseMove_.bind(this));
-		window.addEventListener('mouseup', this.onWindowMouseUp_.bind(this));
-		this.getElement().appendChild(sliderElem);
+		sliderElem.classList.add(ClassName.get(SliderControl.BLOCK_CLASS, 'outer'));
+		sliderElem.addEventListener(
+			'mousedown',
+			this.onSliderElementMouseDown_.bind(this)
+		);
+		window.addEventListener(
+			'mousemove',
+			this.onWindowMouseMove_.bind(this)
+		);
+		window.addEventListener(
+			'mouseup',
+			this.onWindowMouseUp_.bind(this)
+		);
+		elem.appendChild(sliderElem);
 		this.sliderElem_ = sliderElem;
 
 		const sliderBarElem = document.createElement('div');
-		sliderBarElem.className = ClassName.get(SliderControl.BLOCK_CLASS, 'inner');
+		sliderBarElem.classList.add(
+			ClassName.get(SliderControl.BLOCK_CLASS, 'inner')
+		);
 		this.sliderElem_.appendChild(sliderBarElem);
 		this.sliderBarElem_ = sliderBarElem;
 
