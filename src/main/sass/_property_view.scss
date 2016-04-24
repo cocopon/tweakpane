@@ -10,14 +10,17 @@
 
 	@at-root {
 		&_label {
+			bottom: 0;
 			color: $prop-view-label-color;
-			float: left;
-			height: $prop-view-height;
+			height: $prop-view-label-height;
 			left: 0;
-			line-height: $prop-view-height;
+			line-height: $prop-view-label-height;
+			margin: auto 0;
 			overflow: hidden;
 			padding: 0 10px;
+			position: absolute;
 			text-overflow: ellipsis;
+			top: 0;
 			user-select: none;
 			white-space: nowrap;
 			width: 50%;
