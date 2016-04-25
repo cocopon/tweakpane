@@ -1,4 +1,3 @@
-const ClassName    = require('../../misc/class_name');
 const EventEmitter = require('../../misc/event_emitter');
 const Model        = require('../../model/model');
 const View         = require('../view');
@@ -8,14 +7,12 @@ class Control extends View {
 		super();
 
 		this.emitter_ = new EventEmitter();
-		this.disabled_ = false;
 
 		model.getEmitter().on(
 			Model.EVENT_CHANGE,
 			this.onModelChange_,
 			this
 		);
-
 		this.model_ = model;
 		this.applyModel_();
 	}
@@ -28,31 +25,6 @@ class Control extends View {
 		return this.emitter_;
 	}
 
-	isDisabled() {
-		return this.disabled_;
-	}
-
-	setDisabled(disabled) {
-		this.disabled_ = disabled;
-		this.applyDisabled_();
-	}
-
-	applyDisabled_() {
-		const disabledClass = ClassName.get(
-			this.constructor.BLOCK_CLASS,
-			null,
-			'disabled'
-		);
-
-		const elem = this.getElement();
-		if (this.disabled_) {
-			elem.classList.add(disabledClass);
-		}
-		else {
-			elem.classList.remove(disabledClass);
-		}
-	}
-
 	applyModel_() {
 	}
 
@@ -61,7 +33,7 @@ class Control extends View {
 	}
 }
 
-Control.BLOCK_CLASS = 'Control';
+Control.BLOCK_CLASS = 'c';
 Control.EVENT_CHANGE = 'change';
 
 module.exports = Control;

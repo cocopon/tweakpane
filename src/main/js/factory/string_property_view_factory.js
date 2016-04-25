@@ -2,11 +2,16 @@ const ListConstraint      = require('../constraint/list_constraint');
 const StringModel         = require('../model/string_model');
 const ListControl         = require('../view/control/list_control');
 const TextControl         = require('../view/control/text_control');
+const TextMonitor         = require('../view/monitor/text_monitor');
 const PropertyViewFactory = require('./property_view_factory');
 
 class StringPropertyViewFactory extends PropertyViewFactory {
 	static supports(value) {
 		return typeof(value) === 'string';
+	}
+
+	static instanciateModel_() {
+		return new StringModel();
 	}
 
 	static getControlClass_(options) {
@@ -17,8 +22,8 @@ class StringPropertyViewFactory extends PropertyViewFactory {
 		return TextControl;
 	}
 
-	static instanciateModel_() {
-		return new StringModel();
+	static getMonitorClass_(options) {
+		return TextMonitor;
 	}
 
 	static createListItems_(items) {

@@ -1,14 +1,17 @@
-const Property     = require('../model/property');
-const Errors       = require('../misc/errors');
-const Control      = require('../view/control/control');
-const PropertyView = require('../view/property_view');
+const Errors          = require('../misc/errors');
+const PropertyBuilder = require('../misc/property_builder');
+const Control         = require('../view/control/control');
+const PropertyView    = require('../view/property_view');
 
 class PropertyViewFactory {
 	static supports(value) {
 		throw Errors.notImplemented('supports');
 	}
 
-	static create(target, propName, options) {
+	static createControlProperty(target, propName, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
 		const model = this.createModel_(options);
 		const prop = this.createProperty_(target, propName, model, options);
 		prop.applySourceValue();
@@ -28,15 +31,32 @@ class PropertyViewFactory {
 		return propView;
 	}
 
+	static createMonitorProperty(target, propName, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		const model = this.createModel_(options);
+		const prop = this.createProperty_(target, propName, model, options);
+		prop.applySourceValue();
+
+		const MonitorClass = this.getMonitorClass_(options);
+		const monitor = new MonitorClass(model);
+
+		const propView = new PropertyView(prop);
+		propView.addSubview(monitor);
+
+		return propView;
+	}
+
 	static createProperty_(target, propName, model, options) {
-		const prop = new Property(target, propName, model);
+		const builder = new PropertyBuilder(target, propName, model);
 		if (options.id !== undefined) {
-			prop.setId(options.id);
+			builder.setId(options.id);
 		}
 		if (options.label !== undefined) {
-			prop.setDisplayName(options.label);
+			builder.setLabel(options.label);
 		}
-		return prop;
+		return builder.build();
 	}
 
 	static createControl_(options) {
@@ -47,6 +67,10 @@ class PropertyViewFactory {
 
 	static getControlClass_(options) {
 		throw Errors.notImplemented('getControlClass_');
+	}
+
+	static getMonitorClass_(options) {
+		throw Errors.notImplemented('getMonitorClass_');
 	}
 
 	static instanciateModel_() {

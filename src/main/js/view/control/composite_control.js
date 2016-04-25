@@ -1,20 +1,8 @@
-const ClassName     = require('../../misc/class_name');
 const Control       = require('./control');
 
 class CompositeControl extends Control {
 	constructor(model) {
 		super(model);
-	}
-
-	applyDisabled_() {
-		super.applyDisabled_();
-
-		const disabled = this.isDisabled();
-		this.getSubviews().forEach((subview) => {
-			if (subview instanceof Control) {
-				subview.setDisabled(disabled);
-			}
-		});
 	}
 
 	attachControl_(control) {

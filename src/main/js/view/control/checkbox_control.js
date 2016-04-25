@@ -41,14 +41,6 @@ class CheckboxControl extends Control {
 		outerElem.appendChild(innerElem);
 	}
 
-	applyDisabled_() {
-		super.applyDisabled_();
-
-		if (this.inputElem_ !== undefined) {
-			this.inputElem_.disabled = this.isDisabled();
-		}
-	}
-
 	applyModel_() {
 		super.applyModel_();
 

@@ -2,20 +2,19 @@ const EventEmitter = require('../misc/event_emitter');
 const Model        = require('../model/model');
 
 class Property {
-	constructor(target, propName, model) {
-		this.target_ = target;
-		this.propName_ = propName;
-		this.displayName_ = propName;
-		this.id_ = propName;
+	constructor(builder) {
+		this.target_ = builder.getTarget();
+		this.propName_ = builder.getPropertyName();
+		this.label_ = builder.getLabel();
+		this.id_ = builder.getId();
 
-		this.model_ = model;
+		this.model_ = builder.getModel();
 		this.model_.getEmitter().on(
 			Model.EVENT_CHANGE,
 			this.onModelChange_,
 			this
 		);
 
-		this.disabled_ = false;
 		this.emitter_ = new EventEmitter();
 	}
 
@@ -35,31 +34,12 @@ class Property {
 		return this.id_;
 	}
 
-	setId(id) {
-		this.id_ = id;
-		this.emitter_.notifyObservers(Property.EVENT_CHANGE);
-	}
-
-	getDisplayName() {
-		return this.displayName_;
-	}
-
-	setDisplayName(displayName) {
-		this.displayName_ = displayName;
-		this.emitter_.notifyObservers(Property.EVENT_CHANGE);
+	getLabel() {
+		return this.label_;
 	}
 
 	getModel() {
 		return this.model_;
-	}
-
-	isDisabled() {
-		return this.disabled_;
-	}
-
-	setDisabled(disabled) {
-		this.disabled_ = disabled;
-		this.emitter_.notifyObservers(Property.EVENT_CHANGE);
 	}
 
 	applySourceValue() {
@@ -78,7 +58,6 @@ class Property {
 	}
 }
 
-Property.EVENT_CHANGE = 'change';
 Property.EVENT_MODEL_CHANGE = 'modelchange';
 
 module.exports = Property;

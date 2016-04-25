@@ -6,7 +6,7 @@ class FolderViewInterface {
 	}
 
 	add(target, propName, options) {
-		const propView = PropertyViewProvider.provide(target, propName, options);
+		const propView = PropertyViewProvider.provideControlProperty(target, propName, options);
 		this.view_.addSubview(propView);
 	}
 

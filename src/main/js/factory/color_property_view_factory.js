@@ -8,12 +8,12 @@ class ColorPropertyViewFactory extends PropertyViewFactory {
 			ColorModel.validate(value);
 	}
 
-	static getControlClass_() {
-		return ColorPaletteTextControl;
-	}
-
 	static instanciateModel_() {
 		return new ColorModel();
+	}
+
+	static getControlClass_() {
+		return ColorPaletteTextControl;
 	}
 }
 

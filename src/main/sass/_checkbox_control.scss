@@ -2,16 +2,6 @@
 	height: $checkbox-control-outer-size;
 	width: 100%;
 
-	&#{&}-disabled {
-		opacity: 0.5;
-	}
-	&#{&}-disabled &_input:hover + &_outer {
-		background-color: $input-background-color;
-	}
-	&#{&}-disabled &_input:hover + &_outer &_inner {
-		background-color: $input-foreground-color;
-	}
-
 	@at-root {
 		&_hitArea {
 			display: block;

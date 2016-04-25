@@ -7,6 +7,7 @@ const EventEmitter          = require('./misc/event_emitter');
 const PropertyViewProvider  = require('./misc/property_view_provider');
 const ViewUtil              = require('./misc/view_util');
 const Property              = require('./model/property');
+const Monitor               = require('./view/monitor/monitor');
 const FolderView            = require('./view/folder_view');
 const PropertyView          = require('./view/property_view');
 const View                  = require('./view/view');
@@ -34,6 +35,10 @@ class Seasoner {
 		this.emitter_ = new EventEmitter();
 
 		Appearance.apply();
+
+		this.monitoringProps_ = [];
+		this.monitoringTimer_ = null;
+		this.startMonitoring_();
 	}
 
 	getElement() {
@@ -44,8 +49,8 @@ class Seasoner {
 		return this.emitter_;
 	}
 
-	add(target, propName, options) {
-		const propView = PropertyViewProvider.provide(target, propName, options);
+	add(target, propName, opt_options) {
+		const propView = PropertyViewProvider.provideControlProperty(target, propName, opt_options);
 
 		this.rootView_.addSubview(propView);
 
@@ -59,8 +64,43 @@ class Seasoner {
 		return new PropertyViewInterface(propView);
 	}
 
-	monitor() {
-		// TODO: Implement
+	monitor(target, propName, opt_options) {
+		const propView = PropertyViewProvider.provideMonitorProperty(target, propName, opt_options);
+
+		this.rootView_.addSubview(propView);
+
+		const views = ViewUtil.getAllSubviews(this.rootView_);
+		this.monitoringProps_ = views.filter((view) => {
+			if (!(view instanceof PropertyView)) {
+				return false;
+			}
+
+			const hasMonitor = view.getSubviews().some((subview) => {
+				return subview instanceof Monitor;
+			});
+			return hasMonitor;
+		}).map((propView) => {
+			return propView.getProperty();
+		});
+
+		return new PropertyViewInterface(propView);
+	}
+
+	startMonitoring_() {
+		if (this.monitoringTimer_ !== null) {
+			return;
+		}
+
+		this.monitoringTimer_ = setInterval(
+			this.onMonitoringTimerTick_.bind(this),
+			1000 / 30
+		);
+	}
+
+	onMonitoringTimerTick_() {
+		this.monitoringProps_.forEach((prop) => {
+			prop.applySourceValue();
+		});
 	}
 
 	addFolder(title) {
@@ -77,7 +117,7 @@ class Seasoner {
 		this.emitter_.off(eventName, handler, opt_scope);
 	}
 
-	getAllProperties_() {
+	getJsonProperties_() {
 		const views = ViewUtil.getAllSubviews(this.rootView_);
 		const propViews = views.filter((view) => {
 			return view instanceof PropertyView;
@@ -97,15 +137,15 @@ class Seasoner {
 	}
 
 	getJson() {
-		const props = this.getAllProperties_();
+		const props = this.getJsonProperties_();
 		return Object.keys(props).reduce((result, propId) => {
 			result[propId] = props[propId].getModel().getValue();
 			return result;
 		}, {});
 	}
 
-	loadJson(json) {
-		const props = this.getAllProperties_();
+	setJson(json) {
+		const props = this.getJsonProperties_();
 		Object.keys(json).forEach((propId) => {
 			const prop = props[propId];
 			if (prop === undefined) {

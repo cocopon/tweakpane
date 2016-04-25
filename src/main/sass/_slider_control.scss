@@ -10,17 +10,6 @@
 		background-color: $input-hover-foreground-color;
 	}
 
-	&#{&}-disabled {
-		cursor: default;
-		opacity: 0.5;
-	}
-	&#{&}-disabled:hover &_outer {
-		background-color: $input-background-color;
-	}
-	&#{&}-disabled:hover &_inner {
-		background-color: $input-foreground-color;
-	}
-
 	@at-root {
 		&_outer {
 			background-color: $input-background-color;

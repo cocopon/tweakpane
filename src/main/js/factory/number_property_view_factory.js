@@ -8,6 +8,7 @@ const NumberModel          = require('../model/number_model');
 const ListControl          = require('../view/control/list_control');
 const SliderTextControl    = require('../view/control/slider_text_control');
 const TextControl          = require('../view/control/text_control');
+const TextMonitor          = require('../view/monitor/text_monitor');
 const PropertyViewFactory  = require('./property_view_factory');
 
 class NumberPropertyViewFactory extends PropertyViewFactory {
@@ -15,8 +16,8 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 		return typeof(value) === 'number';
 	}
 
-	static create(target, propName, options) {
-		const propView = super.create(target, propName, options);
+	static createControlProperty(target, propName, opt_options) {
+		const propView = super.createControlProperty(target, propName, opt_options);
 
 		// TODO: Refactor
 		// Set default number display
@@ -27,6 +28,24 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 		});
 
 		return propView;
+	}
+
+	static createMonitorProperty(target, propName, opt_options) {
+		const propView = super.createMonitorProperty(target, propName, opt_options);
+
+		// TODO: Refactor
+		// Set default number display
+		ViewUtil.getAllSubviews(propView).forEach((subview) => {
+			if (subview.setDisplay) {
+				subview.setDisplay(new DefaultNumberDisplay());
+			}
+		});
+
+		return propView;
+	}
+
+	static instanciateModel_() {
+		return new NumberModel();
 	}
 
 	static getControlClass_(options) {
@@ -41,8 +60,8 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 		return TextControl;
 	}
 
-	static instanciateModel_() {
-		return new NumberModel();
+	static getMonitorClass_(options) {
+		return TextMonitor;
 	}
 }
 

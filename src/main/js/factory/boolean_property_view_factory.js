@@ -9,16 +9,16 @@ class BooleanPropertyViewFactory extends PropertyViewFactory {
 		return typeof(value) === 'boolean';
 	}
 
+	static instanciateModel_() {
+		return new BooleanModel();
+	}
+
 	static getControlClass_(options) {
 		if (options.list !== undefined) {
 			return ListControl;
 		}
 
 		return CheckboxControl;
-	}
-
-	static instanciateModel_() {
-		return new BooleanModel();
 	}
 }
 

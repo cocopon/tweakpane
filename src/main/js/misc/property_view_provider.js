@@ -12,27 +12,39 @@ const CONTROL_FACTORIES = [
 ];
 
 class PropertyViewProvider {
-	static provide(target, propName, opt_options) {
-		const value = target[propName];
-		const options = (opt_options !== undefined) ?
-			opt_options :
-			{};
+	static provideControlProperty(target, propName, opt_options) {
+		const factory = this.getFactory_(target, propName);
+		if (factory === null) {
+			throw Errors.propertyTypeNotSupported(
+				propName,
+				target[propName]
+			);
+		}
+		return factory.createControlProperty(target, propName, opt_options);
+	}
 
+	static provideMonitorProperty(target, propName, opt_options) {
+		const factory = this.getFactory_(target, propName);
+		if (factory === null) {
+			throw Errors.propertyTypeNotSupported(
+				propName,
+				target[propName]
+			);
+		}
+		return factory.createMonitorProperty(target, propName, opt_options);
+	}
+
+	static getFactory_(target, propName) {
+		const value = target[propName];
 		let factories = CONTROL_FACTORIES.reduce((results, factory) => {
 			return factory.supports(value) ?
 				results.concat(factory) :
 				results;
 		}, []);
 
-		if (factories.length === 0) {
-			throw Errors.propertyTypeNotSupported(
-				propName,
-				target[propName]
-			);
-		}
-
-		const factory = factories[0];
-		return factory.create(target, propName, options);
+		return (factories.length !== 0) ?
+			factories[0] :
+			null;
 	}
 }
 

@@ -1,4 +1,4 @@
-.#{$prefix}tc {
+.#{$prefix}tm {
 	height: $input-height;
 	position: relative;
 
@@ -7,20 +7,12 @@
 			background-color: $input-background-color;
 			border-radius: 2px;
 			border-width: 0;
-			color: $input-foreground-color;
+			color: rgba($input-foreground-color, 0.5);
 			height: $input-height;
 			line-height: $input-height;
 			outline: none;
 			padding: 0 5px;
 			width: 100%;
-
-			&:focus {
-				background-color: $input-focus-background-color;
-			}
-			&:hover {
-				background-color: $input-hover-background-color;
-				color: $input-hover-foreground-color;
-			}
 		}
 	}
 }

@@ -1,50 +1,6 @@
-$prefix: 'ss';
-
-$background-color: hsl(0, 0, 10%);
-$folder-view-title-color: hsl(0, 0, 50%);
-$folder-view-title-hover-color: lighten($folder-view-title-color, 10%);
-$input-background-color: hsl(0, 0, 25%);
-$input-foreground-color: hsl(0, 0, 90%);
-$input-hover-foreground-color: lighten($input-foreground-color, 10%);
-$input-focus-background-color: lighten($input-background-color, 5%);
-$input-hover-background-color: lighten($input-background-color, 10%);
-$prop-view-background-color: hsl(0, 0, 20%);
-$prop-view-label-color: hsl(0, 0, 80%);
-$prop-view-separator-color: darken($prop-view-background-color, 3%);
-
-$checkbox-control-outer-size: 24px;
-$color-palette-control-outer-size: 24px;
-$folder-view-title-height: 30px;
-$folder-view-arrow-size: 10px;
-$input-height: 24px;
-$prop-view-label-height: 22px;
-$list-control-arrow-size: 10px;
-$slider-control-height: 24px;
-
-@mixin fill($workaround: false) {
-	bottom: 0;
-	display: block;
-	left: 0;
-	position: absolute;
-	right: 0;
-	top: 0;
-
-	@if ($workaround) {
-		// Workaround for strange behavior of input element with absolute position
-		bottom: auto;
-		height: 100%;
-		right: auto;
-		width: 100%;
-	}
-}
-
-@mixin clearfix() {
-	&:after {
-		clear: both;
-		content: "";
-		display: block;
-	}
-}
+@import 'vars';
+@import 'mixins';
+@import 'data';
 
 .#{$prefix} {
 	background-color: $background-color;
@@ -62,13 +18,16 @@ $slider-control-height: 24px;
 	top: 0;
 }
 
-@import 'data';
+// View
+@import 'folder_view';
+@import 'property_view';
+// Control
 @import 'checkbox_control';
 @import 'color_palette_control';
 @import 'color_palette_text_control';
-@import 'folder_view';
 @import 'list_control';
-@import 'property_view';
 @import 'slider_control';
 @import 'slider_text_control';
 @import 'text_control';
+// Monitor
+@import 'text_monitor';
