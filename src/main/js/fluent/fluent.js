@@ -1,10 +1,10 @@
 class Fluent {
-	constructor(controller) {
-		this.controller_ = controller;
+	constructor(view) {
+		this.view_ = view;
 	}
 
-	getController() {
-		return this.controller_;
+	getView() {
+		return this.view_;
 	}
 }
 

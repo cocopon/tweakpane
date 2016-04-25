@@ -32,14 +32,18 @@ var ssList = new Seasoner({
 document.getElementById('ssListContainer').appendChild(
 	ssList.getElement()
 );
-ssList.add(ssListParams, 'someProperty1').list([
-	'foo',
-	'bar',
-	'baz'
-]);
-ssList.add(ssListParams, 'someProperty2').list({
-	foo: 'FOO',
-	bar: 'BAR',
-	baz: 'BAZ'
+ssList.add(ssListParams, 'someProperty1', {
+	list: [
+		'foo',
+		'bar',
+		'baz'
+	]
+});
+ssList.add(ssListParams, 'someProperty2', {
+	list: {
+		foo: 'FOO',
+		bar: 'BAR',
+		baz: 'BAZ'
+	}
 });
 {% endblock %}

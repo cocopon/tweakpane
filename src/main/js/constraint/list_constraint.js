@@ -1,19 +1,14 @@
 const Constraint = require('./constraint');
 
 class ListConstraint extends Constraint {
-	constructor() {
+	constructor(items) {
 		super();
 
-		this.items_ = null;
+		this.items_ = items;
 	}
 
 	getItems() {
 		return this.items_;
-	}
-
-	setItems(items) {
-		this.items_ = items;
-		this.getEmitter().notifyObservers(Constraint.EVENT_CHANGE);
 	}
 
 	getIndexOfValue_(value) {

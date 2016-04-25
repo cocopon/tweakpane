@@ -37,6 +37,8 @@ class SliderControl extends Control {
 		this.sliderBarElem_ = sliderBarElem;
 
 		this.captured_ = false;
+
+		this.applyModel_();
 	}
 
 	applyModel_() {

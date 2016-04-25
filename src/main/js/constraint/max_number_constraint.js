@@ -1,19 +1,14 @@
 const Constraint = require('./constraint');
 
 class MaxNumberConstraint extends Constraint {
-	constructor() {
+	constructor(maxValue) {
 		super();
 
-		this.maxValue_ = null;
+		this.maxValue_ = maxValue;
 	}
 
 	getMaxValue() {
 		return this.maxValue_;
-	}
-
-	setMaxValue(maxValue) {
-		this.maxValue_ = maxValue;
-		this.getEmitter().notifyObservers(Constraint.EVENT_CHANGE);
 	}
 
 	format(value) {

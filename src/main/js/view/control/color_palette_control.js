@@ -21,6 +21,8 @@ class ColorPaletteControl extends Control {
 		);
 		outerElem.appendChild(innerElem);
 		this.innerElem_ = innerElem;
+
+		this.applyModel_();
 	}
 
 	applyModel_() {

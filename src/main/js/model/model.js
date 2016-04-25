@@ -1,4 +1,3 @@
-const Constraint    = require('../constraint/constraint');
 const Errors        = require('../misc/errors');
 const EventEmitter  = require('../misc/event_emitter');
 
@@ -60,17 +59,8 @@ class Model {
 			throw Errors.constraintAlreadyExists(constraint);
 		}
 
-		constraint.getEmitter().on(
-			Constraint.EVENT_CHANGE,
-			this.onConstraintChange_,
-			this
-		);
 		this.constraints_.push(constraint);
 
-		this.format_();
-	}
-
-	onConstraintChange_() {
 		this.format_();
 	}
 }

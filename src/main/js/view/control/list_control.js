@@ -27,6 +27,8 @@ class ListControl extends Control {
 			ClassName.get(ListControl.BLOCK_CLASS, 'arrow')
 		);
 		elem.appendChild(arrowElem);
+
+		this.applyModel_();
 	}
 
 	applyModel_() {

@@ -1,19 +1,14 @@
 const Constraint = require('./constraint');
 
 class MinNumberConstraint extends Constraint {
-	constructor() {
+	constructor(minValue) {
 		super();
 
-		this.minValue_ = null;
+		this.minValue_ = minValue;
 	}
 
 	getMinValue() {
 		return this.minValue_;
-	}
-
-	setMinValue(minValue) {
-		this.minValue_ = minValue;
-		this.getEmitter().notifyObservers(Constraint.EVENT_CHANGE);
 	}
 
 	format(value) {

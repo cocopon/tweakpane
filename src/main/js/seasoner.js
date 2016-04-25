@@ -3,19 +3,19 @@ const ClassName                  = require('./misc/class_name');
 const Errors                     = require('./misc/errors');
 const EventEmitter               = require('./misc/event_emitter');
 const PropertyControllerProvider = require('./misc/property_controller_provider');
-const FluentProvider             = require('./misc/fluent_provider');
+const ViewUtil                   = require('./misc/view_util');
 const Property                   = require('./model/property');
-const FolderFluent               = require('./fluent/folder_fluent');
-const Controller                 = require('./controller/controller');
-const FolderController           = require('./controller/folder_controller');
-const PropertyController         = require('./controller/property_controller');
+const FolderView                 = require('./view/folder_view');
+const PropertyView               = require('./view/property_view');
+const View                       = require('./view/view');
+
+const FolderFluent = require('./fluent/folder_fluent');
 
 class Seasoner {
 	constructor(opt_options) {
-		const rootController = new Controller();
-		const rootView = rootController.getView();
+		const rootView = new View();
 		rootView.getElement().classList.add(ClassName.get(''));
-		this.rootController_ = rootController;
+		this.rootView_ = rootView;
 
 		const options = (opt_options !== undefined) ?
 			opt_options :
@@ -37,33 +37,34 @@ class Seasoner {
 	}
 
 	getElement() {
-		return this.rootController_.getView().getElement();
+		return this.rootView_.getElement();
 	}
 
 	getEmitter() {
 		return this.emitter_;
 	}
 
-	add(target, propName) {
-		const controller = PropertyControllerProvider.provide(target, propName);
+	add(target, propName, options) {
+		const propView = PropertyControllerProvider.provide(target, propName, options);
 
-		this.rootController_.addSubcontroller(controller);
+		this.rootView_.addSubview(propView);
 
-		const prop = controller.getProperty();
+		const prop = propView.getProperty();
 		prop.getEmitter().on(
 			Property.EVENT_MODEL_CHANGE,
 			this.onPropertyChange_,
 			this
 		);
+	}
 
-		return FluentProvider.provide(controller);
+	monitor() {
+		// TODO: Implement
 	}
 
 	addFolder(title) {
-		const controller = new FolderController();
-		controller.getView().setTitle(title);
-		this.rootController_.addSubcontroller(controller);
-		return new FolderFluent(controller);
+		const folderView = new FolderView(title);
+		this.rootView_.addSubview(folderView);
+		return new FolderFluent(folderView);
 	}
 
 	on(eventName, handler, opt_scope) {
@@ -75,24 +76,21 @@ class Seasoner {
 	}
 
 	getAllProperties_() {
-		let cons = [this.rootController_];
+		const views = ViewUtil.getAllSubviews(this.rootView_);
+		const propViews = views.filter((view) => {
+			return view instanceof PropertyView;
+		});
+		const props = propViews.map((propView) => {
+			return propView.getProperty();
+		});
 		const result = {};
-
-		while (cons.length > 0) {
-			const con = cons.splice(0, 1)[0];
-
-			if (con instanceof PropertyController) {
-				const prop = con.getProperty();
-				const propId = prop.getId();
-				if (result[propId] !== undefined) {
-					throw Errors.duplicatedPropertyId(propId);
-				}
-				result[propId] = prop;
+		props.forEach((prop) => {
+			const propId = prop.getId();
+			if (result[propId] !== undefined) {
+				throw Errors.duplicatedPropertyId(propId);
 			}
-
-			cons = cons.concat(con.getSubcontrollers());
-		}
-
+			result[propId] = prop;
+		});
 		return result;
 	}
 

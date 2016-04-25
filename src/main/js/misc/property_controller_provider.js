@@ -1,39 +1,38 @@
-const BooleanPropertyController = require('../controller/boolean_property_controller');
-const ColorPropertyController   = require('../controller/color_property_controller');
-const NumberPropertyController  = require('../controller/number_property_controller');
-const StringPropertyController  = require('../controller/string_property_controller');
-const Errors                    = require('../misc/errors');
-const ColorModel                = require('../model/color_model');
+const BooleanControlFactory = require('../control_factory/boolean_control_factory');
+const ColorControlFactory   = require('../control_factory/color_control_factory');
+const NumberControlFactory  = require('../control_factory/number_control_factory');
+const StringControlFactory  = require('../control_factory/string_control_factory');
+const Errors                = require('../misc/errors');
+
+const CONTROL_FACTORIES = [
+	BooleanControlFactory,
+	ColorControlFactory,
+	NumberControlFactory,
+	StringControlFactory
+];
 
 class PropertyControllerProvider {
-	static provide(target, propName) {
+	static provide(target, propName, opt_options) {
 		const value = target[propName];
-		let controller = null;
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
 
-		if (typeof(value) === 'boolean') {
-			controller = new BooleanPropertyController(target, propName);
-		}
-		if (typeof(value) === 'number') {
-			controller = new NumberPropertyController(target, propName);
-		}
-		if (typeof(value) === 'string') {
-			if (ColorModel.validate(value)) {
-				controller = new ColorPropertyController(target, propName);
-			}
-			else {
-				controller = new StringPropertyController(target, propName);
-			}
-		}
+		let factories = CONTROL_FACTORIES.reduce((results, factory) => {
+			return factory.supports(value) ?
+				results.concat(factory) :
+				results;
+		}, []);
 
-		if (controller === null) {
+		if (factories.length === 0) {
 			throw Errors.propertyTypeNotSupported(
 				propName,
 				target[propName]
 			);
 		}
 
-		controller.getProperty().applySourceValue();
-		return controller;
+		const factory = factories[0];
+		return factory.create(target, propName, options);
 	}
 }
 

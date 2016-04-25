@@ -13,8 +13,7 @@ var params = {
 
 var ss = new Seasoner();
 ss.add(params, 'bool');
-ss.add(params, 'bool').list({
-	yep: true,
-	nope: false
+ss.add(params, 'bool', {
+	list: ['yep', 'nope']
 });
 {% endblock %}

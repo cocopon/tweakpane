@@ -30,6 +30,8 @@ class TextControl extends Control {
 		this.inputElem_ = inputElem;
 
 		this.display_ = new Display();
+
+		this.applyModel_();
 	}
 
 	getDisplay() {

@@ -48,7 +48,7 @@ var minParams = {
 var minExample = new Seasoner({
 	autoPlace: false
 });
-minExample.add(minParams, 'someProperty').min(0);
+minExample.add(minParams, 'someProperty', {min: 0});
 document.getElementById('minExampleContainer').appendChild(
 	minExample.getElement()
 );
@@ -59,7 +59,7 @@ var sliderParams = {
 var sliderExample = new Seasoner({
 	autoPlace: false
 });
-sliderExample.add(sliderParams, 'someProperty').min(0).max(100);
+sliderExample.add(sliderParams, 'someProperty', {min: 0, max: 100});
 document.getElementById('sliderExampleContainer').appendChild(
 	sliderExample.getElement()
 );
@@ -73,7 +73,7 @@ var stepExample = new Seasoner({
 document.getElementById('stepExampleContainer').appendChild(
 	stepExample.getElement()
 );
-stepExample.add(stepParams, 'someProperty').min(0).max(100).step(10);
+stepExample.add(stepParams, 'someProperty', {min: 0, max: 100, step: 10});
 
 var listParams = {
 	someProperty: 0
@@ -84,9 +84,12 @@ var listExample = new Seasoner({
 document.getElementById('listExampleContainer').appendChild(
 	listExample.getElement()
 );
-listExample.add(listParams, 'someProperty').list({
-	foo: 0,
-	bar: 1,
-	baz: 2
-}).on('change', function(v) {console.log(v);});
+listExample.add(listParams, 'someProperty', {
+	list: {
+		foo: 0,
+		bar: 1,
+		baz: 2
+	},
+	onChange: function(v) {console.log(v);}
+});
 {% endblock %}

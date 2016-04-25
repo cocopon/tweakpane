@@ -1,12 +1,10 @@
 const PropertyControllerProvider = require('../misc/property_controller_provider');
-const FluentProvider = require('../misc/fluent_provider');
 const Fluent = require('./fluent');
 
 class FolderFluent extends Fluent {
-	add(target, propName) {
-		const controller = PropertyControllerProvider.provide(target, propName);
-		this.getController().addSubcontroller(controller);
-		return FluentProvider.provide(controller);
+	add(target, propName, options) {
+		const propView = PropertyControllerProvider.provide(target, propName, options);
+		this.getView().addSubview(propView);
 	}
 
 	/**
@@ -14,7 +12,7 @@ class FolderFluent extends Fluent {
 	 * @return {FolderFluent}
 	 */
 	open() {
-		const folderView = this.getController().getView();
+		const folderView = this.getView();
 		folderView.setExpanded(true, false);
 		return this;
 	}
@@ -24,7 +22,7 @@ class FolderFluent extends Fluent {
 	 * @return {FolderFluent}
 	 */
 	close() {
-		const folderView = this.getController().getView();
+		const folderView = this.getView();
 		folderView.setExpanded(false, false);
 		return this;
 	}

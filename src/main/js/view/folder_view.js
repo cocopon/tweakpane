@@ -2,7 +2,7 @@ const ClassName = require('../misc/class_name');
 const View      = require('./view');
 
 class FolderView extends View {
-	constructor() {
+	constructor(title) {
 		super();
 
 		const elem = this.getElement();
@@ -10,14 +10,15 @@ class FolderView extends View {
 			ClassName.get(FolderView.BLOCK_CLASS)
 		);
 
-		const arrowElem = document.createElement('div');
-		arrowElem.classList.add(
+		const arrowElem_ = document.createElement('div');
+		arrowElem_.classList.add(
 			ClassName.get(FolderView.BLOCK_CLASS, 'arrow')
 		);
-		elem.appendChild(arrowElem);
-		this.arrowElem = arrowElem;
+		elem.appendChild(arrowElem_);
+		this.arrowElem_ = arrowElem_;
 
 		const titleElem = document.createElement('div');
+		titleElem.textContent = title;
 		titleElem.classList.add(
 			ClassName.get(FolderView.BLOCK_CLASS, 'title')
 		);
@@ -32,7 +33,6 @@ class FolderView extends View {
 		elem.appendChild(containerElem);
 		this.containerElem_ = containerElem;
 
-		this.title_ = '';
 		this.setExpanded(true, false);
 	}
 
@@ -74,29 +74,16 @@ class FolderView extends View {
 			'expanded'
 		);
 		if (this.expanded_) {
-			this.arrowElem.classList.add(arrowClass);
+			this.arrowElem_.classList.add(arrowClass);
 		}
 		else {
-			this.arrowElem.classList.remove(arrowClass);
+			this.arrowElem_.classList.remove(arrowClass);
 		}
 
 		const contentHeight = this.expanded_ ?
 			this.getContentHeight_() :
 			0;
 		this.containerElem_.style.height = `${contentHeight}px`;
-	}
-
-	getTitle() {
-		return this.title_;
-	}
-
-	setTitle(title) {
-		this.title_ = title;
-		this.applyTitle_();
-	}
-
-	applyTitle_() {
-		this.titleElem_.textContent = this.title_;
 	}
 
 	getContentHeight_() {

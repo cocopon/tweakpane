@@ -25,8 +25,6 @@ class PropertyView extends View {
 		elem.appendChild(containerElem);
 		this.containerElem_ = containerElem;
 
-		this.control_ = null;
-
 		this.prop_ = property;
 		this.prop_.getEmitter().on(
 			Property.EVENT_CHANGE,
@@ -44,25 +42,12 @@ class PropertyView extends View {
 		return this.containerElem_;
 	}
 
-	getControl() {
-		return this.control_;
-	}
-
-	setControl(control) {
-		if (this.control_ !== null) {
-			this.removeSubview(this.control_);
-		}
-
-		this.addSubview(control);
-		this.control_ = control;
-		this.applyProperty_();
-	}
-
 	applyProperty_() {
 		this.labelElem_.textContent = this.prop_.getDisplayName();
-		if (this.control_ !== null) {
-			this.control_.setDisabled(this.prop_.isDisabled());
-		}
+		// TODO:
+		// if (this.control_ !== null) {
+		// 	this.control_.setDisabled(this.prop_.isDisabled());
+		// }
 	}
 
 	onPropertyChange_() {
