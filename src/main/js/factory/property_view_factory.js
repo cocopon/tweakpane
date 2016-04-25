@@ -4,7 +4,7 @@ const Errors       = require('../misc/errors');
 const Control      = require('../view/control/control');
 const PropertyView = require('../view/property_view');
 
-class ControlFactory {
+class PropertyViewFactory {
 	static supports(value) {
 		throw Errors.notImplemented('supports');
 	}
@@ -79,4 +79,4 @@ class ControlFactory {
 	}
 }
 
-module.exports = ControlFactory
+module.exports = PropertyViewFactory

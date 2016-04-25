@@ -1,13 +1,13 @@
-const Appearance                 = require('./misc/appearance');
-const ClassName                  = require('./misc/class_name');
-const Errors                     = require('./misc/errors');
-const EventEmitter               = require('./misc/event_emitter');
-const PropertyControllerProvider = require('./misc/property_controller_provider');
-const ViewUtil                   = require('./misc/view_util');
-const Property                   = require('./model/property');
-const FolderView                 = require('./view/folder_view');
-const PropertyView               = require('./view/property_view');
-const View                       = require('./view/view');
+const Appearance           = require('./misc/appearance');
+const ClassName            = require('./misc/class_name');
+const Errors               = require('./misc/errors');
+const EventEmitter         = require('./misc/event_emitter');
+const PropertyViewProvider = require('./misc/property_view_provider');
+const ViewUtil             = require('./misc/view_util');
+const Property             = require('./model/property');
+const FolderView           = require('./view/folder_view');
+const PropertyView         = require('./view/property_view');
+const View                 = require('./view/view');
 
 const FolderFluent = require('./fluent/folder_fluent');
 
@@ -45,7 +45,7 @@ class Seasoner {
 	}
 
 	add(target, propName, options) {
-		const propView = PropertyControllerProvider.provide(target, propName, options);
+		const propView = PropertyViewProvider.provide(target, propName, options);
 
 		this.rootView_.addSubview(propView);
 

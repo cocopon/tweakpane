@@ -1,10 +1,10 @@
-const ListConstraint = require('../constraint/list_constraint');
-const StringModel    = require('../model/string_model');
-const ListControl    = require('../view/control/list_control');
-const TextControl    = require('../view/control/text_control');
-const ControlFactory = require('./control_factory');
+const ListConstraint      = require('../constraint/list_constraint');
+const StringModel         = require('../model/string_model');
+const ListControl         = require('../view/control/list_control');
+const TextControl         = require('../view/control/text_control');
+const PropertyViewFactory = require('./property_view_factory');
 
-class StringControlFactory extends ControlFactory {
+class StringPropertyViewFactory extends PropertyViewFactory {
 	static supports(value) {
 		return typeof(value) === 'string';
 	}
@@ -47,7 +47,7 @@ class StringControlFactory extends ControlFactory {
 	}
 }
 
-StringControlFactory.CONSTRAINT_FACTORIES = {
+StringPropertyViewFactory.CONSTRAINT_FACTORIES = {
 	/**
 	 * Create the list of values constraint.
 	 * @param {(string[]|Object.<string, string>)} items The list of values.
@@ -55,9 +55,9 @@ StringControlFactory.CONSTRAINT_FACTORIES = {
 	 */
 	'list': (items) => {
 		return new ListConstraint(
-			StringControlFactory.createListItems_(items)
+			StringPropertyViewFactory.createListItems_(items)
 		);
 	}
 };
 
-module.exports = StringControlFactory;
+module.exports = StringPropertyViewFactory;

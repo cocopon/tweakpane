@@ -1,9 +1,9 @@
-const PropertyControllerProvider = require('../misc/property_controller_provider');
+const PropertyViewProvider = require('../misc/property_view_provider');
 const Fluent = require('./fluent');
 
 class FolderFluent extends Fluent {
 	add(target, propName, options) {
-		const propView = PropertyControllerProvider.provide(target, propName, options);
+		const propView = PropertyViewProvider.provide(target, propName, options);
 		this.getView().addSubview(propView);
 	}
 

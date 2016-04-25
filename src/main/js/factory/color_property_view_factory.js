@@ -1,8 +1,8 @@
 const ColorModel              = require('../model/color_model');
 const ColorPaletteTextControl = require('../view/control/color_palette_text_control');
-const ControlFactory          = require('./control_factory');
+const PropertyViewFactory     = require('./property_view_factory');
 
-class ColorControlFactory extends ControlFactory {
+class ColorPropertyViewFactory extends PropertyViewFactory {
 	static supports(value) {
 		return typeof(value) === 'string' &&
 			ColorModel.validate(value);
@@ -17,6 +17,6 @@ class ColorControlFactory extends ControlFactory {
 	}
 }
 
-ColorControlFactory.CONSTRAINT_FACTORIES = {};
+ColorPropertyViewFactory.CONSTRAINT_FACTORIES = {};
 
-module.exports = ColorControlFactory;
+module.exports = ColorPropertyViewFactory;

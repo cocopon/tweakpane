@@ -8,9 +8,9 @@ const NumberModel          = require('../model/number_model');
 const ListControl          = require('../view/control/list_control');
 const SliderTextControl    = require('../view/control/slider_text_control');
 const TextControl          = require('../view/control/text_control');
-const ControlFactory       = require('./control_factory');
+const PropertyViewFactory  = require('./property_view_factory');
 
-class NumberControlFactory extends ControlFactory {
+class NumberPropertyViewFactory extends PropertyViewFactory {
 	static supports(value) {
 		return typeof(value) === 'number';
 	}
@@ -46,7 +46,7 @@ class NumberControlFactory extends ControlFactory {
 	}
 }
 
-NumberControlFactory.CONSTRAINT_FACTORIES = {
+NumberPropertyViewFactory.CONSTRAINT_FACTORIES = {
 	/**
 	 * Create the minimum value constraint.
 	 * @param {number} value The minimum value.
@@ -88,4 +88,4 @@ NumberControlFactory.CONSTRAINT_FACTORIES = {
 	}
 };
 
-module.exports = NumberControlFactory;
+module.exports = NumberPropertyViewFactory;

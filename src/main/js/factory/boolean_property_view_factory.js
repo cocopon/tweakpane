@@ -1,10 +1,10 @@
-const BooleanModel    = require('../model/boolean_model');
-const ListConstraint  = require('../constraint/list_constraint');
-const CheckboxControl = require('../view/control/checkbox_control');
-const ListControl     = require('../view/control/list_control');
-const ControlFactory  = require('./control_factory');
+const BooleanModel         = require('../model/boolean_model');
+const ListConstraint       = require('../constraint/list_constraint');
+const CheckboxControl      = require('../view/control/checkbox_control');
+const ListControl          = require('../view/control/list_control');
+const PropertyViewFactory  = require('./property_view_factory');
 
-class BooleanControlFactory extends ControlFactory {
+class BooleanPropertyViewFactory extends PropertyViewFactory {
 	static supports(value) {
 		return typeof(value) === 'boolean';
 	}
@@ -22,7 +22,7 @@ class BooleanControlFactory extends ControlFactory {
 	}
 }
 
-BooleanControlFactory.CONSTRAINT_FACTORIES = {
+BooleanPropertyViewFactory.CONSTRAINT_FACTORIES = {
 	/**
 	 * Set the list of values.
 	 * @param {string[]} items The list of display texts for true and false value.
@@ -40,4 +40,4 @@ BooleanControlFactory.CONSTRAINT_FACTORIES = {
 	}
 };
 
-module.exports = BooleanControlFactory;
+module.exports = BooleanPropertyViewFactory;
