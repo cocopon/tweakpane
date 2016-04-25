@@ -1,15 +1,15 @@
-const Appearance           = require('./misc/appearance');
-const ClassName            = require('./misc/class_name');
-const Errors               = require('./misc/errors');
-const EventEmitter         = require('./misc/event_emitter');
-const PropertyViewProvider = require('./misc/property_view_provider');
-const ViewUtil             = require('./misc/view_util');
-const Property             = require('./model/property');
-const FolderView           = require('./view/folder_view');
-const PropertyView         = require('./view/property_view');
-const View                 = require('./view/view');
-
-const FolderFluent = require('./fluent/folder_fluent');
+const FolderViewInterface   = require('./interface/foloder_view_interface');
+const PropertyViewInterface = require('./interface/property_view_interface');
+const Appearance            = require('./misc/appearance');
+const ClassName             = require('./misc/class_name');
+const Errors                = require('./misc/errors');
+const EventEmitter          = require('./misc/event_emitter');
+const PropertyViewProvider  = require('./misc/property_view_provider');
+const ViewUtil              = require('./misc/view_util');
+const Property              = require('./model/property');
+const FolderView            = require('./view/folder_view');
+const PropertyView          = require('./view/property_view');
+const View                  = require('./view/view');
 
 class Seasoner {
 	constructor(opt_options) {
@@ -55,6 +55,8 @@ class Seasoner {
 			this.onPropertyChange_,
 			this
 		);
+
+		return new PropertyViewInterface(propView);
 	}
 
 	monitor() {
@@ -64,7 +66,7 @@ class Seasoner {
 	addFolder(title) {
 		const folderView = new FolderView(title);
 		this.rootView_.addSubview(folderView);
-		return new FolderFluent(folderView);
+		return new FolderViewInterface(folderView);
 	}
 
 	on(eventName, handler, opt_scope) {

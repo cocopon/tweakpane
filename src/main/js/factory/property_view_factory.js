@@ -1,4 +1,3 @@
-const Model        = require('../model/model');
 const Property     = require('../model/property');
 const Errors       = require('../misc/errors');
 const Control      = require('../view/control/control');
@@ -22,14 +21,6 @@ class PropertyViewFactory {
 				model.setValue(value);
 			}
 		);
-
-		// TODO: Refactor
-		if (options.onChange !== undefined) {
-			model.getEmitter().on(
-				Model.EVENT_CHANGE,
-				options.onChange
-			);
-		}
 
 		const propView = new PropertyView(prop);
 		propView.addSubview(control);

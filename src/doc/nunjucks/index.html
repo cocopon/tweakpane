@@ -35,10 +35,9 @@ var params = {
 var ss = new Seasoner();
 ss.add(params, 'easing', {
 	min: 0,
-	max: 10,
-	onChange: function(value) {
-		console.log(value);
-	}
+	max: 10
+}).on('change', function(value) {
+	console.log(value);
 });
 ss.monitor(params, 'param1', {
 	label: 'Very long long label',
