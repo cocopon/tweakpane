@@ -24,7 +24,6 @@ class PropertyViewFactory {
 		}
 		else {
 			const control = this.createControl_(model, options);
-			// TODO: Refactor
 			control.getEmitter().on(
 				Control.EVENT_CHANGE,
 				(value) => {
