@@ -14,16 +14,16 @@ class StringPropertyViewFactory extends PropertyViewFactory {
 		return new StringModel();
 	}
 
-	static getControlClass_(options) {
+	static createControl_(model, options) {
 		if (options.list !== undefined) {
-			return ListControl;
+			return new ListControl(model);
 		}
 
-		return TextControl;
+		return new TextControl(model);
 	}
 
-	static getMonitorClass_() {
-		return TextMonitor;
+	static createMonitor_(model) {
+		return new TextMonitor(model);
 	}
 
 	static createListItems_(items) {

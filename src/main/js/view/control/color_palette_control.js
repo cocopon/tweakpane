@@ -1,5 +1,6 @@
-const ClassName = require('../../misc/class_name');
-const Control   = require('./control');
+const ColorDisplay = require('../../display/color_display');
+const ClassName      = require('../../misc/class_name');
+const Control        = require('./control');
 
 class ColorPaletteControl extends Control {
 	constructor(model) {
@@ -29,7 +30,10 @@ class ColorPaletteControl extends Control {
 		super.applyModel_();
 
 		if (this.innerElem_ !== undefined) {
-			this.innerElem_.style.backgroundColor = this.getModel().getValue();
+			const color = (new ColorDisplay()).display(
+				this.getModel().getValue()
+			);
+			this.innerElem_.style.backgroundColor = color;
 		}
 	}
 }

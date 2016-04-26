@@ -1,8 +1,8 @@
-const ClassName         = require('../../misc/class_name');
-const CompositeControl  = require('./composite_control');
-const SliderControl     = require('./slider_control');
-const NumberTextControl = require('./number_text_control');
-const TextControl       = require('./text_control');
+const ClassName            = require('../../misc/class_name');
+const CompositeControl     = require('./composite_control');
+const SliderControl        = require('./slider_control');
+const NumberTextControl    = require('./number_text_control');
+const TextControl          = require('./text_control');
 
 class SliderTextControl extends CompositeControl {
 	constructor(model) {

@@ -1,5 +1,6 @@
-const EventEmitter = require('../misc/event_emitter');
-const Model        = require('../model/model');
+const CodecProvider = require('../codec/codec_provider');
+const EventEmitter  = require('../misc/event_emitter');
+const Model         = require('../model/model');
 
 class Property {
 	constructor(builder) {
@@ -16,6 +17,8 @@ class Property {
 		);
 
 		this.emitter_ = new EventEmitter();
+
+		this.codec_ = CodecProvider.provide(this.model_);
 	}
 
 	getEmitter() {
@@ -42,12 +45,22 @@ class Property {
 		return this.model_;
 	}
 
+	getCodec() {
+		return this.codec_;
+	}
+
 	applySourceValue() {
-		this.model_.setValue(this.target_[this.propName_]);
+		this.model_.setValue(
+			this.codec_.decode(
+				this.target_[this.propName_]
+			)
+		);
 	}
 
 	updateSourceValue() {
-		this.target_[this.propName_] = this.model_.getValue();
+		this.target_[this.propName_] = this.codec_.encode(
+			this.model_.getValue()
+		);
 	}
 
 	onModelChange_() {

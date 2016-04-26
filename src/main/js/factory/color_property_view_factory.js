@@ -1,4 +1,4 @@
-const ColorConverter            = require('../converter/color_converter');
+const ColorCodec              = require('../codec/color_codec');
 const ColorModel              = require('../model/color_model');
 const ColorPaletteTextControl = require('../view/control/color_palette_text_control');
 const PropertyViewFactory     = require('./property_view_factory');
@@ -6,15 +6,15 @@ const PropertyViewFactory     = require('./property_view_factory');
 class ColorPropertyViewFactory extends PropertyViewFactory {
 	static supports(value) {
 		return typeof(value) === 'string' &&
-			ColorConverter.canConvert(value);
+			ColorCodec.canDecode(value);
 	}
 
 	static instanciateModel_() {
 		return new ColorModel();
 	}
 
-	static getControlClass_() {
-		return ColorPaletteTextControl;
+	static createControl_(model) {
+		return new ColorPaletteTextControl(model);
 	}
 }
 

@@ -1,10 +1,13 @@
 const StepNumberConstraint = require('../../constraint/step_number_constraint');
+const DefaultNumberDisplay = require('../../display/default_number_display');
 const TextControl          = require('./text_control');
 const Control              = require('./control');
 
 class NumberTextControl extends TextControl {
 	constructor(model) {
 		super(model);
+
+		this.display_ = new DefaultNumberDisplay();
 
 		this.inputElem_.addEventListener(
 			'keydown',

@@ -1,8 +1,7 @@
-const ConverterProvider = require('../converter/converter_provider');
-const Errors            = require('../misc/errors');
-const PropertyBuilder   = require('../misc/property_builder');
-const Control           = require('../view/control/control');
-const PropertyView      = require('../view/property_view');
+const Errors          = require('../misc/errors');
+const PropertyBuilder = require('../misc/property_builder');
+const Control         = require('../view/control/control');
+const PropertyView    = require('../view/property_view');
 
 class PropertyViewFactory {
 	static supports(value) {
@@ -20,22 +19,21 @@ class PropertyViewFactory {
 		const propView = new PropertyView(prop);
 
 		if (monitor) {
-			const MonitorClass = this.getMonitorClass_(options);
-			const monitor = new MonitorClass(model);
+			const monitor = this.createMonitor_(model, options);
 			propView.addSubview(monitor);
 		}
 		else {
-			const ControlClass = this.getControlClass_(options);
-			const control = new ControlClass(model);
+			const control = this.createControl_(model, options);
 			// TODO: Refactor
-			const converter = ConverterProvider.provide(model);
 			control.getEmitter().on(
 				Control.EVENT_CHANGE,
 				(stringValue) => {
-					if (!converter.canConvert(stringValue)) {
+					const codec = prop.getCodec();
+					if (!codec.canDecode(stringValue)) {
 						return;
 					}
-					model.setValue(converter.convert(stringValue));
+					model.setValue(codec.decode(stringValue));
+					prop.updateSourceValue();
 				}
 			);
 			propView.addSubview(control);
@@ -55,12 +53,12 @@ class PropertyViewFactory {
 		return builder.build();
 	}
 
-	static getControlClass_(options) {
-		throw Errors.notImplemented('getControlClass_');
+	static createControl_(model, options) {
+		throw Errors.notImplemented('createControl_');
 	}
 
-	static getMonitorClass_(options) {
-		throw Errors.notImplemented('getMonitorClass_');
+	static createMonitor_(model, options) {
+		throw Errors.notImplemented('createMonitor_');
 	}
 
 	static instanciateModel_(monitor, options) {

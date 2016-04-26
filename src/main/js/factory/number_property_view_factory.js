@@ -2,13 +2,11 @@ const ListConstraint       = require('../constraint/list_constraint');
 const MaxNumberConstraint  = require('../constraint/max_number_constraint');
 const MinNumberConstraint  = require('../constraint/min_number_constraint');
 const StepNumberConstraint = require('../constraint/step_number_constraint');
-const DefaultNumberDisplay = require('../display/default_number_display');
-const ViewUtil             = require('../misc/view_util');
 const NumberHistoryModel   = require('../model/number_history_model');
 const NumberModel          = require('../model/number_model');
 const ListControl          = require('../view/control/list_control');
+const NumberTextControl    = require('../view/control/number_text_control');
 const SliderTextControl    = require('../view/control/slider_text_control');
-const TextControl          = require('../view/control/text_control');
 const GraphMonitor         = require('../view/monitor/graph_monitor');
 const TextMonitor          = require('../view/monitor/text_monitor');
 const PropertyViewFactory  = require('./property_view_factory');
@@ -16,20 +14,6 @@ const PropertyViewFactory  = require('./property_view_factory');
 class NumberPropertyViewFactory extends PropertyViewFactory {
 	static supports(value) {
 		return typeof(value) === 'number';
-	}
-
-	static create(target, propName, monitor, opt_options) {
-		const propView = super.create(target, propName, monitor, opt_options);
-
-		// TODO: Refactor
-		// Set default number display
-		ViewUtil.getAllSubviews(propView).forEach((subview) => {
-			if (subview.setDisplay) {
-				subview.setDisplay(new DefaultNumberDisplay());
-			}
-		});
-
-		return propView;
 	}
 
 	static instanciateModel_(monitor, options) {
@@ -44,22 +28,24 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 		return new NumberModel();
 	}
 
-	static getControlClass_(options) {
+	static createControl_(model, options) {
 		if (options.min !== undefined &&
 				options.max !== undefined) {
-			return SliderTextControl;
+			return new SliderTextControl(model);
 		}
 		if (options.list !== undefined) {
-			return ListControl;
+			return new ListControl(model);
 		}
 
-		return TextControl;
+		return new NumberTextControl(model);
 	}
 
-	static getMonitorClass_(options) {
-		return options.graph ?
-			GraphMonitor :
-			TextMonitor;
+	static createMonitor_(model, options) {
+		if (options.graph) {
+			return new GraphMonitor(model);
+		}
+
+		return new TextMonitor(model);
 	}
 }
 
