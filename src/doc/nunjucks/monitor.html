@@ -20,18 +20,15 @@ setInterval(function() {
 }, 1000 / 60);
 
 (function() {
-	var ss = new Seasoner({
-		autoPlace: false
+	var ss = Seasoner({
+		container: document.getElementById('textExampleContainer')
 	});
 	ss.monitor(params, 'someProperty');
-	document.getElementById('textExampleContainer').appendChild(
-		ss.getElement()
-	);
 })();
 
 (function() {
-	var ss = new Seasoner({
-		autoPlace: false
+	var ss = Seasoner({
+		container: document.getElementById('graphExampleContainer')
 	});
 	ss.monitor(params, 'someProperty', {
 		graph: true,
@@ -40,8 +37,5 @@ setInterval(function() {
 		count: 100,
 		interval: 30
 	});
-	document.getElementById('graphExampleContainer').appendChild(
-		ss.getElement()
-	);
 })();
 {% endblock %}

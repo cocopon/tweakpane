@@ -9,7 +9,7 @@ class BooleanPropertyViewFactory extends PropertyViewFactory {
 		return typeof(value) === 'boolean';
 	}
 
-	static instanciateModel_() {
+	static createModel_() {
 		return new BooleanModel();
 	}
 

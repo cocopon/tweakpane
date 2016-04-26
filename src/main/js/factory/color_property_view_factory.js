@@ -9,7 +9,7 @@ class ColorPropertyViewFactory extends PropertyViewFactory {
 			ColorCodec.canDecode(value);
 	}
 
-	static instanciateModel_() {
+	static createModel_() {
 		return new ColorModel();
 	}
 

@@ -1,5 +1,5 @@
 class Appearance {
-	static apply() {
+	static inject() {
 		if (document.getElementById(this.ELEMENT_ID) !== null) {
 			return;
 		}

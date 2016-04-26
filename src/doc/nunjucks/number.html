@@ -4,10 +4,10 @@
 
 {% block content %}
 <h2>Range</h2>
-Use <code>min()</code> or <code>max()</code> to specify minimum/maximum value.
+Use <code>min</code> or <code>max</code> to specify minimum/maximum value.
 
-<pre><code class="js">var ss = new Seasoner();
-ss.add(target, 'someProperty').min(0);
+<pre><code class="js">var ss = Seasoner();
+ss.add(target, 'someProperty', {min: 0});
 </code></pre>
 
 <div id="minExampleContainer" class="exampleContainer">
@@ -15,18 +15,20 @@ ss.add(target, 'someProperty').min(0);
 
 <p>If you specify both minimum and maximum value, slider control will be appear.</p>
 
-<pre><code class="js">var ss = new Seasoner();
-ss.add(target, 'someProperty').min(0).max(100);
+<pre><code class="js">var ss = Seasoner();
+ss.add(target, 'someProperty', {min: 0, max: 100});
 </code></pre>
 
 <div id="sliderExampleContainer" class="exampleContainer">
 </div>
 
 <h2>Stepping</h2>
-<p>You can also specify a step of changing value by using <code>step()</code>.</p>
+<p>You can also specify a step of changing value by using <code>step</code>.</p>
 
-<pre><code class="js">var ss = new Seasoner();
-ss.add(target, 'someProperty').min(0).max(100).step(10);
+<pre><code class="js">var ss = Seasoner();
+ss.add(target, 'someProperty', {
+  min: 0, max: 100, step: 10
+});
 </code></pre>
 
 <div id="stepExampleContainer" class="exampleContainer">
@@ -36,54 +38,39 @@ ss.add(target, 'someProperty').min(0).max(100).step(10);
 <h2>List</h2>
 TODO:
 <div id="listExampleContainer" class="exampleContainer"></div>
-
-<h2>TODO</h2>
-See <a href="TODO"><code>NumberPropertyFluent</code></a> for full features.
 {% endblock %}
 
 {% block script %}
 var minParams = {
 	someProperty: 50
 };
-var minExample = new Seasoner({
-	autoPlace: false
+var minExample = Seasoner({
+	container: document.getElementById('minExampleContainer')
 });
 minExample.add(minParams, 'someProperty', {min: 0});
-document.getElementById('minExampleContainer').appendChild(
-	minExample.getElement()
-);
 
 var sliderParams = {
 	someProperty: 50
 };
-var sliderExample = new Seasoner({
-	autoPlace: false
+var sliderExample = Seasoner({
+	container: document.getElementById('sliderExampleContainer')
 });
 sliderExample.add(sliderParams, 'someProperty', {min: 0, max: 100});
-document.getElementById('sliderExampleContainer').appendChild(
-	sliderExample.getElement()
-);
 
 var stepParams = {
 	someProperty: 50
 };
-var stepExample = new Seasoner({
-	autoPlace: false
+var stepExample = Seasoner({
+	container: document.getElementById('stepExampleContainer')
 });
-document.getElementById('stepExampleContainer').appendChild(
-	stepExample.getElement()
-);
 stepExample.add(stepParams, 'someProperty', {min: 0, max: 100, step: 10});
 
 var listParams = {
 	someProperty: 0
 };
-var listExample = new Seasoner({
-	autoPlace: false
+var listExample = Seasoner({
+	container: document.getElementById('listExampleContainer')
 });
-document.getElementById('listExampleContainer').appendChild(
-	listExample.getElement()
-);
 listExample.add(listParams, 'someProperty', {
 	list: {
 		foo: 0,

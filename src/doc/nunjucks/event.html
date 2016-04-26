@@ -9,8 +9,8 @@
 <code>'change'</code> event will be called continuously when the user controls a slider. If you want to detect a change just one time, use <code>'TODO'</code> event instead.
 </p>
 
-<pre><code class="js">var ss = new Seasoner();
-ss.add(target, 'someProperty').min(0).max(100).on(
+<pre><code class="js">var ss = Seasoner();
+ss.add(target, 'someProperty', {min: 0, max: 100}).on(
   'change', function(value) {
     console.log(value);
   }
@@ -22,10 +22,10 @@ ss.add(target, 'someProperty').min(0).max(100).on(
 
 <div id="logWindow" class="log"></div>
 
-<p>You can also detect all changes by <code>on()</code> of the Seasoner instance.</p>
+<p>You can also detect all changes by <code>on()</code> of the root object.</p>
 
-<pre><code class="js">var ss = new Seasoner();
-ss.add(target, 'someProperty').min(0).max(100);
+<pre><code class="js">var ss = Seasoner();
+ss.add(target, 'someProperty', {min: 0, max: 100});
 ss.on(
   'change', function(value) {
     console.log(value);
@@ -58,12 +58,9 @@ function appendLog(eventName, value) {
 	var params = {
 		someProperty: 50
 	};
-	var ss = new Seasoner({
-		autoPlace: false
+	var ss = Seasoner({
+		container: document.getElementById('eventExampleContainer')
 	});
-	document.getElementById('eventExampleContainer').appendChild(
-		ss.getElement()
-	);
 	ss.add(params, 'someProperty', {
 		min: 0,
 		max: 100
@@ -82,12 +79,9 @@ function appendLog(eventName, value) {
 		foo: 50,
 		bar: 50
 	};
-	var ss = new Seasoner({
-		autoPlace: false
+	var ss = Seasoner({
+		container: document.getElementById('globalEventExampleContainer')
 	});
-	document.getElementById('globalEventExampleContainer').appendChild(
-		ss.getElement()
-	);
 	ss.add(params, 'foo', {min: 0, max: 100});
 	ss.add(params, 'bar', {min: 0, max: 100});
 	ss.on('change', function(value, prop) {

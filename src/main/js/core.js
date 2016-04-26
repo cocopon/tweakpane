@@ -17,19 +17,23 @@ class Core {
 			opt_options :
 			{};
 
-		const autoPlace = (options.autoPlace !== undefined) ?
-			options.autoPlace :
-			true;
-		if (autoPlace) {
-			const containerElem = document.createElement('div');
-			containerElem.classList.add(ClassName.get('DefaultContainer'));
+		const containerElem = (options.container !== undefined) ?
+			options.container :
+			this.createDefaultContainer_();
+		if (containerElem) {
 			containerElem.appendChild(this.rootView_.getElement());
-			document.body.appendChild(containerElem);
 		}
 
 		this.emitter_ = new EventEmitter();
 
-		Appearance.apply();
+		Appearance.inject();
+	}
+
+	createDefaultContainer_() {
+		const containerElem = document.createElement('div');
+		containerElem.classList.add(ClassName.get('DefaultContainer'));
+		document.body.appendChild(containerElem);
+		return containerElem;
 	}
 
 	getRootView() {

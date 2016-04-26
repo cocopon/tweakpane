@@ -10,7 +10,7 @@ class StringPropertyViewFactory extends PropertyViewFactory {
 		return typeof(value) === 'string';
 	}
 
-	static instanciateModel_() {
+	static createModel_() {
 		return new StringModel();
 	}
 

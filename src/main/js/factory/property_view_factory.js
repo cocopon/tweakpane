@@ -46,6 +46,10 @@ class PropertyViewFactory {
 		return builder.build();
 	}
 
+	static createModel_(options) {
+		throw Errors.notImplemented('createModel_');
+	}
+
 	static createControl_(model, options) {
 		throw Errors.notImplemented('createControl_');
 	}
@@ -54,12 +58,8 @@ class PropertyViewFactory {
 		throw Errors.notImplemented('createMonitor_');
 	}
 
-	static instanciateModel_(options) {
-		throw Errors.notImplemented('instanciateModel_');
-	}
-
 	static createModel_(options) {
-		const model = this.instanciateModel_(options);
+		const model = this.createModel_(options);
 
 		Object.keys(this.CONSTRAINT_FACTORIES).forEach((key) => {
 			const value = options[key];
