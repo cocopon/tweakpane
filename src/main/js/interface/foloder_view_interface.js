@@ -15,8 +15,6 @@ class FolderViewInterface {
 	monitor(target, propName, options) {
 		const propView = PropertyViewFactoryComplex.create(target, propName, true, options);
 		this.view_.addSubview(propView);
-
-		// TODO: Update monitoring property list
 		return new PropertyViewInterface(propView);
 	}
 
