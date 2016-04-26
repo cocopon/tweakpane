@@ -1,16 +1,16 @@
-const FolderViewInterface   = require('./interface/foloder_view_interface');
-const PropertyViewInterface = require('./interface/property_view_interface');
-const Appearance            = require('./misc/appearance');
-const ClassName             = require('./misc/class_name');
-const Errors                = require('./misc/errors');
-const EventEmitter          = require('./misc/event_emitter');
-const PropertyViewProvider  = require('./misc/property_view_provider');
-const ViewUtil              = require('./misc/view_util');
-const Property              = require('./model/property');
-const Monitor               = require('./view/monitor/monitor');
-const FolderView            = require('./view/folder_view');
-const PropertyView          = require('./view/property_view');
-const View                  = require('./view/view');
+const PropertyViewFactoryComplex = require('./factory/property_view_factory_complex');
+const FolderViewInterface        = require('./interface/foloder_view_interface');
+const PropertyViewInterface      = require('./interface/property_view_interface');
+const Appearance                 = require('./misc/appearance');
+const ClassName                  = require('./misc/class_name');
+const Errors                     = require('./misc/errors');
+const EventEmitter               = require('./misc/event_emitter');
+const ViewUtil                   = require('./misc/view_util');
+const Property                   = require('./model/property');
+const Monitor                    = require('./view/monitor/monitor');
+const FolderView                 = require('./view/folder_view');
+const PropertyView               = require('./view/property_view');
+const View                       = require('./view/view');
 
 class Seasoner {
 	constructor(opt_options) {
@@ -50,7 +50,7 @@ class Seasoner {
 	}
 
 	addProperty_(target, propName, monitor, opt_options) {
-		const propView = PropertyViewProvider.provide(target, propName, monitor, opt_options);
+		const propView = PropertyViewFactoryComplex.create(target, propName, monitor, opt_options);
 
 		this.rootView_.addSubview(propView);
 
