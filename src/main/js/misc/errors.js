@@ -34,15 +34,19 @@ class Errors {
 	}
 
 	static propertyNotFound(propertyName) {
-		const e = new Error([
-			`Property not found: '${propertyName}'`,
-		].join('\n'));
+		const e = new Error(
+			`Property not found: '${propertyName}'`
+		);
 		e.name = 'Seasoner.PropertyNotFound';
 		return e;
 	}
 
-	static shouldNotHappen() {
-		return new Error('Should not happen...');
+	static invalidArgument(argumentName, value) {
+		const e = new Error(
+			`Invalid argument: ${argumentName} = ${value}`
+		);
+		e.name = 'Seasoner.InvalidArgument';
+		return e;
 	}
 }
 

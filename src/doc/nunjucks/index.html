@@ -24,6 +24,7 @@ var ss = new Seasoner();
 {% block script %}
 var params = {
 	easing: 2,
+	color: '#00ff00',
 	rotationAmount: 'str',
 	speed: true,
 	softness: 'foo',
@@ -39,6 +40,7 @@ ss.add(params, 'easing', {
 }).on('change', function(value) {
 	console.log(value);
 });
+ss.add(params, 'color');
 ss.monitor(params, 'param1', {
 	label: 'Very long long label'
 });

@@ -15,10 +15,9 @@ class Property {
 			this.onModelChange_,
 			this
 		);
+		this.codec_ = CodecProvider.provide(this.model_);
 
 		this.emitter_ = new EventEmitter();
-
-		this.codec_ = CodecProvider.provide(this.model_);
 	}
 
 	getEmitter() {

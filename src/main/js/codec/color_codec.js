@@ -2,18 +2,11 @@ const Errors = require('../misc/errors');
 const Codec  = require('./codec');
 
 class ColorCodec extends Codec {
-	/**
-	 * @param {string} value
-	 * @return {boolean}
-	 */
 	static canDecode(value) {
-		return this.VALIDATION_PATTERN.test(value);
+		return typeof(value) === 'string' &&
+			this.VALIDATION_PATTERN.test(value);
 	}
 
-	/**
-	 * @param {string} value
-	 * @return {number[]}
-	 */
 	static decode(value) {
 		if (this.SHORT_PATTERN.test(value)) {
 			// '#rgb'
@@ -35,13 +28,9 @@ class ColorCodec extends Codec {
 			];
 		}
 
-		throw Errors.shouldNotHappen();
+		throw Errors.invalidArgument('value', value);
 	}
 
-	/**
-	 * @param {number[]} value
-	 * @return {string}
-	 */
 	static encode(value) {
 		return '#' + value.map((comp) => {
 			const hex = comp.toString(16);
