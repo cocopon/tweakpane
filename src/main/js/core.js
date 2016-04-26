@@ -5,7 +5,6 @@ const Errors       = require('./misc/errors');
 const EventEmitter = require('./misc/event_emitter');
 const ViewUtil     = require('./misc/view_util');
 const Property     = require('./model/property');
-const Monitor      = require('./view/monitor/monitor');
 const FolderView   = require('./view/folder_view');
 const PropertyView = require('./view/property_view');
 const RootView     = require('./view/root_view');
@@ -31,10 +30,6 @@ class Core {
 		this.emitter_ = new EventEmitter();
 
 		Appearance.apply();
-
-		this.monitoringProps_ = [];
-		this.monitoringTimer_ = null;
-		this.startMonitoring_();
 	}
 
 	getRootView() {
@@ -45,8 +40,10 @@ class Core {
 		return this.emitter_;
 	}
 
-	addProperty(target, propName, monitor, opt_options) {
-		const propView = PropertyViewFactoryComplex.create(target, propName, monitor, opt_options);
+	addProperty(target, propName, forMonitor, opt_options) {
+		const propView = PropertyViewFactoryComplex.create(
+			target, propName, forMonitor, opt_options
+		);
 
 		this.rootView_.addSubview(propView);
 
@@ -56,23 +53,6 @@ class Core {
 			this.onPropertyChange_,
 			this
 		);
-
-		if (monitor) {
-			// Update monitoring property list
-			const views = ViewUtil.getAllSubviews(this.rootView_);
-			this.monitoringProps_ = views.filter((view) => {
-				if (!(view instanceof PropertyView)) {
-					return false;
-				}
-
-				const hasMonitor = view.getSubviews().some((subview) => {
-					return subview instanceof Monitor;
-				});
-				return hasMonitor;
-			}).map((propView) => {
-				return propView.getProperty();
-			});
-		}
 
 		return propView;
 	}
@@ -123,28 +103,11 @@ class Core {
 		});
 	}
 
-	startMonitoring_() {
-		if (this.monitoringTimer_ !== null) {
-			return;
-		}
-
-		this.monitoringTimer_ = setInterval(
-			this.onMonitoringTimerTick_.bind(this),
-			1000 / 30
-		);
-	}
-
 	onPropertyChange_(prop) {
 		this.emitter_.notifyObservers(
 			Core.EVENT_CHANGE,
 			[prop.getModel().getValue(), prop]
 		);
-	}
-
-	onMonitoringTimerTick_() {
-		this.monitoringProps_.forEach((prop) => {
-			prop.applySourceValue();
-		});
 	}
 }
 

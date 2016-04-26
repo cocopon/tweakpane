@@ -4,8 +4,8 @@ const ClassName           = require('../../misc/class_name');
 const Monitor             = require('./monitor');
 
 class GraphMonitor extends Monitor {
-	constructor(model) {
-		super(model);
+	constructor(property) {
+		super(property);
 
 		const elem = this.getElement();
 		elem.classList.add(
@@ -23,14 +23,14 @@ class GraphMonitor extends Monitor {
 	}
 
 	getMaxValue_() {
-		const maxConstraint = this.getModel().findConstraintByClass(MaxNumberConstraint);
+		const maxConstraint = this.getProperty().getModel().findConstraintByClass(MaxNumberConstraint);
 		return (maxConstraint !== null) ?
 			maxConstraint.getMaxValue() :
 			+1.0;
 	}
 
 	getMinValue_() {
-		const minConstraint = this.getModel().findConstraintByClass(MinNumberConstraint);
+		const minConstraint = this.getProperty().getModel().findConstraintByClass(MinNumberConstraint);
 		return (minConstraint !== null) ?
 			minConstraint.getMinValue() :
 			-1.0;
@@ -51,7 +51,7 @@ class GraphMonitor extends Monitor {
 		const minValue = this.getMinValue_();
 		const maxValue = this.getMaxValue_();
 
-		const model = this.getModel();
+		const model = this.getProperty().getModel();
 		const values = model.getPreviousValues();
 		g.beginPath();
 		const y0 = h * ((values[0] - minValue) / (maxValue - minValue));

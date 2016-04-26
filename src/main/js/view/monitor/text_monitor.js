@@ -3,8 +3,8 @@ const ClassName = require('../../misc/class_name');
 const Monitor   = require('./monitor');
 
 class TextMonitor extends Monitor {
-	constructor(model) {
-		super(model);
+	constructor(property) {
+		super(property);
 
 		const elem = this.getElement();
 		elem.classList.add(
@@ -39,7 +39,7 @@ class TextMonitor extends Monitor {
 
 		if (this.formatter_) {
 			this.inputElem_.value = this.formatter_.format(
-				this.getModel().getValue()
+				this.getProperty().getModel().getValue()
 			);
 		}
 	}

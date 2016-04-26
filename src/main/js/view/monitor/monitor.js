@@ -1,20 +1,42 @@
-const Model = require('../../model/model');
+const Property = require('../../model/property');
 const View  = require('../view');
 
 class Monitor extends View {
-	constructor(model) {
+	constructor(property) {
 		super();
 
-		model.getEmitter().on(
-			Model.EVENT_CHANGE,
+		property.getEmitter().on(
+			Property.EVENT_MODEL_CHANGE,
 			this.onModelChange_,
 			this
 		);
-		this.model_ = model;
+		this.prop_ = property;
+
+		this.timer_ = null;
 	}
 
-	getModel() {
-		return this.model_;
+	getProperty() {
+		return this.prop_;
+	}
+
+	start(opt_interval) {
+		this.stop();
+
+		const interval = (opt_interval !== undefined) ?
+			opt_interval :
+			(1000 / 20);
+		this.timer_ = setInterval(() => {
+			this.onTimerTick_();
+		}, interval);
+	}
+
+	stop() {
+		if (this.timer_ === null) {
+			return;
+		}
+
+		clearInterval(this.timer_);
+		this.timer_ = null;
 	}
 
 	applyModel_() {
@@ -22,6 +44,10 @@ class Monitor extends View {
 
 	onModelChange_() {
 		this.applyModel_();
+	}
+
+	onTimerTick_() {
+		this.prop_.applySourceValue();
 	}
 }
 

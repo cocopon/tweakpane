@@ -16,8 +16,8 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 		return typeof(value) === 'number';
 	}
 
-	static instanciateModel_(monitor, options) {
-		if (!monitor) {
+	static instanciateModel_(forMonitor, options) {
+		if (!forMonitor) {
 			return new NumberModel();
 		}
 
@@ -40,12 +40,12 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 		return new NumberTextControl(model);
 	}
 
-	static createMonitor_(model, options) {
+	static createMonitor_(property, options) {
 		if (options.graph) {
-			return new GraphMonitor(model);
+			return new GraphMonitor(property);
 		}
 
-		return new NumberTextMonitor(model);
+		return new NumberTextMonitor(property);
 	}
 }
 
