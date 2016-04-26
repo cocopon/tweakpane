@@ -1,9 +1,9 @@
 const Display = require('./display');
 
-class DefaultNumberDisplay extends Display {
+class NumberDisplay extends Display {
 	display(value) {
 		return value.toPrecision(3);
 	}
 }
 
-module.exports = DefaultNumberDisplay;
+module.exports = NumberDisplay;
