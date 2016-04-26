@@ -50,9 +50,11 @@ class CheckboxControl extends Control {
 	}
 
 	onInputElementChange_() {
+		const value = this.inputElem_.checked ?
+			'1' : '0';
 		this.getEmitter().notifyObservers(
 			Control.EVENT_CHANGE,
-			[this.inputElem_.checked]
+			[value]
 		);
 	}
 }

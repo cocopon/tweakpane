@@ -40,6 +40,10 @@ class Errors {
 		e.name = 'Seasoner.PropertyNotFound';
 		return e;
 	}
+
+	static shouldNotHappen() {
+		return new Error('Should not happen...');
+	}
 }
 
 module.exports = Errors;

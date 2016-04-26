@@ -1,7 +1,8 @@
-const Errors          = require('../misc/errors');
-const PropertyBuilder = require('../misc/property_builder');
-const Control         = require('../view/control/control');
-const PropertyView    = require('../view/property_view');
+const ConverterProvider = require('../converter/converter_provider');
+const Errors            = require('../misc/errors');
+const PropertyBuilder   = require('../misc/property_builder');
+const Control           = require('../view/control/control');
+const PropertyView      = require('../view/property_view');
 
 class PropertyViewFactory {
 	static supports(value) {
@@ -26,10 +27,15 @@ class PropertyViewFactory {
 		else {
 			const ControlClass = this.getControlClass_(options);
 			const control = new ControlClass(model);
+			// TODO: Refactor
+			const converter = ConverterProvider.provide(model);
 			control.getEmitter().on(
 				Control.EVENT_CHANGE,
-				(value) => {
-					model.setValue(value);
+				(stringValue) => {
+					if (!converter.canConvert(stringValue)) {
+						return;
+					}
+					model.setValue(converter.convert(stringValue));
 				}
 			);
 			propView.addSubview(control);

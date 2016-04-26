@@ -1,6 +1,6 @@
 class Display {
 	display(value) {
-		return value;
+		return String(value);
 	}
 }
 

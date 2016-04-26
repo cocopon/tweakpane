@@ -11,7 +11,7 @@ class StepNumberConstraint extends Constraint {
 		return this.stepValue_;
 	}
 
-	format(value) {
+	constrain(value) {
 		return (this.stepValue_ !== null) ?
 			value - value % this.stepValue_ :
 			value;

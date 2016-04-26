@@ -11,7 +11,7 @@ class MinNumberConstraint extends Constraint {
 		return this.minValue_;
 	}
 
-	format(value) {
+	constrain(value) {
 		return (this.minValue_ !== null) ?
 			Math.max(value, this.minValue_) :
 			value;

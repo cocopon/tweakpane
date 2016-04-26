@@ -20,9 +20,9 @@ class Model {
 		return value !== null;
 	}
 
-	format_() {
+	constrain_() {
 		this.value_ = this.constraints_.reduce((v, constraint) => {
-			return constraint.format(v);
+			return constraint.constrain(v);
 		}, this.value_);
 		this.emitter_.notifyObservers(
 			Model.EVENT_CHANGE,
@@ -36,7 +36,7 @@ class Model {
 		}
 
 		this.value_ = value;
-		this.format_();
+		this.constrain_();
 
 		return true;
 	}
@@ -61,7 +61,7 @@ class Model {
 
 		this.constraints_.push(constraint);
 
-		this.format_();
+		this.constrain_();
 	}
 }
 

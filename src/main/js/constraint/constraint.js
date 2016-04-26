@@ -1,5 +1,5 @@
 class Constraint {
-	format(value) {
+	constrain(value) {
 		return value;
 	}
 }

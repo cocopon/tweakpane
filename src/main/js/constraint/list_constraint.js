@@ -21,7 +21,7 @@ class ListConstraint extends Constraint {
 		return result;
 	}
 
-	format(value) {
+	constrain(value) {
 		if (this.items_ === null ||
 				this.items_.length === 0) {
 			return value;

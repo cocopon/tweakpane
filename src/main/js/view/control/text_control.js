@@ -45,11 +45,9 @@ class TextControl extends Control {
 	applyModel_() {
 		super.applyModel_();
 
-		if (this.display_) {
-			this.inputElem_.value = this.display_.display(
-				this.getModel().getValue()
-			);
-		}
+		this.inputElem_.value = this.display_.display(
+			this.getModel().getValue()
+		);
 	}
 
 	onInputElementBlur_() {
