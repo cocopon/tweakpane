@@ -27,12 +27,8 @@ class PropertyViewFactory {
 			// TODO: Refactor
 			control.getEmitter().on(
 				Control.EVENT_CHANGE,
-				(stringValue) => {
-					const codec = prop.getCodec();
-					if (!codec.canDecode(stringValue)) {
-						return;
-					}
-					model.setValue(codec.decode(stringValue));
+				(value) => {
+					prop.setValue(value);
 					prop.updateSourceValue();
 				}
 			);

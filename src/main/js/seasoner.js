@@ -142,7 +142,8 @@ class Seasoner {
 	getJson() {
 		const props = this.getJsonProperties_();
 		return Object.keys(props).reduce((result, propId) => {
-			result[propId] = props[propId].getModel().getValue();
+			const prop = props[propId];
+			result[propId] = prop.getValue();
 			return result;
 		}, {});
 	}
@@ -155,7 +156,7 @@ class Seasoner {
 				return;
 			}
 
-			prop.getModel().setValue(json[propId]);
+			prop.setValue(json[propId]);
 		});
 	}
 

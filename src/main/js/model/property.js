@@ -49,18 +49,30 @@ class Property {
 		return this.codec_;
 	}
 
-	applySourceValue() {
-		this.model_.setValue(
-			this.codec_.decode(
-				this.target_[this.propName_]
-			)
+	getValue() {
+		return this.codec_.encode(
+			this.model_.getValue()
 		);
 	}
 
-	updateSourceValue() {
-		this.target_[this.propName_] = this.codec_.encode(
-			this.model_.getValue()
+	setValue(value) {
+		if (!this.codec_.canDecode(value)) {
+			return false;
+		}
+
+		this.model_.setValue(
+			this.codec_.decode(value)
 		);
+
+		return true;
+	}
+
+	applySourceValue() {
+		this.setValue(this.target_[this.propName_]);
+	}
+
+	updateSourceValue() {
+		this.target_[this.propName_] = this.getValue();
 	}
 
 	onModelChange_() {
