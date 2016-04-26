@@ -40,9 +40,9 @@ class Core {
 		return this.emitter_;
 	}
 
-	addProperty(target, propName, forMonitor, opt_options) {
+	addProperty(target, propName, options) {
 		const propView = PropertyViewFactoryComplex.create(
-			target, propName, forMonitor, opt_options
+			target, propName, options
 		);
 
 		this.rootView_.addSubview(propView);

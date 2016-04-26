@@ -16,8 +16,8 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 		return typeof(value) === 'number';
 	}
 
-	static instanciateModel_(forMonitor, options) {
-		if (!forMonitor) {
+	static instanciateModel_(options) {
+		if (!options.forMonitor) {
 			return new NumberModel();
 		}
 

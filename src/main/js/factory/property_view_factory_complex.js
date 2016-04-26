@@ -12,7 +12,7 @@ const FACTORIES = [
 ];
 
 class PropertyViewFactoryComplex {
-	static create(target, propName, forMonitor, opt_options) {
+	static create(target, propName, options) {
 		const factory = this.getFactory_(target, propName);
 		if (factory === null) {
 			throw Errors.propertyTypeNotSupported(
@@ -20,7 +20,7 @@ class PropertyViewFactoryComplex {
 				target[propName]
 			);
 		}
-		return factory.create(target, propName, forMonitor, opt_options);
+		return factory.create(target, propName, options);
 	}
 
 	static getFactory_(target, propName) {

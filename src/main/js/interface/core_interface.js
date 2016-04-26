@@ -11,18 +11,26 @@ class CoreInterface {
 	}
 
 	add(target, propName, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		options.forMonitor = false;
+
 		const propView = this.core_.addProperty(
-			target, propName, false, opt_options
+			target, propName, options
 		);
 		return new PropertyViewInterface(propView);
 	}
 
 	monitor(target, propName, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		options.forMonitor = true;
+
 		const propView = this.core_.addProperty(
-			target, propName, true, opt_options
+			target, propName, options
 		);
-
-
 		return new PropertyViewInterface(propView);
 	}
 

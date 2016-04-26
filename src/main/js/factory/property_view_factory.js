@@ -8,17 +8,14 @@ class PropertyViewFactory {
 		throw Errors.notImplemented('supports');
 	}
 
-	static create(target, propName, forMonitor, opt_options) {
-		const options = (opt_options !== undefined) ?
-			opt_options :
-			{};
-		const model = this.createModel_(forMonitor, options);
+	static create(target, propName, options) {
+		const model = this.createModel_(options);
 		const prop = this.createProperty_(target, propName, model, options);
 		prop.applySourceValue();
 
 		const propView = new PropertyView(prop);
 
-		if (forMonitor) {
+		if (options.forMonitor) {
 			const monitor = this.createMonitor_(prop, options);
 			monitor.start(options.interval);
 			propView.addSubview(monitor);
@@ -57,12 +54,12 @@ class PropertyViewFactory {
 		throw Errors.notImplemented('createMonitor_');
 	}
 
-	static instanciateModel_(forMonitor, options) {
+	static instanciateModel_(options) {
 		throw Errors.notImplemented('instanciateModel_');
 	}
 
-	static createModel_(forMonitor, options) {
-		const model = this.instanciateModel_(forMonitor, options);
+	static createModel_(options) {
+		const model = this.instanciateModel_(options);
 
 		Object.keys(this.CONSTRAINT_FACTORIES).forEach((key) => {
 			const value = options[key];
