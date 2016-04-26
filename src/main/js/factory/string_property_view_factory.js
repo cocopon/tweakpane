@@ -22,7 +22,7 @@ class StringPropertyViewFactory extends PropertyViewFactory {
 		return TextControl;
 	}
 
-	static getMonitorClass_(options) {
+	static getMonitorClass_() {
 		return TextMonitor;
 	}
 

@@ -4,10 +4,12 @@ const MinNumberConstraint  = require('../constraint/min_number_constraint');
 const StepNumberConstraint = require('../constraint/step_number_constraint');
 const DefaultNumberDisplay = require('../display/default_number_display');
 const ViewUtil             = require('../misc/view_util');
+const NumberHistoryModel   = require('../model/number_history_model');
 const NumberModel          = require('../model/number_model');
 const ListControl          = require('../view/control/list_control');
 const SliderTextControl    = require('../view/control/slider_text_control');
 const TextControl          = require('../view/control/text_control');
+const GraphMonitor         = require('../view/monitor/graph_monitor');
 const TextMonitor          = require('../view/monitor/text_monitor');
 const PropertyViewFactory  = require('./property_view_factory');
 
@@ -16,8 +18,8 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 		return typeof(value) === 'number';
 	}
 
-	static createControlProperty(target, propName, opt_options) {
-		const propView = super.createControlProperty(target, propName, opt_options);
+	static create(target, propName, monitor, opt_options) {
+		const propView = super.create(target, propName, monitor, opt_options);
 
 		// TODO: Refactor
 		// Set default number display
@@ -30,21 +32,15 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 		return propView;
 	}
 
-	static createMonitorProperty(target, propName, opt_options) {
-		const propView = super.createMonitorProperty(target, propName, opt_options);
+	static instanciateModel_(monitor, options) {
+		if (!monitor) {
+			return new NumberModel();
+		}
 
-		// TODO: Refactor
-		// Set default number display
-		ViewUtil.getAllSubviews(propView).forEach((subview) => {
-			if (subview.setDisplay) {
-				subview.setDisplay(new DefaultNumberDisplay());
-			}
-		});
+		if (options.graph) {
+			return new NumberHistoryModel(options.count);
+		}
 
-		return propView;
-	}
-
-	static instanciateModel_() {
 		return new NumberModel();
 	}
 
@@ -61,7 +57,9 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 	}
 
 	static getMonitorClass_(options) {
-		return TextMonitor;
+		return options.graph ?
+			GraphMonitor :
+			TextMonitor;
 	}
 }
 

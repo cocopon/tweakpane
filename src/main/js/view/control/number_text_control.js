@@ -12,17 +12,15 @@ class NumberTextControl extends TextControl {
 		);
 	}
 
-	getPreferredStep_() {
+	getStep_() {
 		const stepConstraint = this.getModel().findConstraintByClass(StepNumberConstraint);
-		if (stepConstraint !== null) {
-			return stepConstraint.getStepValue();
-		}
-
-		return 0.1;
+		return (stepConstraint !== null) ?
+			stepConstraint.getStepValue() :
+			0.1;
 	}
 
 	onInputKeyDown_(e) {
-		const step = this.getPreferredStep_() * (e.shiftKey ? 10 : 1);
+		const step = this.getStep_() * (e.shiftKey ? 10 : 1);
 		const model = this.getModel();
 		switch (e.keyCode) {
 			case 38:  // UP

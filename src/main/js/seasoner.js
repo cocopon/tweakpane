@@ -49,8 +49,8 @@ class Seasoner {
 		return this.emitter_;
 	}
 
-	add(target, propName, opt_options) {
-		const propView = PropertyViewProvider.provideControlProperty(target, propName, opt_options);
+	addProperty_(target, propName, monitor, opt_options) {
+		const propView = PropertyViewProvider.provide(target, propName, monitor, opt_options);
 
 		this.rootView_.addSubview(propView);
 
@@ -64,11 +64,14 @@ class Seasoner {
 		return new PropertyViewInterface(propView);
 	}
 
+	add(target, propName, opt_options) {
+		return this.addProperty_(target, propName, false, opt_options);
+	}
+
 	monitor(target, propName, opt_options) {
-		const propView = PropertyViewProvider.provideMonitorProperty(target, propName, opt_options);
+		const propInterface = this.addProperty_(target, propName, true, opt_options);
 
-		this.rootView_.addSubview(propView);
-
+		// Update monitoring property list
 		const views = ViewUtil.getAllSubviews(this.rootView_);
 		this.monitoringProps_ = views.filter((view) => {
 			if (!(view instanceof PropertyView)) {
@@ -83,7 +86,7 @@ class Seasoner {
 			return propView.getProperty();
 		});
 
-		return new PropertyViewInterface(propView);
+		return propInterface;
 	}
 
 	startMonitoring_() {

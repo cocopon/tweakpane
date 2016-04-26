@@ -12,7 +12,7 @@ const CONTROL_FACTORIES = [
 ];
 
 class PropertyViewProvider {
-	static provideControlProperty(target, propName, opt_options) {
+	static provide(target, propName, monitor, opt_options) {
 		const factory = this.getFactory_(target, propName);
 		if (factory === null) {
 			throw Errors.propertyTypeNotSupported(
@@ -20,18 +20,7 @@ class PropertyViewProvider {
 				target[propName]
 			);
 		}
-		return factory.createControlProperty(target, propName, opt_options);
-	}
-
-	static provideMonitorProperty(target, propName, opt_options) {
-		const factory = this.getFactory_(target, propName);
-		if (factory === null) {
-			throw Errors.propertyTypeNotSupported(
-				propName,
-				target[propName]
-			);
-		}
-		return factory.createMonitorProperty(target, propName, opt_options);
+		return factory.create(target, propName, monitor, opt_options);
 	}
 
 	static getFactory_(target, propName) {

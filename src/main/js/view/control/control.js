@@ -14,7 +14,6 @@ class Control extends View {
 			this
 		);
 		this.model_ = model;
-		this.applyModel_();
 	}
 
 	getModel() {

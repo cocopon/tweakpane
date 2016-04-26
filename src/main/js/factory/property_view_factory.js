@@ -8,42 +8,32 @@ class PropertyViewFactory {
 		throw Errors.notImplemented('supports');
 	}
 
-	static createControlProperty(target, propName, opt_options) {
+	static create(target, propName, monitor, opt_options) {
 		const options = (opt_options !== undefined) ?
 			opt_options :
 			{};
-		const model = this.createModel_(options);
+		const model = this.createModel_(monitor, options);
 		const prop = this.createProperty_(target, propName, model, options);
 		prop.applySourceValue();
 
-		const ControlClass = this.getControlClass_(options);
-		const control = new ControlClass(model);
-		control.getEmitter().on(
-			Control.EVENT_CHANGE,
-			(value) => {
-				model.setValue(value);
-			}
-		);
-
 		const propView = new PropertyView(prop);
-		propView.addSubview(control);
 
-		return propView;
-	}
-
-	static createMonitorProperty(target, propName, opt_options) {
-		const options = (opt_options !== undefined) ?
-			opt_options :
-			{};
-		const model = this.createModel_(options);
-		const prop = this.createProperty_(target, propName, model, options);
-		prop.applySourceValue();
-
-		const MonitorClass = this.getMonitorClass_(options);
-		const monitor = new MonitorClass(model);
-
-		const propView = new PropertyView(prop);
-		propView.addSubview(monitor);
+		if (monitor) {
+			const MonitorClass = this.getMonitorClass_(options);
+			const monitor = new MonitorClass(model);
+			propView.addSubview(monitor);
+		}
+		else {
+			const ControlClass = this.getControlClass_(options);
+			const control = new ControlClass(model);
+			control.getEmitter().on(
+				Control.EVENT_CHANGE,
+				(value) => {
+					model.setValue(value);
+				}
+			);
+			propView.addSubview(control);
+		}
 
 		return propView;
 	}
@@ -59,12 +49,6 @@ class PropertyViewFactory {
 		return builder.build();
 	}
 
-	static createControl_(options) {
-		const ControlClass = this.getControlClass_(options);
-		const model = this.createModel_(options);
-		return new ControlClass(model);
-	}
-
 	static getControlClass_(options) {
 		throw Errors.notImplemented('getControlClass_');
 	}
@@ -73,12 +57,12 @@ class PropertyViewFactory {
 		throw Errors.notImplemented('getMonitorClass_');
 	}
 
-	static instanciateModel_() {
+	static instanciateModel_(monitor, options) {
 		throw Errors.notImplemented('instanciateModel_');
 	}
 
-	static createModel_(options) {
-		const model = this.instanciateModel_();
+	static createModel_(monitor, options) {
+		const model = this.instanciateModel_(monitor, options);
 
 		Object.keys(this.CONSTRAINT_FACTORIES).forEach((key) => {
 			const value = options[key];

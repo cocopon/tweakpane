@@ -1,0 +1,46 @@
+{% extends "_template.html" %}
+
+{% set title = 'Monitoring' %}
+
+{% block content %}
+<div id="textExampleContainer" class="exampleContainer">
+</div>
+<div id="graphExampleContainer" class="exampleContainer">
+</div>
+{% endblock %}
+
+{% block script %}
+var params = {
+	someProperty: 0
+};
+var t = 0;
+setInterval(function() {
+	t += 0.01;
+	params.someProperty = Math.sin(t * 2 * Math.PI);
+}, 1000 / 60);
+
+(function() {
+	var ss = new Seasoner({
+		autoPlace: false
+	});
+	ss.monitor(params, 'someProperty');
+	document.getElementById('textExampleContainer').appendChild(
+		ss.getElement()
+	);
+})();
+
+(function() {
+	var ss = new Seasoner({
+		autoPlace: false
+	});
+	ss.monitor(params, 'someProperty', {
+		graph: true,
+		min: -5.0,
+		max: +5.0,
+		count: 10
+	});
+	document.getElementById('graphExampleContainer').appendChild(
+		ss.getElement()
+	);
+})();
+{% endblock %}
