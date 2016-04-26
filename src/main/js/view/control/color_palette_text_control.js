@@ -1,4 +1,4 @@
-const ColorDisplay        = require('../../display/color_display');
+const ColorFormatter      = require('../../formatter/color_formatter');
 const ClassName           = require('../../misc/class_name');
 const CompositeControl    = require('./composite_control');
 const ColorPaletteControl = require('./color_palette_control');
@@ -23,7 +23,7 @@ class ColorPaletteTextControl extends CompositeControl {
 		this.addSubview(paletteControl);
 
 		const textControl = new TextControl(this.getModel());
-		textControl.setDisplay(new ColorDisplay());
+		textControl.setFormatter(new ColorFormatter());
 		textControl.getElement().classList.add(
 			ClassName.get(
 				TextControl.BLOCK_CLASS,

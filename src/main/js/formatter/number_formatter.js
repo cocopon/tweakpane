@@ -1,7 +1,7 @@
-const Display = require('./display');
+const Formatter = require('./formatter');
 
-class NumberDisplay extends Display {
-	display(value) {
+class NumberFormatter extends Formatter {
+	format(value) {
 		// Workaround for vanishingly small error:
 		// e.g.
 		// 4.0 + 0.1 + 0.1 = 4.199999999999999 => 4.2
@@ -26,4 +26,4 @@ class NumberDisplay extends Display {
 	}
 }
 
-module.exports = NumberDisplay;
+module.exports = NumberFormatter;

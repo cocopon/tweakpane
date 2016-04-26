@@ -1,4 +1,4 @@
-const ColorDisplay = require('../../display/color_display');
+const ColorFormatter = require('../../formatter/color_formatter');
 const ClassName      = require('../../misc/class_name');
 const Control        = require('./control');
 
@@ -30,7 +30,7 @@ class ColorPaletteControl extends Control {
 		super.applyModel_();
 
 		if (this.innerElem_ !== undefined) {
-			const color = (new ColorDisplay()).display(
+			const color = (new ColorFormatter()).format(
 				this.getModel().getValue()
 			);
 			this.innerElem_.style.backgroundColor = color;

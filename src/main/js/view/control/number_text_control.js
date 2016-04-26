@@ -1,5 +1,5 @@
 const StepNumberConstraint = require('../../constraint/step_number_constraint');
-const NumberDisplay        = require('../../display/number_display');
+const NumberFormatter      = require('../../formatter/number_formatter');
 const TextControl          = require('./text_control');
 const Control              = require('./control');
 
@@ -7,7 +7,7 @@ class NumberTextControl extends TextControl {
 	constructor(model) {
 		super(model);
 
-		this.display_ = new NumberDisplay();
+		this.formatter_ = new NumberFormatter();
 
 		this.inputElem_.addEventListener(
 			'keydown',
@@ -19,7 +19,7 @@ class NumberTextControl extends TextControl {
 		const stepConstraint = this.getModel().findConstraintByClass(StepNumberConstraint);
 		return (stepConstraint !== null) ?
 			stepConstraint.getStepValue() :
-			0.1;
+			1;
 	}
 
 	onInputKeyDown_(e) {

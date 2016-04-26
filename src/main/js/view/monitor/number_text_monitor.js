@@ -1,11 +1,11 @@
-const NumberDisplay = require('../../display/number_display');
-const TextMonitor   = require('./text_monitor');
+const NumberFormatter = require('../../formatter/number_formatter');
+const TextMonitor     = require('./text_monitor');
 
 class NumberTextMonitor extends TextMonitor {
 	constructor(model) {
 		super(model);
 
-		this.display_ = new NumberDisplay();
+		this.formatter_ = new NumberFormatter();
 	}
 }
 

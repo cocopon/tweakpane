@@ -1,4 +1,4 @@
-const Display   = require('../../display/display');
+const Formatter = require('../../formatter/formatter');
 const ClassName = require('../../misc/class_name');
 const Monitor   = require('./monitor');
 
@@ -20,25 +20,25 @@ class TextMonitor extends Monitor {
 		elem.appendChild(inputElem);
 		this.inputElem_ = inputElem;
 
-		this.display_ = new Display();
+		this.formatter_ = new Formatter();
 
 		this.applyModel_();
 	}
 
-	getDisplay() {
-		return this.display_;
+	getFormatter() {
+		return this.formatter_;
 	}
 
-	setDisplay(display) {
-		this.display_ = display;
+	setFormatter(formatter) {
+		this.formatter_ = formatter;
 		this.applyModel_();
 	}
 
 	applyModel_() {
 		super.applyModel_();
 
-		if (this.display_) {
-			this.inputElem_.value = this.display_.display(
+		if (this.formatter_) {
+			this.inputElem_.value = this.formatter_.format(
 				this.getModel().getValue()
 			);
 		}
