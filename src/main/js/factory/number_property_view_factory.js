@@ -8,7 +8,7 @@ const ListControl          = require('../view/control/list_control');
 const NumberTextControl    = require('../view/control/number_text_control');
 const SliderTextControl    = require('../view/control/slider_text_control');
 const GraphMonitor         = require('../view/monitor/graph_monitor');
-const TextMonitor          = require('../view/monitor/text_monitor');
+const NumberTextMonitor    = require('../view/monitor/number_text_monitor');
 const PropertyViewFactory  = require('./property_view_factory');
 
 class NumberPropertyViewFactory extends PropertyViewFactory {
@@ -45,7 +45,7 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 			return new GraphMonitor(model);
 		}
 
-		return new TextMonitor(model);
+		return new NumberTextMonitor(model);
 	}
 }
 
