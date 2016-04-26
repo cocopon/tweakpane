@@ -1,13 +1,13 @@
 const PropertyViewFactoryComplex = require('./factory/property_view_factory_complex');
-const Appearance   = require('./misc/appearance');
-const ClassName    = require('./misc/class_name');
-const Errors       = require('./misc/errors');
-const EventEmitter = require('./misc/event_emitter');
-const ViewUtil     = require('./misc/view_util');
-const Property     = require('./model/property');
-const FolderView   = require('./view/folder_view');
-const PropertyView = require('./view/property_view');
-const RootView     = require('./view/root_view');
+const Appearance                 = require('./misc/appearance');
+const ClassName                  = require('./misc/class_name');
+const Errors                     = require('./misc/errors');
+const EventEmitter               = require('./misc/event_emitter');
+const ViewUtil                   = require('./misc/view_util');
+const Property                   = require('./model/property');
+const FolderView                 = require('./view/folder_view');
+const PropertyView               = require('./view/property_view');
+const RootView                   = require('./view/root_view');
 
 class Core {
 	constructor(opt_options) {
