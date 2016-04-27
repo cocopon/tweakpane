@@ -60,7 +60,7 @@ class CoreInterface {
 	refresh() {
 		// Delay refresh for waiting all properties update
 		setTimeout(() => {
-			this.core_.refreshAllProperties();
+			this.core_.refreshProperties();
 		});
 	}
 }

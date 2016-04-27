@@ -1,17 +1,19 @@
 $prefix: 'ss';
 
 // Colors
-$background-color: hsl(0, 0, 10%);
-$folder-view-title-color: hsl(0, 0, 50%);
+$key-hue: 240deg;
+$background-color: hsl($key-hue, 15%, 12%);
+$prop-view-background-color: adjust-color($background-color, $saturation: -5%, $lightness: +8%);
+$input-background-color: adjust-color($prop-view-background-color, $lightness: +5%);
+$input-foreground-color: hsla($key-hue, 10%, 80%, 1.0);
+
+$folder-view-title-color: hsla($key-hue, 10%, 80%, 0.5);
 $folder-view-title-hover-color: lighten($folder-view-title-color, 10%);
-$input-background-color: hsl(0, 0, 25%);
-$input-foreground-color: hsl(0, 0, 90%);
 $input-hover-foreground-color: lighten($input-foreground-color, 10%);
 $input-focus-background-color: lighten($input-background-color, 5%);
 $input-hover-background-color: lighten($input-background-color, 10%);
-$prop-view-background-color: hsl(0, 0, 20%);
-$prop-view-label-color: hsl(0, 0, 80%);
-$prop-view-separator-color: darken($prop-view-background-color, 3%);
+$prop-view-label-color: hsla($key-hue, 10%, 80%, 0.7);
+$prop-view-separator-color: transparent;//darken($prop-view-background-color, 3%);
 
 // Geometry
 $input-height: 24px;

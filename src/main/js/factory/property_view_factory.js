@@ -39,6 +39,9 @@ class PropertyViewFactory {
 
 	static createProperty_(target, propName, model, options) {
 		const builder = new PropertyBuilder(target, propName, model);
+		if (options.forMonitor) {
+			builder.setForMonitor(true);
+		}
 		if (options.id !== undefined) {
 			builder.setId(options.id);
 		}

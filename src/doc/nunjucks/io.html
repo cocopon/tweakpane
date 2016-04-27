@@ -1,0 +1,69 @@
+{% extends "_template.html" %}
+
+{% set title = 'Import/Export' %}
+
+{% block content %}
+<p>You can export all properties to JSON by <code>getJson()</code>.</p>
+
+<div class="codeBlock">
+	<div class="codeBlock_code">
+		<pre><code class="js">var ss = Seasoner();
+ss.getJson();</code></pre>
+	</div>
+	<div class="codeBlock_example">
+		<div id="exportExample" class="codeBlock_ssContainer"></div>
+	</div>
+</div>
+
+<p>To import an exported JSON, pass it to <code>setJson()</code>.</p>
+
+<div class="codeBlock">
+	<div class="codeBlock_code">
+		<pre><code class="js">
+</code></pre>
+	</div>
+	<div class="codeBlock_example">
+		<div id="importExample" class="codeBlock_ssContainer"></div>
+	</div>
+</div>
+
+
+<h2>Changing a key of JSON variable</h2>
+<p>Property name will be used as a key of JSON object by default, but you can change it by <code>id</code> option.</p>
+
+<div class="codeBlock">
+	<div class="codeBlock_code">
+		<pre><code class="js">var ss = Seasoner();
+ss.add(target, 'speed1');
+ss.add(target, 'speed2', {
+  id: 'initSpeed'
+});</code></pre>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+(function() {
+	var params = {
+		color: '#f80',
+		size: 10,
+		speed: 1.0,
+	};
+	var ss = Seasoner({
+		container: document.getElementById('exportExample')
+	});
+	ss.add(params, 'color');
+	ss.add(params, 'size');
+	ss.add(params, 'speed');
+	console.log(ss.getJson());
+})();
+
+(function() {
+	var params = {
+	};
+	var ss = Seasoner({
+		container: document.getElementById('importExample')
+	});
+})();
+{% endblock %}

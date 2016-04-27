@@ -8,6 +8,7 @@ class Property {
 		this.propName_ = builder.getPropertyName();
 		this.label_ = builder.getLabel();
 		this.id_ = builder.getId();
+		this.forMonitor_ = builder.isForMonitor();
 
 		this.model_ = builder.getModel();
 		this.model_.getEmitter().on(
@@ -52,6 +53,10 @@ class Property {
 		return this.codec_.encode(
 			this.model_.getValue()
 		);
+	}
+
+	isForMonitor() {
+		return this.forMonitor_;
 	}
 
 	setValue(value) {

@@ -6,6 +6,7 @@ class PropertyBuilder {
 		this.propName_ = propName;
 		this.model_ = model;
 
+		this.forMonitor_ = false;
 		this.id_ = propName;
 		this.label_ = propName;
 	}
@@ -36,6 +37,14 @@ class PropertyBuilder {
 
 	setLabel(label) {
 		this.label_ = label;
+	}
+
+	isForMonitor() {
+		return this.forMonitor_;
+	}
+
+	setForMonitor(forMonitor) {
+		this.forMonitor_ = forMonitor;
 	}
 
 	build() {

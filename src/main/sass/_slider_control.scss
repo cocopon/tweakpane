@@ -17,6 +17,7 @@
 			height: 100%;
 			overflow: hidden;
 			position: relative;
+			transition: background-color 0.2s ease-out;
 		}
 		&_inner {
 			background-color: $input-foreground-color;
@@ -24,6 +25,7 @@
 			left: 0;
 			position: absolute;
 			top: 0;
+			transition: background-color 0.2s ease-out;
 		}
 	}
 }

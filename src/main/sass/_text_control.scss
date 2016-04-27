@@ -1,29 +1,27 @@
 .#{$prefix}tc {
-	background-color: $input-background-color;
-	border-radius: 2px;
 	height: $input-height;
 	position: relative;
 
-	&:focus {
-		background-color: $input-focus-background-color;
-	}
-	&:hover {
-		background-color: $input-hover-background-color;
-	}
-	&:hover &_input {
-		color: $input-hover-foreground-color;
-	}
-
 	@at-root {
 		&_input {
-			background-color: transparent;
+			background-color: $input-background-color;
+			border-radius: 2px;
 			border-width: 0;
 			color: $input-foreground-color;
 			height: $input-height;
 			line-height: $input-height;
 			outline: none;
 			padding: 0 5px;
+			transition: background-color 0.2s ease-out;
 			width: 100%;
+
+			&:focus {
+				background-color: $input-focus-background-color;
+			}
+			&:hover {
+				background-color: $input-hover-background-color;
+				color: $input-hover-foreground-color;
+			}
 		}
 	}
 }

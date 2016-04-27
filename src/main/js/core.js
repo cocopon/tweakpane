@@ -78,7 +78,9 @@ class Core {
 	}
 
 	getPropertiesForJson_() {
-		const props = this.getProperties_();
+		const props = this.getProperties_().filter((prop) => {
+			return !prop.isForMonitor();
+		});
 		const result = {};
 		props.forEach((prop) => {
 			const propId = prop.getId();
@@ -90,7 +92,7 @@ class Core {
 		return result;
 	}
 
-	refreshAllProperties() {
+	refreshProperties() {
 		this.getProperties_().forEach((prop) => {
 			prop.applySourceValue();
 		});
