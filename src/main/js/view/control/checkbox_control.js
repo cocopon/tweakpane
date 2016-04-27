@@ -39,6 +39,8 @@ class CheckboxControl extends Control {
 			ClassName.get(CheckboxControl.BLOCK_CLASS, 'inner')
 		);
 		outerElem.appendChild(innerElem);
+
+		this.applyModel_();
 	}
 
 	applyModel_() {

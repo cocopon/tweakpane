@@ -3,38 +3,58 @@
 {% set title = 'Monitoring' %}
 
 {% block content %}
-<div id="textExampleContainer" class="exampleContainer">
+You can use <code>monitor()</code> to monitor specified property.
+
+<h2>Number</h2>
+<div class="codeBlock">
+	<div class="codeBlock_code">
+		<pre><code>
+</code></pre>
+	</div>
+	<div class="codeBlock_example">
+		<div id="textExample" class="codeBlock_ssContainer"></div>
+	</div>
 </div>
-<div id="graphExampleContainer" class="exampleContainer">
+
+
+<h2>Graph</h2>
+<div class="codeBlock">
+	<div class="codeBlock_code">
+		<pre><code>
+</code></pre>
+	</div>
+	<div class="codeBlock_example">
+		<div id="graphExample" class="codeBlock_ssContainer"></div>
+	</div>
 </div>
 {% endblock %}
 
 {% block script %}
 var params = {
-	someProperty: 0
+	wave: 0
 };
 var t = 0;
 setInterval(function() {
 	t += 0.01;
-	params.someProperty = Math.sin(t * 2 * Math.PI);
+	params.wave = Math.sin(t * 2 * Math.PI);
 }, 1000 / 60);
 
 (function() {
 	var ss = Seasoner({
-		container: document.getElementById('textExampleContainer')
+		container: document.getElementById('textExample')
 	});
-	ss.monitor(params, 'someProperty');
+	ss.monitor(params, 'wave');
 })();
 
 (function() {
 	var ss = Seasoner({
-		container: document.getElementById('graphExampleContainer')
+		container: document.getElementById('graphExample')
 	});
-	ss.monitor(params, 'someProperty', {
+	ss.monitor(params, 'wave', {
 		graph: true,
 		min: -5.0,
 		max: +5.0,
-		count: 100,
+		count: 200,
 		interval: 30
 	});
 })();

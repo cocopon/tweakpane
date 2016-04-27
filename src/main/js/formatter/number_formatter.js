@@ -21,7 +21,7 @@ class NumberFormatter extends Formatter {
 			return firstDigit === ch;
 		});
 		return repeated ?
-			roundedValue.toPrecision(3) :
+			roundedValue.toFixed(2) :
 			roundedValue.toString();
 	}
 }

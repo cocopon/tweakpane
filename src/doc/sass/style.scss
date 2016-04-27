@@ -1,28 +1,41 @@
 $font-family-sans: sans-serif;
 $font-family-mono: Menlo, Courier, monospace;
+$code-block-padding: 5px;
 
 * {
 	box-sizing: border-box;
 }
 html {
-	margin: 0;
-	padding: 0;
-}
-body {
-	background-color: #f0f0f0;
 	font-family: $font-family-sans;
 	font-size: 13px;
 	margin: 0;
 	padding: 0;
 }
+body {
+	background-color: #f0f0f0;
+	margin: 0;
+	padding: 0;
+}
+h1 {
+	font-size: 2.0rem;
+	margin: 0 0 1.0rem;
+	text-transform: capitalize;
+}
+h2 {
+	font-size: 1.5rem;
+	margin: 4.0rem 0 1.0rem;
+	text-transform: capitalize;
+}
 pre {
-	background-color: #eee;
-	border-radius: 2px;
-	color: #888;
 	font-family: $font-family-mono;
 	line-height: 1.8;
-	margin: 1.0rem 0;
-	padding: 10px;
+	margin: 0;
+	padding: 0;
+
+	& > code,
+	& > .hljs {
+		padding: 0;
+	}
 }
 p {
 	line-height: 1.8;
@@ -49,9 +62,26 @@ code {
 	padding: 30px;
 	width: 600px;
 }
-.exampleContainer {
-	margin: 2.0rem auto;
-	width: 250px;
+.codeBlock {
+	background-color: #eee;
+	border-radius: 2px;
+	color: #888;
+	margin: 2.0rem 0;
+	padding: $code-block-padding;
+
+	@at-root {
+		&_code {
+			padding: (20px - $code-block-padding) (20px - $code-block-padding) 20px;
+		}
+		&_example {
+			border-top: #ddd dotted 1px;
+			padding: 20px (20px - $code-block-padding) (20px - $code-block-padding);
+		}
+		&_ssContainer {
+			margin: 0 auto;
+			width: 250px;
+		}
+	}
 }
 .log {
 	background-color: #eee;

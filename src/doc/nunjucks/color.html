@@ -3,16 +3,33 @@
 {% set title = 'Color' %}
 
 {% block content %}
-<div id="colorExample" class="exampleContainer"></div>
+<p>String property that can be recognized as a hex color (e.g. <code>'#rrggbb'</code> or <code>'#rgb'</code>), will be treated as a color property.</p>
+
+<div class="codeBlock">
+	<div class="codeBlock_code">
+		<pre><code>var params = {
+  keyColor: '#00ff00'
+};
+var ss = Seasoner({
+  container: document.getElementById('colorExample')
+});
+ss.add(params, 'keyColor');</code></pre>
+	</div>
+	<div class="codeBlock_example">
+		<div id="colorExample" class="codeBlock_ssContainer"></div>
+	</div>
+</div>
 {% endblock %}
 
 {% block script %}
-var params = {
-	color: '#ff0000'
-};
+(function() {
+	var params = {
+		keyColor: '#00ff00'
+	};
 
-var ssColor = Seasoner({
-	container: document.getElementById('colorExample')
-});
-ssColor.add(params, 'color');
+	var ss = Seasoner({
+		container: document.getElementById('colorExample')
+	});
+	ss.add(params, 'keyColor');
+})();
 {% endblock %}

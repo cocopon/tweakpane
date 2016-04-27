@@ -3,80 +3,144 @@
 {% set title = 'Number' %}
 
 {% block content %}
+<p>seasoner.js provides a text field for a number property by default.</p>
+
+<div class="codeBlock">
+	<div class="codeBlock_code">
+		<pre><code class="js">var params = {
+  speed: 0.5
+};
+var ss = Seasoner();
+ss.add(params, 'speed');</code></pre>
+	</div>
+	<div class="codeBlock_example">
+		<div id="example" class="codeBlock_ssContainer"></div>
+	</div>
+</div>
+
+
 <h2>Range</h2>
 Use <code>min</code> or <code>max</code> to specify minimum/maximum value.
 
-<pre><code class="js">var ss = Seasoner();
-ss.add(target, 'someProperty', {min: 0});
-</code></pre>
-
-<div id="minExampleContainer" class="exampleContainer">
+<div class="codeBlock">
+	<div class="codeBlock_code">
+		<pre><code class="js">var ss = Seasoner();
+ss.add(target, 'speed', {min: 0});</code></pre>
+	</div>
+	<div class="codeBlock_example">
+		<div id="minExample" class="codeBlock_ssContainer"></div>
+	</div>
 </div>
 
 <p>If you specify both minimum and maximum value, slider control will be appear.</p>
 
-<pre><code class="js">var ss = Seasoner();
-ss.add(target, 'someProperty', {min: 0, max: 100});
-</code></pre>
-
-<div id="sliderExampleContainer" class="exampleContainer">
+<div class="codeBlock">
+	<div class="codeBlock_code">
+		<pre><code class="js">var ss = Seasoner();
+ss.add(target, 'speed', {min: 0, max: 100});</code></pre>
+	</div>
+	<div class="codeBlock_example">
+		<div id="sliderExample" class="codeBlock_ssContainer"></div>
+	</div>
 </div>
+
 
 <h2>Stepping</h2>
 <p>You can also specify a step of changing value by using <code>step</code>.</p>
 
-<pre><code class="js">var ss = Seasoner();
-ss.add(target, 'someProperty', {
+<div class="codeBlock">
+	<div class="codeBlock_code">
+		<pre><code class="js">var ss = Seasoner();
+ss.add(target, 'particleCount', {
   min: 0, max: 100, step: 10
-});
-</code></pre>
-
-<div id="stepExampleContainer" class="exampleContainer">
+});</code></pre>
+	</div>
+	<div class="codeBlock_example">
+		<div id="stepExample" class="codeBlock_ssContainer"></div>
+	</div>
 </div>
 
 
 <h2>List</h2>
-TODO:
-<div id="listExampleContainer" class="exampleContainer"></div>
+<p>If you want to choose a value from named values, pass an object that has number values as <code>list</code> option.</p>
+
+<div class="codeBlock">
+	<div class="codeBlock_code">
+		<pre><code class="js">var ss = Seasoner();
+ss.add(target, 'direction', {
+  list: {
+    none: 0,
+    horizontal: 1,
+    vertical: 2,
+    both: 3
+  }
+});</code></pre>
+	</div>
+	<div class="codeBlock_example">
+		<div id="listExample" class="codeBlock_ssContainer"></div>
+	</div>
+</div>
 {% endblock %}
 
+TODO: Log
+
 {% block script %}
-var minParams = {
-	someProperty: 50
-};
-var minExample = Seasoner({
-	container: document.getElementById('minExampleContainer')
-});
-minExample.add(minParams, 'someProperty', {min: 0});
+(function() {
+	var params = {
+		speed: 0.5,
+	};
+	var ss = Seasoner({
+		container: document.getElementById('example')
+	});
+	ss.add(params, 'speed');
+})();
 
-var sliderParams = {
-	someProperty: 50
-};
-var sliderExample = Seasoner({
-	container: document.getElementById('sliderExampleContainer')
-});
-sliderExample.add(sliderParams, 'someProperty', {min: 0, max: 100});
+(function() {
+	var params = {
+		speed: 50
+	};
+	var ss = Seasoner({
+		container: document.getElementById('minExample')
+	});
+	ss.add(params, 'speed', {min: 0});
+})();
 
-var stepParams = {
-	someProperty: 50
-};
-var stepExample = Seasoner({
-	container: document.getElementById('stepExampleContainer')
-});
-stepExample.add(stepParams, 'someProperty', {min: 0, max: 100, step: 10});
+(function() {
+	var params = {
+		speed: 50
+	};
+	var ss = Seasoner({
+		container: document.getElementById('sliderExample')
+	});
+	ss.add(params, 'speed', {min: 0, max: 100});
+})();
 
-var listParams = {
-	someProperty: 0
-};
-var listExample = Seasoner({
-	container: document.getElementById('listExampleContainer')
-});
-listExample.add(listParams, 'someProperty', {
-	list: {
-		foo: 0,
-		bar: 1,
-		baz: 2
-	},
-	onChange: function(v) {console.log(v);}
-});
+(function() {
+	var params = {
+		particleCount: 50
+	};
+	var ss = Seasoner({
+		container: document.getElementById('stepExample')
+	});
+	ss.add(params, 'particleCount', {min: 0, max: 100, step: 10});
+})();
+
+(function() {
+	var params = {
+		direction: 0
+	};
+	var ss = Seasoner({
+		container: document.getElementById('listExample')
+	});
+	ss.add(params, 'direction', {
+		list: {
+			none: 0,
+			horizontal: 1,
+			vertical: 2,
+			both: 3
+		}
+	}).on('change', function(value) {
+		console.log(value);
+	});;
+})();
 {% endblock %}

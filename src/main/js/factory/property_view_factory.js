@@ -10,6 +10,8 @@ class PropertyViewFactory {
 
 	static create(target, propName, options) {
 		const model = this.createModel_(options);
+		this.addConstraints_(model, options);
+
 		const prop = this.createProperty_(target, propName, model, options);
 		prop.applySourceValue();
 
@@ -58,9 +60,7 @@ class PropertyViewFactory {
 		throw Errors.notImplemented('createMonitor_');
 	}
 
-	static createModel_(options) {
-		const model = this.createModel_(options);
-
+	static addConstraints_(model, options) {
 		Object.keys(this.CONSTRAINT_FACTORIES).forEach((key) => {
 			const value = options[key];
 			if (value === undefined) {
@@ -70,8 +70,6 @@ class PropertyViewFactory {
 			const constraint = this.CONSTRAINT_FACTORIES[key](value);
 			model.addConstraint(constraint);
 		});
-
-		return model;
 	}
 }
 

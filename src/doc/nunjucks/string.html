@@ -3,47 +3,105 @@
 {% set title = 'String' %}
 
 {% block content %}
+<p>seasoner.js provides a text field for a string property.</p>
+
+<div class="codeBlock">
+	<div class="codeBlock_code">
+		<pre><code class="js">var params = {
+  name: 'cocopon',
+};
+var ss = Seasoner();
+ss.add(params, 'name');</code></pre>
+	</div>
+	<div class="codeBlock_example">
+		<div id="example" class="codeBlock_ssContainer"></div>
+	</div>
+</div>
+
+
 <h2>List</h2>
-<p>You can choose a value from list.</p>
+<p>If you want to choose a value from list, use <code>list</code> option.</p>
+<p>You can specify a string list:</p>
 
-<pre>
-var ss = new Seasoner();
-ss.add(target, 'someProperty').list([
-  'foo',
-  'bar',
-  'baz'
-]);
-</pre>
+<div class="codeBlock">
+	<div class="codeBlock_code">
+		<pre><code class="js">var ss = Seasoner();
+ss.add(target, 'direction').list([
+  'left',
+  'up',
+  'right'
+  'down'
+]);</code></pre>
+	</div>
+	<div class="codeBlock_example">
+		<div id="listExample" class="codeBlock_ssContainer"></div>
+	</div>
+</div>
 
-<div id="ssListContainer" class="exampleContainer"></div>
+TODO: Log
 
-<h2>Named List</h2>
-<p>TODO:</p>
+<p>And also an object that has string values:</p>
+
+<div class="codeBlock">
+	<div class="codeBlock_code">
+		<pre><code class="js">var ss = Seasoner();
+ss.add(target, 'vimKey').list([
+  left:  'H',
+  up:    'K',
+  right: 'L',
+  down:  'J'
+]);</code></pre>
+	</div>
+	<div class="codeBlock_example">
+		<div id="namedListExample" class="codeBlock_ssContainer"></div>
+	</div>
+</div>
+
+TODO: Log
 {% endblock %}
 
 {% block script %}
-var ssListParams = {
-	someProperty1: 'foo',
-	someProperty2: 'foo'
-};
-var ssList = new Seasoner({
-	autoPlace: false
-});
-document.getElementById('ssListContainer').appendChild(
-	ssList.getElement()
-);
-ssList.add(ssListParams, 'someProperty1', {
-	list: [
-		'foo',
-		'bar',
-		'baz'
-	]
-});
-ssList.add(ssListParams, 'someProperty2', {
-	list: {
-		foo: 'FOO',
-		bar: 'BAR',
-		baz: 'BAZ'
-	}
-});
+(function() {
+	var params = {
+		name: 'cocopon',
+	};
+	var ss = Seasoner({
+		container: document.getElementById('example')
+	});
+	ss.add(params, 'name');
+})();
+
+(function() {
+	var params = {
+		direction: 'left',
+	};
+	var ss = Seasoner({
+		container: document.getElementById('listExample')
+	});
+	ss.add(params, 'direction', {
+		list: [
+			'left',
+			'up',
+			'right',
+			'down'
+		]
+	});
+})();
+
+(function() {
+	var params = {
+		vimKey: 'H',
+	};
+	var ss = Seasoner({
+		container: document.getElementById('namedListExample')
+	});
+	ss.add(params, 'vimKey', {
+		list: {
+			left:  'H',
+			up:    'K',
+			right: 'L',
+			down:  'J'
+		}
+	});
+})();
 {% endblock %}
