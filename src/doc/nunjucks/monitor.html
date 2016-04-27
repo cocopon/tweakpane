@@ -36,7 +36,7 @@ var params = {
 var t = 0;
 setInterval(function() {
 	t += 0.01;
-	params.wave = Math.sin(t * 2 * Math.PI);
+	params.wave = Math.sin(t * 2 * Math.PI) + Math.sin(t * 3 * Math.PI);
 }, 1000 / 60);
 
 (function() {

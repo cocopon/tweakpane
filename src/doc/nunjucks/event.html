@@ -3,7 +3,7 @@
 {% set title = 'Events' %}
 
 {% block content %}
-<p>You can use <code>on()</code> of specific property to detect its changes.</p>
+<p>You can use <code>on()</code> of specific property to listen its changes.</p>
 <p>
 <code>'change'</code> event will be called continuously when the user controls a slider.
 </p>
@@ -25,7 +25,7 @@ ss.add(target, 'speed', {min: 0, max: 100}).on(
 
 
 <h2>Global event</h2>
-<p>If you want to detect all changes, use <code>on()</code> of the root object.</p>
+<p>If you want to listen changes of all properties, use <code>on()</code> of the root object.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_code">
