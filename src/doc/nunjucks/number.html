@@ -82,8 +82,6 @@ ss.add(target, 'direction', {
 </div>
 {% endblock %}
 
-TODO: Log
-
 {% block script %}
 (function() {
 	var params = {
@@ -127,7 +125,8 @@ TODO: Log
 
 (function() {
 	var params = {
-		direction: 0
+		direction: 0,
+		'(value)': ''
 	};
 	var ss = Seasoner({
 		container: document.getElementById('listExample')
@@ -140,7 +139,8 @@ TODO: Log
 			both: 3
 		}
 	}).on('change', function(value) {
-		console.log(value);
+		params['(value)'] = String(value);
 	});;
+	ss.monitor(params, '(value)');
 })();
 {% endblock %}

@@ -13,6 +13,10 @@ const FACTORIES = [
 
 class PropertyViewFactoryComplex {
 	static create(target, propName, options) {
+		if (target[propName] === undefined) {
+			throw Errors.propertyNotFound(propName);
+		}
+
 		const factory = this.getFactory_(target, propName);
 		if (factory === null) {
 			throw Errors.propertyTypeNotSupported(

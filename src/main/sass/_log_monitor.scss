@@ -10,11 +10,12 @@
 			border-width: 0;
 			color: rgba($input-foreground-color, 0.5);
 			display: block;
-			height: $log-height;
+			height: 100%;
 			line-height: $input-height;
 			outline: none;
 			padding: 0 5px;
 			resize: none;
+			white-space: pre;
 			width: 100%;
 		}
 	}

@@ -38,8 +38,6 @@ ss.add(target, 'direction').list([
 	</div>
 </div>
 
-TODO: Log
-
 <p>And also an object that has string values:</p>
 
 <div class="codeBlock">
@@ -56,8 +54,6 @@ ss.add(target, 'vimKey').list([
 		<div id="namedListExample" class="codeBlock_ssContainer"></div>
 	</div>
 </div>
-
-TODO: Log
 {% endblock %}
 
 {% block script %}
@@ -74,6 +70,7 @@ TODO: Log
 (function() {
 	var params = {
 		direction: 'left',
+		'(value)': ''
 	};
 	var ss = Seasoner({
 		container: document.getElementById('listExample')
@@ -85,12 +82,16 @@ TODO: Log
 			'right',
 			'down'
 		]
+	}).on('change', function(value) {
+		params['(value)'] = value;
 	});
+	ss.monitor(params, '(value)');
 })();
 
 (function() {
 	var params = {
 		vimKey: 'H',
+		'(value)': ''
 	};
 	var ss = Seasoner({
 		container: document.getElementById('namedListExample')
@@ -102,6 +103,9 @@ TODO: Log
 			right: 'L',
 			down:  'J'
 		}
+	}).on('change', function(value) {
+		params['(value)'] = value;
 	});
+	ss.monitor(params, '(value)');
 })();
 {% endblock %}

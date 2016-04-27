@@ -5,13 +5,13 @@
 {% block content %}
 <p>You can use <code>on()</code> of specific property to detect its changes.</p>
 <p>
-<code>'change'</code> event will be called continuously when the user controls a slider. If you want to detect a change just one time, use <code>'TODO'</code> event instead.
+<code>'change'</code> event will be called continuously when the user controls a slider.
 </p>
 
 <div class="codeBlock">
 	<div class="codeBlock_code">
 		<pre><code class="js">var ss = Seasoner();
-ss.add(target, 'someProperty', {min: 0, max: 100}).on(
+ss.add(target, 'speed', {min: 0, max: 100}).on(
   'change',
   function(value) {
     console.log(value);
@@ -23,8 +23,6 @@ ss.add(target, 'someProperty', {min: 0, max: 100}).on(
 	</div>
 </div>
 
-<div id="logWindow" class="log"></div>
-
 
 <h2>Global event</h2>
 <p>If you want to detect all changes, use <code>on()</code> of the root object.</p>
@@ -32,7 +30,8 @@ ss.add(target, 'someProperty', {min: 0, max: 100}).on(
 <div class="codeBlock">
 	<div class="codeBlock_code">
 		<pre><code class="js">var ss = Seasoner();
-ss.add(target, 'someProperty', {min: 0, max: 100});
+ss.add(target, 'power', {min: 0, max: 100});
+ss.add(target, 'size', {min: 0, max: 100});
 ss.on(
   'change',
   function(value, property) {
@@ -46,59 +45,49 @@ ss.on(
 	</div>
 </div>
 
-TODO: Log
-
 <p>See <a href="TODO:path/to/property">Property</a> for the specification of <code>Property</code> class.</p>
 {% endblock %}
 
 {% block script %}
-function appendLog(eventName, value) {
-	const elem = document.getElementById('logWindow');
-	elem.innerHTML = [
-		eventName,
-		': ',
-		String(value),
-		'<br>'
-	].join('') + elem.innerHTML;
-}
-
 (function() {
-	appendLog('', ')');
-
 	var params = {
-		someProperty: 50
+		speed: 50,
+		'(log)': ''
 	};
 	var ss = Seasoner({
 		container: document.getElementById('eventExample')
 	});
-	ss.add(params, 'someProperty', {
+	ss.add(params, 'speed', {
 		min: 0,
 		max: 100
-	}).on(
-		'change',
-		function(value) {
-			appendLog('change', value);
-		}
-	);
+	}).on('change', function(value) {
+		params['(log)'] = String(value);
+	});
+	ss.monitor(params, '(log)', {
+		count: 10
+	});
 })();
 
 (function() {
-	appendLog('', ')');
-
 	var params = {
-		foo: 50,
-		bar: 50
+		power: 50,
+		size: 50,
+		'(log)': ''
 	};
 	var ss = Seasoner({
 		container: document.getElementById('globalEventExample')
 	});
-	ss.add(params, 'foo', {min: 0, max: 100});
-	ss.add(params, 'bar', {min: 0, max: 100});
+	ss.add(params, 'power', {min: 0, max: 100});
+	ss.add(params, 'size', {min: 0, max: 100});
 	ss.on('change', function(value, prop) {
-	appendLog(
-		'change(' + prop.getLabel() + ')',
-		value
-	);
+		if (prop.getId() === '(log)') {
+			// Prevent infinite loop
+			return;
+		}
+		params['(log)'] = prop.getLabel() + ': ' + String(value);
+	});
+	ss.monitor(params, '(log)', {
+		count: 10
 	});
 })();
 {% endblock %}

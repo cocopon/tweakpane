@@ -47,7 +47,7 @@ ss.add(target, 'debug', {
 (function() {
 	var params = {
 		debug: false,
-		log: ''
+		'(value)': ''
 	};
 	var ss = Seasoner({
 		container: document.getElementById('listExample')
@@ -55,8 +55,8 @@ ss.add(target, 'debug', {
 	ss.add(params, 'debug', {
 		list: ['Enabled', 'Disabled']
 	}).on('change', function(value) {
-		params.log = String(value);
-		ss.refresh();
+		params['(value)'] = String(value);
 	});
+	ss.monitor(params, '(value)');
 })();
 {% endblock %}
