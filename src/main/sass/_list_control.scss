@@ -1,9 +1,21 @@
 .#{$prefix}lc {
+	background-color: $input-background-color;
+	border-radius: 2px;
+
+	&:focus {
+		background-color: $input-focus-background-color;
+	}
+	&:hover {
+		background-color: $input-hover-background-color;
+	}
+	&:hover &_select {
+		color: $input-hover-foreground-color;
+	}
+
 	@at-root {
 		&_select {
 			appearance: none;
-			background-color: $input-background-color;
-			border-radius: 2px;
+			background-color: transparent;
 			border-width: 0;
 			color: $input-foreground-color;
 			cursor: pointer;
@@ -11,15 +23,8 @@
 			line-height: $input-height;
 			outline: none;
 			padding: 0 5px;
+			position: relative;
 			width: 100%;
-
-			&:focus {
-				background-color: $input-focus-background-color;
-			}
-			&:hover {
-				background-color: $input-hover-background-color;
-				color: $input-hover-foreground-color;
-			}
 		}
 		&_arrow {
 			background: url($list-control-arrow-image) no-repeat center center;

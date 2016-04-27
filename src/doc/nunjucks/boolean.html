@@ -38,7 +38,6 @@ ss.add(target, 'debug', {
 	var params = {
 		debug: true
 	};
-
 	var ss = Seasoner({
 		container: document.getElementById('example')
 	});
@@ -47,14 +46,17 @@ ss.add(target, 'debug', {
 
 (function() {
 	var params = {
-		debug: false
+		debug: false,
+		log: ''
 	};
-
 	var ss = Seasoner({
 		container: document.getElementById('listExample')
 	});
 	ss.add(params, 'debug', {
 		list: ['Enabled', 'Disabled']
+	}).on('change', function(value) {
+		params.log = String(value);
+		ss.refresh();
 	});
 })();
 {% endblock %}

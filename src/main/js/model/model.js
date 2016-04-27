@@ -24,10 +24,6 @@ class Model {
 		this.value_ = this.constraints_.reduce((v, constraint) => {
 			return constraint.constrain(v);
 		}, this.value_);
-		this.emitter_.notifyObservers(
-			Model.EVENT_CHANGE,
-			[this.value_]
-		);
 	}
 
 	setValue(value) {
@@ -35,8 +31,16 @@ class Model {
 			return false;
 		}
 
+		const prevValue = this.value_;
 		this.value_ = value;
 		this.constrain_();
+
+		if (prevValue !== this.value_) {
+			this.emitter_.notifyObservers(
+				Model.EVENT_CHANGE,
+				[this.value_]
+			);
+		}
 
 		return true;
 	}
@@ -61,7 +65,15 @@ class Model {
 
 		this.constraints_.push(constraint);
 
+		const prevValue = this.value_;
 		this.constrain_();
+
+		if (prevValue !== this.value_) {
+			this.emitter_.notifyObservers(
+				Model.EVENT_CHANGE,
+				[this.value_]
+			);
+		}
 	}
 }
 

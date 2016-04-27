@@ -1,18 +1,20 @@
-.#{$prefix}tm {
+.#{$prefix}lm {
 	background-color: $input-background-color;
 	border-radius: 2px;
-	height: $input-height;
+	height: $log-height;
 	position: relative;
 
 	@at-root {
-		&_input {
+		&_textarea {
 			background-color: transparent;
 			border-width: 0;
 			color: rgba($input-foreground-color, 0.5);
-			height: $input-height;
+			display: block;
+			height: $log-height;
 			line-height: $input-height;
 			outline: none;
 			padding: 0 5px;
+			resize: none;
 			width: 100%;
 		}
 	}

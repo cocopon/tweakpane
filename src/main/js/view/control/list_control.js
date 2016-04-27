@@ -11,6 +11,12 @@ class ListControl extends Control {
 			ClassName.get(ListControl.BLOCK_CLASS)
 		);
 
+		const arrowElem = document.createElement('div');
+		arrowElem.classList.add(
+			ClassName.get(ListControl.BLOCK_CLASS, 'arrow')
+		);
+		elem.appendChild(arrowElem);
+
 		const selectElem = document.createElement('select');
 		selectElem.classList.add(
 			ClassName.get(ListControl.BLOCK_CLASS, 'select')
@@ -21,12 +27,6 @@ class ListControl extends Control {
 			this.onSelectElementChange_.bind(this)
 		);
 		this.selectElem_ = selectElem;
-
-		const arrowElem = document.createElement('div');
-		arrowElem.classList.add(
-			ClassName.get(ListControl.BLOCK_CLASS, 'arrow')
-		);
-		elem.appendChild(arrowElem);
 
 		this.applyModel_();
 	}

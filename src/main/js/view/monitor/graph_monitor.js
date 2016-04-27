@@ -52,7 +52,7 @@ class GraphMonitor extends Monitor {
 		const maxValue = this.getMaxValue_();
 
 		const model = this.getProperty().getModel();
-		const values = model.getPreviousValues();
+		const values = model.getRecords();
 		g.beginPath();
 		const y0 = h * ((values[0] - minValue) / (maxValue - minValue));
 		g.moveTo(0, h - y0);

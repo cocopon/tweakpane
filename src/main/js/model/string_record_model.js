@@ -1,15 +1,15 @@
-const NumberModel = require('./number_model');
+const StringModel = require('./string_model');
 
-class NumberRecordModel extends NumberModel {
+class StringRecordModel extends StringModel {
 	constructor(opt_recordCount) {
 		super();
 
 		this.recValues_ = [];
 		this.recCount_ = (opt_recordCount !== undefined) ?
 			opt_recordCount :
-			100;
+			10;
 		for (let i = 0; i < this.recCount_; i++) {
-			this.recValues_.push(0);
+			this.recValues_.push('');
 		}
 	}
 
@@ -28,4 +28,4 @@ class NumberRecordModel extends NumberModel {
 	}
 }
 
-module.exports = NumberRecordModel;
+module.exports = StringRecordModel;

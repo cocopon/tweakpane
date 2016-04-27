@@ -67,14 +67,18 @@ class Core {
 		return folderView;
 	}
 
-	getPropertiesForJson_() {
+	getProperties_() {
 		const views = ViewUtil.getAllSubviews(this.rootView_);
 		const propViews = views.filter((view) => {
 			return view instanceof PropertyView;
 		});
-		const props = propViews.map((propView) => {
+		return propViews.map((propView) => {
 			return propView.getProperty();
 		});
+	}
+
+	getPropertiesForJson_() {
+		const props = this.getProperties_();
 		const result = {};
 		props.forEach((prop) => {
 			const propId = prop.getId();
@@ -84,6 +88,12 @@ class Core {
 			result[propId] = prop;
 		});
 		return result;
+	}
+
+	refreshAllProperties() {
+		this.getProperties_().forEach((prop) => {
+			prop.applySourceValue();
+		});
 	}
 
 	getJson() {

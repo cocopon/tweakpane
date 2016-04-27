@@ -6,7 +6,9 @@ class BooleanCodec extends Codec {
 	}
 
 	static decode(value) {
-		return !!value;
+		return (value === 'false') ?
+			false :
+			!!value;
 	}
 
 	static encode(value) {

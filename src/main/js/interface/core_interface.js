@@ -56,6 +56,13 @@ class CoreInterface {
 		const emitter = this.core_.getEmitter();
 		emitter.off(eventName, handler, opt_scope);
 	}
+
+	refresh() {
+		// Delay refresh for waiting all properties update
+		setTimeout(() => {
+			this.core_.refreshAllProperties();
+		});
+	}
 }
 
 module.exports  = CoreInterface;

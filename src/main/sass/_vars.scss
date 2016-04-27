@@ -14,12 +14,14 @@ $prop-view-label-color: hsl(0, 0, 80%);
 $prop-view-separator-color: darken($prop-view-background-color, 3%);
 
 // Geometry
+$input-height: 24px;
+
 $checkbox-control-outer-size: 24px;
 $color-palette-control-outer-size: 24px;
 $folder-view-title-height: 30px;
 $folder-view-arrow-size: 10px;
-$input-height: 24px;
+$graph-height: $input-height * 3;
 $list-control-arrow-size: 10px;
+$log-height: $input-height * 3;
 $prop-view-label-height: 22px;
 $slider-control-height: 24px;
-$graph-height: $input-height * 3;

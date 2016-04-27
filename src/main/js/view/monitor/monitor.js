@@ -25,6 +25,10 @@ class Monitor extends View {
 		const interval = (opt_interval !== undefined) ?
 			opt_interval :
 			(1000 / 20);
+		if (interval < 0) {
+			return;
+		}
+
 		this.timer_ = setInterval(() => {
 			this.onTimerTick_();
 		}, interval);

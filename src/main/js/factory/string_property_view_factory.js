@@ -1,7 +1,9 @@
 const ListConstraint      = require('../constraint/list_constraint');
 const StringModel         = require('../model/string_model');
+const StringRecordModel   = require('../model/string_record_model');
 const ListControl         = require('../view/control/list_control');
 const TextControl         = require('../view/control/text_control');
+const LogMonitor          = require('../view/monitor/log_monitor');
 const TextMonitor         = require('../view/monitor/text_monitor');
 const PropertyViewFactory = require('./property_view_factory');
 
@@ -10,7 +12,11 @@ class StringPropertyViewFactory extends PropertyViewFactory {
 		return typeof(value) === 'string';
 	}
 
-	static createModel_() {
+	static createModel_(options) {
+		if (options.forMonitor && options.count > 1) {
+			return new StringRecordModel();
+		}
+
 		return new StringModel();
 	}
 
@@ -22,8 +28,11 @@ class StringPropertyViewFactory extends PropertyViewFactory {
 		return new TextControl(model);
 	}
 
-	static createMonitor_(model) {
-		return new TextMonitor(model);
+	static createMonitor_(property, options) {
+		if (options.count !== undefined) {
+			return new LogMonitor(property);
+		}
+		return new TextMonitor(property);
 	}
 
 	static createListItems_(items) {
