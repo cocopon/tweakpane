@@ -1,18 +1,19 @@
-.#{$prefix}tc {
-	height: $input-height;
+.#{$prefix}bv {
+	padding: 5px;
 	position: relative;
 
 	@at-root {
-		&_input {
+		&_button {
 			appearance: none;
 			background-color: $input-background-color;
-			border-radius: 2px;
 			border-width: 0;
+			border-radius: 2px;
 			color: $input-foreground-color;
+			cursor: pointer;
 			height: $input-height;
 			line-height: $input-height;
 			outline: none;
-			padding: 0 5px;
+			padding: 0;
 			transition: background-color 0.2s ease-out;
 			width: 100%;
 
@@ -22,6 +23,9 @@
 			&:hover {
 				background-color: $input-hover-background-color;
 				color: $input-hover-foreground-color;
+			}
+			&:active {
+				background-color: $input-active-background-color;
 			}
 		}
 	}

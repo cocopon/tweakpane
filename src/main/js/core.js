@@ -5,7 +5,6 @@ const Errors                     = require('./misc/errors');
 const EventEmitter               = require('./misc/event_emitter');
 const ViewUtil                   = require('./misc/view_util');
 const Property                   = require('./model/property');
-const FolderView                 = require('./view/folder_view');
 const PropertyView               = require('./view/property_view');
 const RootView                   = require('./view/root_view');
 
@@ -59,12 +58,6 @@ class Core {
 		);
 
 		return propView;
-	}
-
-	addFolder(title) {
-		const folderView = new FolderView(title);
-		this.rootView_.addSubview(folderView);
-		return folderView;
 	}
 
 	getProperties_() {

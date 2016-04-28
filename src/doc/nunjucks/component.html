@@ -1,8 +1,9 @@
 {% extends "_template.html" %}
 
-{% set title = 'Folder' %}
+{% set title = 'UI Components' %}
 
 {% block content %}
+<h2>Folder</h2>
 <p>Use <code>addFolder()</code> to add a collapsible folder. It returns a instance of added folder, so you can add all types of property by using its <code>add()</code> and <code>monitor()</code> just like other properties.</p>
 
 <div class="codeBlock">
@@ -41,6 +42,26 @@ folder2.add(target, 'size');</code></pre>
 		<div id="folderExample2" class="codeBlock_ssContainer"></div>
 	</div>
 </div>
+
+
+<h2>Button</h2>
+<p>Use <code>addButton()</code> to add a button. You can listen <code>'click'</code> event by <code>on()</code> to handle click.</p>
+
+<div class="codeBlock">
+	<div class="codeBlock_code">
+		<pre><code class="js">var ss = Seasoner();
+ss.addButton('Fire').on(
+  'click',
+  function() {
+    console.log('clicked');
+  }
+);
+</code></pre>
+	</div>
+	<div class="codeBlock_example">
+		<div id="buttonExample" class="codeBlock_ssContainer"></div>
+	</div>
+</div>
 {% endblock %}
 
 {% block script %}
@@ -66,7 +87,7 @@ var params = {
 })();
 
 (function() {
-	var ss = new Seasoner({
+	var ss = Seasoner({
 		container: document.getElementById('folderExample2')
 	});
 
@@ -78,5 +99,21 @@ var params = {
 	var folder2 = ss.addFolder('Appearance');
 	folder2.add(params, 'color')
 	folder2.add(params, 'size');
+})();
+
+(function() {
+	var params = {
+		count: 0,
+		'(log)': ''
+	};
+	var ss = Seasoner({
+		container: document.getElementById('buttonExample')
+	});
+	ss.addButton('Fire').on('click', function() {
+		params['(log)'] = 'clicked: ' + String(++params.count);
+	});
+	ss.monitor(params, '(log)', {
+		count: 10
+	});
 })();
 {% endblock %}

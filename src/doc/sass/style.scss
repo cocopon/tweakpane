@@ -1,6 +1,13 @@
 $font-family-sans: sans-serif;
 $font-family-mono: Menlo, Courier, monospace;
-$code-block-padding: 5px;
+
+@mixin clearfix() {
+	&:after {
+		clear: both;
+		content: "";
+		display: block;
+	}
+}
 
 * {
 	box-sizing: border-box;
@@ -67,19 +74,57 @@ code {
 	border-radius: 2px;
 	color: #888;
 	margin: 2.0rem 0;
-	padding: $code-block-padding;
 
 	@at-root {
+		&_section {
+			@include clearfix();
+
+			padding: 20px;
+			position: relative;
+
+			& + & {
+				border-top: #ddd dotted 1px;
+			}
+		}
+		&_twoColumnLayout {
+		}
+		&_leftColumn {
+		}
+		&_rightColumn {
+		}
+		&_foo {
+			float: left;
+			width: 50%;
+		}
+		&_bar {
+			bottom: 20px;
+			padding: 0 20px;
+			position: absolute;
+			right: 0;
+			top: 20px;
+			width: 50%;
+		}
 		&_code {
-			padding: (20px - $code-block-padding) (20px - $code-block-padding) 20px;
+			padding: 20px;
 		}
 		&_example {
-			border-top: #ddd dotted 1px;
-			padding: 20px (20px - $code-block-padding) (20px - $code-block-padding);
 		}
 		&_ssContainer {
 			margin: 0 auto;
 			width: 250px;
+		}
+		&_textBox {
+			background-color: transparent;
+			border-width: 0;
+			color: #888;
+			font-family: $font-family-mono;
+			font-size: 1.0rem;
+			height: 5.0rem * 1.8;
+			line-height: 1.8;
+			outline: none;
+			padding: 0;
+			resize: none;
+			width: 100%;
 		}
 	}
 }

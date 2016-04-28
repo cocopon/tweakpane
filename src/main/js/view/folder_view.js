@@ -22,9 +22,11 @@ class FolderView extends View {
 		titleElem.classList.add(
 			ClassName.get(FolderView.BLOCK_CLASS, 'title')
 		);
-		titleElem.addEventListener('click', this.onTitleElementClick_.bind(this));
+		titleElem.addEventListener(
+			'click',
+			this.onTitleElementClick_.bind(this)
+		);
 		elem.appendChild(titleElem);
-		this.titleElem_ = titleElem;
 
 		const containerElem = document.createElement('div');
 		containerElem.classList.add(

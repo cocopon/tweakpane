@@ -35,14 +35,15 @@ class Model {
 		this.value_ = value;
 		this.constrain_();
 
-		if (prevValue !== this.value_) {
+		const changed = (prevValue !== this.value_);
+		if (changed) {
 			this.emitter_.notifyObservers(
 				Model.EVENT_CHANGE,
 				[this.value_]
 			);
 		}
 
-		return true;
+		return changed;
 	}
 
 	getConstraints() {

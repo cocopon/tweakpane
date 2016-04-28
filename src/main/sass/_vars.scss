@@ -10,6 +10,7 @@ $input-foreground-color: hsla($key-hue, 10%, 80%, 1.0);
 $folder-view-title-color: hsla($key-hue, 10%, 80%, 0.5);
 $folder-view-title-hover-color: lighten($folder-view-title-color, 10%);
 $input-hover-foreground-color: lighten($input-foreground-color, 10%);
+$input-active-background-color: lighten($input-background-color, 20%);
 $input-focus-background-color: lighten($input-background-color, 5%);
 $input-hover-background-color: lighten($input-background-color, 10%);
 $prop-view-label-color: hsla($key-hue, 10%, 80%, 0.7);

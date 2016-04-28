@@ -6,24 +6,34 @@
 <p>You can export all properties to JSON by <code>getJson()</code>.</p>
 
 <div class="codeBlock">
-	<div class="codeBlock_code">
+	<div class="codeBlock_section">
 		<pre><code class="js">var ss = Seasoner();
-ss.getJson();</code></pre>
+console.log(ss.getJson());</code></pre>
 	</div>
-	<div class="codeBlock_example">
-		<div id="exportExample" class="codeBlock_ssContainer"></div>
+	<div class="codeBlock_section">
+		<div class="codeBlock_example">
+			<div id="exportExample" class="codeBlock_ssContainer"></div>
+		</div>
+		<div class="codeBlock_bar">
+			<textarea id="exportArea" class="codeBlock_textBox" readOnly></textarea>
+		</div>
 	</div>
 </div>
 
 <p>To import an exported JSON, pass it to <code>setJson()</code>.</p>
 
 <div class="codeBlock">
-	<div class="codeBlock_code">
-		<pre><code class="js">
-</code></pre>
+	<div class="codeBlock_section">
+		<pre><code class="js">var ss = Seasoner();
+ss.setJson(json);</code></pre>
 	</div>
-	<div class="codeBlock_example">
-		<div id="importExample" class="codeBlock_ssContainer"></div>
+	<div class="codeBlock_section">
+		<div class="codeBlock_foo">
+			<textarea id="importArea" class="codeBlock_textBox" readOnly></textarea>
+		</div>
+		<div class="codeBlock_example">
+			<div id="importExample" class="codeBlock_ssContainer"></div>
+		</div>
 	</div>
 </div>
 
@@ -32,7 +42,7 @@ ss.getJson();</code></pre>
 <p>Property name will be used as a key of JSON object by default, but you can change it by <code>id</code> option.</p>
 
 <div class="codeBlock">
-	<div class="codeBlock_code">
+	<div class="codeBlock_section">
 		<pre><code class="js">var ss = Seasoner();
 ss.add(target, 'speed1');
 ss.add(target, 'speed2', {
@@ -44,26 +54,54 @@ ss.add(target, 'speed2', {
 {% endblock %}
 
 {% block script %}
+function prettifyJson(json) {
+	return JSON.stringify(json)
+		.replace(/\{/g, '{\n  ')
+		.replace(/,/g, ',\n  ')
+		.replace(/\}/g, '\n}');
+}
+
+function showJson(json) {
+	var jsonString = prettifyJson(json);
+	document.getElementById('exportArea').textContent = jsonString;
+	document.getElementById('importArea').textContent = jsonString;
+}
+
 (function() {
 	var params = {
 		color: '#f80',
 		size: 10,
-		speed: 1.0,
+		speed: 1.0
 	};
 	var ss = Seasoner({
 		container: document.getElementById('exportExample')
 	});
 	ss.add(params, 'color');
-	ss.add(params, 'size');
-	ss.add(params, 'speed');
-	console.log(ss.getJson());
+	ss.add(params, 'size', {min: 1, max: 100});
+	ss.add(params, 'speed', {min: 0, max: 1.0});
+
+	ss.addButton('Export').on('click', function() {
+		showJson(ss.getJson());
+	});
+
+	showJson(ss.getJson());
 })();
 
 (function() {
 	var params = {
+		color: '#08f',
+		size: 20,
+		speed: 0.5
 	};
 	var ss = Seasoner({
 		container: document.getElementById('importExample')
 	});
+	ss.addButton('Import').on('click', function() {
+		var json = JSON.parse(document.getElementById('importArea').textContent);
+		ss.setJson(json);
+	});
+	ss.add(params, 'color');
+	ss.add(params, 'size', {min: 1, max: 100});
+	ss.add(params, 'speed', {min: 0, max: 1.0});
 })();
 {% endblock %}

@@ -41,7 +41,7 @@ class ColorCodec extends Codec {
 	}
 }
 
-ColorCodec.VALIDATION_PATTERN = /^#[0-9a-f]{3}|[0-9a-f]{6}$/i;
+ColorCodec.VALIDATION_PATTERN = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i;
 ColorCodec.SHORT_PATTERN = /^#[0-9a-f]{3}$/i;
 ColorCodec.LONG_PATTERN = /^#[0-9a-f]{6}$/i;
 

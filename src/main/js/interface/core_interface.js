@@ -1,4 +1,7 @@
-const FolderViewInterface   = require('./foloder_view_interface');
+const ButtonView            = require('../view/button_view');
+const FolderView            = require('../view/folder_view');
+const ButtonViewInterface   = require('./button_view_interface');
+const FolderViewInterface   = require('./folder_view_interface');
 const PropertyViewInterface = require('./property_view_interface');
 
 class CoreInterface {
@@ -35,8 +38,15 @@ class CoreInterface {
 	}
 
 	addFolder(title) {
-		const folderView = this.core_.addFolder(title);
+		const folderView = new FolderView(title);
+		this.core_.getRootView().addSubview(folderView);
 		return new FolderViewInterface(folderView);
+	}
+
+	addButton(title) {
+		const buttonView = new ButtonView(title);
+		this.core_.getRootView().addSubview(buttonView);
+		return new ButtonViewInterface(buttonView);
 	}
 
 	getJson() {
@@ -50,11 +60,13 @@ class CoreInterface {
 	on(eventName, handler, opt_scope) {
 		const emitter = this.core_.getEmitter();
 		emitter.on(eventName, handler, opt_scope);
+		return this;
 	}
 
 	off(eventName, handler, opt_scope) {
 		const emitter = this.core_.getEmitter();
 		emitter.off(eventName, handler, opt_scope);
+		return this;
 	}
 
 	refresh() {
