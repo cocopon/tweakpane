@@ -15,10 +15,11 @@
 			background-position: center center;
 			background-repeat: no-repeat;
 			height: $folder-view-arrow-size;
-			left: 10px;
+			right: 10px;
 			opacity: 0.3;
 			position: absolute;
 			top: ($folder-view-title-height - $folder-view-arrow-size) / 2;
+			transform: rotate(-90deg);
 			width: $folder-view-arrow-size;
 
 			&#{&}-expanded {
@@ -31,7 +32,10 @@
 			height: $folder-view-title-height;
 			line-height: $folder-view-title-height;
 			overflow: hidden;
-			padding-left: 10px + $folder-view-arrow-size + 10px;
+			padding: {
+				left: 5px;
+				right: 10px + $folder-view-arrow-size + 10px;
+			}
 			position: relative;
 			text-overflow: ellipsis;
 			transition: color 0.2s ease-out;
@@ -44,7 +48,6 @@
 		}
 		&_container {
 			overflow: hidden;
-			padding: 0 5px;
 		}
 	}
 }

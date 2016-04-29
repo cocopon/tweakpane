@@ -23,10 +23,6 @@ class ButtonView extends View {
 		this.titleElem_ = buttonElem;
 	}
 
-	getContainerElement_() {
-		return this.containerElem_;
-	}
-
 	onButtonElementClick_() {
 		this.getEmitter().notifyObservers(
 			ButtonView.EVENT_CLICK,
@@ -35,7 +31,7 @@ class ButtonView extends View {
 	}
 }
 
-ButtonView.BLOCK_CLASS = 'bv';
+ButtonView.BLOCK_CLASS = 'btv';
 ButtonView.EVENT_CLICK = 'click';
 
 module.exports = ButtonView;

@@ -4,10 +4,12 @@
 
 .#{$prefix} {
 	background-color: $background-color;
-	font-size: 11px;
+	padding: 0 5px;
 
 	* {
 		box-sizing: border-box;
+		font-family: Verdana, sans-serif;
+		font-size: 11px;
 	}
 }
 
@@ -22,6 +24,7 @@
 @import 'button_view';
 @import 'folder_view';
 @import 'property_view';
+@import 'separator_view';
 // Control
 @import 'checkbox_control';
 @import 'color_palette_control';

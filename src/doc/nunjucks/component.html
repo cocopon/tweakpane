@@ -7,7 +7,7 @@
 <p>Use <code>addFolder()</code> to add a collapsible folder. It returns a instance of added folder, so you can add all types of property by using its <code>add()</code> and <code>monitor()</code> just like other properties.</p>
 
 <div class="codeBlock">
-	<div class="codeBlock_code">
+	<div class="codeBlock_section">
 		<pre><code class="js">var ss = Seasoner();
 
 var folder1 = ss.addFolder('Interaction');
@@ -18,7 +18,7 @@ var folder2 = ss.addFolder('Appearance');
 folder2.add(params, 'color')
 folder2.add(params, 'size');</code></pre>
 	</div>
-	<div class="codeBlock_example">
+	<div class="codeBlock_section">
 		<div id="folderExample1" class="codeBlock_ssContainer"></div>
 	</div>
 </div>
@@ -26,7 +26,7 @@ folder2.add(params, 'size');</code></pre>
 <p>To close a folder, use <code>close()</code>.</p>
 
 <div class="codeBlock">
-	<div class="codeBlock_code">
+	<div class="codeBlock_section">
 		<pre><code class="js">var ss = Seasoner();
 
 var folder1 = ss.addFolder('Interaction');
@@ -38,7 +38,7 @@ var folder2 = ss.addFolder('Appearance');
 folder2.add(params, 'color')
 folder2.add(target, 'size');</code></pre>
 	</div>
-	<div class="codeBlock_example">
+	<div class="codeBlock_section">
 		<div id="folderExample2" class="codeBlock_ssContainer"></div>
 	</div>
 </div>
@@ -48,7 +48,7 @@ folder2.add(target, 'size');</code></pre>
 <p>Use <code>addButton()</code> to add a button. You can listen <code>'click'</code> event by <code>on()</code> to handle click.</p>
 
 <div class="codeBlock">
-	<div class="codeBlock_code">
+	<div class="codeBlock_section">
 		<pre><code class="js">var ss = Seasoner();
 ss.addButton('Fire').on(
   'click',
@@ -58,7 +58,7 @@ ss.addButton('Fire').on(
 );
 </code></pre>
 	</div>
-	<div class="codeBlock_example">
+	<div class="codeBlock_section">
 		<div id="buttonExample" class="codeBlock_ssContainer"></div>
 	</div>
 </div>

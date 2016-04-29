@@ -6,25 +6,24 @@
 <p>seasoner.js provides a text field for a string property.</p>
 
 <div class="codeBlock">
-	<div class="codeBlock_code">
+	<div class="codeBlock_section">
 		<pre><code class="js">var params = {
   name: 'cocopon',
 };
 var ss = Seasoner();
 ss.add(params, 'name');</code></pre>
 	</div>
-	<div class="codeBlock_example">
+	<div class="codeBlock_section">
 		<div id="example" class="codeBlock_ssContainer"></div>
 	</div>
 </div>
 
 
 <h2>List</h2>
-<p>If you want to choose a value from list, use <code>list</code> option.</p>
-<p>You can specify a string list:</p>
+<p>If you want to choose a value from list, pass a string list as <code>list</code> option:</p>
 
 <div class="codeBlock">
-	<div class="codeBlock_code">
+	<div class="codeBlock_section">
 		<pre><code class="js">var ss = Seasoner();
 ss.add(target, 'direction').list([
   'left',
@@ -33,15 +32,15 @@ ss.add(target, 'direction').list([
   'down'
 ]);</code></pre>
 	</div>
-	<div class="codeBlock_example">
+	<div class="codeBlock_section">
 		<div id="listExample" class="codeBlock_ssContainer"></div>
 	</div>
 </div>
 
-<p>And also an object that has string values:</p>
+<p>An object that has string values is also supported:</p>
 
 <div class="codeBlock">
-	<div class="codeBlock_code">
+	<div class="codeBlock_section">
 		<pre><code class="js">var ss = Seasoner();
 ss.add(target, 'vimKey').list([
   left:  'H',
@@ -50,7 +49,7 @@ ss.add(target, 'vimKey').list([
   down:  'J'
 ]);</code></pre>
 	</div>
-	<div class="codeBlock_example">
+	<div class="codeBlock_section">
 		<div id="namedListExample" class="codeBlock_ssContainer"></div>
 	</div>
 </div>

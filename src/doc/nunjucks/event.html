@@ -3,13 +3,11 @@
 {% set title = 'Events' %}
 
 {% block content %}
-<p>You can use <code>on()</code> of specific property to listen its changes.</p>
-<p>
-<code>'change'</code> event will be called continuously when the user controls a slider.
-</p>
+<p>Use <code>on()</code> of specific property to listen its changes.</p>
+<p><code>'change'</code> event will be called continuously when the user controls a slider.</p>
 
 <div class="codeBlock">
-	<div class="codeBlock_code">
+	<div class="codeBlock_section">
 		<pre><code class="js">var ss = Seasoner();
 ss.add(target, 'speed', {min: 0, max: 100}).on(
   'change',
@@ -18,7 +16,7 @@ ss.add(target, 'speed', {min: 0, max: 100}).on(
   }
 );</code></pre>
 	</div>
-	<div class="codeBlock_example">
+	<div class="codeBlock_section">
 		<div id="eventExample" class="codeBlock_ssContainer"></div>
 	</div>
 </div>
@@ -28,7 +26,7 @@ ss.add(target, 'speed', {min: 0, max: 100}).on(
 <p>If you want to listen changes of all properties, use <code>on()</code> of the root object.</p>
 
 <div class="codeBlock">
-	<div class="codeBlock_code">
+	<div class="codeBlock_section">
 		<pre><code class="js">var ss = Seasoner();
 ss.add(target, 'power', {min: 0, max: 100});
 ss.add(target, 'size', {min: 0, max: 100});
@@ -40,7 +38,7 @@ ss.on(
   }
 );</code></pre>
 	</div>
-	<div class="codeBlock_example">
+	<div class="codeBlock_section">
 		<div id="globalEventExample" class="codeBlock_ssContainer"></div>
 	</div>
 </div>

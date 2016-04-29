@@ -1,4 +1,4 @@
-.#{$prefix}p {
+.#{$prefix}prv {
 	@include clearfix();
 
 	background-color: $prop-view-background-color;
@@ -17,7 +17,7 @@
 			line-height: $prop-view-label-height;
 			margin: auto 0;
 			overflow: hidden;
-			padding: 0 10px;
+			padding: 0 5px;
 			position: absolute;
 			text-overflow: ellipsis;
 			top: 0;

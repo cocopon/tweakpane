@@ -1,4 +1,4 @@
-$font-family-sans: sans-serif;
+$font-family-sans: Verdana, sans-serif;
 $font-family-mono: Menlo, Courier, monospace;
 
 @mixin clearfix() {
@@ -51,6 +51,12 @@ p {
 p + p {
 	margin-top: 0.5rem;
 }
+dl, ol, ul {
+	margin: 1.0rem 0;
+}
+li + li {
+	margin-top: 0.5rem;
+}
 code {
 	background-color: #eee;
 	border-radius: 2px;
@@ -67,7 +73,11 @@ code {
 	background-color: white;
 	margin: 0 auto;
 	padding: 30px;
-	width: 600px;
+	width: 620px;
+
+	& > *:last-child {
+		margin-bottom: 0;
+	}
 }
 .codeBlock {
 	background-color: #eee;
@@ -86,45 +96,40 @@ code {
 				border-top: #ddd dotted 1px;
 			}
 		}
-		&_twoColumnLayout {
-		}
-		&_leftColumn {
-		}
-		&_rightColumn {
-		}
-		&_foo {
-			float: left;
-			width: 50%;
-		}
-		&_bar {
-			bottom: 20px;
-			padding: 0 20px;
-			position: absolute;
-			right: 0;
-			top: 20px;
-			width: 50%;
-		}
-		&_code {
-			padding: 20px;
-		}
-		&_example {
-		}
 		&_ssContainer {
 			margin: 0 auto;
 			width: 250px;
 		}
 		&_textBox {
-			background-color: transparent;
+			background-color: #ddd;
+			border-radius: 2px;
 			border-width: 0;
-			color: #888;
+			color: #aaa;
 			font-family: $font-family-mono;
-			font-size: 1.0rem;
-			height: 5.0rem * 1.8;
+			font-size: 0.9rem;
+			height: 139px;
 			line-height: 1.8;
 			outline: none;
-			padding: 0;
+			padding: 10px;
 			resize: none;
+			white-space: pre;
 			width: 100%;
+		}
+	}
+}
+.twoColumnLayout {
+	@include clearfix();
+
+	@at-root {
+		&_leftColumn {
+			float: left;
+			padding-right: 10px;
+			width: 50%;
+		}
+		&_rightColumn {
+			float: left;
+			padding-left: 10px;
+			width: 50%;
 		}
 	}
 }

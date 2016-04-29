@@ -1,4 +1,5 @@
-.#{$prefix}bv {
+.#{$prefix}btv {
+	background-color: $prop-view-background-color;
 	padding: 5px;
 	position: relative;
 
@@ -29,4 +30,9 @@
 			}
 		}
 	}
+}
+
+.#{$prefix}btv + .#{$prefix}prv,
+.#{$prefix}prv + .#{$prefix}btv {
+	border-top: $prop-view-separator-color solid 1px;
 }

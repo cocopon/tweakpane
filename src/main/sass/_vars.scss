@@ -1,30 +1,30 @@
 $prefix: 'ss';
 
 // Colors
-$key-hue: 240deg;
+$key-hue: 220deg;
 $background-color: hsl($key-hue, 15%, 12%);
 $prop-view-background-color: adjust-color($background-color, $saturation: -5%, $lightness: +8%);
-$input-background-color: adjust-color($prop-view-background-color, $lightness: +5%);
-$input-foreground-color: hsla($key-hue, 10%, 80%, 1.0);
+$input-background-color: adjust-color($prop-view-background-color, $lightness: +8%);
+$input-foreground-color: hsla($key-hue, 10%, 83%, 1.0);
 
 $folder-view-title-color: hsla($key-hue, 10%, 80%, 0.5);
-$folder-view-title-hover-color: lighten($folder-view-title-color, 10%);
+$folder-view-title-hover-color: lighten($folder-view-title-color, 15%);
 $input-hover-foreground-color: lighten($input-foreground-color, 10%);
 $input-active-background-color: lighten($input-background-color, 20%);
 $input-focus-background-color: lighten($input-background-color, 5%);
 $input-hover-background-color: lighten($input-background-color, 10%);
 $prop-view-label-color: hsla($key-hue, 10%, 80%, 0.7);
-$prop-view-separator-color: transparent;//darken($prop-view-background-color, 3%);
+$prop-view-separator-color: darken($prop-view-background-color, 5%);
 
 // Geometry
-$input-height: 24px;
+$input-height: 23px;
 
-$checkbox-control-outer-size: 24px;
-$color-palette-control-outer-size: 24px;
-$folder-view-title-height: 30px;
+$checkbox-control-outer-size: $input-height;
+$color-palette-control-outer-size: $input-height;
+$folder-view-title-height: $input-height + 10px;
 $folder-view-arrow-size: 10px;
 $graph-height: $input-height * 3;
 $list-control-arrow-size: 10px;
 $log-height: $input-height * 3;
 $prop-view-label-height: 22px;
-$slider-control-height: 24px;
+$slider-control-height: $input-height;

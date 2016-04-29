@@ -59,7 +59,7 @@ class CheckboxControl extends Control {
 	}
 }
 
-CheckboxControl.BLOCK_CLASS = 'cc';
+CheckboxControl.BLOCK_CLASS = 'cbc';
 
 module.exports = CheckboxControl;
 

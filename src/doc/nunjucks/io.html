@@ -7,15 +7,19 @@
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var ss = Seasoner();
-console.log(ss.getJson());</code></pre>
+		<pre><code class="js">var ssFrom = Seasoner();
+// ...
+var json = ssFrom.getJson();
+console.log(json);</code></pre>
 	</div>
 	<div class="codeBlock_section">
-		<div class="codeBlock_example">
-			<div id="exportExample" class="codeBlock_ssContainer"></div>
-		</div>
-		<div class="codeBlock_bar">
-			<textarea id="exportArea" class="codeBlock_textBox" readOnly></textarea>
+		<div class="twoColumnLayout">
+			<div class="twoColumnLayout_leftColumn">
+				<div id="exportExample" class="codeBlock_ssContainer"></div>
+			</div>
+			<div class="twoColumnLayout_rightColumn">
+				<textarea id="exportArea" class="codeBlock_textBox" readOnly></textarea>
+			</div>
 		</div>
 	</div>
 </div>
@@ -24,15 +28,18 @@ console.log(ss.getJson());</code></pre>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var ss = Seasoner();
-ss.setJson(json);</code></pre>
+		<pre><code class="js">var ssTo = Seasoner();
+// ...
+ssTo.setJson(json);</code></pre>
 	</div>
 	<div class="codeBlock_section">
-		<div class="codeBlock_foo">
-			<textarea id="importArea" class="codeBlock_textBox" readOnly></textarea>
-		</div>
-		<div class="codeBlock_example">
-			<div id="importExample" class="codeBlock_ssContainer"></div>
+		<div class="twoColumnLayout">
+			<div class="twoColumnLayout_leftColumn">
+				<textarea id="importArea" class="codeBlock_textBox" readOnly></textarea>
+			</div>
+			<div class="twoColumnLayout_rightColumn">
+				<div id="importExample" class="codeBlock_ssContainer"></div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -48,6 +55,16 @@ ss.add(target, 'speed1');
 ss.add(target, 'speed2', {
   id: 'initSpeed'
 });</code></pre>
+	</div>
+	<div class="codeBlock_section">
+		<div class="twoColumnLayout">
+			<div class="twoColumnLayout_leftColumn">
+				<div id="idExample" class="codeBlock_ssContainer"></div>
+			</div>
+			<div class="twoColumnLayout_rightColumn">
+				<textarea id="idArea" class="codeBlock_textBox" readOnly></textarea>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -78,9 +95,9 @@ function showJson(json) {
 	});
 	ss.add(params, 'color');
 	ss.add(params, 'size', {min: 1, max: 100});
-	ss.add(params, 'speed', {min: 0, max: 1.0});
+	ss.add(params, 'speed', {min: 0.0, max: 1.0});
 
-	ss.addButton('Export').on('click', function() {
+	ss.on('change', function() {
 		showJson(ss.getJson());
 	});
 
@@ -100,8 +117,33 @@ function showJson(json) {
 		var json = JSON.parse(document.getElementById('importArea').textContent);
 		ss.setJson(json);
 	});
+	ss.addSeparator();
 	ss.add(params, 'color');
 	ss.add(params, 'size', {min: 1, max: 100});
-	ss.add(params, 'speed', {min: 0, max: 1.0});
+	ss.add(params, 'speed', {min: 0.0, max: 1.0});
+})();
+
+(function() {
+	var params = {
+		speed1: 0.3,
+		speed2: 0.7
+	};
+	var ss = Seasoner({
+		container: document.getElementById('idExample')
+	});
+	ss.add(params, 'speed1', {
+		min: 0.0,
+		max: 1.0
+	});
+	ss.add(params, 'speed2', {
+		id: 'initSpeed',
+		min: 0.0,
+		max: 1.0
+	});
+
+	ss.on('change', function() {
+		document.getElementById('idArea').textContent = prettifyJson(ss.getJson());
+	});
+	document.getElementById('idArea').textContent = prettifyJson(ss.getJson());
 })();
 {% endblock %}

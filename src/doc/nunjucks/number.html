@@ -6,14 +6,14 @@
 <p>seasoner.js provides a text field for a number property by default.</p>
 
 <div class="codeBlock">
-	<div class="codeBlock_code">
+	<div class="codeBlock_section">
 		<pre><code class="js">var params = {
   speed: 0.5
 };
 var ss = Seasoner();
 ss.add(params, 'speed');</code></pre>
 	</div>
-	<div class="codeBlock_example">
+	<div class="codeBlock_section">
 		<div id="example" class="codeBlock_ssContainer"></div>
 	</div>
 </div>
@@ -23,11 +23,11 @@ ss.add(params, 'speed');</code></pre>
 Use <code>min</code> or <code>max</code> option to specify minimum/maximum value.
 
 <div class="codeBlock">
-	<div class="codeBlock_code">
+	<div class="codeBlock_section">
 		<pre><code class="js">var ss = Seasoner();
 ss.add(target, 'speed', {min: 0});</code></pre>
 	</div>
-	<div class="codeBlock_example">
+	<div class="codeBlock_section">
 		<div id="minExample" class="codeBlock_ssContainer"></div>
 	</div>
 </div>
@@ -35,11 +35,11 @@ ss.add(target, 'speed', {min: 0});</code></pre>
 <p>If you specify both minimum and maximum value, slider control will be appear.</p>
 
 <div class="codeBlock">
-	<div class="codeBlock_code">
+	<div class="codeBlock_section">
 		<pre><code class="js">var ss = Seasoner();
 ss.add(target, 'speed', {min: 0, max: 100});</code></pre>
 	</div>
-	<div class="codeBlock_example">
+	<div class="codeBlock_section">
 		<div id="sliderExample" class="codeBlock_ssContainer"></div>
 	</div>
 </div>
@@ -49,13 +49,13 @@ ss.add(target, 'speed', {min: 0, max: 100});</code></pre>
 <p>You can also specify a step of changing value by <code>step</code> option.</p>
 
 <div class="codeBlock">
-	<div class="codeBlock_code">
+	<div class="codeBlock_section">
 		<pre><code class="js">var ss = Seasoner();
 ss.add(target, 'particleCount', {
   min: 0, max: 100, step: 10
 });</code></pre>
 	</div>
-	<div class="codeBlock_example">
+	<div class="codeBlock_section">
 		<div id="stepExample" class="codeBlock_ssContainer"></div>
 	</div>
 </div>
@@ -65,7 +65,7 @@ ss.add(target, 'particleCount', {
 <p>If you want to choose a value from named values, pass an object that has number values as <code>list</code> option.</p>
 
 <div class="codeBlock">
-	<div class="codeBlock_code">
+	<div class="codeBlock_section">
 		<pre><code class="js">var ss = Seasoner();
 ss.add(target, 'direction', {
   list: {
@@ -76,7 +76,7 @@ ss.add(target, 'direction', {
   }
 });</code></pre>
 	</div>
-	<div class="codeBlock_example">
+	<div class="codeBlock_section">
 		<div id="listExample" class="codeBlock_ssContainer"></div>
 	</div>
 </div>

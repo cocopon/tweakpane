@@ -3,7 +3,7 @@
 {% set title = 'Overview' %}
 
 {% block content %}
-<p>seasoner.js provides a user interface for changing parameters. It's inspired by the popular library <a href="http://workshop.chromeexperiments.com/examples/gui/" target="_blank">dat.GUI</a> and added a lot of improvements.</p>
+<p>seasoner.js provides a compact user interface for changing/monitoring values. It's inspired by the popular library <a href="http://workshop.chromeexperiments.com/examples/gui/" target="_blank">dat.GUI</a>.</p>
 <ul>
 	<li>Super easy to use</li>
 	<li>Clean and simple interface</li>
@@ -11,13 +11,14 @@
 	<li>Well-documented</li>
 </ul>
 
-<pre><code class="html">&lt;script src=&quot;seasoner.min.js&quot;&gt;&lt;/script&gt;
+<div class="codeBlock">
+	<div class="codeBlock_section">
+		<pre><code class="html">&lt;script src=&quot;seasoner.min.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
 var ss = Seasoner();
-&lt;/script&gt;
-</code></pre>
-
-<div id="log"></div>
+&lt;/script&gt;</code></pre>
+	</div>
+</div>
 {% endblock %}
 
 {% block script %}
@@ -33,10 +34,7 @@ var params = {
 	param2: 'str'
 };
 var ss = Seasoner();
-ss.add(params, 'easing', {
-	min: 0,
-	max: 10
-}).on('change', function(value) {
+ss.add(params, 'easing', {min: 0, max: 10}).on('change', function(value) {
 	console.log(value);
 });
 ss.add(params, 'color');
@@ -59,8 +57,4 @@ setInterval(function() {
 	params.param1 = Math.sin(t * 2 * Math.PI) * 10;
 	t = (t + 0.01) % 1.0;
 }, 1000 / 30);
-
-setInterval(function() {
-	document.getElementById('log').textContent = JSON.stringify(ss.getJson());
-}, 1000);
 {% endblock %}

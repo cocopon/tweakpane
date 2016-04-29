@@ -1,4 +1,4 @@
-.#{$prefix}cc {
+.#{$prefix}cbc {
 	height: $checkbox-control-outer-size;
 	width: 100%;
 
@@ -31,6 +31,7 @@
 		&_outer {
 			background-color: $input-background-color;
 			border-radius: 2px;
+			cursor: pointer;
 			height: $checkbox-control-outer-size;
 			position: relative;
 			transition: background-color 0.2s ease-out;
