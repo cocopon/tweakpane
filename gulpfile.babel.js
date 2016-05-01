@@ -9,31 +9,56 @@ const gulp = require('gulp');
 const runSequence = require('run-sequence');
 const source = require('vinyl-source-stream');
 
+const forProduction = !!$.util.env.production;
 const config = {
 	main: {
 		js: {
 			srcPattern: './src/main/js/**/*.js',
-			entryFile:  './src/main/js/tweakpane.js',
-			tmpDir:     './tmp/js',
-			dstFile:    'tweakpane.js',
-			dstDir:     './dst'
+			entryFile: './src/main/js/tweakpane.js',
+			tmpDir: './tmp/js',
+			dstFile: forProduction ?
+				'tweakpane.min.js' :
+				'tweakpane.js',
+			dstDir: './dst'
 		},
 		sass: {
 			srcPattern: './src/main/sass/**/*.scss',
-			tmpDir:     './tmp/css',
-			dstFile:    'tweakpane.css'
+			tmpDir: './tmp/css',
+			dstFile: 'tweakpane.css'
 		},
 		cssMarker: '.css_replace_me{}'
 	},
 	doc: {
 		nunjucks: {
-			pattern:    './src/doc/nunjucks/**/*.html',
+			pattern: './src/doc/nunjucks/**/*.html',
 			srcPattern: './src/doc/nunjucks/**/!(_)*.html',
-			dstDir:     './doc'
+			dstDir: './doc'
 		},
 		sass: {
 			srcPattern: './src/doc/sass/**/*.scss',
-			dstDir:     './doc'
+			dstDir: './doc'
+		}
+	},
+	uglify: {
+		compressor: {
+			sequences: true,
+			properties: true,
+			dead_code: true,
+			drop_debugger: true,
+			conditionals: true,
+			comparisons: true,
+			evaluate: true,
+			booleans: true,
+			loops: true,
+			unused: true,
+			hoist_funs: true,
+			hoist_vars: false,
+			if_return: true,
+			join_vars: true,
+			cascade: true,
+			collapse_vars: true,
+			keep_fargs: false,
+			keep_fnames: false
 		}
 	},
 	serverDirs: [
@@ -48,6 +73,11 @@ gulp.task('main:js', () => {
 		.bundle()
 		.pipe(source(config.main.js.dstFile))
 		.pipe(buffer())
+		.pipe(forProduction ?
+			$.uglify({
+				compress: config.uglify.compressor
+			}) :
+			$.util.noop())
 		.pipe(gulp.dest(config.main.js.tmpDir));
 });
 
@@ -110,7 +140,7 @@ gulp.task('main:embed_css', () => {
 			return fs.readFileSync(
 				path.join(srcCss),
 				'utf8'
-			).trim();
+			).trim().replace(/"/g, '\\"');
 		}))
 		.pipe(gulp.dest(config.main.js.dstDir));
 });
@@ -140,4 +170,5 @@ gulp.task('dev', (callback) => {
 		callback
 	);
 });
+
 gulp.task('default', ['main:build', 'doc:build']);
