@@ -103,7 +103,7 @@ class RootFolderView extends View {
 			this.timer_ = setTimeout(() => {
 				mainView.getElement().style.height = 'auto';
 				this.timer_ = null;
-			}, 200);
+			}, 400);
 		}
 	}
 

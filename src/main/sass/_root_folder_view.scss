@@ -24,7 +24,7 @@
 			right: 0;
 			top: 0;
 			transform: rotate(+90deg);
-			transition: transform 0.2s ease-out;
+			transition: transform 0.4s ease-in-out;
 			width: $folder-view-arrow-size;
 
 			&#{&}-expanded {

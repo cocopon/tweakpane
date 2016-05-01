@@ -28,7 +28,11 @@ gulp.task('main:js', () => {
 
 gulp.task('doc:nunjucks', () => {
 	return gulp.src(config.doc.nunjucks.srcPattern)
-		.pipe($.nunjucks.compile())
+		.pipe($.nunjucks.compile({
+			config: {
+				production: forProduction
+			}
+		}))
 		.pipe(gulp.dest(config.doc.nunjucks.dstDir));
 });
 

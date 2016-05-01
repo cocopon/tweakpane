@@ -3,10 +3,10 @@
 	position: relative;
 
 	&#{&}-animated &_arrow {
-		transition: transform 0.2s ease-out;
+		transition: transform 0.2s ease-in-out;
 	}
 	&#{&}-animated &_container {
-		transition: height 0.2s ease-out;
+		transition: height 0.2s ease-in-out;
 	}
 
 	@at-root {

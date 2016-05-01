@@ -17,7 +17,7 @@
 	</div>
 
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
-	<script src="tweakpane.js"></script>
+	<script src="{{ 'tweakpane.min.js' if config.production else 'tweakpane.js' }}"></script>
 	<script>
 	hljs.initHighlightingOnLoad();
 
