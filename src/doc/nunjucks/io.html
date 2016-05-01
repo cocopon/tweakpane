@@ -51,9 +51,11 @@ paneTo.setJson(json);</code></pre>
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = Tweakpane();
-pane.add(target, 'speed1');
-pane.add(target, 'speed2', {
-  id: 'initSpeed'
+pane.add(target1, 'speed', {
+  id: 'target1_speed'
+});
+pane.add(target2, 'speed', {
+  id: 'target2_speed'
 });</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
@@ -124,19 +126,22 @@ function showJson(json) {
 })();
 
 (function() {
-	var params = {
-		speed1: 0.3,
-		speed2: 0.7
+	var params1 = {
+		speed: 0.3
+	};
+	var params2 = {
+		speed: 0.7
 	};
 	var pane = Tweakpane({
 		container: document.getElementById('idExample')
 	});
-	pane.add(params, 'speed1', {
+	pane.add(params1, 'speed', {
+		id: 'target1_speed',
 		min: 0.0,
 		max: 1.0
 	});
-	pane.add(params, 'speed2', {
-		id: 'initSpeed',
+	pane.add(params2, 'speed', {
+		id: 'target2_speed',
 		min: 0.0,
 		max: 1.0
 	});

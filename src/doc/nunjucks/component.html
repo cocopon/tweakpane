@@ -18,7 +18,7 @@ var folder2 = pane.addFolder('Appearance');
 folder2.add(params, 'color')
 folder2.add(params, 'size');</code></pre>
 	</div>
-	<div class="codeBlock_section">
+	<div class="codeBlock_section codeBlock_section-example">
 		<div id="folderExample1" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
@@ -38,7 +38,7 @@ var folder2 = pane.addFolder('Appearance');
 folder2.add(params, 'color')
 folder2.add(target, 'size');</code></pre>
 	</div>
-	<div class="codeBlock_section">
+	<div class="codeBlock_section codeBlock_section-example">
 		<div id="folderExample2" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
@@ -58,8 +58,25 @@ pane.addButton('Fire').on(
 );
 </code></pre>
 	</div>
-	<div class="codeBlock_section">
+	<div class="codeBlock_section codeBlock_section-example">
 		<div id="buttonExample" class="codeBlock_paneContainer"></div>
+	</div>
+</div>
+
+
+<h2>Separator</h2>
+<p>You can add a separator by <code>addSeparator()</code> to separate each component.</p>
+
+<div class="codeBlock">
+	<div class="codeBlock_section">
+		<pre><code class="js">var pane = Tweakpane();
+pane.addButton('Action');
+pane.addSeparator();
+pane.addButton('Import');
+pane.addButton('Export');</code></pre>
+	</div>
+	<div class="codeBlock_section codeBlock_section-example">
+		<div id="separatorExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
 {% endblock %}
@@ -115,5 +132,15 @@ var params = {
 	pane.monitor(params, '(log)', {
 		count: 10
 	});
+})();
+
+(function() {
+	var pane = Tweakpane({
+		container: document.getElementById('separatorExample')
+	});
+	pane.addButton('Action');
+	pane.addSeparator();
+	pane.addButton('Import');
+	pane.addButton('Export');
 })();
 {% endblock %}

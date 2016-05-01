@@ -7,8 +7,14 @@ $color: hsl($key-hue, 20%, 20%);
 $code-block-background-color: hsl($key-hue, 10%, 91%);
 $code-block-example-background-color: hsl($key-hue, 10%, 85%);
 $code-block-text-box-background-color: hsl($key-hue, 10%, 78%);
+$menu-background-color: hsl($key-hue, 20%, 30%);
+$menu-color: hsl($key-hue, 20%, 60%);
+
 $font-family-sans: Verdana, sans-serif;
 $font-family-mono: Menlo, Courier, monospace;
+
+$content-width: 620px;
+$pane-width: 250px;
 
 @mixin clearfix() {
 	&:after {
@@ -31,7 +37,9 @@ html {
 }
 body {
 	margin: 0;
+	min-width: $content-width + $pane-width * 2;
 	padding: 0;
+	position: relative;
 }
 h1 {
 	font-size: 2.0rem;
@@ -85,23 +93,57 @@ a {
 	}
 }
 
-.header {
-	background-color: black;
-	color: white;
-}
 .content {
-	margin: 0 auto;
-	padding: 60px 30px;
-	width: 620px;
+	left: $pane-width;
+	padding: 30px;
+	position: relative;
+	width: $content-width;
 
 	& > *:last-child {
 		margin-bottom: 0;
 	}
 }
 .menu {
+	background-color: $menu-background-color;
+	bottom: 0;
+	color: $menu-color;
 	left: 0;
+	overflow-y: auto;
+	padding: 30px 0;
 	position: absolute;
 	top: 0;
+	width: $pane-width;
+
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+	li {
+		margin: 0;
+		padding: 0;
+	}
+	a {
+		color: hsl($key-hue, 50%, 90%);
+		display: block;
+		text-decoration: none;
+
+		&:hover {
+			background-color: hsla($key-hue, 50%, 90%, 0.1);
+		}
+	}
+
+	@at-root {
+		&_title {
+			display: block;
+			padding: 0.5rem 30px;
+			white-space: nowrap;
+		}
+		&_submenu {
+			margin: 0 0 0.5rem;
+			padding-left: 1.0rem;
+		}
+	}
 }
 .codeBlock {
 	background-color: $code-block-background-color;
@@ -124,7 +166,7 @@ a {
 		&_paneContainer {
 			box-shadow: 0 1px 3px rgba(black, 0.3);
 			margin: 0 auto;
-			width: 250px;
+			width: $pane-width;
 		}
 		&_textBox {
 			background-color: $code-block-text-box-background-color;
