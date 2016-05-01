@@ -7,8 +7,8 @@ $color: hsl($key-hue, 20%, 20%);
 $code-block-background-color: hsl($key-hue, 10%, 91%);
 $code-block-example-background-color: hsl($key-hue, 10%, 85%);
 $code-block-text-box-background-color: hsl($key-hue, 10%, 78%);
-$menu-background-color: hsl($key-hue, 20%, 30%);
-$menu-color: hsl($key-hue, 20%, 60%);
+$menu-background-color: hsl($key-hue, 10%, 30%);
+$menu-color: hsl($key-hue, 10%, 60%);
 
 $font-family-sans: Verdana, sans-serif;
 $font-family-mono: Menlo, Courier, monospace;
@@ -124,7 +124,7 @@ a {
 		padding: 0;
 	}
 	a {
-		color: hsl($key-hue, 50%, 90%);
+		color: hsl($key-hue, 10%, 80%);
 		display: block;
 		text-decoration: none;
 

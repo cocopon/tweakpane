@@ -2,17 +2,6 @@
 @import 'mixins';
 @import 'data';
 
-.#{$prefix} {
-	background-color: $background-color;
-	padding: 0 5px;
-
-	* {
-		box-sizing: border-box;
-		font-family: Verdana, sans-serif;
-		font-size: 11px;
-	}
-}
-
 .#{$prefix}DefaultContainer {
 	width: 250px;
 	position: absolute;
@@ -24,6 +13,8 @@
 @import 'button_view';
 @import 'folder_view';
 @import 'property_view';
+@import 'root_view';
+@import 'root_folder_view';
 @import 'separator_view';
 // Control
 @import 'checkbox_control';

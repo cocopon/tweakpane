@@ -2,7 +2,7 @@ $prefix: 'tp';
 
 // Colors
 $key-hue: 220deg;
-$background-color: hsl($key-hue, 15%, 12%);
+$background-color: hsl($key-hue, 15%, 20%);
 $prop-view-background-color: adjust-color($background-color, $saturation: -5%, $lightness: +12%);
 $input-background-color: adjust-color($prop-view-background-color, $lightness: +8%);
 $input-foreground-color: hsla($key-hue, 10%, 83%, 1.0);

@@ -1,0 +1,17 @@
+.#{$prefix}rv {
+	background-color: $background-color;
+	padding: 0 5px;
+
+	* {
+		box-sizing: border-box;
+		font-family: Verdana, sans-serif;
+		font-size: 11px;
+	}
+
+	@at-root {
+		&_main {
+			overflow: hidden;
+			transition: height 0.2s ease-out;
+		}
+	}
+}

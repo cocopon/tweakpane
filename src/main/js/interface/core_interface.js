@@ -40,19 +40,22 @@ class CoreInterface {
 
 	addFolder(title) {
 		const folderView = new FolderView(title);
-		this.core_.getRootView().addSubview(folderView);
+		const parentView = this.core_.getRootView().getMainView();
+		parentView.addSubview(folderView);
 		return new FolderViewInterface(folderView);
 	}
 
 	addButton(title) {
 		const buttonView = new ButtonView(title);
-		this.core_.getRootView().addSubview(buttonView);
+		const parentView = this.core_.getRootView().getMainView();
+		parentView.addSubview(buttonView);
 		return new ButtonViewInterface(buttonView);
 	}
 
 	addSeparator() {
 		const separatorView = new SeparatorView();
-		this.core_.getRootView().addSubview(separatorView);
+		const parentView = this.core_.getRootView().getMainView();
+		parentView.addSubview(separatorView);
 	}
 
 	getJson() {

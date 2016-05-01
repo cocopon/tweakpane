@@ -11,9 +11,7 @@
 
 	@at-root {
 		&_arrow {
-			background-image: url($folder-arrow-image);
-			background-position: center center;
-			background-repeat: no-repeat;
+			background: url($folder-arrow-image) no-repeat center center;
 			height: $folder-view-arrow-size;
 			right: 10px;
 			opacity: 0.3;

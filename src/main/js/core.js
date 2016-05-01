@@ -8,6 +8,8 @@ const Property                   = require('./model/property');
 const PropertyView               = require('./view/property_view');
 const RootView                   = require('./view/root_view');
 
+const RootFolderView = require('./view/root_folder_view');
+
 class Core {
 	constructor(opt_options) {
 		this.rootView_ = new RootView();
@@ -26,6 +28,10 @@ class Core {
 		this.emitter_ = new EventEmitter();
 
 		Appearance.inject();
+
+		this.rootView_.getFooterView().addSubview(
+			new RootFolderView()
+		);
 	}
 
 	createDefaultContainer_() {
@@ -48,7 +54,7 @@ class Core {
 			target, propName, options
 		);
 
-		this.rootView_.addSubview(propView);
+		this.rootView_.getMainView().addSubview(propView);
 
 		const prop = propView.getProperty();
 		prop.getEmitter().on(

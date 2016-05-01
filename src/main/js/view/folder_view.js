@@ -10,12 +10,12 @@ class FolderView extends View {
 			ClassName.get(FolderView.BLOCK_CLASS)
 		);
 
-		const arrowElem_ = document.createElement('div');
-		arrowElem_.classList.add(
+		const arrowElem = document.createElement('div');
+		arrowElem.classList.add(
 			ClassName.get(FolderView.BLOCK_CLASS, 'arrow')
 		);
-		elem.appendChild(arrowElem_);
-		this.arrowElem_ = arrowElem_;
+		elem.appendChild(arrowElem);
+		this.arrowElem_ = arrowElem;
 
 		const titleElem = document.createElement('div');
 		titleElem.textContent = title;
@@ -89,8 +89,8 @@ class FolderView extends View {
 	}
 
 	getContentHeight_() {
-		return this.subviews_.reduce((prevValue, curValue) => {
-			return prevValue + curValue.getElement().offsetHeight;
+		return this.subviews_.reduce((total, subview) => {
+			return total + subview.getElement().offsetHeight;
 		}, 0);
 	}
 

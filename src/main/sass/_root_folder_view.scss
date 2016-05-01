@@ -1,0 +1,35 @@
+.#{$prefix}rfv {
+	padding: 5px;
+
+	@at-root {
+		&_button {
+			background-color: transparent;
+			border-width: 0;
+			cursor: pointer;
+			display: block;
+			height: $input-height;
+			outline: none;
+			padding: 0;
+			position: relative;
+			width: 100%;
+		}
+		&_arrow {
+			background: url($folder-arrow-image) no-repeat center center;
+			bottom: 0;
+			display: block;
+			height: $folder-view-arrow-size;
+			left: 0;
+			margin: auto;
+			position: absolute;
+			right: 0;
+			top: 0;
+			transform: rotate(+90deg);
+			transition: transform 0.2s ease-out;
+			width: $folder-view-arrow-size;
+
+			&#{&}-expanded {
+				transform: rotate(-90deg);
+			}
+		}
+	}
+}
