@@ -11,7 +11,7 @@ class Appearance {
 	}
 }
 
-Appearance.ELEMENT_ID = 'ssjsDefaultStyle';
+Appearance.ELEMENT_ID = 'tpDefaultStyle';
 Appearance.CSS = '.css_replace_me{}';
 
 module.exports = Appearance;

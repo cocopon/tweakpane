@@ -3,59 +3,132 @@
 {% set title = 'Monitor' %}
 
 {% block content %}
-You can use <code>monitor()</code> to monitor specified property.
+<p>Tweakpane supports monitoring property change. Use <code>monitor()</code> to monitor it.</p>
 
-<h2>Number</h2>
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code>
-</code></pre>
+		<pre><code class="js">var pane = Tweakpane();
+pane.monitor(target, 'wave');</code></pre>
 	</div>
-	<div class="codeBlock_section">
-		<div id="textExample" class="codeBlock_ssContainer"></div>
+	<div class="codeBlock_section codeBlock_section-example">
+		<div id="textExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
 
 
 <h2>Graph</h2>
+<p>Tweakpane can draw a graph for a number property. Pass <code>graph</code> option as follows:</p>
+
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code>
-</code></pre>
+		<pre><code class="js">var pane = Tweakpane();
+pane.monitor(target, 'wave', {
+  graph: true,
+  min: -5.0,
+  max: +5.0,
+  count: 100
+});</code></pre>
 	</div>
+	<div class="codeBlock_section codeBlock_section-example">
+		<div id="graphExample" class="codeBlock_paneContainer"></div>
+	</div>
+</div>
+
+<p><code>min</code> is a minimum value of the graph, <code>max</code> is a maximum value, and <code>count</code> is data count to plot.</p>
+
+
+<h2>Log</h2>
+<p>You can specify <code>count</code> option for a single-line string property. Tweakpane holds a specified count of data.</p>
+
+<div class="codeBlock">
 	<div class="codeBlock_section">
-		<div id="graphExample" class="codeBlock_ssContainer"></div>
+		<pre><code class="js">var pane = Tweakpane();
+pane.monitor(target, 'time', {
+  count: 10
+});</code></pre>
+	</div>
+	<div class="codeBlock_section codeBlock_section-example">
+		<div id="logExample" class="codeBlock_paneContainer"></div>
+	</div>
+</div>
+
+
+<h2>Multi-line text</h2>
+<p>To monitoring a multi-line string property, enable <code>multiline</code> option.</p>
+
+<div class="codeBlock">
+	<div class="codeBlock_section">
+		<pre><code class="js">var pane = Tweakpane();
+pane.monitor(target, 'message', {
+  multiline: true
+});</code></pre>
+	</div>
+	<div class="codeBlock_section codeBlock_section-example">
+		<div id="multilineExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
 {% endblock %}
 
 {% block script %}
-var params = {
+var waveParams = {
 	wave: 0
 };
 var t = 0;
 setInterval(function() {
 	t += 0.01;
-	params.wave = Math.sin(t * 2 * Math.PI) + Math.sin(t * 3 * Math.PI);
+	waveParams.wave = 3.0 * 4.0 / Math.PI * (
+		Math.sin(t * 1 * Math.PI) +
+		Math.sin(t * 3 * Math.PI) / 3 +
+		Math.sin(t * 5 * Math.PI) / 5
+	);
 }, 1000 / 60);
 
 (function() {
-	var ss = Seasoner({
+	var pane = Tweakpane({
 		container: document.getElementById('textExample')
 	});
-	ss.monitor(params, 'wave');
+	pane.monitor(waveParams, 'wave');
 })();
 
 (function() {
-	var ss = Seasoner({
+	var pane = Tweakpane({
 		container: document.getElementById('graphExample')
 	});
-	ss.monitor(params, 'wave', {
+	pane.monitor(waveParams, 'wave', {
 		graph: true,
 		min: -5.0,
 		max: +5.0,
 		count: 200,
 		interval: 30
+	});
+})();
+
+(function() {
+	var params = {
+		time: ''
+	};
+	setInterval(function() {
+		params.time = String(new Date()).match(/\d{2}:\d{2}:\d{2}/)[0];
+	}, 1000);
+
+	var pane = Tweakpane({
+		container: document.getElementById('logExample')
+	});
+	pane.monitor(params, 'time', {
+		count: 10
+	});
+})();
+
+(function() {
+	var params = {
+		json: 'hello\nworld'
+	};
+
+	var pane = Tweakpane({
+		container: document.getElementById('multilineExample')
+	});
+	pane.monitor(params, 'json', {
+		multiline: true
 	});
 })();
 {% endblock %}

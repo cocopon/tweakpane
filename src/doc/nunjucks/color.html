@@ -10,13 +10,13 @@
 		<pre><code>var params = {
   keyColor: '#00ff00'
 };
-var ss = Seasoner({
+var pane = Tweakpane({
   container: document.getElementById('colorExample')
 });
-ss.add(params, 'keyColor');</code></pre>
+pane.add(params, 'keyColor');</code></pre>
 	</div>
 	<div class="codeBlock_section">
-		<div id="colorExample" class="codeBlock_ssContainer"></div>
+		<div id="colorExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
 {% endblock %}
@@ -27,9 +27,9 @@ ss.add(params, 'keyColor');</code></pre>
 		keyColor: '#00ff00'
 	};
 
-	var ss = Seasoner({
+	var pane = Tweakpane({
 		container: document.getElementById('colorExample')
 	});
-	ss.add(params, 'keyColor');
+	pane.add(params, 'keyColor');
 })();
 {% endblock %}

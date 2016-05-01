@@ -27,11 +27,18 @@ class LogMonitor extends Monitor {
 		const model = this.getProperty().getModel();
 		const lines = model.getRecords().slice();
 		lines.push(model.getValue());
-		lines.reverse();
-		this.textareaElem_.textContent = lines.join('\n');
+
+		const textareaElem = this.textareaElem_;
+		const bottommost = (textareaElem.scrollTop === (textareaElem.scrollHeight - textareaElem.clientHeight));
+
+		textareaElem.textContent = lines.join('\n');
+
+		if (bottommost) {
+			textareaElem.scrollTop = textareaElem.scrollHeight;
+		}
 	}
 }
 
-LogMonitor.BLOCK_CLASS = 'lm';
+LogMonitor.BLOCK_CLASS = 'lgm';
 
 module.exports = LogMonitor;

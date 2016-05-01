@@ -7,15 +7,15 @@
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var ssFrom = Seasoner();
+		<pre><code class="js">var paneFrom = Tweakpane();
 // ...
-var json = ssFrom.getJson();
+var json = paneFrom.getJson();
 console.log(json);</code></pre>
 	</div>
-	<div class="codeBlock_section">
+	<div class="codeBlock_section codeBlock_section-example">
 		<div class="twoColumnLayout">
 			<div class="twoColumnLayout_leftColumn">
-				<div id="exportExample" class="codeBlock_ssContainer"></div>
+				<div id="exportExample" class="codeBlock_paneContainer"></div>
 			</div>
 			<div class="twoColumnLayout_rightColumn">
 				<textarea id="exportArea" class="codeBlock_textBox" readOnly></textarea>
@@ -28,17 +28,17 @@ console.log(json);</code></pre>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var ssTo = Seasoner();
+		<pre><code class="js">var paneTo = Tweakpane();
 // ...
-ssTo.setJson(json);</code></pre>
+paneTo.setJson(json);</code></pre>
 	</div>
-	<div class="codeBlock_section">
+	<div class="codeBlock_section codeBlock_section-example">
 		<div class="twoColumnLayout">
 			<div class="twoColumnLayout_leftColumn">
 				<textarea id="importArea" class="codeBlock_textBox" readOnly></textarea>
 			</div>
 			<div class="twoColumnLayout_rightColumn">
-				<div id="importExample" class="codeBlock_ssContainer"></div>
+				<div id="importExample" class="codeBlock_paneContainer"></div>
 			</div>
 		</div>
 	</div>
@@ -46,20 +46,20 @@ ssTo.setJson(json);</code></pre>
 
 
 <h2>Changing a key of JSON variable</h2>
-<p>Property name will be used as a key of JSON object by default, but you can change it by <code>id</code> option.</p>
+<p>By default, property name will be used as a key of JSON object. You can change it by <code>id</code> option.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var ss = Seasoner();
-ss.add(target, 'speed1');
-ss.add(target, 'speed2', {
+		<pre><code class="js">var pane = Tweakpane();
+pane.add(target, 'speed1');
+pane.add(target, 'speed2', {
   id: 'initSpeed'
 });</code></pre>
 	</div>
-	<div class="codeBlock_section">
+	<div class="codeBlock_section codeBlock_section-example">
 		<div class="twoColumnLayout">
 			<div class="twoColumnLayout_leftColumn">
-				<div id="idExample" class="codeBlock_ssContainer"></div>
+				<div id="idExample" class="codeBlock_paneContainer"></div>
 			</div>
 			<div class="twoColumnLayout_rightColumn">
 				<textarea id="idArea" class="codeBlock_textBox" readOnly></textarea>
@@ -90,18 +90,18 @@ function showJson(json) {
 		size: 10,
 		speed: 1.0
 	};
-	var ss = Seasoner({
+	var pane = Tweakpane({
 		container: document.getElementById('exportExample')
 	});
-	ss.add(params, 'color');
-	ss.add(params, 'size', {min: 1, max: 100});
-	ss.add(params, 'speed', {min: 0.0, max: 1.0});
+	pane.add(params, 'color');
+	pane.add(params, 'size', {min: 1, max: 100});
+	pane.add(params, 'speed', {min: 0.0, max: 1.0});
 
-	ss.on('change', function() {
-		showJson(ss.getJson());
+	pane.on('change', function() {
+		showJson(pane.getJson());
 	});
 
-	showJson(ss.getJson());
+	showJson(pane.getJson());
 })();
 
 (function() {
@@ -110,17 +110,17 @@ function showJson(json) {
 		size: 20,
 		speed: 0.5
 	};
-	var ss = Seasoner({
+	var pane = Tweakpane({
 		container: document.getElementById('importExample')
 	});
-	ss.addButton('Import').on('click', function() {
+	pane.addButton('Import').on('click', function() {
 		var json = JSON.parse(document.getElementById('importArea').textContent);
-		ss.setJson(json);
+		pane.setJson(json);
 	});
-	ss.addSeparator();
-	ss.add(params, 'color');
-	ss.add(params, 'size', {min: 1, max: 100});
-	ss.add(params, 'speed', {min: 0.0, max: 1.0});
+	pane.addSeparator();
+	pane.add(params, 'color');
+	pane.add(params, 'size', {min: 1, max: 100});
+	pane.add(params, 'speed', {min: 0.0, max: 1.0});
 })();
 
 (function() {
@@ -128,22 +128,22 @@ function showJson(json) {
 		speed1: 0.3,
 		speed2: 0.7
 	};
-	var ss = Seasoner({
+	var pane = Tweakpane({
 		container: document.getElementById('idExample')
 	});
-	ss.add(params, 'speed1', {
+	pane.add(params, 'speed1', {
 		min: 0.0,
 		max: 1.0
 	});
-	ss.add(params, 'speed2', {
+	pane.add(params, 'speed2', {
 		id: 'initSpeed',
 		min: 0.0,
 		max: 1.0
 	});
 
-	ss.on('change', function() {
-		document.getElementById('idArea').textContent = prettifyJson(ss.getJson());
+	pane.on('change', function() {
+		document.getElementById('idArea').textContent = prettifyJson(pane.getJson());
 	});
-	document.getElementById('idArea').textContent = prettifyJson(ss.getJson());
+	document.getElementById('idArea').textContent = prettifyJson(pane.getJson());
 })();
 {% endblock %}

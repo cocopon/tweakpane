@@ -3,12 +3,12 @@ class StringCodec {
 		return true;
 	}
 
-	static decode(stringValue) {
-		return stringValue;
+	static decode(value) {
+		return String(value);
 	}
 
 	static encode(value) {
-		return value;
+		return String(value);
 	}
 }
 

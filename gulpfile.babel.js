@@ -13,15 +13,15 @@ const config = {
 	main: {
 		js: {
 			srcPattern: './src/main/js/**/*.js',
-			entryFile:  './src/main/js/seasoner.js',
+			entryFile:  './src/main/js/tweakpane.js',
 			tmpDir:     './tmp/js',
-			dstFile:    'seasoner.js',
+			dstFile:    'tweakpane.js',
 			dstDir:     './dst'
 		},
 		sass: {
 			srcPattern: './src/main/sass/**/*.scss',
 			tmpDir:     './tmp/css',
-			dstFile:    'seasoner.css'
+			dstFile:    'tweakpane.css'
 		},
 		cssMarker: '.css_replace_me{}'
 	},

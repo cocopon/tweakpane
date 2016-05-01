@@ -1,12 +1,12 @@
 const Codec = require('./codec');
 
 class NumberCodec extends Codec {
-	static canDecode(stringValue) {
-		return !isNaN(Number(stringValue));
+	static canDecode(value) {
+		return !isNaN(Number(value));
 	}
 
-	static decode(stringValue) {
-		return Number(stringValue);
+	static decode(value) {
+		return Number(value);
 	}
 
 	static encode(value) {

@@ -3,18 +3,18 @@
 {% set title = 'Number' %}
 
 {% block content %}
-<p>seasoner.js provides a text field for a number property by default.</p>
+<p>Tweakpane provides a text field for a number property by default.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var params = {
   speed: 0.5
 };
-var ss = Seasoner();
-ss.add(params, 'speed');</code></pre>
+var pane = Tweakpane();
+pane.add(params, 'speed');</code></pre>
 	</div>
-	<div class="codeBlock_section">
-		<div id="example" class="codeBlock_ssContainer"></div>
+	<div class="codeBlock_section codeBlock_section-example">
+		<div id="numberExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
 
@@ -24,11 +24,11 @@ Use <code>min</code> or <code>max</code> option to specify minimum/maximum value
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var ss = Seasoner();
-ss.add(target, 'speed', {min: 0});</code></pre>
+		<pre><code class="js">var pane = Tweakpane();
+pane.add(target, 'speed', {min: 0});</code></pre>
 	</div>
-	<div class="codeBlock_section">
-		<div id="minExample" class="codeBlock_ssContainer"></div>
+	<div class="codeBlock_section codeBlock_section-example">
+		<div id="minExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
 
@@ -36,11 +36,11 @@ ss.add(target, 'speed', {min: 0});</code></pre>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var ss = Seasoner();
-ss.add(target, 'speed', {min: 0, max: 100});</code></pre>
+		<pre><code class="js">var pane = Tweakpane();
+pane.add(target, 'speed', {min: 0, max: 100});</code></pre>
 	</div>
-	<div class="codeBlock_section">
-		<div id="sliderExample" class="codeBlock_ssContainer"></div>
+	<div class="codeBlock_section codeBlock_section-example">
+		<div id="sliderExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
 
@@ -50,13 +50,13 @@ ss.add(target, 'speed', {min: 0, max: 100});</code></pre>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var ss = Seasoner();
-ss.add(target, 'particleCount', {
+		<pre><code class="js">var pane = Tweakpane();
+pane.add(target, 'particleCount', {
   min: 0, max: 100, step: 10
 });</code></pre>
 	</div>
-	<div class="codeBlock_section">
-		<div id="stepExample" class="codeBlock_ssContainer"></div>
+	<div class="codeBlock_section codeBlock_section-example">
+		<div id="stepExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
 
@@ -66,8 +66,8 @@ ss.add(target, 'particleCount', {
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var ss = Seasoner();
-ss.add(target, 'direction', {
+		<pre><code class="js">var pane = Tweakpane();
+pane.add(target, 'direction', {
   list: {
     none: 0,
     horizontal: 1,
@@ -76,8 +76,8 @@ ss.add(target, 'direction', {
   }
 });</code></pre>
 	</div>
-	<div class="codeBlock_section">
-		<div id="listExample" class="codeBlock_ssContainer"></div>
+	<div class="codeBlock_section codeBlock_section-example">
+		<div id="listExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
 {% endblock %}
@@ -87,40 +87,40 @@ ss.add(target, 'direction', {
 	var params = {
 		speed: 0.5,
 	};
-	var ss = Seasoner({
-		container: document.getElementById('example')
+	var pane = Tweakpane({
+		container: document.getElementById('numberExample')
 	});
-	ss.add(params, 'speed');
+	pane.add(params, 'speed');
 })();
 
 (function() {
 	var params = {
 		speed: 50
 	};
-	var ss = Seasoner({
+	var pane = Tweakpane({
 		container: document.getElementById('minExample')
 	});
-	ss.add(params, 'speed', {min: 0});
+	pane.add(params, 'speed', {min: 0});
 })();
 
 (function() {
 	var params = {
 		speed: 50
 	};
-	var ss = Seasoner({
+	var pane = Tweakpane({
 		container: document.getElementById('sliderExample')
 	});
-	ss.add(params, 'speed', {min: 0, max: 100});
+	pane.add(params, 'speed', {min: 0, max: 100});
 })();
 
 (function() {
 	var params = {
 		particleCount: 50
 	};
-	var ss = Seasoner({
+	var pane = Tweakpane({
 		container: document.getElementById('stepExample')
 	});
-	ss.add(params, 'particleCount', {min: 0, max: 100, step: 10});
+	pane.add(params, 'particleCount', {min: 0, max: 100, step: 10});
 })();
 
 (function() {
@@ -128,10 +128,10 @@ ss.add(target, 'direction', {
 		direction: 0,
 		'(value)': ''
 	};
-	var ss = Seasoner({
+	var pane = Tweakpane({
 		container: document.getElementById('listExample')
 	});
-	ss.add(params, 'direction', {
+	pane.add(params, 'direction', {
 		list: {
 			none: 0,
 			horizontal: 1,
@@ -141,6 +141,6 @@ ss.add(target, 'direction', {
 	}).on('change', function(value) {
 		params['(value)'] = String(value);
 	});;
-	ss.monitor(params, '(value)');
+	pane.monitor(params, '(value)');
 })();
 {% endblock %}

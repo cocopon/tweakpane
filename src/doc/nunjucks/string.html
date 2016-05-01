@@ -3,18 +3,18 @@
 {% set title = 'String' %}
 
 {% block content %}
-<p>seasoner.js provides a text field for a string property.</p>
+<p>Tweakpane provides a text field for a string property.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var params = {
   name: 'cocopon',
 };
-var ss = Seasoner();
-ss.add(params, 'name');</code></pre>
+var pane = Tweakpane();
+pane.add(params, 'name');</code></pre>
 	</div>
 	<div class="codeBlock_section">
-		<div id="example" class="codeBlock_ssContainer"></div>
+		<div id="stringExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
 
@@ -24,8 +24,8 @@ ss.add(params, 'name');</code></pre>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var ss = Seasoner();
-ss.add(target, 'direction').list([
+		<pre><code class="js">var pane = Tweakpane();
+pane.add(target, 'direction').list([
   'left',
   'up',
   'right'
@@ -33,7 +33,7 @@ ss.add(target, 'direction').list([
 ]);</code></pre>
 	</div>
 	<div class="codeBlock_section">
-		<div id="listExample" class="codeBlock_ssContainer"></div>
+		<div id="listExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
 
@@ -41,8 +41,8 @@ ss.add(target, 'direction').list([
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var ss = Seasoner();
-ss.add(target, 'vimKey').list([
+		<pre><code class="js">var pane = Tweakpane();
+pane.add(target, 'vimKey').list([
   left:  'H',
   up:    'K',
   right: 'L',
@@ -50,7 +50,7 @@ ss.add(target, 'vimKey').list([
 ]);</code></pre>
 	</div>
 	<div class="codeBlock_section">
-		<div id="namedListExample" class="codeBlock_ssContainer"></div>
+		<div id="namedListExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
 {% endblock %}
@@ -60,10 +60,10 @@ ss.add(target, 'vimKey').list([
 	var params = {
 		name: 'cocopon',
 	};
-	var ss = Seasoner({
-		container: document.getElementById('example')
+	var pane = Tweakpane({
+		container: document.getElementById('stringExample')
 	});
-	ss.add(params, 'name');
+	pane.add(params, 'name');
 })();
 
 (function() {
@@ -71,10 +71,10 @@ ss.add(target, 'vimKey').list([
 		direction: 'left',
 		'(value)': ''
 	};
-	var ss = Seasoner({
+	var pane = Tweakpane({
 		container: document.getElementById('listExample')
 	});
-	ss.add(params, 'direction', {
+	pane.add(params, 'direction', {
 		list: [
 			'left',
 			'up',
@@ -84,7 +84,7 @@ ss.add(target, 'vimKey').list([
 	}).on('change', function(value) {
 		params['(value)'] = value;
 	});
-	ss.monitor(params, '(value)');
+	pane.monitor(params, '(value)');
 })();
 
 (function() {
@@ -92,10 +92,10 @@ ss.add(target, 'vimKey').list([
 		vimKey: 'H',
 		'(value)': ''
 	};
-	var ss = Seasoner({
+	var pane = Tweakpane({
 		container: document.getElementById('namedListExample')
 	});
-	ss.add(params, 'vimKey', {
+	pane.add(params, 'vimKey', {
 		list: {
 			left:  'H',
 			up:    'K',
@@ -105,6 +105,6 @@ ss.add(target, 'vimKey').list([
 	}).on('change', function(value) {
 		params['(value)'] = value;
 	});
-	ss.monitor(params, '(value)');
+	pane.monitor(params, '(value)');
 })();
 {% endblock %}

@@ -3,7 +3,7 @@ class Errors {
 		const e = new Error(
 			`'${methodName}' not implemented.`
 		);
-		e.name = 'Seasoner:NotImplementedError';
+		e.name = 'Tweakpane:NotImplementedError';
 		return e;
 	}
 
@@ -11,7 +11,7 @@ class Errors {
 		const e = new Error(
 			'Same type of constraint already exists.'
 		);
-		e.name = 'Seasoner:ConstraintAlreadyExistsError';
+		e.name = 'Tweakpane:ConstraintAlreadyExistsError';
 		return e;
 	}
 
@@ -20,7 +20,7 @@ class Errors {
 			`Found duplicated identifier: '${propertyId}'`,
 			'Use `id()` to change an identifier of the duplicated property.'
 		].join('\n'));
-		e.name = 'Seasoner:DuplicatedPropertyIdError'
+		e.name = 'Tweakpane:DuplicatedPropertyIdError'
 		return e;
 	}
 
@@ -28,7 +28,7 @@ class Errors {
 		const e = new Error(
 			`Property not found: '${propertyName}'`
 		);
-		e.name = 'Seasoner.propertyNotFoundError';
+		e.name = 'Tweakpane.propertyNotFoundError';
 		return e;
 	}
 
@@ -37,7 +37,7 @@ class Errors {
 			`Property type not supported: '${propertyName}'`,
 			String(value)
 		].join('\n'));
-		e.name = 'Seasoner.propertyTypeNotSupportedError';
+		e.name = 'Tweakpane.propertyTypeNotSupportedError';
 		return e;
 	}
 
@@ -45,7 +45,7 @@ class Errors {
 		const e = new Error(
 			`Property not found: '${propertyName}'`
 		);
-		e.name = 'Seasoner.PropertyNotFound';
+		e.name = 'Tweakpane.PropertyNotFound';
 		return e;
 	}
 
@@ -53,7 +53,7 @@ class Errors {
 		const e = new Error(
 			`Invalid argument: ${argumentName} = ${value}`
 		);
-		e.name = 'Seasoner.InvalidArgument';
+		e.name = 'Tweakpane.InvalidArgument';
 		return e;
 	}
 }

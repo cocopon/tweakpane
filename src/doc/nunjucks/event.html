@@ -8,8 +8,8 @@
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var ss = Seasoner();
-ss.add(target, 'speed', {min: 0, max: 100}).on(
+		<pre><code class="js">var pane = Tweakpane();
+pane.add(target, 'speed', {min: 0, max: 100}).on(
   'change',
   function(value) {
     console.log(value);
@@ -17,7 +17,7 @@ ss.add(target, 'speed', {min: 0, max: 100}).on(
 );</code></pre>
 	</div>
 	<div class="codeBlock_section">
-		<div id="eventExample" class="codeBlock_ssContainer"></div>
+		<div id="eventExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
 
@@ -27,10 +27,10 @@ ss.add(target, 'speed', {min: 0, max: 100}).on(
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var ss = Seasoner();
-ss.add(target, 'power', {min: 0, max: 100});
-ss.add(target, 'size', {min: 0, max: 100});
-ss.on(
+		<pre><code class="js">var pane = Tweakpane();
+pane.add(target, 'power', {min: 0, max: 100});
+pane.add(target, 'size', {min: 0, max: 100});
+pane.on(
   'change',
   function(value, property) {
     console.log(property.getLabel());
@@ -39,7 +39,7 @@ ss.on(
 );</code></pre>
 	</div>
 	<div class="codeBlock_section">
-		<div id="globalEventExample" class="codeBlock_ssContainer"></div>
+		<div id="globalEventExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
 
@@ -52,16 +52,16 @@ ss.on(
 		speed: 50,
 		'(log)': ''
 	};
-	var ss = Seasoner({
+	var pane = Tweakpane({
 		container: document.getElementById('eventExample')
 	});
-	ss.add(params, 'speed', {
+	pane.add(params, 'speed', {
 		min: 0,
 		max: 100
 	}).on('change', function(value) {
 		params['(log)'] = String(value);
 	});
-	ss.monitor(params, '(log)', {
+	pane.monitor(params, '(log)', {
 		count: 10
 	});
 })();
@@ -72,19 +72,19 @@ ss.on(
 		size: 50,
 		'(log)': ''
 	};
-	var ss = Seasoner({
+	var pane = Tweakpane({
 		container: document.getElementById('globalEventExample')
 	});
-	ss.add(params, 'power', {min: 0, max: 100});
-	ss.add(params, 'size', {min: 0, max: 100});
-	ss.on('change', function(value, prop) {
+	pane.add(params, 'power', {min: 0, max: 100});
+	pane.add(params, 'size', {min: 0, max: 100});
+	pane.on('change', function(value, prop) {
 		if (prop.getId() === '(log)') {
 			// Prevent infinite loop
 			return;
 		}
 		params['(log)'] = prop.getLabel() + ': ' + String(value);
 	});
-	ss.monitor(params, '(log)', {
+	pane.monitor(params, '(log)', {
 		count: 10
 	});
 })();

@@ -3,18 +3,18 @@
 {% set title = 'Overview' %}
 
 {% block content %}
-<p>seasoner.js provides a checkbox field for a boolean property by default.</p>
+<p>Tweakpane provides a checkbox field for a boolean property by default.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var params = {
   debug: true
 };
-var ss = Seasoner();
-ss.add(params, 'debug');</code></pre>
+var pane = Tweakpane();
+pane.add(params, 'debug');</code></pre>
 	</div>
 	<div class="codeBlock_section">
-		<div id="example" class="codeBlock_ssContainer"></div>
+		<div id="example" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
 
@@ -22,13 +22,13 @@ ss.add(params, 'debug');</code></pre>
 <h2>List</h2>
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var ss = Seasoner();
-ss.add(target, 'debug', {
+		<pre><code class="js">var pane = Tweakpane();
+pane.add(target, 'debug', {
   list: ['Enabled', 'Disabled']
 });</code></pre>
 	</div>
 	<div class="codeBlock_section">
-		<div id="listExample" class="codeBlock_ssContainer"></div>
+		<div id="listExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
 {% endblock %}
@@ -38,10 +38,10 @@ ss.add(target, 'debug', {
 	var params = {
 		debug: true
 	};
-	var ss = Seasoner({
+	var pane = Tweakpane({
 		container: document.getElementById('example')
 	});
-	ss.add(params, 'debug');
+	pane.add(params, 'debug');
 })();
 
 (function() {
@@ -49,14 +49,14 @@ ss.add(target, 'debug', {
 		debug: false,
 		'(value)': ''
 	};
-	var ss = Seasoner({
+	var pane = Tweakpane({
 		container: document.getElementById('listExample')
 	});
-	ss.add(params, 'debug', {
+	pane.add(params, 'debug', {
 		list: ['Enabled', 'Disabled']
 	}).on('change', function(value) {
 		params['(value)'] = String(value);
 	});
-	ss.monitor(params, '(value)');
+	pane.monitor(params, '(value)');
 })();
 {% endblock %}

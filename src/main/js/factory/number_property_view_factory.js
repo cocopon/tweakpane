@@ -2,7 +2,7 @@ const ListConstraint       = require('../constraint/list_constraint');
 const MaxNumberConstraint  = require('../constraint/max_number_constraint');
 const MinNumberConstraint  = require('../constraint/min_number_constraint');
 const StepNumberConstraint = require('../constraint/step_number_constraint');
-const NumberHistoryModel   = require('../model/number_history_model');
+const NumberRecordModel   = require('../model/number_record_model');
 const NumberModel          = require('../model/number_model');
 const ListControl          = require('../view/control/list_control');
 const NumberTextControl    = require('../view/control/number_text_control');
@@ -22,7 +22,7 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 		}
 
 		if (options.graph) {
-			return new NumberHistoryModel(options.count);
+			return new NumberRecordModel(options.count);
 		}
 
 		return new NumberModel();

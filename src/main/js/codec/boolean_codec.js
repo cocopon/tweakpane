@@ -12,7 +12,9 @@ class BooleanCodec extends Codec {
 	}
 
 	static encode(value) {
-		return !!value;
+		return (value === 'false') ?
+			false :
+			!!value;
 	}
 }
 

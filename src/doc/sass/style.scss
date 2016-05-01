@@ -1,3 +1,12 @@
+$key-hue: 220deg;
+
+$a-color: hsl(12deg, 50%, 50%);
+$a-hover-background-color: rgba($a-color, 0.1);
+$background-color: hsl($key-hue, 12%, 98%);
+$color: hsl($key-hue, 20%, 20%);
+$code-block-background-color: hsl($key-hue, 10%, 91%);
+$code-block-example-background-color: hsl($key-hue, 10%, 85%);
+$code-block-text-box-background-color: hsl($key-hue, 10%, 78%);
 $font-family-sans: Verdana, sans-serif;
 $font-family-mono: Menlo, Courier, monospace;
 
@@ -13,13 +22,14 @@ $font-family-mono: Menlo, Courier, monospace;
 	box-sizing: border-box;
 }
 html {
+	background-color: $background-color;
+	color: $color;
 	font-family: $font-family-sans;
-	font-size: 13px;
+	font-size: 14px;
 	margin: 0;
 	padding: 0;
 }
 body {
-	background-color: #f0f0f0;
 	margin: 0;
 	padding: 0;
 }
@@ -35,12 +45,14 @@ h2 {
 }
 pre {
 	font-family: $font-family-mono;
-	line-height: 1.8;
+	font-size: 0.95rem;
+	line-height: 1.6;
 	margin: 0;
 	padding: 0;
 
 	& > code,
 	& > .hljs {
+		background-color: transparent;
 		padding: 0;
 	}
 }
@@ -58,11 +70,19 @@ li + li {
 	margin-top: 0.5rem;
 }
 code {
-	background-color: #eee;
+	background-color: hsl($key-hue, 10%, 91%);
 	border-radius: 2px;
-	color: #888;
+	color: hsl($key-hue, 20%, 50%);
 	font-family: $font-family-mono;
-	padding: 0 2px;
+	padding: 0 0.3rem;
+}
+a {
+	color: $a-color;
+	transition: background-color 0.2s ease-out;
+
+	&:hover {
+		background-color: $a-hover-background-color;
+	}
 }
 
 .header {
@@ -70,20 +90,25 @@ code {
 	color: white;
 }
 .content {
-	background-color: white;
 	margin: 0 auto;
-	padding: 30px;
+	padding: 60px 30px;
 	width: 620px;
 
 	& > *:last-child {
 		margin-bottom: 0;
 	}
 }
+.menu {
+	left: 0;
+	position: absolute;
+	top: 0;
+}
 .codeBlock {
-	background-color: #eee;
+	background-color: $code-block-background-color;
 	border-radius: 2px;
 	color: #888;
-	margin: 2.0rem 0;
+	margin: 1.0rem 0;
+	overflow: hidden;
 
 	@at-root {
 		&_section {
@@ -92,19 +117,20 @@ code {
 			padding: 20px;
 			position: relative;
 
-			& + & {
-				border-top: #ddd dotted 1px;
+			&#{&}-example {
+				background-color: $code-block-example-background-color;
 			}
 		}
-		&_ssContainer {
+		&_paneContainer {
+			box-shadow: 0 1px 3px rgba(black, 0.3);
 			margin: 0 auto;
 			width: 250px;
 		}
 		&_textBox {
-			background-color: #ddd;
+			background-color: $code-block-text-box-background-color;
 			border-radius: 2px;
 			border-width: 0;
-			color: #aaa;
+			color: darken($code-block-text-box-background-color, 35%);
 			font-family: $font-family-mono;
 			font-size: 0.9rem;
 			height: 139px;

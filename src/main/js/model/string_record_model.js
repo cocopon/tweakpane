@@ -8,9 +8,6 @@ class StringRecordModel extends StringModel {
 		this.recCount_ = (opt_recordCount !== undefined) ?
 			opt_recordCount :
 			10;
-		for (let i = 0; i < this.recCount_; i++) {
-			this.recValues_.push('');
-		}
 	}
 
 	getRecords() {

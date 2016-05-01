@@ -1,9 +1,12 @@
 {% extends "_template.html" %}
 
-{% set title = 'Overview' %}
+{% set title = 'Tweakpane' %}
 
 {% block content %}
-<p>seasoner.js provides a compact user interface for changing/monitoring values. It's inspired by the popular library <a href="http://workshop.chromeexperiments.com/examples/gui/" target="_blank">dat.GUI</a>.</p>
+<p>Tweakpane is a JavaScript library that provides a compact user interface for changing/monitoring values. It's originally inspired by the popular library <a href="http://workshop.chromeexperiments.com/examples/gui/" target="_blank">dat.GUI</a>.</p>
+
+
+<h2>Features</h2>
 <ul>
 	<li>Super easy to use</li>
 	<li>Clean and simple interface</li>
@@ -11,11 +14,13 @@
 	<li>Well-documented</li>
 </ul>
 
+
+<h2>Demo</h2>
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="html">&lt;script src=&quot;seasoner.min.js&quot;&gt;&lt;/script&gt;
+		<pre><code class="html">&lt;script src=&quot;tweakpane.min.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
-var ss = Seasoner();
+var pane = Tweakpane();
 &lt;/script&gt;</code></pre>
 	</div>
 </div>
@@ -33,19 +38,19 @@ var params = {
 	param1: 2,
 	param2: 'str'
 };
-var ss = Seasoner();
-ss.add(params, 'easing', {min: 0, max: 10}).on('change', function(value) {
+var pane = Tweakpane();
+pane.add(params, 'easing', {min: 0, max: 10}).on('change', function(value) {
 	console.log(value);
 });
-ss.add(params, 'color');
-ss.monitor(params, 'param1', {
+pane.add(params, 'color');
+pane.monitor(params, 'param1', {
 	label: 'Very long long label'
 });
-ss.add(params, 'param2');
-var fol1 = ss.addFolder('Motion');
+pane.add(params, 'param2');
+var fol1 = pane.addFolder('Motion');
 fol1.add(params, 'rotationAmount');
 fol1.add(params, 'speed');
-var fol2 = ss.addFolder('Appearance');
+var fol2 = pane.addFolder('Appearance');
 fol2.add(params, 'softness', {
 	list: ['foo', 'bar', 'baz']
 });
