@@ -4,7 +4,7 @@
 
 {% block content %}
 <h2>Changing a label of a property</h2>
-<p>Property name will be used as a label by default. To change it, use <code>label</code> option.</p>
+<p>Property name will be used as a label by default. Use <code>label</code> option to change it.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
@@ -34,8 +34,30 @@ pane.add(target, 'initSpeed', {
 </div>
 
 
-<h2>Hiding a collapse button</h2>
-<p>TODO:</p>
+<h2>Disabling fold</h2>
+<p>Set <code>foldable</code> option to false.</p>
+
+<div class="codeBlock">
+	<div class="codeBlock_section">
+		<pre><code class="js">var pane = Tweakpane({
+  foldable: false
+});</code></pre>
+	</div>
+</div>
+
+
+<h2>Refreshing property views manually</h2>
+<p>Tweakpane doesn't watch a property change automatically, so you should refresh manually if you change a property without Tweakpane. Call <code>refresh()</code> to refresh all property views.</p>
+
+<div class="codeBlock">
+	<div class="codeBlock_section">
+		<pre><code class="js">var pane = Tweakpane();
+
+// (changed a property without Tweakpane...)
+
+pane.refresh();</code></pre>
+	</div>
+</div>
 {% endblock %}
 
 {% block script %}
@@ -44,6 +66,7 @@ pane.add(target, 'initSpeed', {
 		initSpeed: 0.38
 	};
 	var pane = Tweakpane({
+		foldable: false,
 		container: document.getElementById('labelExample')
 	});
 	pane.add(params, 'initSpeed', {

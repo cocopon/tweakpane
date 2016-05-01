@@ -88,6 +88,7 @@ pane.add(target, 'direction', {
 		speed: 0.5,
 	};
 	var pane = Tweakpane({
+		foldable: false,
 		container: document.getElementById('numberExample')
 	});
 	pane.add(params, 'speed');
@@ -98,6 +99,7 @@ pane.add(target, 'direction', {
 		speed: 50
 	};
 	var pane = Tweakpane({
+		foldable: false,
 		container: document.getElementById('minExample')
 	});
 	pane.add(params, 'speed', {min: 0});
@@ -108,6 +110,7 @@ pane.add(target, 'direction', {
 		speed: 50
 	};
 	var pane = Tweakpane({
+		foldable: false,
 		container: document.getElementById('sliderExample')
 	});
 	pane.add(params, 'speed', {min: 0, max: 100});
@@ -118,6 +121,7 @@ pane.add(target, 'direction', {
 		particleCount: 50
 	};
 	var pane = Tweakpane({
+		foldable: false,
 		container: document.getElementById('stepExample')
 	});
 	pane.add(params, 'particleCount', {min: 0, max: 100, step: 10});
@@ -129,6 +133,7 @@ pane.add(target, 'direction', {
 		'(value)': ''
 	};
 	var pane = Tweakpane({
+		foldable: false,
 		container: document.getElementById('listExample')
 	});
 	pane.add(params, 'direction', {

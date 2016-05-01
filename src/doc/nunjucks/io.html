@@ -93,6 +93,7 @@ function showJson(json) {
 		speed: 1.0
 	};
 	var pane = Tweakpane({
+		foldable: false,
 		container: document.getElementById('exportExample')
 	});
 	pane.add(params, 'color');
@@ -113,6 +114,7 @@ function showJson(json) {
 		speed: 0.5
 	};
 	var pane = Tweakpane({
+		foldable: false,
 		container: document.getElementById('importExample')
 	});
 	pane.addButton('Import').on('click', function() {
@@ -133,6 +135,7 @@ function showJson(json) {
 		speed: 0.7
 	};
 	var pane = Tweakpane({
+		foldable: false,
 		container: document.getElementById('idExample')
 	});
 	pane.add(params1, 'speed', {

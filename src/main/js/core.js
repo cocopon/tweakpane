@@ -6,9 +6,8 @@ const EventEmitter               = require('./misc/event_emitter');
 const ViewUtil                   = require('./misc/view_util');
 const Property                   = require('./model/property');
 const PropertyView               = require('./view/property_view');
+const RootFolderView             = require('./view/root_folder_view');
 const RootView                   = require('./view/root_view');
-
-const RootFolderView = require('./view/root_folder_view');
 
 class Core {
 	constructor(opt_options) {
@@ -29,9 +28,14 @@ class Core {
 
 		Appearance.inject();
 
-		this.rootView_.getFooterView().addSubview(
-			new RootFolderView()
-		);
+		const foldable = (options.foldable !== undefined) ?
+			options.foldable :
+			true;
+		if (foldable) {
+			this.rootView_.getFooterView().addSubview(
+				new RootFolderView()
+			);
+		}
 	}
 
 	createDefaultContainer_() {

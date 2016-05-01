@@ -61,6 +61,7 @@ pane.add(target, 'vimKey').list([
 		name: 'cocopon',
 	};
 	var pane = Tweakpane({
+		foldable: false,
 		container: document.getElementById('stringExample')
 	});
 	pane.add(params, 'name');
@@ -72,6 +73,7 @@ pane.add(target, 'vimKey').list([
 		'(value)': ''
 	};
 	var pane = Tweakpane({
+		foldable: false,
 		container: document.getElementById('listExample')
 	});
 	pane.add(params, 'direction', {
@@ -93,6 +95,7 @@ pane.add(target, 'vimKey').list([
 		'(value)': ''
 	};
 	var pane = Tweakpane({
+		foldable: false,
 		container: document.getElementById('namedListExample')
 	});
 	pane.add(params, 'vimKey', {

@@ -67,6 +67,27 @@ pane.monitor(target, 'message', {
 		<div id="multilineExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
+
+
+<h2>Changing monitoring interval</h2>
+<p>You can change an interval for monitoring by <code>interval</code> option, in the order of milliseconds. The default value is 50ms.</p>
+
+<div class="codeBlock">
+	<div class="codeBlock_section">
+		<pre><code class="js">var pane = Tweakpane();
+pane.monitor(target, 'wave', {
+  interval: 500,
+  label: 'wave (0.5s)'
+});
+pane.monitor(target, 'wave', {
+  interval: 1000,
+  label: 'wave (1.0s)'
+});</code></pre>
+	</div>
+	<div class="codeBlock_section codeBlock_section-example">
+		<div id="intervalExample" class="codeBlock_paneContainer"></div>
+	</div>
+</div>
 {% endblock %}
 
 {% block script %}
@@ -85,6 +106,7 @@ setInterval(function() {
 
 (function() {
 	var pane = Tweakpane({
+		foldable: false,
 		container: document.getElementById('textExample')
 	});
 	pane.monitor(waveParams, 'wave');
@@ -92,6 +114,7 @@ setInterval(function() {
 
 (function() {
 	var pane = Tweakpane({
+		foldable: false,
 		container: document.getElementById('graphExample')
 	});
 	pane.monitor(waveParams, 'wave', {
@@ -112,6 +135,7 @@ setInterval(function() {
 	}, 1000);
 
 	var pane = Tweakpane({
+		foldable: false,
 		container: document.getElementById('logExample')
 	});
 	pane.monitor(params, 'time', {
@@ -125,10 +149,26 @@ setInterval(function() {
 	};
 
 	var pane = Tweakpane({
+		foldable: false,
 		container: document.getElementById('multilineExample')
 	});
 	pane.monitor(params, 'json', {
 		multiline: true
+	});
+})();
+
+(function() {
+	var pane = Tweakpane({
+		container: document.getElementById('intervalExample'),
+		foldable: false
+	});
+	pane.monitor(waveParams, 'wave', {
+		interval: 500,
+		label: 'wave (0.5s)'
+	});
+	pane.monitor(waveParams, 'wave', {
+		interval: 1000,
+		label: 'wave (1.0s)'
 	});
 })();
 {% endblock %}

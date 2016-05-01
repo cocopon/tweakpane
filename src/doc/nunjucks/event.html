@@ -53,6 +53,7 @@ pane.on(
 		'(log)': ''
 	};
 	var pane = Tweakpane({
+		foldable: false,
 		container: document.getElementById('eventExample')
 	});
 	pane.add(params, 'speed', {
@@ -73,6 +74,7 @@ pane.on(
 		'(log)': ''
 	};
 	var pane = Tweakpane({
+		foldable: false,
 		container: document.getElementById('globalEventExample')
 	});
 	pane.add(params, 'power', {min: 0, max: 100});

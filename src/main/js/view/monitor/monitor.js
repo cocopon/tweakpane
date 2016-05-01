@@ -24,7 +24,7 @@ class Monitor extends View {
 
 		const interval = (opt_interval !== undefined) ?
 			opt_interval :
-			(1000 / 20);
+			Monitor.DEFAULT_INTERVAL;
 		if (interval < 0) {
 			return;
 		}
@@ -56,5 +56,6 @@ class Monitor extends View {
 }
 
 Monitor.BLOCK_CLASS = 'm';
+Monitor.DEFAULT_INTERVAL = 1000 / 20;
 
 module.exports = Monitor;
