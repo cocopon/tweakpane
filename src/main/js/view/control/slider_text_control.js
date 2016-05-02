@@ -34,7 +34,7 @@ class SliderTextControl extends CompositeControl {
 	}
 }
 
-SliderTextControl.BLOCK_CLASS = 'stc';
-SliderTextControl.MODIFIER_CLASS = 'st';
+SliderTextControl.BLOCK_CLASS = 'sltc';
+SliderTextControl.MODIFIER_CLASS = 'slt';
 
 module.exports = SliderTextControl;

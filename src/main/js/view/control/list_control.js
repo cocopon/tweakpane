@@ -62,6 +62,6 @@ class ListControl extends Control {
 	}
 }
 
-ListControl.BLOCK_CLASS = 'lc';
+ListControl.BLOCK_CLASS = 'lsc';
 
 module.exports = ListControl;

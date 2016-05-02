@@ -89,6 +89,6 @@ class SliderControl extends Control {
 	}
 }
 
-SliderControl.BLOCK_CLASS = 'sc';
+SliderControl.BLOCK_CLASS = 'slc';
 
 module.exports = SliderControl;

@@ -76,6 +76,6 @@ class GraphMonitor extends Monitor {
 	}
 }
 
-GraphMonitor.BLOCK_CLASS = 'gm';
+GraphMonitor.BLOCK_CLASS = 'grm';
 
 module.exports = GraphMonitor;

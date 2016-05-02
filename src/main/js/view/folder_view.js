@@ -105,6 +105,6 @@ class FolderView extends View {
 	}
 }
 
-FolderView.BLOCK_CLASS = 'fv';
+FolderView.BLOCK_CLASS = 'flv';
 
 module.exports = FolderView;

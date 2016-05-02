@@ -63,6 +63,6 @@ class TextControl extends Control {
 	}
 }
 
-TextControl.BLOCK_CLASS = 'tc';
+TextControl.BLOCK_CLASS = 'txc';
 
 module.exports = TextControl;

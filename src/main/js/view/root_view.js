@@ -29,6 +29,6 @@ class RootView extends View {
 	}
 }
 
-RootView.BLOCK_CLASS = 'rv';
+RootView.BLOCK_CLASS = 'rtv';
 
 module.exports = RootView;
