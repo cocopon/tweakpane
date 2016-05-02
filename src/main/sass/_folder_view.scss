@@ -2,13 +2,6 @@
 	overflow: hidden;
 	position: relative;
 
-	&#{&}-animated &_arrow {
-		transition: transform 0.2s ease-in-out;
-	}
-	&#{&}-animated &_container {
-		transition: height 0.2s ease-in-out;
-	}
-
 	@at-root {
 		&_arrow {
 			background: url($folder-arrow-image) no-repeat center center;
@@ -18,6 +11,7 @@
 			position: absolute;
 			top: ($folder-view-title-height - $folder-view-arrow-size) / 2;
 			transform: rotate(-90deg);
+			transition: transform 0.2s ease-in-out;
 			width: $folder-view-arrow-size;
 
 			&#{&}-expanded {
@@ -46,6 +40,7 @@
 		}
 		&_container {
 			overflow: hidden;
+			transition: height 0.2s ease-in-out;
 		}
 	}
 }

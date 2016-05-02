@@ -1,8 +1,8 @@
 const PropertyViewFactoryComplex = require('./factory/property_view_factory_complex');
-const Appearance                 = require('./misc/appearance');
 const ClassName                  = require('./misc/class_name');
 const Errors                     = require('./misc/errors');
 const EventEmitter               = require('./misc/event_emitter');
+const Style                      = require('./misc/style');
 const ViewUtil                   = require('./misc/view_util');
 const Property                   = require('./model/property');
 const PropertyView               = require('./view/property_view');
@@ -26,7 +26,7 @@ class Core {
 
 		this.emitter_ = new EventEmitter();
 
-		Appearance.inject();
+		Style.injectDefault();
 
 		const foldable = (options.foldable !== undefined) ?
 			options.foldable :

@@ -1,4 +1,5 @@
 const ClassName = require('../misc/class_name');
+const Style     = require('../misc/style');
 const RootView  = require('./root_view');
 const View      = require('./view');
 
@@ -54,60 +55,67 @@ class RootFolderView extends View {
 		this.applyExpanded_(opt_animated);
 	}
 
-	applyExpandingAnimationEnabled_(enabled) {
-		let className = ClassName.get(
-			RootFolderView.BLOCK_CLASS, null, 'animated'
-		);
-
-		if (enabled) {
-			this.elem_.classList.add(className);
-		}
-		else {
-			this.elem_.classList.remove(className);
-		}
-	}
-
 	applyExpanded_(opt_animated) {
 		const animated = (opt_animated !== undefined) ?
 			opt_animated :
 			true;
-		this.applyExpandingAnimationEnabled_(animated);
 
-		const arrowClass = ClassName.get(
-			RootFolderView.BLOCK_CLASS,
-			'arrow',
-			'expanded'
-		);
-		if (this.expanded_) {
-			this.arrowElem_.classList.add(arrowClass);
-		}
-		else {
-			this.arrowElem_.classList.remove(arrowClass);
-		}
+		Style.runSeparately(this.arrowElem_, [
+			(arrowElem) => {
+				Style.setTransitionEnabled(arrowElem, animated);
+			},
+			(arrowElem) => {
+				const arrowClass = ClassName.get(
+					RootFolderView.BLOCK_CLASS,
+					'arrow',
+					'expanded'
+				);
+				if (this.expanded_) {
+					arrowElem.classList.add(arrowClass);
+				}
+				else {
+					arrowElem.classList.remove(arrowClass);
+				}
+			}
+		]);
 
 		const rootView = this.findRootView_();
-		if (rootView === null) {
-			return;
-		}
-		const mainView = rootView.getMainView();
-		const mainViewHeight = this.expanded_ ?
-			this.getMainViewHeight_() :
-			0;
-		mainView.getElement().style.height = `${mainViewHeight}px`;
+		if (rootView !== null) {
+			const mainViewElem = rootView.getMainView().getElement();
+			const contentHeight = this.getContentHeightOfMainView_();
+			const mainViewHeight = this.expanded_ ? contentHeight : 0;
 
-		if (this.timer_ !== null) {
-			clearTimeout(this.timer_);
-		}
+			Style.runSeparately(mainViewElem, [
+				() => {
+					Style.setTransitionEnabled(mainViewElem, false);
+				},
+				() => {
+					mainViewElem.style.height = `${contentHeight - mainViewHeight}px`;
+				},
+				() => {
+					Style.setTransitionEnabled(mainViewElem, animated);
+				},
+				() => {
+					mainViewElem.style.height = `${mainViewHeight}px`;
+				}
+			]);
 
-		if (this.expanded_) {
-			this.timer_ = setTimeout(() => {
-				mainView.getElement().style.height = 'auto';
-				this.timer_ = null;
-			}, 400);
+			if (this.timer_ !== null) {
+				clearTimeout(this.timer_);
+			}
+
+			if (this.expanded_) {
+				const duration = Style.getTransitionDuration(mainViewElem, 'height');
+				this.timer_ = setTimeout(() => {
+					// Set height to 'auto' at the end of transition for folding a folder
+					mainViewElem.style.height = 'auto';
+					this.timer_ = null;
+				}, animated ? duration : 0);
+			}
 		}
 	}
 
-	getMainViewHeight_() {
+	getContentHeightOfMainView_() {
 		const rootView = this.findRootView_();
 		if (rootView === null) {
 			return 0;

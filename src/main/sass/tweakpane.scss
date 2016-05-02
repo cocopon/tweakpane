@@ -8,6 +8,10 @@
 	right: 0;
 	top: 0;
 }
+.#{$prefix}noTransition,
+.#{$prefix}noTransition * {
+	transition: all 0s ease !important;
+}
 
 // View
 @import 'button_view';

@@ -1,3 +1,4 @@
+const Style     = require('../misc/style');
 const ClassName = require('../misc/class_name');
 const View      = require('./view');
 
@@ -51,41 +52,41 @@ class FolderView extends View {
 		this.applyExpanded_(opt_animated);
 	}
 
-	applyExpandingAnimationEnabled_(enabled) {
-		let className = ClassName.get(
-			FolderView.BLOCK_CLASS, null, 'animated'
-		);
-
-		if (enabled) {
-			this.elem_.classList.add(className);
-		}
-		else {
-			this.elem_.classList.remove(className);
-		}
-	}
-
 	applyExpanded_(opt_animated) {
 		const animated = (opt_animated !== undefined) ?
 			opt_animated :
 			true;
-		this.applyExpandingAnimationEnabled_(animated);
 
-		const arrowClass = ClassName.get(
-			FolderView.BLOCK_CLASS,
-			'arrow',
-			'expanded'
-		);
-		if (this.expanded_) {
-			this.arrowElem_.classList.add(arrowClass);
-		}
-		else {
-			this.arrowElem_.classList.remove(arrowClass);
-		}
+		Style.runSeparately(this.arrowElem_, [
+			(arrowElem) => {
+				Style.setTransitionEnabled(arrowElem, animated);
+			},
+			(arrowElem) => {
+				const arrowClass = ClassName.get(
+					FolderView.BLOCK_CLASS,
+					'arrow',
+					'expanded'
+				);
+				if (this.expanded_) {
+					arrowElem.classList.add(arrowClass);
+				}
+				else {
+					arrowElem.classList.remove(arrowClass);
+				}
+			}
+		]);
 
-		const contentHeight = this.expanded_ ?
-			this.getContentHeight_() :
-			0;
-		this.containerElem_.style.height = `${contentHeight}px`;
+		Style.runSeparately(this.containerElem_, [
+			(containerElem) => {
+				Style.setTransitionEnabled(containerElem, animated);
+			},
+			(containerElem) => {
+				const contentHeight = this.expanded_ ?
+					this.getContentHeight_() :
+					0;
+				containerElem.style.height = `${contentHeight}px`;
+			}
+		]);
 	}
 
 	getContentHeight_() {
