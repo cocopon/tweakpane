@@ -8,8 +8,8 @@
 	right: 0;
 	top: 0;
 }
-.#{$prefix}noTransition,
-.#{$prefix}noTransition * {
+.#{$prefix}NoTransition,
+.#{$prefix}NoTransition * {
 	transition: all 0s ease !important;
 }
 

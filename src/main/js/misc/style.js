@@ -37,10 +37,10 @@ class Style {
 	 */
 	static setTransitionEnabled(element, enabled) {
 		if (enabled) {
-			element.classList.remove(ClassName.get('noTransition'));
+			element.classList.remove(ClassName.get('NoTransition'));
 		}
 		else {
-			element.classList.add(ClassName.get('noTransition'));
+			element.classList.add(ClassName.get('NoTransition'));
 		}
 	}
 
