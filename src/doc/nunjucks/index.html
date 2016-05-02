@@ -39,9 +39,7 @@ var params = {
 	param2: 'str'
 };
 var pane = Tweakpane();
-pane.add(params, 'easing', {min: 0, max: 10}).on('change', function(value) {
-	console.log(value);
-});
+pane.add(params, 'easing', {min: 0, max: 10});
 pane.add(params, 'color');
 pane.monitor(params, 'param1', {
 	label: 'Very long long label'

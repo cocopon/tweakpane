@@ -14,18 +14,31 @@ class SliderControl extends Control {
 
 		const sliderElem = document.createElement('div');
 		sliderElem.classList.add(ClassName.get(SliderControl.BLOCK_CLASS, 'outer'));
-		sliderElem.addEventListener(
-			'mousedown',
-			this.onSliderElementMouseDown_.bind(this)
-		);
-		window.addEventListener(
-			'mousemove',
-			this.onWindowMouseMove_.bind(this)
-		);
-		window.addEventListener(
-			'mouseup',
-			this.onWindowMouseUp_.bind(this)
-		);
+		const supportsTouch = (sliderElem.ontouchstart !== undefined);
+		if (supportsTouch) {
+			sliderElem.addEventListener(
+				'touchstart',
+				this.onElementTouchStart_.bind(this)
+			);
+			sliderElem.addEventListener(
+				'touchmove',
+				this.onElementTouchMove_.bind(this)
+			);
+		}
+		else {
+			sliderElem.addEventListener(
+				'mousedown',
+				this.onElementMouseDown_.bind(this)
+			);
+			window.addEventListener(
+				'mousemove',
+				this.onWindowMouseMove_.bind(this)
+			);
+			window.addEventListener(
+				'mouseup',
+				this.onWindowMouseUp_.bind(this)
+			);
+		}
 		elem.appendChild(sliderElem);
 		this.sliderElem_ = sliderElem;
 
@@ -62,7 +75,7 @@ class SliderControl extends Control {
 		return minValue + (maxValue - minValue) * p;
 	}
 
-	onSliderElementMouseDown_(e) {
+	onElementMouseDown_(e) {
 		this.getEmitter().notifyObservers(
 			Control.EVENT_CHANGE,
 			[this.getValueFromX_(e.offsetX)]
@@ -86,6 +99,27 @@ class SliderControl extends Control {
 
 	onWindowMouseUp_() {
 		this.captured_ = false;
+	}
+
+	onElementTouchStart_(e) {
+		// Prevent default event to prevent native scroll
+		e.preventDefault();
+
+		const bound = e.target.getBoundingClientRect();
+		const offsetX = e.targetTouches[0].clientX - bound.left;
+		this.getEmitter().notifyObservers(
+			Control.EVENT_CHANGE,
+			[this.getValueFromX_(offsetX)]
+		);
+	}
+
+	onElementTouchMove_(e) {
+		const bound = e.target.getBoundingClientRect();
+		const offsetX = e.targetTouches[0].clientX - bound.left;
+		this.getEmitter().notifyObservers(
+			Control.EVENT_CHANGE,
+			[this.getValueFromX_(offsetX)]
+		);
 	}
 }
 
