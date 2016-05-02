@@ -22,12 +22,15 @@ class Style {
 	 * @return {number} A transition duration or 0 if not found a declaration
 	 * 
 	 */
-	static getTransitionDuration(element, propertyName) {
-		const transition = window.getComputedStyle(element).transition;
-		const matches = transition.match(`${propertyName}\\s+([0-9.]+)s`);
-		return (matches !== null) ?
-			(Number(matches[1]) * 1000) :
-			0;
+	static getTransitionDuration(element) {
+		// e.g. '0.2s, 0.4s, 0.4s'
+		const durationValue = window.getComputedStyle(element).transitionDuration;
+		return durationValue.split(',').map((stringValue) => {
+			const floatValue = parseFloat(stringValue);
+			return !isNaN(floatValue) ? (floatValue * 1000) : 0;
+		}).reduce((maxValue, floatValue) => {
+			return Math.max(maxValue, floatValue);
+		}, 0);
 	}
 
 	/**
