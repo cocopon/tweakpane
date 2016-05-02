@@ -1,4 +1,4 @@
-const Control       = require('./control');
+const Control = require('./control');
 
 class CompositeControl extends Control {
 	constructor(model) {

@@ -1,7 +1,8 @@
-const ColorCodec              = require('../codec/color_codec');
-const ColorModel              = require('../model/color_model');
-const ColorPaletteTextControl = require('../view/control/color_palette_text_control');
-const PropertyViewFactory     = require('./property_view_factory');
+const ColorCodec          = require('../codec/color_codec');
+const ColorModel          = require('../model/color_model');
+const PaletteTextControl  = require('../view/control/palette_text_control');
+const PaletteTextMonitor  = require('../view/monitor/palette_text_monitor');
+const PropertyViewFactory = require('./property_view_factory');
 
 class ColorPropertyViewFactory extends PropertyViewFactory {
 	static supports(value) {
@@ -14,7 +15,11 @@ class ColorPropertyViewFactory extends PropertyViewFactory {
 	}
 
 	static createControl_(model) {
-		return new ColorPaletteTextControl(model);
+		return new PaletteTextControl(model);
+	}
+
+	static createMonitor_(property) {
+		return new PaletteTextMonitor(property);
 	}
 }
 

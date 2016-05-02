@@ -1,0 +1,16 @@
+.#{$prefix}ptc {
+	height: $color-palette-control-outer-size;
+	position: relative;
+}
+.#{$prefix}plc {
+	&#{&}-pt {
+		position: absolute;
+	}
+}
+.#{$prefix}txc {
+	&#{&}-pt {
+		position: absolute;
+		left: $color-palette-control-outer-size + 5px;
+		right: 0;
+	}
+}

@@ -8,7 +8,11 @@
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = Tweakpane();
-pane.monitor(target, 'wave');</code></pre>
+pane.monitor(target, 'time');    // String
+pane.monitor(target, 'active');  // Boolean
+pane.monitor(target, 'color');   // Color
+pane.monitor(target, 'wave');    // Number
+</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="textExample" class="codeBlock_paneContainer"></div>
@@ -91,25 +95,42 @@ pane.monitor(target, 'wave', {
 {% endblock %}
 
 {% block script %}
-var waveParams = {
+var sharedParams = {
+	time: '',
+	color: '#000000',
+	active: false,
 	wave: 0
 };
-var t = 0;
+var waveT = 0;
 setInterval(function() {
-	t += 0.01;
-	waveParams.wave = 3.0 * 4.0 / Math.PI * (
-		Math.sin(t * 1 * Math.PI) +
-		Math.sin(t * 3 * Math.PI) / 3 +
-		Math.sin(t * 5 * Math.PI) / 5
+	waveT += 0.02;
+	sharedParams.wave = 3.0 * 4.0 / Math.PI * (
+		Math.sin(waveT * 1 * Math.PI) +
+		Math.sin(waveT * 3 * Math.PI) / 3 +
+		Math.sin(waveT * 5 * Math.PI) / 5
 	);
-}, 1000 / 60);
+
+	var nWave = Math.pow(Math.sin(waveT), 2);
+	var hex = (Math.floor(nWave * 255)).toString(16);
+	if (hex.length === 1) {
+		hex = '0' + hex;
+	}
+	sharedParams.color = '#00' + hex + '00';
+	sharedParams.active = (nWave >= 0.5);
+}, 50);
+setInterval(function() {
+	sharedParams.time = String(new Date()).match(/\d{2}:\d{2}:\d{2}/)[0];
+}, 1000);
 
 (function() {
 	var pane = Tweakpane({
 		foldable: false,
 		container: document.getElementById('textExample')
 	});
-	pane.monitor(waveParams, 'wave');
+	pane.monitor(sharedParams, 'time', {interval: 1000});
+	pane.monitor(sharedParams, 'active');
+	pane.monitor(sharedParams, 'color');
+	pane.monitor(sharedParams, 'wave');
 })();
 
 (function() {
@@ -117,7 +138,7 @@ setInterval(function() {
 		foldable: false,
 		container: document.getElementById('graphExample')
 	});
-	pane.monitor(waveParams, 'wave', {
+	pane.monitor(sharedParams, 'wave', {
 		graph: true,
 		min: -5.0,
 		max: +5.0,
@@ -127,25 +148,24 @@ setInterval(function() {
 })();
 
 (function() {
-	var params = {
-		time: ''
-	};
-	setInterval(function() {
-		params.time = String(new Date()).match(/\d{2}:\d{2}:\d{2}/)[0];
-	}, 1000);
-
 	var pane = Tweakpane({
 		foldable: false,
 		container: document.getElementById('logExample')
 	});
-	pane.monitor(params, 'time', {
+	pane.monitor(sharedParams, 'time', {
 		count: 10
 	});
 })();
 
 (function() {
 	var params = {
-		json: 'hello\nworld'
+		json: [
+			'{',
+			'  "content-length": ' + String(Math.floor(Math.random() * 1e6)),
+			'  "content-type": "application/json"',
+			'  "date": "' + String(new Date()) + '"',
+			'}',
+		].join('\n')
 	};
 
 	var pane = Tweakpane({
@@ -153,6 +173,7 @@ setInterval(function() {
 		container: document.getElementById('multilineExample')
 	});
 	pane.monitor(params, 'json', {
+		interval: 1e6,
 		multiline: true
 	});
 })();
@@ -162,11 +183,11 @@ setInterval(function() {
 		container: document.getElementById('intervalExample'),
 		foldable: false
 	});
-	pane.monitor(waveParams, 'wave', {
+	pane.monitor(sharedParams, 'wave', {
 		interval: 500,
 		label: 'wave (0.5s)'
 	});
-	pane.monitor(waveParams, 'wave', {
+	pane.monitor(sharedParams, 'wave', {
 		interval: 1000,
 		label: 'wave (1.0s)'
 	});

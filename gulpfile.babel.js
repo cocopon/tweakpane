@@ -9,8 +9,8 @@ const gulp = require('gulp');
 const runSequence = require('run-sequence');
 const source = require('vinyl-source-stream');
 
-const forProduction = !!$.util.env.production;
-const config = require('./gulp_config').get(forProduction);
+const GulpConfig = require('./gulp_config');
+const config = new GulpConfig(!!$.util.env.production);
 
 gulp.task('main:js', () => {
 	return browserify(config.main.js.entryFile)
@@ -18,7 +18,7 @@ gulp.task('main:js', () => {
 		.bundle()
 		.pipe(source(config.main.js.dstFile))
 		.pipe(buffer())
-		.pipe(forProduction ?
+		.pipe(config.forProduction ?
 			$.uglify({
 				compress: config.uglify.compressor
 			}) :
@@ -28,11 +28,7 @@ gulp.task('main:js', () => {
 
 gulp.task('doc:nunjucks', () => {
 	return gulp.src(config.doc.nunjucks.srcPattern)
-		.pipe($.nunjucks.compile({
-			config: {
-				production: forProduction
-			}
-		}))
+		.pipe($.nunjucks.compile(config.getNunjucksData()))
 		.pipe(gulp.dest(config.doc.nunjucks.dstDir));
 });
 

@@ -1,41 +1,56 @@
+const packageJson = require('./package.json');
+
 class GulpConfig {
-	static get(forProduction) {
+	constructor(forProduction) {
+		this.forProduction = forProduction;
+		this.version = packageJson.version;
+
+		this.main = {
+			js: {
+				srcPattern: './src/main/js/**/*.js',
+				entryFile: './src/main/js/tweakpane.js',
+				tmpDir: './tmp/js',
+				dstFile: forProduction ?
+					`tweakpane-${this.version}.min.js` :
+					`tweakpane-${this.version}.js`,
+				dstDir: './dst'
+			},
+			sass: {
+				srcPattern: './src/main/sass/**/*.scss',
+				tmpDir: './tmp/css',
+				dstFile: 'tweakpane.css'
+			},
+			cssMarker: '.css_replace_me{}'
+		};
+
+		this.doc = {
+			nunjucks: {
+				pattern: './src/doc/nunjucks/**/*.html',
+				srcPattern: './src/doc/nunjucks/**/!(_)*.html',
+				dstDir: './doc'
+			},
+			sass: {
+				srcPattern: './src/doc/sass/**/*.scss',
+				dstDir: './doc'
+			}
+		};
+
+		this.uglify = {
+			compressor: this.UGLIFY_COMPRESSOR
+		};
+
+		this.serverDirs = [
+			'./doc',
+			'./dst'
+		];
+	}
+
+	getNunjucksData() {
 		return {
-			main: {
-				js: {
-					srcPattern: './src/main/js/**/*.js',
-					entryFile: './src/main/js/tweakpane.js',
-					tmpDir: './tmp/js',
-					dstFile: forProduction ?
-						'tweakpane.min.js' :
-						'tweakpane.js',
-					dstDir: './dst'
-				},
-				sass: {
-					srcPattern: './src/main/sass/**/*.scss',
-					tmpDir: './tmp/css',
-					dstFile: 'tweakpane.css'
-				},
-				cssMarker: '.css_replace_me{}'
-			},
-			doc: {
-				nunjucks: {
-					pattern: './src/doc/nunjucks/**/*.html',
-					srcPattern: './src/doc/nunjucks/**/!(_)*.html',
-					dstDir: './doc'
-				},
-				sass: {
-					srcPattern: './src/doc/sass/**/*.scss',
-					dstDir: './doc'
-				}
-			},
-			uglify: {
-				compressor: this.UGLIFY_COMPRESSOR
-			},
-			serverDirs: [
-				'./doc',
-				'./dst'
-			]
+			config: {
+				production: this.forProduction,
+				version: this.version
+			}
 		};
 	}
 };

@@ -2,6 +2,7 @@ const BooleanModel         = require('../model/boolean_model');
 const ListConstraint       = require('../constraint/list_constraint');
 const CheckboxControl      = require('../view/control/checkbox_control');
 const ListControl          = require('../view/control/list_control');
+const CheckboxMonitor      = require('../view/monitor/checkbox_monitor');
 const PropertyViewFactory  = require('./property_view_factory');
 
 class BooleanPropertyViewFactory extends PropertyViewFactory {
@@ -19,6 +20,10 @@ class BooleanPropertyViewFactory extends PropertyViewFactory {
 		}
 
 		return new CheckboxControl(model);
+	}
+
+	static createMonitor_(property) {
+		return new CheckboxMonitor(property);
 	}
 }
 

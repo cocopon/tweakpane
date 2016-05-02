@@ -1,10 +1,10 @@
-.#{$prefix}sltc {
+.#{$prefix}stc {
 	height: $input-height;
 	position: relative;
 	width: 100%;
 }
 .#{$prefix}slc {
-	&#{&}-slt {
+	&#{&}-st {
 		left: 0;
 		right: 50px + 5px;
 		position: absolute;
@@ -12,7 +12,7 @@
 	}
 }
 .#{$prefix}txc {
-	&#{&}-slt {
+	&#{&}-st {
 		position: absolute;
 		right: 0;
 		top: 0;

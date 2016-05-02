@@ -1,14 +1,14 @@
-.#{$prefix}cptc {
+.#{$prefix}ptm {
 	height: $color-palette-control-outer-size;
 	position: relative;
 }
-.#{$prefix}cpc {
-	&#{&}-cpt {
+.#{$prefix}plm {
+	&#{&}-pt {
 		position: absolute;
 	}
 }
-.#{$prefix}txc {
-	&#{&}-cpt {
+.#{$prefix}txm {
+	&#{&}-pt {
 		position: absolute;
 		left: $color-palette-control-outer-size + 5px;
 		right: 0;
