@@ -93,7 +93,7 @@ class RootFolderView extends View {
 			}
 
 			if (this.expanded_) {
-				const duration = Style.getTransitionDuration(mainViewElem, 'height');
+				const duration = Style.getMaxTransitionDuration(mainViewElem, 'height');
 				this.timer_ = setTimeout(() => {
 					this.timer_ = null;
 

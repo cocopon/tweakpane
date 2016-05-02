@@ -22,7 +22,7 @@ class Style {
 	 * @return {number} A transition duration or 0 if not found a declaration
 	 * 
 	 */
-	static getTransitionDuration(element) {
+	static getMaxTransitionDuration(element) {
 		// e.g. '0.2s, 0.4s, 0.4s'
 		const durationValue = window.getComputedStyle(element).transitionDuration;
 		return durationValue.split(',').map((stringValue) => {

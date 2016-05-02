@@ -7,7 +7,7 @@ class StringRecordModel extends StringModel {
 		this.recValues_ = [];
 		this.recCount_ = (opt_recordCount !== undefined) ?
 			opt_recordCount :
-			10;
+			StringRecordModel.DEFAULT_RECORD_COUNT;
 	}
 
 	getRecords() {
@@ -24,5 +24,7 @@ class StringRecordModel extends StringModel {
 		}
 	}
 }
+
+StringRecordModel.DEFAULT_RECORD_COUNT = 10;
 
 module.exports = StringRecordModel;

@@ -6,7 +6,7 @@
 		&_canvas {
 			background-color: $input-background-color;
 			border-radius: 2px;
-			color: rgba($input-foreground-color, 0.5);
+			color: $input-foreground-color;
 			display: block;
 			height: $graph-height;
 			width: 100%;

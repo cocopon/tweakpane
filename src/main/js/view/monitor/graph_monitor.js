@@ -19,6 +19,8 @@ class GraphMonitor extends Monitor {
 		elem.appendChild(canvasElem);
 		this.canvasElem_ = canvasElem;
 
+		this.color_ = '';
+
 		this.applyModel_();
 	}
 
@@ -46,7 +48,11 @@ class GraphMonitor extends Monitor {
 		const h = canvas.height;
 		const g = canvas.getContext('2d');
 		g.clearRect(0, 0, canvas.width, canvas.height);
-		g.strokeStyle = 'white';
+
+		if (this.color_ === '') {
+			this.color_ = window.getComputedStyle(canvas).color;
+		}
+		g.strokeStyle = this.color_;
 
 		const minValue = this.getMinValue_();
 		const maxValue = this.getMaxValue_();

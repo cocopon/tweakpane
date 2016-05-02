@@ -7,7 +7,7 @@ class NumberRecordModel extends NumberModel {
 		this.recValues_ = [];
 		this.recCount_ = (opt_recordCount !== undefined) ?
 			opt_recordCount :
-			100;
+			NumberRecordModel.DEFAULT_RECORD_COUNT;
 		for (let i = 0; i < this.recCount_; i++) {
 			this.recValues_.push(0);
 		}
@@ -27,5 +27,7 @@ class NumberRecordModel extends NumberModel {
 		}
 	}
 }
+
+NumberRecordModel.DEFAULT_RECORD_COUNT = 200;
 
 module.exports = NumberRecordModel;
