@@ -11,23 +11,29 @@ class FolderView extends View {
 			ClassName.get(FolderView.BLOCK_CLASS)
 		);
 
-		const arrowElem = document.createElement('div');
+		const buttonElem = document.createElement('button');
+		buttonElem.classList.add(
+			ClassName.get(FolderView.BLOCK_CLASS, 'button')
+		);
+		buttonElem.addEventListener(
+			'click',
+			this.onButtonElementClick_.bind(this)
+		);
+		elem.appendChild(buttonElem);
+
+		const arrowElem = document.createElement('span');
 		arrowElem.classList.add(
 			ClassName.get(FolderView.BLOCK_CLASS, 'arrow')
 		);
-		elem.appendChild(arrowElem);
+		buttonElem.appendChild(arrowElem);
 		this.arrowElem_ = arrowElem;
 
-		const titleElem = document.createElement('div');
+		const titleElem = document.createElement('span');
 		titleElem.textContent = title;
 		titleElem.classList.add(
 			ClassName.get(FolderView.BLOCK_CLASS, 'title')
 		);
-		titleElem.addEventListener(
-			'click',
-			this.onTitleElementClick_.bind(this)
-		);
-		elem.appendChild(titleElem);
+		buttonElem.appendChild(titleElem);
 
 		const containerElem = document.createElement('div');
 		containerElem.classList.add(
@@ -100,7 +106,7 @@ class FolderView extends View {
 		this.applyExpanded_(false);
 	}
 
-	onTitleElementClick_() {
+	onButtonElementClick_() {
 		this.setExpanded(!this.isExpanded());
 	}
 }

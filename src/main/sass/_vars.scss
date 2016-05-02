@@ -7,8 +7,7 @@ $prop-view-background-color: adjust-color($background-color, $saturation: -5%, $
 $input-background-color: adjust-color($prop-view-background-color, $lightness: +8%);
 $input-foreground-color: hsla($key-hue, 10%, 83%, 1.0);
 
-$folder-view-title-color: hsla($key-hue, 10%, 80%, 0.5);
-$folder-view-title-hover-color: lighten($folder-view-title-color, 15%);
+$folder-view-title-color: hsl($key-hue, 10%, 95%);
 $input-hover-foreground-color: lighten($input-foreground-color, 10%);
 $input-active-background-color: lighten($input-background-color, 20%);
 $input-focus-background-color: lighten($input-background-color, 5%);
