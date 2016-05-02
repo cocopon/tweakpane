@@ -48,19 +48,32 @@ class Style {
 	}
 
 	/**
-	 * Apply style changes separately.
-	 * Useful for complex CSS transition.
+	 * Run CSS transition certainly.
 	 * @param {HTMLElement} element A target element
-	 * @param {Function[]} callbacks An array of callback functions to change a style of a target element
+	 * @param {Function} callback Callback function for transition
+	 * @param {boolean} animated true for enabling animation
 	 */
-	static runSeparately(element, callbacks) {
-		callbacks.forEach((callback) => {
-			callback(element);
+	static runTransition(element, callback, animated) {
+		// If !animated, disable CSS transition temporarily
+		this.setTransitionEnabled(element, animated);
+		this.forceReflow_(element);
 
-			// Force reflow of the target element
-			// http://stackoverflow.com/questions/11131875/what-is-the-cleanest-way-to-disable-css-transition-effects-temporarily
-			element.offsetHeight;
-		});
+		callback(element);
+
+		// Re-enable transition
+		this.forceReflow_(element);
+		this.setTransitionEnabled(element, true);
+	}
+
+	/**
+	 * Force reflow an element.
+	 * Useful for applying transition change.
+	 * @see http://stackoverflow.com/questions/11131875/what-is-the-cleanest-way-to-disable-css-transition-effects-temporarily
+	 * @private
+	 * @param {HTMLElement} element An element
+	 */
+	static forceReflow_(element) {
+		element.offsetHeight;
 	}
 }
 

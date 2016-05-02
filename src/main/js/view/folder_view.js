@@ -42,7 +42,7 @@ class FolderView extends View {
 		elem.appendChild(containerElem);
 		this.containerElem_ = containerElem;
 
-		this.expanded_ = true;
+		this.setExpanded(true, false);
 	}
 
 	getContainerElement_() {
@@ -63,42 +63,26 @@ class FolderView extends View {
 			opt_animated :
 			true;
 
-		Style.runSeparately(this.arrowElem_, [
-			(arrowElem) => {
-				Style.setTransitionEnabled(arrowElem, animated);
-			},
-			(arrowElem) => {
-				const arrowClass = ClassName.get(
-					FolderView.BLOCK_CLASS,
-					'arrow',
-					'expanded'
-				);
-				if (this.expanded_) {
-					arrowElem.classList.add(arrowClass);
-				}
-				else {
-					arrowElem.classList.remove(arrowClass);
-				}
-			},
-			(arrowElem) => {
-				Style.setTransitionEnabled(arrowElem, true);
+		Style.runTransition(this.arrowElem_, (arrowElem) => {
+			const arrowClass = ClassName.get(
+				FolderView.BLOCK_CLASS,
+				'arrow',
+				'expanded'
+			);
+			if (this.expanded_) {
+				arrowElem.classList.add(arrowClass);
 			}
-		]);
+			else {
+				arrowElem.classList.remove(arrowClass);
+			}
+		}, animated);
 
-		Style.runSeparately(this.containerElem_, [
-			(containerElem) => {
-				Style.setTransitionEnabled(containerElem, animated);
-			},
-			(containerElem) => {
-				const contentHeight = this.expanded_ ?
-					this.getContentHeight_() :
-					0;
-				containerElem.style.height = `${contentHeight}px`;
-			},
-			(containerElem) => {
-				Style.setTransitionEnabled(containerElem, true);
-			}
-		]);
+		Style.runTransition(this.containerElem_, (containerElem) => {
+			const contentHeight = this.expanded_ ?
+				this.getContentHeight_() :
+				0;
+			containerElem.style.height = `${contentHeight}px`;
+		}, animated);
 	}
 
 	getContentHeight_() {

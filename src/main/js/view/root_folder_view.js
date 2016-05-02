@@ -31,7 +31,7 @@ class RootFolderView extends View {
 
 		this.timer_ = null;
 
-		this.expanded_ = true;
+		this.setExpanded(true, false);
 	}
 
 	findRootView_() {
@@ -60,27 +60,19 @@ class RootFolderView extends View {
 			opt_animated :
 			true;
 
-		Style.runSeparately(this.arrowElem_, [
-			(arrowElem) => {
-				Style.setTransitionEnabled(arrowElem, animated);
-			},
-			(arrowElem) => {
-				const arrowClass = ClassName.get(
-					RootFolderView.BLOCK_CLASS,
-					'arrow',
-					'expanded'
-				);
-				if (this.expanded_) {
-					arrowElem.classList.add(arrowClass);
-				}
-				else {
-					arrowElem.classList.remove(arrowClass);
-				}
-			},
-			(arrowElem) => {
-				Style.setTransitionEnabled(arrowElem, true);
+		Style.runTransition(this.arrowElem_, (arrowElem) => {
+			const arrowClass = ClassName.get(
+				RootFolderView.BLOCK_CLASS,
+				'arrow',
+				'expanded'
+			);
+			if (this.expanded_) {
+				arrowElem.classList.add(arrowClass);
 			}
-		]);
+			else {
+				arrowElem.classList.remove(arrowClass);
+			}
+		}, animated);
 
 		const rootView = this.findRootView_();
 		if (rootView !== null) {
@@ -88,20 +80,13 @@ class RootFolderView extends View {
 			const contentHeight = this.getContentHeightOfMainView_();
 			const mainViewHeight = this.expanded_ ? contentHeight : 0;
 
-			Style.runSeparately(mainViewElem, [
-				() => {
-					Style.setTransitionEnabled(mainViewElem, false);
-				},
-				() => {
-					mainViewElem.style.height = `${contentHeight - mainViewHeight}px`;
-				},
-				() => {
-					Style.setTransitionEnabled(mainViewElem, animated);
-				},
-				() => {
-					mainViewElem.style.height = `${mainViewHeight}px`;
-				}
-			]);
+			Style.runTransition(mainViewElem, () => {
+				mainViewElem.style.height = `${contentHeight - mainViewHeight}px`;
+			}, false);
+
+			Style.runTransition(mainViewElem, () => {
+				mainViewElem.style.height = `${mainViewHeight}px`;
+			}, animated);
 
 			if (this.timer_ !== null) {
 				clearTimeout(this.timer_);
@@ -112,18 +97,9 @@ class RootFolderView extends View {
 				this.timer_ = setTimeout(() => {
 					this.timer_ = null;
 
-					Style.runSeparately(mainViewElem, [
-						() => {
-							Style.setTransitionEnabled(mainViewElem, false);
-						},
-						() => {
-							// Set height to 'auto' at the end of transition for folding a folder
-							mainViewElem.style.height = 'auto';
-						},
-						() => {
-							Style.setTransitionEnabled(mainViewElem, true);
-						}
-					]);
+					Style.runTransition(mainViewElem, () => {
+						mainViewElem.style.height = 'auto';
+					}, false);
 				}, animated ? duration : 0);
 			}
 		}
