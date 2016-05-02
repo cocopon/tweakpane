@@ -31,7 +31,7 @@ class RootFolderView extends View {
 
 		this.timer_ = null;
 
-		this.setExpanded(true, false);
+		this.expanded_ = true;
 	}
 
 	findRootView_() {
@@ -76,6 +76,9 @@ class RootFolderView extends View {
 				else {
 					arrowElem.classList.remove(arrowClass);
 				}
+			},
+			(arrowElem) => {
+				Style.setTransitionEnabled(arrowElem, true);
 			}
 		]);
 
@@ -97,6 +100,9 @@ class RootFolderView extends View {
 				},
 				() => {
 					mainViewElem.style.height = `${mainViewHeight}px`;
+				},
+				() => {
+					Style.setTransitionEnabled(mainViewElem, true);
 				}
 			]);
 

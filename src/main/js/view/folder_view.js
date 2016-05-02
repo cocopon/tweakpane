@@ -42,7 +42,7 @@ class FolderView extends View {
 		elem.appendChild(containerElem);
 		this.containerElem_ = containerElem;
 
-		this.setExpanded(true, false);
+		this.expanded_ = true;
 	}
 
 	getContainerElement_() {
@@ -79,6 +79,9 @@ class FolderView extends View {
 				else {
 					arrowElem.classList.remove(arrowClass);
 				}
+			},
+			(arrowElem) => {
+				Style.setTransitionEnabled(arrowElem, true);
 			}
 		]);
 
@@ -91,6 +94,9 @@ class FolderView extends View {
 					this.getContentHeight_() :
 					0;
 				containerElem.style.height = `${contentHeight}px`;
+			},
+			(containerElem) => {
+				Style.setTransitionEnabled(containerElem, true);
 			}
 		]);
 	}
