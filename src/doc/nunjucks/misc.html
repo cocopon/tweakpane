@@ -58,6 +58,25 @@ pane.add(target, 'initSpeed', {
 pane.refresh();</code></pre>
 	</div>
 </div>
+
+
+<h2>Changing width of a pane</h2>
+<p>Add a CSS style for the default container, or specify another container.</p>
+
+<div class="codeBlock">
+	<div class="codeBlock_section">
+		<pre><code class="js">// Add a CSS style for the default container
+var pane1 = Tweakpane();
+var styleElem = document.createElement('style');
+styleElem.textContent = '.tpDefaultContainer {width: 320px;}';
+document.appendChild(styleElem);
+
+// Or, specify another container
+var pane2 = Tweakpane({
+  container: document.getElementById('yourContainer')
+});</code></pre>
+	</div>
+</div>
 {% endblock %}
 
 {% block script %}

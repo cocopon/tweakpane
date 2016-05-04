@@ -21,7 +21,10 @@
 			width: 100%;
 		}
 		&_arrow {
-			background: url($folder-arrow-image) no-repeat center center;
+			@extend %arrow-image;
+
+			background-position: center;
+			background-repeat: no-repeat;
 			bottom: 0;
 			display: block;
 			height: $folder-view-arrow-size;

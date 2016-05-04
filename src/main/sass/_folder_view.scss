@@ -26,7 +26,10 @@
 			width: 100%;
 		}
 		&_arrow {
-			background: url($folder-arrow-image) no-repeat center center;
+			@extend %arrow-image;
+
+			background-position: center;
+			background-repeat: no-repeat;
 			display: block;
 			height: $folder-view-arrow-size;
 			right: 10px;
@@ -46,7 +49,7 @@
 			display: block;
 			height: $folder-view-title-height;
 			line-height: $folder-view-title-height;
-			opacity: 0.25;
+			opacity: 0.35;
 			overflow: hidden;
 			padding: {
 				left: 5px;

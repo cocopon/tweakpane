@@ -27,7 +27,10 @@
 			width: 100%;
 		}
 		&_arrow {
-			background: url($list-control-arrow-image) no-repeat center center;
+			@extend %arrow-image;
+
+			background-position: center;
+			background-repeat: no-repeat;
 			bottom: 0;
 			height: $list-control-arrow-size;
 			margin: auto 0;
@@ -35,6 +38,7 @@
 			position: absolute;
 			right: 10px;
 			top: 0;
+			transform: rotate(90deg);
 			width: $list-control-arrow-size;
 		}
 	}
