@@ -1,5 +1,6 @@
 {% extends "_template.html" %}
 
+{% set id = 'misc' %}
 {% set title = 'Misc' %}
 
 {% block content %}
@@ -77,21 +78,4 @@ var pane2 = Tweakpane({
 });</code></pre>
 	</div>
 </div>
-{% endblock %}
-
-{% block script %}
-(function() {
-	var params = {
-		initSpeed: 0.38
-	};
-	var pane = Tweakpane({
-		foldable: false,
-		container: document.getElementById('labelExample')
-	});
-	pane.add(params, 'initSpeed', {
-		label: 'Initial speed',
-		min: 0.0,
-		max: 1.0
-	});
-})();
 {% endblock %}

@@ -26,6 +26,14 @@ gulp.task('main:js', () => {
 		.pipe(gulp.dest(config.main.js.tmpDir));
 });
 
+gulp.task('doc:js', () => {
+	return gulp.src(config.doc.js.srcPattern)
+		.pipe($.babel({
+			presets: ['es2015']
+		}))
+		.pipe(gulp.dest(config.doc.js.dstDir));
+});
+
 gulp.task('doc:nunjucks', () => {
 	return gulp.src(config.doc.nunjucks.srcPattern)
 		.pipe($.nunjucks.compile(config.getNunjucksData()))
@@ -60,12 +68,16 @@ gulp.task('main:watch', (callback) => {
 });
 
 gulp.task('doc:watch', (callback) => {
+	gulp.watch(config.doc.js.srcPattern, () => {
+		gulp.start(['doc:js'])
+			.on('end', callback);
+	});
 	gulp.watch(config.doc.nunjucks.pattern, () => {
-		gulp.start(['doc:build'])
+		gulp.start(['doc:nunjucks'])
 			.on('end', callback);
 	});
 	gulp.watch(config.doc.sass.srcPattern, () => {
-		gulp.start(['doc:build'])
+		gulp.start(['doc:sass'])
 			.on('end', callback);
 	});
 });
@@ -98,7 +110,7 @@ gulp.task('main:build', (callback) => {
 	);
 });
 
-gulp.task('doc:build', ['doc:nunjucks', 'doc:sass']);
+gulp.task('doc:build', ['doc:js', 'doc:nunjucks', 'doc:sass']);
 
 gulp.task('webserver', () => {
 	return gulp.src(config.serverDirs)

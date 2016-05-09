@@ -1,5 +1,6 @@
 {% extends "_template.html" %}
 
+{% set id = 'color' %}
 {% set title = 'Color' %}
 
 {% block content %}
@@ -19,18 +20,4 @@ pane.add(params, 'keyColor');</code></pre>
 		<div id="colorExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
-{% endblock %}
-
-{% block script %}
-(function() {
-	var params = {
-		keyColor: '#00ff00'
-	};
-
-	var pane = Tweakpane({
-		foldable: false,
-		container: document.getElementById('colorExample')
-	});
-	pane.add(params, 'keyColor');
-})();
 {% endblock %}

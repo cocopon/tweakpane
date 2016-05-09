@@ -24,6 +24,12 @@ class GulpConfig {
 		};
 
 		this.doc = {
+			js: {
+				srcPattern: './src/doc/js/**/*.js',
+				entryFile: './src/doc/js/main.js',
+				dstFile: 'doc.js',
+				dstDir: './doc/js'
+			},
 			nunjucks: {
 				pattern: './src/doc/nunjucks/**/*.html',
 				srcPattern: './src/doc/nunjucks/**/!(_)*.html',
@@ -31,7 +37,7 @@ class GulpConfig {
 			},
 			sass: {
 				srcPattern: './src/doc/sass/**/*.scss',
-				dstDir: './doc'
+				dstDir: './doc/css'
 			}
 		};
 

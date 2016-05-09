@@ -1,5 +1,6 @@
 {% extends "_template.html" %}
 
+{% set id = 'string' %}
 {% set title = 'String' %}
 
 {% block content %}
@@ -53,61 +54,4 @@ pane.add(target, 'vimKey').list([
 		<div id="namedListExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
-{% endblock %}
-
-{% block script %}
-(function() {
-	var params = {
-		name: 'cocopon',
-	};
-	var pane = Tweakpane({
-		foldable: false,
-		container: document.getElementById('stringExample')
-	});
-	pane.add(params, 'name');
-})();
-
-(function() {
-	var params = {
-		direction: 'left',
-		'(value)': ''
-	};
-	var pane = Tweakpane({
-		foldable: false,
-		container: document.getElementById('listExample')
-	});
-	pane.add(params, 'direction', {
-		list: [
-			'left',
-			'up',
-			'right',
-			'down'
-		]
-	}).on('change', function(value) {
-		params['(value)'] = value;
-	});
-	pane.monitor(params, '(value)');
-})();
-
-(function() {
-	var params = {
-		vimKey: 'H',
-		'(value)': ''
-	};
-	var pane = Tweakpane({
-		foldable: false,
-		container: document.getElementById('namedListExample')
-	});
-	pane.add(params, 'vimKey', {
-		list: {
-			left:  'H',
-			up:    'K',
-			right: 'L',
-			down:  'J'
-		}
-	}).on('change', function(value) {
-		params['(value)'] = value;
-	});
-	pane.monitor(params, '(value)');
-})();
 {% endblock %}

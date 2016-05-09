@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>{{ 'Tweakpane' if (title == 'Tweakpane') else (title + ' | Tweakpane') }}</title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
 </head>
 <body>
@@ -16,17 +16,16 @@
 		{% include "_menu.html" %}
 	</div>
 
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
 	{%
-		set scriptPath = 'tweakpane-' + config.version +
+		set paneJsPath = 'tweakpane-' + config.version +
 			('.min' if config.production else '') +
 			'.js'
 	%}
-	<script src="{{ scriptPath }}"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+	<script src="{{ paneJsPath }}"></script>
+	<script src="{{ 'js/' + id + '.js' }}"></script>
 	<script>
-	hljs.initHighlightingOnLoad();
-
-	{% block script %}{% endblock %}
+		hljs.initHighlightingOnLoad();
 	</script>
 </body>
 </html>

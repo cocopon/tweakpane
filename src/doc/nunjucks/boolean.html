@@ -1,6 +1,7 @@
 {% extends "_template.html" %}
 
-{% set title = 'Overview' %}
+{% set id = 'boolean' %}
+{% set title = 'Boolean' %}
 
 {% block content %}
 <p>Tweakpane provides a checkbox field for a boolean property by default.</p>
@@ -33,34 +34,4 @@ pane.add(target, 'debug', {
 		<div id="listExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
-{% endblock %}
-
-{% block script %}
-(function() {
-	var params = {
-		debug: true
-	};
-	var pane = Tweakpane({
-		foldable: false,
-		container: document.getElementById('example')
-	});
-	pane.add(params, 'debug');
-})();
-
-(function() {
-	var params = {
-		debug: false,
-		'(value)': ''
-	};
-	var pane = Tweakpane({
-		foldable: false,
-		container: document.getElementById('listExample')
-	});
-	pane.add(params, 'debug', {
-		list: ['Enabled', 'Disabled']
-	}).on('change', function(value) {
-		params['(value)'] = String(value);
-	});
-	pane.monitor(params, '(value)');
-})();
 {% endblock %}
