@@ -1,0 +1,13 @@
+root = true
+
+[*.html]
+indent_size = 2
+indent_style = tab
+
+[*.js]
+indent_size = 2
+indent_style = tab
+
+[*.scss]
+indent_size = 2
+indent_style = tab
