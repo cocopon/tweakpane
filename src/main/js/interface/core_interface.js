@@ -38,6 +38,11 @@ class CoreInterface {
 		return new PropertyViewInterface(propView);
 	}
 
+	/**
+	 * Adds a folder.
+	 * @param {string} title A title
+	 * @return {FolderViewInterface}
+	*/
 	addFolder(title) {
 		const folderView = new FolderView(title);
 		const parentView = this.core_.getRootView().getMainView();
@@ -45,6 +50,11 @@ class CoreInterface {
 		return new FolderViewInterface(folderView);
 	}
 
+	/**
+	 * Adds a button.
+	 * @param {string} title A title
+	 * @return {ButtonViewInterface}
+	 */
 	addButton(title) {
 		const buttonView = new ButtonView(title);
 		const parentView = this.core_.getRootView().getMainView();
@@ -52,6 +62,9 @@ class CoreInterface {
 		return new ButtonViewInterface(buttonView);
 	}
 
+	/**
+	 * Adds a separator.
+	 */
 	addSeparator() {
 		const separatorView = new SeparatorView();
 		const parentView = this.core_.getRootView().getMainView();
