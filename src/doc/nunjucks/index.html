@@ -6,6 +6,23 @@
 {% block content %}
 <p>Tweakpane is a JavaScript library that provides a compact user interface for changing/monitoring values. It's originally inspired by the popular library <a href="http://workshop.chromeexperiments.com/examples/gui/" target="_blank">dat.GUI</a>.</p>
 
+<div class="sketchBlock">
+	<div class="sketchBlock_sketchLayout">
+		<canvas id="bgSketch" class="sketchBlock_sketch"></canvas>
+	</div>
+	<div id="tp" class="sketchBlock_tpLayout"></div>
+	<div class="sketchBlock_ad"><a href="http://sushipi.co" target="_blank">Sushipico — tiny cubic sushi</a></div>
+</div>
+<div class="codeBlock">
+	<div class="codeBlock_section">
+		<pre><code class="html">&lt;script src=&quot;tweakpane.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+var pane = Tweakpane();
+// TODO:
+&lt;/script&gt;</code></pre>
+	</div>
+</div>
+
 
 <h2>Features</h2>
 <ul>
@@ -16,15 +33,6 @@
 </ul>
 
 
-<h2>Demo</h2>
-<div class="codeBlock">
-	<div class="codeBlock_section">
-		<pre><code class="html">&lt;script src=&quot;tweakpane.min.js&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
-var pane = Tweakpane();
-&lt;/script&gt;</code></pre>
-	</div>
-</div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/3.0.11/pixi.min.js"></script>
+<script src="assets/js/sketch.js"></script>
 {% endblock %}

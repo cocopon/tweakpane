@@ -201,3 +201,46 @@ a {
 		}
 	}
 }
+.sketchBlock {
+	background-color: white;
+	border: rgba(black, 0.1) solid 1px;
+	height: 400px;
+	position: relative;
+
+	@at-root {
+		&_sketchLayout {
+			bottom: 0;
+			left: 0;
+			position: absolute;
+			right: 250px;
+			top: 0;
+		}
+		&_tpLayout {
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 250px;
+		}
+		&_sketch {
+			display: block;
+		}
+		&_ad {
+			bottom: 0;
+			left: 0;
+			position: absolute;
+
+			a {
+				background-color: rgba(black, 0.3);
+				color: white;
+				display: block;
+				font-size: 0.8rem;
+				padding: 3px 6px;
+				text-decoration: none;
+
+				&:hover {
+					background-color: rgba(black, 0.5);
+				}
+			}
+		}
+	}
+}

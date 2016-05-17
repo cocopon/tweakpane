@@ -1,4 +1,6 @@
-/doc/*
+/doc/**/*.css
+/doc/**/*.html
+/doc/**/*.js
 /dst/*
 /tmp/*
 
