@@ -1,5 +1,6 @@
 /* global PIXI: false */
-const HEIGHT = 400;
+const HEIGHT = 450;
+const MAX_Z = 100;
 
 class Hof {
 	static zip(a1, a2) {
@@ -36,7 +37,13 @@ class Cube extends PIXI.Container {
 			this.z = 0;
 			this.vz *= -params.restitution;
 		}
+		else if (this.z > MAX_Z) {
+			this.z = MAX_Z;
+			this.vz *= -params.restitution;
+		}
+	}
 
+	draw() {
 		this.y = -Math.round(this.z);
 	}
 }
@@ -68,8 +75,9 @@ class Nigiri extends PIXI.Container {
 	}
 
 	pop() {
+		const energy = 2 + Math.random() * 2;
 		this.cubes_.forEach((cube, index) => {
-			cube.vz += index * 2;
+			cube.vz += index * energy;
 		});
 	}
 
@@ -86,6 +94,10 @@ class Nigiri extends PIXI.Container {
 				ch.z = cl.z + cl.zHeight;
 				ch.vz *= -params.restitution;
 			}
+		});
+
+		this.cubes_.forEach((cube) => {
+			cube.draw();
 		});
 	}
 }
@@ -148,7 +160,7 @@ class Sketch {
 		this.renderer_.resize(w, h);
 
 		this.stage_.x = w / 2;
-		this.stage_.y = h * 2 / 3;
+		this.stage_.y = h / 2;
 
 		const canvasElem = this.renderer_.view;
 		canvasElem.width = w;
