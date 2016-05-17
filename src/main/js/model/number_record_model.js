@@ -18,16 +18,20 @@ class NumberRecordModel extends NumberModel {
 	}
 
 	setValue(value) {
-		if (super.setValue(value)) {
-			this.recValues_.push(this.value_);
+		super.setValue(value);
 
-			if (this.recValues_.length > this.recCount_) {
-				this.recValues_.splice(0, this.recValues_.length - this.recCount_);
-			}
+		this.recValues_.push(this.value_);
+		if (this.recValues_.length > this.recCount_) {
+			this.recValues_.splice(0, this.recValues_.length - this.recCount_);
 		}
+
+		this.getEmitter().notifyObservers(
+			NumberRecordModel.EVENT_RECORD_CHANGE
+		);
 	}
 }
 
 NumberRecordModel.DEFAULT_RECORD_COUNT = 200;
+NumberRecordModel.EVENT_RECORD_CHANGE = 'recordchange';
 
 module.exports = NumberRecordModel;

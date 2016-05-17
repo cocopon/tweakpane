@@ -1,13 +1,13 @@
 const StringModel = require('./string_model');
 
-class StringRecordModel extends StringModel {
+class LogRecordModel extends StringModel {
 	constructor(opt_recordCount) {
 		super();
 
 		this.recValues_ = [];
 		this.recCount_ = (opt_recordCount !== undefined) ?
 			opt_recordCount :
-			StringRecordModel.DEFAULT_RECORD_COUNT;
+			LogRecordModel.DEFAULT_RECORD_COUNT;
 	}
 
 	getRecords() {
@@ -25,6 +25,6 @@ class StringRecordModel extends StringModel {
 	}
 }
 
-StringRecordModel.DEFAULT_RECORD_COUNT = 10;
+LogRecordModel.DEFAULT_RECORD_COUNT = 10;
 
-module.exports = StringRecordModel;
+module.exports = LogRecordModel;

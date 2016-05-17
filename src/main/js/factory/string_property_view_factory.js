@@ -1,6 +1,6 @@
 const ListConstraint       = require('../constraint/list_constraint');
+const LogRecordModel       = require('../model/log_record_model');
 const StringModel          = require('../model/string_model');
-const StringRecordModel    = require('../model/string_record_model');
 const ListControl          = require('../view/control/list_control');
 const TextControl          = require('../view/control/text_control');
 const LogMonitor           = require('../view/monitor/log_monitor');
@@ -15,7 +15,7 @@ class StringPropertyViewFactory extends PropertyViewFactory {
 
 	static createModel_(options) {
 		if (options.forMonitor && options.count > 1) {
-			return new StringRecordModel();
+			return new LogRecordModel(options.count);
 		}
 
 		return new StringModel();

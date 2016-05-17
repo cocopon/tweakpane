@@ -37,6 +37,10 @@ class LogMonitor extends Monitor {
 			textareaElem.scrollTop = textareaElem.scrollHeight;
 		}
 	}
+
+	onModelRecordChange_() {
+		this.applyModel_();
+	}
 }
 
 LogMonitor.BLOCK_CLASS = 'lgm';
