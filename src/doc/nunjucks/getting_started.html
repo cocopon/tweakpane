@@ -1,0 +1,45 @@
+{% extends "_template.html" %}
+
+{% set id = 'getting_started' %}
+{% set title = 'Getting Started' %}
+
+{% block content %}
+<h2>1. Import Tweakpane</h2>
+<p>First, <a href="https://github.com/cocopon/tweakpane/releases">download the latest Tweakpane</a> and import it to your web page.</p>
+
+<div class="codeBlock">
+	<div class="codeBlock_section">
+		<pre><code class="html">&lt;script src=&quot;tweakpane.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+	</div>
+</div>
+
+<p>TODO: CDN</p>
+
+
+<h2>2. Create a pane</h2>
+<p>Create an instance of Tweakpane by <code>Tweakpane()</code>.</p>
+
+<div class="codeBlock">
+	<div class="codeBlock_section">
+		<pre><code class="html">&lt;script&gt;
+var pane = Tweakpane();
+&lt;/script&gt;</code></pre>
+	</div>
+</div>
+
+
+<h2>3. Ready to go!</h2>
+<p>Add components to fine-tune a property, monitoring a property, etc. See the reference on the left side for more detailed information.</p>
+
+<div class="codeBlock">
+	<div class="codeBlock_section">
+		<pre><code class="html">// ...
+
+var pane = Tweakpane();
+pane.add(target, 'color');
+pane.monitor(target, 'speed');
+
+// ...</code></pre>
+	</div>
+</div>
+{% endblock %}
