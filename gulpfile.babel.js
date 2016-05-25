@@ -99,7 +99,8 @@ gulp.task('main:embed_css', () => {
 				'utf8'
 			).trim().replace(/"/g, '\\"');
 		}))
-		.pipe(gulp.dest(config.main.js.dstDir));
+		.pipe(gulp.dest(config.main.js.dstDir))
+		.pipe(gulp.dest(config.doc.js.dstDir));
 });
 
 gulp.task('main:build', (callback) => {
