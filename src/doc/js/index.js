@@ -16,6 +16,8 @@ folder1.add(sketchParams, 'neta', {
 		'maguro',
 		'salmon'
 	]
+}).on('change', function() {
+	sketch.refreshNeta();
 });
 
 var folder2 = pane.addFolder('Physics');
