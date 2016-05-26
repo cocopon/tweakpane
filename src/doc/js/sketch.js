@@ -2,6 +2,13 @@
 const HEIGHT = 450;
 const MAX_Z = 100;
 
+// Use data URI to avoid cross-origin problem in file protocol
+const RESOURCES = {
+	'maguro': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAASCAYAAABB7B6eAAAA80lEQVQ4T62UzwrCMAzGW0SkDLyIT+F77Lqb+IjibW+gD+LJm178w5ibyCSFSFqyNq3mNJrk+yVft2mVEJeqGqB8Wdda2iYqbNYbK+xHsdtG+4MFOHFs2tBGLEAq7IM5kAMYsyK2Qcg6C8idOAaGjfSxLIe5MbHarPz5elMWAN3TmVGLP4FO94d6t40dygG8utYe5m4EE0NMTBEGoB9SEApjnxgQs45aQS8pGeBbx1kxCoAEXDRcMgrRYv/82fXfNJ2UA6wOe+18aPhG/QoAYdRgfxUUlLIBFQ4CMMlZx1nECYsAFITPFBASTgJQEAAkwtjzAXKcpAX6oerPAAAAAElFTkSuQmCC',
+	'sabi': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAFCAYAAAB4ka1VAAAASklEQVQIW2NkQAL779b/B3EdlRsZYcJgBkwCWTFMIePSfXn/peQF0eXA/MtnHzOATQApAtEwhSAJEMgLm8cItwum8O2bL2AJmJEA0Fwbo13ysiwAAAAASUVORK5CYII=',
+	'shari': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAASCAYAAABB7B6eAAAA/UlEQVQ4T6WV4a2EMAyDyQAMAHOwAPuLAbpAGYAB+uRIRiFX0pbHHzjR+LOT0pNp4Mo5Fyxf11V6y7oWllJU+DxP1V2WRe8i0qwPF9AxBT2Av6NEVcCb4zdAlOgB6HU8kkgBXx33JBK4bjn6+v44jkkBSHFd1zTP82OXtBy+vU8p3VqSUioQBgAXnv/j2OrgWQEUtilGElnHrCNIW1QT7kmEHnvHbDM1f2bQKkDayDHbTZBuU6aIWkVwzvmeVSv5tm3Ps4QDt7vKJwLAbwoP2vf9/oCrR0WUiAn8MAGFY3/KhoddLREAkeMhABfbRHYGNcefACxCIgBsj1t/PH9JQEAmgzxRSAAAAABJRU5ErkJggg=='
+};
+
 class Hof {
 	static zip(a1, a2) {
 		return a1.map((i1, index) => {
@@ -57,8 +64,12 @@ class Nigiri extends PIXI.Container {
 			{id: 'sabi',   textureOffset: -3,  zHeight: 0},
 			{id: netaName, textureOffset: -12, zHeight: 6}
 		].map((config) => {
+			const image = new Image();
+			image.src = RESOURCES[config.id];
+			const baseTexture = new PIXI.BaseTexture(image);
+			const texture = new PIXI.Texture(baseTexture);
 			return new Cube(
-				PIXI.Sprite.fromImage(`assets/img/${config.id}.png`),
+				new PIXI.Sprite(texture),
 				config.textureOffset,
 				config.zHeight
 			);
