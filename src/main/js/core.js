@@ -4,7 +4,7 @@ const Errors                     = require('./misc/errors');
 const EventEmitter               = require('./misc/event_emitter');
 const Style                      = require('./misc/style');
 const ViewUtil                   = require('./misc/view_util');
-const Property                   = require('./model/property');
+const Model                      = require('./model/model');
 const PropertyView               = require('./view/property_view');
 const RootFolderView             = require('./view/root_folder_view');
 const RootView                   = require('./view/root_view');
@@ -61,9 +61,12 @@ class Core {
 		this.rootView_.getMainView().addSubview(propView);
 
 		const prop = propView.getProperty();
-		prop.getEmitter().on(
-			Property.EVENT_MODEL_CHANGE,
-			this.onPropertyChange_,
+		const model = prop.getModel();
+		model.getEmitter().on(
+			Model.EVENT_CHANGE,
+			() => {
+				this.onPropertyModelChange_(prop);
+			},
 			this
 		);
 
@@ -122,7 +125,7 @@ class Core {
 		});
 	}
 
-	onPropertyChange_(prop) {
+	onPropertyModelChange_(prop) {
 		this.emitter_.notifyObservers(
 			Core.EVENT_CHANGE,
 			[prop.getModel().getValue(), prop]

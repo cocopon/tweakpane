@@ -27,8 +27,7 @@ class PropertyViewFactory {
 			control.getEmitter().on(
 				Control.EVENT_CHANGE,
 				(value) => {
-					prop.setValue(value);
-					prop.updateSourceValue();
+					prop.setValue(value, true);
 				}
 			);
 			propView.addSubview(control);

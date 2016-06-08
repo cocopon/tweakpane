@@ -11,11 +11,6 @@ class Property {
 		this.forMonitor_ = builder.isForMonitor();
 
 		this.model_ = builder.getModel();
-		this.model_.getEmitter().on(
-			Model.EVENT_CHANGE,
-			this.onModelChange_,
-			this
-		);
 		this.codec_ = CodecProvider.provide(this.model_);
 
 		this.emitter_ = new EventEmitter();
@@ -59,31 +54,27 @@ class Property {
 		return this.forMonitor_;
 	}
 
-	setValue(value) {
+	setValue(value, opt_updatesSource) {
 		if (!this.codec_.canDecode(value)) {
 			return false;
 		}
 
-		this.model_.setValue(
-			this.codec_.decode(value)
-		);
+		const decodedValue = this.codec_.decode(value);
+
+		const updatesSource = (opt_updatesSource !== undefined) ?
+			opt_updatesSource :
+			false;
+		if (updatesSource) {
+			this.target_[this.propName_] = decodedValue;
+		}
+
+		this.model_.setValue(decodedValue);
 
 		return true;
 	}
 
 	applySourceValue() {
 		this.setValue(this.target_[this.propName_]);
-	}
-
-	updateSourceValue() {
-		this.target_[this.propName_] = this.getValue();
-	}
-
-	onModelChange_() {
-		this.emitter_.notifyObservers(
-			Property.EVENT_MODEL_CHANGE,
-			[this]
-		);
 	}
 }
 

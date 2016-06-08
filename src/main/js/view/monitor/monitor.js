@@ -1,12 +1,12 @@
-const Property = require('../../model/property');
+const Model    = require('../../model/model');
 const View  = require('../view');
 
 class Monitor extends View {
 	constructor(property) {
 		super();
 
-		property.getEmitter().on(
-			Property.EVENT_MODEL_CHANGE,
+		property.getModel().getEmitter().on(
+			Model.EVENT_CHANGE,
 			this.onModelChange_,
 			this
 		);
