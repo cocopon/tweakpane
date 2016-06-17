@@ -185,16 +185,16 @@ a {
 			box-shadow: 0 1px 3px rgba(black, 0.3);
 			bottom: 0;
 			color: $menu-color;
-			left: -$menu-width;
+			transform: translateX(-$menu-width);
 			overflow-y: auto;
 			padding: $menu-button-size 0 0;
 			position: fixed;
 			top: 0;
-			transition: left 0.3s ease-in-out;
+			transition: transform 0.3s ease-in-out;
 			width: $menu-width;
 
 			&#{&}-expanded {
-				left: 0;
+				transform: translateX(0);
 			}
 
 			ul {
