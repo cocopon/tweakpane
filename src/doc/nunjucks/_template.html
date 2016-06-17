@@ -7,14 +7,19 @@
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
 </head>
 <body>
+	<div class="hero">
+		<div class="hero_body">
+			<div class="hero_title">Tweakpane</div>
+			<div class="hero_paneContainer"></div>
+		</div>
+	</div>
+
 	<div class="content">
 		<h1>{{ title }}</h1>
 		{% block content %}{% endblock %}
 	</div>
 
-	<div class="menu">
-		{% include "_menu.html" %}
-	</div>
+	{% include "_menu.html" %}
 
 	{%
 		set paneJsPath = 'assets/js/tweakpane-' + config.version +
@@ -23,6 +28,7 @@
 	%}
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
 	<script src="{{ paneJsPath }}"></script>
+	<script src="assets/js/common.js"></script>
 	<script src="{{ 'assets/js/' + id + '.js' }}"></script>
 	<script>
 		hljs.initHighlightingOnLoad();

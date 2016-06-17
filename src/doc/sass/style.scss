@@ -1,4 +1,4 @@
-$key-hue: 220deg;
+$key-hue: 235deg;
 
 $a-color: hsl(12deg, 50%, 50%);
 $a-hover-background-color: rgba($a-color, 0.1);
@@ -7,7 +7,8 @@ $color: hsl($key-hue, 20%, 20%);
 $code-block-background-color: hsl($key-hue, 10%, 91%);
 $code-block-example-background-color: hsl($key-hue, 10%, 85%);
 $code-block-text-box-background-color: hsl($key-hue, 10%, 78%);
-$menu-background-color: hsl($key-hue, 10%, 30%);
+$hero-background-color: darken($background-color, 10%);
+$menu-background-color: hsla($key-hue, 10%, 30%, 0.95);
 $menu-color: hsl($key-hue, 10%, 60%);
 
 $font-family-sans: Verdana, sans-serif;
@@ -37,7 +38,6 @@ html {
 }
 body {
 	margin: 0;
-	min-width: $content-width + $pane-width * 2;
 	padding: 0;
 	position: relative;
 }
@@ -93,9 +93,45 @@ a {
 	}
 }
 
+.hero {
+	background-color: $hero-background-color;
+	height: 300px;
+	position: relative;
+
+	@at-root {
+		&_body {
+			height: 100px;
+			position: absolute;
+			margin: auto;
+			top: 0;
+			bottom: 0;
+			width: 100%;
+		}
+		&_title {
+			color: rgba(black, 0.05);
+			font-size: 2.6rem;
+			font-weight: bold;
+			letter-spacing: 0.05rem;
+			margin: auto 0;
+			position: absolute;
+			text-align: center;
+			top: 0;
+			width: 100%;
+		}
+		&_paneContainer {
+			bottom: 0;
+			box-shadow: 0 1px 3px rgba(black, 0.3);
+			left: 0;
+			margin: auto;
+			position: absolute;
+			right: 0;
+			width: 250px;
+		}
+	}
+}
 .content {
-	left: $pane-width;
-	padding: 30px;
+	margin: 0 auto;
+	padding: 60px 30px;
 	position: relative;
 	width: $content-width;
 
@@ -105,12 +141,13 @@ a {
 }
 .menu {
 	background-color: $menu-background-color;
+	box-shadow: 0 1px 3px rgba(black, 0.3);
 	bottom: 0;
 	color: $menu-color;
-	left: 0;
+	right: 0;
 	overflow-y: auto;
-	padding: 30px 0;
-	position: absolute;
+	padding: 20px 0;
+	position: fixed;
 	top: 0;
 	width: $pane-width;
 
