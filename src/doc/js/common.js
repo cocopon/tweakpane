@@ -66,7 +66,7 @@ class Menu {
 		this.expandIfNeeded();
 	}
 }
-Menu.NARROW_WIDTH = 620 + 250 * 2;
+Menu.NARROW_WIDTH = 620 + 200 * 2;
 
 const menu = new Menu(
 	document.getElementsByClassName('menu_button').item(0),
