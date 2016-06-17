@@ -50,11 +50,19 @@ h1 {
 	font-size: 2.0rem;
 	margin: 0 0 1.0rem;
 	text-transform: capitalize;
+
+	@media (max-width: $narrow-width) {
+		font-size: 1.5rem;
+	}
 }
 h2 {
 	font-size: 1.5rem;
 	margin: 4.0rem 0 1.0rem;
 	text-transform: capitalize;
+
+	@media (max-width: $narrow-width) {
+		font-size: 1.25rem;
+	}
 }
 pre {
 	font-family: $font-family-mono;
