@@ -1,7 +1,7 @@
 const Tweakpane = require('../src/main/js/tweakpane');
 
 describe('Tweakpane', () => {
-	it('should handle cange event and get correct value', () => {
+	it('should handle change event and get correct value', () => {
 		const INITIAL_VALUE = 'initial';
 		const CHANGED_VALUE = 'changed';
 		const params = {
