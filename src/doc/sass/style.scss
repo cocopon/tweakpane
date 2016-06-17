@@ -16,6 +16,7 @@ $font-family-mono: Menlo, Courier, monospace;
 
 $content-width: 620px;
 $pane-width: 250px;
+$pane-narrow-width: 220px;
 $menu-width: $pane-width;
 $menu-button-size: 60px;
 $narrow-width: $content-width + $menu-width * 2;
@@ -101,6 +102,10 @@ a {
 	height: 300px;
 	position: relative;
 
+	@media (max-width: $narrow-width) {
+		height: 240px;
+	}
+
 	@at-root {
 		&_body {
 			height: 100px;
@@ -137,6 +142,11 @@ a {
 	padding: 60px 30px;
 	position: relative;
 	width: $content-width;
+
+	@media (max-width: $narrow-width) {
+		padding: 30px;
+		width: auto;
+	}
 
 	& > *:last-child {
 		margin-bottom: 0;
@@ -238,6 +248,11 @@ a {
 			box-shadow: 0 1px 3px rgba(black, 0.3);
 			margin: 0 auto;
 			width: $pane-width;
+
+			@media (max-width: $narrow-width) {
+				max-width: $pane-width;
+				width: auto;
+			}
 		}
 		&_textBox {
 			background-color: $code-block-text-box-background-color;
@@ -264,11 +279,24 @@ a {
 			float: left;
 			padding-right: 10px;
 			width: 50%;
+
+			@media (max-width: $narrow-width) {
+				float: none;
+				padding-right: 0;
+				width: auto;
+			}
 		}
 		&_rightColumn {
 			float: left;
 			padding-left: 10px;
 			width: 50%;
+
+			@media (max-width: $narrow-width) {
+				float: none;
+				padding-left: 0;
+				padding-top: 20px;
+				width: auto;
+			}
 		}
 	}
 }
