@@ -2,18 +2,49 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0">
 	<title>{{ 'Tweakpane' if (title == 'Tweakpane') else (title + ' | Tweakpane') }}</title>
 	<link rel="stylesheet" href="assets/css/style.css">
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
 </head>
 <body>
+	<div class="hero">
+		<div class="hero_body">
+			<div class="hero_title">Tweakpane</div>
+			<div class="hero_paneContainer"></div>
+		</div>
+	</div>
+
 	<div class="content">
 		<h1>{{ title }}</h1>
 		{% block content %}{% endblock %}
 	</div>
 
 	<div class="menu">
-		{% include "_menu.html" %}
+		<div class="menu_body">
+			<ul>
+				<li><a href="./"><span class="menu_title">Overview</span></a></li>
+				<li><a href="./getting_started.html"><span class="menu_title">Getting Started</span></a></li>
+				<li>
+					<span class="menu_title">Property</span>
+					<div class="menu_submenu">
+						<ul>
+							<li><a href="number.html"><span class="menu_title">Number</span></a></li>
+							<li><a href="string.html"><span class="menu_title">String</span></a></li>
+							<li><a href="boolean.html"><span class="menu_title">Boolean</span></a></li>
+							<li><a href="color.html"><span class="menu_title">Color</span></a></li>
+						</ul>
+					</div>
+				</li>
+				<li><a href="monitor.html"><span class="menu_title">Monitor</span></a></li>
+				<li><a href="component.html"><span class="menu_title">UI Components</span></a></li>
+				<li><a href="event.html"><span class="menu_title">Events</span></a></li>
+				<li><a href="io.html"><span class="menu_title">Import/Export</span></a></li>
+				<li><a href="misc.html"><span class="menu_title">Misc</span></a></li>
+			</ul>
+		</div>
+		<button class="menu_button"><span class="fa fa-bars" aria-hidden="true"></span></button>
 	</div>
 
 	{%
@@ -23,6 +54,7 @@
 	%}
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
 	<script src="{{ paneJsPath }}"></script>
+	<script src="assets/js/common.js"></script>
 	<script src="{{ 'assets/js/' + id + '.js' }}"></script>
 	<script>
 		hljs.initHighlightingOnLoad();

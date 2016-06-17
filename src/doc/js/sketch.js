@@ -1,5 +1,4 @@
 /* global PIXI: false */
-const HEIGHT = 450;
 const MAX_Z = 100;
 
 // Use data URI to avoid cross-origin problem in file protocol
@@ -176,11 +175,11 @@ class Sketch {
 		const containerElem = this.renderer_.view.parentNode;
 		const bound = containerElem.getBoundingClientRect();
 		const w = bound.width;
-		const h = HEIGHT;
+		const h = bound.height;
 		this.renderer_.resize(w, h);
 
 		this.stage_.x = w / 2;
-		this.stage_.y = h / 2;
+		this.stage_.y = h * 2 / 3;
 
 		const canvasElem = this.renderer_.view;
 		canvasElem.width = w;
