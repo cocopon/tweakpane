@@ -20,6 +20,7 @@ $pane-narrow-width: 220px;
 $menu-width: $pane-width;
 $menu-button-size: 60px;
 $narrow-width: $content-width + $menu-width * 2;
+$sketch-block-narrow-width: 500px;
 
 @mixin clearfix() {
 	&:after {
@@ -307,6 +308,10 @@ a {
 	overflow: hidden;
 	position: relative;
 
+	@media (max-width: $sketch-block-narrow-width) {
+		height: auto;
+	}
+
 	@at-root {
 		&_sketchLayout {
 			bottom: 0;
@@ -314,13 +319,25 @@ a {
 			position: absolute;
 			right: 250px;
 			top: 0;
+
+			@media (max-width: $sketch-block-narrow-width) {
+				height: 240px;
+				position: relative;
+				right: auto;
+			}
 		}
-		&_tpLayout {
+		&_paneLayout {
 			box-shadow: 0 1px 3px rgba(black, 0.3);
 			position: absolute;
 			right: 0;
 			top: 0;
 			width: 250px;
+
+			@media (max-width: $sketch-block-narrow-width) {
+				position: static;
+				right: auto;
+				width: auto;
+			}
 		}
 		&_sketch {
 			display: block;
