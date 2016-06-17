@@ -1,12 +1,9 @@
-var dummy = {
-	'TODO': 0
-};
 var pane = Tweakpane({
 	foldable: false,
 	container: document.getElementsByClassName('hero_paneContainer').item(0)
 });
 
-pane.add(dummy, 'TODO', {
+pane.add({slider: 0}, 'slider', {
 	min: 0,
 	max: 100,
 });
