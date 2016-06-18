@@ -128,7 +128,8 @@ class SushiSketch {
 			deltaT: 0.5,
 			gravity: 0.5,
 			restitution: 0.5,
-			neta: 'maguro'
+			neta: 'maguro',
+			netaAlt: 0
 		};
 
 		PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
@@ -159,21 +160,22 @@ class SushiSketch {
 		return this.params_;
 	}
 
-	getNigiri() {
-		return this.nigiri_;
-	}
-
 	refreshNeta() {
-		this.stage_.removeChild(this.nigiri_);
+		this.nigiri_.parent.removeChild(this.nigiri_);
 
 		this.nigiri_ = new Nigiri(this.params_.neta);
-		this.stage_.addChild(this.nigiri_);
+		this.pxLayer_.addChild(this.nigiri_);
+	}
+
+	pop() {
+		this.nigiri_.pop();
 	}
 
 	onUpdate_() {
 		requestAnimationFrame(this.updateHandler_);
 
 		this.nigiri_.update(this.params_);
+		this.params_.netaAlt = this.nigiri_.getNeta().z;
 
 		this.renderer_.render(this.stage_);
 	}

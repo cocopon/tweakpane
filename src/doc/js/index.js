@@ -2,8 +2,6 @@ var sketch = new SushiSketch(
 	document.getElementById('sushiSketch')
 );
 var sketchParams = sketch.getParameters();
-var nigiri = sketch.getNigiri();
-var neta = nigiri.getNeta();
 
 var pane = Tweakpane({
 	container: document.getElementById('tp')
@@ -34,8 +32,7 @@ folder2.add(sketchParams, 'restitution', {
 	max: 0.9
 });
 folder2.addSeparator();
-folder2.monitor(neta, 'z', {
-	label: 'netaAlt',
+folder2.monitor(sketchParams, 'netaAlt', {
 	count: 140,
 	graph: true,
 	min: 0,
@@ -43,9 +40,9 @@ folder2.monitor(neta, 'z', {
 });
 folder2.addSeparator();
 folder2.addButton('Pop!').on('click', function() {
-	nigiri.pop();
+	sketch.pop();
 });
 
 setInterval(function() {
-	nigiri.pop();
+	sketch.pop();
 }, 4000);
