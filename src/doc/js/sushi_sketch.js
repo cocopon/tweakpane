@@ -134,10 +134,16 @@ class SushiSketch {
 		PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
 
 		this.stage_ = new PIXI.Container();
-		this.stage_.scale = new PIXI.Point(5, 5);
+
+		this.bg_ = new PIXI.Graphics();
+		this.stage_.addChild(this.bg_);
+
+		this.pxLayer_ = new PIXI.Container();
+		this.pxLayer_.scale = new PIXI.Point(5, 5);
+		this.stage_.addChild(this.pxLayer_);
 
 		this.nigiri_ = new Nigiri(this.params_.neta);
-		this.stage_.addChild(this.nigiri_);
+		this.pxLayer_.addChild(this.nigiri_);
 
 		this.updateHandler_ = this.onUpdate_.bind(this);
 		this.onUpdate_();
@@ -179,8 +185,13 @@ class SushiSketch {
 		const h = bound.height;
 		this.renderer_.resize(w, h);
 
-		this.stage_.x = w / 2;
-		this.stage_.y = h * 2 / 3;
+		this.pxLayer_.x = w / 2;
+		this.pxLayer_.y = h * 2 / 3;
+
+		this.bg_.clear();
+		this.bg_.beginFill(SushiSketch.BG_COLOR);
+		this.bg_.drawRect(0, 0, w, h);
+		this.bg_.endFill();
 
 		const canvasElem = this.renderer_.view;
 		canvasElem.width = w;
@@ -191,3 +202,4 @@ class SushiSketch {
 		this.fitToContainer_();
 	}
 }
+SushiSketch.BG_COLOR = 0xffffff;
