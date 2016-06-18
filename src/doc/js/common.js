@@ -85,5 +85,5 @@
 	);
 	setTimeout(() => {
 		menu.expandIfNeeded();
-	}, 1000);
+	}, 500);
 })();
