@@ -1,5 +1,5 @@
 var sketch = new SushiSketch(
-	document.getElementById('bgSketch')
+	document.getElementById('sushiSketch')
 );
 var sketchParams = sketch.getParameters();
 var nigiri = sketch.getNigiri();

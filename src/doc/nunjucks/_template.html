@@ -10,6 +10,7 @@
 </head>
 <body>
 	<div class="hero">
+		<canvas id="heroSketch" class="hero_sketch"></canvas>
 		<div class="hero_body">
 			<div class="hero_title">Tweakpane</div>
 			<div class="hero_paneContainer"></div>
@@ -52,8 +53,10 @@
 			('.min' if config.production else '') +
 			'.js'
 	%}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/3.0.11/pixi.min.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
 	<script src="{{ paneJsPath }}"></script>
+	<script src="assets/js/physics_sketch.js"></script>
 	<script src="assets/js/common.js"></script>
 	<script src="{{ 'assets/js/' + id + '.js' }}"></script>
 	<script>
