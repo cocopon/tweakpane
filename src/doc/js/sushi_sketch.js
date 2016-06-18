@@ -1,4 +1,5 @@
 /* global PIXI: false */
+
 const MAX_Z = 100;
 
 // Use data URI to avoid cross-origin problem in file protocol
