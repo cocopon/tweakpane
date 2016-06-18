@@ -58,6 +58,7 @@
 	<script src="{{ paneJsPath }}"></script>
 	<script src="assets/js/physics_sketch.js"></script>
 	<script src="assets/js/common.js"></script>
+	{% block script %}{% endblock %}
 	<script src="{{ 'assets/js/' + id + '.js' }}"></script>
 	<script>
 		hljs.initHighlightingOnLoad();
