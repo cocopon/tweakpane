@@ -32,7 +32,7 @@
 			background-repeat: no-repeat;
 			display: block;
 			height: $folder-view-arrow-size;
-			right: 10px;
+			left: 10px;
 			opacity: 0.25;
 			position: absolute;
 			top: ($folder-view-title-height - $folder-view-arrow-size) / 2;
@@ -52,8 +52,8 @@
 			opacity: 0.35;
 			overflow: hidden;
 			padding: {
-				left: 5px;
-				right: 10px + $folder-view-arrow-size + 10px;
+				right: 5px;
+				left: 10px + $folder-view-arrow-size + 10px;
 			}
 			position: relative;
 			text-align: left;
@@ -64,6 +64,7 @@
 		}
 		&_container {
 			overflow: hidden;
+			padding: 0 5px 0;
 			transition: height 0.2s ease-in-out;
 		}
 	}
