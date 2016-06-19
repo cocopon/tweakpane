@@ -11,7 +11,7 @@
 		<pre><code class="js">var params = {
   name: 'cocopon',
 };
-var pane = Tweakpane();
+var pane = new Tweakpane();
 pane.add(params, 'name');</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
@@ -25,7 +25,7 @@ pane.add(params, 'name');</code></pre>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var pane = Tweakpane();
+		<pre><code class="js">var pane = new Tweakpane();
 pane.add(target, 'direction').list([
   'left',
   'up',
@@ -42,7 +42,7 @@ pane.add(target, 'direction').list([
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var pane = Tweakpane();
+		<pre><code class="js">var pane = new Tweakpane();
 pane.add(target, 'vimKey').list([
   left:  'H',
   up:    'K',

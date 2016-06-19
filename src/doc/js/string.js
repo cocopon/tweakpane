@@ -2,7 +2,7 @@
 	var params = {
 		name: 'cocopon',
 	};
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementById('stringExample')
 	});
@@ -14,7 +14,7 @@
 		direction: 'left',
 		'(value)': ''
 	};
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementById('listExample')
 	});
@@ -36,7 +36,7 @@
 		vimKey: 'H',
 		'(value)': ''
 	};
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementById('namedListExample')
 	});

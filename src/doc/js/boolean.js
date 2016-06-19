@@ -2,7 +2,7 @@
 	var params = {
 		debug: true
 	};
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementById('example')
 	});
@@ -14,7 +14,7 @@
 		debug: false,
 		'(value)': ''
 	};
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementById('listExample')
 	});

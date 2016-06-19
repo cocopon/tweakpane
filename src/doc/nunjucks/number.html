@@ -11,7 +11,7 @@
 		<pre><code class="js">var params = {
   speed: 0.5
 };
-var pane = Tweakpane();
+var pane = new Tweakpane();
 pane.add(params, 'speed');</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
@@ -25,7 +25,7 @@ Use <code>min</code> or <code>max</code> option to specify minimum/maximum value
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var pane = Tweakpane();
+		<pre><code class="js">var pane = new Tweakpane();
 pane.add(target, 'speed', {min: 0});</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
@@ -37,7 +37,7 @@ pane.add(target, 'speed', {min: 0});</code></pre>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var pane = Tweakpane();
+		<pre><code class="js">var pane = new Tweakpane();
 pane.add(target, 'speed', {min: 0, max: 100});</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
@@ -51,7 +51,7 @@ pane.add(target, 'speed', {min: 0, max: 100});</code></pre>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var pane = Tweakpane();
+		<pre><code class="js">var pane = new Tweakpane();
 pane.add(target, 'particleCount', {
   min: 0, max: 100, step: 10
 });</code></pre>
@@ -67,7 +67,7 @@ pane.add(target, 'particleCount', {
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var pane = Tweakpane();
+		<pre><code class="js">var pane = new Tweakpane();
 pane.add(target, 'direction', {
   list: {
     none: 0,

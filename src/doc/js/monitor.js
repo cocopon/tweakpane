@@ -26,7 +26,7 @@ setInterval(function() {
 }, 1000);
 
 (function() {
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementById('textExample')
 	});
@@ -37,7 +37,7 @@ setInterval(function() {
 })();
 
 (function() {
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementById('graphExample')
 	});
@@ -51,7 +51,7 @@ setInterval(function() {
 })();
 
 (function() {
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementById('logExample')
 	});
@@ -71,7 +71,7 @@ setInterval(function() {
 		].join('\n')
 	};
 
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementById('multilineExample')
 	});
@@ -82,7 +82,7 @@ setInterval(function() {
 })();
 
 (function() {
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		container: document.getElementById('intervalExample'),
 		foldable: false
 	});

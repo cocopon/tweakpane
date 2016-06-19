@@ -3,7 +3,7 @@
 		keyColor: '#00ff00'
 	};
 
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementById('colorExample')
 	});

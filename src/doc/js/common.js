@@ -3,7 +3,7 @@
 (() => {
 	let sketch = null;
 
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementsByClassName('hero_paneContainer').item(0)
 	});

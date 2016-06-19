@@ -9,7 +9,7 @@
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var pane = Tweakpane();
+		<pre><code class="js">var pane = new Tweakpane();
 pane.add(target, 'speed', {min: 0, max: 100}).on(
   'change',
   function(value) {
@@ -28,7 +28,7 @@ pane.add(target, 'speed', {min: 0, max: 100}).on(
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var pane = Tweakpane();
+		<pre><code class="js">var pane = new Tweakpane();
 pane.add(target, 'power', {min: 0, max: 100});
 pane.add(target, 'size', {min: 0, max: 100});
 pane.on(

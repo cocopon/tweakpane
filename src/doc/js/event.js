@@ -3,7 +3,7 @@
 		speed: 50,
 		'(log)': ''
 	};
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementById('eventExample')
 	});
@@ -24,7 +24,7 @@
 		size: 50,
 		'(log)': ''
 	};
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementById('globalEventExample')
 	});

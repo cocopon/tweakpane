@@ -8,7 +8,7 @@
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var paneFrom = Tweakpane();
+		<pre><code class="js">var paneFrom = new Tweakpane();
 // ...
 var json = paneFrom.getJson();
 console.log(json);</code></pre>
@@ -29,7 +29,7 @@ console.log(json);</code></pre>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var paneTo = Tweakpane();
+		<pre><code class="js">var paneTo = new Tweakpane();
 // ...
 paneTo.setJson(json);</code></pre>
 	</div>
@@ -51,7 +51,7 @@ paneTo.setJson(json);</code></pre>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var pane = Tweakpane();
+		<pre><code class="js">var pane = new Tweakpane();
 pane.add(target1, 'speed', {
   id: 'target1_speed'
 });

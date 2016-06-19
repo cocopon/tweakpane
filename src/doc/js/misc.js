@@ -2,7 +2,7 @@
 	var params = {
 		initSpeed: 0.38
 	};
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementById('labelExample')
 	});

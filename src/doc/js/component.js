@@ -6,7 +6,7 @@ var params = {
 };
 
 (function() {
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementById('folderExample1')
 	});
@@ -21,7 +21,7 @@ var params = {
 })();
 
 (function() {
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementById('folderExample2')
 	});
@@ -41,7 +41,7 @@ var params = {
 		count: 0,
 		'(log)': ''
 	};
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementById('buttonExample')
 	});
@@ -54,7 +54,7 @@ var params = {
 })();
 
 (function() {
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementById('separatorExample')
 	});

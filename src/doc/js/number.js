@@ -2,7 +2,7 @@
 	var params = {
 		speed: 0.5,
 	};
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementById('numberExample')
 	});
@@ -13,7 +13,7 @@
 	var params = {
 		speed: 50
 	};
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementById('minExample')
 	});
@@ -24,7 +24,7 @@
 	var params = {
 		speed: 50
 	};
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementById('sliderExample')
 	});
@@ -35,7 +35,7 @@
 	var params = {
 		particleCount: 50
 	};
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementById('stepExample')
 	});
@@ -47,7 +47,7 @@
 		direction: 0,
 		'(value)': ''
 	};
-	var pane = Tweakpane({
+	var pane = new Tweakpane({
 		foldable: false,
 		container: document.getElementById('listExample')
 	});

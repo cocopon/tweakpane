@@ -3,7 +3,7 @@ var sketch = new SushiSketch(
 );
 var sketchParams = sketch.getParameters();
 
-var pane = Tweakpane({
+var pane = new Tweakpane({
 	container: document.getElementById('tp')
 });
 

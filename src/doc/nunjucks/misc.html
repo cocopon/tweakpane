@@ -9,7 +9,7 @@
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var pane = Tweakpane();
+		<pre><code class="js">var pane = new Tweakpane();
 pane.add(target, 'initSpeed', {
   label: 'Initial speed',
   min: 0.0,
@@ -27,7 +27,7 @@ pane.add(target, 'initSpeed', {
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var pane = Tweakpane({
+		<pre><code class="js">var pane = new Tweakpane({
   container: document.getElementById('someElementId')
 });
 </code></pre>
@@ -40,7 +40,7 @@ pane.add(target, 'initSpeed', {
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var pane = Tweakpane({
+		<pre><code class="js">var pane = new Tweakpane({
   foldable: false
 });</code></pre>
 	</div>
@@ -52,7 +52,7 @@ pane.add(target, 'initSpeed', {
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="js">var pane = Tweakpane();
+		<pre><code class="js">var pane = new Tweakpane();
 
 // (changed a property without Tweakpane...)
 
@@ -67,13 +67,13 @@ pane.refresh();</code></pre>
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">// Add a CSS style for the default container
-var pane1 = Tweakpane();
+var pane1 = new Tweakpane();
 var styleElem = document.createElement('style');
 styleElem.textContent = '.tpDefaultContainer {width: 320px;}';
 document.appendChild(styleElem);
 
 // Or, specify another container
-var pane2 = Tweakpane({
+var pane2 = new Tweakpane({
   container: document.getElementById('yourContainer')
 });</code></pre>
 	</div>
