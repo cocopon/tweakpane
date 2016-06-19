@@ -149,10 +149,12 @@ class PhysicsSketch {
 		this.fitToContainer_();
 
 		const engine = new Engine();
+		const MARGIN = PhysicsSketch.MARGIN;
 		for (let i = 0; i < MASS_COUNT; i++) {
+			const t = i / (MASS_COUNT - 1);
 			const mass = new Mass();
 			mass.pos.x = 0;
-			mass.pos.y = canvasElement.height * i / (MASS_COUNT - 1);
+			mass.pos.y = canvasElement.height * (-MARGIN + (1.0 + 2 * MARGIN) * t);
 			engine.masses.push(mass);
 		}
 		for (let j = 0; j < MASS_COUNT; j++) {
@@ -182,25 +184,24 @@ class PhysicsSketch {
 		const w = this.renderer_.view.width;
 		const h = this.renderer_.view.height;
 		const targetX = w * this.level_;
-		engine.masses[0].pos.x += (targetX - engine.masses[0].pos.x) * 0.3;
-		engine.masses[0].pos.y = 0;
-		engine.masses[engine.masses.length - 1].pos.y = h;
+		const masses = engine.masses;
+		const MARGIN = PhysicsSketch.MARGIN;
+		masses[0].pos.x += (targetX - masses[0].pos.x) * 0.3;
+		masses[0].pos.y = h * -MARGIN;
+		masses[masses.length - 1].pos.y = h * (1.0 + MARGIN);
 
-		engine.masses.forEach((m) => {
+		masses.forEach((m) => {
 			m.pos.x = Math.min(Math.max(m.pos.x, 0), w);
-			m.pos.y = Math.min(Math.max(m.pos.y, 0), h);
 		});
 
 		const g = this.g_;
 		g.clear();
 		g.beginFill(PhysicsSketch.FG_COLOR);
-		g.moveTo(0, 0);
-		g.lineTo(engine.masses[0].pos.x, 0);
-		engine.masses.forEach((m) => {
+		g.moveTo(0, masses[0].pos.y);
+		masses.forEach((m) => {
 			g.lineTo(m.pos.x, m.pos.y);
 		});
-		g.lineTo(engine.masses[engine.masses.length - 1].pos.x, h);
-		g.lineTo(0, h);
+		g.lineTo(0, masses[masses.length - 1].pos.y);
 		g.endFill();
 
 		this.renderer_.render(this.stage_);
@@ -229,3 +230,4 @@ class PhysicsSketch {
 }
 PhysicsSketch.BG_COLOR = 0xdddde4;
 PhysicsSketch.FG_COLOR = 0xc3c3d0;
+PhysicsSketch.MARGIN = 0.3;
