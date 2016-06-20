@@ -7,7 +7,6 @@ class FolderViewInterface extends ViewInterface {
 	}
 
 	add(target, propName, opt_options) {
-		// TODO: Listen change event to fire global change event
 		return this.getComponentUtil_().addProperty(
 			this.view_,
 			target,

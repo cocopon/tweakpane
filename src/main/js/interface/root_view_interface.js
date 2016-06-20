@@ -7,11 +7,21 @@ const ViewUtil       = require('../misc/view_util');
 const Model          = require('../model/model');
 const PropertyView   = require('../view/property_view');
 const RootFolderView = require('../view/root_folder_view');
+const View           = require('../view/view');
 const ViewInterface  = require('./view_interface');
 
 class RootViewInterface extends ViewInterface {
 	constructor(view, opt_options) {
 		super(view);
+
+		const mainView = this.view_.getMainView();
+		mainView.getEmitter().on(
+			View.EVENT_ADD,
+			this.onViewAdd_,
+			this
+		);
+
+		this.propListeners_ = [];
 
 		const options = (opt_options !== undefined) ?
 			opt_options :
@@ -75,45 +85,49 @@ class RootViewInterface extends ViewInterface {
 	}
 
 	add(target, propName, opt_options) {
-		const result = ComponentUtil.addProperty(
+		return ComponentUtil.addProperty(
 			this.view_.getMainView(),
 			target,
 			propName,
 			opt_options
 		);
-
-		const prop = result.getView().getProperty();
-		const model = prop.getModel();
-		model.getEmitter().on(
-			Model.EVENT_CHANGE,
-			() => {
-				this.onPropertyModelChange_(prop);
-			},
-			this
-		);
-
-		return result;
 	}
 
 	monitor(target, propName, opt_options) {
-		const result = ComponentUtil.addMonitor(
+		return ComponentUtil.addMonitor(
 			this.view_.getMainView(),
 			target,
 			propName,
 			opt_options
 		);
+	}
 
-		const prop = result.getView().getProperty();
-		const model = prop.getModel();
-		model.getEmitter().on(
-			Model.EVENT_CHANGE,
-			() => {
-				this.onPropertyModelChange_(prop);
-			},
+	addFolder(title) {
+		const fvInterface = ComponentUtil.addFolder(
+			this.view_.getMainView(),
+			title
+		);
+		const folderView = fvInterface.getView();
+		folderView.getEmitter().on(
+			View.EVENT_ADD,
+			this.onViewAdd_,
 			this
 		);
 
-		return result;
+		return fvInterface;
+	}
+
+	addButton(title) {
+		return ComponentUtil.addButton(
+			this.view_.getMainView(),
+			title
+		);
+	}
+
+	addSeparator() {
+		return ComponentUtil.addSeparator(
+			this.view_.getMainView()
+		);
 	}
 
 	refresh() {
@@ -143,26 +157,6 @@ class RootViewInterface extends ViewInterface {
 		});
 	}
 
-	addFolder(title) {
-		return ComponentUtil.addFolder(
-			this.view_.getMainView(),
-			title
-		);
-	}
-
-	addButton(title) {
-		return ComponentUtil.addButton(
-			this.view_.getMainView(),
-			title
-		);
-	}
-
-	addSeparator() {
-		return ComponentUtil.addSeparator(
-			this.view_.getMainView()
-		);
-	}
-
 	on(eventName, handler, opt_scope) {
 		this.emitter_.on(eventName, handler, opt_scope);
 		return this;
@@ -171,6 +165,22 @@ class RootViewInterface extends ViewInterface {
 	off(eventName, handler, opt_scope) {
 		this.emitter_.off(eventName, handler, opt_scope);
 		return this;
+	}
+
+	handleProperty_(prop) {
+		prop.getModel().getEmitter().on(
+			Model.EVENT_CHANGE,
+			() => {
+				this.onPropertyModelChange_(prop);
+			},
+			this
+		);
+	}
+
+	onViewAdd_(subview) {
+		if (subview instanceof PropertyView) {
+			this.handleProperty_(subview.getProperty());
+		}
 	}
 
 	onPropertyModelChange_(prop) {

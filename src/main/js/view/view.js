@@ -56,6 +56,11 @@ class View {
 		subview.parentView_ = this;
 		this.getContainerElement_().appendChild(subview.getElement());
 
+		this.emitter_.notifyObservers(
+			View.EVENT_ADD,
+			[subview]
+		);
+
 		return true;
 	}
 
@@ -78,6 +83,11 @@ class View {
 
 		subview.parentView_ = null;
 
+		this.emitter_.notifyObservers(
+			View.EVENT_REMOVE,
+			[subview]
+		);
+
 		return true;
 	}
 
@@ -87,5 +97,8 @@ class View {
 		}
 	}
 }
+
+View.EVENT_ADD = 'add';
+View.EVENT_REMOVE = 'remove';
 
 module.exports = View;
