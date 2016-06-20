@@ -1,22 +1,17 @@
-const PropertyViewFactoryComplex = require('../factory/property_view_factory_complex');
-const ClassName                  = require('../misc/class_name');
-const Errors                     = require('../misc/errors');
-const EventEmitter               = require('../misc/event_emitter');
-const Style                      = require('../misc/style');
-const ViewUtil                   = require('../misc/view_util');
-const Model                      = require('../model/model');
-const ButtonView                 = require('../view/button_view');
-const FolderView                 = require('../view/folder_view');
-const PropertyView               = require('../view/property_view');
-const SeparatorView              = require('../view/separator_view');
-const RootFolderView             = require('../view/root_folder_view');
-const ButtonViewInterface        = require('./button_view_interface');
-const FolderViewInterface        = require('./folder_view_interface');
-const PropertyViewInterface      = require('./property_view_interface');
+const ClassName      = require('../misc/class_name');
+const ComponentUtil  = require('../misc/component_util');
+const Errors         = require('../misc/errors');
+const EventEmitter   = require('../misc/event_emitter');
+const Style          = require('../misc/style');
+const ViewUtil       = require('../misc/view_util');
+const Model          = require('../model/model');
+const PropertyView   = require('../view/property_view');
+const RootFolderView = require('../view/root_folder_view');
+const ViewInterface  = require('./view_interface');
 
-class RootViewInterface {
+class RootViewInterface extends ViewInterface {
 	constructor(view, opt_options) {
-		this.view_ = view;
+		super(view);
 
 		const options = (opt_options !== undefined) ?
 			opt_options :
@@ -54,26 +49,6 @@ class RootViewInterface {
 		return this.view_.getElement();
 	}
 
-	addProperty_(target, propName, options) {
-		const propView = PropertyViewFactoryComplex.create(
-			target, propName, options
-		);
-
-		this.view_.getMainView().addSubview(propView);
-
-		const prop = propView.getProperty();
-		const model = prop.getModel();
-		model.getEmitter().on(
-			Model.EVENT_CHANGE,
-			() => {
-				this.onPropertyModelChange_(prop);
-			},
-			this
-		);
-
-		return propView;
-	}
-
 	getProperties_() {
 		const views = ViewUtil.getAllSubviews(this.view_);
 		const propViews = views.filter((view) => {
@@ -100,27 +75,45 @@ class RootViewInterface {
 	}
 
 	add(target, propName, opt_options) {
-		const options = (opt_options !== undefined) ?
-			opt_options :
-			{};
-		options.forMonitor = false;
-
-		const propView = this.addProperty_(
-			target, propName, options
+		const result = ComponentUtil.addProperty(
+			this.view_.getMainView(),
+			target,
+			propName,
+			opt_options
 		);
-		return new PropertyViewInterface(propView);
+
+		const prop = result.getView().getProperty();
+		const model = prop.getModel();
+		model.getEmitter().on(
+			Model.EVENT_CHANGE,
+			() => {
+				this.onPropertyModelChange_(prop);
+			},
+			this
+		);
+
+		return result;
 	}
 
 	monitor(target, propName, opt_options) {
-		const options = (opt_options !== undefined) ?
-			opt_options :
-			{};
-		options.forMonitor = true;
-
-		const propView = this.addProperty_(
-			target, propName, options
+		const result = ComponentUtil.addMonitor(
+			this.view_.getMainView(),
+			target,
+			propName,
+			opt_options
 		);
-		return new PropertyViewInterface(propView);
+
+		const prop = result.getView().getProperty();
+		const model = prop.getModel();
+		model.getEmitter().on(
+			Model.EVENT_CHANGE,
+			() => {
+				this.onPropertyModelChange_(prop);
+			},
+			this
+		);
+
+		return result;
 	}
 
 	refresh() {
@@ -150,37 +143,24 @@ class RootViewInterface {
 		});
 	}
 
-	/**
-	 * Adds a folder.
-	 * @param {string} title A title
-	 * @return {FolderViewInterface}
-	*/
 	addFolder(title) {
-		const folderView = new FolderView(title);
-		const parentView = this.view_.getMainView();
-		parentView.addSubview(folderView);
-		return new FolderViewInterface(folderView);
+		return ComponentUtil.addFolder(
+			this.view_.getMainView(),
+			title
+		);
 	}
 
-	/**
-	 * Adds a button.
-	 * @param {string} title A title
-	 * @return {ButtonViewInterface}
-	 */
 	addButton(title) {
-		const buttonView = new ButtonView(title);
-		const parentView = this.view_.getMainView();
-		parentView.addSubview(buttonView);
-		return new ButtonViewInterface(buttonView);
+		return ComponentUtil.addButton(
+			this.view_.getMainView(),
+			title
+		);
 	}
 
-	/**
-	 * Adds a separator.
-	 */
 	addSeparator() {
-		const separatorView = new SeparatorView();
-		const parentView = this.view_.getMainView();
-		parentView.addSubview(separatorView);
+		return ComponentUtil.addSeparator(
+			this.view_.getMainView()
+		);
 	}
 
 	on(eventName, handler, opt_scope) {

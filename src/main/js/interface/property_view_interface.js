@@ -1,16 +1,14 @@
-class PropertyViewInterface {
-	constructor(view) {
-		this.view_ = view;
-	}
+const ViewInterface = require('./view_interface');
 
+class PropertyViewInterface extends ViewInterface {
 	on(eventName, handler, opt_scope) {
-		const model = this.view_.getProperty().getModel();
+		const model = this.getView().getProperty().getModel();
 		model.getEmitter().on(eventName, handler, opt_scope);
 		return this;
 	}
 
 	off(eventName, handler, opt_scope) {
-		const model = this.view_.getProperty().getModel();
+		const model = this.getView().getProperty().getModel();
 		model.getEmitter().off(eventName, handler, opt_scope);
 		return this;
 	}

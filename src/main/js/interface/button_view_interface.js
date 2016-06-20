@@ -1,8 +1,6 @@
-class ButtonViewInterface {
-	constructor(view) {
-		this.view_ = view;
-	}
+const ViewInterface = require('./view_interface');
 
+class ButtonViewInterface extends ViewInterface {
 	on(eventName, handler, opt_scope) {
 		const emitter = this.view_.getEmitter();
 		emitter.on(eventName, handler, opt_scope);

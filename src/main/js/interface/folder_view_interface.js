@@ -1,40 +1,41 @@
-const PropertyViewFactoryComplex = require('../factory/property_view_factory_complex');
-const ButtonView                 = require('../view/button_view');
-const SeparatorView              = require('../view/separator_view');
-const ButtonViewInterface        = require('./button_view_interface');
-const PropertyViewInterface      = require('./property_view_interface');
+const ViewInterface = require('./view_interface');
 
-class FolderViewInterface {
-	constructor(view) {
-		this.view_ = view;
+class FolderViewInterface extends ViewInterface {
+	getComponentUtil_() {
+		// Run-time requiring to avoid circular reference
+		return require('../misc/component_util');
 	}
 
 	add(target, propName, opt_options) {
-		const options = (opt_options !== undefined) ?
-			opt_options :
-			{};
-		options.forMonitor = false;
-
-		const propView = PropertyViewFactoryComplex.create(
-			target, propName, options
+		// TODO: Listen change event to fire global change event
+		return this.getComponentUtil_().addProperty(
+			this.view_,
+			target,
+			propName,
+			opt_options
 		);
-
-		this.view_.addSubview(propView);
-		return new PropertyViewInterface(propView);
 	}
 
 	monitor(target, propName, opt_options) {
-		const options = (opt_options !== undefined) ?
-			opt_options :
-			{};
-		options.forMonitor = true;
-
-		const propView = PropertyViewFactoryComplex.create(
-			target, propName, options
+		return this.getComponentUtil_().addMonitor(
+			this.view_,
+			target,
+			propName,
+			opt_options
 		);
+	}
 
-		this.view_.addSubview(propView);
-		return new PropertyViewInterface(propView);
+	addButton(title) {
+		return this.getComponentUtil_().addButton(
+			this.view_,
+			title
+		);
+	}
+
+	addSeparator() {
+		return this.getComponentUtil_().addSeparator(
+			this.view_
+		);
 	}
 
 	/**
@@ -55,25 +56,6 @@ class FolderViewInterface {
 		const folder = this.view_.getFolder();
 		folder.setExpanded(false);
 		return this;
-	}
-
-	/**
-	 * Adds a clickable button.
-	 * @param {string} title A title
-	 * @return {ButtonViewInterface}
-	 */
-	addButton(title) {
-		const buttonView = new ButtonView(title);
-		this.view_.addSubview(buttonView);
-		return new ButtonViewInterface(buttonView);
-	}
-
-	/**
-	 * Adds a separator.
-	 */
-	addSeparator() {
-		const separatorView = new SeparatorView();
-		this.view_.addSubview(separatorView);
 	}
 }
 
