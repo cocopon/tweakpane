@@ -1,23 +1,22 @@
-const PropertyViewFactoryComplex = require('./factory/property_view_factory_complex');
-const ButtonViewInterface        = require('./interface/button_view_interface');
-const FolderViewInterface        = require('./interface/folder_view_interface');
-const PropertyViewInterface      = require('./interface/property_view_interface');
-const ClassName                  = require('./misc/class_name');
-const Errors                     = require('./misc/errors');
-const EventEmitter               = require('./misc/event_emitter');
-const Style                      = require('./misc/style');
-const ViewUtil                   = require('./misc/view_util');
-const Model                      = require('./model/model');
-const ButtonView                 = require('./view/button_view');
-const FolderView                 = require('./view/folder_view');
-const PropertyView               = require('./view/property_view');
-const SeparatorView              = require('./view/separator_view');
-const RootFolderView             = require('./view/root_folder_view');
-const RootView                   = require('./view/root_view');
+const PropertyViewFactoryComplex = require('../factory/property_view_factory_complex');
+const ClassName                  = require('../misc/class_name');
+const Errors                     = require('../misc/errors');
+const EventEmitter               = require('../misc/event_emitter');
+const Style                      = require('../misc/style');
+const ViewUtil                   = require('../misc/view_util');
+const Model                      = require('../model/model');
+const ButtonView                 = require('../view/button_view');
+const FolderView                 = require('../view/folder_view');
+const PropertyView               = require('../view/property_view');
+const SeparatorView              = require('../view/separator_view');
+const RootFolderView             = require('../view/root_folder_view');
+const ButtonViewInterface        = require('./button_view_interface');
+const FolderViewInterface        = require('./folder_view_interface');
+const PropertyViewInterface      = require('./property_view_interface');
 
-class Core {
-	constructor(opt_options) {
-		this.rootView_ = new RootView();
+class RootViewInterface {
+	constructor(view, opt_options) {
+		this.view_ = view;
 
 		const options = (opt_options !== undefined) ?
 			opt_options :
@@ -27,7 +26,7 @@ class Core {
 			options.container :
 			this.createDefaultContainer_();
 		if (containerElem) {
-			containerElem.appendChild(this.rootView_.getElement());
+			containerElem.appendChild(this.view_.getElement());
 		}
 
 		this.emitter_ = new EventEmitter();
@@ -38,7 +37,7 @@ class Core {
 			options.foldable :
 			true;
 		if (foldable) {
-			this.rootView_.getFooterView().addSubview(
+			this.view_.getFooterView().addSubview(
 				new RootFolderView()
 			);
 		}
@@ -52,7 +51,7 @@ class Core {
 	}
 
 	getElement() {
-		return this.rootView_.getElement();
+		return this.view_.getElement();
 	}
 
 	addProperty_(target, propName, options) {
@@ -60,7 +59,7 @@ class Core {
 			target, propName, options
 		);
 
-		this.rootView_.getMainView().addSubview(propView);
+		this.view_.getMainView().addSubview(propView);
 
 		const prop = propView.getProperty();
 		const model = prop.getModel();
@@ -76,7 +75,7 @@ class Core {
 	}
 
 	getProperties_() {
-		const views = ViewUtil.getAllSubviews(this.rootView_);
+		const views = ViewUtil.getAllSubviews(this.view_);
 		const propViews = views.filter((view) => {
 			return view instanceof PropertyView;
 		});
@@ -158,7 +157,7 @@ class Core {
 	*/
 	addFolder(title) {
 		const folderView = new FolderView(title);
-		const parentView = this.rootView_.getMainView();
+		const parentView = this.view_.getMainView();
 		parentView.addSubview(folderView);
 		return new FolderViewInterface(folderView);
 	}
@@ -170,7 +169,7 @@ class Core {
 	 */
 	addButton(title) {
 		const buttonView = new ButtonView(title);
-		const parentView = this.rootView_.getMainView();
+		const parentView = this.view_.getMainView();
 		parentView.addSubview(buttonView);
 		return new ButtonViewInterface(buttonView);
 	}
@@ -180,7 +179,7 @@ class Core {
 	 */
 	addSeparator() {
 		const separatorView = new SeparatorView();
-		const parentView = this.rootView_.getMainView();
+		const parentView = this.view_.getMainView();
 		parentView.addSubview(separatorView);
 	}
 
@@ -196,12 +195,12 @@ class Core {
 
 	onPropertyModelChange_(prop) {
 		this.emitter_.notifyObservers(
-			Core.EVENT_CHANGE,
+			RootViewInterface.EVENT_CHANGE,
 			[prop.getModel().getValue(), prop]
 		);
 	}
 }
 
-Core.EVENT_CHANGE = 'change';
+RootViewInterface.EVENT_CHANGE = 'change';
 
-module.exports = Core;
+module.exports = RootViewInterface;
