@@ -1,5 +1,7 @@
 const Style     = require('../misc/style');
 const ClassName = require('../misc/class_name');
+const Folder    = require('../model/folder');
+const Model     = require('../model/model');
 const View      = require('./view');
 
 class FolderView extends View {
@@ -42,47 +44,22 @@ class FolderView extends View {
 		elem.appendChild(containerElem);
 		this.containerElem_ = containerElem;
 
-		this.setExpanded(true, false);
+		const folder = new Folder();
+		folder.getEmitter().on(
+			Model.EVENT_CHANGE,
+			this.onFolderChange_,
+			this
+		);
+		this.folder_ = folder;
+		this.folder_.setExpanded(true, false);
 	}
 
 	getContainerElement_() {
 		return this.containerElem_;
 	}
 
-	isExpanded() {
-		return this.expanded_;
-	}
-
-	setExpanded(expanded, opt_animated) {
-		this.expanded_ = expanded;
-		this.applyExpanded_(opt_animated);
-	}
-
-	applyExpanded_(opt_animated) {
-		const animated = (opt_animated !== undefined) ?
-			opt_animated :
-			true;
-
-		Style.runTransition(this.arrowElem_, (arrowElem) => {
-			const arrowClass = ClassName.get(
-				FolderView.BLOCK_CLASS,
-				'arrow',
-				'expanded'
-			);
-			if (this.expanded_) {
-				arrowElem.classList.add(arrowClass);
-			}
-			else {
-				arrowElem.classList.remove(arrowClass);
-			}
-		}, animated);
-
-		Style.runTransition(this.containerElem_, (containerElem) => {
-			const contentHeight = this.expanded_ ?
-				this.getContentHeight_() :
-				0;
-			containerElem.style.height = `${contentHeight}px`;
-		}, animated);
+	getFolder() {
+		return this.folder_;
 	}
 
 	getContentHeight_() {
@@ -91,13 +68,45 @@ class FolderView extends View {
 		}, 0);
 	}
 
+	applyExpanded_() {
+		const folder = this.folder_;
+
+		Style.runTransition(this.arrowElem_, (arrowElem) => {
+			const arrowClass = ClassName.get(
+				FolderView.BLOCK_CLASS,
+				'arrow',
+				'expanded'
+			);
+			if (folder.isExpanded()) {
+				arrowElem.classList.add(arrowClass);
+			}
+			else {
+				arrowElem.classList.remove(arrowClass);
+			}
+		}, folder.shouldAnimate());
+
+		Style.runTransition(this.containerElem_, (containerElem) => {
+			const contentHeight = folder.isExpanded() ?
+				this.getContentHeight_() :
+				0;
+			containerElem.style.height = `${contentHeight}px`;
+		}, folder.shouldAnimate());
+	}
+
 	addSubview(subview) {
 		super.addSubview(subview);
-		this.applyExpanded_(false);
+		this.applyExpanded_();
 	}
 
 	onButtonElementClick_() {
-		this.setExpanded(!this.isExpanded());
+		this.folder_.setExpanded(
+			!this.folder_.isExpanded(),
+			true
+		);
+	}
+
+	onFolderChange_() {
+		this.applyExpanded_();
 	}
 }
 

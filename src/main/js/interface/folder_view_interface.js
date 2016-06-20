@@ -42,7 +42,8 @@ class FolderViewInterface {
 	 * @return {FolderViewInterface}
 	 */
 	open() {
-		this.view_.setExpanded(true, false);
+		const folder = this.view_.getFolder();
+		folder.setExpanded(true);
 		return this;
 	}
 
@@ -51,7 +52,8 @@ class FolderViewInterface {
 	 * @return {FolderViewInterface}
 	 */
 	close() {
-		this.view_.setExpanded(false, false);
+		const folder = this.view_.getFolder();
+		folder.setExpanded(false);
 		return this;
 	}
 
