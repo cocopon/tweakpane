@@ -55,10 +55,6 @@ class Core {
 		return this.rootView_.getElement();
 	}
 
-	getEmitter() {
-		return this.emitter_;
-	}
-
 	addProperty_(target, propName, options) {
 		const propView = PropertyViewFactoryComplex.create(
 			target, propName, options
