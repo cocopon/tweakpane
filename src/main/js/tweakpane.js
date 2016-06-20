@@ -1,9 +1,7 @@
-const CoreInterface = require('./interface/core_interface');
-const Core          = require('./core');
+const Core = require('./core');
 
 const Tweakpane = (opt_options) => {
-	const core = new Core(opt_options);
-	return new CoreInterface(core);
+	return new Core(opt_options);
 };
 
 window.Tweakpane = Tweakpane;
