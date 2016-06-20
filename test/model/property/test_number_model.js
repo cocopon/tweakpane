@@ -1,4 +1,4 @@
-const NumberModel = require('../../src/main/js/model/number_model');
+const NumberModel = require('../../../src/main/js/model/property/number_model');
 
 describe('NumberModel', () => {
 	it('should have valid initial value', () => {

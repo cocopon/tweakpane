@@ -1,5 +1,5 @@
 const ColorCodec          = require('../codec/color_codec');
-const ColorModel          = require('../model/color_model');
+const ColorModel          = require('../model/property/color_model');
 const PaletteTextControl  = require('../view/control/palette_text_control');
 const PaletteTextMonitor  = require('../view/monitor/palette_text_monitor');
 const PropertyViewFactory = require('./property_view_factory');

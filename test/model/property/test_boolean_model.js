@@ -1,4 +1,4 @@
-const BooleanModel = require('../../src/main/js/model/boolean_model');
+const BooleanModel = require('../../../src/main/js/model/property/boolean_model');
 
 describe('BooleanModel', () => {
 	it('should have valid initial value', () => {

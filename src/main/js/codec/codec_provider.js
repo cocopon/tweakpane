@@ -2,10 +2,10 @@ const BooleanCodec = require('../codec/boolean_codec');
 const ColorCodec   = require('../codec/color_codec');
 const NumberCodec  = require('../codec/number_codec');
 const StringCodec  = require('../codec/string_codec');
-const BooleanModel = require('../model/boolean_model');
-const ColorModel   = require('../model/color_model');
-const NumberModel  = require('../model/number_model');
-const StringModel  = require('../model/string_model');
+const BooleanModel = require('../model/property/boolean_model');
+const ColorModel   = require('../model/property/color_model');
+const NumberModel  = require('../model/property/number_model');
+const StringModel  = require('../model/property/string_model');
 
 const CODEC_PAIRS = [
 	[BooleanModel, BooleanCodec],

@@ -1,6 +1,6 @@
-const Model      = require('./model');
+const PropertyModel = require('./property_model');
 
-class BooleanModel extends Model {
+class BooleanModel extends PropertyModel {
 	constructor() {
 		super();
 

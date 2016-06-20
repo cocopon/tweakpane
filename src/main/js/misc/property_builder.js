@@ -1,4 +1,4 @@
-const Property = require('../model/property');
+const Property = require('../model/property/property');
 
 class PropertyBuilder {
 	constructor(target, propName, model) {

@@ -1,4 +1,4 @@
-const StringModel = require('../../src/main/js/model/string_model');
+const StringModel = require('../../../src/main/js/model/property/string_model');
 
 describe('StringModel', () => {
 	it('should have valid initial value', () => {

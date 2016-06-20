@@ -1,4 +1,4 @@
-const BooleanModel         = require('../model/boolean_model');
+const BooleanModel         = require('../model/property/boolean_model');
 const ListConstraint       = require('../constraint/list_constraint');
 const CheckboxControl      = require('../view/control/checkbox_control');
 const ListControl          = require('../view/control/list_control');

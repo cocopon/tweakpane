@@ -1,4 +1,4 @@
-const ColorModel = require('../../src/main/js/model/color_model');
+const ColorModel = require('../../../src/main/js/model/property/color_model');
 
 describe('ColorModel', () => {
 	it('should have valid initial value', () => {
