@@ -4,7 +4,7 @@ const Control         = require('../view/control/control');
 const PropertyView    = require('../view/property_view');
 
 class PropertyViewFactory {
-	static supports(value) {
+	static supports(_value) {
 		throw Errors.notImplemented('supports');
 	}
 
@@ -50,15 +50,15 @@ class PropertyViewFactory {
 		return builder.build();
 	}
 
-	static createModel_(options) {
+	static createModel_(_options) {
 		throw Errors.notImplemented('createModel_');
 	}
 
-	static createControl_(prop, options) {
+	static createControl_(_prop, _options) {
 		throw Errors.notImplemented('createControl_');
 	}
 
-	static createMonitor_(property, options) {
+	static createMonitor_(_property, _options) {
 		throw Errors.notImplemented('createMonitor_');
 	}
 

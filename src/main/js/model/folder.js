@@ -1,5 +1,4 @@
-const EventEmitter  = require('../misc/event_emitter');
-const Model         = require('./model');
+const Model = require('./model');
 
 class Folder extends Model {
 	constructor() {

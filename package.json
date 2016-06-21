@@ -4,7 +4,8 @@
   "description": "",
   "main": "",
   "scripts": {
-    "test": "node_modules/karma/bin/karma start"
+    "test": "node_modules/karma/bin/karma start",
+		"lint": "eslint src/main/js"
   },
   "author": "cocopon",
   "license": "MIT",

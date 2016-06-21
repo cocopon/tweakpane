@@ -9,7 +9,7 @@ class Codec {
 	 * @param {} value A value
 	 * @return {boolean} true if it can decode a value
 	 */
-	static canDecode(value) {
+	static canDecode(_value) {
 		throw Errors.notImplemented('canDecode');
 	}
 
@@ -18,7 +18,7 @@ class Codec {
 	 * @param {} value A value
 	 * @return {} A decoded value
 	 */
-	static decode(value) {
+	static decode(_value) {
 		throw Errors.notImplemented('decode');
 	}
 
@@ -27,7 +27,7 @@ class Codec {
 	 * @param {} value A value
 	 * @return {} A encoded value
 	 */
-	static encode(value) {
+	static encode(_value) {
 		throw Errors.notImplemented('encode');
 	}
 }

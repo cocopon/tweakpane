@@ -11,7 +11,12 @@
 		"no-multi-spaces": 0,
 		"no-undef": 2,
 		"no-underscore-dangle": 0,
-		"no-unused-vars": 1,
+		"no-unused-vars": [
+			1, {
+				"args": "all",
+				"argsIgnorePattern": "^_"
+			}
+		],
 		"no-use-before-define": 2,
 		"semi-spacing": 0,
 		"strict": 0,
