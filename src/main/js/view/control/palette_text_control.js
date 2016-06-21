@@ -5,14 +5,15 @@ const PaletteControl   = require('./palette_control');
 const TextControl      = require('./text_control');
 
 class PaletteTextControl extends CompositeControl {
-	constructor(model) {
-		super(model);
+	constructor(property) {
+		super(property);
 
 		this.getElement().classList.add(
 			ClassName.get(PaletteTextControl.BLOCK_CLASS)
 		);
 
-		const paletteControl = new PaletteControl(this.getModel());
+		const prop = this.getProperty();
+		const paletteControl = new PaletteControl(prop);
 		paletteControl.getElement().classList.add(
 			ClassName.get(
 				PaletteControl.BLOCK_CLASS,
@@ -22,7 +23,7 @@ class PaletteTextControl extends CompositeControl {
 		);
 		this.addSubview(paletteControl);
 
-		const textControl = new TextControl(this.getModel());
+		const textControl = new TextControl(prop);
 		textControl.setFormatter(new ColorFormatter());
 		textControl.getElement().classList.add(
 			ClassName.get(

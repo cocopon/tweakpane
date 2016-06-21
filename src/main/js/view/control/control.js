@@ -3,21 +3,22 @@ const Model        = require('../../model/model');
 const View         = require('../view');
 
 class Control extends View {
-	constructor(model) {
+	constructor(property) {
 		super();
 
 		this.emitter_ = new EventEmitter();
 
+		const model = property.getModel();
 		model.getEmitter().on(
 			Model.EVENT_CHANGE,
 			this.onModelChange_,
 			this
 		);
-		this.model_ = model;
+		this.prop_ = property;
 	}
 
-	getModel() {
-		return this.model_;
+	getProperty() {
+		return this.prop_;
 	}
 
 	getEmitter() {

@@ -2,8 +2,8 @@ const ClassName = require('../../misc/class_name');
 const Control   = require('./control');
 
 class CheckboxControl extends Control {
-	constructor(model) {
-		super(model);
+	constructor(property) {
+		super(property);
 
 		const elem = this.getElement();
 		elem.classList.add(
@@ -46,7 +46,8 @@ class CheckboxControl extends Control {
 	applyModel_() {
 		super.applyModel_();
 
-		this.inputElem_.checked = this.getModel().getValue();
+		const model = this.getProperty().getModel();
+		this.inputElem_.checked = model.getValue();
 	}
 
 	onInputElementChange_() {

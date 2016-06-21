@@ -23,7 +23,7 @@ class PropertyViewFactory {
 			propView.addSubview(monitor);
 		}
 		else {
-			const control = this.createControl_(model, options);
+			const control = this.createControl_(prop, options);
 			control.getEmitter().on(
 				Control.EVENT_CHANGE,
 				(value) => {
@@ -54,7 +54,7 @@ class PropertyViewFactory {
 		throw Errors.notImplemented('createModel_');
 	}
 
-	static createControl_(model, options) {
+	static createControl_(prop, options) {
 		throw Errors.notImplemented('createControl_');
 	}
 

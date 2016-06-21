@@ -3,8 +3,8 @@ const ClassName = require('../../misc/class_name');
 const Control   = require('./control');
 
 class TextControl extends Control {
-	constructor(model) {
-		super(model);
+	constructor(property) {
+		super(property);
 
 		const elem = this.getElement();
 		elem.classList.add(
@@ -45,8 +45,9 @@ class TextControl extends Control {
 	applyModel_() {
 		super.applyModel_();
 
+		const model = this.getProperty().getModel();
 		this.inputElem_.value = this.formatter_.format(
-			this.getModel().getValue()
+			model.getValue()
 		);
 	}
 

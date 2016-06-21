@@ -3,8 +3,8 @@ const ClassName      = require('../../misc/class_name');
 const Control        = require('./control');
 
 class ListControl extends Control {
-	constructor(model) {
-		super(model);
+	constructor(property) {
+		super(property);
 
 		const elem = this.getElement();
 		elem.classList.add(
@@ -42,7 +42,8 @@ class ListControl extends Control {
 			this.selectElem_.removeChild(this.selectElem_.lastChild);
 		}
 
-		const constraint = this.model_.findConstraintByClass(ListConstraint);
+		const model = this.getProperty().getModel();
+		const constraint = model.findConstraintByClass(ListConstraint);
 		const items = constraint.getItems() || [];
 		items.forEach((item) => {
 			const optionElem = document.createElement('option');
@@ -51,7 +52,7 @@ class ListControl extends Control {
 			this.selectElem_.appendChild(optionElem);
 		});
 
-		this.selectElem_.value = this.model_.getValue();
+		this.selectElem_.value = model.getValue();
 	}
 
 	onSelectElementChange_() {

@@ -3,8 +3,8 @@ const ClassName      = require('../../misc/class_name');
 const Control        = require('./control');
 
 class PaletteControl extends Control {
-	constructor(model) {
-		super(model);
+	constructor(property) {
+		super(property);
 
 		this.getElement().classList.add(
 			ClassName.get(PaletteControl.BLOCK_CLASS)
@@ -30,8 +30,9 @@ class PaletteControl extends Control {
 		super.applyModel_();
 
 		if (this.innerElem_ !== undefined) {
+			const model = this.getProperty().getModel();
 			const color = (new ColorFormatter()).format(
-				this.getModel().getValue()
+				model.getValue()
 			);
 			this.innerElem_.style.backgroundColor = color;
 		}

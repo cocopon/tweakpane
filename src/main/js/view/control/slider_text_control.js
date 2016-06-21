@@ -5,14 +5,15 @@ const NumberTextControl    = require('./number_text_control');
 const TextControl          = require('./text_control');
 
 class SliderTextControl extends CompositeControl {
-	constructor(model) {
-		super(model);
+	constructor(property) {
+		super(property);
 
 		this.getElement().classList.add(
 			ClassName.get(SliderTextControl.BLOCK_CLASS)
 		);
 
-		const sliderControl = new SliderControl(this.getModel());
+		const prop = this.getProperty();
+		const sliderControl = new SliderControl(prop);
 		sliderControl.getElement().classList.add(
 			ClassName.get(
 				SliderControl.BLOCK_CLASS,
@@ -22,7 +23,7 @@ class SliderTextControl extends CompositeControl {
 		);
 		this.addSubview(sliderControl);
 
-		const textControl = new NumberTextControl(this.getModel());
+		const textControl = new NumberTextControl(prop);
 		textControl.getElement().classList.add(
 			ClassName.get(
 				TextControl.BLOCK_CLASS,

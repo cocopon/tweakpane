@@ -14,12 +14,12 @@ class BooleanPropertyViewFactory extends PropertyViewFactory {
 		return new BooleanModel();
 	}
 
-	static createControl_(model, options) {
+	static createControl_(prop, options) {
 		if (options.list !== undefined) {
-			return new ListControl(model);
+			return new ListControl(prop);
 		}
 
-		return new CheckboxControl(model);
+		return new CheckboxControl(prop);
 	}
 
 	static createMonitor_(property) {

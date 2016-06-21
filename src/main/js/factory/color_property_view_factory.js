@@ -14,8 +14,8 @@ class ColorPropertyViewFactory extends PropertyViewFactory {
 		return new ColorModel();
 	}
 
-	static createControl_(model) {
-		return new PaletteTextControl(model);
+	static createControl_(prop) {
+		return new PaletteTextControl(prop);
 	}
 
 	static createMonitor_(property) {

@@ -21,12 +21,12 @@ class StringPropertyViewFactory extends PropertyViewFactory {
 		return new StringModel();
 	}
 
-	static createControl_(model, options) {
+	static createControl_(prop, options) {
 		if (options.list !== undefined) {
-			return new ListControl(model);
+			return new ListControl(prop);
 		}
 
-		return new TextControl(model);
+		return new TextControl(prop);
 	}
 
 	static createMonitor_(property, options) {

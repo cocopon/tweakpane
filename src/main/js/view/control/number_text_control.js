@@ -4,8 +4,8 @@ const TextControl          = require('./text_control');
 const Control              = require('./control');
 
 class NumberTextControl extends TextControl {
-	constructor(model) {
-		super(model);
+	constructor(property) {
+		super(property);
 
 		this.formatter_ = new NumberFormatter();
 
@@ -16,7 +16,8 @@ class NumberTextControl extends TextControl {
 	}
 
 	getStep_() {
-		const stepConstraint = this.getModel().findConstraintByClass(StepNumberConstraint);
+		const model = this.getProperty().getModel();
+		const stepConstraint = model.findConstraintByClass(StepNumberConstraint);
 		return (stepConstraint !== null) ?
 			stepConstraint.getStepValue() :
 			1;
@@ -24,7 +25,7 @@ class NumberTextControl extends TextControl {
 
 	onInputKeyDown_(e) {
 		const step = this.getStep_() * (e.shiftKey ? 10 : 1);
-		const model = this.getModel();
+		const model = this.getProperty().getModel();
 		switch (e.keyCode) {
 			case 38:  // UP
 				this.getEmitter().notifyObservers(

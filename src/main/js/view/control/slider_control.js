@@ -4,8 +4,8 @@ const ClassName           = require('../../misc/class_name');
 const Control             = require('./control');
 
 class SliderControl extends Control {
-	constructor(model) {
-		super(model);
+	constructor(property) {
+		super(property);
 
 		const elem = this.getElement();
 		elem.classList.add(
@@ -58,7 +58,7 @@ class SliderControl extends Control {
 		super.applyModel_();
 
 		if (this.sliderBarElem_ !== undefined) {
-			const model = this.getModel();
+			const model = this.getProperty().getModel();
 			const minValue = model.findConstraintByClass(MinNumberConstraint).getMinValue();
 			const maxValue = model.findConstraintByClass(MaxNumberConstraint).getMaxValue();
 			const p = (model.getValue() - minValue) / (maxValue - minValue);
@@ -67,7 +67,7 @@ class SliderControl extends Control {
 	}
 
 	getValueFromX_(x) {
-		const model = this.getModel();
+		const model = this.getProperty().getModel();
 		const minValue = model.findConstraintByClass(MinNumberConstraint).getMinValue();
 		const maxValue = model.findConstraintByClass(MaxNumberConstraint).getMaxValue();
 		const width = this.sliderElem_.clientWidth;

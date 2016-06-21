@@ -28,16 +28,16 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 		return new NumberModel();
 	}
 
-	static createControl_(model, options) {
+	static createControl_(prop, options) {
 		if (options.min !== undefined &&
 				options.max !== undefined) {
-			return new SliderTextControl(model);
+			return new SliderTextControl(prop);
 		}
 		if (options.list !== undefined) {
-			return new ListControl(model);
+			return new ListControl(prop);
 		}
 
-		return new NumberTextControl(model);
+		return new NumberTextControl(prop);
 	}
 
 	static createMonitor_(property, options) {

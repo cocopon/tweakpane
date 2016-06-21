@@ -1,8 +1,8 @@
 const Control = require('./control');
 
 class CompositeControl extends Control {
-	constructor(model) {
-		super(model);
+	constructor(property) {
+		super(property);
 	}
 
 	attachControl_(control) {
