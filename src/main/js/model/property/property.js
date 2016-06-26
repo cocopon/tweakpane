@@ -77,6 +77,4 @@ class Property {
 	}
 }
 
-Property.EVENT_MODEL_CHANGE = 'modelchange';
-
 module.exports = Property;
