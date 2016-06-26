@@ -39,6 +39,23 @@ class StringPropertyViewFactory extends PropertyViewFactory {
 		return new TextMonitor(property);
 	}
 
+	static createText(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		return PropertyViewFactory.create2({
+			reference: ref,
+			constraintFactories: this.CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new StringModel();
+			},
+			createView: (prop) => {
+				return new TextControl(prop);
+			},
+			options: options
+		});
+	}
+
 	static createListItems_(items) {
 		// ['foo', 'bar']
 		// => {'foo': 'foo', 'bar': 'bar'}

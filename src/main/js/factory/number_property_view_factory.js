@@ -24,12 +24,29 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 		return new NumberModel();
 	}
 
-	static createControl_(prop, options) {
+	static createControl_(prop, _options) {
 		return new NumberTextControl(prop);
 	}
 
 	static createMonitor_(property, _options) {
 		return new NumberTextMonitor(property);
+	}
+
+	static createText(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		return PropertyViewFactory.create2({
+			reference: ref,
+			constraintFactories: this.CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new NumberModel();
+			},
+			createView: (prop) => {
+				return new NumberTextControl(prop);
+			},
+			options: options
+		});
 	}
 
 	static createSlider(ref, opt_options) {
