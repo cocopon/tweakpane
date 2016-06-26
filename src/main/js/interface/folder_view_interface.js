@@ -39,6 +39,14 @@ class FolderViewInterface extends ViewInterface {
 		);
 	}
 
+	logger(target, propertyName, opt_options) {
+		return this.getComponentUtil_().addLogger(
+			this.view_,
+			new Reference(target, propertyName),
+			opt_options
+		);
+	}
+
 	graph(target, propertyName, opt_options) {
 		return this.getComponentUtil_().addGraph(
 			this.view_,

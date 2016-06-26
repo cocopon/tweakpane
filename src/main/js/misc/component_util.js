@@ -112,6 +112,20 @@ class ComponentUtil {
 		return new PropertyViewInterface(propView);
 	}
 
+	static addLogger(view, ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		options.forMonitor = true;
+
+		const propView = StringPropertyViewFactory.createLogger(
+			ref, options
+		);
+
+		view.addSubview(propView);
+		return new PropertyViewInterface(propView);
+	}
+
 	/**
 	 * Adds a folder.
 	 * @param {string} title A title

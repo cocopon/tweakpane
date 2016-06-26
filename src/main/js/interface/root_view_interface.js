@@ -117,6 +117,14 @@ class RootViewInterface extends ViewInterface {
 		);
 	}
 
+	logger(target, propertyName, opt_options) {
+		return ComponentUtil.addLogger(
+			this.view_.getMainView(),
+			new Reference(target, propertyName),
+			opt_options
+		);
+	}
+
 	graph(target, propertyName, opt_options) {
 		return ComponentUtil.addGraph(
 			this.view_.getMainView(),

@@ -13,11 +13,7 @@ class StringPropertyViewFactory extends PropertyViewFactory {
 		return typeof(value) === 'string';
 	}
 
-	static createModel_(options) {
-		if (options.forMonitor && options.count > 1) {
-			return new LogRecordModel(options.count);
-		}
-
+	static createModel_(_options) {
 		return new StringModel();
 	}
 
@@ -28,9 +24,6 @@ class StringPropertyViewFactory extends PropertyViewFactory {
 	static createMonitor_(property, options) {
 		if (options.multiline !== undefined) {
 			return new MultilineTextMonitor(property);
-		}
-		if (options.count !== undefined) {
-			return new LogMonitor(property);
 		}
 		return new TextMonitor(property);
 	}
@@ -64,6 +57,26 @@ class StringPropertyViewFactory extends PropertyViewFactory {
 			},
 			createView: (prop) => {
 				return new ListControl(prop);
+			},
+			options: options
+		});
+	}
+
+	static createLogger(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		const count = (options.count !== undefined) ?
+			options.count :
+			10;
+		return PropertyViewFactory.create2({
+			reference: ref,
+			constraintFactories: this.CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new LogRecordModel(count);
+			},
+			createView: (prop) => {
+				return new LogMonitor(prop);
 			},
 			options: options
 		});

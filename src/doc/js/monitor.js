@@ -55,7 +55,7 @@ setInterval(function() {
 		foldable: false,
 		container: document.getElementById('logExample')
 	});
-	pane.monitor(sharedParams, 'time', {
+	pane.logger(sharedParams, 'time', {
 		count: 10
 	});
 })();
