@@ -60,29 +60,14 @@ class RootViewInterface extends ViewInterface {
 		return this.view_.getElement();
 	}
 
-	getProperties_() {
-		const views = ViewUtil.getAllSubviews(this.view_);
-		const propViews = views.filter((view) => {
-			return view instanceof PropertyView;
-		});
-		return propViews.map((propView) => {
-			return propView.getProperty();
-		});
-	}
+	// Controls
 
-	getPropertiesForJson_() {
-		const props = this.getProperties_().filter((prop) => {
-			return !prop.isForMonitor();
-		});
-		const result = {};
-		props.forEach((prop) => {
-			const propId = prop.getId();
-			if (result[propId] !== undefined) {
-				throw Errors.duplicatedPropertyId(propId);
-			}
-			result[propId] = prop;
-		});
-		return result;
+	addControl(target, propertyName, opt_options) {
+		return ComponentUtil.addControl(
+			this.view_.getMainView(),
+			new Reference(target, propertyName),
+			opt_options
+		);
 	}
 
 	addText(target, propertyName, opt_options) {
@@ -125,6 +110,8 @@ class RootViewInterface extends ViewInterface {
 		);
 	}
 
+	// Monitors
+
 	addMonitor(target, propertyName, opt_options) {
 		return ComponentUtil.addMonitor(
 			this.view_.getMainView(),
@@ -148,6 +135,8 @@ class RootViewInterface extends ViewInterface {
 			opt_options
 		);
 	}
+
+	// Other Components
 
 	addFolder(title) {
 		const fvInterface = ComponentUtil.addFolder(
@@ -177,10 +166,31 @@ class RootViewInterface extends ViewInterface {
 		);
 	}
 
-	refresh() {
-		this.getProperties_().forEach((prop) => {
-			prop.applySourceValue();
+	// Import/Export
+
+	getProperties_() {
+		const views = ViewUtil.getAllSubviews(this.view_);
+		const propViews = views.filter((view) => {
+			return view instanceof PropertyView;
 		});
+		return propViews.map((propView) => {
+			return propView.getProperty();
+		});
+	}
+
+	getPropertiesForJson_() {
+		const props = this.getProperties_().filter((prop) => {
+			return !prop.isForMonitor();
+		});
+		const result = {};
+		props.forEach((prop) => {
+			const propId = prop.getId();
+			if (result[propId] !== undefined) {
+				throw Errors.duplicatedPropertyId(propId);
+			}
+			result[propId] = prop;
+		});
+		return result;
 	}
 
 	getJson() {
@@ -204,6 +214,8 @@ class RootViewInterface extends ViewInterface {
 		});
 	}
 
+	// Events
+
 	on(eventName, handler, opt_scope) {
 		this.emitter_.on(eventName, handler, opt_scope);
 		return this;
@@ -212,6 +224,14 @@ class RootViewInterface extends ViewInterface {
 	off(eventName, handler, opt_scope) {
 		this.emitter_.off(eventName, handler, opt_scope);
 		return this;
+	}
+
+	// Misc
+
+	refresh() {
+		this.getProperties_().forEach((prop) => {
+			prop.applySourceValue();
+		});
 	}
 
 	handleProperty_(prop) {

@@ -4,7 +4,7 @@
 {% set title = 'String' %}
 
 {% block content %}
-<p><code>addText()</code> provides a text field to edit a string property.</p>
+<p><code>addControl()</code> provides a text field for a string property.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
@@ -12,7 +12,7 @@
   name: 'cocopon',
 };
 var pane = new Tweakpane();
-pane.addText(params, 'name');</code></pre>
+pane.addControl(params, 'name');</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="stringExample" class="codeBlock_paneContainer"></div>
@@ -21,7 +21,7 @@ pane.addText(params, 'name');</code></pre>
 
 
 <h2>Selector</h2>
-<p>If you want to choose a value from list, pass a string list to <code>addSelector()</code> as <code>values</code> option:</p>
+<p>If you want to choose a value from list, use <code>addSelector()</code> and pass a string list as <code>values</code> option.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">

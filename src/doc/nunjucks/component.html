@@ -12,12 +12,12 @@
 		<pre><code class="js">var pane = new Tweakpane();
 
 var folder1 = pane.addFolder('Interaction');
-folder1.addText(params, 'power');
-folder1.addText(params, 'range');
+folder1.addControl(params, 'power');
+folder1.addControl(params, 'range');
 
 var folder2 = pane.addFolder('Appearance');
-folder2.addText(params, 'color')
-folder2.addText(params, 'size');</code></pre>
+folder2.addControl(params, 'color')
+folder2.addControl(params, 'size');</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="folderExample1" class="codeBlock_paneContainer"></div>
@@ -31,13 +31,13 @@ folder2.addText(params, 'size');</code></pre>
 		<pre><code class="js">var pane = new Tweakpane();
 
 var folder1 = pane.addFolder('Interaction');
-folder1.addText(params, 'power');
-folder1.addText(params, 'range');
+folder1.addControl(params, 'power');
+folder1.addControl(params, 'range');
 folder1.close();
 
 var folder2 = pane.addFolder('Appearance');
-folder2.addText(params, 'color')
-folder2.addText(target, 'size');</code></pre>
+folder2.addControl(params, 'color')
+folder2.addControl(target, 'size');</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="folderExample2" class="codeBlock_paneContainer"></div>

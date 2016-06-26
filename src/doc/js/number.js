@@ -6,7 +6,7 @@
 		foldable: false,
 		container: document.getElementById('numberExample')
 	});
-	pane.addText(params, 'speed');
+	pane.addControl(params, 'speed');
 })();
 
 (function() {
@@ -17,7 +17,7 @@
 		foldable: false,
 		container: document.getElementById('minExample')
 	});
-	pane.addText(params, 'speed', {min: 0});
+	pane.addControl(params, 'speed', {min: 0});
 })();
 
 (function() {

@@ -7,6 +7,16 @@ class FolderViewInterface extends ViewInterface {
 		return require('../misc/component_util');
 	}
 
+	// Controls
+
+	addControl(target, propertyName, opt_options) {
+		return this.getComponentUtil_().addControl(
+			this.view_,
+			new Reference(target, propertyName),
+			opt_options
+		);
+	}
+
 	addText(target, propertyName, opt_options) {
 		return this.getComponentUtil_().addText(
 			this.view_,
@@ -47,6 +57,8 @@ class FolderViewInterface extends ViewInterface {
 		);
 	}
 
+	// Monitors
+
 	addMonitor(target, propertyName, opt_options) {
 		return this.getComponentUtil_().addMonitor(
 			this.view_,
@@ -70,6 +82,8 @@ class FolderViewInterface extends ViewInterface {
 			opt_options
 		);
 	}
+
+	// Other Components
 
 	addButton(title) {
 		return this.getComponentUtil_().addButton(

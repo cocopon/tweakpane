@@ -6,7 +6,7 @@
 		foldable: false,
 		container: document.getElementById('example')
 	});
-	pane.addCheckbox(params, 'debug');
+	pane.addControl(params, 'debug');
 })();
 
 (function() {

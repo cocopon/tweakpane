@@ -4,7 +4,7 @@
 {% set title = 'Boolean' %}
 
 {% block content %}
-<p><code>addCheckbox()</code> provides a checkbox to toggle a boolean property.</p>
+<p><code>addControl()</code> provides a checkbox for a boolean property.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
@@ -12,7 +12,7 @@
   debug: true
 };
 var pane = new Tweakpane();
-pane.addCheckbox(params, 'debug');</code></pre>
+pane.addControl(params, 'debug');</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="example" class="codeBlock_paneContainer"></div>
@@ -21,7 +21,7 @@ pane.addCheckbox(params, 'debug');</code></pre>
 
 
 <h2>Selector</h2>
-<p>You can use a named list for boolean value. Pass an array of two string values (true, false) to <code>addSelector()</code> as <code>values</code> option.</p>
+<p>You can use a named list for boolean value. Use <code>addSelector()</code> and pass an array of two string values (true, false) as <code>values</code> option.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">

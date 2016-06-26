@@ -4,7 +4,7 @@
 {% set title = 'Number' %}
 
 {% block content %}
-<p><code>addText()</code> provides a text field to edit a number property.</p>
+<p><code>addControl()</code> provides a text field for a number property.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
@@ -12,7 +12,7 @@
   speed: 0.5
 };
 var pane = new Tweakpane();
-pane.addText(params, 'speed');</code></pre>
+pane.addControl(params, 'speed');</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="numberExample" class="codeBlock_paneContainer"></div>
@@ -26,14 +26,16 @@ Use <code>min</code> or <code>max</code> option to specify minimum/maximum value
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.addText(target, 'speed', {min: 0});</code></pre>
+pane.addControl(target, 'speed', {min: 0});</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="minExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
 
-<p>If you want to use a slider control, use <code>addSlider()</code> and specify both minimum and maximum value.</p>
+
+<h2>Slider</h2>
+<p>If you want to use a slider control, use <code>addSlider()</code> instead and specify both minimum and maximum value.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
@@ -47,7 +49,7 @@ pane.addSlider(target, 'speed', {min: 0, max: 100});</code></pre>
 
 
 <h2>Stepping</h2>
-<p>You can also specify a step of changing value by <code>step</code> option.</p>
+<p>You can specify a step of changing value by <code>step</code> option.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
@@ -63,7 +65,7 @@ pane.addSlider(target, 'particleCount', {
 
 
 <h2>Selector</h2>
-<p>If you want to choose a value from named values, pass an object that has number values to <code>addSelector()</code> as <code>values</code> option.</p>
+<p>If you want to choose a value from named values, use <code>addSelector()</code> and pass an object that has number values as <code>values</code> option.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">

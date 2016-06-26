@@ -6,7 +6,7 @@
 		foldable: false,
 		container: document.getElementById('stringExample')
 	});
-	pane.addText(params, 'name');
+	pane.addControl(params, 'name');
 })();
 
 (function() {
