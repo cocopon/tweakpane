@@ -56,7 +56,6 @@ class TextControl extends Control {
 	}
 
 	onInputElementChange_() {
-		console.log('change');
 		this.getEmitter().notifyObservers(
 			Control.EVENT_CHANGE,
 			[this.inputElem_.value]
