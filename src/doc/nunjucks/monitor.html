@@ -4,15 +4,17 @@
 {% set title = 'Monitor' %}
 
 {% block content %}
-<p>Tweakpane has a feature for monitoring a property change. Use <code>addMonitor()</code> to monitor it.</p>
+<p>Tweakpane has a feature for monitoring a property change. Use <code>addMonitor()</code> or <code>addColorMonitor()</code> (for color value) to monitor it.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.addMonitor(target, 'time');    // String
-pane.addMonitor(target, 'active');  // Boolean
-pane.addMonitor(target, 'color');   // Color
-pane.addMonitor(target, 'wave');    // Number
+
+pane.addMonitor(target, 'time');        // String
+pane.addMonitor(target, 'active');      // Boolean
+pane.addMonitor(target, 'wave');        // Number
+
+pane.addColorMonitor(target, 'color');  // Color
 </code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">

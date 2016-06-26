@@ -1,4 +1,3 @@
-const ColorCodec                 = require('../codec/color_codec');
 const BooleanPropertyViewFactory = require('../factory/boolean_property_view_factory');
 const ColorPropertyViewFactory   = require('../factory/color_property_view_factory');
 const NumberPropertyViewFactory  = require('../factory/number_property_view_factory');
@@ -16,9 +15,6 @@ class ComponentUtil {
 	static findControlFactoryFunction_(ref) {
 		const type = typeof ref.getValue();
 
-		if (type === 'string' && ColorCodec.canDecode(ref.getValue())) {
-			return ColorPropertyViewFactory.createPalette;
-		}
 		if (type === 'boolean') {
 			return BooleanPropertyViewFactory.createCheckbox;
 		}
@@ -101,9 +97,6 @@ class ComponentUtil {
 	static findMonitorFactoryFunction_(ref) {
 		const type = typeof ref.getValue();
 
-		if (type === 'string' && ColorCodec.canDecode(ref.getValue())) {
-			return ColorPropertyViewFactory.createMonitor;
-		}
 		if (type === 'boolean') {
 			return BooleanPropertyViewFactory.createMonitor;
 		}
@@ -124,6 +117,13 @@ class ComponentUtil {
 			);
 		}
 		const propView = factoryFn(
+			ref, opt_options
+		);
+		return new PropertyViewInterface(propView);
+	}
+
+	static createColorMonitor(ref, opt_options) {
+		const propView = ColorPropertyViewFactory.createMonitor(
 			ref, opt_options
 		);
 		return new PropertyViewInterface(propView);

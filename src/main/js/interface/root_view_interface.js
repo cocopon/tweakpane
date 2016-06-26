@@ -134,6 +134,15 @@ class RootViewInterface extends ViewInterface {
 		);
 	}
 
+	addColorMonitor(target, propertyName, opt_options) {
+		return this.addProerty_(
+			ComponentUtil.createColorMonitor(
+				new Reference(target, propertyName),
+				opt_options
+			)
+		);
+	}
+
 	addLogger(target, propertyName, opt_options) {
 		return this.addProerty_(
 			ComponentUtil.createLogger(

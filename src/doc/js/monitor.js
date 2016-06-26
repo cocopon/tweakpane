@@ -32,8 +32,8 @@ setInterval(function() {
 	});
 	pane.addMonitor(sharedParams, 'time', {interval: 1000});
 	pane.addMonitor(sharedParams, 'active');
-	pane.addMonitor(sharedParams, 'color');
 	pane.addMonitor(sharedParams, 'wave');
+	pane.addColorMonitor(sharedParams, 'color');
 })();
 
 (function() {

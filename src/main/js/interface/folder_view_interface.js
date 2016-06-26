@@ -81,6 +81,15 @@ class FolderViewInterface extends ViewInterface {
 		);
 	}
 
+	addColorMonitor(target, propertyName, opt_options) {
+		return this.addProerty_(
+			this.getComponentUtil_().createColorMonitor(
+				new Reference(target, propertyName),
+				opt_options
+			)
+		);
+	}
+
 	addLogger(target, propertyName, opt_options) {
 		return this.addProperty_(
 			this.getComponentUtil_().createLogger(
