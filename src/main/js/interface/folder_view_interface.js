@@ -3,12 +3,20 @@ const ViewInterface = require('./view_interface');
 
 class FolderViewInterface extends ViewInterface {
 	getComponentUtil_() {
-		// Run-time requiring to avoid circular reference
+		// Run-time requiring to avoid cross reference
 		return require('../misc/component_util');
 	}
 
 	add(target, propertyName, opt_options) {
 		return this.getComponentUtil_().addProperty(
+			this.view_,
+			new Reference(target, propertyName),
+			opt_options
+		);
+	}
+
+	slider(target, propertyName, opt_options) {
+		return this.getComponentUtil_().addSlider(
 			this.view_,
 			new Reference(target, propertyName),
 			opt_options

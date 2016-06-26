@@ -29,10 +29,6 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 	}
 
 	static createControl_(prop, options) {
-		if (options.min !== undefined &&
-				options.max !== undefined) {
-			return new SliderTextControl(prop);
-		}
 		if (options.list !== undefined) {
 			return new ListControl(prop);
 		}
@@ -46,6 +42,23 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 		}
 
 		return new NumberTextMonitor(property);
+	}
+
+	static createSlider(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		return PropertyViewFactory.create2({
+			reference: ref,
+			constraintFactories: this.CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new NumberModel();
+			},
+			createView: (prop) => {
+				return new SliderTextControl(prop);
+			},
+			options: options
+		});
 	}
 }
 

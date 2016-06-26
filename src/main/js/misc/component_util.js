@@ -1,3 +1,4 @@
+const NumberPropertyViewFactory  = require('../factory/number_property_view_factory');
 const PropertyViewFactoryComplex = require('../factory/property_view_factory_complex');
 const ButtonViewInterface        = require('../interface/button_view_interface');
 const FolderViewInterface        = require('../interface/folder_view_interface');
@@ -28,6 +29,20 @@ class ComponentUtil {
 		options.forMonitor = true;
 
 		const propView = PropertyViewFactoryComplex.create(
+			ref, options
+		);
+
+		view.addSubview(propView);
+		return new PropertyViewInterface(propView);
+	}
+
+	static addSlider(view, ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		options.forMonitor = false;
+
+		const propView = NumberPropertyViewFactory.createSlider(
 			ref, options
 		);
 
