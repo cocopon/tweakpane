@@ -1,14 +1,9 @@
-const Errors          = require('../misc/errors');
 const PropertyBuilder = require('../misc/property_builder');
 const Control         = require('../view/control/control');
 const Monitor         = require('../view/monitor/monitor');
 const PropertyView    = require('../view/property_view');
 
 class PropertyViewFactory {
-	static supports(_value) {
-		throw Errors.notImplemented('supports');
-	}
-
 	static create(params) {
 		const model = params.createModel();
 		this.setUpConstraints_(
