@@ -32,9 +32,8 @@ folder2.add(sketchParams, 'restitution', {
 	max: 0.9
 });
 folder2.addSeparator();
-folder2.monitor(sketchParams, 'netaAlt', {
+folder2.graph(sketchParams, 'netaAlt', {
 	count: 140,
-	graph: true,
 	min: 0,
 	max: 100
 });

@@ -109,6 +109,14 @@ class RootViewInterface extends ViewInterface {
 		);
 	}
 
+	graph(target, propertyName, opt_options) {
+		return ComponentUtil.addGraph(
+			this.view_.getMainView(),
+			new Reference(target, propertyName),
+			opt_options
+		);
+	}
+
 	addFolder(title) {
 		const fvInterface = ComponentUtil.addFolder(
 			this.view_.getMainView(),

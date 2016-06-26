@@ -22,6 +22,20 @@ class ComponentUtil {
 		return new PropertyViewInterface(propView);
 	}
 
+	static addSlider(view, ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		options.forMonitor = false;
+
+		const propView = NumberPropertyViewFactory.createSlider(
+			ref, options
+		);
+
+		view.addSubview(propView);
+		return new PropertyViewInterface(propView);
+	}
+
 	static addMonitor(view, ref, opt_options) {
 		const options = (opt_options !== undefined) ?
 			opt_options :
@@ -36,13 +50,13 @@ class ComponentUtil {
 		return new PropertyViewInterface(propView);
 	}
 
-	static addSlider(view, ref, opt_options) {
+	static addGraph(view, ref, opt_options) {
 		const options = (opt_options !== undefined) ?
 			opt_options :
 			{};
-		options.forMonitor = false;
+		options.forMonitor = true;
 
-		const propView = NumberPropertyViewFactory.createSlider(
+		const propView = NumberPropertyViewFactory.createGraph(
 			ref, options
 		);
 

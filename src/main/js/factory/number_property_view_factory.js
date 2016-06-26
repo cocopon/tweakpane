@@ -21,10 +21,6 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 			return new NumberModel();
 		}
 
-		if (options.graph) {
-			return new NumberRecordModel(options.count);
-		}
-
 		return new NumberModel();
 	}
 
@@ -36,11 +32,7 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 		return new NumberTextControl(prop);
 	}
 
-	static createMonitor_(property, options) {
-		if (options.graph) {
-			return new GraphMonitor(property);
-		}
-
+	static createMonitor_(property, _options) {
 		return new NumberTextMonitor(property);
 	}
 
@@ -56,6 +48,23 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 			},
 			createView: (prop) => {
 				return new SliderTextControl(prop);
+			},
+			options: options
+		});
+	}
+
+	static createGraph(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		return PropertyViewFactory.create2({
+			reference: ref,
+			constraintFactories: this.CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new NumberRecordModel(options.count);
+			},
+			createView: (prop) => {
+				return new GraphMonitor(prop);
 			},
 			options: options
 		});
