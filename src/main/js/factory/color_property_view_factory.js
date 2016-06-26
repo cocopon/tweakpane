@@ -3,6 +3,8 @@ const PaletteTextControl  = require('../view/control/palette_text_control');
 const PaletteTextMonitor  = require('../view/monitor/palette_text_monitor');
 const PropertyViewFactory = require('./property_view_factory');
 
+const CONSTRAINT_FACTORIES = {};
+
 class ColorPropertyViewFactory {
 	static createPalette(ref, opt_options) {
 		const options = (opt_options !== undefined) ?
@@ -10,7 +12,7 @@ class ColorPropertyViewFactory {
 			{};
 		return PropertyViewFactory.create({
 			reference: ref,
-			constraintFactories: this.CONSTRAINT_FACTORIES,
+			constraintFactories: CONSTRAINT_FACTORIES,
 			createModel: () => {
 				return new ColorModel();
 			},
@@ -27,7 +29,7 @@ class ColorPropertyViewFactory {
 			{};
 		return PropertyViewFactory.create({
 			reference: ref,
-			constraintFactories: this.CONSTRAINT_FACTORIES,
+			constraintFactories: CONSTRAINT_FACTORIES,
 			createModel: () => {
 				return new ColorModel();
 			},
@@ -38,7 +40,5 @@ class ColorPropertyViewFactory {
 		});
 	}
 }
-
-ColorPropertyViewFactory.CONSTRAINT_FACTORIES = {};
 
 module.exports = ColorPropertyViewFactory;

@@ -11,94 +11,7 @@ const GraphMonitor         = require('../view/monitor/graph_monitor');
 const NumberTextMonitor    = require('../view/monitor/number_text_monitor');
 const PropertyViewFactory  = require('./property_view_factory');
 
-class NumberPropertyViewFactory {
-	static createText(ref, opt_options) {
-		const options = (opt_options !== undefined) ?
-			opt_options :
-			{};
-		return PropertyViewFactory.create({
-			reference: ref,
-			constraintFactories: this.CONSTRAINT_FACTORIES,
-			createModel: () => {
-				return new NumberModel();
-			},
-			createView: (prop) => {
-				return new NumberTextControl(prop);
-			},
-			options: options
-		});
-	}
-
-	static createSlider(ref, opt_options) {
-		const options = (opt_options !== undefined) ?
-			opt_options :
-			{};
-		return PropertyViewFactory.create({
-			reference: ref,
-			constraintFactories: this.CONSTRAINT_FACTORIES,
-			createModel: () => {
-				return new NumberModel();
-			},
-			createView: (prop) => {
-				return new SliderTextControl(prop);
-			},
-			options: options
-		});
-	}
-
-	static createSelector(ref, opt_options) {
-		const options = (opt_options !== undefined) ?
-			opt_options :
-			{};
-		return PropertyViewFactory.create({
-			reference: ref,
-			constraintFactories: this.CONSTRAINT_FACTORIES,
-			createModel: () => {
-				return new NumberModel();
-			},
-			createView: (prop) => {
-				return new ListControl(prop);
-			},
-			options: options
-		});
-	}
-
-	static createMonitor(ref, opt_options) {
-		const options = (opt_options !== undefined) ?
-			opt_options :
-			{};
-		return PropertyViewFactory.create({
-			reference: ref,
-			constraintFactories: this.CONSTRAINT_FACTORIES,
-			createModel: () => {
-				return new NumberModel();
-			},
-			createView: (prop) => {
-				return new NumberTextMonitor(prop);
-			},
-			options: options
-		});
-	}
-
-	static createGraph(ref, opt_options) {
-		const options = (opt_options !== undefined) ?
-			opt_options :
-			{};
-		return PropertyViewFactory.create({
-			reference: ref,
-			constraintFactories: this.CONSTRAINT_FACTORIES,
-			createModel: () => {
-				return new NumberRecordModel(options.count);
-			},
-			createView: (prop) => {
-				return new GraphMonitor(prop);
-			},
-			options: options
-		});
-	}
-}
-
-NumberPropertyViewFactory.CONSTRAINT_FACTORIES = {
+const CONSTRAINT_FACTORIES = {
 	/**
 	 * Create the minimum value constraint.
 	 * @param {number} value The minimum value.
@@ -139,5 +52,92 @@ NumberPropertyViewFactory.CONSTRAINT_FACTORIES = {
 		);
 	}
 };
+
+class NumberPropertyViewFactory {
+	static createText(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		return PropertyViewFactory.create({
+			reference: ref,
+			constraintFactories: CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new NumberModel();
+			},
+			createView: (prop) => {
+				return new NumberTextControl(prop);
+			},
+			options: options
+		});
+	}
+
+	static createSlider(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		return PropertyViewFactory.create({
+			reference: ref,
+			constraintFactories: CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new NumberModel();
+			},
+			createView: (prop) => {
+				return new SliderTextControl(prop);
+			},
+			options: options
+		});
+	}
+
+	static createSelector(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		return PropertyViewFactory.create({
+			reference: ref,
+			constraintFactories: CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new NumberModel();
+			},
+			createView: (prop) => {
+				return new ListControl(prop);
+			},
+			options: options
+		});
+	}
+
+	static createMonitor(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		return PropertyViewFactory.create({
+			reference: ref,
+			constraintFactories: CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new NumberModel();
+			},
+			createView: (prop) => {
+				return new NumberTextMonitor(prop);
+			},
+			options: options
+		});
+	}
+
+	static createGraph(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		return PropertyViewFactory.create({
+			reference: ref,
+			constraintFactories: CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new NumberRecordModel(options.count);
+			},
+			createView: (prop) => {
+				return new GraphMonitor(prop);
+			},
+			options: options
+		});
+	}
+}
 
 module.exports = NumberPropertyViewFactory;

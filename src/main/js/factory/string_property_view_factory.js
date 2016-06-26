@@ -8,6 +8,44 @@ const MultilineTextMonitor = require('../view/monitor/multiline_text_monitor');
 const TextMonitor          = require('../view/monitor/text_monitor');
 const PropertyViewFactory  = require('./property_view_factory');
 
+function createListItems(items) {
+	// ['foo', 'bar']
+	// => {'foo': 'foo', 'bar': 'bar'}
+	if (Array.isArray(items)) {
+		return items.map((value) => {
+			return {
+				name: value,
+				value: value
+			};
+		});
+	}
+
+	const isObjectLiteral = Object.prototype.toString.call(items) === '[object Object]';
+	if (isObjectLiteral) {
+		return Object.keys(items).map((key) => {
+			return {
+				name: key,
+				value: items[key]
+			};
+		});
+	}
+
+	return null;
+}
+
+const CONSTRAINT_FACTORIES = {
+	/**
+	 * Create the list of values constraint.
+	 * @param {(string[]|Object.<string, string>)} items The list of values.
+	 * @return {Constraint}
+	 */
+	'values': (items) => {
+		return new ListConstraint(
+			createListItems(items)
+		);
+	}
+};
+
 class StringPropertyViewFactory {
 	static createText(ref, opt_options) {
 		const options = (opt_options !== undefined) ?
@@ -15,7 +53,7 @@ class StringPropertyViewFactory {
 			{};
 		return PropertyViewFactory.create({
 			reference: ref,
-			constraintFactories: this.CONSTRAINT_FACTORIES,
+			constraintFactories: CONSTRAINT_FACTORIES,
 			createModel: () => {
 				return new StringModel();
 			},
@@ -32,7 +70,7 @@ class StringPropertyViewFactory {
 			{};
 		return PropertyViewFactory.create({
 			reference: ref,
-			constraintFactories: this.CONSTRAINT_FACTORIES,
+			constraintFactories: CONSTRAINT_FACTORIES,
 			createModel: () => {
 				return new StringModel();
 			},
@@ -49,7 +87,7 @@ class StringPropertyViewFactory {
 			{};
 		return PropertyViewFactory.create({
 			reference: ref,
-			constraintFactories: this.CONSTRAINT_FACTORIES,
+			constraintFactories: CONSTRAINT_FACTORIES,
 			createModel: () => {
 				return new StringModel();
 			},
@@ -71,7 +109,7 @@ class StringPropertyViewFactory {
 			10;
 		return PropertyViewFactory.create({
 			reference: ref,
-			constraintFactories: this.CONSTRAINT_FACTORIES,
+			constraintFactories: CONSTRAINT_FACTORIES,
 			createModel: () => {
 				return new LogRecordModel(count);
 			},
@@ -81,44 +119,6 @@ class StringPropertyViewFactory {
 			options: options
 		});
 	}
-
-	static createListItems_(items) {
-		// ['foo', 'bar']
-		// => {'foo': 'foo', 'bar': 'bar'}
-		if (Array.isArray(items)) {
-			return items.map((value) => {
-				return {
-					name: value,
-					value: value
-				};
-			});
-		}
-
-		const isObjectLiteral = Object.prototype.toString.call(items) === '[object Object]';
-		if (isObjectLiteral) {
-			return Object.keys(items).map((key) => {
-				return {
-					name: key,
-					value: items[key]
-				};
-			});
-		}
-
-		return null;
-	}
 }
-
-StringPropertyViewFactory.CONSTRAINT_FACTORIES = {
-	/**
-	 * Create the list of values constraint.
-	 * @param {(string[]|Object.<string, string>)} items The list of values.
-	 * @return {Constraint}
-	 */
-	'values': (items) => {
-		return new ListConstraint(
-			StringPropertyViewFactory.createListItems_(items)
-		);
-	}
-};
 
 module.exports = StringPropertyViewFactory;
