@@ -7,95 +7,112 @@ class FolderViewInterface extends ViewInterface {
 		return require('../misc/component_util');
 	}
 
+	addProperty_(propertyViewInterface) {
+		this.view_.addSubview(
+			propertyViewInterface.getView()
+		);
+		return propertyViewInterface;
+	}
+
 	// Controls
 
 	addControl(target, propertyName, opt_options) {
-		return this.getComponentUtil_().addControl(
-			this.view_,
-			new Reference(target, propertyName),
-			opt_options
+		return this.addProperty_(
+			this.getComponentUtil_().createControl(
+				new Reference(target, propertyName),
+				opt_options
+			)
 		);
 	}
 
 	addText(target, propertyName, opt_options) {
-		return this.getComponentUtil_().addText(
-			this.view_,
-			new Reference(target, propertyName),
-			opt_options
+		return this.addProperty_(
+			this.getComponentUtil_().createText(
+				new Reference(target, propertyName),
+				opt_options
+			)
 		);
 	}
 
 	addSlider(target, propertyName, opt_options) {
-		return this.getComponentUtil_().addSlider(
-			this.view_,
-			new Reference(target, propertyName),
-			opt_options
+		return this.addProperty_(
+			this.getComponentUtil_().createSlider(
+				new Reference(target, propertyName),
+				opt_options
+			)
 		);
 	}
 
 	addSelector(target, propertyName, opt_options) {
-		return this.getComponentUtil_().addSelector(
-			this.view_,
-			new Reference(target, propertyName),
-			opt_options
+		return this.addProperty_(
+			this.getComponentUtil_().createSelector(
+				new Reference(target, propertyName),
+				opt_options
+			)
 		);
 	}
 
 	addCheckbox(target, propertyName, opt_options) {
-		return this.getComponentUtil_().addCheckbox(
-			this.view_,
-			new Reference(target, propertyName),
-			opt_options
+		return this.addProperty_(
+			this.getComponentUtil_().createCheckbox(
+				new Reference(target, propertyName),
+				opt_options
+			)
 		);
 	}
 
 	addPalette(target, propertyName, opt_options) {
-		return this.getComponentUtil_().addPalette(
-			this.view_,
-			new Reference(target, propertyName),
-			opt_options
+		return this.addProperty_(
+			this.getComponentUtil_().createPalette(
+				new Reference(target, propertyName),
+				opt_options
+			)
 		);
 	}
 
 	// Monitors
 
 	addMonitor(target, propertyName, opt_options) {
-		return this.getComponentUtil_().addMonitor(
-			this.view_,
-			new Reference(target, propertyName),
-			opt_options
+		return this.addProperty_(
+			this.getComponentUtil_().createMonitor(
+				new Reference(target, propertyName),
+				opt_options
+			)
 		);
 	}
 
 	addLogger(target, propertyName, opt_options) {
-		return this.getComponentUtil_().addLogger(
-			this.view_,
-			new Reference(target, propertyName),
-			opt_options
+		return this.addProperty_(
+			this.getComponentUtil_().createLogger(
+				new Reference(target, propertyName),
+				opt_options
+			)
 		);
 	}
 
 	addGraph(target, propertyName, opt_options) {
-		return this.getComponentUtil_().addGraph(
-			this.view_,
-			new Reference(target, propertyName),
-			opt_options
+		return this.addProperty_(
+			this.getComponentUtil_().createGraph(
+				new Reference(target, propertyName),
+				opt_options
+			)
 		);
 	}
 
 	// Other Components
 
 	addButton(title) {
-		return this.getComponentUtil_().addButton(
-			this.view_,
-			title
-		);
+		const intf = this.getComponentUtil_().createButton(title);
+		const buttonView = intf.getView();
+		this.view_.addSubview(buttonView);
+		return intf;
 	}
 
 	addSeparator() {
-		return this.getComponentUtil_().addSeparator(
-			this.view_
-		);
+		const intf = this.getComponentUtil_().createSeparator();
+		const separatorView = intf.getView();
+		this.view_.addSubview(separatorView);
+		return intf;
 	}
 
 	/**

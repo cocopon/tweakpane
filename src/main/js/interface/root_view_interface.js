@@ -60,110 +60,124 @@ class RootViewInterface extends ViewInterface {
 		return this.view_.getElement();
 	}
 
+	addProerty_(propertyViewInterface) {
+		this.view_.getMainView().addSubview(
+			propertyViewInterface.getView()
+		);
+		return propertyViewInterface;
+	}
+
 	// Controls
 
 	addControl(target, propertyName, opt_options) {
-		return ComponentUtil.addControl(
-			this.view_.getMainView(),
-			new Reference(target, propertyName),
-			opt_options
+		return this.addProerty_(
+			ComponentUtil.createControl(
+				new Reference(target, propertyName),
+				opt_options
+			)
 		);
 	}
 
 	addText(target, propertyName, opt_options) {
-		return ComponentUtil.addText(
-			this.view_.getMainView(),
-			new Reference(target, propertyName),
-			opt_options
+		return this.addProerty_(
+			ComponentUtil.createText(
+				new Reference(target, propertyName),
+				opt_options
+			)
 		);
 	}
 
 	addSlider(target, propertyName, opt_options) {
-		return ComponentUtil.addSlider(
-			this.view_.getMainView(),
-			new Reference(target, propertyName),
-			opt_options
+		return this.addProerty_(
+			ComponentUtil.createSlider(
+				new Reference(target, propertyName),
+				opt_options
+			)
 		);
 	}
 
 	addSelector(target, propertyName, opt_options) {
-		return ComponentUtil.addSelector(
-			this.view_.getMainView(),
-			new Reference(target, propertyName),
-			opt_options
+		return this.addProerty_(
+			ComponentUtil.createSelector(
+				new Reference(target, propertyName),
+				opt_options
+			)
 		);
 	}
 
 	addCheckbox(target, propertyName, opt_options) {
-		return ComponentUtil.addCheckbox(
-			this.view_.getMainView(),
-			new Reference(target, propertyName),
-			opt_options
+		return this.addProerty_(
+			ComponentUtil.createCheckbox(
+				new Reference(target, propertyName),
+				opt_options
+			)
 		);
 	}
 
 	addPalette(target, propertyName, opt_options) {
-		return ComponentUtil.addPalette(
-			this.view_.getMainView(),
-			new Reference(target, propertyName),
-			opt_options
+		return this.addProerty_(
+			ComponentUtil.createPalette(
+				new Reference(target, propertyName),
+				opt_options
+			)
 		);
 	}
 
 	// Monitors
 
 	addMonitor(target, propertyName, opt_options) {
-		return ComponentUtil.addMonitor(
-			this.view_.getMainView(),
-			new Reference(target, propertyName),
-			opt_options
+		return this.addProerty_(
+			ComponentUtil.createMonitor(
+				new Reference(target, propertyName),
+				opt_options
+			)
 		);
 	}
 
 	addLogger(target, propertyName, opt_options) {
-		return ComponentUtil.addLogger(
-			this.view_.getMainView(),
-			new Reference(target, propertyName),
-			opt_options
+		return this.addProerty_(
+			ComponentUtil.createLogger(
+				new Reference(target, propertyName),
+				opt_options
+			)
 		);
 	}
 
 	addGraph(target, propertyName, opt_options) {
-		return ComponentUtil.addGraph(
-			this.view_.getMainView(),
-			new Reference(target, propertyName),
-			opt_options
+		return this.addProerty_(
+			ComponentUtil.createGraph(
+				new Reference(target, propertyName),
+				opt_options
+			)
 		);
 	}
 
 	// Other Components
 
 	addFolder(title) {
-		const fvInterface = ComponentUtil.addFolder(
-			this.view_.getMainView(),
-			title
-		);
-		const folderView = fvInterface.getView();
+		const intf = ComponentUtil.createFolder(title);
+		const folderView = intf.getView();
 		folderView.getEmitter().on(
 			View.EVENT_ADD,
 			this.onViewAdd_,
 			this
 		);
-
-		return fvInterface;
+		this.view_.getMainView().addSubview(folderView);
+		return intf;
 	}
 
 	addButton(title) {
-		return ComponentUtil.addButton(
-			this.view_.getMainView(),
-			title
-		);
+		const intf = ComponentUtil.createButton(title);
+		const buttonView = intf.getView();
+		this.view_.getMainView().addSubview(buttonView);
+		return intf;
 	}
 
 	addSeparator() {
-		return ComponentUtil.addSeparator(
-			this.view_.getMainView()
-		);
+		const intf = ComponentUtil.createSeparator();
+		const separatorView = intf.getView();
+		this.view_.getMainView().addSubview(separatorView);
+		return intf;
 	}
 
 	// Import/Export

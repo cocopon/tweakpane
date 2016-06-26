@@ -6,6 +6,7 @@ const StringPropertyViewFactory  = require('../factory/string_property_view_fact
 const ButtonViewInterface        = require('../interface/button_view_interface');
 const FolderViewInterface        = require('../interface/folder_view_interface');
 const PropertyViewInterface      = require('../interface/property_view_interface');
+const ViewInterface              = require('../interface/view_interface');
 const Errors                     = require('../misc/errors');
 const ButtonView                 = require('../view/button_view');
 const FolderView                 = require('../view/folder_view');
@@ -30,22 +31,20 @@ class ComponentUtil {
 		return null;
 	}
 
-	static addControl(view, ref, opt_options) {
+	static createControl(ref, opt_options) {
 		const factoryFn = this.findControlFactoryFunction_(ref);
 		if (factoryFn === null) {
 			throw Errors.propertyTypeNotSupported(
 				ref.getPropertyName()
 			);
 		}
-
 		const propView = factoryFn(
 			ref, opt_options
 		);
-		view.addSubview(propView);
 		return new PropertyViewInterface(propView);
 	}
 
-	static addText(view, ref, opt_options) {
+	static createText(ref, opt_options) {
 		const type = typeof ref.getValue();
 		const factory = (type === 'number') ? NumberPropertyViewFactory :
 			(type === 'string') ? StringPropertyViewFactory :
@@ -58,19 +57,17 @@ class ComponentUtil {
 		const propView = factory.createText(
 			ref, opt_options
 		);
-		view.addSubview(propView);
 		return new PropertyViewInterface(propView);
 	}
 
-	static addSlider(view, ref, opt_options) {
+	static createSlider(ref, opt_options) {
 		const propView = NumberPropertyViewFactory.createSlider(
 			ref, opt_options
 		);
-		view.addSubview(propView);
 		return new PropertyViewInterface(propView);
 	}
 
-	static addSelector(view, ref, opt_options) {
+	static createSelector(ref, opt_options) {
 		const type = typeof ref.getValue();
 		const factory = (type === 'number') ? NumberPropertyViewFactory :
 			(type === 'string') ? StringPropertyViewFactory :
@@ -84,23 +81,20 @@ class ComponentUtil {
 		const propView = factory.createSelector(
 			ref, opt_options
 		);
-		view.addSubview(propView);
 		return new PropertyViewInterface(propView);
 	}
 
-	static addCheckbox(view, ref, opt_options) {
+	static createCheckbox(ref, opt_options) {
 		const propView = BooleanPropertyViewFactory.createCheckbox(
 			ref, opt_options
 		);
-		view.addSubview(propView);
 		return new PropertyViewInterface(propView);
 	}
 
-	static addPalette(view, ref, opt_options) {
+	static createPalette(ref, opt_options) {
 		const propView = ColorPropertyViewFactory.createPalette(
 			ref, opt_options
 		);
-		view.addSubview(propView);
 		return new PropertyViewInterface(propView);
 	}
 
@@ -122,65 +116,46 @@ class ComponentUtil {
 		return null;
 	}
 
-	static addMonitor(view, ref, opt_options) {
+	static createMonitor(ref, opt_options) {
 		const factoryFn = this.findMonitorFactoryFunction_(ref);
 		if (factoryFn === null) {
 			throw Errors.propertyTypeNotSupported(
 				ref.getPropertyName()
 			);
 		}
-
 		const propView = factoryFn(
 			ref, opt_options
 		);
-		view.addSubview(propView);
 		return new PropertyViewInterface(propView);
 	}
 
-	static addGraph(view, ref, opt_options) {
+	static createGraph(ref, opt_options) {
 		const propView = NumberPropertyViewFactory.createGraph(
 			ref, opt_options
 		);
-		view.addSubview(propView);
 		return new PropertyViewInterface(propView);
 	}
 
-	static addLogger(view, ref, opt_options) {
+	static createLogger(ref, opt_options) {
 		const propView = StringPropertyViewFactory.createLogger(
 			ref, opt_options
 		);
-		view.addSubview(propView);
 		return new PropertyViewInterface(propView);
 	}
 
-	/**
-	 * Adds a folder.
-	 * @param {string} title A title
-	 * @return {FolderViewInterface}
-	*/
-	static addFolder(view, title) {
+	static createFolder(title) {
 		const folderView = new FolderView(title);
-		view.addSubview(folderView);
 		return new FolderViewInterface(folderView);
 	}
 
-	/**
-	 * Adds a clickable button.
-	 * @param {string} title A title
-	 * @return {ButtonViewInterface}
-	 */
-	static addButton(view, title) {
+	static createButton(title) {
 		const buttonView = new ButtonView(title);
-		view.addSubview(buttonView);
 		return new ButtonViewInterface(buttonView);
 	}
 
-	/**
-	 * Adds a separator.
-	 */
-	static addSeparator(view) {
+	static createSeparator() {
 		const separatorView = new SeparatorView();
-		view.addSubview(separatorView);
+		return new ViewInterface(separatorView);
 	}
 }
 
