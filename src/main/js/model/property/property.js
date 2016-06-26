@@ -1,10 +1,13 @@
 const CodecProvider = require('../../codec/codec_provider');
 const EventEmitter  = require('../../misc/event_emitter');
+const Reference     = require('../../misc/reference');
 
 class Property {
 	constructor(builder) {
-		this.target_ = builder.getTarget();
-		this.propName_ = builder.getPropertyName();
+		this.ref_ = new Reference(
+			builder.getTarget(),
+			builder.getPropertyName()
+		);
 		this.label_ = builder.getLabel();
 		this.id_ = builder.getId();
 		this.forMonitor_ = builder.isForMonitor();
@@ -17,14 +20,6 @@ class Property {
 
 	getEmitter() {
 		return this.emitter_;
-	}
-
-	getTarget() {
-		return this.target_;
-	}
-
-	getPropertyName() {
-		return this.propName_;
 	}
 
 	getId() {
@@ -64,7 +59,7 @@ class Property {
 			opt_updatesSource :
 			false;
 		if (updatesSource) {
-			this.target_[this.propName_] = decodedValue;
+			this.ref_.setValue(decodedValue);
 		}
 
 		this.model_.setValue(decodedValue);
@@ -73,7 +68,7 @@ class Property {
 	}
 
 	applySourceValue() {
-		this.setValue(this.target_[this.propName_]);
+		this.setValue(this.ref_.getValue());
 	}
 }
 
