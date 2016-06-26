@@ -47,11 +47,11 @@ class PropertyViewFactory {
 			params.options
 		);
 
-		const builder = new PropertyBuilder(
+		const prop = this.createProperty_(
 			params.reference,
-			model
+			model,
+			params.options
 		);
-		const prop = builder.build();
 		prop.applySourceValue();
 
 		const propView = new PropertyView(prop);
@@ -72,8 +72,6 @@ class PropertyViewFactory {
 		return propView;
 	}
 
-	// Deprecated
-	// TODO: Remove
 	static createProperty_(ref, model, options) {
 		const builder = new PropertyBuilder(ref, model);
 		if (options.forMonitor) {
