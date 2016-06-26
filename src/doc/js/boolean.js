@@ -6,7 +6,7 @@
 		foldable: false,
 		container: document.getElementById('example')
 	});
-	pane.add(params, 'debug');
+	pane.addControl(params, 'debug');
 })();
 
 (function() {
@@ -16,12 +16,12 @@
 	};
 	var pane = new Tweakpane({
 		foldable: false,
-		container: document.getElementById('listExample')
+		container: document.getElementById('selectorExample')
 	});
-	pane.add(params, 'debug', {
-		list: ['Enabled', 'Disabled']
+	pane.addSelector(params, 'debug', {
+		values: ['Enabled', 'Disabled']
 	}).on('change', function(value) {
 		params['(value)'] = String(value);
 	});
-	pane.monitor(params, '(value)');
+	pane.addMonitor(params, '(value)');
 })();

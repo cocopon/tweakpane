@@ -4,7 +4,7 @@
 {% set title = 'String' %}
 
 {% block content %}
-<p>Tweakpane provides a text field for a string property.</p>
+<p><code>addControl()</code> provides a text field for a string property.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
@@ -12,7 +12,7 @@
   name: 'cocopon',
 };
 var pane = new Tweakpane();
-pane.add(params, 'name');</code></pre>
+pane.addControl(params, 'name');</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="stringExample" class="codeBlock_paneContainer"></div>
@@ -20,18 +20,20 @@ pane.add(params, 'name');</code></pre>
 </div>
 
 
-<h2>List</h2>
-<p>If you want to choose a value from list, pass a string list as <code>list</code> option:</p>
+<h2>Selector</h2>
+<p>If you want to choose a value from list, use <code>addSelector()</code> and pass a string list as <code>values</code> option.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.add(target, 'direction').list([
-  'left',
-  'up',
-  'right'
-  'down'
-]);</code></pre>
+pane.addSelector(target, 'direction', {
+  values: [
+    'left',
+    'up',
+    'right'
+    'down'
+  ]
+});</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="listExample" class="codeBlock_paneContainer"></div>
@@ -43,12 +45,14 @@ pane.add(target, 'direction').list([
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.add(target, 'vimKey').list([
-  left:  'H',
-  up:    'K',
-  right: 'L',
-  down:  'J'
-]);</code></pre>
+pane.addSelector(target, 'vimKey', {
+  values: {
+    left:  'H',
+    up:    'K',
+    right: 'L',
+    down:  'J'
+  }
+});</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="namedListExample" class="codeBlock_paneContainer"></div>

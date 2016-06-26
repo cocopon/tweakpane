@@ -1,22 +1,18 @@
 const Property = require('../model/property/property');
 
 class PropertyBuilder {
-	constructor(target, propName, model) {
-		this.target_ = target;
-		this.propName_ = propName;
+	constructor(ref, model) {
+		this.ref_ = ref;
 		this.model_ = model;
 
 		this.forMonitor_ = false;
+		const propName = this.ref_.getPropertyName();
 		this.id_ = propName;
 		this.label_ = propName;
 	}
 
-	getTarget() {
-		return this.target_;
-	}
-
-	getPropertyName() {
-		return this.propName_;
+	getReference() {
+		return this.ref_;
 	}
 
 	getModel() {

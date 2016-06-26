@@ -1,43 +1,44 @@
-const Errors          = require('../misc/errors');
 const PropertyBuilder = require('../misc/property_builder');
 const Control         = require('../view/control/control');
+const Monitor         = require('../view/monitor/monitor');
 const PropertyView    = require('../view/property_view');
 
 class PropertyViewFactory {
-	static supports(_value) {
-		throw Errors.notImplemented('supports');
-	}
+	static create(config) {
+		const model = config.createModel();
+		this.setUpConstraints_(
+			model,
+			config.constraintFactories,
+			config.options
+		);
 
-	static create(target, propName, options) {
-		const model = this.createModel_(options);
-		this.addConstraints_(model, options);
-
-		const prop = this.createProperty_(target, propName, model, options);
+		const prop = this.createProperty_(
+			config.reference,
+			model,
+			config.options
+		);
 		prop.applySourceValue();
 
 		const propView = new PropertyView(prop);
-
-		if (options.forMonitor) {
-			const monitor = this.createMonitor_(prop, options);
-			monitor.start(options.interval);
-			propView.addSubview(monitor);
+		const view = config.createView(prop);
+		if (view instanceof Monitor) {
+			view.start(config.options.interval);
 		}
-		else {
-			const control = this.createControl_(prop, options);
-			control.getEmitter().on(
+		else if (view instanceof Control) {
+			view.getEmitter().on(
 				Control.EVENT_CHANGE,
 				(value) => {
 					prop.setValue(value, true);
 				}
 			);
-			propView.addSubview(control);
 		}
+		propView.addSubview(view);
 
 		return propView;
 	}
 
-	static createProperty_(target, propName, model, options) {
-		const builder = new PropertyBuilder(target, propName, model);
+	static createProperty_(ref, model, options) {
+		const builder = new PropertyBuilder(ref, model);
 		if (options.forMonitor) {
 			builder.setForMonitor(true);
 		}
@@ -50,26 +51,18 @@ class PropertyViewFactory {
 		return builder.build();
 	}
 
-	static createModel_(_options) {
-		throw Errors.notImplemented('createModel_');
-	}
+	static setUpConstraints_(model, factories, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
 
-	static createControl_(_prop, _options) {
-		throw Errors.notImplemented('createControl_');
-	}
-
-	static createMonitor_(_property, _options) {
-		throw Errors.notImplemented('createMonitor_');
-	}
-
-	static addConstraints_(model, options) {
-		Object.keys(this.CONSTRAINT_FACTORIES).forEach((key) => {
+		Object.keys(factories).forEach((key) => {
 			const value = options[key];
 			if (value === undefined) {
 				return;
 			}
 
-			const constraint = this.CONSTRAINT_FACTORIES[key](value);
+			const constraint = factories[key](value);
 			model.addConstraint(constraint);
 		});
 	}

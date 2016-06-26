@@ -5,19 +5,19 @@
 
 {% block content %}
 <h2>Folder</h2>
-<p>Use <code>addFolder()</code> to add a foldable folder. It returns a instance of added folder, so you can add all types of property by using its <code>add()</code> and <code>monitor()</code> just like other properties.</p>
+<p>Use <code>addFolder()</code> to add a foldable folder. It returns a instance of added folder, so you can add all types of property just like other properties.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
 
 var folder1 = pane.addFolder('Interaction');
-folder1.add(params, 'power');
-folder1.add(params, 'range');
+folder1.addControl(params, 'power');
+folder1.addControl(params, 'range');
 
 var folder2 = pane.addFolder('Appearance');
-folder2.add(params, 'color')
-folder2.add(params, 'size');</code></pre>
+folder2.addControl(params, 'color')
+folder2.addControl(params, 'size');</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="folderExample1" class="codeBlock_paneContainer"></div>
@@ -31,13 +31,13 @@ folder2.add(params, 'size');</code></pre>
 		<pre><code class="js">var pane = new Tweakpane();
 
 var folder1 = pane.addFolder('Interaction');
-folder1.add(params, 'power');
-folder1.add(params, 'range');
+folder1.addControl(params, 'power');
+folder1.addControl(params, 'range');
 folder1.close();
 
 var folder2 = pane.addFolder('Appearance');
-folder2.add(params, 'color')
-folder2.add(target, 'size');</code></pre>
+folder2.addControl(params, 'color')
+folder2.addControl(target, 'size');</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="folderExample2" class="codeBlock_paneContainer"></div>

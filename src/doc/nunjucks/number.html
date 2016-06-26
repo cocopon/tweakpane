@@ -4,7 +4,7 @@
 {% set title = 'Number' %}
 
 {% block content %}
-<p>Tweakpane provides a text field for a number property by default.</p>
+<p><code>addControl()</code> provides a text field for a number property.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
@@ -12,7 +12,7 @@
   speed: 0.5
 };
 var pane = new Tweakpane();
-pane.add(params, 'speed');</code></pre>
+pane.addControl(params, 'speed');</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="numberExample" class="codeBlock_paneContainer"></div>
@@ -26,19 +26,21 @@ Use <code>min</code> or <code>max</code> option to specify minimum/maximum value
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.add(target, 'speed', {min: 0});</code></pre>
+pane.addControl(target, 'speed', {min: 0});</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="minExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
 
-<p>If you specify both minimum and maximum value, slider control will be appear.</p>
+
+<h2>Slider</h2>
+<p>If you want to use a slider control, use <code>addSlider()</code> instead and specify both minimum and maximum value.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.add(target, 'speed', {min: 0, max: 100});</code></pre>
+pane.addSlider(target, 'speed', {min: 0, max: 100});</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="sliderExample" class="codeBlock_paneContainer"></div>
@@ -47,12 +49,12 @@ pane.add(target, 'speed', {min: 0, max: 100});</code></pre>
 
 
 <h2>Stepping</h2>
-<p>You can also specify a step of changing value by <code>step</code> option.</p>
+<p>You can specify a step of changing value by <code>step</code> option.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.add(target, 'particleCount', {
+pane.addSlider(target, 'particleCount', {
   min: 0, max: 100, step: 10
 });</code></pre>
 	</div>
@@ -62,14 +64,14 @@ pane.add(target, 'particleCount', {
 </div>
 
 
-<h2>List</h2>
-<p>If you want to choose a value from named values, pass an object that has number values as <code>list</code> option.</p>
+<h2>Selector</h2>
+<p>If you want to choose a value from named values, use <code>addSelector()</code> and pass an object that has number values as <code>values</code> option.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.add(target, 'direction', {
-  list: {
+pane.addSelector(target, 'direction', {
+  values: {
     none: 0,
     horizontal: 1,
     vertical: 2,
@@ -78,7 +80,7 @@ pane.add(target, 'direction', {
 });</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
-		<div id="listExample" class="codeBlock_paneContainer"></div>
+		<div id="selectorExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
 {% endblock %}

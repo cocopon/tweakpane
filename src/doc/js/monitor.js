@@ -30,10 +30,10 @@ setInterval(function() {
 		foldable: false,
 		container: document.getElementById('textExample')
 	});
-	pane.monitor(sharedParams, 'time', {interval: 1000});
-	pane.monitor(sharedParams, 'active');
-	pane.monitor(sharedParams, 'color');
-	pane.monitor(sharedParams, 'wave');
+	pane.addMonitor(sharedParams, 'time', {interval: 1000});
+	pane.addMonitor(sharedParams, 'active');
+	pane.addMonitor(sharedParams, 'color');
+	pane.addMonitor(sharedParams, 'wave');
 })();
 
 (function() {
@@ -41,8 +41,7 @@ setInterval(function() {
 		foldable: false,
 		container: document.getElementById('graphExample')
 	});
-	pane.monitor(sharedParams, 'wave', {
-		graph: true,
+	pane.addGraph(sharedParams, 'wave', {
 		min: -5.0,
 		max: +5.0,
 		count: 200,
@@ -55,7 +54,7 @@ setInterval(function() {
 		foldable: false,
 		container: document.getElementById('logExample')
 	});
-	pane.monitor(sharedParams, 'time', {
+	pane.addLogger(sharedParams, 'time', {
 		count: 10
 	});
 })();
@@ -75,7 +74,7 @@ setInterval(function() {
 		foldable: false,
 		container: document.getElementById('multilineExample')
 	});
-	pane.monitor(params, 'json', {
+	pane.addMonitor(params, 'json', {
 		interval: 1e6,
 		multiline: true
 	});
@@ -86,11 +85,11 @@ setInterval(function() {
 		container: document.getElementById('intervalExample'),
 		foldable: false
 	});
-	pane.monitor(sharedParams, 'wave', {
+	pane.addMonitor(sharedParams, 'wave', {
 		interval: 500,
 		label: 'wave (0.5s)'
 	});
-	pane.monitor(sharedParams, 'wave', {
+	pane.addMonitor(sharedParams, 'wave', {
 		interval: 1000,
 		label: 'wave (1.0s)'
 	});

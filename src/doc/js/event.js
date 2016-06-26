@@ -7,13 +7,13 @@
 		foldable: false,
 		container: document.getElementById('eventExample')
 	});
-	pane.add(params, 'speed', {
+	pane.addSlider(params, 'speed', {
 		min: 0,
 		max: 100
 	}).on('change', function(value) {
 		params['(log)'] = String(value);
 	});
-	pane.monitor(params, '(log)', {
+	pane.addMonitor(params, '(log)', {
 		count: 10
 	});
 })();
@@ -28,8 +28,8 @@
 		foldable: false,
 		container: document.getElementById('globalEventExample')
 	});
-	pane.add(params, 'power', {min: 0, max: 100});
-	pane.add(params, 'size', {min: 0, max: 100});
+	pane.addSlider(params, 'power', {min: 0, max: 100});
+	pane.addSlider(params, 'size', {min: 0, max: 100});
 	pane.on('change', function(value, prop) {
 		if (prop.getId() === '(log)') {
 			// Prevent infinite loop
@@ -37,7 +37,7 @@
 		}
 		params['(log)'] = prop.getLabel() + ': ' + String(value);
 	});
-	pane.monitor(params, '(log)', {
+	pane.addMonitor(params, '(log)', {
 		count: 10
 	});
 })();

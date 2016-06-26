@@ -4,7 +4,7 @@
 {% set title = 'Boolean' %}
 
 {% block content %}
-<p>Tweakpane provides a checkbox field for a boolean property by default.</p>
+<p><code>addControl()</code> provides a checkbox for a boolean property.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
@@ -12,7 +12,7 @@
   debug: true
 };
 var pane = new Tweakpane();
-pane.add(params, 'debug');</code></pre>
+pane.addControl(params, 'debug');</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="example" class="codeBlock_paneContainer"></div>
@@ -20,18 +20,18 @@ pane.add(params, 'debug');</code></pre>
 </div>
 
 
-<h2>List</h2>
-<p>You can use a named list for boolean value. Pass an array of two string values (true, false) to <code>list</code> option.</p>
+<h2>Selector</h2>
+<p>You can use a named list for boolean value. Use <code>addSelector()</code> and pass an array of two string values (true, false) as <code>values</code> option.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.add(target, 'debug', {
-  list: ['Enabled', 'Disabled']
+pane.addSelector(target, 'debug', {
+  values: ['Enabled', 'Disabled']
 });</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
-		<div id="listExample" class="codeBlock_paneContainer"></div>
+		<div id="selectorExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
 {% endblock %}

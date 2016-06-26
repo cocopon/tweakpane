@@ -1,28 +1,89 @@
+const Reference     = require('../misc/reference');
 const ViewInterface = require('./view_interface');
 
 class FolderViewInterface extends ViewInterface {
 	getComponentUtil_() {
-		// Run-time requiring to avoid circular reference
+		// Run-time requiring to avoid cross reference
 		return require('../misc/component_util');
 	}
 
-	add(target, propName, opt_options) {
-		return this.getComponentUtil_().addProperty(
+	// Controls
+
+	addControl(target, propertyName, opt_options) {
+		return this.getComponentUtil_().addControl(
 			this.view_,
-			target,
-			propName,
+			new Reference(target, propertyName),
 			opt_options
 		);
 	}
 
-	monitor(target, propName, opt_options) {
-		return this.getComponentUtil_().addMonitor(
+	addText(target, propertyName, opt_options) {
+		return this.getComponentUtil_().addText(
 			this.view_,
-			target,
-			propName,
+			new Reference(target, propertyName),
 			opt_options
 		);
 	}
+
+	addSlider(target, propertyName, opt_options) {
+		return this.getComponentUtil_().addSlider(
+			this.view_,
+			new Reference(target, propertyName),
+			opt_options
+		);
+	}
+
+	addSelector(target, propertyName, opt_options) {
+		return this.getComponentUtil_().addSelector(
+			this.view_,
+			new Reference(target, propertyName),
+			opt_options
+		);
+	}
+
+	addCheckbox(target, propertyName, opt_options) {
+		return this.getComponentUtil_().addCheckbox(
+			this.view_,
+			new Reference(target, propertyName),
+			opt_options
+		);
+	}
+
+	addPalette(target, propertyName, opt_options) {
+		return this.getComponentUtil_().addPalette(
+			this.view_,
+			new Reference(target, propertyName),
+			opt_options
+		);
+	}
+
+	// Monitors
+
+	addMonitor(target, propertyName, opt_options) {
+		return this.getComponentUtil_().addMonitor(
+			this.view_,
+			new Reference(target, propertyName),
+			opt_options
+		);
+	}
+
+	addLogger(target, propertyName, opt_options) {
+		return this.getComponentUtil_().addLogger(
+			this.view_,
+			new Reference(target, propertyName),
+			opt_options
+		);
+	}
+
+	addGraph(target, propertyName, opt_options) {
+		return this.getComponentUtil_().addGraph(
+			this.view_,
+			new Reference(target, propertyName),
+			opt_options
+		);
+	}
+
+	// Other Components
 
 	addButton(title) {
 		return this.getComponentUtil_().addButton(

@@ -1,13 +1,9 @@
 const CodecProvider = require('../../codec/codec_provider');
 const EventEmitter  = require('../../misc/event_emitter');
-const Reference     = require('../../misc/reference');
 
 class Property {
 	constructor(builder) {
-		this.ref_ = new Reference(
-			builder.getTarget(),
-			builder.getPropertyName()
-		);
+		this.ref_ = builder.getReference();
 		this.label_ = builder.getLabel();
 		this.id_ = builder.getId();
 		this.forMonitor_ = builder.isForMonitor();

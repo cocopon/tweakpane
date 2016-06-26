@@ -4,15 +4,15 @@
 {% set title = 'Monitor' %}
 
 {% block content %}
-<p>Tweakpane has a feature for monitoring a property change. Use <code>monitor()</code> to monitor it.</p>
+<p>Tweakpane has a feature for monitoring a property change. Use <code>addMonitor()</code> to monitor it.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.monitor(target, 'time');    // String
-pane.monitor(target, 'active');  // Boolean
-pane.monitor(target, 'color');   // Color
-pane.monitor(target, 'wave');    // Number
+pane.addMonitor(target, 'time');    // String
+pane.addMonitor(target, 'active');  // Boolean
+pane.addMonitor(target, 'color');   // Color
+pane.addMonitor(target, 'wave');    // Number
 </code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
@@ -22,13 +22,12 @@ pane.monitor(target, 'wave');    // Number
 
 
 <h2>Graph</h2>
-<p>Tweakpane can draw a graph for a number property. Pass <code>graph</code> option as follows:</p>
+<p><code>addGraph()</code> option provides a graph component to watch a number property.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.monitor(target, 'wave', {
-  graph: true,
+pane.addGraph(target, 'wave', {
   min: -5.0,
   max: +5.0,
   count: 200
@@ -42,13 +41,13 @@ pane.monitor(target, 'wave', {
 <p><code>min</code> is a minimum value of the graph, <code>max</code> is a maximum value, and <code>count</code> is data count to plot.</p>
 
 
-<h2>Log</h2>
-<p>You can specify <code>count</code> option for a single-line string property. Tweakpane holds a specified count of data.</p>
+<h2>Logger</h2>
+<p>To log a single-line string property, use <code>addLogger</code>.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.monitor(target, 'time', {
+pane.addLogger(target, 'time', {
   count: 10
 });</code></pre>
 	</div>
@@ -57,6 +56,8 @@ pane.monitor(target, 'time', {
 	</div>
 </div>
 
+<p><code>count</code> option is a count of data to hold.</p>
+
 
 <h2>Multi-line text</h2>
 <p>To monitoring a multi-line string property, enable <code>multiline</code> option.</p>
@@ -64,7 +65,7 @@ pane.monitor(target, 'time', {
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.monitor(target, 'message', {
+pane.addMonitor(target, 'message', {
   multiline: true
 });</code></pre>
 	</div>
@@ -80,11 +81,11 @@ pane.monitor(target, 'message', {
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.monitor(target, 'wave', {
+pane.addMonitor(target, 'wave', {
   interval: 500,
   label: 'wave (0.5s)'
 });
-pane.monitor(target, 'wave', {
+pane.addMonitor(target, 'wave', {
   interval: 1000,
   label: 'wave (1.0s)'
 });</code></pre>

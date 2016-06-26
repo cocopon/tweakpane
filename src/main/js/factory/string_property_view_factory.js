@@ -8,74 +8,121 @@ const MultilineTextMonitor = require('../view/monitor/multiline_text_monitor');
 const TextMonitor          = require('../view/monitor/text_monitor');
 const PropertyViewFactory  = require('./property_view_factory');
 
-class StringPropertyViewFactory extends PropertyViewFactory {
-	static supports(value) {
-		return typeof(value) === 'string';
+function createListItems(items) {
+	// ['foo', 'bar']
+	// => {'foo': 'foo', 'bar': 'bar'}
+	if (Array.isArray(items)) {
+		return items.map((value) => {
+			return {
+				name: value,
+				value: value
+			};
+		});
 	}
 
-	static createModel_(options) {
-		if (options.forMonitor && options.count > 1) {
-			return new LogRecordModel(options.count);
-		}
-
-		return new StringModel();
+	const isObjectLiteral = Object.prototype.toString.call(items) === '[object Object]';
+	if (isObjectLiteral) {
+		return Object.keys(items).map((key) => {
+			return {
+				name: key,
+				value: items[key]
+			};
+		});
 	}
 
-	static createControl_(prop, options) {
-		if (options.list !== undefined) {
-			return new ListControl(prop);
-		}
-
-		return new TextControl(prop);
-	}
-
-	static createMonitor_(property, options) {
-		if (options.multiline !== undefined) {
-			return new MultilineTextMonitor(property);
-		}
-		if (options.count !== undefined) {
-			return new LogMonitor(property);
-		}
-		return new TextMonitor(property);
-	}
-
-	static createListItems_(items) {
-		// ['foo', 'bar']
-		// => {'foo': 'foo', 'bar': 'bar'}
-		if (Array.isArray(items)) {
-			return items.map((value) => {
-				return {
-					name: value,
-					value: value
-				};
-			});
-		}
-
-		const isObjectLiteral = Object.prototype.toString.call(items) === '[object Object]';
-		if (isObjectLiteral) {
-			return Object.keys(items).map((key) => {
-				return {
-					name: key,
-					value: items[key]
-				};
-			});
-		}
-
-		return null;
-	}
+	return null;
 }
 
-StringPropertyViewFactory.CONSTRAINT_FACTORIES = {
+const CONSTRAINT_FACTORIES = {
 	/**
 	 * Create the list of values constraint.
 	 * @param {(string[]|Object.<string, string>)} items The list of values.
 	 * @return {Constraint}
 	 */
-	'list': (items) => {
+	'values': (items) => {
 		return new ListConstraint(
-			StringPropertyViewFactory.createListItems_(items)
+			createListItems(items)
 		);
 	}
 };
+
+class StringPropertyViewFactory {
+	static createText(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		options.forMonitor = false;
+		return PropertyViewFactory.create({
+			reference: ref,
+			constraintFactories: CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new StringModel();
+			},
+			createView: (prop) => {
+				return new TextControl(prop);
+			},
+			options: options
+		});
+	}
+
+	static createSelector(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		options.forMonitor = false;
+		return PropertyViewFactory.create({
+			reference: ref,
+			constraintFactories: CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new StringModel();
+			},
+			createView: (prop) => {
+				return new ListControl(prop);
+			},
+			options: options
+		});
+	}
+
+	static createMonitor(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		options.forMonitor = true;
+		return PropertyViewFactory.create({
+			reference: ref,
+			constraintFactories: CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new StringModel();
+			},
+			createView: (prop) => {
+				return (options.multiline !== undefined) ?
+					new MultilineTextMonitor(prop) :
+					new TextMonitor(prop);
+			},
+			options: options
+		});
+	}
+
+	static createLogger(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		options.forMonitor = true;
+		const count = (options.count !== undefined) ?
+			options.count :
+			10;
+		return PropertyViewFactory.create({
+			reference: ref,
+			constraintFactories: CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new LogRecordModel(count);
+			},
+			createView: (prop) => {
+				return new LogMonitor(prop);
+			},
+			options: options
+		});
+	}
+}
 
 module.exports = StringPropertyViewFactory;

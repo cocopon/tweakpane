@@ -5,35 +5,13 @@ const ListControl          = require('../view/control/list_control');
 const CheckboxMonitor      = require('../view/monitor/checkbox_monitor');
 const PropertyViewFactory  = require('./property_view_factory');
 
-class BooleanPropertyViewFactory extends PropertyViewFactory {
-	static supports(value) {
-		return typeof(value) === 'boolean';
-	}
-
-	static createModel_() {
-		return new BooleanModel();
-	}
-
-	static createControl_(prop, options) {
-		if (options.list !== undefined) {
-			return new ListControl(prop);
-		}
-
-		return new CheckboxControl(prop);
-	}
-
-	static createMonitor_(property) {
-		return new CheckboxMonitor(property);
-	}
-}
-
-BooleanPropertyViewFactory.CONSTRAINT_FACTORIES = {
+const CONSTRAINT_FACTORIES = {
 	/**
 	 * Set the list of values.
 	 * @param {string[]} items The list of display texts for true and false value.
 	 * @return {Constraint}
 	 */
-	'list': (items) => {
+	'values': (items) => {
 		return new ListConstraint(
 			items.map((item, index) => {
 				return {
@@ -44,5 +22,61 @@ BooleanPropertyViewFactory.CONSTRAINT_FACTORIES = {
 		);
 	}
 };
+
+class BooleanPropertyViewFactory {
+	static createCheckbox(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		options.forMonitor = false;
+		return PropertyViewFactory.create({
+			reference: ref,
+			constraintFactories: CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new BooleanModel();
+			},
+			createView: (prop) => {
+				return new CheckboxControl(prop);
+			},
+			options: options
+		});
+	}
+
+	static createSelector(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		options.forMonitor = false;
+		return PropertyViewFactory.create({
+			reference: ref,
+			constraintFactories: CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new BooleanModel();
+			},
+			createView: (prop) => {
+				return new ListControl(prop);
+			},
+			options: options
+		});
+	}
+
+	static createMonitor(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		options.forMonitor = true;
+		return PropertyViewFactory.create({
+			reference: ref,
+			constraintFactories: CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new BooleanModel();
+			},
+			createView: (prop) => {
+				return new CheckboxMonitor(prop);
+			},
+			options: options
+		});
+	}
+}
 
 module.exports = BooleanPropertyViewFactory;

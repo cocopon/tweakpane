@@ -8,8 +8,8 @@ var pane = new Tweakpane({
 });
 
 var folder1 = pane.addFolder('Appearance');
-folder1.add(sketchParams, 'neta', {
-	list: [
+folder1.addSelector(sketchParams, 'neta', {
+	values: [
 		'hotate',
 		'maguro',
 		'salmon'
@@ -19,22 +19,21 @@ folder1.add(sketchParams, 'neta', {
 });
 
 var folder2 = pane.addFolder('Physics');
-folder2.add(sketchParams, 'gravity', {
+folder2.addSlider(sketchParams, 'gravity', {
 	min: 0.1,
 	max: 1.0
 });
-folder2.add(sketchParams, 'airResistance', {
+folder2.addSlider(sketchParams, 'airResistance', {
 	min: 0.01,
 	max: 0.1
 });
-folder2.add(sketchParams, 'restitution', {
+folder2.addSlider(sketchParams, 'restitution', {
 	min: 0.0,
 	max: 0.9
 });
 folder2.addSeparator();
-folder2.monitor(sketchParams, 'netaAlt', {
+folder2.addGraph(sketchParams, 'netaAlt', {
 	count: 140,
-	graph: true,
 	min: 0,
 	max: 100
 });
