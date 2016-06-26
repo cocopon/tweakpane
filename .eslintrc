@@ -5,22 +5,24 @@
 		"node": true
 	},
 	"rules": {
-		"camelcase": 0,  /* Avoid detecting 'opt_foobar' */
-		"dot-notation": 0,
-		"eqeqeq": 2,
-		"no-multi-spaces": 0,
-		"no-undef": 2,
-		"no-underscore-dangle": 0,
+		"camelcase": "off",  /* Avoid detecting 'opt_foobar' */
+		"dot-notation": "off",
+		"eqeqeq": "error",
+		"no-console": "warn",
+		"no-debugger": "warn",
+		"no-multi-spaces": "off",
+		"no-undef": "error",
+		"no-underscore-dangle": "off",
 		"no-unused-vars": [
-			1, {
+			"warn", {
 				"args": "all",
 				"argsIgnorePattern": "^_"
 			}
 		],
-		"no-use-before-define": 2,
-		"semi-spacing": 0,
-		"strict": 0,
-		"quotes": [1, "single"]
+		"no-use-before-define": "error",
+		"semi-spacing": "off",
+		"strict": "off",
+		"quotes": ["warn", "single"]
 	},
 	"globals": {
 	}
