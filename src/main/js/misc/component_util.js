@@ -12,20 +12,6 @@ const FolderView                 = require('../view/folder_view');
 const SeparatorView              = require('../view/separator_view');
 
 class ComponentUtil {
-	static addProperty(view, ref, opt_options) {
-		const options = (opt_options !== undefined) ?
-			opt_options :
-			{};
-		options.forMonitor = false;
-
-		const propView = PropertyViewFactoryComplex.create(
-			ref, options
-		);
-
-		view.addSubview(propView);
-		return new PropertyViewInterface(propView);
-	}
-
 	static addText(view, ref, opt_options) {
 		const options = (opt_options !== undefined) ?
 			opt_options :

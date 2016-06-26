@@ -12,12 +12,12 @@ var params = {
 	});
 
 	var folder1 = pane.addFolder('Interaction');
-	folder1.add(params, 'power');
-	folder1.add(params, 'range');
+	folder1.text(params, 'power');
+	folder1.text(params, 'range');
 
 	var folder2 = pane.addFolder('Appearance');
-	folder2.add(params, 'color')
-	folder2.add(params, 'size');
+	folder2.text(params, 'color')
+	folder2.text(params, 'size');
 })();
 
 (function() {
@@ -27,13 +27,13 @@ var params = {
 	});
 
 	var folder1 = pane.addFolder('Interaction');
-	folder1.add(params, 'power');
-	folder1.add(params, 'range');
+	folder1.text(params, 'power');
+	folder1.text(params, 'range');
 	folder1.close();
 
 	var folder2 = pane.addFolder('Appearance');
-	folder2.add(params, 'color')
-	folder2.add(params, 'size');
+	folder2.text(params, 'color')
+	folder2.text(params, 'size');
 })();
 
 (function() {

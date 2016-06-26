@@ -6,7 +6,7 @@
 		foldable: false,
 		container: document.getElementById('labelExample')
 	});
-	pane.add(params, 'initSpeed', {
+	pane.slider(params, 'initSpeed', {
 		label: 'Initial speed',
 		min: 0.0,
 		max: 1.0

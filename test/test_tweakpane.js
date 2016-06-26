@@ -9,7 +9,7 @@ describe('Tweakpane', () => {
 		};
 		const pane = new Tweakpane();
 
-		const prop = pane.add(params, 'prop');
+		const prop = pane.text(params, 'prop');
 		const p = new Promise((resolve) => {
 			prop.on('change', (value) => {
 				assert.strictEqual(
@@ -38,7 +38,7 @@ describe('Tweakpane', () => {
 		};
 		const pane = new Tweakpane();
 
-		pane.add(params, 'prop');
+		pane.text(params, 'prop');
 		const p = new Promise((resolve) => {
 			pane.on('change', (value) => {
 				assert.strictEqual(
@@ -68,7 +68,7 @@ describe('Tweakpane', () => {
 		const pane = new Tweakpane();
 
 		const f = pane.addFolder('folder');
-		f.add(params, 'prop');
+		f.text(params, 'prop');
 		const p = new Promise((resolve) => {
 			pane.on('change', (value) => {
 				assert.strictEqual(

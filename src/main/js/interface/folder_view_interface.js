@@ -7,14 +7,6 @@ class FolderViewInterface extends ViewInterface {
 		return require('../misc/component_util');
 	}
 
-	add(target, propertyName, opt_options) {
-		return this.getComponentUtil_().addProperty(
-			this.view_,
-			new Reference(target, propertyName),
-			opt_options
-		);
-	}
-
 	text(target, propertyName, opt_options) {
 		return this.getComponentUtil_().addText(
 			this.view_,

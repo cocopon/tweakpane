@@ -85,14 +85,6 @@ class RootViewInterface extends ViewInterface {
 		return result;
 	}
 
-	add(target, propertyName, opt_options) {
-		return ComponentUtil.addProperty(
-			this.view_.getMainView(),
-			new Reference(target, propertyName),
-			opt_options
-		);
-	}
-
 	text(target, propertyName, opt_options) {
 		return ComponentUtil.addText(
 			this.view_.getMainView(),

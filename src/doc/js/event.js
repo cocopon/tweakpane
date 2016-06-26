@@ -7,7 +7,7 @@
 		foldable: false,
 		container: document.getElementById('eventExample')
 	});
-	pane.add(params, 'speed', {
+	pane.slider(params, 'speed', {
 		min: 0,
 		max: 100
 	}).on('change', function(value) {
@@ -28,8 +28,8 @@
 		foldable: false,
 		container: document.getElementById('globalEventExample')
 	});
-	pane.add(params, 'power', {min: 0, max: 100});
-	pane.add(params, 'size', {min: 0, max: 100});
+	pane.slider(params, 'power', {min: 0, max: 100});
+	pane.slider(params, 'size', {min: 0, max: 100});
 	pane.on('change', function(value, prop) {
 		if (prop.getId() === '(log)') {
 			// Prevent infinite loop
