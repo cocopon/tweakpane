@@ -1,4 +1,5 @@
 const BooleanPropertyViewFactory = require('../factory/boolean_property_view_factory');
+const ColorPropertyViewFactory   = require('../factory/color_property_view_factory');
 const NumberPropertyViewFactory  = require('../factory/number_property_view_factory');
 const PropertyViewFactoryComplex = require('../factory/property_view_factory_complex');
 const StringPropertyViewFactory  = require('../factory/string_property_view_factory');
@@ -93,6 +94,20 @@ class ComponentUtil {
 		options.forMonitor = false;
 
 		const propView = BooleanPropertyViewFactory.createCheckbox(
+			ref, options
+		);
+
+		view.addSubview(propView);
+		return new PropertyViewInterface(propView);
+	}
+
+	static addPalette(view, ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		options.forMonitor = false;
+
+		const propView = ColorPropertyViewFactory.createPalette(
 			ref, options
 		);
 

@@ -21,6 +21,23 @@ class ColorPropertyViewFactory extends PropertyViewFactory {
 	static createMonitor_(property) {
 		return new PaletteTextMonitor(property);
 	}
+
+	static createPalette(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		return PropertyViewFactory.create2({
+			reference: ref,
+			constraintFactories: this.CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new ColorModel();
+			},
+			createView: (prop) => {
+				return new PaletteTextControl(prop);
+			},
+			options: options
+		});
+	}
 }
 
 ColorPropertyViewFactory.CONSTRAINT_FACTORIES = {};

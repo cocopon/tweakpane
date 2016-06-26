@@ -125,6 +125,14 @@ class RootViewInterface extends ViewInterface {
 		);
 	}
 
+	palette(target, propertyName, opt_options) {
+		return ComponentUtil.addPalette(
+			this.view_.getMainView(),
+			new Reference(target, propertyName),
+			opt_options
+		);
+	}
+
 	monitor(target, propertyName, opt_options) {
 		return ComponentUtil.addMonitor(
 			this.view_.getMainView(),
