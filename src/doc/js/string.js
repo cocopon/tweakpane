@@ -18,8 +18,8 @@
 		foldable: false,
 		container: document.getElementById('listExample')
 	});
-	pane.add(params, 'direction', {
-		list: [
+	pane.selector(params, 'direction', {
+		values: [
 			'left',
 			'up',
 			'right',
@@ -40,8 +40,8 @@
 		foldable: false,
 		container: document.getElementById('namedListExample')
 	});
-	pane.add(params, 'vimKey', {
-		list: {
+	pane.selector(params, 'vimKey', {
+		values: {
 			left:  'H',
 			up:    'K',
 			right: 'L',

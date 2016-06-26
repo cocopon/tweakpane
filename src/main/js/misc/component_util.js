@@ -67,7 +67,16 @@ class ComponentUtil {
 			{};
 		options.forMonitor = false;
 
-		const propView = NumberPropertyViewFactory.createSelector(
+		const type = typeof ref.getValue();
+		const factory = (type === 'number') ? NumberPropertyViewFactory :
+			(type === 'string') ? StringPropertyViewFactory :
+			null;
+		if (factory === null) {
+			throw Errors.propertyTypeNotSupported(
+				ref.getPropertyName()
+			);
+		}
+		const propView = factory.createSelector(
 			ref, options
 		);
 

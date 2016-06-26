@@ -20,18 +20,20 @@ pane.add(params, 'name');</code></pre>
 </div>
 
 
-<h2>List</h2>
-<p>If you want to choose a value from list, pass a string list as <code>list</code> option:</p>
+<h2>Selector</h2>
+<p>If you want to choose a value from list, pass a string list as <code>values</code> option:</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.add(target, 'direction').list([
-  'left',
-  'up',
-  'right'
-  'down'
-]);</code></pre>
+pane.selector(target, 'direction', {
+  values: [
+    'left',
+    'up',
+    'right'
+    'down'
+  ]
+});</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="listExample" class="codeBlock_paneContainer"></div>
@@ -43,12 +45,14 @@ pane.add(target, 'direction').list([
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.add(target, 'vimKey').list([
-  left:  'H',
-  up:    'K',
-  right: 'L',
-  down:  'J'
-]);</code></pre>
+pane.selector(target, 'vimKey', {
+  values: {
+    left:  'H',
+    up:    'K',
+    right: 'L',
+    down:  'J'
+  }
+});</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="namedListExample" class="codeBlock_paneContainer"></div>

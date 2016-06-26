@@ -21,11 +21,7 @@ class StringPropertyViewFactory extends PropertyViewFactory {
 		return new StringModel();
 	}
 
-	static createControl_(prop, options) {
-		if (options.list !== undefined) {
-			return new ListControl(prop);
-		}
-
+	static createControl_(prop, _options) {
 		return new TextControl(prop);
 	}
 
@@ -51,6 +47,23 @@ class StringPropertyViewFactory extends PropertyViewFactory {
 			},
 			createView: (prop) => {
 				return new TextControl(prop);
+			},
+			options: options
+		});
+	}
+
+	static createSelector(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		return PropertyViewFactory.create2({
+			reference: ref,
+			constraintFactories: this.CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new StringModel();
+			},
+			createView: (prop) => {
+				return new ListControl(prop);
 			},
 			options: options
 		});
@@ -88,7 +101,7 @@ StringPropertyViewFactory.CONSTRAINT_FACTORIES = {
 	 * @param {(string[]|Object.<string, string>)} items The list of values.
 	 * @return {Constraint}
 	 */
-	'list': (items) => {
+	'values': (items) => {
 		return new ListConstraint(
 			StringPropertyViewFactory.createListItems_(items)
 		);
