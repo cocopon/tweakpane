@@ -21,9 +21,9 @@ function showJson(json) {
 		foldable: false,
 		container: document.getElementById('exportExample')
 	});
-	pane.palette(params, 'color');
-	pane.slider(params, 'size', {min: 1, max: 100});
-	pane.slider(params, 'speed', {min: 0.0, max: 1.0});
+	pane.addPalette(params, 'color');
+	pane.addSlider(params, 'size', {min: 1, max: 100});
+	pane.addSlider(params, 'speed', {min: 0.0, max: 1.0});
 
 	pane.on('change', function() {
 		showJson(pane.getJson());
@@ -47,9 +47,9 @@ function showJson(json) {
 		pane.setJson(json);
 	});
 	pane.addSeparator();
-	pane.palette(params, 'color');
-	pane.slider(params, 'size', {min: 1, max: 100});
-	pane.slider(params, 'speed', {min: 0.0, max: 1.0});
+	pane.addPalette(params, 'color');
+	pane.addSlider(params, 'size', {min: 1, max: 100});
+	pane.addSlider(params, 'speed', {min: 0.0, max: 1.0});
 })();
 
 (function() {
@@ -63,12 +63,12 @@ function showJson(json) {
 		foldable: false,
 		container: document.getElementById('idExample')
 	});
-	pane.slider(params1, 'speed', {
+	pane.addSlider(params1, 'speed', {
 		id: 'target1_speed',
 		min: 0.0,
 		max: 1.0
 	});
-	pane.slider(params2, 'speed', {
+	pane.addSlider(params2, 'speed', {
 		id: 'target2_speed',
 		min: 0.0,
 		max: 1.0

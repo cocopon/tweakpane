@@ -12,7 +12,7 @@
   speed: 0.5
 };
 var pane = new Tweakpane();
-pane.text(params, 'speed');</code></pre>
+pane.addText(params, 'speed');</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="numberExample" class="codeBlock_paneContainer"></div>
@@ -26,19 +26,19 @@ Use <code>min</code> or <code>max</code> option to specify minimum/maximum value
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.text(target, 'speed', {min: 0});</code></pre>
+pane.addText(target, 'speed', {min: 0});</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="minExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
 
-<p>If you want to use a slider control, use <code>slider()</code> and specify both minimum and maximum value.</p>
+<p>If you want to use a slider control, use <code>addSlider()</code> and specify both minimum and maximum value.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.slider(target, 'speed', {min: 0, max: 100});</code></pre>
+pane.addSlider(target, 'speed', {min: 0, max: 100});</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="sliderExample" class="codeBlock_paneContainer"></div>
@@ -52,7 +52,7 @@ pane.slider(target, 'speed', {min: 0, max: 100});</code></pre>
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.slider(target, 'particleCount', {
+pane.addSlider(target, 'particleCount', {
   min: 0, max: 100, step: 10
 });</code></pre>
 	</div>
@@ -63,12 +63,12 @@ pane.slider(target, 'particleCount', {
 
 
 <h2>Selector</h2>
-<p>If you want to choose a value from named values, pass an object that has number values as <code>values</code> option to <code>selector()</code>.</p>
+<p>If you want to choose a value from named values, pass an object that has number values as <code>values</code> option to <code>addSelector()</code>.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.selector(target, 'direction', {
+pane.addSelector(target, 'direction', {
   values: {
     none: 0,
     horizontal: 1,

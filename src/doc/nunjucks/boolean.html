@@ -12,7 +12,7 @@
   debug: true
 };
 var pane = new Tweakpane();
-pane.checkbox(params, 'debug');</code></pre>
+pane.addCheckbox(params, 'debug');</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="example" class="codeBlock_paneContainer"></div>
@@ -21,12 +21,12 @@ pane.checkbox(params, 'debug');</code></pre>
 
 
 <h2>Selector</h2>
-<p>You can use a named list for boolean value. Pass an array of two string values (true, false) to <code>values</code> option to <code>selector()</code>.</p>
+<p>You can use a named list for boolean value. Pass an array of two string values (true, false) to <code>values</code> option to <code>addSelector()</code>.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.selector(target, 'debug', {
+pane.addSelector(target, 'debug', {
   values: ['Enabled', 'Disabled']
 });</code></pre>
 	</div>

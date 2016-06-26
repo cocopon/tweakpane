@@ -6,7 +6,7 @@
 		foldable: false,
 		container: document.getElementById('stringExample')
 	});
-	pane.text(params, 'name');
+	pane.addText(params, 'name');
 })();
 
 (function() {
@@ -18,7 +18,7 @@
 		foldable: false,
 		container: document.getElementById('listExample')
 	});
-	pane.selector(params, 'direction', {
+	pane.addSelector(params, 'direction', {
 		values: [
 			'left',
 			'up',
@@ -28,7 +28,7 @@
 	}).on('change', function(value) {
 		params['(value)'] = value;
 	});
-	pane.monitor(params, '(value)');
+	pane.addMonitor(params, '(value)');
 })();
 
 (function() {
@@ -40,7 +40,7 @@
 		foldable: false,
 		container: document.getElementById('namedListExample')
 	});
-	pane.selector(params, 'vimKey', {
+	pane.addSelector(params, 'vimKey', {
 		values: {
 			left:  'H',
 			up:    'K',
@@ -50,5 +50,5 @@
 	}).on('change', function(value) {
 		params['(value)'] = value;
 	});
-	pane.monitor(params, '(value)');
+	pane.addMonitor(params, '(value)');
 })();

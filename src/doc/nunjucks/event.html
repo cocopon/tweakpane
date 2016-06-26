@@ -10,7 +10,7 @@
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.slider(target, 'speed', {min: 0, max: 100}).on(
+pane.addSlider(target, 'speed', {min: 0, max: 100}).on(
   'change',
   function(value) {
     console.log(value);
@@ -29,8 +29,8 @@ pane.slider(target, 'speed', {min: 0, max: 100}).on(
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.slider(target, 'power', {min: 0, max: 100});
-pane.slider(target, 'size', {min: 0, max: 100});
+pane.addSlider(target, 'power', {min: 0, max: 100});
+pane.addSlider(target, 'size', {min: 0, max: 100});
 pane.on(
   'change',
   function(value, property) {

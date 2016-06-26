@@ -7,7 +7,7 @@
 		foldable: false,
 		container: document.getElementsByClassName('hero_paneContainer').item(0)
 	});
-	pane.slider({slider: 0}, 'slider', {
+	pane.addSlider({slider: 0}, 'slider', {
 		min: 0.0,
 		max: 1.0,
 	}).on('change', (value) => {

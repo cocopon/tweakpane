@@ -6,7 +6,7 @@
 		foldable: false,
 		container: document.getElementById('example')
 	});
-	pane.checkbox(params, 'debug');
+	pane.addCheckbox(params, 'debug');
 })();
 
 (function() {
@@ -18,10 +18,10 @@
 		foldable: false,
 		container: document.getElementById('selectorExample')
 	});
-	pane.selector(params, 'debug', {
+	pane.addSelector(params, 'debug', {
 		values: ['Enabled', 'Disabled']
 	}).on('change', function(value) {
 		params['(value)'] = String(value);
 	});
-	pane.monitor(params, '(value)');
+	pane.addMonitor(params, '(value)');
 })();

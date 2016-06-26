@@ -4,15 +4,15 @@
 {% set title = 'Monitor' %}
 
 {% block content %}
-<p>Tweakpane has a feature for monitoring a property change. Use <code>monitor()</code> to monitor it.</p>
+<p>Tweakpane has a feature for monitoring a property change. Use <code>addMonitor()</code> to monitor it.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.monitor(target, 'time');    // String
-pane.monitor(target, 'active');  // Boolean
-pane.monitor(target, 'color');   // Color
-pane.monitor(target, 'wave');    // Number
+pane.addMonitor(target, 'time');    // String
+pane.addMonitor(target, 'active');  // Boolean
+pane.addMonitor(target, 'color');   // Color
+pane.addMonitor(target, 'wave');    // Number
 </code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
@@ -22,13 +22,12 @@ pane.monitor(target, 'wave');    // Number
 
 
 <h2>Graph</h2>
-<p>Tweakpane can draw a graph for a number property. Pass <code>graph</code> option as follows:</p>
+<p>Tweakpane provides a graph component to watch a number property. Use <code>addGraph()</code> option as follows:</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.monitor(target, 'wave', {
-  graph: true,
+pane.addGraph(target, 'wave', {
   min: -5.0,
   max: +5.0,
   count: 200
@@ -48,7 +47,7 @@ pane.monitor(target, 'wave', {
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.logger(target, 'time', {
+pane.addLogger(target, 'time', {
   count: 10
 });</code></pre>
 	</div>
@@ -64,7 +63,7 @@ pane.logger(target, 'time', {
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.monitor(target, 'message', {
+pane.addMonitor(target, 'message', {
   multiline: true
 });</code></pre>
 	</div>
@@ -80,11 +79,11 @@ pane.monitor(target, 'message', {
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.monitor(target, 'wave', {
+pane.addMonitor(target, 'wave', {
   interval: 500,
   label: 'wave (0.5s)'
 });
-pane.monitor(target, 'wave', {
+pane.addMonitor(target, 'wave', {
   interval: 1000,
   label: 'wave (1.0s)'
 });</code></pre>

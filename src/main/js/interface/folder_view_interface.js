@@ -7,7 +7,7 @@ class FolderViewInterface extends ViewInterface {
 		return require('../misc/component_util');
 	}
 
-	text(target, propertyName, opt_options) {
+	addText(target, propertyName, opt_options) {
 		return this.getComponentUtil_().addText(
 			this.view_,
 			new Reference(target, propertyName),
@@ -15,7 +15,7 @@ class FolderViewInterface extends ViewInterface {
 		);
 	}
 
-	slider(target, propertyName, opt_options) {
+	addSlider(target, propertyName, opt_options) {
 		return this.getComponentUtil_().addSlider(
 			this.view_,
 			new Reference(target, propertyName),
@@ -23,7 +23,7 @@ class FolderViewInterface extends ViewInterface {
 		);
 	}
 
-	selector(target, propertyName, opt_options) {
+	addSelector(target, propertyName, opt_options) {
 		return this.getComponentUtil_().addSelector(
 			this.view_,
 			new Reference(target, propertyName),
@@ -31,7 +31,7 @@ class FolderViewInterface extends ViewInterface {
 		);
 	}
 
-	checkbox(target, propertyName, opt_options) {
+	addCheckbox(target, propertyName, opt_options) {
 		return this.getComponentUtil_().addCheckbox(
 			this.view_,
 			new Reference(target, propertyName),
@@ -39,7 +39,7 @@ class FolderViewInterface extends ViewInterface {
 		);
 	}
 
-	palette(target, propertyName, opt_options) {
+	addPalette(target, propertyName, opt_options) {
 		return this.getComponentUtil_().addPalette(
 			this.view_,
 			new Reference(target, propertyName),
@@ -47,7 +47,7 @@ class FolderViewInterface extends ViewInterface {
 		);
 	}
 
-	monitor(target, propertyName, opt_options) {
+	addMonitor(target, propertyName, opt_options) {
 		return this.getComponentUtil_().addMonitor(
 			this.view_,
 			new Reference(target, propertyName),
@@ -55,7 +55,7 @@ class FolderViewInterface extends ViewInterface {
 		);
 	}
 
-	logger(target, propertyName, opt_options) {
+	addLogger(target, propertyName, opt_options) {
 		return this.getComponentUtil_().addLogger(
 			this.view_,
 			new Reference(target, propertyName),
@@ -63,7 +63,7 @@ class FolderViewInterface extends ViewInterface {
 		);
 	}
 
-	graph(target, propertyName, opt_options) {
+	addGraph(target, propertyName, opt_options) {
 		return this.getComponentUtil_().addGraph(
 			this.view_,
 			new Reference(target, propertyName),

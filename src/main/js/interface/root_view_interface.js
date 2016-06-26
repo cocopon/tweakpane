@@ -85,7 +85,7 @@ class RootViewInterface extends ViewInterface {
 		return result;
 	}
 
-	text(target, propertyName, opt_options) {
+	addText(target, propertyName, opt_options) {
 		return ComponentUtil.addText(
 			this.view_.getMainView(),
 			new Reference(target, propertyName),
@@ -93,7 +93,7 @@ class RootViewInterface extends ViewInterface {
 		);
 	}
 
-	slider(target, propertyName, opt_options) {
+	addSlider(target, propertyName, opt_options) {
 		return ComponentUtil.addSlider(
 			this.view_.getMainView(),
 			new Reference(target, propertyName),
@@ -101,7 +101,7 @@ class RootViewInterface extends ViewInterface {
 		);
 	}
 
-	selector(target, propertyName, opt_options) {
+	addSelector(target, propertyName, opt_options) {
 		return ComponentUtil.addSelector(
 			this.view_.getMainView(),
 			new Reference(target, propertyName),
@@ -109,7 +109,7 @@ class RootViewInterface extends ViewInterface {
 		);
 	}
 
-	checkbox(target, propertyName, opt_options) {
+	addCheckbox(target, propertyName, opt_options) {
 		return ComponentUtil.addCheckbox(
 			this.view_.getMainView(),
 			new Reference(target, propertyName),
@@ -117,7 +117,7 @@ class RootViewInterface extends ViewInterface {
 		);
 	}
 
-	palette(target, propertyName, opt_options) {
+	addPalette(target, propertyName, opt_options) {
 		return ComponentUtil.addPalette(
 			this.view_.getMainView(),
 			new Reference(target, propertyName),
@@ -125,7 +125,7 @@ class RootViewInterface extends ViewInterface {
 		);
 	}
 
-	monitor(target, propertyName, opt_options) {
+	addMonitor(target, propertyName, opt_options) {
 		return ComponentUtil.addMonitor(
 			this.view_.getMainView(),
 			new Reference(target, propertyName),
@@ -133,7 +133,7 @@ class RootViewInterface extends ViewInterface {
 		);
 	}
 
-	logger(target, propertyName, opt_options) {
+	addLogger(target, propertyName, opt_options) {
 		return ComponentUtil.addLogger(
 			this.view_.getMainView(),
 			new Reference(target, propertyName),
@@ -141,7 +141,7 @@ class RootViewInterface extends ViewInterface {
 		);
 	}
 
-	graph(target, propertyName, opt_options) {
+	addGraph(target, propertyName, opt_options) {
 		return ComponentUtil.addGraph(
 			this.view_.getMainView(),
 			new Reference(target, propertyName),

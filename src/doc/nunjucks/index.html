@@ -33,19 +33,18 @@ var sketch = new Sketch();
 var pane = new Tweakpane();
 
 var f1 = pane.addFolder('Appearance');
-f1.selector(sketch, 'neta', {
+f1.addSelector(sketch, 'neta', {
   values: ['hotate', 'maguro', 'salmon']
 });
 
 var f2 = pane.addFolder('Physics');
-f2.slider(sketch, 'gravity', {min: 0.1, max: 1.0});
-f2.slider(sketch, 'airResistance', {min: 0.01, max: 0.1});
-f2.slider(sketch, 'restitution', {min: 0.0, max: 0.9});
+f2.addSlider(sketch, 'gravity', {min: 0.1, max: 1.0});
+f2.addSlider(sketch, 'airResistance', {min: 0.01, max: 0.1});
+f2.addSlider(sketch, 'restitution', {min: 0.0, max: 0.9});
 f2.addSeparator();
-f2.monitor(sketch.getNeta(), 'z', {
+f2.addGraph(sketch.getNeta(), 'z', {
   label: 'netaAlt',
   count: 140,
-  graph: true,
   min: 0,
   max: 100
 });

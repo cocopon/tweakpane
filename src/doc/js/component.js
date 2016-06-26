@@ -12,12 +12,12 @@ var params = {
 	});
 
 	var folder1 = pane.addFolder('Interaction');
-	folder1.text(params, 'power');
-	folder1.text(params, 'range');
+	folder1.addText(params, 'power');
+	folder1.addText(params, 'range');
 
 	var folder2 = pane.addFolder('Appearance');
-	folder2.text(params, 'color')
-	folder2.text(params, 'size');
+	folder2.addText(params, 'color')
+	folder2.addText(params, 'size');
 })();
 
 (function() {
@@ -27,13 +27,13 @@ var params = {
 	});
 
 	var folder1 = pane.addFolder('Interaction');
-	folder1.text(params, 'power');
-	folder1.text(params, 'range');
+	folder1.addText(params, 'power');
+	folder1.addText(params, 'range');
 	folder1.close();
 
 	var folder2 = pane.addFolder('Appearance');
-	folder2.text(params, 'color')
-	folder2.text(params, 'size');
+	folder2.addText(params, 'color')
+	folder2.addText(params, 'size');
 })();
 
 (function() {
@@ -48,7 +48,7 @@ var params = {
 	pane.addButton('Fire').on('click', function() {
 		params['(log)'] = 'clicked: ' + String(++params.count);
 	});
-	pane.monitor(params, '(log)', {
+	pane.addMonitor(params, '(log)', {
 		count: 10
 	});
 })();

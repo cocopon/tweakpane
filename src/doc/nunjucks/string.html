@@ -12,7 +12,7 @@
   name: 'cocopon',
 };
 var pane = new Tweakpane();
-pane.text(params, 'name');</code></pre>
+pane.addText(params, 'name');</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
 		<div id="stringExample" class="codeBlock_paneContainer"></div>
@@ -21,12 +21,12 @@ pane.text(params, 'name');</code></pre>
 
 
 <h2>Selector</h2>
-<p>If you want to choose a value from list, pass a string list as <code>values</code> option to <code>selector()</code>:</p>
+<p>If you want to choose a value from list, pass a string list as <code>values</code> option to <code>addSelector()</code>:</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.selector(target, 'direction', {
+pane.addSelector(target, 'direction', {
   values: [
     'left',
     'up',
@@ -45,7 +45,7 @@ pane.selector(target, 'direction', {
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.selector(target, 'vimKey', {
+pane.addSelector(target, 'vimKey', {
   values: {
     left:  'H',
     up:    'K',

@@ -6,7 +6,7 @@
 		foldable: false,
 		container: document.getElementById('numberExample')
 	});
-	pane.text(params, 'speed');
+	pane.addText(params, 'speed');
 })();
 
 (function() {
@@ -17,7 +17,7 @@
 		foldable: false,
 		container: document.getElementById('minExample')
 	});
-	pane.text(params, 'speed', {min: 0});
+	pane.addText(params, 'speed', {min: 0});
 })();
 
 (function() {
@@ -28,7 +28,7 @@
 		foldable: false,
 		container: document.getElementById('sliderExample')
 	});
-	pane.slider(params, 'speed', {min: 0, max: 100});
+	pane.addSlider(params, 'speed', {min: 0, max: 100});
 })();
 
 (function() {
@@ -39,7 +39,7 @@
 		foldable: false,
 		container: document.getElementById('stepExample')
 	});
-	pane.slider(params, 'particleCount', {min: 0, max: 100, step: 10});
+	pane.addSlider(params, 'particleCount', {min: 0, max: 100, step: 10});
 })();
 
 (function() {
@@ -51,7 +51,7 @@
 		foldable: false,
 		container: document.getElementById('selectorExample')
 	});
-	pane.selector(params, 'direction', {
+	pane.addSelector(params, 'direction', {
 		values: {
 			none: 0,
 			horizontal: 1,
@@ -61,5 +61,5 @@
 	}).on('change', function(value) {
 		params['(value)'] = String(value);
 	});;
-	pane.monitor(params, '(value)');
+	pane.addMonitor(params, '(value)');
 })();

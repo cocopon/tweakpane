@@ -7,5 +7,5 @@
 		foldable: false,
 		container: document.getElementById('colorExample')
 	});
-	pane.palette(params, 'keyColor');
+	pane.addPalette(params, 'keyColor');
 })();
