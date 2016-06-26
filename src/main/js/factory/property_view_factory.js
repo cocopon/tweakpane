@@ -8,11 +8,11 @@ class PropertyViewFactory {
 		throw Errors.notImplemented('supports');
 	}
 
-	static create(target, propName, options) {
+	static create(ref, options) {
 		const model = this.createModel_(options);
 		this.addConstraints_(model, options);
 
-		const prop = this.createProperty_(target, propName, model, options);
+		const prop = this.createProperty_(ref, model, options);
 		prop.applySourceValue();
 
 		const propView = new PropertyView(prop);
@@ -36,8 +36,8 @@ class PropertyViewFactory {
 		return propView;
 	}
 
-	static createProperty_(target, propName, model, options) {
-		const builder = new PropertyBuilder(target, propName, model);
+	static createProperty_(ref, model, options) {
+		const builder = new PropertyBuilder(ref, model);
 		if (options.forMonitor) {
 			builder.setForMonitor(true);
 		}

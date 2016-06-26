@@ -12,23 +12,23 @@ const FACTORIES = [
 ];
 
 class PropertyViewFactoryComplex {
-	static create(target, propName, options) {
-		if (target[propName] === undefined) {
-			throw Errors.propertyNotFound(propName);
+	static create(ref, options) {
+		if (ref.getValue() === undefined) {
+			throw Errors.propertyNotFound(ref.getPropertyName());
 		}
 
-		const factory = this.getFactory_(target, propName);
+		const factory = this.getFactory_(ref);
 		if (factory === null) {
 			throw Errors.propertyTypeNotSupported(
-				propName,
-				target[propName]
+				ref.getPropertyName(),
+				ref.getValue()
 			);
 		}
-		return factory.create(target, propName, options);
+		return factory.create(ref, options);
 	}
 
-	static getFactory_(target, propName) {
-		const value = target[propName];
+	static getFactory_(ref) {
+		const value = ref.getValue();
 		let factories = FACTORIES.reduce((results, factory) => {
 			return factory.supports(value) ?
 				results.concat(factory) :

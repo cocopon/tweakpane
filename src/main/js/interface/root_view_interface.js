@@ -2,6 +2,7 @@ const ClassName      = require('../misc/class_name');
 const ComponentUtil  = require('../misc/component_util');
 const Errors         = require('../misc/errors');
 const EventEmitter   = require('../misc/event_emitter');
+const Reference      = require('../misc/reference');
 const Style          = require('../misc/style');
 const ViewUtil       = require('../misc/view_util');
 const Model          = require('../model/model');
@@ -84,20 +85,18 @@ class RootViewInterface extends ViewInterface {
 		return result;
 	}
 
-	add(target, propName, opt_options) {
+	add(target, propertyName, opt_options) {
 		return ComponentUtil.addProperty(
 			this.view_.getMainView(),
-			target,
-			propName,
+			new Reference(target, propertyName),
 			opt_options
 		);
 	}
 
-	monitor(target, propName, opt_options) {
+	monitor(target, propertyName, opt_options) {
 		return ComponentUtil.addMonitor(
 			this.view_.getMainView(),
-			target,
-			propName,
+			new Reference(target, propertyName),
 			opt_options
 		);
 	}

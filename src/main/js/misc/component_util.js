@@ -7,28 +7,28 @@ const FolderView                 = require('../view/folder_view');
 const SeparatorView              = require('../view/separator_view');
 
 class ComponentUtil {
-	static addProperty(view, target, propName, opt_options) {
+	static addProperty(view, ref, opt_options) {
 		const options = (opt_options !== undefined) ?
 			opt_options :
 			{};
 		options.forMonitor = false;
 
 		const propView = PropertyViewFactoryComplex.create(
-			target, propName, options
+			ref, options
 		);
 
 		view.addSubview(propView);
 		return new PropertyViewInterface(propView);
 	}
 
-	static addMonitor(view, target, propName, opt_options) {
+	static addMonitor(view, ref, opt_options) {
 		const options = (opt_options !== undefined) ?
 			opt_options :
 			{};
 		options.forMonitor = true;
 
 		const propView = PropertyViewFactoryComplex.create(
-			target, propName, options
+			ref, options
 		);
 
 		view.addSubview(propView);

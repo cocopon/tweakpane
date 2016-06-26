@@ -1,3 +1,4 @@
+const Reference     = require('../misc/reference');
 const ViewInterface = require('./view_interface');
 
 class FolderViewInterface extends ViewInterface {
@@ -6,20 +7,18 @@ class FolderViewInterface extends ViewInterface {
 		return require('../misc/component_util');
 	}
 
-	add(target, propName, opt_options) {
+	add(target, propertyName, opt_options) {
 		return this.getComponentUtil_().addProperty(
 			this.view_,
-			target,
-			propName,
+			new Reference(target, propertyName),
 			opt_options
 		);
 	}
 
-	monitor(target, propName, opt_options) {
+	monitor(target, propertyName, opt_options) {
 		return this.getComponentUtil_().addMonitor(
 			this.view_,
-			target,
-			propName,
+			new Reference(target, propertyName),
 			opt_options
 		);
 	}
