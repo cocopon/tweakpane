@@ -39,6 +39,14 @@ class FolderViewInterface extends ViewInterface {
 		);
 	}
 
+	checkbox(target, propertyName, opt_options) {
+		return this.getComponentUtil_().addCheckbox(
+			this.view_,
+			new Reference(target, propertyName),
+			opt_options
+		);
+	}
+
 	monitor(target, propertyName, opt_options) {
 		return this.getComponentUtil_().addMonitor(
 			this.view_,

@@ -117,6 +117,14 @@ class RootViewInterface extends ViewInterface {
 		);
 	}
 
+	checkbox(target, propertyName, opt_options) {
+		return ComponentUtil.addCheckbox(
+			this.view_.getMainView(),
+			new Reference(target, propertyName),
+			opt_options
+		);
+	}
+
 	monitor(target, propertyName, opt_options) {
 		return ComponentUtil.addMonitor(
 			this.view_.getMainView(),

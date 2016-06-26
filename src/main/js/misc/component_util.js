@@ -1,3 +1,4 @@
+const BooleanPropertyViewFactory = require('../factory/boolean_property_view_factory');
 const NumberPropertyViewFactory  = require('../factory/number_property_view_factory');
 const PropertyViewFactoryComplex = require('../factory/property_view_factory_complex');
 const StringPropertyViewFactory  = require('../factory/string_property_view_factory');
@@ -70,6 +71,7 @@ class ComponentUtil {
 		const type = typeof ref.getValue();
 		const factory = (type === 'number') ? NumberPropertyViewFactory :
 			(type === 'string') ? StringPropertyViewFactory :
+			(type === 'boolean') ? BooleanPropertyViewFactory :
 			null;
 		if (factory === null) {
 			throw Errors.propertyTypeNotSupported(
@@ -77,6 +79,20 @@ class ComponentUtil {
 			);
 		}
 		const propView = factory.createSelector(
+			ref, options
+		);
+
+		view.addSubview(propView);
+		return new PropertyViewInterface(propView);
+	}
+
+	static addCheckbox(view, ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		options.forMonitor = false;
+
+		const propView = BooleanPropertyViewFactory.createCheckbox(
 			ref, options
 		);
 
