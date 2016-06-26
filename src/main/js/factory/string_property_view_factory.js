@@ -8,31 +8,12 @@ const MultilineTextMonitor = require('../view/monitor/multiline_text_monitor');
 const TextMonitor          = require('../view/monitor/text_monitor');
 const PropertyViewFactory  = require('./property_view_factory');
 
-class StringPropertyViewFactory extends PropertyViewFactory {
-	static supports(value) {
-		return typeof(value) === 'string';
-	}
-
-	static createModel_(_options) {
-		return new StringModel();
-	}
-
-	static createControl_(prop, _options) {
-		return new TextControl(prop);
-	}
-
-	static createMonitor_(property, options) {
-		if (options.multiline !== undefined) {
-			return new MultilineTextMonitor(property);
-		}
-		return new TextMonitor(property);
-	}
-
+class StringPropertyViewFactory {
 	static createText(ref, opt_options) {
 		const options = (opt_options !== undefined) ?
 			opt_options :
 			{};
-		return PropertyViewFactory.create2({
+		return PropertyViewFactory.create({
 			reference: ref,
 			constraintFactories: this.CONSTRAINT_FACTORIES,
 			createModel: () => {
@@ -49,7 +30,7 @@ class StringPropertyViewFactory extends PropertyViewFactory {
 		const options = (opt_options !== undefined) ?
 			opt_options :
 			{};
-		return PropertyViewFactory.create2({
+		return PropertyViewFactory.create({
 			reference: ref,
 			constraintFactories: this.CONSTRAINT_FACTORIES,
 			createModel: () => {
@@ -62,6 +43,25 @@ class StringPropertyViewFactory extends PropertyViewFactory {
 		});
 	}
 
+	static createMonitor(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		return PropertyViewFactory.create({
+			reference: ref,
+			constraintFactories: this.CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new StringModel();
+			},
+			createView: (prop) => {
+				return (options.multiline !== undefined) ?
+					new MultilineTextMonitor(prop) :
+					new TextMonitor(prop);
+			},
+			options: options
+		});
+	}
+
 	static createLogger(ref, opt_options) {
 		const options = (opt_options !== undefined) ?
 			opt_options :
@@ -69,7 +69,7 @@ class StringPropertyViewFactory extends PropertyViewFactory {
 		const count = (options.count !== undefined) ?
 			options.count :
 			10;
-		return PropertyViewFactory.create2({
+		return PropertyViewFactory.create({
 			reference: ref,
 			constraintFactories: this.CONSTRAINT_FACTORIES,
 			createModel: () => {

@@ -11,32 +11,12 @@ const GraphMonitor         = require('../view/monitor/graph_monitor');
 const NumberTextMonitor    = require('../view/monitor/number_text_monitor');
 const PropertyViewFactory  = require('./property_view_factory');
 
-class NumberPropertyViewFactory extends PropertyViewFactory {
-	static supports(value) {
-		return typeof(value) === 'number';
-	}
-
-	static createModel_(options) {
-		if (!options.forMonitor) {
-			return new NumberModel();
-		}
-
-		return new NumberModel();
-	}
-
-	static createControl_(prop, _options) {
-		return new NumberTextControl(prop);
-	}
-
-	static createMonitor_(property, _options) {
-		return new NumberTextMonitor(property);
-	}
-
+class NumberPropertyViewFactory {
 	static createText(ref, opt_options) {
 		const options = (opt_options !== undefined) ?
 			opt_options :
 			{};
-		return PropertyViewFactory.create2({
+		return PropertyViewFactory.create({
 			reference: ref,
 			constraintFactories: this.CONSTRAINT_FACTORIES,
 			createModel: () => {
@@ -53,7 +33,7 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 		const options = (opt_options !== undefined) ?
 			opt_options :
 			{};
-		return PropertyViewFactory.create2({
+		return PropertyViewFactory.create({
 			reference: ref,
 			constraintFactories: this.CONSTRAINT_FACTORIES,
 			createModel: () => {
@@ -70,7 +50,7 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 		const options = (opt_options !== undefined) ?
 			opt_options :
 			{};
-		return PropertyViewFactory.create2({
+		return PropertyViewFactory.create({
 			reference: ref,
 			constraintFactories: this.CONSTRAINT_FACTORIES,
 			createModel: () => {
@@ -83,11 +63,28 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 		});
 	}
 
+	static createMonitor(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		return PropertyViewFactory.create({
+			reference: ref,
+			constraintFactories: this.CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new NumberModel();
+			},
+			createView: (prop) => {
+				return new NumberTextMonitor(prop);
+			},
+			options: options
+		});
+	}
+
 	static createGraph(ref, opt_options) {
 		const options = (opt_options !== undefined) ?
 			opt_options :
 			{};
-		return PropertyViewFactory.create2({
+		return PropertyViewFactory.create({
 			reference: ref,
 			constraintFactories: this.CONSTRAINT_FACTORIES,
 			createModel: () => {

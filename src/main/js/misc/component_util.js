@@ -1,7 +1,7 @@
+const ColorCodec                 = require('../codec/color_codec');
 const BooleanPropertyViewFactory = require('../factory/boolean_property_view_factory');
 const ColorPropertyViewFactory   = require('../factory/color_property_view_factory');
 const NumberPropertyViewFactory  = require('../factory/number_property_view_factory');
-const PropertyViewFactoryComplex = require('../factory/property_view_factory_complex');
 const StringPropertyViewFactory  = require('../factory/string_property_view_factory');
 const ButtonViewInterface        = require('../interface/button_view_interface');
 const FolderViewInterface        = require('../interface/folder_view_interface');
@@ -107,7 +107,19 @@ class ComponentUtil {
 			{};
 		options.forMonitor = true;
 
-		const propView = PropertyViewFactoryComplex.create(
+		// TODO: Refactor
+		const type = typeof ref.getValue();
+		const factory = (type === 'number') ? NumberPropertyViewFactory :
+			(type === 'string' && ColorCodec.canDecode(ref.getValue())) ? ColorPropertyViewFactory :
+			(type === 'string') ? StringPropertyViewFactory :
+			(type === 'boolean') ? BooleanPropertyViewFactory :
+			null;
+		if (factory === null) {
+			throw Errors.propertyTypeNotSupported(
+				ref.getPropertyName()
+			);
+		}
+		const propView = factory.createMonitor(
 			ref, options
 		);
 

@@ -5,28 +5,12 @@ const ListControl          = require('../view/control/list_control');
 const CheckboxMonitor      = require('../view/monitor/checkbox_monitor');
 const PropertyViewFactory  = require('./property_view_factory');
 
-class BooleanPropertyViewFactory extends PropertyViewFactory {
-	static supports(value) {
-		return typeof(value) === 'boolean';
-	}
-
-	static createModel_() {
-		return new BooleanModel();
-	}
-
-	static createControl_(prop, _options) {
-		return new CheckboxControl(prop);
-	}
-
-	static createMonitor_(property) {
-		return new CheckboxMonitor(property);
-	}
-
+class BooleanPropertyViewFactory {
 	static createCheckbox(ref, opt_options) {
 		const options = (opt_options !== undefined) ?
 			opt_options :
 			{};
-		return PropertyViewFactory.create2({
+		return PropertyViewFactory.create({
 			reference: ref,
 			constraintFactories: this.CONSTRAINT_FACTORIES,
 			createModel: () => {
@@ -43,7 +27,7 @@ class BooleanPropertyViewFactory extends PropertyViewFactory {
 		const options = (opt_options !== undefined) ?
 			opt_options :
 			{};
-		return PropertyViewFactory.create2({
+		return PropertyViewFactory.create({
 			reference: ref,
 			constraintFactories: this.CONSTRAINT_FACTORIES,
 			createModel: () => {
@@ -51,6 +35,23 @@ class BooleanPropertyViewFactory extends PropertyViewFactory {
 			},
 			createView: (prop) => {
 				return new ListControl(prop);
+			},
+			options: options
+		});
+	}
+
+	static createMonitor(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		return PropertyViewFactory.create({
+			reference: ref,
+			constraintFactories: this.CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new BooleanModel();
+			},
+			createView: (prop) => {
+				return new CheckboxMonitor(prop);
 			},
 			options: options
 		});
