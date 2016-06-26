@@ -25,10 +25,6 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 	}
 
 	static createControl_(prop, options) {
-		if (options.list !== undefined) {
-			return new ListControl(prop);
-		}
-
 		return new NumberTextControl(prop);
 	}
 
@@ -48,6 +44,23 @@ class NumberPropertyViewFactory extends PropertyViewFactory {
 			},
 			createView: (prop) => {
 				return new SliderTextControl(prop);
+			},
+			options: options
+		});
+	}
+
+	static createSelector(ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		return PropertyViewFactory.create2({
+			reference: ref,
+			constraintFactories: this.CONSTRAINT_FACTORIES,
+			createModel: () => {
+				return new NumberModel();
+			},
+			createView: (prop) => {
+				return new ListControl(prop);
 			},
 			options: options
 		});
@@ -101,7 +114,7 @@ NumberPropertyViewFactory.CONSTRAINT_FACTORIES = {
 	 * @param {Object.<string, number>} items The list of values.
 	 * @return {Constraint}
 	 */
-	'list': (items) => {
+	'values': (items) => {
 		return new ListConstraint(
 			Object.keys(items).map((key) => {
 				return {

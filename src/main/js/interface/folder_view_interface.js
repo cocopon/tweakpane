@@ -23,6 +23,14 @@ class FolderViewInterface extends ViewInterface {
 		);
 	}
 
+	selector(target, propertyName, opt_options) {
+		return this.getComponentUtil_().addSelector(
+			this.view_,
+			new Reference(target, propertyName),
+			opt_options
+		);
+	}
+
 	monitor(target, propertyName, opt_options) {
 		return this.getComponentUtil_().addMonitor(
 			this.view_,

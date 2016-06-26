@@ -62,14 +62,14 @@ pane.add(target, 'particleCount', {
 </div>
 
 
-<h2>List</h2>
-<p>If you want to choose a value from named values, pass an object that has number values as <code>list</code> option.</p>
+<h2>Selector</h2>
+<p>If you want to choose a value from named values, pass an object that has number values as <code>values</code> option.</p>
 
 <div class="codeBlock">
 	<div class="codeBlock_section">
 		<pre><code class="js">var pane = new Tweakpane();
-pane.add(target, 'direction', {
-  list: {
+pane.selector(target, 'direction', {
+  values: {
     none: 0,
     horizontal: 1,
     vertical: 2,
@@ -78,7 +78,7 @@ pane.add(target, 'direction', {
 });</code></pre>
 	</div>
 	<div class="codeBlock_section codeBlock_section-example">
-		<div id="listExample" class="codeBlock_paneContainer"></div>
+		<div id="selectorExample" class="codeBlock_paneContainer"></div>
 	</div>
 </div>
 {% endblock %}

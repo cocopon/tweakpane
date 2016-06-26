@@ -101,6 +101,14 @@ class RootViewInterface extends ViewInterface {
 		);
 	}
 
+	selector(target, propertyName, opt_options) {
+		return ComponentUtil.addSelector(
+			this.view_.getMainView(),
+			new Reference(target, propertyName),
+			opt_options
+		);
+	}
+
 	monitor(target, propertyName, opt_options) {
 		return ComponentUtil.addMonitor(
 			this.view_.getMainView(),

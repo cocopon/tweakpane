@@ -36,6 +36,20 @@ class ComponentUtil {
 		return new PropertyViewInterface(propView);
 	}
 
+	static addSelector(view, ref, opt_options) {
+		const options = (opt_options !== undefined) ?
+			opt_options :
+			{};
+		options.forMonitor = false;
+
+		const propView = NumberPropertyViewFactory.createSelector(
+			ref, options
+		);
+
+		view.addSubview(propView);
+		return new PropertyViewInterface(propView);
+	}
+
 	static addMonitor(view, ref, opt_options) {
 		const options = (opt_options !== undefined) ?
 			opt_options :

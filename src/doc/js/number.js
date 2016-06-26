@@ -49,10 +49,10 @@
 	};
 	var pane = new Tweakpane({
 		foldable: false,
-		container: document.getElementById('listExample')
+		container: document.getElementById('selectorExample')
 	});
-	pane.add(params, 'direction', {
-		list: {
+	pane.selector(params, 'direction', {
+		values: {
 			none: 0,
 			horizontal: 1,
 			vertical: 2,
