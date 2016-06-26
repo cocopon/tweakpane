@@ -28,6 +28,7 @@ class BooleanPropertyViewFactory {
 		const options = (opt_options !== undefined) ?
 			opt_options :
 			{};
+		options.forMonitor = false;
 		return PropertyViewFactory.create({
 			reference: ref,
 			constraintFactories: CONSTRAINT_FACTORIES,
@@ -45,6 +46,7 @@ class BooleanPropertyViewFactory {
 		const options = (opt_options !== undefined) ?
 			opt_options :
 			{};
+		options.forMonitor = false;
 		return PropertyViewFactory.create({
 			reference: ref,
 			constraintFactories: CONSTRAINT_FACTORIES,
@@ -62,6 +64,7 @@ class BooleanPropertyViewFactory {
 		const options = (opt_options !== undefined) ?
 			opt_options :
 			{};
+		options.forMonitor = true;
 		return PropertyViewFactory.create({
 			reference: ref,
 			constraintFactories: CONSTRAINT_FACTORIES,

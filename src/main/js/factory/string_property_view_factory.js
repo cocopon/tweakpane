@@ -51,6 +51,7 @@ class StringPropertyViewFactory {
 		const options = (opt_options !== undefined) ?
 			opt_options :
 			{};
+		options.forMonitor = false;
 		return PropertyViewFactory.create({
 			reference: ref,
 			constraintFactories: CONSTRAINT_FACTORIES,
@@ -68,6 +69,7 @@ class StringPropertyViewFactory {
 		const options = (opt_options !== undefined) ?
 			opt_options :
 			{};
+		options.forMonitor = false;
 		return PropertyViewFactory.create({
 			reference: ref,
 			constraintFactories: CONSTRAINT_FACTORIES,
@@ -85,6 +87,7 @@ class StringPropertyViewFactory {
 		const options = (opt_options !== undefined) ?
 			opt_options :
 			{};
+		options.forMonitor = true;
 		return PropertyViewFactory.create({
 			reference: ref,
 			constraintFactories: CONSTRAINT_FACTORIES,
@@ -104,6 +107,7 @@ class StringPropertyViewFactory {
 		const options = (opt_options !== undefined) ?
 			opt_options :
 			{};
+		options.forMonitor = true;
 		const count = (options.count !== undefined) ?
 			options.count :
 			10;

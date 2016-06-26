@@ -4,25 +4,25 @@ const Monitor         = require('../view/monitor/monitor');
 const PropertyView    = require('../view/property_view');
 
 class PropertyViewFactory {
-	static create(params) {
-		const model = params.createModel();
+	static create(config) {
+		const model = config.createModel();
 		this.setUpConstraints_(
 			model,
-			params.constraintFactories,
-			params.options
+			config.constraintFactories,
+			config.options
 		);
 
 		const prop = this.createProperty_(
-			params.reference,
+			config.reference,
 			model,
-			params.options
+			config.options
 		);
 		prop.applySourceValue();
 
 		const propView = new PropertyView(prop);
-		const view = params.createView(prop);
+		const view = config.createView(prop);
 		if (view instanceof Monitor) {
-			view.start(params.options.interval);
+			view.start(config.options.interval);
 		}
 		else if (view instanceof Control) {
 			view.getEmitter().on(
