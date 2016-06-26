@@ -15,6 +15,14 @@ class FolderViewInterface extends ViewInterface {
 		);
 	}
 
+	text(target, propertyName, opt_options) {
+		return this.getComponentUtil_().addText(
+			this.view_,
+			new Reference(target, propertyName),
+			opt_options
+		);
+	}
+
 	slider(target, propertyName, opt_options) {
 		return this.getComponentUtil_().addSlider(
 			this.view_,

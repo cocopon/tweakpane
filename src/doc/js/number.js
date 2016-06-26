@@ -6,7 +6,7 @@
 		foldable: false,
 		container: document.getElementById('numberExample')
 	});
-	pane.add(params, 'speed');
+	pane.text(params, 'speed');
 })();
 
 (function() {
@@ -17,7 +17,7 @@
 		foldable: false,
 		container: document.getElementById('minExample')
 	});
-	pane.add(params, 'speed', {min: 0});
+	pane.text(params, 'speed', {min: 0});
 })();
 
 (function() {
@@ -28,7 +28,7 @@
 		foldable: false,
 		container: document.getElementById('sliderExample')
 	});
-	pane.add(params, 'speed', {min: 0, max: 100});
+	pane.slider(params, 'speed', {min: 0, max: 100});
 })();
 
 (function() {
@@ -39,7 +39,7 @@
 		foldable: false,
 		container: document.getElementById('stepExample')
 	});
-	pane.add(params, 'particleCount', {min: 0, max: 100, step: 10});
+	pane.slider(params, 'particleCount', {min: 0, max: 100, step: 10});
 })();
 
 (function() {

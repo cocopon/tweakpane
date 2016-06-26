@@ -93,6 +93,14 @@ class RootViewInterface extends ViewInterface {
 		);
 	}
 
+	text(target, propertyName, opt_options) {
+		return ComponentUtil.addText(
+			this.view_.getMainView(),
+			new Reference(target, propertyName),
+			opt_options
+		);
+	}
+
 	slider(target, propertyName, opt_options) {
 		return ComponentUtil.addSlider(
 			this.view_.getMainView(),
