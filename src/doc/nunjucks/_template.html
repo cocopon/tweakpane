@@ -1,4 +1,16 @@
 <!DOCTYPE html>
+{%
+	set paneJsPath = 'assets/js/tweakpane-' +
+		config.version +
+		('.min' if config.production else '') +
+		'.js'
+%}
+{%
+	set paneCssPath = 'assets/css/tweakpane-' +
+		config.version +
+		('.min' if config.production else '') +
+		'.css'
+%}
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -7,6 +19,7 @@
 	<link rel="stylesheet" href="assets/css/style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+	<link rel="stylesheet" href="{{ paneCssPath }}">
 </head>
 <body>
 	<div class="hero">
@@ -49,11 +62,6 @@
 		<button class="menu_button"><span class="fa fa-bars" aria-hidden="true"></span></button>
 	</div>
 
-	{%
-		set paneJsPath = 'assets/js/tweakpane-' + config.version +
-			('.min' if config.production else '') +
-			'.js'
-	%}
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/3.0.11/pixi.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
 	<script src="{{ paneJsPath }}"></script>

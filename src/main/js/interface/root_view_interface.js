@@ -3,7 +3,6 @@ const ComponentUtil  = require('../misc/component_util');
 const Errors         = require('../misc/errors');
 const EventEmitter   = require('../misc/event_emitter');
 const Reference      = require('../misc/reference');
-const Style          = require('../misc/style');
 const ViewUtil       = require('../misc/view_util');
 const Model          = require('../model/model');
 const PropertyView   = require('../view/property_view');
@@ -36,8 +35,6 @@ class RootViewInterface extends ViewInterface {
 		}
 
 		this.emitter_ = new EventEmitter();
-
-		Style.injectDefault();
 
 		const foldable = (options.foldable !== undefined) ?
 			options.foldable :

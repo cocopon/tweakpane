@@ -2,7 +2,6 @@
 /doc/**/*.html
 /doc/**/*.js
 /dst/*
-/tmp/*
 
 ### https://raw.github.com/github/gitignore/298588469ac0cb08a00eebf7b00efb5ab726daca/node.gitignore
 

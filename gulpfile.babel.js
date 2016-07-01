@@ -1,6 +1,3 @@
-const fs = require('fs');
-const path = require('path');
-
 const $ = require('gulp-load-plugins')();
 const babelify = require('babelify');
 const browserify = require('browserify');
@@ -23,7 +20,8 @@ gulp.task('main:js', () => {
 				compress: config.uglify.compressor
 			}) :
 			$.util.noop())
-		.pipe(gulp.dest(config.main.js.tmpDir));
+		.pipe(gulp.dest(config.main.js.dstDir))
+		.pipe(gulp.dest(config.doc.js.dstDir));
 });
 
 gulp.task('doc:js', () => {
@@ -42,11 +40,12 @@ gulp.task('doc:nunjucks', () => {
 
 gulp.task('main:sass', () => {
 	return gulp.src(config.main.sass.srcPattern)
-		.pipe($.sass({
-			outputStyle: 'compressed'
-		})).on('error', $.sass.logError)
+		.pipe($.sass(config.main.sass.options))
+		.on('error', $.sass.logError)
 		.pipe($.autoprefixer())
-		.pipe(gulp.dest(config.main.sass.tmpDir));
+		.pipe($.rename(config.main.sass.dstFile))
+		.pipe(gulp.dest(config.main.sass.dstDir))
+		.pipe(gulp.dest(config.doc.sass.dstDir));
 });
 
 gulp.task('doc:sass', () => {
@@ -58,11 +57,11 @@ gulp.task('doc:sass', () => {
 
 gulp.task('main:watch', (callback) => {
 	gulp.watch(config.main.js.srcPattern, () => {
-		gulp.start(['main:build'])
+		gulp.start(['main:js'])
 			.on('end', callback);
 	});
 	gulp.watch(config.main.sass.srcPattern, () => {
-		gulp.start(['main:build'])
+		gulp.start(['main:sass'])
 			.on('end', callback);
 	});
 });
@@ -82,37 +81,6 @@ gulp.task('doc:watch', (callback) => {
 	});
 });
 
-gulp.task('main:embed_css', () => {
-	const srcJs = path.join(
-		config.main.js.tmpDir,
-		config.main.js.dstFile
-	);
-	const srcCss = path.join(
-		config.main.sass.tmpDir,
-		config.main.sass.dstFile
-	);
-
-	return gulp.src(srcJs)
-		.pipe($.replace(config.main.cssMarker, () => {
-			return fs.readFileSync(
-				path.join(srcCss),
-				'utf8'
-			).trim().replace(/"/g, '\\"');
-		}))
-		.pipe(gulp.dest(config.main.js.dstDir))
-		.pipe(gulp.dest(config.doc.js.dstDir));
-});
-
-gulp.task('main:build', (callback) => {
-	runSequence(
-		['main:sass', 'main:js'],
-		'main:embed_css',
-		callback
-	);
-});
-
-gulp.task('doc:build', ['doc:js', 'doc:nunjucks', 'doc:sass']);
-
 gulp.task('webserver', () => {
 	return gulp.src(config.serverDirs)
 		.pipe($.webserver({
@@ -129,4 +97,6 @@ gulp.task('dev', (callback) => {
 	);
 });
 
+gulp.task('main:build', ['main:sass', 'main:js']);
+gulp.task('doc:build', ['doc:js', 'doc:nunjucks', 'doc:sass']);
 gulp.task('default', ['main:build', 'doc:build']);

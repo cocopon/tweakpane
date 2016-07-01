@@ -2,20 +2,6 @@ const ClassName = require('./class_name');
 
 class Style {
 	/**
-	 * Injects a default style for Tweakpane.
-	 */
-	static injectDefault() {
-		if (document.getElementById(this.ELEMENT_ID) !== null) {
-			return;
-		}
-
-		const styleElem = document.createElement('style');
-		styleElem.id = this.ELEMENT_ID;
-		styleElem.textContent = this.CSS;
-		document.head.appendChild(styleElem);
-	}
-
-	/**
 	 * Returns a transition duration of a specified property of an element.
 	 * @param {HTMLElement} element An element
 	 * @param {string} propertyName A property name
@@ -76,8 +62,5 @@ class Style {
 		element.offsetHeight;
 	}
 }
-
-Style.ELEMENT_ID = 'tpDefaultStyle';
-Style.CSS = '.css_replace_me{}';
 
 module.exports = Style;
