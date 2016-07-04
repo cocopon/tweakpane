@@ -1,0 +1,5 @@
+test/
+.editorconfig
+.eslintrc
+circle.yml
+karma.conf.js
