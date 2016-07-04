@@ -6,6 +6,4 @@ const Tweakpane = (opt_options) => {
 	return new RootViewInterface(rootView, opt_options);
 };
 
-window.Tweakpane = Tweakpane;
-
 module.exports = Tweakpane;

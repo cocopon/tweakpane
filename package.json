@@ -5,6 +5,7 @@
   "author": "cocopon",
   "license": "MIT",
   "homepage": "https://cocopon.github.com/tweakpane/",
+  "main": "src/main/js/tweakpane.js",
   "scripts": {
     "test": "node_modules/karma/bin/karma start",
     "lint": "node node_modules/eslint/bin/eslint.js src/main/js"
