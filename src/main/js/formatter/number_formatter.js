@@ -1,4 +1,4 @@
-const Formatter = require('./formatter');
+import Formatter from './formatter';
 
 class NumberFormatter extends Formatter {
 	format(value) {

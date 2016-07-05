@@ -1,8 +1,8 @@
-const MaxNumberConstraint = require('../../constraint/max_number_constraint');
-const MinNumberConstraint = require('../../constraint/min_number_constraint');
-const ClassName           = require('../../misc/class_name');
-const NumberRecordModel   = require('../../model/property/number_record_model');
-const Monitor             = require('./monitor');
+import MaxNumberConstraint from '../../constraint/max_number_constraint';
+import MinNumberConstraint from '../../constraint/min_number_constraint';
+import ClassName           from '../../misc/class_name';
+import NumberRecordModel   from '../../model/property/number_record_model';
+import Monitor             from './monitor';
 
 class GraphMonitor extends Monitor {
 	constructor(property) {

@@ -1,4 +1,4 @@
-const ViewInterface = require('./view_interface');
+import ViewInterface from './view_interface';
 
 class PropertyViewInterface extends ViewInterface {
 	on(eventName, handler, opt_scope) {

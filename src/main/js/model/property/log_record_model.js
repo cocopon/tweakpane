@@ -1,4 +1,4 @@
-const StringModel = require('./string_model');
+import StringModel from './string_model';
 
 class LogRecordModel extends StringModel {
 	constructor(opt_recordCount) {

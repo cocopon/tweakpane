@@ -1,4 +1,4 @@
-const Monitor = require('./monitor');
+import Monitor from './monitor';
 
 class CompositeMonitor extends Monitor {
 	constructor(property) {

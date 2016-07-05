@@ -1,4 +1,4 @@
-const NumberModel = require('./number_model');
+import NumberModel from './number_model';
 
 class NumberRecordModel extends NumberModel {
 	constructor(opt_recordCount) {

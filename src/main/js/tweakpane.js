@@ -1,5 +1,5 @@
-const RootViewInterface = require('./interface/root_view_interface');
-const RootView          = require('./view/root_view');
+import RootViewInterface from './interface/root_view_interface';
+import RootView          from './view/root_view';
 
 const Tweakpane = (opt_options) => {
 	const rootView = new RootView();

@@ -1,5 +1,5 @@
-const Reference     = require('../misc/reference');
-const ViewInterface = require('./view_interface');
+import Reference     from '../misc/reference';
+import ViewInterface from './view_interface';
 
 class FolderViewInterface extends ViewInterface {
 	getComponentUtil_() {

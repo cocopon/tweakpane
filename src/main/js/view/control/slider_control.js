@@ -1,7 +1,7 @@
-const MaxNumberConstraint = require('../../constraint/max_number_constraint');
-const MinNumberConstraint = require('../../constraint/min_number_constraint');
-const ClassName           = require('../../misc/class_name');
-const Control             = require('./control');
+import MaxNumberConstraint from '../../constraint/max_number_constraint';
+import MinNumberConstraint from '../../constraint/min_number_constraint';
+import ClassName           from '../../misc/class_name';
+import Control             from './control';
 
 class SliderControl extends Control {
 	constructor(property) {

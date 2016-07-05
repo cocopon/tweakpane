@@ -1,7 +1,7 @@
-const ClassName = require('../misc/class_name');
-const Style     = require('../misc/style');
-const RootView  = require('./root_view');
-const View      = require('./view');
+import ClassName from '../misc/class_name';
+import Style     from '../misc/style';
+import RootView  from './root_view';
+import View      from './view';
 
 class RootFolderView extends View {
 	constructor() {

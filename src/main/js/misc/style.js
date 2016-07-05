@@ -1,4 +1,4 @@
-const ClassName = require('./class_name');
+import ClassName from './class_name';
 
 class Style {
 	/**

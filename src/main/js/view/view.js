@@ -1,4 +1,4 @@
-const EventEmitter = require('../misc/event_emitter');
+import EventEmitter from '../misc/event_emitter';
 
 class View {
 	constructor() {

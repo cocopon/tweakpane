@@ -1,6 +1,6 @@
-const ColorFormatter = require('../../formatter/color_formatter');
-const ClassName      = require('../../misc/class_name');
-const Monitor        = require('./monitor');
+import ColorFormatter from '../../formatter/color_formatter';
+import ClassName      from '../../misc/class_name';
+import Monitor        from './monitor';
 
 class PaletteMonitor extends Monitor {
 	constructor(property) {

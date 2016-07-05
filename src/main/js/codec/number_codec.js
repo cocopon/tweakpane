@@ -1,4 +1,4 @@
-const Codec = require('./codec');
+import Codec from './codec';
 
 class NumberCodec extends Codec {
 	static canDecode(value) {

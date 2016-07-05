@@ -1,6 +1,6 @@
-const Formatter = require('../../formatter/formatter');
-const ClassName = require('../../misc/class_name');
-const Control   = require('./control');
+import Formatter from '../../formatter/formatter';
+import ClassName from '../../misc/class_name';
+import Control   from './control';
 
 class TextControl extends Control {
 	constructor(property) {

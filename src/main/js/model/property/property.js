@@ -1,5 +1,5 @@
-const CodecProvider = require('../../codec/codec_provider');
-const EventEmitter  = require('../../misc/event_emitter');
+import CodecProvider from '../../codec/codec_provider';
+import EventEmitter  from '../../misc/event_emitter';
 
 class Property {
 	constructor(builder) {

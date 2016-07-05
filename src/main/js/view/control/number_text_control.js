@@ -1,7 +1,7 @@
-const StepNumberConstraint = require('../../constraint/step_number_constraint');
-const NumberFormatter      = require('../../formatter/number_formatter');
-const TextControl          = require('./text_control');
-const Control              = require('./control');
+import StepNumberConstraint from '../../constraint/step_number_constraint';
+import NumberFormatter      from '../../formatter/number_formatter';
+import TextControl          from './text_control';
+import Control              from './control';
 
 class NumberTextControl extends TextControl {
 	constructor(property) {

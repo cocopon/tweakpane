@@ -1,4 +1,4 @@
-const Model = require('./model');
+import Model from './model';
 
 class Folder extends Model {
 	constructor() {

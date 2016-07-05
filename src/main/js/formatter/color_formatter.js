@@ -1,5 +1,5 @@
-const ColorCodec = require('../codec/color_codec');
-const Formatter  = require('./formatter');
+import ColorCodec from '../codec/color_codec';
+import Formatter  from './formatter';
 
 class ColorFormatter extends Formatter {
 	format(value) {

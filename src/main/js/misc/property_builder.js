@@ -1,4 +1,4 @@
-const Property = require('../model/property/property');
+import Property from '../model/property/property';
 
 class PropertyBuilder {
 	constructor(ref, model) {

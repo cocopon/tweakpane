@@ -1,12 +1,12 @@
-const ListConstraint       = require('../constraint/list_constraint');
-const LogRecordModel       = require('../model/property/log_record_model');
-const StringModel          = require('../model/property/string_model');
-const ListControl          = require('../view/control/list_control');
-const TextControl          = require('../view/control/text_control');
-const LogMonitor           = require('../view/monitor/log_monitor');
-const MultilineTextMonitor = require('../view/monitor/multiline_text_monitor');
-const TextMonitor          = require('../view/monitor/text_monitor');
-const PropertyViewFactory  = require('./property_view_factory');
+import ListConstraint       from '../constraint/list_constraint';
+import LogRecordModel       from '../model/property/log_record_model';
+import StringModel          from '../model/property/string_model';
+import ListControl          from '../view/control/list_control';
+import TextControl          from '../view/control/text_control';
+import LogMonitor           from '../view/monitor/log_monitor';
+import MultilineTextMonitor from '../view/monitor/multiline_text_monitor';
+import TextMonitor          from '../view/monitor/text_monitor';
+import PropertyViewFactory  from './property_view_factory';
 
 function createListItems(items) {
 	// ['foo', 'bar']

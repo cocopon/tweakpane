@@ -1,6 +1,6 @@
-const EventEmitter = require('../../misc/event_emitter');
-const Model        = require('../../model/model');
-const View         = require('../view');
+import EventEmitter from '../../misc/event_emitter';
+import Model        from '../../model/model';
+import View         from '../view';
 
 class Control extends View {
 	constructor(property) {

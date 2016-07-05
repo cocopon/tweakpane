@@ -1,4 +1,4 @@
-const Errors = require('../misc/errors');
+import Errors from '../misc/errors';
 
 /**
  * Codec provides a way to convert between model value and value from JSON or input element.

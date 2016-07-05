@@ -1,5 +1,5 @@
-const NumberFormatter = require('../../formatter/number_formatter');
-const TextMonitor     = require('./text_monitor');
+import NumberFormatter from '../../formatter/number_formatter';
+import TextMonitor     from './text_monitor';
 
 class NumberTextMonitor extends TextMonitor {
 	constructor(model) {

@@ -1,4 +1,4 @@
-const Constraint = require('./constraint');
+import Constraint from './constraint';
 
 class MaxNumberConstraint extends Constraint {
 	constructor(maxValue) {
