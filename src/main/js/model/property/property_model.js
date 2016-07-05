@@ -1,5 +1,5 @@
-const Errors = require('../../misc/errors');
-const Model  = require('../model');
+import Errors from '../../misc/errors';
+import Model  from '../model';
 
 class PropertyModel extends Model {
 	constructor() {

@@ -1,5 +1,5 @@
-const ClassName = require('../../misc/class_name');
-const Monitor   = require('./monitor');
+import ClassName from '../../misc/class_name';
+import Monitor   from './monitor';
 
 class MultilineTextMonitor extends Monitor {
 	constructor(property) {

@@ -9,7 +9,7 @@
 
 <h2>Features</h2>
 <ul>
-	<li>Super easy to use</li>
+	<li>Easy to use</li>
 	<li>Clean and simple interface</li>
 	<li>Mobile-friendly</li>
 	<li>Well-documented</li>
@@ -26,7 +26,13 @@
 </div>
 <div class="codeBlock">
 	<div class="codeBlock_section">
-		<pre><code class="html">&lt;script src=&quot;tweakpane-{{ config.version }}.min.js&quot;&gt;&lt;/script&gt;
+		<pre><code class="html">&lt;!-- In the head tag --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;tweakpane-{{ config.version }}.min.css&quot;&gt;
+
+...
+
+&lt;!-- In the body tag --&gt;
+&lt;script src=&quot;tweakpane-{{ config.version }}.min.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
 var sketch = new Sketch();
 
@@ -52,11 +58,19 @@ f2.addSeparator();
 f2.addButton('Pop!').on('click', function() {
   sketch.pop();
 });
-&lt;/script&gt;</code></pre>
+&lt;/script&gt;
+
+...</code></pre>
 	</div>
+</div>
+
+<div class="banners">
+	<a class="github-button" href="https://github.com/cocopon" aria-label="Follow @cocopon on GitHub">Follow @cocopon</a>
+	<a class="github-button" href="https://github.com/cocopon/tweakpane" data-icon="octicon-star" data-count-href="/cocopon/tweakpane/stargazers" data-count-api="/repos/cocopon/tweakpane#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star cocopon/tweakpane on GitHub">Star</a>
 </div>
 {% endblock %}
 
 {% block script %}
 <script src="assets/js/sushi_sketch.js"></script>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
 {% endblock %}

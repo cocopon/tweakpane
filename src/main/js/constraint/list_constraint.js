@@ -1,4 +1,4 @@
-const Constraint = require('./constraint');
+import Constraint from './constraint';
 
 class ListConstraint extends Constraint {
 	constructor(items) {

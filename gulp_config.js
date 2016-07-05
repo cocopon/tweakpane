@@ -8,19 +8,24 @@ class GulpConfig {
 		this.main = {
 			js: {
 				srcPattern: './src/main/js/**/*.js',
-				entryFile: './src/main/js/tweakpane.js',
-				tmpDir: './tmp/js',
+				entryFile: './src/main/js/browser.js',
+				dstDir: './dst',
 				dstFile: forProduction ?
 					`tweakpane-${this.version}.min.js` :
-					`tweakpane-${this.version}.js`,
-				dstDir: './dst'
+					`tweakpane-${this.version}.js`
 			},
 			sass: {
 				srcPattern: './src/main/sass/**/*.scss',
-				tmpDir: './tmp/css',
-				dstFile: 'tweakpane.css'
-			},
-			cssMarker: '.css_replace_me{}'
+				dstDir: './dst',
+				dstFile: forProduction ?
+					`tweakpane-${this.version}.min.css` :
+					`tweakpane-${this.version}.css`,
+				options: forProduction ? {
+					outputStyle: 'compressed'
+				} : {
+					outputStyle: 'expanded'
+				}
+			}
 		};
 
 		this.doc = {

@@ -1,7 +1,7 @@
-const PropertyBuilder = require('../misc/property_builder');
-const Control         = require('../view/control/control');
-const Monitor         = require('../view/monitor/monitor');
-const PropertyView    = require('../view/property_view');
+import PropertyBuilder from '../misc/property_builder';
+import Control         from '../view/control/control';
+import Monitor         from '../view/monitor/monitor';
+import PropertyView    from '../view/property_view';
 
 class PropertyViewFactory {
 	static create(config) {

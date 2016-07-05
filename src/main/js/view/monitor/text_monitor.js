@@ -1,6 +1,6 @@
-const Formatter = require('../../formatter/formatter');
-const ClassName = require('../../misc/class_name');
-const Monitor   = require('./monitor');
+import Formatter from '../../formatter/formatter';
+import ClassName from '../../misc/class_name';
+import Monitor   from './monitor';
 
 class TextMonitor extends Monitor {
 	constructor(property) {

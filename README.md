@@ -9,6 +9,8 @@ Overview
 --------
 Tweakpane is a JavaScript library that provides a compact user interface for fine-tuning/monitoring values. It's originally inspired by the popular library [dat.GUI](http://workshop.chromeexperiments.com/examples/gui/).
 
+![Screenshot](https://cocopon.github.io/tweakpane/assets/image/github/screenshot.png)
+
 
 
 
@@ -30,3 +32,10 @@ We use [gulp](http://gulpjs.com/) for development. Here are available tasks:
 | dev        | Build all source files and watch for changes |
 
 Running a task with `--production` generates a compiled code for production.
+
+
+
+
+License
+-------
+MIT License. See `LICENSE.txt` for more information.

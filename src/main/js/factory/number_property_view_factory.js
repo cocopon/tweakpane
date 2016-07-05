@@ -1,15 +1,15 @@
-const ListConstraint       = require('../constraint/list_constraint');
-const MaxNumberConstraint  = require('../constraint/max_number_constraint');
-const MinNumberConstraint  = require('../constraint/min_number_constraint');
-const StepNumberConstraint = require('../constraint/step_number_constraint');
-const NumberRecordModel   = require('../model/property/number_record_model');
-const NumberModel          = require('../model/property/number_model');
-const ListControl          = require('../view/control/list_control');
-const NumberTextControl    = require('../view/control/number_text_control');
-const SliderTextControl    = require('../view/control/slider_text_control');
-const GraphMonitor         = require('../view/monitor/graph_monitor');
-const NumberTextMonitor    = require('../view/monitor/number_text_monitor');
-const PropertyViewFactory  = require('./property_view_factory');
+import ListConstraint       from '../constraint/list_constraint';
+import MaxNumberConstraint  from '../constraint/max_number_constraint';
+import MinNumberConstraint  from '../constraint/min_number_constraint';
+import StepNumberConstraint from '../constraint/step_number_constraint';
+import NumberRecordModel   from '../model/property/number_record_model';
+import NumberModel          from '../model/property/number_model';
+import ListControl          from '../view/control/list_control';
+import NumberTextControl    from '../view/control/number_text_control';
+import SliderTextControl    from '../view/control/slider_text_control';
+import GraphMonitor         from '../view/monitor/graph_monitor';
+import NumberTextMonitor    from '../view/monitor/number_text_monitor';
+import PropertyViewFactory  from './property_view_factory';
 
 const CONSTRAINT_FACTORIES = {
 	/**

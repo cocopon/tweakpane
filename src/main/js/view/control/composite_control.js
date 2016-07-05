@@ -1,4 +1,4 @@
-const Control = require('./control');
+import Control from './control';
 
 class CompositeControl extends Control {
 	constructor(property) {

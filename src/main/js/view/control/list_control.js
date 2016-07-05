@@ -1,6 +1,6 @@
-const ListConstraint = require('../../constraint/list_constraint');
-const ClassName      = require('../../misc/class_name');
-const Control        = require('./control');
+import ListConstraint from '../../constraint/list_constraint';
+import ClassName      from '../../misc/class_name';
+import Control        from './control';
 
 class ListControl extends Control {
 	constructor(property) {

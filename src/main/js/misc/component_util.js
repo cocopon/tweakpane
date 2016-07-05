@@ -1,15 +1,15 @@
-const BooleanPropertyViewFactory = require('../factory/boolean_property_view_factory');
-const ColorPropertyViewFactory   = require('../factory/color_property_view_factory');
-const NumberPropertyViewFactory  = require('../factory/number_property_view_factory');
-const StringPropertyViewFactory  = require('../factory/string_property_view_factory');
-const ButtonViewInterface        = require('../interface/button_view_interface');
-const FolderViewInterface        = require('../interface/folder_view_interface');
-const PropertyViewInterface      = require('../interface/property_view_interface');
-const ViewInterface              = require('../interface/view_interface');
-const Errors                     = require('../misc/errors');
-const ButtonView                 = require('../view/button_view');
-const FolderView                 = require('../view/folder_view');
-const SeparatorView              = require('../view/separator_view');
+import BooleanPropertyViewFactory from '../factory/boolean_property_view_factory';
+import ColorPropertyViewFactory   from '../factory/color_property_view_factory';
+import NumberPropertyViewFactory  from '../factory/number_property_view_factory';
+import StringPropertyViewFactory  from '../factory/string_property_view_factory';
+import ButtonViewInterface        from '../interface/button_view_interface';
+import FolderViewInterface        from '../interface/folder_view_interface';
+import PropertyViewInterface      from '../interface/property_view_interface';
+import ViewInterface              from '../interface/view_interface';
+import Errors                     from '../misc/errors';
+import ButtonView                 from '../view/button_view';
+import FolderView                 from '../view/folder_view';
+import SeparatorView              from '../view/separator_view';
 
 class ComponentUtil {
 	static findControlFactoryFunction_(ref) {

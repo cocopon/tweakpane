@@ -1,8 +1,8 @@
-const Style     = require('../misc/style');
-const ClassName = require('../misc/class_name');
-const Folder    = require('../model/folder');
-const Model     = require('../model/model');
-const View      = require('./view');
+import Style     from '../misc/style';
+import ClassName from '../misc/class_name';
+import Folder    from '../model/folder';
+import Model     from '../model/model';
+import View      from './view';
 
 class FolderView extends View {
 	constructor(title) {

@@ -1,6 +1,6 @@
-const ColorFormatter = require('../../formatter/color_formatter');
-const ClassName      = require('../../misc/class_name');
-const Control        = require('./control');
+import ColorFormatter from '../../formatter/color_formatter';
+import ClassName      from '../../misc/class_name';
+import Control        from './control';
 
 class PaletteControl extends Control {
 	constructor(property) {

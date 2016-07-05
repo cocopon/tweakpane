@@ -1,0 +1,1 @@
+window.Tweakpane = require('./tweakpane');

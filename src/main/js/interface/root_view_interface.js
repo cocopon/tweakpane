@@ -1,15 +1,14 @@
-const ClassName      = require('../misc/class_name');
-const ComponentUtil  = require('../misc/component_util');
-const Errors         = require('../misc/errors');
-const EventEmitter   = require('../misc/event_emitter');
-const Reference      = require('../misc/reference');
-const Style          = require('../misc/style');
-const ViewUtil       = require('../misc/view_util');
-const Model          = require('../model/model');
-const PropertyView   = require('../view/property_view');
-const RootFolderView = require('../view/root_folder_view');
-const View           = require('../view/view');
-const ViewInterface  = require('./view_interface');
+import ClassName      from '../misc/class_name';
+import ComponentUtil  from '../misc/component_util';
+import Errors         from '../misc/errors';
+import EventEmitter   from '../misc/event_emitter';
+import Reference      from '../misc/reference';
+import ViewUtil       from '../misc/view_util';
+import Model          from '../model/model';
+import PropertyView   from '../view/property_view';
+import RootFolderView from '../view/root_folder_view';
+import View           from '../view/view';
+import ViewInterface  from './view_interface';
 
 class RootViewInterface extends ViewInterface {
 	constructor(view, opt_options) {
@@ -36,8 +35,6 @@ class RootViewInterface extends ViewInterface {
 		}
 
 		this.emitter_ = new EventEmitter();
-
-		Style.injectDefault();
 
 		const foldable = (options.foldable !== undefined) ?
 			options.foldable :

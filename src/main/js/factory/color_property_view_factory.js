@@ -1,7 +1,7 @@
-const ColorModel          = require('../model/property/color_model');
-const PaletteTextControl  = require('../view/control/palette_text_control');
-const PaletteTextMonitor  = require('../view/monitor/palette_text_monitor');
-const PropertyViewFactory = require('./property_view_factory');
+import ColorModel          from '../model/property/color_model';
+import PaletteTextControl  from '../view/control/palette_text_control';
+import PaletteTextMonitor  from '../view/monitor/palette_text_monitor';
+import PropertyViewFactory from './property_view_factory';
 
 const CONSTRAINT_FACTORIES = {};
 

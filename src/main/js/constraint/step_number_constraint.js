@@ -1,4 +1,4 @@
-const Constraint = require('./constraint');
+import Constraint from './constraint';
 
 class StepNumberConstraint extends Constraint {
 	constructor(stepValue) {

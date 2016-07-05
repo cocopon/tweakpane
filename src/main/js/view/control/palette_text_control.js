@@ -1,8 +1,8 @@
-const ColorFormatter   = require('../../formatter/color_formatter');
-const ClassName        = require('../../misc/class_name');
-const CompositeControl = require('./composite_control');
-const PaletteControl   = require('./palette_control');
-const TextControl      = require('./text_control');
+import ColorFormatter   from '../../formatter/color_formatter';
+import ClassName        from '../../misc/class_name';
+import CompositeControl from './composite_control';
+import PaletteControl   from './palette_control';
+import TextControl      from './text_control';
 
 class PaletteTextControl extends CompositeControl {
 	constructor(property) {

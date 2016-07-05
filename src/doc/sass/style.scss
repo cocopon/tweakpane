@@ -21,6 +21,7 @@ $menu-width: 200px;
 $menu-button-size: 60px;
 $narrow-width: $content-width + $menu-width * 2;
 $sketch-block-narrow-width: 500px;
+$banner-height: 20px;
 
 @mixin clearfix() {
 	&:after {
@@ -149,7 +150,6 @@ a {
 .content {
 	margin: 0 auto;
 	padding: 60px 30px;
-	position: relative;
 	width: $content-width;
 
 	@media (max-width: $narrow-width) {
@@ -159,6 +159,19 @@ a {
 
 	& > *:last-child {
 		margin-bottom: 0;
+	}
+}
+.banners {
+	position: absolute;
+	right: ($menu-button-size - $banner-height) / 2;
+	top: ($menu-button-size - $banner-height) / 2;
+
+	@media (max-width: $narrow-width) {
+		margin: 30px 0;
+		position: static;
+		right: auto;
+		top: auto;
+		text-align: center;
 	}
 }
 .menu {

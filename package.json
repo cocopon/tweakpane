@@ -1,14 +1,15 @@
 {
   "name": "Tweakpane",
   "version": "0.1.0",
-  "description": "",
-  "main": "",
+  "description": "A compact pane for fine-tuning/monitoring values",
+  "author": "cocopon",
+  "license": "MIT",
+  "homepage": "https://cocopon.github.com/tweakpane/",
+  "main": "src/main/js/tweakpane.js",
   "scripts": {
     "test": "node_modules/karma/bin/karma start",
     "lint": "node node_modules/eslint/bin/eslint.js src/main/js"
   },
-  "author": "cocopon",
-  "license": "MIT",
   "devDependencies": {
     "babel": "^5.8.23",
     "babel-core": "^5.8.25",
@@ -20,13 +21,13 @@
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-babel": "^6.1.2",
+    "gulp-data": "^1.2.1",
     "gulp-load-plugins": "^1.0.0",
     "gulp-nunjucks": "^2.2.0",
-    "gulp-replace": "^0.5.4",
+    "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.0.4",
     "gulp-uglify": "^1.5.3",
     "gulp-util": "^3.0.7",
-    "gulp-watch": "^4.3.5",
     "gulp-webserver": "^0.9.1",
     "karma": "^0.13.22",
     "karma-browserify": "^5.0.2",
@@ -39,7 +40,6 @@
     "run-sequence": "^1.1.5",
     "sinon": "^1.17.3",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.7.0"
+    "vinyl-source-stream": "^1.1.0"
   }
 }

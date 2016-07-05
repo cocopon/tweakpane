@@ -1,5 +1,5 @@
-const Model    = require('../../model/model');
-const View  = require('../view');
+import Model    from '../../model/model';
+import View  from '../view';
 
 class Monitor extends View {
 	constructor(property) {

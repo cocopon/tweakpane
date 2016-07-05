@@ -1,5 +1,5 @@
-const Errors = require('../misc/errors');
-const Codec  = require('./codec');
+import Errors from '../misc/errors';
+import Codec  from './codec';
 
 class ColorCodec extends Codec {
 	static canDecode(value) {

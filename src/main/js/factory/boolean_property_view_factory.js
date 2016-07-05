@@ -1,9 +1,9 @@
-const BooleanModel         = require('../model/property/boolean_model');
-const ListConstraint       = require('../constraint/list_constraint');
-const CheckboxControl      = require('../view/control/checkbox_control');
-const ListControl          = require('../view/control/list_control');
-const CheckboxMonitor      = require('../view/monitor/checkbox_monitor');
-const PropertyViewFactory  = require('./property_view_factory');
+import BooleanModel         from '../model/property/boolean_model';
+import ListConstraint       from '../constraint/list_constraint';
+import CheckboxControl      from '../view/control/checkbox_control';
+import ListControl          from '../view/control/list_control';
+import CheckboxMonitor      from '../view/monitor/checkbox_monitor';
+import PropertyViewFactory  from './property_view_factory';
 
 const CONSTRAINT_FACTORIES = {
 	/**

@@ -4,6 +4,10 @@
 		"es6": true,
 		"node": true
 	},
+	"parserOptions": {
+		"ecmaVersion": 6,
+		"sourceType": "module"
+	},
 	"rules": {
 		"camelcase": "off",  /* Avoid detecting 'opt_foobar' */
 		"dot-notation": "off",

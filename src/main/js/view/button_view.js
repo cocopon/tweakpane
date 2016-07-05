@@ -1,5 +1,5 @@
-const ClassName = require('../misc/class_name');
-const View      = require('./view');
+import ClassName from '../misc/class_name';
+import View      from './view';
 
 class ButtonView extends View {
 	constructor(title) {
