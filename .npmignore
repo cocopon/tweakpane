@@ -1,3 +1,5 @@
+doc/
+src/doc/
 test/
 .editorconfig
 .eslintrc
