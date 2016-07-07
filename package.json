@@ -14,7 +14,9 @@
   "sass": "src/main/sass/tweakpane.scss",
   "scripts": {
     "prepublish": "gulp prepublish",
-    "test": "node_modules/karma/bin/karma start",
+    "test": "npm-run-all test:unit test:e2e",
+    "test:unit": "node_modules/karma/bin/karma start",
+    "test:e2e": "mocha e2e/test.js",
     "lint": "node node_modules/eslint/bin/eslint.js src/main/js",
     "prerelease": "tool/prerelease.sh"
   },
@@ -27,8 +29,10 @@
     "babelify": "^7.3.0",
     "browserify": "^12.0.1",
     "chai": "^3.5.0",
+    "chromedriver": "^2.21.2",
     "del": "^2.2.1",
     "eslint": "^2.13.1",
+    "express": "^4.14.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-babel": "^6.1.2",
@@ -48,8 +52,13 @@
     "karma-mocha-reporter": "^2.0.4",
     "karma-sinon": "^1.0.4",
     "mocha": "^2.5.3",
+    "npm-run-all": "^2.3.0",
+    "requirejs": "^2.2.0",
     "run-sequence": "^1.2.2",
+    "selenium-webdriver": "^2.53.3",
+    "serve-index": "^1.8.0",
     "sinon": "^1.17.3",
+    "systemjs": "^0.19.31",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   }
