@@ -18,4 +18,4 @@ class MinNumberConstraint extends Constraint {
 	}
 }
 
-module.exports = MinNumberConstraint;
+export default MinNumberConstraint;

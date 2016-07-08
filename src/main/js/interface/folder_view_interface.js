@@ -3,8 +3,7 @@ import ViewInterface from './view_interface';
 
 class FolderViewInterface extends ViewInterface {
 	getComponentUtil_() {
-		// Run-time requiring to avoid cross reference
-		return require('../misc/component_util');
+		return FolderViewInterface.componentUtil__;
 	}
 
 	addProperty_(propertyViewInterface) {
@@ -145,4 +144,7 @@ class FolderViewInterface extends ViewInterface {
 	}
 }
 
-module.exports = FolderViewInterface;
+// Assign later to avoid circular reference
+FolderViewInterface.componentUtil__ = null;
+
+export default FolderViewInterface;

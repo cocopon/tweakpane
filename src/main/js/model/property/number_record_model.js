@@ -34,4 +34,4 @@ class NumberRecordModel extends NumberModel {
 NumberRecordModel.DEFAULT_RECORD_COUNT = 200;
 NumberRecordModel.EVENT_RECORD_CHANGE = 'recordchange';
 
-module.exports = NumberRecordModel;
+export default NumberRecordModel;

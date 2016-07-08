@@ -18,4 +18,4 @@ class StepNumberConstraint extends Constraint {
 	}
 }
 
-module.exports = StepNumberConstraint;
+export default StepNumberConstraint;

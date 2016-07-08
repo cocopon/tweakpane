@@ -26,4 +26,4 @@ class NumberFormatter extends Formatter {
 	}
 }
 
-module.exports = NumberFormatter;
+export default NumberFormatter;

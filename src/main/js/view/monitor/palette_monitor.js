@@ -40,4 +40,4 @@ class PaletteMonitor extends Monitor {
 
 PaletteMonitor.BLOCK_CLASS = 'plm';
 
-module.exports = PaletteMonitor;
+export default PaletteMonitor;

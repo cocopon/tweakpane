@@ -31,4 +31,4 @@ class MultilineTextMonitor extends Monitor {
 
 MultilineTextMonitor.BLOCK_CLASS = 'mtm';
 
-module.exports = MultilineTextMonitor;
+export default MultilineTextMonitor;

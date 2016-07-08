@@ -58,4 +58,4 @@ class Errors {
 	}
 }
 
-module.exports = Errors;
+export default Errors;

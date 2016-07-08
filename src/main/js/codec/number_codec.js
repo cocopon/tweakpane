@@ -14,4 +14,4 @@ class NumberCodec extends Codec {
 	}
 }
 
-module.exports = NumberCodec;
+export default NumberCodec;

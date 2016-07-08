@@ -41,4 +41,4 @@ class PaletteControl extends Control {
 
 PaletteControl.BLOCK_CLASS = 'plc';
 
-module.exports = PaletteControl;
+export default PaletteControl;

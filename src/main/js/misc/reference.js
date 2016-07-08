@@ -21,4 +21,4 @@ class Reference {
 	}
 }
 
-module.exports = Reference;
+export default Reference;

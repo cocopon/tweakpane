@@ -11,4 +11,4 @@ class ViewUtil {
 	}
 }
 
-module.exports = ViewUtil;
+export default ViewUtil;

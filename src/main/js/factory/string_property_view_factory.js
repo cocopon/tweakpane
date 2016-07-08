@@ -125,4 +125,4 @@ class StringPropertyViewFactory {
 	}
 }
 
-module.exports = StringPropertyViewFactory;
+export default StringPropertyViewFactory;

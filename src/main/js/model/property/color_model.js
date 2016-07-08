@@ -18,4 +18,4 @@ class ColorModel extends PropertyModel {
 	}
 }
 
-module.exports = ColorModel;
+export default ColorModel;

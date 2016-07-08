@@ -4,4 +4,4 @@ class Formatter {
 	}
 }
 
-module.exports = Formatter;
+export default Formatter;

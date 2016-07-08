@@ -159,4 +159,4 @@ class ComponentUtil {
 	}
 }
 
-module.exports = ComponentUtil;
+export default ComponentUtil;

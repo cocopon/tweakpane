@@ -38,4 +38,4 @@ class PaletteTextMonitor extends CompositeMonitor {
 PaletteTextMonitor.BLOCK_CLASS = 'ptm';
 PaletteTextMonitor.MODIFIER_CLASS = 'pt';
 
-module.exports = PaletteTextMonitor;
+export default PaletteTextMonitor;

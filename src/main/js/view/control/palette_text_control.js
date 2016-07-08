@@ -39,4 +39,4 @@ class PaletteTextControl extends CompositeControl {
 PaletteTextControl.BLOCK_CLASS = 'ptc';
 PaletteTextControl.MODIFIER_CLASS = 'pt';
 
-module.exports = PaletteTextControl;
+export default PaletteTextControl;

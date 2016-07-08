@@ -35,4 +35,4 @@ class ListConstraint extends Constraint {
 	}
 }
 
-module.exports = ListConstraint;
+export default ListConstraint;

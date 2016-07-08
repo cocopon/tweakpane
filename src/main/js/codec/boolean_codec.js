@@ -18,4 +18,4 @@ class BooleanCodec extends Codec {
 	}
 }
 
-module.exports = BooleanCodec;
+export default BooleanCodec;

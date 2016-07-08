@@ -9,4 +9,4 @@ class NumberTextMonitor extends TextMonitor {
 	}
 }
 
-module.exports = NumberTextMonitor;
+export default NumberTextMonitor;

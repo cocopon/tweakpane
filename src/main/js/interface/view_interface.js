@@ -8,4 +8,4 @@ class ViewInterface {
 	}
 }
 
-module.exports = ViewInterface;
+export default ViewInterface;

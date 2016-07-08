@@ -45,4 +45,4 @@ class LogMonitor extends Monitor {
 
 LogMonitor.BLOCK_CLASS = 'lgm';
 
-module.exports = LogMonitor;
+export default LogMonitor;

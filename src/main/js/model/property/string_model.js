@@ -12,4 +12,4 @@ class StringModel extends PropertyModel {
 	}
 }
 
-module.exports = StringModel;
+export default StringModel;

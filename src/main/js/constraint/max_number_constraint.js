@@ -18,4 +18,4 @@ class MaxNumberConstraint extends Constraint {
 	}
 }
 
-module.exports = MaxNumberConstraint;
+export default MaxNumberConstraint;

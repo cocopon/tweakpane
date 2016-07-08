@@ -14,4 +14,4 @@ class SeparatorView extends View {
 
 SeparatorView.BLOCK_CLASS = 'spv';
 
-module.exports = SeparatorView;
+export default SeparatorView;
