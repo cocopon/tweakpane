@@ -5,7 +5,7 @@
   "author": "cocopon",
   "license": "MIT",
   "homepage": "https://cocopon.github.com/tweakpane/",
-  "main": "src/main/js/tweakpane.js",
+  "main": "dst/cjs/tweakpane.js",
   "scripts": {
     "test": "node_modules/karma/bin/karma start",
     "lint": "node node_modules/eslint/bin/eslint.js src/main/js"
@@ -13,8 +13,8 @@
   "devDependencies": {
     "babel": "^5.8.23",
     "babel-core": "^5.8.25",
+    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-es2015": "^6.6.0",
-    "babelify": "^6.3.0",
     "browserify": "^12.0.1",
     "chai": "^3.5.0",
     "eslint": "^2.13.1",

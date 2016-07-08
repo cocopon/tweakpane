@@ -1,5 +1,6 @@
+require('babel/register');
+
 const $ = require('gulp-load-plugins')();
-const babelify = require('babelify');
 const browserify = require('browserify');
 const buffer = require('vinyl-buffer');
 const gulp = require('gulp');
@@ -9,9 +10,17 @@ const source = require('vinyl-source-stream');
 const GulpConfig = require('./gulp_config');
 const config = new GulpConfig(!!$.util.env.production);
 
-gulp.task('main:js', () => {
-	return browserify(config.main.js.entryFile)
-		.transform(babelify)
+gulp.task('main:cjs', () => {
+	return gulp.src(config.main.js.srcPattern)
+		.pipe($.babel({
+			presets: ['es2015'],
+			plugins: ['add-module-exports']
+		}))
+		.pipe(gulp.dest(config.main.js.cjsDir));
+});
+
+gulp.task('main:js', ['main:cjs'], () => {
+	return browserify(config.main.js.indexFile)
 		.bundle()
 		.pipe(source(config.main.js.dstFile))
 		.pipe(buffer())
