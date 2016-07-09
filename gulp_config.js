@@ -8,8 +8,9 @@ class GulpConfig {
 		this.main = {
 			js: {
 				srcPattern: './src/main/js/**/*.js',
-				entryFile: './src/main/js/browser.js',
+				indexFile: './dst/cjs/index.js',
 				dstDir: './dst',
+				cjsDir: './dst/cjs',
 				dstFile: forProduction ?
 					`tweakpane-${this.version}.min.js` :
 					`tweakpane-${this.version}.js`
@@ -31,7 +32,6 @@ class GulpConfig {
 		this.doc = {
 			js: {
 				srcPattern: './src/doc/js/**/*.js',
-				entryFile: './src/doc/js/main.js',
 				dstFile: 'doc.js',
 				dstDir: './doc/assets/js'
 			},

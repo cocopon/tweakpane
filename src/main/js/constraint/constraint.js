@@ -4,4 +4,4 @@ class Constraint {
 	}
 }
 
-module.exports = Constraint;
+export default Constraint;

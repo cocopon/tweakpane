@@ -124,4 +124,4 @@ class RootFolderView extends View {
 
 RootFolderView.BLOCK_CLASS = 'rfv';
 
-module.exports = RootFolderView;
+export default RootFolderView;

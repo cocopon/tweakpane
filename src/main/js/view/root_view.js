@@ -31,4 +31,4 @@ class RootView extends View {
 
 RootView.BLOCK_CLASS = 'rtv';
 
-module.exports = RootView;
+export default RootView;

@@ -43,4 +43,4 @@ class PropertyView extends View {
 
 PropertyView.BLOCK_CLASS = 'prv';
 
-module.exports = PropertyView;
+export default PropertyView;

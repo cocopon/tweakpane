@@ -26,4 +26,4 @@ class CompositeMonitor extends Monitor {
 	}
 }
 
-module.exports = CompositeMonitor;
+export default CompositeMonitor;

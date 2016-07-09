@@ -101,4 +101,4 @@ class View {
 View.EVENT_ADD = 'add';
 View.EVENT_REMOVE = 'remove';
 
-module.exports = View;
+export default View;

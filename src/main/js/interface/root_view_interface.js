@@ -280,4 +280,4 @@ class RootViewInterface extends ViewInterface {
 
 RootViewInterface.EVENT_CHANGE = 'change';
 
-module.exports = RootViewInterface;
+export default RootViewInterface;

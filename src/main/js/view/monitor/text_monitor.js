@@ -47,4 +47,4 @@ class TextMonitor extends Monitor {
 
 TextMonitor.BLOCK_CLASS = 'txm';
 
-module.exports = TextMonitor;
+export default TextMonitor;

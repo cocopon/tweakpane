@@ -7,4 +7,4 @@ class ColorFormatter extends Formatter {
 	}
 }
 
-module.exports = ColorFormatter;
+export default ColorFormatter;

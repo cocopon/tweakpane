@@ -68,4 +68,4 @@ class PropertyViewFactory {
 	}
 }
 
-module.exports = PropertyViewFactory
+export default PropertyViewFactory

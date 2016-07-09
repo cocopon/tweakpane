@@ -12,4 +12,4 @@ class BooleanModel extends PropertyModel {
 	}
 }
 
-module.exports = BooleanModel;
+export default BooleanModel;

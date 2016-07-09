@@ -14,4 +14,4 @@ class PropertyViewInterface extends ViewInterface {
 	}
 }
 
-module.exports = PropertyViewInterface;
+export default PropertyViewInterface;

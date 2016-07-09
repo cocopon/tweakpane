@@ -55,4 +55,4 @@ class CompositeControl extends Control {
 	}
 }
 
-module.exports = CompositeControl;
+export default CompositeControl;

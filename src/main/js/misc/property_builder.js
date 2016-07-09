@@ -48,4 +48,4 @@ class PropertyBuilder {
 	}
 }
 
-module.exports = PropertyBuilder;
+export default PropertyBuilder;

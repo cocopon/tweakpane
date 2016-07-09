@@ -12,4 +12,4 @@ class NumberModel extends PropertyModel {
 	}
 }
 
-module.exports = NumberModel;
+export default NumberModel;

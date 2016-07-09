@@ -11,4 +11,4 @@ class ClassName {
 	}
 }
 
-module.exports = ClassName;
+export default ClassName;

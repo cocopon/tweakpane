@@ -79,4 +79,4 @@ class BooleanPropertyViewFactory {
 	}
 }
 
-module.exports = BooleanPropertyViewFactory;
+export default BooleanPropertyViewFactory;

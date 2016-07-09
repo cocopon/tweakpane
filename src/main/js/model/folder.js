@@ -28,4 +28,4 @@ class Folder extends Model {
 	}
 }
 
-module.exports = Folder;
+export default Folder;

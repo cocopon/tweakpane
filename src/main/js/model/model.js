@@ -12,4 +12,4 @@ class Model {
 
 Model.EVENT_CHANGE = 'change';
 
-module.exports = Model;
+export default Model;

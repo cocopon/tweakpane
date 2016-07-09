@@ -43,4 +43,4 @@ class ColorPropertyViewFactory {
 	}
 }
 
-module.exports = ColorPropertyViewFactory;
+export default ColorPropertyViewFactory;

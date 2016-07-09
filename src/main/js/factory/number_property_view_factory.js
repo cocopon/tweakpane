@@ -145,4 +145,4 @@ class NumberPropertyViewFactory {
 	}
 }
 
-module.exports = NumberPropertyViewFactory;
+export default NumberPropertyViewFactory;

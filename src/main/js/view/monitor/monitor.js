@@ -58,4 +58,4 @@ class Monitor extends View {
 Monitor.BLOCK_CLASS = 'm';
 Monitor.DEFAULT_INTERVAL = 100;
 
-module.exports = Monitor;
+export default Monitor;

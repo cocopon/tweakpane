@@ -25,4 +25,4 @@ class CodecProvider {
 	}
 }
 
-module.exports = CodecProvider;
+export default CodecProvider;

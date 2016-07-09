@@ -32,4 +32,4 @@ class Codec {
 	}
 }
 
-module.exports = Codec;
+export default Codec;

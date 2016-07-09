@@ -75,4 +75,4 @@ class PropertyModel extends Model {
 	}
 }
 
-module.exports = PropertyModel;
+export default PropertyModel;

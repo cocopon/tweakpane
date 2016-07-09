@@ -12,4 +12,4 @@ class StringCodec {
 	}
 }
 
-module.exports = StringCodec;
+export default StringCodec;

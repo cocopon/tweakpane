@@ -27,4 +27,4 @@ class LogRecordModel extends StringModel {
 
 LogRecordModel.DEFAULT_RECORD_COUNT = 10;
 
-module.exports = LogRecordModel;
+export default LogRecordModel;

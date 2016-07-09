@@ -36,4 +36,4 @@ class Control extends View {
 Control.BLOCK_CLASS = 'c';
 Control.EVENT_CHANGE = 'change';
 
-module.exports = Control;
+export default Control;

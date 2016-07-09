@@ -34,4 +34,4 @@ class ButtonView extends View {
 ButtonView.BLOCK_CLASS = 'btv';
 ButtonView.EVENT_CLICK = 'click';
 
-module.exports = ButtonView;
+export default ButtonView;

@@ -14,4 +14,4 @@ class ButtonViewInterface extends ViewInterface {
 	}
 }
 
-module.exports = ButtonViewInterface;
+export default ButtonViewInterface;

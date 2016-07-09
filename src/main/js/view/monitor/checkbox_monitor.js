@@ -49,4 +49,4 @@ class CheckboxMonitor extends Monitor {
 
 CheckboxMonitor.BLOCK_CLASS = 'cbm';
 
-module.exports = CheckboxMonitor;
+export default CheckboxMonitor;

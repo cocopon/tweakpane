@@ -43,4 +43,4 @@ class NumberTextControl extends TextControl {
 	}
 }
 
-module.exports = NumberTextControl;
+export default NumberTextControl;
