@@ -1,4 +1,6 @@
 doc/
+dst/*.js
+dst/*.min.css
 src/doc/
 test/
 .editorconfig
