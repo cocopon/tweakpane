@@ -1,3 +1,4 @@
+const path = require('path');
 const packageJson = require('./package.json');
 
 class GulpConfig {
@@ -12,15 +13,15 @@ class GulpConfig {
 				dstDir: './dst',
 				cjsDir: './dst/cjs',
 				dstFile: forProduction ?
-					`tweakpane-${this.version}.min.js` :
-					`tweakpane-${this.version}.js`
+					'tweakpane.min.js' :
+					'tweakpane.js'
 			},
 			sass: {
 				srcPattern: './src/main/sass/**/*.scss',
 				dstDir: './dst',
 				dstFile: forProduction ?
-					`tweakpane-${this.version}.min.css` :
-					`tweakpane-${this.version}.css`,
+					'tweakpane.min.css' :
+					'tweakpane.css',
 				options: forProduction ? {
 					outputStyle: 'compressed'
 				} : {
@@ -43,6 +44,23 @@ class GulpConfig {
 			sass: {
 				srcPattern: './src/doc/sass/**/*.scss',
 				dstDir: './doc/assets/css'
+			}
+		};
+
+		this.pack = {
+			js: {
+				srcFile: `${this.main.js.dstDir}/${this.main.js.dstFile}`,
+				dstName: forProduction ?
+					`tweakpane-${this.version}.min.js` :
+					`tweakpane-${this.version}.js`,
+				dstDir: './dst/package'
+			},
+			css: {
+				srcFile: `${this.main.sass.dstDir}/${this.main.sass.dstFile}`,
+				dstName: forProduction ?
+					`tweakpane-${this.version}.min.css` :
+					`tweakpane-${this.version}.css`,
+				dstDir: './dst/package'
 			}
 		};
 

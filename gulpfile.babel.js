@@ -106,6 +106,26 @@ gulp.task('dev', (callback) => {
 	);
 });
 
+gulp.task('pack:js', () => {
+	return gulp.src(config.pack.js.srcFile)
+		.pipe($.rename(config.pack.js.dstName))
+		.pipe(gulp.dest(config.pack.js.dstDir));
+});
+
+gulp.task('pack:css', () => {
+	return gulp.src(config.pack.css.srcFile)
+		.pipe($.rename(config.pack.css.dstName))
+		.pipe(gulp.dest(config.pack.css.dstDir));
+});
+
+gulp.task('pack', (callback) => {
+	runSequence(
+		['main:build'],
+		['pack:js', 'pack:css'],
+		callback
+	);
+});
+
 gulp.task('main:build', ['main:sass', 'main:js']);
 gulp.task('doc:build', ['doc:js', 'doc:nunjucks', 'doc:sass']);
 gulp.task('default', ['main:build', 'doc:build']);
