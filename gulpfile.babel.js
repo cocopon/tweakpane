@@ -17,10 +17,7 @@ gulp.task('clean', () => {
 
 gulp.task('main:cjs', () => {
 	return gulp.src(config.main.js.srcPattern)
-		.pipe($.babel({
-			presets: ['es2015'],
-			plugins: ['add-module-exports']
-		}))
+		.pipe($.babel())
 		.pipe(gulp.dest(config.main.js.cjsDir));
 });
 
