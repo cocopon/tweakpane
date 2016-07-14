@@ -9,7 +9,9 @@
   "scripts": {
     "prepublish": "gulp prepublish",
     "test": "node_modules/karma/bin/karma start",
-    "lint": "node node_modules/eslint/bin/eslint.js src/main/js"
+
+    "lint": "node node_modules/eslint/bin/eslint.js src/main/js",
+	"prerelease": "./tool/prerelease.sh"
   },
   "devDependencies": {
     "babel": "^5.8.23",

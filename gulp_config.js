@@ -53,7 +53,7 @@ class GulpConfig {
 			}
 		};
 
-		this.release = {
+		this.prerelease = {
 			js: {
 				srcFile: `${this.main.js.dstDir}/${this.main.js.dstName}`,
 				dstName: forProduction ?

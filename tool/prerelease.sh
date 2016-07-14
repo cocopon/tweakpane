@@ -3,5 +3,5 @@
 cd $(dirname $0)
 cd ..
 gulp clean
-gulp release
-gulp release --production
+gulp prerelease
+gulp prerelease --production

@@ -111,21 +111,21 @@ gulp.task('dev', (callback) => {
 	);
 });
 
-gulp.task('release:js', ['main:js'], () => {
-	return gulp.src(config.release.js.srcFile)
-		.pipe($.rename(config.release.js.dstName))
-		.pipe(gulp.dest(config.release.js.dstDir));
+gulp.task('prerelease:js', ['main:js'], () => {
+	return gulp.src(config.prerelease.js.srcFile)
+		.pipe($.rename(config.prerelease.js.dstName))
+		.pipe(gulp.dest(config.prerelease.js.dstDir));
 });
 
-gulp.task('release:css', ['main:sass'], () => {
-	return gulp.src(config.release.css.srcFile)
-		.pipe($.rename(config.release.css.dstName))
-		.pipe(gulp.dest(config.release.css.dstDir));
+gulp.task('prerelease:css', ['main:sass'], () => {
+	return gulp.src(config.prerelease.css.srcFile)
+		.pipe($.rename(config.prerelease.css.dstName))
+		.pipe(gulp.dest(config.prerelease.css.dstDir));
 });
 
-gulp.task('release', (callback) => {
+gulp.task('prerelease', (callback) => {
 	runSequence(
-		['release:js', 'release:css'],
+		['prerelease:js', 'prerelease:css'],
 		callback
 	);
 });
