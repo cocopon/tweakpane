@@ -7,7 +7,7 @@
   "homepage": "https://cocopon.github.com/tweakpane/",
   "main": "dst/cjs/tweakpane.js",
   "scripts": {
-    "prepublish": "gulp main:build",
+    "prepublish": "gulp prepublish",
     "test": "node_modules/karma/bin/karma start",
     "lint": "node node_modules/eslint/bin/eslint.js src/main/js"
   },
