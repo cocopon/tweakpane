@@ -53,20 +53,20 @@ class GulpConfig {
 			}
 		};
 
-		this.pack = {
+		this.release = {
 			js: {
 				srcFile: `${this.main.js.dstDir}/${this.main.js.dstName}`,
 				dstName: forProduction ?
 					`tweakpane-${this.version}.min.js` :
 					`tweakpane-${this.version}.js`,
-				dstDir: './dst/package'
+				dstDir: './dst/release'
 			},
 			css: {
 				srcFile: `${this.main.sass.dstDir}/${this.main.sass.dstName}`,
 				dstName: forProduction ?
 					`tweakpane-${this.version}.min.css` :
 					`tweakpane-${this.version}.css`,
-				dstDir: './dst/package'
+				dstDir: './dst/release'
 			}
 		};
 

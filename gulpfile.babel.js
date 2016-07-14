@@ -111,21 +111,21 @@ gulp.task('dev', (callback) => {
 	);
 });
 
-gulp.task('pack:js', ['main:js'], () => {
-	return gulp.src(config.pack.js.srcFile)
-		.pipe($.rename(config.pack.js.dstName))
-		.pipe(gulp.dest(config.pack.js.dstDir));
+gulp.task('release:js', ['main:js'], () => {
+	return gulp.src(config.release.js.srcFile)
+		.pipe($.rename(config.release.js.dstName))
+		.pipe(gulp.dest(config.release.js.dstDir));
 });
 
-gulp.task('pack:css', ['main:sass'], () => {
-	return gulp.src(config.pack.css.srcFile)
-		.pipe($.rename(config.pack.css.dstName))
-		.pipe(gulp.dest(config.pack.css.dstDir));
+gulp.task('release:css', ['main:sass'], () => {
+	return gulp.src(config.release.css.srcFile)
+		.pipe($.rename(config.release.css.dstName))
+		.pipe(gulp.dest(config.release.css.dstDir));
 });
 
-gulp.task('pack', (callback) => {
+gulp.task('release', (callback) => {
 	runSequence(
-		['pack:js', 'pack:css'],
+		['release:js', 'release:css'],
 		callback
 	);
 });
