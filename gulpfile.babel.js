@@ -3,12 +3,17 @@ require('babel/register');
 const $ = require('gulp-load-plugins')();
 const browserify = require('browserify');
 const buffer = require('vinyl-buffer');
+const del = require('del');
 const gulp = require('gulp');
 const runSequence = require('run-sequence');
 const source = require('vinyl-source-stream');
 
 const GulpConfig = require('./gulp_config');
 const config = new GulpConfig(!!$.util.env.production);
+
+gulp.task('clean', () => {
+	return del(config.clean.patterns);
+});
 
 gulp.task('main:cjs', () => {
 	return gulp.src(config.main.js.srcPattern)
@@ -106,21 +111,20 @@ gulp.task('dev', (callback) => {
 	);
 });
 
-gulp.task('pack:js', () => {
+gulp.task('pack:js', ['main:js'], () => {
 	return gulp.src(config.pack.js.srcFile)
 		.pipe($.rename(config.pack.js.dstName))
 		.pipe(gulp.dest(config.pack.js.dstDir));
 });
 
-gulp.task('pack:css', () => {
+gulp.task('pack:css', ['main:sass'], () => {
 	return gulp.src(config.pack.css.srcFile)
 		.pipe($.rename(config.pack.css.dstName))
 		.pipe(gulp.dest(config.pack.css.dstDir));
 });
 
-gulp.task('pack', (callback) => {
+gulp.task('pack', ['clean'], (callback) => {
 	runSequence(
-		['main:build'],
 		['pack:js', 'pack:css'],
 		callback
 	);

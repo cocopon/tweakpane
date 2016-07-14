@@ -1,10 +1,16 @@
-const path = require('path');
 const packageJson = require('./package.json');
 
 class GulpConfig {
 	constructor(forProduction) {
 		this.forProduction = forProduction;
 		this.version = packageJson.version;
+
+		this.clean = {
+			patterns: [
+				'./doc',
+				'./dst'
+			]
+		};
 
 		this.main = {
 			js: {
