@@ -27,7 +27,7 @@ gulp.task('main:cjs', () => {
 gulp.task('main:js', ['main:cjs'], () => {
 	return browserify(config.main.js.indexFile)
 		.bundle()
-		.pipe(source(config.main.js.dstFile))
+		.pipe(source(config.main.js.dstName))
 		.pipe(buffer())
 		.pipe(config.forProduction ?
 			$.uglify({
@@ -57,7 +57,7 @@ gulp.task('main:sass', () => {
 		.pipe($.sass(config.main.sass.options))
 		.on('error', $.sass.logError)
 		.pipe($.autoprefixer())
-		.pipe($.rename(config.main.sass.dstFile))
+		.pipe($.rename(config.main.sass.dstName))
 		.pipe(gulp.dest(config.main.sass.dstDir))
 		.pipe(gulp.dest(config.doc.sass.dstDir));
 });
@@ -123,7 +123,7 @@ gulp.task('pack:css', ['main:sass'], () => {
 		.pipe(gulp.dest(config.pack.css.dstDir));
 });
 
-gulp.task('pack', ['clean'], (callback) => {
+gulp.task('pack', (callback) => {
 	runSequence(
 		['pack:js', 'pack:css'],
 		callback
