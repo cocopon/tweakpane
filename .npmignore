@@ -1,7 +1,7 @@
 doc/
 dst/release/
 dst/*.js
-dst/*.css
+dst/*.min.css
 src/doc/
 test/
 tool/
