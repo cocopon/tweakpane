@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 {%
-	set paneJsPath = 'assets/js/tweakpane-' +
-		config.version +
+	set paneJsPath = 'assets/js/tweakpane' +
 		('.min' if config.production else '') +
 		'.js'
 %}
 {%
-	set paneCssPath = 'assets/css/tweakpane-' +
-		config.version +
+	set paneCssPath = 'assets/css/tweakpane' +
 		('.min' if config.production else '') +
 		'.css'
 %}

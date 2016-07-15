@@ -1,3 +1,5 @@
+'use strict';
+
 const packageJson = require('./package.json');
 
 class GulpConfig {
@@ -5,22 +7,29 @@ class GulpConfig {
 		this.forProduction = forProduction;
 		this.version = packageJson.version;
 
+		this.clean = {
+			patterns: [
+				'./doc',
+				'./dst'
+			]
+		};
+
 		this.main = {
 			js: {
 				srcPattern: './src/main/js/**/*.js',
 				indexFile: './dst/cjs/index.js',
 				dstDir: './dst',
 				cjsDir: './dst/cjs',
-				dstFile: forProduction ?
-					`tweakpane-${this.version}.min.js` :
-					`tweakpane-${this.version}.js`
+				dstName: forProduction ?
+					'tweakpane.min.js' :
+					'tweakpane.js'
 			},
 			sass: {
 				srcPattern: './src/main/sass/**/*.scss',
 				dstDir: './dst',
-				dstFile: forProduction ?
-					`tweakpane-${this.version}.min.css` :
-					`tweakpane-${this.version}.css`,
+				dstName: forProduction ?
+					'tweakpane.min.css' :
+					'tweakpane.css',
 				options: forProduction ? {
 					outputStyle: 'compressed'
 				} : {
@@ -32,7 +41,7 @@ class GulpConfig {
 		this.doc = {
 			js: {
 				srcPattern: './src/doc/js/**/*.js',
-				dstFile: 'doc.js',
+				dstName: 'doc.js',
 				dstDir: './doc/assets/js'
 			},
 			nunjucks: {
@@ -43,6 +52,23 @@ class GulpConfig {
 			sass: {
 				srcPattern: './src/doc/sass/**/*.scss',
 				dstDir: './doc/assets/css'
+			}
+		};
+
+		this.prerelease = {
+			js: {
+				srcFile: `${this.main.js.dstDir}/${this.main.js.dstName}`,
+				dstName: forProduction ?
+					`tweakpane-${this.version}.min.js` :
+					`tweakpane-${this.version}.js`,
+				dstDir: './dst/release'
+			},
+			css: {
+				srcFile: `${this.main.sass.dstDir}/${this.main.sass.dstName}`,
+				dstName: forProduction ?
+					`tweakpane-${this.version}.min.css` :
+					`tweakpane-${this.version}.css`,
+				dstDir: './dst/release'
 			}
 		};
 

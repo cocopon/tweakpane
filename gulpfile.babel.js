@@ -1,8 +1,9 @@
-require('babel/register');
+require('babel-core/register');
 
 const $ = require('gulp-load-plugins')();
 const browserify = require('browserify');
 const buffer = require('vinyl-buffer');
+const del = require('del');
 const gulp = require('gulp');
 const runSequence = require('run-sequence');
 const source = require('vinyl-source-stream');
@@ -10,19 +11,20 @@ const source = require('vinyl-source-stream');
 const GulpConfig = require('./gulp_config');
 const config = new GulpConfig(!!$.util.env.production);
 
+gulp.task('clean', () => {
+	return del(config.clean.patterns);
+});
+
 gulp.task('main:cjs', () => {
 	return gulp.src(config.main.js.srcPattern)
-		.pipe($.babel({
-			presets: ['es2015'],
-			plugins: ['add-module-exports']
-		}))
+		.pipe($.babel())
 		.pipe(gulp.dest(config.main.js.cjsDir));
 });
 
 gulp.task('main:js', ['main:cjs'], () => {
 	return browserify(config.main.js.indexFile)
 		.bundle()
-		.pipe(source(config.main.js.dstFile))
+		.pipe(source(config.main.js.dstName))
 		.pipe(buffer())
 		.pipe(config.forProduction ?
 			$.uglify({
@@ -52,7 +54,7 @@ gulp.task('main:sass', () => {
 		.pipe($.sass(config.main.sass.options))
 		.on('error', $.sass.logError)
 		.pipe($.autoprefixer())
-		.pipe($.rename(config.main.sass.dstFile))
+		.pipe($.rename(config.main.sass.dstName))
 		.pipe(gulp.dest(config.main.sass.dstDir))
 		.pipe(gulp.dest(config.doc.sass.dstDir));
 });
@@ -102,6 +104,33 @@ gulp.task('dev', (callback) => {
 	runSequence(
 		['main:build', 'doc:build'],
 		['main:watch', 'doc:watch', 'webserver'],
+		callback
+	);
+});
+
+gulp.task('prerelease:js', ['main:js'], () => {
+	return gulp.src(config.prerelease.js.srcFile)
+		.pipe($.rename(config.prerelease.js.dstName))
+		.pipe(gulp.dest(config.prerelease.js.dstDir));
+});
+
+gulp.task('prerelease:css', ['main:sass'], () => {
+	return gulp.src(config.prerelease.css.srcFile)
+		.pipe($.rename(config.prerelease.css.dstName))
+		.pipe(gulp.dest(config.prerelease.css.dstDir));
+});
+
+gulp.task('prerelease', (callback) => {
+	runSequence(
+		['prerelease:js', 'prerelease:css'],
+		callback
+	);
+});
+
+gulp.task('prepublish', (callback) => {
+	runSequence(
+		['clean'],
+		['main:build'],
 		callback
 	);
 });
