@@ -5,6 +5,10 @@
   "author": "cocopon",
   "license": "MIT",
   "homepage": "https://cocopon.github.com/tweakpane/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cocopon/tweakpane"
+  },
   "main": "dst/cjs/tweakpane.js",
   "scripts": {
     "prepublish": "gulp prepublish",
