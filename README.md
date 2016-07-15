@@ -1,5 +1,6 @@
 Tweakpane
 =========
+[![npm version](https://badge.fury.io/js/tweakpane.svg)](https://badge.fury.io/js/tweakpane)
 [![CircleCI](https://circleci.com/gh/cocopon/tweakpane.svg?style=shield)](https://circleci.com/gh/cocopon/tweakpane)
 
 
