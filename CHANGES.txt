@@ -10,13 +10,6 @@ Changelog
 
 
 
-0.1.2
------
-* Update package structure for `npm install`
-
-
-
-
 0.1.0
 -----
 * Hello, world!
