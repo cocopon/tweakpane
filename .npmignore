@@ -10,3 +10,4 @@ tool/
 .eslintrc
 circle.yml
 karma.conf.js
+/e2e
