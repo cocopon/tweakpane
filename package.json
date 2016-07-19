@@ -21,6 +21,7 @@
     "prerelease": "tool/prerelease.sh"
   },
   "devDependencies": {
+    "autoprefixer": "^6.3.7",
     "babel": "^6.5.2",
     "babel-core": "^6.10.4",
     "babel-plugin-add-module-exports": "^0.2.1",
@@ -60,8 +61,8 @@
     "selenium-webdriver": "^2.53.3",
     "serve-index": "^1.8.0",
     "sinon": "^1.17.3",
-    "through2": "^2.0.1",
     "systemjs": "^0.19.31",
+    "through2": "^2.0.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"
