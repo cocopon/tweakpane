@@ -30,6 +30,7 @@ class GulpConfig {
 				dstName: forProduction ?
 					'tweakpane.min.css' :
 					'tweakpane.css',
+				cjsName: 'tweakpane.css.js',
 				options: forProduction ? {
 					outputStyle: 'compressed'
 				} : {

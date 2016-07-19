@@ -39,6 +39,7 @@
     "gulp-data": "^1.2.1",
     "gulp-load-plugins": "^1.2.4",
     "gulp-nunjucks": "^2.2.0",
+    "gulp-postcss": "^6.1.1",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.2",
     "gulp-uglify": "^1.5.4",
@@ -53,13 +54,16 @@
     "karma-sinon": "^1.0.4",
     "mocha": "^2.5.3",
     "npm-run-all": "^2.3.0",
+    "postcss-modules": "^0.5.0",
     "requirejs": "^2.2.0",
     "run-sequence": "^1.2.2",
     "selenium-webdriver": "^2.53.3",
     "serve-index": "^1.8.0",
     "sinon": "^1.17.3",
+    "through2": "^2.0.1",
     "systemjs": "^0.19.31",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
   }
 }

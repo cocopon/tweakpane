@@ -4,11 +4,6 @@
 		('.min' if config.production else '') +
 		'.js'
 %}
-{%
-	set paneCssPath = 'assets/css/tweakpane' +
-		('.min' if config.production else '') +
-		'.css'
-%}
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -17,7 +12,6 @@
 	<link rel="stylesheet" href="assets/css/style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
-	<link rel="stylesheet" href="{{ paneCssPath }}">
 </head>
 <body>
 	<div class="hero">

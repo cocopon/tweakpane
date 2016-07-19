@@ -1,5 +1,8 @@
 require('babel-core/register');
 
+const fs = require('fs');
+const path = require('path');
+
 const $ = require('gulp-load-plugins')();
 const browserify = require('browserify');
 const buffer = require('vinyl-buffer');
@@ -10,6 +13,11 @@ const source = require('vinyl-source-stream');
 
 const GulpConfig = require('./gulp_config');
 const config = new GulpConfig(!!$.util.env.production);
+
+const through = require('through2');
+const postcss = require('gulp-postcss');
+const autoprefixer = require('autoprefixer');
+const postcssModules = require('postcss-modules');
 
 gulp.task('clean', () => {
 	return del(config.clean.patterns);
@@ -49,14 +57,38 @@ gulp.task('doc:nunjucks', () => {
 		.pipe(gulp.dest(config.doc.nunjucks.dstDir));
 });
 
-gulp.task('main:sass', () => {
+gulp.task('main:sass', function(done){
+	const tokens = {}
+	const processors = [
+		autoprefixer(),
+		postcssModules({
+			generateScopedName: function(name, filename, css) {
+				const cursor = css.indexOf('.' + name);
+				const line = css.substr(0, cursor).split(/[\r\n]/).length;
+				const file = path.basename(filename, '.css');
+				return '_' + file + '_' + line + '_' + name + '_';
+			},
+			getJSON: function(cssFile, json) {
+				tokens[cssFile] = json;
+			}
+		})
+	];
 	return gulp.src(config.main.sass.srcPattern)
 		.pipe($.sass(config.main.sass.options))
 		.on('error', $.sass.logError)
-		.pipe($.autoprefixer())
-		.pipe($.rename(config.main.sass.dstName))
-		.pipe(gulp.dest(config.main.sass.dstDir))
-		.pipe(gulp.dest(config.doc.sass.dstDir));
+		.pipe(postcss(processors))
+		.pipe(through.obj(function(chunk, enc, callback){
+			const base64 = chunk.contents.toString('base64');
+			const contents = {
+				tokens: tokens[chunk.path],
+				styles: base64
+			};
+			const code = `module.exports = ${JSON.stringify(contents, null, '  ')}`;
+			chunk.contents = new Buffer(code, enc);
+			callback(null, chunk);
+		}))
+		.pipe($.rename(config.main.sass.cjsName))
+		.pipe(gulp.dest(config.main.js.cjsDir));
 });
 
 gulp.task('doc:sass', () => {
@@ -72,7 +104,7 @@ gulp.task('main:watch', (callback) => {
 			.on('end', callback);
 	});
 	gulp.watch(config.main.sass.srcPattern, () => {
-		gulp.start(['main:sass'])
+		gulp.start(['main:build'])
 			.on('end', callback);
 	});
 });
@@ -108,23 +140,10 @@ gulp.task('dev', (callback) => {
 	);
 });
 
-gulp.task('prerelease:js', ['main:js'], () => {
+gulp.task('prerelease', ['main:build'], () => {
 	return gulp.src(config.prerelease.js.srcFile)
 		.pipe($.rename(config.prerelease.js.dstName))
 		.pipe(gulp.dest(config.prerelease.js.dstDir));
-});
-
-gulp.task('prerelease:css', ['main:sass'], () => {
-	return gulp.src(config.prerelease.css.srcFile)
-		.pipe($.rename(config.prerelease.css.dstName))
-		.pipe(gulp.dest(config.prerelease.css.dstDir));
-});
-
-gulp.task('prerelease', (callback) => {
-	runSequence(
-		['prerelease:js', 'prerelease:css'],
-		callback
-	);
 });
 
 gulp.task('prepublish', (callback) => {
@@ -135,6 +154,6 @@ gulp.task('prepublish', (callback) => {
 	);
 });
 
-gulp.task('main:build', ['main:sass', 'main:js']);
+gulp.task('main:build', () => runSequence('main:sass', 'main:js'));
 gulp.task('doc:build', ['doc:js', 'doc:nunjucks', 'doc:sass']);
 gulp.task('default', ['main:build', 'doc:build']);
