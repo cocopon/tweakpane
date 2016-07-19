@@ -3,6 +3,8 @@
 /doc/**/*.js
 /dst/*
 
+*.css.js
+
 ### https://raw.github.com/github/gitignore/298588469ac0cb08a00eebf7b00efb5ab726daca/node.gitignore
 
 # Logs
@@ -42,7 +44,8 @@ node_modules
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*

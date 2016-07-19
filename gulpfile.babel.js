@@ -83,12 +83,12 @@ gulp.task('main:sass', function(done){
 				tokens: tokens[chunk.path],
 				styles: base64
 			};
-			const code = `module.exports = ${JSON.stringify(contents, null, '  ')}`;
+			const code = `export default ${JSON.stringify(contents, null, '  ')}`;
 			chunk.contents = new Buffer(code, enc);
 			callback(null, chunk);
 		}))
 		.pipe($.rename(config.main.sass.cjsName))
-		.pipe(gulp.dest(config.main.js.cjsDir));
+		.pipe(gulp.dest(config.main.js.srcDir));
 });
 
 gulp.task('doc:sass', () => {

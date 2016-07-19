@@ -10,7 +10,8 @@ class GulpConfig {
 		this.clean = {
 			patterns: [
 				'./doc',
-				'./dst'
+				'./dst',
+				'./src/**/*.css.js'
 			]
 		};
 
@@ -18,6 +19,7 @@ class GulpConfig {
 			js: {
 				srcPattern: './src/main/js/**/*.js',
 				indexFile: './dst/cjs/index.js',
+				srcDir: './src/main/js/',
 				dstDir: './dst',
 				cjsDir: './dst/cjs',
 				dstName: forProduction ?
