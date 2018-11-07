@@ -1,0 +1,101 @@
+$prefix: 'common';
+
+.#{$prefix}-globalFooter {
+	background-color: $global-footer-bg-color;
+	color: $global-footer-fg-color;
+	text-align: left;
+
+	&_innerLayout {
+		box-sizing: border-box;
+		margin-left: auto;
+		margin-right: auto;
+
+		@include pc() {
+			max-width: 1024px;
+			padding: 64px 128px;
+		}
+		@include sp() {
+			padding: 32px 16px;
+		}
+	}
+	&_titleLayout {
+		margin-bottom: 32px;
+
+	}
+	&_menuLayout {
+		a {
+			color: inherit;
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+	&_copyLayout {
+		font-size: 0.8rem;
+		margin-top: 64px;
+		opacity: 0.7;
+
+		@include sp() {
+			margin-top: 32px;
+		}
+
+		a {
+			color: inherit;
+		}
+	}
+}
+
+.#{$prefix}-globalFooterMenu {
+	display: flex;
+}
+.#{$prefix}-globalFooterMenuItem {
+	@include pc() {
+		& + & {
+			margin-left: 8em;
+		}
+	}
+	@include sp() {
+		flex: 1;
+
+		& + & {
+			margin-left: 2rem;
+		}
+	}
+
+	ul {
+	}
+	a {
+		color: inherit;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+	.fa-external-link-square-alt {
+		margin-left: 0.5em;
+	}
+
+	& > a {
+		font-weight: bold;
+	}
+
+	&_submenuLayout {
+		margin-top: 0.5em;
+		opacity: 0.7;
+
+		li + li {
+			margin-top: 0.5em;
+		}
+		a {
+			color: inherit;
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+}

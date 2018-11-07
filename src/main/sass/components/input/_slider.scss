@@ -1,0 +1,54 @@
+.#{$prefix}-sldiv {
+	@include propertyView();
+
+	&_o {
+		box-sizing: border-box;
+		cursor: pointer;
+		height: $input-height;
+		margin: 0 6px;
+		position: relative;
+
+		&::before {
+			background-color: $slider-input-bar-color;
+			border-radius: 1px;
+			bottom: 0;
+			content: '';
+			display: block;
+			height: 2px;
+			left: 0;
+			margin: auto;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+	}
+	&_i {
+		height: 100%;
+		left: 0;
+		position: absolute;
+		top: 0;
+
+		&::before {
+			background-color: $input-light-bg-color;
+			border-radius: $input-border-radius;
+			bottom: 0;
+			content: '';
+			display: block;
+			height: 12px;
+			margin: auto;
+			position: absolute;
+			right: -6px;
+			top: 0;
+			width: 12px;
+		}
+	}
+	&_o:hover &_i::before {
+		background-color: $input-light-hover-bg-color;
+	}
+	&_o:focus &_i::before {
+		background-color: $input-light-focus-bg-color;
+	}
+	&_o:active &_i::before {
+		background-color: $input-light-active-bg-color;
+	}
+}

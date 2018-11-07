@@ -1,0 +1,32 @@
+@import './checkbox';
+@import './list';
+@import './slider';
+
+// colorswatch-text
+.#{$prefix}-cswtxtiv {
+	display: flex;
+
+	&_s {
+		flex-grow: 0;
+		flex-shrink: 0;
+		width: $input-height;
+	}
+	&_t {
+		flex: 1;
+		margin-left: 4px;
+	}
+}
+@import 'components/input/text';
+
+// slider-text
+.#{$prefix}-sldtxtiv {
+	display: flex;
+
+	&_s {
+		flex: 2;
+	}
+	&_t {
+		flex: 1;
+		margin-left: 4px;
+	}
+}

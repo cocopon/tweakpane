@@ -1,31 +1,51 @@
-import Model from './model';
+// @flow
 
-class Folder extends Model {
-	constructor() {
-		super();
+import Emitter from '../misc/emitter';
 
-		this.expanded_ = true;
-		this.shouldAnimate_ = true;
+type EventType = 'change';
+
+export default class Folder {
+	emitter_: Emitter<EventType>;
+	expanded_: boolean;
+	expandedHeight_: ?number;
+	title_: string;
+
+	constructor(title: string, expanded: boolean) {
+		this.emitter_ = new Emitter();
+		this.expanded_ = expanded;
+		this.expandedHeight_ = null;
+		this.title_ = title;
 	}
 
-	isExpanded() {
+	get emitter(): Emitter<EventType> {
+		return this.emitter_;
+	}
+
+	get title(): string {
+		return this.title_;
+	}
+
+	get expanded(): boolean {
 		return this.expanded_;
 	}
 
-	shouldAnimate() {
-		return this.shouldAnimate_;
+	set expanded(expanded: boolean): void {
+		const changed = (this.expanded_ !== expanded);
+		if (changed) {
+			this.expanded_ = expanded;
+			this.emitter_.emit('change');
+		}
 	}
 
-	setExpanded(expanded, opt_shouldAnimate) {
-		this.expanded_ = expanded;
-		this.shouldAnimate_ = (opt_shouldAnimate !== undefined) ?
-			opt_shouldAnimate :
-			false;
+	get expandedHeight(): ?number {
+		return this.expandedHeight_;
+	}
 
-		this.getEmitter().notifyObservers(
-			Model.EVENT_CHANGE
-		);
+	set expandedHeight(expandedHeight: ?number): void {
+		const changed = (this.expandedHeight_ !== expandedHeight);
+		if (changed) {
+			this.expandedHeight_ = expandedHeight;
+			this.emitter_.emit('change');
+		}
 	}
 }
-
-export default Folder;

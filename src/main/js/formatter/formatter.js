@@ -1,7 +1,5 @@
-class Formatter {
-	format(value) {
-		return String(value);
-	}
-}
+// @flow
 
-export default Formatter;
+export interface Formatter<T> {
+	format(value: T): string;
+}

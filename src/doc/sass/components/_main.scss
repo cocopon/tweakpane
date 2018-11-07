@@ -1,0 +1,95 @@
+$prefix: 'common';
+
+.#{$prefix}-main {
+	&_globalHeaderLayout {
+		@include pc() {
+			height: $global-header-height;
+		}
+		@include sp() {
+			height: $global-header-height * 2;
+		}
+	}
+	&_pageHeaderLayout,
+	&_innerLayout {
+		@include document();
+
+		flex: 1;
+	}
+	&_innerLayout {
+		box-sizing: border-box;
+		margin-left: auto;
+		margin-right: auto;
+
+		@include pc() {
+			max-width: 1024px;
+			padding: 64px 128px;
+		}
+		@include sp() {
+			margin: 32px auto;
+			padding-left: 16px;
+			padding-right: 16px;
+		}
+	}
+	&_mediaLayout {
+		border-radius: 6px;
+		margin-bottom: 1em;
+		margin-top: 1em;
+		overflow: hidden;
+	}
+	&_globalFooterLayout {
+	}
+}
+
+.#{$prefix}-paneContainer {
+	display: inline-block;
+	flex-grow: 0;
+	flex-shrink: 0;
+	min-width: 256px;
+}
+
+.#{$prefix}-codeBlock {
+	background-color: $code-block-bg-color;
+	position: relative;
+
+	pre {
+		overflow: auto;
+		padding: 32px;
+
+		@include sp() {
+			padding: 16px;
+		}
+
+		code {
+			font-size: 0.9rem;
+			font-weight: 500;
+		}
+	}
+	&_title {
+		background-color: $code-block-title-bg-color;
+		color: $code-block-title-fg-color;
+		font-size: 0.8rem;
+		font-weight: 500;
+		padding: 0.25em 0.5em;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+}
+
+.#{$prefix}-support {
+	background-color: $support-bg-color;
+	padding: 32px;
+
+	@include sp() {
+		padding: 16px;
+	}
+
+	&_buttonLayout {
+		margin-top: 32px;
+		text-align: center;
+
+		@include sp() {
+			margin-top: 16px;
+		}
+	}
+}

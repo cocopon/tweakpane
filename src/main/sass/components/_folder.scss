@@ -1,0 +1,39 @@
+.#{$prefix}-fldv {
+	&_t {
+		@extend %folder_title;
+	}
+	&_m {
+		@extend %folder_mark;
+	}
+	&#{&}-expanded &_m {
+		@extend %folder_mark-expanded;
+	}
+	&_c {
+		@extend %container;
+
+		border-left: $folder-title-bg-color solid 4px;
+		box-sizing: border-box;
+		height: 0;
+		opacity: 0;
+		overflow: hidden;
+		padding-bottom: 0;
+		padding-top: 0;
+		position: relative;
+		transition: height 0.2s ease-out, opacity 0.2s linear, padding 0.2s ease-out;
+	}
+	&_t:hover + &_c {
+		border-left-color: $folder-title-hover-bg-color;
+	}
+	&_t:focus + &_c {
+		border-left-color: $folder-title-focus-bg-color;
+	}
+	&_t:active + &_c {
+		border-left-color: $folder-title-active-bg-color;
+	}
+	&#{&}-expanded &_c {
+		opacity: 1;
+		padding-bottom: 4px;
+		padding-top: 4px;
+		transform: none;
+	}
+}

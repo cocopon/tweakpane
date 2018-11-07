@@ -1,0 +1,93 @@
+{% set pageId = 'monitor' %}
+{% extends "_template.html" %}
+
+
+{% block pageHeader %}
+<div class="common-pageHeader">
+	<div class="common-pageHeader_innerLayout">
+		<div class="common-pageHeader_titleLayout">
+			<h1 class="common-pageHeader_title">Monitor</h1>
+			<p>Tweakpane also has a feature for monitoring value changes. Use <code>addMonitor()</code> to add components.</p>
+		</div>
+		<div class="common-pageHeader_paneLayout">
+			<div class="common-paneContainer common-paneContainer-monitor"></div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<h2 id="multiline">Multiline</h2>
+<p><code>multiline</code> option provides multiline log components.</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-demo">
+		<div class="common-demo_codeLayout">
+			<div class="common-codeBlock"><pre><code class="js">var pane = new Tweakpane();
+pane.addMonitor(PARAMS, 'wave', {
+  multiline: true,
+});</code></pre></div>
+		</div>
+		<div class="common-demo_resultLayout">
+			<div class="common-paneContainer common-paneContainer-multiline"></div>
+		</div>
+	</div>
+</div>
+
+
+<h2 id="count">Count</h2>
+<p>You can use <code>count</code> option to change a buffer size.</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-demo">
+		<div class="common-demo_codeLayout">
+			<div class="common-codeBlock"><pre><code class="js">var pane = new Tweakpane();
+pane.addMonitor(PARAMS, 'wave', {
+  count: 10,
+});</code></pre></div>
+		</div>
+		<div class="common-demo_resultLayout">
+			<div class="common-paneContainer common-paneContainer-count"></div>
+		</div>
+	</div>
+</div>
+
+
+<h2 id="interval">Interval</h2>
+<p>To change an interval of monitors, set <code>interval</code> option in milliseconds. The default value is 200(ms).</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-demo">
+		<div class="common-demo_codeLayout">
+			<div class="common-codeBlock"><pre><code class="js">var pane = new Tweakpane();
+pane.addMonitor(PARAMS, 'time', {
+  interval: 1000,
+});</code></pre></div>
+		</div>
+		<div class="common-demo_resultLayout">
+			<div class="common-paneContainer common-paneContainer-interval"></div>
+		</div>
+	</div>
+</div>
+
+
+<h2 id="graph">Graph</h2>
+<p><code>{type: 'graph'}</code> option for number parameters provides a graph component. Pass <code>min</code> and <code>max</code> for value range.</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-demo">
+		<div class="common-demo_codeLayout">
+			<div class="common-codeBlock"><pre><code class="js">var pane = new Tweakpane();
+pane.addMonitor(PARAMS, 'wave', {
+  type: 'graph',
+  min: -1,
+  max: +1,
+});</code></pre></div>
+		</div>
+		<div class="common-demo_resultLayout">
+			<div class="common-paneContainer common-paneContainer-graph"></div>
+		</div>
+	</div>
+</div>
+{% endblock %}

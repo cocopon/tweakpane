@@ -1,8 +1,0 @@
-machine:
-  node:
-    version: 4.0.0
-
-general:
-  branches:
-    ignore:
-      - gh-pages

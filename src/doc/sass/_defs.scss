@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700');
+@import url('https://fonts.googleapis.com/css?family=Rubik:400,700');
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,700');
+
+
+// Font
+$font-family: Rubik, sans-serif;
+$font-family-mono: 'Source Code Pro', sans-serif;
+
+
+// Geometry
+$sp-width: 960px;
+
+
+// Colors
+
+
+// Base
+$base-hue: 230;
+$base-fg-color: hsl($base-hue, 7%, 30%);
+
+// Document
+$document-a-color: hsl($base-hue - 20, 70%, 50%);
+$document-code-bg-color: hsl($base-hue, 7%, 95%);
+$document-code-fg-color: hsl($base-hue, 20%, 50%);
+
+// Global footer/header
+$global-footer-bg-color: hsl($base-hue, 7%, 20%);
+$global-footer-fg-color: hsl($base-hue, 7%, 95%);
+$global-header-bg-color: rgba(white, 0.97);
+$global-header-fg-color: inherit;
+$global-header-height: 64px;
+
+// Button
+$button-bg-color: hsl($base-hue - 20, 20%, 60%);
+$button-bg-color: hsl($base-hue - 20, 20%, 60%);
+$button-fg-color: $global-footer-fg-color;
+$button-active-bg-color: hsl($base-hue - 20, 30%, 70%);
+$button-hover-bg-color: hsl($base-hue - 20, 25%, 65%);
+
+// Misc
+$code-block-bg-color: hsl($base-hue, 7%, 90%);
+$code-block-title-bg-color: hsl($base-hue, 7%, 40%);
+$code-block-title-fg-color: hsl($base-hue, 7%, 85%);
+$demo-result-bg-color: $document-code-bg-color;
+$logo-color: $base-fg-color;
+$logo-hover-color: rgba($base-fg-color, 0.8);
+$logo-light-color: $global-footer-fg-color;
+$logo-light-hover-color: rgba($logo-light-color, 0.8);
+$page-header-bg-color: $document-code-bg-color;
+$support-bg-color: hsl(30deg, 70%, 90%);
+
+
+// Mixins
+
+
+@mixin pc() {
+	@media screen and (min-width: $sp-width + 1) {
+		@content;
+	}
+}
+@mixin sp() {
+	@media screen and (max-width: $sp-width) {
+		@content;
+	}
+}
+
+@mixin document() {
+	h2 {
+		font-size: 1.5rem;
+		margin-top: 2em;
+
+		@include sp() {
+			font-size: 1.25rem;
+		}
+	}
+	h3, h4, h5, h6 {
+		font-size: 1.25rem;
+		margin-top: 2em;
+
+		@include sp() {
+			font-size: 1rem;
+		}
+	}
+	h1, h2, h3, h4, h5, h6 {
+		&:first-child {
+			margin-top: 0;
+		}
+
+		& + p {
+			margin-top: 0.5em;
+		}
+	}
+	ul {
+		list-style-type: disc;
+		margin-bottom: 1em;
+		margin-top: 1em;
+		padding-left: 1.3rem;
+	}
+	li + li {
+		margin-top: 0.5em;
+	}
+	p {
+		line-height: 1.6;
+
+		code {
+			background-color: $document-code-bg-color;
+			color: $document-code-fg-color;
+			font-weight: bold;
+		}
+	}
+	a {
+		color: $document-a-color;
+	}
+}

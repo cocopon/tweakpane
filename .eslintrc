@@ -4,14 +4,17 @@
 		"es6": true,
 		"node": true
 	},
+	"parser": "babel-eslint",
 	"parserOptions": {
-		"ecmaVersion": 6,
 		"sourceType": "module"
 	},
 	"rules": {
-		"camelcase": "off",  /* Avoid detecting 'opt_foobar' */
-		"dot-notation": "off",
+		"camelcase": "off",
+		"comma-spacing": ["warn", {"before": false, "after": true}], "dot-notation": "off",
 		"eqeqeq": "error",
+		"flowtype/define-flow-type": 1,
+		"flowtype/use-flow-type": 1,
+		"keyword-spacing": ["warn", {"before": true, "after": true}],
 		"no-console": "warn",
 		"no-debugger": "warn",
 		"no-multi-spaces": "off",
@@ -24,11 +27,19 @@
 			}
 		],
 		"no-use-before-define": "error",
+		"object-curly-spacing": ["warn", "never"],
 		"semi-spacing": "off",
+		"space-before-blocks": ["warn", "always"],
+		"space-in-parens": ["warn", "never"],
 		"strict": "off",
 		"quotes": ["warn", "single"]
 	},
 	"globals": {
-	}
+		"PIXI": false,
+		"Tweakpane": false,
+		"Howl": false
+	},
+	"plugins": [
+		"flowtype"
+	]
 }
-/* vim: set filetype=javascript: */

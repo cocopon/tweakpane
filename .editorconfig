@@ -1,10 +1,14 @@
 root = true
 
-[*.html]
+[*.{html,mustache}]
 indent_size = 2
 indent_style = tab
 
-[*.js]
+[*.{js,json}]
+indent_size = 2
+indent_style = tab
+
+[*.md]
 indent_size = 2
 indent_style = tab
 

@@ -1,0 +1,202 @@
+{% set pageId = 'input' %}
+{% extends "_template.html" %}
+
+
+{% block pageHeader %}
+<div class="common-pageHeader">
+	<div class="common-pageHeader_innerLayout">
+		<div class="common-pageHeader_titleLayout">
+			<h1 class="common-pageHeader_title">Input</h1>
+			<p>For fine-tuning parameters, use <code>addInput()</code> of the pane to add components. Tweakpane checks specified parameter types and provides suitable components.</p>
+		</div>
+		<div class="common-pageHeader_paneLayout">
+			<div class="common-paneContainer common-paneContainer-input"></div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<h2 id="number">Number</h2>
+<p>By default, Tweakpane provides a text field component for number parameters.</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-demo">
+		<div class="common-demo_codeLayout">
+			<div class="common-codeBlock"><pre><code class="js">var PARAMS = {
+  speed: 0.5
+};
+
+var pane = new Tweakpane();
+pane.addInput(PARAMS, 'speed');</code></pre></div>
+		</div>
+		<div class="common-demo_resultLayout">
+			<div class="common-paneContainer common-paneContainer-numberText"></div>
+		</div>
+	</div>
+</div>
+
+
+<h3 id="number_range">Range</h3>
+<p>You can specify a range of parameters by <code>min</code> and <code>max</code> options. If you specify at least one of them, slider component will be created.</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-demo">
+		<div class="common-demo_codeLayout">
+			<div class="common-codeBlock"><pre><code class="js">var PARAMS = {
+  speed: 0.5
+};
+
+var pane = new Tweakpane();
+pane.addInput(PARAMS, 'speed', {
+  <strong>min</strong>: 0,
+  <strong>max</strong>: 100,
+});</code></pre></div>
+		</div>
+		<div class="common-demo_resultLayout">
+			<div class="common-paneContainer common-paneContainer-slider"></div>
+		</div>
+	</div>
+</div>
+
+
+<h3 id="number_step">Step</h3>
+<p><code>step</code> option constraints step of changes. You can also use this option with <code>min</code> and <code>max</code> option.</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-demo">
+		<div class="common-demo_codeLayout">
+			<div class="common-codeBlock"><pre><code class="js">var PARAMS = {
+  speed: 0.5,
+  count: 10,
+};
+
+var pane = new Tweakpane();
+pane.addInput(PARAMS, 'speed', {
+  <strong>step</strong>: 0.1,
+});
+pane.addInput(PARAMS, 'count', {
+  <strong>step</strong>: 10,
+  min: 0,
+  max: 100,
+});</code></pre></div>
+		</div>
+		<div class="common-demo_resultLayout">
+			<div class="common-paneContainer common-paneContainer-step"></div>
+		</div>
+	</div>
+</div>
+
+
+<h3 id="number_list">Number list</h3>
+<p>If you want to choose a value from presets, use <code>options</code> option.</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-demo">
+		<div class="common-demo_codeLayout">
+			<div class="common-codeBlock"><pre><code class="js">var PARAMS = {
+  quality: 0,
+};
+
+var pane = new Tweakpane();
+pane.addInput(PARAMS, 'quality', {
+  <strong>options</strong>: {
+    low: 0,
+    medium: 50,
+    high: 100,
+  },
+});</code></pre></div>
+		</div>
+		<div class="common-demo_resultLayout">
+			<div class="common-paneContainer common-paneContainer-numberList"></div>
+		</div>
+	</div>
+</div>
+
+
+<h2 id="string">String</h2>
+<p>For string parameters, text field component will be provided by default.</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-demo">
+		<div class="common-demo_codeLayout">
+			<div class="common-codeBlock"><pre><code class="js">var PARAMS = {
+  message: 'hello, world',
+};
+
+var pane = new Tweakpane();
+pane.addInput(PARAMS, 'message');</code></pre></div>
+		</div>
+		<div class="common-demo_resultLayout">
+			<div class="common-paneContainer common-paneContainer-stringText"></div>
+		</div>
+	</div>
+</div>
+
+
+<h3>String list</h3>
+<p>Same as for number properties, <code>options</code> option provides a list component.</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-demo">
+		<div class="common-demo_codeLayout">
+			<div class="common-codeBlock"><pre><code class="js">var PARAMS = {
+  theme: '',
+};
+
+var pane = new Tweakpane();
+pane.addInput(PARAMS, 'theme', {
+  <strong>options</strong>: {
+    none: '',
+    dark: 'path/to/dark.json',
+    light: 'path/to/Light.json',
+  },
+});</code></pre></div>
+		</div>
+		<div class="common-demo_resultLayout">
+			<div class="common-paneContainer common-paneContainer-stringList"></div>
+		</div>
+	</div>
+</div>
+
+
+<h2 id="boolean">Boolean</h2>
+<p>For boolean parameters, checkbox field component will be provided.</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-demo">
+		<div class="common-demo_codeLayout">
+			<div class="common-codeBlock"><pre><code class="js">var PARAMS = {
+  hidden: true,
+};
+
+var pane = new Tweakpane();
+pane.addInput(PARAMS, 'hidden');</code></pre></div>
+		</div>
+		<div class="common-demo_resultLayout">
+			<div class="common-paneContainer common-paneContainer-checkbox"></div>
+		</div>
+	</div>
+</div>
+
+
+<h2 id="color">Color</h2>
+<p>For string parameters that can be parsed as a color, text field with a color swatch will be provided.</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-demo">
+		<div class="common-demo_codeLayout">
+			<div class="common-codeBlock"><pre><code class="js">var PARAMS = {
+  color: '#ff8800',
+};
+
+var pane = new Tweakpane();
+pane.addInput(PARAMS, 'color');</code></pre></div>
+		</div>
+		<div class="common-demo_resultLayout">
+			<div class="common-paneContainer common-paneContainer-color"></div>
+		</div>
+	</div>
+</div>
+{% endblock %}

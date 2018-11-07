@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Tweakpane</title>
+	<meta name="viewport" content="initial-scale=1,minimum-scale=1,maximum-scale=1">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<link rel="stylesheet" href="assets/bundle.css">
+</head>
+<body>
+	<div class="common-main">
+		<div class="common-main_mainLayout">
+			<div class="common-main_globalHeaderLayout">
+				{% include "partial/global-header.html" %}
+			</div>
+			<div class="common-main_pageHeaderLayout">
+				{% block pageHeader %}{% endblock %}
+			</div>
+			<div class="common-main_innerLayout">
+				{% block content %}{% endblock %}
+			</div>
+			<div class="common-main_globalFooterLayout">
+				{% include "partial/global-footer.html" %}
+			</div>
+		</div>
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.8.2/pixi.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+	<script async defer src="https://buttons.github.io/buttons.js"></script>
+	<script src="assets/tweakpane.js"></script>
+	<script src="assets/bundle.js"></script>
+</body>
+</html>
