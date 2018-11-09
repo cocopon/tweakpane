@@ -5,7 +5,7 @@ import * as Util from '../util';
 declare var Tweakpane: any;
 
 export default {
-	pathname: '/input.html',
+	pathname: /^(\/tweakpane)?\/input.html$/,
 	init() {
 		const markerToFnMap = {
 			input(container) {

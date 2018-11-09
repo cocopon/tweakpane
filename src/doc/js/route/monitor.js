@@ -5,7 +5,7 @@ import * as Util from '../util';
 declare var Tweakpane: any;
 
 export default {
-	pathname: '/monitor.html',
+	pathname: /^(\/tweakpane)?\/monitor.html$/,
 	init() {
 		const SHARED_PARAMS = {
 			time: '',

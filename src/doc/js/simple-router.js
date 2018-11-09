@@ -2,7 +2,7 @@
 
 type Route = {
 	init: () => void,
-	pathname: string,
+	pathname: RegExp,
 };
 
 export default class SimpleRouter {
@@ -18,7 +18,7 @@ export default class SimpleRouter {
 
 	route(pathname: string): void {
 		this.routes_.forEach((route) => {
-			if (route.pathname === pathname) {
+			if (route.pathname.test(pathname)) {
 				route.init();
 			}
 		});

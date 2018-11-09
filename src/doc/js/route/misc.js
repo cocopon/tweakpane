@@ -5,7 +5,7 @@ import * as Util from '../util';
 declare var Tweakpane: any;
 
 export default {
-	pathname: '/misc.html',
+	pathname: /^(\/tweakpane)?\/misc.html$/,
 	init() {
 		const IMEX_PARAMS = {
 			color: '#ff8000',

@@ -8,7 +8,7 @@ import type {Environment} from '../sketch';
 declare var Tweakpane: any;
 
 export default {
-	pathname: '/',
+	pathname: /^(\/tweakpane)?\/$/,
 	init() {
 		const ENV: Environment = {
 			color: '#e4e4e7',
