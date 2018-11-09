@@ -1,0 +1,35 @@
+.#{$prefix}-rotv {
+	background-color: $bg-color;
+	border-radius: 6px;
+	box-shadow: 0 2px 4px rgba(black, 0.2);
+	font-family: $font-family;
+	font-size: 11px;
+	font-weight: 500;
+	overflow: hidden;
+	text-align: left;
+
+	&_t {
+		@extend %folder_title;
+	}
+	&_m {
+		@extend %folder_mark;
+
+		transition: none;
+	}
+	&#{&}-expanded &_m {
+		@extend %folder_mark-expanded;
+	}
+	&_c {
+		@extend %container;
+
+		box-sizing: border-box;
+		height: 0;
+		padding-bottom: 0;
+		padding-top: 0;
+	}
+	&#{&}-expanded &_c {
+		height: auto;
+		padding-bottom: 4px;
+		padding-top: 4px;
+	}
+}

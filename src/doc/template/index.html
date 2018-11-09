@@ -1,0 +1,74 @@
+{% set pageId = 'index' %}
+{% extends "_template.html" %}
+
+
+{% block pageHeader %}
+<div class="common-pageHeader">
+	<div class="common-pageHeader_sketchContainer"></div>
+	<div class="common-pageHeader_innerLayout">
+		<div class="common-pageHeader_titleLayout">
+			<h1 class="common-pageHeader_title">Tweakpane</h1>
+			<p>Compact pane library for fine-tuning parameters and monitoring value changes.</p>
+		</div>
+		<div class="common-pageHeader_paneLayout">
+			<div class="common-paneContainer common-paneContainer-index"></div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<h2>Features</h2>
+<ul>
+	<li>Easy to use, user-friendly document</li>
+	<li>Clean and simple interface</li>
+	<li>Mobile support</li>
+</ul>
+
+
+<h2 id="getstarted">Getting started</h2>
+
+
+<h3>1. Add Tweakpane to your project</h3>
+<p>First, <a href="https://github.com/cocopon/tweakpane/releases">download the latest Tweakpane</a> and import it to your web page.</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-codeBlock">
+		<pre><code class="html">&lt;script src=&quot;path/to/tweakpane-{{version}}.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+		<div class="common-codeBlock_title">
+			.html
+		</div>
+	</div>
+</div>
+
+<div class="common-main_mediaLayout">
+	<div class="common-support">
+		<p><strong>TODO: CDN</strong></p>
+		<p>Using CDN is the easiest way to add the library. I'd like to register Tweakpane on them to make installation easier, but they require more popularity to do so.</p>
+		<p>For example, the most popular CDN <a href="https://cdnjs.com/" target="_blank">cdnjs.com</a> says <a href="https://github.com/cdnjs/cdnjs/blob/master/CONTRIBUTING.md#b-request-a-new-library" target="_blank">at least 200 stars</a> are needed to go.</p>
+		<p>Please help Tweakpane to star the repository, if you use Tweakpane and like it. Thanks!</p>
+
+		<div class="common-support_buttonLayout">
+			<a class="common-support_button github-button" href="https://github.com/cocopon/tweakpane" data-icon="octicon-star" data-show-count="true" data-size="large" aria-label="Star cocopon/tweakpane on GitHub">Star</a>
+		</div>
+	</div>
+</div>
+
+
+<h3>2. Create a pane</h3>
+<p>Create an instance of Tweakpane by <code>new Tweakpane()</code>.</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-codeBlock">
+		<pre><code class="html">var pane = new Tweakpane();</code></pre>
+		<div class="common-codeBlock_title">
+			.js
+		</div>
+	</div>
+</div>
+
+
+<h3>3. Ready to go!</h3>
+<p>You can add various components to pane. <a href="input.html">Inputs</a> for fine-tuning parameters, <a href="monitor.html">Monitors</a> to checking values, and <a href="misc.html#othercomponents">more</a>!</p>
+{% endblock %}

@@ -1,0 +1,49 @@
+.#{$prefix}-ckbiv {
+	&_l {
+		display: block;
+		position: relative;
+	}
+	&_i {
+		@include resetInput();
+
+		background: red;
+		left: 0;
+		opacity: 0;
+		position: absolute;
+		top: 0;
+	}
+	&_m {
+		background-color: $input-bg-color;
+		border-radius: $input-border-radius;
+		cursor: pointer;
+		display: block;
+		height: $input-height;
+		position: relative;
+		width: $input-height;
+
+		&::before {
+			background-color: $fg-color;
+			border-radius: $input-border-radius;
+			bottom: 4px;
+			content: '';
+			display: block;
+			left: 4px;
+			opacity: 0;
+			position: absolute;
+			right: 4px;
+			top: 4px;
+		}
+	}
+	&_i:hover + &_m {
+		background-color: $input-hover-bg-color;
+	}
+	&_i:focus + &_m {
+		background-color: $input-focus-bg-color;
+	}
+	&_i:active + &_m {
+		background-color: $input-active-bg-color;
+	}
+	&_i:checked + &_m::before {
+		opacity: 1;
+	}
+}

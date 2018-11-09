@@ -1,0 +1,20 @@
+.#{$prefix}-sglmv {
+	&_i {
+		@include monitorView();
+
+		padding: 0 4px;
+	}
+}
+
+.#{$prefix}-mllmv {
+	&_i {
+		@include monitorView();
+
+		display: block;
+		height: $input-height * 3;
+		line-height: $input-height;
+		padding: 0 4px;
+		resize: none;
+		white-space: pre;
+	}
+}

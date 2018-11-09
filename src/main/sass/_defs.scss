@@ -1,0 +1,176 @@
+$prefix: 'tp';
+
+
+// Font
+$font-family: 'Roboto Mono', 'Source Code Pro', Menlo, Courier, monospace;
+
+
+// Geometry
+$input-height: 20px;
+
+
+// Colors
+
+
+// Base
+$base-hue: 230;
+$color-exdark:  hsl($base-hue, 7%, 10%);
+$color-dark:    hsl($base-hue, 7%, 20%);
+$color-light:   hsl($base-hue, 7%, 70%);
+$color-exlight: hsl($base-hue, 7%, 80%);
+
+$bg-color: $color-dark;
+$fg-color: $color-exlight;
+
+// Folder
+$folder-mark-hole-color: rgba($bg-color, 0.5);
+$folder-title-bg-color: rgba($fg-color, 0.1);
+$folder-title-active-bg-color: rgba($fg-color, 0.25);
+$folder-title-focus-bg-color: rgba($fg-color, 0.2);
+$folder-title-hover-bg-color: rgba($fg-color, 0.15);
+
+// Input
+$input-bg-color: rgba($fg-color, 0.15);
+$input-border-radius: 2px;
+$input-fg-color: $fg-color;
+$input-active-bg-color: rgba($fg-color, 0.35);
+$input-focus-bg-color: rgba($fg-color, 0.25);
+$input-hover-bg-color: rgba($fg-color, 0.15);
+$input-light-bg-color: $color-light;
+$input-light-active-bg-color: lighten($input-light-bg-color, 15%); 
+$input-light-focus-bg-color: lighten($input-light-bg-color, 10%); 
+$input-light-hover-bg-color: lighten($input-light-bg-color, 5%);
+$input-light-fg-color: $bg-color;
+
+// Monitor
+$monitor-bg-color: rgba($color-exdark, 0.5);
+$monitor-fg-color: rgba($fg-color, 0.7);
+
+// Misc
+$label-fg-color: rgba($fg-color, 0.8);
+$separator-color: rgba($color-exdark, 0.3);
+$slider-input-bar-color: rgba($fg-color, 0.2);
+
+
+// Mixins
+
+
+@mixin resetInput() {
+	appearance: none;
+	background-color: transparent;
+	border-width: 0;
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	margin: 0;
+	outline: none;
+	padding: 0;
+}
+
+@mixin propertyView() {
+	color: $fg-color;
+	display: block;
+	padding: 0;
+}
+
+@mixin monitorView() {
+	@include resetInput();
+
+	background-color: $monitor-bg-color;
+	border-radius: $input-border-radius;
+	box-sizing: border-box;
+	color: $monitor-fg-color;
+	height: $input-height;
+	width: 100%;
+}
+
+@mixin inputView() {
+	@include resetInput();
+
+	background-color: $input-bg-color;
+	border-radius: $input-border-radius;
+	box-sizing: border-box;
+	color: $input-fg-color;
+	font-family: inherit;
+	height: $input-height;
+	line-height: $input-height;
+	width: 100%;
+
+	&:hover {
+		background-color: $input-hover-bg-color;
+	}
+	&:focus {
+		background-color: $input-focus-bg-color;
+	}
+	&:active {
+		background-color: $input-active-bg-color;
+	}
+}
+
+
+%folder_title {
+	@include resetInput();
+
+	background-color: $folder-title-bg-color;
+	color: $fg-color;
+	cursor: pointer;
+	display: block;
+	height: 24px;
+	line-height: 24px;
+	overflow: hidden;
+	padding-left: 30px;
+	position: relative;
+	text-align: left;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 100%;
+
+	&:hover {
+		background-color: $folder-title-hover-bg-color;
+	}
+	&:focus {
+		background-color: $folder-title-focus-bg-color;
+	}
+	&:active {
+		background-color: $folder-title-active-bg-color;
+	}
+}
+
+%folder_mark {
+	background: linear-gradient(to left, $fg-color, $fg-color 2px, transparent 2px, transparent 4px, $fg-color 4px, $fg-color);
+	border-radius: 2px;
+	bottom: 0;
+	content: '';
+	display: block;
+	height: 6px;
+	left: 12px;
+	margin: auto;
+	position: absolute;
+	top: 0;
+	transform: rotate(90deg);
+	transition: transform 0.2s ease-in-out;
+	width: 6px;
+}
+
+%folder_mark-expanded {
+	transform: none;
+}
+
+%container {
+	& > .#{$prefix}-fldv:first-child {
+		margin-top: -4px;
+	}
+	& > .#{$prefix}-fldv:last-child {
+		margin-bottom: -4px;
+	}
+
+	& > * + * {
+		margin-top: 4px;
+	}
+	& > .#{$prefix}-fldv + .#{$prefix}-fldv {
+		margin-top: 0;
+	}
+	& > .#{$prefix}-sptv + .#{$prefix}-sptv {
+		margin-top: 0;
+	}
+}

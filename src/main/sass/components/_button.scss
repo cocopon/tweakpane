@@ -1,0 +1,29 @@
+.#{$prefix}-btnv {
+	padding: 0 4px;
+
+	&_b {
+		@include resetInput();
+
+		background-color: $input-light-bg-color;
+		border-radius: $input-border-radius;
+		color: $input-light-fg-color;
+		cursor: pointer;
+		display: block;
+		font-weight: bold;
+		height: $input-height;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 100%;
+
+		&:hover {
+			background-color: $input-light-hover-bg-color;
+		}
+		&:focus {
+			background-color: $input-light-focus-bg-color;
+		}
+		&:active {
+			background-color: $input-light-active-bg-color;
+		}
+	}
+}

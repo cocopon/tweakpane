@@ -1,0 +1,48 @@
+$prefix: 'common';
+
+.#{$prefix}-logo {
+	color: $logo-color;
+	display: block;
+	font-weight: bold;
+	padding-left: 12px + 8px;
+	position: relative;
+	text-decoration: none;
+
+	&:hover {
+		color: $logo-hover-color;
+		text-decoration: none;
+	}
+
+	&#{&}-light {
+		color: $logo-light-color;
+
+		&:hover {
+			color: $logo-light-hover-color;
+		}
+	}
+
+	&_symbol {
+		background: linear-gradient(to left, $logo-color, $logo-color 4px, transparent 4px, transparent 8px, $logo-color 8px, $logo-color);
+		border-radius: 4px;
+		bottom: 2px;
+		content: '';
+		display: block;
+		height: 12px;
+		left: 0;
+		margin-bottom: auto;
+		margin-top: auto;
+		position: absolute;
+		top: 0;
+		width: 12px;
+	}
+	&#{&}-light &_symbol {
+		background: linear-gradient(to left, $logo-light-color, $logo-light-color 4px, transparent 4px, transparent 8px, $logo-light-color 8px, $logo-light-color);
+	}
+	&:hover &_symbol {
+		background: linear-gradient(to left, $logo-hover-color, $logo-hover-color 4px, transparent 4px, transparent 8px, $logo-hover-color 8px, $logo-hover-color);
+	}
+	&#{&}-light:hover &_symbol {
+		background: linear-gradient(to left, $logo-light-hover-color, $logo-light-hover-color 4px, transparent 4px, transparent 8px, $logo-light-hover-color 8px, $logo-light-hover-color);
+	}
+}
+

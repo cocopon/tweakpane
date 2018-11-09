@@ -1,7 +1,5 @@
-class Constraint {
-	constrain(value) {
-		return value;
-	}
-}
+// @flow
 
-export default Constraint;
+export interface Constraint<T> {
+	constrain(value: T): T;
+}

@@ -1,0 +1,9 @@
+.#{$prefix}-txtiv {
+	@include propertyView();
+
+	&_i {
+		@include inputView();
+
+		padding: 0 4px;
+	}
+}
