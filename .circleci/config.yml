@@ -37,23 +37,23 @@ jobs:
           path: test/results
           prefix: tests
       - deploy:
-        command: |
-          if [ $CIRCLE_BRANCH == $SRC_BRANCH ]; then
-            git config --global user.email $GH_EMAIL
-            git config --global user.name $GH_NAME
-            git clone $CIRCLE_REPOSITORY_URL pages
+          command: |
+            if [ $CIRCLE_BRANCH == $SRC_BRANCH ]; then
+              git config --global user.email $GH_EMAIL
+              git config --global user.name $GH_NAME
+              git clone $CIRCLE_REPOSITORY_URL pages
 
-            cd pages
-            git checkout $PAGES_BRANCH || git checkout --orphan $PAGES_BRANCH
-            git rm -rf .
-            cd ..
+              cd pages
+              git checkout $PAGES_BRANCH || git checkout --orphan $PAGES_BRANCH
+              git rm -rf .
+              cd ..
 
-            npm run build
-            cp -a docs/. pages/.
-            mkdir -p pages/.circleci && cp -a .circleci/. pages/.circleci/.
+              npm run build
+              cp -a docs/. pages/.
+              mkdir -p pages/.circleci && cp -a .circleci/. pages/.circleci/.
 
-            cd pages
-            git add -A
-            git commit -m "Deploy to GitHub Pages (CircleCI: ${CIRCLE_SHA1})" --allow-empty
-            git push origin $PAGES_BRANCH
-          fi
+              cd pages
+              git add -A
+              git commit -m "Deploy to GitHub Pages (CircleCI: ${CIRCLE_SHA1})" --allow-empty
+              git push origin $PAGES_BRANCH
+            fi
