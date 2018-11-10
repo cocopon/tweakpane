@@ -68,5 +68,28 @@ Or, using CDN is the easiest way to add the library:
 
 
 <h3>3. Ready to go!</h3>
+<p>Create a parameter object, pass itself and its key to fine-tune/monitor values.</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-demo">
+		<div class="common-demo_codeLayout">
+			<div class="common-codeBlock"><pre><code class="js">// Parameter object
+var PARAMS = {
+  speed: 0.5,
+};
+
+// Pass the object and its key to pane
+var pane = new Tweakpane();
+pane.addInput(<strong>PARAMS</strong>, <strong>'speed'</strong>);</code></pre></div>
+		</div>
+		<div class="common-demo_resultLayout common-demo_resultLayout-withJson">
+			<div class="common-paneContainer common-paneContainer-first"></div>
+			<div class="common-demo_resultJsonLayout">
+				<pre class="common-demo_resultJson" data-first></pre>
+			</div>
+		</div>
+	</div>
+</div>
+
 <p>You can add various components to pane. <a href="input.html">Inputs</a> for fine-tuning parameters, <a href="monitor.html">Monitors</a> to checking values, and <a href="misc.html#othercomponents">more</a>!</p>
 {% endblock %}

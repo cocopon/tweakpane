@@ -27,15 +27,22 @@ $prefix: 'common';
 			}
 		}
 	}
-	&_resultJson {
+	&_resultJsonLayout {
 		box-sizing: border-box;
-		display: inline-block;
-		font-size: 0.8rem;
-		min-width: 256px;
-		opacity: 0.7;
-		overflow: hidden;
 		padding-left: 8px;
 		padding-right: 8px;
+
+		@include pc() {
+			display: inline-block;
+			min-width: 256px;
+			vertical-align: middle;
+		}
+	}
+	&_resultJson {
+		display: inline-block;
+		font-size: 0.8rem;
+		opacity: 0.7;
+		overflow: hidden;
 		text-align: left;
 	}
 }

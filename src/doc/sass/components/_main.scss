@@ -45,6 +45,7 @@ $prefix: 'common';
 	flex-grow: 0;
 	flex-shrink: 0;
 	min-width: 256px;
+	vertical-align: middle;
 }
 
 .#{$prefix}-codeBlock {
