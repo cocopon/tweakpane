@@ -111,6 +111,9 @@ export default class SliderInputController implements InputController<number> {
 	}
 
 	onSliderMouseDown_(e: MouseEvent): void {
+		// Prevent native text selection
+		e.preventDefault();
+
 		this.pressed_ = true;
 
 		this.value_.rawValue = this.computeRawValueFromX_(e.offsetX);
@@ -141,7 +144,7 @@ export default class SliderInputController implements InputController<number> {
 	}
 
 	onSliderTouchStart_(e: TouchEvent) {
-		// Prevent default event to prevent native scroll
+		// Prevent native page scroll
 		e.preventDefault();
 
 		const touch = e.targetTouches[0];
