@@ -56,11 +56,11 @@ f2.addInput(PARAMS, 'randomness');</code></pre></div>
 <div class="common-main_mediaLayout">
 	<div class="common-demo">
 		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">var pane = new Tweakpane();
+			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
 
 const btn = pane.<strong>addButton</strong>({
   title: 'Increment',
-}).<strong>on</strong>('click', function(value) {
+}).<strong>on</strong>('click', (value) =&gt; {
   console.log(value);
 });
 </code></pre></div>
@@ -78,7 +78,7 @@ const btn = pane.<strong>addButton</strong>({
 <div class="common-main_mediaLayout">
 	<div class="common-demo">
 		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">var pane = new Tweakpane();
+			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
 pane.addButton({title: 'Previous'});
 pane.addButton({title: 'Next'});
 pane<strong>.addSeparator</strong>();
@@ -97,9 +97,9 @@ pane.addButton({title: 'Reset'});</code></pre></div>
 <div class="common-main_mediaLayout">
 	<div class="common-demo">
 		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">var pane = new Tweakpane();
+			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
 pane.addInput(PARAMS, 'value')
-  .<strong>on</strong>('change', function(value) {
+  .<strong>on</strong>('change', (value) =&gt; {
     console.log(value.toFixed(2));
   });</code></pre></div>
 		</div>
@@ -114,11 +114,11 @@ pane.addInput(PARAMS, 'value')
 <div class="common-main_mediaLayout">
 	<div class="common-demo">
 		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">var pane = new Tweakpane();
+			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
 pane.addInput(PARAMS, 'number');
 pane.addInput(PARAMS, 'string');
 
-pane.<strong>on</strong>('change', function(value) {
+pane.<strong>on</strong>('change', (value) =&gt; {
   console.log('changed: ' + String(value));
 });
 </code></pre></div>
@@ -136,11 +136,11 @@ pane.<strong>on</strong>('change', function(value) {
 <div class="common-main_mediaLayout">
 	<div class="common-demo">
 		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">var pane = new Tweakpane();
+			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
 // pane.addInput(PARAMS, ...);
 // pane.addInput(PARAMS, ...);
 
-var preset = pane.<strong>exportPreset</strong>();
+const preset = pane.<strong>exportPreset</strong>();
 console.log(preset);
 </code></pre></div>
 		</div>
@@ -158,7 +158,7 @@ console.log(preset);
 <div class="common-main_mediaLayout">
 	<div class="common-demo">
 		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">var pane = new Tweakpane();
+			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
 // pane.addInput(PARAMS, ...);
 // pane.addInput(PARAMS, ...);
 
@@ -179,7 +179,7 @@ pane.<strong>importPreset</strong>(preset);
 <div class="common-main_mediaLayout">
 	<div class="common-demo">
 		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">var pane = new Tweakpane();
+			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
 pane.addInput(PARAMS1, 'speed');
 pane.addInput(PARAMS2, 'speed', {
   <strong>presetKey</strong>: 'speed2',
@@ -205,7 +205,7 @@ pane.addInput(PARAMS2, 'speed', {
 <div class="common-main_mediaLayout">
 	<div class="common-demo">
 		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">var pane = new Tweakpane({
+			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane({
   title: 'Parameters',
 });
 </code></pre></div>
@@ -223,7 +223,7 @@ pane.addInput(PARAMS2, 'speed', {
 <div class="common-main_mediaLayout">
 	<div class="common-demo">
 		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">var pane = new Tweakpane({
+			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane({
   container: document.getElementById('someContainer'),
 });
 </code></pre></div>
@@ -238,7 +238,7 @@ pane.addInput(PARAMS2, 'speed', {
 <div class="common-main_mediaLayout">
 	<div class="common-demo">
 		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">var pane = new Tweakpane();
+			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
 pane.addInput(PARAMS, 'initSpd', {
   label: 'Initial speed',
 });
@@ -257,7 +257,7 @@ pane.addInput(PARAMS, 'initSpd', {
 <div class="common-main_mediaLayout">
 	<div class="common-demo">
 		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">var pane = new Tweakpane();
+			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
 // pane.addInput(PARAMS, ...);
 // pane.addInput(PARAMS, ...);
 
