@@ -27,6 +27,7 @@ jobs:
       - run: npm run test
       - run: npm run main:test:report
       - run: npm run main:test:coverage
+      - run: npm run main:test:coveralls
       - store_artifacts:
           path: test/results/results.xml
           prefix: tests
