@@ -1,6 +1,7 @@
 # Tweakpane
 [![npm version](https://badge.fury.io/js/tweakpane.svg)](https://badge.fury.io/js/tweakpane)
 [![CircleCI](https://circleci.com/gh/cocopon/tweakpane.svg?style=shield)](https://circleci.com/gh/cocopon/tweakpane)
+[![Coverage Status](https://coveralls.io/repos/github/cocopon/tweakpane/badge.svg)](https://coveralls.io/github/cocopon/tweakpane)
 
 
 Tweakpane is a compact pane library for fine-tuning parameters and monitoring
