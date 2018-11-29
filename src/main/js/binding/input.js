@@ -11,9 +11,9 @@ type Config<In, Out> = {
 };
 
 export default class InputBinding<In, Out> {
+	+target: Target;
+	+value: InputValue<In>;
 	reader_: (outerValue: mixed) => In;
-	target_: Target;
-	value_: InputValue<In>;
 	writer_: ?(innerValue: In) => Out;
 
 	constructor(config: Config<In, Out>) {
@@ -22,25 +22,17 @@ export default class InputBinding<In, Out> {
 		this.reader_ = config.reader;
 		this.writer_ = config.writer;
 
-		this.value_ = config.value;
-		this.value_.emitter.on('change', this.onValueChange_);
-		this.target_ = config.target;
+		this.value = config.value;
+		this.value.emitter.on('change', this.onValueChange_);
+		this.target = config.target;
 
 		this.read();
 	}
 
-	get target(): Target {
-		return this.target_;
-	}
-
-	get value(): InputValue<In> {
-		return this.value_;
-	}
-
 	read(): void {
-		const targetValue = this.target_.read();
+		const targetValue = this.target.read();
 		if (targetValue !== undefined) {
-			this.value_.rawValue = this.reader_(targetValue);
+			this.value.rawValue = this.reader_(targetValue);
 		}
 	}
 
@@ -48,7 +40,7 @@ export default class InputBinding<In, Out> {
 		const value = this.writer_ ?
 			this.writer_(rawValue) :
 			rawValue;
-		this.target_.write(value);
+		this.target.write(value);
 	}
 
 	onValueChange_(rawValue: In): void {

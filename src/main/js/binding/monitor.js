@@ -13,36 +13,28 @@ type Config<In> = {
 };
 
 export default class MonitorBinding<In> {
+	+target: Target;
+	+ticker: Ticker;
+	+value: MonitorValue<In>;
 	reader_: (outerValue: mixed) => In;
-	target_: Target;
-	ticker_: Ticker;
-	value_: MonitorValue<In>;
 
 	constructor(config: Config<In>) {
 		this.reader_ = config.reader;
-		this.target_ = config.target;
-		this.value_ = config.value;
+		this.target = config.target;
+		this.value = config.value;
 
-		this.ticker_ = config.ticker;
-		this.ticker_.emitter.on('tick', () => {
+		this.ticker = config.ticker;
+		this.ticker.emitter.on('tick', () => {
 			this.read();
 		});
 
 		this.read();
 	}
 
-	get ticker(): Ticker {
-		return this.ticker_;
-	}
-
-	get value(): MonitorValue<In> {
-		return this.value_;
-	}
-
 	read(): void {
-		const targetValue = this.target_.read();
+		const targetValue = this.target.read();
 		if (targetValue !== undefined) {
-			this.value_.append(
+			this.value.append(
 				this.reader_(targetValue),
 			);
 		}
