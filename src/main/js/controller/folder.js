@@ -21,11 +21,11 @@ export type EventName = 'fold' |
 	'monitorupdate';
 
 export default class FolderController {
+	+emitter: Emitter<EventName>;
+	+folder: Folder;
+	+view: FolderView;
 	doc_: Document;
-	emitter_: Emitter<EventName>;
-	folder_: Folder;
 	ucList_: List<UiController>;
-	view_: FolderView;
 
 	constructor(document: Document, config: Config) {
 		(this: any).onFolderChange_ = this.onFolderChange_.bind(this);
@@ -35,13 +35,13 @@ export default class FolderController {
 		(this: any).onTitleClick_ = this.onTitleClick_.bind(this);
 		(this: any).onUiControllerListAppend_ = this.onUiControllerListAppend_.bind(this);
 
-		this.emitter_ = new Emitter();
+		this.emitter = new Emitter();
 
-		this.folder_ = new Folder(
+		this.folder = new Folder(
 			config.title,
 			FlowUtil.getOrDefault(config.expanded, true),
 		);
-		this.folder_.emitter.on(
+		this.folder.emitter.on(
 			'change',
 			this.onFolderChange_,
 		);
@@ -53,10 +53,10 @@ export default class FolderController {
 		);
 
 		this.doc_ = document;
-		this.view_ = new FolderView(this.doc_, {
-			folder: this.folder_,
+		this.view = new FolderView(this.doc_, {
+			folder: this.folder,
 		});
-		this.view_.titleElement.addEventListener(
+		this.view.titleElement.addEventListener(
 			'click',
 			this.onTitleClick_,
 		);
@@ -66,31 +66,19 @@ export default class FolderController {
 		return this.doc_;
 	}
 
-	get emitter(): Emitter<EventName> {
-		return this.emitter_;
-	}
-
-	get folder(): Folder {
-		return this.folder_;
-	}
-
-	get view(): FolderView {
-		return this.view_;
-	}
-
 	get uiControllerList(): List<UiController> {
 		return this.ucList_;
 	}
 
 	computeExpandedHeight_(): number {
-		const elem = this.view_.containerElement;
+		const elem = this.view.containerElement;
 
 		let height = 0;
 		DomUtil.disableTransitionTemporarily(elem, () => {
 			// Expand folder
-			const expanded = this.folder_.expanded;
-			this.folder_.expandedHeight = null;
-			this.folder_.expanded = true;
+			const expanded = this.folder.expanded;
+			this.folder.expandedHeight = null;
+			this.folder.expanded = true;
 
 			DomUtil.forceReflow(elem);
 
@@ -98,7 +86,7 @@ export default class FolderController {
 			height = elem.getBoundingClientRect().height;
 
 			// Restore expanded
-			this.folder_.expanded = expanded;
+			this.folder.expanded = expanded;
 
 			DomUtil.forceReflow(elem);
 		});
@@ -107,7 +95,7 @@ export default class FolderController {
 	}
 
 	onTitleClick_() {
-		this.folder_.expanded = !this.folder_.expanded;
+		this.folder.expanded = !this.folder.expanded;
 	}
 
 	onUiControllerListAppend_(uc: UiController) {
@@ -119,19 +107,19 @@ export default class FolderController {
 			emitter.on('update', this.onMonitorUpdate_);
 		}
 
-		this.view_.containerElement.appendChild(uc.view.element);
-		this.folder_.expandedHeight = this.computeExpandedHeight_();
+		this.view.containerElement.appendChild(uc.view.element);
+		this.folder.expandedHeight = this.computeExpandedHeight_();
 	}
 
 	onInputChange_(value: mixed): void {
-		this.emitter_.emit('inputchange', [value]);
+		this.emitter.emit('inputchange', [value]);
 	}
 
 	onMonitorUpdate_(value: mixed): void {
-		this.emitter_.emit('monitorupdate', [value]);
+		this.emitter.emit('monitorupdate', [value]);
 	}
 
 	onFolderChange_(): void {
-		this.emitter_.emit('fold');
+		this.emitter.emit('fold');
 	}
 }

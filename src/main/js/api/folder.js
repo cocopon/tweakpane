@@ -28,66 +28,62 @@ const TO_INTERNAL_EVENT_NAME_MAP: {[EventName]: InternalEventName} = {
 };
 
 export default class FolderApi {
-	controller_: FolderController;
+	+controller: FolderController;
 
 	constructor(folderController: FolderController) {
-		this.controller_ = folderController;
-	}
-
-	get controller(): FolderController {
-		return this.controller_;
+		this.controller = folderController;
 	}
 
 	get expanded(): boolean {
-		return this.controller_.folder.expanded;
+		return this.controller.folder.expanded;
 	}
 
 	set expanded(expanded: boolean): void {
-		this.controller_.folder.expanded = expanded;
+		this.controller.folder.expanded = expanded;
 	}
 
 	addInput(object: Object, key: string, opt_params?: InputParams) {
 		const params = opt_params || {};
 		const uc = InputBindingControllerCreators.create(
-			this.controller_.document,
+			this.controller.document,
 			new Target(object, key, params.presetKey),
 			params,
 		);
-		this.controller_.uiControllerList.append(uc);
+		this.controller.uiControllerList.append(uc);
 		return new InputBindingApi<*>(uc);
 	}
 
 	addMonitor(object: Object, key: string, opt_params?: MonitorParams) {
 		const params = opt_params || {};
 		const uc = MonitorBindingControllerCreators.create(
-			this.controller_.document,
+			this.controller.document,
 			new Target(object, key),
 			params,
 		);
-		this.controller_.uiControllerList.append(uc);
+		this.controller.uiControllerList.append(uc);
 		return new MonitorBindingApi<*>(uc);
 	}
 
 	addButton(params: ButtonParams): ButtonApi {
 		const uc = new ButtonController(
-			this.controller_.document,
+			this.controller.document,
 			params,
 		);
-		this.controller_.uiControllerList.append(uc);
+		this.controller.uiControllerList.append(uc);
 		return new ButtonApi(uc);
 	}
 
 	addSeparator(): void {
 		const uc = new SeparatorController(
-			this.controller_.document,
+			this.controller.document,
 		);
-		this.controller_.uiControllerList.append(uc);
+		this.controller.uiControllerList.append(uc);
 	}
 
 	on(eventName: EventName, handler: Function): FolderApi {
 		const internalEventName = TO_INTERNAL_EVENT_NAME_MAP[eventName];
 		if (internalEventName) {
-			const emitter = this.controller_.emitter;
+			const emitter = this.controller.emitter;
 			emitter.on(internalEventName, handler);
 		}
 		return this;

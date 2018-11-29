@@ -32,11 +32,11 @@ function createFolder(config: Config): ?Folder {
 }
 
 export default class RootController {
+	+emitter: Emitter<EventName>;
+	+folder: ?Folder;
+	+view: RootView;
 	doc_: Document;
-	emitter_: Emitter<EventName>;
-	folder_: ?Folder;
 	ucList_: List<UiController>;
-	view_: RootView;
 
 	constructor(document: Document, config: Config) {
 		(this: any).onFolderChange_ = this.onFolderChange_.bind(this);
@@ -46,9 +46,9 @@ export default class RootController {
 		(this: any).onInputChange_ = this.onInputChange_.bind(this);
 		(this: any).onMonitorUpdate_ = this.onMonitorUpdate_.bind(this);
 
-		this.emitter_ = new Emitter();
+		this.emitter = new Emitter();
 
-		this.folder_ = createFolder(config);
+		this.folder = createFolder(config);
 
 		this.ucList_ = new List();
 		this.ucList_.emitter.on(
@@ -57,17 +57,17 @@ export default class RootController {
 		);
 
 		this.doc_ = document;
-		this.view_ = new RootView(this.doc_, {
-			folder: this.folder_,
+		this.view = new RootView(this.doc_, {
+			folder: this.folder,
 		});
-		if (this.view_.titleElement) {
-			this.view_.titleElement.addEventListener(
+		if (this.view.titleElement) {
+			this.view.titleElement.addEventListener(
 				'click',
 				this.onTitleClick_,
 			);
 		}
-		if (this.folder_) {
-			this.folder_.emitter.on(
+		if (this.folder) {
+			this.folder.emitter.on(
 				'change',
 				this.onRootFolderChange_,
 			);
@@ -78,20 +78,8 @@ export default class RootController {
 		return this.doc_;
 	}
 
-	get emitter(): Emitter<EventName> {
-		return this.emitter_;
-	}
-
-	get view(): RootView {
-		return this.view_;
-	}
-
 	get uiControllerList(): List<UiController> {
 		return this.ucList_;
-	}
-
-	get folder(): ?Folder {
-		return this.folder_;
 	}
 
 	onUiControllerListAppend_(uc: UiController) {
@@ -108,28 +96,28 @@ export default class RootController {
 			emitter.on('monitorupdate', this.onMonitorUpdate_);
 		}
 
-		this.view_.containerElement.appendChild(uc.view.element);
+		this.view.containerElement.appendChild(uc.view.element);
 	}
 
 	onTitleClick_() {
-		if (this.folder_) {
-			this.folder_.expanded = !this.folder_.expanded;
+		if (this.folder) {
+			this.folder.expanded = !this.folder.expanded;
 		}
 	}
 
 	onInputChange_(value: mixed): void {
-		this.emitter_.emit('inputchange', [value]);
+		this.emitter.emit('inputchange', [value]);
 	}
 
 	onMonitorUpdate_(value: mixed): void {
-		this.emitter_.emit('monitorupdate', [value]);
+		this.emitter.emit('monitorupdate', [value]);
 	}
 
 	onFolderChange_(): void {
-		this.emitter_.emit('fold');
+		this.emitter.emit('fold');
 	}
 
 	onRootFolderChange_(): void {
-		this.emitter_.emit('fold');
+		this.emitter.emit('fold');
 	}
 }

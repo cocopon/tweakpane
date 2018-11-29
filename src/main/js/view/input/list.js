@@ -16,9 +16,9 @@ type Config<T> = {
 const className = ClassName('lst', 'input');
 
 export default class ListInputView<T> extends View implements InputView<T> {
+	+value: InputValue<T>;
 	selectElem_: HTMLSelectElement;
 	stringifyValue_: (T) => string;
-	value_: InputValue<T>;
 
 	constructor(document: Document, config: Config<T>) {
 		super(document);
@@ -46,7 +46,7 @@ export default class ListInputView<T> extends View implements InputView<T> {
 		this.element.appendChild(markElem);
 
 		config.value.emitter.on('change', this.onValueChange_);
-		this.value_ = config.value;
+		this.value = config.value;
 
 		this.update();
 	}
@@ -55,12 +55,8 @@ export default class ListInputView<T> extends View implements InputView<T> {
 		return this.selectElem_;
 	}
 
-	get value(): InputValue<T> {
-		return this.value_;
-	}
-
 	update(): void {
-		this.selectElem_.value = this.stringifyValue_(this.value_.rawValue);
+		this.selectElem_.value = this.stringifyValue_(this.value.rawValue);
 	}
 
 	onValueChange_(): void {

@@ -6,22 +6,18 @@ import type {Constraint} from '../constraint/constraint';
 type EventType = 'change';
 
 export default class InputValue<T> {
+	+emitter: Emitter<EventType>;
 	constraint_: ?Constraint<T>;
-	emitter_: Emitter<EventType>;
 	rawValue_: T;
 
 	constructor(initialValue: T, constraint?: Constraint<T>) {
 		this.constraint_ = constraint;
-		this.emitter_ = new Emitter();
+		this.emitter = new Emitter();
 		this.rawValue_ = initialValue;
 	}
 
 	get constraint(): ?Constraint<T> {
 		return this.constraint_;
-	}
-
-	get emitter(): Emitter<EventType> {
-		return this.emitter_;
 	}
 
 	get rawValue(): T {
@@ -43,7 +39,7 @@ export default class InputValue<T> {
 		);
 		if (changed) {
 			this.rawValue_ = constrainedValue;
-			this.emitter_.emit(
+			this.emitter.emit(
 				'change', [constrainedValue]
 			);
 		}

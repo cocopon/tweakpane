@@ -5,16 +5,12 @@ import Emitter from '../misc/emitter';
 type EventType = 'append';
 
 export default class List<T> {
-	emitter_: Emitter<EventType>;
+	+emitter: Emitter<EventType>;
 	items_: T[];
 
 	constructor() {
-		this.emitter_ = new Emitter();
+		this.emitter = new Emitter();
 		this.items_ = [];
-	}
-
-	get emitter(): Emitter<EventType> {
-		return this.emitter_;
 	}
 
 	get items(): T[] {
@@ -23,6 +19,6 @@ export default class List<T> {
 
 	append(item: T): void {
 		this.items_.push(item);
-		this.emitter_.emit('append', [item]);
+		this.emitter.emit('append', [item]);
 	}
 }

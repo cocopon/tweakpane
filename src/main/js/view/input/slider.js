@@ -16,11 +16,10 @@ type Config = {
 const className = ClassName('sld', 'input');
 
 export default class SliderInputView extends View implements InputView<number> {
+	+value: InputValue<number>;
+	innerElem_: HTMLDivElement;
 	maxValue_: number;
 	minValue_: number;
-	value_: InputValue<number>;
-
-	innerElem_: HTMLDivElement;
 	outerElem_: HTMLDivElement;
 
 	constructor(document: Document, config: Config) {
@@ -44,13 +43,9 @@ export default class SliderInputView extends View implements InputView<number> {
 		this.innerElem_ = innerElem;
 
 		config.value.emitter.on('change', this.onValueChange_);
-		this.value_ = config.value;
+		this.value = config.value;
 
 		this.update();
-	}
-
-	get value(): InputValue<number> {
-		return this.value_;
 	}
 
 	get outerElement(): HTMLDivElement {
@@ -63,7 +58,7 @@ export default class SliderInputView extends View implements InputView<number> {
 
 	update(): void {
 		const p = NumberUtil.map(
-			this.value_.rawValue,
+			this.value.rawValue,
 			this.minValue_, this.maxValue_,
 			0, 100,
 		);

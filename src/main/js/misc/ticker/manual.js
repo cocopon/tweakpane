@@ -7,17 +7,13 @@ import type {Ticker} from './ticker';
 type EventType = 'tick';
 
 export default class IntervalTicker implements Ticker {
-	emitter_: Emitter<EventType>;
+	+emitter: Emitter<EventType>;
 
 	constructor() {
-		this.emitter_ = new Emitter();
-	}
-
-	get emitter(): Emitter<EventType> {
-		return this.emitter_;
+		this.emitter = new Emitter();
 	}
 
 	tick(): void {
-		this.emitter_.emit('tick');
+		this.emitter.emit('tick');
 	}
 }

@@ -11,27 +11,23 @@ type Config = {
 const className = ClassName('lbl');
 
 export default class LabeledView extends View {
-	label_: string;
+	+label: string;
 
 	constructor(document: Document, config: Config) {
 		super(document);
 
-		this.label_ = config.label;
+		this.label = config.label;
 
 		this.element.classList.add(className());
 
 		const labelElem = document.createElement('div');
 		labelElem.classList.add(className('l'));
-		labelElem.textContent = this.label_;
+		labelElem.textContent = this.label;
 		this.element.appendChild(labelElem);
 
 		const viewElem = document.createElement('div');
 		viewElem.classList.add(className('v'));
 		viewElem.appendChild(config.view.element);
 		this.element.appendChild(viewElem);
-	}
-
-	get label(): string {
-		return this.label_;
 	}
 }

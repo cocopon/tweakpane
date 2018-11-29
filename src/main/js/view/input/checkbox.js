@@ -13,8 +13,7 @@ type Config = {
 const className = ClassName('ckb', 'input');
 
 export default class CheckboxInputView extends View implements InputView<boolean> {
-	value_: InputValue<boolean>;
-
+	+value: InputValue<boolean>;
 	inputElem_: HTMLInputElement;
 
 	constructor(document: Document, config: Config) {
@@ -39,7 +38,7 @@ export default class CheckboxInputView extends View implements InputView<boolean
 		labelElem.appendChild(markElem);
 
 		config.value.emitter.on('change', this.onValueChange_);
-		this.value_ = config.value;
+		this.value = config.value;
 
 		this.update();
 	}
@@ -48,12 +47,8 @@ export default class CheckboxInputView extends View implements InputView<boolean
 		return this.inputElem_;
 	}
 
-	get value(): InputValue<boolean> {
-		return this.value_;
-	}
-
 	update(): void {
-		this.inputElem_.checked = this.value_.rawValue;
+		this.inputElem_.checked = this.value.rawValue;
 	}
 
 	onValueChange_(): void {

@@ -11,19 +11,19 @@ type Config = {
 const className = ClassName('btn');
 
 export default class ButtonView extends View {
-	button_: Button;
+	+button: Button;
 	buttonElem_: HTMLButtonElement;
 
 	constructor(document: Document, config: Config) {
 		super(document);
 
-		this.button_ = config.button;
+		this.button = config.button;
 
 		this.element.classList.add(className());
 
 		const buttonElem = document.createElement('button');
 		buttonElem.classList.add(className('b'));
-		buttonElem.textContent = this.button_.title;
+		buttonElem.textContent = this.button.title;
 		this.element.appendChild(buttonElem);
 		this.buttonElem_ = buttonElem;
 	}

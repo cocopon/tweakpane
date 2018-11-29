@@ -5,23 +5,19 @@ import MonitorBindingController from '../controller/monitor-binding';
 type EventName = 'update';
 
 export default class MonitorBindingApi<B: MonitorBindingController<*>> {
-	controller_: B;
+	+controller: B;
 
 	constructor(bindingController: B) {
-		this.controller_ = bindingController;
-	}
-
-	get controller(): B {
-		return this.controller_;
+		this.controller = bindingController;
 	}
 
 	on(eventName: EventName, handler: Function): MonitorBindingApi<B> {
-		const emitter = this.controller_.binding.value.emitter;
+		const emitter = this.controller.binding.value.emitter;
 		emitter.on(eventName, handler);
 		return this;
 	}
 
 	refresh(): void {
-		this.controller_.binding.read();
+		this.controller.binding.read();
 	}
 }

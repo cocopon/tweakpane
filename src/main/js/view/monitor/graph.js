@@ -22,6 +22,7 @@ type Config = {
 const className = ClassName('grp', 'monitor');
 
 export default class GraphMonitorView extends View implements MonitorView<number> {
+	+value: MonitorValue<number>;
 	cursor_: GraphCursor;
 	formatter_: Formatter<number>;
 	lineElem_: Element;
@@ -29,7 +30,6 @@ export default class GraphMonitorView extends View implements MonitorView<number
 	minValue_: number;
 	svgElem_: Element;
 	tooltipElem_: HTMLElement;
-	value_: MonitorValue<number>;
 
 	constructor(document: Document, config: Config) {
 		super(document);
@@ -61,7 +61,7 @@ export default class GraphMonitorView extends View implements MonitorView<number
 		this.tooltipElem_ = tooltipElem;
 
 		config.value.emitter.on('update', this.onValueUpdate_);
-		this.value_ = config.value;
+		this.value = config.value;
 
 		this.update();
 	}
@@ -70,21 +70,17 @@ export default class GraphMonitorView extends View implements MonitorView<number
 		return this.svgElem_;
 	}
 
-	get value(): MonitorValue<number> {
-		return this.value_;
-	}
-
 	update(): void {
 		const bounds = this.svgElem_.getBoundingClientRect();
 
 		// Graph
-		const maxIndex = this.value_.totalCount - 1;
+		const maxIndex = this.value.totalCount - 1;
 		const min = this.minValue_;
 		const max = this.maxValue_;
 		this.lineElem_.setAttributeNS(
 			null,
 			'points',
-			this.value_.rawValues.map((value, index) => {
+			this.value.rawValues.map((value, index) => {
 				const x = NumberUtil.map(index, 0, maxIndex, 0, bounds.width);
 				const y = NumberUtil.map(value, min, max, bounds.height, 0);
 				return [x, y].join(',');
@@ -99,7 +95,7 @@ export default class GraphMonitorView extends View implements MonitorView<number
 			return;
 		}
 		tooltipElem.classList.add(className('t', 'valid'));
-;
+
 		const tx = NumberUtil.map(
 			this.cursor_.index,
 			0, maxIndex,

@@ -8,7 +8,7 @@ type EventType = 'tick';
 
 export default class IntervalTicker implements Ticker {
 	active_: boolean;
-	emitter_: Emitter<EventType>;
+	+emitter: Emitter<EventType>;
 	id_: ?IntervalID;
 
 	constructor(_document: Document, interval: number) {
@@ -18,7 +18,7 @@ export default class IntervalTicker implements Ticker {
 
 		this.active_ = true;
 
-		this.emitter_ = new Emitter();
+		this.emitter = new Emitter();
 		if (interval > 0) {
 			this.id_ = setInterval(() => {
 				if (!this.active_) {
@@ -37,10 +37,6 @@ export default class IntervalTicker implements Ticker {
 		//		}
 	}
 
-	get emitter(): Emitter<EventType> {
-		return this.emitter_;
-	}
-
 	dispose(): void {
 		if (this.id_) {
 			clearInterval(this.id_);
@@ -49,7 +45,7 @@ export default class IntervalTicker implements Ticker {
 	}
 
 	onTick_(): void {
-		this.emitter_.emit('tick');
+		this.emitter.emit('tick');
 	}
 
 	onWindowBlur_(): void {

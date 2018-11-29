@@ -5,23 +5,15 @@ import Emitter from '../misc/emitter';
 type EventType = 'click';
 
 export default class Button {
-	emitter_: Emitter<EventType>;
-	title_: string;
+	+emitter: Emitter<EventType>;
+	+title: string;
 
 	constructor(title: string) {
-		this.emitter_ = new Emitter();
-		this.title_ = title;
-	}
-
-	get emitter(): Emitter<*> {
-		return this.emitter_;
-	}
-
-	get title(): string {
-		return this.title_;
+		this.emitter = new Emitter();
+		this.title = title;
 	}
 
 	click(): void {
-		this.emitter_.emit('click');
+		this.emitter.emit('click');
 	}
 }

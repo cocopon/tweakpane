@@ -15,9 +15,8 @@ type Config<T> = {
 const className = ClassName('txt', 'input');
 
 export default class TextInputView<T> extends View implements InputView<T> {
+	+value: InputValue<T>;
 	formatter_: Formatter<T>;
-	value_: InputValue<T>;
-
 	inputElem_: HTMLInputElement;
 
 	constructor(document: Document, config: Config<T>) {
@@ -36,7 +35,7 @@ export default class TextInputView<T> extends View implements InputView<T> {
 		this.inputElem_ = inputElem;
 
 		config.value.emitter.on('change', this.onValueChange_);
-		this.value_ = config.value;
+		this.value = config.value;
 
 		this.update();
 	}
@@ -45,12 +44,8 @@ export default class TextInputView<T> extends View implements InputView<T> {
 		return this.inputElem_;
 	}
 
-	get value(): InputValue<T> {
-		return this.value_;
-	}
-
 	update(): void {
-		this.inputElem_.value = this.formatter_.format(this.value_.rawValue);
+		this.inputElem_.value = this.formatter_.format(this.value.rawValue);
 	}
 
 	onValueChange_(): void {

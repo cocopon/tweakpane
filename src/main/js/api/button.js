@@ -5,18 +5,14 @@ import ButtonController from '../controller/button';
 type EventName = 'click';
 
 export default class ButtonApi {
-	controller_: ButtonController;
+	+controller: ButtonController;
 
 	constructor(buttonController: ButtonController) {
-		this.controller_ = buttonController;
-	}
-
-	get controller(): ButtonController {
-		return this.controller_;
+		this.controller = buttonController;
 	}
 
 	on(eventName: EventName, handler: Function) {
-		const emitter = this.controller_.button.emitter;
+		const emitter = this.controller.button.emitter;
 		emitter.on(eventName, handler);
 	}
 }

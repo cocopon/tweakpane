@@ -12,29 +12,17 @@ type Config<In, Out> = {
 };
 
 export default class InputBindingController<In, Out> {
-	binding_: InputBinding<In, Out>;
-	controller_: InputController<In>;
-	labeledView_: LabeledView;
+	+binding: InputBinding<In, Out>;
+	+controller: InputController<In>;
+	+view: LabeledView;
 
 	constructor(document: Document, config: Config<In, Out>) {
-		this.binding_ = config.binding;
-		this.controller_ = config.controller;
+		this.binding = config.binding;
+		this.controller = config.controller;
 
-		this.labeledView_ = new LabeledView(document, {
+		this.view = new LabeledView(document, {
 			label: config.label,
-			view: this.controller_.view,
+			view: this.controller.view,
 		});
-	}
-
-	get binding(): InputBinding<In, Out> {
-		return this.binding_;
-	}
-
-	get controller(): InputController<In> {
-		return this.controller_;
-	}
-
-	get view(): LabeledView {
-		return this.labeledView_;
 	}
 }

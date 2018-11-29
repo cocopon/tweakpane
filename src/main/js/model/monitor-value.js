@@ -5,18 +5,14 @@ import Emitter from '../misc/emitter';
 type EventType = 'update';
 
 export default class MonitorValue<T> {
-	emitter_: Emitter<EventType>;
+	+emitter: Emitter<EventType>;
 	rawValues_: T[];
 	totalCount_: number;
 
 	constructor(totalCount: number) {
-		this.emitter_ = new Emitter();
+		this.emitter = new Emitter();
 		this.rawValues_ = [];
 		this.totalCount_ = totalCount;
-	}
-
-	get emitter(): Emitter<EventType> {
-		return this.emitter_;
 	}
 
 	get rawValues(): T[] {
@@ -37,6 +33,6 @@ export default class MonitorValue<T> {
 			);
 		}
 
-		this.emitter_.emit('update', [rawValue]);
+		this.emitter.emit('update', [rawValue]);
 	}
 }

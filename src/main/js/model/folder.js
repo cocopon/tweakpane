@@ -5,24 +5,16 @@ import Emitter from '../misc/emitter';
 type EventType = 'change';
 
 export default class Folder {
-	emitter_: Emitter<EventType>;
-	expanded_: boolean;
+	+emitter: Emitter<EventType>;
+	+title: string;
 	expandedHeight_: ?number;
-	title_: string;
+	expanded_: boolean;
 
 	constructor(title: string, expanded: boolean) {
-		this.emitter_ = new Emitter();
+		this.emitter = new Emitter();
 		this.expanded_ = expanded;
 		this.expandedHeight_ = null;
-		this.title_ = title;
-	}
-
-	get emitter(): Emitter<EventType> {
-		return this.emitter_;
-	}
-
-	get title(): string {
-		return this.title_;
+		this.title = title;
 	}
 
 	get expanded(): boolean {
@@ -33,7 +25,7 @@ export default class Folder {
 		const changed = (this.expanded_ !== expanded);
 		if (changed) {
 			this.expanded_ = expanded;
-			this.emitter_.emit('change');
+			this.emitter.emit('change');
 		}
 	}
 
@@ -45,7 +37,7 @@ export default class Folder {
 		const changed = (this.expandedHeight_ !== expandedHeight);
 		if (changed) {
 			this.expandedHeight_ = expandedHeight;
-			this.emitter_.emit('change');
+			this.emitter.emit('change');
 		}
 	}
 }

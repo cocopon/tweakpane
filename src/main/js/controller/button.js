@@ -8,32 +8,24 @@ type Config = {
 };
 
 export default class ButtonController {
-	button_: Button;
-	view_: ButtonView;
+	+button: Button;
+	+view: ButtonView;
 
 	constructor(document: Document, config: Config) {
 		(this: any).onButtonClick_ = this.onButtonClick_.bind(this);
 
-		this.button_ = new Button(config.title);
+		this.button = new Button(config.title);
 
-		this.view_ = new ButtonView(document, {
-			button: this.button_,
+		this.view = new ButtonView(document, {
+			button: this.button,
 		});
-		this.view_.buttonElement.addEventListener(
+		this.view.buttonElement.addEventListener(
 			'click',
 			this.onButtonClick_,
 		);
 	}
 
-	get button(): Button {
-		return this.button_;
-	}
-
-	get view(): ButtonView {
-		return this.view_;
-	}
-
 	onButtonClick_() {
-		this.button_.click();
+		this.button.click();
 	}
 }

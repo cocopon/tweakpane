@@ -36,29 +36,25 @@ const TO_INTERNAL_EVENT_NAME_MAP: {[EventName]: InternalEventName} = {
 };
 
 export default class RootApi {
-	controller_: RootController;
+	+controller: RootController;
 
 	constructor(rootController: RootController) {
-		this.controller_ = rootController;
-	}
-
-	get controller(): RootController {
-		return this.controller_;
+		this.controller = rootController;
 	}
 
 	get element(): HTMLElement {
-		return this.controller_.view.element;
+		return this.controller.view.element;
 	}
 
 	get expanded(): boolean {
-		const folder = this.controller_.folder;
+		const folder = this.controller.folder;
 		return folder ?
 			folder.expanded :
 			true;
 	}
 
 	set expanded(expanded: boolean): void {
-		const folder = this.controller_.folder;
+		const folder = this.controller.folder;
 		if (folder) {
 			folder.expanded = expanded;
 		}
@@ -67,53 +63,53 @@ export default class RootApi {
 	addInput(object: Object, key: string, opt_params?: InputParams) {
 		const params = opt_params || {};
 		const uc = InputBindingControllerCreators.create(
-			this.controller_.document,
+			this.controller.document,
 			new Target(object, key, params.presetKey),
 			params,
 		);
-		this.controller_.uiControllerList.append(uc);
+		this.controller.uiControllerList.append(uc);
 		return new InputBindingApi<*>(uc);
 	}
 
 	addMonitor(object: Object, key: string, opt_params?: MonitorParams) {
 		const params = opt_params || {};
 		const uc = MonitorBindingControllerCreators.create(
-			this.controller_.document,
+			this.controller.document,
 			new Target(object, key),
 			params,
 		);
-		this.controller_.uiControllerList.append(uc);
+		this.controller.uiControllerList.append(uc);
 		return new MonitorBindingApi<*>(uc);
 	}
 
 	addButton(params: ButtonParams): ButtonApi {
 		const uc = new ButtonController(
-			this.controller_.document,
+			this.controller.document,
 			params,
 		);
-		this.controller_.uiControllerList.append(uc);
+		this.controller.uiControllerList.append(uc);
 		return new ButtonApi(uc);
 	}
 
 	addFolder(params: FolderParams): FolderApi {
 		const uc = new FolderController(
-			this.controller_.document,
+			this.controller.document,
 			params,
 		);
-		this.controller_.uiControllerList.append(uc);
+		this.controller.uiControllerList.append(uc);
 		return new FolderApi(uc);
 	}
 
 	addSeparator(): void {
 		const uc = new SeparatorController(
-			this.controller_.document,
+			this.controller.document,
 		);
-		this.controller_.uiControllerList.append(uc);
+		this.controller.uiControllerList.append(uc);
 	}
 
 	importPreset(preset: PresetObject): void {
 		const targets = UiUtil.findControllers(
-			this.controller_.uiControllerList.items,
+			this.controller.uiControllerList.items,
 			InputBindingController,
 		).map((ibc) => {
 			return ibc.binding.target;
@@ -124,7 +120,7 @@ export default class RootApi {
 
 	exportPreset(): PresetObject {
 		const targets = UiUtil.findControllers(
-			this.controller_.uiControllerList.items,
+			this.controller.uiControllerList.items,
 			InputBindingController,
 		).map((ibc) => {
 			return ibc.binding.target;
@@ -135,7 +131,7 @@ export default class RootApi {
 	on(eventName: EventName, handler: Function): RootApi {
 		const internalEventName = TO_INTERNAL_EVENT_NAME_MAP[eventName];
 		if (internalEventName) {
-			const emitter = this.controller_.emitter;
+			const emitter = this.controller.emitter;
 			emitter.on(internalEventName, handler);
 		}
 		return this;
@@ -144,7 +140,7 @@ export default class RootApi {
 	refresh(): void {
 		// Force-read all input bindings
 		UiUtil.findControllers(
-			this.controller_.uiControllerList.items,
+			this.controller.uiControllerList.items,
 			InputBindingController,
 		).forEach((ibc) => {
 			ibc.binding.read();
@@ -152,7 +148,7 @@ export default class RootApi {
 
 		// Force-read all monitor bindings
 		UiUtil.findControllers(
-			this.controller_.uiControllerList.items,
+			this.controller.uiControllerList.items,
 			MonitorBindingController,
 		).forEach((mbc) => {
 			mbc.binding.read();
