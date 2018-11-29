@@ -4,6 +4,7 @@ import {describe, it} from 'mocha';
 import {assert} from 'chai';
 
 import RootController from '../controller/root';
+import SeparatorController from '../controller/separator';
 import TestUtil from '../misc/test-util';
 import RootApi from './root';
 
@@ -51,6 +52,17 @@ describe(RootApi.name, () => {
 		assert.strictEqual(
 			f.controller.folder.expanded,
 			false,
+		);
+	});
+
+	it('should add separator', () => {
+		const api = createApi();
+		api.addSeparator();
+
+		const cs = api.controller.uiControllerList.items;
+		assert.instanceOf(
+			cs[cs.length - 1],
+			SeparatorController,
 		);
 	});
 });

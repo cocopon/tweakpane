@@ -5,16 +5,12 @@ import Emitter from '../misc/emitter';
 type EventType = 'change';
 
 export default class GraphCursor {
-	emitter_: Emitter<EventType>;
+	+emitter: Emitter<EventType>;
 	index_: number;
 
 	constructor() {
-		this.emitter_ = new Emitter();
+		this.emitter = new Emitter();
 		this.index_ = -1;
-	}
-
-	get emitter(): Emitter<EventType> {
-		return this.emitter_;
 	}
 
 	get index(): number {
@@ -25,7 +21,7 @@ export default class GraphCursor {
 		const changed = (this.index_ !== index);
 		if (changed) {
 			this.index_ = index;
-			this.emitter_.emit('change', [index]);
+			this.emitter.emit('change', [index]);
 		}
 	}
 }

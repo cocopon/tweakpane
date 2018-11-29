@@ -1,28 +1,32 @@
 // @flow
 
-import {describe, it} from 'mocha';
+import {describe as context, describe, it} from 'mocha';
 import {assert} from 'chai';
 
 import * as NumberConverter from './number';
 
 describe('NumberConverter', () => {
-	it('should convert mixed to number', () => {
-		assert.strictEqual(
-			NumberConverter.fromMixed(3.14),
-			3.14,
-		);
-		assert.strictEqual(
-			NumberConverter.fromMixed('1.4141356'),
-			1.4141356,
-		);
-		assert.strictEqual(
-			NumberConverter.fromMixed('foobar'),
-			0,
-		);
-		assert.strictEqual(
-			NumberConverter.fromMixed({foo: 'bar'}),
-			0,
-		);
+	[{
+		arg: 3.14,
+		expected: 3.14,
+	}, {
+		arg: '1.4141356',
+		expected: 1.4141356,
+	}, {
+		arg: 'foobar',
+		expected: 0,
+	}, {
+		arg: {foo: 'bar'},
+		expected: 0,
+	}].forEach((testCase) => {
+		context(`when ${JSON.stringify(testCase.arg)}`, () => {
+			it(`should convert to ${testCase.expected}`, () => {
+				assert.strictEqual(
+					NumberConverter.fromMixed(testCase.arg),
+					testCase.expected,
+				);
+			});
+		});
 	});
 
 	it('should convert number to string', () => {

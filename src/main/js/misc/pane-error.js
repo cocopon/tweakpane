@@ -22,16 +22,17 @@ function createMessage(config: Config): string {
 }
 
 export default class PaneError {
-	message: string;
-	name: string;
-	stack: string;
-	type: ErrorType;
+	+message: string;
+	+name: string;
+	+stack: string;
+	+type: ErrorType;
 
 	constructor(config: Config) {
 		this.message = createMessage(config);
 
 		this.name = this.constructor.name;
 		this.stack = (new Error(this.message)).stack;
+		this.type = config.type;
 	}
 }
 (PaneError: any).prototype = Object.create(Error.prototype);
