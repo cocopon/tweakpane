@@ -19,14 +19,14 @@ export default class MonitorBinding<In> {
 	reader_: (outerValue: mixed) => In;
 
 	constructor(config: Config<In>) {
+		(this: any).onTick_ = this.onTick_.bind(this);
+
 		this.reader_ = config.reader;
 		this.target = config.target;
 		this.value = config.value;
 
 		this.ticker = config.ticker;
-		this.ticker.emitter.on('tick', () => {
-			this.read();
-		});
+		this.ticker.emitter.on('tick', this.onTick_);
 
 		this.read();
 	}
