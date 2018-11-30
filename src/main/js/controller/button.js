@@ -19,10 +19,7 @@ export default class ButtonController {
 		this.view = new ButtonView(document, {
 			button: this.button,
 		});
-		this.view.buttonElement.addEventListener(
-			'click',
-			this.onButtonClick_,
-		);
+		this.view.buttonElement.addEventListener('click', this.onButtonClick_);
 	}
 
 	onButtonClick_() {

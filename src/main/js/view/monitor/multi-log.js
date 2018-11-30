@@ -14,7 +14,8 @@ type Config<T> = {
 
 const className = ClassName('mll', 'monitor');
 
-export default class MultiLogMonitorView<T> extends View implements MonitorView<T> {
+export default class MultiLogMonitorView<T> extends View
+	implements MonitorView<T> {
 	+value: MonitorValue<T>;
 	formatter_: Formatter<T>;
 	textareaElem_: HTMLTextAreaElement;
@@ -42,11 +43,14 @@ export default class MultiLogMonitorView<T> extends View implements MonitorView<
 
 	update(): void {
 		const elem = this.textareaElem_;
-		const shouldScroll = (elem.scrollTop === (elem.scrollHeight - elem.clientHeight));
+		const shouldScroll =
+			elem.scrollTop === elem.scrollHeight - elem.clientHeight;
 
-		elem.textContent = this.value.rawValues.map((value) => {
-			return this.formatter_.format(value);
-		}).join('\n');
+		elem.textContent = this.value.rawValues
+			.map((value) => {
+				return this.formatter_.format(value);
+			})
+			.join('\n');
 
 		if (shouldScroll) {
 			elem.scrollTop = elem.scrollHeight;

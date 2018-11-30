@@ -14,13 +14,10 @@ type Config<T> = {
 	value: InputValue<T>,
 };
 
-function findListItems<T>(value: InputValue<T>): ?ListItem<T>[] {
-	const c = value.constraint ?
-		ConstraintUtil.findConstraint(
-			value.constraint,
-			ListConstraint,
-		) :
-		null;
+function findListItems<T>(value: InputValue<T>): ?(ListItem<T>[]) {
+	const c = value.constraint
+		? ConstraintUtil.findConstraint(value.constraint, ListConstraint)
+		: null;
 	if (!c) {
 		return null;
 	}

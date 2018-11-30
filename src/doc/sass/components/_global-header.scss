@@ -55,7 +55,7 @@ $prefix: 'common';
 			right: 128px;
 		}
 		@include sp() {
-			right: 16px;;
+			right: 16px;
 		}
 	}
 }
@@ -82,7 +82,11 @@ $prefix: 'common';
 				background-color: $page-header-bg-color;
 			}
 			@include sp() {
-				background: linear-gradient(to bottom, rgba($page-header-bg-color, 0), $page-header-bg-color);
+				background: linear-gradient(
+					to bottom,
+					rgba($page-header-bg-color, 0),
+					$page-header-bg-color
+				);
 			}
 		}
 	}

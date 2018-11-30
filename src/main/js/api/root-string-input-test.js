@@ -10,37 +10,34 @@ import TestUtil from '../misc/test-util';
 import RootApi from './root';
 
 function createApi(): RootApi {
-	const c = new RootController(
-		TestUtil.createWindow().document,
-		{},
-	);
+	const c = new RootController(TestUtil.createWindow().document, {});
 	return new RootApi(c);
 }
 
 describe(RootApi.name, () => {
-	[{
-		expectedClass: TextInputController,
-		params: {},
-		value: 'foobar',
-	}, {
-		expectedClass: ListInputController,
-		params: {
-			options: {
-				foo: 'bar',
-				baz: 'qux',
-			},
+	[
+		{
+			expectedClass: TextInputController,
+			params: {},
+			value: 'foobar',
 		},
-		value: 'foobar',
-	}].forEach((testCase) => {
+		{
+			expectedClass: ListInputController,
+			params: {
+				options: {
+					foo: 'bar',
+					baz: 'qux',
+				},
+			},
+			value: 'foobar',
+		},
+	].forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should return class ${testCase.expectedClass.name}`, () => {
 				const api = createApi();
 				const obj = {foo: testCase.value};
 				const bapi = api.addInput(obj, 'foo', testCase.params);
-				assert.instanceOf(
-					bapi.controller.controller,
-					testCase.expectedClass,
-				);
+				assert.instanceOf(bapi.controller.controller, testCase.expectedClass);
 			});
 		});
 	});

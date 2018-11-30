@@ -16,19 +16,14 @@ type Config = {
 	title?: string,
 };
 
-export type EventName = 'fold' |
-	'inputchange' |
-	'monitorupdate';
+export type EventName = 'fold' | 'inputchange' | 'monitorupdate';
 
 function createFolder(config: Config): ?Folder {
 	if (!config.title) {
 		return null;
 	}
 
-	return new Folder(
-		config.title,
-		FlowUtil.getOrDefault(config.expanded, true),
-	);
+	return new Folder(config.title, FlowUtil.getOrDefault(config.expanded, true));
 }
 
 export default class RootController {
@@ -42,7 +37,9 @@ export default class RootController {
 		(this: any).onFolderChange_ = this.onFolderChange_.bind(this);
 		(this: any).onRootFolderChange_ = this.onRootFolderChange_.bind(this);
 		(this: any).onTitleClick_ = this.onTitleClick_.bind(this);
-		(this: any).onUiControllerListAppend_ = this.onUiControllerListAppend_.bind(this);
+		(this: any).onUiControllerListAppend_ = this.onUiControllerListAppend_.bind(
+			this,
+		);
 		(this: any).onInputChange_ = this.onInputChange_.bind(this);
 		(this: any).onMonitorUpdate_ = this.onMonitorUpdate_.bind(this);
 
@@ -51,26 +48,17 @@ export default class RootController {
 		this.folder = createFolder(config);
 
 		this.ucList_ = new List();
-		this.ucList_.emitter.on(
-			'append',
-			this.onUiControllerListAppend_,
-		);
+		this.ucList_.emitter.on('append', this.onUiControllerListAppend_);
 
 		this.doc_ = document;
 		this.view = new RootView(this.doc_, {
 			folder: this.folder,
 		});
 		if (this.view.titleElement) {
-			this.view.titleElement.addEventListener(
-				'click',
-				this.onTitleClick_,
-			);
+			this.view.titleElement.addEventListener('click', this.onTitleClick_);
 		}
 		if (this.folder) {
-			this.folder.emitter.on(
-				'change',
-				this.onRootFolderChange_,
-			);
+			this.folder.emitter.on('change', this.onRootFolderChange_);
 		}
 	}
 

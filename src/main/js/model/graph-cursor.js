@@ -18,7 +18,7 @@ export default class GraphCursor {
 	}
 
 	set index(index: number): void {
-		const changed = (this.index_ !== index);
+		const changed = this.index_ !== index;
 		if (changed) {
 			this.index_ = index;
 			this.emitter.emit('change', [index]);

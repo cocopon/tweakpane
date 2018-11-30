@@ -1,15 +1,16 @@
 // @flow
 
-type ErrorType = 'invalidparams' |
-	'nomatchingcontroller';
+type ErrorType = 'invalidparams' | 'nomatchingcontroller';
 
-type Config = {
-	context: {name: string},
-	type: 'invalidparams',
-} | {
-	context: {key: string},
-	type: 'nomatchingcontroller',
-};
+type Config =
+	| {
+			context: {name: string},
+			type: 'invalidparams',
+	  }
+	| {
+			context: {key: string},
+			type: 'nomatchingcontroller',
+	  };
 
 function createMessage(config: Config): string {
 	if (config.type === 'invalidparams') {
@@ -31,7 +32,7 @@ export default class PaneError {
 		this.message = createMessage(config);
 
 		this.name = this.constructor.name;
-		this.stack = (new Error(this.message)).stack;
+		this.stack = new Error(this.message).stack;
 		this.type = config.type;
 	}
 }

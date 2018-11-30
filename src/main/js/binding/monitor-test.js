@@ -42,7 +42,8 @@ describe(MonitorBinding.name, () => {
 		});
 
 		assert.strictEqual(
-			value.rawValues[0], 123,
+			value.rawValues[0],
+			123,
 			'Initial value of target should be applied',
 		);
 
@@ -50,7 +51,8 @@ describe(MonitorBinding.name, () => {
 		ticker.tick();
 
 		assert.strictEqual(
-			value.rawValues[0], 456,
+			value.rawValues[0],
+			456,
 			'Binded value should be updated',
 		);
 	});
@@ -70,7 +72,8 @@ describe(MonitorBinding.name, () => {
 		});
 
 		assert.strictEqual(
-			value.rawValues[0], 123,
+			value.rawValues[0],
+			123,
 			'Initial value of target should be applied',
 		);
 
@@ -78,7 +81,8 @@ describe(MonitorBinding.name, () => {
 		ticker.tick();
 
 		assert.strictEqual(
-			value.rawValues[0], 123,
+			value.rawValues[0],
+			123,
 			'Deleted value should be pushed',
 		);
 	});

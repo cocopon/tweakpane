@@ -4,14 +4,16 @@ import FolderController from './folder';
 
 import type {UiController} from './ui';
 
-export function findControllers<Controller>(uiControllers: UiController[], controllerClass: Class<Controller>): Controller[] {
+export function findControllers<Controller>(
+	uiControllers: UiController[],
+	controllerClass: Class<Controller>,
+): Controller[] {
 	return uiControllers.reduce((results, uc) => {
 		if (uc instanceof FolderController) {
 			// eslint-disable-next-line no-use-before-define
-			results.push(...findControllers(
-				uc.uiControllerList.items,
-				controllerClass,
-			));
+			results.push(
+				...findControllers(uc.uiControllerList.items, controllerClass),
+			);
 		}
 
 		if (uc instanceof controllerClass) {

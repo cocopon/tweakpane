@@ -17,7 +17,8 @@ type Config = {
 	value: InputValue<Color>,
 };
 
-export default class ColorSwatchTextInputController implements InputController<Color> {
+export default class ColorSwatchTextInputController
+	implements InputController<Color> {
 	swatchMc_: ColorSwatchMonitorController;
 	textIc_: TextInputController<Color>;
 	value_: InputValue<Color>;

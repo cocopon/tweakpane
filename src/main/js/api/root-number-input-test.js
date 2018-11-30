@@ -17,49 +17,48 @@ import RootApi from './root';
 import type {Constraint} from '../constraint/constraint';
 
 function createApi(): RootApi {
-	const c = new RootController(
-		TestUtil.createWindow().document,
-		{},
-	);
+	const c = new RootController(TestUtil.createWindow().document, {});
 	return new RootApi(c);
 }
 
 describe(RootApi.name, () => {
-	[{
-		expectedClass: TextInputController,
-		params: {},
-		value: 3.14,
-	}, {
-		expectedClass: SliderTextInputController,
-		params: {
-			min: 0,
+	[
+		{
+			expectedClass: TextInputController,
+			params: {},
+			value: 3.14,
 		},
-		value: 3.14,
-	}, {
-		expectedClass: SliderTextInputController,
-		params: {
-			max: 100,
-		},
-		value: 3.14,
-	}, {
-		expectedClass: ListInputController,
-		params: {
-			options: {
-				foo: 0,
-				bar: 1,
+		{
+			expectedClass: SliderTextInputController,
+			params: {
+				min: 0,
 			},
+			value: 3.14,
 		},
-		value: 3.14,
-	}].forEach((testCase) => {
+		{
+			expectedClass: SliderTextInputController,
+			params: {
+				max: 100,
+			},
+			value: 3.14,
+		},
+		{
+			expectedClass: ListInputController,
+			params: {
+				options: {
+					foo: 0,
+					bar: 1,
+				},
+			},
+			value: 3.14,
+		},
+	].forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should return class ${testCase.expectedClass.name}`, () => {
 				const api = createApi();
 				const obj = {foo: testCase.value};
 				const bapi = api.addInput(obj, 'foo', testCase.params);
-				assert.instanceOf(
-					bapi.controller.controller,
-					testCase.expectedClass,
-				);
+				assert.instanceOf(bapi.controller.controller, testCase.expectedClass);
 			});
 		});
 	});
@@ -72,10 +71,7 @@ describe(RootApi.name, () => {
 		});
 
 		const iv = bapi.controller.controller.value;
-		assert.instanceOf(
-			iv,
-			InputValue,
-		);
+		assert.instanceOf(iv, InputValue);
 
 		if (!(iv instanceof InputValue)) {
 			throw new Error('Input value is empty');
@@ -85,8 +81,6 @@ describe(RootApi.name, () => {
 			throw new Error('Constraint is empty');
 		}
 
-		assert.isNotNull(
-			ConstraintUtil.findConstraint(c, StepConstraint),
-		);
+		assert.isNotNull(ConstraintUtil.findConstraint(c, StepConstraint));
 	});
 });

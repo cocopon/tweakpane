@@ -16,9 +16,7 @@ type Config = {
 	title: string,
 };
 
-export type EventName = 'fold' |
-	'inputchange' |
-	'monitorupdate';
+export type EventName = 'fold' | 'inputchange' | 'monitorupdate';
 
 export default class FolderController {
 	+emitter: Emitter<EventName>;
@@ -33,7 +31,9 @@ export default class FolderController {
 		(this: any).onMonitorUpdate_ = this.onMonitorUpdate_.bind(this);
 
 		(this: any).onTitleClick_ = this.onTitleClick_.bind(this);
-		(this: any).onUiControllerListAppend_ = this.onUiControllerListAppend_.bind(this);
+		(this: any).onUiControllerListAppend_ = this.onUiControllerListAppend_.bind(
+			this,
+		);
 
 		this.emitter = new Emitter();
 
@@ -41,25 +41,16 @@ export default class FolderController {
 			config.title,
 			FlowUtil.getOrDefault(config.expanded, true),
 		);
-		this.folder.emitter.on(
-			'change',
-			this.onFolderChange_,
-		);
+		this.folder.emitter.on('change', this.onFolderChange_);
 
 		this.ucList_ = new List();
-		this.ucList_.emitter.on(
-			'append',
-			this.onUiControllerListAppend_,
-		);
+		this.ucList_.emitter.on('append', this.onUiControllerListAppend_);
 
 		this.doc_ = document;
 		this.view = new FolderView(this.doc_, {
 			folder: this.folder,
 		});
-		this.view.titleElement.addEventListener(
-			'click',
-			this.onTitleClick_,
-		);
+		this.view.titleElement.addEventListener('click', this.onTitleClick_);
 	}
 
 	get document(): Document {

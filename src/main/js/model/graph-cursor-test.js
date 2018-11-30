@@ -9,19 +9,13 @@ describe(GraphCursor.name, () => {
 	it('should get index', () => {
 		const c = new GraphCursor();
 		c.index = 123;
-		assert.strictEqual(
-			c.index,
-			123,
-		);
+		assert.strictEqual(c.index, 123);
 	});
 
 	it('should emit change event', (done) => {
 		const c = new GraphCursor();
 		c.emitter.on('change', (index) => {
-			assert.strictEqual(
-				index,
-				123,
-			);
+			assert.strictEqual(index, 123);
 			done();
 		});
 		c.index = 123;

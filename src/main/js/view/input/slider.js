@@ -59,8 +59,10 @@ export default class SliderInputView extends View implements InputView<number> {
 	update(): void {
 		const p = NumberUtil.map(
 			this.value.rawValue,
-			this.minValue_, this.maxValue_,
-			0, 100,
+			this.minValue_,
+			this.maxValue_,
+			0,
+			100,
 		);
 		this.innerElem_.style.width = `${p}%`;
 	}

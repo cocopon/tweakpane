@@ -18,21 +18,23 @@ type Params = {
 	multiline?: boolean,
 };
 
-export function createTextMonitor(document: Document, target: Target, params: Params): MonitorBindingController<string> {
-	const value = new MonitorValue(
-		FlowUtil.getOrDefault(params.count, 1),
-	);
+export function createTextMonitor(
+	document: Document,
+	target: Target,
+	params: Params,
+): MonitorBindingController<string> {
+	const value = new MonitorValue(FlowUtil.getOrDefault(params.count, 1));
 
-	const multiline = (value.totalCount > 1) || params.multiline;
-	const controller = multiline ?
-		new MultiLogMonitorController(document, {
-			formatter: new StringFormatter(),
-			value: value,
-		}) :
-		new SingleLogMonitorController(document, {
-			formatter: new StringFormatter(),
-			value: value,
-		});
+	const multiline = value.totalCount > 1 || params.multiline;
+	const controller = multiline
+		? new MultiLogMonitorController(document, {
+				formatter: new StringFormatter(),
+				value: value,
+		  })
+		: new SingleLogMonitorController(document, {
+				formatter: new StringFormatter(),
+				value: value,
+		  });
 	const ticker = new IntervalTicker(
 		document,
 		FlowUtil.getOrDefault(params.interval, 200),

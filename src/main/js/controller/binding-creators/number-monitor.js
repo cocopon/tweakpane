@@ -31,20 +31,23 @@ function createFormatter(): NumberFormatter {
 	return new NumberFormatter(2);
 }
 
-export function createTextMonitor(document: Document, target: Target, params: Params): MonitorBindingController<number> {
-	const value = new MonitorValue(
-		FlowUtil.getOrDefault(params.count, 1),
-	);
+export function createTextMonitor(
+	document: Document,
+	target: Target,
+	params: Params,
+): MonitorBindingController<number> {
+	const value = new MonitorValue(FlowUtil.getOrDefault(params.count, 1));
 
-	const controller = (value.totalCount === 1) ?
-		new SingleLogMonitorController(document, {
-			formatter: createFormatter(),
-			value: value,
-		}) :
-		new MultiLogMonitorController(document, {
-			formatter: createFormatter(),
-			value: value,
-		});
+	const controller =
+		value.totalCount === 1
+			? new SingleLogMonitorController(document, {
+					formatter: createFormatter(),
+					value: value,
+			  })
+			: new MultiLogMonitorController(document, {
+					formatter: createFormatter(),
+					value: value,
+			  });
 	const ticker = new IntervalTicker(
 		document,
 		FlowUtil.getOrDefault(params.interval, 200),
@@ -62,10 +65,12 @@ export function createTextMonitor(document: Document, target: Target, params: Pa
 	});
 }
 
-export function createGraphMonitor(document: Document, target: Target, params: GraphMonitorParams): MonitorBindingController<number> {
-	const value = new MonitorValue(
-		FlowUtil.getOrDefault(params.count, 64),
-	);
+export function createGraphMonitor(
+	document: Document,
+	target: Target,
+	params: GraphMonitorParams,
+): MonitorBindingController<number> {
+	const value = new MonitorValue(FlowUtil.getOrDefault(params.count, 64));
 	const ticker = new IntervalTicker(
 		document,
 		FlowUtil.getOrDefault(params.interval, 200),

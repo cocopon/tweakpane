@@ -37,16 +37,14 @@ describe(InputBinding.name, () => {
 		});
 
 		assert.strictEqual(
-			value.rawValue, 123,
+			value.rawValue,
+			123,
 			'Initial value of target should be applied',
 		);
 
 		value.rawValue = 456;
 
-		assert.strictEqual(
-			obj.foo, 456,
-			'Binded value should be updated',
-		);
+		assert.strictEqual(obj.foo, 456, 'Binded value should be updated');
 	});
 
 	it('should not apply binding value to undefined field', () => {

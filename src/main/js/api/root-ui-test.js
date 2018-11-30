@@ -9,10 +9,7 @@ import TestUtil from '../misc/test-util';
 import RootApi from './root';
 
 function createApi(): RootApi {
-	const c = new RootController(
-		TestUtil.createWindow().document,
-		{},
-	);
+	const c = new RootController(TestUtil.createWindow().document, {});
 	return new RootApi(c);
 }
 
@@ -22,10 +19,7 @@ describe(RootApi.name, () => {
 		const b = api.addButton({
 			title: 'push',
 		});
-		assert.strictEqual(
-			b.controller.button.title,
-			'push',
-		);
+		assert.strictEqual(b.controller.button.title, 'push');
 	});
 
 	it('should add folder', () => {
@@ -33,14 +27,8 @@ describe(RootApi.name, () => {
 		const f = api.addFolder({
 			title: 'folder',
 		});
-		assert.strictEqual(
-			f.controller.folder.title,
-			'folder',
-		);
-		assert.strictEqual(
-			f.controller.folder.expanded,
-			true,
-		);
+		assert.strictEqual(f.controller.folder.title, 'folder');
+		assert.strictEqual(f.controller.folder.expanded, true);
 	});
 
 	it('should add collapsed folder', () => {
@@ -49,10 +37,7 @@ describe(RootApi.name, () => {
 			expanded: false,
 			title: 'folder',
 		});
-		assert.strictEqual(
-			f.controller.folder.expanded,
-			false,
-		);
+		assert.strictEqual(f.controller.folder.expanded, false);
 	});
 
 	it('should add separator', () => {
@@ -60,9 +45,6 @@ describe(RootApi.name, () => {
 		api.addSeparator();
 
 		const cs = api.controller.uiControllerList.items;
-		assert.instanceOf(
-			cs[cs.length - 1],
-			SeparatorController,
-		);
+		assert.instanceOf(cs[cs.length - 1], SeparatorController);
 	});
 });

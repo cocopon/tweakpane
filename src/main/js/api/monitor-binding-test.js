@@ -43,10 +43,7 @@ describe(MonitorBindingApi.name, () => {
 		};
 		const api = createApi(new Target(PARAMS, 'foo'));
 		api.on('update', (value) => {
-			assert.strictEqual(
-				value,
-				123,
-			);
+			assert.strictEqual(value, 123);
 			done();
 		});
 
@@ -67,9 +64,6 @@ describe(MonitorBindingApi.name, () => {
 		PARAMS.foo = 123;
 		api.refresh();
 
-		assert.strictEqual(
-			api.controller.binding.value.rawValues[0],
-			123,
-		);
+		assert.strictEqual(api.controller.binding.value.rawValues[0], 123);
 	});
 });

@@ -31,23 +31,31 @@ function createConstraint(params: Params): Constraint<number> {
 	const constraints: Constraint<number>[] = [];
 
 	if (params.step !== null && params.step !== undefined) {
-		constraints.push(new StepConstraint({
-			step: params.step,
-		}));
+		constraints.push(
+			new StepConstraint({
+				step: params.step,
+			}),
+		);
 	}
 
-	if ((params.max !== null && params.max !== undefined) ||
-			(params.min !== null && params.min !== undefined)) {
-		constraints.push(new RangeConstraint({
-			max: params.max,
-			min: params.min,
-		}));
+	if (
+		(params.max !== null && params.max !== undefined) ||
+		(params.min !== null && params.min !== undefined)
+	) {
+		constraints.push(
+			new RangeConstraint({
+				max: params.max,
+				min: params.min,
+			}),
+		);
 	}
 
 	if (params.options) {
-		constraints.push(new ListConstraint({
-			options: params.options,
-		}));
+		constraints.push(
+			new ListConstraint({
+				options: params.options,
+			}),
+		);
 	}
 
 	return new CompositeConstraint({
@@ -62,10 +70,7 @@ function getSuitableDecimalDigits(value: InputValue<number>): number {
 		return NumberUtil.getDecimalDigits(sc.step);
 	}
 
-	return Math.max(
-		NumberUtil.getDecimalDigits(value.rawValue),
-		2,
-	);
+	return Math.max(NumberUtil.getDecimalDigits(value.rawValue), 2);
 }
 
 function createController(document: Document, value: InputValue<number>) {
@@ -80,28 +85,25 @@ function createController(document: Document, value: InputValue<number>) {
 
 	if (c && ConstraintUtil.findConstraint(c, RangeConstraint)) {
 		return new SliderTextInputController(document, {
-			formatter: new NumberFormatter(
-				getSuitableDecimalDigits(value),
-			),
+			formatter: new NumberFormatter(getSuitableDecimalDigits(value)),
 			parser: NumberParser,
 			value: value,
 		});
 	}
 
 	return new NumberTextInputController(document, {
-		formatter: new NumberFormatter(
-			getSuitableDecimalDigits(value),
-		),
+		formatter: new NumberFormatter(getSuitableDecimalDigits(value)),
 		parser: NumberParser,
 		value: value,
 	});
 }
 
-export function create(document: Document, target: Target, params: Params): InputBindingController<number, *> {
-	const value = new InputValue(
-		0,
-		createConstraint(params),
-	);
+export function create(
+	document: Document,
+	target: Target,
+	params: Params,
+): InputBindingController<number, *> {
+	const value = new InputValue(0, createConstraint(params));
 	const binding = new InputBinding({
 		reader: NumberConverter.fromMixed,
 		target: target,

@@ -7,7 +7,7 @@ type Window = any;
 
 const TestUtil = {
 	createWindow(): Window {
-		return (new JSDOM('')).window;
+		return new JSDOM('').window;
 	},
 };
 

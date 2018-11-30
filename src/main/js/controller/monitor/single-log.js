@@ -11,7 +11,8 @@ type Config<T> = {
 	value: MonitorValue<T>,
 };
 
-export default class SingleLogMonitorController<T> implements MonitorController<T> {
+export default class SingleLogMonitorController<T>
+	implements MonitorController<T> {
 	+value: MonitorValue<T>;
 	+view: SingleLogMonitorView<T>;
 

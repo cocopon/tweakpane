@@ -18,9 +18,10 @@ export default class StepConstraint implements Constraint<number> {
 	}
 
 	constrain(value: number): number {
-		const r = (value < 0) ?
-			-Math.round(-value / this.step_) :
-			Math.round(value / this.step_);
+		const r =
+			value < 0
+				? -Math.round(-value / this.step_)
+				: Math.round(value / this.step_);
 		return r * this.step_;
 	}
 }

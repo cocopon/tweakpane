@@ -29,9 +29,9 @@ export default class InputValue<T> {
 	}
 
 	set rawValue(rawValue: T): void {
-		const constrainedValue = this.constraint_ ?
-			this.constraint_.constrain(rawValue) :
-			rawValue;
+		const constrainedValue = this.constraint_
+			? this.constraint_.constrain(rawValue)
+			: rawValue;
 
 		const changed = !this.constructor.equalsValue(
 			this.rawValue_,
@@ -39,9 +39,7 @@ export default class InputValue<T> {
 		);
 		if (changed) {
 			this.rawValue_ = constrainedValue;
-			this.emitter.emit(
-				'change', [constrainedValue]
-			);
+			this.emitter.emit('change', [constrainedValue]);
 		}
 	}
 }

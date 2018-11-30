@@ -11,11 +11,9 @@ import TestUtil from '../misc/test-util';
 import FolderApi from './folder';
 
 function createApi(): FolderApi {
-	const c = new FolderController(
-		TestUtil.createWindow().document, {
-			title: 'Folder',
-		},
-	);
+	const c = new FolderController(TestUtil.createWindow().document, {
+		title: 'Folder',
+	});
 	return new FolderApi(c);
 }
 
@@ -24,30 +22,18 @@ describe(FolderApi.name, () => {
 		const api = createApi();
 
 		api.controller.folder.expanded = false;
-		assert.strictEqual(
-			api.expanded,
-			false,
-		);
+		assert.strictEqual(api.expanded, false);
 		api.controller.folder.expanded = true;
-		assert.strictEqual(
-			api.expanded,
-			true,
-		);
+		assert.strictEqual(api.expanded, true);
 	});
 
 	it('should set expanded', () => {
 		const api = createApi();
 
 		api.expanded = false;
-		assert.strictEqual(
-			api.controller.folder.expanded,
-			false,
-		);
+		assert.strictEqual(api.controller.folder.expanded, false);
 		api.expanded = true;
-		assert.strictEqual(
-			api.controller.folder.expanded,
-			true,
-		);
+		assert.strictEqual(api.controller.folder.expanded, true);
 	});
 
 	it('should add button', () => {
@@ -55,10 +41,7 @@ describe(FolderApi.name, () => {
 		const b = api.addButton({
 			title: 'push',
 		});
-		assert.strictEqual(
-			b.controller.button.title,
-			'push',
-		);
+		assert.strictEqual(b.controller.button.title, 'push');
 	});
 
 	it('should add separator', () => {
@@ -66,10 +49,7 @@ describe(FolderApi.name, () => {
 		api.addSeparator();
 
 		const cs = api.controller.uiControllerList.items;
-		assert.instanceOf(
-			cs[cs.length - 1],
-			SeparatorController,
-		);
+		assert.instanceOf(cs[cs.length - 1], SeparatorController);
 	});
 
 	it('should add input', () => {
@@ -78,10 +58,7 @@ describe(FolderApi.name, () => {
 		};
 		const api = createApi();
 		const bapi = api.addInput(PARAMS, 'foo');
-		assert.instanceOf(
-			bapi.controller.controller,
-			NumberInputController,
-		);
+		assert.instanceOf(bapi.controller.controller, NumberInputController);
 	});
 
 	it('should add monitor', () => {
@@ -92,10 +69,7 @@ describe(FolderApi.name, () => {
 		const bapi = api.addMonitor(PARAMS, 'foo', {
 			interval: 0,
 		});
-		assert.instanceOf(
-			bapi.controller.controller,
-			SingleLogController,
-		);
+		assert.instanceOf(bapi.controller.controller, SingleLogController);
 	});
 
 	it('should listen fold event', (done) => {

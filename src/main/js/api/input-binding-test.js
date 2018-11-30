@@ -41,10 +41,7 @@ describe(InputBindingApi.name, () => {
 		};
 		const api = createApi(new Target(PARAMS, 'foo'));
 		api.on('change', (value) => {
-			assert.strictEqual(
-				value,
-				123,
-			);
+			assert.strictEqual(value, 123);
 			done();
 		});
 		api.controller.controller.value.rawValue = 123;
@@ -59,9 +56,6 @@ describe(InputBindingApi.name, () => {
 		PARAMS.foo = 123;
 		api.refresh();
 
-		assert.strictEqual(
-			api.controller.binding.value.rawValue,
-			123,
-		);
+		assert.strictEqual(api.controller.binding.value.rawValue, 123);
 	});
 });

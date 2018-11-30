@@ -2,7 +2,7 @@
 
 type Observer = {
 	handler: Function,
-}
+};
 
 export default class Emitter<EventType> {
 	observers_: {[eventName: EventType]: Observer[]};
@@ -25,9 +25,11 @@ export default class Emitter<EventType> {
 	}
 
 	off(eventName: EventType, handler: Function): Emitter<EventType> {
-		this.observers_[eventName] = this.observers_[eventName].filter((observer) => {
-			return observer.handler !== handler;
-		});
+		this.observers_[eventName] = this.observers_[eventName].filter(
+			(observer) => {
+				return observer.handler !== handler;
+			},
+		);
 
 		return this;
 	}
@@ -39,7 +41,7 @@ export default class Emitter<EventType> {
 		}
 
 		observers.forEach((observer) => {
-			const handlerArgs = opt_args || []; 
+			const handlerArgs = opt_args || [];
 			observer.handler(...handlerArgs);
 		});
 	}

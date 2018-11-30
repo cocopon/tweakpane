@@ -10,10 +10,9 @@ import InputValue from '../model/input-value';
 import RootApi from './root';
 
 function createApi(): RootApi {
-	const c = new RootController(
-		TestUtil.createWindow().document,
-		{title: 'Tweakpane'},
-	);
+	const c = new RootController(TestUtil.createWindow().document, {
+		title: 'Tweakpane',
+	});
 	return new RootApi(c);
 }
 
@@ -22,15 +21,14 @@ describe(RootApi.name, () => {
 		const api = createApi();
 		const obj = {foo: 1};
 		api.on('change', (value) => {
-			assert.strictEqual(
-				value,
-				2,
-			);
+			assert.strictEqual(value, 2);
 			done();
 		});
 
 		const bapi = api.addInput(obj, 'foo');
-		const value: InputValue<number> = FlowUtil.forceCast(bapi.controller.binding.value);
+		const value: InputValue<number> = FlowUtil.forceCast(
+			bapi.controller.binding.value,
+		);
 		value.rawValue += 1;
 	});
 
@@ -38,10 +36,7 @@ describe(RootApi.name, () => {
 		const api = createApi();
 		const obj = {foo: 1};
 		api.on('change', (value) => {
-			assert.strictEqual(
-				value,
-				2,
-			);
+			assert.strictEqual(value, 2);
 			done();
 		});
 
@@ -50,7 +45,9 @@ describe(RootApi.name, () => {
 		});
 
 		const bapi = fapi.addInput(obj, 'foo');
-		const value: InputValue<number> = FlowUtil.forceCast(bapi.controller.binding.value);
+		const value: InputValue<number> = FlowUtil.forceCast(
+			bapi.controller.binding.value,
+		);
 		value.rawValue += 1;
 	});
 
@@ -76,18 +73,9 @@ describe(RootApi.name, () => {
 
 		api.refresh();
 
-		assert.strictEqual(
-			i1.controller.binding.value.rawValue,
-			2,
-		);
-		assert.strictEqual(
-			i2.controller.binding.value.rawValue,
-			'changed',
-		);
-		assert.strictEqual(
-			m1.controller.binding.value.rawValues[0],
-			456,
-		);
+		assert.strictEqual(i1.controller.binding.value.rawValue, 2);
+		assert.strictEqual(i2.controller.binding.value.rawValue, 'changed');
+		assert.strictEqual(m1.controller.binding.value.rawValues[0], 456);
 	});
 
 	it('should get expanded', () => {
@@ -97,17 +85,11 @@ describe(RootApi.name, () => {
 		if (folder) {
 			folder.expanded = false;
 		}
-		assert.strictEqual(
-			api.expanded,
-			false,
-		);
+		assert.strictEqual(api.expanded, false);
 		if (folder) {
 			folder.expanded = true;
 		}
-		assert.strictEqual(
-			api.expanded,
-			true,
-		);
+		assert.strictEqual(api.expanded, true);
 	});
 
 	it('should set expanded', () => {
@@ -115,15 +97,9 @@ describe(RootApi.name, () => {
 		const folder = api.controller.folder;
 
 		api.expanded = false;
-		assert.strictEqual(
-			folder && folder.expanded,
-			false,
-		);
+		assert.strictEqual(folder && folder.expanded, false);
 		api.expanded = true;
-		assert.strictEqual(
-			folder && folder.expanded,
-			true,
-		);
+		assert.strictEqual(folder && folder.expanded, true);
 	});
 
 	it('should export inputs as preset', () => {
@@ -139,13 +115,10 @@ describe(RootApi.name, () => {
 			interval: 0,
 		});
 		const preset = api.exportPreset();
-		assert.deepEqual(
-			preset,
-			{
-				foo: 1,
-				bar: 'hello',
-			},
-		);
+		assert.deepEqual(preset, {
+			foo: 1,
+			bar: 'hello',
+		});
 	});
 
 	it('should import preset', () => {
@@ -162,13 +135,10 @@ describe(RootApi.name, () => {
 			bar: 'world',
 		});
 
-		assert.deepEqual(
-			PARAMS,
-			{
-				foo: 123,
-				bar: 'world',
-			},
-		);
+		assert.deepEqual(PARAMS, {
+			foo: 123,
+			bar: 'world',
+		});
 	});
 
 	it('should get element', () => {

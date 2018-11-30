@@ -2,8 +2,14 @@
 
 declare var PIXI: any;
 
-function map(v: number, s1: number, e1: number, s2:number, e2: number): number {
-	return s2 + (v - s1) / (e1 - s1) * (e2 - s2);
+function map(
+	v: number,
+	s1: number,
+	e1: number,
+	s2: number,
+	e2: number,
+): number {
+	return s2 + ((v - s1) / (e1 - s1)) * (e2 - s2);
 }
 
 function dist(x1: number, y1: number, x2: number, y2: number): number {
@@ -73,7 +79,7 @@ export default class Sketch {
 		this.dots_ = [];
 
 		const xstep = env.spacing;
-		const ystep = xstep * Math.sqrt(3) / 2;
+		const ystep = (xstep * Math.sqrt(3)) / 2;
 		const xcount = Math.ceil(w / xstep);
 		const ycount = Math.ceil(h / ystep);
 		for (let iy = 0; iy <= ycount; iy++) {
@@ -113,7 +119,7 @@ export default class Sketch {
 		}
 
 		this.dots_.forEach((dot) => {
-			const sz = (1 - Math.pow(0.9, dot.en)) * env.maxSize / DEFAULT_DOT_SIZE;
+			const sz = ((1 - Math.pow(0.9, dot.en)) * env.maxSize) / DEFAULT_DOT_SIZE;
 			dot.scale.set(sz);
 		});
 	}
@@ -123,10 +129,7 @@ export default class Sketch {
 		this.height_ = rect.height;
 		this.width_ = rect.width;
 
-		this.app_.renderer.resize(
-			this.width_,
-			this.height_,
-		);
+		this.app_.renderer.resize(this.width_, this.height_);
 		this.reset();
 	}
-};
+}

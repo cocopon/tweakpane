@@ -6,7 +6,9 @@ import type {Parser} from './parser';
 const SUB_PARSERS = [
 	// #aabbcc
 	(text: string): ?Color => {
-		const matches = text.match(/^#?([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})$/);
+		const matches = text.match(
+			/^#?([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})$/,
+		);
 		if (!matches) {
 			return null;
 		}
@@ -28,14 +30,12 @@ const SUB_PARSERS = [
 			b: parseInt(matches[3] + matches[3], 16),
 		};
 	},
-	, 
+	,
 ];
 
 const ColorParser: Parser<Color> = (text: string): ?Color => {
 	return SUB_PARSERS.reduce((result: ?Color, subparser) => {
-		return result ?
-			result :
-			subparser(text);
+		return result ? result : subparser(text);
 	}, null);
 };
 

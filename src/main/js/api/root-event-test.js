@@ -7,10 +7,9 @@ import TestUtil from '../misc/test-util';
 import RootApi from './root';
 
 function createApi(): RootApi {
-	const c = new RootController(
-		TestUtil.createWindow().document,
-		{title: 'Title'},
-	);
+	const c = new RootController(TestUtil.createWindow().document, {
+		title: 'Title',
+	});
 	return new RootApi(c);
 }
 

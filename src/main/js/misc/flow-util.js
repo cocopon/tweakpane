@@ -6,9 +6,7 @@ const FlowUtil = {
 	},
 
 	getOrDefault<T>(value: ?T, defaultValue: T): T {
-		return (value !== null && value !== undefined) ?
-			value :
-			defaultValue;
+		return value !== null && value !== undefined ? value : defaultValue;
 	},
 
 	ifNotEmpty<T>(value: ?T, thenFn: (T) => void, elseFn?: () => void): void {

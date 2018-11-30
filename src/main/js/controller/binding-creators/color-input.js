@@ -15,10 +15,13 @@ type Params = {
 	label?: string,
 };
 
-export function create(document: Document, target: Target, initialValue: Color, params: Params): InputBindingController<Color, *> {
-	const value = new InputValue(
-		initialValue,
-	);
+export function create(
+	document: Document,
+	target: Target,
+	initialValue: Color,
+	params: Params,
+): InputBindingController<Color, *> {
+	const value = new InputValue(initialValue);
 	return new InputBindingController(document, {
 		binding: new InputBinding({
 			reader: ColorConverter.fromMixed,

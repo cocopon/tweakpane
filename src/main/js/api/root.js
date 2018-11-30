@@ -25,9 +25,7 @@ import type {
 	MonitorParams,
 } from '../controller/ui';
 
-type EventName = 'change' |
-	'fold' |
-	'update';
+type EventName = 'change' | 'fold' | 'update';
 
 const TO_INTERNAL_EVENT_NAME_MAP: {[EventName]: InternalEventName} = {
 	change: 'inputchange',
@@ -48,9 +46,7 @@ export default class RootApi {
 
 	get expanded(): boolean {
 		const folder = this.controller.folder;
-		return folder ?
-			folder.expanded :
-			true;
+		return folder ? folder.expanded : true;
 	}
 
 	set expanded(expanded: boolean): void {
@@ -83,27 +79,19 @@ export default class RootApi {
 	}
 
 	addButton(params: ButtonParams): ButtonApi {
-		const uc = new ButtonController(
-			this.controller.document,
-			params,
-		);
+		const uc = new ButtonController(this.controller.document, params);
 		this.controller.uiControllerList.append(uc);
 		return new ButtonApi(uc);
 	}
 
 	addFolder(params: FolderParams): FolderApi {
-		const uc = new FolderController(
-			this.controller.document,
-			params,
-		);
+		const uc = new FolderController(this.controller.document, params);
 		this.controller.uiControllerList.append(uc);
 		return new FolderApi(uc);
 	}
 
 	addSeparator(): void {
-		const uc = new SeparatorController(
-			this.controller.document,
-		);
+		const uc = new SeparatorController(this.controller.document);
 		this.controller.uiControllerList.append(uc);
 	}
 

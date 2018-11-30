@@ -9,28 +9,22 @@ describe(PaneError.name, () => {
 	it('should instanciate for invalid parameters', () => {
 		const e = new PaneError({
 			context: {
-				name: 'foo'
+				name: 'foo',
 			},
 			type: 'invalidparams',
 		});
 
-		assert.strictEqual(
-			e.type,
-			'invalidparams',
-		);
+		assert.strictEqual(e.type, 'invalidparams');
 	});
 
 	it('should instanciate for no matching controller', () => {
 		const e = new PaneError({
 			context: {
-				key: 'foo'
+				key: 'foo',
 			},
 			type: 'nomatchingcontroller',
 		});
 
-		assert.strictEqual(
-			e.type,
-			'nomatchingcontroller',
-		);
+		assert.strictEqual(e.type, 'nomatchingcontroller');
 	});
 });

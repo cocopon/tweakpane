@@ -15,7 +15,8 @@ type Config = {
 
 const className = ClassName('sldtxt', 'input');
 
-export default class SliderTextInputView extends View implements InputView<number> {
+export default class SliderTextInputView extends View
+	implements InputView<number> {
 	sliderInputView_: SliderInputView;
 	textInputView_: TextInputView<number>;
 
