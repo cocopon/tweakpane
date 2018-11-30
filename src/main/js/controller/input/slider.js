@@ -40,11 +40,11 @@ function estimateSuitableRange(value: InputValue<number>): [number, number] {
 }
 
 export default class SliderInputController implements InputController<number> {
+	+value: InputValue<number>;
+	+view: SliderInputView;
 	maxValue_: number;
 	minValue_: number;
 	pressed_: boolean;
-	value_: InputValue<number>;
-	view_: SliderInputView;
 
 	constructor(document: Document, config: Config) {
 		(this: any).onSliderMouseDown_ = this.onSliderMouseDown_.bind(this);
@@ -55,29 +55,29 @@ export default class SliderInputController implements InputController<number> {
 
 		this.pressed_ = false;
 
-		this.value_ = config.value;
+		this.value = config.value;
 
-		const [min, max] = estimateSuitableRange(this.value_);
+		const [min, max] = estimateSuitableRange(this.value);
 		this.minValue_ = min;
 		this.maxValue_ = max;
 
-		this.view_ =  new SliderInputView(document, {
+		this.view =  new SliderInputView(document, {
 			maxValue: this.maxValue_,
 			minValue: this.minValue_,
-			value: this.value_,
+			value: this.value,
 		});
 
 		if (DomUtil.supportsTouch(document)) {
-			this.view_.outerElement.addEventListener(
+			this.view.outerElement.addEventListener(
 				'touchstart',
 				this.onSliderTouchStart_,
 			);
-			this.view_.outerElement.addEventListener(
+			this.view.outerElement.addEventListener(
 				'touchmove',
 				this.onSliderTouchMove_,
 			);
 		} else {
-			this.view_.outerElement.addEventListener(
+			this.view.outerElement.addEventListener(
 				'mousedown',
 				this.onSliderMouseDown_,
 			);
@@ -92,16 +92,8 @@ export default class SliderInputController implements InputController<number> {
 		}
 	}
 
-	get value(): InputValue<number> {
-		return this.value_;
-	}
-
-	get view(): SliderInputView {
-		return this.view_;
-	}
-
 	computeRawValueFromX_(clientX: number): number {
-		const w = this.view_.outerElement.getBoundingClientRect().width;
+		const w = this.view.outerElement.getBoundingClientRect().width;
 		return NumberUtil.map(
 			clientX,
 			0, w,
@@ -116,8 +108,8 @@ export default class SliderInputController implements InputController<number> {
 
 		this.pressed_ = true;
 
-		this.value_.rawValue = this.computeRawValueFromX_(e.offsetX);
-		this.view_.update();
+		this.value.rawValue = this.computeRawValueFromX_(e.offsetX);
+		this.view.update();
 	}
 
 	onDocumentMouseMove_(e: MouseEvent): void {
@@ -125,10 +117,10 @@ export default class SliderInputController implements InputController<number> {
 			return;
 		}
 
-		const elemLeft = this.view_.document.defaultView.scrollX + this.view.outerElement.getBoundingClientRect().left;
+		const elemLeft = this.view.document.defaultView.scrollX + this.view.outerElement.getBoundingClientRect().left;
 		const offsetX = e.pageX - elemLeft;
-		this.value_.rawValue = this.computeRawValueFromX_(offsetX);
-		this.view_.update();
+		this.value.rawValue = this.computeRawValueFromX_(offsetX);
+		this.view.update();
 	}
 
 	onDocumentMouseUp_(e: MouseEvent): void {
@@ -137,10 +129,10 @@ export default class SliderInputController implements InputController<number> {
 		}
 		this.pressed_ = false;
 
-		const elemLeft = this.view_.document.defaultView.scrollX + this.view.outerElement.getBoundingClientRect().left;
+		const elemLeft = this.view.document.defaultView.scrollX + this.view.outerElement.getBoundingClientRect().left;
 		const offsetX = e.pageX - elemLeft;
-		this.value_.rawValue = this.computeRawValueFromX_(offsetX);
-		this.view_.update();
+		this.value.rawValue = this.computeRawValueFromX_(offsetX);
+		this.view.update();
 	}
 
 	onSliderTouchStart_(e: TouchEvent) {
@@ -149,14 +141,14 @@ export default class SliderInputController implements InputController<number> {
 
 		const touch = e.targetTouches[0];
 		const offsetX = touch.clientX - this.view.outerElement.getBoundingClientRect().left;
-		this.value_.rawValue = this.computeRawValueFromX_(offsetX);
-		this.view_.update();
+		this.value.rawValue = this.computeRawValueFromX_(offsetX);
+		this.view.update();
 	}
 
 	onSliderTouchMove_(e: TouchEvent) {
 		const touch = e.targetTouches[0];
 		const offsetX = touch.clientX - this.view.outerElement.getBoundingClientRect().left;
-		this.value_.rawValue = this.computeRawValueFromX_(offsetX);
-		this.view_.update();
+		this.value.rawValue = this.computeRawValueFromX_(offsetX);
+		this.view.update();
 	}
 }

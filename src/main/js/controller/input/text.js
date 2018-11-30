@@ -15,32 +15,24 @@ export type Config<T> = {
 };
 
 export default class TextInputController<T> implements InputController<T> {
+	+value: InputValue<T>;
+	+view: TextInputView<T>;
 	parser_: Parser<T>;
-	value_: InputValue<T>;
-	view_: TextInputView<T>;
 
 	constructor(document: Document, config: Config<T>) {
 		(this: any).onInputChange_ = this.onInputChange_.bind(this);
 
 		this.parser_ = config.parser;
-		this.value_ = config.value;
+		this.value = config.value;
 
-		this.view_ = new TextInputView(document, {
+		this.view = new TextInputView(document, {
 			formatter: config.formatter,
-			value: this.value_,
+			value: this.value,
 		});
-		this.view_.inputElement.addEventListener(
+		this.view.inputElement.addEventListener(
 			'change',
 			this.onInputChange_,
 		);
-	}
-
-	get value(): InputValue<T> {
-		return this.value_;
-	}
-
-	get view(): TextInputView<T> {
-		return this.view_;
 	}
 
 	onInputChange_(e: Event): void {
@@ -48,8 +40,8 @@ export default class TextInputController<T> implements InputController<T> {
 		const value = inputElem.value;
 
 		FlowUtil.ifNotEmpty(this.parser_(value), (parsedValue) => {
-			this.value_.rawValue = parsedValue;
+			this.value.rawValue = parsedValue;
 		});
-		this.view_.update();
+		this.view.update();
 	}
 }

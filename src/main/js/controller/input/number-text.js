@@ -35,9 +35,9 @@ export default class NumberTextInputController extends TextInputController<numbe
 
 		(this: any).onInputKeyDown_ = this.onInputKeyDown_.bind(this);
 
-		this.step_ = estimateSuitableStep(this.value_);
+		this.step_ = estimateSuitableStep(this.value);
 
-		this.view_.inputElement.addEventListener(
+		this.view.inputElement.addEventListener(
 			'keydown',
 			this.onInputKeyDown_,
 		);
@@ -49,11 +49,11 @@ export default class NumberTextInputController extends TextInputController<numbe
 			(e.shiftKey ? 10 : 1);
 
 		if (e.keyCode === 38) {
-			this.value_.rawValue += step;
-			this.view_.update();
+			this.value.rawValue += step;
+			this.view.update();
 		} else if (e.keyCode === 40) {
-			this.value_.rawValue -= step;
-			this.view_.update();
+			this.value.rawValue -= step;
+			this.view.update();
 		}
 	}
 }

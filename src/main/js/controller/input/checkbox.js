@@ -11,34 +11,26 @@ export type Config = {
 };
 
 export default class CheckboxInputController implements InputController<boolean> {
-	value_: InputValue<boolean>;
-	view_: CheckboxInputView;
+	+value: InputValue<boolean>;
+	+view: CheckboxInputView;
 
 	constructor(document: Document, config: Config) {
 		(this: any).onInputChange_ = this.onInputChange_.bind(this);
 
-		this.value_ = config.value;
+		this.value = config.value;
 
-		this.view_ = new CheckboxInputView(document, {
-			value: this.value_,
+		this.view = new CheckboxInputView(document, {
+			value: this.value,
 		});
-		this.view_.inputElement.addEventListener(
+		this.view.inputElement.addEventListener(
 			'change',
 			this.onInputChange_,
 		);
 	}
 
-	get value(): InputValue<boolean> {
-		return this.value_;
-	}
-
-	get view(): CheckboxInputView {
-		return this.view_;
-	}
-
 	onInputChange_(e: Event): void {
 		const inputElem: HTMLInputElement = FlowUtil.forceCast(e.currentTarget);
-		this.value_.rawValue = inputElem.checked;
-		this.view_.update();
+		this.value.rawValue = inputElem.checked;
+		this.view.update();
 	}
 }

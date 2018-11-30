@@ -12,23 +12,15 @@ type Config<T> = {
 };
 
 export default class SingleLogMonitorController<T> implements MonitorController<T> {
-	value_: MonitorValue<T>;
-	view_: SingleLogMonitorView<T>;
+	+value: MonitorValue<T>;
+	+view: SingleLogMonitorView<T>;
 
 	constructor(document: Document, config: Config<T>) {
-		this.value_ = config.value;
+		this.value = config.value;
 
-		this.view_ = new SingleLogMonitorView(document, {
+		this.view = new SingleLogMonitorView(document, {
 			formatter: config.formatter,
-			value: this.value_,
+			value: this.value,
 		});
-	}
-
-	get value(): MonitorValue<T> {
-		return this.value_;
-	}
-
-	get view(): SingleLogMonitorView<T> {
-		return this.view_;
 	}
 }

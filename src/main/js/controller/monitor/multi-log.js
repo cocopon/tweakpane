@@ -12,23 +12,15 @@ type Config<T> = {
 };
 
 export default class MultiLogMonitorController<T> implements MonitorController<T> {
-	value_: MonitorValue<T>;
-	view_: MultiLogMonitorView<T>;
+	+value: MonitorValue<T>;
+	+view: MultiLogMonitorView<T>;
 
 	constructor(document: Document, config: Config<T>) {
-		this.value_ = config.value;
+		this.value = config.value;
 
-		this.view_ = new MultiLogMonitorView(document, {
+		this.view = new MultiLogMonitorView(document, {
 			formatter: config.formatter,
-			value: this.value_,
+			value: this.value,
 		});
-	}
-
-	get value(): MonitorValue<T> {
-		return this.value_;
-	}
-
-	get view(): MultiLogMonitorView<T> {
-		return this.view_;
 	}
 }
