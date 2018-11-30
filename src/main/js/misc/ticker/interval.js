@@ -13,7 +13,7 @@ export default class IntervalTicker implements Ticker {
 
 	constructor(_document: Document, interval: number) {
 		(this: any).onTick_ = this.onTick_.bind(this);
-		(this: any).onWindowBlur_= this.onWindowBlur_.bind(this);
+		(this: any).onWindowBlur_ = this.onWindowBlur_.bind(this);
 		(this: any).onWindowFocus_ = this.onWindowFocus_.bind(this);
 
 		this.active_ = true;

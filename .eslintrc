@@ -10,7 +10,10 @@
 	},
 	"rules": {
 		"camelcase": "off",
-		"comma-spacing": ["warn", {"before": false, "after": true}], "dot-notation": "off",
+		"comma-spacing": ["warn", {"before": false, "after": true}],
+		"curly": "error",
+		"dot-location": ["warn", "property"],
+		"dot-notation": "off",
 		"eqeqeq": "error",
 		"flowtype/define-flow-type": 1,
 		"flowtype/use-flow-type": 1,
@@ -20,19 +23,16 @@
 		"no-multi-spaces": "off",
 		"no-undef": "error",
 		"no-underscore-dangle": "off",
-		"no-unused-vars": [
-			"warn", {
-				"args": "all",
-				"argsIgnorePattern": "^_"
-			}
-		],
+		"no-unused-vars": ["warn", {"args": "all", "argsIgnorePattern": "^_"}],
 		"no-use-before-define": "error",
 		"object-curly-spacing": ["warn", "never"],
+		"quotes": ["warn", "single"],
+		"radix": "error",
 		"semi-spacing": "off",
 		"space-before-blocks": ["warn", "always"],
 		"space-in-parens": ["warn", "never"],
-		"strict": "off",
-		"quotes": ["warn", "single"]
+		"space-infix-ops": "warn",
+		"strict": "off"
 	},
 	"globals": {
 		"PIXI": false,

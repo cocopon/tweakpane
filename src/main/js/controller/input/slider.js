@@ -48,7 +48,7 @@ export default class SliderInputController implements InputController<number> {
 
 	constructor(document: Document, config: Config) {
 		(this: any).onSliderMouseDown_ = this.onSliderMouseDown_.bind(this);
-		(this: any).onSliderTouchMove_= this.onSliderTouchMove_.bind(this);
+		(this: any).onSliderTouchMove_ = this.onSliderTouchMove_.bind(this);
 		(this: any).onSliderTouchStart_ = this.onSliderTouchStart_.bind(this);
 		(this: any).onDocumentMouseMove_ = this.onDocumentMouseMove_.bind(this);
 		(this: any).onDocumentMouseUp_ = this.onDocumentMouseUp_.bind(this);
