@@ -12,7 +12,8 @@ type Config = {
 
 const className = ClassName('ckb', 'input');
 
-export default class CheckboxInputView extends View implements InputView<boolean> {
+export default class CheckboxInputView extends View
+	implements InputView<boolean> {
 	+value: InputValue<boolean>;
 	inputElem_: HTMLInputElement;
 

@@ -67,7 +67,9 @@ export default {
 			presetJson: '',
 		};
 
-		const sketchElem = document.querySelector('.common-pageHeader_sketchContainer');
+		const sketchElem = document.querySelector(
+			'.common-pageHeader_sketchContainer',
+		);
 		if (!sketchElem) {
 			return;
 		}
@@ -153,7 +155,9 @@ export default {
 				pane.on('change', () => {
 					sketch.reset();
 					HIDDEN_PARAMS.presetJson = JSON.stringify(
-						pane.exportPreset(), null, 2,
+						pane.exportPreset(),
+						null,
+						2,
 					);
 				});
 
@@ -175,9 +179,8 @@ export default {
 					const elem = document.querySelector('*[data-first]');
 					if (elem) {
 						const preset = pane.exportPreset();
-						elem.textContent = 'PARAMS = ' +
-							JSON.stringify(preset, null, 2) +
-							';';
+						elem.textContent =
+							'PARAMS = ' + JSON.stringify(preset, null, 2) + ';';
 					}
 				};
 

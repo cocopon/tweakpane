@@ -29,10 +29,7 @@ export default class TextInputController<T> implements InputController<T> {
 			formatter: config.formatter,
 			value: this.value,
 		});
-		this.view.inputElement.addEventListener(
-			'change',
-			this.onInputChange_,
-		);
+		this.view.inputElement.addEventListener('change', this.onInputChange_);
 	}
 
 	onInputChange_(e: Event): void {

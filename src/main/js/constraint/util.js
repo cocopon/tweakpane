@@ -16,9 +16,7 @@ const ConstraintUtil = {
 					return result;
 				}
 
-				return (sc instanceof constraintClass) ?
-					sc :
-					null;
+				return sc instanceof constraintClass ? sc : null;
 			}, null);
 			if (result) {
 				return result;
@@ -26,7 +24,7 @@ const ConstraintUtil = {
 		}
 
 		return null;
-	}
+	},
 };
 
 export default ConstraintUtil;

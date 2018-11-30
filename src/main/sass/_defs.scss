@@ -1,22 +1,18 @@
 $prefix: 'tp';
 
-
 // Font
 $font-family: 'Roboto Mono', 'Source Code Pro', Menlo, Courier, monospace;
-
 
 // Geometry
 $input-height: 20px;
 
-
 // Colors
-
 
 // Base
 $base-hue: 230;
-$color-exdark:  hsl($base-hue, 7%, 10%);
-$color-dark:    hsl($base-hue, 7%, 20%);
-$color-light:   hsl($base-hue, 7%, 70%);
+$color-exdark: hsl($base-hue, 7%, 10%);
+$color-dark: hsl($base-hue, 7%, 20%);
+$color-light: hsl($base-hue, 7%, 70%);
 $color-exlight: hsl($base-hue, 7%, 80%);
 
 $bg-color: $color-dark;
@@ -37,8 +33,8 @@ $input-active-bg-color: rgba($fg-color, 0.35);
 $input-focus-bg-color: rgba($fg-color, 0.25);
 $input-hover-bg-color: rgba($fg-color, 0.15);
 $input-light-bg-color: $color-light;
-$input-light-active-bg-color: lighten($input-light-bg-color, 15%); 
-$input-light-focus-bg-color: lighten($input-light-bg-color, 10%); 
+$input-light-active-bg-color: lighten($input-light-bg-color, 15%);
+$input-light-focus-bg-color: lighten($input-light-bg-color, 10%);
 $input-light-hover-bg-color: lighten($input-light-bg-color, 5%);
 $input-light-fg-color: $bg-color;
 
@@ -51,9 +47,7 @@ $label-fg-color: rgba($fg-color, 0.8);
 $separator-color: rgba($color-exdark, 0.3);
 $slider-input-bar-color: rgba($fg-color, 0.2);
 
-
 // Mixins
-
 
 @mixin resetInput() {
 	appearance: none;
@@ -107,7 +101,6 @@ $slider-input-bar-color: rgba($fg-color, 0.2);
 	}
 }
 
-
 %folder_title {
 	@include resetInput();
 
@@ -137,7 +130,15 @@ $slider-input-bar-color: rgba($fg-color, 0.2);
 }
 
 %folder_mark {
-	background: linear-gradient(to left, $fg-color, $fg-color 2px, transparent 2px, transparent 4px, $fg-color 4px, $fg-color);
+	background: linear-gradient(
+		to left,
+		$fg-color,
+		$fg-color 2px,
+		transparent 2px,
+		transparent 4px,
+		$fg-color 4px,
+		$fg-color
+	);
 	border-radius: 2px;
 	bottom: 0;
 	content: '';

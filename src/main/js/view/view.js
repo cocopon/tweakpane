@@ -1,7 +1,7 @@
 // @flow
 
 export default class View {
-	doc_: Document
+	doc_: Document;
 	elem_: HTMLElement;
 
 	constructor(document: Document) {

@@ -12,17 +12,8 @@ describe(NumberFormatter.name, () => {
 	});
 
 	it('should format number', () => {
-		assert.strictEqual(
-			(new NumberFormatter(2)).format(0),
-			'0.00',
-		);
-		assert.strictEqual(
-			(new NumberFormatter(0)).format(3.14),
-			'3',
-		);
-		assert.strictEqual(
-			(new NumberFormatter(2)).format(141.41356),
-			'141.41',
-		);
+		assert.strictEqual(new NumberFormatter(2).format(0), '0.00');
+		assert.strictEqual(new NumberFormatter(0).format(3.14), '3');
+		assert.strictEqual(new NumberFormatter(2).format(141.41356), '141.41');
 	});
 });

@@ -15,15 +15,11 @@ export function fromMixed(value: mixed): Color {
 }
 
 export function toString(value: Color): string {
-	const hexes = [
-		value.r,
-		value.g,
-		value.b,
-	].map((comp) => {
-		const hex = comp.toString(16);
-		return (hex.length === 1) ?
-			`0${hex}` :
-			hex;
-	}).join('');
+	const hexes = [value.r, value.g, value.b]
+		.map((comp) => {
+			const hex = comp.toString(16);
+			return hex.length === 1 ? `0${hex}` : hex;
+		})
+		.join('');
 	return `#${hexes}`;
 }

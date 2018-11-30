@@ -14,7 +14,8 @@ type Config<T> = {
 
 const className = ClassName('sgl', 'monitor');
 
-export default class SingleLogMonitorView<T> extends View implements MonitorView<T> {
+export default class SingleLogMonitorView<T> extends View
+	implements MonitorView<T> {
 	+value: MonitorValue<T>;
 	formatter_: Formatter<T>;
 	inputElem_: HTMLInputElement;
@@ -44,9 +45,10 @@ export default class SingleLogMonitorView<T> extends View implements MonitorView
 	update(): void {
 		const values = this.value.rawValues;
 
-		this.inputElem_.value = (values.length > 0) ?
-			this.formatter_.format(values[values.length - 1]) :
-			'';
+		this.inputElem_.value =
+			values.length > 0
+				? this.formatter_.format(values[values.length - 1])
+				: '';
 	}
 
 	onValueUpdate_(): void {

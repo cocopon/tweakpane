@@ -22,7 +22,15 @@ $prefix: 'common';
 	}
 
 	&_symbol {
-		background: linear-gradient(to left, $logo-color, $logo-color 4px, transparent 4px, transparent 8px, $logo-color 8px, $logo-color);
+		background: linear-gradient(
+			to left,
+			$logo-color,
+			$logo-color 4px,
+			transparent 4px,
+			transparent 8px,
+			$logo-color 8px,
+			$logo-color
+		);
 		border-radius: 4px;
 		bottom: 2px;
 		content: '';
@@ -36,13 +44,36 @@ $prefix: 'common';
 		width: 12px;
 	}
 	&#{&}-light &_symbol {
-		background: linear-gradient(to left, $logo-light-color, $logo-light-color 4px, transparent 4px, transparent 8px, $logo-light-color 8px, $logo-light-color);
+		background: linear-gradient(
+			to left,
+			$logo-light-color,
+			$logo-light-color 4px,
+			transparent 4px,
+			transparent 8px,
+			$logo-light-color 8px,
+			$logo-light-color
+		);
 	}
 	&:hover &_symbol {
-		background: linear-gradient(to left, $logo-hover-color, $logo-hover-color 4px, transparent 4px, transparent 8px, $logo-hover-color 8px, $logo-hover-color);
+		background: linear-gradient(
+			to left,
+			$logo-hover-color,
+			$logo-hover-color 4px,
+			transparent 4px,
+			transparent 8px,
+			$logo-hover-color 8px,
+			$logo-hover-color
+		);
 	}
 	&#{&}-light:hover &_symbol {
-		background: linear-gradient(to left, $logo-light-hover-color, $logo-light-hover-color 4px, transparent 4px, transparent 8px, $logo-light-hover-color 8px, $logo-light-hover-color);
+		background: linear-gradient(
+			to left,
+			$logo-light-hover-color,
+			$logo-light-hover-color 4px,
+			transparent 4px,
+			transparent 8px,
+			$logo-light-hover-color 8px,
+			$logo-light-hover-color
+		);
 	}
 }
-

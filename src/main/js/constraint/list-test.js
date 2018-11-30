@@ -47,4 +47,3 @@ describe(ListConstraint.name, () => {
 		assert.strictEqual(c.constrain(9.81), 1.41);
 	});
 });
-

@@ -10,7 +10,8 @@ export type Config = {
 	value: InputValue<boolean>,
 };
 
-export default class CheckboxInputController implements InputController<boolean> {
+export default class CheckboxInputController
+	implements InputController<boolean> {
 	+value: InputValue<boolean>;
 	+view: CheckboxInputView;
 
@@ -22,10 +23,7 @@ export default class CheckboxInputController implements InputController<boolean>
 		this.view = new CheckboxInputView(document, {
 			value: this.value,
 		});
-		this.view.inputElement.addEventListener(
-			'change',
-			this.onInputChange_,
-		);
+		this.view.inputElement.addEventListener('change', this.onInputChange_);
 	}
 
 	onInputChange_(e: Event): void {

@@ -14,7 +14,8 @@ type Config = {
 
 const className = ClassName('csw', 'monitor');
 
-export default class ColorSwatchMonitorView extends View implements MonitorView<Color> {
+export default class ColorSwatchMonitorView extends View
+	implements MonitorView<Color> {
 	+value: MonitorValue<Color>;
 	swatchElem_: HTMLDivElement;
 
@@ -39,9 +40,10 @@ export default class ColorSwatchMonitorView extends View implements MonitorView<
 	update(): void {
 		const values = this.value.rawValues;
 
-		this.swatchElem_.style.backgroundColor = (values.length > 0) ?
-			ColorConverter.toString(values[values.length - 1]) :
-			'';
+		this.swatchElem_.style.backgroundColor =
+			values.length > 0
+				? ColorConverter.toString(values[values.length - 1])
+				: '';
 	}
 
 	onValueUpdate_(): void {

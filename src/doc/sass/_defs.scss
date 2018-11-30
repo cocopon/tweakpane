@@ -2,18 +2,14 @@
 @import url('https://fonts.googleapis.com/css?family=Rubik:400,700');
 @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,700');
 
-
 // Font
 $font-family: Rubik, sans-serif;
 $font-family-mono: 'Source Code Pro', sans-serif;
 
-
 // Geometry
 $sp-width: 960px;
 
-
 // Colors
-
 
 // Base
 $base-hue: 230;
@@ -50,9 +46,7 @@ $logo-light-hover-color: rgba($logo-light-color, 0.8);
 $page-header-bg-color: $document-code-bg-color;
 $support-bg-color: hsl(30deg, 70%, 90%);
 
-
 // Mixins
-
 
 @mixin pc() {
 	@media screen and (min-width: $sp-width + 1) {
@@ -74,7 +68,10 @@ $support-bg-color: hsl(30deg, 70%, 90%);
 			font-size: 1.25rem;
 		}
 	}
-	h3, h4, h5, h6 {
+	h3,
+	h4,
+	h5,
+	h6 {
 		font-size: 1.25rem;
 		margin-top: 2em;
 
@@ -82,7 +79,12 @@ $support-bg-color: hsl(30deg, 70%, 90%);
 			font-size: 1rem;
 		}
 	}
-	h1, h2, h3, h4, h5, h6 {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
 		&:first-child {
 			margin-top: 0;
 		}

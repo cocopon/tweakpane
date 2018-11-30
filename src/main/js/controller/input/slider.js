@@ -15,28 +15,19 @@ type Config = {
 };
 
 function findRange(value: InputValue<number>): [?number, ?number] {
-	const c = value.constraint ?
-		ConstraintUtil.findConstraint(
-			value.constraint,
-			RangeConstraint,
-		) :
-		null;
+	const c = value.constraint
+		? ConstraintUtil.findConstraint(value.constraint, RangeConstraint)
+		: null;
 	if (!c) {
 		return [null, null];
 	}
 
-	return [
-		c.minValue,
-		c.maxValue,
-	];
+	return [c.minValue, c.maxValue];
 }
 
 function estimateSuitableRange(value: InputValue<number>): [number, number] {
 	const [min, max] = findRange(value);
-	return [
-		FlowUtil.getOrDefault(min, 0),
-		FlowUtil.getOrDefault(max, 100),
-	];
+	return [FlowUtil.getOrDefault(min, 0), FlowUtil.getOrDefault(max, 100)];
 }
 
 export default class SliderInputController implements InputController<number> {
@@ -61,7 +52,7 @@ export default class SliderInputController implements InputController<number> {
 		this.minValue_ = min;
 		this.maxValue_ = max;
 
-		this.view =  new SliderInputView(document, {
+		this.view = new SliderInputView(document, {
 			maxValue: this.maxValue_,
 			minValue: this.minValue_,
 			value: this.value,
@@ -81,25 +72,14 @@ export default class SliderInputController implements InputController<number> {
 				'mousedown',
 				this.onSliderMouseDown_,
 			);
-			document.addEventListener(
-				'mousemove',
-				this.onDocumentMouseMove_,
-			);
-			document.addEventListener(
-				'mouseup',
-				this.onDocumentMouseUp_,
-			);
+			document.addEventListener('mousemove', this.onDocumentMouseMove_);
+			document.addEventListener('mouseup', this.onDocumentMouseUp_);
 		}
 	}
 
 	computeRawValueFromX_(clientX: number): number {
 		const w = this.view.outerElement.getBoundingClientRect().width;
-		return NumberUtil.map(
-			clientX,
-			0, w,
-			this.minValue_,
-			this.maxValue_,
-		);
+		return NumberUtil.map(clientX, 0, w, this.minValue_, this.maxValue_);
 	}
 
 	onSliderMouseDown_(e: MouseEvent): void {
@@ -117,7 +97,9 @@ export default class SliderInputController implements InputController<number> {
 			return;
 		}
 
-		const elemLeft = this.view.document.defaultView.scrollX + this.view.outerElement.getBoundingClientRect().left;
+		const elemLeft =
+			this.view.document.defaultView.scrollX +
+			this.view.outerElement.getBoundingClientRect().left;
 		const offsetX = e.pageX - elemLeft;
 		this.value.rawValue = this.computeRawValueFromX_(offsetX);
 		this.view.update();
@@ -129,7 +111,9 @@ export default class SliderInputController implements InputController<number> {
 		}
 		this.pressed_ = false;
 
-		const elemLeft = this.view.document.defaultView.scrollX + this.view.outerElement.getBoundingClientRect().left;
+		const elemLeft =
+			this.view.document.defaultView.scrollX +
+			this.view.outerElement.getBoundingClientRect().left;
 		const offsetX = e.pageX - elemLeft;
 		this.value.rawValue = this.computeRawValueFromX_(offsetX);
 		this.view.update();
@@ -140,14 +124,16 @@ export default class SliderInputController implements InputController<number> {
 		e.preventDefault();
 
 		const touch = e.targetTouches[0];
-		const offsetX = touch.clientX - this.view.outerElement.getBoundingClientRect().left;
+		const offsetX =
+			touch.clientX - this.view.outerElement.getBoundingClientRect().left;
 		this.value.rawValue = this.computeRawValueFromX_(offsetX);
 		this.view.update();
 	}
 
 	onSliderTouchMove_(e: TouchEvent) {
 		const touch = e.targetTouches[0];
-		const offsetX = touch.clientX - this.view.outerElement.getBoundingClientRect().left;
+		const offsetX =
+			touch.clientX - this.view.outerElement.getBoundingClientRect().left;
 		this.value.rawValue = this.computeRawValueFromX_(offsetX);
 		this.view.update();
 	}

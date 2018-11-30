@@ -11,7 +11,8 @@ type Config<T> = {
 	value: MonitorValue<T>,
 };
 
-export default class MultiLogMonitorController<T> implements MonitorController<T> {
+export default class MultiLogMonitorController<T>
+	implements MonitorController<T> {
 	+value: MonitorValue<T>;
 	+view: MultiLogMonitorView<T>;
 

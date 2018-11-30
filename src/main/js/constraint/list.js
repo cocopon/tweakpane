@@ -29,12 +29,11 @@ export default class ListConstraint<T> implements Constraint<T> {
 			return value;
 		}
 
-		const matched = (opts.filter((item) => {
-			return item.value === value;
-		}).length > 0);
+		const matched =
+			opts.filter((item) => {
+				return item.value === value;
+			}).length > 0;
 
-		return matched ?
-			value :
-			opts[0].value;
+		return matched ? value : opts[0].value;
 	}
 }

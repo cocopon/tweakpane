@@ -9,12 +9,9 @@ import TextInputController from './text';
 import type {Config} from './text';
 
 function findStep(value: InputValue<number>): ?number {
-	const c = value.constraint ?
-		ConstraintUtil.findConstraint(
-			value.constraint,
-			StepConstraint,
-		) :
-		null;
+	const c = value.constraint
+		? ConstraintUtil.findConstraint(value.constraint, StepConstraint)
+		: null;
 	if (!c) {
 		return null;
 	}
@@ -37,16 +34,11 @@ export default class NumberTextInputController extends TextInputController<numbe
 
 		this.step_ = estimateSuitableStep(this.value);
 
-		this.view.inputElement.addEventListener(
-			'keydown',
-			this.onInputKeyDown_,
-		);
+		this.view.inputElement.addEventListener('keydown', this.onInputKeyDown_);
 	}
 
 	onInputKeyDown_(e: KeyboardEvent): void {
-		const step = this.step_ *
-			(e.altKey ? 0.1 : 1) *
-			(e.shiftKey ? 10 : 1);
+		const step = this.step_ * (e.altKey ? 0.1 : 1) * (e.shiftKey ? 10 : 1);
 
 		if (e.keyCode === 38) {
 			this.value.rawValue += step;

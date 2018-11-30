@@ -34,9 +34,7 @@ export default class MonitorBinding<In> {
 	read(): void {
 		const targetValue = this.target.read();
 		if (targetValue !== undefined) {
-			this.value.append(
-				this.reader_(targetValue),
-			);
+			this.value.append(this.reader_(targetValue));
 		}
 	}
 

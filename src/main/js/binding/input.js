@@ -37,9 +37,7 @@ export default class InputBinding<In, Out> {
 	}
 
 	write_(rawValue: In): void {
-		const value = this.writer_ ?
-			this.writer_(rawValue) :
-			rawValue;
+		const value = this.writer_ ? this.writer_(rawValue) : rawValue;
 		this.target.write(value);
 	}
 

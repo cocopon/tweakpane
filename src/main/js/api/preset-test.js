@@ -17,13 +17,10 @@ describe('Preset', () => {
 			new Target(PARAMS, 'foo'),
 			new Target(PARAMS, 'bar'),
 		]);
-		assert.deepEqual(
-			preset,
-			{
-				foo: 1,
-				bar: 'hello',
-			},
-		);
+		assert.deepEqual(preset, {
+			foo: 1,
+			bar: 'hello',
+		});
 	});
 
 	it('should import JSON', () => {
@@ -32,23 +29,14 @@ describe('Preset', () => {
 			bar: 'hello',
 		};
 
-		const targets = [
-			new Target(PARAMS, 'foo'),
-			new Target(PARAMS, 'bar'),
-		];
+		const targets = [new Target(PARAMS, 'foo'), new Target(PARAMS, 'bar')];
 		const preset = Preset.exportJson(targets);
 		preset.foo = 123;
 		preset.bar = 'world';
 
 		Preset.importJson(targets, preset);
 
-		assert.strictEqual(
-			PARAMS.foo,
-			123,
-		);
-		assert.strictEqual(
-			PARAMS.bar,
-			'world',
-		);
+		assert.strictEqual(PARAMS.foo, 123);
+		assert.strictEqual(PARAMS.bar, 'world');
 	});
 });

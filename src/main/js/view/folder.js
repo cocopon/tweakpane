@@ -22,10 +22,7 @@ export default class FolderView extends View {
 		(this: any).onFolderChange_ = this.onFolderChange_.bind(this);
 
 		this.folder_ = config.folder;
-		this.folder_.emitter.on(
-			'change',
-			this.onFolderChange_,
-		);
+		this.folder_.emitter.on('change', this.onFolderChange_);
 
 		this.element.classList.add(className());
 
@@ -64,7 +61,8 @@ export default class FolderView extends View {
 			this.element.classList.remove(expandedClass);
 		}
 
-		FlowUtil.ifNotEmpty(this.folder_.expandedHeight,
+		FlowUtil.ifNotEmpty(
+			this.folder_.expandedHeight,
 			(expandedHeight) => {
 				const containerHeight = expanded ? expandedHeight : 0;
 				this.containerElem_.style.height = `${containerHeight}px`;

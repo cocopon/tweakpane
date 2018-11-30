@@ -23,9 +23,11 @@ function createConstraint(params: Params): Constraint<string> {
 	const constraints: Constraint<string>[] = [];
 
 	if (params.options) {
-		constraints.push(new ListConstraint({
-			options: params.options,
-		}));
+		constraints.push(
+			new ListConstraint({
+				options: params.options,
+			}),
+		);
 	}
 
 	return new CompositeConstraint({
@@ -50,11 +52,12 @@ function createController(document: Document, value: InputValue<string>) {
 	});
 }
 
-export function create(document: Document, target: Target, params: Params): InputBindingController<string, *> {
-	const value = new InputValue(
-		'',
-		createConstraint(params),
-	);
+export function create(
+	document: Document,
+	target: Target,
+	params: Params,
+): InputBindingController<string, *> {
+	const value = new InputValue('', createConstraint(params));
 	const binding = new InputBinding({
 		reader: StringConverter.fromMixed,
 		target: target,

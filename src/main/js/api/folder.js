@@ -11,15 +11,9 @@ import InputBindingApi from './input-binding';
 import MonitorBindingApi from './monitor-binding';
 
 import type {EventName as InternalEventName} from '../controller/folder';
-import type {
-	ButtonParams,
-	InputParams,
-	MonitorParams,
-} from '../controller/ui';
+import type {ButtonParams, InputParams, MonitorParams} from '../controller/ui';
 
-type EventName = 'change' |
-	'fold' |
-	'update';
+type EventName = 'change' | 'fold' | 'update';
 
 const TO_INTERNAL_EVENT_NAME_MAP: {[EventName]: InternalEventName} = {
 	change: 'inputchange',
@@ -65,18 +59,13 @@ export default class FolderApi {
 	}
 
 	addButton(params: ButtonParams): ButtonApi {
-		const uc = new ButtonController(
-			this.controller.document,
-			params,
-		);
+		const uc = new ButtonController(this.controller.document, params);
 		this.controller.uiControllerList.append(uc);
 		return new ButtonApi(uc);
 	}
 
 	addSeparator(): void {
-		const uc = new SeparatorController(
-			this.controller.document,
-		);
+		const uc = new SeparatorController(this.controller.document);
 		this.controller.uiControllerList.append(uc);
 	}
 

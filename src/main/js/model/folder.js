@@ -22,7 +22,7 @@ export default class Folder {
 	}
 
 	set expanded(expanded: boolean): void {
-		const changed = (this.expanded_ !== expanded);
+		const changed = this.expanded_ !== expanded;
 		if (changed) {
 			this.expanded_ = expanded;
 			this.emitter.emit('change');
@@ -34,7 +34,7 @@ export default class Folder {
 	}
 
 	set expandedHeight(expandedHeight: ?number): void {
-		const changed = (this.expandedHeight_ !== expandedHeight);
+		const changed = this.expandedHeight_ !== expandedHeight;
 		if (changed) {
 			this.expandedHeight_ = expandedHeight;
 			this.emitter.emit('change');

@@ -27,10 +27,7 @@ export default class MonitorValue<T> {
 		this.rawValues_.push(rawValue);
 
 		if (this.rawValues_.length > this.totalCount_) {
-			this.rawValues_.splice(
-				0,
-				this.rawValues_.length - this.totalCount_,
-			);
+			this.rawValues_.splice(0, this.rawValues_.length - this.totalCount_);
 		}
 
 		this.emitter.emit('update', [rawValue]);

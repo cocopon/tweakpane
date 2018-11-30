@@ -62,11 +62,13 @@ export default {
 				const pane = new Tweakpane({
 					container,
 				});
-				pane.addButton({
-					title: 'Increment',
-				}).on('click', () => {
-					PARAMS.count += 1;
-				});
+				pane
+					.addButton({
+						title: 'Increment',
+					})
+					.on('click', () => {
+						PARAMS.count += 1;
+					});
 				pane.addSeparator();
 				pane.addMonitor(PARAMS, 'count');
 			},
@@ -94,15 +96,17 @@ export default {
 					container,
 				});
 				let m = null;
-				pane.addInput(PARAMS, 'value', {
-					max: 100,
-					min: 0,
-				}).on('change', (value) => {
-					PARAMS.log = value.toFixed(2);
-					if (m) {
-						m.refresh();
-					}
-				});
+				pane
+					.addInput(PARAMS, 'value', {
+						max: 100,
+						min: 0,
+					})
+					.on('change', (value) => {
+						PARAMS.log = value.toFixed(2);
+						if (m) {
+							m.refresh();
+						}
+					});
 				pane.addSeparator();
 				m = pane.addMonitor(PARAMS, 'log', {
 					count: 10,
@@ -131,9 +135,7 @@ export default {
 					label: '(log)',
 				});
 				pane.on('change', (value) => {
-					const v = (typeof value === 'number') ?
-						value.toFixed(2) :
-						value;
+					const v = typeof value === 'number' ? value.toFixed(2) : value;
 					PARAMS.log = `changed: ${v}`;
 					m.refresh();
 				});
@@ -174,11 +176,13 @@ export default {
 				const pane = new Tweakpane({
 					container,
 				});
-				pane.addButton({
-					title: 'Import',
-				}).on('click', () => {
-					pane.importPreset(IMEX_PARAMS);
-				});
+				pane
+					.addButton({
+						title: 'Import',
+					})
+					.on('click', () => {
+						pane.importPreset(IMEX_PARAMS);
+					});
 				pane.addSeparator();
 				pane.addInput(PARAMS, 'name');
 				pane.addInput(PARAMS, 'size');

@@ -1,7 +1,13 @@
 // @flow
 
 const NumberUtil = {
-	map(value: number,  start1: number, end1: number, start2: number, end2: number): number {
+	map(
+		value: number,
+		start1: number,
+		end1: number,
+		start2: number,
+		end2: number,
+	): number {
 		const p = (value - start1) / (end1 - start1);
 		return start2 + p * (end2 - start2);
 	},

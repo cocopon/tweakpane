@@ -10,7 +10,10 @@ export function forceReflow(element: HTMLElement): void {
 	element.offsetHeight;
 }
 
-export function disableTransitionTemporarily(element: HTMLElement, callback: () => void): void {
+export function disableTransitionTemporarily(
+	element: HTMLElement,
+	callback: () => void,
+): void {
 	const t = element.style.transition;
 	element.style.transition = 'none';
 
@@ -24,8 +27,6 @@ export function supportsTouch(document: Document): boolean {
 }
 
 export function getWindowDocument(): Document {
-	const globalObj: Window = FlowUtil.forceCast(
-		new Function('return this')(),
-	);
+	const globalObj: Window = FlowUtil.forceCast(new Function('return this')());
 	return globalObj.document;
 }

@@ -12,13 +12,8 @@ import StepConstraint from './step';
 describe('ConstraintUtil', () => {
 	it('should find constraint itself', () => {
 		const c = new RangeConstraint({});
-		assert.strictEqual(
-			ConstraintUtil.findConstraint(c, RangeConstraint),
-			c
-		);
-		assert.isNull(
-			ConstraintUtil.findConstraint(c, StepConstraint),
-		);
+		assert.strictEqual(ConstraintUtil.findConstraint(c, RangeConstraint), c);
+		assert.isNull(ConstraintUtil.findConstraint(c, StepConstraint));
 	});
 
 	it('should find sub constraint', () => {
@@ -27,16 +22,8 @@ describe('ConstraintUtil', () => {
 		const c = new CompositeConstraint({
 			constraints: [rc, sc],
 		});
-		assert.strictEqual(
-			ConstraintUtil.findConstraint(c, RangeConstraint),
-			rc
-		);
-		assert.strictEqual(
-			ConstraintUtil.findConstraint(c, StepConstraint),
-			sc
-		);
-		assert.isNull(
-			ConstraintUtil.findConstraint(c, ListConstraint),
-		);
+		assert.strictEqual(ConstraintUtil.findConstraint(c, RangeConstraint), rc);
+		assert.strictEqual(ConstraintUtil.findConstraint(c, StepConstraint), sc);
+		assert.isNull(ConstraintUtil.findConstraint(c, ListConstraint));
 	});
 });

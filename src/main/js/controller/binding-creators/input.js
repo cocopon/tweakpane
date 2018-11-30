@@ -27,7 +27,10 @@ type NormalizedParams<T> = {
 	step?: number,
 };
 
-function normalizeParams<T1, T2>(p1: Params<T1>, convert: (value: T1) => T2): NormalizedParams<T2> {
+function normalizeParams<T1, T2>(
+	p1: Params<T1>,
+	convert: (value: T1) => T2,
+): NormalizedParams<T2> {
 	const p2: NormalizedParams<T2> = {
 		label: p1.label,
 		max: p1.max,
@@ -56,27 +59,25 @@ function normalizeParams<T1, T2>(p1: Params<T1>, convert: (value: T1) => T2): No
 	return p2;
 }
 
-export function create(document: Document, target: Target, params: Params<mixed>) {
+export function create(
+	document: Document,
+	target: Target,
+	params: Params<mixed>,
+) {
 	const initialValue = target.read();
 
 	if (typeof initialValue === 'boolean') {
 		return BooleanInputBindingControllerCreators.create(
 			document,
 			target,
-			normalizeParams(
-				params,
-				BooleanConverter.fromMixed,
-			),
+			normalizeParams(params, BooleanConverter.fromMixed),
 		);
 	}
 	if (typeof initialValue === 'number') {
 		return NumberInputBindingControllerCreators.create(
 			document,
 			target,
-			normalizeParams(
-				params,
-				NumberConverter.fromMixed,
-			),
+			normalizeParams(params, NumberConverter.fromMixed),
 		);
 	}
 	if (typeof initialValue === 'string') {
@@ -93,10 +94,7 @@ export function create(document: Document, target: Target, params: Params<mixed>
 		return StringInputBindingControllerCreators.create(
 			document,
 			target,
-			normalizeParams(
-				params,
-				StringConverter.fromMixed,
-			),
+			normalizeParams(params, StringConverter.fromMixed),
 		);
 	}
 

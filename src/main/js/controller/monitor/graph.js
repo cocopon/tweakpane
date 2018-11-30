@@ -15,7 +15,8 @@ type Config = {
 	value: MonitorValue<number>,
 };
 
-export default class GraphMonitorController implements MonitorController<number> {
+export default class GraphMonitorController
+	implements MonitorController<number> {
 	+value: MonitorValue<number>;
 	+view: GraphMonitorView;
 	cursor_: GraphCursor;
@@ -34,8 +35,14 @@ export default class GraphMonitorController implements MonitorController<number>
 			minValue: config.minValue,
 			value: this.value,
 		});
-		this.view.graphElement.addEventListener('mouseleave', this.onGraphMouseLeave_);
-		this.view.graphElement.addEventListener('mousemove', this.onGraphMouseMove_);
+		this.view.graphElement.addEventListener(
+			'mouseleave',
+			this.onGraphMouseLeave_,
+		);
+		this.view.graphElement.addEventListener(
+			'mousemove',
+			this.onGraphMouseMove_,
+		);
 	}
 
 	onGraphMouseLeave_(): void {
@@ -46,11 +53,7 @@ export default class GraphMonitorController implements MonitorController<number>
 		const bounds = this.view.graphElement.getBoundingClientRect();
 		const x = e.offsetX;
 		this.cursor_.index = Math.floor(
-			NumberUtil.map(
-				x,
-				0, bounds.width,
-				0, this.value.totalCount,
-			),
+			NumberUtil.map(x, 0, bounds.width, 0, this.value.totalCount),
 		);
 	}
 }

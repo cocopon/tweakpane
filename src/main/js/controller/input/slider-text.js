@@ -15,7 +15,8 @@ type Config = {
 	value: InputValue<number>,
 };
 
-export default class SliderTextInputController implements InputController<number> {
+export default class SliderTextInputController
+	implements InputController<number> {
 	sliderIc_: SliderInputController;
 	textIc_: NumberTextInputController;
 	value_: InputValue<number>;

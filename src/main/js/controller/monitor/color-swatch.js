@@ -10,7 +10,8 @@ type Config = {
 	value: MonitorValue<Color>,
 };
 
-export default class ColorSwatchMonitorController implements MonitorController<Color> {
+export default class ColorSwatchMonitorController
+	implements MonitorController<Color> {
 	+value: MonitorValue<Color>;
 	+view: ColorSwatchMonitorView;
 

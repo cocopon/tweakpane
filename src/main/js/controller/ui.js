@@ -57,13 +57,25 @@ type FolderConfig = {
 	type: 'folder',
 };
 
-export type UiConfig = ButtonConfig |
-	FolderConfig |
-	InputConfig |
-	MonitorConfig;
+export type UiConfig =
+	| ButtonConfig
+	| FolderConfig
+	| InputConfig
+	| MonitorConfig;
 
-export type UiController = ButtonController |
-	FolderController |
-	SeparatorController |
-	$Call<typeof InputBindingControllerCreators.create, Document, Target, InputParams> |
-	$Call<typeof MonitorBindingControllerCreators.create, Document, Target, MonitorParams>;
+export type UiController =
+	| ButtonController
+	| FolderController
+	| SeparatorController
+	| $Call<
+			typeof InputBindingControllerCreators.create,
+			Document,
+			Target,
+			InputParams,
+	  >
+	| $Call<
+			typeof MonitorBindingControllerCreators.create,
+			Document,
+			Target,
+			MonitorParams,
+	  >;

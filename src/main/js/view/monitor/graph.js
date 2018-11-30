@@ -21,7 +21,8 @@ type Config = {
 
 const className = ClassName('grp', 'monitor');
 
-export default class GraphMonitorView extends View implements MonitorView<number> {
+export default class GraphMonitorView extends View
+	implements MonitorView<number> {
 	+value: MonitorValue<number>;
 	cursor_: GraphCursor;
 	formatter_: Formatter<number>;
@@ -80,11 +81,13 @@ export default class GraphMonitorView extends View implements MonitorView<number
 		this.lineElem_.setAttributeNS(
 			null,
 			'points',
-			this.value.rawValues.map((value, index) => {
-				const x = NumberUtil.map(index, 0, maxIndex, 0, bounds.width);
-				const y = NumberUtil.map(value, min, max, bounds.height, 0);
-				return [x, y].join(',');
-			}).join(' '),
+			this.value.rawValues
+				.map((value, index) => {
+					const x = NumberUtil.map(index, 0, maxIndex, 0, bounds.width);
+					const y = NumberUtil.map(value, min, max, bounds.height, 0);
+					return [x, y].join(',');
+				})
+				.join(' '),
 		);
 
 		// Cursor
@@ -96,16 +99,8 @@ export default class GraphMonitorView extends View implements MonitorView<number
 		}
 		tooltipElem.classList.add(className('t', 'valid'));
 
-		const tx = NumberUtil.map(
-			this.cursor_.index,
-			0, maxIndex,
-			0, bounds.width,
-		);
-		const ty = NumberUtil.map(
-			value,
-			min, max,
-			bounds.height, 0,
-		);
+		const tx = NumberUtil.map(this.cursor_.index, 0, maxIndex, 0, bounds.width);
+		const ty = NumberUtil.map(value, min, max, bounds.height, 0);
 		tooltipElem.style.left = `${tx}px`;
 		tooltipElem.style.top = `${ty}px`;
 		this.tooltipElem_.textContent = `${this.formatter_.format(value)}`;

@@ -50,8 +50,8 @@ export default class Tweakpane extends RootApi {
 		});
 		super(rootController);
 
-		const containerElem = config.container ||
-			createDefaultWrapperElement(document);
+		const containerElem =
+			config.container || createDefaultWrapperElement(document);
 		containerElem.appendChild(this.element);
 	}
 }

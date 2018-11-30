@@ -22,9 +22,11 @@ function createConstraint(params: Params): Constraint<boolean> {
 	const constraints: Constraint<boolean>[] = [];
 
 	if (params.options) {
-		constraints.push(new ListConstraint({
-			options: params.options,
-		}));
+		constraints.push(
+			new ListConstraint({
+				options: params.options,
+			}),
+		);
 	}
 
 	return new CompositeConstraint({
@@ -47,11 +49,12 @@ function createController(document: Document, value: InputValue<boolean>) {
 	});
 }
 
-export function create(document: Document, target: Target, params: Params): InputBindingController<boolean, *> {
-	const value = new InputValue(
-		false,
-		createConstraint(params),
-	);
+export function create(
+	document: Document,
+	target: Target,
+	params: Params,
+): InputBindingController<boolean, *> {
+	const value = new InputValue(false, createConstraint(params));
 	const binding = new InputBinding({
 		reader: BooleanConverter.fromMixed,
 		target: target,
