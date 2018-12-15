@@ -2,10 +2,10 @@
 
 import * as ColorConverter from '../../converter/color';
 import ClassName from '../../misc/class-name';
+import Color from '../../model/color';
 import MonitorValue from '../../model/monitor-value';
 import View from '../view';
 
-import type {Color} from '../../model/color';
 import type {MonitorView} from './monitor';
 
 type Config = {

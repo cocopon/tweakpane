@@ -1,8 +1,8 @@
 // @flow
 
+import NumberUtil from '../misc/number-util';
+import Color from '../model/color';
 import ColorParser from '../parser/color';
-
-import type {Color} from '../model/color';
 
 export function fromMixed(value: mixed): Color {
 	if (typeof value === 'string') {
@@ -11,13 +11,14 @@ export function fromMixed(value: mixed): Color {
 			return cv;
 		}
 	}
-	return {r: 0, g: 0, b: 0};
+	return new Color(0, 0, 0);
 }
 
 export function toString(value: Color): string {
-	const hexes = [value.r, value.g, value.b]
+	const hexes = value
+		.getComponents()
 		.map((comp) => {
-			const hex = comp.toString(16);
+			const hex = NumberUtil.constrain(Math.floor(comp), 0, 255).toString(16);
 			return hex.length === 1 ? `0${hex}` : hex;
 		})
 		.join('');

@@ -1,8 +1,6 @@
 $prefix: 'common';
 
 .#{$prefix}-demo {
-	overflow: hidden;
-
 	@include pc() {
 		display: flex;
 	}

@@ -17,6 +17,10 @@ const NumberUtil = {
 		const frac = text.split('.')[1];
 		return frac.replace(/0+$/, '').length;
 	},
+
+	constrain(value: number, min: number, max: number): number {
+		return Math.min(Math.max(value, min), max);
+	},
 };
 
 export default NumberUtil;

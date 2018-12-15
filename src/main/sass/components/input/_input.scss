@@ -1,10 +1,53 @@
 @import './checkbox';
+@import './color-picker';
 @import './list';
 @import './slider';
+@import './text';
+
+// colorswatch
+.#{$prefix}-cswiv {
+	&_sw {
+		@include inputView();
+	}
+	&_b {
+		appearance: none;
+		background-color: transparent;
+		border-width: 0;
+		cursor: pointer;
+		display: block;
+		height: $input-height;
+		left: 0;
+		margin: 0;
+		outline: none;
+		padding: 0;
+		position: absolute;
+		top: 0;
+		width: $input-height;
+
+		&:focus::after {
+			border: rgba(white, 0.75) solid 2px;
+			border-radius: $input-border-radius;
+			bottom: 0;
+			content: '';
+			display: block;
+			left: 0;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+	}
+	&_p {
+		left: -4px;
+		position: absolute;
+		right: -4px;
+		top: $input-height;
+	}
+}
 
 // colorswatch-text
 .#{$prefix}-cswtxtiv {
 	display: flex;
+	position: relative;
 
 	&_s {
 		flex-grow: 0;
@@ -16,7 +59,6 @@
 		margin-left: 4px;
 	}
 }
-@import 'components/input/text';
 
 // slider-text
 .#{$prefix}-sldtxtiv {

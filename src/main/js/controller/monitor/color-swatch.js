@@ -1,9 +1,9 @@
 // @flow
 
+import Color from '../../model/color';
 import MonitorValue from '../../model/monitor-value';
 import ColorSwatchMonitorView from '../../view/monitor/color-swatch';
 
-import type {Color} from '../../model/color';
 import type {MonitorController} from './monitor';
 
 type Config = {

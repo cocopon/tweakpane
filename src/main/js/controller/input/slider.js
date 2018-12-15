@@ -2,12 +2,13 @@
 
 import ConstraintUtil from '../../constraint/util';
 import RangeConstraint from '../../constraint/range';
-import * as DomUtil from '../../misc/dom-util';
+import PointerHandler from '../../misc/pointer-handler';
 import NumberUtil from '../../misc/number-util';
 import FlowUtil from '../../misc/flow-util';
 import InputValue from '../../model/input-value';
 import SliderInputView from '../../view/input/slider';
 
+import type {PointerData} from '../../misc/pointer-handler';
 import type {InputController} from './input';
 
 type Config = {
@@ -35,16 +36,12 @@ export default class SliderInputController implements InputController<number> {
 	+view: SliderInputView;
 	maxValue_: number;
 	minValue_: number;
-	pressed_: boolean;
+	ptHandler_: PointerHandler;
 
 	constructor(document: Document, config: Config) {
-		(this: any).onSliderMouseDown_ = this.onSliderMouseDown_.bind(this);
-		(this: any).onSliderTouchMove_ = this.onSliderTouchMove_.bind(this);
-		(this: any).onSliderTouchStart_ = this.onSliderTouchStart_.bind(this);
-		(this: any).onDocumentMouseMove_ = this.onDocumentMouseMove_.bind(this);
-		(this: any).onDocumentMouseUp_ = this.onDocumentMouseUp_.bind(this);
-
-		this.pressed_ = false;
+		(this: any).onPointerDown_ = this.onPointerDown_.bind(this);
+		(this: any).onPointerMove_ = this.onPointerMove_.bind(this);
+		(this: any).onPointerUp_ = this.onPointerUp_.bind(this);
 
 		this.value = config.value;
 
@@ -58,83 +55,42 @@ export default class SliderInputController implements InputController<number> {
 			value: this.value,
 		});
 
-		if (DomUtil.supportsTouch(document)) {
-			this.view.outerElement.addEventListener(
-				'touchstart',
-				this.onSliderTouchStart_,
-			);
-			this.view.outerElement.addEventListener(
-				'touchmove',
-				this.onSliderTouchMove_,
-			);
-		} else {
-			this.view.outerElement.addEventListener(
-				'mousedown',
-				this.onSliderMouseDown_,
-			);
-			document.addEventListener('mousemove', this.onDocumentMouseMove_);
-			document.addEventListener('mouseup', this.onDocumentMouseUp_);
-		}
+		this.ptHandler_ = new PointerHandler(document, this.view.outerElement);
+		this.ptHandler_.emitter.on('down', this.onPointerDown_);
+		this.ptHandler_.emitter.on('move', this.onPointerMove_);
+		this.ptHandler_.emitter.on('up', this.onPointerUp_);
 	}
 
-	computeRawValueFromX_(clientX: number): number {
-		const w = this.view.outerElement.getBoundingClientRect().width;
-		return NumberUtil.map(clientX, 0, w, this.minValue_, this.maxValue_);
-	}
-
-	onSliderMouseDown_(e: MouseEvent): void {
-		// Prevent native text selection
-		e.preventDefault();
-
-		this.pressed_ = true;
-
-		this.value.rawValue = this.computeRawValueFromX_(e.offsetX);
+	onPointerDown_(d: PointerData): void {
+		this.value.rawValue = NumberUtil.map(
+			d.px,
+			0,
+			1,
+			this.minValue_,
+			this.maxValue_,
+		);
 		this.view.update();
 	}
 
-	onDocumentMouseMove_(e: MouseEvent): void {
-		if (!this.pressed_) {
-			return;
-		}
-
-		const elemLeft =
-			this.view.document.defaultView.scrollX +
-			this.view.outerElement.getBoundingClientRect().left;
-		const offsetX = e.pageX - elemLeft;
-		this.value.rawValue = this.computeRawValueFromX_(offsetX);
+	onPointerMove_(d: PointerData): void {
+		this.value.rawValue = NumberUtil.map(
+			d.px,
+			0,
+			1,
+			this.minValue_,
+			this.maxValue_,
+		);
 		this.view.update();
 	}
 
-	onDocumentMouseUp_(e: MouseEvent): void {
-		if (!this.pressed_) {
-			return;
-		}
-		this.pressed_ = false;
-
-		const elemLeft =
-			this.view.document.defaultView.scrollX +
-			this.view.outerElement.getBoundingClientRect().left;
-		const offsetX = e.pageX - elemLeft;
-		this.value.rawValue = this.computeRawValueFromX_(offsetX);
-		this.view.update();
-	}
-
-	onSliderTouchStart_(e: TouchEvent) {
-		// Prevent native page scroll
-		e.preventDefault();
-
-		const touch = e.targetTouches[0];
-		const offsetX =
-			touch.clientX - this.view.outerElement.getBoundingClientRect().left;
-		this.value.rawValue = this.computeRawValueFromX_(offsetX);
-		this.view.update();
-	}
-
-	onSliderTouchMove_(e: TouchEvent) {
-		const touch = e.targetTouches[0];
-		const offsetX =
-			touch.clientX - this.view.outerElement.getBoundingClientRect().left;
-		this.value.rawValue = this.computeRawValueFromX_(offsetX);
+	onPointerUp_(d: PointerData): void {
+		this.value.rawValue = NumberUtil.map(
+			d.px,
+			0,
+			1,
+			this.minValue_,
+			this.maxValue_,
+		);
 		this.view.update();
 	}
 }

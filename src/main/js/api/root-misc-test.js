@@ -115,7 +115,7 @@ describe(RootApi.name, () => {
 			interval: 0,
 		});
 		const preset = api.exportPreset();
-		assert.deepEqual(preset, {
+		assert.deepStrictEqual(preset, {
 			foo: 1,
 			bar: 'hello',
 		});
@@ -135,7 +135,7 @@ describe(RootApi.name, () => {
 			bar: 'world',
 		});
 
-		assert.deepEqual(PARAMS, {
+		assert.deepStrictEqual(PARAMS, {
 			foo: 123,
 			bar: 'world',
 		});

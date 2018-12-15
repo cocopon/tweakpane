@@ -30,3 +30,17 @@ export function getWindowDocument(): Document {
 	const globalObj: Window = FlowUtil.forceCast(new Function('return this')());
 	return globalObj.document;
 }
+
+function isBrowser(): boolean {
+	// Webpack defines process.browser = true;
+	// https://github.com/webpack/node-libs-browser
+	// https://github.com/defunctzombie/node-process
+	return !!(process: any).browser;
+}
+
+export function getCanvasContext(
+	canvasElement: HTMLCanvasElement,
+): ?CanvasRenderingContext2D {
+	// HTMLCanvasElement.prototype.getContext is not defined on testing environment
+	return isBrowser() ? canvasElement.getContext('2d') : null;
+}
