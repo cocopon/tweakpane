@@ -72,4 +72,28 @@ describe('NumberUtil', () => {
 			});
 		});
 	});
+
+	[
+		{
+			args: [0, 0, 0],
+			expected: 0,
+		},
+		{
+			args: [-123, 10, 100],
+			expected: 10,
+		},
+		{
+			args: [123, 10, 100],
+			expected: 100,
+		},
+	].forEach((testCase) => {
+		context(`when ${JSON.stringify(testCase.args)}`, () => {
+			it(`should return ${testCase.expected}`, () => {
+				assert.strictEqual(
+					NumberUtil.constrain(...testCase.args),
+					testCase.expected,
+				);
+			});
+		});
+	});
 });

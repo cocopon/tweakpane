@@ -1,16 +1,16 @@
 // @flow
 
 import ClassName from '../../misc/class-name';
+import Color from '../../model/color';
 import InputValue from '../../model/input-value';
-import ColorSwatchMonitorView from '../monitor/color-swatch';
+import ColorSwatchInputView from '../input/color-swatch';
 import View from '../view';
 import TextInputView from './text';
 
-import type {Color} from '../../model/color';
 import type {InputView} from './input';
 
 type Config = {
-	swatchMonitorView: ColorSwatchMonitorView,
+	swatchInputView: ColorSwatchInputView,
 	textInputView: TextInputView<Color>,
 };
 
@@ -18,7 +18,7 @@ const className = ClassName('cswtxt', 'input');
 
 export default class ColorSwatchTextInputView extends View
 	implements InputView<Color> {
-	swatchMonitorView_: ColorSwatchMonitorView;
+	swatchInputView_: ColorSwatchInputView;
 	textInputView_: TextInputView<Color>;
 
 	constructor(document: Document, config: Config) {
@@ -28,8 +28,8 @@ export default class ColorSwatchTextInputView extends View
 
 		const swatchElem = document.createElement('div');
 		swatchElem.classList.add(className('s'));
-		this.swatchMonitorView_ = config.swatchMonitorView;
-		swatchElem.appendChild(this.swatchMonitorView_.element);
+		this.swatchInputView_ = config.swatchInputView;
+		swatchElem.appendChild(this.swatchInputView_.element);
 		this.element.appendChild(swatchElem);
 
 		const textElem = document.createElement('div');
@@ -44,7 +44,7 @@ export default class ColorSwatchTextInputView extends View
 	}
 
 	update(): void {
-		this.swatchMonitorView_.update();
+		this.swatchInputView_.update();
 		this.textInputView_.update();
 	}
 }

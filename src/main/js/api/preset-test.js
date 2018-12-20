@@ -17,7 +17,7 @@ describe('Preset', () => {
 			new Target(PARAMS, 'foo'),
 			new Target(PARAMS, 'bar'),
 		]);
-		assert.deepEqual(preset, {
+		assert.deepStrictEqual(preset, {
 			foo: 1,
 			bar: 'hello',
 		});

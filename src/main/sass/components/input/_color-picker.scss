@@ -1,0 +1,95 @@
+.#{$prefix}-clpiv {
+	background-color: $bg-color;
+	border-radius: 6px;
+	box-shadow: 0 2px 4px rgba(black, 0.2);
+	display: none;
+	padding: 4px;
+	position: relative;
+	visibility: hidden;
+	z-index: $z-index-color-picker;
+
+	&#{&}-expanded {
+		display: block;
+		visibility: visible;
+	}
+
+	&_pl {
+		display: flex;
+	}
+	&_sv {
+	}
+	&_h {
+		margin-left: 4px;
+	}
+	&_is {
+		display: flex;
+		margin-top: 4px;
+	}
+	&_iw {
+		align-items: center;
+		display: flex;
+
+		& + & {
+			margin-left: 4px;
+		}
+	}
+	&_il {
+		color: $label-fg-color;
+		margin-left: 4px;
+		margin-right: 8px;
+	}
+	&_i {
+		@include inputView();
+
+		padding: 0 4px;
+		width: 100%;
+	}
+}
+
+.#{$prefix}-hpliv {
+	border-radius: $input-border-radius;
+	overflow: hidden;
+	position: relative;
+
+	&_c {
+		cursor: crosshair;
+		display: block;
+		height: 80px;
+		width: 20px;
+	}
+	&_m {
+		border-radius: 100%;
+		border: rgba(white, 0.75) solid 1px;
+		box-shadow: 0 1px 2px rgba(black, 0.1);
+		height: 4px;
+		left: 50%;
+		margin-left: -3px;
+		margin-top: -3px;
+		pointer-events: none;
+		position: absolute;
+		width: 4px;
+	}
+}
+.#{$prefix}-svpiv {
+	border-radius: $input-border-radius;
+	overflow: hidden;
+	position: relative;
+
+	&_c {
+		cursor: crosshair;
+		display: block;
+		height: 80px;
+		width: 100%;
+	}
+	&_m {
+		border-radius: 100%;
+		border: rgba(white, 0.75) solid 1px;
+		box-shadow: 0 1px 2px rgba(black, 0.1);
+		height: 4px;
+		margin-left: -3px;
+		margin-top: -3px;
+		pointer-events: none;
+		position: absolute;
+		width: 4px;
+	}
+}

@@ -18,6 +18,9 @@ $color-exlight: hsl($base-hue, 7%, 80%);
 $bg-color: $color-dark;
 $fg-color: $color-exlight;
 
+// Z-index
+$z-index-color-picker: 1000;
+
 // Folder
 $folder-mark-hole-color: rgba($bg-color, 0.5);
 $folder-title-bg-color: rgba($fg-color, 0.1);
@@ -44,6 +47,7 @@ $monitor-fg-color: rgba($fg-color, 0.7);
 
 // Misc
 $label-fg-color: rgba($fg-color, 0.8);
+$root-border-radius: 6px;
 $separator-color: rgba($color-exdark, 0.3);
 $slider-input-bar-color: rgba($fg-color, 0.2);
 

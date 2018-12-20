@@ -27,7 +27,7 @@ describe(CompositeConstraint.name, () => {
 			constraints: [sc1, sc2],
 		});
 
-		assert.deepEqual(c.constraints, [sc1, sc2]);
+		assert.deepStrictEqual(c.constraints, [sc1, sc2]);
 	});
 
 	it('should constrain value', () => {
