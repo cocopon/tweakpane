@@ -19,7 +19,8 @@
 		padding-bottom: 0;
 		padding-top: 0;
 		position: relative;
-		transition: height 0.2s ease-out, opacity 0.2s linear, padding 0.2s ease-out;
+		transition: height 0.2s ease-in-out, opacity 0.2s linear,
+			padding 0.2s ease-in-out;
 	}
 	&_t:hover + &_c {
 		border-left-color: $folder-title-hover-bg-color;
@@ -36,5 +37,8 @@
 		padding-bottom: 4px;
 		padding-top: 4px;
 		transform: none;
+		// Delay opacity transition to avoid overflow contents
+		transition: height 0.2s ease-in-out, opacity 0.2s linear 0.2s,
+			padding 0.2s ease-in-out;
 	}
 }
