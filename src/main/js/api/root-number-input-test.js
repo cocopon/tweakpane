@@ -52,6 +52,16 @@ describe(RootApi.name, () => {
 			},
 			value: 3.14,
 		},
+		{
+			expectedClass: ListInputController,
+			params: {
+				options: [
+					{text: 'foo', value: 0},
+					{text: 'bar', value: 1},
+				],
+			},
+			value: 3.14,
+		},
 	].forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should return class ${testCase.expectedClass.name}`, () => {
