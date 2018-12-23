@@ -1,7 +1,5 @@
 // @flow
 
-declare var PIXI: any;
-
 function map(
 	v: number,
 	s1: number,
@@ -18,30 +16,35 @@ function dist(x1: number, y1: number, x2: number, y2: number): number {
 	return Math.sqrt(dx * dx + dy * dy);
 }
 
-export type Environment = {
-	color: string,
-	maxSize: number,
-	range: number,
-	spacing: number,
-	speed: number,
-	xamp: number,
-	xfreq: number,
-	yamp: number,
-	yfreq: number,
-};
+export interface Environment {
+	color: string;
+	maxSize: number;
+	range: number;
+	spacing: number;
+	speed: number;
+	title: string;
+	xamp: number;
+	xfreq: number;
+	yamp: number;
+	yfreq: number;
+}
 
 const DEFAULT_DOT_SIZE = 20;
 
-export default class Sketch {
-	app_: PIXI.Application;
-	dots_: PIXI.Sprite[];
-	elem_: HTMLElement;
-	env_: Environment;
-	height_: number;
-	t_: number;
-	width_: number;
+interface Dot extends PIXI.Sprite {
+	en: number;
+}
 
-	constructor(element: HTMLElement, env: Environment) {
+export default class Sketch {
+	private app_: PIXI.Application;
+	private dots_: Dot[];
+	private elem_: Element;
+	private env_: Environment;
+	private height_: number;
+	private t_: number;
+	private width_: number;
+
+	constructor(element: Element, env: Environment) {
 		this.elem_ = element;
 		this.env_ = env;
 
@@ -63,7 +66,7 @@ export default class Sketch {
 		});
 	}
 
-	reset() {
+	public reset() {
 		const w = this.width_;
 		const h = this.height_;
 		const env = this.env_;
@@ -84,8 +87,9 @@ export default class Sketch {
 		const ycount = Math.ceil(h / ystep);
 		for (let iy = 0; iy <= ycount; iy++) {
 			for (let ix = 0; ix <= xcount; ix++) {
-				const dot = new PIXI.Sprite(tex);
+				const dot = new PIXI.Sprite(tex) as Dot;
 				dot.anchor.set(0.5, 0.5);
+				dot.en = 0;
 				dot.x = (ix + (iy % 2 === 0 ? 0 : 0.5)) * xstep;
 				dot.y = iy * ystep;
 				this.app_.stage.addChild(dot);
@@ -94,7 +98,16 @@ export default class Sketch {
 		}
 	}
 
-	onTick_() {
+	public resize() {
+		const rect = this.elem_.getBoundingClientRect();
+		this.height_ = rect.height;
+		this.width_ = rect.width;
+
+		this.app_.renderer.resize(this.width_, this.height_);
+		this.reset();
+	}
+
+	private onTick_() {
 		const w = this.width_;
 		const h = this.height_;
 		const env = this.env_;
@@ -122,14 +135,5 @@ export default class Sketch {
 			const sz = ((1 - Math.pow(0.9, dot.en)) * env.maxSize) / DEFAULT_DOT_SIZE;
 			dot.scale.set(sz);
 		});
-	}
-
-	resize() {
-		const rect = this.elem_.getBoundingClientRect();
-		this.height_ = rect.height;
-		this.width_ = rect.width;
-
-		this.app_.renderer.resize(this.width_, this.height_);
-		this.reset();
 	}
 }

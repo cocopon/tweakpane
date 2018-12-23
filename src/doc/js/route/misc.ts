@@ -6,18 +6,21 @@ declare var Tweakpane: any;
 
 export default {
 	pathname: /^(\/tweakpane)?\/misc.html$/,
-	init() {
+
+	init: () => {
 		const IMEX_PARAMS = {
 			color: '#ff8000',
 			name: 'export',
 			size: 10,
 		};
 
-		const markerToFnMap = {
-			misc(container) {
+		const markerToFnMap: {
+			[key: string]: (container: HTMLElement | null) => void;
+		} = {
+			misc: (container) => {
 				const PARAMS = {value: 0};
 				const pane = new Tweakpane({
-					container,
+					container: container,
 					title: 'Global title',
 				});
 				pane.addInput(PARAMS, 'value', {
@@ -37,14 +40,15 @@ export default {
 					title: 'Button3',
 				});
 			},
-			folder(container) {
+
+			folder: (container) => {
 				const PARAMS = {
 					acceleration: 0,
 					randomness: 0,
 					speed: 0,
 				};
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 				const f1 = pane.addFolder({
 					title: 'Basic',
@@ -57,10 +61,11 @@ export default {
 				f2.addInput(PARAMS, 'acceleration');
 				f2.addInput(PARAMS, 'randomness');
 			},
-			button(container) {
+
+			button: (container) => {
 				const PARAMS = {count: 0};
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 				pane
 					.addButton({
@@ -72,9 +77,10 @@ export default {
 				pane.addSeparator();
 				pane.addMonitor(PARAMS, 'count');
 			},
-			separator(container) {
+
+			separator: (container) => {
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 				pane.addButton({
 					title: 'Previous',
@@ -87,21 +93,22 @@ export default {
 					title: 'Reset',
 				});
 			},
-			event(container) {
+
+			event: (container) => {
 				const PARAMS = {
 					log: '',
 					value: 0,
 				};
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
-				let m = null;
+				let m: any = null;
 				pane
 					.addInput(PARAMS, 'value', {
 						max: 100,
 						min: 0,
 					})
-					.on('change', (value) => {
+					.on('change', (value: number) => {
 						PARAMS.log = value.toFixed(2);
 						if (m) {
 							m.refresh();
@@ -114,14 +121,15 @@ export default {
 					label: '(log)',
 				});
 			},
-			globalEvent(container) {
+
+			globalEvent: (container) => {
 				const PARAMS = {
 					log: '',
 					number: 0,
 					string: 'text',
 				};
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 				pane.addInput(PARAMS, 'number', {
 					max: 100,
@@ -134,15 +142,16 @@ export default {
 					interval: 0,
 					label: '(log)',
 				});
-				pane.on('change', (value) => {
+				pane.on('change', (value: number | string) => {
 					const v = typeof value === 'number' ? value.toFixed(2) : value;
 					PARAMS.log = `changed: ${v}`;
 					m.refresh();
 				});
 			},
-			export(container) {
+
+			export: (container) => {
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 				pane.addInput(IMEX_PARAMS, 'name');
 				pane.addInput(IMEX_PARAMS, 'size', {
@@ -154,7 +163,7 @@ export default {
 				const updatePreset = () => {
 					const preset = pane.exportPreset();
 
-					const elems = Array.prototype.slice.call(
+					const elems: HTMLElement[] = Array.prototype.slice.call(
 						document.querySelectorAll('*[data-imex]'),
 					);
 					elems.forEach((elem) => {
@@ -167,14 +176,15 @@ export default {
 				pane.on('change', updatePreset);
 				updatePreset();
 			},
-			import(container) {
+
+			import: (container) => {
 				const PARAMS = {
 					color: '#0080ff',
 					name: 'import',
 					size: 50,
 				};
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 				pane
 					.addButton({
@@ -188,11 +198,12 @@ export default {
 				pane.addInput(PARAMS, 'size');
 				pane.addInput(PARAMS, 'color');
 			},
-			presetKey(container) {
+
+			presetKey: (container) => {
 				const PARAMS1 = {speed: 1 / 3};
 				const PARAMS2 = {speed: 2 / 3};
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 				pane.addInput(PARAMS1, 'speed', {
 					max: 1,
@@ -215,14 +226,15 @@ export default {
 				pane.on('change', updatePreset);
 				updatePreset();
 			},
-			rootTitle(container) {
+
+			rootTitle: (container) => {
 				const PARAMS = {
 					bounce: 0.5,
 					gravity: 0.01,
 					speed: 0.1,
 				};
 				const pane = new Tweakpane({
-					container,
+					container: container,
 					title: 'Parameters',
 				});
 				pane.addInput(PARAMS, 'speed', {
@@ -241,10 +253,11 @@ export default {
 					min: 0,
 				});
 			},
-			label(container) {
+
+			label: (container) => {
 				const PARAMS = {initSpd: 0};
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 				pane.addInput(PARAMS, 'initSpd', {
 					label: 'Initial speed',

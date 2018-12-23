@@ -1,14 +1,16 @@
-// @flow
-
+// tslint:disable:object-literal-sort-keys
 import * as Util from '../util';
 
 declare var Tweakpane: any;
 
 export default {
 	pathname: /^(\/tweakpane)?\/input.html$/,
-	init() {
-		const markerToFnMap = {
-			input(container) {
+
+	init: () => {
+		const markerToFnMap: {
+			[key: string]: (container: HTMLElement | null) => void;
+		} = {
+			input: (container) => {
 				const PARAMS = {
 					b: true,
 					c: '#ff8800',
@@ -16,7 +18,7 @@ export default {
 					s: 'string',
 				};
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 				const nf = pane.addFolder({
 					title: 'Number',
@@ -63,19 +65,19 @@ export default {
 					label: 'text',
 				});
 			},
-			numberText(container) {
+			numberText: (container) => {
 				const PARAMS = {value: 50};
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 				pane.addInput(PARAMS, 'value', {
 					label: 'text',
 				});
 			},
-			slider(container) {
+			slider: (container) => {
 				const PARAMS = {value: 50};
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 				pane.addInput(PARAMS, 'value', {
 					label: 'slider',
@@ -83,13 +85,13 @@ export default {
 					min: 0,
 				});
 			},
-			step(container) {
+			step: (container) => {
 				const PARAMS = {
 					speed: 0.5,
 					count: 10,
 				};
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 				pane.addInput(PARAMS, 'speed', {
 					step: 0.1,
@@ -101,10 +103,10 @@ export default {
 					step: 10,
 				});
 			},
-			numberList(container) {
+			numberList: (container) => {
 				const PARAMS = {value: 50};
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 				pane.addInput(PARAMS, 'value', {
 					label: 'quality',
@@ -119,19 +121,19 @@ export default {
 					label: '(actual)',
 				});
 			},
-			stringText(container) {
+			stringText: (container) => {
 				const PARAMS = {value: 'hello, world'};
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 				pane.addInput(PARAMS, 'value', {
 					label: 'message',
 				});
 			},
-			stringList(container) {
+			stringList: (container) => {
 				const PARAMS = {value: ''};
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 				pane.addInput(PARAMS, 'value', {
 					label: 'theme',
@@ -146,19 +148,19 @@ export default {
 					label: '(actual)',
 				});
 			},
-			checkbox(container) {
+			checkbox: (container) => {
 				const PARAMS = {value: true};
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 				pane.addInput(PARAMS, 'value', {
 					label: 'hidden',
 				});
 			},
-			color(container) {
+			color: (container) => {
 				const PARAMS = {value: '#ff8800'};
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 				pane.addInput(PARAMS, 'value', {
 					label: 'color',

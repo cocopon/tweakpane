@@ -6,7 +6,8 @@ declare var Tweakpane: any;
 
 export default {
 	pathname: /^(\/tweakpane)?\/monitor.html$/,
-	init() {
+
+	init: () => {
 		const SHARED_PARAMS = {
 			time: '',
 			wave: 0,
@@ -30,10 +31,12 @@ export default {
 			wavep += 0.02;
 		}, 50);
 
-		const markerToFnMap = {
-			monitor(container) {
+		const markerToFnMap: {
+			[key: string]: (container: HTMLElement | null) => void;
+		} = {
+			monitor: (container) => {
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 				const nf = pane.addFolder({
 					title: 'Number',
@@ -52,10 +55,10 @@ export default {
 					type: 'graph',
 				});
 			},
-			multiline(container) {
+			multiline: (container) => {
 				const PARAMS = {params: ''};
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 				pane
 					.addMonitor(PARAMS, 'params', {
@@ -65,25 +68,28 @@ export default {
 						PARAMS.params = JSON.stringify(SHARED_PARAMS, null, 2);
 					});
 			},
-			count(container) {
+
+			count: (container) => {
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 				pane.addMonitor(SHARED_PARAMS, 'wave', {
 					count: 10,
 				});
 			},
-			interval(container) {
+
+			interval: (container) => {
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 				pane.addMonitor(SHARED_PARAMS, 'time', {
 					interval: 1000,
 				});
 			},
-			graph(container) {
+
+			graph: (container) => {
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 				pane.addMonitor(SHARED_PARAMS, 'wave', {
 					max: +1,

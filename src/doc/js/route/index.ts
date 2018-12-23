@@ -3,13 +3,14 @@
 import Sketch from '../sketch';
 import * as Util from '../util';
 
-import type {Environment} from '../sketch';
+import {Environment} from '../sketch';
 
 declare var Tweakpane: any;
 
 export default {
 	pathname: /^(\/tweakpane)?\/$/,
-	init() {
+
+	init: () => {
 		const ENV: Environment = {
 			color: '#e4e4e7',
 			maxSize: 64,
@@ -23,7 +24,7 @@ export default {
 			yfreq: 2 * Math.PI,
 		};
 
-		const PRESETS: {[string]: Environment} = {
+		const PRESETS: {[key: string]: Environment} = {
 			atmos: {
 				color: '#e4e4e7',
 				maxSize: 128,
@@ -75,10 +76,12 @@ export default {
 		}
 		const sketch = new Sketch(sketchElem, ENV);
 
-		const markerToFnMap = {
-			index(container) {
+		const markerToFnMap: {
+			[key: string]: (container: HTMLElement | null) => void;
+		} = {
+			index: (container) => {
 				const pane = new Tweakpane({
-					container,
+					container: container,
 					title: 'Tweakpane',
 				});
 				pane.addInput(ENV, 'title').on('change', (value: string) => {
@@ -136,6 +139,7 @@ export default {
 					label: 'preset',
 					options: {
 						'Import...': '',
+
 						Atmos: 'atmos',
 						Bubble: 'bubble',
 						Cloud: 'cloud',
@@ -169,10 +173,11 @@ export default {
 					}, 200);
 				});
 			},
-			first(container) {
+
+			first: (container) => {
 				const PARAMS = {speed: 0.5};
 				const pane = new Tweakpane({
-					container,
+					container: container,
 				});
 
 				const updatePreset = () => {

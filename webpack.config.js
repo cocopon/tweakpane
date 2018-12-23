@@ -7,7 +7,7 @@ module.exports = (_env, argv) => {
 	return {
 		devtool: false,
 		entry: {
-			bundle: Path.resolve(__dirname, 'src/main/js/tweakpane.ts'),
+			bundle: Path.resolve(__dirname, 'src/main/js/index.ts'),
 		},
 		output: {
 			path: Path.resolve(__dirname, 'docs/assets/'),

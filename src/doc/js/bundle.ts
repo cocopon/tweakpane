@@ -17,7 +17,9 @@ declare var Tweakpane: any;
 	router.add(MonitorRoute);
 	router.route(location.pathname);
 
-	const markElem = document.querySelector('.common-logo_symbol');
+	const markElem: HTMLElement | null = document.querySelector(
+		'.common-logo_symbol',
+	);
 	if (markElem) {
 		window.addEventListener('scroll', () => {
 			const angle = window.scrollY * 0.5;
