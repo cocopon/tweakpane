@@ -1,5 +1,3 @@
-// @flow
-
 export type Class<T> = new (...args: any[]) => T;
 
 const FlowUtil = {

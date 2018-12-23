@@ -1,5 +1,3 @@
-// @flow
-
 import FlowUtil from './flow-util';
 
 export function forceReflow(element: HTMLElement): void {

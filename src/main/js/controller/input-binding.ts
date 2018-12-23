@@ -1,5 +1,3 @@
-// @flow
-
 import InputBinding from '../binding/input';
 import LabeledView from '../view/labeled';
 

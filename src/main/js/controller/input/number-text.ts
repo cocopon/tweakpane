@@ -1,5 +1,3 @@
-// @flow
-
 import StepConstraint from '../../constraint/step';
 import ConstraintUtil from '../../constraint/util';
 import FlowUtil from '../../misc/flow-util';

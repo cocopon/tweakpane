@@ -1,5 +1,3 @@
-// @flow
-
 import FlowUtil from '../../misc/flow-util';
 import InputValue from '../../model/input-value';
 import CheckboxInputView from '../../view/input/checkbox';

@@ -1,5 +1,3 @@
-// @flow
-
 import MonitorBindingController from '../controller/monitor-binding';
 import {Handler} from '../misc/emitter';
 

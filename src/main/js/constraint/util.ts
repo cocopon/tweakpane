@@ -1,5 +1,3 @@
-// @flow
-
 import CompositeConstraint from './composite';
 
 import {Class} from '../misc/flow-util';

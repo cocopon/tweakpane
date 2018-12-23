@@ -1,5 +1,3 @@
-// @flow
-
 import FolderController from './folder';
 
 import {Class} from '../misc/flow-util';

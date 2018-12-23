@@ -1,5 +1,3 @@
-// @flow
-
 import Target from '../model/target';
 
 export interface PresetObject {

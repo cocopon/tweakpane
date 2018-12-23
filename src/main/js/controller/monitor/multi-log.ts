@@ -1,5 +1,3 @@
-// @flow
-
 import MonitorValue from '../../model/monitor-value';
 import MultiLogMonitorView from '../../view/monitor/multi-log';
 

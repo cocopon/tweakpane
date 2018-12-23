@@ -1,5 +1,3 @@
-// @flow
-
 import MonitorBinding from '../../binding/monitor';
 import * as NumberConverter from '../../converter/number';
 import NumberFormatter from '../../formatter/number';

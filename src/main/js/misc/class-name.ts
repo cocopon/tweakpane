@@ -1,5 +1,3 @@
-// @flow
-
 type ViewType = 'input' | 'monitor' | '';
 
 const PREFIX = 'tp';

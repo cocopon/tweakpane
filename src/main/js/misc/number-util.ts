@@ -1,5 +1,3 @@
-// @flow
-
 const NumberUtil = {
 	map: (
 		value: number,

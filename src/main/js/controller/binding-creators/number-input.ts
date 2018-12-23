@@ -1,5 +1,3 @@
-// @flow
-
 import InputBinding from '../../binding/input';
 import CompositeConstraint from '../../constraint/composite';
 import ListConstraint from '../../constraint/list';

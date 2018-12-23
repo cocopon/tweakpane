@@ -1,5 +1,3 @@
-// @flow
-
 import * as ColorModel from '../../misc/color-model';
 import NumberUtil from '../../misc/number-util';
 import PointerHandler from '../../misc/pointer-handler';

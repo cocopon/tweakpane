@@ -1,5 +1,3 @@
-// @flow
-
 export default class View {
 	public readonly document: Document;
 	public readonly element: HTMLElement;

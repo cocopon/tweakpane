@@ -1,5 +1,3 @@
-// @flow
-
 import ColorFormatter from '../../formatter/color';
 import ClassName from '../../misc/class-name';
 import * as ColorModel from '../../misc/color-model';

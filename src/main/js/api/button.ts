@@ -1,5 +1,3 @@
-// @flow
-
 import ButtonController from '../controller/button';
 import {Handler} from '../misc/emitter';
 

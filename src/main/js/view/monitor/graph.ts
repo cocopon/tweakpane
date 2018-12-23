@@ -1,5 +1,3 @@
-// @flow
-
 import ClassName from '../../misc/class-name';
 import NumberUtil from '../../misc/number-util';
 import GraphCursor from '../../model/graph-cursor';

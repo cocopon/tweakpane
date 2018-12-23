@@ -1,5 +1,3 @@
-// @flow
-
 import NumberParser from '../parser/number';
 
 export function fromMixed(value: unknown): number {

@@ -1,5 +1,3 @@
-// @flow
-
 import Emitter from '../misc/emitter';
 
 type EventType = 'update';

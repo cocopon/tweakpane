@@ -1,5 +1,3 @@
-// @flow
-
 import SeparatorView from '../view/separator';
 
 export default class SeparatorController {

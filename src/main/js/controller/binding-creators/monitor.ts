@@ -1,5 +1,3 @@
-// @flow
-
 import PaneError from '../../misc/pane-error';
 import Target from '../../model/target';
 import * as NumberMonitorBindingControllerCreators from './number-monitor';

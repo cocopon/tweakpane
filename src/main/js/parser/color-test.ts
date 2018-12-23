@@ -1,5 +1,3 @@
-// @flow
-
 import {assert} from 'chai';
 import {describe, describe as context, it} from 'mocha';
 

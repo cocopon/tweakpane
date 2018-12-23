@@ -1,5 +1,3 @@
-// @flow
-
 import MonitorValue from '../model/monitor-value';
 import Target from '../model/target';
 

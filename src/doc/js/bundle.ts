@@ -1,5 +1,3 @@
-// @flow
-
 import IndexRoute from './route/index';
 import InputRoute from './route/input';
 import MiscRoute from './route/misc';

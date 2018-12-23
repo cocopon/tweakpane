@@ -1,5 +1,3 @@
-// @flow
-
 import NumberUtil from './number-util';
 
 export function rgbToHsl(

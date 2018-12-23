@@ -1,5 +1,3 @@
-// @flow
-
 import * as BooleanConverter from '../../converter/boolean';
 import * as NumberConverter from '../../converter/number';
 import * as StringConverter from '../../converter/string';

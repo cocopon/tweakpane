@@ -1,5 +1,3 @@
-// @flow
-
 import * as ColorConverter from '../converter/color';
 import NumberUtil from '../misc/number-util';
 import Color from '../model/color';

@@ -1,5 +1,3 @@
-// @flow
-
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
@@ -49,7 +47,7 @@ describe(ListInputController.name, () => {
 		});
 
 		c.view.selectElement.value = '34';
-		c.view.selectElement.dispatchEvent(new win.Event('change'));
+		c.view.selectElement.dispatchEvent(new (win as any).Event('change'));
 
 		assert.strictEqual(c.value.rawValue, 34);
 	});

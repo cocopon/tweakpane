@@ -1,5 +1,3 @@
-// @flow
-
 import * as Util from '../util';
 
 declare var Tweakpane: any;

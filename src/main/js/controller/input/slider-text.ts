@@ -1,5 +1,3 @@
-// @flow
-
 import InputValue from '../../model/input-value';
 import SliderTextInputView from '../../view/input/slider-text';
 import NumberTextInputController from './number-text';

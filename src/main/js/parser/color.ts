@@ -1,5 +1,3 @@
-// @flow
-
 import Color from '../model/color';
 
 import {Parser} from './parser';

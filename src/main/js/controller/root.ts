@@ -1,5 +1,3 @@
-// @flow
-
 import Emitter from '../misc/emitter';
 import FlowUtil from '../misc/flow-util';
 import Folder from '../model/folder';

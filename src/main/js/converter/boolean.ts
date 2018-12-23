@@ -1,5 +1,3 @@
-// @flow
-
 export function fromMixed(value: unknown): boolean {
 	if (value === 'false') {
 		return false;

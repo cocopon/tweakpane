@@ -1,5 +1,3 @@
-// @flow
-
 import ClassName from '../misc/class-name';
 import FlowUtil from '../misc/flow-util';
 import Folder from '../model/folder';

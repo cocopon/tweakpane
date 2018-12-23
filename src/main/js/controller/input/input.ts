@@ -1,5 +1,3 @@
-// @flow
-
 import InputValue from '../../model/input-value';
 import View from '../../view/view';
 

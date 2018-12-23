@@ -1,5 +1,3 @@
-// @flow
-
 import * as InputBindingControllerCreators from '../controller/binding-creators/input';
 import * as MonitorBindingControllerCreators from '../controller/binding-creators/monitor';
 import ButtonController from '../controller/button';

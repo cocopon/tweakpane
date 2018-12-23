@@ -1,5 +1,3 @@
-// @flow
-
 import FlowUtil from '../../misc/flow-util';
 import InputValue from '../../model/input-value';
 import TextInputView from '../../view/input/text';

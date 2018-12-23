@@ -1,5 +1,3 @@
-// @flow
-
 import * as DomUtil from './dom-util';
 import Emitter from './emitter';
 

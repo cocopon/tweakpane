@@ -1,5 +1,3 @@
-// @flow
-
 import NumberUtil from '../misc/number-util';
 import Color from '../model/color';
 import ColorParser from '../parser/color';

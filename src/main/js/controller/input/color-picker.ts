@@ -1,5 +1,3 @@
-// @flow
-
 import CompositeConstraint from '../../constraint/composite';
 import RangeConstraint from '../../constraint/range';
 import StepConstraint from '../../constraint/step';

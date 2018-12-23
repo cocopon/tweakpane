@@ -1,5 +1,3 @@
-// @flow
-
 import ClassName from '../../misc/class-name';
 import MonitorValue from '../../model/monitor-value';
 import View from '../view';

@@ -1,5 +1,3 @@
-// @flow
-
 import {Constraint} from './constraint';
 
 export interface ListItem<T> {

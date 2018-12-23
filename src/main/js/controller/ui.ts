@@ -1,5 +1,3 @@
-// @flow
-
 import Target from '../model/target';
 import * as InputBindingControllerCreators from './binding-creators/input';
 import * as MonitorBindingControllerCreators from './binding-creators/monitor';

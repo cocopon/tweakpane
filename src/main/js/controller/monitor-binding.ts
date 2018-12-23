@@ -1,5 +1,3 @@
-// @flow
-
 import MonitorBinding from '../binding/monitor';
 import LabeledView from '../view/labeled';
 

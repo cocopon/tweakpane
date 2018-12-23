@@ -1,5 +1,3 @@
-// @flow
-
 import {Formatter} from './formatter';
 
 export default class StringFormatter implements Formatter<string> {

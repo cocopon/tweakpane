@@ -1,5 +1,3 @@
-// @flow
-
 import MonitorBinding from '../../binding/monitor';
 import * as StringConverter from '../../converter/string';
 import StringFormatter from '../../formatter/string';

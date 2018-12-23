@@ -1,5 +1,3 @@
-// @flow
-
 import Button from '../model/button';
 import ButtonView from '../view/button';
 

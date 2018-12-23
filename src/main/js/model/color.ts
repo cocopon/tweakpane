@@ -1,5 +1,3 @@
-// @flow
-
 import Emitter from '../misc/emitter';
 import NumberUtil from '../misc/number-util';
 

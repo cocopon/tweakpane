@@ -1,5 +1,3 @@
-// @flow
-
 import {Constraint} from './constraint';
 
 interface Config {

@@ -1,5 +1,3 @@
-// @flow
-
 function map(
 	v: number,
 	s1: number,

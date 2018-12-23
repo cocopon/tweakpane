@@ -1,5 +1,3 @@
-// @flow
-
 import InputBinding from '../../binding/input';
 import * as ColorConverter from '../../converter/color';
 import ColorFormatter from '../../formatter/color';

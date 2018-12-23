@@ -1,5 +1,3 @@
-// @flow
-
 import FlowUtil from '../misc/flow-util';
 
 export default class Target {

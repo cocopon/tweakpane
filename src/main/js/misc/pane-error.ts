@@ -1,5 +1,3 @@
-// @flow
-
 type ErrorType = 'invalidparams' | 'nomatchingcontroller';
 
 type Config =

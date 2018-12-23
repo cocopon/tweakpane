@@ -1,5 +1,3 @@
-// @flow
-
 import Color from '../../model/color';
 import InputValue from '../../model/input-value';
 import ColorSwatchTextInputView from '../../view/input/color-swatch-text';

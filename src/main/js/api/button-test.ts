@@ -1,5 +1,3 @@
-// @flow
-
 import {describe, it} from 'mocha';
 
 import ButtonController from '../controller/button';

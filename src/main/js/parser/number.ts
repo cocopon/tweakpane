@@ -1,5 +1,3 @@
-// @flow
-
 import {Parser} from './parser';
 
 const NumberParser: Parser<number> = (text: string): number | null => {

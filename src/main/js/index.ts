@@ -1,5 +1,3 @@
-// @flow
-
 import * as Style from '../sass/bundle.scss';
 import RootApi from './api/root';
 import RootController from './controller/root';

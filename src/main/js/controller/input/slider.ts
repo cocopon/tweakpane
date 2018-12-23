@@ -1,5 +1,3 @@
-// @flow
-
 import RangeConstraint from '../../constraint/range';
 import ConstraintUtil from '../../constraint/util';
 import FlowUtil from '../../misc/flow-util';

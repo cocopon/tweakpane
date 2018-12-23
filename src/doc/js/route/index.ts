@@ -1,5 +1,3 @@
-// @flow
-
 import Sketch from '../sketch';
 import * as Util from '../util';
 

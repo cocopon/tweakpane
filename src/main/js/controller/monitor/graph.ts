@@ -1,5 +1,3 @@
-// @flow
-
 import NumberUtil from '../../misc/number-util';
 import GraphCursor from '../../model/graph-cursor';
 import MonitorValue from '../../model/monitor-value';
