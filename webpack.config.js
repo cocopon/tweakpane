@@ -7,7 +7,7 @@ module.exports = (_env, argv) => {
 	return {
 		devtool: false,
 		entry: {
-			bundle: Path.resolve(__dirname, 'src/main/js/index.js'),
+			bundle: Path.resolve(__dirname, 'src/main/js/index.ts'),
 		},
 		output: {
 			path: Path.resolve(__dirname, 'docs/assets/'),
@@ -19,15 +19,16 @@ module.exports = (_env, argv) => {
 				commonjs: 'tweakpane',
 				root: 'Tweakpane',
 			},
+			libraryExport: 'default',
 			libraryTarget: 'umd',
 		},
 		module: {
 			rules: [
 				{
-					test: /\.js$/,
+					test: /\.ts$/,
 					include: [Path.resolve(__dirname, 'src/main/js/')],
 					exclude: /node_modules/,
-					loader: 'babel-loader',
+					loader: 'awesome-typescript-loader',
 				}, {
 					test: /\.s?css$/,
 					include: [Path.resolve(__dirname, 'src/main/sass/')],
@@ -48,7 +49,7 @@ module.exports = (_env, argv) => {
 			],
 		},
 		resolve: {
-			extensions: ['.js'],
+			extensions: ['.js', '.ts'],
 		},
 	};
 };
