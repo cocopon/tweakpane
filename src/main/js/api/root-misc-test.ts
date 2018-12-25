@@ -2,8 +2,8 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import RootController from '../controller/root';
-import FlowUtil from '../misc/flow-util';
 import TestUtil from '../misc/test-util';
+import TypeUtil from '../misc/type-util';
 import InputValue from '../model/input-value';
 import RootApi from './root';
 
@@ -24,7 +24,7 @@ describe(RootApi.name, () => {
 		});
 
 		const bapi = api.addInput(obj, 'foo');
-		const value: InputValue<number> = FlowUtil.forceCast(
+		const value: InputValue<number> = TypeUtil.forceCast(
 			bapi.controller.binding.value,
 		);
 		value.rawValue += 1;
@@ -43,7 +43,7 @@ describe(RootApi.name, () => {
 		});
 
 		const bapi = fapi.addInput(obj, 'foo');
-		const value: InputValue<number> = FlowUtil.forceCast(
+		const value: InputValue<number> = TypeUtil.forceCast(
 			bapi.controller.binding.value,
 		);
 		value.rawValue += 1;

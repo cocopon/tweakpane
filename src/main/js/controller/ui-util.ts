@@ -1,6 +1,6 @@
 import FolderController from './folder';
 
-import {Class} from '../misc/flow-util';
+import {Class} from '../misc/type-util';
 import {UiController} from './ui';
 
 export function findControllers<Controller>(

@@ -2,7 +2,7 @@ import CompositeConstraint from '../../constraint/composite';
 import RangeConstraint from '../../constraint/range';
 import StepConstraint from '../../constraint/step';
 import NumberFormatter from '../../formatter/number';
-import FlowUtil from '../../misc/flow-util';
+import TypeUtil from '../../misc/type-util';
 import Color from '../../model/color';
 import Foldable from '../../model/foldable';
 import InputValue from '../../model/input-value';
@@ -93,7 +93,7 @@ export default class ColorPickerInputController
 
 	private onInputBlur_(e: FocusEvent): void {
 		const elem = this.view.element;
-		const nextTarget: HTMLElement | null = FlowUtil.forceCast(e.relatedTarget);
+		const nextTarget: HTMLElement | null = TypeUtil.forceCast(e.relatedTarget);
 		if (!nextTarget || !elem.contains(nextTarget)) {
 			this.foldable.expanded = false;
 		}

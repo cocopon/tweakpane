@@ -1,5 +1,5 @@
 import ClassName from '../misc/class-name';
-import FlowUtil from '../misc/flow-util';
+import TypeUtil from '../misc/type-util';
 import Folder from '../model/folder';
 import View from './view';
 
@@ -59,7 +59,7 @@ export default class FolderView extends View {
 			this.element.classList.remove(expandedClass);
 		}
 
-		FlowUtil.ifNotEmpty(
+		TypeUtil.ifNotEmpty(
 			this.folder_.expandedHeight,
 			(expandedHeight) => {
 				const containerHeight = expanded ? expandedHeight : 0;

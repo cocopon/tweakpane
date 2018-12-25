@@ -1,4 +1,4 @@
-import FlowUtil from '../../misc/flow-util';
+import TypeUtil from '../../misc/type-util';
 import Color from '../../model/color';
 import InputValue from '../../model/input-value';
 import ColorSwatchInputView from '../../view/input/color-swatch';
@@ -36,7 +36,7 @@ export default class ColorSwatchInputController
 
 	private onButtonBlur_(e: FocusEvent) {
 		const elem = this.view.element;
-		const nextTarget: HTMLElement | null = FlowUtil.forceCast(e.relatedTarget);
+		const nextTarget: HTMLElement | null = TypeUtil.forceCast(e.relatedTarget);
 		if (!nextTarget || !elem.contains(nextTarget)) {
 			this.pickerIc_.foldable.expanded = false;
 		}

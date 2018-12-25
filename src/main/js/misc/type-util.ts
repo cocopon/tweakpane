@@ -1,6 +1,6 @@
 export type Class<T> = new (...args: any[]) => T;
 
-const FlowUtil = {
+const TypeUtil = {
 	forceCast: <T>(v: any): T => {
 		return v;
 	},
@@ -22,4 +22,4 @@ const FlowUtil = {
 	},
 };
 
-export default FlowUtil;
+export default TypeUtil;

@@ -3,7 +3,7 @@ import RootApi from './api/root';
 import RootController from './controller/root';
 import ClassName from './misc/class-name';
 import * as DomUtil from './misc/dom-util';
-import FlowUtil from './misc/flow-util';
+import TypeUtil from './misc/type-util';
 
 interface Config {
 	container?: HTMLElement;
@@ -37,7 +37,7 @@ function embedDefaultStyleIfNeeded(document: Document) {
 export default class Tweakpane extends RootApi {
 	constructor(opt_config?: Config) {
 		const config = opt_config || {};
-		const document = FlowUtil.getOrDefault(
+		const document = TypeUtil.getOrDefault(
 			config.document,
 			DomUtil.getWindowDocument(),
 		);

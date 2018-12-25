@@ -7,8 +7,8 @@ import ListInputController from '../controller/input/list';
 import SliderTextInputController from '../controller/input/slider-text';
 import TextInputController from '../controller/input/text';
 import RootController from '../controller/root';
-import FlowUtil from '../misc/flow-util';
 import TestUtil from '../misc/test-util';
+import TypeUtil from '../misc/type-util';
 import InputValue from '../model/input-value';
 import RootApi from './root';
 
@@ -81,7 +81,7 @@ describe(RootApi.name, () => {
 		if (!(iv instanceof InputValue)) {
 			throw new Error('Input value is empty');
 		}
-		const c: Constraint<unknown> | null = FlowUtil.forceCast(iv.constraint);
+		const c: Constraint<unknown> | null = TypeUtil.forceCast(iv.constraint);
 		if (!c) {
 			throw new Error('Constraint is empty');
 		}

@@ -1,8 +1,8 @@
 import RangeConstraint from '../../constraint/range';
 import ConstraintUtil from '../../constraint/util';
-import FlowUtil from '../../misc/flow-util';
 import NumberUtil from '../../misc/number-util';
 import PointerHandler from '../../misc/pointer-handler';
+import TypeUtil from '../../misc/type-util';
 import InputValue from '../../model/input-value';
 import SliderInputView from '../../view/input/slider';
 
@@ -29,8 +29,8 @@ function findRange(
 function estimateSuitableRange(value: InputValue<number>): [number, number] {
 	const [min, max] = findRange(value);
 	return [
-		FlowUtil.getOrDefault<number>(min, 0),
-		FlowUtil.getOrDefault<number>(max, 100),
+		TypeUtil.getOrDefault<number>(min, 0),
+		TypeUtil.getOrDefault<number>(max, 100),
 	];
 }
 

@@ -1,4 +1,4 @@
-import FlowUtil from '../../misc/flow-util';
+import TypeUtil from '../../misc/type-util';
 import InputValue from '../../model/input-value';
 import CheckboxInputView from '../../view/input/checkbox';
 
@@ -25,7 +25,7 @@ export default class CheckboxInputController
 	}
 
 	private onInputChange_(e: Event): void {
-		const inputElem: HTMLInputElement = FlowUtil.forceCast(e.currentTarget);
+		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
 		this.value.rawValue = inputElem.checked;
 		this.view.update();
 	}

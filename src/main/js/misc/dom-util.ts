@@ -1,4 +1,4 @@
-import FlowUtil from './flow-util';
+import TypeUtil from './type-util';
 
 export function forceReflow(element: HTMLElement): void {
 	// tslint:disable-next-line:no-unused-expression
@@ -23,7 +23,7 @@ export function supportsTouch(document: Document): boolean {
 
 export function getWindowDocument(): Document {
 	// tslint:disable-next-line:function-constructor
-	const globalObj: Window = FlowUtil.forceCast(new Function('return this')());
+	const globalObj: Window = TypeUtil.forceCast(new Function('return this')());
 	return globalObj.document;
 }
 

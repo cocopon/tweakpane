@@ -1,5 +1,5 @@
 import Emitter from '../misc/emitter';
-import FlowUtil from '../misc/flow-util';
+import TypeUtil from '../misc/type-util';
 import Folder from '../model/folder';
 import List from '../model/list';
 import RootView from '../view/root';
@@ -23,7 +23,7 @@ function createFolder(config: Config): Folder | null {
 
 	return new Folder(
 		config.title,
-		FlowUtil.getOrDefault<boolean>(config.expanded, true),
+		TypeUtil.getOrDefault<boolean>(config.expanded, true),
 	);
 }
 

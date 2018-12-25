@@ -1,6 +1,6 @@
 import * as DomUtil from '../misc/dom-util';
 import Emitter from '../misc/emitter';
-import FlowUtil from '../misc/flow-util';
+import TypeUtil from '../misc/type-util';
 import Folder from '../model/folder';
 import List from '../model/list';
 import FolderView from '../view/folder';
@@ -35,7 +35,7 @@ export default class FolderController {
 
 		this.folder = new Folder(
 			config.title,
-			FlowUtil.getOrDefault<boolean>(config.expanded, true),
+			TypeUtil.getOrDefault<boolean>(config.expanded, true),
 		);
 		this.folder.emitter.on('change', this.onFolderChange_);
 

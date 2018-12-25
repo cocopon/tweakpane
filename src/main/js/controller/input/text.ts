@@ -1,4 +1,4 @@
-import FlowUtil from '../../misc/flow-util';
+import TypeUtil from '../../misc/type-util';
 import InputValue from '../../model/input-value';
 import TextInputView from '../../view/input/text';
 
@@ -31,10 +31,10 @@ export default class TextInputController<T> implements InputController<T> {
 	}
 
 	private onInputChange_(e: Event): void {
-		const inputElem: HTMLInputElement = FlowUtil.forceCast(e.currentTarget);
+		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
 		const value = inputElem.value;
 
-		FlowUtil.ifNotEmpty(this.parser_(value), (parsedValue) => {
+		TypeUtil.ifNotEmpty(this.parser_(value), (parsedValue) => {
 			this.value.rawValue = parsedValue;
 		});
 		this.view.update();

@@ -1,6 +1,6 @@
 import CompositeConstraint from './composite';
 
-import {Class} from '../misc/flow-util';
+import {Class} from '../misc/type-util';
 import {Constraint} from './constraint';
 
 const ConstraintUtil = {

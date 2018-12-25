@@ -1,6 +1,6 @@
 import StepConstraint from '../../constraint/step';
 import ConstraintUtil from '../../constraint/util';
-import FlowUtil from '../../misc/flow-util';
+import TypeUtil from '../../misc/type-util';
 import InputValue from '../../model/input-value';
 import TextInputController from './text';
 
@@ -19,7 +19,7 @@ function findStep(value: InputValue<number>): number | null {
 
 function estimateSuitableStep(value: InputValue<number>): number {
 	const step = findStep(value);
-	return FlowUtil.getOrDefault<number>(step, 1);
+	return TypeUtil.getOrDefault<number>(step, 1);
 }
 
 export default class NumberTextInputController extends TextInputController<

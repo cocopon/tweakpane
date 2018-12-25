@@ -1,6 +1,6 @@
 import ListConstraint from '../../constraint/list';
 import ConstraintUtil from '../../constraint/util';
-import FlowUtil from '../../misc/flow-util';
+import TypeUtil from '../../misc/type-util';
 import InputValue from '../../model/input-value';
 import ListInputView from '../../view/input/list';
 
@@ -54,7 +54,7 @@ export default class ListInputController<T> implements InputController<T> {
 	}
 
 	private onSelectChange_(e: Event): void {
-		const selectElem: HTMLSelectElement = FlowUtil.forceCast(e.currentTarget);
+		const selectElem: HTMLSelectElement = TypeUtil.forceCast(e.currentTarget);
 		const optElem = selectElem.selectedOptions.item(0);
 		if (!optElem) {
 			return;
