@@ -1,0 +1,14 @@
+{
+  "name": "test-require",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "try": "npm install && node index.js"
+  },
+  "author": "cocopon",
+  "license": "MIT",
+  "devDependencies": {
+    "jsdom": "^13.1.0",
+    "tweakpane": "file:.."
+  }
+}

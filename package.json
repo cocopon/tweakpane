@@ -14,13 +14,13 @@
     "dist"
   ],
   "scripts": {
+    "prepare": "run-s clean main:prepare",
+    "prepublishOnly": "npm test",
+    "test": "run-s doc:test main:test",
     "build": "run-s main:build doc:build",
     "clean": "rm -rf dist docs test tweakpane-*.tgz tweakpane-*.zip",
     "dev": "npm-run-all main:build:dev doc:build --parallel main:watch doc:watch doc:server",
     "format": "run-p main:format doc:format",
-    "prepare": "run-s clean main:prepare",
-    "prepublishOnly": "npm test",
-    "test": "run-s doc:test main:test",
     "doc:build": "run-p doc:build:*",
     "doc:build:css": "mkdir -p docs/assets && node-sass src/doc/sass/bundle.scss | postcss --config postcss.config.js > docs/assets/bundle.css",
     "doc:build:html": "node project/render-html-templates.js",
@@ -53,11 +53,12 @@
     "main:release:dist": "mkdir -p dist && cp docs/assets/tweakpane*.js dist",
     "main:release:version": "node project/add-version-postfix.js",
     "main:release:zip": "zip -j -r tweakpane-$(cat package.json | npx json version).zip dist",
-    "main:test": "run-s main:checkFormat main:lint:js main:test:js",
+    "main:test": "run-s main:checkFormat main:lint:js main:test:js main:test:require",
     "main:test:coverage": "nyc report --reporter=html --reporter=text --reporter=lcovonly --report-dir=test/coverage",
     "main:test:coveralls": "nyc report --reporter=text-lcov | coveralls",
     "main:test:js": "nyc --extension '.ts' mocha --require ts-node/register 'src/main/js/**/*-test.ts'",
     "main:test:report": "nyc --extension '.ts' mocha --require ts-node/register --reporter mocha-junit-reporter --reporter-options mochaFile=./test/results/results.xml 'src/main/js/**/*-test.ts'",
+    "main:test:require": "npm run main:prepare && (cd test-require && npm run try)",
     "main:watch": "webpack --mode development --watch"
   },
   "dependencies": {
