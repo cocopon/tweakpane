@@ -1,5 +1,6 @@
 import PaneError from '../../misc/pane-error';
 import Target from '../../model/target';
+import * as BooleanMonitorBindingControllerCreators from './boolean-monitor';
 import * as NumberMonitorBindingControllerCreators from './number-monitor';
 import * as StringMonitorBindingControllerCreators from './string-monitor';
 
@@ -32,6 +33,13 @@ export function create(document: Document, target: Target, params: Params) {
 	}
 	if (typeof initialValue === 'string') {
 		return StringMonitorBindingControllerCreators.createTextMonitor(
+			document,
+			target,
+			params,
+		);
+	}
+	if (typeof initialValue === 'boolean') {
+		return BooleanMonitorBindingControllerCreators.createTextMonitor(
 			document,
 			target,
 			params,
