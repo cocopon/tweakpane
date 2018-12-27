@@ -1,6 +1,10 @@
-type ErrorType = 'invalidparams' | 'nomatchingcontroller';
+type ErrorType = 'emptyvalue' | 'invalidparams' | 'nomatchingcontroller';
 
 type Config =
+	| {
+			context: {key: string};
+			type: 'emptyvalue';
+	  }
 	| {
 			context: {name: string};
 			type: 'invalidparams';
@@ -11,6 +15,9 @@ type Config =
 	  };
 
 function createMessage(config: Config): string {
+	if (config.type === 'emptyvalue') {
+		return `Value is empty for ${config.context.key}`;
+	}
 	if (config.type === 'invalidparams') {
 		return `Invalid parameters for ${config.context.name}`;
 	}

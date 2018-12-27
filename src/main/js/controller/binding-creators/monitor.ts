@@ -17,6 +17,15 @@ interface Params {
 export function create(document: Document, target: Target, params: Params) {
 	const initialValue = target.read();
 
+	if (initialValue === null || initialValue === undefined) {
+		throw new PaneError({
+			context: {
+				key: target.key,
+			},
+			type: 'emptyvalue',
+		});
+	}
+
 	if (typeof initialValue === 'number') {
 		if (params.type === 'graph') {
 			return NumberMonitorBindingControllerCreators.createGraphMonitor(
