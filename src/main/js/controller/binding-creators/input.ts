@@ -72,6 +72,15 @@ export function create(
 ) {
 	const initialValue = target.read();
 
+	if (initialValue === null || initialValue === undefined) {
+		throw new PaneError({
+			context: {
+				key: target.key,
+			},
+			type: 'emptyvalue',
+		});
+	}
+
 	if (typeof initialValue === 'boolean') {
 		return BooleanInputBindingControllerCreators.create(
 			document,

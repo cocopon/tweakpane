@@ -12,17 +12,50 @@ function createApi(): RootApi {
 }
 
 describe(RootApi.name, () => {
-	it('should throw error for unsupported property type', () => {
-		const api = createApi();
-		const obj = {
-			child: {
+	[
+		{
+			errorType: 'emptyvalue',
+			key: 'baz',
+			obj: {
 				foo: 'bar',
 			},
-		};
-		assert.throws(() => {
-			api.addMonitor(obj, 'child', {
-				interval: 0,
-			});
-		}, PaneError);
+		},
+		{
+			errorType: 'emptyvalue',
+			key: 'foo',
+			obj: {
+				foo: null,
+			},
+		},
+		{
+			errorType: 'nomatchingcontroller',
+			key: 'child',
+			obj: {
+				child: {
+					foo: 'bar',
+				},
+			},
+		},
+	].forEach((testCase) => {
+		context(
+			`when adding monitor with params = ${JSON.stringify(
+				testCase.obj,
+			)} and key = ${JSON.stringify(testCase.key)}`,
+			() => {
+				it(`should throw '${testCase.errorType}' error`, () => {
+					const api = createApi();
+
+					try {
+						api.addMonitor(testCase.obj, testCase.key, {
+							interval: 0,
+						});
+						throw new Error('should not be called');
+					} catch (e) {
+						assert.instanceOf(e, PaneError);
+						assert.strictEqual(e.type, testCase.errorType);
+					}
+				});
+			},
+		);
 	});
 });

@@ -25,4 +25,15 @@ describe(PaneError.name, () => {
 
 		assert.strictEqual(e.type, 'nomatchingcontroller');
 	});
+
+	it('should instanciate for empty value', () => {
+		const e = new PaneError({
+			context: {
+				key: 'foo',
+			},
+			type: 'emptyvalue',
+		});
+
+		assert.strictEqual(e.type, 'emptyvalue');
+	});
 });
