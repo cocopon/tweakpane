@@ -56,8 +56,8 @@
     "main:test": "run-s main:checkFormat main:lint:js main:test:js main:test:require",
     "main:test:coverage": "nyc report --reporter=html --reporter=text --reporter=lcovonly --report-dir=test/coverage",
     "main:test:coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "main:test:js": "nyc --extension '.ts' mocha --require ts-node/register 'src/main/js/**/*-test.ts'",
-    "main:test:report": "nyc --extension '.ts' mocha --require ts-node/register --reporter mocha-junit-reporter --reporter-options mochaFile=./test/results/results.xml 'src/main/js/**/*-test.ts'",
+    "main:test:js": "nyc --extension '.ts' --exclude '**/*-test.ts' mocha --require ts-node/register 'src/main/js/**/*-test.ts'",
+    "main:test:report": "nyc --extension '.ts' --exclude '**/*-test.ts' mocha --require ts-node/register --reporter mocha-junit-reporter --reporter-options mochaFile=./test/results/results.xml 'src/main/js/**/*-test.ts'",
     "main:test:require": "npm run main:prepare && (cd test-require && npm run try)",
     "main:watch": "webpack --mode development --watch"
   },
