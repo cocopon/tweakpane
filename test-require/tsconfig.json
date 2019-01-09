@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+		"esModuleInterop": true,
+		"lib": [
+			"dom",
+			"es2015"
+		],
+		"outDir": "dist",
+		"strictNullChecks": true,
+		"target": "es5"
+	},
+}

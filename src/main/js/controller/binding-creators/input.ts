@@ -2,8 +2,10 @@ import * as BooleanConverter from '../../converter/boolean';
 import * as NumberConverter from '../../converter/number';
 import * as StringConverter from '../../converter/string';
 import PaneError from '../../misc/pane-error';
+import Color from '../../model/color';
 import Target from '../../model/target';
 import ColorParser from '../../parser/color';
+import InputBindingController from '../input-binding';
 import * as BooleanInputBindingControllerCreators from './boolean-input';
 import * as ColorInputBindingControllerCreators from './color-input';
 import * as NumberInputBindingControllerCreators from './number-input';
@@ -64,6 +66,9 @@ function normalizeParams<T1, T2>(
 	}
 	return p2;
 }
+
+export type InputtableInType = boolean | number | string | Color;
+export type InputtableOutType = boolean | number | string;
 
 export function create(
 	document: Document,

@@ -3,12 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "try": "npm install && node index.js"
+    "try": " run-p try:js try:ts",
+    "try:js": "node index.js",
+    "try:ts": "ts-node index.ts"
   },
   "author": "cocopon",
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
+    "@types/jsdom": "^12.2.1",
     "jsdom": "^13.1.0",
-    "tweakpane": "file:.."
+    "npm-run-all": "^4.1.5",
+    "ts-node": "^7.0.1",
+    "tweakpane": "file:..",
+    "typescript": "^3.2.2"
   }
 }

@@ -29,6 +29,9 @@ module.exports = (_env, argv) => {
 					include: [Path.resolve(__dirname, 'src/main/js/')],
 					exclude: /node_modules/,
 					loader: 'awesome-typescript-loader',
+					options: {
+						configFileName: 'src/main/tsconfig.json',
+					},
 				}, {
 					test: /\.s?css$/,
 					include: [Path.resolve(__dirname, 'src/main/sass/')],

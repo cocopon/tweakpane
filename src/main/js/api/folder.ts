@@ -45,7 +45,10 @@ export default class FolderApi {
 			params,
 		);
 		this.controller.uiControllerList.append(uc);
-		return new InputBindingApi(uc);
+		return new InputBindingApi<
+			InputBindingControllerCreators.InputtableInType,
+			InputBindingControllerCreators.InputtableOutType
+		>(uc);
 	}
 
 	public addMonitor(object: object, key: string, opt_params?: MonitorParams) {
@@ -56,7 +59,9 @@ export default class FolderApi {
 			params,
 		);
 		this.controller.uiControllerList.append(uc);
-		return new MonitorBindingApi(uc);
+		return new MonitorBindingApi<
+			MonitorBindingControllerCreators.MonitorableType
+		>(uc);
 	}
 
 	public addButton(params: ButtonParams): ButtonApi {

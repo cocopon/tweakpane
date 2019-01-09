@@ -18,6 +18,9 @@ module.exports = (_env) => {
 				include: [Path.resolve(__dirname, 'src/doc/js/')],
 				exclude: /node_modules/,
 				loader: 'awesome-typescript-loader',
+				options: {
+					configFileName: 'src/doc/tsconfig.json',
+				},
 			},
 		],
 		},

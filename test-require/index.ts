@@ -1,13 +1,11 @@
-'use strict';
-
-const Jsdom = require('jsdom').JSDOM;
-const Tweakpane = require('tweakpane');
+import {JSDOM} from 'jsdom';
+import Tweakpane from 'tweakpane';
 
 const PARAMS = {
 	foo: 1,
 };
 const pane = new Tweakpane({
-	document: (new Jsdom('')).window.document,
+	document: (new JSDOM('')).window.document,
 });
 pane.addInput(PARAMS, 'foo', {
 	max: 1,

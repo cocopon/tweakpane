@@ -6,6 +6,7 @@
   "license": "MIT",
   "homepage": "https://cocopon.github.com/tweakpane/",
   "main": "dist/tweakpane.js",
+  "types": "dist/types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/cocopon/tweakpane.git"
@@ -31,7 +32,7 @@
     "doc:format": "run-p doc:format:*",
     "doc:format:css": "prettier --parser scss --write 'src/doc/sass/**/*.scss'",
     "doc:format:js": "prettier --parser typescript --write 'src/doc/js/**/*.ts'",
-    "doc:lint:js": "tslint --project tsconfig.json 'src/doc/js/**/*'",
+    "doc:lint:js": "tslint --project src/doc/tsconfig.json 'src/doc/js/**/*'",
     "doc:server": "http-server ./docs",
     "doc:test": "run-s doc:lint:js doc:checkFormat",
     "doc:watch": "run-p doc:watch:*",
@@ -39,6 +40,7 @@
     "doc:watch:html": "onchange 'src/doc/template/**/*.html' -- npm run doc:build:html",
     "doc:watch:js": "webpack --config webpack-doc.config.js --watch",
     "main:build": "run-p main:build:*",
+    "main:build:dts": "tsc --project src/main/tsconfig-dts.json",
     "main:build:dev": "webpack --mode development",
     "main:build:prod": "webpack --mode production",
     "main:checkFormat": "run-p main:checkFormat:*",
@@ -47,7 +49,7 @@
     "main:format": "run-p main:format:*",
     "main:format:css": "prettier --parser scss --write 'src/main/sass/**/*.scss'",
     "main:format:js": "prettier --parser typescript --write 'src/main/js/**/*.ts'",
-    "main:lint:js": "tslint --project tsconfig.json 'src/main/js/**/*'",
+    "main:lint:js": "tslint --project src/main/tsconfig.json 'src/main/js/**/*'",
     "main:prepare": "npm-run-all main:build --serial main:release:dist",
     "main:release": "npm-run-all clean main:build --serial main:release:dist main:release:version main:release:zip",
     "main:release:dist": "mkdir -p dist && cp docs/assets/tweakpane*.js dist",
@@ -56,9 +58,9 @@
     "main:test": "run-s main:checkFormat main:lint:js main:test:js main:test:require",
     "main:test:coverage": "nyc report --reporter=html --reporter=text --reporter=lcovonly --report-dir=test/coverage",
     "main:test:coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "main:test:js": "nyc --extension '.ts' --exclude '**/*-test.ts' mocha --require ts-node/register 'src/main/js/**/*-test.ts'",
-    "main:test:report": "nyc --extension '.ts' --exclude '**/*-test.ts' mocha --require ts-node/register --reporter mocha-junit-reporter --reporter-options mochaFile=./test/results/results.xml 'src/main/js/**/*-test.ts'",
-    "main:test:require": "npm run main:prepare && (cd test-require && npm run try)",
+    "main:test:js": "TS_NODE_PROJECT='src/main/tsconfig.json' nyc --extension '.ts' --exclude '**/*-test.ts' mocha --require ts-node/register 'src/main/js/**/*-test.ts'",
+    "main:test:report": "TS_NODE_PROJECT='src/main/tsconfig.json' nyc --extension '.ts' --exclude '**/*-test.ts' mocha --require ts-node/register --reporter mocha-junit-reporter --reporter-options mochaFile=./test/results/results.xml 'src/main/js/**/*-test.ts'",
+    "main:test:require": "npm run main:prepare && (cd test-require && npm install && npm run try)",
     "main:watch": "webpack --mode development --watch"
   },
   "dependencies": {

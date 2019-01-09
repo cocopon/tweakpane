@@ -1,6 +1,7 @@
-/docs/
 /dist/
+/docs/
 /pages/
+/test-require/dist/
 /test/
 
 *.tgz

@@ -3,21 +3,14 @@ import {Handler} from '../misc/emitter';
 
 type EventName = 'change';
 
-export default class InputBindingApi<
-	In,
-	Out,
-	B extends InputBindingController<In, Out>
-> {
-	public readonly controller: B;
+export default class InputBindingApi<In, Out> {
+	public readonly controller: InputBindingController<In, Out>;
 
-	constructor(bindingController: B) {
+	constructor(bindingController: InputBindingController<In, Out>) {
 		this.controller = bindingController;
 	}
 
-	public on(
-		eventName: EventName,
-		handler: Handler,
-	): InputBindingApi<In, Out, B> {
+	public on(eventName: EventName, handler: Handler): InputBindingApi<In, Out> {
 		const emitter = this.controller.binding.value.emitter;
 		emitter.on(eventName, handler);
 		return this;
