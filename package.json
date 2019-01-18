@@ -54,7 +54,7 @@
     "main:release": "npm-run-all clean main:build --serial main:release:dist main:release:version main:release:zip",
     "main:release:dist": "mkdir -p dist && cp docs/assets/tweakpane*.js dist",
     "main:release:version": "node project/add-version-postfix.js",
-    "main:release:zip": "zip -j -r tweakpane-$(cat package.json | npx json version).zip dist",
+    "main:release:zip": "zip -x '*types*' -j -r tweakpane-$(cat package.json | npx json version).zip dist",
     "main:test": "run-s main:checkFormat main:lint:js main:test:js main:test:require",
     "main:test:coverage": "nyc report --reporter=html --reporter=text --reporter=lcovonly --report-dir=test/coverage",
     "main:test:coveralls": "nyc report --reporter=text-lcov | coveralls",
