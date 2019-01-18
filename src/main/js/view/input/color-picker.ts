@@ -1,4 +1,3 @@
-import NumberFormatter from '../../formatter/number';
 import ClassName from '../../misc/class-name';
 import Color from '../../model/color';
 import Foldable from '../../model/foldable';
@@ -21,7 +20,6 @@ interface Config {
 export default class ColorPickerInputView extends View {
 	public readonly foldable: Foldable;
 	public readonly value: InputValue<Color>;
-	private compFormatter_: NumberFormatter;
 	private hPaletteView_: HPaletteInputView;
 	private rgbInputViews_: TextInputView<number>[];
 	private svPaletteView_: SvPaletteInputView;
@@ -31,8 +29,6 @@ export default class ColorPickerInputView extends View {
 
 		this.onFoldableChange_ = this.onFoldableChange_.bind(this);
 		this.onValueChange_ = this.onValueChange_.bind(this);
-
-		this.compFormatter_ = new NumberFormatter(0);
 
 		this.value = config.value;
 		this.value.emitter.on('change', this.onValueChange_);

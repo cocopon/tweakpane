@@ -5,6 +5,8 @@
 			"es2015"
 		],
 		"noImplicitAny": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
 		"strictNullChecks": true,
 		"target": "es5"
 	}

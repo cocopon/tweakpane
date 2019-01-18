@@ -20,7 +20,6 @@ import {
 	FolderParams,
 	InputParams,
 	MonitorParams,
-	UiController,
 } from '../controller/ui';
 import {Handler} from '../misc/emitter';
 import {PresetObject} from './preset';

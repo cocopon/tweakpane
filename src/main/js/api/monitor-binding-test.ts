@@ -10,7 +10,6 @@ import TestUtil from '../misc/test-util';
 import ManualTicker from '../misc/ticker/manual';
 import MonitorValue from '../model/monitor-value';
 import Target from '../model/target';
-import NumberParser from '../parser/number';
 import MonitorBindingApi from './monitor-binding';
 
 function createApi(target: Target) {

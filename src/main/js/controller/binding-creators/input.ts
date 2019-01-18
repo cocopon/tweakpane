@@ -5,7 +5,6 @@ import PaneError from '../../misc/pane-error';
 import Color from '../../model/color';
 import Target from '../../model/target';
 import ColorParser from '../../parser/color';
-import InputBindingController from '../input-binding';
 import * as BooleanInputBindingControllerCreators from './boolean-input';
 import * as ColorInputBindingControllerCreators from './color-input';
 import * as NumberInputBindingControllerCreators from './number-input';

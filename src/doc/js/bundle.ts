@@ -5,7 +5,6 @@ import MonitorRoute from './route/monitor';
 import SimpleRouter from './simple-router';
 
 declare var hljs: any;
-declare var Tweakpane: any;
 
 (() => {
 	const router = new SimpleRouter();

@@ -1,6 +1,5 @@
 import PaneError from '../../misc/pane-error';
 import Target from '../../model/target';
-import MonitorBindingController from '../monitor-binding';
 import * as BooleanMonitorBindingControllerCreators from './boolean-monitor';
 import * as NumberMonitorBindingControllerCreators from './number-monitor';
 import * as StringMonitorBindingControllerCreators from './string-monitor';
