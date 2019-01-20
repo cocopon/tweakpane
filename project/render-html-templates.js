@@ -9,6 +9,7 @@ const Path = require('path');
 const Package = require('../package');
 
 const context = {
+	description: Package.description,
 	version: Package.version,
 };
 

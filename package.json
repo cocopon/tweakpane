@@ -25,6 +25,7 @@
     "doc:build": "run-p doc:build:*",
     "doc:build:css": "mkdir -p docs/assets && node-sass src/doc/sass/bundle.scss | postcss --config postcss.config.js > docs/assets/bundle.css",
     "doc:build:html": "node project/render-html-templates.js",
+    "doc:build:img": "mkdir -p docs/assets && cp -r src/doc/img/* docs/assets",
     "doc:build:js": "webpack --config webpack-doc.config.js",
     "doc:checkFormat": "run-p doc:checkFormat:*",
     "doc:checkFormat:css": "prettier --parser scss --list-different 'src/doc/sass/**/*.scss'",
