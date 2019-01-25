@@ -3,9 +3,20 @@ import {Handler} from '../misc/emitter';
 
 type EventName = 'change';
 
+/**
+ * The API for the input binding between the parameter and the pane.
+ * @param In The type inner Tweakpane.
+ * @param Out The type outer Tweakpane (= parameter object).
+ */
 export default class InputBindingApi<In, Out> {
+	/**
+	 * @hidden
+	 */
 	public readonly controller: InputBindingController<In, Out>;
 
+	/**
+	 * @hidden
+	 */
 	constructor(bindingController: InputBindingController<In, Out>) {
 		this.controller = bindingController;
 	}

@@ -26,6 +26,9 @@ function findListItems<T>(value: InputValue<T>): (ListItem<T>[]) | null {
 	return c.options;
 }
 
+/**
+ * @hidden
+ */
 export default class ListInputController<T> implements InputController<T> {
 	private listItems_: ListItem<T>[];
 	private value_: InputValue<T>;

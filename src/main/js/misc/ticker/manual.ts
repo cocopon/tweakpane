@@ -4,6 +4,9 @@ import {Ticker} from './ticker';
 
 type EventType = 'tick';
 
+/**
+ * @hidden
+ */
 export default class IntervalTicker implements Ticker {
 	public readonly emitter: Emitter<EventType>;
 

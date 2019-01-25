@@ -8,6 +8,9 @@ interface Config {
 	value: MonitorValue<Color>;
 }
 
+/**
+ * @hidden
+ */
 export default class ColorSwatchMonitorController
 	implements MonitorController<Color> {
 	public readonly value: MonitorValue<Color>;

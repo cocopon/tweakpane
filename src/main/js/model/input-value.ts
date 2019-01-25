@@ -3,6 +3,9 @@ import Emitter from '../misc/emitter';
 
 type EventType = 'change';
 
+/**
+ * @hidden
+ */
 export default class InputValue<T> {
 	public static equalsValue<T>(v1: T, v2: T): boolean {
 		return v1 === v2;

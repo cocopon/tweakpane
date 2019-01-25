@@ -13,6 +13,9 @@ interface Config<T> {
 
 const className = ClassName('lst', 'input');
 
+/**
+ * @hidden
+ */
 export default class ListInputView<T> extends View implements InputView<T> {
 	public readonly value: InputValue<T>;
 	private selectElem_: HTMLSelectElement;

@@ -17,6 +17,9 @@ interface Config {
 	value: InputValue<Color>;
 }
 
+/**
+ * @hidden
+ */
 export default class ColorPickerInputView extends View {
 	public readonly foldable: Foldable;
 	public readonly value: InputValue<Color>;

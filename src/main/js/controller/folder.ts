@@ -16,6 +16,9 @@ interface Config {
 
 export type EventName = 'fold' | 'inputchange' | 'monitorupdate';
 
+/**
+ * @hidden
+ */
 export default class FolderController {
 	public readonly emitter: Emitter<EventName>;
 	public readonly folder: Folder;

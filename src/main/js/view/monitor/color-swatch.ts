@@ -12,6 +12,9 @@ interface Config {
 
 const className = ClassName('csw', 'monitor');
 
+/**
+ * @hidden
+ */
 export default class ColorSwatchMonitorView extends View
 	implements MonitorView<Color> {
 	public readonly value: MonitorValue<Color>;

@@ -2,6 +2,9 @@ import NumberUtil from '../misc/number-util';
 import Color from '../model/color';
 import ColorParser from '../parser/color';
 
+/**
+ * @hidden
+ */
 export function fromMixed(value: unknown): Color {
 	if (typeof value === 'string') {
 		const cv = ColorParser(value);
@@ -12,6 +15,9 @@ export function fromMixed(value: unknown): Color {
 	return new Color(0, 0, 0);
 }
 
+/**
+ * @hidden
+ */
 export function toString(value: Color): string {
 	const hexes = value
 		.getComponents()

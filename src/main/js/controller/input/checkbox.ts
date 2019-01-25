@@ -4,10 +4,16 @@ import CheckboxInputView from '../../view/input/checkbox';
 
 import {InputController} from './input';
 
+/**
+ * @hidden
+ */
 export interface Config {
 	value: InputValue<boolean>;
 }
 
+/**
+ * @hidden
+ */
 export default class CheckboxInputController
 	implements InputController<boolean> {
 	public readonly value: InputValue<boolean>;

@@ -13,6 +13,9 @@ interface Config {
 	value: InputValue<Color>;
 }
 
+/**
+ * @hidden
+ */
 export default class HPaletteInputView extends View {
 	public readonly canvasElement: HTMLCanvasElement;
 	public readonly value: InputValue<Color>;

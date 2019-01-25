@@ -4,12 +4,7 @@ import RootController from './controller/root';
 import ClassName from './misc/class-name';
 import * as DomUtil from './misc/dom-util';
 import TypeUtil from './misc/type-util';
-
-interface Config {
-	container?: HTMLElement;
-	document?: Document;
-	title?: string;
-}
+import {TweakpaneConfig} from './tweakpane-config';
 
 function createDefaultWrapperElement(document: Document): HTMLElement {
 	const elem = document.createElement('div');
@@ -35,7 +30,7 @@ function embedDefaultStyleIfNeeded(document: Document) {
 }
 
 export default class Tweakpane extends RootApi {
-	constructor(opt_config?: Config) {
+	constructor(opt_config?: TweakpaneConfig) {
 		const config = opt_config || {};
 		const document = TypeUtil.getOrDefault(
 			config.document,

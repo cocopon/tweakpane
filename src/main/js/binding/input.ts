@@ -8,6 +8,9 @@ interface Config<In, Out> {
 	writer: (innerValue: In) => Out;
 }
 
+/**
+ * @hidden
+ */
 export default class InputBinding<In, Out> {
 	public readonly target: Target;
 	public readonly value: InputValue<In>;

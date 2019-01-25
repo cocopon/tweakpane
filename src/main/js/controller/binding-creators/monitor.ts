@@ -16,6 +16,9 @@ interface Params {
 
 export type MonitorableType = boolean | number | string;
 
+/**
+ * @hidden
+ */
 export function create(document: Document, target: Target, params: Params) {
 	const initialValue = target.read();
 

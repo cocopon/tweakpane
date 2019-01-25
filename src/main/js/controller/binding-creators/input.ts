@@ -69,6 +69,9 @@ function normalizeParams<T1, T2>(
 export type InputtableInType = boolean | number | string | Color;
 export type InputtableOutType = boolean | number | string;
 
+/**
+ * @hidden
+ */
 export function create(
 	document: Document,
 	target: Target,

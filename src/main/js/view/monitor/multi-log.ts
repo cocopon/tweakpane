@@ -12,6 +12,9 @@ interface Config<T> {
 
 const className = ClassName('mll', 'monitor');
 
+/**
+ * @hidden
+ */
 export default class MultiLogMonitorView<T> extends View
 	implements MonitorView<T> {
 	public readonly value: MonitorValue<T>;

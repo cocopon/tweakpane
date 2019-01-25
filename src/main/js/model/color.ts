@@ -13,6 +13,9 @@ function constrainComponent(comp: number): number {
 	return NumberUtil.constrain(comp, 0, 255);
 }
 
+/**
+ * @hidden
+ */
 export default class Color {
 	public readonly emitter: Emitter<EventType>;
 	private comps_: [number, number, number];

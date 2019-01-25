@@ -8,6 +8,9 @@ interface Config {
 
 const className = ClassName('lbl');
 
+/**
+ * @hidden
+ */
 export default class LabeledView extends View {
 	public readonly label: string;
 

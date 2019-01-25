@@ -12,6 +12,9 @@ interface Config<T> {
 
 const className = ClassName('sgl', 'monitor');
 
+/**
+ * @hidden
+ */
 export default class SingleLogMonitorView<T> extends View
 	implements MonitorView<T> {
 	public readonly value: MonitorValue<T>;

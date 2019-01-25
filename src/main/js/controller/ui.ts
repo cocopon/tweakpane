@@ -1,4 +1,3 @@
-import Target from '../model/target';
 import * as InputBindingControllerCreators from './binding-creators/input';
 import * as MonitorBindingControllerCreators from './binding-creators/monitor';
 import ButtonController from './button';
@@ -33,34 +32,9 @@ export interface FolderParams {
 	title: string;
 }
 
-interface InputConfig {
-	params: InputParams;
-	target: Target;
-	type: 'input';
-}
-
-interface MonitorConfig {
-	params: MonitorParams;
-	target: Target;
-	type: 'monitor';
-}
-
-interface ButtonConfig {
-	params: ButtonParams;
-	type: 'button';
-}
-
-interface FolderConfig {
-	params: FolderParams;
-	type: 'folder';
-}
-
-export type UiConfig =
-	| ButtonConfig
-	| FolderConfig
-	| InputConfig
-	| MonitorConfig;
-
+/**
+ * @hidden
+ */
 export type UiController =
 	| ButtonController
 	| FolderController

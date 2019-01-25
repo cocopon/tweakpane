@@ -12,6 +12,9 @@ interface Config {
 	value: InputValue<Color>;
 }
 
+/**
+ * @hidden
+ */
 export default class SvPaletteInputController
 	implements InputController<Color> {
 	public readonly value: InputValue<Color>;

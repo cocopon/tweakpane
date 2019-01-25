@@ -3,6 +3,9 @@ import CompositeConstraint from './composite';
 import {Class} from '../misc/type-util';
 import {Constraint} from './constraint';
 
+/**
+ * @hidden
+ */
 const ConstraintUtil = {
 	findConstraint: <C>(
 		c: Constraint<unknown>,

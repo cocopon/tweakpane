@@ -16,6 +16,9 @@ interface Params {
 	multiline?: boolean;
 }
 
+/**
+ * @hidden
+ */
 export function createTextMonitor(
 	document: Document,
 	target: Target,

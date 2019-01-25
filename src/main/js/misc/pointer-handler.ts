@@ -8,7 +8,10 @@ export interface PointerData {
 	py: number;
 }
 
-// Handles both mouse and touch events
+/**
+ * A utility class to handle both mouse and touch events.
+ * @hidden
+ */
 export default class PointerHandler {
 	public readonly document: Document;
 	public readonly emitter: Emitter<EventType>;

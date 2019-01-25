@@ -9,6 +9,9 @@ interface Config<T> {
 	value: MonitorValue<T>;
 }
 
+/**
+ * @hidden
+ */
 export default class SingleLogMonitorController<T>
 	implements MonitorController<T> {
 	public readonly value: MonitorValue<T>;

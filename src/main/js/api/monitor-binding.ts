@@ -3,9 +3,18 @@ import {Handler} from '../misc/emitter';
 
 type EventName = 'update';
 
+/**
+ * The API for the monitor binding between the parameter and the pane.
+ */
 export default class MonitorBindingApi<In> {
+	/**
+	 * @hidden
+	 */
 	public readonly controller: MonitorBindingController<In>;
 
+	/**
+	 * @hidden
+	 */
 	constructor(bindingController: MonitorBindingController<In>) {
 		this.controller = bindingController;
 	}

@@ -10,6 +10,9 @@ interface Config {
 
 const className = ClassName('ckb', 'input');
 
+/**
+ * @hidden
+ */
 export default class CheckboxInputView extends View
 	implements InputView<boolean> {
 	public readonly value: InputValue<boolean>;

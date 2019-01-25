@@ -2,6 +2,9 @@ import Emitter from '../misc/emitter';
 
 type EventType = 'update';
 
+/**
+ * @hidden
+ */
 export default class MonitorValue<T> {
 	public readonly emitter: Emitter<EventType>;
 	private rawValues_: T[];

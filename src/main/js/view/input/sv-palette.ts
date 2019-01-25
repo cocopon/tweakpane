@@ -13,6 +13,9 @@ interface Config {
 	value: InputValue<Color>;
 }
 
+/**
+ * @hidden
+ */
 export default class SvPaletteInputView extends View {
 	public readonly canvasElement: HTMLCanvasElement;
 	public readonly value: InputValue<Color>;

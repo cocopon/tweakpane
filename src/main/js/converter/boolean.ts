@@ -1,3 +1,6 @@
+/**
+ * @hidden
+ */
 export function fromMixed(value: unknown): boolean {
 	if (value === 'false') {
 		return false;
@@ -5,6 +8,9 @@ export function fromMixed(value: unknown): boolean {
 	return !!value;
 }
 
+/**
+ * @hidden
+ */
 export function toString(value: boolean): string {
 	return String(value);
 }

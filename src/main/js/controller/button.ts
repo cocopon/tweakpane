@@ -5,6 +5,9 @@ interface Config {
 	title: string;
 }
 
+/**
+ * @hidden
+ */
 export default class ButtonController {
 	public readonly button: Button;
 	public readonly view: ButtonView;

@@ -4,6 +4,9 @@ interface Config<T> {
 	constraints: Constraint<T>[];
 }
 
+/**
+ * @hidden
+ */
 export default class CompositeConstraint<T> implements Constraint<T> {
 	private constraints_: Constraint<T>[];
 

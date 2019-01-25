@@ -34,6 +34,9 @@ function estimateSuitableRange(value: InputValue<number>): [number, number] {
 	];
 }
 
+/**
+ * @hidden
+ */
 export default class SliderInputController implements InputController<number> {
 	public readonly value: InputValue<number>;
 	public readonly view: SliderInputView;

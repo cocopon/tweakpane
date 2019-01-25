@@ -2,6 +2,9 @@ import Emitter from '../misc/emitter';
 
 type EventType = 'append';
 
+/**
+ * @hidden
+ */
 export default class List<T> {
 	public readonly emitter: Emitter<EventType>;
 	private items_: T[];

@@ -1,5 +1,8 @@
 import NumberParser from '../parser/number';
 
+/**
+ * @hidden
+ */
 export function fromMixed(value: unknown): number {
 	if (typeof value === 'number') {
 		return value;
@@ -15,6 +18,9 @@ export function fromMixed(value: unknown): number {
 	return 0;
 }
 
+/**
+ * @hidden
+ */
 export function toString(value: number): string {
 	return String(value);
 }

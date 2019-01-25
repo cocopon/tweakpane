@@ -15,6 +15,9 @@ interface Params {
 	label?: string;
 }
 
+/**
+ * @hidden
+ */
 export function createTextMonitor(
 	document: Document,
 	target: Target,

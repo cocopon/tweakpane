@@ -3,6 +3,9 @@ import View from './view';
 
 const className = ClassName('spt');
 
+/**
+ * @hidden
+ */
 export default class SeparatorView extends View {
 	constructor(document: Document) {
 		super(document);

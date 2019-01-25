@@ -1,5 +1,8 @@
 import SeparatorView from '../view/separator';
 
+/**
+ * @hidden
+ */
 export default class SeparatorController {
 	public readonly view: SeparatorView;
 

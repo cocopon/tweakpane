@@ -12,6 +12,9 @@ interface Params {
 	label?: string;
 }
 
+/**
+ * @hidden
+ */
 export function create(
 	document: Document,
 	target: Target,

@@ -5,6 +5,9 @@ interface Config {
 	min?: number;
 }
 
+/**
+ * @hidden
+ */
 export default class RangeConstraint implements Constraint<number> {
 	private max_: number | undefined;
 	private min_: number | undefined;

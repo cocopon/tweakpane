@@ -14,6 +14,9 @@ interface Config {
 	value: InputValue<Color>;
 }
 
+/**
+ * @hidden
+ */
 export default class ColorSwatchTextInputController
 	implements InputController<Color> {
 	public readonly value: InputValue<Color>;

@@ -23,8 +23,14 @@ const TO_INTERNAL_EVENT_NAME_MAP: {
 };
 
 export default class FolderApi {
+	/**
+	 * @hidden
+	 */
 	public readonly controller: FolderController;
 
+	/**
+	 * @hidden
+	 */
 	constructor(folderController: FolderController) {
 		this.controller = folderController;
 	}

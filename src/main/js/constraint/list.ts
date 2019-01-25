@@ -1,5 +1,8 @@
 import {Constraint} from './constraint';
 
+/**
+ * @hidden
+ */
 export interface ListItem<T> {
 	text: string;
 	value: T;
@@ -9,6 +12,9 @@ interface Config<T> {
 	options: ListItem<T>[];
 }
 
+/**
+ * @hidden
+ */
 export default class ListConstraint<T> implements Constraint<T> {
 	private opts_: ListItem<T>[];
 

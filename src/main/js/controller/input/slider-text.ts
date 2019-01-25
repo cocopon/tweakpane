@@ -13,6 +13,9 @@ interface Config {
 	value: InputValue<number>;
 }
 
+/**
+ * @hidden
+ */
 export default class SliderTextInputController
 	implements InputController<number> {
 	private sliderIc_: SliderInputController;

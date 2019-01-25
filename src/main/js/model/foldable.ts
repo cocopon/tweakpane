@@ -2,6 +2,9 @@ import Emitter from '../misc/emitter';
 
 type EventType = 'change';
 
+/**
+ * @hidden
+ */
 export default class Foldable {
 	public readonly emitter: Emitter<EventType>;
 	private expanded_: boolean;

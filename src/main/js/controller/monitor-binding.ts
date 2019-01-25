@@ -9,6 +9,9 @@ interface Config<In> {
 	label: string;
 }
 
+/**
+ * @hidden
+ */
 export default class MonitorBindingController<In> {
 	public readonly binding: MonitorBinding<In>;
 	public readonly controller: MonitorController<In>;

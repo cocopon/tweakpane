@@ -12,6 +12,9 @@ interface Config<T> {
 
 const className = ClassName('txt', 'input');
 
+/**
+ * @hidden
+ */
 export default class TextInputView<T> extends View implements InputView<T> {
 	public readonly value: InputValue<T>;
 	private formatter_: Formatter<T>;

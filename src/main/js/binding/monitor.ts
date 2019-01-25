@@ -10,6 +10,9 @@ interface Config<In> {
 	value: MonitorValue<In>;
 }
 
+/**
+ * @hidden
+ */
 export default class MonitorBinding<In> {
 	public readonly target: Target;
 	public readonly ticker: Ticker;

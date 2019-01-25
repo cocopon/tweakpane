@@ -4,6 +4,9 @@ interface Config {
 	step: number;
 }
 
+/**
+ * @hidden
+ */
 export default class StepConstraint implements Constraint<number> {
 	public readonly step: number;
 

@@ -13,6 +13,9 @@ interface Config {
 	value: MonitorValue<number>;
 }
 
+/**
+ * @hidden
+ */
 export default class GraphMonitorController
 	implements MonitorController<number> {
 	public readonly value: MonitorValue<number>;

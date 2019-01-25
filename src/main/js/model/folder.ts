@@ -2,6 +2,9 @@ import Emitter from '../misc/emitter';
 
 type EventType = 'change';
 
+/**
+ * @hidden
+ */
 export default class Folder {
 	public readonly emitter: Emitter<EventType>;
 	public readonly title: string;

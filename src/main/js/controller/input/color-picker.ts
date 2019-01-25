@@ -30,6 +30,9 @@ const COMPONENT_CONSTRAINT = new CompositeConstraint({
 	],
 });
 
+/**
+ * @hidden
+ */
 export default class ColorPickerInputController
 	implements InputController<Color> {
 	public readonly foldable: Foldable;

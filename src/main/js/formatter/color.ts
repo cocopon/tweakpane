@@ -4,6 +4,9 @@ import Color from '../model/color';
 
 import {Formatter} from './formatter';
 
+/**
+ * @hidden
+ */
 export default class ColorFormatter implements Formatter<Color> {
 	public static rgb(r: number, g: number, b: number): string {
 		const compsText = [

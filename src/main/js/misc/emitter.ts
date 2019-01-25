@@ -4,6 +4,9 @@ interface Observer {
 	handler: Handler;
 }
 
+/**
+ * @hidden
+ */
 export default class Emitter<EventType extends string> {
 	private observers_: {[eventName in EventType]?: Observer[]};
 

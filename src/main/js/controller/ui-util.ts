@@ -3,6 +3,9 @@ import FolderController from './folder';
 import {Class} from '../misc/type-util';
 import {UiController} from './ui';
 
+/**
+ * @hidden
+ */
 export function findControllers<Controller>(
 	uiControllers: UiController[],
 	controllerClass: Class<Controller>,

@@ -22,6 +22,9 @@ function estimateSuitableStep(value: InputValue<number>): number {
 	return TypeUtil.getOrDefault<number>(step, 1);
 }
 
+/**
+ * @hidden
+ */
 export default class NumberTextInputController extends TextInputController<
 	number
 > {

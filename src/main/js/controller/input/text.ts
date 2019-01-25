@@ -6,12 +6,18 @@ import {Formatter} from '../../formatter/formatter';
 import {Parser} from '../../parser/parser';
 import {InputController} from './input';
 
+/**
+ * @hidden
+ */
 export interface Config<T> {
 	formatter: Formatter<T>;
 	parser: Parser<T>;
 	value: InputValue<T>;
 }
 
+/**
+ * @hidden
+ */
 export default class TextInputController<T> implements InputController<T> {
 	public readonly value: InputValue<T>;
 	public readonly view: TextInputView<T>;

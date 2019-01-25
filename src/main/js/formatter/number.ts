@@ -1,5 +1,8 @@
 import {Formatter} from './formatter';
 
+/**
+ * @hidden
+ */
 export default class NumberFormatter implements Formatter<number> {
 	private digits_: number;
 

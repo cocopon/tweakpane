@@ -27,6 +27,9 @@ function createFolder(config: Config): Folder | null {
 	);
 }
 
+/**
+ * @hidden
+ */
 export default class RootController {
 	public readonly emitter: Emitter<EventName>;
 	public readonly folder: Folder | null;

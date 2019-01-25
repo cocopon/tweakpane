@@ -29,6 +29,9 @@ function createFormatter(): NumberFormatter {
 	return new NumberFormatter(2);
 }
 
+/**
+ * @hidden
+ */
 export function createTextMonitor(
 	document: Document,
 	target: Target,
@@ -65,6 +68,9 @@ export function createTextMonitor(
 	});
 }
 
+/**
+ * @hidden
+ */
 export function createGraphMonitor(
 	document: Document,
 	target: Target,

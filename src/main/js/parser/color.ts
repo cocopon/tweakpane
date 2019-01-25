@@ -31,6 +31,9 @@ const SUB_PARSERS: Parser<Color>[] = [
 	},
 ];
 
+/**
+ * @hidden
+ */
 const ColorParser: Parser<Color> = (text: string): Color | null => {
 	return SUB_PARSERS.reduce((result: Color | null, subparser) => {
 		return result ? result : subparser(text);

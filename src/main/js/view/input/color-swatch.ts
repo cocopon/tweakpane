@@ -14,6 +14,9 @@ interface Config {
 
 const className = ClassName('csw', 'input');
 
+/**
+ * @hidden
+ */
 export default class ColorSwatchInputView extends View
 	implements InputView<Color> {
 	public readonly value: InputValue<Color>;

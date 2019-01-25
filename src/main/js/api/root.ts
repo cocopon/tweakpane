@@ -34,9 +34,24 @@ const TO_INTERNAL_EVENT_NAME_MAP: {
 	update: 'monitorupdate',
 };
 
+/**
+ * The Tweakpane interface.
+ *
+ * ```
+ * new Tweakpane(options: TweakpaneConfig): RootApi
+ * ```
+ *
+ * See [[TweakpaneConfig]] interface for available options.
+ */
 export default class RootApi {
+	/**
+	 * @hidden
+	 */
 	public readonly controller: RootController;
 
+	/**
+	 * @hidden
+	 */
 	constructor(rootController: RootController) {
 		this.controller = rootController;
 	}
@@ -101,6 +116,10 @@ export default class RootApi {
 		this.controller.uiControllerList.append(uc);
 	}
 
+	/**
+	 * Import a preset of all inputs.
+	 * @param preset The preset object to import.
+	 */
 	public importPreset(preset: PresetObject): void {
 		const targets = UiUtil.findControllers(
 			this.controller.uiControllerList.items,
@@ -112,6 +131,10 @@ export default class RootApi {
 		this.refresh();
 	}
 
+	/**
+	 * Export a preset of all inputs.
+	 * @return The exported preset object.
+	 */
 	public exportPreset(): PresetObject {
 		const targets = UiUtil.findControllers(
 			this.controller.uiControllerList.items,
@@ -122,6 +145,11 @@ export default class RootApi {
 		return Preset.exportJson(targets);
 	}
 
+	/**
+	 * Adds a global event listener. It handles all events of child inputs/monitors.
+	 * @param eventName The event name to listen.
+	 * @return The API object itself.
+	 */
 	public on(eventName: EventName, handler: Handler): RootApi {
 		const internalEventName = TO_INTERNAL_EVENT_NAME_MAP[eventName];
 		if (internalEventName) {
@@ -131,6 +159,9 @@ export default class RootApi {
 		return this;
 	}
 
+	/**
+	 * Refreshes all bindings of the pane.
+	 */
 	public refresh(): void {
 		// Force-read all input bindings
 		UiUtil.findControllers(

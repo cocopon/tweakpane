@@ -14,6 +14,9 @@ interface Config {
 
 const className = ClassName('cswtxt', 'input');
 
+/**
+ * @hidden
+ */
 export default class ColorSwatchTextInputView extends View
 	implements InputView<Color> {
 	private swatchInputView_: ColorSwatchInputView;

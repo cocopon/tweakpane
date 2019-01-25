@@ -19,6 +19,9 @@ interface Config {
 
 const className = ClassName('grp', 'monitor');
 
+/**
+ * @hidden
+ */
 export default class GraphMonitorView extends View
 	implements MonitorView<number> {
 	public readonly value: MonitorValue<number>;

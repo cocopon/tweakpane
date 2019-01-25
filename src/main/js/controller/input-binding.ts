@@ -9,6 +9,9 @@ interface Config<In, Out> {
 	label: string;
 }
 
+/**
+ * @hidden
+ */
 export default class InputBindingController<In, Out> {
 	public readonly binding: InputBinding<In, Out>;
 	public readonly controller: InputController<In>;

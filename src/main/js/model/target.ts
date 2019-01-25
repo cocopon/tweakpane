@@ -1,5 +1,8 @@
 import TypeUtil from '../misc/type-util';
 
+/**
+ * @hidden
+ */
 export default class Target {
 	private key_: string;
 	private obj_: object;

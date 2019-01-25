@@ -8,6 +8,9 @@ interface Config {
 
 const className = ClassName('btn');
 
+/**
+ * @hidden
+ */
 export default class ButtonView extends View {
 	public readonly button: Button;
 	private buttonElem_: HTMLButtonElement;

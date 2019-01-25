@@ -47,6 +47,9 @@ function createController(document: Document, value: InputValue<boolean>) {
 	});
 }
 
+/**
+ * @hidden
+ */
 export function create(document: Document, target: Target, params: Params) {
 	const value = new InputValue(false, createConstraint(params));
 	const binding = new InputBinding({

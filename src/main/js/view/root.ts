@@ -8,6 +8,9 @@ interface Config {
 
 const className = ClassName('rot');
 
+/**
+ * @hidden
+ */
 export default class RootView extends View {
 	private containerElem_: HTMLDivElement;
 	private folder_: Folder | null;

@@ -2,6 +2,9 @@ import Emitter from '../misc/emitter';
 
 type EventType = 'click';
 
+/**
+ * @hidden
+ */
 export default class Button {
 	public readonly emitter: Emitter<EventType>;
 	public readonly title: string;

@@ -13,6 +13,9 @@ interface Config {
 
 const className = ClassName('sldtxt', 'input');
 
+/**
+ * @hidden
+ */
 export default class SliderTextInputView extends View
 	implements InputView<number> {
 	private sliderInputView_: SliderInputView;

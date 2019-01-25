@@ -13,6 +13,9 @@ interface Config {
 
 const className = ClassName('sld', 'input');
 
+/**
+ * @hidden
+ */
 export default class SliderInputView extends View implements InputView<number> {
 	public readonly value: InputValue<number>;
 	private innerElem_: HTMLDivElement;

@@ -12,6 +12,9 @@ interface Config {
 	value: InputValue<Color>;
 }
 
+/**
+ * @hidden
+ */
 export default class HPaletteInputController implements InputController<Color> {
 	public readonly value: InputValue<Color>;
 	public readonly view: HPaletteInputView;

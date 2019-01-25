@@ -9,6 +9,9 @@ interface Config {
 
 const className = ClassName('fld');
 
+/**
+ * @hidden
+ */
 export default class FolderView extends View {
 	private containerElem_: HTMLDivElement;
 	private folder_: Folder;
