@@ -15,7 +15,7 @@ export default class InputBinding<In, Out> {
 	public readonly target: Target;
 	public readonly value: InputValue<In>;
 	private reader_: (outerValue: unknown) => In;
-	private writer_: ((innerValue: In) => Out);
+	private writer_: (innerValue: In) => Out;
 
 	constructor(config: Config<In, Out>) {
 		this.onValueChange_ = this.onValueChange_.bind(this);
