@@ -1,4 +1,6 @@
 import ClassName from '../misc/class-name';
+import * as DisposingUtil from '../misc/disposing-util';
+import PaneError from '../misc/pane-error';
 import Button from '../model/button';
 import View from './view';
 
@@ -13,7 +15,7 @@ const className = ClassName('btn');
  */
 export default class ButtonView extends View {
 	public readonly button: Button;
-	private buttonElem_: HTMLButtonElement;
+	private buttonElem_: HTMLButtonElement | null;
 
 	constructor(document: Document, config: Config) {
 		super(document);
@@ -30,6 +32,14 @@ export default class ButtonView extends View {
 	}
 
 	get buttonElement(): HTMLButtonElement {
+		if (!this.buttonElem_) {
+			throw PaneError.alreadyDisposed();
+		}
 		return this.buttonElem_;
+	}
+
+	public dispose(): void {
+		this.buttonElem_ = DisposingUtil.disposeElement(this.buttonElem_);
+		super.dispose();
 	}
 }

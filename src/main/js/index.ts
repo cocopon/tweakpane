@@ -1,19 +1,6 @@
 import * as Style from '../sass/bundle.scss';
-import RootApi from './api/root';
-import RootController from './controller/root';
-import ClassName from './misc/class-name';
-import * as DomUtil from './misc/dom-util';
-import TypeUtil from './misc/type-util';
 import {TweakpaneConfig} from './tweakpane-config';
-
-function createDefaultWrapperElement(document: Document): HTMLElement {
-	const elem = document.createElement('div');
-	elem.classList.add(ClassName('dfw')());
-	if (document.body) {
-		document.body.appendChild(elem);
-	}
-	return elem;
-}
+import TweakpaneWithoutStyle from './tweakpane-without-style';
 
 function embedDefaultStyleIfNeeded(document: Document) {
 	const MARKER = 'tweakpane';
@@ -29,22 +16,9 @@ function embedDefaultStyleIfNeeded(document: Document) {
 	}
 }
 
-export default class Tweakpane extends RootApi {
+export default class Tweakpane extends TweakpaneWithoutStyle {
 	constructor(opt_config?: TweakpaneConfig) {
-		const config = opt_config || {};
-		const document = TypeUtil.getOrDefault(
-			config.document,
-			DomUtil.getWindowDocument(),
-		);
-		embedDefaultStyleIfNeeded(document);
-
-		const rootController = new RootController(document, {
-			title: config.title,
-		});
-		super(rootController);
-
-		const containerElem =
-			config.container || createDefaultWrapperElement(document);
-		containerElem.appendChild(this.element);
+		super(opt_config);
+		embedDefaultStyleIfNeeded(this.document);
 	}
 }

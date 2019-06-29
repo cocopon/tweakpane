@@ -16,6 +16,10 @@ export default class ButtonApi {
 		this.controller = buttonController;
 	}
 
+	public dispose(): void {
+		this.controller.dispose();
+	}
+
 	public on(eventName: EventName, handler: Handler) {
 		const emitter = this.controller.button.emitter;
 		emitter.on(eventName, handler);

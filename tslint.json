@@ -12,7 +12,7 @@
 		"object-literal-key-quotes": [true, "as-needed"],
 		"object-literal-shorthand": [true, "never"],
 		"one-variable-per-declaration": false,
-		"quotemark": [true, "single"],
+		"quotemark": false,
 		"trailing-comma": [true, {"multiline": "always", "singleline": "never"}],
 		"variable-name": [true, "ban-keywords", "allow-trailing-underscore"]
 	},

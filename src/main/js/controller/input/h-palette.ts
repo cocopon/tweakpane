@@ -37,6 +37,10 @@ export default class HPaletteInputController implements InputController<Color> {
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
 	}
 
+	public dispose(): void {
+		this.view.dispose();
+	}
+
 	private handlePointerEvent_(d: PointerData): void {
 		const hue = NumberUtil.map(d.py, 0, 1, 0, 360);
 

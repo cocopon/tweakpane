@@ -42,4 +42,8 @@ export default class ColorSwatchTextInputController
 			textInputView: this.textIc_.view,
 		});
 	}
+
+	public dispose(): void {
+		this.view.dispose();
+	}
 }

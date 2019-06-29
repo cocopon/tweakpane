@@ -37,6 +37,10 @@ export default class ColorSwatchInputController
 		this.view.buttonElement.addEventListener('click', this.onButtonClick_);
 	}
 
+	public dispose(): void {
+		this.view.dispose();
+	}
+
 	private onButtonBlur_(e: FocusEvent) {
 		const elem = this.view.element;
 		const nextTarget: HTMLElement | null = TypeUtil.forceCast(e.relatedTarget);

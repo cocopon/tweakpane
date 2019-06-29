@@ -23,4 +23,8 @@ export default class ColorSwatchMonitorController
 			value: this.value,
 		});
 	}
+
+	public dispose(): void {
+		this.view.dispose();
+	}
 }

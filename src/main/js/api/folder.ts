@@ -15,7 +15,7 @@ import {Handler} from '../misc/emitter';
 type EventName = 'change' | 'fold' | 'update';
 
 const TO_INTERNAL_EVENT_NAME_MAP: {
-	[eventName in EventName]: InternalEventName
+	[eventName in EventName]: InternalEventName;
 } = {
 	change: 'inputchange',
 	fold: 'fold',
@@ -41,6 +41,10 @@ export default class FolderApi {
 
 	set expanded(expanded: boolean) {
 		this.controller.folder.expanded = expanded;
+	}
+
+	public dispose(): void {
+		this.controller.dispose();
 	}
 
 	public addInput(object: object, key: string, opt_params?: InputParams) {

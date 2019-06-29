@@ -36,6 +36,10 @@ export default class TextInputController<T> implements InputController<T> {
 		this.view.inputElement.addEventListener('change', this.onInputChange_);
 	}
 
+	public dispose(): void {
+		this.view.dispose();
+	}
+
 	private onInputChange_(e: Event): void {
 		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
 		const value = inputElem.value;

@@ -26,4 +26,9 @@ export default class InputBindingController<In, Out> {
 			view: this.controller.view,
 		});
 	}
+
+	public dispose(): void {
+		this.controller.dispose();
+		this.view.dispose();
+	}
 }

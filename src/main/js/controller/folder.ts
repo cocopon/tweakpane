@@ -60,6 +60,10 @@ export default class FolderController {
 		return this.ucList_;
 	}
 
+	public dispose(): void {
+		this.view.dispose();
+	}
+
 	private computeExpandedHeight_(): number {
 		const elem = this.view.containerElement;
 

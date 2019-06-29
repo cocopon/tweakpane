@@ -43,6 +43,12 @@ export default class SliderTextInputView extends View
 		return this.sliderInputView_.value;
 	}
 
+	public dispose(): void {
+		this.sliderInputView_.dispose();
+		this.textInputView_.dispose();
+		super.dispose();
+	}
+
 	public update(): void {
 		this.sliderInputView_.update();
 		this.textInputView_.update();

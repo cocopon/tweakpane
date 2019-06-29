@@ -15,6 +15,12 @@ function createApi(): RootApi {
 }
 
 describe(RootApi.name, () => {
+	it('should dispose', () => {
+		const api = createApi();
+		api.dispose();
+		assert.strictEqual(api.controller.view.disposed, true);
+	});
+
 	it('should handle global input events', (done) => {
 		const api = createApi();
 		const obj = {foo: 1};

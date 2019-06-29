@@ -9,4 +9,6 @@ import {MonitorView} from '../../view/monitor/monitor';
 export interface MonitorController<T> {
 	readonly value: MonitorValue<T>;
 	readonly view: View & MonitorView<T>;
+
+	dispose(): void;
 }

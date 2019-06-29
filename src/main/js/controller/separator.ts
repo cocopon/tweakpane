@@ -9,4 +9,8 @@ export default class SeparatorController {
 	constructor(document: Document) {
 		this.view = new SeparatorView(document);
 	}
+
+	public dispose(): void {
+		this.view.dispose();
+	}
 }

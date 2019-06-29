@@ -34,6 +34,12 @@ describe(FolderApi.name, () => {
 		assert.strictEqual(api.controller.folder.expanded, true);
 	});
 
+	it('should dispose', () => {
+		const api = createApi();
+		api.dispose();
+		assert.strictEqual(api.controller.view.disposed, true);
+	});
+
 	it('should add button', () => {
 		const api = createApi();
 		const b = api.addButton({

@@ -1,8 +1,9 @@
+import {Formatter} from '../../formatter/formatter';
 import ClassName from '../../misc/class-name';
+import * as DisposingUtil from '../../misc/disposing-util';
+import PaneError from '../../misc/pane-error';
 import InputValue from '../../model/input-value';
 import View from '../view';
-
-import {Formatter} from '../../formatter/formatter';
 import {InputView} from './input';
 
 interface Config<T> {
@@ -18,7 +19,7 @@ const className = ClassName('txt', 'input');
 export default class TextInputView<T> extends View implements InputView<T> {
 	public readonly value: InputValue<T>;
 	private formatter_: Formatter<T>;
-	private inputElem_: HTMLInputElement;
+	private inputElem_: HTMLInputElement | null;
 
 	constructor(document: Document, config: Config<T>) {
 		super(document);
@@ -42,10 +43,21 @@ export default class TextInputView<T> extends View implements InputView<T> {
 	}
 
 	get inputElement(): HTMLInputElement {
+		if (!this.inputElem_) {
+			throw PaneError.alreadyDisposed();
+		}
 		return this.inputElem_;
 	}
 
+	public dispose(): void {
+		this.inputElem_ = DisposingUtil.disposeElement(this.inputElem_);
+		super.dispose();
+	}
+
 	public update(): void {
+		if (!this.inputElem_) {
+			throw PaneError.alreadyDisposed();
+		}
 		this.inputElem_.value = this.formatter_.format(this.value.rawValue);
 	}
 

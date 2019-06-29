@@ -38,6 +38,10 @@ export default class SvPaletteInputController
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
 	}
 
+	public dispose(): void {
+		this.view.dispose();
+	}
+
 	private handlePointerEvent_(d: PointerData): void {
 		const saturation = NumberUtil.map(d.px, 0, 1, 0, 100);
 		const value = NumberUtil.map(d.py, 0, 1, 100, 0);

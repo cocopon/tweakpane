@@ -94,6 +94,10 @@ export default class ColorPickerInputController
 		});
 	}
 
+	public dispose(): void {
+		this.view.dispose();
+	}
+
 	private onInputBlur_(e: FocusEvent): void {
 		const elem = this.view.element;
 		const nextTarget: HTMLElement | null = TypeUtil.forceCast(e.relatedTarget);

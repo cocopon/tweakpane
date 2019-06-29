@@ -26,4 +26,10 @@ export default class MonitorBindingController<In> {
 			view: this.controller.view,
 		});
 	}
+
+	public dispose(): void {
+		this.binding.dispose();
+		this.controller.dispose();
+		this.view.dispose();
+	}
 }
