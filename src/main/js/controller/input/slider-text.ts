@@ -48,4 +48,8 @@ export default class SliderTextInputController
 	get view(): SliderTextInputView {
 		return this.view_;
 	}
+
+	public dispose(): void {
+		this.view.dispose();
+	}
 }

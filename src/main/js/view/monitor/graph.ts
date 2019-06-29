@@ -1,10 +1,11 @@
+import {Formatter} from '../../formatter/formatter';
 import ClassName from '../../misc/class-name';
+import * as DisposingUtil from '../../misc/disposing-util';
 import NumberUtil from '../../misc/number-util';
+import PaneError from '../../misc/pane-error';
 import GraphCursor from '../../model/graph-cursor';
 import MonitorValue from '../../model/monitor-value';
 import View from '../view';
-
-import {Formatter} from '../../formatter/formatter';
 import {MonitorView} from './monitor';
 
 const SVG_NS: string = 'http://www.w3.org/2000/svg';
@@ -27,11 +28,11 @@ export default class GraphMonitorView extends View
 	public readonly value: MonitorValue<number>;
 	private cursor_: GraphCursor;
 	private formatter_: Formatter<number>;
-	private lineElem_: Element;
+	private lineElem_: Element | null;
 	private maxValue_: number;
 	private minValue_: number;
-	private svgElem_: Element;
-	private tooltipElem_: HTMLElement;
+	private svgElem_: Element | null;
+	private tooltipElem_: HTMLElement | null;
 
 	constructor(document: Document, config: Config) {
 		super(document);
@@ -69,10 +70,25 @@ export default class GraphMonitorView extends View
 	}
 
 	get graphElement(): Element {
+		if (!this.svgElem_) {
+			throw PaneError.alreadyDisposed();
+		}
 		return this.svgElem_;
 	}
 
+	public dispose(): void {
+		this.lineElem_ = DisposingUtil.disposeElement(this.lineElem_);
+		this.svgElem_ = DisposingUtil.disposeElement(this.svgElem_);
+		this.tooltipElem_ = DisposingUtil.disposeElement(this.tooltipElem_);
+		super.dispose();
+	}
+
 	public update(): void {
+		const tooltipElem = this.tooltipElem_;
+		if (!this.lineElem_ || !this.svgElem_ || !tooltipElem) {
+			throw PaneError.alreadyDisposed();
+		}
+
 		const bounds = this.svgElem_.getBoundingClientRect();
 
 		// Graph
@@ -92,7 +108,6 @@ export default class GraphMonitorView extends View
 		);
 
 		// Cursor
-		const tooltipElem = this.tooltipElem_;
 		const value = this.value.rawValues[this.cursor_.index];
 		if (value === undefined) {
 			tooltipElem.classList.remove(className('t', 'valid'));
@@ -104,7 +119,7 @@ export default class GraphMonitorView extends View
 		const ty = NumberUtil.map(value, min, max, bounds.height, 0);
 		tooltipElem.style.left = `${tx}px`;
 		tooltipElem.style.top = `${ty}px`;
-		this.tooltipElem_.textContent = `${this.formatter_.format(value)}`;
+		tooltipElem.textContent = `${this.formatter_.format(value)}`;
 	}
 
 	private onValueUpdate_(): void {

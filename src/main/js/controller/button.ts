@@ -23,6 +23,10 @@ export default class ButtonController {
 		this.view.buttonElement.addEventListener('click', this.onButtonClick_);
 	}
 
+	public dispose(): void {
+		this.view.dispose();
+	}
+
 	private onButtonClick_() {
 		this.button.click();
 	}

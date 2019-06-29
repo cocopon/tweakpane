@@ -3,9 +3,8 @@ import Color from '../../model/color';
 import InputValue from '../../model/input-value';
 import ColorSwatchInputView from '../input/color-swatch';
 import View from '../view';
-import TextInputView from './text';
-
 import {InputView} from './input';
+import TextInputView from './text';
 
 interface Config {
 	swatchInputView: ColorSwatchInputView;
@@ -42,6 +41,12 @@ export default class ColorSwatchTextInputView extends View
 
 	get value(): InputValue<Color> {
 		return this.textInputView_.value;
+	}
+
+	public dispose(): void {
+		this.swatchInputView_.dispose();
+		this.textInputView_.dispose();
+		super.dispose();
 	}
 
 	public update(): void {

@@ -35,4 +35,16 @@ describe(TextInputController.name, () => {
 
 		assert.strictEqual(c.value.rawValue, 3.14);
 	});
+
+	it('should dispose', () => {
+		const value = new InputValue(0);
+		const doc = TestUtil.createWindow().document;
+		const c = new TextInputController(doc, {
+			formatter: new NumberFormatter(2),
+			parser: NumberParser,
+			value: value,
+		});
+		c.dispose();
+		assert.strictEqual(c.view.disposed, true);
+	});
 });

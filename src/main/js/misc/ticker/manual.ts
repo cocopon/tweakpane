@@ -14,6 +14,10 @@ export default class IntervalTicker implements Ticker {
 		this.emitter = new Emitter();
 	}
 
+	public dispose(): void {
+		// Do nothing
+	}
+
 	public tick(): void {
 		this.emitter.emit('tick');
 	}

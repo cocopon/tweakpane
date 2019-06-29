@@ -1,6 +1,14 @@
-type ErrorType = 'emptyvalue' | 'invalidparams' | 'nomatchingcontroller';
+type ErrorType =
+	| 'alreadydisposed'
+	| 'emptyvalue'
+	| 'invalidparams'
+	| 'nomatchingcontroller'
+	| 'shouldneverhappen';
 
 type Config =
+	| {
+			type: 'alreadydisposed';
+	  }
 	| {
 			context: {key: string};
 			type: 'emptyvalue';
@@ -12,9 +20,15 @@ type Config =
 	| {
 			context: {key: string};
 			type: 'nomatchingcontroller';
+	  }
+	| {
+			type: 'shouldneverhappen';
 	  };
 
 function createMessage(config: Config): string {
+	if (config.type === 'alreadydisposed') {
+		return 'View has been already disposed';
+	}
 	if (config.type === 'emptyvalue') {
 		return `Value is empty for ${config.context.key}`;
 	}
@@ -24,10 +38,21 @@ function createMessage(config: Config): string {
 	if (config.type === 'nomatchingcontroller') {
 		return `No matching controller for ${config.context.key}`;
 	}
+	if (config.type === 'shouldneverhappen') {
+		return 'This error should never happen';
+	}
 	return 'Unexpected error';
 }
 
 export default class PaneError {
+	public static alreadyDisposed(): PaneError {
+		return new PaneError({type: 'alreadydisposed'});
+	}
+
+	public static shouldNeverHappen(): PaneError {
+		return new PaneError({type: 'shouldneverhappen'});
+	}
+
 	public readonly message: string;
 	public readonly name: string;
 	public readonly stack?: string;

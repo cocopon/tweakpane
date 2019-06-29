@@ -1,8 +1,10 @@
 import ColorFormatter from '../../formatter/color';
 import ClassName from '../../misc/class-name';
 import * as ColorModel from '../../misc/color-model';
+import * as DisposingUtil from '../../misc/disposing-util';
 import * as DomUtil from '../../misc/dom-util';
 import NumberUtil from '../../misc/number-util';
+import PaneError from '../../misc/pane-error';
 import Color from '../../model/color';
 import InputValue from '../../model/input-value';
 import View from '../view';
@@ -17,9 +19,9 @@ interface Config {
  * @hidden
  */
 export default class HPaletteInputView extends View {
-	public readonly canvasElement: HTMLCanvasElement;
 	public readonly value: InputValue<Color>;
-	private markerElem_: HTMLDivElement;
+	private canvasElem_: HTMLCanvasElement | null;
+	private markerElem_: HTMLDivElement | null;
 
 	constructor(document: Document, config: Config) {
 		super(document);
@@ -35,7 +37,7 @@ export default class HPaletteInputView extends View {
 		canvasElem.classList.add(className('c'));
 		canvasElem.tabIndex = -1;
 		this.element.appendChild(canvasElem);
-		this.canvasElement = canvasElem;
+		this.canvasElem_ = canvasElem;
 
 		const markerElem = document.createElement('div');
 		markerElem.classList.add(className('m'));
@@ -45,7 +47,24 @@ export default class HPaletteInputView extends View {
 		this.update();
 	}
 
+	get canvasElement(): HTMLCanvasElement {
+		if (!this.canvasElem_) {
+			throw PaneError.alreadyDisposed();
+		}
+		return this.canvasElem_;
+	}
+
+	public dispose(): void {
+		this.canvasElem_ = DisposingUtil.disposeElement(this.canvasElem_);
+		this.markerElem_ = DisposingUtil.disposeElement(this.markerElem_);
+		super.dispose();
+	}
+
 	public update(): void {
+		if (!this.markerElem_) {
+			throw PaneError.alreadyDisposed();
+		}
+
 		const ctx = DomUtil.getCanvasContext(this.canvasElement);
 		if (!ctx) {
 			return;

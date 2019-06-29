@@ -1,4 +1,6 @@
 import ClassName from '../../misc/class-name';
+import * as DisposingUtil from '../../misc/disposing-util';
+import PaneError from '../../misc/pane-error';
 import InputValue from '../../model/input-value';
 import View from '../view';
 
@@ -16,7 +18,7 @@ const className = ClassName('ckb', 'input');
 export default class CheckboxInputView extends View
 	implements InputView<boolean> {
 	public readonly value: InputValue<boolean>;
-	private inputElem_: HTMLInputElement;
+	private inputElem_: HTMLInputElement | null;
 
 	constructor(document: Document, config: Config) {
 		super(document);
@@ -46,10 +48,21 @@ export default class CheckboxInputView extends View
 	}
 
 	get inputElement(): HTMLInputElement {
+		if (!this.inputElem_) {
+			throw PaneError.alreadyDisposed();
+		}
 		return this.inputElem_;
 	}
 
+	public dispose(): void {
+		this.inputElem_ = DisposingUtil.disposeElement(this.inputElem_);
+		super.dispose();
+	}
+
 	public update(): void {
+		if (!this.inputElem_) {
+			throw PaneError.alreadyDisposed();
+		}
 		this.inputElem_.checked = this.value.rawValue;
 	}
 

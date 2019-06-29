@@ -1,8 +1,9 @@
+import {ListItem} from '../../constraint/list';
 import ClassName from '../../misc/class-name';
+import * as DisposingUtil from '../../misc/disposing-util';
+import PaneError from '../../misc/pane-error';
 import InputValue from '../../model/input-value';
 import View from '../view';
-
-import {ListItem} from '../../constraint/list';
 import {InputView} from './input';
 
 interface Config<T> {
@@ -18,7 +19,7 @@ const className = ClassName('lst', 'input');
  */
 export default class ListInputView<T> extends View implements InputView<T> {
 	public readonly value: InputValue<T>;
-	private selectElem_: HTMLSelectElement;
+	private selectElem_: HTMLSelectElement | null;
 	private stringifyValue_: (value: T) => string;
 
 	constructor(document: Document, config: Config<T>) {
@@ -53,10 +54,21 @@ export default class ListInputView<T> extends View implements InputView<T> {
 	}
 
 	get selectElement(): HTMLSelectElement {
+		if (!this.selectElem_) {
+			throw PaneError.alreadyDisposed();
+		}
 		return this.selectElem_;
 	}
 
+	public dispose(): void {
+		this.selectElem_ = DisposingUtil.disposeElement(this.selectElem_);
+		super.dispose();
+	}
+
 	public update(): void {
+		if (!this.selectElem_) {
+			throw PaneError.alreadyDisposed();
+		}
 		this.selectElem_.value = this.stringifyValue_(this.value.rawValue);
 	}
 

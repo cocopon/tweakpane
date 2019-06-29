@@ -33,6 +33,15 @@ function createApi(target: Target) {
 }
 
 describe(MonitorBindingApi.name, () => {
+	it('should dispose', () => {
+		const PARAMS = {
+			foo: 0,
+		};
+		const api = createApi(new Target(PARAMS, 'foo'));
+		api.dispose();
+		assert.strictEqual(api.controller.view.disposed, true);
+	});
+
 	it('should listen update event', (done) => {
 		const PARAMS = {
 			foo: 0,

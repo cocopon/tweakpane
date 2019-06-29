@@ -46,6 +46,10 @@ export default class GraphMonitorController
 		);
 	}
 
+	public dispose(): void {
+		this.view.dispose();
+	}
+
 	private onGraphMouseLeave_(): void {
 		this.cursor_.index = -1;
 	}

@@ -30,6 +30,10 @@ export default class CheckboxInputController
 		this.view.inputElement.addEventListener('change', this.onInputChange_);
 	}
 
+	public dispose(): void {
+		this.view.dispose();
+	}
+
 	private onInputChange_(e: Event): void {
 		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
 		this.value.rawValue = inputElem.checked;

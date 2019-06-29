@@ -88,6 +88,13 @@ export default class ColorPickerInputView extends View {
 		);
 	}
 
+	public dispose(): void {
+		this.hPaletteView_.dispose();
+		this.rgbInputViews_ = [];
+		this.svPaletteView_.dispose();
+		super.dispose();
+	}
+
 	public update(): void {
 		if (this.foldable.expanded) {
 			this.element.classList.add(className(undefined, 'expanded'));

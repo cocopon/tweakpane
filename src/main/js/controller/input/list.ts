@@ -56,6 +56,10 @@ export default class ListInputController<T> implements InputController<T> {
 		return this.view_;
 	}
 
+	public dispose(): void {
+		this.view.dispose();
+	}
+
 	private onSelectChange_(e: Event): void {
 		const selectElem: HTMLSelectElement = TypeUtil.forceCast(e.currentTarget);
 		const optElem = selectElem.selectedOptions.item(0);

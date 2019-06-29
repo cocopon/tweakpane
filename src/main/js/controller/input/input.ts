@@ -9,4 +9,6 @@ import {InputView} from '../../view/input/input';
 export interface InputController<T> {
 	readonly value: InputValue<T>;
 	readonly view: View & InputView<T>;
+
+	dispose(): void;
 }

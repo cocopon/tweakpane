@@ -1,9 +1,9 @@
 import * as ColorConverter from '../../converter/color';
 import ClassName from '../../misc/class-name';
+import PaneError from '../../misc/pane-error';
 import Color from '../../model/color';
 import MonitorValue from '../../model/monitor-value';
 import View from '../view';
-
 import {MonitorView} from './monitor';
 
 interface Config {
@@ -18,7 +18,7 @@ const className = ClassName('csw', 'monitor');
 export default class ColorSwatchMonitorView extends View
 	implements MonitorView<Color> {
 	public readonly value: MonitorValue<Color>;
-	private swatchElem_: HTMLDivElement;
+	private swatchElem_: HTMLDivElement | null;
 
 	constructor(document: Document, config: Config) {
 		super(document);
@@ -39,8 +39,11 @@ export default class ColorSwatchMonitorView extends View
 	}
 
 	public update(): void {
-		const values = this.value.rawValues;
+		if (!this.swatchElem_) {
+			throw PaneError.alreadyDisposed();
+		}
 
+		const values = this.value.rawValues;
 		this.swatchElem_.style.backgroundColor =
 			values.length > 0
 				? ColorConverter.toString(values[values.length - 1])

@@ -1,10 +1,11 @@
 import * as ColorConverter from '../../converter/color';
 import ClassName from '../../misc/class-name';
+import * as DisposingUtil from '../../misc/disposing-util';
+import PaneError from '../../misc/pane-error';
 import Color from '../../model/color';
 import InputValue from '../../model/input-value';
 import View from '../view';
 import ColorPickerInputView from './color-picker';
-
 import {InputView} from './input';
 
 interface Config {
@@ -21,11 +22,14 @@ export default class ColorSwatchInputView extends View
 	implements InputView<Color> {
 	public readonly value: InputValue<Color>;
 	private pickerView_: ColorPickerInputView;
-	private buttonElem_: HTMLButtonElement;
-	private swatchElem_: HTMLDivElement;
+	private buttonElem_: HTMLButtonElement | null;
+	private swatchElem_: HTMLDivElement | null;
 
 	constructor(document: Document, config: Config) {
 		super(document);
+		if (this.element === null) {
+			throw PaneError.alreadyDisposed();
+		}
 
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
@@ -54,10 +58,24 @@ export default class ColorSwatchInputView extends View
 	}
 
 	get buttonElement(): HTMLButtonElement {
+		if (this.buttonElem_ === null) {
+			throw PaneError.alreadyDisposed();
+		}
 		return this.buttonElem_;
 	}
 
+	public dispose(): void {
+		this.pickerView_.dispose();
+		this.buttonElem_ = DisposingUtil.disposeElement(this.buttonElem_);
+		this.swatchElem_ = DisposingUtil.disposeElement(this.swatchElem_);
+		super.dispose();
+	}
+
 	public update(): void {
+		if (!this.swatchElem_) {
+			throw PaneError.alreadyDisposed();
+		}
+
 		const value = this.value.rawValue;
 		this.swatchElem_.style.backgroundColor = ColorConverter.toString(value);
 	}

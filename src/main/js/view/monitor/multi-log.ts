@@ -1,8 +1,9 @@
+import {Formatter} from '../../formatter/formatter';
 import ClassName from '../../misc/class-name';
+import * as DisposingUtil from '../../misc/disposing-util';
+import PaneError from '../../misc/pane-error';
 import MonitorValue from '../../model/monitor-value';
 import View from '../view';
-
-import {Formatter} from '../../formatter/formatter';
 import {MonitorView} from './monitor';
 
 interface Config<T> {
@@ -19,7 +20,7 @@ export default class MultiLogMonitorView<T> extends View
 	implements MonitorView<T> {
 	public readonly value: MonitorValue<T>;
 	private formatter_: Formatter<T>;
-	private textareaElem_: HTMLTextAreaElement;
+	private textareaElem_: HTMLTextAreaElement | null;
 
 	constructor(document: Document, config: Config<T>) {
 		super(document);
@@ -42,8 +43,17 @@ export default class MultiLogMonitorView<T> extends View
 		this.update();
 	}
 
+	public dispose(): void {
+		this.textareaElem_ = DisposingUtil.disposeElement(this.textareaElem_);
+		super.dispose();
+	}
+
 	public update(): void {
 		const elem = this.textareaElem_;
+		if (!elem) {
+			throw PaneError.alreadyDisposed();
+		}
+
 		const shouldScroll =
 			elem.scrollTop === elem.scrollHeight - elem.clientHeight;
 

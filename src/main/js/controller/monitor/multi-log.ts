@@ -25,4 +25,8 @@ export default class MultiLogMonitorController<T>
 			value: this.value,
 		});
 	}
+
+	public dispose(): void {
+		this.view.dispose();
+	}
 }

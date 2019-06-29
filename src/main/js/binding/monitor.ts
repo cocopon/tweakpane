@@ -32,6 +32,10 @@ export default class MonitorBinding<In> {
 		this.read();
 	}
 
+	public dispose(): void {
+		this.ticker.dispose();
+	}
+
 	public read(): void {
 		const targetValue = this.target.read();
 		if (targetValue !== undefined) {

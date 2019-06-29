@@ -1,4 +1,6 @@
 import ClassName from '../misc/class-name';
+import * as DisposingUtil from '../misc/disposing-util';
+import PaneError from '../misc/pane-error';
 import Folder from '../model/folder';
 import View from './view';
 
@@ -12,7 +14,7 @@ const className = ClassName('rot');
  * @hidden
  */
 export default class RootView extends View {
-	private containerElem_: HTMLDivElement;
+	private containerElem_: HTMLDivElement | null;
 	private folder_: Folder | null;
 	private titleElem_: HTMLButtonElement | null;
 
@@ -55,7 +57,17 @@ export default class RootView extends View {
 	}
 
 	get containerElement(): HTMLDivElement {
+		if (!this.containerElem_) {
+			throw PaneError.alreadyDisposed();
+		}
 		return this.containerElem_;
+	}
+
+	public dispose(): void {
+		this.containerElem_ = DisposingUtil.disposeElement(this.containerElem_);
+		this.folder_ = null;
+		this.titleElem_ = DisposingUtil.disposeElement(this.titleElem_);
+		super.dispose();
 	}
 
 	private applyModel_() {

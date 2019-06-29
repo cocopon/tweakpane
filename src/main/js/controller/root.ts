@@ -72,6 +72,10 @@ export default class RootController {
 		return this.ucList_;
 	}
 
+	public dispose(): void {
+		this.view.dispose();
+	}
+
 	private onUiControllerListAppend_(uc: UiController) {
 		if (uc instanceof InputBindingController) {
 			const emitter = uc.binding.value.emitter;

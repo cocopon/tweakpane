@@ -51,4 +51,24 @@ describe(ListInputController.name, () => {
 
 		assert.strictEqual(c.value.rawValue, 34);
 	});
+
+	it('should dispose', () => {
+		const value = new InputValue(
+			0,
+			new ListConstraint({
+				options: [
+					{text: 'foo', value: 12},
+					{text: 'bar', value: 34},
+					{text: 'baz', value: 56},
+				],
+			}),
+		);
+		const doc = TestUtil.createWindow().document;
+		const c = new ListInputController(doc, {
+			stringifyValue: NumberConverter.toString,
+			value: value,
+		});
+		c.dispose();
+		assert.strictEqual(c.view.disposed, true);
+	});
 });

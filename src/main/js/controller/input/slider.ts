@@ -67,6 +67,10 @@ export default class SliderInputController implements InputController<number> {
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
 	}
 
+	public dispose(): void {
+		this.view.dispose();
+	}
+
 	private onPointerDown_(d: PointerData): void {
 		this.value.rawValue = NumberUtil.map(
 			d.px,

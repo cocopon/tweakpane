@@ -25,4 +25,8 @@ export default class SingleLogMonitorController<T>
 			value: this.value,
 		});
 	}
+
+	public dispose(): void {
+		this.view.dispose();
+	}
 }

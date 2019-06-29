@@ -1,4 +1,6 @@
 import ClassName from '../../misc/class-name';
+import * as DisposingUtil from '../../misc/disposing-util';
+import PaneError from '../../misc/pane-error';
 import MonitorValue from '../../model/monitor-value';
 import View from '../view';
 
@@ -19,7 +21,7 @@ export default class SingleLogMonitorView<T> extends View
 	implements MonitorView<T> {
 	public readonly value: MonitorValue<T>;
 	private formatter_: Formatter<T>;
-	private inputElem_: HTMLInputElement;
+	private inputElem_: HTMLInputElement | null;
 
 	constructor(document: Document, config: Config<T>) {
 		super(document);
@@ -43,9 +45,17 @@ export default class SingleLogMonitorView<T> extends View
 		this.update();
 	}
 
-	public update(): void {
-		const values = this.value.rawValues;
+	public dispose(): void {
+		this.inputElem_ = DisposingUtil.disposeElement(this.inputElem_);
+		super.dispose();
+	}
 
+	public update(): void {
+		if (!this.inputElem_) {
+			throw PaneError.alreadyDisposed();
+		}
+
+		const values = this.value.rawValues;
 		this.inputElem_.value =
 			values.length > 0
 				? this.formatter_.format(values[values.length - 1])

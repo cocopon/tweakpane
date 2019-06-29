@@ -40,6 +40,10 @@ export default class NumberTextInputController extends TextInputController<
 		this.view.inputElement.addEventListener('keydown', this.onInputKeyDown_);
 	}
 
+	public dispose(): void {
+		this.view.dispose();
+	}
+
 	private onInputKeyDown_(e: KeyboardEvent): void {
 		const step = this.step_ * (e.altKey ? 0.1 : 1) * (e.shiftKey ? 10 : 1);
 
