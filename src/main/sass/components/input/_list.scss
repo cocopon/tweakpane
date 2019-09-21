@@ -2,13 +2,13 @@
 	@include propertyView();
 
 	position: relative;
+	color: var(--input-light-fg-color);
 
 	&_s {
 		@include resetInput();
 
 		background-color: var(--input-light-bg-color);
-		border-radius: var(--input-border-radius);
-		color: var(--input-light-fg-color);
+		border-radius: var(--input-border-radius);	
 		cursor: pointer;
 		display: block;
 		height: var(--input-height);
@@ -27,7 +27,7 @@
 		}
 	}
 	&_m {
-		border-color: var(--input-light-fg-color) transparent transparent;
+		border-color: currentColor transparent transparent;
 		border-style: solid;
 		border-width: 3px;
 		bottom: 0;

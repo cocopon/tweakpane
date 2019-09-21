@@ -48,7 +48,7 @@ $prefix: 'tp';
 	--input-light-active-bg-color: hsl(var(--color-light-hs), calc(var(--color-light-l) + 15%));
 	--input-light-focus-bg-color: hsl(var(--color-light-hs), calc(var(--color-light-l) + 10%));
 	--input-light-hover-bg-color: hsl(var(--color-light-hs), calc(var(--color-light-l) + 5%));
-	--input-light-fg-color: var(--bg-color-hsl);
+	--input-light-fg-color: hsl(var(--bg-color-hsl));
 
 	// Monitor
 	--monitor-bg-color: hsla(var(--color-exdark-hsl), 0.5);
