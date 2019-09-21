@@ -21,6 +21,7 @@
 		position: relative;
 		transition: height 0.2s ease-in-out, opacity 0.2s linear,
 			padding 0.2s ease-in-out;
+		will-change: height, opacity, padding;
 	}
 	&_t:hover + &_c {
 		border-left-color: var(--folder-title-hover-bg-color);
@@ -40,5 +41,6 @@
 		// Delay opacity transition to avoid overflow contents
 		transition: height 0.2s ease-in-out, opacity 0.2s linear 0.2s,
 			padding 0.2s ease-in-out;
+		will-change: height, opacity, padding;
 	}
 }
