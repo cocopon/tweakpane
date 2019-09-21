@@ -15,6 +15,7 @@
     "dist"
   ],
   "scripts": {
+		"start": "npm run dev",
     "prepare": "run-s clean main:prepare",
     "prepublishOnly": "npm test",
     "test": "run-s doc:test main:test",
