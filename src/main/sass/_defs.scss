@@ -1,64 +1,198 @@
 $prefix: 'tp';
 
+@mixin setVar($name, $value) {
+	--#{$name}: var(--#{$prefix}-#{$name}, #{$value});
+}
+
 .#{$prefix}-rotv {
 	// Font
-	--font-family: 'Roboto Mono', 'Source Code Pro', Menlo, Courier, monospace;
+	@include setVar(
+		'font-family', ('Roboto Mono', 'Source Code Pro', Menlo, Courier, monospace));
 
 	// Geometry
-	--input-height: 20px;
+	@include setVar(
+		'input-height', 20px);
 
 	// Colors
 
 	// Base
-	--base-hue: 230;
+	@include setVar(
+		'base-hue', 
+		230
+	);
 
-	--color-exdark-hsl: var(--base-hue), 7%, 10%;
-	--color-dark-hsl: var(--base-hue), 7%, 20%;
+	@include setVar(
+		'color-exdark-hsl', 
+		(var(--base-hue), 7%, 10%)
+	);
 
-	--color-light-hs: var(--base-hue), 7%;
-	--color-light-l: 70%;
-	--color-light-hsl: var(--color-light-hs), var(--color-light-l);
+	@include setVar(
+		'color-dark-hsl', 
+		(var(--base-hue), 7%, 20%)
+	);
 
-	--color-exlight-hsl: var(--base-hue), 7%, 80%;
+	@include setVar(
+		'color-light-hs', 
+		(var(--base-hue), 7%)
+	);
+	
+	@include setVar(
+		'color-light-l',
+		70%
+	);
+	
+	@include setVar(
+		'color-light-hsl', 
+		(var(--color-light-hs), var(--color-light-l))
+	);
 
-	--bg-color-hsl: var(--color-dark-hsl);
-	--fg-color-hsl: var(--color-exlight-hsl);
-	--bg-color: hsl(var(--color-dark-hsl));
-	--fg-color: hsl(var(--color-exlight-hsl));
+	@include setVar(
+		'color-exlight-hsl', 
+		(var(--base-hue), 7%, 80%)
+	);
+
+	@include setVar(
+		'bg-color-hsl', 
+		var(--color-dark-hsl)
+	);
+	
+	@include setVar(
+		'fg-color-hsl', 
+		var(--color-exlight-hsl)
+	);
+	
+	@include setVar(
+		'bg-color',
+		unquote('hsl(var(--color-dark-hsl))')
+	);
+	
+	@include setVar(
+		'fg-color', 
+		unquote('hsl(var(--color-exlight-hsl))')
+	);
 
 	// Z-index
-	--z-index-color-picker: var(1000);
+	@include setVar(
+		'z-index-color-picker',
+		 var(1000)
+	);
 
 	// Folder
-	--folder-mark-hole-color: hsla(var(--bg-color-hsl), 0.5);
-	--folder-title-bg-color: hsla(var(--fg-color-hsl), 0.1);
-	--folder-title-active-bg-color: hsla(var(--fg-color-hsl), 0.25);
-	--folder-title-focus-bg-color: hsla(var(--fg-color-hsl), 0.2);
-	--folder-title-hover-bg-color: hsla(var(--fg-color-hsl), 0.15);
+	@include setVar(
+		'folder-mark-hole-color', 
+		unquote('hsla(var(--bg-color-hsl), 0.5)')
+	);
+	
+	@include setVar(
+		'folder-title-bg-color', 
+		unquote('hsla(var(--fg-color-hsl), 0.1)')
+	);
+	
+	@include setVar(
+		'folder-title-active-bg-color', 
+		unquote('hsla(var(--fg-color-hsl), 0.25)')
+	);
+
+	@include setVar(
+		'folder-title-focus-bg-color', 
+		unquote('hsla(var(--fg-color-hsl), 0.2)')
+	);
+	@include setVar(
+		'folder-title-hover-bg-color', 
+		unquote('hsla(var(--fg-color-hsl), 0.15)')
+	);
 
 	// Input
-	--input-bg-color: hsla(var(--fg-color-hsl), 0.15);
-	--input-border-radius: 2px;
-	--input-fg-color-hsl: var(--fg-color-hsl);
-	--input-fg-color: hsl(var(--fg-color-hsl));
-	--input-active-bg-color: hsla(var(--input-fg-color-hsl), 0.35);
-	--input-focus-bg-color: hsla(var(--input-fg-color-hsl), 0.25);
-	--input-hover-bg-color: hsla(var(--input-fg-color-hsl), 0.15);
-	--input-light-bg-color: hsl(var(--color-light-hsl));
-	--input-light-active-bg-color: hsl(var(--color-light-hs), calc(var(--color-light-l) + 15%));
-	--input-light-focus-bg-color: hsl(var(--color-light-hs), calc(var(--color-light-l) + 10%));
-	--input-light-hover-bg-color: hsl(var(--color-light-hs), calc(var(--color-light-l) + 5%));
-	--input-light-fg-color: hsl(var(--bg-color-hsl));
+	@include setVar(
+		'input-bg-color', 
+		unquote('hsla(var(--fg-color-hsl), 0.15)')
+	);
+	
+	@include setVar(
+		'input-border-radius', 
+		2px
+	);
+	
+	@include setVar(
+		'input-fg-color-hsl', 
+		var(--fg-color-hsl)
+	);
+	
+	@include setVar(
+		'input-fg-color', 
+		unquote('hsl(var(--fg-color-hsl))')
+	);
+
+	@include setVar(
+		'input-active-bg-color', 
+		unquote('hsla(var(--input-fg-color-hsl), 0.35)')
+	);
+
+	@include setVar(
+		'input-focus-bg-color', 
+		unquote('hsla(var(--input-fg-color-hsl), 0.25)')
+	);
+
+	@include setVar(
+		'input-hover-bg-color', 
+		unquote('hsla(var(--input-fg-color-hsl), 0.15)')
+	);
+
+	@include setVar(
+		'input-light-bg-color', 
+		unquote('hsl(var(--color-light-hsl))')
+	);
+
+	@include setVar(
+		'input-light-active-bg-color', 
+		unquote('hsl(var(--color-light-hs), calc(var(--color-light-l) + 15%))')
+	);
+
+	@include setVar(
+		'input-light-focus-bg-color', 
+		unquote('hsl(var(--color-light-hs), calc(var(--color-light-l) + 10%))')
+	);
+	
+	@include setVar(
+		'input-light-hover-bg-color', 
+		unquote('hsl(var(--color-light-hs), calc(var(--color-light-l) + 5%))')
+	);
+
+	@include setVar(
+		'input-light-fg-color', 
+		unquote('hsl(var(--bg-color-hsl))')
+	);
 
 	// Monitor
-	--monitor-bg-color: hsla(var(--color-exdark-hsl), 0.5);
-	--monitor-fg-color: hsla(var(--fg-color-hsl), 0.7);
+	@include setVar(
+		'monitor-bg-color', 
+		unquote('hsla(var(--color-exdark-hsl), 0.5)')
+	);
+	@include setVar(
+		'monitor-fg-color', 
+		unquote('hsla(var(--fg-color-hsl), 0.7)')
+	);
 
 	// Misc
-	--label-fg-color: hsla(var(--fg-color-hsl), 0.8);
-	--root-border-radius: 6px;
-	--separator-color: hsla(var(--color-exdark-hsl), 0.3);
-	--slider-input-bar-color: hsla(var(--fg-color-hsl), 0.2);
+	@include setVar(
+		'label-fg-color', 
+		unquote('hsla(var(--fg-color-hsl), 0.8)')
+	);
+
+	@include setVar(
+		'root-border-radius', 
+		6px
+	);
+	
+	@include setVar(
+		'separator-color', 
+		unquote('hsla(var(--color-exdark-hsl), 0.3)')
+	);
+
+	@include setVar(
+		'slider-input-bar-color', 
+		unquote('hsla(var(--fg-color-hsl), 0.2)')
+	);
 }
 
 // Mixins
