@@ -1,12 +1,12 @@
 .#{$prefix}-clpiv {
-	background-color: $bg-color;
+	background-color: var(--bg-color);
 	border-radius: 6px;
 	box-shadow: 0 2px 4px rgba(black, 0.2);
 	display: none;
 	padding: 4px;
 	position: relative;
 	visibility: hidden;
-	z-index: $z-index-color-picker;
+	z-index: var(--z-index-color-picker);
 
 	&#{&}-expanded {
 		display: block;
@@ -34,7 +34,7 @@
 		}
 	}
 	&_il {
-		color: $label-fg-color;
+		color: var(--label-fg-color);
 		margin-left: 4px;
 		margin-right: 8px;
 	}
@@ -47,7 +47,7 @@
 }
 
 .#{$prefix}-hpliv {
-	border-radius: $input-border-radius;
+	border-radius: var(--input-border-radius);
 	overflow: hidden;
 	position: relative;
 
@@ -71,7 +71,7 @@
 	}
 }
 .#{$prefix}-svpiv {
-	border-radius: $input-border-radius;
+	border-radius: var(--input-border-radius);
 	overflow: hidden;
 	position: relative;
 

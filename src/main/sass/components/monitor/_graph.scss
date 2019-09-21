@@ -7,11 +7,11 @@
 		@include monitorView();
 
 		display: block;
-		height: $input-height * 3;
+		height: calc(var(--input-height) * 3);
 
 		polyline {
 			fill: none;
-			stroke: $monitor-fg-color;
+			stroke: var(--monitor-fg-color);
 			stroke-linejoin: round;
 		}
 	}

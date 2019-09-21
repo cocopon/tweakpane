@@ -13,17 +13,17 @@
 		top: 0;
 	}
 	&_m {
-		background-color: $input-bg-color;
-		border-radius: $input-border-radius;
+		background-color: var(--input-bg-color);
+		border-radius: var(--input-border-radius);
 		cursor: pointer;
 		display: block;
-		height: $input-height;
+		height: var(--input-height);
 		position: relative;
-		width: $input-height;
+		width: var(--input-height);
 
 		&::before {
-			background-color: $fg-color;
-			border-radius: $input-border-radius;
+			background-color: var(--fg-color);
+			border-radius: var(--input-border-radius);
 			bottom: 4px;
 			content: '';
 			display: block;
@@ -35,13 +35,13 @@
 		}
 	}
 	&_i:hover + &_m {
-		background-color: $input-hover-bg-color;
+		background-color: var(--input-hover-bg-color);
 	}
 	&_i:focus + &_m {
-		background-color: $input-focus-bg-color;
+		background-color: var(--input-focus-bg-color);
 	}
 	&_i:active + &_m {
-		background-color: $input-active-bg-color;
+		background-color: var(--input-active-bg-color);
 	}
 	&_i:checked + &_m::before {
 		opacity: 1;

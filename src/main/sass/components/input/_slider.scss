@@ -29,8 +29,8 @@
 		top: 0;
 
 		&::before {
-			background-color: $input-light-bg-color;
-			border-radius: $input-border-radius;
+			background-color: var(--input-light-bg-color);
+			border-radius: var(--input-border-radius);
 			bottom: 0;
 			content: '';
 			display: block;
@@ -43,12 +43,12 @@
 		}
 	}
 	&_o:hover &_i::before {
-		background-color: $input-light-hover-bg-color;
+		background-color: var(--input-light-hover-bg-color);
 	}
 	&_o:focus &_i::before {
-		background-color: $input-light-focus-bg-color;
+		background-color: var(--input-light-focus-bg-color);
 	}
 	&_o:active &_i::before {
-		background-color: $input-light-active-bg-color;
+		background-color: var(--input-light-active-bg-color);
 	}
 }

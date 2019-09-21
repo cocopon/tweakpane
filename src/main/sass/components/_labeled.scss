@@ -5,7 +5,7 @@
 	padding-right: 4px;
 
 	&_l {
-		color: $label-fg-color;
+		color: var(--label-fg-color);
 		flex: 1;
 		hyphens: auto;
 		padding-left: 4px;

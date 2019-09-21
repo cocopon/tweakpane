@@ -6,28 +6,28 @@
 	&_s {
 		@include resetInput();
 
-		background-color: $input-light-bg-color;
-		border-radius: $input-border-radius;
-		color: $input-light-fg-color;
+		background-color: var(--input-light-bg-color);
+		border-radius: var(--input-border-radius);
+		color: var(--input-light-fg-color);
 		cursor: pointer;
 		display: block;
-		height: $input-height;
-		line-height: $input-height;
+		height: var(--input-height);
+		line-height: var(--input-height);
 		padding: 0 4px;
 		width: 100%;
 
 		&:hover {
-			background-color: $input-light-hover-bg-color;
+			background-color: var(--input-light-hover-bg-color);
 		}
 		&:focus {
-			background-color: $input-light-focus-bg-color;
+			background-color: var(--input-light-focus-bg-color);
 		}
 		&:active {
-			background-color: $input-light-active-bg-color;
+			background-color: var(--input-light-active-bg-color);
 		}
 	}
 	&_m {
-		border-color: $input-light-fg-color transparent transparent;
+		border-color: var(--input-light-fg-color) transparent transparent;
 		border-style: solid;
 		border-width: 3px;
 		bottom: 0;

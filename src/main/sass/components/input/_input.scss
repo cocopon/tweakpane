@@ -15,18 +15,18 @@
 		border-width: 0;
 		cursor: pointer;
 		display: block;
-		height: $input-height;
+		height: var(--input-height);
 		left: 0;
 		margin: 0;
 		outline: none;
 		padding: 0;
 		position: absolute;
 		top: 0;
-		width: $input-height;
+		width: var(--input-height);
 
 		&:focus::after {
 			border: rgba(white, 0.75) solid 2px;
-			border-radius: $input-border-radius;
+			border-radius: var(--input-border-radius);
 			bottom: 0;
 			content: '';
 			display: block;
@@ -40,7 +40,7 @@
 		left: -4px;
 		position: absolute;
 		right: -4px;
-		top: $input-height;
+		top: var(--input-height);
 	}
 }
 
@@ -52,7 +52,7 @@
 	&_s {
 		flex-grow: 0;
 		flex-shrink: 0;
-		width: $input-height;
+		width: var(--input-height);
 	}
 	&_t {
 		flex: 1;
