@@ -29,7 +29,7 @@
 		}
 
 		&::before {
-			background-color: $monitor-fg-color;
+			background-color: var(--monitor-fg-color);
 			border-radius: 100%;
 			content: '';
 			display: block;

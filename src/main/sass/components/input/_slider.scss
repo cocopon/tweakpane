@@ -4,12 +4,12 @@
 	&_o {
 		box-sizing: border-box;
 		cursor: pointer;
-		height: $input-height;
+		height: var(--input-height);
 		margin: 0 6px;
 		position: relative;
 
 		&::before {
-			background-color: $slider-input-bar-color;
+			background-color: var(--slider-input-bar-color);
 			border-radius: 1px;
 			bottom: 0;
 			content: '';

@@ -34,8 +34,8 @@
 		// Clip subviews without `overflow: hidden` for popup elements (e.g. color picker)
 		& > .#{$prefix}-fldv:first-child {
 			.#{$prefix}-fldv_t {
-				border-top-left-radius: $root-border-radius;
-				border-top-right-radius: $root-border-radius;
+				border-top-left-radius: var(--root-border-radius);
+				border-top-right-radius: var(--root-border-radius);
 			}
 		}
 	}
