@@ -13,36 +13,15 @@
 		visibility: visible;
 	}
 
-	&_pl {
+	&_hsv {
 		display: flex;
-	}
-	&_sv {
 	}
 	&_h {
 		margin-left: 4px;
 	}
-	&_is {
+	&_rgb {
 		display: flex;
 		margin-top: 4px;
-	}
-	&_iw {
-		align-items: center;
-		display: flex;
-
-		& + & {
-			margin-left: 4px;
-		}
-	}
-	&_il {
-		color: $label-fg-color;
-		margin-left: 4px;
-		margin-right: 8px;
-	}
-	&_i {
-		@include inputView();
-
-		padding: 0 4px;
-		width: 100%;
 	}
 }
 

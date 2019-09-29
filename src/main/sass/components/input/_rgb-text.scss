@@ -1,0 +1,25 @@
+.#{$prefix}-rgbtxtiv {
+	display: flex;
+
+	&_w {
+		align-items: center;
+		display: flex;
+
+		& + & {
+			margin-left: 4px;
+		}
+	}
+	&_l {
+		color: $label-fg-color;
+		display: inline;
+		line-height: $input-height;
+		margin-left: 4px;
+		margin-right: 8px;
+	}
+	&_i {
+		@include inputView();
+
+		padding: 0 4px;
+		width: 100%;
+	}
+}
