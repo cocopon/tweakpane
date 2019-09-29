@@ -15,6 +15,11 @@ interface MapTestCase {
 	expected: number;
 }
 
+interface LoopTestCase {
+	args: [number, number];
+	expected: number;
+}
+
 describe('NumberUtil', () => {
 	[
 		{
@@ -96,9 +101,41 @@ describe('NumberUtil', () => {
 		},
 	].forEach((testCase: ConstrainTestCase) => {
 		context(`when ${JSON.stringify(testCase.args)}`, () => {
-			it(`should return ${testCase.expected}`, () => {
+			it(`should constrain ${testCase.expected}`, () => {
 				assert.strictEqual(
 					NumberUtil.constrain(...testCase.args),
+					testCase.expected,
+				);
+			});
+		});
+	});
+
+	[
+		{
+			args: [260 - 360 * 3, 360],
+			expected: 260,
+		},
+		{
+			args: [0, 360],
+			expected: 0,
+		},
+		{
+			args: [360, 360],
+			expected: 0,
+		},
+		{
+			args: [360 + 40, 360],
+			expected: 40,
+		},
+		{
+			args: [360 * 2 + 123, 360],
+			expected: 123,
+		},
+	].forEach((testCase: LoopTestCase) => {
+		context(`when ${JSON.stringify(testCase.args)}`, () => {
+			it(`should loop ${testCase.expected}`, () => {
+				assert.strictEqual(
+					NumberUtil.loop(...testCase.args),
 					testCase.expected,
 				);
 			});

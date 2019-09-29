@@ -12,7 +12,7 @@ export function fromMixed(value: unknown): Color {
 			return cv;
 		}
 	}
-	return new Color(0, 0, 0);
+	return new Color([0, 0, 0], 'rgb');
 }
 
 /**
@@ -20,7 +20,7 @@ export function fromMixed(value: unknown): Color {
  */
 export function toString(value: Color): string {
 	const hexes = value
-		.getComponents()
+		.getComponents('rgb')
 		.map((comp) => {
 			const hex = NumberUtil.constrain(Math.floor(comp), 0, 255).toString(16);
 			return hex.length === 1 ? `0${hex}` : hex;

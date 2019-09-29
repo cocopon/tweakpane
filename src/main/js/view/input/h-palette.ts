@@ -87,7 +87,7 @@ export default class HPaletteInputView extends View {
 		}
 
 		const c = this.value.rawValue;
-		const hsvComps = ColorModel.rgbToHsv(...c.getComponents());
+		const hsvComps = c.getComponents('hsv');
 		const top = NumberUtil.map(hsvComps[0], 0, 360, 0, 100);
 		this.markerElem_.style.top = `${top}%`;
 	}

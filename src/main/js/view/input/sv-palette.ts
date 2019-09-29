@@ -71,7 +71,7 @@ export default class SvPaletteInputView extends View {
 		}
 
 		const c = this.value.rawValue;
-		const hsvComps = ColorModel.rgbToHsv(...c.getComponents());
+		const hsvComps = c.getComponents('hsv');
 		const width = this.canvasElement.width;
 		const height = this.canvasElement.height;
 

@@ -64,7 +64,11 @@ export function hslToRgb(
 	return [(rp + m) * 255, (gp + m) * 255, (bp + m) * 255];
 }
 
-export function rgbToHsv(r: number, g: number, b: number): number[] {
+export function rgbToHsv(
+	r: number,
+	g: number,
+	b: number,
+): [number, number, number] {
 	const rp = NumberUtil.constrain(r / 255, 0, 1);
 	const gp = NumberUtil.constrain(g / 255, 0, 1);
 	const bp = NumberUtil.constrain(b / 255, 0, 1);
@@ -95,7 +99,7 @@ export function hsvToRgb(
 	s: number,
 	v: number,
 ): [number, number, number] {
-	const hp = ((h % 360) + 360) % 360;
+	const hp = NumberUtil.loop(h, 360);
 	const sp = NumberUtil.constrain(s / 100, 0, 1);
 	const vp = NumberUtil.constrain(v / 100, 0, 1);
 

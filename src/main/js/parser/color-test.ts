@@ -25,7 +25,10 @@ describe(ColorParser.name, () => {
 		context(`when ${JSON.stringify(testCase.input)}`, () => {
 			it(`it should parse as ${JSON.stringify(testCase.expected)}`, () => {
 				const actual = ColorParser(testCase.input);
-				assert.deepStrictEqual(actual && actual.toObject(), testCase.expected);
+				assert.deepStrictEqual(
+					actual && actual.toRgbObject(),
+					testCase.expected,
+				);
 			});
 		});
 	});

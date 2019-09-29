@@ -59,17 +59,17 @@ export default class ColorPickerInputController
 			value: this.value,
 		});
 
-		const initialComps = this.value.rawValue.getComponents();
+		const initialComps = this.value.rawValue.getComponents('rgb');
 		const rgbValues = [0, 1, 2].map((index) => {
 			return new InputValue(initialComps[index], COMPONENT_CONSTRAINT);
 		});
 		rgbValues.forEach((compValue, index) => {
 			compValue.emitter.on('change', (rawValue: number) => {
-				const comps = this.value.rawValue.getComponents();
+				const comps = this.value.rawValue.getComponents('hsv');
 				if (index === 0 || index === 1 || index === 2) {
 					comps[index] = rawValue;
 				}
-				this.value.rawValue = new Color(...comps);
+				this.value.rawValue = new Color(comps, 'hsv');
 			});
 		});
 		this.rgbIcs_ = rgbValues.map((compValue) => {
@@ -107,7 +107,7 @@ export default class ColorPickerInputController
 	}
 
 	private onValueChange_(): void {
-		const comps = this.value.rawValue.getComponents();
+		const comps = this.value.rawValue.getComponents('rgb');
 		this.rgbIcs_.forEach((ic, index) => {
 			ic.value.rawValue = comps[index];
 		});

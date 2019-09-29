@@ -53,7 +53,7 @@ describe(ColorFormatter.name, () => {
 	testCases.forEach((testCase) => {
 		context(`when ${JSON.stringify(testCase.components)}`, () => {
 			it(`it should format to ${JSON.stringify(testCase.hex)}`, () => {
-				const c = new Color(...testCase.components);
+				const c = new Color(testCase.components, 'rgb');
 				const f = new ColorFormatter();
 				assert.strictEqual(f.format(c), testCase.hex);
 			});

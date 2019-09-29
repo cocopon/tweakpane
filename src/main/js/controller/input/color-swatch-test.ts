@@ -10,7 +10,7 @@ describe(ColorSwatchController.name, () => {
 	it('should dispose', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new ColorSwatchController(doc, {
-			value: new InputValue(new Color(0, 0, 0)),
+			value: new InputValue(new Color([0, 0, 0], 'rgb')),
 		});
 		c.dispose();
 		assert.strictEqual(c.view.disposed, true);

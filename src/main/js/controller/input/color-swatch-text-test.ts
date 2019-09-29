@@ -14,7 +14,7 @@ describe(ColorSwatchTextController.name, () => {
 		const c = new ColorSwatchTextController(doc, {
 			formatter: new ColorFormatter(),
 			parser: ColorParser,
-			value: new InputValue(new Color(0, 0, 0)),
+			value: new InputValue(new Color([0, 0, 0], 'rgb')),
 		});
 		c.dispose();
 		assert.strictEqual(c.view.disposed, true);

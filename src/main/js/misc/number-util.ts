@@ -19,6 +19,10 @@ const NumberUtil = {
 	constrain: (value: number, min: number, max: number): number => {
 		return Math.min(Math.max(value, min), max);
 	},
+
+	loop: (value: number, max: number): number => {
+		return ((value % max) + max) % max;
+	},
 };
 
 export default NumberUtil;

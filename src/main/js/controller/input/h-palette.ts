@@ -1,4 +1,3 @@
-import * as ColorModel from '../../misc/color-model';
 import NumberUtil from '../../misc/number-util';
 import PointerHandler from '../../misc/pointer-handler';
 import Color from '../../model/color';
@@ -45,8 +44,8 @@ export default class HPaletteInputController implements InputController<Color> {
 		const hue = NumberUtil.map(d.py, 0, 1, 0, 360);
 
 		const c = this.value.rawValue;
-		const [, s, v] = ColorModel.rgbToHsv(...c.getComponents());
-		this.value.rawValue = new Color(...ColorModel.hsvToRgb(hue, s, v));
+		const [, s, v] = c.getComponents('hsv');
+		this.value.rawValue = new Color([hue, s, v], 'hsv');
 		this.view.update();
 	}
 
