@@ -4,7 +4,7 @@ import * as StringConverter from '../../converter/string';
 import PaneError from '../../misc/pane-error';
 import Color from '../../model/color';
 import Target from '../../model/target';
-import ColorParser from '../../parser/color';
+import StringColorParser from '../../parser/string-color';
 import * as BooleanInputBindingControllerCreators from './boolean-input';
 import * as ColorInputBindingControllerCreators from './color-input';
 import * as NumberInputBindingControllerCreators from './number-input';
@@ -103,7 +103,7 @@ export function create(
 		);
 	}
 	if (typeof initialValue === 'string') {
-		const color = ColorParser(initialValue);
+		const color = StringColorParser(initialValue);
 		if (color) {
 			return ColorInputBindingControllerCreators.create(
 				document,

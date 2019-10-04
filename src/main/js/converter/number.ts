@@ -1,4 +1,4 @@
-import NumberParser from '../parser/number';
+import StringNumberParser from '../parser/string-number';
 
 /**
  * @hidden
@@ -9,7 +9,7 @@ export function fromMixed(value: unknown): number {
 	}
 
 	if (typeof value === 'string') {
-		const pv = NumberParser(value);
+		const pv = StringNumberParser(value);
 		if (pv !== null && pv !== undefined) {
 			return pv;
 		}

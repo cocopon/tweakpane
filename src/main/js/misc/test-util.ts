@@ -6,9 +6,9 @@ const TestUtil = {
 	},
 
 	createEvent: (win: Window, type: string, options?: object): Event => {
-		return options ?
-			new (win as any).Event(type, options) :
-			new (win as any).Event(type);
+		return options
+			? new (win as any).Event(type, options)
+			: new (win as any).Event(type);
 	},
 
 	createKeyboardEvent: (win: Window, type: string, options: object): Event => {

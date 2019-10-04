@@ -4,7 +4,7 @@ import {describe, it} from 'mocha';
 import NumberFormatter from '../../formatter/number';
 import TestUtil from '../../misc/test-util';
 import InputValue from '../../model/input-value';
-import NumberParser from '../../parser/number';
+import StringNumberParser from '../../parser/string-number';
 import TextInputController from './text';
 
 describe(TextInputController.name, () => {
@@ -13,7 +13,7 @@ describe(TextInputController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TextInputController(doc, {
 			formatter: new NumberFormatter(2),
-			parser: NumberParser,
+			parser: StringNumberParser,
 			value: value,
 		});
 
@@ -26,7 +26,7 @@ describe(TextInputController.name, () => {
 		const doc = win.document;
 		const c = new TextInputController(doc, {
 			formatter: new NumberFormatter(2),
-			parser: NumberParser,
+			parser: StringNumberParser,
 			value: value,
 		});
 
@@ -41,7 +41,7 @@ describe(TextInputController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TextInputController(doc, {
 			formatter: new NumberFormatter(2),
-			parser: NumberParser,
+			parser: StringNumberParser,
 			value: value,
 		});
 		c.dispose();

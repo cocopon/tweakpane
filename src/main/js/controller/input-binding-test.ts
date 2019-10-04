@@ -7,7 +7,7 @@ import NumberFormatter from '../formatter/number';
 import TestUtil from '../misc/test-util';
 import InputValue from '../model/input-value';
 import Target from '../model/target';
-import NumberParser from '../parser/number';
+import StringNumberParser from '../parser/string-number';
 import InputBindingController from './input-binding';
 import TextInputController from './input/text';
 
@@ -26,7 +26,7 @@ describe(InputBindingController.name, () => {
 		});
 		const controller = new TextInputController(doc, {
 			formatter: new NumberFormatter(0),
-			parser: NumberParser,
+			parser: StringNumberParser,
 			value: value,
 		});
 		const bc = new InputBindingController(doc, {

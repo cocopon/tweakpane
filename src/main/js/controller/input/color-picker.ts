@@ -3,7 +3,7 @@ import TypeUtil from '../../misc/type-util';
 import Color from '../../model/color';
 import Foldable from '../../model/foldable';
 import InputValue from '../../model/input-value';
-import NumberParser from '../../parser/number';
+import StringNumberParser from '../../parser/string-number';
 import ColorPickerInputView from '../../view/input/color-picker';
 import HPaletteInputController from './h-palette';
 import SvPaletteInputController from './sv-palette';
@@ -44,7 +44,7 @@ export default class ColorPickerInputController
 
 		this.rgbTextIc_ = new RgbTextInputController(document, {
 			formatter: new NumberFormatter(0),
-			parser: NumberParser,
+			parser: StringNumberParser,
 			value: this.value,
 		});
 

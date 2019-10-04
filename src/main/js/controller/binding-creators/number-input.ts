@@ -9,7 +9,7 @@ import NumberFormatter from '../../formatter/number';
 import NumberUtil from '../../misc/number-util';
 import InputValue from '../../model/input-value';
 import Target from '../../model/target';
-import NumberParser from '../../parser/number';
+import StringNumberParser from '../../parser/string-number';
 import InputBindingController from '../input-binding';
 import ListInputController from '../input/list';
 import NumberTextInputController from '../input/number-text';
@@ -84,14 +84,14 @@ function createController(document: Document, value: InputValue<number>) {
 	if (c && ConstraintUtil.findConstraint(c, RangeConstraint)) {
 		return new SliderTextInputController(document, {
 			formatter: new NumberFormatter(getSuitableDecimalDigits(value)),
-			parser: NumberParser,
+			parser: StringNumberParser,
 			value: value,
 		});
 	}
 
 	return new NumberTextInputController(document, {
 		formatter: new NumberFormatter(getSuitableDecimalDigits(value)),
-		parser: NumberParser,
+		parser: StringNumberParser,
 		value: value,
 	});
 }

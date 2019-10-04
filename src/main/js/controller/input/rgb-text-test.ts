@@ -5,7 +5,7 @@ import NumberFormatter from '../../formatter/number';
 import TestUtil from '../../misc/test-util';
 import Color, {RgbColorObject} from '../../model/color';
 import InputValue from '../../model/input-value';
-import NumberParser from '../../parser/number';
+import StringNumberParser from '../../parser/string-number';
 import RgbTextInputController from './rgb-text';
 
 interface ChangeTestCase {
@@ -34,7 +34,7 @@ describe(RgbTextInputController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new RgbTextInputController(doc, {
 			formatter: new NumberFormatter(0),
-			parser: NumberParser,
+			parser: StringNumberParser,
 			value: new InputValue(new Color([0, 0, 0], 'rgb')),
 		});
 		c.dispose();
@@ -68,8 +68,12 @@ describe(RgbTextInputController.name, () => {
 		},
 	].forEach((testCase: ChangeTestCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
-			it(`should change component values to ${JSON.stringify(testCase.expected)}`, (done) => {
-				const value = new InputValue(new Color(testCase.params.components, 'rgb'));
+			it(`should change component values to ${JSON.stringify(
+				testCase.expected,
+			)}`, (done) => {
+				const value = new InputValue(
+					new Color(testCase.params.components, 'rgb'),
+				);
 				value.emitter.on('change', () => {
 					assert.deepStrictEqual(
 						value.rawValue.toRgbObject(),
@@ -82,7 +86,7 @@ describe(RgbTextInputController.name, () => {
 				const doc = win.document;
 				const c = new RgbTextInputController(doc, {
 					formatter: new NumberFormatter(0),
-					parser: NumberParser,
+					parser: StringNumberParser,
 					value: value,
 				});
 
@@ -129,8 +133,12 @@ describe(RgbTextInputController.name, () => {
 		},
 	].forEach((testCase: KeydownTestCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
-			it(`should change component values to ${JSON.stringify(testCase.expected)}`, (done) => {
-				const value = new InputValue(new Color(testCase.params.components, 'rgb'));
+			it(`should change component values to ${JSON.stringify(
+				testCase.expected,
+			)}`, (done) => {
+				const value = new InputValue(
+					new Color(testCase.params.components, 'rgb'),
+				);
 				value.emitter.on('change', () => {
 					assert.deepStrictEqual(
 						value.rawValue.toRgbObject(),
@@ -143,15 +151,17 @@ describe(RgbTextInputController.name, () => {
 				const doc = win.document;
 				const c = new RgbTextInputController(doc, {
 					formatter: new NumberFormatter(0),
-					parser: NumberParser,
+					parser: StringNumberParser,
 					value: value,
 				});
 
 				const inputElem = c.view.inputElements[testCase.params.index];
-				inputElem.dispatchEvent(TestUtil.createKeyboardEvent(win, 'keydown', {
-					keyCode: testCase.params.keys.code,
-					shiftKey: !!testCase.params.keys.shift,
-				}));
+				inputElem.dispatchEvent(
+					TestUtil.createKeyboardEvent(win, 'keydown', {
+						keyCode: testCase.params.keys.code,
+						shiftKey: !!testCase.params.keys.shift,
+					}),
+				);
 			});
 		});
 	});

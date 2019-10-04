@@ -4,7 +4,7 @@ import ColorFormatter from '../../formatter/color';
 import Color from '../../model/color';
 import InputValue from '../../model/input-value';
 import Target from '../../model/target';
-import ColorParser from '../../parser/color';
+import StringColorParser from '../../parser/string-color';
 import InputBindingController from '../input-binding';
 import ColorSwatchTextInputController from '../input/color-swatch-text';
 
@@ -31,7 +31,7 @@ export function create(
 		}),
 		controller: new ColorSwatchTextInputController(document, {
 			formatter: new ColorFormatter(),
-			parser: ColorParser,
+			parser: StringColorParser,
 			value: value,
 		}),
 		label: params.label || target.key,

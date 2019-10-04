@@ -1,9 +1,9 @@
 import {assert} from 'chai';
 import {describe, describe as context, it} from 'mocha';
 
-import ColorParser from './color';
+import StringColorParser from './string-color';
 
-describe(ColorParser.name, () => {
+describe(StringColorParser.name, () => {
 	[
 		{
 			expected: {r: 0x11, g: 0x22, b: 0x33},
@@ -24,7 +24,7 @@ describe(ColorParser.name, () => {
 	].forEach((testCase) => {
 		context(`when ${JSON.stringify(testCase.input)}`, () => {
 			it(`it should parse as ${JSON.stringify(testCase.expected)}`, () => {
-				const actual = ColorParser(testCase.input);
+				const actual = StringColorParser(testCase.input);
 				assert.deepStrictEqual(
 					actual && actual.toRgbObject(),
 					testCase.expected,
@@ -34,7 +34,7 @@ describe(ColorParser.name, () => {
 	});
 
 	it('should not parse invalid string', () => {
-		assert.strictEqual(ColorParser('foobar'), null);
-		assert.strictEqual(ColorParser('#eeffgg'), null);
+		assert.strictEqual(StringColorParser('foobar'), null);
+		assert.strictEqual(StringColorParser('#eeffgg'), null);
 	});
 });

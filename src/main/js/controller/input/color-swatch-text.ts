@@ -10,7 +10,7 @@ import {InputController} from './input';
 
 interface Config {
 	formatter: Formatter<Color>;
-	parser: Parser<Color>;
+	parser: Parser<string, Color>;
 	value: InputValue<Color>;
 }
 

@@ -9,7 +9,7 @@ import {InputController} from './input';
 
 interface Config {
 	formatter: Formatter<number>;
-	parser: Parser<number>;
+	parser: Parser<string, number>;
 	value: InputValue<number>;
 }
 

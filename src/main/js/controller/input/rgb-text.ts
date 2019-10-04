@@ -9,7 +9,7 @@ import {InputController} from './input';
 
 interface Config {
 	formatter: Formatter<number>;
-	parser: Parser<number>;
+	parser: Parser<string, number>;
 	value: InputValue<Color>;
 }
 
@@ -21,7 +21,7 @@ const STEP = 1;
 export default class RgbTextInputController implements InputController<Color> {
 	public readonly value: InputValue<Color>;
 	public readonly view: RgbTextInputView;
-	private parser_: Parser<number>;
+	private parser_: Parser<string, number>;
 
 	constructor(document: Document, config: Config) {
 		this.onInputChange_ = this.onInputChange_.bind(this);
