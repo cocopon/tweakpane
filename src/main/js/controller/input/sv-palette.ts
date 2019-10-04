@@ -1,4 +1,3 @@
-import * as ColorModel from '../../misc/color-model';
 import NumberUtil from '../../misc/number-util';
 import PointerHandler from '../../misc/pointer-handler';
 import Color from '../../model/color';
@@ -46,11 +45,8 @@ export default class SvPaletteInputController
 		const saturation = NumberUtil.map(d.px, 0, 1, 0, 100);
 		const value = NumberUtil.map(d.py, 0, 1, 100, 0);
 
-		const c = this.value.rawValue;
-		const [h] = ColorModel.rgbToHsv(...c.getComponents());
-		this.value.rawValue = new Color(
-			...ColorModel.hsvToRgb(h, saturation, value),
-		);
+		const [h] = this.value.rawValue.getComponents('hsv');
+		this.value.rawValue = new Color([h, saturation, value], 'hsv');
 		this.view.update();
 	}
 

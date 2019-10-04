@@ -12,9 +12,12 @@ const SUB_PARSERS: Parser<Color>[] = [
 			return null;
 		}
 		return new Color(
-			parseInt(matches[1], 16),
-			parseInt(matches[2], 16),
-			parseInt(matches[3], 16),
+			[
+				parseInt(matches[1], 16),
+				parseInt(matches[2], 16),
+				parseInt(matches[3], 16),
+			],
+			'rgb',
 		);
 	},
 	// #abc
@@ -24,9 +27,12 @@ const SUB_PARSERS: Parser<Color>[] = [
 			return null;
 		}
 		return new Color(
-			parseInt(matches[1] + matches[1], 16),
-			parseInt(matches[2] + matches[2], 16),
-			parseInt(matches[3] + matches[3], 16),
+			[
+				parseInt(matches[1] + matches[1], 16),
+				parseInt(matches[2] + matches[2], 16),
+				parseInt(matches[3] + matches[3], 16),
+			],
+			'rgb',
 		);
 	},
 ];

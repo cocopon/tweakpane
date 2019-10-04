@@ -4,15 +4,15 @@ import Foldable from '../../model/foldable';
 import InputValue from '../../model/input-value';
 import View from '../view';
 import HPaletteInputView from './h-palette';
+import RgbTextInputView from './rgb-text';
 import SvPaletteInputView from './sv-palette';
-import TextInputView from './text';
 
 const className = ClassName('clp', 'input');
 
 interface Config {
 	foldable: Foldable;
 	hPaletteInputView: HPaletteInputView;
-	rgbInputViews: TextInputView<number>[];
+	rgbTextView: RgbTextInputView;
 	svPaletteInputView: SvPaletteInputView;
 	value: InputValue<Color>;
 }
@@ -24,7 +24,7 @@ export default class ColorPickerInputView extends View {
 	public readonly foldable: Foldable;
 	public readonly value: InputValue<Color>;
 	private hPaletteView_: HPaletteInputView;
-	private rgbInputViews_: TextInputView<number>[];
+	private rgbTextView_: RgbTextInputView;
 	private svPaletteView_: SvPaletteInputView;
 
 	constructor(document: Document, config: Config) {
@@ -41,39 +41,28 @@ export default class ColorPickerInputView extends View {
 
 		this.element.classList.add(className());
 
-		const plElem = document.createElement('div');
-		plElem.classList.add(className('pl'));
+		const hsvElem = document.createElement('div');
+		hsvElem.classList.add(className('hsv'));
 
 		const svElem = document.createElement('div');
 		svElem.classList.add(className('sv'));
 		this.svPaletteView_ = config.svPaletteInputView;
 		svElem.appendChild(this.svPaletteView_.element);
-		plElem.appendChild(svElem);
+		hsvElem.appendChild(svElem);
 
 		const hElem = document.createElement('div');
 		hElem.classList.add(className('h'));
 		this.hPaletteView_ = config.hPaletteInputView;
 		hElem.appendChild(this.hPaletteView_.element);
-		plElem.appendChild(hElem);
+		hsvElem.appendChild(hElem);
 
-		this.element.appendChild(plElem);
+		this.element.appendChild(hsvElem);
 
-		const inputElems = document.createElement('div');
-		inputElems.classList.add(className('is'));
-		this.rgbInputViews_ = config.rgbInputViews;
-		this.rgbInputViews_.forEach((iv, index) => {
-			const elem = document.createElement('div');
-			elem.classList.add(className('iw'));
-
-			const labelElem = document.createElement('label');
-			labelElem.classList.add(className('il'));
-			labelElem.textContent = ['R', 'G', 'B'][index];
-
-			elem.appendChild(labelElem);
-			elem.appendChild(iv.element);
-			inputElems.appendChild(elem);
-		});
-		this.element.appendChild(inputElems);
+		const rgbElem = document.createElement('div');
+		rgbElem.classList.add(className('rgb'));
+		this.rgbTextView_ = config.rgbTextView;
+		rgbElem.appendChild(this.rgbTextView_.element);
+		this.element.appendChild(rgbElem);
 
 		this.update();
 	}
@@ -81,16 +70,14 @@ export default class ColorPickerInputView extends View {
 	get allFocusableElements(): HTMLElement[] {
 		return ([] as HTMLElement[]).concat(
 			this.hPaletteView_.canvasElement,
+			this.rgbTextView_.inputElements,
 			this.svPaletteView_.canvasElement,
-			this.rgbInputViews_.map((iv) => {
-				return iv.inputElement;
-			}),
 		);
 	}
 
 	public dispose(): void {
 		this.hPaletteView_.dispose();
-		this.rgbInputViews_ = [];
+		this.rgbTextView_.dispose();
 		this.svPaletteView_.dispose();
 		super.dispose();
 	}
@@ -101,10 +88,6 @@ export default class ColorPickerInputView extends View {
 		} else {
 			this.element.classList.remove(className(undefined, 'expanded'));
 		}
-
-		this.rgbInputViews_.forEach((iv) => {
-			iv.update();
-		});
 	}
 
 	private onValueChange_(): void {
