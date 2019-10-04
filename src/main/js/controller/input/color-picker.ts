@@ -31,7 +31,6 @@ export default class ColorPickerInputController
 		this.onInputBlur_ = this.onInputBlur_.bind(this);
 
 		this.value = config.value;
-
 		this.foldable = new Foldable();
 
 		this.hPaletteIc_ = new HPaletteInputController(document, {

@@ -10,54 +10,49 @@ export default {
 
 	init: () => {
 		const ENV: Environment = {
+			amp: {x: 0.1, y: 0.5},
 			color: '#e4e4e7',
+			freq: {
+				x: 12.57,
+				y: 6.28,
+			},
 			maxSize: 64,
 			range: 0.8,
 			spacing: 24,
 			speed: 0.02,
 			title: 'Tweakpane',
-			xamp: 0.1,
-			xfreq: 2 * Math.PI * 2,
-			yamp: 0.5,
-			yfreq: 2 * Math.PI,
 		};
 
 		const PRESETS: {[key: string]: Environment} = {
 			atmos: {
+				amp: {x: 0.1, y: 0.53},
 				color: '#e4e4e7',
+				freq: {x: 45, y: 16},
 				maxSize: 128,
-				range: 0.7934782608695652,
+				range: 0.79,
 				spacing: 24,
 				speed: 0.02,
 				title: 'Tweakpane',
-				xamp: 0.10434782608695652,
-				xfreq: 45,
-				yamp: 0.53,
-				yfreq: 16,
 			},
 			bubble: {
+				amp: {x: 0.3, y: 0.51},
 				color: '#ffffff',
+				freq: {x: 64, y: 32},
 				maxSize: 128,
 				range: 0.65,
 				spacing: 48,
 				speed: 0.02,
 				title: 'Tweakpane',
-				xamp: 0.3,
-				xfreq: 64,
-				yamp: 0.51,
-				yfreq: 32,
 			},
 			cloud: {
+				amp: {x: 0.07, y: 0},
 				color: '#e4e4e7',
+				freq: {x: 22.25, y: 0},
 				maxSize: 105,
 				range: 0.63,
 				spacing: 48,
 				speed: 0.02,
 				title: 'Tweakpane',
-				xamp: 0.07,
-				xfreq: 22.25,
-				yamp: 0,
-				yfreq: 0,
 			},
 		};
 
@@ -102,31 +97,13 @@ export default {
 					max: 128,
 					min: 5,
 				});
-
-				const xf = pane.addFolder({
-					expanded: false,
-					title: 'X',
+				pane.addInput(ENV, 'freq', {
+					x: {max: 64, min: 0},
+					y: {max: 32, min: 0},
 				});
-				xf.addInput(ENV, 'xfreq', {
-					max: 64,
-					min: 0,
-				});
-				xf.addInput(ENV, 'xamp', {
-					max: 0.3,
-					min: 0,
-				});
-
-				const yf = pane.addFolder({
-					expanded: false,
-					title: 'Y',
-				});
-				yf.addInput(ENV, 'yfreq', {
-					max: 32,
-					min: 0,
-				});
-				yf.addInput(ENV, 'yamp', {
-					max: 1,
-					min: 0,
+				pane.addInput(ENV, 'amp', {
+					x: {max: 0.3, min: 0},
+					y: {max: 1, min: 0},
 				});
 
 				const pf = pane.addFolder({

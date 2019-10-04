@@ -199,4 +199,46 @@ pane.addInput(PARAMS, 'color');</code></pre></div>
 		</div>
 	</div>
 </div>
+
+
+<h2 id="point2d">Point 2D</h2>
+<p>For object parameters that have number properties <code>x</code> and <code>y</code>, text fields with a X-Y pad will be provided.</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-demo">
+		<div class="common-demo_codeLayout">
+			<div class="common-codeBlock"><pre><code class="js">const PARAMS = {
+  offset: {x: 50, y: 25},
+};
+
+const pane = new Tweakpane();
+pane.addInput(PARAMS, 'offset');</code></pre></div>
+		</div>
+		<div class="common-demo_resultLayout">
+			<div class="common-paneContainer common-paneContainer-point2d"></div>
+		</div>
+	</div>
+</div>
+
+<p>As same as number input, you can constrain each dimension by <code>step</code>, <code>min</code> and <code>max</code> parameters.</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-demo">
+		<div class="common-demo_codeLayout">
+			<div class="common-codeBlock"><pre><code class="js">const PARAMS = {
+  offset: {x: 20, y: 30},
+};
+
+const pane = new Tweakpane();
+pane.addInput(PARAMS, 'offset', {
+  x: {step: 20},
+  y: {min: 0, max: 100},
+});</code></pre></div>
+		</div>
+		<div class="common-demo_resultLayout">
+			<div class="common-paneContainer common-paneContainer-point2dParams"></div>
+		</div>
+	</div>
+</div>
 {% endblock %}
+

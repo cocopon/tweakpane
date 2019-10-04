@@ -40,7 +40,9 @@ const SUB_PARSERS: Parser<string, Color>[] = [
 /**
  * @hidden
  */
-const StringColorParser: Parser<string, Color> = (text: string): Color | null => {
+const StringColorParser: Parser<string, Color> = (
+	text: string,
+): Color | null => {
 	return SUB_PARSERS.reduce((result: Color | null, subparser) => {
 		return result ? result : subparser(text);
 	}, null);

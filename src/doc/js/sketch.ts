@@ -15,16 +15,14 @@ function dist(x1: number, y1: number, x2: number, y2: number): number {
 }
 
 export interface Environment {
+	amp: {x: number; y: number};
 	color: string;
+	freq: {x: number; y: number};
 	maxSize: number;
 	range: number;
 	spacing: number;
 	speed: number;
 	title: string;
-	xamp: number;
-	xfreq: number;
-	yamp: number;
-	yfreq: number;
 }
 
 const DEFAULT_DOT_SIZE = 20;
@@ -119,9 +117,9 @@ export default class Sketch {
 
 		for (let iw = 0; iw <= 100; iw++) {
 			const p = map(iw, 0, 100, 0, 1);
-			const wx = p * w + Math.sin(p * env.xfreq + t) * env.xamp * w;
-			const py = Math.sin(t + p * env.yfreq);
-			const wy = h / 2 + py * env.yamp * h;
+			const wx = p * w + Math.sin(p * env.freq.x + t) * env.amp.x * w;
+			const py = Math.sin(t + p * env.freq.y);
+			const wy = h / 2 + py * env.amp.y * h;
 
 			this.dots_.forEach((dot) => {
 				const d = dist(dot.x, dot.y, wx, wy);

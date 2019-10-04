@@ -3,11 +3,14 @@ import * as NumberConverter from '../../converter/number';
 import * as StringConverter from '../../converter/string';
 import PaneError from '../../misc/pane-error';
 import Color from '../../model/color';
+import Point2d, {Point2dObject} from '../../model/point-2d';
 import Target from '../../model/target';
+import AnyPoint2dParser from '../../parser/any-point-2d';
 import StringColorParser from '../../parser/string-color';
 import * as BooleanInputBindingControllerCreators from './boolean-input';
 import * as ColorInputBindingControllerCreators from './color-input';
 import * as NumberInputBindingControllerCreators from './number-input';
+import * as Point2dInputBindingControllerCreators from './point-2d-input';
 import * as StringInputBindingControllerCreators from './string-input';
 
 interface Option<T> {
@@ -66,8 +69,8 @@ function normalizeParams<T1, T2>(
 	return p2;
 }
 
-export type InputtableInType = boolean | number | string | Color;
-export type InputtableOutType = boolean | number | string;
+export type InputtableInType = boolean | number | string | Color | Point2d;
+export type InputtableOutType = boolean | number | string | Point2dObject;
 
 /**
  * @hidden
@@ -118,6 +121,17 @@ export function create(
 			target,
 			normalizeParams(params, StringConverter.fromMixed),
 		);
+	}
+	{
+		const p = AnyPoint2dParser(initialValue);
+		if (p) {
+			return Point2dInputBindingControllerCreators.create(
+				document,
+				target,
+				p,
+				params,
+			);
+		}
 	}
 
 	throw new PaneError({

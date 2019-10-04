@@ -5,8 +5,12 @@ const TypeUtil = {
 		return v;
 	},
 
+	isEmpty: <T>(value: T | null | undefined): value is null | undefined => {
+		return value === null || value === undefined;
+	},
+
 	getOrDefault: <T>(value: T | null | undefined, defaultValue: T): T => {
-		return value !== null && value !== undefined ? value : defaultValue;
+		return !TypeUtil.isEmpty(value) ? value : defaultValue;
 	},
 
 	ifNotEmpty: <T>(
@@ -14,7 +18,7 @@ const TypeUtil = {
 		thenFn: (value: T) => void,
 		elseFn?: () => void,
 	): void => {
-		if (value !== null && value !== undefined) {
+		if (!TypeUtil.isEmpty(value)) {
 			thenFn(value);
 		} else if (elseFn) {
 			elseFn();

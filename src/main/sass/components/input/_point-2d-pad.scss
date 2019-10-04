@@ -1,0 +1,45 @@
+.#{$prefix}-p2dpadiv {
+	background-color: $bg-color;
+	border-radius: 6px;
+	box-shadow: 0 2px 4px rgba(black, 0.2);
+	display: none;
+	padding: 4px 4px 4px (4px * 2 + $input-height);
+	position: relative;
+	visibility: hidden;
+	z-index: $z-index-picker;
+
+	&#{&}-expanded {
+		display: block;
+		visibility: visible;
+	}
+
+	&_p {
+		@include inputView();
+
+		cursor: crosshair;
+		height: 0;
+		overflow: hidden;
+		padding-bottom: 100%;
+		position: relative;
+	}
+	&_g {
+		display: block;
+		height: 100%;
+		left: 0;
+		pointer-events: none;
+		position: absolute;
+		top: 0;
+		width: 100%;
+	}
+	&_ax {
+		stroke: $input-guide-color;
+	}
+	&_l {
+		stroke: $input-fg-color;
+		stroke-linecap: round;
+		stroke-dasharray: 1px 3px;
+	}
+	&_m {
+		fill: $input-fg-color;
+	}
+}

@@ -1,0 +1,29 @@
+.#{$prefix}-p2dtxtiv {
+	display: flex;
+
+	&_w {
+		align-items: center;
+		display: flex;
+
+		&:nth-child(1) {
+			margin-right: 1px;
+		}
+		&:nth-child(2) {
+			margin-left: 1px;
+		}
+	}
+	&_i {
+		@include inputView();
+
+		padding: 0 4px;
+		width: 100%;
+	}
+	&_w:nth-child(1) &_i {
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+	&_w:nth-child(2) &_i {
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+}

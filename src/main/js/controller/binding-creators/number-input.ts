@@ -6,7 +6,6 @@ import StepConstraint from '../../constraint/step';
 import ConstraintUtil from '../../constraint/util';
 import * as NumberConverter from '../../converter/number';
 import NumberFormatter from '../../formatter/number';
-import NumberUtil from '../../misc/number-util';
 import InputValue from '../../model/input-value';
 import Target from '../../model/target';
 import StringNumberParser from '../../parser/string-number';
@@ -14,8 +13,10 @@ import InputBindingController from '../input-binding';
 import ListInputController from '../input/list';
 import NumberTextInputController from '../input/number-text';
 import SliderTextInputController from '../input/slider-text';
+import * as UiUtil from '../ui-util';
 
 import {Constraint} from '../../constraint/constraint';
+import TypeUtil from '../../misc/type-util';
 
 interface Params {
 	options?: {text: string; value: number}[];
@@ -28,7 +29,7 @@ interface Params {
 function createConstraint(params: Params): Constraint<number> {
 	const constraints: Constraint<number>[] = [];
 
-	if (params.step !== null && params.step !== undefined) {
+	if (!TypeUtil.isEmpty(params.step)) {
 		constraints.push(
 			new StepConstraint({
 				step: params.step,
@@ -36,10 +37,7 @@ function createConstraint(params: Params): Constraint<number> {
 		);
 	}
 
-	if (
-		(params.max !== null && params.max !== undefined) ||
-		(params.min !== null && params.min !== undefined)
-	) {
+	if (!TypeUtil.isEmpty(params.max) || !TypeUtil.isEmpty(params.min)) {
 		constraints.push(
 			new RangeConstraint({
 				max: params.max,
@@ -61,16 +59,6 @@ function createConstraint(params: Params): Constraint<number> {
 	});
 }
 
-function getSuitableDecimalDigits(value: InputValue<number>): number {
-	const c = value.constraint;
-	const sc = c && ConstraintUtil.findConstraint(c, StepConstraint);
-	if (sc) {
-		return NumberUtil.getDecimalDigits(sc.step);
-	}
-
-	return Math.max(NumberUtil.getDecimalDigits(value.rawValue), 2);
-}
-
 function createController(document: Document, value: InputValue<number>) {
 	const c = value.constraint;
 
@@ -83,14 +71,18 @@ function createController(document: Document, value: InputValue<number>) {
 
 	if (c && ConstraintUtil.findConstraint(c, RangeConstraint)) {
 		return new SliderTextInputController(document, {
-			formatter: new NumberFormatter(getSuitableDecimalDigits(value)),
+			formatter: new NumberFormatter(
+				UiUtil.getSuitableDecimalDigits(value.constraint, value.rawValue),
+			),
 			parser: StringNumberParser,
 			value: value,
 		});
 	}
 
 	return new NumberTextInputController(document, {
-		formatter: new NumberFormatter(getSuitableDecimalDigits(value)),
+		formatter: new NumberFormatter(
+			UiUtil.getSuitableDecimalDigits(value.constraint, value.rawValue),
+		),
 		parser: StringNumberParser,
 		value: value,
 	});
