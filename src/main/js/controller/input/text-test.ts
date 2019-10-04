@@ -31,7 +31,7 @@ describe(TextInputController.name, () => {
 		});
 
 		c.view.inputElement.value = '3.14';
-		c.view.inputElement.dispatchEvent(new (win as any).Event('change'));
+		c.view.inputElement.dispatchEvent(TestUtil.createEvent(win, 'change'));
 
 		assert.strictEqual(c.value.rawValue, 3.14);
 	});

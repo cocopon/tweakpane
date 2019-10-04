@@ -47,7 +47,7 @@ describe(ListInputController.name, () => {
 		});
 
 		c.view.selectElement.value = '34';
-		c.view.selectElement.dispatchEvent(new (win as any).Event('change'));
+		c.view.selectElement.dispatchEvent(TestUtil.createEvent(win, 'change'));
 
 		assert.strictEqual(c.value.rawValue, 34);
 	});
