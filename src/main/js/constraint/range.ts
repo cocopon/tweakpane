@@ -1,3 +1,4 @@
+import TypeUtil from '../misc/type-util';
 import {Constraint} from './constraint';
 
 interface Config {
@@ -9,29 +10,21 @@ interface Config {
  * @hidden
  */
 export default class RangeConstraint implements Constraint<number> {
-	private max_: number | undefined;
-	private min_: number | undefined;
+	public readonly maxValue: number | undefined;
+	public readonly minValue: number | undefined;
 
 	constructor(config: Config) {
-		this.max_ = config.max;
-		this.min_ = config.min;
-	}
-
-	get minValue(): number | undefined {
-		return this.min_;
-	}
-
-	get maxValue(): number | undefined {
-		return this.max_;
+		this.maxValue = config.max;
+		this.minValue = config.min;
 	}
 
 	public constrain(value: number): number {
 		let result = value;
-		if (this.min_ !== null && this.min_ !== undefined) {
-			result = Math.max(result, this.min_);
+		if (!TypeUtil.isEmpty(this.minValue)) {
+			result = Math.max(result, this.minValue);
 		}
-		if (this.max_ !== null && this.max_ !== undefined) {
-			result = Math.min(result, this.max_);
+		if (!TypeUtil.isEmpty(this.maxValue)) {
+			result = Math.min(result, this.maxValue);
 		}
 		return result;
 	}

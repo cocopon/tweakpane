@@ -1,0 +1,32 @@
+.#{$prefix}-p2dpadtxtiv {
+	display: flex;
+	position: relative;
+
+	&_b {
+		@include button();
+
+		height: $input-height;
+		position: relative;
+		width: $input-height;
+
+		svg {
+			display: block;
+			height: 16px;
+			left: 50%;
+			margin-left: -(16px / 2);
+			margin-top: -(16px / 2);
+			position: absolute;
+			top: 50%;
+			width: 16px;
+		}
+	}
+	&_p {
+		left: -4px;
+		position: absolute;
+		right: -4px;
+		top: $input-height;
+	}
+	&_t {
+		margin-left: 4px;
+	}
+}

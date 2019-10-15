@@ -1,6 +1,7 @@
 import {Formatter} from '../../formatter/formatter';
 import ClassName from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
+import * as DomUtil from '../../misc/dom-util';
 import NumberUtil from '../../misc/number-util';
 import PaneError from '../../misc/pane-error';
 import GraphCursor from '../../model/graph-cursor';
@@ -8,7 +9,7 @@ import MonitorValue from '../../model/monitor-value';
 import View from '../view';
 import {MonitorView} from './monitor';
 
-const SVG_NS: string = 'http://www.w3.org/2000/svg';
+const SVG_NS = DomUtil.SVG_NS;
 
 interface Config {
 	cursor: GraphCursor;

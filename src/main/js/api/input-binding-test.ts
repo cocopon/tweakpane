@@ -9,7 +9,7 @@ import NumberFormatter from '../formatter/number';
 import TestUtil from '../misc/test-util';
 import InputValue from '../model/input-value';
 import Target from '../model/target';
-import NumberParser from '../parser/number';
+import StringNumberParser from '../parser/string-number';
 import InputBindingApi from './input-binding';
 
 function createApi(target: Target) {
@@ -17,7 +17,7 @@ function createApi(target: Target) {
 	const value = new InputValue(0);
 	const ic = new NumberTextInputController(doc, {
 		formatter: new NumberFormatter(0),
-		parser: NumberParser,
+		parser: StringNumberParser,
 		value: value,
 	});
 	const bc = new InputBindingController(doc, {

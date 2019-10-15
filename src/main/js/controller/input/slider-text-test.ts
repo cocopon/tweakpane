@@ -4,7 +4,7 @@ import {describe, it} from 'mocha';
 import NumberFormatter from '../../formatter/number';
 import TestUtil from '../../misc/test-util';
 import InputValue from '../../model/input-value';
-import NumberParser from '../../parser/number';
+import StringNumberParser from '../../parser/string-number';
 import SliderTextController from './slider-text';
 
 describe(SliderTextController.name, () => {
@@ -12,7 +12,7 @@ describe(SliderTextController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new SliderTextController(doc, {
 			formatter: new NumberFormatter(2),
-			parser: NumberParser,
+			parser: StringNumberParser,
 			value: new InputValue(0),
 		});
 		c.dispose();

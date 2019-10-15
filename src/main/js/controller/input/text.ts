@@ -11,7 +11,7 @@ import {InputController} from './input';
  */
 export interface Config<T> {
 	formatter: Formatter<T>;
-	parser: Parser<T>;
+	parser: Parser<string, T>;
 	value: InputValue<T>;
 }
 
@@ -21,7 +21,7 @@ export interface Config<T> {
 export default class TextInputController<T> implements InputController<T> {
 	public readonly value: InputValue<T>;
 	public readonly view: TextInputView<T>;
-	private parser_: Parser<T>;
+	private parser_: Parser<string, T>;
 
 	constructor(document: Document, config: Config<T>) {
 		this.onInputChange_ = this.onInputChange_.bind(this);

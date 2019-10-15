@@ -1,13 +1,13 @@
 import NumberUtil from '../misc/number-util';
 import Color from '../model/color';
-import ColorParser from '../parser/color';
+import StringColorParser from '../parser/string-color';
 
 /**
  * @hidden
  */
 export function fromMixed(value: unknown): Color {
 	if (typeof value === 'string') {
-		const cv = ColorParser(value);
+		const cv = StringColorParser(value);
 		if (cv) {
 			return cv;
 		}

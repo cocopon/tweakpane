@@ -15,6 +15,7 @@ export default {
 					b: true,
 					c: '#ff8800',
 					n: 50,
+					p: {x: 12, y: 34},
 					s: 'string',
 				};
 				const pane = new Tweakpane({
@@ -62,7 +63,13 @@ export default {
 					title: 'Color',
 				});
 				cf.addInput(PARAMS, 'c', {
-					label: 'text',
+					label: 'picker',
+				});
+				const pf = pane.addFolder({
+					title: 'Point',
+				});
+				pf.addInput(PARAMS, 'p', {
+					label: 'picker',
 				});
 			},
 			numberText: (container) => {
@@ -164,6 +171,26 @@ export default {
 				});
 				pane.addInput(PARAMS, 'value', {
 					label: 'color',
+				});
+			},
+			point2d: (container) => {
+				const PARAMS = {value: {x: 50, y: 25}};
+				const pane = new Tweakpane({
+					container: container,
+				});
+				pane.addInput(PARAMS, 'value', {
+					label: 'offset',
+				});
+			},
+			point2dParams: (container) => {
+				const PARAMS = {value: {x: 20, y: 30}};
+				const pane = new Tweakpane({
+					container: container,
+				});
+				pane.addInput(PARAMS, 'value', {
+					label: 'offset',
+					x: {step: 20},
+					y: {min: 0, max: 100},
 				});
 			},
 		};

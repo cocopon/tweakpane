@@ -1,27 +1,30 @@
+import Point2dConstraint from '../../constraint/point-2d';
 import {Formatter} from '../../formatter/formatter';
 import TypeUtil from '../../misc/type-util';
-import Color from '../../model/color';
 import InputValue from '../../model/input-value';
+import Point2d from '../../model/point-2d';
 import {Parser} from '../../parser/parser';
-import RgbTextInputView from '../../view/input/rgb-text';
+import Point2dTextInputView from '../../view/input/point-2d-text';
 import * as UiUtil from '../ui-util';
 import {InputController} from './input';
 
 interface Config {
-	formatter: Formatter<number>;
 	parser: Parser<string, number>;
-	value: InputValue<Color>;
+	value: InputValue<Point2d>;
+	xFormatter: Formatter<number>;
+	yFormatter: Formatter<number>;
 }
-
-const STEP = 1;
 
 /**
  * @hidden
  */
-export default class RgbTextInputController implements InputController<Color> {
-	public readonly value: InputValue<Color>;
-	public readonly view: RgbTextInputView;
-	private parser_: Parser<string, number>;
+export default class Point2dTextInputController
+	implements InputController<Point2d> {
+	public readonly value: InputValue<Point2d>;
+	public readonly view: Point2dTextInputView;
+	private readonly parser_: Parser<string, number>;
+	private readonly xStep_: number;
+	private readonly yStep_: number;
 
 	constructor(document: Document, config: Config) {
 		this.onInputChange_ = this.onInputChange_.bind(this);
@@ -30,9 +33,18 @@ export default class RgbTextInputController implements InputController<Color> {
 		this.parser_ = config.parser;
 		this.value = config.value;
 
-		this.view = new RgbTextInputView(document, {
-			formatter: config.formatter,
+		const c = this.value.constraint;
+		this.xStep_ = UiUtil.getStepForTextInput(
+			c instanceof Point2dConstraint ? c.xConstraint : undefined,
+		);
+		this.yStep_ = UiUtil.getStepForTextInput(
+			c instanceof Point2dConstraint ? c.yConstraint : undefined,
+		);
+
+		this.view = new Point2dTextInputView(document, {
 			value: this.value,
+			xFormatter: config.xFormatter,
+			yFormatter: config.yFormatter,
 		});
 		this.view.inputElements.forEach((inputElem) => {
 			inputElem.addEventListener('change', this.onInputChange_);
@@ -55,14 +67,11 @@ export default class RgbTextInputController implements InputController<Color> {
 	}
 
 	private updateComponent_(index: number, newValue: number): void {
-		const comps = this.value.rawValue.getComponents('rgb');
+		const comps = this.value.rawValue.getComponents();
 		const newComps = comps.map((comp, i) => {
 			return i === index ? newValue : comp;
 		});
-		this.value.rawValue = new Color(
-			[newComps[0], newComps[1], newComps[2]],
-			'rgb',
-		);
+		this.value.rawValue = new Point2d(newComps[0], newComps[1]);
 
 		this.view.update();
 	}
@@ -81,19 +90,25 @@ export default class RgbTextInputController implements InputController<Color> {
 	}
 
 	private onInputKeyDown_(e: KeyboardEvent): void {
-		const step = UiUtil.getStepForKey(STEP, e);
+		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
+		const parsedValue = this.parser_(inputElem.value);
+		if (TypeUtil.isEmpty(parsedValue)) {
+			return;
+		}
+
+		const compIndex = this.findIndexOfInputElem_(inputElem);
+		if (TypeUtil.isEmpty(compIndex)) {
+			return;
+		}
+
+		const step = UiUtil.getStepForKey(
+			compIndex === 0 ? this.xStep_ : this.yStep_,
+			e,
+		);
 		if (step === 0) {
 			return;
 		}
 
-		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
-		TypeUtil.ifNotEmpty(this.parser_(inputElem.value), (parsedValue) => {
-			TypeUtil.ifNotEmpty(
-				this.findIndexOfInputElem_(inputElem),
-				(compIndex: number) => {
-					this.updateComponent_(compIndex, parsedValue + step);
-				},
-			);
-		});
+		this.updateComponent_(compIndex, parsedValue + step);
 	}
 }

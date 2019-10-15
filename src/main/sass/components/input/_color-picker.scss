@@ -6,7 +6,7 @@
 	padding: 4px;
 	position: relative;
 	visibility: hidden;
-	z-index: $z-index-color-picker;
+	z-index: $z-index-picker;
 
 	&#{&}-expanded {
 		display: block;

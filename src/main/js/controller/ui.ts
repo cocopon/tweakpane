@@ -4,6 +4,12 @@ import ButtonController from './button';
 import FolderController from './folder';
 import SeparatorController from './separator';
 
+export interface Point2dDimensionParams {
+	max?: number;
+	min?: number;
+	step?: number;
+}
+
 export interface InputParams {
 	label?: string;
 	max?: number;
@@ -11,6 +17,8 @@ export interface InputParams {
 	options?: {text: string; value: unknown}[] | {[key: string]: unknown};
 	presetKey?: string;
 	step?: number;
+	x?: Point2dDimensionParams;
+	y?: Point2dDimensionParams;
 }
 
 export interface MonitorParams {

@@ -19,7 +19,7 @@ $bg-color: $color-dark;
 $fg-color: $color-exlight;
 
 // Z-index
-$z-index-color-picker: 1000;
+$z-index-picker: 1000;
 
 // Folder
 $folder-mark-hole-color: rgba($bg-color, 0.5);
@@ -33,6 +33,7 @@ $input-bg-color: rgba($fg-color, 0.15);
 $input-border-radius: 2px;
 $input-fg-color: $fg-color;
 $input-active-bg-color: rgba($fg-color, 0.35);
+$input-guide-color: rgba($bg-color, 0.5);
 $input-focus-bg-color: rgba($fg-color, 0.25);
 $input-hover-bg-color: rgba($fg-color, 0.15);
 $input-light-bg-color: $color-light;
@@ -102,6 +103,31 @@ $slider-input-bar-color: rgba($fg-color, 0.2);
 	}
 	&:active {
 		background-color: $input-active-bg-color;
+	}
+}
+
+@mixin button() {
+	@include resetInput();
+
+	background-color: $input-light-bg-color;
+	border-radius: $input-border-radius;
+	color: $input-light-fg-color;
+	cursor: pointer;
+	display: block;
+	font-weight: bold;
+	height: $input-height;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+
+	&:hover {
+		background-color: $input-light-hover-bg-color;
+	}
+	&:focus {
+		background-color: $input-light-focus-bg-color;
+	}
+	&:active {
+		background-color: $input-light-active-bg-color;
 	}
 }
 

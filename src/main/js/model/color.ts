@@ -5,7 +5,7 @@ import NumberUtil from '../misc/number-util';
 type EventType = 'change';
 type ColorMode = 'hsv' | 'rgb';
 
-interface RgbColorObject {
+export interface RgbColorObject {
 	r: number;
 	g: number;
 	b: number;
