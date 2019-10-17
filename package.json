@@ -16,7 +16,8 @@
   ],
   "scripts": {
     "prepare": "run-s clean main:prepare",
-    "prepublishOnly": "npm test",
+		"prepublishOnly": "npm test",
+		"start": "npm run dev",
     "test": "run-s doc:test main:test",
     "build": "run-s main:build doc:build",
     "clean": "rm -rf dist docs test tweakpane-*.tgz tweakpane-*.zip",
