@@ -31,56 +31,19 @@ export function create(
 		});
 	}
 
-	{
-		const ibc = BooleanInputBindingControllerCreators.create(
-			document,
-			target,
-			params,
-		);
-		if (ibc) {
-			return ibc;
-		}
-	}
-	{
-		const ibc = NumberInputBindingControllerCreators.create(
-			document,
-			target,
-			params,
-		);
-		if (ibc) {
-			return ibc;
-		}
-	}
-	{
-		const ibc = ColorInputBindingControllerCreators.create(
-			document,
-			target,
-			params,
-		);
-		if (ibc) {
-			return ibc;
-		}
-	}
-	{
-		const ibc = StringInputBindingControllerCreators.create(
-			document,
-			target,
-			params,
-		);
-		if (ibc) {
-			return ibc;
-		}
-	}
-
-	{
-		const ibc = Point2dInputBindingControllerCreators.create(
-			document,
-			target,
-			params,
-		);
-		if (ibc) {
-			return ibc;
-		}
+	const bc = [
+		BooleanInputBindingControllerCreators.create,
+		NumberInputBindingControllerCreators.create,
+		ColorInputBindingControllerCreators.create,
+		StringInputBindingControllerCreators.create,
+		Point2dInputBindingControllerCreators.create,
+	].reduce(
+		(result, createBindingController) =>
+			result || createBindingController(document, target, params),
+		null,
+	);
+	if (bc) {
+		return bc;
 	}
 
 	throw new PaneError({

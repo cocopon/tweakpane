@@ -26,35 +26,17 @@ export function create(
 		});
 	}
 
-	{
-		const mbc = NumberMonitorBindingControllerCreators.create(
-			document,
-			target,
-			params,
-		);
-		if (mbc) {
-			return mbc;
-		}
-	}
-	{
-		const mbc = StringMonitorBindingControllerCreators.create(
-			document,
-			target,
-			params,
-		);
-		if (mbc) {
-			return mbc;
-		}
-	}
-	{
-		const mbc = BooleanMonitorBindingControllerCreators.create(
-			document,
-			target,
-			params,
-		);
-		if (mbc) {
-			return mbc;
-		}
+	const bc = [
+		NumberMonitorBindingControllerCreators.create,
+		StringMonitorBindingControllerCreators.create,
+		BooleanMonitorBindingControllerCreators.create,
+	].reduce(
+		(result, createBindingController) =>
+			result || createBindingController(document, target, params),
+		null,
+	);
+	if (bc) {
+		return bc;
 	}
 
 	throw new PaneError({
