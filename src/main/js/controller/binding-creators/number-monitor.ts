@@ -16,7 +16,7 @@ function createFormatter(): NumberFormatter {
 	return new NumberFormatter(2);
 }
 
-export function createTextMonitor(
+function createTextMonitor(
 	document: Document,
 	target: Target,
 	params: MonitorParams,

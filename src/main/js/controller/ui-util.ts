@@ -13,6 +13,9 @@ import {
 	UiController,
 } from './ui';
 
+/**
+ * @hidden
+ */
 export function normalizeInputParamsOptions<T1, T2>(
 	options: InputParamsOption<T1>[] | InputParamsOptionDictionary<T1>,
 	convert: (value: T1) => T2,
