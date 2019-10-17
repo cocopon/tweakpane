@@ -1,25 +1,20 @@
 import PaneError from '../../misc/pane-error';
 import Target from '../../model/target';
+import {MonitorParams} from '../ui';
 import * as BooleanMonitorBindingControllerCreators from './boolean-monitor';
 import * as NumberMonitorBindingControllerCreators from './number-monitor';
 import * as StringMonitorBindingControllerCreators from './string-monitor';
-
-interface Params {
-	count?: number;
-	interval?: number;
-	label?: string;
-	max?: number;
-	min?: number;
-	multiline?: boolean;
-	type?: string;
-}
 
 export type MonitorableType = boolean | number | string;
 
 /**
  * @hidden
  */
-export function create(document: Document, target: Target, params: Params) {
+export function create(
+	document: Document,
+	target: Target,
+	params: MonitorParams,
+) {
 	const initialValue = target.read();
 
 	if (initialValue === null || initialValue === undefined) {
@@ -31,33 +26,35 @@ export function create(document: Document, target: Target, params: Params) {
 		});
 	}
 
-	if (typeof initialValue === 'number') {
-		if (params.type === 'graph') {
-			return NumberMonitorBindingControllerCreators.createGraphMonitor(
-				document,
-				target,
-				params,
-			);
+	{
+		const mbc = NumberMonitorBindingControllerCreators.create(
+			document,
+			target,
+			params,
+		);
+		if (mbc) {
+			return mbc;
 		}
-		return NumberMonitorBindingControllerCreators.createTextMonitor(
-			document,
-			target,
-			params,
-		);
 	}
-	if (typeof initialValue === 'string') {
-		return StringMonitorBindingControllerCreators.createTextMonitor(
+	{
+		const mbc = StringMonitorBindingControllerCreators.create(
 			document,
 			target,
 			params,
 		);
+		if (mbc) {
+			return mbc;
+		}
 	}
-	if (typeof initialValue === 'boolean') {
-		return BooleanMonitorBindingControllerCreators.createTextMonitor(
+	{
+		const mbc = BooleanMonitorBindingControllerCreators.create(
 			document,
 			target,
 			params,
 		);
+		if (mbc) {
+			return mbc;
+		}
 	}
 
 	throw new PaneError({
