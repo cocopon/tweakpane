@@ -8,21 +8,21 @@ import Target from '../../model/target';
 import MonitorBindingController from '../monitor-binding';
 import MultiLogMonitorController from '../monitor/multi-log';
 import SingleLogMonitorController from '../monitor/single-log';
-
-interface Params {
-	count?: number;
-	interval?: number;
-	label?: string;
-}
+import {MonitorParams} from '../ui';
 
 /**
  * @hidden
  */
-export function createTextMonitor(
+export function create(
 	document: Document,
 	target: Target,
-	params: Params,
-): MonitorBindingController<boolean> {
+	params: MonitorParams,
+): MonitorBindingController<boolean> | null {
+	const initialValue = target.read();
+	if (typeof initialValue !== 'boolean') {
+		return null;
+	}
+
 	const value = new MonitorValue<boolean>(
 		TypeUtil.getOrDefault<number>(params.count, 1),
 	);

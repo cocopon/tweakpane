@@ -11,19 +11,19 @@ import ListInputController from '../input/list';
 import TextInputController from '../input/text';
 
 import {Constraint} from '../../constraint/constraint';
+import {InputParams} from '../ui';
+import * as UiUtil from '../ui-util';
 
-interface Params {
-	options?: {text: string; value: string}[];
-	label?: string;
-}
-
-function createConstraint(params: Params): Constraint<string> {
+function createConstraint(params: InputParams): Constraint<string> {
 	const constraints: Constraint<string>[] = [];
 
 	if (params.options) {
 		constraints.push(
 			new ListConstraint({
-				options: params.options,
+				options: UiUtil.normalizeInputParamsOptions(
+					params.options,
+					StringConverter.fromMixed,
+				),
 			}),
 		);
 	}
@@ -53,7 +53,16 @@ function createController(document: Document, value: InputValue<string>) {
 /**
  * @hidden
  */
-export function create(document: Document, target: Target, params: Params) {
+export function create(
+	document: Document,
+	target: Target,
+	params: InputParams,
+): InputBindingController<string, string> | null {
+	const initialValue = target.read();
+	if (typeof initialValue !== 'string') {
+		return null;
+	}
+
 	const value = new InputValue('', createConstraint(params));
 	const binding = new InputBinding({
 		reader: StringConverter.fromMixed,

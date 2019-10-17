@@ -9,8 +9,9 @@ import NumberFormatter from '../../formatter/number';
 import PaneError from '../../misc/pane-error';
 import TypeUtil from '../../misc/type-util';
 import InputValue from '../../model/input-value';
-import Point2d from '../../model/point-2d';
+import Point2d, {Point2dObject} from '../../model/point-2d';
 import Target from '../../model/target';
+import AnyPoint2dParser from '../../parser/any-point-2d';
 import StringNumberParser from '../../parser/string-number';
 import InputBindingController from '../input-binding';
 import Point2dPadTextInputController from '../input/point-2d-pad-text';
@@ -83,10 +84,15 @@ function createController(document: Document, value: InputValue<Point2d>) {
 export function create(
 	document: Document,
 	target: Target,
-	initialValue: Point2d,
 	params: Params,
-) {
-	const value = new InputValue(initialValue, createConstraint(params));
+): InputBindingController<Point2d, Point2dObject> | null {
+	const initialValue = target.read();
+	const p = AnyPoint2dParser(initialValue);
+	if (!p) {
+		return null;
+	}
+
+	const value = new InputValue(p, createConstraint(params));
 	const binding = new InputBinding({
 		reader: Point2dConverter.fromMixed,
 		target: target,

@@ -10,11 +10,20 @@ export interface Point2dDimensionParams {
 	step?: number;
 }
 
+export interface InputParamsOption<T> {
+	text: string;
+	value: T;
+}
+
+export interface InputParamsOptionDictionary<T> {
+	[key: string]: T;
+}
+
 export interface InputParams {
 	label?: string;
 	max?: number;
 	min?: number;
-	options?: {text: string; value: unknown}[] | {[key: string]: unknown};
+	options?: InputParamsOption<unknown>[] | InputParamsOptionDictionary<unknown>;
 	presetKey?: string;
 	step?: number;
 	x?: Point2dDimensionParams;

@@ -9,33 +9,17 @@ import MonitorBindingController from '../monitor-binding';
 import GraphMonitorController from '../monitor/graph';
 import MultiLogMonitorController from '../monitor/multi-log';
 import SingleLogMonitorController from '../monitor/single-log';
-
-interface Params {
-	count?: number;
-	interval?: number;
-	label?: string;
-}
-
-interface GraphMonitorParams {
-	count?: number;
-	interval?: number;
-	label?: string;
-	max?: number;
-	min?: number;
-}
+import {MonitorParams} from '../ui';
 
 function createFormatter(): NumberFormatter {
 	// TODO: formatter precision
 	return new NumberFormatter(2);
 }
 
-/**
- * @hidden
- */
-export function createTextMonitor(
+function createTextMonitor(
 	document: Document,
 	target: Target,
-	params: Params,
+	params: MonitorParams,
 ): MonitorBindingController<number> {
 	const value = new MonitorValue<number>(
 		TypeUtil.getOrDefault<number>(params.count, 1),
@@ -68,13 +52,10 @@ export function createTextMonitor(
 	});
 }
 
-/**
- * @hidden
- */
-export function createGraphMonitor(
+function createGraphMonitor(
 	document: Document,
 	target: Target,
-	params: GraphMonitorParams,
+	params: MonitorParams,
 ): MonitorBindingController<number> {
 	const value = new MonitorValue<number>(
 		TypeUtil.getOrDefault<number>(params.count, 64),
@@ -98,4 +79,21 @@ export function createGraphMonitor(
 		}),
 		label: params.label || target.key,
 	});
+}
+
+export function create(
+	document: Document,
+	target: Target,
+	params: MonitorParams,
+): MonitorBindingController<number> | null {
+	const initialValue = target.read();
+	if (typeof initialValue !== 'number') {
+		return null;
+	}
+
+	if (params.type === 'graph') {
+		return createGraphMonitor(document, target, params);
+	}
+
+	return createTextMonitor(document, target, params);
 }

@@ -7,10 +7,7 @@ import Target from '../../model/target';
 import StringColorParser from '../../parser/string-color';
 import InputBindingController from '../input-binding';
 import ColorSwatchTextInputController from '../input/color-swatch-text';
-
-interface Params {
-	label?: string;
-}
+import {InputParams} from '../ui';
 
 /**
  * @hidden
@@ -18,10 +15,19 @@ interface Params {
 export function create(
 	document: Document,
 	target: Target,
-	initialValue: Color,
-	params: Params,
-) {
-	const value = new InputValue(initialValue);
+	params: InputParams,
+): InputBindingController<Color, string> | null {
+	const initialValue = target.read();
+	if (typeof initialValue !== 'string') {
+		return null;
+	}
+
+	const color = StringColorParser(initialValue);
+	if (!color) {
+		return null;
+	}
+
+	const value = new InputValue(color);
 	return new InputBindingController(document, {
 		binding: new InputBinding({
 			reader: ColorConverter.fromMixed,
