@@ -7,7 +7,37 @@ import NumberUtil from '../misc/number-util';
 import TypeUtil, {Class} from '../misc/type-util';
 import Point2d from '../model/point-2d';
 import FolderController from './folder';
-import {UiController} from './ui';
+import {
+	InputParamsOption,
+	InputParamsOptionDictionary,
+	UiController,
+} from './ui';
+
+export function normalizeInputParamsOptions<T1, T2>(
+	options: InputParamsOption<T1>[] | InputParamsOptionDictionary<T1>,
+	convert: (value: T1) => T2,
+): InputParamsOption<T2>[] {
+	if (Array.isArray(options)) {
+		return options.map((item) => {
+			return {
+				text: item.text,
+				value: convert(item.value),
+			};
+		});
+	}
+
+	const textToValueMap = options;
+	const texts = Object.keys(textToValueMap);
+	return texts.reduce(
+		(result, text) => {
+			return result.concat({
+				text: text,
+				value: convert(textToValueMap[text]),
+			});
+		},
+		[] as InputParamsOption<T2>[],
+	);
+}
 
 /**
  * @hidden
