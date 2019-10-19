@@ -1,9 +1,9 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import PaneError from '../misc/pane-error';
-import TestUtil from '../misc/test-util';
-import View from './view';
+import {PaneError} from '../misc/pane-error';
+import {TestUtil} from '../misc/test-util';
+import {View} from './view';
 
 describe(View.name, () => {
 	it('should get document', () => {

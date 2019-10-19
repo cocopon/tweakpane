@@ -1,4 +1,4 @@
-import MonitorBindingController from '../controller/monitor-binding';
+import {MonitorBindingController} from '../controller/monitor-binding';
 import {Handler} from '../misc/emitter';
 
 type EventName = 'update';
@@ -6,7 +6,7 @@ type EventName = 'update';
 /**
  * The API for the monitor binding between the parameter and the pane.
  */
-export default class MonitorBindingApi<In> {
+export class MonitorBindingApi<In> {
 	/**
 	 * @hidden
 	 */

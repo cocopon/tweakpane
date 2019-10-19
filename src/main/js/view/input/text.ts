@@ -1,9 +1,9 @@
 import {Formatter} from '../../formatter/formatter';
-import ClassName from '../../misc/class-name';
+import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
-import PaneError from '../../misc/pane-error';
-import InputValue from '../../model/input-value';
-import View from '../view';
+import {PaneError} from '../../misc/pane-error';
+import {InputValue} from '../../model/input-value';
+import {View} from '../view';
 import {InputView} from './input';
 
 interface Config<T> {
@@ -16,7 +16,7 @@ const className = ClassName('txt', 'input');
 /**
  * @hidden
  */
-export default class TextInputView<T> extends View implements InputView<T> {
+export class TextInputView<T> extends View implements InputView<T> {
 	public readonly value: InputValue<T>;
 	private formatter_: Formatter<T>;
 	private inputElem_: HTMLInputElement | null;

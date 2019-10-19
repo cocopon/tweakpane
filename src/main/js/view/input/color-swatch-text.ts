@@ -1,10 +1,10 @@
-import ClassName from '../../misc/class-name';
-import Color from '../../model/color';
-import InputValue from '../../model/input-value';
-import ColorSwatchInputView from '../input/color-swatch';
-import View from '../view';
+import {ClassName} from '../../misc/class-name';
+import {Color} from '../../model/color';
+import {InputValue} from '../../model/input-value';
+import {ColorSwatchInputView} from '../input/color-swatch';
+import {View} from '../view';
 import {InputView} from './input';
-import TextInputView from './text';
+import {TextInputView} from './text';
 
 interface Config {
 	swatchInputView: ColorSwatchInputView;
@@ -16,8 +16,7 @@ const className = ClassName('cswtxt', 'input');
 /**
  * @hidden
  */
-export default class ColorSwatchTextInputView extends View
-	implements InputView<Color> {
+export class ColorSwatchTextInputView extends View implements InputView<Color> {
 	private swatchInputView_: ColorSwatchInputView;
 	private textInputView_: TextInputView<Color>;
 

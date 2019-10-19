@@ -1,8 +1,8 @@
-import ClassName from '../misc/class-name';
+import {ClassName} from '../misc/class-name';
 import * as DisposingUtil from '../misc/disposing-util';
-import PaneError from '../misc/pane-error';
-import Folder from '../model/folder';
-import View from './view';
+import {PaneError} from '../misc/pane-error';
+import {Folder} from '../model/folder';
+import {View} from './view';
 
 interface Config {
 	folder: Folder | null;
@@ -13,7 +13,7 @@ const className = ClassName('rot');
 /**
  * @hidden
  */
-export default class RootView extends View {
+export class RootView extends View {
 	private containerElem_: HTMLDivElement | null;
 	private folder_: Folder | null;
 	private titleElem_: HTMLButtonElement | null;

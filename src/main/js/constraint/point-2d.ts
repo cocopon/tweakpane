@@ -1,4 +1,4 @@
-import Point2d from '../model/point-2d';
+import {Point2d} from '../model/point-2d';
 import {Constraint} from './constraint';
 
 interface Config {
@@ -9,7 +9,7 @@ interface Config {
 /**
  * @hidden
  */
-export default class Point2dConstraint implements Constraint<Point2d> {
+export class Point2dConstraint implements Constraint<Point2d> {
 	public readonly xConstraint: Constraint<number> | undefined;
 	public readonly yConstraint: Constraint<number> | undefined;
 

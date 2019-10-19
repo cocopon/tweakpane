@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import NumberFormatter from './number';
+import {NumberFormatter} from './number';
 
 describe(NumberFormatter.name, () => {
 	it('should get digits', () => {

@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import ListConstraint from './list';
+import {ListConstraint} from './list';
 
 describe(ListConstraint.name, () => {
 	it('should get list options', () => {

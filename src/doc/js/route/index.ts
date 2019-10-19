@@ -1,11 +1,10 @@
-import Sketch from '../sketch';
-import * as Util from '../util';
-
+import {Sketch} from '../sketch';
 import {Environment} from '../sketch';
+import * as Util from '../util';
 
 declare var Tweakpane: any;
 
-export default {
+export const IndexRoute = {
 	pathname: /^(\/tweakpane)?\/$/,
 
 	init: () => {

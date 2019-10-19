@@ -9,6 +9,7 @@
 		"indent": false,
 		"interface-name": [true, "never-prefix"],
 		"max-classes-per-file": false,
+		"no-default-export": true,
 		"object-literal-key-quotes": [true, "as-needed"],
 		"object-literal-shorthand": [true, "never"],
 		"one-variable-per-declaration": false,

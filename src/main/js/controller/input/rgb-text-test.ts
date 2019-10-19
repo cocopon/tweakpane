@@ -1,12 +1,12 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import NumberFormatter from '../../formatter/number';
-import TestUtil from '../../misc/test-util';
-import Color, {RgbColorObject} from '../../model/color';
-import InputValue from '../../model/input-value';
-import StringNumberParser from '../../parser/string-number';
-import RgbTextInputController from './rgb-text';
+import {NumberFormatter} from '../../formatter/number';
+import {TestUtil} from '../../misc/test-util';
+import {Color, RgbColorObject} from '../../model/color';
+import {InputValue} from '../../model/input-value';
+import {StringNumberParser} from '../../parser/string-number';
+import {RgbTextInputController} from './rgb-text';
 
 interface ChangeTestCase {
 	expected: RgbColorObject;

@@ -1,7 +1,6 @@
-import InputValue from '../../model/input-value';
-import View from '../../view/view';
-
+import {InputValue} from '../../model/input-value';
 import {InputView} from '../../view/input/input';
+import {View} from '../../view/view';
 
 /**
  * @hidden

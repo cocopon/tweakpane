@@ -1,7 +1,6 @@
-import MonitorValue from '../../model/monitor-value';
-import MultiLogMonitorView from '../../view/monitor/multi-log';
-
 import {Formatter} from '../../formatter/formatter';
+import {MonitorValue} from '../../model/monitor-value';
+import {MultiLogMonitorView} from '../../view/monitor/multi-log';
 import {MonitorController} from './monitor';
 
 interface Config<T> {
@@ -12,8 +11,7 @@ interface Config<T> {
 /**
  * @hidden
  */
-export default class MultiLogMonitorController<T>
-	implements MonitorController<T> {
+export class MultiLogMonitorController<T> implements MonitorController<T> {
 	public readonly value: MonitorValue<T>;
 	public readonly view: MultiLogMonitorView<T>;
 

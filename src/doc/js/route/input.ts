@@ -3,7 +3,7 @@ import * as Util from '../util';
 
 declare var Tweakpane: any;
 
-export default {
+export const InputRoute = {
 	pathname: /^(\/tweakpane)?\/input.html$/,
 
 	init: () => {

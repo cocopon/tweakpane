@@ -1,15 +1,15 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import InputBinding from '../binding/input';
+import {InputBinding} from '../binding/input';
 import * as NumberConverter from '../converter/number';
-import NumberFormatter from '../formatter/number';
-import TestUtil from '../misc/test-util';
-import InputValue from '../model/input-value';
-import Target from '../model/target';
-import StringNumberParser from '../parser/string-number';
-import InputBindingController from './input-binding';
-import TextInputController from './input/text';
+import {NumberFormatter} from '../formatter/number';
+import {TestUtil} from '../misc/test-util';
+import {InputValue} from '../model/input-value';
+import {Target} from '../model/target';
+import {StringNumberParser} from '../parser/string-number';
+import {InputBindingController} from './input-binding';
+import {TextInputController} from './input/text';
 
 describe(InputBindingController.name, () => {
 	it('should get properties', () => {

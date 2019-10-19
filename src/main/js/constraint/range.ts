@@ -1,4 +1,4 @@
-import TypeUtil from '../misc/type-util';
+import {TypeUtil} from '../misc/type-util';
 import {Constraint} from './constraint';
 
 interface Config {
@@ -9,7 +9,7 @@ interface Config {
 /**
  * @hidden
  */
-export default class RangeConstraint implements Constraint<number> {
+export class RangeConstraint implements Constraint<number> {
 	public readonly maxValue: number | undefined;
 	public readonly minValue: number | undefined;
 

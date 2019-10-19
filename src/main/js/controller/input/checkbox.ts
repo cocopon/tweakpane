@@ -1,7 +1,6 @@
-import TypeUtil from '../../misc/type-util';
-import InputValue from '../../model/input-value';
-import CheckboxInputView from '../../view/input/checkbox';
-
+import {TypeUtil} from '../../misc/type-util';
+import {InputValue} from '../../model/input-value';
+import {CheckboxInputView} from '../../view/input/checkbox';
 import {InputController} from './input';
 
 /**
@@ -14,8 +13,7 @@ export interface Config {
 /**
  * @hidden
  */
-export default class CheckboxInputController
-	implements InputController<boolean> {
+export class CheckboxInputController implements InputController<boolean> {
 	public readonly value: InputValue<boolean>;
 	public readonly view: CheckboxInputView;
 

@@ -1,11 +1,11 @@
-import ClassName from '../../misc/class-name';
+import {ClassName} from '../../misc/class-name';
 import * as DomUtil from '../../misc/dom-util';
-import InputValue from '../../model/input-value';
-import Point2d from '../../model/point-2d';
-import View from '../view';
+import {InputValue} from '../../model/input-value';
+import {Point2d} from '../../model/point-2d';
+import {View} from '../view';
 import {InputView} from './input';
-import Point2dPadInputView from './point-2d-pad';
-import Point2dTextInputView from './point-2d-text';
+import {Point2dPadInputView} from './point-2d-pad';
+import {Point2dTextInputView} from './point-2d-text';
 
 interface Config {
 	padInputView: Point2dPadInputView;
@@ -17,7 +17,7 @@ const className = ClassName('p2dpadtxt', 'input');
 /**
  * @hidden
  */
-export default class Point2dPadTextInputView extends View
+export class Point2dPadTextInputView extends View
 	implements InputView<Point2d> {
 	private padButtonElem_: HTMLButtonElement;
 	private padInputView_: Point2dPadInputView;

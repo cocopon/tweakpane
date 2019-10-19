@@ -1,5 +1,5 @@
-import ClassName from '../misc/class-name';
-import View from './view';
+import {ClassName} from '../misc/class-name';
+import {View} from './view';
 
 interface Config {
 	label: string;
@@ -11,7 +11,7 @@ const className = ClassName('lbl');
 /**
  * @hidden
  */
-export default class LabeledView extends View {
+export class LabeledView extends View {
 	public readonly label: string;
 
 	constructor(document: Document, config: Config) {

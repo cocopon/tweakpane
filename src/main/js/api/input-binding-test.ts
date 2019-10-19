@@ -1,16 +1,16 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import InputBinding from '../binding/input';
-import InputBindingController from '../controller/input-binding';
-import NumberTextInputController from '../controller/input/number-text';
+import {InputBinding} from '../binding/input';
+import {InputBindingController} from '../controller/input-binding';
+import {NumberTextInputController} from '../controller/input/number-text';
 import * as NumberConverter from '../converter/number';
-import NumberFormatter from '../formatter/number';
-import TestUtil from '../misc/test-util';
-import InputValue from '../model/input-value';
-import Target from '../model/target';
-import StringNumberParser from '../parser/string-number';
-import InputBindingApi from './input-binding';
+import {NumberFormatter} from '../formatter/number';
+import {TestUtil} from '../misc/test-util';
+import {InputValue} from '../model/input-value';
+import {Target} from '../model/target';
+import {StringNumberParser} from '../parser/string-number';
+import {InputBindingApi} from './input-binding';
 
 function createApi(target: Target) {
 	const doc = TestUtil.createWindow().document;

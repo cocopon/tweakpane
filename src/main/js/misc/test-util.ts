@@ -1,6 +1,6 @@
 import {JSDOM} from 'jsdom';
 
-const TestUtil = {
+export const TestUtil = {
 	createWindow: (): Window => {
 		return new JSDOM('').window;
 	},
@@ -15,5 +15,3 @@ const TestUtil = {
 		return new (win as any).KeyboardEvent(type, options);
 	},
 };
-
-export default TestUtil;

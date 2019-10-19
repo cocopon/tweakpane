@@ -3,7 +3,7 @@ interface Route {
 	pathname: RegExp;
 }
 
-export default class SimpleRouter {
+export class SimpleRouter {
 	private routes_: Route[];
 
 	constructor() {

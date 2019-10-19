@@ -1,10 +1,10 @@
-import NumberUtil from '../../misc/number-util';
-import PointerHandler from '../../misc/pointer-handler';
+import {NumberUtil} from '../../misc/number-util';
+import {PointerHandler} from '../../misc/pointer-handler';
 import {PointerData} from '../../misc/pointer-handler';
-import Foldable from '../../model/foldable';
-import InputValue from '../../model/input-value';
-import Point2d from '../../model/point-2d';
-import Point2dPadInputView from '../../view/input/point-2d-pad';
+import {Foldable} from '../../model/foldable';
+import {InputValue} from '../../model/input-value';
+import {Point2d} from '../../model/point-2d';
+import {Point2dPadInputView} from '../../view/input/point-2d-pad';
 import * as UiUtil from '../ui-util';
 import {InputController} from './input';
 
@@ -15,8 +15,7 @@ interface Config {
 /**
  * @hidden
  */
-export default class Point2dPadInputController
-	implements InputController<Point2d> {
+export class Point2dPadInputController implements InputController<Point2d> {
 	public readonly foldable: Foldable;
 	public readonly value: InputValue<Point2d>;
 	public readonly view: Point2dPadInputView;

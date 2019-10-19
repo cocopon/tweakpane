@@ -1,8 +1,8 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import TestUtil from '../misc/test-util';
-import ButtonController from './button';
+import {TestUtil} from '../misc/test-util';
+import {ButtonController} from './button';
 
 describe(ButtonController.name, () => {
 	it('should emit click event', (done) => {

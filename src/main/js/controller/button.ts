@@ -1,5 +1,5 @@
-import Button from '../model/button';
-import ButtonView from '../view/button';
+import {Button} from '../model/button';
+import {ButtonView} from '../view/button';
 
 interface Config {
 	title: string;
@@ -8,7 +8,7 @@ interface Config {
 /**
  * @hidden
  */
-export default class ButtonController {
+export class ButtonController {
 	public readonly button: Button;
 	public readonly view: ButtonView;
 

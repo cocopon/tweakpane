@@ -1,14 +1,14 @@
 import {assert} from 'chai';
 import {describe, describe as context, it} from 'mocha';
 
-import Point2dConstraint from '../constraint/point-2d';
-import RangeConstraint from '../constraint/range';
-import StepConstraint from '../constraint/step';
-import ConstraintUtil from '../constraint/util';
-import Point2dPadTextController from '../controller/input/point-2d-pad-text';
-import RootController from '../controller/root';
-import TestUtil from '../misc/test-util';
-import RootApi from './root';
+import {Point2dConstraint} from '../constraint/point-2d';
+import {RangeConstraint} from '../constraint/range';
+import {StepConstraint} from '../constraint/step';
+import {ConstraintUtil} from '../constraint/util';
+import {Point2dPadTextInputController} from '../controller/input/point-2d-pad-text';
+import {RootController} from '../controller/root';
+import {TestUtil} from '../misc/test-util';
+import {RootApi} from './root';
 
 function createApi(): RootApi {
 	const c = new RootController(TestUtil.createWindow().document, {});
@@ -18,7 +18,7 @@ function createApi(): RootApi {
 describe(RootApi.name, () => {
 	[
 		{
-			expectedClass: Point2dPadTextController,
+			expectedClass: Point2dPadTextInputController,
 			params: {},
 			value: {x: 12, y: 34},
 		},

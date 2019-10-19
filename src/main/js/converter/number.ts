@@ -1,4 +1,5 @@
-import StringNumberParser from '../parser/string-number';
+import {TypeUtil} from '../misc/type-util';
+import {StringNumberParser} from '../parser/string-number';
 
 /**
  * @hidden
@@ -10,7 +11,7 @@ export function fromMixed(value: unknown): number {
 
 	if (typeof value === 'string') {
 		const pv = StringNumberParser(value);
-		if (pv !== null && pv !== undefined) {
+		if (!TypeUtil.isEmpty(pv)) {
 			return pv;
 		}
 	}

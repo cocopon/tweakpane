@@ -1,9 +1,8 @@
-import NumberUtil from '../../misc/number-util';
-import GraphCursor from '../../model/graph-cursor';
-import MonitorValue from '../../model/monitor-value';
-import GraphMonitorView from '../../view/monitor/graph';
-
 import {Formatter} from '../../formatter/formatter';
+import {NumberUtil} from '../../misc/number-util';
+import {GraphCursor} from '../../model/graph-cursor';
+import {MonitorValue} from '../../model/monitor-value';
+import {GraphMonitorView} from '../../view/monitor/graph';
 import {MonitorController} from './monitor';
 
 interface Config {
@@ -16,8 +15,7 @@ interface Config {
 /**
  * @hidden
  */
-export default class GraphMonitorController
-	implements MonitorController<number> {
+export class GraphMonitorController implements MonitorController<number> {
 	public readonly value: MonitorValue<number>;
 	public readonly view: GraphMonitorView;
 	private cursor_: GraphCursor;

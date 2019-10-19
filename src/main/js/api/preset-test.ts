@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import Target from '../model/target';
+import {Target} from '../model/target';
 import * as Preset from './preset';
 
 describe('Preset', () => {

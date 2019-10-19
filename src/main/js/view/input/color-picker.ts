@@ -1,11 +1,11 @@
-import ClassName from '../../misc/class-name';
-import Color from '../../model/color';
-import Foldable from '../../model/foldable';
-import InputValue from '../../model/input-value';
-import View from '../view';
-import HPaletteInputView from './h-palette';
-import RgbTextInputView from './rgb-text';
-import SvPaletteInputView from './sv-palette';
+import {ClassName} from '../../misc/class-name';
+import {Color} from '../../model/color';
+import {Foldable} from '../../model/foldable';
+import {InputValue} from '../../model/input-value';
+import {View} from '../view';
+import {HPaletteInputView} from './h-palette';
+import {RgbTextInputView} from './rgb-text';
+import {SvPaletteInputView} from './sv-palette';
 
 const className = ClassName('clp', 'input');
 
@@ -20,7 +20,7 @@ interface Config {
 /**
  * @hidden
  */
-export default class ColorPickerInputView extends View {
+export class ColorPickerInputView extends View {
 	public readonly foldable: Foldable;
 	public readonly value: InputValue<Color>;
 	private hPaletteView_: HPaletteInputView;

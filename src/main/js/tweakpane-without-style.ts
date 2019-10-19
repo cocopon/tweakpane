@@ -1,9 +1,9 @@
-import RootApi from './api/root';
-import RootController from './controller/root';
-import ClassName from './misc/class-name';
+import {RootApi} from './api/root';
+import {RootController} from './controller/root';
+import {ClassName} from './misc/class-name';
 import * as DomUtil from './misc/dom-util';
-import PaneError from './misc/pane-error';
-import TypeUtil from './misc/type-util';
+import {PaneError} from './misc/pane-error';
+import {TypeUtil} from './misc/type-util';
 import {TweakpaneConfig} from './tweakpane-config';
 
 function createDefaultWrapperElement(document: Document): HTMLElement {
@@ -15,7 +15,7 @@ function createDefaultWrapperElement(document: Document): HTMLElement {
 	return elem;
 }
 
-export default class TweakpaneWithoutStyle extends RootApi {
+export class TweakpaneWithoutStyle extends RootApi {
 	private doc_: Document | null;
 	private containerElem_: HTMLElement | null;
 	private usesDefaultWrapper_: boolean;

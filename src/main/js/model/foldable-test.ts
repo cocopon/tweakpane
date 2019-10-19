@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import Foldable from './foldable';
+import {Foldable} from './foldable';
 
 describe(Foldable.name, () => {
 	it('should get initial expanded', () => {

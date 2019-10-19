@@ -1,9 +1,9 @@
-import SeparatorView from '../view/separator';
+import {SeparatorView} from '../view/separator';
 
 /**
  * @hidden
  */
-export default class SeparatorController {
+export class SeparatorController {
 	public readonly view: SeparatorView;
 
 	constructor(document: Document) {

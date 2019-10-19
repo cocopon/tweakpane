@@ -1,10 +1,10 @@
 import {assert} from 'chai';
 import {describe, describe as context, it} from 'mocha';
 
-import ColorSwatchTextInputController from '../controller/input/color-swatch-text';
-import RootController from '../controller/root';
-import TestUtil from '../misc/test-util';
-import RootApi from './root';
+import {ColorSwatchTextInputController} from '../controller/input/color-swatch-text';
+import {RootController} from '../controller/root';
+import {TestUtil} from '../misc/test-util';
+import {RootApi} from './root';
 
 function createApi(): RootApi {
 	const c = new RootController(TestUtil.createWindow().document, {});

@@ -7,7 +7,7 @@ interface Config {
 /**
  * @hidden
  */
-export default class StepConstraint implements Constraint<number> {
+export class StepConstraint implements Constraint<number> {
 	public readonly step: number;
 
 	constructor(config: Config) {

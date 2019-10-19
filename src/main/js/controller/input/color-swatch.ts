@@ -1,9 +1,8 @@
-import TypeUtil from '../../misc/type-util';
-import Color from '../../model/color';
-import InputValue from '../../model/input-value';
-import ColorSwatchInputView from '../../view/input/color-swatch';
-import ColorPickerInputController from './color-picker';
-
+import {TypeUtil} from '../../misc/type-util';
+import {Color} from '../../model/color';
+import {InputValue} from '../../model/input-value';
+import {ColorSwatchInputView} from '../../view/input/color-swatch';
+import {ColorPickerInputController} from './color-picker';
 import {InputController} from './input';
 
 interface Config {
@@ -13,8 +12,7 @@ interface Config {
 /**
  * @hidden
  */
-export default class ColorSwatchInputController
-	implements InputController<Color> {
+export class ColorSwatchInputController implements InputController<Color> {
 	public readonly value: InputValue<Color>;
 	public readonly view: ColorSwatchInputView;
 	private pickerIc_: ColorPickerInputController;

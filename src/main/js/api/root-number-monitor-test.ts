@@ -1,14 +1,14 @@
 import {assert} from 'chai';
 import {describe, describe as context, it} from 'mocha';
 
-import MonitorBinding from '../binding/monitor';
-import GraphMonitorController from '../controller/monitor/graph';
-import MultiLogMonitorController from '../controller/monitor/multi-log';
-import SingleLogMonitorController from '../controller/monitor/single-log';
-import RootController from '../controller/root';
-import TestUtil from '../misc/test-util';
-import IntervalTicker from '../misc/ticker/interval';
-import RootApi from './root';
+import {MonitorBinding} from '../binding/monitor';
+import {GraphMonitorController} from '../controller/monitor/graph';
+import {MultiLogMonitorController} from '../controller/monitor/multi-log';
+import {SingleLogMonitorController} from '../controller/monitor/single-log';
+import {RootController} from '../controller/root';
+import {TestUtil} from '../misc/test-util';
+import {IntervalTicker} from '../misc/ticker/interval';
+import {RootApi} from './root';
 
 function createApi(): RootApi {
 	const c = new RootController(TestUtil.createWindow().document, {});

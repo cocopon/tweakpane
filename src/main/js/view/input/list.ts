@@ -1,9 +1,9 @@
 import {ListItem} from '../../constraint/list';
-import ClassName from '../../misc/class-name';
+import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
-import PaneError from '../../misc/pane-error';
-import InputValue from '../../model/input-value';
-import View from '../view';
+import {PaneError} from '../../misc/pane-error';
+import {InputValue} from '../../model/input-value';
+import {View} from '../view';
 import {InputView} from './input';
 
 interface Config<T> {
@@ -17,7 +17,7 @@ const className = ClassName('lst', 'input');
 /**
  * @hidden
  */
-export default class ListInputView<T> extends View implements InputView<T> {
+export class ListInputView<T> extends View implements InputView<T> {
 	public readonly value: InputValue<T>;
 	private selectElem_: HTMLSelectElement | null;
 	private stringifyValue_: (value: T) => string;

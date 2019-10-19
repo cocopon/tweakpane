@@ -1,12 +1,12 @@
-import ClassName from '../../misc/class-name';
+import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
 import * as DomUtil from '../../misc/dom-util';
-import NumberUtil from '../../misc/number-util';
-import PaneError from '../../misc/pane-error';
-import Foldable from '../../model/foldable';
-import InputValue from '../../model/input-value';
-import Point2d from '../../model/point-2d';
-import View from '../view';
+import {NumberUtil} from '../../misc/number-util';
+import {PaneError} from '../../misc/pane-error';
+import {Foldable} from '../../model/foldable';
+import {InputValue} from '../../model/input-value';
+import {Point2d} from '../../model/point-2d';
+import {View} from '../view';
 import {InputView} from './input';
 
 interface Config {
@@ -21,8 +21,7 @@ const className = ClassName('p2dpad', 'input');
 /**
  * @hidden
  */
-export default class Point2dPadInputView extends View
-	implements InputView<Point2d> {
+export class Point2dPadInputView extends View implements InputView<Point2d> {
 	public readonly foldable: Foldable;
 	public readonly value: InputValue<Point2d>;
 	private readonly maxValue_: number;

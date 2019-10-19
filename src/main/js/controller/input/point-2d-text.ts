@@ -1,10 +1,10 @@
-import Point2dConstraint from '../../constraint/point-2d';
+import {Point2dConstraint} from '../../constraint/point-2d';
 import {Formatter} from '../../formatter/formatter';
-import TypeUtil from '../../misc/type-util';
-import InputValue from '../../model/input-value';
-import Point2d from '../../model/point-2d';
+import {TypeUtil} from '../../misc/type-util';
+import {InputValue} from '../../model/input-value';
+import {Point2d} from '../../model/point-2d';
 import {Parser} from '../../parser/parser';
-import Point2dTextInputView from '../../view/input/point-2d-text';
+import {Point2dTextInputView} from '../../view/input/point-2d-text';
 import * as UiUtil from '../ui-util';
 import {InputController} from './input';
 
@@ -18,8 +18,7 @@ interface Config {
 /**
  * @hidden
  */
-export default class Point2dTextInputController
-	implements InputController<Point2d> {
+export class Point2dTextInputController implements InputController<Point2d> {
 	public readonly value: InputValue<Point2d>;
 	public readonly view: Point2dTextInputView;
 	private readonly parser_: Parser<string, number>;
@@ -79,23 +78,24 @@ export default class Point2dTextInputController
 	private onInputChange_(e: Event): void {
 		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
 
-		TypeUtil.ifNotEmpty(this.parser_(inputElem.value), (parsedValue) => {
-			TypeUtil.ifNotEmpty(
-				this.findIndexOfInputElem_(inputElem),
-				(compIndex: number) => {
-					this.updateComponent_(compIndex, parsedValue);
-				},
-			);
-		});
-	}
-
-	private onInputKeyDown_(e: KeyboardEvent): void {
-		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
 		const parsedValue = this.parser_(inputElem.value);
 		if (TypeUtil.isEmpty(parsedValue)) {
 			return;
 		}
+		const compIndex = this.findIndexOfInputElem_(inputElem);
+		if (TypeUtil.isEmpty(compIndex)) {
+			return;
+		}
+		this.updateComponent_(compIndex, parsedValue);
+	}
 
+	private onInputKeyDown_(e: KeyboardEvent): void {
+		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
+
+		const parsedValue = this.parser_(inputElem.value);
+		if (TypeUtil.isEmpty(parsedValue)) {
+			return;
+		}
 		const compIndex = this.findIndexOfInputElem_(inputElem);
 		if (TypeUtil.isEmpty(compIndex)) {
 			return;

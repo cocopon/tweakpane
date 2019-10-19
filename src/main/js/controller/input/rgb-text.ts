@@ -1,9 +1,9 @@
 import {Formatter} from '../../formatter/formatter';
-import TypeUtil from '../../misc/type-util';
-import Color from '../../model/color';
-import InputValue from '../../model/input-value';
+import {TypeUtil} from '../../misc/type-util';
+import {Color} from '../../model/color';
+import {InputValue} from '../../model/input-value';
 import {Parser} from '../../parser/parser';
-import RgbTextInputView from '../../view/input/rgb-text';
+import {RgbTextInputView} from '../../view/input/rgb-text';
 import * as UiUtil from '../ui-util';
 import {InputController} from './input';
 
@@ -18,7 +18,7 @@ const STEP = 1;
 /**
  * @hidden
  */
-export default class RgbTextInputController implements InputController<Color> {
+export class RgbTextInputController implements InputController<Color> {
 	public readonly value: InputValue<Color>;
 	public readonly view: RgbTextInputView;
 	private parser_: Parser<string, number>;
@@ -70,14 +70,15 @@ export default class RgbTextInputController implements InputController<Color> {
 	private onInputChange_(e: Event): void {
 		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
 
-		TypeUtil.ifNotEmpty(this.parser_(inputElem.value), (parsedValue) => {
-			TypeUtil.ifNotEmpty(
-				this.findIndexOfInputElem_(inputElem),
-				(compIndex: number) => {
-					this.updateComponent_(compIndex, parsedValue);
-				},
-			);
-		});
+		const parsedValue = this.parser_(inputElem.value);
+		if (TypeUtil.isEmpty(parsedValue)) {
+			return;
+		}
+		const compIndex = this.findIndexOfInputElem_(inputElem);
+		if (TypeUtil.isEmpty(compIndex)) {
+			return;
+		}
+		this.updateComponent_(compIndex, parsedValue);
 	}
 
 	private onInputKeyDown_(e: KeyboardEvent): void {
@@ -87,13 +88,14 @@ export default class RgbTextInputController implements InputController<Color> {
 		}
 
 		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
-		TypeUtil.ifNotEmpty(this.parser_(inputElem.value), (parsedValue) => {
-			TypeUtil.ifNotEmpty(
-				this.findIndexOfInputElem_(inputElem),
-				(compIndex: number) => {
-					this.updateComponent_(compIndex, parsedValue + step);
-				},
-			);
-		});
+		const parsedValue = this.parser_(inputElem.value);
+		if (TypeUtil.isEmpty(parsedValue)) {
+			return;
+		}
+		const compIndex = this.findIndexOfInputElem_(inputElem);
+		if (TypeUtil.isEmpty(compIndex)) {
+			return;
+		}
+		this.updateComponent_(compIndex, parsedValue + step);
 	}
 }

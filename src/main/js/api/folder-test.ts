@@ -1,12 +1,12 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import FolderController from '../controller/folder';
-import NumberInputController from '../controller/input/number-text';
-import SingleLogController from '../controller/monitor/single-log';
-import SeparatorController from '../controller/separator';
-import TestUtil from '../misc/test-util';
-import FolderApi from './folder';
+import {FolderController} from '../controller/folder';
+import {NumberTextInputController} from '../controller/input/number-text';
+import {SingleLogMonitorController} from '../controller/monitor/single-log';
+import {SeparatorController} from '../controller/separator';
+import {TestUtil} from '../misc/test-util';
+import {FolderApi} from './folder';
 
 function createApi(): FolderApi {
 	const c = new FolderController(TestUtil.createWindow().document, {
@@ -62,7 +62,7 @@ describe(FolderApi.name, () => {
 		};
 		const api = createApi();
 		const bapi = api.addInput(PARAMS, 'foo');
-		assert.instanceOf(bapi.controller.controller, NumberInputController);
+		assert.instanceOf(bapi.controller.controller, NumberTextInputController);
 	});
 
 	it('should add monitor', () => {
@@ -73,7 +73,7 @@ describe(FolderApi.name, () => {
 		const bapi = api.addMonitor(PARAMS, 'foo', {
 			interval: 0,
 		});
-		assert.instanceOf(bapi.controller.controller, SingleLogController);
+		assert.instanceOf(bapi.controller.controller, SingleLogMonitorController);
 	});
 
 	it('should listen fold event', (done) => {

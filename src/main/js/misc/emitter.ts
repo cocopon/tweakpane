@@ -7,7 +7,7 @@ interface Observer {
 /**
  * @hidden
  */
-export default class Emitter<EventType extends string> {
+export class Emitter<EventType extends string> {
 	private observers_: {[eventName in EventType]?: Observer[]};
 
 	constructor() {

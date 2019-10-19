@@ -1,16 +1,16 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import MonitorBinding from '../binding/monitor';
-import MonitorBindingController from '../controller/monitor-binding';
-import SingleLogMonitorController from '../controller/monitor/single-log';
+import {MonitorBinding} from '../binding/monitor';
+import {MonitorBindingController} from '../controller/monitor-binding';
+import {SingleLogMonitorController} from '../controller/monitor/single-log';
 import * as NumberConverter from '../converter/number';
-import NumberFormatter from '../formatter/number';
-import TestUtil from '../misc/test-util';
-import ManualTicker from '../misc/ticker/manual';
-import MonitorValue from '../model/monitor-value';
-import Target from '../model/target';
-import MonitorBindingApi from './monitor-binding';
+import {NumberFormatter} from '../formatter/number';
+import {TestUtil} from '../misc/test-util';
+import {ManualTicker} from '../misc/ticker/manual';
+import {MonitorValue} from '../model/monitor-value';
+import {Target} from '../model/target';
+import {MonitorBindingApi} from './monitor-binding';
 
 function createApi(target: Target) {
 	const doc = TestUtil.createWindow().document;

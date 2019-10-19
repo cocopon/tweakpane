@@ -1,21 +1,21 @@
-import InputBinding from '../../binding/input';
-import CompositeConstraint from '../../constraint/composite';
+import {Point2dDimensionParams} from '../../api/types';
+import {InputBinding} from '../../binding/input';
+import {CompositeConstraint} from '../../constraint/composite';
 import {Constraint} from '../../constraint/constraint';
-import Point2dConstraint from '../../constraint/point-2d';
-import RangeConstraint from '../../constraint/range';
-import StepConstraint from '../../constraint/step';
+import {Point2dConstraint} from '../../constraint/point-2d';
+import {RangeConstraint} from '../../constraint/range';
+import {StepConstraint} from '../../constraint/step';
 import * as Point2dConverter from '../../converter/point-2d';
-import NumberFormatter from '../../formatter/number';
-import PaneError from '../../misc/pane-error';
-import TypeUtil from '../../misc/type-util';
-import InputValue from '../../model/input-value';
-import Point2d, {Point2dObject} from '../../model/point-2d';
-import Target from '../../model/target';
-import AnyPoint2dParser from '../../parser/any-point-2d';
-import StringNumberParser from '../../parser/string-number';
-import InputBindingController from '../input-binding';
-import Point2dPadTextInputController from '../input/point-2d-pad-text';
-import {Point2dDimensionParams} from '../ui';
+import {NumberFormatter} from '../../formatter/number';
+import {PaneError} from '../../misc/pane-error';
+import {TypeUtil} from '../../misc/type-util';
+import {InputValue} from '../../model/input-value';
+import {Point2d, Point2dObject} from '../../model/point-2d';
+import {Target} from '../../model/target';
+import {AnyPoint2dParser} from '../../parser/any-point-2d';
+import {StringNumberParser} from '../../parser/string-number';
+import {InputBindingController} from '../input-binding';
+import {Point2dPadTextInputController} from '../input/point-2d-pad-text';
 import * as UiUtil from '../ui-util';
 
 interface Params {

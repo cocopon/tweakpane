@@ -1,13 +1,13 @@
-import ColorFormatter from '../../formatter/color';
-import ClassName from '../../misc/class-name';
+import {ColorFormatter} from '../../formatter/color';
+import {ClassName} from '../../misc/class-name';
 import * as ColorModel from '../../misc/color-model';
 import * as DisposingUtil from '../../misc/disposing-util';
 import * as DomUtil from '../../misc/dom-util';
-import NumberUtil from '../../misc/number-util';
-import PaneError from '../../misc/pane-error';
-import Color from '../../model/color';
-import InputValue from '../../model/input-value';
-import View from '../view';
+import {NumberUtil} from '../../misc/number-util';
+import {PaneError} from '../../misc/pane-error';
+import {Color} from '../../model/color';
+import {InputValue} from '../../model/input-value';
+import {View} from '../view';
 
 const className = ClassName('svp', 'input');
 
@@ -18,7 +18,7 @@ interface Config {
 /**
  * @hidden
  */
-export default class SvPaletteInputView extends View {
+export class SvPaletteInputView extends View {
 	public readonly value: InputValue<Color>;
 	private canvasElem_: HTMLCanvasElement | null;
 	private markerElem_: HTMLDivElement | null;

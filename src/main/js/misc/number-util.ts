@@ -1,4 +1,4 @@
-const NumberUtil = {
+export const NumberUtil = {
 	map: (
 		value: number,
 		start1: number,
@@ -24,5 +24,3 @@ const NumberUtil = {
 		return ((value % max) + max) % max;
 	},
 };
-
-export default NumberUtil;

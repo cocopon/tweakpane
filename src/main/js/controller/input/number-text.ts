@@ -1,14 +1,11 @@
 import * as UiUtil from '../ui-util';
-import TextInputController from './text';
-
+import {TextInputController} from './text';
 import {Config} from './text';
 
 /**
  * @hidden
  */
-export default class NumberTextInputController extends TextInputController<
-	number
-> {
+export class NumberTextInputController extends TextInputController<number> {
 	private step_: number;
 
 	constructor(document: Document, config: Config<number>) {

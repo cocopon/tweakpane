@@ -1,11 +1,11 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import CompositeConstraint from './composite';
-import ListConstraint from './list';
-import RangeConstraint from './range';
-import StepConstraint from './step';
-import ConstraintUtil from './util';
+import {CompositeConstraint} from './composite';
+import {ListConstraint} from './list';
+import {RangeConstraint} from './range';
+import {StepConstraint} from './step';
+import {ConstraintUtil} from './util';
 
 describe('ConstraintUtil', () => {
 	it('should find constraint itself', () => {

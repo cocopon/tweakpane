@@ -1,9 +1,8 @@
-import TypeUtil from '../../misc/type-util';
-import InputValue from '../../model/input-value';
-import TextInputView from '../../view/input/text';
-
 import {Formatter} from '../../formatter/formatter';
+import {TypeUtil} from '../../misc/type-util';
+import {InputValue} from '../../model/input-value';
 import {Parser} from '../../parser/parser';
+import {TextInputView} from '../../view/input/text';
 import {InputController} from './input';
 
 /**
@@ -18,7 +17,7 @@ export interface Config<T> {
 /**
  * @hidden
  */
-export default class TextInputController<T> implements InputController<T> {
+export class TextInputController<T> implements InputController<T> {
 	public readonly value: InputValue<T>;
 	public readonly view: TextInputView<T>;
 	private parser_: Parser<string, T>;
@@ -44,9 +43,10 @@ export default class TextInputController<T> implements InputController<T> {
 		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
 		const value = inputElem.value;
 
-		TypeUtil.ifNotEmpty(this.parser_(value), (parsedValue) => {
+		const parsedValue = this.parser_(value);
+		if (!TypeUtil.isEmpty(parsedValue)) {
 			this.value.rawValue = parsedValue;
-		});
+		}
 		this.view.update();
 	}
 }

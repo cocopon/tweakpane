@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import StepConstraint from './step';
+import {StepConstraint} from './step';
 
 const DELTA = 1e-5;
 

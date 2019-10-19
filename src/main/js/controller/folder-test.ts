@@ -1,8 +1,8 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import TestUtil from '../misc/test-util';
-import FolderController from './folder';
+import {TestUtil} from '../misc/test-util';
+import {FolderController} from './folder';
 
 describe(FolderController.name, () => {
 	it('should toggle expanded by clicking title', (done) => {

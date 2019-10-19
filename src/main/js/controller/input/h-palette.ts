@@ -1,10 +1,9 @@
-import NumberUtil from '../../misc/number-util';
-import PointerHandler from '../../misc/pointer-handler';
-import Color from '../../model/color';
-import InputValue from '../../model/input-value';
-import HPaletteInputView from '../../view/input/h-palette';
-
+import {NumberUtil} from '../../misc/number-util';
+import {PointerHandler} from '../../misc/pointer-handler';
 import {PointerData} from '../../misc/pointer-handler';
+import {Color} from '../../model/color';
+import {InputValue} from '../../model/input-value';
+import {HPaletteInputView} from '../../view/input/h-palette';
 import {InputController} from './input';
 
 interface Config {
@@ -14,7 +13,7 @@ interface Config {
 /**
  * @hidden
  */
-export default class HPaletteInputController implements InputController<Color> {
+export class HPaletteInputController implements InputController<Color> {
 	public readonly value: InputValue<Color>;
 	public readonly view: HPaletteInputView;
 	private ptHandler_: PointerHandler;

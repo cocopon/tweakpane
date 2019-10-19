@@ -1,8 +1,7 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import CompositeConstraint from './composite';
-
+import {CompositeConstraint} from './composite';
 import {Constraint} from './constraint';
 
 class DoubleConstraint implements Constraint<number> {

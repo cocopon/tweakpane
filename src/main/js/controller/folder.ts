@@ -1,12 +1,11 @@
 import * as DomUtil from '../misc/dom-util';
-import Emitter from '../misc/emitter';
-import TypeUtil from '../misc/type-util';
-import Folder from '../model/folder';
-import List from '../model/list';
-import FolderView from '../view/folder';
-import InputBindingController from './input-binding';
-import MonitorBindingController from './monitor-binding';
-
+import {Emitter} from '../misc/emitter';
+import {TypeUtil} from '../misc/type-util';
+import {Folder} from '../model/folder';
+import {List} from '../model/list';
+import {FolderView} from '../view/folder';
+import {InputBindingController} from './input-binding';
+import {MonitorBindingController} from './monitor-binding';
 import {UiController} from './ui';
 
 interface Config {
@@ -19,7 +18,7 @@ export type EventName = 'fold' | 'inputchange' | 'monitorupdate';
 /**
  * @hidden
  */
-export default class FolderController {
+export class FolderController {
 	public readonly emitter: Emitter<EventName>;
 	public readonly folder: Folder;
 	public readonly view: FolderView;

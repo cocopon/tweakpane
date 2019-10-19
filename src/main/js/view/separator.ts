@@ -1,12 +1,12 @@
-import ClassName from '../misc/class-name';
-import View from './view';
+import {ClassName} from '../misc/class-name';
+import {View} from './view';
 
 const className = ClassName('spt');
 
 /**
  * @hidden
  */
-export default class SeparatorView extends View {
+export class SeparatorView extends View {
 	constructor(document: Document) {
 		super(document);
 

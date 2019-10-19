@@ -1,13 +1,12 @@
 import * as ColorConverter from '../converter/color';
-import NumberUtil from '../misc/number-util';
-import Color from '../model/color';
-
+import {NumberUtil} from '../misc/number-util';
+import {Color} from '../model/color';
 import {Formatter} from './formatter';
 
 /**
  * @hidden
  */
-export default class ColorFormatter implements Formatter<Color> {
+export class ColorFormatter implements Formatter<Color> {
 	public static rgb(r: number, g: number, b: number): string {
 		const compsText = [
 			NumberUtil.constrain(Math.floor(r), 0, 255),

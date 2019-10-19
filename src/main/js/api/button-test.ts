@@ -1,9 +1,9 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import ButtonController from '../controller/button';
-import TestUtil from '../misc/test-util';
-import ButtonApi from './button';
+import {ButtonController} from '../controller/button';
+import {TestUtil} from '../misc/test-util';
+import {ButtonApi} from './button';
 
 describe(ButtonApi.name, () => {
 	it('should dispose', () => {

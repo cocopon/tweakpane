@@ -1,5 +1,4 @@
-import Emitter from '../emitter';
-
+import {Emitter} from '../emitter';
 import {Ticker} from './ticker';
 
 type EventType = 'tick';
@@ -7,7 +6,7 @@ type EventType = 'tick';
 /**
  * @hidden
  */
-export default class IntervalTicker implements Ticker {
+export class IntervalTicker implements Ticker {
 	public readonly emitter: Emitter<EventType>;
 	private active_: boolean;
 	private doc_: Document;

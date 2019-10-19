@@ -1,8 +1,9 @@
-import PaneError from '../../misc/pane-error';
-import Color from '../../model/color';
-import Point2d, {Point2dObject} from '../../model/point-2d';
-import Target from '../../model/target';
-import {InputParams} from '../ui';
+import {InputParams} from '../../api/types';
+import {PaneError} from '../../misc/pane-error';
+import {TypeUtil} from '../../misc/type-util';
+import {Color} from '../../model/color';
+import {Point2d, Point2dObject} from '../../model/point-2d';
+import {Target} from '../../model/target';
 import * as BooleanInputBindingControllerCreators from './boolean-input';
 import * as ColorInputBindingControllerCreators from './color-input';
 import * as NumberInputBindingControllerCreators from './number-input';
@@ -22,7 +23,7 @@ export function create(
 ) {
 	const initialValue = target.read();
 
-	if (initialValue === null || initialValue === undefined) {
+	if (TypeUtil.isEmpty(initialValue)) {
 		throw new PaneError({
 			context: {
 				key: target.key,

@@ -1,4 +1,4 @@
-import InputBindingController from '../controller/input-binding';
+import {InputBindingController} from '../controller/input-binding';
 import {Handler} from '../misc/emitter';
 
 type EventName = 'change';
@@ -8,7 +8,7 @@ type EventName = 'change';
  * @param In The type inner Tweakpane.
  * @param Out The type outer Tweakpane (= parameter object).
  */
-export default class InputBindingApi<In, Out> {
+export class InputBindingApi<In, Out> {
 	/**
 	 * @hidden
 	 */

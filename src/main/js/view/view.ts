@@ -1,10 +1,10 @@
 import * as DisposingUtil from '../misc/disposing-util';
-import PaneError from '../misc/pane-error';
+import {PaneError} from '../misc/pane-error';
 
 /**
  * @hidden
  */
-export default class View {
+export class View {
 	private disposed_: boolean;
 	private doc_: Document | null;
 	private elem_: HTMLElement | null;

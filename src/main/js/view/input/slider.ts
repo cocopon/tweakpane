@@ -1,9 +1,9 @@
-import ClassName from '../../misc/class-name';
+import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
-import NumberUtil from '../../misc/number-util';
-import PaneError from '../../misc/pane-error';
-import InputValue from '../../model/input-value';
-import View from '../view';
+import {NumberUtil} from '../../misc/number-util';
+import {PaneError} from '../../misc/pane-error';
+import {InputValue} from '../../model/input-value';
+import {View} from '../view';
 import {InputView} from './input';
 
 interface Config {
@@ -17,7 +17,7 @@ const className = ClassName('sld', 'input');
 /**
  * @hidden
  */
-export default class SliderInputView extends View implements InputView<number> {
+export class SliderInputView extends View implements InputView<number> {
 	public readonly value: InputValue<number>;
 	private innerElem_: HTMLDivElement | null;
 	private maxValue_: number;

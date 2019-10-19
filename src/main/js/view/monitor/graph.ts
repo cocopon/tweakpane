@@ -1,12 +1,12 @@
 import {Formatter} from '../../formatter/formatter';
-import ClassName from '../../misc/class-name';
+import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
 import * as DomUtil from '../../misc/dom-util';
-import NumberUtil from '../../misc/number-util';
-import PaneError from '../../misc/pane-error';
-import GraphCursor from '../../model/graph-cursor';
-import MonitorValue from '../../model/monitor-value';
-import View from '../view';
+import {NumberUtil} from '../../misc/number-util';
+import {PaneError} from '../../misc/pane-error';
+import {GraphCursor} from '../../model/graph-cursor';
+import {MonitorValue} from '../../model/monitor-value';
+import {View} from '../view';
 import {MonitorView} from './monitor';
 
 const SVG_NS = DomUtil.SVG_NS;
@@ -24,8 +24,7 @@ const className = ClassName('grp', 'monitor');
 /**
  * @hidden
  */
-export default class GraphMonitorView extends View
-	implements MonitorView<number> {
+export class GraphMonitorView extends View implements MonitorView<number> {
 	public readonly value: MonitorValue<number>;
 	private cursor_: GraphCursor;
 	private formatter_: Formatter<number>;

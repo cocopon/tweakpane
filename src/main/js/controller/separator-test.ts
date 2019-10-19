@@ -1,8 +1,8 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import TestUtil from '../misc/test-util';
-import SeparatorController from './separator';
+import {TestUtil} from '../misc/test-util';
+import {SeparatorController} from './separator';
 
 describe(SeparatorController.name, () => {
 	it('should dispose', () => {

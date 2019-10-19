@@ -7,7 +7,7 @@ interface Config<T> {
 /**
  * @hidden
  */
-export default class CompositeConstraint<T> implements Constraint<T> {
+export class CompositeConstraint<T> implements Constraint<T> {
 	private constraints_: Constraint<T>[];
 
 	constructor(config: Config<T>) {

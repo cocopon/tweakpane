@@ -1,21 +1,21 @@
-import InputBinding from '../../binding/input';
-import CompositeConstraint from '../../constraint/composite';
+import {InputParams} from '../../api/types';
+import {InputBinding} from '../../binding/input';
+import {CompositeConstraint} from '../../constraint/composite';
 import {Constraint} from '../../constraint/constraint';
-import ListConstraint from '../../constraint/list';
-import RangeConstraint from '../../constraint/range';
-import StepConstraint from '../../constraint/step';
-import ConstraintUtil from '../../constraint/util';
+import {ListConstraint} from '../../constraint/list';
+import {RangeConstraint} from '../../constraint/range';
+import {StepConstraint} from '../../constraint/step';
+import {ConstraintUtil} from '../../constraint/util';
 import * as NumberConverter from '../../converter/number';
-import NumberFormatter from '../../formatter/number';
-import TypeUtil from '../../misc/type-util';
-import InputValue from '../../model/input-value';
-import Target from '../../model/target';
-import StringNumberParser from '../../parser/string-number';
-import InputBindingController from '../input-binding';
-import ListInputController from '../input/list';
-import NumberTextInputController from '../input/number-text';
-import SliderTextInputController from '../input/slider-text';
-import {InputParams} from '../ui';
+import {NumberFormatter} from '../../formatter/number';
+import {TypeUtil} from '../../misc/type-util';
+import {InputValue} from '../../model/input-value';
+import {Target} from '../../model/target';
+import {StringNumberParser} from '../../parser/string-number';
+import {InputBindingController} from '../input-binding';
+import {ListInputController} from '../input/list';
+import {NumberTextInputController} from '../input/number-text';
+import {SliderTextInputController} from '../input/slider-text';
 import * as UiUtil from '../ui-util';
 
 function createConstraint(params: InputParams): Constraint<number> {

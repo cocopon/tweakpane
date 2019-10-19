@@ -2,9 +2,9 @@ import {assert} from 'chai';
 import {describe, describe as context, it} from 'mocha';
 
 import {Constraint} from '../constraint/constraint';
-import Point2dConstraint from '../constraint/point-2d';
-import RangeConstraint from '../constraint/range';
-import Point2d from '../model/point-2d';
+import {Point2dConstraint} from '../constraint/point-2d';
+import {RangeConstraint} from '../constraint/range';
+import {Point2d} from '../model/point-2d';
 import * as UiUtil from './ui-util';
 
 interface TestCase {

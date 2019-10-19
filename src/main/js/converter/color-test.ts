@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import Color from '../model/color';
+import {Color} from '../model/color';
 import * as ColorConverter from './color';
 
 describe('ColorConverter', () => {

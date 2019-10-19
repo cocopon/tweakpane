@@ -1,11 +1,11 @@
 import {assert} from 'chai';
 import {describe, describe as context, it} from 'mocha';
 
-import CheckboxInputController from '../controller/input/checkbox';
-import ListInputController from '../controller/input/list';
-import RootController from '../controller/root';
-import TestUtil from '../misc/test-util';
-import RootApi from './root';
+import {CheckboxInputController} from '../controller/input/checkbox';
+import {ListInputController} from '../controller/input/list';
+import {RootController} from '../controller/root';
+import {TestUtil} from '../misc/test-util';
+import {RootApi} from './root';
 
 function createApi(): RootApi {
 	const c = new RootController(TestUtil.createWindow().document, {});

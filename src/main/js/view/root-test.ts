@@ -1,9 +1,9 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import PaneError from '../misc/pane-error';
-import TestUtil from '../misc/test-util';
-import RootView from './root';
+import {PaneError} from '../misc/pane-error';
+import {TestUtil} from '../misc/test-util';
+import {RootView} from './root';
 
 describe(RootView.name, () => {
 	it('should dispose', () => {

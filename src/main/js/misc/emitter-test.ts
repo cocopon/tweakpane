@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import Emitter from './emitter';
+import {Emitter} from './emitter';
 
 describe(Emitter.name, () => {
 	it('should emit event', (done) => {

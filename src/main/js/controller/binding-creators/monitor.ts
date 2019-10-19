@@ -1,6 +1,7 @@
-import PaneError from '../../misc/pane-error';
-import Target from '../../model/target';
-import {MonitorParams} from '../ui';
+import {MonitorParams} from '../../api/types';
+import {PaneError} from '../../misc/pane-error';
+import {TypeUtil} from '../../misc/type-util';
+import {Target} from '../../model/target';
 import * as BooleanMonitorBindingControllerCreators from './boolean-monitor';
 import * as NumberMonitorBindingControllerCreators from './number-monitor';
 import * as StringMonitorBindingControllerCreators from './string-monitor';
@@ -17,7 +18,7 @@ export function create(
 ) {
 	const initialValue = target.read();
 
-	if (initialValue === null || initialValue === undefined) {
+	if (TypeUtil.isEmpty(initialValue)) {
 		throw new PaneError({
 			context: {
 				key: target.key,

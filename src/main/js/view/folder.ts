@@ -1,9 +1,9 @@
-import ClassName from '../misc/class-name';
+import {ClassName} from '../misc/class-name';
 import * as DisposingUtil from '../misc/disposing-util';
-import PaneError from '../misc/pane-error';
-import TypeUtil from '../misc/type-util';
-import Folder from '../model/folder';
-import View from './view';
+import {PaneError} from '../misc/pane-error';
+import {TypeUtil} from '../misc/type-util';
+import {Folder} from '../model/folder';
+import {View} from './view';
 
 interface Config {
 	folder: Folder;
@@ -14,7 +14,7 @@ const className = ClassName('fld');
 /**
  * @hidden
  */
-export default class FolderView extends View {
+export class FolderView extends View {
 	private containerElem_: HTMLDivElement | null;
 	private folder_: Folder;
 	private titleElem_: HTMLButtonElement | null;
@@ -81,16 +81,13 @@ export default class FolderView extends View {
 			this.element.classList.remove(expandedClass);
 		}
 
-		TypeUtil.ifNotEmpty(
-			this.folder_.expandedHeight,
-			(expandedHeight) => {
-				const containerHeight = expanded ? expandedHeight : 0;
-				containerElem.style.height = `${containerHeight}px`;
-			},
-			() => {
-				containerElem.style.height = expanded ? 'auto' : '0px';
-			},
-		);
+		const expandedHeight = this.folder_.expandedHeight;
+		if (!TypeUtil.isEmpty(expandedHeight)) {
+			const containerHeight = expanded ? expandedHeight : 0;
+			containerElem.style.height = `${containerHeight}px`;
+		} else {
+			containerElem.style.height = expanded ? 'auto' : '0px';
+		}
 	}
 
 	private onFolderChange_() {

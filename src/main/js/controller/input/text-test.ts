@@ -1,11 +1,11 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import NumberFormatter from '../../formatter/number';
-import TestUtil from '../../misc/test-util';
-import InputValue from '../../model/input-value';
-import StringNumberParser from '../../parser/string-number';
-import TextInputController from './text';
+import {NumberFormatter} from '../../formatter/number';
+import {TestUtil} from '../../misc/test-util';
+import {InputValue} from '../../model/input-value';
+import {StringNumberParser} from '../../parser/string-number';
+import {TextInputController} from './text';
 
 describe(TextInputController.name, () => {
 	it('should get value', () => {

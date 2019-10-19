@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import GraphCursor from './graph-cursor';
+import {GraphCursor} from './graph-cursor';
 
 describe(GraphCursor.name, () => {
 	it('should get index', () => {

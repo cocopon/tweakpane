@@ -44,7 +44,7 @@ function createMessage(config: Config): string {
 	return 'Unexpected error';
 }
 
-export default class PaneError {
+export class PaneError {
 	public static alreadyDisposed(): PaneError {
 		return new PaneError({type: 'alreadydisposed'});
 	}
