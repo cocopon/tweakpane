@@ -1,10 +1,10 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import PaneError from '../misc/pane-error';
-import TestUtil from '../misc/test-util';
-import Folder from '../model/folder';
-import FolderView from './folder';
+import {PaneError} from '../misc/pane-error';
+import {TestUtil} from '../misc/test-util';
+import {Folder} from '../model/folder';
+import {FolderView} from './folder';
 
 describe(FolderView.name, () => {
 	it('should dispose', () => {

@@ -2,9 +2,9 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import * as NumberConverter from '../converter/number';
-import InputValue from '../model/input-value';
-import Target from '../model/target';
-import InputBinding from './input';
+import {InputValue} from '../model/input-value';
+import {Target} from '../model/target';
+import {InputBinding} from './input';
 
 describe(InputBinding.name, () => {
 	it('should get value', () => {

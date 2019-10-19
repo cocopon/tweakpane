@@ -1,9 +1,8 @@
-import ClassName from '../../misc/class-name';
+import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
-import PaneError from '../../misc/pane-error';
-import InputValue from '../../model/input-value';
-import View from '../view';
-
+import {PaneError} from '../../misc/pane-error';
+import {InputValue} from '../../model/input-value';
+import {View} from '../view';
 import {InputView} from './input';
 
 interface Config {
@@ -15,8 +14,7 @@ const className = ClassName('ckb', 'input');
 /**
  * @hidden
  */
-export default class CheckboxInputView extends View
-	implements InputView<boolean> {
+export class CheckboxInputView extends View implements InputView<boolean> {
 	public readonly value: InputValue<boolean>;
 	private inputElem_: HTMLInputElement | null;
 

@@ -1,7 +1,6 @@
-import MonitorValue from '../model/monitor-value';
-import Target from '../model/target';
-
 import {Ticker} from '../misc/ticker/ticker';
+import {MonitorValue} from '../model/monitor-value';
+import {Target} from '../model/target';
 
 interface Config<In> {
 	reader: (outerValue: unknown) => In;
@@ -13,7 +12,7 @@ interface Config<In> {
 /**
  * @hidden
  */
-export default class MonitorBinding<In> {
+export class MonitorBinding<In> {
 	public readonly target: Target;
 	public readonly ticker: Ticker;
 	public readonly value: MonitorValue<In>;

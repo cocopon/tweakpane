@@ -1,11 +1,11 @@
-import Emitter from '../misc/emitter';
+import {Emitter} from '../misc/emitter';
 
 type EventType = 'change';
 
 /**
  * @hidden
  */
-export default class GraphCursor {
+export class GraphCursor {
 	public readonly emitter: Emitter<EventType>;
 	private index_: number;
 

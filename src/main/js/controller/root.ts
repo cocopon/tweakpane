@@ -1,12 +1,11 @@
-import Emitter from '../misc/emitter';
-import TypeUtil from '../misc/type-util';
-import Folder from '../model/folder';
-import List from '../model/list';
-import RootView from '../view/root';
-import FolderController from './folder';
-import InputBindingController from './input-binding';
-import MonitorBindingController from './monitor-binding';
-
+import {Emitter} from '../misc/emitter';
+import {TypeUtil} from '../misc/type-util';
+import {Folder} from '../model/folder';
+import {List} from '../model/list';
+import {RootView} from '../view/root';
+import {FolderController} from './folder';
+import {InputBindingController} from './input-binding';
+import {MonitorBindingController} from './monitor-binding';
 import {UiController} from './ui';
 
 interface Config {
@@ -30,7 +29,7 @@ function createFolder(config: Config): Folder | null {
 /**
  * @hidden
  */
-export default class RootController {
+export class RootController {
 	public readonly emitter: Emitter<EventName>;
 	public readonly folder: Folder | null;
 	public readonly view: RootView;

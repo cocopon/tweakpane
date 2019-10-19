@@ -1,8 +1,8 @@
 import {assert} from 'chai';
 import {describe, describe as context, it} from 'mocha';
 
-import Color from '../model/color';
-import ColorFormatter from './color';
+import {Color} from '../model/color';
+import {ColorFormatter} from './color';
 
 interface TestCase {
 	components: [number, number, number];

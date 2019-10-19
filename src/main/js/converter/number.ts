@@ -1,5 +1,5 @@
-import TypeUtil from '../misc/type-util';
-import StringNumberParser from '../parser/string-number';
+import {TypeUtil} from '../misc/type-util';
+import {StringNumberParser} from '../parser/string-number';
 
 /**
  * @hidden

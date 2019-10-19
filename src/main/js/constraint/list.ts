@@ -15,7 +15,7 @@ interface Config<T> {
 /**
  * @hidden
  */
-export default class ListConstraint<T> implements Constraint<T> {
+export class ListConstraint<T> implements Constraint<T> {
 	private opts_: ListItem<T>[];
 
 	constructor(config: Config<T>) {

@@ -1,3 +1,3 @@
-export default {
+export const Constants = {
 	monitorDefaultInterval: 200,
 };

@@ -1,8 +1,8 @@
 import * as InputBindingControllerCreators from './binding-creators/input';
 import * as MonitorBindingControllerCreators from './binding-creators/monitor';
-import ButtonController from './button';
-import FolderController from './folder';
-import SeparatorController from './separator';
+import {ButtonController} from './button';
+import {FolderController} from './folder';
+import {SeparatorController} from './separator';
 
 /**
  * @hidden

@@ -1,4 +1,4 @@
-import MonitorValue from '../../model/monitor-value';
+import {MonitorValue} from '../../model/monitor-value';
 
 /**
  * @hidden

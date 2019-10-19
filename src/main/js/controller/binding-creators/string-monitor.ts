@@ -1,15 +1,15 @@
 import {MonitorParams} from '../../api/types';
-import MonitorBinding from '../../binding/monitor';
+import {MonitorBinding} from '../../binding/monitor';
 import * as StringConverter from '../../converter/string';
-import StringFormatter from '../../formatter/string';
-import Constants from '../../misc/constants';
-import IntervalTicker from '../../misc/ticker/interval';
-import TypeUtil from '../../misc/type-util';
-import MonitorValue from '../../model/monitor-value';
-import Target from '../../model/target';
-import MonitorBindingController from '../monitor-binding';
-import MultiLogMonitorController from '../monitor/multi-log';
-import SingleLogMonitorController from '../monitor/single-log';
+import {StringFormatter} from '../../formatter/string';
+import {Constants} from '../../misc/constants';
+import {IntervalTicker} from '../../misc/ticker/interval';
+import {TypeUtil} from '../../misc/type-util';
+import {MonitorValue} from '../../model/monitor-value';
+import {Target} from '../../model/target';
+import {MonitorBindingController} from '../monitor-binding';
+import {MultiLogMonitorController} from '../monitor/multi-log';
+import {SingleLogMonitorController} from '../monitor/single-log';
 
 /**
  * @hidden

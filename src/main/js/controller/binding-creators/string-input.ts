@@ -1,16 +1,16 @@
 import {InputParams} from '../../api/types';
-import InputBinding from '../../binding/input';
-import CompositeConstraint from '../../constraint/composite';
+import {InputBinding} from '../../binding/input';
+import {CompositeConstraint} from '../../constraint/composite';
 import {Constraint} from '../../constraint/constraint';
-import ListConstraint from '../../constraint/list';
-import ConstraintUtil from '../../constraint/util';
+import {ListConstraint} from '../../constraint/list';
+import {ConstraintUtil} from '../../constraint/util';
 import * as StringConverter from '../../converter/string';
-import StringFormatter from '../../formatter/string';
-import InputValue from '../../model/input-value';
-import Target from '../../model/target';
-import InputBindingController from '../input-binding';
-import ListInputController from '../input/list';
-import TextInputController from '../input/text';
+import {StringFormatter} from '../../formatter/string';
+import {InputValue} from '../../model/input-value';
+import {Target} from '../../model/target';
+import {InputBindingController} from '../input-binding';
+import {ListInputController} from '../input/list';
+import {TextInputController} from '../input/text';
 import * as UiUtil from '../ui-util';
 
 function createConstraint(params: InputParams): Constraint<string> {

@@ -1,11 +1,10 @@
-import InputValue from '../../model/input-value';
-import SliderTextInputView from '../../view/input/slider-text';
-import NumberTextInputController from './number-text';
-import SliderInputController from './slider';
-
 import {Formatter} from '../../formatter/formatter';
+import {InputValue} from '../../model/input-value';
 import {Parser} from '../../parser/parser';
+import {SliderTextInputView} from '../../view/input/slider-text';
 import {InputController} from './input';
+import {NumberTextInputController} from './number-text';
+import {SliderInputController} from './slider';
 
 interface Config {
 	formatter: Formatter<number>;
@@ -16,8 +15,7 @@ interface Config {
 /**
  * @hidden
  */
-export default class SliderTextInputController
-	implements InputController<number> {
+export class SliderTextInputController implements InputController<number> {
 	private sliderIc_: SliderInputController;
 	private textIc_: NumberTextInputController;
 	private value_: InputValue<number>;

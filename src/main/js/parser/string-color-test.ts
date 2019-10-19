@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import {describe, describe as context, it} from 'mocha';
 
-import StringColorParser from './string-color';
+import {StringColorParser} from './string-color';
 
 describe(StringColorParser.name, () => {
 	[

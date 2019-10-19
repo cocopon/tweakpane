@@ -1,11 +1,11 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import ListConstraint from '../../constraint/list';
+import {ListConstraint} from '../../constraint/list';
 import * as NumberConverter from '../../converter/number';
-import TestUtil from '../../misc/test-util';
-import InputValue from '../../model/input-value';
-import ListInputController from './list';
+import {TestUtil} from '../../misc/test-util';
+import {InputValue} from '../../model/input-value';
+import {ListInputController} from './list';
 
 describe(ListInputController.name, () => {
 	it('should get value', () => {

@@ -1,5 +1,5 @@
-import InputValue from '../model/input-value';
-import Target from '../model/target';
+import {InputValue} from '../model/input-value';
+import {Target} from '../model/target';
 
 interface Config<In, Out> {
 	reader: (outerValue: unknown) => In;
@@ -11,7 +11,7 @@ interface Config<In, Out> {
 /**
  * @hidden
  */
-export default class InputBinding<In, Out> {
+export class InputBinding<In, Out> {
 	public readonly target: Target;
 	public readonly value: InputValue<In>;
 	private reader_: (outerValue: unknown) => In;

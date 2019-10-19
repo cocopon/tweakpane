@@ -1,12 +1,11 @@
-import CompositeConstraint from './composite';
-
 import {Class} from '../misc/type-util';
+import {CompositeConstraint} from './composite';
 import {Constraint} from './constraint';
 
 /**
  * @hidden
  */
-const ConstraintUtil = {
+export const ConstraintUtil = {
 	findConstraint: <C>(
 		c: Constraint<unknown>,
 		constraintClass: Class<C>,
@@ -31,5 +30,3 @@ const ConstraintUtil = {
 		return null;
 	},
 };
-
-export default ConstraintUtil;

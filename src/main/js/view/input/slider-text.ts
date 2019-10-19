@@ -1,10 +1,9 @@
-import ClassName from '../../misc/class-name';
-import InputValue from '../../model/input-value';
-import View from '../view';
-import SliderInputView from './slider';
-import TextInputView from './text';
-
+import {ClassName} from '../../misc/class-name';
+import {InputValue} from '../../model/input-value';
+import {View} from '../view';
 import {InputView} from './input';
+import {SliderInputView} from './slider';
+import {TextInputView} from './text';
 
 interface Config {
 	sliderInputView: SliderInputView;
@@ -16,8 +15,7 @@ const className = ClassName('sldtxt', 'input');
 /**
  * @hidden
  */
-export default class SliderTextInputView extends View
-	implements InputView<number> {
+export class SliderTextInputView extends View implements InputView<number> {
 	private sliderInputView_: SliderInputView;
 	private textInputView_: TextInputView<number>;
 

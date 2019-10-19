@@ -3,7 +3,7 @@ export interface Point2dObject {
 	y: number;
 }
 
-export default class Point2d {
+export class Point2d {
 	public x: number;
 	public y: number;
 

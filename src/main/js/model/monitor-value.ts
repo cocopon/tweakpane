@@ -1,11 +1,11 @@
-import Emitter from '../misc/emitter';
+import {Emitter} from '../misc/emitter';
 
 type EventType = 'update';
 
 /**
  * @hidden
  */
-export default class MonitorValue<T> {
+export class MonitorValue<T> {
 	public readonly emitter: Emitter<EventType>;
 	private rawValues_: T[];
 	private totalCount_: number;

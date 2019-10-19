@@ -1,12 +1,11 @@
-import RangeConstraint from '../../constraint/range';
-import ConstraintUtil from '../../constraint/util';
-import NumberUtil from '../../misc/number-util';
-import PointerHandler from '../../misc/pointer-handler';
-import TypeUtil from '../../misc/type-util';
-import InputValue from '../../model/input-value';
-import SliderInputView from '../../view/input/slider';
-
+import {RangeConstraint} from '../../constraint/range';
+import {ConstraintUtil} from '../../constraint/util';
+import {NumberUtil} from '../../misc/number-util';
+import {PointerHandler} from '../../misc/pointer-handler';
 import {PointerData} from '../../misc/pointer-handler';
+import {TypeUtil} from '../../misc/type-util';
+import {InputValue} from '../../model/input-value';
+import {SliderInputView} from '../../view/input/slider';
 import {InputController} from './input';
 
 interface Config {
@@ -37,7 +36,7 @@ function estimateSuitableRange(value: InputValue<number>): [number, number] {
 /**
  * @hidden
  */
-export default class SliderInputController implements InputController<number> {
+export class SliderInputController implements InputController<number> {
 	public readonly value: InputValue<number>;
 	public readonly view: SliderInputView;
 	private maxValue_: number;

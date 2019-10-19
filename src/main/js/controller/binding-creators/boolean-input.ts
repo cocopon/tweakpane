@@ -1,16 +1,15 @@
-import InputBinding from '../../binding/input';
-import CompositeConstraint from '../../constraint/composite';
-import ListConstraint from '../../constraint/list';
-import ConstraintUtil from '../../constraint/util';
-import * as BooleanConverter from '../../converter/boolean';
-import InputValue from '../../model/input-value';
-import Target from '../../model/target';
-import InputBindingController from '../input-binding';
-import CheckboxInputController from '../input/checkbox';
-import ListInputController from '../input/list';
-
 import {InputParams} from '../../api/types';
+import {InputBinding} from '../../binding/input';
+import {CompositeConstraint} from '../../constraint/composite';
 import {Constraint} from '../../constraint/constraint';
+import {ListConstraint} from '../../constraint/list';
+import {ConstraintUtil} from '../../constraint/util';
+import * as BooleanConverter from '../../converter/boolean';
+import {InputValue} from '../../model/input-value';
+import {Target} from '../../model/target';
+import {InputBindingController} from '../input-binding';
+import {CheckboxInputController} from '../input/checkbox';
+import {ListInputController} from '../input/list';
 import * as UiUtil from '../ui-util';
 
 function createConstraint(params: InputParams): Constraint<boolean> {

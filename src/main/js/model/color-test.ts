@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import {describe, describe as context, it} from 'mocha';
 
-import Color from './color';
+import {Color} from './color';
 
 describe(Color.name, () => {
 	[

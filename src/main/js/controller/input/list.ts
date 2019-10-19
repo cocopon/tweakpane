@@ -1,10 +1,9 @@
-import ListConstraint from '../../constraint/list';
-import ConstraintUtil from '../../constraint/util';
-import TypeUtil from '../../misc/type-util';
-import InputValue from '../../model/input-value';
-import ListInputView from '../../view/input/list';
-
+import {ListConstraint} from '../../constraint/list';
 import {ListItem} from '../../constraint/list';
+import {ConstraintUtil} from '../../constraint/util';
+import {TypeUtil} from '../../misc/type-util';
+import {InputValue} from '../../model/input-value';
+import {ListInputView} from '../../view/input/list';
 import {InputController} from './input';
 
 interface Config<T> {
@@ -29,7 +28,7 @@ function findListItems<T>(value: InputValue<T>): (ListItem<T>[]) | null {
 /**
  * @hidden
  */
-export default class ListInputController<T> implements InputController<T> {
+export class ListInputController<T> implements InputController<T> {
 	private listItems_: ListItem<T>[];
 	private value_: InputValue<T>;
 	private view_: ListInputView<T>;

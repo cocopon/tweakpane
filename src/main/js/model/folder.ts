@@ -1,11 +1,11 @@
-import Emitter from '../misc/emitter';
+import {Emitter} from '../misc/emitter';
 
 type EventType = 'change';
 
 /**
  * @hidden
  */
-export default class Folder {
+export class Folder {
 	public readonly emitter: Emitter<EventType>;
 	public readonly title: string;
 	private expandedHeight_: number | null;

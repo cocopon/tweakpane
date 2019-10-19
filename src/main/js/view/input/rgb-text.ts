@@ -1,10 +1,10 @@
 import {Formatter} from '../../formatter/formatter';
-import ClassName from '../../misc/class-name';
+import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
-import PaneError from '../../misc/pane-error';
-import Color from '../../model/color';
-import InputValue from '../../model/input-value';
-import View from '../view';
+import {PaneError} from '../../misc/pane-error';
+import {Color} from '../../model/color';
+import {InputValue} from '../../model/input-value';
+import {View} from '../view';
 import {InputView} from './input';
 
 interface Config {
@@ -18,7 +18,7 @@ const className = ClassName('rgbtxt', 'input');
 /**
  * @hidden
  */
-export default class RgbTextInputView extends View implements InputView<Color> {
+export class RgbTextInputView extends View implements InputView<Color> {
 	public readonly value: InputValue<Color>;
 	private formatter_: Formatter<number>;
 	private inputElems_:

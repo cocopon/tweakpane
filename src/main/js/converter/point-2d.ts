@@ -1,5 +1,5 @@
-import Point2d from '../model/point-2d';
-import AnyPoint2dParser from '../parser/any-point-2d';
+import {Point2d} from '../model/point-2d';
+import {AnyPoint2dParser} from '../parser/any-point-2d';
 
 /**
  * @hidden

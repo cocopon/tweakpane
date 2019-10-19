@@ -1,9 +1,9 @@
-import ButtonController from '../controller/button';
+import {ButtonController} from '../controller/button';
 import {Handler} from '../misc/emitter';
 
 type EventName = 'click';
 
-export default class ButtonApi {
+export class ButtonApi {
 	/**
 	 * @hidden
 	 */

@@ -1,4 +1,4 @@
-import NumberUtil from './number-util';
+import {NumberUtil} from './number-util';
 
 export function rgbToHsl(
 	r: number,

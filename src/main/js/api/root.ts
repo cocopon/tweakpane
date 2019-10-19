@@ -1,19 +1,19 @@
 import * as InputBindingControllerCreators from '../controller/binding-creators/input';
 import * as MonitorBindingControllerCreators from '../controller/binding-creators/monitor';
-import ButtonController from '../controller/button';
-import FolderController from '../controller/folder';
-import InputBindingController from '../controller/input-binding';
-import MonitorBindingController from '../controller/monitor-binding';
+import {ButtonController} from '../controller/button';
+import {FolderController} from '../controller/folder';
+import {InputBindingController} from '../controller/input-binding';
+import {MonitorBindingController} from '../controller/monitor-binding';
 import {EventName as InternalEventName} from '../controller/root';
-import RootController from '../controller/root';
-import SeparatorController from '../controller/separator';
+import {RootController} from '../controller/root';
+import {SeparatorController} from '../controller/separator';
 import * as UiUtil from '../controller/ui-util';
 import {Handler} from '../misc/emitter';
-import Target from '../model/target';
-import ButtonApi from './button';
-import FolderApi from './folder';
-import InputBindingApi from './input-binding';
-import MonitorBindingApi from './monitor-binding';
+import {Target} from '../model/target';
+import {ButtonApi} from './button';
+import {FolderApi} from './folder';
+import {InputBindingApi} from './input-binding';
+import {MonitorBindingApi} from './monitor-binding';
 import * as Preset from './preset';
 import {PresetObject} from './preset';
 import {ButtonParams, FolderParams, InputParams, MonitorParams} from './types';
@@ -37,7 +37,7 @@ const TO_INTERNAL_EVENT_NAME_MAP: {
  *
  * See [[TweakpaneConfig]] interface for available options.
  */
-export default class RootApi {
+export class RootApi {
 	/**
 	 * @hidden
 	 */

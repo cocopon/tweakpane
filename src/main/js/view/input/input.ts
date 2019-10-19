@@ -1,4 +1,4 @@
-import InputValue from '../../model/input-value';
+import {InputValue} from '../../model/input-value';
 
 /**
  * @hidden

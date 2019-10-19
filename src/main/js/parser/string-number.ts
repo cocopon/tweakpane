@@ -3,7 +3,7 @@ import {Parser} from './parser';
 /**
  * @hidden
  */
-const StringNumberParser: Parser<string, number> = (
+export const StringNumberParser: Parser<string, number> = (
 	text: string,
 ): number | null => {
 	const num = parseFloat(text);
@@ -13,5 +13,3 @@ const StringNumberParser: Parser<string, number> = (
 
 	return num;
 };
-
-export default StringNumberParser;

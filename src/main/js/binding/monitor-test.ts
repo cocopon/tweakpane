@@ -2,10 +2,10 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import * as NumberConverter from '../converter/number';
-import ManualTicker from '../misc/ticker/manual';
-import MonitorValue from '../model/monitor-value';
-import Target from '../model/target';
-import MonitorBinding from './monitor';
+import {ManualTicker} from '../misc/ticker/manual';
+import {MonitorValue} from '../model/monitor-value';
+import {Target} from '../model/target';
+import {MonitorBinding} from './monitor';
 
 describe(MonitorBinding.name, () => {
 	it('should get value', () => {

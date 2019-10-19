@@ -1,6 +1,5 @@
-import MonitorBinding from '../binding/monitor';
-import LabeledView from '../view/labeled';
-
+import {MonitorBinding} from '../binding/monitor';
+import {LabeledView} from '../view/labeled';
 import {MonitorController} from './monitor/monitor';
 
 interface Config<In> {
@@ -12,7 +11,7 @@ interface Config<In> {
 /**
  * @hidden
  */
-export default class MonitorBindingController<In> {
+export class MonitorBindingController<In> {
 	public readonly binding: MonitorBinding<In>;
 	public readonly controller: MonitorController<In>;
 	public readonly view: LabeledView;

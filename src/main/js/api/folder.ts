@@ -1,15 +1,14 @@
 import * as InputBindingControllerCreators from '../controller/binding-creators/input';
 import * as MonitorBindingControllerCreators from '../controller/binding-creators/monitor';
-import ButtonController from '../controller/button';
-import FolderController from '../controller/folder';
-import SeparatorController from '../controller/separator';
-import Target from '../model/target';
-import ButtonApi from './button';
-import InputBindingApi from './input-binding';
-import MonitorBindingApi from './monitor-binding';
-
+import {ButtonController} from '../controller/button';
+import {FolderController} from '../controller/folder';
 import {EventName as InternalEventName} from '../controller/folder';
+import {SeparatorController} from '../controller/separator';
 import {Handler} from '../misc/emitter';
+import {Target} from '../model/target';
+import {ButtonApi} from './button';
+import {InputBindingApi} from './input-binding';
+import {MonitorBindingApi} from './monitor-binding';
 import {ButtonParams, InputParams, MonitorParams} from './types';
 
 type EventName = 'change' | 'fold' | 'update';
@@ -22,7 +21,7 @@ const TO_INTERNAL_EVENT_NAME_MAP: {
 	update: 'monitorupdate',
 };
 
-export default class FolderApi {
+export class FolderApi {
 	/**
 	 * @hidden
 	 */

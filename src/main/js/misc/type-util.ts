@@ -1,6 +1,6 @@
 export type Class<T> = new (...args: any[]) => T;
 
-const TypeUtil = {
+export const TypeUtil = {
 	forceCast: <T>(v: any): T => {
 		return v;
 	},
@@ -13,5 +13,3 @@ const TypeUtil = {
 		return !TypeUtil.isEmpty(value) ? value : defaultValue;
 	},
 };
-
-export default TypeUtil;

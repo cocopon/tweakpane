@@ -1,18 +1,17 @@
 import {assert} from 'chai';
 import {describe, describe as context, it} from 'mocha';
 
-import StepConstraint from '../constraint/step';
-import ConstraintUtil from '../constraint/util';
-import ListInputController from '../controller/input/list';
-import SliderTextInputController from '../controller/input/slider-text';
-import TextInputController from '../controller/input/text';
-import RootController from '../controller/root';
-import TestUtil from '../misc/test-util';
-import TypeUtil from '../misc/type-util';
-import InputValue from '../model/input-value';
-import RootApi from './root';
-
 import {Constraint} from '../constraint/constraint';
+import {StepConstraint} from '../constraint/step';
+import {ConstraintUtil} from '../constraint/util';
+import {ListInputController} from '../controller/input/list';
+import {SliderTextInputController} from '../controller/input/slider-text';
+import {TextInputController} from '../controller/input/text';
+import {RootController} from '../controller/root';
+import {TestUtil} from '../misc/test-util';
+import {TypeUtil} from '../misc/type-util';
+import {InputValue} from '../model/input-value';
+import {RootApi} from './root';
 
 function createApi(): RootApi {
 	const c = new RootController(TestUtil.createWindow().document, {});

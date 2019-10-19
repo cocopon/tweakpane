@@ -1,8 +1,8 @@
-import ClassName from '../misc/class-name';
+import {ClassName} from '../misc/class-name';
 import * as DisposingUtil from '../misc/disposing-util';
-import PaneError from '../misc/pane-error';
-import Button from '../model/button';
-import View from './view';
+import {PaneError} from '../misc/pane-error';
+import {Button} from '../model/button';
+import {View} from './view';
 
 interface Config {
 	button: Button;
@@ -13,7 +13,7 @@ const className = ClassName('btn');
 /**
  * @hidden
  */
-export default class ButtonView extends View {
+export class ButtonView extends View {
 	public readonly button: Button;
 	private buttonElem_: HTMLButtonElement | null;
 

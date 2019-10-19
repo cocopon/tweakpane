@@ -1,6 +1,6 @@
-import NumberUtil from '../misc/number-util';
-import Color from '../model/color';
-import StringColorParser from '../parser/string-color';
+import {NumberUtil} from '../misc/number-util';
+import {Color} from '../model/color';
+import {StringColorParser} from '../parser/string-color';
 
 /**
  * @hidden

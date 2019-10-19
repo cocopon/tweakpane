@@ -1,9 +1,9 @@
-import TypeUtil from '../misc/type-util';
+import {TypeUtil} from '../misc/type-util';
 
 /**
  * @hidden
  */
-export default class Target {
+export class Target {
 	private key_: string;
 	private obj_: object;
 	private presetKey_: string;

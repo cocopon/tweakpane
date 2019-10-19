@@ -1,9 +1,9 @@
 import {Formatter} from '../../formatter/formatter';
-import TypeUtil from '../../misc/type-util';
-import Color from '../../model/color';
-import InputValue from '../../model/input-value';
+import {TypeUtil} from '../../misc/type-util';
+import {Color} from '../../model/color';
+import {InputValue} from '../../model/input-value';
 import {Parser} from '../../parser/parser';
-import RgbTextInputView from '../../view/input/rgb-text';
+import {RgbTextInputView} from '../../view/input/rgb-text';
 import * as UiUtil from '../ui-util';
 import {InputController} from './input';
 
@@ -18,7 +18,7 @@ const STEP = 1;
 /**
  * @hidden
  */
-export default class RgbTextInputController implements InputController<Color> {
+export class RgbTextInputController implements InputController<Color> {
 	public readonly value: InputValue<Color>;
 	public readonly view: RgbTextInputView;
 	private parser_: Parser<string, number>;

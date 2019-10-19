@@ -1,8 +1,8 @@
-import IndexRoute from './route/index';
-import InputRoute from './route/input';
-import MiscRoute from './route/misc';
-import MonitorRoute from './route/monitor';
-import SimpleRouter from './simple-router';
+import {IndexRoute} from './route/index';
+import {InputRoute} from './route/input';
+import {MiscRoute} from './route/misc';
+import {MonitorRoute} from './route/monitor';
+import {SimpleRouter} from './simple-router';
 
 declare var hljs: any;
 

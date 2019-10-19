@@ -1,11 +1,11 @@
-import Emitter from '../misc/emitter';
+import {Emitter} from '../misc/emitter';
 
 type EventType = 'click';
 
 /**
  * @hidden
  */
-export default class Button {
+export class Button {
 	public readonly emitter: Emitter<EventType>;
 	public readonly title: string;
 

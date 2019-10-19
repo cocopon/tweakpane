@@ -1,10 +1,10 @@
-import Point2dConstraint from '../../constraint/point-2d';
+import {Point2dConstraint} from '../../constraint/point-2d';
 import {Formatter} from '../../formatter/formatter';
-import TypeUtil from '../../misc/type-util';
-import InputValue from '../../model/input-value';
-import Point2d from '../../model/point-2d';
+import {TypeUtil} from '../../misc/type-util';
+import {InputValue} from '../../model/input-value';
+import {Point2d} from '../../model/point-2d';
 import {Parser} from '../../parser/parser';
-import Point2dTextInputView from '../../view/input/point-2d-text';
+import {Point2dTextInputView} from '../../view/input/point-2d-text';
 import * as UiUtil from '../ui-util';
 import {InputController} from './input';
 
@@ -18,8 +18,7 @@ interface Config {
 /**
  * @hidden
  */
-export default class Point2dTextInputController
-	implements InputController<Point2d> {
+export class Point2dTextInputController implements InputController<Point2d> {
 	public readonly value: InputValue<Point2d>;
 	public readonly view: Point2dTextInputView;
 	private readonly parser_: Parser<string, number>;

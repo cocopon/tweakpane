@@ -1,7 +1,6 @@
-import MonitorValue from '../../model/monitor-value';
-import View from '../../view/view';
-
+import {MonitorValue} from '../../model/monitor-value';
 import {MonitorView} from '../../view/monitor/monitor';
+import {View} from '../../view/view';
 
 /**
  * @hidden

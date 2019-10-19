@@ -1,6 +1,6 @@
 import * as ColorModel from '../misc/color-model';
-import Emitter from '../misc/emitter';
-import NumberUtil from '../misc/number-util';
+import {Emitter} from '../misc/emitter';
+import {NumberUtil} from '../misc/number-util';
 
 type EventType = 'change';
 type ColorMode = 'hsv' | 'rgb';
@@ -35,7 +35,7 @@ const CONSTRAINT_MAP: {
 /**
  * @hidden
  */
-export default class Color {
+export class Color {
 	public readonly emitter: Emitter<EventType>;
 	private comps_: [number, number, number];
 	private mode_: ColorMode;

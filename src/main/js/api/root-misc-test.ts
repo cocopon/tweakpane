@@ -1,11 +1,11 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import RootController from '../controller/root';
-import TestUtil from '../misc/test-util';
-import TypeUtil from '../misc/type-util';
-import InputValue from '../model/input-value';
-import RootApi from './root';
+import {RootController} from '../controller/root';
+import {TestUtil} from '../misc/test-util';
+import {TypeUtil} from '../misc/type-util';
+import {InputValue} from '../model/input-value';
+import {RootApi} from './root';
 
 function createApi(): RootApi {
 	const c = new RootController(TestUtil.createWindow().document, {

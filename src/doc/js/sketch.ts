@@ -31,7 +31,7 @@ interface Dot extends PIXI.Sprite {
 	en: number;
 }
 
-export default class Sketch {
+export class Sketch {
 	private app_: PIXI.Application;
 	private dots_: Dot[];
 	private elem_: Element;

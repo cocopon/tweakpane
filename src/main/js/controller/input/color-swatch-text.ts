@@ -1,12 +1,11 @@
-import Color from '../../model/color';
-import InputValue from '../../model/input-value';
-import ColorSwatchTextInputView from '../../view/input/color-swatch-text';
-import ColorSwatchInputController from '../input/color-swatch';
-import TextInputController from './text';
-
 import {Formatter} from '../../formatter/formatter';
+import {Color} from '../../model/color';
+import {InputValue} from '../../model/input-value';
 import {Parser} from '../../parser/parser';
+import {ColorSwatchTextInputView} from '../../view/input/color-swatch-text';
+import {ColorSwatchInputController} from '../input/color-swatch';
 import {InputController} from './input';
+import {TextInputController} from './text';
 
 interface Config {
 	formatter: Formatter<Color>;
@@ -17,8 +16,7 @@ interface Config {
 /**
  * @hidden
  */
-export default class ColorSwatchTextInputController
-	implements InputController<Color> {
+export class ColorSwatchTextInputController implements InputController<Color> {
 	public readonly value: InputValue<Color>;
 	public readonly view: ColorSwatchTextInputView;
 	private swatchIc_: ColorSwatchInputController;

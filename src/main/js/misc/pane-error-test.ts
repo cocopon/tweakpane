@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import PaneError from './pane-error';
+import {PaneError} from './pane-error';
 
 describe(PaneError.name, () => {
 	it('should instanciate for invalid parameters', () => {

@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import StringNumberParser from './string-number';
+import {StringNumberParser} from './string-number';
 
 describe(StringNumberParser.name, () => {
 	it('should parse number', () => {

@@ -1,5 +1,5 @@
 import * as DomUtil from './dom-util';
-import Emitter from './emitter';
+import {Emitter} from './emitter';
 
 type EventType = 'down' | 'move' | 'up';
 
@@ -12,7 +12,7 @@ export interface PointerData {
  * A utility class to handle both mouse and touch events.
  * @hidden
  */
-export default class PointerHandler {
+export class PointerHandler {
 	public readonly document: Document;
 	public readonly emitter: Emitter<EventType>;
 	public readonly element: HTMLElement;

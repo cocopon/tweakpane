@@ -1,11 +1,11 @@
 import {Formatter} from '../../formatter/formatter';
-import InputValue from '../../model/input-value';
-import Point2d from '../../model/point-2d';
+import {InputValue} from '../../model/input-value';
+import {Point2d} from '../../model/point-2d';
 import {Parser} from '../../parser/parser';
-import Point2dPadTextInputView from '../../view/input/point-2d-pad-text';
+import {Point2dPadTextInputView} from '../../view/input/point-2d-pad-text';
 import {InputController} from './input';
-import Point2dPadInputController from './point-2d-pad';
-import Point2dTextInputController from './point-2d-text';
+import {Point2dPadInputController} from './point-2d-pad';
+import {Point2dTextInputController} from './point-2d-text';
 
 interface Config {
 	parser: Parser<string, number>;
@@ -17,8 +17,7 @@ interface Config {
 /**
  * @hidden
  */
-export default class Point2dPadTextInputController
-	implements InputController<Point2d> {
+export class Point2dPadTextInputController implements InputController<Point2d> {
 	public readonly value: InputValue<Point2d>;
 	public readonly view: Point2dPadTextInputView;
 	private readonly padIc_: Point2dPadInputController;

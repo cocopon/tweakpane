@@ -1,10 +1,9 @@
-import ClassName from '../../misc/class-name';
-import * as DisposingUtil from '../../misc/disposing-util';
-import PaneError from '../../misc/pane-error';
-import MonitorValue from '../../model/monitor-value';
-import View from '../view';
-
 import {Formatter} from '../../formatter/formatter';
+import {ClassName} from '../../misc/class-name';
+import * as DisposingUtil from '../../misc/disposing-util';
+import {PaneError} from '../../misc/pane-error';
+import {MonitorValue} from '../../model/monitor-value';
+import {View} from '../view';
 import {MonitorView} from './monitor';
 
 interface Config<T> {
@@ -17,8 +16,7 @@ const className = ClassName('sgl', 'monitor');
 /**
  * @hidden
  */
-export default class SingleLogMonitorView<T> extends View
-	implements MonitorView<T> {
+export class SingleLogMonitorView<T> extends View implements MonitorView<T> {
 	public readonly value: MonitorValue<T>;
 	private formatter_: Formatter<T>;
 	private inputElem_: HTMLInputElement | null;

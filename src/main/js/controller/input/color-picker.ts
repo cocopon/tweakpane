@@ -1,15 +1,14 @@
-import NumberFormatter from '../../formatter/number';
-import TypeUtil from '../../misc/type-util';
-import Color from '../../model/color';
-import Foldable from '../../model/foldable';
-import InputValue from '../../model/input-value';
-import StringNumberParser from '../../parser/string-number';
-import ColorPickerInputView from '../../view/input/color-picker';
-import HPaletteInputController from './h-palette';
-import SvPaletteInputController from './sv-palette';
-
+import {NumberFormatter} from '../../formatter/number';
+import {TypeUtil} from '../../misc/type-util';
+import {Color} from '../../model/color';
+import {Foldable} from '../../model/foldable';
+import {InputValue} from '../../model/input-value';
+import {StringNumberParser} from '../../parser/string-number';
+import {ColorPickerInputView} from '../../view/input/color-picker';
+import {HPaletteInputController} from './h-palette';
 import {InputController} from './input';
-import RgbTextInputController from './rgb-text';
+import {RgbTextInputController} from './rgb-text';
+import {SvPaletteInputController} from './sv-palette';
 
 interface Config {
 	value: InputValue<Color>;
@@ -18,8 +17,7 @@ interface Config {
 /**
  * @hidden
  */
-export default class ColorPickerInputController
-	implements InputController<Color> {
+export class ColorPickerInputController implements InputController<Color> {
 	public readonly foldable: Foldable;
 	public readonly value: InputValue<Color>;
 	public readonly view: ColorPickerInputView;

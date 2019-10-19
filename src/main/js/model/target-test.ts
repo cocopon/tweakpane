@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import Target from './target';
+import {Target} from './target';
 
 describe(Target.name, () => {
 	it('should get properties', () => {

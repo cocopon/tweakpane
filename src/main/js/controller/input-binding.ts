@@ -1,6 +1,5 @@
-import InputBinding from '../binding/input';
-import LabeledView from '../view/labeled';
-
+import {InputBinding} from '../binding/input';
+import {LabeledView} from '../view/labeled';
 import {InputController} from './input/input';
 
 interface Config<In, Out> {
@@ -12,7 +11,7 @@ interface Config<In, Out> {
 /**
  * @hidden
  */
-export default class InputBindingController<In, Out> {
+export class InputBindingController<In, Out> {
 	public readonly binding: InputBinding<In, Out>;
 	public readonly controller: InputController<In>;
 	public readonly view: LabeledView;

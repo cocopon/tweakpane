@@ -1,10 +1,9 @@
-import NumberUtil from '../../misc/number-util';
-import PointerHandler from '../../misc/pointer-handler';
-import Color from '../../model/color';
-import InputValue from '../../model/input-value';
-import SvPaletteInputView from '../../view/input/sv-palette';
-
+import {NumberUtil} from '../../misc/number-util';
+import {PointerHandler} from '../../misc/pointer-handler';
 import {PointerData} from '../../misc/pointer-handler';
+import {Color} from '../../model/color';
+import {InputValue} from '../../model/input-value';
+import {SvPaletteInputView} from '../../view/input/sv-palette';
 import {InputController} from './input';
 
 interface Config {
@@ -14,8 +13,7 @@ interface Config {
 /**
  * @hidden
  */
-export default class SvPaletteInputController
-	implements InputController<Color> {
+export class SvPaletteInputController implements InputController<Color> {
 	public readonly value: InputValue<Color>;
 	public readonly view: SvPaletteInputView;
 	private ptHandler_: PointerHandler;

@@ -1,9 +1,9 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import PaneError from './misc/pane-error';
-import TestUtil from './misc/test-util';
-import TweakpaneWithoutStyle from './tweakpane-without-style';
+import {PaneError} from './misc/pane-error';
+import {TestUtil} from './misc/test-util';
+import {TweakpaneWithoutStyle} from './tweakpane-without-style';
 
 describe(TweakpaneWithoutStyle.name, () => {
 	it('should dispose with default container', () => {

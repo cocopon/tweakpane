@@ -1,9 +1,9 @@
-import ClassName from '../misc/class-name';
+import {ClassName} from '../misc/class-name';
 import * as DisposingUtil from '../misc/disposing-util';
-import PaneError from '../misc/pane-error';
-import TypeUtil from '../misc/type-util';
-import Folder from '../model/folder';
-import View from './view';
+import {PaneError} from '../misc/pane-error';
+import {TypeUtil} from '../misc/type-util';
+import {Folder} from '../model/folder';
+import {View} from './view';
 
 interface Config {
 	folder: Folder;
@@ -14,7 +14,7 @@ const className = ClassName('fld');
 /**
  * @hidden
  */
-export default class FolderView extends View {
+export class FolderView extends View {
 	private containerElem_: HTMLDivElement | null;
 	private folder_: Folder;
 	private titleElem_: HTMLButtonElement | null;

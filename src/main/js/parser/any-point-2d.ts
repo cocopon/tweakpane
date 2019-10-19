@@ -1,11 +1,13 @@
-import TypeUtil from '../misc/type-util';
-import Point2d from '../model/point-2d';
+import {TypeUtil} from '../misc/type-util';
+import {Point2d} from '../model/point-2d';
 import {Parser} from './parser';
 
 /**
  * @hidden
  */
-const AnyPoint2dParser: Parser<any, Point2d> = (obj: any): Point2d | null => {
+export const AnyPoint2dParser: Parser<any, Point2d> = (
+	obj: any,
+): Point2d | null => {
 	if (TypeUtil.isEmpty(obj)) {
 		return null;
 	}
@@ -18,5 +20,3 @@ const AnyPoint2dParser: Parser<any, Point2d> = (obj: any): Point2d | null => {
 
 	return new Point2d(x, y);
 };
-
-export default AnyPoint2dParser;

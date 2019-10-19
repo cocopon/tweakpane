@@ -1,7 +1,7 @@
 import {MonitorParams} from '../../api/types';
-import PaneError from '../../misc/pane-error';
-import TypeUtil from '../../misc/type-util';
-import Target from '../../model/target';
+import {PaneError} from '../../misc/pane-error';
+import {TypeUtil} from '../../misc/type-util';
+import {Target} from '../../model/target';
 import * as BooleanMonitorBindingControllerCreators from './boolean-monitor';
 import * as NumberMonitorBindingControllerCreators from './number-monitor';
 import * as StringMonitorBindingControllerCreators from './string-monitor';

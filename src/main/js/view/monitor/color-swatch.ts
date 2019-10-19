@@ -1,9 +1,9 @@
 import * as ColorConverter from '../../converter/color';
-import ClassName from '../../misc/class-name';
-import PaneError from '../../misc/pane-error';
-import Color from '../../model/color';
-import MonitorValue from '../../model/monitor-value';
-import View from '../view';
+import {ClassName} from '../../misc/class-name';
+import {PaneError} from '../../misc/pane-error';
+import {Color} from '../../model/color';
+import {MonitorValue} from '../../model/monitor-value';
+import {View} from '../view';
 import {MonitorView} from './monitor';
 
 interface Config {
@@ -15,8 +15,7 @@ const className = ClassName('csw', 'monitor');
 /**
  * @hidden
  */
-export default class ColorSwatchMonitorView extends View
-	implements MonitorView<Color> {
+export class ColorSwatchMonitorView extends View implements MonitorView<Color> {
 	public readonly value: MonitorValue<Color>;
 	private swatchElem_: HTMLDivElement | null;
 

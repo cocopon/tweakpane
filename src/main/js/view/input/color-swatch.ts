@@ -1,11 +1,11 @@
 import * as ColorConverter from '../../converter/color';
-import ClassName from '../../misc/class-name';
+import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
-import PaneError from '../../misc/pane-error';
-import Color from '../../model/color';
-import InputValue from '../../model/input-value';
-import View from '../view';
-import ColorPickerInputView from './color-picker';
+import {PaneError} from '../../misc/pane-error';
+import {Color} from '../../model/color';
+import {InputValue} from '../../model/input-value';
+import {View} from '../view';
+import {ColorPickerInputView} from './color-picker';
 import {InputView} from './input';
 
 interface Config {
@@ -18,8 +18,7 @@ const className = ClassName('csw', 'input');
 /**
  * @hidden
  */
-export default class ColorSwatchInputView extends View
-	implements InputView<Color> {
+export class ColorSwatchInputView extends View implements InputView<Color> {
 	public readonly value: InputValue<Color>;
 	private pickerView_: ColorPickerInputView;
 	private buttonElem_: HTMLButtonElement | null;

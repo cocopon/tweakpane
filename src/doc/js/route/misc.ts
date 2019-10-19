@@ -2,7 +2,7 @@ import * as Util from '../util';
 
 declare var Tweakpane: any;
 
-export default {
+export const MiscRoute = {
 	pathname: /^(\/tweakpane)?\/misc.html$/,
 
 	init: () => {

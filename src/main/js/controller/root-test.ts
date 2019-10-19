@@ -1,8 +1,8 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import TestUtil from '../misc/test-util';
-import RootController from './root';
+import {TestUtil} from '../misc/test-util';
+import {RootController} from './root';
 
 describe(RootController.name, () => {
 	it('should toggle expanded when clicking title element', () => {
