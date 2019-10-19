@@ -1,4 +1,5 @@
 import PaneError from '../../misc/pane-error';
+import TypeUtil from '../../misc/type-util';
 import Color from '../../model/color';
 import Point2d, {Point2dObject} from '../../model/point-2d';
 import Target from '../../model/target';
@@ -22,7 +23,7 @@ export function create(
 ) {
 	const initialValue = target.read();
 
-	if (initialValue === null || initialValue === undefined) {
+	if (TypeUtil.isEmpty(initialValue)) {
 		throw new PaneError({
 			context: {
 				key: target.key,

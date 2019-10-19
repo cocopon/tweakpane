@@ -40,7 +40,10 @@ export function create(
 			  });
 	const ticker = new IntervalTicker(
 		document,
-		TypeUtil.getOrDefault<number>(params.interval, Constants.monitorDefaultInterval),
+		TypeUtil.getOrDefault<number>(
+			params.interval,
+			Constants.monitorDefaultInterval,
+		),
 	);
 
 	return new MonitorBindingController(document, {

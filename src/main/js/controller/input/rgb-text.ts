@@ -70,14 +70,15 @@ export default class RgbTextInputController implements InputController<Color> {
 	private onInputChange_(e: Event): void {
 		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
 
-		TypeUtil.ifNotEmpty(this.parser_(inputElem.value), (parsedValue) => {
-			TypeUtil.ifNotEmpty(
-				this.findIndexOfInputElem_(inputElem),
-				(compIndex: number) => {
-					this.updateComponent_(compIndex, parsedValue);
-				},
-			);
-		});
+		const parsedValue = this.parser_(inputElem.value);
+		if (TypeUtil.isEmpty(parsedValue)) {
+			return;
+		}
+		const compIndex = this.findIndexOfInputElem_(inputElem);
+		if (TypeUtil.isEmpty(compIndex)) {
+			return;
+		}
+		this.updateComponent_(compIndex, parsedValue);
 	}
 
 	private onInputKeyDown_(e: KeyboardEvent): void {
@@ -87,13 +88,14 @@ export default class RgbTextInputController implements InputController<Color> {
 		}
 
 		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
-		TypeUtil.ifNotEmpty(this.parser_(inputElem.value), (parsedValue) => {
-			TypeUtil.ifNotEmpty(
-				this.findIndexOfInputElem_(inputElem),
-				(compIndex: number) => {
-					this.updateComponent_(compIndex, parsedValue + step);
-				},
-			);
-		});
+		const parsedValue = this.parser_(inputElem.value);
+		if (TypeUtil.isEmpty(parsedValue)) {
+			return;
+		}
+		const compIndex = this.findIndexOfInputElem_(inputElem);
+		if (TypeUtil.isEmpty(compIndex)) {
+			return;
+		}
+		this.updateComponent_(compIndex, parsedValue + step);
 	}
 }

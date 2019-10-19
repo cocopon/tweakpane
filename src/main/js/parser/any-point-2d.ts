@@ -1,3 +1,4 @@
+import TypeUtil from '../misc/type-util';
 import Point2d from '../model/point-2d';
 import {Parser} from './parser';
 
@@ -5,7 +6,7 @@ import {Parser} from './parser';
  * @hidden
  */
 const AnyPoint2dParser: Parser<any, Point2d> = (obj: any): Point2d | null => {
-	if (obj === null || obj === undefined) {
+	if (TypeUtil.isEmpty(obj)) {
 		return null;
 	}
 

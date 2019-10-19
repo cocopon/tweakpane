@@ -79,23 +79,24 @@ export default class Point2dTextInputController
 	private onInputChange_(e: Event): void {
 		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
 
-		TypeUtil.ifNotEmpty(this.parser_(inputElem.value), (parsedValue) => {
-			TypeUtil.ifNotEmpty(
-				this.findIndexOfInputElem_(inputElem),
-				(compIndex: number) => {
-					this.updateComponent_(compIndex, parsedValue);
-				},
-			);
-		});
-	}
-
-	private onInputKeyDown_(e: KeyboardEvent): void {
-		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
 		const parsedValue = this.parser_(inputElem.value);
 		if (TypeUtil.isEmpty(parsedValue)) {
 			return;
 		}
+		const compIndex = this.findIndexOfInputElem_(inputElem);
+		if (TypeUtil.isEmpty(compIndex)) {
+			return;
+		}
+		this.updateComponent_(compIndex, parsedValue);
+	}
 
+	private onInputKeyDown_(e: KeyboardEvent): void {
+		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
+
+		const parsedValue = this.parser_(inputElem.value);
+		if (TypeUtil.isEmpty(parsedValue)) {
+			return;
+		}
 		const compIndex = this.findIndexOfInputElem_(inputElem);
 		if (TypeUtil.isEmpty(compIndex)) {
 			return;

@@ -44,9 +44,10 @@ export default class TextInputController<T> implements InputController<T> {
 		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
 		const value = inputElem.value;
 
-		TypeUtil.ifNotEmpty(this.parser_(value), (parsedValue) => {
+		const parsedValue = this.parser_(value);
+		if (!TypeUtil.isEmpty(parsedValue)) {
 			this.value.rawValue = parsedValue;
-		});
+		}
 		this.view.update();
 	}
 }

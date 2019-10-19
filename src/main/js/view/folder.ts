@@ -81,16 +81,13 @@ export default class FolderView extends View {
 			this.element.classList.remove(expandedClass);
 		}
 
-		TypeUtil.ifNotEmpty(
-			this.folder_.expandedHeight,
-			(expandedHeight) => {
-				const containerHeight = expanded ? expandedHeight : 0;
-				containerElem.style.height = `${containerHeight}px`;
-			},
-			() => {
-				containerElem.style.height = expanded ? 'auto' : '0px';
-			},
-		);
+		const expandedHeight = this.folder_.expandedHeight;
+		if (!TypeUtil.isEmpty(expandedHeight)) {
+			const containerHeight = expanded ? expandedHeight : 0;
+			containerElem.style.height = `${containerHeight}px`;
+		} else {
+			containerElem.style.height = expanded ? 'auto' : '0px';
+		}
 	}
 
 	private onFolderChange_() {

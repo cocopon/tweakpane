@@ -12,18 +12,6 @@ const TypeUtil = {
 	getOrDefault: <T>(value: T | null | undefined, defaultValue: T): T => {
 		return !TypeUtil.isEmpty(value) ? value : defaultValue;
 	},
-
-	ifNotEmpty: <T>(
-		value: T | null,
-		thenFn: (value: T) => void,
-		elseFn?: () => void,
-	): void => {
-		if (!TypeUtil.isEmpty(value)) {
-			thenFn(value);
-		} else if (elseFn) {
-			elseFn();
-		}
-	},
 };
 
 export default TypeUtil;

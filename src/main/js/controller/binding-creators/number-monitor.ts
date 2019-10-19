@@ -38,7 +38,10 @@ function createTextMonitor(
 			  });
 	const ticker = new IntervalTicker(
 		document,
-		TypeUtil.getOrDefault<number>(params.interval, Constants.monitorDefaultInterval),
+		TypeUtil.getOrDefault<number>(
+			params.interval,
+			Constants.monitorDefaultInterval,
+		),
 	);
 
 	return new MonitorBindingController(document, {
@@ -63,7 +66,10 @@ function createGraphMonitor(
 	);
 	const ticker = new IntervalTicker(
 		document,
-		TypeUtil.getOrDefault<number>(params.interval, Constants.monitorDefaultInterval),
+		TypeUtil.getOrDefault<number>(
+			params.interval,
+			Constants.monitorDefaultInterval,
+		),
 	);
 	return new MonitorBindingController(document, {
 		binding: new MonitorBinding({
