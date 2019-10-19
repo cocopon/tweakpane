@@ -1,3 +1,4 @@
+import {Point2dDimensionParams} from '../../api/types';
 import InputBinding from '../../binding/input';
 import CompositeConstraint from '../../constraint/composite';
 import {Constraint} from '../../constraint/constraint';
@@ -15,7 +16,6 @@ import AnyPoint2dParser from '../../parser/any-point-2d';
 import StringNumberParser from '../../parser/string-number';
 import InputBindingController from '../input-binding';
 import Point2dPadTextInputController from '../input/point-2d-pad-text';
-import {Point2dDimensionParams} from '../ui';
 import * as UiUtil from '../ui-util';
 
 interface Params {

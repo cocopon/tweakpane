@@ -1,3 +1,4 @@
+import {InputParams} from '../../api/types';
 import InputBinding from '../../binding/input';
 import CompositeConstraint from '../../constraint/composite';
 import {Constraint} from '../../constraint/constraint';
@@ -15,7 +16,6 @@ import InputBindingController from '../input-binding';
 import ListInputController from '../input/list';
 import NumberTextInputController from '../input/number-text';
 import SliderTextInputController from '../input/slider-text';
-import {InputParams} from '../ui';
 import * as UiUtil from '../ui-util';
 
 function createConstraint(params: InputParams): Constraint<number> {

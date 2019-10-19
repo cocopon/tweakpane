@@ -1,3 +1,4 @@
+import {InputParamsOption, InputParamsOptionDictionary} from '../api/types';
 import {Constraint} from '../constraint/constraint';
 import Point2dConstraint from '../constraint/point-2d';
 import RangeConstraint from '../constraint/range';
@@ -7,11 +8,7 @@ import NumberUtil from '../misc/number-util';
 import TypeUtil, {Class} from '../misc/type-util';
 import Point2d from '../model/point-2d';
 import FolderController from './folder';
-import {
-	InputParamsOption,
-	InputParamsOptionDictionary,
-	UiController,
-} from './ui';
+import {UiController} from './ui';
 
 /**
  * @hidden

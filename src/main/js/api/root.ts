@@ -4,25 +4,19 @@ import ButtonController from '../controller/button';
 import FolderController from '../controller/folder';
 import InputBindingController from '../controller/input-binding';
 import MonitorBindingController from '../controller/monitor-binding';
+import {EventName as InternalEventName} from '../controller/root';
 import RootController from '../controller/root';
 import SeparatorController from '../controller/separator';
 import * as UiUtil from '../controller/ui-util';
+import {Handler} from '../misc/emitter';
 import Target from '../model/target';
 import ButtonApi from './button';
 import FolderApi from './folder';
 import InputBindingApi from './input-binding';
 import MonitorBindingApi from './monitor-binding';
 import * as Preset from './preset';
-
-import {EventName as InternalEventName} from '../controller/root';
-import {
-	ButtonParams,
-	FolderParams,
-	InputParams,
-	MonitorParams,
-} from '../controller/ui';
-import {Handler} from '../misc/emitter';
 import {PresetObject} from './preset';
+import {ButtonParams, FolderParams, InputParams, MonitorParams} from './types';
 
 type EventName = 'change' | 'fold' | 'update';
 

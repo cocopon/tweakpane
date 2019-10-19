@@ -1,3 +1,4 @@
+import {MonitorParams} from '../../api/types';
 import MonitorBinding from '../../binding/monitor';
 import * as NumberConverter from '../../converter/number';
 import NumberFormatter from '../../formatter/number';
@@ -10,7 +11,6 @@ import MonitorBindingController from '../monitor-binding';
 import GraphMonitorController from '../monitor/graph';
 import MultiLogMonitorController from '../monitor/multi-log';
 import SingleLogMonitorController from '../monitor/single-log';
-import {MonitorParams} from '../ui';
 
 function createFormatter(): NumberFormatter {
 	// TODO: formatter precision

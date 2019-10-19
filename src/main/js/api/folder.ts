@@ -9,8 +9,8 @@ import InputBindingApi from './input-binding';
 import MonitorBindingApi from './monitor-binding';
 
 import {EventName as InternalEventName} from '../controller/folder';
-import {ButtonParams, InputParams, MonitorParams} from '../controller/ui';
 import {Handler} from '../misc/emitter';
+import {ButtonParams, InputParams, MonitorParams} from './types';
 
 type EventName = 'change' | 'fold' | 'update';
 

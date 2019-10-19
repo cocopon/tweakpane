@@ -1,3 +1,4 @@
+import {MonitorParams} from '../../api/types';
 import MonitorBinding from '../../binding/monitor';
 import * as StringConverter from '../../converter/string';
 import StringFormatter from '../../formatter/string';
@@ -9,7 +10,6 @@ import Target from '../../model/target';
 import MonitorBindingController from '../monitor-binding';
 import MultiLogMonitorController from '../monitor/multi-log';
 import SingleLogMonitorController from '../monitor/single-log';
-import {MonitorParams} from '../ui';
 
 /**
  * @hidden

@@ -1,3 +1,4 @@
+import {InputParams} from '../../api/types';
 import InputBinding from '../../binding/input';
 import * as ColorConverter from '../../converter/color';
 import ColorFormatter from '../../formatter/color';
@@ -7,7 +8,6 @@ import Target from '../../model/target';
 import StringColorParser from '../../parser/string-color';
 import InputBindingController from '../input-binding';
 import ColorSwatchTextInputController from '../input/color-swatch-text';
-import {InputParams} from '../ui';
 
 /**
  * @hidden

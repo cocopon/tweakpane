@@ -9,8 +9,8 @@ import InputBindingController from '../input-binding';
 import CheckboxInputController from '../input/checkbox';
 import ListInputController from '../input/list';
 
+import {InputParams} from '../../api/types';
 import {Constraint} from '../../constraint/constraint';
-import {InputParams} from '../ui';
 import * as UiUtil from '../ui-util';
 
 function createConstraint(params: InputParams): Constraint<boolean> {
