@@ -9,6 +9,7 @@ import MonitorBindingController from '../monitor-binding';
 import MultiLogMonitorController from '../monitor/multi-log';
 import SingleLogMonitorController from '../monitor/single-log';
 import {MonitorParams} from '../ui';
+import Constants from '../../misc/constants';
 
 /**
  * @hidden
@@ -39,7 +40,7 @@ export function create(
 		  });
 	const ticker = new IntervalTicker(
 		document,
-		TypeUtil.getOrDefault<number>(params.interval, 200),
+		TypeUtil.getOrDefault<number>(params.interval, Constants.monitorDefaultInterval),
 	);
 
 	return new MonitorBindingController(document, {

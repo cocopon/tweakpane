@@ -1,6 +1,7 @@
 import MonitorBinding from '../../binding/monitor';
 import * as BooleanConverter from '../../converter/boolean';
 import BooleanFormatter from '../../formatter/boolean';
+import Constants from '../../misc/constants';
 import IntervalTicker from '../../misc/ticker/interval';
 import TypeUtil from '../../misc/type-util';
 import MonitorValue from '../../model/monitor-value';
@@ -39,7 +40,7 @@ export function create(
 			  });
 	const ticker = new IntervalTicker(
 		document,
-		TypeUtil.getOrDefault<number>(params.interval, 200),
+		TypeUtil.getOrDefault<number>(params.interval, Constants.monitorDefaultInterval),
 	);
 
 	return new MonitorBindingController(document, {

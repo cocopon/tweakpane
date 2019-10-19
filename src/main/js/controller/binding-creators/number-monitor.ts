@@ -1,6 +1,7 @@
 import MonitorBinding from '../../binding/monitor';
 import * as NumberConverter from '../../converter/number';
 import NumberFormatter from '../../formatter/number';
+import Constants from '../../misc/constants';
 import IntervalTicker from '../../misc/ticker/interval';
 import TypeUtil from '../../misc/type-util';
 import MonitorValue from '../../model/monitor-value';
@@ -37,7 +38,7 @@ function createTextMonitor(
 			  });
 	const ticker = new IntervalTicker(
 		document,
-		TypeUtil.getOrDefault<number>(params.interval, 200),
+		TypeUtil.getOrDefault<number>(params.interval, Constants.monitorDefaultInterval),
 	);
 
 	return new MonitorBindingController(document, {
@@ -62,7 +63,7 @@ function createGraphMonitor(
 	);
 	const ticker = new IntervalTicker(
 		document,
-		TypeUtil.getOrDefault<number>(params.interval, 200),
+		TypeUtil.getOrDefault<number>(params.interval, Constants.monitorDefaultInterval),
 	);
 	return new MonitorBindingController(document, {
 		binding: new MonitorBinding({
