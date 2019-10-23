@@ -21,7 +21,7 @@ import * as UiUtil from '../ui-util';
 function createConstraint(params: InputParams): Constraint<number> {
 	const constraints: Constraint<number>[] = [];
 
-	if (!TypeUtil.isEmpty(params.step)) {
+	if ('step' in params && !TypeUtil.isEmpty(params.step)) {
 		constraints.push(
 			new StepConstraint({
 				step: params.step,
@@ -29,7 +29,10 @@ function createConstraint(params: InputParams): Constraint<number> {
 		);
 	}
 
-	if (!TypeUtil.isEmpty(params.max) || !TypeUtil.isEmpty(params.min)) {
+	if (
+		('max' in params && !TypeUtil.isEmpty(params.max)) ||
+		('min' in params && !TypeUtil.isEmpty(params.min))
+	) {
 		constraints.push(
 			new RangeConstraint({
 				max: params.max,
