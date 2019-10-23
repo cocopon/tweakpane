@@ -28,7 +28,8 @@ export function create(
 		TypeUtil.getOrDefault<number>(params.count, 1),
 	);
 
-	const multiline = value.totalCount > 1 || params.multiline;
+	const multiline =
+		value.totalCount > 1 || ('multiline' in params && params.multiline);
 	const controller = multiline
 		? new MultiLogMonitorController(document, {
 				formatter: new StringFormatter(),

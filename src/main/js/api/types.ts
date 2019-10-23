@@ -45,15 +45,28 @@ export type InputParams =
 	| Point2dInputParams
 	| StrintrigInputParams;
 
-export interface MonitorParams {
+interface BaseMonitorParams {
 	count?: number;
 	interval?: number;
 	label?: string;
+}
+
+type BooleanMonitorParams = BaseMonitorParams;
+
+interface NumberMonitorParams extends BaseMonitorParams {
 	max?: number;
 	min?: number;
-	multiline?: boolean;
 	type?: string;
 }
+
+interface StringMonitorParams extends BaseMonitorParams {
+	multiline?: boolean;
+}
+
+export type MonitorParams =
+	| BooleanMonitorParams
+	| NumberMonitorParams
+	| StringMonitorParams;
 
 export interface ButtonParams {
 	title: string;

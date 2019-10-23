@@ -80,8 +80,14 @@ function createGraphMonitor(
 		}),
 		controller: new GraphMonitorController(document, {
 			formatter: createFormatter(),
-			maxValue: TypeUtil.getOrDefault<number>(params.max, 100),
-			minValue: TypeUtil.getOrDefault<number>(params.min, 0),
+			maxValue: TypeUtil.getOrDefault<number>(
+				'max' in params ? params.max : null,
+				100,
+			),
+			minValue: TypeUtil.getOrDefault<number>(
+				'min' in params ? params.min : null,
+				0,
+			),
 			value: value,
 		}),
 		label: params.label || target.key,
@@ -98,7 +104,7 @@ export function create(
 		return null;
 	}
 
-	if (params.type === 'graph') {
+	if ('type' in params && params.type === 'graph') {
 		return createGraphMonitor(document, target, params);
 	}
 
