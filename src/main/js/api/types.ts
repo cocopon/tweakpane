@@ -35,7 +35,7 @@ interface Point2dInputParams extends BaseInputParams {
 	y?: Point2dDimensionParams;
 }
 
-interface StrintrigInputParams extends BaseInputParams {
+interface StringInputParams extends BaseInputParams {
 	options?: InputParamsOption<unknown>[] | InputParamsOptionDictionary<unknown>;
 }
 
@@ -43,7 +43,7 @@ export type InputParams =
 	| BooleanInputParams
 	| NumberInputParams
 	| Point2dInputParams
-	| StrintrigInputParams;
+	| StringInputParams;
 
 interface BaseMonitorParams {
 	count?: number;
