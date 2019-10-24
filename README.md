@@ -12,16 +12,34 @@ value changes. It's originally inspired by the popular library [dat.GUI][].
 
 
 
-## Features
-- Easy to use, [user-friendly documents][documents]
+## Concept
 - Clean and simple interface
+- Easy to use, [user-friendly documents][documents]
 - Mobile support
 
 
 
 
-## Demo/Usage
-See [the official page][documents] for more information.
+## Features
+- [Input](https://cocopon.github.io/tweakpane/input.html)
+  - Number (text / slider / list)
+	- String (text / list)
+	- Boolean (checkbox / list)
+	- Color (picker)
+	- Point2D (picker)
+- [Monitor](https://cocopon.github.io/tweakpane/monitor.html)
+  - Number (text / graph)
+  - String (text)
+	- Boolean (text)
+- [UI components](https://cocopon.github.io/tweakpane/misc.html)
+  - Folder
+	- Button
+	- Separator
+- Misc
+  - JSON import / export
+  - TypeScript type definitions
+
+See the [official page][documents] for more detailed information.
 
 
 
