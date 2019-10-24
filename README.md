@@ -23,18 +23,18 @@ value changes. It's originally inspired by the popular library [dat.GUI][].
 ## Features
 - [Input](https://cocopon.github.io/tweakpane/input.html)
   - Number (text / slider / list)
-	- String (text / list)
-	- Boolean (checkbox / list)
-	- Color (picker)
-	- Point2D (picker)
+  - String (text / list)
+  - Boolean (checkbox / list)
+  - Color (picker)
+  - Point2D (picker)
 - [Monitor](https://cocopon.github.io/tweakpane/monitor.html)
   - Number (text / graph)
   - String (text)
-	- Boolean (text)
+  - Boolean (text)
 - [UI components](https://cocopon.github.io/tweakpane/misc.html)
   - Folder
-	- Button
-	- Separator
+  - Button
+  - Separator
 - Misc
   - JSON import / export
   - TypeScript type definitions
