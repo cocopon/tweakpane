@@ -15,6 +15,6 @@ export class NumberFormatter implements Formatter<number> {
 	}
 
 	public format(value: number): string {
-    return value.toFixed(Math.max(Math.min(this.digits_, 20), 0));
+		return value.toFixed(Math.max(Math.min(this.digits_, 20), 0));
 	}
 }
