@@ -32,7 +32,7 @@ describe(RootApi.name, () => {
 		{
 			expectedClass: GraphMonitorController,
 			params: {
-				type: 'graph',
+				view: 'graph',
 			},
 			value: 123,
 		},

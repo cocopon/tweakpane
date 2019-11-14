@@ -56,10 +56,12 @@ interface BaseMonitorParams {
 
 type BooleanMonitorParams = BaseMonitorParams;
 
+type NumberMonitorViewType = 'graph';
+
 interface NumberMonitorParams extends BaseMonitorParams {
 	max?: number;
 	min?: number;
-	type?: string;
+	view?: NumberMonitorViewType;
 }
 
 interface StringMonitorParams extends BaseMonitorParams {

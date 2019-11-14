@@ -52,7 +52,7 @@ export const MonitorRoute = {
 					label: 'graph',
 					max: +1,
 					min: -1,
-					type: 'graph',
+					view: 'graph',
 				});
 				nf.addMonitor(SHARED_PARAMS, 'positive', {
 					label: 'positive',
@@ -97,7 +97,7 @@ export const MonitorRoute = {
 				pane.addMonitor(SHARED_PARAMS, 'wave', {
 					max: +1,
 					min: -1,
-					type: 'graph',
+					view: 'graph',
 				});
 			},
 		};
