@@ -164,12 +164,22 @@ export const InputRoute = {
 					label: 'hidden',
 				});
 			},
-			color: (container) => {
+			stringColor: (container) => {
 				const PARAMS = {value: '#ff8800'};
 				const pane = new Tweakpane({
 					container: container,
 				});
 				pane.addInput(PARAMS, 'value', {
+					label: 'color',
+				});
+			},
+			numberColor: (container) => {
+				const PARAMS = {value: 0xff8800};
+				const pane = new Tweakpane({
+					container: container,
+				});
+				pane.addInput(PARAMS, 'value', {
+					input: 'rgb',
 					label: 'color',
 				});
 			},

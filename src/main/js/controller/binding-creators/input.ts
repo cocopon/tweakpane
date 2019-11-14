@@ -34,8 +34,9 @@ export function create(
 
 	const bc = [
 		BooleanInputBindingControllerCreators.create,
+		ColorInputBindingControllerCreators.createNumber,
+		ColorInputBindingControllerCreators.createString,
 		NumberInputBindingControllerCreators.create,
-		ColorInputBindingControllerCreators.create,
 		StringInputBindingControllerCreators.create,
 		Point2dInputBindingControllerCreators.create,
 	].reduce(

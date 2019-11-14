@@ -195,7 +195,27 @@ const pane = new Tweakpane();
 pane.addInput(PARAMS, 'color');</code></pre></div>
 		</div>
 		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer common-paneContainer-color"></div>
+			<div class="common-paneContainer common-paneContainer-stringColor"></div>
+		</div>
+	</div>
+</div>
+
+<p>If you want to treat a hex number (like <code>0xff8800</code>) as a color, specify <code>input: 'rgb'</code>.</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-demo">
+		<div class="common-demo_codeLayout">
+			<div class="common-codeBlock"><pre><code class="js">const PARAMS = {
+  color: 0xff8800,
+};
+
+const pane = new Tweakpane();
+pane.addInput(PARAMS, 'color', {
+	input: 'rgb',
+});</code></pre></div>
+		</div>
+		<div class="common-demo_resultLayout">
+			<div class="common-paneContainer common-paneContainer-numberColor"></div>
 		</div>
 	</div>
 </div>

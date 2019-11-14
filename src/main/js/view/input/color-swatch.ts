@@ -14,6 +14,8 @@ interface Config {
 }
 
 const className = ClassName('csw', 'input');
+const a = '';
+a.substr(1, 2);
 
 /**
  * @hidden

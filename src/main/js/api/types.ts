@@ -22,7 +22,10 @@ interface BooleanInputParams extends BaseInputParams {
 	options?: InputParamsOption<unknown>[] | InputParamsOptionDictionary<unknown>;
 }
 
+type NumberInputType = 'rgb';
+
 interface NumberInputParams extends BaseInputParams {
+	input?: NumberInputType;
 	max?: number;
 	min?: number;
 	options?: InputParamsOption<unknown>[] | InputParamsOptionDictionary<unknown>;
