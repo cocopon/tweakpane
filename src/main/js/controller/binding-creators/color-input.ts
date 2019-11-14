@@ -2,7 +2,7 @@ import {InputParams} from '../../api/types';
 import {InputBinding} from '../../binding/input';
 import * as ColorConverter from '../../converter/color';
 import {ColorFormatter} from '../../formatter/color';
-import {Color} from '../../model/color';
+import {Color, RgbColorObject} from '../../model/color';
 import {InputValue} from '../../model/input-value';
 import {Target} from '../../model/target';
 import {NumberColorParser} from '../../parser/number-color';
@@ -13,7 +13,7 @@ import {ColorSwatchTextInputController} from '../input/color-swatch-text';
 /**
  * @hidden
  */
-export function createString(
+export function createWithString(
 	document: Document,
 	target: Target,
 	params: InputParams,
@@ -47,7 +47,7 @@ export function createString(
 /**
  * @hidden
  */
-export function createNumber(
+export function createWithNumber(
 	document: Document,
 	target: Target,
 	params: InputParams,
@@ -71,6 +71,37 @@ export function createNumber(
 			target: target,
 			value: value,
 			writer: ColorConverter.toNumber,
+		}),
+		controller: new ColorSwatchTextInputController(document, {
+			formatter: new ColorFormatter(),
+			parser: StringColorParser,
+			value: value,
+		}),
+		label: params.label || target.key,
+	});
+}
+
+/**
+ * @hidden
+ */
+export function createWithObject(
+	document: Document,
+	target: Target,
+	params: InputParams,
+): InputBindingController<Color, RgbColorObject> | null {
+	const initialValue = target.read();
+	if (!Color.isRgbColorObject(initialValue)) {
+		return null;
+	}
+
+	const color = Color.fromRgbObject(initialValue);
+	const value = new InputValue(color);
+	return new InputBindingController(document, {
+		binding: new InputBinding({
+			reader: ColorConverter.fromMixed,
+			target: target,
+			value: value,
+			writer: Color.toRgbObject,
 		}),
 		controller: new ColorSwatchTextInputController(document, {
 			formatter: new ColorFormatter(),

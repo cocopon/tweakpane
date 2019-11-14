@@ -164,23 +164,31 @@ export const InputRoute = {
 					label: 'hidden',
 				});
 			},
-			stringColor: (container) => {
-				const PARAMS = {value: '#ff8800'};
+			objectColor: (container) => {
+				const PARAMS = {tint: {r: 255, g: 127, b: 0}};
 				const pane = new Tweakpane({
 					container: container,
 				});
-				pane.addInput(PARAMS, 'value', {
-					label: 'color',
+				pane.addInput(PARAMS, 'tint');
+			},
+			stringColor: (container) => {
+				const PARAMS = {
+					tint: '#8df',
+				};
+				const pane = new Tweakpane({
+					container: container,
 				});
+				pane.addInput(PARAMS, 'tint');
 			},
 			numberColor: (container) => {
-				const PARAMS = {value: 0xff8800};
+				const PARAMS = {
+					tint: 0x0088ff,
+				};
 				const pane = new Tweakpane({
 					container: container,
 				});
-				pane.addInput(PARAMS, 'value', {
+				pane.addInput(PARAMS, 'tint', {
 					input: 'rgb',
-					label: 'color',
 				});
 			},
 			point2d: (container) => {

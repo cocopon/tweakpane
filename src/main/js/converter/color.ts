@@ -19,6 +19,9 @@ export function fromMixed(value: unknown): Color {
 			return cv;
 		}
 	}
+	if (Color.isRgbColorObject(value)) {
+		return Color.fromRgbObject(value);
+	}
 	return new Color([0, 0, 0], 'rgb');
 }
 

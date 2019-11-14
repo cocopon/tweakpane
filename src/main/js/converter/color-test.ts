@@ -31,6 +31,14 @@ describe('ColorConverter', () => {
 				b: 0xff,
 			},
 		},
+		{
+			input: {r: 0x00, g: 0x78, b: 0xff},
+			expected: {
+				r: 0x00,
+				g: 0x78,
+				b: 0xff,
+			},
+		},
 	].forEach((testCase) => {
 		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
 			it('should convert mixed to color', () => {

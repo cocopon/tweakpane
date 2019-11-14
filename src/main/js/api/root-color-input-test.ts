@@ -35,6 +35,11 @@ describe(RootApi.name, () => {
 			},
 			value: 0x112233,
 		},
+		{
+			expectedClass: ColorSwatchTextInputController,
+			params: {},
+			value: {r: 0, g: 127, b: 255},
+		},
 	];
 	testCases.forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
