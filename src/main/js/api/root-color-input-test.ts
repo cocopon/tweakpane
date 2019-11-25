@@ -31,7 +31,14 @@ describe(RootApi.name, () => {
 		{
 			expectedClass: ColorSwatchTextInputController,
 			params: {
-				input: 'rgb',
+				input: 'color',
+			},
+			value: 0x112233,
+		},
+		{
+			expectedClass: ColorSwatchTextInputController,
+			params: {
+				input: 'color.rgb',
 			},
 			value: 0x112233,
 		},

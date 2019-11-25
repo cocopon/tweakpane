@@ -56,7 +56,10 @@ export function createWithNumber(
 	if (typeof initialValue !== 'number') {
 		return null;
 	}
-	if (!('input' in params) || params.input !== 'rgb') {
+	if (!('input' in params)) {
+		return null;
+	}
+	if (params.input !== 'color' && params.input !== 'color.rgb') {
 		return null;
 	}
 	const color = NumberColorParser(initialValue);

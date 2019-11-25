@@ -188,7 +188,7 @@ export const InputRoute = {
 					container: container,
 				});
 				pane.addInput(PARAMS, 'tint', {
-					input: 'rgb',
+					input: 'color',
 				});
 			},
 			point2d: (container) => {
