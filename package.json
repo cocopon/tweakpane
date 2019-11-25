@@ -75,7 +75,7 @@
     "autoprefixer": "^9.1.5",
     "awesome-typescript-loader": "^5.2.1",
     "chai": "^4.2.0",
-    "coveralls": "^3.0.2",
+    "coveralls": "^3.0.8",
     "css-loader": "^1.0.0",
     "fs-extra": "^7.0.0",
     "glob": "^7.1.3",
