@@ -1,8 +1,10 @@
 .#{$prefix}-rotv {
-	background-color: $bg-color;
+	@include themeVariables();
+
+	background-color: var(--base-background-color);
 	border-radius: $root-border-radius;
 	box-shadow: 0 2px 4px rgba(black, 0.2);
-	font-family: $font-family;
+	font-family: var(--font-family);
 	font-size: 11px;
 	font-weight: 500;
 	text-align: left;

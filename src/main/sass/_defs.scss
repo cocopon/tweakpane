@@ -1,58 +1,79 @@
 $prefix: 'tp';
 
-// Font
-$font-family: 'Roboto Mono', 'Source Code Pro', Menlo, Courier, monospace;
-
 // Geometry
 $input-height: 20px;
-
-// Colors
-
-// Base
-$base-hue: 230;
-$color-exdark: hsl($base-hue, 7%, 10%);
-$color-dark: hsl($base-hue, 7%, 20%);
-$color-light: hsl($base-hue, 7%, 70%);
-$color-exlight: hsl($base-hue, 7%, 80%);
-
-$bg-color: $color-dark;
-$fg-color: $color-exlight;
+$input-border-radius: 2px;
+$root-border-radius: 6px;
 
 // Z-index
 $z-index-picker: 1000;
 
-// Folder
-$folder-mark-hole-color: rgba($bg-color, 0.5);
-$folder-title-bg-color: rgba($fg-color, 0.1);
-$folder-title-active-bg-color: rgba($fg-color, 0.25);
-$folder-title-focus-bg-color: rgba($fg-color, 0.2);
-$folder-title-hover-bg-color: rgba($fg-color, 0.15);
-
-// Input
-$input-bg-color: rgba($fg-color, 0.15);
-$input-border-radius: 2px;
-$input-fg-color: $fg-color;
-$input-active-bg-color: rgba($fg-color, 0.35);
-$input-guide-color: rgba($bg-color, 0.5);
-$input-focus-bg-color: rgba($fg-color, 0.25);
-$input-hover-bg-color: rgba($fg-color, 0.15);
-$input-light-bg-color: $color-light;
-$input-light-active-bg-color: lighten($input-light-bg-color, 15%);
-$input-light-focus-bg-color: lighten($input-light-bg-color, 10%);
-$input-light-hover-bg-color: lighten($input-light-bg-color, 5%);
-$input-light-fg-color: $bg-color;
-
-// Monitor
-$monitor-bg-color: rgba($color-exdark, 0.5);
-$monitor-fg-color: rgba($fg-color, 0.7);
-
-// Misc
-$label-fg-color: rgba($fg-color, 0.8);
-$root-border-radius: 6px;
-$separator-color: rgba($color-exdark, 0.3);
-$slider-input-bar-color: rgba($fg-color, 0.2);
-
 // Mixins
+
+@mixin themeVariable($name, $value) {
+	--#{$name}: var(--#{$prefix}-#{$name}, #{$value});
+}
+
+@mixin themeVariables() {
+	$base-hue: 230;
+	$color-exdark: hsl($base-hue, 7%, 10%);
+	$color-dark: hsl($base-hue, 7%, 20%);
+	$color-light: hsl($base-hue, 7%, 70%);
+	$color-exlight: hsl($base-hue, 7%, 80%);
+	$bg-color: $color-dark;
+	$fg-color: $color-exlight;
+
+	@include themeVariable(
+		'font-family',
+		('Roboto Mono', 'Source Code Pro', Menlo, Courier, monospace)
+	);
+
+	@include themeVariable('base-background-color', $bg-color);
+
+	@include themeVariable('button-background-color', $color-light);
+	@include themeVariable(
+		'button-background-color-active',
+		lighten($color-light, 15%)
+	);
+	@include themeVariable(
+		'button-background-color-focus',
+		lighten($color-light, 10%)
+	);
+	@include themeVariable(
+		'button-background-color-hover',
+		lighten($color-light, 5%)
+	);
+	@include themeVariable('button-foreground-color', $bg-color);
+
+	@include themeVariable('folder-background-color', rgba($fg-color, 0.1));
+	@include themeVariable(
+		'folder-background-color-active',
+		rgba($fg-color, 0.25)
+	);
+	@include themeVariable('folder-background-color-focus', rgba($fg-color, 0.2));
+	@include themeVariable(
+		'folder-background-color-hover',
+		rgba($fg-color, 0.15)
+	);
+	@include themeVariable('folder-foreground-color', $fg-color);
+
+	@include themeVariable('input-background-color', rgba($fg-color, 0.15));
+	@include themeVariable(
+		'input-background-color-active',
+		rgba($fg-color, 0.35)
+	);
+	@include themeVariable('input-background-color-focus', rgba($fg-color, 0.25));
+	@include themeVariable('input-background-color-hover', rgba($fg-color, 0.15));
+	@include themeVariable('input-foreground-color', $fg-color);
+	@include themeVariable('input-guide-color', rgba($bg-color, 0.5));
+
+	@include themeVariable('label-foreground-color', rgba($fg-color, 0.8));
+
+	@include themeVariable('monitor-background-color', rgba($color-exdark, 0.5));
+	@include themeVariable('monitor-foreground-color', rgba($fg-color, 0.7));
+
+	@include themeVariable('separator-color', rgba($color-exdark, 0.3));
+}
 
 @mixin resetInput() {
 	appearance: none;
@@ -67,7 +88,6 @@ $slider-input-bar-color: rgba($fg-color, 0.2);
 }
 
 @mixin propertyView() {
-	color: $fg-color;
 	display: block;
 	padding: 0;
 }
@@ -75,10 +95,10 @@ $slider-input-bar-color: rgba($fg-color, 0.2);
 @mixin monitorView() {
 	@include resetInput();
 
-	background-color: $monitor-bg-color;
+	background-color: var(--monitor-background-color);
 	border-radius: $input-border-radius;
 	box-sizing: border-box;
-	color: $monitor-fg-color;
+	color: var(--monitor-foreground-color);
 	height: $input-height;
 	width: 100%;
 }
@@ -86,32 +106,32 @@ $slider-input-bar-color: rgba($fg-color, 0.2);
 @mixin inputView() {
 	@include resetInput();
 
-	background-color: $input-bg-color;
+	background-color: var(--input-background-color);
 	border-radius: $input-border-radius;
 	box-sizing: border-box;
-	color: $input-fg-color;
+	color: var(--input-foreground-color);
 	font-family: inherit;
 	height: $input-height;
 	line-height: $input-height;
 	width: 100%;
 
 	&:hover {
-		background-color: $input-hover-bg-color;
+		background-color: var(--input-background-color-hover);
 	}
 	&:focus {
-		background-color: $input-focus-bg-color;
+		background-color: var(--input-background-color-focus);
 	}
 	&:active {
-		background-color: $input-active-bg-color;
+		background-color: var(--input-background-color-active);
 	}
 }
 
 @mixin button() {
 	@include resetInput();
 
-	background-color: $input-light-bg-color;
+	background-color: var(--button-background-color);
 	border-radius: $input-border-radius;
-	color: $input-light-fg-color;
+	color: var(--button-foreground-color);
 	cursor: pointer;
 	display: block;
 	font-weight: bold;
@@ -121,21 +141,21 @@ $slider-input-bar-color: rgba($fg-color, 0.2);
 	white-space: nowrap;
 
 	&:hover {
-		background-color: $input-light-hover-bg-color;
+		background-color: var(--button-background-color-hover);
 	}
 	&:focus {
-		background-color: $input-light-focus-bg-color;
+		background-color: var(--button-background-color-focus);
 	}
 	&:active {
-		background-color: $input-light-active-bg-color;
+		background-color: var(--button-background-color-active);
 	}
 }
 
 %folder_title {
 	@include resetInput();
 
-	background-color: $folder-title-bg-color;
-	color: $fg-color;
+	background-color: var(--folder-background-color);
+	color: var(--folder-foreground-color);
 	cursor: pointer;
 	display: block;
 	height: 24px;
@@ -149,25 +169,24 @@ $slider-input-bar-color: rgba($fg-color, 0.2);
 	width: 100%;
 
 	&:hover {
-		background-color: $folder-title-hover-bg-color;
+		background-color: var(--folder-background-color-hover);
 	}
 	&:focus {
-		background-color: $folder-title-focus-bg-color;
+		background-color: var(--folder-background-color-focus);
 	}
 	&:active {
-		background-color: $folder-title-active-bg-color;
+		background-color: var(--folder-background-color-active);
 	}
 }
 
 %folder_mark {
 	background: linear-gradient(
 		to left,
-		$fg-color,
-		$fg-color 2px,
+		var(--folder-foreground-color),
+		var(--folder-foreground-color) 2px,
 		transparent 2px,
 		transparent 4px,
-		$fg-color 4px,
-		$fg-color
+		var(--folder-foreground-color) 4px
 	);
 	border-radius: 2px;
 	bottom: 0;

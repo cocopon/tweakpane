@@ -6,9 +6,9 @@
 	&_s {
 		@include resetInput();
 
-		background-color: $input-light-bg-color;
+		background-color: var(--button-background-color);
 		border-radius: $input-border-radius;
-		color: $input-light-fg-color;
+		color: var(--button-foreground-color);
 		cursor: pointer;
 		display: block;
 		height: $input-height;
@@ -17,17 +17,17 @@
 		width: 100%;
 
 		&:hover {
-			background-color: $input-light-hover-bg-color;
+			background-color: var(--button-background-color-hover);
 		}
 		&:focus {
-			background-color: $input-light-focus-bg-color;
+			background-color: var(--button-background-color-focus);
 		}
 		&:active {
-			background-color: $input-light-active-bg-color;
+			background-color: var(--button-background-color-active);
 		}
 	}
 	&_m {
-		border-color: $input-light-fg-color transparent transparent;
+		border-color: var(--button-foreground-color) transparent transparent;
 		border-style: solid;
 		border-width: 3px;
 		bottom: 0;

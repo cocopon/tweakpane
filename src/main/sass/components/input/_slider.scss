@@ -9,7 +9,7 @@
 		position: relative;
 
 		&::before {
-			background-color: $slider-input-bar-color;
+			background-color: var(--input-background-color);
 			border-radius: 1px;
 			bottom: 0;
 			content: '';
@@ -29,7 +29,7 @@
 		top: 0;
 
 		&::before {
-			background-color: $input-light-bg-color;
+			background-color: var(--button-background-color);
 			border-radius: $input-border-radius;
 			bottom: 0;
 			content: '';
@@ -43,12 +43,12 @@
 		}
 	}
 	&_o:hover &_i::before {
-		background-color: $input-light-hover-bg-color;
+		background-color: var(--button-background-color-hover);
 	}
 	&_o:focus &_i::before {
-		background-color: $input-light-focus-bg-color;
+		background-color: var(--button-background-color-focus);
 	}
 	&_o:active &_i::before {
-		background-color: $input-light-active-bg-color;
+		background-color: var(--button-background-color-active);
 	}
 }

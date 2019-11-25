@@ -13,7 +13,7 @@
 		top: 0;
 	}
 	&_m {
-		background-color: $input-bg-color;
+		background-color: var(--input-background-color);
 		border-radius: $input-border-radius;
 		cursor: pointer;
 		display: block;
@@ -22,7 +22,7 @@
 		width: $input-height;
 
 		&::before {
-			background-color: $fg-color;
+			background-color: var(--input-foreground-color);
 			border-radius: $input-border-radius;
 			bottom: 4px;
 			content: '';
@@ -35,13 +35,13 @@
 		}
 	}
 	&_i:hover + &_m {
-		background-color: $input-hover-bg-color;
+		background-color: var(--input-background-color-hover);
 	}
 	&_i:focus + &_m {
-		background-color: $input-focus-bg-color;
+		background-color: var(--input-background-color-focus);
 	}
 	&_i:active + &_m {
-		background-color: $input-active-bg-color;
+		background-color: var(--input-background-color-active);
 	}
 	&_i:checked + &_m::before {
 		opacity: 1;

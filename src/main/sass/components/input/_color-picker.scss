@@ -1,5 +1,5 @@
 .#{$prefix}-clpiv {
-	background-color: $bg-color;
+	background-color: var(--base-background-color);
 	border-radius: 6px;
 	box-shadow: 0 2px 4px rgba(black, 0.2);
 	display: none;

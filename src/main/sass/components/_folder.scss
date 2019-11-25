@@ -11,7 +11,7 @@
 	&_c {
 		@extend %container;
 
-		border-left: $folder-title-bg-color solid 4px;
+		border-left: var(--folder-background-color) solid 4px;
 		box-sizing: border-box;
 		height: 0;
 		opacity: 0;
@@ -23,13 +23,13 @@
 			padding 0.2s ease-in-out;
 	}
 	&_t:hover + &_c {
-		border-left-color: $folder-title-hover-bg-color;
+		border-left-color: var(--folder-background-color-hover);
 	}
 	&_t:focus + &_c {
-		border-left-color: $folder-title-focus-bg-color;
+		border-left-color: var(--folder-background-color-focus);
 	}
 	&_t:active + &_c {
-		border-left-color: $folder-title-active-bg-color;
+		border-left-color: var(--folder-background-color-active);
 	}
 	&#{&}-expanded &_c {
 		opacity: 1;
