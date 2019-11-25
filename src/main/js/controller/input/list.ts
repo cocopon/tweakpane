@@ -11,7 +11,7 @@ interface Config<T> {
 	value: InputValue<T>;
 }
 
-function findListItems<T>(value: InputValue<T>): (ListItem<T>[]) | null {
+function findListItems<T>(value: InputValue<T>): ListItem<T>[] | null {
 	const c = value.constraint
 		? ConstraintUtil.findConstraint<ListConstraint<T>>(
 				value.constraint,

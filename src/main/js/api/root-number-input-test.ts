@@ -52,7 +52,10 @@ describe(RootApi.name, () => {
 		{
 			expectedClass: ListInputController,
 			params: {
-				options: [{text: 'foo', value: 0}, {text: 'bar', value: 1}],
+				options: [
+					{text: 'foo', value: 0},
+					{text: 'bar', value: 1},
+				],
 			},
 			value: 3.14,
 		},
