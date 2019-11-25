@@ -28,15 +28,12 @@ export function normalizeInputParamsOptions<T1, T2>(
 
 	const textToValueMap = options;
 	const texts = Object.keys(textToValueMap);
-	return texts.reduce(
-		(result, text) => {
-			return result.concat({
-				text: text,
-				value: convert(textToValueMap[text]),
-			});
-		},
-		[] as InputParamsOption<T2>[],
-	);
+	return texts.reduce((result, text) => {
+		return result.concat({
+			text: text,
+			value: convert(textToValueMap[text]),
+		});
+	}, [] as InputParamsOption<T2>[]);
 }
 
 /**
@@ -46,23 +43,20 @@ export function findControllers<Controller>(
 	uiControllers: UiController[],
 	controllerClass: Class<Controller>,
 ): Controller[] {
-	return uiControllers.reduce(
-		(results, uc) => {
-			if (uc instanceof FolderController) {
-				// eslint-disable-next-line no-use-before-define
-				results.push(
-					...findControllers(uc.uiControllerList.items, controllerClass),
-				);
-			}
+	return uiControllers.reduce((results, uc) => {
+		if (uc instanceof FolderController) {
+			// eslint-disable-next-line no-use-before-define
+			results.push(
+				...findControllers(uc.uiControllerList.items, controllerClass),
+			);
+		}
 
-			if (uc instanceof controllerClass) {
-				results.push(uc);
-			}
+		if (uc instanceof controllerClass) {
+			results.push(uc);
+		}
 
-			return results;
-		},
-		[] as Controller[],
-	);
+		return results;
+	}, [] as Controller[]);
 }
 
 function findStep(constraint: Constraint<number> | undefined): number | null {

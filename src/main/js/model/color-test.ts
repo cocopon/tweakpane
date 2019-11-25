@@ -54,4 +54,32 @@ describe(Color.name, () => {
 			});
 		});
 	});
+
+	[{r: 0, g: 127, b: 255}].forEach((input: any) => {
+		context(`when ${JSON.stringify(input)}`, () => {
+			it('should be regarded as rgb color object', () => {
+				assert.strictEqual(Color.isRgbColorObject(input), true);
+			});
+		});
+	});
+
+	[
+		null,
+		undefined,
+		{},
+		{r: 0},
+		{g: 127},
+		{b: 255},
+		{r: 0, g: 127},
+		{g: 0, b: 255},
+		{r: 0, b: 255},
+		{r: 0, g: 127, b: null},
+		{r: 0, g: '127', b: 255},
+	].forEach((input: any) => {
+		context(`when ${JSON.stringify(input)}`, () => {
+			it('should not be regarded as rgb color object', () => {
+				assert.strictEqual(Color.isRgbColorObject(input), false);
+			});
+		});
+	});
 });

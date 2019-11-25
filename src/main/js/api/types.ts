@@ -22,7 +22,10 @@ interface BooleanInputParams extends BaseInputParams {
 	options?: InputParamsOption<unknown>[] | InputParamsOptionDictionary<unknown>;
 }
 
+type NumberInputType = 'color' | 'color.rgb';
+
 interface NumberInputParams extends BaseInputParams {
+	input?: NumberInputType;
 	max?: number;
 	min?: number;
 	options?: InputParamsOption<unknown>[] | InputParamsOptionDictionary<unknown>;
@@ -53,10 +56,12 @@ interface BaseMonitorParams {
 
 type BooleanMonitorParams = BaseMonitorParams;
 
+type NumberMonitorViewType = 'graph';
+
 interface NumberMonitorParams extends BaseMonitorParams {
 	max?: number;
 	min?: number;
-	type?: string;
+	view?: NumberMonitorViewType;
 }
 
 interface StringMonitorParams extends BaseMonitorParams {

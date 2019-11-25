@@ -104,7 +104,7 @@ export function create(
 		return null;
 	}
 
-	if ('type' in params && params.type === 'graph') {
+	if ('view' in params && params.view === 'graph') {
 		return createGraphMonitor(document, target, params);
 	}
 

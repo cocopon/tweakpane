@@ -1,5 +1,6 @@
 import {NumberUtil} from '../misc/number-util';
 import {Color} from '../model/color';
+import {NumberColorParser} from '../parser/number-color';
 import {StringColorParser} from '../parser/string-color';
 
 /**
@@ -11,6 +12,15 @@ export function fromMixed(value: unknown): Color {
 		if (cv) {
 			return cv;
 		}
+	}
+	if (typeof value === 'number') {
+		const cv = NumberColorParser(value);
+		if (cv) {
+			return cv;
+		}
+	}
+	if (Color.isRgbColorObject(value)) {
+		return Color.fromRgbObject(value);
 	}
 	return new Color([0, 0, 0], 'rgb');
 }
@@ -27,4 +37,13 @@ export function toString(value: Color): string {
 		})
 		.join('');
 	return `#${hexes}`;
+}
+
+/**
+ * @hidden
+ */
+export function toNumber(value: Color): number {
+	return value.getComponents('rgb').reduce((result, comp) => {
+		return (result << 8) | (Math.floor(comp) & 0xff);
+	}, 0);
 }

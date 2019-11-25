@@ -1,6 +1,7 @@
 import * as ColorModel from '../misc/color-model';
 import {Emitter} from '../misc/emitter';
 import {NumberUtil} from '../misc/number-util';
+import {TypeUtil} from '../misc/type-util';
 
 type EventType = 'change';
 type ColorMode = 'hsv' | 'rgb';
@@ -32,10 +33,33 @@ const CONSTRAINT_MAP: {
 	},
 };
 
+function isRgbColorComponent(obj: any, key: string): boolean {
+	if (typeof obj !== 'object' || TypeUtil.isEmpty(obj)) {
+		return false;
+	}
+	return key in obj && typeof obj[key] === 'number';
+}
+
 /**
  * @hidden
  */
 export class Color {
+	public static fromRgbObject(obj: RgbColorObject): Color {
+		return new Color([obj.r, obj.g, obj.b], 'rgb');
+	}
+
+	public static toRgbObject(color: Color): RgbColorObject {
+		return color.toRgbObject();
+	}
+
+	public static isRgbColorObject(obj: any): obj is RgbColorObject {
+		return (
+			isRgbColorComponent(obj, 'r') &&
+			isRgbColorComponent(obj, 'g') &&
+			isRgbColorComponent(obj, 'b')
+		);
+	}
+
 	public readonly emitter: Emitter<EventType>;
 	private comps_: [number, number, number];
 	private mode_: ColorMode;
