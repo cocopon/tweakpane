@@ -1,6 +1,8 @@
 $prefix: 'common';
 
 .#{$prefix}-main {
+	overflow: hidden;
+
 	&_globalHeaderLayout {
 		@include pc() {
 			height: $global-header-height;
@@ -90,6 +92,45 @@ $prefix: 'common';
 
 		@include sp() {
 			margin-top: 16px;
+		}
+	}
+}
+
+.#{$prefix}-themes {
+	background-color: $demo-result-bg-color;
+	overflow: hidden;
+	position: relative;
+
+	&_mask {
+		bottom: 0;
+		position: absolute;
+		top: 0;
+		width: 16px;
+
+		&#{&}-start {
+			background-color: $demo-result-bg-color;
+			box-shadow: 0 0 16px 16px $demo-result-bg-color;
+			left: -8px;
+		}
+		&#{&}-end {
+			background-color: $demo-result-bg-color;
+			box-shadow: 0 0 16px 16px $demo-result-bg-color;
+			right: -8px;
+		}
+	}
+
+	&_themesLayout {
+		font-size: 0;
+		overflow-x: scroll;
+		padding: 32px;
+		white-space: nowrap;
+	}
+	&_themeLayout {
+		display: inline-block;
+		vertical-align: top;
+
+		& + & {
+			margin-left: 16px;
 		}
 	}
 }
