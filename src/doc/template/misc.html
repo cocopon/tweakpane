@@ -196,6 +196,48 @@ pane.addInput(PARAMS2, 'speed', {
 </div>
 
 
+<h2 id="theming">Theming</h2>
+
+
+<p>Tweakpane now can be themed easily with CSS variable.</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-themes">
+		<div class="common-themes_themesLayout">
+			<div class="common-themes_themeLayout">
+				<div class="common-paneContainer common-paneContainer-defaultTheme"></div>
+			</div>
+			<div class="common-themes_themeLayout">
+				<div class="common-paneContainer common-paneContainer-lightTheme"></div>
+			</div>
+			<div class="common-themes_themeLayout">
+				<div class="common-paneContainer common-paneContainer-icebergTheme"></div>
+			</div>
+			<div class="common-themes_themeLayout">
+				<div class="common-paneContainer common-paneContainer-jetblackTheme"></div>
+			</div>
+		</div>
+		<div class="common-themes_mask common-themes_mask-start"></div>
+		<div class="common-themes_mask common-themes_mask-end"></div>
+	</div>
+</div>
+
+<p>Add <code>--tp-*</code> variables to the container element to change pane colors. All themable variables are listed below:</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-demo">
+		<div class="common-demo_codeLayout">
+			<div class="common-codeBlock">
+				<pre><code class="html" data-themeCss></code></pre>
+				<div class="common-codeBlock_title">
+					.html
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
 <h2 id="tips">Tips</h2>
 
 
@@ -270,44 +312,4 @@ pane.refresh();
 
 <h3>Disposing</h3>
 <p>If you want to dispose a pane manually, call <code>dispose()</code> of the pane.</p>
-
-
-<h3 id="theming">Theming</h3>
-<p>Tweakpane now can be themed easily with CSS variable.</p>
-
-<div class="common-main_mediaLayout">
-	<div class="common-themes">
-		<div class="common-themes_themesLayout">
-			<div class="common-themes_themeLayout">
-				<div class="common-paneContainer common-paneContainer-defaultTheme"></div>
-			</div>
-			<div class="common-themes_themeLayout">
-				<div class="common-paneContainer common-paneContainer-lightTheme"></div>
-			</div>
-			<div class="common-themes_themeLayout">
-				<div class="common-paneContainer common-paneContainer-icebergTheme"></div>
-			</div>
-			<div class="common-themes_themeLayout">
-				<div class="common-paneContainer common-paneContainer-jetblackTheme"></div>
-			</div>
-		</div>
-		<div class="common-themes_mask common-themes_mask-start"></div>
-		<div class="common-themes_mask common-themes_mask-end"></div>
-	</div>
-</div>
-
-<p>Add <code>--tp-*</code> variables to the container element to change pane colors. All themable variables are listed below:</p>
-
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock">
-				<pre><code class="html" data-themeCss></code></pre>
-				<div class="common-codeBlock_title">
-					.html
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 {% endblock %}
