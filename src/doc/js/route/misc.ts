@@ -44,6 +44,7 @@ ${indentedProps}
 			params?: ThemeParams,
 		) => {
 			const PARAMS = {
+				background: '#f1f2f3',
 				point2d: {x: 0, y: 0},
 				slider: 0,
 				variables: (params && params.cssProps.join('\n')) || '',
@@ -59,15 +60,17 @@ ${indentedProps}
 			});
 			pane.addSeparator();
 			pane.addInput(PARAMS, 'point2d');
-			const f = pane.addFolder({
-				title: 'CSS',
-			});
-			f.addMonitor(PARAMS, 'variables', {
-				interval: 0,
-				multiline: true,
-			});
 
 			if (!params) {
+				const fp = pane.addFolder({
+					title: 'Preview',
+				});
+				fp.addInput(PARAMS, 'background').on('change', () => {
+					document.documentElement.style.setProperty(
+						'--themes-background-color',
+						PARAMS.background,
+					);
+				});
 				return;
 			}
 
@@ -77,6 +80,13 @@ ${indentedProps}
 			}Theme {${params.cssProps.join('')}}`;
 			document.head.appendChild(styleElem);
 
+			const f = pane.addFolder({
+				title: 'CSS',
+			});
+			f.addMonitor(PARAMS, 'variables', {
+				interval: 0,
+				multiline: true,
+			});
 			f.addButton({
 				title: 'Show',
 			}).on('click', () => {

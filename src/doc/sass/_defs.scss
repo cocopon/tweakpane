@@ -34,6 +34,9 @@ $button-fg-color: $global-footer-fg-color;
 $button-active-bg-color: hsl($base-hue - 20, 30%, 70%);
 $button-hover-bg-color: hsl($base-hue - 20, 25%, 65%);
 
+// Z-index
+$z-index-themes-mask: 1001;
+
 // Misc
 $code-block-bg-color: hsl($base-hue, 7%, 90%);
 $code-block-title-bg-color: hsl($base-hue, 7%, 40%);

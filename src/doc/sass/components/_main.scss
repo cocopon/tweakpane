@@ -97,7 +97,7 @@ $prefix: 'common';
 }
 
 .#{$prefix}-themes {
-	background-color: $demo-result-bg-color;
+	background-color: var(--themes-background-color);
 	overflow: hidden;
 	position: relative;
 
@@ -106,16 +106,17 @@ $prefix: 'common';
 		position: absolute;
 		top: 0;
 		width: 16px;
+		z-index: $z-index-themes-mask;
 
 		&#{&}-start {
-			background-color: $demo-result-bg-color;
-			box-shadow: 0 0 16px 16px $demo-result-bg-color;
-			left: -8px;
+			background-color: var(--themes-background-color);
+			box-shadow: 0 0 16px 16px var(--themes-background-color);
+			left: -16px;
 		}
 		&#{&}-end {
-			background-color: $demo-result-bg-color;
-			box-shadow: 0 0 16px 16px $demo-result-bg-color;
-			right: -8px;
+			background-color: var(--themes-background-color);
+			box-shadow: 0 0 16px 16px var(--themes-background-color);
+			right: -16px;
 		}
 	}
 
