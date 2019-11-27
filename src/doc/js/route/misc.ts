@@ -415,7 +415,7 @@ ${indentedProps}
 						'',
 						'/* Misc */',
 						'--tp-label-foreground-color: hsl(230deg, 5%, 50%);',
-						'--tp-separator-color: hsl(230deg, 5%, 90%);',
+						'--tp-separator-color: hsl(230deg, 5%, 85%);',
 					],
 					id: 'light',
 					title: 'Light',
