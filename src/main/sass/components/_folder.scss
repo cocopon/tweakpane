@@ -1,6 +1,12 @@
 .#{$prefix}-fldv {
 	&_t {
 		@extend %folder_title;
+
+		// Delay border-radius transition to avoid unwanted clipping
+		transition: border-radius 0.2s ease-in-out 0.2s;
+	}
+	&#{&}-expanded &_t {
+		transition: border-radius 0s;
 	}
 	&_m {
 		@extend %folder_mark;

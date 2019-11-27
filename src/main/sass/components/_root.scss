@@ -12,8 +12,14 @@
 	&_t {
 		@extend %folder_title;
 
+		border-bottom-left-radius: $root-border-radius;
+		border-bottom-right-radius: $root-border-radius;
 		border-top-left-radius: $root-border-radius;
 		border-top-right-radius: $root-border-radius;
+	}
+	&#{&}-expanded &_t {
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
 	}
 	&_m {
 		@extend %folder_mark;
@@ -33,6 +39,22 @@
 		padding-top: 0;
 
 		// Clip subviews without `overflow: hidden` for popup elements (e.g. color picker)
+
+		// Bottom of the last folder
+		& > .#{$prefix}-fldv:last-child {
+			.#{$prefix}-fldv_c {
+				border-bottom-left-radius: $root-border-radius;
+				border-bottom-right-radius: $root-border-radius;
+			}
+		}
+		// Bottom of the last folder title when collapsed
+		& > .#{$prefix}-fldv:last-child:not(.#{$prefix}-fldv-expanded) {
+			.#{$prefix}-fldv_t {
+				border-bottom-left-radius: $root-border-radius;
+				border-bottom-right-radius: $root-border-radius;
+			}
+		}
+		// Top of the first folder
 		& > .#{$prefix}-fldv:first-child {
 			.#{$prefix}-fldv_t {
 				border-top-left-radius: $root-border-radius;
