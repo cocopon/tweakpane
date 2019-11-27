@@ -29,6 +29,7 @@ $z-index-picker: 1000;
 	);
 
 	@include themeVariable('base-background-color', $bg-color);
+	@include themeVariable('base-shadow-color', rgba(black, 0.2));
 
 	@include themeVariable('button-background-color', $color-light);
 	@include themeVariable(

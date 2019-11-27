@@ -3,7 +3,7 @@
 
 	background-color: var(--base-background-color);
 	border-radius: $root-border-radius;
-	box-shadow: 0 2px 4px rgba(black, 0.2);
+	box-shadow: 0 2px 4px var(--base-shadow-color);
 	font-family: var(--font-family);
 	font-size: 11px;
 	font-weight: 500;

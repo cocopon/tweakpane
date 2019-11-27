@@ -341,8 +341,9 @@ ${indentedProps}
 			jetblackTheme: (container) => {
 				const params = {
 					cssProps: [
-						'/* Base background color */',
+						'/* Base colors */',
 						'--tp-base-background-color: hsl(0, 0%, 0%);',
+						'--tp-base-shadow-color: hsla(0, 0%, 0%, 0.2);',
 						'',
 						'/* Button-like control colors */',
 						'--tp-button-background-color: hsl(0, 0%, 70%);',
@@ -384,8 +385,9 @@ ${indentedProps}
 			lightTheme: (container) => {
 				return setUpThemedPane(container, {
 					cssProps: [
-						'/* Base background color */',
+						'/* Base colors */',
 						'--tp-base-background-color: hsl(230deg, 5%, 90%);',
+						'--tp-base-shadow-color: hsla(0, 0%, 0%, 0.1);',
 						'',
 						'/* Button-like control colors */',
 						'--tp-button-background-color: hsl(230deg, 5%, 70%);',
@@ -425,8 +427,9 @@ ${indentedProps}
 			icebergTheme: (container) => {
 				return setUpThemedPane(container, {
 					cssProps: [
-						'/* Base background color */',
+						'/* Base colors */',
 						'--tp-base-background-color: hsl(230deg, 20%, 11%);',
+						'--tp-base-shadow-color: hsla(0, 0%, 0%, 0.2);',
 						'',
 						'/* Button-like control colors */',
 						'--tp-button-background-color: hsl(230deg, 10%, 80%);',
