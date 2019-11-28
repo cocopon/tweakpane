@@ -11,11 +11,12 @@
 
 		polyline {
 			fill: none;
-			stroke: $monitor-fg-color;
+			stroke: var(--monitor-foreground-color);
 			stroke-linejoin: round;
 		}
 	}
 	&_t {
+		color: var(--monitor-foreground-color);
 		font-size: 0.9em;
 		left: 0;
 		pointer-events: none;
@@ -29,7 +30,7 @@
 		}
 
 		&::before {
-			background-color: $monitor-fg-color;
+			background-color: var(--monitor-foreground-color);
 			border-radius: 100%;
 			content: '';
 			display: block;

@@ -1,7 +1,7 @@
 .#{$prefix}-p2dpadiv {
-	background-color: $bg-color;
+	background-color: var(--base-background-color);
 	border-radius: 6px;
-	box-shadow: 0 2px 4px rgba(black, 0.2);
+	box-shadow: 0 2px 4px var(--base-shadow-color);
 	display: none;
 	padding: 4px 4px 4px (4px * 2 + $input-height);
 	position: relative;
@@ -32,14 +32,14 @@
 		width: 100%;
 	}
 	&_ax {
-		stroke: $input-guide-color;
+		stroke: var(--input-guide-color);
 	}
 	&_l {
-		stroke: $input-fg-color;
+		stroke: var(--input-foreground-color);
 		stroke-linecap: round;
 		stroke-dasharray: 1px 3px;
 	}
 	&_m {
-		fill: $input-fg-color;
+		fill: var(--input-foreground-color);
 	}
 }

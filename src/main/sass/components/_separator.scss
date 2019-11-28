@@ -1,6 +1,6 @@
 .#{$prefix}-sptv {
 	&_r {
-		background-color: $separator-color;
+		background-color: var(--separator-color);
 		border-width: 0;
 		display: block;
 		height: 4px;

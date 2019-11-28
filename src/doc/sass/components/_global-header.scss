@@ -9,7 +9,7 @@ $prefix: 'common';
 	position: fixed;
 	right: 0;
 	top: 0;
-	z-index: 1;
+	z-index: $z-index-global-header;
 
 	@include pc() {
 		height: $global-header-height;

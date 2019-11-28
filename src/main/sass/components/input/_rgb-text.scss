@@ -10,7 +10,7 @@
 		}
 	}
 	&_l {
-		color: $label-fg-color;
+		color: var(--label-foreground-color);
 		display: inline;
 		line-height: $input-height;
 		margin-left: 4px;

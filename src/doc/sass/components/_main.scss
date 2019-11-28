@@ -1,6 +1,8 @@
 $prefix: 'common';
 
 .#{$prefix}-main {
+	overflow: hidden;
+
 	&_globalHeaderLayout {
 		@include pc() {
 			height: $global-header-height;
@@ -90,6 +92,46 @@ $prefix: 'common';
 
 		@include sp() {
 			margin-top: 16px;
+		}
+	}
+}
+
+.#{$prefix}-themes {
+	background-color: var(--themes-background-color);
+	overflow: hidden;
+	position: relative;
+
+	&_mask {
+		bottom: 0;
+		position: absolute;
+		top: 0;
+		width: 16px;
+		z-index: $z-index-themes-mask;
+
+		&#{&}-start {
+			background-color: var(--themes-background-color);
+			box-shadow: 0 0 16px 16px var(--themes-background-color);
+			left: -16px;
+		}
+		&#{&}-end {
+			background-color: var(--themes-background-color);
+			box-shadow: 0 0 16px 16px var(--themes-background-color);
+			right: -16px;
+		}
+	}
+
+	&_themesLayout {
+		font-size: 0;
+		overflow-x: scroll;
+		padding: 32px;
+		white-space: nowrap;
+	}
+	&_themeLayout {
+		display: inline-block;
+		vertical-align: top;
+
+		& + & {
+			margin-left: 16px;
 		}
 	}
 }
