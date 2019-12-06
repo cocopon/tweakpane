@@ -1,10 +1,37 @@
 import {Color} from '../model/color';
 import {Parser} from './parser';
 
-type ColorParserId = 'hex.rrggbb';
+type ColorParserId = 'hex.rgb' | 'func.rgb';
+
+function parseCssNumberOrPercentage(text: string, maxValue: number): number {
+	const m = text.match(/^(.+)%$/);
+	if (!m) {
+		return Math.min(parseFloat(text), maxValue);
+	}
+	return Math.min(parseFloat(m[1]) * 0.01 * maxValue, maxValue);
+}
 
 const ID_TO_PARSER_MAP: {[id in ColorParserId]: Parser<string, Color>} = {
-	'hex.rrggbb': (text: string): Color | null => {
+	'func.rgb': (text) => {
+		const m = text.match(
+			/^rgb\(\s*([0-9A-Fa-f.]+%?)\s*,\s*([0-9A-Fa-f.]+%?)\s*,\s*([0-9A-Fa-f.]+%?)\s*\)$/,
+		);
+		if (!m) {
+			return null;
+		}
+
+		const comps: [number, number, number] = [
+			parseCssNumberOrPercentage(m[1], 255),
+			parseCssNumberOrPercentage(m[2], 255),
+			parseCssNumberOrPercentage(m[3], 255),
+		];
+		if (isNaN(comps[0]) || isNaN(comps[1]) || isNaN(comps[2])) {
+			return null;
+		}
+
+		return new Color(comps, 'rgb');
+	},
+	'hex.rgb': (text) => {
 		const mRrggbb = text.match(/^#?([0-9A-Fa-f])([0-9A-Fa-f])([0-9A-Fa-f])$/);
 		if (mRrggbb) {
 			return new Color(
