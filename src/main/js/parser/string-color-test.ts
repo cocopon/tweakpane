@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import {describe, describe as context, it} from 'mocha';
 
-import {StringColorParser} from './string-color';
+import {getNotation, StringColorParser} from './string-color';
 
 describe(StringColorParser.name, () => {
 	[
@@ -48,4 +48,28 @@ describe(StringColorParser.name, () => {
 			});
 		},
 	);
+
+	[
+		{
+			expected: 'hex.rgb',
+			input: '#009aff',
+		},
+		{
+			expected: 'func.rgb',
+			input: 'rgb(17,34,51)',
+		},
+		{
+			expected: null,
+			input: 'foobar',
+		},
+	].forEach((testCase) => {
+		context(`when ${JSON.stringify(testCase.input)}`, () => {
+			it(`it should detect notation as ${JSON.stringify(
+				testCase.expected,
+			)}`, () => {
+				const actual = getNotation(testCase.input);
+				assert.deepStrictEqual(actual, testCase.expected);
+			});
+		});
+	});
 });

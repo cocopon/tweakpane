@@ -1,7 +1,7 @@
 import {Color} from '../model/color';
 import {Parser} from './parser';
 
-type ColorParserId = 'hex.rgb' | 'func.rgb';
+type StringColorNotation = 'hex.rgb' | 'func.rgb';
 
 function parseCssNumberOrPercentage(text: string, maxValue: number): number {
 	const m = text.match(/^(.+)%$/);
@@ -11,7 +11,9 @@ function parseCssNumberOrPercentage(text: string, maxValue: number): number {
 	return Math.min(parseFloat(m[1]) * 0.01 * maxValue, maxValue);
 }
 
-const ID_TO_PARSER_MAP: {[id in ColorParserId]: Parser<string, Color>} = {
+const NOTATION_TO_PARSER_MAP: {
+	[notation in StringColorNotation]: Parser<string, Color>;
+} = {
 	'func.rgb': (text) => {
 		const m = text.match(
 			/^rgb\(\s*([0-9A-Fa-f.]+%?)\s*,\s*([0-9A-Fa-f.]+%?)\s*,\s*([0-9A-Fa-f.]+%?)\s*\)$/,
@@ -64,9 +66,24 @@ const ID_TO_PARSER_MAP: {[id in ColorParserId]: Parser<string, Color>} = {
 export const StringColorParser: Parser<string, Color> = (
 	text: string,
 ): Color | null => {
-	const ids: ColorParserId[] = Object.keys(ID_TO_PARSER_MAP) as ColorParserId[];
-	return ids.reduce((result: Color | null, id) => {
-		const subparser = ID_TO_PARSER_MAP[id];
+	const notations: StringColorNotation[] = Object.keys(
+		NOTATION_TO_PARSER_MAP,
+	) as StringColorNotation[];
+	return notations.reduce((result: Color | null, notation) => {
+		const subparser = NOTATION_TO_PARSER_MAP[notation];
 		return result ? result : subparser(text);
 	}, null);
 };
+
+export function getNotation(text: string): StringColorNotation | null {
+	const notations: StringColorNotation[] = Object.keys(
+		NOTATION_TO_PARSER_MAP,
+	) as StringColorNotation[];
+	return notations.reduce((result: StringColorNotation | null, notation) => {
+		if (result) {
+			return result;
+		}
+		const subparser = NOTATION_TO_PARSER_MAP[notation];
+		return subparser(text) ? notation : null;
+	}, null);
+}
