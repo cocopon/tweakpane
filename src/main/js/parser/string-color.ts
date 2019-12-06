@@ -1,40 +1,35 @@
 import {Color} from '../model/color';
 import {Parser} from './parser';
 
-const SUB_PARSERS: Parser<string, Color>[] = [
-	// #aabbcc
-	(text: string): Color | null => {
-		const matches = text.match(
+type ColorParserId = 'hex.rrggbb';
+
+const ID_TO_PARSER_MAP: {[id in ColorParserId]: Parser<string, Color>} = {
+	'hex.rrggbb': (text: string): Color | null => {
+		const mRrggbb = text.match(/^#?([0-9A-Fa-f])([0-9A-Fa-f])([0-9A-Fa-f])$/);
+		if (mRrggbb) {
+			return new Color(
+				[
+					parseInt(mRrggbb[1] + mRrggbb[1], 16),
+					parseInt(mRrggbb[2] + mRrggbb[2], 16),
+					parseInt(mRrggbb[3] + mRrggbb[3], 16),
+				],
+				'rgb',
+			);
+		}
+
+		const mRgb = text.match(
 			/^#?([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})$/,
 		);
-		if (!matches) {
-			return null;
+		if (mRgb) {
+			return new Color(
+				[parseInt(mRgb[1], 16), parseInt(mRgb[2], 16), parseInt(mRgb[3], 16)],
+				'rgb',
+			);
 		}
-		return new Color(
-			[
-				parseInt(matches[1], 16),
-				parseInt(matches[2], 16),
-				parseInt(matches[3], 16),
-			],
-			'rgb',
-		);
+
+		return null;
 	},
-	// #abc
-	(text: string): Color | null => {
-		const matches = text.match(/^#?([0-9A-Fa-f])([0-9A-Fa-f])([0-9A-Fa-f])$/);
-		if (!matches) {
-			return null;
-		}
-		return new Color(
-			[
-				parseInt(matches[1] + matches[1], 16),
-				parseInt(matches[2] + matches[2], 16),
-				parseInt(matches[3] + matches[3], 16),
-			],
-			'rgb',
-		);
-	},
-];
+};
 
 /**
  * @hidden
@@ -42,7 +37,9 @@ const SUB_PARSERS: Parser<string, Color>[] = [
 export const StringColorParser: Parser<string, Color> = (
 	text: string,
 ): Color | null => {
-	return SUB_PARSERS.reduce((result: Color | null, subparser) => {
+	const ids: ColorParserId[] = Object.keys(ID_TO_PARSER_MAP) as ColorParserId[];
+	return ids.reduce((result: Color | null, id) => {
+		const subparser = ID_TO_PARSER_MAP[id];
 		return result ? result : subparser(text);
 	}, null);
 };
