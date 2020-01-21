@@ -26,6 +26,6 @@ export class ColorFormatter implements Formatter<Color> {
 	}
 
 	public format(value: Color): string {
-		return ColorConverter.toString(value);
+		return ColorConverter.toHexRgbString(value);
 	}
 }

@@ -6,7 +6,7 @@ import {Color, RgbColorObject} from '../../model/color';
 import {InputValue} from '../../model/input-value';
 import {Target} from '../../model/target';
 import {NumberColorParser} from '../../parser/number-color';
-import {StringColorParser} from '../../parser/string-color';
+import * as StringColorParser from '../../parser/string-color';
 import {InputBindingController} from '../input-binding';
 import {ColorSwatchTextInputController} from '../input/color-swatch-text';
 
@@ -22,22 +22,24 @@ export function createWithString(
 	if (typeof initialValue !== 'string') {
 		return null;
 	}
-	const color = StringColorParser(initialValue);
-	if (!color) {
+	const notation = StringColorParser.getNotation(initialValue);
+	if (!notation) {
 		return null;
 	}
 
+	const converter = ColorConverter.fromMixed;
+	const color = converter(initialValue);
 	const value = new InputValue(color);
 	return new InputBindingController(document, {
 		binding: new InputBinding({
-			reader: ColorConverter.fromMixed,
+			reader: converter,
 			target: target,
 			value: value,
-			writer: ColorConverter.toString,
+			writer: ColorConverter.getStringConverter(notation),
 		}),
 		controller: new ColorSwatchTextInputController(document, {
 			formatter: new ColorFormatter(),
-			parser: StringColorParser,
+			parser: StringColorParser.CompositeParser,
 			value: value,
 		}),
 		label: params.label || target.key,
@@ -77,7 +79,7 @@ export function createWithNumber(
 		}),
 		controller: new ColorSwatchTextInputController(document, {
 			formatter: new ColorFormatter(),
-			parser: StringColorParser,
+			parser: StringColorParser.CompositeParser,
 			value: value,
 		}),
 		label: params.label || target.key,
@@ -108,7 +110,7 @@ export function createWithObject(
 		}),
 		controller: new ColorSwatchTextInputController(document, {
 			formatter: new ColorFormatter(),
-			parser: StringColorParser,
+			parser: StringColorParser.CompositeParser,
 			value: value,
 		}),
 		label: params.label || target.key,

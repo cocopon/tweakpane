@@ -206,11 +206,13 @@ pane.addInput(PARAMS, 'tint');</code></pre></div>
 	<div class="common-demo">
 		<div class="common-demo_codeLayout">
 			<div class="common-codeBlock"><pre><code class="js">const PARAMS = {
-  tint: '#8df',
+  primary: '#8df',
+  secondary: 'rgb(255, 136, 221)',
 };
 
 const pane = new Tweakpane();
-pane.addInput(PARAMS, 'tint');</code></pre></div>
+pane.addInput(PARAMS, 'primary');
+pane.addInput(PARAMS, 'secondary');</code></pre></div>
 		</div>
 		<div class="common-demo_resultLayout">
 			<div class="common-paneContainer common-paneContainer-stringColor"></div>

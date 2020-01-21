@@ -1,7 +1,7 @@
 import {Color} from '../model/color';
 import {Parser} from './parser';
 
-type StringColorNotation = 'hex.rgb' | 'func.rgb';
+export type StringColorNotation = 'hex.rgb' | 'func.rgb';
 
 function parseCssNumberOrPercentage(text: string, maxValue: number): number {
 	const m = text.match(/^(.+)%$/);
@@ -63,7 +63,7 @@ const NOTATION_TO_PARSER_MAP: {
 /**
  * @hidden
  */
-export const StringColorParser: Parser<string, Color> = (
+export const CompositeParser: Parser<string, Color> = (
 	text: string,
 ): Color | null => {
 	const notations: StringColorNotation[] = Object.keys(

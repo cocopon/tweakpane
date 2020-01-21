@@ -173,12 +173,14 @@ export const InputRoute = {
 			},
 			stringColor: (container) => {
 				const PARAMS = {
-					tint: '#8df',
+					primary: '#8df',
+					secondary: 'rgb(255, 136, 221)',
 				};
 				const pane = new Tweakpane({
 					container: container,
 				});
-				pane.addInput(PARAMS, 'tint');
+				pane.addInput(PARAMS, 'primary');
+				pane.addInput(PARAMS, 'secondary');
 			},
 			numberColor: (container) => {
 				const PARAMS = {
