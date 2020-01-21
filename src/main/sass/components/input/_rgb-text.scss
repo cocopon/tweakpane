@@ -1,25 +1,36 @@
 .#{$prefix}-rgbtxtiv {
 	display: flex;
 
-	&_w {
-		align-items: center;
-		display: flex;
-
-		& + & {
-			margin-left: 4px;
-		}
-	}
 	&_l {
 		color: var(--label-foreground-color);
 		display: inline;
 		line-height: $input-height;
-		margin-left: 4px;
 		margin-right: 8px;
+	}
+	&_w {
+		display: flex;
 	}
 	&_i {
 		@include inputView();
 
+		flex: 1;
 		padding: 0 4px;
 		width: 100%;
+
+		&:nth-child(1) {
+			border-bottom-right-radius: 0;
+			border-top-right-radius: 0;
+		}
+		&:nth-child(2) {
+			border-radius: 0;
+		}
+		&:nth-child(3) {
+			border-bottom-left-radius: 0;
+			border-top-left-radius: 0;
+		}
+
+		& + & {
+			margin-left: 1px;
+		}
 	}
 }

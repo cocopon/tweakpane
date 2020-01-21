@@ -12,7 +12,6 @@ interface Config {
 	value: InputValue<Color>;
 }
 
-const COMPONENT_LABELS: [string, string, string] = ['R', 'G', 'B'];
 const className = ClassName('rgbtxt', 'input');
 
 /**
@@ -34,26 +33,24 @@ export class RgbTextInputView extends View implements InputView<Color> {
 
 		this.element.classList.add(className());
 
-		const labelElems = COMPONENT_LABELS.map((text) => {
-			const elem = document.createElement('label');
-			elem.classList.add(className('l'));
-			elem.textContent = text;
-			return elem;
-		});
-		const inputElems = COMPONENT_LABELS.map(() => {
+		const labelElem = document.createElement('div');
+		labelElem.classList.add(className('l'));
+		labelElem.textContent = 'RGB';
+		this.element.appendChild(labelElem);
+
+		const wrapperElem = document.createElement('div');
+		wrapperElem.classList.add(className('w'));
+		this.element.appendChild(wrapperElem);
+
+		const inputElems = [0, 1, 2].map(() => {
 			const inputElem = document.createElement('input');
 			inputElem.classList.add(className('i'));
 			inputElem.type = 'text';
 			return inputElem;
 		});
-		COMPONENT_LABELS.forEach((_, index) => {
-			const elem = document.createElement('div');
-			elem.classList.add(className('w'));
-			elem.appendChild(labelElems[index]);
-			elem.appendChild(inputElems[index]);
-			this.element.appendChild(elem);
+		inputElems.forEach((elem) => {
+			wrapperElem.appendChild(elem);
 		});
-
 		this.inputElems_ = [inputElems[0], inputElems[1], inputElems[2]];
 
 		config.value.emitter.on('change', this.onValueChange_);
