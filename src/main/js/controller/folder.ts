@@ -76,7 +76,7 @@ export class FolderController {
 			DomUtil.forceReflow(elem);
 
 			// Compute height
-			height = elem.getBoundingClientRect().height;
+			height = elem.clientHeight;
 
 			// Restore expanded
 			this.folder.expanded = expanded;
