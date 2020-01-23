@@ -1,6 +1,7 @@
 import {assert} from 'chai';
 import {describe, describe as context, it} from 'mocha';
 
+import * as ColorConverter from '../converter/color';
 import {Color} from '../model/color';
 import {ColorFormatter} from './color';
 
@@ -54,7 +55,7 @@ describe(ColorFormatter.name, () => {
 		context(`when ${JSON.stringify(testCase.components)}`, () => {
 			it(`it should format to ${JSON.stringify(testCase.hex)}`, () => {
 				const c = new Color(testCase.components, 'rgb');
-				const f = new ColorFormatter();
+				const f = new ColorFormatter(ColorConverter.toHexRgbString);
 				assert.strictEqual(f.format(c), testCase.hex);
 			});
 			it(`it should format to ${JSON.stringify(testCase.rgb)}`, () => {

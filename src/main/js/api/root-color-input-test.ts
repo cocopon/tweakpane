@@ -7,6 +7,7 @@ import {RootController} from '../controller/root';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
 import {Color} from '../model/color';
+import {ColorSwatchTextInputView} from '../view/input/color-swatch-text';
 import {RootApi} from './root';
 import {InputParams} from './types';
 
@@ -55,6 +56,41 @@ describe(RootApi.name, () => {
 				const obj = {foo: testCase.value};
 				const bapi = api.addInput(obj, 'foo', testCase.params);
 				assert.instanceOf(bapi.controller.controller, testCase.expectedClass);
+			});
+		});
+	});
+
+	[
+		{
+			expected: {
+				inputValue: '#112233',
+			},
+			params: {
+				input: '#123',
+			},
+		},
+		{
+			expected: {
+				inputValue: 'rgb(0, 128, 255)',
+			},
+			params: {
+				input: 'rgb(0,128,255)',
+			},
+		},
+	].forEach((testCase) => {
+		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
+			it(`should be hoge ${testCase.expected.inputValue}`, () => {
+				const api = createApi();
+				const obj = {foo: testCase.params.input};
+				const bapi = api.addInput(obj, 'foo');
+
+				const view = bapi.controller.controller.view;
+				if (!(view instanceof ColorSwatchTextInputView)) {
+					throw new Error('hoge');
+				}
+
+				const inputElem = view.textInputView.inputElement;
+				assert.equal(inputElem.value, testCase.expected.inputValue);
 			});
 		});
 	});

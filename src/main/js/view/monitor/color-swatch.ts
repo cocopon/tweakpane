@@ -45,7 +45,7 @@ export class ColorSwatchMonitorView extends View implements MonitorView<Color> {
 		const values = this.value.rawValues;
 		this.swatchElem_.style.backgroundColor =
 			values.length > 0
-				? ColorConverter.toString(values[values.length - 1])
+				? ColorConverter.toHexRgbString(values[values.length - 1])
 				: '';
 	}
 

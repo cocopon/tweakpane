@@ -1,14 +1,16 @@
+import {NumberFormatter} from '../formatter/number';
 import {NumberUtil} from '../misc/number-util';
 import {Color} from '../model/color';
 import {NumberColorParser} from '../parser/number-color';
-import {StringColorParser} from '../parser/string-color';
+import * as StringColorParser from '../parser/string-color';
+import {StringColorNotation} from '../parser/string-color';
 
 /**
  * @hidden
  */
 export function fromMixed(value: unknown): Color {
 	if (typeof value === 'string') {
-		const cv = StringColorParser(value);
+		const cv = StringColorParser.CompositeParser(value);
 		if (cv) {
 			return cv;
 		}
@@ -28,7 +30,7 @@ export function fromMixed(value: unknown): Color {
 /**
  * @hidden
  */
-export function toString(value: Color): string {
+export function toHexRgbString(value: Color): string {
 	const hexes = value
 		.getComponents('rgb')
 		.map((comp) => {
@@ -37,6 +39,30 @@ export function toString(value: Color): string {
 		})
 		.join('');
 	return `#${hexes}`;
+}
+
+/**
+ * @hidden
+ */
+export function toFunctionalRgbString(value: Color): string {
+	const formatter = new NumberFormatter(0);
+	const comps = value
+		.getComponents('rgb')
+		.map((comp) => formatter.format(comp));
+	return `rgb(${comps.join(', ')})`;
+}
+
+const NOTATION_TO_STRINGIFIER_MAP: {
+	[notation in StringColorNotation]: (value: Color) => string;
+} = {
+	'func.rgb': toFunctionalRgbString,
+	'hex.rgb': toHexRgbString,
+};
+
+export function getStringifier(
+	notation: StringColorNotation,
+): (value: Color) => string {
+	return NOTATION_TO_STRINGIFIER_MAP[notation];
 }
 
 /**

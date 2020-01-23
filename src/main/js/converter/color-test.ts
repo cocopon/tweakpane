@@ -67,7 +67,31 @@ describe('ColorConverter', () => {
 		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
 			it('should convert color to string', () => {
 				assert.strictEqual(
-					ColorConverter.toString(testCase.input),
+					ColorConverter.toHexRgbString(testCase.input),
+					testCase.expected,
+				);
+			});
+		});
+	});
+
+	[
+		{
+			input: new Color([0, 0, 0], 'rgb'),
+			expected: 'rgb(0, 0, 0)',
+		},
+		{
+			input: new Color([0, 127, 255], 'rgb'),
+			expected: 'rgb(0, 127, 255)',
+		},
+		{
+			input: new Color([255, 255, 255], 'rgb'),
+			expected: 'rgb(255, 255, 255)',
+		},
+	].forEach((testCase) => {
+		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
+			it('should convert color to string', () => {
+				assert.strictEqual(
+					ColorConverter.toFunctionalRgbString(testCase.input),
 					testCase.expected,
 				);
 			});
