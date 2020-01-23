@@ -30,15 +30,16 @@ export function createWithString(
 	const converter = ColorConverter.fromMixed;
 	const color = converter(initialValue);
 	const value = new InputValue(color);
+	const writer = ColorConverter.getStringifier(notation);
 	return new InputBindingController(document, {
 		binding: new InputBinding({
 			reader: converter,
 			target: target,
 			value: value,
-			writer: ColorConverter.getStringConverter(notation),
+			writer: writer,
 		}),
 		controller: new ColorSwatchTextInputController(document, {
-			formatter: new ColorFormatter(),
+			formatter: new ColorFormatter(writer),
 			parser: StringColorParser.CompositeParser,
 			value: value,
 		}),
@@ -78,7 +79,7 @@ export function createWithNumber(
 			writer: ColorConverter.toNumber,
 		}),
 		controller: new ColorSwatchTextInputController(document, {
-			formatter: new ColorFormatter(),
+			formatter: new ColorFormatter(ColorConverter.toHexRgbString),
 			parser: StringColorParser.CompositeParser,
 			value: value,
 		}),
@@ -109,7 +110,7 @@ export function createWithObject(
 			writer: Color.toRgbObject,
 		}),
 		controller: new ColorSwatchTextInputController(document, {
-			formatter: new ColorFormatter(),
+			formatter: new ColorFormatter(ColorConverter.toHexRgbString),
 			parser: StringColorParser.CompositeParser,
 			value: value,
 		}),

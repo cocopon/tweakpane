@@ -1,4 +1,3 @@
-import * as ColorConverter from '../converter/color';
 import {NumberUtil} from '../misc/number-util';
 import {Color} from '../model/color';
 import {Formatter} from './formatter';
@@ -25,7 +24,13 @@ export class ColorFormatter implements Formatter<Color> {
 		return `hsl(${compsText})`;
 	}
 
+	private stringifier_: (color: Color) => string;
+
+	constructor(stringifier: (color: Color) => string) {
+		this.stringifier_ = stringifier;
+	}
+
 	public format(value: Color): string {
-		return ColorConverter.toHexRgbString(value);
+		return this.stringifier_(value);
 	}
 }

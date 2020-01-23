@@ -17,8 +17,8 @@ const className = ClassName('cswtxt', 'input');
  * @hidden
  */
 export class ColorSwatchTextInputView extends View implements InputView<Color> {
-	private swatchInputView_: ColorSwatchInputView;
-	private textInputView_: TextInputView<Color>;
+	public readonly textInputView: TextInputView<Color>;
+	private readonly swatchInputView_: ColorSwatchInputView;
 
 	constructor(document: Document, config: Config) {
 		super(document);
@@ -33,23 +33,23 @@ export class ColorSwatchTextInputView extends View implements InputView<Color> {
 
 		const textElem = document.createElement('div');
 		textElem.classList.add(className('t'));
-		this.textInputView_ = config.textInputView;
-		textElem.appendChild(this.textInputView_.element);
+		this.textInputView = config.textInputView;
+		textElem.appendChild(this.textInputView.element);
 		this.element.appendChild(textElem);
 	}
 
 	get value(): InputValue<Color> {
-		return this.textInputView_.value;
+		return this.textInputView.value;
 	}
 
 	public dispose(): void {
 		this.swatchInputView_.dispose();
-		this.textInputView_.dispose();
+		this.textInputView.dispose();
 		super.dispose();
 	}
 
 	public update(): void {
 		this.swatchInputView_.update();
-		this.textInputView_.update();
+		this.textInputView.update();
 	}
 }

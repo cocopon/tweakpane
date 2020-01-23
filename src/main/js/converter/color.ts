@@ -1,3 +1,4 @@
+import {NumberFormatter} from '../formatter/number';
 import {NumberUtil} from '../misc/number-util';
 import {Color} from '../model/color';
 import {NumberColorParser} from '../parser/number-color';
@@ -44,21 +45,24 @@ export function toHexRgbString(value: Color): string {
  * @hidden
  */
 export function toFunctionalRgbString(value: Color): string {
-	const comps = value.getComponents('rgb');
+	const formatter = new NumberFormatter(0);
+	const comps = value
+		.getComponents('rgb')
+		.map((comp) => formatter.format(comp));
 	return `rgb(${comps.join(', ')})`;
 }
 
-const NOTATION_TO_STRING_CONVERTER_MAP: {
+const NOTATION_TO_STRINGIFIER_MAP: {
 	[notation in StringColorNotation]: (value: Color) => string;
 } = {
 	'func.rgb': toFunctionalRgbString,
 	'hex.rgb': toHexRgbString,
 };
 
-export function getStringConverter(
+export function getStringifier(
 	notation: StringColorNotation,
 ): (value: Color) => string {
-	return NOTATION_TO_STRING_CONVERTER_MAP[notation];
+	return NOTATION_TO_STRINGIFIER_MAP[notation];
 }
 
 /**
