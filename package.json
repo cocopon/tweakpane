@@ -22,7 +22,7 @@
     "build": "run-s main:build doc:build",
     "clean": "rm -rf dist docs test tweakpane-*.tgz tweakpane-*.zip",
     "coverage": "run-s coverage:report coverage:coveralls",
-    "coverage:coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "coverage:coveralls": "mkdir -p test/coverage && nyc report --reporter=text-lcov > test/coverage/lcov.info",
     "coverage:report": "run-p coverage:report:*",
 		"coverage:report:xml": "TS_NODE_PROJECT='src/main/tsconfig.json' nyc --reporter=none --extension '.ts' --exclude '**/*-test.ts' mocha --require ts-node/register --reporter mocha-junit-reporter --reporter-options mochaFile=./test/results/results.xml 'src/main/js/**/*-test.ts'",
     "coverage:report:html": "nyc report --reporter=html --reporter=text --reporter=lcovonly --report-dir=test/coverage",
