@@ -25,9 +25,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: npm run test
-      - run: npm run main:test:report
-      - run: npm run main:test:coverage
-      - run: npm run main:test:coveralls
+      - run: npm run coverage
       - store_artifacts:
           path: test/results/results.xml
           prefix: tests
