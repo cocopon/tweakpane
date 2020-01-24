@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {describe, describe as context, it} from 'mocha';
+import {describe as context, describe, it} from 'mocha';
 
 import {MonitorBinding} from '../binding/monitor';
 import {GraphMonitorController} from '../controller/monitor/graph';

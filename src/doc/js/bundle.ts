@@ -4,7 +4,7 @@ import {MiscRoute} from './route/misc';
 import {MonitorRoute} from './route/monitor';
 import {SimpleRouter} from './simple-router';
 
-declare var hljs: any;
+declare let hljs: any;
 
 (() => {
 	const router = new SimpleRouter();

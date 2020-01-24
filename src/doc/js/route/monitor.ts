@@ -1,6 +1,6 @@
 import * as Util from '../util';
 
-declare var Tweakpane: any;
+declare let Tweakpane: any;
 
 export const MonitorRoute = {
 	pathname: /^(\/tweakpane)?\/monitor.html$/,

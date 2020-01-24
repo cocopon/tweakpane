@@ -2,7 +2,7 @@ import {Sketch} from '../sketch';
 import {Environment} from '../sketch';
 import * as Util from '../util';
 
-declare var Tweakpane: any;
+declare let Tweakpane: any;
 
 export const IndexRoute = {
 	pathname: /^(\/tweakpane)?\/$/,

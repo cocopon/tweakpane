@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {describe, describe as context, it} from 'mocha';
+import {describe as context, describe, it} from 'mocha';
 
 import {ColorSwatchTextInputController} from '../controller/input/color-swatch-text';
 import {InputController} from '../controller/input/input';

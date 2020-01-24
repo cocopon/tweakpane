@@ -1,7 +1,7 @@
 // tslint:disable:object-literal-sort-keys
 import * as Util from '../util';
 
-declare var Tweakpane: any;
+declare let Tweakpane: any;
 
 export const InputRoute = {
 	pathname: /^(\/tweakpane)?\/input.html$/,
