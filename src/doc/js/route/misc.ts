@@ -1,7 +1,7 @@
 import * as Util from '../util';
 
-declare var hljs: any;
-declare var Tweakpane: any;
+declare let hljs: any;
+declare let Tweakpane: any;
 
 interface ThemeParams {
 	cssProps: string[];

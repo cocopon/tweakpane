@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {describe, describe as context, it} from 'mocha';
+import {describe as context, describe, it} from 'mocha';
 
 import {Constraint} from '../constraint/constraint';
 import {StepConstraint} from '../constraint/step';

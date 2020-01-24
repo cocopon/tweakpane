@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {describe, describe as context, it} from 'mocha';
+import {describe as context, describe, it} from 'mocha';
 
 import {Point2dConstraint} from '../constraint/point-2d';
 import {RangeConstraint} from '../constraint/range';
