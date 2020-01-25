@@ -1,6 +1,6 @@
 # Tweakpane
 [![npm version](https://badge.fury.io/js/tweakpane.svg)](https://badge.fury.io/js/tweakpane)
-[![CircleCI](https://circleci.com/gh/cocopon/tweakpane.svg?style=shield)](https://circleci.com/gh/cocopon/tweakpane)
+[![GitHub Actions](https://github.com/cocopon/tweakpane/actions)](https://github.com/cocopon/tweakpane/workflows/CI/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/cocopon/tweakpane/badge.svg)](https://coveralls.io/github/cocopon/tweakpane)
 
 
