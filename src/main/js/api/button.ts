@@ -20,8 +20,9 @@ export class ButtonApi {
 		this.controller.dispose();
 	}
 
-	public on(eventName: EventName, handler: Handler) {
+	public on(eventName: EventName, handler: Handler): ButtonApi {
 		const emitter = this.controller.button.emitter;
 		emitter.on(eventName, handler);
+		return this;
 	}
 }
