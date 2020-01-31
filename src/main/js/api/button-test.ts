@@ -26,4 +26,13 @@ describe(ButtonApi.name, () => {
 		});
 		c.button.click();
 	});
+
+	it('should have chainable event handling', () => {
+		const c = new ButtonController(TestUtil.createWindow().document, {
+			title: 'Button',
+		});
+		const api = new ButtonApi(c);
+		const retval = api.on('click', () => {});
+		assert.strictEqual(retval, api);
+	});
 });
