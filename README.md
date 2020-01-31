@@ -1,5 +1,5 @@
 # Tweakpane
-[![GitHub Actions](https://github.com/cocopon/tweakpane/workflows/CI/badge.svg)](https://github.com/cocopon/tweakpane/actions)
+![CI](https://github.com/cocopon/tweakpane/workflows/CI/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/cocopon/tweakpane/badge.svg)](https://coveralls.io/github/cocopon/tweakpane)
 [![npm version](https://badge.fury.io/js/tweakpane.svg)](https://badge.fury.io/js/tweakpane)
 
