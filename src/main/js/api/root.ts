@@ -4,7 +4,6 @@ import {ButtonController} from '../controller/button';
 import {FolderController} from '../controller/folder';
 import {InputBindingController} from '../controller/input-binding';
 import {MonitorBindingController} from '../controller/monitor-binding';
-import {EventName as InternalEventName} from '../controller/root';
 import {RootController} from '../controller/root';
 import {SeparatorController} from '../controller/separator';
 import * as UiUtil from '../controller/ui-util';
@@ -12,8 +11,8 @@ import {Handler} from '../misc/emitter';
 import {Disposable} from '../model/disposable';
 import {Target} from '../model/target';
 import {ButtonApi} from './button';
+import * as EventHandlerAdapters from './event-handler-adapters';
 import {FolderApi} from './folder';
-import * as HandlerAdapters from './handler-Adapters';
 import {InputBindingApi} from './input-binding';
 import {MonitorBindingApi} from './monitor-binding';
 import * as Preset from './preset';
@@ -25,28 +24,6 @@ import {
 	MonitorParams,
 	SeparatorParams,
 } from './types';
-
-type EventName = 'change' | 'fold' | 'update';
-
-const TO_INTERNAL_EVENT_NAME_MAP: {
-	[eventName in EventName]: {
-		adapter: HandlerAdapters.HandlerAdapter;
-		internalEventName: InternalEventName;
-	};
-} = {
-	change: {
-		adapter: HandlerAdapters.value,
-		internalEventName: 'inputchange',
-	},
-	fold: {
-		adapter: HandlerAdapters.nop,
-		internalEventName: 'fold',
-	},
-	update: {
-		adapter: HandlerAdapters.value,
-		internalEventName: 'monitorupdate',
-	},
-};
 
 /**
  * The Tweakpane interface.
@@ -177,12 +154,16 @@ export class RootApi {
 	 * @param eventName The event name to listen.
 	 * @return The API object itself.
 	 */
-	public on(eventName: EventName, handler: Handler): RootApi {
-		const hoge = TO_INTERNAL_EVENT_NAME_MAP[eventName];
-		if (hoge) {
-			const emitter = this.controller.emitter;
-			emitter.on(hoge.internalEventName, hoge.adapter(handler));
-		}
+	public on(
+		eventName: EventHandlerAdapters.FolderEventName,
+		handler: Handler,
+	): RootApi {
+		EventHandlerAdapters.folder({
+			eventName: eventName,
+			folder: this.controller.folder,
+			handler: handler,
+			uiControllerList: this.controller.uiControllerList,
+		});
 		return this;
 	}
 

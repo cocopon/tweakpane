@@ -2,12 +2,12 @@ import * as InputBindingControllerCreators from '../controller/binding-creators/
 import * as MonitorBindingControllerCreators from '../controller/binding-creators/monitor';
 import {ButtonController} from '../controller/button';
 import {FolderController} from '../controller/folder';
-import {EventName as InternalEventName} from '../controller/folder';
 import {SeparatorController} from '../controller/separator';
 import {Handler} from '../misc/emitter';
 import {Disposable} from '../model/disposable';
 import {Target} from '../model/target';
 import {ButtonApi} from './button';
+import * as EventHandlerAdapters from './event-handler-adapters';
 import {InputBindingApi} from './input-binding';
 import {MonitorBindingApi} from './monitor-binding';
 import {
@@ -16,16 +16,6 @@ import {
 	MonitorParams,
 	SeparatorParams,
 } from './types';
-
-type EventName = 'change' | 'fold' | 'update';
-
-const TO_INTERNAL_EVENT_NAME_MAP: {
-	[eventName in EventName]: InternalEventName;
-} = {
-	change: 'inputchange',
-	fold: 'fold',
-	update: 'monitorupdate',
-};
 
 export class FolderApi {
 	/**
@@ -96,12 +86,16 @@ export class FolderApi {
 		this.controller.uiControllerList.add(uc, params.index);
 	}
 
-	public on(eventName: EventName, handler: Handler): FolderApi {
-		const internalEventName = TO_INTERNAL_EVENT_NAME_MAP[eventName];
-		if (internalEventName) {
-			const emitter = this.controller.emitter;
-			emitter.on(internalEventName, handler);
-		}
+	public on(
+		eventName: EventHandlerAdapters.FolderEventName,
+		handler: Handler,
+	): FolderApi {
+		EventHandlerAdapters.folder({
+			eventName: eventName,
+			folder: this.controller.folder,
+			handler: handler,
+			uiControllerList: this.controller.uiControllerList,
+		});
 		return this;
 	}
 }

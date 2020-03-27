@@ -1,6 +1,6 @@
 import {InputBindingController} from '../controller/input-binding';
 import {Handler} from '../misc/emitter';
-import * as HandlerAdapters from './handler-Adapters';
+import * as HandlerAdapters from './event-handler-adapters';
 
 type EventName = 'change';
 
@@ -23,8 +23,11 @@ export class InputBindingApi<In, Out> {
 	}
 
 	public on(eventName: EventName, handler: Handler): InputBindingApi<In, Out> {
-		const emitter = this.controller.binding.value.emitter;
-		emitter.on(eventName, HandlerAdapters.value(handler));
+		HandlerAdapters.input({
+			binding: this.controller.binding,
+			eventName: eventName,
+			handler: handler,
+		});
 		return this;
 	}
 
