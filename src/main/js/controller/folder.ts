@@ -26,12 +26,14 @@ export class FolderController {
 	private ucList_: List<UiController>;
 
 	constructor(document: Document, config: Config) {
+		this.onChildViewDispose_ = this.onChildViewDispose_.bind(this);
 		this.onFolderChange_ = this.onFolderChange_.bind(this);
 		this.onInputChange_ = this.onInputChange_.bind(this);
 		this.onMonitorUpdate_ = this.onMonitorUpdate_.bind(this);
 
 		this.onTitleClick_ = this.onTitleClick_.bind(this);
 		this.onUiControllerListAppend_ = this.onUiControllerListAppend_.bind(this);
+		this.onUiControllerListRemove_ = this.onUiControllerListRemove_.bind(this);
 
 		this.emitter = new Emitter();
 
@@ -43,6 +45,7 @@ export class FolderController {
 
 		this.ucList_ = new List();
 		this.ucList_.emitter.on('append', this.onUiControllerListAppend_);
+		this.ucList_.emitter.on('remove', this.onUiControllerListRemove_);
 
 		this.doc_ = document;
 		this.view = new FolderView(this.doc_, {
@@ -102,6 +105,12 @@ export class FolderController {
 
 		this.view.containerElement.appendChild(uc.view.element);
 		this.folder.expandedHeight = this.computeExpandedHeight_();
+
+		uc.view.disposable.emitter.on('dispose', this.onChildViewDispose_);
+	}
+
+	private onUiControllerListRemove_() {
+		this.folder.expandedHeight = this.computeExpandedHeight_();
 	}
 
 	private onInputChange_(value: unknown): void {
@@ -114,5 +123,14 @@ export class FolderController {
 
 	private onFolderChange_(): void {
 		this.emitter.emit('fold');
+	}
+
+	private onChildViewDispose_(): void {
+		const disposedUcs = this.ucList_.items.filter((uc) => {
+			return uc.view.disposable.disposed;
+		});
+		disposedUcs.forEach((uc) => {
+			this.ucList_.remove(uc);
+		});
 	}
 }
