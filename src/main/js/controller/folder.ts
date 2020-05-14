@@ -2,7 +2,7 @@ import * as DomUtil from '../misc/dom-util';
 import {Emitter} from '../misc/emitter';
 import {TypeUtil} from '../misc/type-util';
 import {Folder} from '../model/folder';
-import {List} from '../model/list';
+import {UiControllerList} from '../model/ui-controller-list';
 import {FolderView} from '../view/folder';
 import {InputBindingController} from './input-binding';
 import {MonitorBindingController} from './monitor-binding';
@@ -23,10 +23,9 @@ export class FolderController {
 	public readonly folder: Folder;
 	public readonly view: FolderView;
 	private doc_: Document;
-	private ucList_: List<UiController>;
+	private ucList_: UiControllerList;
 
 	constructor(document: Document, config: Config) {
-		this.onChildViewDispose_ = this.onChildViewDispose_.bind(this);
 		this.onFolderChange_ = this.onFolderChange_.bind(this);
 		this.onInputChange_ = this.onInputChange_.bind(this);
 		this.onMonitorUpdate_ = this.onMonitorUpdate_.bind(this);
@@ -43,7 +42,7 @@ export class FolderController {
 		);
 		this.folder.emitter.on('change', this.onFolderChange_);
 
-		this.ucList_ = new List();
+		this.ucList_ = new UiControllerList();
 		this.ucList_.emitter.on('append', this.onUiControllerListAppend_);
 		this.ucList_.emitter.on('remove', this.onUiControllerListRemove_);
 
@@ -58,7 +57,7 @@ export class FolderController {
 		return this.doc_;
 	}
 
-	get uiControllerList(): List<UiController> {
+	get uiControllerList(): UiControllerList {
 		return this.ucList_;
 	}
 
@@ -105,8 +104,6 @@ export class FolderController {
 
 		this.view.containerElement.appendChild(uc.view.element);
 		this.folder.expandedHeight = this.computeExpandedHeight_();
-
-		uc.view.disposable.emitter.on('dispose', this.onChildViewDispose_);
 	}
 
 	private onUiControllerListRemove_() {
@@ -123,14 +120,5 @@ export class FolderController {
 
 	private onFolderChange_(): void {
 		this.emitter.emit('fold');
-	}
-
-	private onChildViewDispose_(): void {
-		const disposedUcs = this.ucList_.items.filter((uc) => {
-			return uc.view.disposable.disposed;
-		});
-		disposedUcs.forEach((uc) => {
-			this.ucList_.remove(uc);
-		});
 	}
 }
