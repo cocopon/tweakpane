@@ -4,11 +4,13 @@ import {NumberUtil} from '../../misc/number-util';
 import {PointerHandler} from '../../misc/pointer-handler';
 import {PointerData} from '../../misc/pointer-handler';
 import {TypeUtil} from '../../misc/type-util';
+import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
 import {SliderInputView} from '../../view/input/slider';
+import {ControllerConfig} from '../controller';
 import {InputController} from './input';
 
-interface Config {
+interface Config extends ControllerConfig {
 	value: InputValue<number>;
 }
 
@@ -37,6 +39,7 @@ function estimateSuitableRange(value: InputValue<number>): [number, number] {
  * @hidden
  */
 export class SliderInputController implements InputController<number> {
+	public readonly disposable: Disposable;
 	public readonly value: InputValue<number>;
 	public readonly view: SliderInputView;
 	private maxValue_: number;
@@ -54,7 +57,9 @@ export class SliderInputController implements InputController<number> {
 		this.minValue_ = min;
 		this.maxValue_ = max;
 
+		this.disposable = config.disposable;
 		this.view = new SliderInputView(document, {
+			disposable: this.disposable,
 			maxValue: this.maxValue_,
 			minValue: this.minValue_,
 			value: this.value,
@@ -64,10 +69,6 @@ export class SliderInputController implements InputController<number> {
 		this.ptHandler_.emitter.on('down', this.onPointerDown_);
 		this.ptHandler_.emitter.on('move', this.onPointerMove_);
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
-	}
-
-	public dispose(): void {
-		this.view.disposable.dispose();
 	}
 
 	private onPointerDown_(d: PointerData): void {

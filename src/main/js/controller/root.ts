@@ -1,5 +1,6 @@
 import {Emitter} from '../misc/emitter';
 import {TypeUtil} from '../misc/type-util';
+import {Disposable} from '../model/disposable';
 import {Folder} from '../model/folder';
 import {List} from '../model/list';
 import {RootView} from '../view/root';
@@ -9,6 +10,7 @@ import {MonitorBindingController} from './monitor-binding';
 import {UiController} from './ui';
 
 interface Config {
+	disposable: Disposable;
 	expanded?: boolean;
 	title?: string;
 }
@@ -30,6 +32,7 @@ function createFolder(config: Config): Folder | null {
  * @hidden
  */
 export class RootController {
+	public readonly disposable: Disposable;
 	public readonly emitter: Emitter<EventName>;
 	public readonly folder: Folder | null;
 	public readonly view: RootView;
@@ -52,7 +55,9 @@ export class RootController {
 		this.ucList_.emitter.on('append', this.onUiControllerListAppend_);
 
 		this.doc_ = document;
+		this.disposable = config.disposable;
 		this.view = new RootView(this.doc_, {
+			disposable: this.disposable,
 			folder: this.folder,
 		});
 		if (this.view.titleElement) {
@@ -69,10 +74,6 @@ export class RootController {
 
 	get uiControllerList(): List<UiController> {
 		return this.ucList_;
-	}
-
-	public dispose(): void {
-		this.view.disposable.dispose();
 	}
 
 	private onUiControllerListAppend_(uc: UiController) {

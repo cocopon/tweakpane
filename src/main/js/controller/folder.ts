@@ -1,6 +1,7 @@
 import * as DomUtil from '../misc/dom-util';
 import {Emitter} from '../misc/emitter';
 import {TypeUtil} from '../misc/type-util';
+import {Disposable} from '../model/disposable';
 import {Folder} from '../model/folder';
 import {UiControllerList} from '../model/ui-controller-list';
 import {FolderView} from '../view/folder';
@@ -9,6 +10,7 @@ import {MonitorBindingController} from './monitor-binding';
 import {UiController} from './ui';
 
 interface Config {
+	disposable: Disposable;
 	expanded?: boolean;
 	title: string;
 }
@@ -19,6 +21,7 @@ export type EventName = 'fold' | 'inputchange' | 'monitorupdate';
  * @hidden
  */
 export class FolderController {
+	public readonly disposable: Disposable;
 	public readonly emitter: Emitter<EventName>;
 	public readonly folder: Folder;
 	public readonly view: FolderView;
@@ -36,6 +39,7 @@ export class FolderController {
 
 		this.emitter = new Emitter();
 
+		this.disposable = config.disposable;
 		this.folder = new Folder(
 			config.title,
 			TypeUtil.getOrDefault<boolean>(config.expanded, true),
@@ -48,6 +52,7 @@ export class FolderController {
 
 		this.doc_ = document;
 		this.view = new FolderView(this.doc_, {
+			disposable: this.disposable,
 			folder: this.folder,
 		});
 		this.view.titleElement.addEventListener('click', this.onTitleClick_);
@@ -59,10 +64,6 @@ export class FolderController {
 
 	get uiControllerList(): UiControllerList {
 		return this.ucList_;
-	}
-
-	public dispose(): void {
-		this.view.disposable.dispose();
 	}
 
 	private computeExpandedHeight_(): number {

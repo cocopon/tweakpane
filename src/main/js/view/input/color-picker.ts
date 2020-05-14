@@ -2,14 +2,14 @@ import {ClassName} from '../../misc/class-name';
 import {Color} from '../../model/color';
 import {Foldable} from '../../model/foldable';
 import {InputValue} from '../../model/input-value';
-import {View} from '../view';
+import {View, ViewConfig} from '../view';
 import {HPaletteInputView} from './h-palette';
 import {RgbTextInputView} from './rgb-text';
 import {SvPaletteInputView} from './sv-palette';
 
 const className = ClassName('clp', 'input');
 
-interface Config {
+interface Config extends ViewConfig {
 	foldable: Foldable;
 	hPaletteInputView: HPaletteInputView;
 	rgbTextView: RgbTextInputView;
@@ -28,7 +28,7 @@ export class ColorPickerInputView extends View {
 	private svPaletteView_: SvPaletteInputView;
 
 	constructor(document: Document, config: Config) {
-		super(document);
+		super(document, config);
 
 		this.onFoldableChange_ = this.onFoldableChange_.bind(this);
 		this.onValueChange_ = this.onValueChange_.bind(this);
@@ -65,12 +65,6 @@ export class ColorPickerInputView extends View {
 		this.element.appendChild(rgbElem);
 
 		this.update();
-
-		this.disposable.emitter.on('dispose', () => {
-			this.hPaletteView_.disposable.dispose();
-			this.rgbTextView_.disposable.dispose();
-			this.svPaletteView_.disposable.dispose();
-		});
 	}
 
 	get allFocusableElements(): HTMLElement[] {

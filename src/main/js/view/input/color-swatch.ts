@@ -4,11 +4,11 @@ import * as DisposingUtil from '../../misc/disposing-util';
 import {PaneError} from '../../misc/pane-error';
 import {Color} from '../../model/color';
 import {InputValue} from '../../model/input-value';
-import {View} from '../view';
+import {View, ViewConfig} from '../view';
 import {ColorPickerInputView} from './color-picker';
 import {InputView} from './input';
 
-interface Config {
+interface Config extends ViewConfig {
 	pickerInputView: ColorPickerInputView;
 	value: InputValue<Color>;
 }
@@ -27,7 +27,7 @@ export class ColorSwatchInputView extends View implements InputView<Color> {
 	private swatchElem_: HTMLDivElement | null;
 
 	constructor(document: Document, config: Config) {
-		super(document);
+		super(document, config);
 		if (this.element === null) {
 			throw PaneError.alreadyDisposed();
 		}
@@ -57,8 +57,7 @@ export class ColorSwatchInputView extends View implements InputView<Color> {
 
 		this.update();
 
-		this.disposable.emitter.on('dispose', () => {
-			this.pickerView_.disposable.dispose();
+		config.disposable.emitter.on('dispose', () => {
 			this.buttonElem_ = DisposingUtil.disposeElement(this.buttonElem_);
 			this.swatchElem_ = DisposingUtil.disposeElement(this.swatchElem_);
 		});

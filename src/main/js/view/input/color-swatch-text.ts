@@ -2,11 +2,11 @@ import {ClassName} from '../../misc/class-name';
 import {Color} from '../../model/color';
 import {InputValue} from '../../model/input-value';
 import {ColorSwatchInputView} from '../input/color-swatch';
-import {View} from '../view';
+import {View, ViewConfig} from '../view';
 import {InputView} from './input';
 import {TextInputView} from './text';
 
-interface Config {
+interface Config extends ViewConfig {
 	swatchInputView: ColorSwatchInputView;
 	textInputView: TextInputView<Color>;
 }
@@ -21,7 +21,7 @@ export class ColorSwatchTextInputView extends View implements InputView<Color> {
 	private readonly swatchInputView_: ColorSwatchInputView;
 
 	constructor(document: Document, config: Config) {
-		super(document);
+		super(document, config);
 
 		this.element.classList.add(className());
 
@@ -36,11 +36,6 @@ export class ColorSwatchTextInputView extends View implements InputView<Color> {
 		this.textInputView = config.textInputView;
 		textElem.appendChild(this.textInputView.element);
 		this.element.appendChild(textElem);
-
-		this.disposable.emitter.on('dispose', () => {
-			this.swatchInputView_.disposable.dispose();
-			this.textInputView.disposable.dispose();
-		});
 	}
 
 	get value(): InputValue<Color> {

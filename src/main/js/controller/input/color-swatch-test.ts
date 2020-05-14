@@ -3,6 +3,7 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../misc/test-util';
 import {Color} from '../../model/color';
+import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
 import {ColorSwatchInputController} from './color-swatch';
 
@@ -10,9 +11,10 @@ describe(ColorSwatchInputController.name, () => {
 	it('should dispose', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new ColorSwatchInputController(doc, {
+			disposable: new Disposable(),
 			value: new InputValue(new Color([0, 0, 0], 'rgb')),
 		});
-		c.dispose();
-		assert.strictEqual(c.view.disposed, true);
+		c.disposable.dispose();
+		assert.strictEqual(c.disposable.disposed, true);
 	});
 });

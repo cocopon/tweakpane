@@ -20,7 +20,7 @@ export class MonitorBindingApi<In> {
 	}
 
 	public dispose(): void {
-		this.controller.dispose();
+		this.controller.controller.disposable.dispose();
 	}
 
 	public on(eventName: EventName, handler: Handler): MonitorBindingApi<In> {

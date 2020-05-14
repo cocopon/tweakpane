@@ -6,10 +6,12 @@ import {NumberTextInputController} from '../controller/input/number-text';
 import {SingleLogMonitorController} from '../controller/monitor/single-log';
 import {SeparatorController} from '../controller/separator';
 import {TestUtil} from '../misc/test-util';
+import {Disposable} from '../model/disposable';
 import {FolderApi} from './folder';
 
 function createApi(): FolderApi {
 	const c = new FolderController(TestUtil.createWindow().document, {
+		disposable: new Disposable(),
 		title: 'Folder',
 	});
 	return new FolderApi(c);
@@ -37,7 +39,7 @@ describe(FolderApi.name, () => {
 	it('should dispose', () => {
 		const api = createApi();
 		api.dispose();
-		assert.strictEqual(api.controller.view.disposed, true);
+		assert.strictEqual(api.controller.disposable.disposed, true);
 	});
 
 	it('should add button', () => {

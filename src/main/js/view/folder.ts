@@ -3,9 +3,9 @@ import * as DisposingUtil from '../misc/disposing-util';
 import {PaneError} from '../misc/pane-error';
 import {TypeUtil} from '../misc/type-util';
 import {Folder} from '../model/folder';
-import {View} from './view';
+import {View, ViewConfig} from './view';
 
-interface Config {
+interface Config extends ViewConfig {
 	folder: Folder;
 }
 
@@ -20,7 +20,7 @@ export class FolderView extends View {
 	private titleElem_: HTMLButtonElement | null;
 
 	constructor(document: Document, config: Config) {
-		super(document);
+		super(document, config);
 
 		this.onFolderChange_ = this.onFolderChange_.bind(this);
 
@@ -46,7 +46,7 @@ export class FolderView extends View {
 
 		this.applyModel_();
 
-		this.disposable.emitter.on('dispose', () => {
+		config.disposable.emitter.on('dispose', () => {
 			this.containerElem_ = DisposingUtil.disposeElement(this.containerElem_);
 			this.titleElem_ = DisposingUtil.disposeElement(this.titleElem_);
 		});

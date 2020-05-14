@@ -9,6 +9,7 @@ import * as Point2dConverter from '../../converter/point-2d';
 import {NumberFormatter} from '../../formatter/number';
 import {PaneError} from '../../misc/pane-error';
 import {TypeUtil} from '../../misc/type-util';
+import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
 import {Point2d, Point2dObject} from '../../model/point-2d';
 import {Target} from '../../model/target';
@@ -61,6 +62,7 @@ function createController(document: Document, value: InputValue<Point2d>) {
 	}
 
 	return new Point2dPadTextInputController(document, {
+		disposable: new Disposable(),
 		parser: StringNumberParser,
 		value: value,
 		xFormatter: new NumberFormatter(
@@ -94,9 +96,11 @@ export function create(
 		writer: (v) => v.toObject(),
 	});
 
+	const controller = createController(document, value);
 	return new InputBindingController(document, {
 		binding: binding,
-		controller: createController(document, value),
+		controller: controller,
+		disposable: controller.disposable,
 		label: params.label || target.key,
 	});
 }

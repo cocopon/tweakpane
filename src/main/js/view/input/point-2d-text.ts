@@ -4,10 +4,10 @@ import * as DisposingUtil from '../../misc/disposing-util';
 import {PaneError} from '../../misc/pane-error';
 import {InputValue} from '../../model/input-value';
 import {Point2d} from '../../model/point-2d';
-import {View} from '../view';
+import {View, ViewConfig} from '../view';
 import {InputView} from './input';
 
-interface Config {
+interface Config extends ViewConfig {
 	value: InputValue<Point2d>;
 	xFormatter: Formatter<number>;
 	yFormatter: Formatter<number>;
@@ -25,7 +25,7 @@ export class Point2dTextInputView extends View implements InputView<Point2d> {
 	private inputElems_: [HTMLInputElement, HTMLInputElement] | null;
 
 	constructor(document: Document, config: Config) {
-		super(document);
+		super(document, config);
 
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
@@ -53,7 +53,7 @@ export class Point2dTextInputView extends View implements InputView<Point2d> {
 
 		this.update();
 
-		this.disposable.emitter.on('dispose', () => {
+		config.disposable.emitter.on('dispose', () => {
 			if (this.inputElems_) {
 				this.inputElems_.forEach((elem) => {
 					DisposingUtil.disposeElement(elem);

@@ -6,10 +6,10 @@ import {PaneError} from '../../misc/pane-error';
 import {Foldable} from '../../model/foldable';
 import {InputValue} from '../../model/input-value';
 import {Point2d} from '../../model/point-2d';
-import {View} from '../view';
+import {View, ViewConfig} from '../view';
 import {InputView} from './input';
 
-interface Config {
+interface Config extends ViewConfig {
 	foldable: Foldable;
 	value: InputValue<Point2d>;
 	maxValue: number;
@@ -31,7 +31,7 @@ export class Point2dPadInputView extends View implements InputView<Point2d> {
 	private markerElem_: Element | null;
 
 	constructor(document: Document, config: Config) {
-		super(document);
+		super(document, config);
 
 		this.onFoldableChange_ = this.onFoldableChange_.bind(this);
 		this.onValueChange_ = this.onValueChange_.bind(this);
@@ -87,7 +87,7 @@ export class Point2dPadInputView extends View implements InputView<Point2d> {
 
 		this.update();
 
-		this.disposable.emitter.on('dispose', () => {
+		config.disposable.emitter.on('dispose', () => {
 			this.padElem_ = DisposingUtil.disposeElement(this.padElem_);
 		});
 	}

@@ -33,7 +33,7 @@ export class UiControllerList {
 
 	private onListAppend_(uc: UiController) {
 		this.emitter.emit('append', [uc]);
-		uc.view.disposable.emitter.on('dispose', this.onListItemDispose_);
+		uc.disposable.emitter.on('dispose', this.onListItemDispose_);
 	}
 
 	private onListRemove_() {
@@ -42,7 +42,7 @@ export class UiControllerList {
 
 	private onListItemDispose_(): void {
 		const disposedUcs = this.ucList_.items.filter((uc) => {
-			return uc.view.disposable.disposed;
+			return uc.disposable.disposed;
 		});
 		disposedUcs.forEach((uc) => {
 			this.ucList_.remove(uc);

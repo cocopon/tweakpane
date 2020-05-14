@@ -3,6 +3,7 @@ import {describe, it} from 'mocha';
 
 import {NumberFormatter} from '../../formatter/number';
 import {TestUtil} from '../../misc/test-util';
+import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
 import {StringNumberParser} from '../../parser/string-number';
 import {NumberTextInputController} from './number-text';
@@ -12,6 +13,7 @@ describe(NumberTextInputController.name, () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new NumberTextInputController(doc, {
+			disposable: new Disposable(),
 			formatter: new NumberFormatter(0),
 			parser: StringNumberParser,
 			value: new InputValue(123),

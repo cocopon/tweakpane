@@ -3,10 +3,10 @@ import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
 import {PaneError} from '../../misc/pane-error';
 import {MonitorValue} from '../../model/monitor-value';
-import {View} from '../view';
+import {View, ViewConfig} from '../view';
 import {MonitorView} from './monitor';
 
-interface Config<T> {
+interface Config<T> extends ViewConfig {
 	formatter: Formatter<T>;
 	value: MonitorValue<T>;
 }
@@ -22,7 +22,7 @@ export class MultiLogMonitorView<T> extends View implements MonitorView<T> {
 	private textareaElem_: HTMLTextAreaElement | null;
 
 	constructor(document: Document, config: Config<T>) {
-		super(document);
+		super(document, config);
 
 		this.onValueUpdate_ = this.onValueUpdate_.bind(this);
 
@@ -41,7 +41,7 @@ export class MultiLogMonitorView<T> extends View implements MonitorView<T> {
 
 		this.update();
 
-		this.disposable.emitter.on('dispose', () => {
+		config.disposable.emitter.on('dispose', () => {
 			this.textareaElem_ = DisposingUtil.disposeElement(this.textareaElem_);
 		});
 	}

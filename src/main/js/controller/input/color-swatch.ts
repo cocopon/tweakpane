@@ -1,11 +1,13 @@
 import {TypeUtil} from '../../misc/type-util';
 import {Color} from '../../model/color';
+import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
 import {ColorSwatchInputView} from '../../view/input/color-swatch';
+import {ControllerConfig} from '../controller';
 import {ColorPickerInputController} from './color-picker';
 import {InputController} from './input';
 
-interface Config {
+interface Config extends ControllerConfig {
 	value: InputValue<Color>;
 }
 
@@ -13,6 +15,7 @@ interface Config {
  * @hidden
  */
 export class ColorSwatchInputController implements InputController<Color> {
+	public readonly disposable: Disposable;
 	public readonly value: InputValue<Color>;
 	public readonly view: ColorSwatchInputView;
 	private pickerIc_: ColorPickerInputController;
@@ -23,20 +26,19 @@ export class ColorSwatchInputController implements InputController<Color> {
 
 		this.value = config.value;
 
+		this.disposable = config.disposable;
 		this.pickerIc_ = new ColorPickerInputController(document, {
+			disposable: this.disposable,
 			value: this.value,
 		});
 
 		this.view = new ColorSwatchInputView(document, {
+			disposable: this.disposable,
 			pickerInputView: this.pickerIc_.view,
 			value: this.value,
 		});
 		this.view.buttonElement.addEventListener('blur', this.onButtonBlur_);
 		this.view.buttonElement.addEventListener('click', this.onButtonClick_);
-	}
-
-	public dispose(): void {
-		this.view.disposable.dispose();
 	}
 
 	private onButtonBlur_(e: FocusEvent) {

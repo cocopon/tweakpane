@@ -5,6 +5,7 @@ import {Constraint} from '../../constraint/constraint';
 import {ListConstraint} from '../../constraint/list';
 import {ConstraintUtil} from '../../constraint/util';
 import * as BooleanConverter from '../../converter/boolean';
+import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
 import {Target} from '../../model/target';
 import {InputBindingController} from '../input-binding';
@@ -36,12 +37,14 @@ function createController(document: Document, value: InputValue<boolean>) {
 
 	if (c && ConstraintUtil.findConstraint(c, ListConstraint)) {
 		return new ListInputController(document, {
+			disposable: new Disposable(),
 			stringifyValue: BooleanConverter.toString,
 			value: value,
 		});
 	}
 
 	return new CheckboxInputController(document, {
+		disposable: new Disposable(),
 		value: value,
 	});
 }
@@ -70,6 +73,7 @@ export function create(
 	return new InputBindingController(document, {
 		binding: binding,
 		controller: createController(document, value),
+		disposable: new Disposable(),
 		label: params.label || target.key,
 	});
 }

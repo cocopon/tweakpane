@@ -3,10 +3,10 @@ import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
 import {PaneError} from '../../misc/pane-error';
 import {InputValue} from '../../model/input-value';
-import {View} from '../view';
+import {View, ViewConfig} from '../view';
 import {InputView} from './input';
 
-interface Config<T> {
+interface Config<T> extends ViewConfig {
 	options: ListItem<T>[];
 	stringifyValue: (value: T) => string;
 	value: InputValue<T>;
@@ -23,7 +23,7 @@ export class ListInputView<T> extends View implements InputView<T> {
 	private stringifyValue_: (value: T) => string;
 
 	constructor(document: Document, config: Config<T>) {
-		super(document);
+		super(document, config);
 
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
@@ -52,7 +52,7 @@ export class ListInputView<T> extends View implements InputView<T> {
 
 		this.update();
 
-		this.disposable.emitter.on('dispose', () => {
+		config.disposable.emitter.on('dispose', () => {
 			this.selectElem_ = DisposingUtil.disposeElement(this.selectElem_);
 		});
 	}

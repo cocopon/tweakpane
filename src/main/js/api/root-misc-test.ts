@@ -4,23 +4,19 @@ import {describe, it} from 'mocha';
 import {RootController} from '../controller/root';
 import {TestUtil} from '../misc/test-util';
 import {TypeUtil} from '../misc/type-util';
+import {Disposable} from '../model/disposable';
 import {InputValue} from '../model/input-value';
 import {RootApi} from './root';
 
 function createApi(): RootApi {
 	const c = new RootController(TestUtil.createWindow().document, {
+		disposable: new Disposable(),
 		title: 'Tweakpane',
 	});
 	return new RootApi(c);
 }
 
 describe(RootApi.name, () => {
-	it('should dispose', () => {
-		const api = createApi();
-		api.dispose();
-		assert.strictEqual(api.controller.view.disposed, true);
-	});
-
 	it('should handle global input events', (done) => {
 		const api = createApi();
 		const obj = {foo: 1};

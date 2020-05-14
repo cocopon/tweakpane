@@ -4,6 +4,7 @@ import {describe, it} from 'mocha';
 import {ListConstraint} from '../../constraint/list';
 import * as NumberConverter from '../../converter/number';
 import {TestUtil} from '../../misc/test-util';
+import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
 import {ListInputController} from './list';
 
@@ -21,6 +22,7 @@ describe(ListInputController.name, () => {
 		);
 		const doc = TestUtil.createWindow().document;
 		const c = new ListInputController(doc, {
+			disposable: new Disposable(),
 			stringifyValue: NumberConverter.toString,
 			value: value,
 		});
@@ -42,6 +44,7 @@ describe(ListInputController.name, () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new ListInputController(doc, {
+			disposable: new Disposable(),
 			stringifyValue: NumberConverter.toString,
 			value: value,
 		});
@@ -65,10 +68,11 @@ describe(ListInputController.name, () => {
 		);
 		const doc = TestUtil.createWindow().document;
 		const c = new ListInputController(doc, {
+			disposable: new Disposable(),
 			stringifyValue: NumberConverter.toString,
 			value: value,
 		});
-		c.dispose();
-		assert.strictEqual(c.view.disposed, true);
+		c.disposable.dispose();
+		assert.strictEqual(c.disposable.disposed, true);
 	});
 });

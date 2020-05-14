@@ -5,6 +5,7 @@ import {BooleanFormatter} from '../../formatter/boolean';
 import {Constants} from '../../misc/constants';
 import {IntervalTicker} from '../../misc/ticker/interval';
 import {TypeUtil} from '../../misc/type-util';
+import {Disposable} from '../../model/disposable';
 import {MonitorValue} from '../../model/monitor-value';
 import {Target} from '../../model/target';
 import {MonitorBindingController} from '../monitor-binding';
@@ -31,10 +32,12 @@ export function create(
 	const controller =
 		value.totalCount === 1
 			? new SingleLogMonitorController(document, {
+					disposable: new Disposable(),
 					formatter: new BooleanFormatter(),
 					value: value,
 			  })
 			: new MultiLogMonitorController(document, {
+					disposable: new Disposable(),
 					formatter: new BooleanFormatter(),
 					value: value,
 			  });
@@ -54,6 +57,7 @@ export function create(
 			value: value,
 		}),
 		controller: controller,
+		disposable: controller.disposable,
 		label: params.label || target.key,
 	});
 }

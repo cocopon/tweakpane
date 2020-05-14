@@ -21,10 +21,6 @@ export class InputBindingApi<In, Out> {
 		this.controller = bindingController;
 	}
 
-	public dispose(): void {
-		this.controller.dispose();
-	}
-
 	public on(eventName: EventName, handler: Handler): InputBindingApi<In, Out> {
 		const emitter = this.controller.binding.value.emitter;
 		emitter.on(eventName, handler);

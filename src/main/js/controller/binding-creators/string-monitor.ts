@@ -5,6 +5,7 @@ import {StringFormatter} from '../../formatter/string';
 import {Constants} from '../../misc/constants';
 import {IntervalTicker} from '../../misc/ticker/interval';
 import {TypeUtil} from '../../misc/type-util';
+import {Disposable} from '../../model/disposable';
 import {MonitorValue} from '../../model/monitor-value';
 import {Target} from '../../model/target';
 import {MonitorBindingController} from '../monitor-binding';
@@ -32,10 +33,12 @@ export function create(
 		value.totalCount > 1 || ('multiline' in params && params.multiline);
 	const controller = multiline
 		? new MultiLogMonitorController(document, {
+				disposable: new Disposable(),
 				formatter: new StringFormatter(),
 				value: value,
 		  })
 		: new SingleLogMonitorController(document, {
+				disposable: new Disposable(),
 				formatter: new StringFormatter(),
 				value: value,
 		  });
@@ -55,6 +58,7 @@ export function create(
 			value: value,
 		}),
 		controller: controller,
+		disposable: controller.disposable,
 		label: params.label || target.key,
 	});
 }

@@ -5,23 +5,26 @@ import {Disposable} from '../model/disposable';
 /**
  * @hidden
  */
+export interface ViewConfig {
+	disposable: Disposable;
+}
+
+/**
+ * @hidden
+ */
 export class View {
-	public readonly disposable: Disposable;
+	private readonly disposable_: Disposable;
 	private doc_: Document | null;
 	private elem_: HTMLElement | null;
 
-	constructor(document: Document) {
+	constructor(document: Document, config: ViewConfig) {
 		this.onDispose_ = this.onDispose_.bind(this);
 
-		this.disposable = new Disposable();
-		this.disposable.emitter.on('dispose', this.onDispose_);
+		this.disposable_ = config.disposable;
+		this.disposable_.emitter.on('dispose', this.onDispose_);
 
 		this.doc_ = document;
 		this.elem_ = this.doc_.createElement('div');
-	}
-
-	public get disposed(): boolean {
-		return this.disposable.disposed;
 	}
 
 	public get document(): Document {

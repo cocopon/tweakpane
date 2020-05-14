@@ -5,6 +5,7 @@ import {NumberFormatter} from '../../formatter/number';
 import {Constants} from '../../misc/constants';
 import {IntervalTicker} from '../../misc/ticker/interval';
 import {TypeUtil} from '../../misc/type-util';
+import {Disposable} from '../../model/disposable';
 import {MonitorValue} from '../../model/monitor-value';
 import {Target} from '../../model/target';
 import {MonitorBindingController} from '../monitor-binding';
@@ -29,10 +30,12 @@ function createTextMonitor(
 	const controller =
 		value.totalCount === 1
 			? new SingleLogMonitorController(document, {
+					disposable: new Disposable(),
 					formatter: createFormatter(),
 					value: value,
 			  })
 			: new MultiLogMonitorController(document, {
+					disposable: new Disposable(),
 					formatter: createFormatter(),
 					value: value,
 			  });
@@ -52,6 +55,7 @@ function createTextMonitor(
 			value: value,
 		}),
 		controller: controller,
+		disposable: controller.disposable,
 		label: params.label || target.key,
 	});
 }
@@ -71,6 +75,19 @@ function createGraphMonitor(
 			Constants.monitorDefaultInterval,
 		),
 	);
+	const controller = new GraphMonitorController(document, {
+		disposable: new Disposable(),
+		formatter: createFormatter(),
+		maxValue: TypeUtil.getOrDefault<number>(
+			'max' in params ? params.max : null,
+			100,
+		),
+		minValue: TypeUtil.getOrDefault<number>(
+			'min' in params ? params.min : null,
+			0,
+		),
+		value: value,
+	});
 	return new MonitorBindingController(document, {
 		binding: new MonitorBinding({
 			reader: NumberConverter.fromMixed,
@@ -78,18 +95,8 @@ function createGraphMonitor(
 			ticker: ticker,
 			value: value,
 		}),
-		controller: new GraphMonitorController(document, {
-			formatter: createFormatter(),
-			maxValue: TypeUtil.getOrDefault<number>(
-				'max' in params ? params.max : null,
-				100,
-			),
-			minValue: TypeUtil.getOrDefault<number>(
-				'min' in params ? params.min : null,
-				0,
-			),
-			value: value,
-		}),
+		controller: controller,
+		disposable: controller.disposable,
 		label: params.label || target.key,
 	});
 }

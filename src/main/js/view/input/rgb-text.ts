@@ -4,10 +4,10 @@ import * as DisposingUtil from '../../misc/disposing-util';
 import {PaneError} from '../../misc/pane-error';
 import {Color} from '../../model/color';
 import {InputValue} from '../../model/input-value';
-import {View} from '../view';
+import {View, ViewConfig} from '../view';
 import {InputView} from './input';
 
-interface Config {
+interface Config extends ViewConfig {
 	formatter: Formatter<number>;
 	value: InputValue<Color>;
 }
@@ -25,7 +25,7 @@ export class RgbTextInputView extends View implements InputView<Color> {
 		| null;
 
 	constructor(document: Document, config: Config) {
-		super(document);
+		super(document, config);
 
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
@@ -58,7 +58,7 @@ export class RgbTextInputView extends View implements InputView<Color> {
 
 		this.update();
 
-		this.disposable.emitter.on('dispose', () => {
+		config.disposable.emitter.on('dispose', () => {
 			if (this.inputElems_) {
 				this.inputElems_.forEach((elem) => {
 					DisposingUtil.disposeElement(elem);

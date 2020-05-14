@@ -2,11 +2,13 @@ import {NumberUtil} from '../../misc/number-util';
 import {PointerHandler} from '../../misc/pointer-handler';
 import {PointerData} from '../../misc/pointer-handler';
 import {Color} from '../../model/color';
+import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
 import {HPaletteInputView} from '../../view/input/h-palette';
+import {ControllerConfig} from '../controller';
 import {InputController} from './input';
 
-interface Config {
+interface Config extends ControllerConfig {
 	value: InputValue<Color>;
 }
 
@@ -14,6 +16,7 @@ interface Config {
  * @hidden
  */
 export class HPaletteInputController implements InputController<Color> {
+	public readonly disposable: Disposable;
 	public readonly value: InputValue<Color>;
 	public readonly view: HPaletteInputView;
 	private ptHandler_: PointerHandler;
@@ -25,7 +28,9 @@ export class HPaletteInputController implements InputController<Color> {
 
 		this.value = config.value;
 
+		this.disposable = config.disposable;
 		this.view = new HPaletteInputView(document, {
+			disposable: this.disposable,
 			value: this.value,
 		});
 
@@ -33,10 +38,6 @@ export class HPaletteInputController implements InputController<Color> {
 		this.ptHandler_.emitter.on('down', this.onPointerDown_);
 		this.ptHandler_.emitter.on('move', this.onPointerMove_);
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
-	}
-
-	public dispose(): void {
-		this.view.disposable.dispose();
 	}
 
 	private handlePointerEvent_(d: PointerData): void {

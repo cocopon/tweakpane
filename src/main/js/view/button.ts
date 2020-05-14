@@ -2,9 +2,9 @@ import {ClassName} from '../misc/class-name';
 import * as DisposingUtil from '../misc/disposing-util';
 import {PaneError} from '../misc/pane-error';
 import {Button} from '../model/button';
-import {View} from './view';
+import {View, ViewConfig} from './view';
 
-interface Config {
+interface Config extends ViewConfig {
 	button: Button;
 }
 
@@ -18,7 +18,7 @@ export class ButtonView extends View {
 	private buttonElem_: HTMLButtonElement | null;
 
 	constructor(document: Document, config: Config) {
-		super(document);
+		super(document, config);
 
 		this.button = config.button;
 
@@ -30,7 +30,7 @@ export class ButtonView extends View {
 		this.element.appendChild(buttonElem);
 		this.buttonElem_ = buttonElem;
 
-		this.disposable.emitter.on('dispose', () => {
+		config.disposable.emitter.on('dispose', () => {
 			this.buttonElem_ = DisposingUtil.disposeElement(this.buttonElem_);
 		});
 	}

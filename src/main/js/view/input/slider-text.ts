@@ -1,11 +1,11 @@
 import {ClassName} from '../../misc/class-name';
 import {InputValue} from '../../model/input-value';
-import {View} from '../view';
+import {View, ViewConfig} from '../view';
 import {InputView} from './input';
 import {SliderInputView} from './slider';
 import {TextInputView} from './text';
 
-interface Config {
+interface Config extends ViewConfig {
 	sliderInputView: SliderInputView;
 	textInputView: TextInputView<number>;
 }
@@ -20,7 +20,7 @@ export class SliderTextInputView extends View implements InputView<number> {
 	private textInputView_: TextInputView<number>;
 
 	constructor(document: Document, config: Config) {
-		super(document);
+		super(document, config);
 
 		this.element.classList.add(className());
 
@@ -35,10 +35,6 @@ export class SliderTextInputView extends View implements InputView<number> {
 		this.textInputView_ = config.textInputView;
 		textElem.appendChild(this.textInputView_.element);
 		this.element.appendChild(textElem);
-
-		this.disposable.emitter.on('dispose', () => {
-			this.sliderInputView_.disposable.dispose();
-		});
 	}
 
 	get value(): InputValue<number> {
