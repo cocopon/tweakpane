@@ -60,7 +60,7 @@ export class FolderController {
 	}
 
 	public dispose(): void {
-		this.view.dispose();
+		this.view.disposable.dispose();
 	}
 
 	private computeExpandedHeight_(): number {

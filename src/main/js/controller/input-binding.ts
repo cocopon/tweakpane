@@ -28,6 +28,6 @@ export class InputBindingController<In, Out> {
 
 	public dispose(): void {
 		this.controller.dispose();
-		this.view.dispose();
+		this.view.disposable.dispose();
 	}
 }

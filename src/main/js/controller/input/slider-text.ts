@@ -48,6 +48,6 @@ export class SliderTextInputController implements InputController<number> {
 	}
 
 	public dispose(): void {
-		this.view.dispose();
+		this.view.disposable.dispose();
 	}
 }

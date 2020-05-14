@@ -52,7 +52,7 @@ export class Point2dTextInputController implements InputController<Point2d> {
 	}
 
 	public dispose(): void {
-		this.view.dispose();
+		this.view.disposable.dispose();
 	}
 
 	private findIndexOfInputElem_(inputElem: HTMLInputElement): number | null {

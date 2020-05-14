@@ -13,7 +13,7 @@ describe(FolderView.name, () => {
 		const v = new FolderView(doc, {
 			folder: folder,
 		});
-		v.dispose();
+		v.disposable.dispose();
 		assert.throws(() => {
 			// tslint:disable-next-line: no-unused-expression
 			v.containerElement;

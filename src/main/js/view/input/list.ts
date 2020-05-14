@@ -51,6 +51,10 @@ export class ListInputView<T> extends View implements InputView<T> {
 		this.value = config.value;
 
 		this.update();
+
+		this.disposable.emitter.on('dispose', () => {
+			this.selectElem_ = DisposingUtil.disposeElement(this.selectElem_);
+		});
 	}
 
 	get selectElement(): HTMLSelectElement {
@@ -58,11 +62,6 @@ export class ListInputView<T> extends View implements InputView<T> {
 			throw PaneError.alreadyDisposed();
 		}
 		return this.selectElem_;
-	}
-
-	public dispose(): void {
-		this.selectElem_ = DisposingUtil.disposeElement(this.selectElem_);
-		super.dispose();
 	}
 
 	public update(): void {

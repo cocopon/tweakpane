@@ -35,16 +35,14 @@ export class SliderTextInputView extends View implements InputView<number> {
 		this.textInputView_ = config.textInputView;
 		textElem.appendChild(this.textInputView_.element);
 		this.element.appendChild(textElem);
+
+		this.disposable.emitter.on('dispose', () => {
+			this.sliderInputView_.disposable.dispose();
+		});
 	}
 
 	get value(): InputValue<number> {
 		return this.sliderInputView_.value;
-	}
-
-	public dispose(): void {
-		this.sliderInputView_.dispose();
-		this.textInputView_.dispose();
-		super.dispose();
 	}
 
 	public update(): void {

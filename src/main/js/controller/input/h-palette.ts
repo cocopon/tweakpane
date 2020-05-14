@@ -36,7 +36,7 @@ export class HPaletteInputController implements InputController<Color> {
 	}
 
 	public dispose(): void {
-		this.view.dispose();
+		this.view.disposable.dispose();
 	}
 
 	private handlePointerEvent_(d: PointerData): void {

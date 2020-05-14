@@ -86,11 +86,10 @@ export class Point2dPadInputView extends View implements InputView<Point2d> {
 		this.value = config.value;
 
 		this.update();
-	}
 
-	public dispose(): void {
-		this.padElem_ = DisposingUtil.disposeElement(this.padElem_);
-		super.dispose();
+		this.disposable.emitter.on('dispose', () => {
+			this.padElem_ = DisposingUtil.disposeElement(this.padElem_);
+		});
 	}
 
 	get padElement(): HTMLDivElement {

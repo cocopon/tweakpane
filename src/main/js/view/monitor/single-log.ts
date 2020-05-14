@@ -41,11 +41,10 @@ export class SingleLogMonitorView<T> extends View implements MonitorView<T> {
 		this.value = config.value;
 
 		this.update();
-	}
 
-	public dispose(): void {
-		this.inputElem_ = DisposingUtil.disposeElement(this.inputElem_);
-		super.dispose();
+		this.disposable.emitter.on('dispose', () => {
+			this.inputElem_ = DisposingUtil.disposeElement(this.inputElem_);
+		});
 	}
 
 	public update(): void {

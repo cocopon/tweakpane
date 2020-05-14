@@ -50,6 +50,11 @@ export class Point2dPadTextInputView extends View
 		this.textInputView_ = config.textInputView;
 		textElem.appendChild(this.textInputView_.element);
 		this.element.appendChild(textElem);
+
+		this.disposable.emitter.on('dispose', () => {
+			this.padInputView_.disposable.dispose();
+			this.textInputView_.disposable.dispose();
+		});
 	}
 
 	get value(): InputValue<Point2d> {
@@ -58,12 +63,6 @@ export class Point2dPadTextInputView extends View
 
 	get padButtonElement(): HTMLButtonElement {
 		return this.padButtonElem_;
-	}
-
-	public dispose(): void {
-		this.padInputView_.dispose();
-		this.textInputView_.dispose();
-		super.dispose();
 	}
 
 	public update(): void {

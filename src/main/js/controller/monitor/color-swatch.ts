@@ -23,6 +23,6 @@ export class ColorSwatchMonitorController implements MonitorController<Color> {
 	}
 
 	public dispose(): void {
-		this.view.dispose();
+		this.view.disposable.dispose();
 	}
 }

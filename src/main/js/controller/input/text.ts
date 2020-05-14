@@ -36,7 +36,7 @@ export class TextInputController<T> implements InputController<T> {
 	}
 
 	public dispose(): void {
-		this.view.dispose();
+		this.view.disposable.dispose();
 	}
 
 	private onInputChange_(e: Event): void {

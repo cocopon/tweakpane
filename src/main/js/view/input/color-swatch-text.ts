@@ -36,16 +36,15 @@ export class ColorSwatchTextInputView extends View implements InputView<Color> {
 		this.textInputView = config.textInputView;
 		textElem.appendChild(this.textInputView.element);
 		this.element.appendChild(textElem);
+
+		this.disposable.emitter.on('dispose', () => {
+			this.swatchInputView_.disposable.dispose();
+			this.textInputView.disposable.dispose();
+		});
 	}
 
 	get value(): InputValue<Color> {
 		return this.textInputView.value;
-	}
-
-	public dispose(): void {
-		this.swatchInputView_.dispose();
-		this.textInputView.dispose();
-		super.dispose();
 	}
 
 	public update(): void {

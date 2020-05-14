@@ -19,7 +19,7 @@ export class NumberTextInputController extends TextInputController<number> {
 	}
 
 	public dispose(): void {
-		this.view.dispose();
+		this.view.disposable.dispose();
 	}
 
 	private onInputKeyDown_(e: KeyboardEvent): void {

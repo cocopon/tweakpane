@@ -41,7 +41,7 @@ export class RgbTextInputController implements InputController<Color> {
 	}
 
 	public dispose(): void {
-		this.view.dispose();
+		this.view.disposable.dispose();
 	}
 
 	private findIndexOfInputElem_(inputElem: HTMLInputElement): number | null {

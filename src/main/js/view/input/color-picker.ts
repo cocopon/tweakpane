@@ -65,6 +65,12 @@ export class ColorPickerInputView extends View {
 		this.element.appendChild(rgbElem);
 
 		this.update();
+
+		this.disposable.emitter.on('dispose', () => {
+			this.hPaletteView_.disposable.dispose();
+			this.rgbTextView_.disposable.dispose();
+			this.svPaletteView_.disposable.dispose();
+		});
 	}
 
 	get allFocusableElements(): HTMLElement[] {
@@ -73,13 +79,6 @@ export class ColorPickerInputView extends View {
 			this.rgbTextView_.inputElements,
 			this.svPaletteView_.canvasElement,
 		);
-	}
-
-	public dispose(): void {
-		this.hPaletteView_.dispose();
-		this.rgbTextView_.dispose();
-		this.svPaletteView_.dispose();
-		super.dispose();
 	}
 
 	public update(): void {

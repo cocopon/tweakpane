@@ -56,6 +56,12 @@ export class ColorSwatchInputView extends View implements InputView<Color> {
 		this.element.appendChild(pickerElem);
 
 		this.update();
+
+		this.disposable.emitter.on('dispose', () => {
+			this.pickerView_.disposable.dispose();
+			this.buttonElem_ = DisposingUtil.disposeElement(this.buttonElem_);
+			this.swatchElem_ = DisposingUtil.disposeElement(this.swatchElem_);
+		});
 	}
 
 	get buttonElement(): HTMLButtonElement {
@@ -63,13 +69,6 @@ export class ColorSwatchInputView extends View implements InputView<Color> {
 			throw PaneError.alreadyDisposed();
 		}
 		return this.buttonElem_;
-	}
-
-	public dispose(): void {
-		this.pickerView_.dispose();
-		this.buttonElem_ = DisposingUtil.disposeElement(this.buttonElem_);
-		this.swatchElem_ = DisposingUtil.disposeElement(this.swatchElem_);
-		super.dispose();
 	}
 
 	public update(): void {

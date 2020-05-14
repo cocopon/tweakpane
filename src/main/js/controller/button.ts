@@ -24,7 +24,7 @@ export class ButtonController {
 	}
 
 	public dispose(): void {
-		this.view.dispose();
+		this.view.disposable.dispose();
 	}
 
 	private onButtonClick_() {

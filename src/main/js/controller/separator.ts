@@ -11,6 +11,6 @@ export class SeparatorController {
 	}
 
 	public dispose(): void {
-		this.view.dispose();
+		this.view.disposable.dispose();
 	}
 }

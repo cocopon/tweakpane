@@ -45,6 +45,11 @@ export class HPaletteInputView extends View {
 		this.markerElem_ = markerElem;
 
 		this.update();
+
+		this.disposable.emitter.on('dispose', () => {
+			this.canvasElem_ = DisposingUtil.disposeElement(this.canvasElem_);
+			this.markerElem_ = DisposingUtil.disposeElement(this.markerElem_);
+		});
 	}
 
 	get canvasElement(): HTMLCanvasElement {
@@ -52,12 +57,6 @@ export class HPaletteInputView extends View {
 			throw PaneError.alreadyDisposed();
 		}
 		return this.canvasElem_;
-	}
-
-	public dispose(): void {
-		this.canvasElem_ = DisposingUtil.disposeElement(this.canvasElem_);
-		this.markerElem_ = DisposingUtil.disposeElement(this.markerElem_);
-		super.dispose();
 	}
 
 	public update(): void {

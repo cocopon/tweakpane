@@ -42,6 +42,6 @@ export class ColorSwatchTextInputController implements InputController<Color> {
 	}
 
 	public dispose(): void {
-		this.view.dispose();
+		this.view.disposable.dispose();
 	}
 }

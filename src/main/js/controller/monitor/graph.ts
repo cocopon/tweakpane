@@ -45,7 +45,7 @@ export class GraphMonitorController implements MonitorController<number> {
 	}
 
 	public dispose(): void {
-		this.view.dispose();
+		this.view.disposable.dispose();
 	}
 
 	private onGraphMouseLeave_(): void {

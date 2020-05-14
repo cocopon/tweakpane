@@ -25,6 +25,6 @@ export class SingleLogMonitorController<T> implements MonitorController<T> {
 	}
 
 	public dispose(): void {
-		this.view.dispose();
+		this.view.disposable.dispose();
 	}
 }

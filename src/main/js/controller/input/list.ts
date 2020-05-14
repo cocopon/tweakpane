@@ -56,7 +56,7 @@ export class ListInputController<T> implements InputController<T> {
 	}
 
 	public dispose(): void {
-		this.view.dispose();
+		this.view.disposable.dispose();
 	}
 
 	private onSelectChange_(e: Event): void {

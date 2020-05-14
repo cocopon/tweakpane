@@ -45,6 +45,11 @@ export class FolderView extends View {
 		this.containerElem_ = containerElem;
 
 		this.applyModel_();
+
+		this.disposable.emitter.on('dispose', () => {
+			this.containerElem_ = DisposingUtil.disposeElement(this.containerElem_);
+			this.titleElem_ = DisposingUtil.disposeElement(this.titleElem_);
+		});
 	}
 
 	get titleElement(): HTMLElement {
@@ -59,12 +64,6 @@ export class FolderView extends View {
 			throw PaneError.alreadyDisposed();
 		}
 		return this.containerElem_;
-	}
-
-	public dispose(): void {
-		this.containerElem_ = DisposingUtil.disposeElement(this.containerElem_);
-		this.titleElem_ = DisposingUtil.disposeElement(this.titleElem_);
-		super.dispose();
 	}
 
 	private applyModel_() {

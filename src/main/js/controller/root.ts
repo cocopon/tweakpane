@@ -72,7 +72,7 @@ export class RootController {
 	}
 
 	public dispose(): void {
-		this.view.dispose();
+		this.view.disposable.dispose();
 	}
 
 	private onUiControllerListAppend_(uc: UiController) {

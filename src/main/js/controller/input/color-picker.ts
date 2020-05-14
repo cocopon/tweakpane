@@ -58,7 +58,7 @@ export class ColorPickerInputController implements InputController<Color> {
 	}
 
 	public dispose(): void {
-		this.view.dispose();
+		this.view.disposable.dispose();
 	}
 
 	private onInputBlur_(e: FocusEvent): void {

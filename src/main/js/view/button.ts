@@ -29,6 +29,10 @@ export class ButtonView extends View {
 		buttonElem.textContent = this.button.title;
 		this.element.appendChild(buttonElem);
 		this.buttonElem_ = buttonElem;
+
+		this.disposable.emitter.on('dispose', () => {
+			this.buttonElem_ = DisposingUtil.disposeElement(this.buttonElem_);
+		});
 	}
 
 	get buttonElement(): HTMLButtonElement {
@@ -36,10 +40,5 @@ export class ButtonView extends View {
 			throw PaneError.alreadyDisposed();
 		}
 		return this.buttonElem_;
-	}
-
-	public dispose(): void {
-		this.buttonElem_ = DisposingUtil.disposeElement(this.buttonElem_);
-		super.dispose();
 	}
 }

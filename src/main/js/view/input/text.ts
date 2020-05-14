@@ -40,6 +40,10 @@ export class TextInputView<T> extends View implements InputView<T> {
 		this.value = config.value;
 
 		this.update();
+
+		this.disposable.emitter.on('dispose', () => {
+			this.inputElem_ = DisposingUtil.disposeElement(this.inputElem_);
+		});
 	}
 
 	get inputElement(): HTMLInputElement {
@@ -47,11 +51,6 @@ export class TextInputView<T> extends View implements InputView<T> {
 			throw PaneError.alreadyDisposed();
 		}
 		return this.inputElem_;
-	}
-
-	public dispose(): void {
-		this.inputElem_ = DisposingUtil.disposeElement(this.inputElem_);
-		super.dispose();
 	}
 
 	public update(): void {

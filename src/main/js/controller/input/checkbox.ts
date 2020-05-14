@@ -29,7 +29,7 @@ export class CheckboxInputController implements InputController<boolean> {
 	}
 
 	public dispose(): void {
-		this.view.dispose();
+		this.view.disposable.dispose();
 	}
 
 	private onInputChange_(e: Event): void {

@@ -29,6 +29,6 @@ export class MonitorBindingController<In> {
 	public dispose(): void {
 		this.binding.dispose();
 		this.controller.dispose();
-		this.view.dispose();
+		this.view.disposable.dispose();
 	}
 }

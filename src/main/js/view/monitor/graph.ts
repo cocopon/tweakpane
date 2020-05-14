@@ -67,6 +67,12 @@ export class GraphMonitorView extends View implements MonitorView<number> {
 		this.value = config.value;
 
 		this.update();
+
+		this.disposable.emitter.on('dispose', () => {
+			this.lineElem_ = DisposingUtil.disposeElement(this.lineElem_);
+			this.svgElem_ = DisposingUtil.disposeElement(this.svgElem_);
+			this.tooltipElem_ = DisposingUtil.disposeElement(this.tooltipElem_);
+		});
 	}
 
 	get graphElement(): Element {
@@ -74,13 +80,6 @@ export class GraphMonitorView extends View implements MonitorView<number> {
 			throw PaneError.alreadyDisposed();
 		}
 		return this.svgElem_;
-	}
-
-	public dispose(): void {
-		this.lineElem_ = DisposingUtil.disposeElement(this.lineElem_);
-		this.svgElem_ = DisposingUtil.disposeElement(this.svgElem_);
-		this.tooltipElem_ = DisposingUtil.disposeElement(this.tooltipElem_);
-		super.dispose();
 	}
 
 	public update(): void {

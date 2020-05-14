@@ -36,7 +36,7 @@ export class ColorSwatchInputController implements InputController<Color> {
 	}
 
 	public dispose(): void {
-		this.view.dispose();
+		this.view.disposable.dispose();
 	}
 
 	private onButtonBlur_(e: FocusEvent) {

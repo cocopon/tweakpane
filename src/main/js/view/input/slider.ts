@@ -48,6 +48,11 @@ export class SliderInputView extends View implements InputView<number> {
 		this.value = config.value;
 
 		this.update();
+
+		this.disposable.emitter.on('dispose', () => {
+			this.innerElem_ = DisposingUtil.disposeElement(this.innerElem_);
+			this.outerElem_ = DisposingUtil.disposeElement(this.outerElem_);
+		});
 	}
 
 	get outerElement(): HTMLDivElement {
@@ -62,12 +67,6 @@ export class SliderInputView extends View implements InputView<number> {
 			throw PaneError.alreadyDisposed();
 		}
 		return this.innerElem_;
-	}
-
-	public dispose(): void {
-		this.innerElem_ = DisposingUtil.disposeElement(this.innerElem_);
-		this.outerElem_ = DisposingUtil.disposeElement(this.outerElem_);
-		super.dispose();
 	}
 
 	public update(): void {

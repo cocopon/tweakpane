@@ -12,7 +12,7 @@ describe(ButtonView.name, () => {
 		const v = new ButtonView(doc, {
 			button: new Button('title'),
 		});
-		v.dispose();
+		v.disposable.dispose();
 		assert.throws(() => {
 			// tslint:disable-next-line: no-unused-expression
 			v.buttonElement;

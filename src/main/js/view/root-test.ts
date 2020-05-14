@@ -11,7 +11,7 @@ describe(RootView.name, () => {
 		const v = new RootView(doc, {
 			folder: null,
 		});
-		v.dispose();
+		v.disposable.dispose();
 		assert.throws(() => {
 			// tslint:disable-next-line: no-unused-expression
 			v.containerElement;

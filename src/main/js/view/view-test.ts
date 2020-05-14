@@ -15,7 +15,7 @@ describe(View.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const v = new View(doc);
 		assert.strictEqual(v.disposed, false);
-		v.dispose();
+		v.disposable.dispose();
 		assert.strictEqual(v.disposed, true);
 		assert.throws(() => {
 			// tslint:disable-next-line: no-unused-expression

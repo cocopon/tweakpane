@@ -6,18 +6,22 @@ import {Disposable} from '../model/disposable';
  * @hidden
  */
 export class View {
-	private disposable_: Disposable;
+	public readonly disposable: Disposable;
 	private doc_: Document | null;
 	private elem_: HTMLElement | null;
 
 	constructor(document: Document) {
-		this.disposable_ = new Disposable();
+		this.onDispose_ = this.onDispose_.bind(this);
+
+		this.disposable = new Disposable();
+		this.disposable.emitter.on('dispose', this.onDispose_);
+
 		this.doc_ = document;
 		this.elem_ = this.doc_.createElement('div');
 	}
 
 	public get disposed(): boolean {
-		return this.disposable_.disposed;
+		return this.disposable.disposed;
 	}
 
 	public get document(): Document {
@@ -34,11 +38,7 @@ export class View {
 		return this.elem_;
 	}
 
-	public dispose(): void {
-		if (!this.disposable_.dispose()) {
-			return;
-		}
-
+	private onDispose_(): void {
 		this.doc_ = null;
 		this.elem_ = DisposingUtil.disposeElement(this.elem_);
 	}

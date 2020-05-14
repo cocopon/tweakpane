@@ -52,17 +52,15 @@ export class Point2dTextInputView extends View implements InputView<Point2d> {
 		this.value = config.value;
 
 		this.update();
-	}
 
-	public dispose(): void {
-		if (this.inputElems_) {
-			this.inputElems_.forEach((elem) => {
-				DisposingUtil.disposeElement(elem);
-			});
-			this.inputElems_ = null;
-		}
-
-		super.dispose();
+		this.disposable.emitter.on('dispose', () => {
+			if (this.inputElems_) {
+				this.inputElems_.forEach((elem) => {
+					DisposingUtil.disposeElement(elem);
+				});
+				this.inputElems_ = null;
+			}
+		});
 	}
 
 	get inputElements(): [HTMLInputElement, HTMLInputElement] {

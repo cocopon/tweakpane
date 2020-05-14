@@ -48,7 +48,7 @@ export class Point2dPadInputController implements InputController<Point2d> {
 	}
 
 	public dispose(): void {
-		this.view.dispose();
+		this.view.disposable.dispose();
 	}
 
 	private handlePointerEvent_(d: PointerData): void {

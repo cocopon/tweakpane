@@ -43,6 +43,10 @@ export class CheckboxInputView extends View implements InputView<boolean> {
 		this.value = config.value;
 
 		this.update();
+
+		this.disposable.emitter.on('dispose', () => {
+			this.inputElem_ = DisposingUtil.disposeElement(this.inputElem_);
+		});
 	}
 
 	get inputElement(): HTMLInputElement {
@@ -50,11 +54,6 @@ export class CheckboxInputView extends View implements InputView<boolean> {
 			throw PaneError.alreadyDisposed();
 		}
 		return this.inputElem_;
-	}
-
-	public dispose(): void {
-		this.inputElem_ = DisposingUtil.disposeElement(this.inputElem_);
-		super.dispose();
 	}
 
 	public update(): void {
