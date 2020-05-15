@@ -1,13 +1,15 @@
 import {Formatter} from '../../formatter/formatter';
+import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
 import {Point2d} from '../../model/point-2d';
 import {Parser} from '../../parser/parser';
 import {Point2dPadTextInputView} from '../../view/input/point-2d-pad-text';
+import {ControllerConfig} from '../controller';
 import {InputController} from './input';
 import {Point2dPadInputController} from './point-2d-pad';
 import {Point2dTextInputController} from './point-2d-text';
 
-interface Config {
+interface Config extends ControllerConfig {
 	parser: Parser<string, number>;
 	value: InputValue<Point2d>;
 	xFormatter: Formatter<number>;
@@ -18,6 +20,7 @@ interface Config {
  * @hidden
  */
 export class Point2dPadTextInputController implements InputController<Point2d> {
+	public readonly disposable: Disposable;
 	public readonly value: InputValue<Point2d>;
 	public readonly view: Point2dPadTextInputView;
 	private readonly padIc_: Point2dPadInputController;
@@ -29,11 +32,14 @@ export class Point2dPadTextInputController implements InputController<Point2d> {
 
 		this.value = config.value;
 
+		this.disposable = config.disposable;
 		this.padIc_ = new Point2dPadInputController(document, {
+			disposable: this.disposable,
 			value: this.value,
 		});
 
 		this.textIc_ = new Point2dTextInputController(document, {
+			disposable: this.disposable,
 			parser: config.parser,
 			value: this.value,
 			xFormatter: config.xFormatter,
@@ -41,6 +47,7 @@ export class Point2dPadTextInputController implements InputController<Point2d> {
 		});
 
 		this.view = new Point2dPadTextInputView(document, {
+			disposable: this.disposable,
 			padInputView: this.padIc_.view,
 			textInputView: this.textIc_.view,
 		});
@@ -49,10 +56,6 @@ export class Point2dPadTextInputController implements InputController<Point2d> {
 			'click',
 			this.onPadButtonClick_,
 		);
-	}
-
-	public dispose(): void {
-		this.view.dispose();
 	}
 
 	private onPadButtonBlur_(): void {

@@ -4,10 +4,13 @@ import {describe, it} from 'mocha';
 import {RootController} from '../controller/root';
 import {SeparatorController} from '../controller/separator';
 import {TestUtil} from '../misc/test-util';
+import {Disposable} from '../model/disposable';
 import {RootApi} from './root';
 
 function createApi(): RootApi {
-	const c = new RootController(TestUtil.createWindow().document, {});
+	const c = new RootController(TestUtil.createWindow().document, {
+		disposable: new Disposable(),
+	});
 	return new RootApi(c);
 }
 

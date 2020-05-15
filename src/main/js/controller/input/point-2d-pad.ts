@@ -1,14 +1,16 @@
 import {NumberUtil} from '../../misc/number-util';
 import {PointerHandler} from '../../misc/pointer-handler';
 import {PointerData} from '../../misc/pointer-handler';
+import {Disposable} from '../../model/disposable';
 import {Foldable} from '../../model/foldable';
 import {InputValue} from '../../model/input-value';
 import {Point2d} from '../../model/point-2d';
 import {Point2dPadInputView} from '../../view/input/point-2d-pad';
+import {ControllerConfig} from '../controller';
 import * as UiUtil from '../ui-util';
 import {InputController} from './input';
 
-interface Config {
+interface Config extends ControllerConfig {
 	value: InputValue<Point2d>;
 }
 
@@ -16,6 +18,7 @@ interface Config {
  * @hidden
  */
 export class Point2dPadInputController implements InputController<Point2d> {
+	public readonly disposable: Disposable;
 	public readonly foldable: Foldable;
 	public readonly value: InputValue<Point2d>;
 	public readonly view: Point2dPadInputView;
@@ -35,7 +38,9 @@ export class Point2dPadInputController implements InputController<Point2d> {
 			this.value.rawValue,
 		);
 
+		this.disposable = config.disposable;
 		this.view = new Point2dPadInputView(document, {
+			disposable: this.disposable,
 			foldable: this.foldable,
 			maxValue: this.maxValue_,
 			value: this.value,
@@ -45,10 +50,6 @@ export class Point2dPadInputController implements InputController<Point2d> {
 		this.ptHandler_.emitter.on('down', this.onPointerDown_);
 		this.ptHandler_.emitter.on('move', this.onPointerMove_);
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
-	}
-
-	public dispose(): void {
-		this.view.dispose();
 	}
 
 	private handlePointerEvent_(d: PointerData): void {

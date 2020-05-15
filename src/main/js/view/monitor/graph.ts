@@ -6,12 +6,12 @@ import {NumberUtil} from '../../misc/number-util';
 import {PaneError} from '../../misc/pane-error';
 import {GraphCursor} from '../../model/graph-cursor';
 import {MonitorValue} from '../../model/monitor-value';
-import {View} from '../view';
+import {View, ViewConfig} from '../view';
 import {MonitorView} from './monitor';
 
 const SVG_NS = DomUtil.SVG_NS;
 
-interface Config {
+interface Config extends ViewConfig {
 	cursor: GraphCursor;
 	formatter: Formatter<number>;
 	maxValue: number;
@@ -35,7 +35,7 @@ export class GraphMonitorView extends View implements MonitorView<number> {
 	private tooltipElem_: HTMLElement | null;
 
 	constructor(document: Document, config: Config) {
-		super(document);
+		super(document, config);
 
 		this.onCursorChange_ = this.onCursorChange_.bind(this);
 		this.onValueUpdate_ = this.onValueUpdate_.bind(this);
@@ -67,6 +67,12 @@ export class GraphMonitorView extends View implements MonitorView<number> {
 		this.value = config.value;
 
 		this.update();
+
+		config.disposable.emitter.on('dispose', () => {
+			this.lineElem_ = DisposingUtil.disposeElement(this.lineElem_);
+			this.svgElem_ = DisposingUtil.disposeElement(this.svgElem_);
+			this.tooltipElem_ = DisposingUtil.disposeElement(this.tooltipElem_);
+		});
 	}
 
 	get graphElement(): Element {
@@ -74,13 +80,6 @@ export class GraphMonitorView extends View implements MonitorView<number> {
 			throw PaneError.alreadyDisposed();
 		}
 		return this.svgElem_;
-	}
-
-	public dispose(): void {
-		this.lineElem_ = DisposingUtil.disposeElement(this.lineElem_);
-		this.svgElem_ = DisposingUtil.disposeElement(this.svgElem_);
-		this.tooltipElem_ = DisposingUtil.disposeElement(this.tooltipElem_);
-		super.dispose();
 	}
 
 	public update(): void {

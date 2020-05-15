@@ -1,13 +1,15 @@
 import {Formatter} from '../../formatter/formatter';
 import {TypeUtil} from '../../misc/type-util';
 import {Color} from '../../model/color';
+import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
 import {Parser} from '../../parser/parser';
 import {RgbTextInputView} from '../../view/input/rgb-text';
+import {ControllerConfig} from '../controller';
 import * as UiUtil from '../ui-util';
 import {InputController} from './input';
 
-interface Config {
+interface Config extends ControllerConfig {
 	formatter: Formatter<number>;
 	parser: Parser<string, number>;
 	value: InputValue<Color>;
@@ -19,6 +21,7 @@ const STEP = 1;
  * @hidden
  */
 export class RgbTextInputController implements InputController<Color> {
+	public readonly disposable: Disposable;
 	public readonly value: InputValue<Color>;
 	public readonly view: RgbTextInputView;
 	private parser_: Parser<string, number>;
@@ -30,7 +33,9 @@ export class RgbTextInputController implements InputController<Color> {
 		this.parser_ = config.parser;
 		this.value = config.value;
 
+		this.disposable = config.disposable;
 		this.view = new RgbTextInputView(document, {
+			disposable: this.disposable,
 			formatter: config.formatter,
 			value: this.value,
 		});
@@ -38,10 +43,6 @@ export class RgbTextInputController implements InputController<Color> {
 			inputElem.addEventListener('change', this.onInputChange_);
 			inputElem.addEventListener('keydown', this.onInputKeyDown_);
 		});
-	}
-
-	public dispose(): void {
-		this.view.dispose();
 	}
 
 	private findIndexOfInputElem_(inputElem: HTMLInputElement): number | null {

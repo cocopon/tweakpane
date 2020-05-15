@@ -1,14 +1,16 @@
 import * as DomUtil from '../misc/dom-util';
 import {Emitter} from '../misc/emitter';
 import {TypeUtil} from '../misc/type-util';
+import {Disposable} from '../model/disposable';
 import {Folder} from '../model/folder';
-import {List} from '../model/list';
+import {UiControllerList} from '../model/ui-controller-list';
 import {FolderView} from '../view/folder';
 import {InputBindingController} from './input-binding';
 import {MonitorBindingController} from './monitor-binding';
 import {UiController} from './ui';
 
 interface Config {
+	disposable: Disposable;
 	expanded?: boolean;
 	title: string;
 }
@@ -19,11 +21,12 @@ export type EventName = 'fold' | 'inputchange' | 'monitorupdate';
  * @hidden
  */
 export class FolderController {
+	public readonly disposable: Disposable;
 	public readonly emitter: Emitter<EventName>;
 	public readonly folder: Folder;
 	public readonly view: FolderView;
 	private doc_: Document;
-	private ucList_: List<UiController>;
+	private ucList_: UiControllerList;
 
 	constructor(document: Document, config: Config) {
 		this.onFolderChange_ = this.onFolderChange_.bind(this);
@@ -32,20 +35,24 @@ export class FolderController {
 
 		this.onTitleClick_ = this.onTitleClick_.bind(this);
 		this.onUiControllerListAppend_ = this.onUiControllerListAppend_.bind(this);
+		this.onUiControllerListRemove_ = this.onUiControllerListRemove_.bind(this);
 
 		this.emitter = new Emitter();
 
+		this.disposable = config.disposable;
 		this.folder = new Folder(
 			config.title,
 			TypeUtil.getOrDefault<boolean>(config.expanded, true),
 		);
 		this.folder.emitter.on('change', this.onFolderChange_);
 
-		this.ucList_ = new List();
+		this.ucList_ = new UiControllerList();
 		this.ucList_.emitter.on('append', this.onUiControllerListAppend_);
+		this.ucList_.emitter.on('remove', this.onUiControllerListRemove_);
 
 		this.doc_ = document;
 		this.view = new FolderView(this.doc_, {
+			disposable: this.disposable,
 			folder: this.folder,
 		});
 		this.view.titleElement.addEventListener('click', this.onTitleClick_);
@@ -55,12 +62,8 @@ export class FolderController {
 		return this.doc_;
 	}
 
-	get uiControllerList(): List<UiController> {
+	get uiControllerList(): UiControllerList {
 		return this.ucList_;
-	}
-
-	public dispose(): void {
-		this.view.dispose();
 	}
 
 	private computeExpandedHeight_(): number {
@@ -101,6 +104,10 @@ export class FolderController {
 		}
 
 		this.view.containerElement.appendChild(uc.view.element);
+		this.folder.expandedHeight = this.computeExpandedHeight_();
+	}
+
+	private onUiControllerListRemove_() {
 		this.folder.expandedHeight = this.computeExpandedHeight_();
 	}
 

@@ -1,16 +1,18 @@
 import {NumberFormatter} from '../../formatter/number';
 import {TypeUtil} from '../../misc/type-util';
 import {Color} from '../../model/color';
+import {Disposable} from '../../model/disposable';
 import {Foldable} from '../../model/foldable';
 import {InputValue} from '../../model/input-value';
 import {StringNumberParser} from '../../parser/string-number';
 import {ColorPickerInputView} from '../../view/input/color-picker';
+import {ControllerConfig} from '../controller';
 import {HPaletteInputController} from './h-palette';
 import {InputController} from './input';
 import {RgbTextInputController} from './rgb-text';
 import {SvPaletteInputController} from './sv-palette';
 
-interface Config {
+interface Config extends ControllerConfig {
 	value: InputValue<Color>;
 }
 
@@ -18,6 +20,7 @@ interface Config {
  * @hidden
  */
 export class ColorPickerInputController implements InputController<Color> {
+	public readonly disposable: Disposable;
 	public readonly foldable: Foldable;
 	public readonly value: InputValue<Color>;
 	public readonly view: ColorPickerInputView;
@@ -31,21 +34,26 @@ export class ColorPickerInputController implements InputController<Color> {
 		this.value = config.value;
 		this.foldable = new Foldable();
 
+		this.disposable = config.disposable;
 		this.hPaletteIc_ = new HPaletteInputController(document, {
+			disposable: this.disposable,
 			value: this.value,
 		});
 
 		this.svPaletteIc_ = new SvPaletteInputController(document, {
+			disposable: this.disposable,
 			value: this.value,
 		});
 
 		this.rgbTextIc_ = new RgbTextInputController(document, {
+			disposable: this.disposable,
 			formatter: new NumberFormatter(0),
 			parser: StringNumberParser,
 			value: this.value,
 		});
 
 		this.view = new ColorPickerInputView(document, {
+			disposable: this.disposable,
 			foldable: this.foldable,
 			hPaletteInputView: this.hPaletteIc_.view,
 			rgbTextView: this.rgbTextIc_.view,
@@ -55,10 +63,6 @@ export class ColorPickerInputController implements InputController<Color> {
 		this.view.allFocusableElements.forEach((elem) => {
 			elem.addEventListener('blur', this.onInputBlur_);
 		});
-	}
-
-	public dispose(): void {
-		this.view.dispose();
 	}
 
 	private onInputBlur_(e: FocusEvent): void {

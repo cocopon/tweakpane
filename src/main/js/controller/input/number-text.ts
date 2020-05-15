@@ -18,10 +18,6 @@ export class NumberTextInputController extends TextInputController<number> {
 		this.view.inputElement.addEventListener('keydown', this.onInputKeyDown_);
 	}
 
-	public dispose(): void {
-		this.view.dispose();
-	}
-
 	private onInputKeyDown_(e: KeyboardEvent): void {
 		const step = UiUtil.getStepForKey(this.step_, e);
 		if (step !== 0) {

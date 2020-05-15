@@ -1,5 +1,5 @@
 import {ClassName} from '../misc/class-name';
-import {View} from './view';
+import {View, ViewConfig} from './view';
 
 const className = ClassName('spt');
 
@@ -7,8 +7,8 @@ const className = ClassName('spt');
  * @hidden
  */
 export class SeparatorView extends View {
-	constructor(document: Document) {
-		super(document);
+	constructor(document: Document, config: ViewConfig) {
+		super(document, config);
 
 		this.element.classList.add(className());
 

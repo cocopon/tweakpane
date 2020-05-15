@@ -3,10 +3,10 @@ import {ClassName} from '../../misc/class-name';
 import {PaneError} from '../../misc/pane-error';
 import {Color} from '../../model/color';
 import {MonitorValue} from '../../model/monitor-value';
-import {View} from '../view';
+import {View, ViewConfig} from '../view';
 import {MonitorView} from './monitor';
 
-interface Config {
+interface Config extends ViewConfig {
 	value: MonitorValue<Color>;
 }
 
@@ -20,7 +20,7 @@ export class ColorSwatchMonitorView extends View implements MonitorView<Color> {
 	private swatchElem_: HTMLDivElement | null;
 
 	constructor(document: Document, config: Config) {
-		super(document);
+		super(document, config);
 
 		this.onValueUpdate_ = this.onValueUpdate_.bind(this);
 

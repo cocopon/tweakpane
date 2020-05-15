@@ -2,12 +2,12 @@ import {ClassName} from '../../misc/class-name';
 import * as DomUtil from '../../misc/dom-util';
 import {InputValue} from '../../model/input-value';
 import {Point2d} from '../../model/point-2d';
-import {View} from '../view';
+import {View, ViewConfig} from '../view';
 import {InputView} from './input';
 import {Point2dPadInputView} from './point-2d-pad';
 import {Point2dTextInputView} from './point-2d-text';
 
-interface Config {
+interface Config extends ViewConfig {
 	padInputView: Point2dPadInputView;
 	textInputView: Point2dTextInputView;
 }
@@ -24,7 +24,7 @@ export class Point2dPadTextInputView extends View
 	private textInputView_: Point2dTextInputView;
 
 	constructor(document: Document, config: Config) {
-		super(document);
+		super(document, config);
 
 		this.element.classList.add(className());
 
@@ -58,12 +58,6 @@ export class Point2dPadTextInputView extends View
 
 	get padButtonElement(): HTMLButtonElement {
 		return this.padButtonElem_;
-	}
-
-	public dispose(): void {
-		this.padInputView_.dispose();
-		this.textInputView_.dispose();
-		super.dispose();
 	}
 
 	public update(): void {

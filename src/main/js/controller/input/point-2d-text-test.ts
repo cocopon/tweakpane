@@ -3,6 +3,7 @@ import {describe, it} from 'mocha';
 
 import {NumberFormatter} from '../../formatter/number';
 import {TestUtil} from '../../misc/test-util';
+import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
 import {Point2d} from '../../model/point-2d';
 import {StringNumberParser} from '../../parser/string-number';
@@ -13,19 +14,21 @@ describe(Point2dTextInputController.name, () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new Point2dTextInputController(doc, {
+			disposable: new Disposable(),
 			parser: StringNumberParser,
 			value: new InputValue(new Point2d()),
 			xFormatter: new NumberFormatter(0),
 			yFormatter: new NumberFormatter(0),
 		});
-		c.dispose();
-		assert.strictEqual(c.view.disposed, true);
+		c.disposable.dispose();
+		assert.strictEqual(c.disposable.disposed, true);
 	});
 
 	it('should update value with user operation', () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new Point2dTextInputController(doc, {
+			disposable: new Disposable(),
 			parser: StringNumberParser,
 			value: new InputValue(new Point2d(12, 34)),
 			xFormatter: new NumberFormatter(0),

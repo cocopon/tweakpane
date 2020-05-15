@@ -3,6 +3,7 @@ import {InputBinding} from '../../binding/input';
 import * as ColorConverter from '../../converter/color';
 import {ColorFormatter} from '../../formatter/color';
 import {Color, RgbColorObject} from '../../model/color';
+import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
 import {Target} from '../../model/target';
 import {NumberColorParser} from '../../parser/number-color';
@@ -29,9 +30,11 @@ export function createWithString(
 
 	const converter = ColorConverter.fromMixed;
 	const color = converter(initialValue);
+	const disposable = new Disposable();
 	const value = new InputValue(color);
 	const writer = ColorConverter.getStringifier(notation);
 	return new InputBindingController(document, {
+		disposable: disposable,
 		binding: new InputBinding({
 			reader: converter,
 			target: target,
@@ -39,6 +42,7 @@ export function createWithString(
 			writer: writer,
 		}),
 		controller: new ColorSwatchTextInputController(document, {
+			disposable: disposable,
 			formatter: new ColorFormatter(writer),
 			parser: StringColorParser.CompositeParser,
 			value: value,
@@ -71,6 +75,7 @@ export function createWithNumber(
 	}
 
 	const value = new InputValue(color);
+	const disposable = new Disposable();
 	return new InputBindingController(document, {
 		binding: new InputBinding({
 			reader: ColorConverter.fromMixed,
@@ -79,10 +84,12 @@ export function createWithNumber(
 			writer: ColorConverter.toNumber,
 		}),
 		controller: new ColorSwatchTextInputController(document, {
+			disposable: disposable,
 			formatter: new ColorFormatter(ColorConverter.toHexRgbString),
 			parser: StringColorParser.CompositeParser,
 			value: value,
 		}),
+		disposable: disposable,
 		label: params.label || target.key,
 	});
 }
@@ -101,6 +108,7 @@ export function createWithObject(
 	}
 
 	const color = Color.fromRgbObject(initialValue);
+	const disposable = new Disposable();
 	const value = new InputValue(color);
 	return new InputBindingController(document, {
 		binding: new InputBinding({
@@ -110,10 +118,12 @@ export function createWithObject(
 			writer: Color.toRgbObject,
 		}),
 		controller: new ColorSwatchTextInputController(document, {
+			disposable: disposable,
 			formatter: new ColorFormatter(ColorConverter.toHexRgbString),
 			parser: StringColorParser.CompositeParser,
 			value: value,
 		}),
+		disposable: disposable,
 		label: params.label || target.key,
 	});
 }

@@ -1,11 +1,13 @@
 import {Formatter} from '../../formatter/formatter';
 import {NumberUtil} from '../../misc/number-util';
+import {Disposable} from '../../model/disposable';
 import {GraphCursor} from '../../model/graph-cursor';
 import {MonitorValue} from '../../model/monitor-value';
 import {GraphMonitorView} from '../../view/monitor/graph';
+import {ControllerConfig} from '../controller';
 import {MonitorController} from './monitor';
 
-interface Config {
+interface Config extends ControllerConfig {
 	formatter: Formatter<number>;
 	maxValue: number;
 	minValue: number;
@@ -16,6 +18,7 @@ interface Config {
  * @hidden
  */
 export class GraphMonitorController implements MonitorController<number> {
+	public readonly disposable: Disposable;
 	public readonly value: MonitorValue<number>;
 	public readonly view: GraphMonitorView;
 	private cursor_: GraphCursor;
@@ -27,8 +30,10 @@ export class GraphMonitorController implements MonitorController<number> {
 		this.value = config.value;
 		this.cursor_ = new GraphCursor();
 
+		this.disposable = config.disposable;
 		this.view = new GraphMonitorView(document, {
 			cursor: this.cursor_,
+			disposable: this.disposable,
 			formatter: config.formatter,
 			maxValue: config.maxValue,
 			minValue: config.minValue,
@@ -42,10 +47,6 @@ export class GraphMonitorController implements MonitorController<number> {
 			'mousemove',
 			this.onGraphMouseMove_,
 		);
-	}
-
-	public dispose(): void {
-		this.view.dispose();
 	}
 
 	private onGraphMouseLeave_(): void {

@@ -9,6 +9,7 @@ import {RootController} from '../controller/root';
 import {SeparatorController} from '../controller/separator';
 import * as UiUtil from '../controller/ui-util';
 import {Handler} from '../misc/emitter';
+import {Disposable} from '../model/disposable';
 import {Target} from '../model/target';
 import {ButtonApi} from './button';
 import {FolderApi} from './folder';
@@ -67,7 +68,7 @@ export class RootApi {
 	}
 
 	public dispose(): void {
-		this.controller.dispose();
+		this.controller.disposable.dispose();
 	}
 
 	public addInput(object: object, key: string, opt_params?: InputParams) {
@@ -98,19 +99,27 @@ export class RootApi {
 	}
 
 	public addButton(params: ButtonParams): ButtonApi {
-		const uc = new ButtonController(this.controller.document, params);
+		const uc = new ButtonController(this.controller.document, {
+			...params,
+			disposable: new Disposable(),
+		});
 		this.controller.uiControllerList.append(uc);
 		return new ButtonApi(uc);
 	}
 
 	public addFolder(params: FolderParams): FolderApi {
-		const uc = new FolderController(this.controller.document, params);
+		const uc = new FolderController(this.controller.document, {
+			...params,
+			disposable: new Disposable(),
+		});
 		this.controller.uiControllerList.append(uc);
 		return new FolderApi(uc);
 	}
 
 	public addSeparator(): void {
-		const uc = new SeparatorController(this.controller.document);
+		const uc = new SeparatorController(this.controller.document, {
+			disposable: new Disposable(),
+		});
 		this.controller.uiControllerList.append(uc);
 	}
 

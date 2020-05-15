@@ -8,6 +8,7 @@ import * as NumberConverter from '../converter/number';
 import {NumberFormatter} from '../formatter/number';
 import {TestUtil} from '../misc/test-util';
 import {ManualTicker} from '../misc/ticker/manual';
+import {Disposable} from '../model/disposable';
 import {MonitorValue} from '../model/monitor-value';
 import {Target} from '../model/target';
 import {MonitorBindingApi} from './monitor-binding';
@@ -16,6 +17,7 @@ function createApi(target: Target) {
 	const doc = TestUtil.createWindow().document;
 	const value = new MonitorValue(1);
 	const mc = new SingleLogMonitorController(doc, {
+		disposable: new Disposable(),
 		formatter: new NumberFormatter(0),
 		value: value,
 	});
@@ -27,21 +29,13 @@ function createApi(target: Target) {
 			value: value,
 		}),
 		controller: mc,
+		disposable: mc.disposable,
 		label: 'label',
 	});
 	return new MonitorBindingApi(bc);
 }
 
 describe(MonitorBindingApi.name, () => {
-	it('should dispose', () => {
-		const PARAMS = {
-			foo: 0,
-		};
-		const api = createApi(new Target(PARAMS, 'foo'));
-		api.dispose();
-		assert.strictEqual(api.controller.view.disposed, true);
-	});
-
 	it('should listen update event', (done) => {
 		const PARAMS = {
 			foo: 0,

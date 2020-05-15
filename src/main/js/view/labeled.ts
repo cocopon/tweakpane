@@ -1,7 +1,7 @@
 import {ClassName} from '../misc/class-name';
-import {View} from './view';
+import {View, ViewConfig} from './view';
 
-interface Config {
+interface Config extends ViewConfig {
 	label: string;
 	view: View;
 }
@@ -15,7 +15,7 @@ export class LabeledView extends View {
 	public readonly label: string;
 
 	constructor(document: Document, config: Config) {
-		super(document);
+		super(document, config);
 
 		this.label = config.label;
 

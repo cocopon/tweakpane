@@ -2,10 +2,10 @@ import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
 import {PaneError} from '../../misc/pane-error';
 import {InputValue} from '../../model/input-value';
-import {View} from '../view';
+import {View, ViewConfig} from '../view';
 import {InputView} from './input';
 
-interface Config {
+interface Config extends ViewConfig {
 	value: InputValue<boolean>;
 }
 
@@ -19,7 +19,7 @@ export class CheckboxInputView extends View implements InputView<boolean> {
 	private inputElem_: HTMLInputElement | null;
 
 	constructor(document: Document, config: Config) {
-		super(document);
+		super(document, config);
 
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
@@ -43,6 +43,10 @@ export class CheckboxInputView extends View implements InputView<boolean> {
 		this.value = config.value;
 
 		this.update();
+
+		config.disposable.emitter.on('dispose', () => {
+			this.inputElem_ = DisposingUtil.disposeElement(this.inputElem_);
+		});
 	}
 
 	get inputElement(): HTMLInputElement {
@@ -50,11 +54,6 @@ export class CheckboxInputView extends View implements InputView<boolean> {
 			throw PaneError.alreadyDisposed();
 		}
 		return this.inputElem_;
-	}
-
-	public dispose(): void {
-		this.inputElem_ = DisposingUtil.disposeElement(this.inputElem_);
-		super.dispose();
 	}
 
 	public update(): void {

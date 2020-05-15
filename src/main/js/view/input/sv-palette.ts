@@ -7,11 +7,11 @@ import {NumberUtil} from '../../misc/number-util';
 import {PaneError} from '../../misc/pane-error';
 import {Color} from '../../model/color';
 import {InputValue} from '../../model/input-value';
-import {View} from '../view';
+import {View, ViewConfig} from '../view';
 
 const className = ClassName('svp', 'input');
 
-interface Config {
+interface Config extends ViewConfig {
 	value: InputValue<Color>;
 }
 
@@ -24,7 +24,7 @@ export class SvPaletteInputView extends View {
 	private markerElem_: HTMLDivElement | null;
 
 	constructor(document: Document, config: Config) {
-		super(document);
+		super(document, config);
 
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
@@ -45,6 +45,11 @@ export class SvPaletteInputView extends View {
 		this.markerElem_ = markerElem;
 
 		this.update();
+
+		config.disposable.emitter.on('dispose', () => {
+			this.canvasElem_ = DisposingUtil.disposeElement(this.canvasElem_);
+			this.markerElem_ = DisposingUtil.disposeElement(this.markerElem_);
+		});
 	}
 
 	get canvasElement(): HTMLCanvasElement {
@@ -52,12 +57,6 @@ export class SvPaletteInputView extends View {
 			throw PaneError.alreadyDisposed();
 		}
 		return this.canvasElem_;
-	}
-
-	public dispose(): void {
-		this.canvasElem_ = DisposingUtil.disposeElement(this.canvasElem_);
-		this.markerElem_ = DisposingUtil.disposeElement(this.markerElem_);
-		super.dispose();
 	}
 
 	public update(): void {

@@ -3,10 +3,10 @@ import * as DisposingUtil from '../../misc/disposing-util';
 import {NumberUtil} from '../../misc/number-util';
 import {PaneError} from '../../misc/pane-error';
 import {InputValue} from '../../model/input-value';
-import {View} from '../view';
+import {View, ViewConfig} from '../view';
 import {InputView} from './input';
 
-interface Config {
+interface Config extends ViewConfig {
 	maxValue: number;
 	minValue: number;
 	value: InputValue<number>;
@@ -25,7 +25,7 @@ export class SliderInputView extends View implements InputView<number> {
 	private outerElem_: HTMLDivElement | null;
 
 	constructor(document: Document, config: Config) {
-		super(document);
+		super(document, config);
 
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
@@ -48,6 +48,11 @@ export class SliderInputView extends View implements InputView<number> {
 		this.value = config.value;
 
 		this.update();
+
+		config.disposable.emitter.on('dispose', () => {
+			this.innerElem_ = DisposingUtil.disposeElement(this.innerElem_);
+			this.outerElem_ = DisposingUtil.disposeElement(this.outerElem_);
+		});
 	}
 
 	get outerElement(): HTMLDivElement {
@@ -62,12 +67,6 @@ export class SliderInputView extends View implements InputView<number> {
 			throw PaneError.alreadyDisposed();
 		}
 		return this.innerElem_;
-	}
-
-	public dispose(): void {
-		this.innerElem_ = DisposingUtil.disposeElement(this.innerElem_);
-		this.outerElem_ = DisposingUtil.disposeElement(this.outerElem_);
-		super.dispose();
 	}
 
 	public update(): void {

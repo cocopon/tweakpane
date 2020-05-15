@@ -17,7 +17,7 @@ export class ButtonApi {
 	}
 
 	public dispose(): void {
-		this.controller.dispose();
+		this.controller.disposable.dispose();
 	}
 
 	public on(eventName: EventName, handler: Handler): ButtonApi {

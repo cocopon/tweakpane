@@ -7,12 +7,15 @@ import {RootController} from '../controller/root';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
 import {Color} from '../model/color';
+import {Disposable} from '../model/disposable';
 import {ColorSwatchTextInputView} from '../view/input/color-swatch-text';
 import {RootApi} from './root';
 import {InputParams} from './types';
 
 function createApi(): RootApi {
-	const c = new RootController(TestUtil.createWindow().document, {});
+	const c = new RootController(TestUtil.createWindow().document, {
+		disposable: new Disposable(),
+	});
 	return new RootApi(c);
 }
 

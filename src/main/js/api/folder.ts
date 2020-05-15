@@ -5,6 +5,7 @@ import {FolderController} from '../controller/folder';
 import {EventName as InternalEventName} from '../controller/folder';
 import {SeparatorController} from '../controller/separator';
 import {Handler} from '../misc/emitter';
+import {Disposable} from '../model/disposable';
 import {Target} from '../model/target';
 import {ButtonApi} from './button';
 import {InputBindingApi} from './input-binding';
@@ -43,7 +44,7 @@ export class FolderApi {
 	}
 
 	public dispose(): void {
-		this.controller.dispose();
+		this.controller.disposable.dispose();
 	}
 
 	public addInput(object: object, key: string, opt_params?: InputParams) {
@@ -74,13 +75,18 @@ export class FolderApi {
 	}
 
 	public addButton(params: ButtonParams): ButtonApi {
-		const uc = new ButtonController(this.controller.document, params);
+		const uc = new ButtonController(this.controller.document, {
+			...params,
+			disposable: new Disposable(),
+		});
 		this.controller.uiControllerList.append(uc);
 		return new ButtonApi(uc);
 	}
 
 	public addSeparator(): void {
-		const uc = new SeparatorController(this.controller.document);
+		const uc = new SeparatorController(this.controller.document, {
+			disposable: new Disposable(),
+		});
 		this.controller.uiControllerList.append(uc);
 	}
 

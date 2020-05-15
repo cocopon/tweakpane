@@ -9,6 +9,7 @@ import {ConstraintUtil} from '../../constraint/util';
 import * as NumberConverter from '../../converter/number';
 import {NumberFormatter} from '../../formatter/number';
 import {TypeUtil} from '../../misc/type-util';
+import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
 import {Target} from '../../model/target';
 import {StringNumberParser} from '../../parser/string-number';
@@ -62,6 +63,7 @@ function createController(document: Document, value: InputValue<number>) {
 
 	if (c && ConstraintUtil.findConstraint(c, ListConstraint)) {
 		return new ListInputController(document, {
+			disposable: new Disposable(),
 			stringifyValue: NumberConverter.toString,
 			value: value,
 		});
@@ -69,6 +71,7 @@ function createController(document: Document, value: InputValue<number>) {
 
 	if (c && ConstraintUtil.findConstraint(c, RangeConstraint)) {
 		return new SliderTextInputController(document, {
+			disposable: new Disposable(),
 			formatter: new NumberFormatter(
 				UiUtil.getSuitableDecimalDigits(value.constraint, value.rawValue),
 			),
@@ -78,6 +81,7 @@ function createController(document: Document, value: InputValue<number>) {
 	}
 
 	return new NumberTextInputController(document, {
+		disposable: new Disposable(),
 		formatter: new NumberFormatter(
 			UiUtil.getSuitableDecimalDigits(value.constraint, value.rawValue),
 		),
@@ -107,9 +111,11 @@ export function create(
 		writer: (v) => v,
 	});
 
+	const controller = createController(document, value);
 	return new InputBindingController(document, {
 		binding: binding,
-		controller: createController(document, value),
+		controller: controller,
+		disposable: controller.disposable,
 		label: params.label || target.key,
 	});
 }
