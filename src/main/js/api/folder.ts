@@ -10,7 +10,12 @@ import {Target} from '../model/target';
 import {ButtonApi} from './button';
 import {InputBindingApi} from './input-binding';
 import {MonitorBindingApi} from './monitor-binding';
-import {ButtonParams, InputParams, MonitorParams} from './types';
+import {
+	ButtonParams,
+	InputParams,
+	MonitorParams,
+	SeparatorParams,
+} from './types';
 
 type EventName = 'change' | 'fold' | 'update';
 
@@ -54,7 +59,7 @@ export class FolderApi {
 			new Target(object, key, params.presetKey),
 			params,
 		);
-		this.controller.uiControllerList.append(uc);
+		this.controller.uiControllerList.add(uc, params.index);
 		return new InputBindingApi<
 			InputBindingControllerCreators.InputtableInType,
 			InputBindingControllerCreators.InputtableOutType
@@ -68,7 +73,7 @@ export class FolderApi {
 			new Target(object, key),
 			params,
 		);
-		this.controller.uiControllerList.append(uc);
+		this.controller.uiControllerList.add(uc, params.index);
 		return new MonitorBindingApi<
 			MonitorBindingControllerCreators.MonitorableType
 		>(uc);
@@ -79,15 +84,16 @@ export class FolderApi {
 			...params,
 			disposable: new Disposable(),
 		});
-		this.controller.uiControllerList.append(uc);
+		this.controller.uiControllerList.add(uc, params.index);
 		return new ButtonApi(uc);
 	}
 
-	public addSeparator(): void {
+	public addSeparator(opt_params?: SeparatorParams): void {
+		const params = opt_params || {};
 		const uc = new SeparatorController(this.controller.document, {
 			disposable: new Disposable(),
 		});
-		this.controller.uiControllerList.append(uc);
+		this.controller.uiControllerList.add(uc, params.index);
 	}
 
 	public on(eventName: EventName, handler: Handler): FolderApi {

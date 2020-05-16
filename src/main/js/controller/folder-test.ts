@@ -34,7 +34,7 @@ describe(FolderController.name, () => {
 			disposable: new Disposable(),
 			title: 'Foobar',
 		});
-		c.uiControllerList.append(cc);
+		c.uiControllerList.add(cc);
 
 		assert.strictEqual(c.uiControllerList.items.length, 1);
 		cc.disposable.dispose();

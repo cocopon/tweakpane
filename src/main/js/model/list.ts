@@ -1,6 +1,6 @@
 import {Emitter} from '../misc/emitter';
 
-type EventType = 'append' | 'remove';
+type EventType = 'add' | 'remove';
 
 /**
  * @hidden
@@ -18,9 +18,10 @@ export class List<T> {
 		return this.items_;
 	}
 
-	public append(item: T): void {
-		this.items_.push(item);
-		this.emitter.emit('append', [item]);
+	public add(item: T, opt_index?: number): void {
+		const index = opt_index !== undefined ? opt_index : this.items_.length;
+		this.items_.splice(index, 0, item);
+		this.emitter.emit('add', [item, index]);
 	}
 
 	public remove(item: T): void {

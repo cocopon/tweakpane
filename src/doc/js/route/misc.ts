@@ -344,6 +344,15 @@ ${indentedProps}
 				});
 			},
 
+			insert: (container) => {
+				const pane = new Tweakpane({
+					container: container,
+				});
+				pane.addButton({title: 'Run'});
+				pane.addButton({title: 'Stop'});
+				pane.addButton({title: '**Reset**', index: 1});
+			},
+
 			defaultTheme: (container) => {
 				return setUpThemedPane(container);
 			},
