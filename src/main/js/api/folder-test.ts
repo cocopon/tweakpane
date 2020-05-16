@@ -1,8 +1,11 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
+import {ButtonController} from '../controller/button';
 import {FolderController} from '../controller/folder';
+import {InputBindingController} from '../controller/input-binding';
 import {NumberTextInputController} from '../controller/input/number-text';
+import {MonitorBindingController} from '../controller/monitor-binding';
 import {SingleLogMonitorController} from '../controller/monitor/single-log';
 import {SeparatorController} from '../controller/separator';
 import {TestUtil} from '../misc/test-util';
@@ -84,5 +87,53 @@ describe(FolderApi.name, () => {
 			done();
 		});
 		api.controller.folder.expanded = false;
+	});
+
+	[
+		{
+			insert: (api: FolderApi, index: number) => {
+				api.addInput({foo: 1}, 'foo', {index: index});
+			},
+			expected: InputBindingController,
+		},
+		{
+			insert: (api: FolderApi, index: number) => {
+				api.addMonitor({foo: 1}, 'foo', {
+					index: index,
+					interval: 0,
+				});
+			},
+			expected: MonitorBindingController,
+		},
+		{
+			insert: (api: FolderApi, index: number) => {
+				api.addButton({index: index, title: 'button'});
+			},
+			expected: ButtonController,
+		},
+		{
+			insert: (api: FolderApi, index: number) => {
+				api.addSeparator({
+					index: index,
+				});
+			},
+			expected: SeparatorController,
+		},
+	].forEach((testCase) => {
+		context(`when ${testCase.expected.name}`, () => {
+			it('should insert input/monitor into specified position', () => {
+				const params = {
+					bar: 2,
+					foo: 1,
+				};
+				const api = createApi();
+				api.addInput(params, 'foo');
+				api.addInput(params, 'bar');
+				testCase.insert(api, 1);
+
+				const cs = api.controller.uiControllerList.items;
+				assert.instanceOf(cs[1], testCase.expected);
+			});
+		});
 	});
 });

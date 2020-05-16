@@ -1,3 +1,11 @@
+interface BaseParams {
+	index?: number;
+}
+
+interface LabelableParams {
+	label?: string;
+}
+
 export interface InputParamsOption<T> {
 	text: string;
 	value: T;
@@ -13,8 +21,7 @@ export interface Point2dDimensionParams {
 	step?: number;
 }
 
-interface BaseInputParams {
-	label?: string;
+interface BaseInputParams extends BaseParams, LabelableParams {
 	presetKey?: string;
 }
 
@@ -48,10 +55,9 @@ export type InputParams =
 	| Point2dInputParams
 	| StringInputParams;
 
-interface BaseMonitorParams {
+interface BaseMonitorParams extends BaseParams, LabelableParams {
 	count?: number;
 	interval?: number;
-	label?: string;
 }
 
 type BooleanMonitorParams = BaseMonitorParams;
@@ -73,11 +79,13 @@ export type MonitorParams =
 	| NumberMonitorParams
 	| StringMonitorParams;
 
-export interface ButtonParams {
+export interface ButtonParams extends BaseParams {
 	title: string;
 }
 
-export interface FolderParams {
+export interface FolderParams extends BaseParams {
 	expanded?: boolean;
 	title: string;
 }
+
+export type SeparatorParams = BaseParams;

@@ -312,4 +312,26 @@ pane.refresh();
 
 <h3>Disposing</h3>
 <p>If you want to dispose a pane manually, call <code>dispose()</code> of the pane.</p>
+
+
+<h3>Adding input/monitor at a specific position</h3>
+<p>Use <code>index</code> option to specify an index.</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-demo">
+		<div class="common-demo_codeLayout">
+			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
+pane.addButton({title: 'Run'});
+pane.addButton({title: 'Stop'});
+pane.addButton({
+  index: 1,
+  title: '**Reset**',
+});
+</code></pre></div>
+		</div>
+		<div class="common-demo_resultLayout">
+			<div class="common-paneContainer common-paneContainer-insert"></div>
+		</div>
+	</div>
+</div>
 {% endblock %}

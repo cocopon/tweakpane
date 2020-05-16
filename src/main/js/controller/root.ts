@@ -2,7 +2,7 @@ import {Emitter} from '../misc/emitter';
 import {TypeUtil} from '../misc/type-util';
 import {Disposable} from '../model/disposable';
 import {Folder} from '../model/folder';
-import {List} from '../model/list';
+import {UiControllerList} from '../model/ui-controller-list';
 import {RootView} from '../view/root';
 import {FolderController} from './folder';
 import {InputBindingController} from './input-binding';
@@ -37,13 +37,13 @@ export class RootController {
 	public readonly folder: Folder | null;
 	public readonly view: RootView;
 	private doc_: Document;
-	private ucList_: List<UiController>;
+	private ucList_: UiControllerList;
 
 	constructor(document: Document, config: Config) {
 		this.onFolderChange_ = this.onFolderChange_.bind(this);
 		this.onRootFolderChange_ = this.onRootFolderChange_.bind(this);
 		this.onTitleClick_ = this.onTitleClick_.bind(this);
-		this.onUiControllerListAppend_ = this.onUiControllerListAppend_.bind(this);
+		this.onUiControllerListAdd_ = this.onUiControllerListAdd_.bind(this);
 		this.onInputChange_ = this.onInputChange_.bind(this);
 		this.onMonitorUpdate_ = this.onMonitorUpdate_.bind(this);
 
@@ -51,8 +51,8 @@ export class RootController {
 
 		this.folder = createFolder(config);
 
-		this.ucList_ = new List();
-		this.ucList_.emitter.on('append', this.onUiControllerListAppend_);
+		this.ucList_ = new UiControllerList();
+		this.ucList_.emitter.on('add', this.onUiControllerListAdd_);
 
 		this.doc_ = document;
 		this.disposable = config.disposable;
@@ -72,11 +72,11 @@ export class RootController {
 		return this.doc_;
 	}
 
-	get uiControllerList(): List<UiController> {
+	get uiControllerList(): UiControllerList {
 		return this.ucList_;
 	}
 
-	private onUiControllerListAppend_(uc: UiController) {
+	private onUiControllerListAdd_(uc: UiController, index: number) {
 		if (uc instanceof InputBindingController) {
 			const emitter = uc.binding.value.emitter;
 			emitter.on('change', this.onInputChange_);
@@ -90,7 +90,10 @@ export class RootController {
 			emitter.on('monitorupdate', this.onMonitorUpdate_);
 		}
 
-		this.view.containerElement.appendChild(uc.view.element);
+		this.view.containerElement.insertBefore(
+			uc.view.element,
+			this.view.containerElement.children[index],
+		);
 	}
 
 	private onTitleClick_() {

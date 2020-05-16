@@ -34,7 +34,7 @@ export class FolderController {
 		this.onMonitorUpdate_ = this.onMonitorUpdate_.bind(this);
 
 		this.onTitleClick_ = this.onTitleClick_.bind(this);
-		this.onUiControllerListAppend_ = this.onUiControllerListAppend_.bind(this);
+		this.onUiControllerListAdd_ = this.onUiControllerListAdd_.bind(this);
 		this.onUiControllerListRemove_ = this.onUiControllerListRemove_.bind(this);
 
 		this.emitter = new Emitter();
@@ -47,7 +47,7 @@ export class FolderController {
 		this.folder.emitter.on('change', this.onFolderChange_);
 
 		this.ucList_ = new UiControllerList();
-		this.ucList_.emitter.on('append', this.onUiControllerListAppend_);
+		this.ucList_.emitter.on('add', this.onUiControllerListAdd_);
 		this.ucList_.emitter.on('remove', this.onUiControllerListRemove_);
 
 		this.doc_ = document;
@@ -94,7 +94,7 @@ export class FolderController {
 		this.folder.expanded = !this.folder.expanded;
 	}
 
-	private onUiControllerListAppend_(uc: UiController) {
+	private onUiControllerListAdd_(uc: UiController, index: number) {
 		if (uc instanceof InputBindingController) {
 			const emitter = uc.binding.value.emitter;
 			emitter.on('change', this.onInputChange_);
@@ -103,7 +103,10 @@ export class FolderController {
 			emitter.on('update', this.onMonitorUpdate_);
 		}
 
-		this.view.containerElement.appendChild(uc.view.element);
+		this.view.containerElement.insertBefore(
+			uc.view.element,
+			this.view.containerElement.children[index],
+		);
 		this.folder.expandedHeight = this.computeExpandedHeight_();
 	}
 
