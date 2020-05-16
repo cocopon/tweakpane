@@ -6,16 +6,19 @@ $prefix: 'common';
 	text-align: left;
 
 	&_innerLayout {
+		@include responsive-inner();
+
 		box-sizing: border-box;
 		margin-left: auto;
 		margin-right: auto;
 
-		@include pc() {
-			max-width: 1024px;
-			padding: 64px 128px;
+		@include wide() {
+			padding-bottom: 64px;
+			padding-top: 64px;
 		}
-		@include sp() {
-			padding: 32px 16px;
+		@include nonwide() {
+			padding-bottom: 32px;
+			padding-top: 32px;
 		}
 	}
 	&_titleLayout {
@@ -36,7 +39,7 @@ $prefix: 'common';
 		margin-top: 64px;
 		opacity: 0.7;
 
-		@include sp() {
+		@include nonwide() {
 			margin-top: 32px;
 		}
 
@@ -50,12 +53,12 @@ $prefix: 'common';
 	display: flex;
 }
 .#{$prefix}-globalFooterMenuItem {
-	@include pc() {
+	@include wide() {
 		& + & {
 			margin-left: 8em;
 		}
 	}
-	@include sp() {
+	@include nonwide() {
 		flex: 1;
 
 		& + & {

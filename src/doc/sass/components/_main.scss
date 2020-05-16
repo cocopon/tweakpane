@@ -4,10 +4,10 @@ $prefix: 'common';
 	overflow: hidden;
 
 	&_globalHeaderLayout {
-		@include pc() {
+		@include wide() {
 			height: $global-header-height;
 		}
-		@include sp() {
+		@include nonwide() {
 			height: $global-header-height * 2;
 		}
 	}
@@ -18,26 +18,21 @@ $prefix: 'common';
 		flex: 1;
 	}
 	&_innerLayout {
-		box-sizing: border-box;
-		margin-left: auto;
-		margin-right: auto;
+		@include responsive-inner();
 
-		@include pc() {
-			max-width: 1024px;
-			padding: 64px 128px;
+		@include wide() {
+			padding-bottom: 64px;
+			padding-top: 64px;
 		}
-		@include sp() {
-			margin: 32px auto;
-			padding-left: 16px;
-			padding-right: 16px;
+		@include nonwide() {
+			padding-bottom: 32px;
+			padding-top: 32px;
 		}
 	}
 	&_mediaLayout {
 		border-radius: 6px;
 		margin-bottom: 1em;
 		margin-top: 1em;
-	}
-	&_globalFooterLayout {
 	}
 }
 
@@ -57,7 +52,7 @@ $prefix: 'common';
 		overflow: auto;
 		padding: 32px;
 
-		@include sp() {
+		@include nonwide() {
 			padding: 16px;
 		}
 
@@ -82,7 +77,7 @@ $prefix: 'common';
 	background-color: $support-bg-color;
 	padding: 32px;
 
-	@include sp() {
+	@include nonwide() {
 		padding: 16px;
 	}
 
@@ -90,7 +85,7 @@ $prefix: 'common';
 		margin-top: 32px;
 		text-align: center;
 
-		@include sp() {
+		@include nonwide() {
 			margin-top: 16px;
 		}
 	}

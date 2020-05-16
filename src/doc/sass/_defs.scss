@@ -7,7 +7,8 @@ $font-family: Rubik, sans-serif;
 $font-family-mono: 'Source Code Pro', sans-serif;
 
 // Geometry
-$sp-width: 960px;
+$tablet-width: 800px;
+$sp-width: 480px;
 
 // Colors
 
@@ -52,14 +53,36 @@ $support-bg-color: hsl(30deg, 70%, 90%);
 
 // Mixins
 
-@mixin pc() {
-	@media screen and (min-width: $sp-width + 1) {
+@mixin wide() {
+	@media screen and (min-width: $tablet-width + 1) {
 		@content;
 	}
 }
-@mixin sp() {
+@mixin nonwide() {
+	@media screen and (max-width: $tablet-width) {
+		@content;
+	}
+}
+@mixin middle() {
+	@media screen and (min-width: $sp-width + 1) and (max-width: $tablet-width) {
+		@content;
+	}
+}
+@mixin narrow() {
 	@media screen and (max-width: $sp-width) {
 		@content;
+	}
+}
+
+@mixin responsive-inner() {
+	box-sizing: border-box;
+	padding-left: 16px;
+	padding-right: 16px;
+
+	@include wide() {
+		margin-left: auto;
+		margin-right: auto;
+		max-width: 800px;
 	}
 }
 
@@ -68,7 +91,7 @@ $support-bg-color: hsl(30deg, 70%, 90%);
 		font-size: 1.5rem;
 		margin-top: 2em;
 
-		@include sp() {
+		@include nonwide() {
 			font-size: 1.25rem;
 		}
 	}
@@ -79,7 +102,7 @@ $support-bg-color: hsl(30deg, 70%, 90%);
 		font-size: 1.25rem;
 		margin-top: 2em;
 
-		@include sp() {
+		@include nonwide() {
 			font-size: 1rem;
 		}
 	}

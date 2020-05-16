@@ -11,38 +11,30 @@ $prefix: 'common';
 	top: 0;
 	z-index: $z-index-global-header;
 
-	@include pc() {
+	@include wide() {
 		height: $global-header-height;
 	}
-	@include sp() {
+	@include nonwide() {
 		height: $global-header-height * 2;
 	}
 
 	&_innerLayout {
+		@include responsive-inner();
+
 		box-sizing: border-box;
 		margin-left: auto;
 		margin-right: auto;
 		position: relative;
-
-		@include pc() {
-			max-width: 1024px;
-			padding-left: 128px;
-			padding-right: 128px;
-		}
-		@include sp() {
-			padding-left: 16px;
-			padding-right: 16px;
-		}
 	}
 	&_logoLayout {
 		display: inline-block;
 		margin-right: 1em;
 	}
 	&_menuLayout {
-		@include pc() {
+		@include wide() {
 			display: inline-block;
 		}
-		@include sp() {
+		@include nonwide() {
 			text-align: center;
 		}
 	}
@@ -51,10 +43,10 @@ $prefix: 'common';
 		position: absolute;
 		top: 0;
 
-		@include pc() {
-			right: 128px;
+		@include wide() {
+			right: 16px;
 		}
-		@include sp() {
+		@include nonwide() {
 			right: 16px;
 		}
 	}
@@ -78,10 +70,10 @@ $prefix: 'common';
 		&#{&}-active a {
 			font-weight: bold;
 
-			@include pc() {
+			@include wide() {
 				background-color: $page-header-bg-color;
 			}
-			@include sp() {
+			@include nonwide() {
 				background: linear-gradient(
 					to bottom,
 					rgba($page-header-bg-color, 0),

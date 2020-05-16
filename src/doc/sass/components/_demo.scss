@@ -1,7 +1,7 @@
 $prefix: 'common';
 
 .#{$prefix}-demo {
-	@include pc() {
+	@include wide() {
 		display: flex;
 	}
 
@@ -15,7 +15,7 @@ $prefix: 'common';
 		padding: 32px;
 		text-align: center;
 
-		@include sp() {
+		@include nonwide() {
 			padding: 16px;
 		}
 
@@ -30,7 +30,7 @@ $prefix: 'common';
 		padding-left: 8px;
 		padding-right: 8px;
 
-		@include pc() {
+		@include wide() {
 			display: inline-block;
 			min-width: 256px;
 			vertical-align: middle;

@@ -23,32 +23,48 @@ $prefix: 'common';
 		}
 	}
 	&_innerLayout {
+		@include responsive-inner();
+
 		box-sizing: border-box;
 		margin-left: auto;
 		margin-right: auto;
 		position: relative;
 
-		@include pc() {
+		@include wide() {
+			align-items: center;
 			display: flex;
 			justify-content: space-between;
-			max-width: 1024px;
-			padding: 64px 128px;
+			padding: 64px (16px + 32px);
 		}
-		@include sp() {
-			padding: 32px 16px;
+		@include middle() {
+			max-width: 480px;
+		}
+		@include nonwide() {
+			display: block;
+			padding: 64px 16px;
+		}
+	}
+	&_titleLayout {
+		@include wide() {
+			padding-bottom: 32px;
+			padding-top: 32px;
 		}
 	}
 	&_title {
 		font-size: 2rem;
 		font-weight: bold;
+
+		@include nonwide() {
+			text-align: center;
+		}
 	}
 	&_paneLayout {
-		@include pc() {
+		@include wide() {
 			flex-grow: 0;
 			flex-shrink: 0;
 			margin-left: 32px;
 		}
-		@include sp() {
+		@include nonwide() {
 			margin-top: 32px;
 			text-align: center;
 		}

@@ -15,6 +15,9 @@ interface Config {
 	title: string;
 }
 
+/**
+ * @hidden
+ */
 export type EventName = 'fold' | 'inputchange' | 'monitorupdate';
 
 /**
