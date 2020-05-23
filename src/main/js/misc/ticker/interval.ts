@@ -55,7 +55,7 @@ export class IntervalTicker implements Ticker {
 	}
 
 	private onTick_(): void {
-		this.emitter.emit('tick');
+		this.emitter.emit('tick', [this]);
 	}
 
 	private onWindowBlur_(): void {

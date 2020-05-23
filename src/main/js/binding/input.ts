@@ -42,7 +42,7 @@ export class InputBinding<In, Out> {
 		this.target.write(value);
 	}
 
-	private onValueChange_(rawValue: In): void {
+	private onValueChange_(_: InputValue<In>, rawValue: In): void {
 		this.write_(rawValue);
 	}
 }

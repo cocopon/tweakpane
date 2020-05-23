@@ -42,7 +42,7 @@ export class MonitorBinding<In> {
 		}
 	}
 
-	private onTick_(): void {
+	private onTick_(_: Ticker): void {
 		this.read();
 	}
 }

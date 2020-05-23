@@ -31,6 +31,6 @@ export class MonitorValue<T> {
 			this.rawValues_.splice(0, this.rawValues_.length - this.totalCount_);
 		}
 
-		this.emitter.emit('update', [rawValue]);
+		this.emitter.emit('update', [this, rawValue]);
 	}
 }

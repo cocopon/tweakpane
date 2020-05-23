@@ -61,15 +61,15 @@ export class Point2dPadInputController implements InputController<Point2d> {
 		this.view.update();
 	}
 
-	private onPointerDown_(d: PointerData): void {
+	private onPointerDown_(_: PointerHandler, d: PointerData): void {
 		this.handlePointerEvent_(d);
 	}
 
-	private onPointerMove_(d: PointerData): void {
+	private onPointerMove_(_: PointerHandler, d: PointerData): void {
 		this.handlePointerEvent_(d);
 	}
 
-	private onPointerUp_(d: PointerData): void {
+	private onPointerUp_(_: PointerHandler, d: PointerData): void {
 		this.handlePointerEvent_(d);
 	}
 }

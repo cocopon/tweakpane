@@ -97,7 +97,11 @@ export class FolderController {
 		this.folder.expanded = !this.folder.expanded;
 	}
 
-	private onUiControllerListAdd_(uc: UiController, index: number) {
+	private onUiControllerListAdd_(
+		_: UiControllerList,
+		uc: UiController,
+		index: number,
+	) {
 		if (uc instanceof InputBindingController) {
 			const emitter = uc.binding.value.emitter;
 			emitter.on('change', this.onInputChange_);
@@ -113,19 +117,19 @@ export class FolderController {
 		this.folder.expandedHeight = this.computeExpandedHeight_();
 	}
 
-	private onUiControllerListRemove_() {
+	private onUiControllerListRemove_(_: UiControllerList) {
 		this.folder.expandedHeight = this.computeExpandedHeight_();
 	}
 
-	private onInputChange_(value: unknown): void {
-		this.emitter.emit('inputchange', [value]);
+	private onInputChange_(_: unknown, value: unknown): void {
+		this.emitter.emit('inputchange', [this, value]);
 	}
 
-	private onMonitorUpdate_(value: unknown): void {
-		this.emitter.emit('monitorupdate', [value]);
+	private onMonitorUpdate_(_: unknown, value: unknown): void {
+		this.emitter.emit('monitorupdate', [this, value]);
 	}
 
-	private onFolderChange_(): void {
-		this.emitter.emit('fold');
+	private onFolderChange_(_: Folder): void {
+		this.emitter.emit('fold', [this]);
 	}
 }

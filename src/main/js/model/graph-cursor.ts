@@ -22,7 +22,7 @@ export class GraphCursor {
 		const changed = this.index_ !== index;
 		if (changed) {
 			this.index_ = index;
-			this.emitter.emit('change', [index]);
+			this.emitter.emit('change', [this, index]);
 		}
 	}
 }

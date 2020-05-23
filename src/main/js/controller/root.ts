@@ -40,7 +40,7 @@ export class RootController {
 	private ucList_: UiControllerList;
 
 	constructor(document: Document, config: Config) {
-		this.onFolderChange_ = this.onFolderChange_.bind(this);
+		this.onFolderControllerChange_ = this.onFolderControllerChange_.bind(this);
 		this.onRootFolderChange_ = this.onRootFolderChange_.bind(this);
 		this.onTitleClick_ = this.onTitleClick_.bind(this);
 		this.onUiControllerListAdd_ = this.onUiControllerListAdd_.bind(this);
@@ -76,7 +76,11 @@ export class RootController {
 		return this.ucList_;
 	}
 
-	private onUiControllerListAdd_(uc: UiController, index: number) {
+	private onUiControllerListAdd_(
+		_: UiControllerList,
+		uc: UiController,
+		index: number,
+	) {
 		if (uc instanceof InputBindingController) {
 			const emitter = uc.binding.value.emitter;
 			emitter.on('change', this.onInputChange_);
@@ -85,7 +89,7 @@ export class RootController {
 			emitter.on('update', this.onMonitorUpdate_);
 		} else if (uc instanceof FolderController) {
 			const emitter = uc.emitter;
-			emitter.on('fold', this.onFolderChange_);
+			emitter.on('fold', this.onFolderControllerChange_);
 			emitter.on('inputchange', this.onInputChange_);
 			emitter.on('monitorupdate', this.onMonitorUpdate_);
 		}
@@ -102,19 +106,19 @@ export class RootController {
 		}
 	}
 
-	private onInputChange_(value: unknown): void {
-		this.emitter.emit('inputchange', [value]);
+	private onInputChange_(_: unknown, value: unknown): void {
+		this.emitter.emit('inputchange', [this, value]);
 	}
 
-	private onMonitorUpdate_(value: unknown): void {
-		this.emitter.emit('monitorupdate', [value]);
+	private onMonitorUpdate_(_: unknown, value: unknown): void {
+		this.emitter.emit('monitorupdate', [this, value]);
 	}
 
-	private onFolderChange_(): void {
-		this.emitter.emit('fold');
+	private onFolderControllerChange_(_: FolderController): void {
+		this.emitter.emit('fold', [this]);
 	}
 
-	private onRootFolderChange_(): void {
-		this.emitter.emit('fold');
+	private onRootFolderChange_(_: Folder): void {
+		this.emitter.emit('fold', [this]);
 	}
 }

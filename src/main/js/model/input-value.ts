@@ -37,7 +37,7 @@ export class InputValue<T> {
 		const changed = !InputValue.equalsValue(this.rawValue_, constrainedValue);
 		if (changed) {
 			this.rawValue_ = constrainedValue;
-			this.emitter.emit('change', [constrainedValue]);
+			this.emitter.emit('change', [this, constrainedValue]);
 		}
 	}
 }

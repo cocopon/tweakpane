@@ -15,6 +15,6 @@ export class Button {
 	}
 
 	public click(): void {
-		this.emitter.emit('click');
+		this.emitter.emit('click', [this]);
 	}
 }

@@ -71,7 +71,7 @@ export class SliderInputController implements InputController<number> {
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
 	}
 
-	private onPointerDown_(d: PointerData): void {
+	private onPointerDown_(_: PointerHandler, d: PointerData): void {
 		this.value.rawValue = NumberUtil.map(
 			d.px,
 			0,
@@ -82,7 +82,7 @@ export class SliderInputController implements InputController<number> {
 		this.view.update();
 	}
 
-	private onPointerMove_(d: PointerData): void {
+	private onPointerMove_(_: PointerHandler, d: PointerData): void {
 		this.value.rawValue = NumberUtil.map(
 			d.px,
 			0,
@@ -93,7 +93,7 @@ export class SliderInputController implements InputController<number> {
 		this.view.update();
 	}
 
-	private onPointerUp_(d: PointerData): void {
+	private onPointerUp_(_: PointerHandler, d: PointerData): void {
 		this.value.rawValue = NumberUtil.map(
 			d.px,
 			0,

@@ -12,7 +12,7 @@ describe(GraphCursor.name, () => {
 
 	it('should emit change event', (done) => {
 		const c = new GraphCursor();
-		c.emitter.on('change', (index) => {
+		c.emitter.on('change', (_, index) => {
 			assert.strictEqual(index, 123);
 			done();
 		});

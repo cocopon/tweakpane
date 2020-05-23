@@ -54,7 +54,10 @@ export class PointerHandler {
 
 		this.pressed_ = true;
 
-		this.emitter.emit('down', [this.computePosition_(e.offsetX, e.offsetY)]);
+		this.emitter.emit('down', [
+			this,
+			this.computePosition_(e.offsetX, e.offsetY),
+		]);
 	}
 
 	private onDocumentMouseMove_(e: MouseEvent): void {
@@ -65,6 +68,7 @@ export class PointerHandler {
 		const win = this.document.defaultView;
 		const rect = this.element.getBoundingClientRect();
 		this.emitter.emit('move', [
+			this,
 			this.computePosition_(
 				e.pageX - (((win && win.scrollX) || 0) + rect.left),
 				e.pageY - (((win && win.scrollY) || 0) + rect.top),
@@ -81,6 +85,7 @@ export class PointerHandler {
 		const win = this.document.defaultView;
 		const rect = this.element.getBoundingClientRect();
 		this.emitter.emit('up', [
+			this,
 			this.computePosition_(
 				e.pageX - (((win && win.scrollX) || 0) + rect.left),
 				e.pageY - (((win && win.scrollY) || 0) + rect.top),
@@ -95,6 +100,7 @@ export class PointerHandler {
 		const touch = e.targetTouches[0];
 		const rect = this.element.getBoundingClientRect();
 		this.emitter.emit('down', [
+			this,
 			this.computePosition_(
 				touch.clientX - rect.left,
 				touch.clientY - rect.top,
@@ -106,6 +112,7 @@ export class PointerHandler {
 		const touch = e.targetTouches[0];
 		const rect = this.element.getBoundingClientRect();
 		this.emitter.emit('move', [
+			this,
 			this.computePosition_(
 				touch.clientX - rect.left,
 				touch.clientY - rect.top,

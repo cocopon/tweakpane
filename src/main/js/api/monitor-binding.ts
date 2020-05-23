@@ -1,5 +1,6 @@
 import {MonitorBindingController} from '../controller/monitor-binding';
 import {Handler} from '../misc/emitter';
+import * as HandlerAdapters from './handler-Adapters';
 
 type EventName = 'update';
 
@@ -25,7 +26,7 @@ export class MonitorBindingApi<In> {
 
 	public on(eventName: EventName, handler: Handler): MonitorBindingApi<In> {
 		const emitter = this.controller.binding.value.emitter;
-		emitter.on(eventName, handler);
+		emitter.on(eventName, HandlerAdapters.value(handler));
 		return this;
 	}
 

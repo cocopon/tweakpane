@@ -26,7 +26,7 @@ export class Folder {
 		const changed = this.expanded_ !== expanded;
 		if (changed) {
 			this.expanded_ = expanded;
-			this.emitter.emit('change');
+			this.emitter.emit('change', [this]);
 		}
 	}
 
@@ -38,7 +38,7 @@ export class Folder {
 		const changed = this.expandedHeight_ !== expandedHeight;
 		if (changed) {
 			this.expandedHeight_ = expandedHeight;
-			this.emitter.emit('change');
+			this.emitter.emit('change', [this]);
 		}
 	}
 }

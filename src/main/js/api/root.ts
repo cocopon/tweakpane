@@ -13,6 +13,7 @@ import {Disposable} from '../model/disposable';
 import {Target} from '../model/target';
 import {ButtonApi} from './button';
 import {FolderApi} from './folder';
+import * as HandlerAdapters from './handler-Adapters';
 import {InputBindingApi} from './input-binding';
 import {MonitorBindingApi} from './monitor-binding';
 import * as Preset from './preset';
@@ -28,11 +29,23 @@ import {
 type EventName = 'change' | 'fold' | 'update';
 
 const TO_INTERNAL_EVENT_NAME_MAP: {
-	[eventName in EventName]: InternalEventName;
+	[eventName in EventName]: {
+		adapter: HandlerAdapters.HandlerAdapter;
+		internalEventName: InternalEventName;
+	};
 } = {
-	change: 'inputchange',
-	fold: 'fold',
-	update: 'monitorupdate',
+	change: {
+		adapter: HandlerAdapters.value,
+		internalEventName: 'inputchange',
+	},
+	fold: {
+		adapter: HandlerAdapters.nop,
+		internalEventName: 'fold',
+	},
+	update: {
+		adapter: HandlerAdapters.value,
+		internalEventName: 'monitorupdate',
+	},
 };
 
 /**
@@ -165,10 +178,10 @@ export class RootApi {
 	 * @return The API object itself.
 	 */
 	public on(eventName: EventName, handler: Handler): RootApi {
-		const internalEventName = TO_INTERNAL_EVENT_NAME_MAP[eventName];
-		if (internalEventName) {
+		const hoge = TO_INTERNAL_EVENT_NAME_MAP[eventName];
+		if (hoge) {
 			const emitter = this.controller.emitter;
-			emitter.on(internalEventName, handler);
+			emitter.on(hoge.internalEventName, hoge.adapter(handler));
 		}
 		return this;
 	}

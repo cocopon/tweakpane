@@ -31,16 +31,16 @@ export class UiControllerList {
 		this.ucList_.add(uc, opt_index);
 	}
 
-	private onListAdd_(uc: UiController, index: number) {
-		this.emitter.emit('add', [uc, index]);
+	private onListAdd_(_: List<UiController>, uc: UiController, index: number) {
+		this.emitter.emit('add', [this, uc, index]);
 		uc.disposable.emitter.on('dispose', this.onListItemDispose_);
 	}
 
-	private onListRemove_() {
-		this.emitter.emit('remove');
+	private onListRemove_(_: List<UiController>) {
+		this.emitter.emit('remove', [this]);
 	}
 
-	private onListItemDispose_(): void {
+	private onListItemDispose_(_: UiController): void {
 		const disposedUcs = this.ucList_.items.filter((uc) => {
 			return uc.disposable.disposed;
 		});
