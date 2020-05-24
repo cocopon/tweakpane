@@ -1,8 +1,7 @@
 import {RangeConstraint} from '../../constraint/range';
 import {ConstraintUtil} from '../../constraint/util';
 import {NumberUtil} from '../../misc/number-util';
-import {PointerHandler} from '../../misc/pointer-handler';
-import {PointerData} from '../../misc/pointer-handler';
+import {PointerHandler, PointerHandlerEvents} from '../../misc/pointer-handler';
 import {TypeUtil} from '../../misc/type-util';
 import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
@@ -71,9 +70,9 @@ export class SliderInputController implements InputController<number> {
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
 	}
 
-	private onPointerDown_(_: PointerHandler, d: PointerData): void {
+	private onPointerDown_(ev: PointerHandlerEvents['down']): void {
 		this.value.rawValue = NumberUtil.map(
-			d.px,
+			ev.data.px,
 			0,
 			1,
 			this.minValue_,
@@ -82,9 +81,9 @@ export class SliderInputController implements InputController<number> {
 		this.view.update();
 	}
 
-	private onPointerMove_(_: PointerHandler, d: PointerData): void {
+	private onPointerMove_(ev: PointerHandlerEvents['move']): void {
 		this.value.rawValue = NumberUtil.map(
-			d.px,
+			ev.data.px,
 			0,
 			1,
 			this.minValue_,
@@ -93,9 +92,9 @@ export class SliderInputController implements InputController<number> {
 		this.view.update();
 	}
 
-	private onPointerUp_(_: PointerHandler, d: PointerData): void {
+	private onPointerUp_(ev: PointerHandlerEvents['up']): void {
 		this.value.rawValue = NumberUtil.map(
-			d.px,
+			ev.data.px,
 			0,
 			1,
 			this.minValue_,

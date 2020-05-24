@@ -11,19 +11,19 @@ describe(Emitter.name, () => {
 			done();
 		});
 
-		e.emit('change');
+		e.emit('change', {});
 	});
 
 	it('should emit event with arguments', (done) => {
 		const e = new Emitter();
 
-		e.on('change', (arg1: string, arg2: number) => {
+		e.on('change', ({arg1, arg2}: {arg1: string; arg2: number}) => {
 			assert.strictEqual(arg1, 'foo');
 			assert.strictEqual(arg2, 0.53);
 			done();
 		});
 
-		e.emit('change', ['foo', 0.53]);
+		e.emit('change', {arg1: 'foo', arg2: 0.53});
 	});
 
 	it('should remove listener', () => {
@@ -36,6 +36,6 @@ describe(Emitter.name, () => {
 		e.on('change', handler);
 		e.off('change', handler);
 
-		e.emit('change');
+		e.emit('change', {});
 	});
 });

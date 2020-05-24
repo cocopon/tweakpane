@@ -1,11 +1,27 @@
 import * as DomUtil from './dom-util';
-import {Emitter} from './emitter';
-
-type EventType = 'down' | 'move' | 'up';
+import {Emitter, EventTypeMap} from './emitter';
 
 export interface PointerData {
 	px: number;
 	py: number;
+}
+
+/**
+ * @hidden
+ */
+export interface PointerHandlerEvents extends EventTypeMap {
+	down: {
+		data: PointerData;
+		sender: PointerHandler;
+	};
+	move: {
+		data: PointerData;
+		sender: PointerHandler;
+	};
+	up: {
+		data: PointerData;
+		sender: PointerHandler;
+	};
 }
 
 /**
@@ -14,7 +30,7 @@ export interface PointerData {
  */
 export class PointerHandler {
 	public readonly document: Document;
-	public readonly emitter: Emitter<EventType>;
+	public readonly emitter: Emitter<PointerHandlerEvents>;
 	public readonly element: HTMLElement;
 	private pressed_: boolean;
 
@@ -54,10 +70,10 @@ export class PointerHandler {
 
 		this.pressed_ = true;
 
-		this.emitter.emit('down', [
-			this,
-			this.computePosition_(e.offsetX, e.offsetY),
-		]);
+		this.emitter.emit('down', {
+			data: this.computePosition_(e.offsetX, e.offsetY),
+			sender: this,
+		});
 	}
 
 	private onDocumentMouseMove_(e: MouseEvent): void {
@@ -67,13 +83,13 @@ export class PointerHandler {
 
 		const win = this.document.defaultView;
 		const rect = this.element.getBoundingClientRect();
-		this.emitter.emit('move', [
-			this,
-			this.computePosition_(
+		this.emitter.emit('move', {
+			data: this.computePosition_(
 				e.pageX - (((win && win.scrollX) || 0) + rect.left),
 				e.pageY - (((win && win.scrollY) || 0) + rect.top),
 			),
-		]);
+			sender: this,
+		});
 	}
 
 	private onDocumentMouseUp_(e: MouseEvent): void {
@@ -84,13 +100,13 @@ export class PointerHandler {
 
 		const win = this.document.defaultView;
 		const rect = this.element.getBoundingClientRect();
-		this.emitter.emit('up', [
-			this,
-			this.computePosition_(
+		this.emitter.emit('up', {
+			data: this.computePosition_(
 				e.pageX - (((win && win.scrollX) || 0) + rect.left),
 				e.pageY - (((win && win.scrollY) || 0) + rect.top),
 			),
-		]);
+			sender: this,
+		});
 	}
 
 	private onTouchStart_(e: TouchEvent) {
@@ -99,24 +115,24 @@ export class PointerHandler {
 
 		const touch = e.targetTouches[0];
 		const rect = this.element.getBoundingClientRect();
-		this.emitter.emit('down', [
-			this,
-			this.computePosition_(
+		this.emitter.emit('down', {
+			data: this.computePosition_(
 				touch.clientX - rect.left,
 				touch.clientY - rect.top,
 			),
-		]);
+			sender: this,
+		});
 	}
 
 	private onTouchMove_(e: TouchEvent) {
 		const touch = e.targetTouches[0];
 		const rect = this.element.getBoundingClientRect();
-		this.emitter.emit('move', [
-			this,
-			this.computePosition_(
+		this.emitter.emit('move', {
+			data: this.computePosition_(
 				touch.clientX - rect.left,
 				touch.clientY - rect.top,
 			),
-		]);
+			sender: this,
+		});
 	}
 }

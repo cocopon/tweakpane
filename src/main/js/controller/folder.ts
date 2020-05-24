@@ -2,9 +2,11 @@ import * as DomUtil from '../misc/dom-util';
 import {TypeUtil} from '../misc/type-util';
 import {Disposable} from '../model/disposable';
 import {Folder} from '../model/folder';
-import {UiControllerList} from '../model/ui-controller-list';
+import {
+	UiControllerList,
+	UiControllerListEvents,
+} from '../model/ui-controller-list';
 import {FolderView} from '../view/folder';
-import {UiController} from './ui';
 
 interface Config {
 	disposable: Disposable;
@@ -81,19 +83,15 @@ export class FolderController {
 		this.folder.expanded = !this.folder.expanded;
 	}
 
-	private onUiControllerListAdd_(
-		_: UiControllerList,
-		uc: UiController,
-		index: number,
-	) {
+	private onUiControllerListAdd_(ev: UiControllerListEvents['add']) {
 		this.view.containerElement.insertBefore(
-			uc.view.element,
-			this.view.containerElement.children[index],
+			ev.uiController.view.element,
+			this.view.containerElement.children[ev.index],
 		);
 		this.folder.expandedHeight = this.computeExpandedHeight_();
 	}
 
-	private onUiControllerListRemove_(_: UiControllerList) {
+	private onUiControllerListRemove_(_: UiControllerListEvents['remove']) {
 		this.folder.expandedHeight = this.computeExpandedHeight_();
 	}
 }

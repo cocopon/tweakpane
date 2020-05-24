@@ -1,7 +1,8 @@
 import {ButtonController} from '../controller/button';
-import {Handler} from '../misc/emitter';
 
-type EventName = 'click';
+interface ButtonApiEventHandlers {
+	click: () => void;
+}
 
 export class ButtonApi {
 	/**
@@ -20,7 +21,10 @@ export class ButtonApi {
 		this.controller.disposable.dispose();
 	}
 
-	public on(eventName: EventName, handler: Handler): ButtonApi {
+	public on<EventName extends keyof ButtonApiEventHandlers>(
+		eventName: EventName,
+		handler: ButtonApiEventHandlers[EventName],
+	): ButtonApi {
 		const emitter = this.controller.button.emitter;
 		emitter.on(eventName, handler);
 		return this;

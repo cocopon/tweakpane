@@ -1,5 +1,5 @@
 import {NumberUtil} from '../../misc/number-util';
-import {PointerHandler} from '../../misc/pointer-handler';
+import {PointerHandler, PointerHandlerEvents} from '../../misc/pointer-handler';
 import {PointerData} from '../../misc/pointer-handler';
 import {Color} from '../../model/color';
 import {Disposable} from '../../model/disposable';
@@ -49,15 +49,15 @@ export class SvPaletteInputController implements InputController<Color> {
 		this.view.update();
 	}
 
-	private onPointerDown_(_: PointerHandler, d: PointerData): void {
-		this.handlePointerEvent_(d);
+	private onPointerDown_(ev: PointerHandlerEvents['down']): void {
+		this.handlePointerEvent_(ev.data);
 	}
 
-	private onPointerMove_(_: PointerHandler, d: PointerData): void {
-		this.handlePointerEvent_(d);
+	private onPointerMove_(ev: PointerHandlerEvents['move']): void {
+		this.handlePointerEvent_(ev.data);
 	}
 
-	private onPointerUp_(_: PointerHandler, d: PointerData): void {
-		this.handlePointerEvent_(d);
+	private onPointerUp_(ev: PointerHandlerEvents['up']): void {
+		this.handlePointerEvent_(ev.data);
 	}
 }

@@ -1,5 +1,5 @@
-import {Emitter} from '../misc/emitter';
-import {InputValue} from '../model/input-value';
+import {Emitter, EventTypeMap} from '../misc/emitter';
+import {InputValue, InputValueEvents} from '../model/input-value';
 import {Target} from '../model/target';
 
 interface Config<In, Out> {
@@ -9,13 +9,21 @@ interface Config<In, Out> {
 	writer: (innerValue: In) => Out;
 }
 
-type EventName = 'change';
+/**
+ * @hidden
+ */
+export interface InputBindingEvents<In, Out> extends EventTypeMap {
+	change: {
+		rawValue: In;
+		sender: InputBinding<In, Out>;
+	};
+}
 
 /**
  * @hidden
  */
 export class InputBinding<In, Out> {
-	public readonly emitter: Emitter<EventName>;
+	public readonly emitter: Emitter<InputBindingEvents<In, Out>>;
 	public readonly target: Target;
 	public readonly value: InputValue<In>;
 	private reader_: (outerValue: unknown) => In;
@@ -50,8 +58,11 @@ export class InputBinding<In, Out> {
 		this.target.write(this.getValueToWrite(rawValue));
 	}
 
-	private onValueChange_(_: InputValue<In>, rawValue: In): void {
-		this.write_(rawValue);
-		this.emitter.emit('change', [this, rawValue]);
+	private onValueChange_(ev: InputValueEvents<In>['change']): void {
+		this.write_(ev.rawValue);
+		this.emitter.emit('change', {
+			rawValue: ev.rawValue,
+			sender: this,
+		});
 	}
 }

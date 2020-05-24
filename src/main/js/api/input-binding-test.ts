@@ -42,7 +42,7 @@ describe(InputBindingApi.name, () => {
 			foo: 0,
 		};
 		const api = createApi(new Target(PARAMS, 'foo'));
-		api.on('change', (value) => {
+		api.on('change', (value: unknown) => {
 			assert.strictEqual(value, 123);
 			done();
 		});

@@ -1,6 +1,6 @@
-import {Emitter} from '../misc/emitter';
-import {Ticker} from '../misc/ticker/ticker';
-import {MonitorValue} from '../model/monitor-value';
+import {Emitter, EventTypeMap} from '../misc/emitter';
+import {Ticker, TickerEvents} from '../misc/ticker/ticker';
+import {MonitorValue, MonitorValueEvents} from '../model/monitor-value';
 import {Target} from '../model/target';
 
 interface Config<In> {
@@ -10,13 +10,21 @@ interface Config<In> {
 	value: MonitorValue<In>;
 }
 
-type EventName = 'update';
+/**
+ * @hidden
+ */
+export interface MonitorBindingEvents<In> extends EventTypeMap {
+	update: {
+		rawValue: In;
+		sender: MonitorBinding<In>;
+	};
+}
 
 /**
  * @hidden
  */
 export class MonitorBinding<In> {
-	public readonly emitter: Emitter<EventName>;
+	public readonly emitter: Emitter<MonitorBindingEvents<In>>;
 	public readonly target: Target;
 	public readonly ticker: Ticker;
 	public readonly value: MonitorValue<In>;
@@ -50,11 +58,14 @@ export class MonitorBinding<In> {
 		}
 	}
 
-	private onTick_(_: Ticker): void {
+	private onTick_(_: TickerEvents['tick']): void {
 		this.read();
 	}
 
-	private onValueUpdate_(_: MonitorValue<In>, rawValue: In): void {
-		this.emitter.emit('update', [this, rawValue]);
+	private onValueUpdate_(ev: MonitorValueEvents<In>['update']): void {
+		this.emitter.emit('update', {
+			rawValue: ev.rawValue,
+			sender: this,
+		});
 	}
 }

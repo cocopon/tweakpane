@@ -7,7 +7,6 @@ import {MonitorBindingController} from '../controller/monitor-binding';
 import {RootController} from '../controller/root';
 import {SeparatorController} from '../controller/separator';
 import * as UiUtil from '../controller/ui-util';
-import {Handler} from '../misc/emitter';
 import {Disposable} from '../model/disposable';
 import {Target} from '../model/target';
 import {ButtonApi} from './button';
@@ -24,6 +23,12 @@ import {
 	MonitorParams,
 	SeparatorParams,
 } from './types';
+
+interface RootApiEventHandlers {
+	change: (value: unknown) => void;
+	fold: (expanded: boolean) => void;
+	update: (value: unknown) => void;
+}
 
 /**
  * The Tweakpane interface.
@@ -154,9 +159,9 @@ export class RootApi {
 	 * @param eventName The event name to listen.
 	 * @return The API object itself.
 	 */
-	public on(
-		eventName: EventHandlerAdapters.FolderEventName,
-		handler: Handler,
+	public on<EventName extends keyof RootApiEventHandlers>(
+		eventName: EventName,
+		handler: RootApiEventHandlers[EventName],
 	): RootApi {
 		EventHandlerAdapters.folder({
 			eventName: eventName,

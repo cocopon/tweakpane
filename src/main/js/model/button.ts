@@ -1,12 +1,19 @@
-import {Emitter} from '../misc/emitter';
+import {Emitter, EventTypeMap} from '../misc/emitter';
 
-type EventType = 'click';
+/**
+ * @hidden
+ */
+export interface ButtonEvents extends EventTypeMap {
+	click: {
+		sender: Button;
+	};
+}
 
 /**
  * @hidden
  */
 export class Button {
-	public readonly emitter: Emitter<EventType>;
+	public readonly emitter: Emitter<ButtonEvents>;
 	public readonly title: string;
 
 	constructor(title: string) {
@@ -15,6 +22,8 @@ export class Button {
 	}
 
 	public click(): void {
-		this.emitter.emit('click', [this]);
+		this.emitter.emit('click', {
+			sender: this,
+		});
 	}
 }

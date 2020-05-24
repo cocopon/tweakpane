@@ -3,7 +3,6 @@ import * as MonitorBindingControllerCreators from '../controller/binding-creator
 import {ButtonController} from '../controller/button';
 import {FolderController} from '../controller/folder';
 import {SeparatorController} from '../controller/separator';
-import {Handler} from '../misc/emitter';
 import {Disposable} from '../model/disposable';
 import {Target} from '../model/target';
 import {ButtonApi} from './button';
@@ -16,6 +15,12 @@ import {
 	MonitorParams,
 	SeparatorParams,
 } from './types';
+
+interface FolderApiEventHandlers {
+	change: (value: unknown) => void;
+	fold: (expanded: boolean) => void;
+	update: (value: unknown) => void;
+}
 
 export class FolderApi {
 	/**
@@ -86,9 +91,9 @@ export class FolderApi {
 		this.controller.uiControllerList.add(uc, params.index);
 	}
 
-	public on(
-		eventName: EventHandlerAdapters.FolderEventName,
-		handler: Handler,
+	public on<EventName extends keyof FolderApiEventHandlers>(
+		eventName: EventName,
+		handler: FolderApiEventHandlers[EventName],
 	): FolderApi {
 		EventHandlerAdapters.folder({
 			eventName: eventName,

@@ -20,7 +20,7 @@ describe(RootApi.name, () => {
 	it('should handle global input events', (done) => {
 		const api = createApi();
 		const obj = {foo: 1};
-		api.on('change', (v) => {
+		api.on('change', (v: unknown) => {
 			assert.strictEqual(v, 2);
 			done();
 		});
@@ -35,7 +35,7 @@ describe(RootApi.name, () => {
 	it('should handle global input events (nested)', (done) => {
 		const api = createApi();
 		const obj = {foo: 1};
-		api.on('change', (v) => {
+		api.on('change', (v: unknown) => {
 			assert.strictEqual(v, 2);
 			done();
 		});

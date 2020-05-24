@@ -1,13 +1,11 @@
 import {Emitter} from '../emitter';
-import {Ticker} from './ticker';
-
-type EventType = 'tick';
+import {Ticker, TickerEvents} from './ticker';
 
 /**
  * @hidden
  */
 export class IntervalTicker implements Ticker {
-	public readonly emitter: Emitter<EventType>;
+	public readonly emitter: Emitter<TickerEvents>;
 	private active_: boolean;
 	private doc_: Document;
 	private id_: number | null;
@@ -55,7 +53,9 @@ export class IntervalTicker implements Ticker {
 	}
 
 	private onTick_(): void {
-		this.emitter.emit('tick', [this]);
+		this.emitter.emit('tick', {
+			sender: this,
+		});
 	}
 
 	private onWindowBlur_(): void {

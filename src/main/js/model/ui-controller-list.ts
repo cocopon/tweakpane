@@ -1,17 +1,50 @@
 import {FolderController} from '../controller/folder';
 import {InputBindingController} from '../controller/input-binding';
 import {MonitorBindingController} from '../controller/monitor-binding';
-import {UiController, UiInputBinding, UiMonitorBinding} from '../controller/ui';
-import {Emitter} from '../misc/emitter';
-import {List} from './list';
+import {
+	UiController,
+	UiInputBinding,
+	UiInputBindingController,
+	UiMonitorBinding,
+	UiMonitorBindingController,
+} from '../controller/ui';
+import {Emitter, EventTypeMap} from '../misc/emitter';
+import {DisposableEvents} from './disposable';
+import {List, ListEvents} from './list';
 
-type EventName = 'add' | 'fold' | 'inputchange' | 'monitorupdate' | 'remove';
+/**
+ * @hidden
+ */
+export interface UiControllerListEvents extends EventTypeMap {
+	add: {
+		index: number;
+		uiController: UiController;
+		sender: UiControllerList;
+	};
+	fold: {
+		expanded: boolean;
+		sender: UiControllerList;
+	};
+	inputchange: {
+		inputBinding: UiInputBinding;
+		sender: UiControllerList;
+		value: unknown;
+	};
+	monitorupdate: {
+		monitorBinding: UiMonitorBinding;
+		sender: UiControllerList;
+		value: unknown;
+	};
+	remove: {
+		sender: UiControllerList;
+	};
+}
 
 /**
  * @hidden
  */
 export class UiControllerList {
-	public readonly emitter: Emitter<EventName>;
+	public readonly emitter: Emitter<UiControllerListEvents>;
 	private ucList_: List<UiController>;
 
 	constructor() {
@@ -39,16 +72,24 @@ export class UiControllerList {
 		this.ucList_.add(uc, opt_index);
 	}
 
-	private onListAdd_(_: List<UiController>, uc: UiController, index: number) {
-		this.emitter.emit('add', [this, uc, index]);
+	private onListAdd_(ev: ListEvents<UiController>['add']) {
+		const uc = ev.item;
+
+		this.emitter.emit('add', {
+			index: ev.index,
+			sender: this,
+			uiController: uc,
+		});
 		uc.disposable.emitter.on('dispose', this.onListItemDispose_);
 
 		if (uc instanceof InputBindingController) {
 			const emitter = uc.binding.emitter;
-			emitter.on('change', this.onInputChange_);
+			// TODO: Find more type-safe way
+			(emitter.on as any)('change', this.onInputChange_);
 		} else if (uc instanceof MonitorBindingController) {
-			const emitter = uc.binding.value.emitter;
-			emitter.on('update', this.onMonitorUpdate_);
+			const emitter = uc.binding.emitter;
+			// TODO: Find more type-safe way
+			(emitter.on as any)('update', this.onMonitorUpdate_);
 		} else if (uc instanceof FolderController) {
 			const emitter = uc.uiControllerList.emitter;
 			emitter.on('fold', this.onFolderFold_);
@@ -57,11 +98,13 @@ export class UiControllerList {
 		}
 	}
 
-	private onListRemove_(_: List<UiController>) {
-		this.emitter.emit('remove', [this]);
+	private onListRemove_(_: ListEvents<UiController>['remove']) {
+		this.emitter.emit('remove', {
+			sender: this,
+		});
 	}
 
-	private onListItemDispose_(_: UiController): void {
+	private onListItemDispose_(_: DisposableEvents['dispose']): void {
 		const disposedUcs = this.ucList_.items.filter((uc) => {
 			return uc.disposable.disposed;
 		});
@@ -70,34 +113,46 @@ export class UiControllerList {
 		});
 	}
 
-	private onInputChange_(inputBinding: UiInputBinding, value: unknown): void {
-		this.emitter.emit('inputchange', [this, inputBinding, value]);
+	private onInputChange_(
+		ev: UiInputBindingController['binding']['emitter']['typeMap']['change'],
+	): void {
+		this.emitter.emit('inputchange', {
+			inputBinding: ev.sender,
+			sender: this,
+			value: ev.rawValue,
+		});
 	}
 
 	private onMonitorUpdate_(
-		monitorBinding: UiMonitorBinding,
-		value: unknown,
+		ev: UiMonitorBindingController['binding']['emitter']['typeMap']['update'],
 	): void {
-		this.emitter.emit('monitorupdate', [this, monitorBinding, value]);
+		this.emitter.emit('monitorupdate', {
+			monitorBinding: ev.sender,
+			sender: this,
+			value: ev.rawValue,
+		});
 	}
 
-	private onFolderInputChange_(
-		_: UiControllerList,
-		inputBinding: UiInputBinding,
-		value: unknown,
-	) {
-		this.emitter.emit('inputchange', [this, inputBinding, value]);
+	private onFolderInputChange_(ev: UiControllerListEvents['inputchange']) {
+		this.emitter.emit('inputchange', {
+			inputBinding: ev.inputBinding,
+			sender: this,
+			value: ev.value,
+		});
 	}
 
-	private onFolderMonitorUpdate_(
-		_: UiControllerList,
-		monitorBinding: UiMonitorBinding,
-		value: unknown,
-	) {
-		this.emitter.emit('monitorupdate', [this, monitorBinding, value]);
+	private onFolderMonitorUpdate_(ev: UiControllerListEvents['monitorupdate']) {
+		this.emitter.emit('monitorupdate', {
+			monitorBinding: ev.monitorBinding,
+			sender: this,
+			value: ev.value,
+		});
 	}
 
-	private onFolderFold_() {
-		this.emitter.emit('fold', [this]);
+	private onFolderFold_(ev: UiControllerListEvents['fold']) {
+		this.emitter.emit('fold', {
+			expanded: ev.expanded,
+			sender: this,
+		});
 	}
 }

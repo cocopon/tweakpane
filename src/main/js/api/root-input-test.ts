@@ -97,7 +97,7 @@ describe(RootApi.name, () => {
 				const obj = {foo: params.propertyValue};
 				const bapi = api.addInput(obj, 'foo');
 
-				bapi.on('change', (value) => {
+				bapi.on('change', (value: unknown) => {
 					assert.strictEqual(value, expected);
 					done();
 				});
@@ -109,7 +109,7 @@ describe(RootApi.name, () => {
 				const obj = {foo: params.propertyValue};
 				const bapi = api.addInput(obj, 'foo');
 
-				api.on('change', (value) => {
+				api.on('change', (value: unknown) => {
 					assert.strictEqual(value, expected);
 					done();
 				});
