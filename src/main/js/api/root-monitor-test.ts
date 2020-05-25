@@ -61,4 +61,60 @@ describe(RootApi.name, () => {
 			},
 		);
 	});
+
+	[
+		{
+			expected: 456,
+			params: {
+				propertyValue: 123,
+				newInternalValue: 456,
+			},
+		},
+		{
+			expected: 'changed',
+			params: {
+				propertyValue: 'text',
+				newInternalValue: 'changed',
+			},
+		},
+		{
+			expected: true,
+			params: {
+				propertyValue: false,
+				newInternalValue: true,
+			},
+		},
+	].forEach(({expected, params}) => {
+		context(`when ${JSON.stringify(params)}`, () => {
+			it('should pass right first argument for update event (local)', (done) => {
+				const api = createApi();
+				const obj = {foo: params.propertyValue};
+				const bapi = api.addMonitor(obj, 'foo', {
+					interval: 1,
+				});
+				bapi.on('update', (value: unknown) => {
+					assert.strictEqual(value, expected);
+					bapi.dispose();
+					done();
+				});
+
+				obj.foo = params.newInternalValue;
+			});
+
+			it('should pass right first argument for update event (global)', (done) => {
+				const api = createApi();
+				const obj = {foo: params.propertyValue};
+				const bapi = api.addMonitor(obj, 'foo', {
+					interval: 1,
+				});
+				api.on('update', (value: unknown) => {
+					assert.strictEqual(value, expected);
+					bapi.dispose();
+					done();
+				});
+
+				obj.foo = params.newInternalValue;
+			});
+		});
+	});
 });
