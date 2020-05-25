@@ -90,6 +90,13 @@ describe(RootApi.name, () => {
 				newInternalValue: new Color([0x22, 0x44, 0x88], 'rgb'),
 			},
 		},
+		{
+			expected: 'rgb(0, 127, 255)',
+			params: {
+				propertyValue: 'rgb(10, 20, 30)',
+				newInternalValue: new Color([0, 127, 255], 'rgb'),
+			},
+		},
 	].forEach(({expected, params}) => {
 		context(`when ${JSON.stringify(params)}`, () => {
 			it('should pass right first argument for change event (local)', (done) => {
@@ -106,13 +113,13 @@ describe(RootApi.name, () => {
 
 			it('should pass right first argument for change event (global)', (done) => {
 				const api = createApi();
-				const obj = {foo: params.propertyValue};
-				const bapi = api.addInput(obj, 'foo');
-
 				api.on('change', (value: unknown) => {
 					assert.strictEqual(value, expected);
 					done();
 				});
+
+				const obj = {foo: params.propertyValue};
+				const bapi = api.addInput(obj, 'foo');
 				bapi.controller.binding.value.rawValue = params.newInternalValue;
 			});
 		});

@@ -167,6 +167,13 @@ describe(FolderApi.name, () => {
 				newInternalValue: new Color([0x22, 0x44, 0x88], 'rgb'),
 			},
 		},
+		{
+			expected: 'rgb(0, 127, 255)',
+			params: {
+				propertyValue: 'rgb(10, 20, 30)',
+				newInternalValue: new Color([0, 127, 255], 'rgb'),
+			},
+		},
 	].forEach(({expected, params}) => {
 		context(`when ${JSON.stringify(params)}`, () => {
 			it('should pass right first argument for change event (local)', (done) => {
