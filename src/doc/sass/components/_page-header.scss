@@ -51,10 +51,11 @@ $prefix: 'common';
 		}
 	}
 	&_title {
-		font-size: 2rem;
+		font-size: 3rem;
 		font-weight: bold;
 
 		@include nonwide() {
+			font-size: 2rem;
 			text-align: center;
 		}
 	}
