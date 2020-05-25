@@ -1,20 +1,35 @@
-export type Handler = (...args: any[]) => void;
+type Handler<E> = (ev: E) => void;
 
-interface Observer {
-	handler: Handler;
+interface Observer<E> {
+	handler: Handler<E>;
 }
 
 /**
  * @hidden
  */
-export class Emitter<EventType extends string> {
-	private observers_: {[eventName in EventType]?: Observer[]};
+export interface EventTypeMap {
+	[key: string]: {
+		[key: string]: any;
+	};
+}
+
+/**
+ * @hidden
+ */
+export class Emitter<E extends EventTypeMap> {
+	// Only for type inference
+	public readonly typeMap: E;
+
+	private observers_: {[EventName in keyof E]?: Observer<E[EventName]>[]};
 
 	constructor() {
 		this.observers_ = {};
 	}
 
-	public on(eventName: EventType, handler: Handler): Emitter<EventType> {
+	public on<EventName extends keyof E>(
+		eventName: EventName,
+		handler: Handler<E[EventName]>,
+	): Emitter<E> {
 		let observers = this.observers_[eventName];
 		if (!observers) {
 			observers = this.observers_[eventName] = [];
@@ -27,25 +42,32 @@ export class Emitter<EventType extends string> {
 		return this;
 	}
 
-	public off(eventName: EventType, handler: Handler): Emitter<EventType> {
+	public off<EventName extends keyof E>(
+		eventName: EventName,
+		handler: Handler<E[EventName]>,
+	): Emitter<E> {
 		const observers = this.observers_[eventName];
 		if (observers) {
-			this.observers_[eventName] = observers.filter((observer: Observer) => {
-				return observer.handler !== handler;
-			});
+			this.observers_[eventName] = observers.filter(
+				(observer: Observer<E[EventName]>) => {
+					return observer.handler !== handler;
+				},
+			);
 		}
 		return this;
 	}
 
-	public emit(eventName: EventType, opt_args?: any[]): void {
+	public emit<EventName extends keyof E>(
+		eventName: EventName,
+		event: E[EventName],
+	): void {
 		const observers = this.observers_[eventName];
 		if (!observers) {
 			return;
 		}
 
 		observers.forEach((observer) => {
-			const handlerArgs = opt_args || [];
-			observer.handler(...handlerArgs);
+			observer.handler(event);
 		});
 	}
 }

@@ -1,12 +1,20 @@
-import {Emitter} from '../misc/emitter';
+import {Emitter, EventTypeMap} from '../misc/emitter';
 
-type EventType = 'change';
+/**
+ * @hidden
+ */
+export interface GraphCursorEvents extends EventTypeMap {
+	change: {
+		index: number;
+		sender: GraphCursor;
+	};
+}
 
 /**
  * @hidden
  */
 export class GraphCursor {
-	public readonly emitter: Emitter<EventType>;
+	public readonly emitter: Emitter<GraphCursorEvents>;
 	private index_: number;
 
 	constructor() {
@@ -22,7 +30,10 @@ export class GraphCursor {
 		const changed = this.index_ !== index;
 		if (changed) {
 			this.index_ = index;
-			this.emitter.emit('change', [this, index]);
+			this.emitter.emit('change', {
+				index: index,
+				sender: this,
+			});
 		}
 	}
 }

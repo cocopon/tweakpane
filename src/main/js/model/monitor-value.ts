@@ -1,12 +1,20 @@
-import {Emitter} from '../misc/emitter';
+import {Emitter, EventTypeMap} from '../misc/emitter';
 
-type EventType = 'update';
+/**
+ * @hidden
+ */
+export interface MonitorValueEvents<T> extends EventTypeMap {
+	update: {
+		rawValue: T;
+		sender: MonitorValue<T>;
+	};
+}
 
 /**
  * @hidden
  */
 export class MonitorValue<T> {
-	public readonly emitter: Emitter<EventType>;
+	public readonly emitter: Emitter<MonitorValueEvents<T>>;
 	private rawValues_: T[];
 	private totalCount_: number;
 
@@ -31,6 +39,9 @@ export class MonitorValue<T> {
 			this.rawValues_.splice(0, this.rawValues_.length - this.totalCount_);
 		}
 
-		this.emitter.emit('update', [this, rawValue]);
+		this.emitter.emit('update', {
+			rawValue: rawValue,
+			sender: this,
+		});
 	}
 }

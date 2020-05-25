@@ -1,8 +1,9 @@
 import {MonitorBindingController} from '../controller/monitor-binding';
-import {Handler} from '../misc/emitter';
 import * as EventHandlerAdapters from './event-handler-adapters';
 
-type EventName = 'update';
+interface MonitorBindingApiEventHandlers {
+	update: (value: unknown) => void;
+}
 
 /**
  * The API for the monitor binding between the parameter and the pane.
@@ -24,7 +25,10 @@ export class MonitorBindingApi<In> {
 		this.controller.controller.disposable.dispose();
 	}
 
-	public on(eventName: EventName, handler: Handler): MonitorBindingApi<In> {
+	public on<EventName extends keyof MonitorBindingApiEventHandlers>(
+		eventName: EventName,
+		handler: MonitorBindingApiEventHandlers[EventName],
+	): MonitorBindingApi<In> {
 		EventHandlerAdapters.monitor({
 			binding: this.controller.binding,
 			eventName: eventName,

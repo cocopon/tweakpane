@@ -1,12 +1,19 @@
-import {Emitter} from '../misc/emitter';
+import {Emitter, EventTypeMap} from '../misc/emitter';
 
-type EventType = 'dispose';
+/**
+ * @hidden
+ */
+export interface DisposableEvents extends EventTypeMap {
+	dispose: {
+		sender: Disposable;
+	};
+}
 
 /**
  * @hidden
  */
 export class Disposable {
-	public readonly emitter: Emitter<EventType>;
+	public readonly emitter: Emitter<DisposableEvents>;
 	private disposed_: boolean;
 
 	constructor() {
@@ -24,7 +31,9 @@ export class Disposable {
 		}
 
 		this.disposed_ = true;
-		this.emitter.emit('dispose', [this]);
+		this.emitter.emit('dispose', {
+			sender: this,
+		});
 		return true;
 	}
 }

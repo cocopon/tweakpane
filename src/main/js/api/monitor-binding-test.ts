@@ -41,7 +41,7 @@ describe(MonitorBindingApi.name, () => {
 			foo: 0,
 		};
 		const api = createApi(new Target(PARAMS, 'foo'));
-		api.on('update', (value) => {
+		api.on('update', (value: unknown) => {
 			assert.strictEqual(value, 123);
 			done();
 		});

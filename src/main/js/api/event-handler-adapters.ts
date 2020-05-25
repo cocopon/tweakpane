@@ -1,9 +1,10 @@
-import {InputBinding} from '../binding/input';
-import {MonitorBinding} from '../binding/monitor';
-import {UiMonitorBinding} from '../controller/ui';
-import {Handler} from '../misc/emitter';
+import {InputBinding, InputBindingEvents} from '../binding/input';
+import {MonitorBinding, MonitorBindingEvents} from '../binding/monitor';
 import {Folder} from '../model/folder';
-import {UiControllerList} from '../model/ui-controller-list';
+import {
+	UiControllerList,
+	UiControllerListEvents,
+} from '../model/ui-controller-list';
 
 export type InputEventName = 'change';
 export type MonitorEventName = 'update';
@@ -19,12 +20,12 @@ export function input<In, Out>({
 }: {
 	binding: InputBinding<In, Out>;
 	eventName: InputEventName;
-	handler: Handler;
+	handler: (value: unknown) => void;
 }) {
 	if (eventName === 'change') {
 		const emitter = binding.emitter;
-		emitter.on('change', (inputBinding: InputBinding<In, Out>, value: any) => {
-			handler(inputBinding.getValueToWrite(value));
+		emitter.on('change', (ev: InputBindingEvents<In, Out>['change']) => {
+			handler(ev.sender.getValueToWrite(ev.rawValue));
 		});
 	}
 }
@@ -39,12 +40,12 @@ export function monitor<In>({
 }: {
 	binding: MonitorBinding<In>;
 	eventName: MonitorEventName;
-	handler: Handler;
+	handler: (value: unknown) => void;
 }) {
 	if (eventName === 'update') {
 		const emitter = binding.emitter;
-		emitter.on('update', (monitorBinding: MonitorBinding<In>) => {
-			handler(monitorBinding.target.read());
+		emitter.on('update', (ev: MonitorBindingEvents<In>['update']) => {
+			handler(ev.sender.target.read());
 		});
 	}
 }
@@ -60,24 +61,22 @@ export function folder({
 }: {
 	eventName: FolderEventName;
 	folder: Folder | null;
-	handler: Handler;
+	handler: (value?: unknown) => void;
 	uiControllerList: UiControllerList;
 }) {
 	if (eventName === 'change') {
 		const emitter = uiControllerList.emitter;
-		emitter.on(
-			'inputchange',
-			(_: UiControllerList, inputBinding: any, value: any) => {
-				handler(inputBinding.getValueToWrite(value));
-			},
-		);
+		emitter.on('inputchange', (ev: UiControllerListEvents['inputchange']) => {
+			// TODO: Find more type-safe way
+			handler((ev.inputBinding.getValueToWrite as any)(ev.value));
+		});
 	}
 	if (eventName === 'update') {
 		const emitter = uiControllerList.emitter;
 		emitter.on(
 			'monitorupdate',
-			(_: UiControllerList, monitorBinding: UiMonitorBinding) => {
-				handler(monitorBinding.target.read());
+			(ev: UiControllerListEvents['monitorupdate']) => {
+				handler(ev.monitorBinding.target.read());
 			},
 		);
 	}

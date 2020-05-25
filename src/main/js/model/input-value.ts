@@ -1,7 +1,15 @@
 import {Constraint} from '../constraint/constraint';
-import {Emitter} from '../misc/emitter';
+import {Emitter, EventTypeMap} from '../misc/emitter';
 
-type EventType = 'change';
+/**
+ * @hidden
+ */
+export interface InputValueEvents<In> extends EventTypeMap {
+	change: {
+		sender: InputValue<In>;
+		rawValue: In;
+	};
+}
 
 /**
  * @hidden
@@ -11,7 +19,7 @@ export class InputValue<T> {
 		return v1 === v2;
 	}
 
-	public readonly emitter: Emitter<EventType>;
+	public readonly emitter: Emitter<InputValueEvents<T>>;
 	private constraint_: Constraint<T> | undefined;
 	private rawValue_: T;
 
@@ -37,7 +45,10 @@ export class InputValue<T> {
 		const changed = !InputValue.equalsValue(this.rawValue_, constrainedValue);
 		if (changed) {
 			this.rawValue_ = constrainedValue;
-			this.emitter.emit('change', [this, constrainedValue]);
+			this.emitter.emit('change', {
+				rawValue: constrainedValue,
+				sender: this,
+			});
 		}
 	}
 }

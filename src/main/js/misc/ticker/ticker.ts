@@ -1,10 +1,19 @@
-import {Emitter} from '../emitter';
+import {Emitter, EventTypeMap} from '../emitter';
+
+/**
+ * @hidden
+ */
+export interface TickerEvents extends EventTypeMap {
+	tick: {
+		sender: Ticker;
+	};
+}
 
 /**
  * @hidden
  */
 export interface Ticker {
-	readonly emitter: Emitter<'tick'>;
+	readonly emitter: Emitter<TickerEvents>;
 
 	dispose(): void;
 }

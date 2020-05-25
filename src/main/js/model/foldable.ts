@@ -1,12 +1,19 @@
-import {Emitter} from '../misc/emitter';
+import {Emitter, EventTypeMap} from '../misc/emitter';
 
-type EventType = 'change';
+/**
+ * @hidden
+ */
+export interface FoldableEvents extends EventTypeMap {
+	change: {
+		sender: Foldable;
+	};
+}
 
 /**
  * @hidden
  */
 export class Foldable {
-	public readonly emitter: Emitter<EventType>;
+	public readonly emitter: Emitter<FoldableEvents>;
 	private expanded_: boolean;
 
 	constructor() {
@@ -22,7 +29,9 @@ export class Foldable {
 		const changed = this.expanded_ !== expanded;
 		if (changed) {
 			this.expanded_ = expanded;
-			this.emitter.emit('change', [this]);
+			this.emitter.emit('change', {
+				sender: this,
+			});
 		}
 	}
 }

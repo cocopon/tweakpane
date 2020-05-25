@@ -1,9 +1,7 @@
 import * as ColorModel from '../misc/color-model';
-import {Emitter} from '../misc/emitter';
 import {NumberUtil} from '../misc/number-util';
 import {TypeUtil} from '../misc/type-util';
 
-type EventType = 'change';
 type ColorMode = 'hsv' | 'rgb';
 
 export interface RgbColorObject {
@@ -60,13 +58,10 @@ export class Color {
 		);
 	}
 
-	public readonly emitter: Emitter<EventType>;
 	private comps_: [number, number, number];
 	private mode_: ColorMode;
 
 	constructor(comps: [number, number, number], mode: ColorMode) {
-		this.emitter = new Emitter();
-
 		this.mode_ = mode;
 		this.comps_ = CONSTRAINT_MAP[mode](comps);
 	}

@@ -1,8 +1,9 @@
 import {InputBindingController} from '../controller/input-binding';
-import {Handler} from '../misc/emitter';
 import * as HandlerAdapters from './event-handler-adapters';
 
-type EventName = 'change';
+interface InputBindingApiEventHandlers {
+	change: (value: unknown) => void;
+}
 
 /**
  * The API for the input binding between the parameter and the pane.
@@ -22,7 +23,10 @@ export class InputBindingApi<In, Out> {
 		this.controller = bindingController;
 	}
 
-	public on(eventName: EventName, handler: Handler): InputBindingApi<In, Out> {
+	public on<EventName extends keyof InputBindingApiEventHandlers>(
+		eventName: EventName,
+		handler: InputBindingApiEventHandlers[EventName],
+	): InputBindingApi<In, Out> {
 		HandlerAdapters.input({
 			binding: this.controller.binding,
 			eventName: eventName,

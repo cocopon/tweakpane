@@ -1,12 +1,19 @@
-import {Emitter} from '../misc/emitter';
+import {Emitter, EventTypeMap} from '../misc/emitter';
 
-type EventType = 'change';
+/**
+ * @hidden
+ */
+export interface FolderEvents extends EventTypeMap {
+	change: {
+		sender: Folder;
+	};
+}
 
 /**
  * @hidden
  */
 export class Folder {
-	public readonly emitter: Emitter<EventType>;
+	public readonly emitter: Emitter<FolderEvents>;
 	public readonly title: string;
 	private expandedHeight_: number | null;
 	private expanded_: boolean;
@@ -26,7 +33,9 @@ export class Folder {
 		const changed = this.expanded_ !== expanded;
 		if (changed) {
 			this.expanded_ = expanded;
-			this.emitter.emit('change', [this]);
+			this.emitter.emit('change', {
+				sender: this,
+			});
 		}
 	}
 
@@ -38,7 +47,9 @@ export class Folder {
 		const changed = this.expandedHeight_ !== expandedHeight;
 		if (changed) {
 			this.expandedHeight_ = expandedHeight;
-			this.emitter.emit('change', [this]);
+			this.emitter.emit('change', {
+				sender: this,
+			});
 		}
 	}
 }
