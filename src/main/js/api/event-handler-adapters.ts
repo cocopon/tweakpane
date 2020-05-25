@@ -6,9 +6,9 @@ import {
 	UiControllerListEvents,
 } from '../model/ui-controller-list';
 
-export type InputEventName = 'change';
-export type MonitorEventName = 'update';
-export type FolderEventName = InputEventName | MonitorEventName | 'fold';
+type InputEventName = 'change';
+type MonitorEventName = 'update';
+type FolderEventName = InputEventName | MonitorEventName | 'fold';
 
 /**
  * @hidden
