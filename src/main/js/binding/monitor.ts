@@ -1,3 +1,4 @@
+import {Emitter} from '../misc/emitter';
 import {Ticker} from '../misc/ticker/ticker';
 import {MonitorValue} from '../model/monitor-value';
 import {Target} from '../model/target';
@@ -9,10 +10,13 @@ interface Config<In> {
 	value: MonitorValue<In>;
 }
 
+type EventName = 'update';
+
 /**
  * @hidden
  */
 export class MonitorBinding<In> {
+	public readonly emitter: Emitter<EventName>;
 	public readonly target: Target;
 	public readonly ticker: Ticker;
 	public readonly value: MonitorValue<In>;
@@ -20,10 +24,14 @@ export class MonitorBinding<In> {
 
 	constructor(config: Config<In>) {
 		this.onTick_ = this.onTick_.bind(this);
+		this.onValueUpdate_ = this.onValueUpdate_.bind(this);
 
 		this.reader_ = config.reader;
 		this.target = config.target;
+		this.emitter = new Emitter();
+
 		this.value = config.value;
+		this.value.emitter.on('update', this.onValueUpdate_);
 
 		this.ticker = config.ticker;
 		this.ticker.emitter.on('tick', this.onTick_);
@@ -42,7 +50,11 @@ export class MonitorBinding<In> {
 		}
 	}
 
-	private onTick_(): void {
+	private onTick_(_: Ticker): void {
 		this.read();
+	}
+
+	private onValueUpdate_(_: MonitorValue<In>, rawValue: In): void {
+		this.emitter.emit('update', [this, rawValue]);
 	}
 }

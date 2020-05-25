@@ -1,12 +1,9 @@
 import * as DomUtil from '../misc/dom-util';
-import {Emitter} from '../misc/emitter';
 import {TypeUtil} from '../misc/type-util';
 import {Disposable} from '../model/disposable';
 import {Folder} from '../model/folder';
 import {UiControllerList} from '../model/ui-controller-list';
 import {FolderView} from '../view/folder';
-import {InputBindingController} from './input-binding';
-import {MonitorBindingController} from './monitor-binding';
 import {UiController} from './ui';
 
 interface Config {
@@ -18,36 +15,23 @@ interface Config {
 /**
  * @hidden
  */
-export type EventName = 'fold' | 'inputchange' | 'monitorupdate';
-
-/**
- * @hidden
- */
 export class FolderController {
 	public readonly disposable: Disposable;
-	public readonly emitter: Emitter<EventName>;
 	public readonly folder: Folder;
 	public readonly view: FolderView;
 	private doc_: Document;
 	private ucList_: UiControllerList;
 
 	constructor(document: Document, config: Config) {
-		this.onFolderChange_ = this.onFolderChange_.bind(this);
-		this.onInputChange_ = this.onInputChange_.bind(this);
-		this.onMonitorUpdate_ = this.onMonitorUpdate_.bind(this);
-
 		this.onTitleClick_ = this.onTitleClick_.bind(this);
 		this.onUiControllerListAdd_ = this.onUiControllerListAdd_.bind(this);
 		this.onUiControllerListRemove_ = this.onUiControllerListRemove_.bind(this);
-
-		this.emitter = new Emitter();
 
 		this.disposable = config.disposable;
 		this.folder = new Folder(
 			config.title,
 			TypeUtil.getOrDefault<boolean>(config.expanded, true),
 		);
-		this.folder.emitter.on('change', this.onFolderChange_);
 
 		this.ucList_ = new UiControllerList();
 		this.ucList_.emitter.on('add', this.onUiControllerListAdd_);
@@ -97,15 +81,11 @@ export class FolderController {
 		this.folder.expanded = !this.folder.expanded;
 	}
 
-	private onUiControllerListAdd_(uc: UiController, index: number) {
-		if (uc instanceof InputBindingController) {
-			const emitter = uc.binding.value.emitter;
-			emitter.on('change', this.onInputChange_);
-		} else if (uc instanceof MonitorBindingController) {
-			const emitter = uc.binding.value.emitter;
-			emitter.on('update', this.onMonitorUpdate_);
-		}
-
+	private onUiControllerListAdd_(
+		_: UiControllerList,
+		uc: UiController,
+		index: number,
+	) {
 		this.view.containerElement.insertBefore(
 			uc.view.element,
 			this.view.containerElement.children[index],
@@ -113,19 +93,7 @@ export class FolderController {
 		this.folder.expandedHeight = this.computeExpandedHeight_();
 	}
 
-	private onUiControllerListRemove_() {
+	private onUiControllerListRemove_(_: UiControllerList) {
 		this.folder.expandedHeight = this.computeExpandedHeight_();
-	}
-
-	private onInputChange_(value: unknown): void {
-		this.emitter.emit('inputchange', [value]);
-	}
-
-	private onMonitorUpdate_(value: unknown): void {
-		this.emitter.emit('monitorupdate', [value]);
-	}
-
-	private onFolderChange_(): void {
-		this.emitter.emit('fold');
 	}
 }

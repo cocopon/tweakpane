@@ -24,7 +24,7 @@ export class Disposable {
 		}
 
 		this.disposed_ = true;
-		this.emitter.emit('dispose');
+		this.emitter.emit('dispose', [this]);
 		return true;
 	}
 }

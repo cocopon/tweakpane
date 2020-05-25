@@ -82,14 +82,14 @@ describe(RootApi.name, () => {
 		},
 	].forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
-			it(`should be hoge ${testCase.expected.inputValue}`, () => {
+			it(`should have right input value ${testCase.expected.inputValue}`, () => {
 				const api = createApi();
 				const obj = {foo: testCase.params.input};
 				const bapi = api.addInput(obj, 'foo');
 
 				const view = bapi.controller.controller.view;
 				if (!(view instanceof ColorSwatchTextInputView)) {
-					throw new Error('hoge');
+					throw new Error('Unexpected view');
 				}
 
 				const inputElem = view.textInputView.inputElement;

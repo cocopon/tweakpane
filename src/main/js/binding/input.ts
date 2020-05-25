@@ -1,3 +1,4 @@
+import {Emitter} from '../misc/emitter';
 import {InputValue} from '../model/input-value';
 import {Target} from '../model/target';
 
@@ -8,10 +9,13 @@ interface Config<In, Out> {
 	writer: (innerValue: In) => Out;
 }
 
+type EventName = 'change';
+
 /**
  * @hidden
  */
 export class InputBinding<In, Out> {
+	public readonly emitter: Emitter<EventName>;
 	public readonly target: Target;
 	public readonly value: InputValue<In>;
 	private reader_: (outerValue: unknown) => In;
@@ -22,6 +26,7 @@ export class InputBinding<In, Out> {
 
 		this.reader_ = config.reader;
 		this.writer_ = config.writer;
+		this.emitter = new Emitter();
 
 		this.value = config.value;
 		this.value.emitter.on('change', this.onValueChange_);
@@ -37,12 +42,16 @@ export class InputBinding<In, Out> {
 		}
 	}
 
-	public write_(rawValue: In): void {
-		const value = this.writer_(rawValue);
-		this.target.write(value);
+	public getValueToWrite(rawValue: In): Out {
+		return this.writer_(rawValue);
 	}
 
-	private onValueChange_(rawValue: In): void {
+	public write_(rawValue: In): void {
+		this.target.write(this.getValueToWrite(rawValue));
+	}
+
+	private onValueChange_(_: InputValue<In>, rawValue: In): void {
 		this.write_(rawValue);
+		this.emitter.emit('change', [this, rawValue]);
 	}
 }

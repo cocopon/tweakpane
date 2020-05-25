@@ -2,7 +2,7 @@ import {JSDOM} from 'jsdom';
 
 export const TestUtil = {
 	createWindow: (): Window => {
-		return new JSDOM('').window;
+		return new JSDOM('').window as any;
 	},
 
 	createEvent: (win: Window, type: string, options?: object): Event => {

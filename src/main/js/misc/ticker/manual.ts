@@ -18,6 +18,6 @@ export class ManualTicker implements Ticker {
 	}
 
 	public tick(): void {
-		this.emitter.emit('tick');
+		this.emitter.emit('tick', [this]);
 	}
 }

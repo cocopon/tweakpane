@@ -21,7 +21,7 @@ export class List<T> {
 	public add(item: T, opt_index?: number): void {
 		const index = opt_index !== undefined ? opt_index : this.items_.length;
 		this.items_.splice(index, 0, item);
-		this.emitter.emit('add', [item, index]);
+		this.emitter.emit('add', [this, item, index]);
 	}
 
 	public remove(item: T): void {
@@ -31,6 +31,6 @@ export class List<T> {
 		}
 
 		this.items_.splice(index, 1);
-		this.emitter.emit('remove');
+		this.emitter.emit('remove', [this]);
 	}
 }

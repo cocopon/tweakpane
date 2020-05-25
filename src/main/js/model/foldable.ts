@@ -22,7 +22,7 @@ export class Foldable {
 		const changed = this.expanded_ !== expanded;
 		if (changed) {
 			this.expanded_ = expanded;
-			this.emitter.emit('change');
+			this.emitter.emit('change', [this]);
 		}
 	}
 }
