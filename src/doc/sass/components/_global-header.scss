@@ -68,7 +68,7 @@ $prefix: 'common';
 			}
 		}
 		&#{&}-active a {
-			font-weight: bold;
+			font-weight: 500;
 
 			@include wide() {
 				background-color: $page-header-bg-color;

@@ -3,11 +3,11 @@ $prefix: 'common';
 .#{$prefix}-button {
 	appearance: none;
 	background-color: $button-bg-color;
-	border-radius: 6px;
+	border-radius: 4px;
 	box-shadow: 0 2px 4px rgba(black, 0.05);
 	color: $button-fg-color;
 	display: inline-block;
-	font-weight: bold;
+	font-weight: 500;
 	height: 32px;
 	line-height: 32px;
 	padding-left: 1em;

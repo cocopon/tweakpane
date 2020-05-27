@@ -54,7 +54,10 @@ export const MonitorRoute = {
 					min: -1,
 					view: 'graph',
 				});
-				nf.addMonitor(SHARED_PARAMS, 'positive', {
+				const bf = pane.addFolder({
+					title: 'Boolean',
+				});
+				bf.addMonitor(SHARED_PARAMS, 'positive', {
 					label: 'positive',
 				});
 			},

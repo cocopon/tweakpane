@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700');
-@import url('https://fonts.googleapis.com/css?family=Rubik:400,700');
+@import url('https://fonts.googleapis.com/css?family=Rubik:400,500,700');
 @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,700');
 
 // Font
@@ -14,7 +14,9 @@ $sp-width: 480px;
 
 // Base
 $base-hue: 230;
-$base-fg-color: hsl($base-hue, 7%, 30%);
+$base-bg-color: white;
+$base-fg-color: hsl($base-hue, 7%, 35%);
+$base-heading-color: hsl($base-hue, 7%, 20%);
 
 // Document
 $document-a-color: hsl($base-hue - 20, 70%, 50%);
@@ -29,18 +31,17 @@ $global-header-fg-color: inherit;
 $global-header-height: 64px;
 
 // Button
-$button-bg-color: hsl($base-hue - 20, 20%, 60%);
-$button-bg-color: hsl($base-hue - 20, 20%, 60%);
+$button-bg-color: hsl($base-hue, 8%, 60%);
 $button-fg-color: $global-footer-fg-color;
-$button-active-bg-color: hsl($base-hue - 20, 30%, 70%);
-$button-hover-bg-color: hsl($base-hue - 20, 25%, 65%);
+$button-active-bg-color: lighten($button-bg-color, 10%);
+$button-hover-bg-color: lighten($button-bg-color, 5%);
 
 // Z-index
 $z-index-themes-mask: 1001;
 $z-index-global-header: 1002;
 
 // Misc
-$code-block-bg-color: hsl($base-hue, 7%, 90%);
+$code-block-bg-color: hsl($base-hue, 7%, 93%);
 $code-block-title-bg-color: hsl($base-hue, 7%, 40%);
 $code-block-title-fg-color: hsl($base-hue, 7%, 85%);
 $demo-result-bg-color: $document-code-bg-color;
@@ -135,7 +136,9 @@ $support-bg-color: hsl(30deg, 70%, 90%);
 		code {
 			background-color: $document-code-bg-color;
 			color: $document-code-fg-color;
-			font-weight: bold;
+			font-weight: 500;
+			padding-left: 0.25em;
+			padding-right: 0.25em;
 		}
 	}
 	a {

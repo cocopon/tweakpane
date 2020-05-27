@@ -27,9 +27,7 @@
 <div class="common-main_mediaLayout">
 	<div class="common-demo">
 		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane({
-  container,
-});
+			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
 
 const f1 = pane.<strong>addFolder</strong>({
   title: 'Basic',
@@ -57,11 +55,14 @@ f2.addInput(PARAMS, 'randomness');</code></pre></div>
 	<div class="common-demo">
 		<div class="common-demo_codeLayout">
 			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
+let count = 0;
 
 const btn = pane.<strong>addButton</strong>({
   title: 'Increment',
-}).<strong>on</strong>('click', (value) =&gt; {
-  console.log(value);
+});
+btn.<strong>on</strong>('click', () =&gt; {
+  count += 1;
+  console.log(count);
 });
 </code></pre></div>
 		</div>
@@ -250,7 +251,7 @@ pane.addInput(PARAMS2, 'speed', {
 	<div class="common-demo">
 		<div class="common-demo_codeLayout">
 			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane({
-  title: 'Parameters',
+  <strong>title</strong>: 'Parameters',
 });
 </code></pre></div>
 		</div>
@@ -268,7 +269,7 @@ pane.addInput(PARAMS2, 'speed', {
 	<div class="common-demo">
 		<div class="common-demo_codeLayout">
 			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane({
-  container: document.getElementById('someContainer'),
+  <strong>container</strong>: document.getElementById('someContainer'),
 });
 </code></pre></div>
 		</div>
@@ -284,7 +285,7 @@ pane.addInput(PARAMS2, 'speed', {
 		<div class="common-demo_codeLayout">
 			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
 pane.addInput(PARAMS, 'initSpd', {
-  label: 'Initial speed',
+  <strong>label</strong>: 'Initial speed',
 });
 </code></pre></div>
 		</div>
@@ -305,7 +306,7 @@ pane.addInput(PARAMS, 'initSpd', {
 // pane.addInput(PARAMS, ...);
 // pane.addInput(PARAMS, ...);
 
-pane.refresh();
+pane.<strong>refresh</strong>();
 </code></pre></div>
 		</div>
 	</div>
@@ -326,7 +327,7 @@ pane.refresh();
 pane.addButton({title: 'Run'});
 pane.addButton({title: 'Stop'});
 pane.addButton({
-  index: 1,
+  <strong>index</strong>: 1,
   title: '**Reset**',
 });
 </code></pre></div>

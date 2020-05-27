@@ -143,7 +143,7 @@ ${indentedProps}
 			},
 
 			button: (container) => {
-				const PARAMS = {count: 0};
+				const PARAMS = {count: '0'};
 				const pane = new Tweakpane({
 					container: container,
 				});
@@ -152,10 +152,13 @@ ${indentedProps}
 						title: 'Increment',
 					})
 					.on('click', () => {
-						PARAMS.count += 1;
+						PARAMS.count = String(parseInt(PARAMS.count, 10) + 1);
+						pane.refresh();
 					});
 				pane.addSeparator();
-				pane.addMonitor(PARAMS, 'count');
+				pane.addMonitor(PARAMS, 'count', {
+					interval: 0,
+				});
 			},
 
 			separator: (container) => {

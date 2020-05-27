@@ -5,10 +5,17 @@ html {
 	font-family: $font-family;
 	font-size: 16px;
 }
-
+h1, h2, h3, h4, h5, h6 {
+	color: $base-heading-color;
+	font-weight: 500;
+	letter-spacing: 0.01em;
+}
 code {
 	font-family: $font-family-mono;
 }
 pre {
 	font-family: $font-family-mono;
+}
+strong {
+	color: $base-heading-color;
 }
