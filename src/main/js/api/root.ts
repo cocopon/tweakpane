@@ -16,6 +16,7 @@ import {InputBindingApi} from './input-binding';
 import {MonitorBindingApi} from './monitor-binding';
 import * as Preset from './preset';
 import {PresetObject} from './preset';
+import {SeparatorApi} from './separator';
 import {
 	ButtonParams,
 	FolderParams,
@@ -117,12 +118,13 @@ export class RootApi {
 		return new FolderApi(uc);
 	}
 
-	public addSeparator(opt_params?: SeparatorParams): void {
+	public addSeparator(opt_params?: SeparatorParams): SeparatorApi {
 		const params = opt_params || {};
 		const uc = new SeparatorController(this.controller.document, {
 			disposable: new Disposable(),
 		});
 		this.controller.uiControllerList.add(uc, params.index);
+		return new SeparatorApi(uc);
 	}
 
 	/**

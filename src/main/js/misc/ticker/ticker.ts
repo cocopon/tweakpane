@@ -1,3 +1,4 @@
+import {Disposable} from '../../model/disposable';
 import {Emitter, EventTypeMap} from '../emitter';
 
 /**
@@ -13,7 +14,6 @@ export interface TickerEvents extends EventTypeMap {
  * @hidden
  */
 export interface Ticker {
+	readonly disposable: Disposable;
 	readonly emitter: Emitter<TickerEvents>;
-
-	dispose(): void;
 }

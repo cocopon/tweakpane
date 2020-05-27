@@ -48,7 +48,7 @@ export class MonitorBinding<In> {
 	}
 
 	public dispose(): void {
-		this.ticker.dispose();
+		this.ticker.disposable.dispose();
 	}
 
 	public read(): void {

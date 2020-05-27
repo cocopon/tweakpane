@@ -51,7 +51,7 @@ describe(RootApi.name, () => {
 				if (b instanceof MonitorBinding) {
 					const t = b.ticker;
 					if (t instanceof IntervalTicker) {
-						t.dispose();
+						t.disposable.dispose();
 					}
 				}
 			});
