@@ -1,3 +1,4 @@
+import {Disposable} from '../../model/disposable';
 import {Emitter} from '../emitter';
 import {Ticker, TickerEvents} from './ticker';
 
@@ -5,6 +6,7 @@ import {Ticker, TickerEvents} from './ticker';
  * @hidden
  */
 export class IntervalTicker implements Ticker {
+	public readonly disposable: Disposable;
 	public readonly emitter: Emitter<TickerEvents>;
 	private active_: boolean;
 	private doc_: Document;
@@ -40,16 +42,17 @@ export class IntervalTicker implements Ticker {
 		//   win.addEventListener('blur', this.onWindowBlur_);
 		//   win.addEventListener('focus', this.onWindowFocus_);
 		// }
-	}
 
-	public dispose(): void {
-		if (this.id_ !== null) {
-			const win = this.doc_.defaultView;
-			if (win) {
-				win.clearInterval(this.id_);
+		this.disposable = new Disposable();
+		this.disposable.emitter.on('dispose', () => {
+			if (this.id_ !== null) {
+				const win = this.doc_.defaultView;
+				if (win) {
+					win.clearInterval(this.id_);
+				}
 			}
-		}
-		this.id_ = null;
+			this.id_ = null;
+		});
 	}
 
 	private onTick_(): void {
