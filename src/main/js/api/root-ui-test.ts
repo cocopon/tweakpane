@@ -54,6 +54,16 @@ describe(RootApi.name, () => {
 		assert.instanceOf(cs[cs.length - 1], SeparatorController);
 	});
 
+	it('should dispose separator', () => {
+		const api = createApi();
+		const cs = api.controller.uiControllerList.items;
+
+		const s = api.addSeparator();
+		assert.strictEqual(cs.length, 1);
+		s.dispose();
+		assert.strictEqual(cs.length, 0);
+	});
+
 	it('should handle root folder events', (done) => {
 		const api = createApi('pane');
 

@@ -12,6 +12,7 @@ import {TestUtil} from '../misc/test-util';
 import {Color} from '../model/color';
 import {Disposable} from '../model/disposable';
 import {FolderApi} from './folder';
+import {SeparatorApi} from './separator';
 
 function createApi(): FolderApi {
 	const c = new FolderController(TestUtil.createWindow().document, {
@@ -56,10 +57,21 @@ describe(FolderApi.name, () => {
 
 	it('should add separator', () => {
 		const api = createApi();
-		api.addSeparator();
+		const s = api.addSeparator();
+		assert.instanceOf(s, SeparatorApi);
 
 		const cs = api.controller.uiControllerList.items;
 		assert.instanceOf(cs[cs.length - 1], SeparatorController);
+	});
+
+	it('should dispose separator', () => {
+		const api = createApi();
+		const cs = api.controller.uiControllerList.items;
+
+		const s = api.addSeparator();
+		assert.strictEqual(cs.length, 1);
+		s.dispose();
+		assert.strictEqual(cs.length, 0);
 	});
 
 	it('should add input', () => {

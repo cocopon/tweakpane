@@ -9,6 +9,7 @@ import {ButtonApi} from './button';
 import * as EventHandlerAdapters from './event-handler-adapters';
 import {InputBindingApi} from './input-binding';
 import {MonitorBindingApi} from './monitor-binding';
+import {SeparatorApi} from './separator';
 import {
 	ButtonParams,
 	InputParams,
@@ -83,12 +84,13 @@ export class FolderApi {
 		return new ButtonApi(uc);
 	}
 
-	public addSeparator(opt_params?: SeparatorParams): void {
+	public addSeparator(opt_params?: SeparatorParams): SeparatorApi {
 		const params = opt_params || {};
 		const uc = new SeparatorController(this.controller.document, {
 			disposable: new Disposable(),
 		});
 		this.controller.uiControllerList.add(uc, params.index);
+		return new SeparatorApi(uc);
 	}
 
 	public on<EventName extends keyof FolderApiEventHandlers>(
