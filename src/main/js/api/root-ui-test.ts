@@ -11,9 +11,10 @@ import {TestUtil} from '../misc/test-util';
 import {Disposable} from '../model/disposable';
 import {RootApi} from './root';
 
-function createApi(): RootApi {
+function createApi(title?: string): RootApi {
 	const c = new RootController(TestUtil.createWindow().document, {
 		disposable: new Disposable(),
+		title: title,
 	});
 	return new RootApi(c);
 }
@@ -51,6 +52,34 @@ describe(RootApi.name, () => {
 
 		const cs = api.controller.uiControllerList.items;
 		assert.instanceOf(cs[cs.length - 1], SeparatorController);
+	});
+
+	it('should handle root folder events', (done) => {
+		const api = createApi('pane');
+
+		api.on('fold', (expanded) => {
+			assert.strictEqual(expanded, false);
+			done();
+		});
+
+		const f = api.controller.folder;
+		if (!f) {
+			throw new Error('Root folder not found');
+		}
+		f.expanded = false;
+	});
+
+	it('should handle folder events', (done) => {
+		const api = createApi();
+		const f = api.addFolder({
+			title: 'folder',
+		});
+
+		api.on('fold', (expanded) => {
+			assert.strictEqual(expanded, false);
+			done();
+		});
+		f.expanded = false;
 	});
 
 	[
