@@ -1,6 +1,6 @@
 import {InputBinding, InputBindingEvents} from '../binding/input';
 import {MonitorBinding, MonitorBindingEvents} from '../binding/monitor';
-import {Folder} from '../model/folder';
+import {Folder, FolderEvents} from '../model/folder';
 import {
 	UiControllerList,
 	UiControllerListEvents,
@@ -81,11 +81,14 @@ export function folder({
 		);
 	}
 	if (eventName === 'fold') {
-		uiControllerList.emitter.on('fold', () => {
-			handler();
-		});
-		folder?.emitter.on('change', () => {
-			handler();
+		uiControllerList.emitter.on(
+			'fold',
+			(ev: UiControllerListEvents['fold']) => {
+				handler(ev.expanded);
+			},
+		);
+		folder?.emitter.on('change', (ev: FolderEvents['fold']) => {
+			handler(ev.expanded);
 		});
 	}
 }

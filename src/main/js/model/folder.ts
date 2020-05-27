@@ -5,6 +5,7 @@ import {Emitter, EventTypeMap} from '../misc/emitter';
  */
 export interface FolderEvents extends EventTypeMap {
 	change: {
+		expanded: boolean;
 		sender: Folder;
 	};
 }
@@ -34,6 +35,7 @@ export class Folder {
 		if (changed) {
 			this.expanded_ = expanded;
 			this.emitter.emit('change', {
+				expanded: expanded,
 				sender: this,
 			});
 		}
@@ -48,6 +50,7 @@ export class Folder {
 		if (changed) {
 			this.expandedHeight_ = expandedHeight;
 			this.emitter.emit('change', {
+				expanded: this.expanded_,
 				sender: this,
 			});
 		}

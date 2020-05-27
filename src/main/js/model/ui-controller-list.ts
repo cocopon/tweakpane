@@ -10,6 +10,7 @@ import {
 } from '../controller/ui';
 import {Emitter, EventTypeMap} from '../misc/emitter';
 import {DisposableEvents} from './disposable';
+import {FolderEvents} from './folder';
 import {List, ListEvents} from './list';
 
 /**
@@ -48,14 +49,15 @@ export class UiControllerList {
 	private ucList_: List<UiController>;
 
 	constructor() {
-		this.onFolderFold_ = this.onFolderFold_.bind(this);
-		this.onFolderInputChange_ = this.onFolderInputChange_.bind(this);
-		this.onFolderMonitorUpdate_ = this.onFolderMonitorUpdate_.bind(this);
-		this.onInputChange_ = this.onInputChange_.bind(this);
+		this.onItemFolderFold_ = this.onItemFolderFold_.bind(this);
+		this.onSubitemFolderFold_ = this.onSubitemFolderFold_.bind(this);
+		this.onSubitemInputChange_ = this.onSubitemInputChange_.bind(this);
+		this.onSubitemMonitorUpdate_ = this.onSubitemMonitorUpdate_.bind(this);
+		this.onItemInputChange_ = this.onItemInputChange_.bind(this);
 		this.onListAdd_ = this.onListAdd_.bind(this);
 		this.onListItemDispose_ = this.onListItemDispose_.bind(this);
 		this.onListRemove_ = this.onListRemove_.bind(this);
-		this.onMonitorUpdate_ = this.onMonitorUpdate_.bind(this);
+		this.onItemMonitorUpdate_ = this.onItemMonitorUpdate_.bind(this);
 
 		this.ucList_ = new List();
 		this.emitter = new Emitter();
@@ -85,16 +87,18 @@ export class UiControllerList {
 		if (uc instanceof InputBindingController) {
 			const emitter = uc.binding.emitter;
 			// TODO: Find more type-safe way
-			(emitter.on as any)('change', this.onInputChange_);
+			(emitter.on as any)('change', this.onItemInputChange_);
 		} else if (uc instanceof MonitorBindingController) {
 			const emitter = uc.binding.emitter;
 			// TODO: Find more type-safe way
-			(emitter.on as any)('update', this.onMonitorUpdate_);
+			(emitter.on as any)('update', this.onItemMonitorUpdate_);
 		} else if (uc instanceof FolderController) {
+			uc.folder.emitter.on('change', this.onItemFolderFold_);
+
 			const emitter = uc.uiControllerList.emitter;
-			emitter.on('fold', this.onFolderFold_);
-			emitter.on('inputchange', this.onFolderInputChange_);
-			emitter.on('monitorupdate', this.onFolderMonitorUpdate_);
+			emitter.on('fold', this.onSubitemFolderFold_);
+			emitter.on('inputchange', this.onSubitemInputChange_);
+			emitter.on('monitorupdate', this.onSubitemMonitorUpdate_);
 		}
 	}
 
@@ -113,7 +117,7 @@ export class UiControllerList {
 		});
 	}
 
-	private onInputChange_(
+	private onItemInputChange_(
 		ev: UiInputBindingController['binding']['emitter']['typeMap']['change'],
 	): void {
 		this.emitter.emit('inputchange', {
@@ -123,7 +127,7 @@ export class UiControllerList {
 		});
 	}
 
-	private onMonitorUpdate_(
+	private onItemMonitorUpdate_(
 		ev: UiMonitorBindingController['binding']['emitter']['typeMap']['update'],
 	): void {
 		this.emitter.emit('monitorupdate', {
@@ -133,7 +137,14 @@ export class UiControllerList {
 		});
 	}
 
-	private onFolderInputChange_(ev: UiControllerListEvents['inputchange']) {
+	private onItemFolderFold_(ev: FolderEvents['change']) {
+		this.emitter.emit('fold', {
+			expanded: ev.expanded,
+			sender: this,
+		});
+	}
+
+	private onSubitemInputChange_(ev: UiControllerListEvents['inputchange']) {
 		this.emitter.emit('inputchange', {
 			inputBinding: ev.inputBinding,
 			sender: this,
@@ -141,7 +152,7 @@ export class UiControllerList {
 		});
 	}
 
-	private onFolderMonitorUpdate_(ev: UiControllerListEvents['monitorupdate']) {
+	private onSubitemMonitorUpdate_(ev: UiControllerListEvents['monitorupdate']) {
 		this.emitter.emit('monitorupdate', {
 			monitorBinding: ev.monitorBinding,
 			sender: this,
@@ -149,7 +160,7 @@ export class UiControllerList {
 		});
 	}
 
-	private onFolderFold_(ev: UiControllerListEvents['fold']) {
+	private onSubitemFolderFold_(ev: UiControllerListEvents['fold']) {
 		this.emitter.emit('fold', {
 			expanded: ev.expanded,
 			sender: this,
