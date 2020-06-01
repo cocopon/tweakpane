@@ -343,12 +343,18 @@ ${indentedProps}
 			},
 
 			label: (container) => {
-				const PARAMS = {initSpd: 0};
+				const PARAMS = {
+					initSpd: 0,
+					size: 30,
+				};
 				const pane = new Tweakpane({
 					container: container,
 				});
 				pane.addInput(PARAMS, 'initSpd', {
 					label: 'Initial speed',
+				});
+				pane.addInput(PARAMS, 'size', {
+					label: 'Force field\nradius',
 				});
 			},
 

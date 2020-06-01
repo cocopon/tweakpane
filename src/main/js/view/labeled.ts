@@ -8,6 +8,22 @@ interface Config extends ViewConfig {
 
 const className = ClassName('lbl');
 
+function createLabelNode(document: Document, label: string): DocumentFragment {
+	const frag = document.createDocumentFragment();
+
+	const lineNodes = label.split('\n').map((line) => {
+		return document.createTextNode(line);
+	});
+	lineNodes.forEach((lineNode, index) => {
+		if (index > 0) {
+			frag.appendChild(document.createElement('br'));
+		}
+		frag.appendChild(lineNode);
+	});
+
+	return frag;
+}
+
 /**
  * @hidden
  */
@@ -23,7 +39,7 @@ export class LabeledView extends View {
 
 		const labelElem = document.createElement('div');
 		labelElem.classList.add(className('l'));
-		labelElem.textContent = this.label;
+		labelElem.appendChild(createLabelNode(document, this.label));
 		this.element.appendChild(labelElem);
 
 		const viewElem = document.createElement('div');
