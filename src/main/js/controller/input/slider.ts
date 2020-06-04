@@ -3,8 +3,8 @@ import {ConstraintUtil} from '../../constraint/util';
 import {NumberUtil} from '../../misc/number-util';
 import {PointerHandler, PointerHandlerEvents} from '../../misc/pointer-handler';
 import {TypeUtil} from '../../misc/type-util';
-import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
+import {ViewModel} from '../../model/view-model';
 import {SliderInputView} from '../../view/input/slider';
 import {ControllerConfig} from '../controller';
 import {InputController} from './input';
@@ -38,7 +38,7 @@ function estimateSuitableRange(value: InputValue<number>): [number, number] {
  * @hidden
  */
 export class SliderInputController implements InputController<number> {
-	public readonly disposable: Disposable;
+	public readonly viewModel: ViewModel;
 	public readonly value: InputValue<number>;
 	public readonly view: SliderInputView;
 	private maxValue_: number;
@@ -56,11 +56,11 @@ export class SliderInputController implements InputController<number> {
 		this.minValue_ = min;
 		this.maxValue_ = max;
 
-		this.disposable = config.disposable;
+		this.viewModel = config.viewModel;
 		this.view = new SliderInputView(document, {
-			disposable: this.disposable,
 			maxValue: this.maxValue_,
 			minValue: this.minValue_,
+			model: this.viewModel,
 			value: this.value,
 		});
 

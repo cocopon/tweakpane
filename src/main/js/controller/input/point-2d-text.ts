@@ -1,9 +1,9 @@
 import {Point2dConstraint} from '../../constraint/point-2d';
 import {Formatter} from '../../formatter/formatter';
 import {TypeUtil} from '../../misc/type-util';
-import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
 import {Point2d} from '../../model/point-2d';
+import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
 import {Point2dTextInputView} from '../../view/input/point-2d-text';
 import {ControllerConfig} from '../controller';
@@ -21,7 +21,7 @@ interface Config extends ControllerConfig {
  * @hidden
  */
 export class Point2dTextInputController implements InputController<Point2d> {
-	public readonly disposable: Disposable;
+	public readonly viewModel: ViewModel;
 	public readonly value: InputValue<Point2d>;
 	public readonly view: Point2dTextInputView;
 	private readonly parser_: Parser<string, number>;
@@ -43,9 +43,9 @@ export class Point2dTextInputController implements InputController<Point2d> {
 			c instanceof Point2dConstraint ? c.yConstraint : undefined,
 		);
 
-		this.disposable = config.disposable;
+		this.viewModel = config.viewModel;
 		this.view = new Point2dTextInputView(document, {
-			disposable: this.disposable,
+			model: this.viewModel,
 			value: this.value,
 			xFormatter: config.xFormatter,
 			yFormatter: config.yFormatter,

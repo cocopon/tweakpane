@@ -9,9 +9,9 @@ import {ConstraintUtil} from '../../constraint/util';
 import * as NumberConverter from '../../converter/number';
 import {NumberFormatter} from '../../formatter/number';
 import {TypeUtil} from '../../misc/type-util';
-import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
 import {Target} from '../../model/target';
+import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
 import {InputBindingController} from '../input-binding';
 import {ListInputController} from '../input/list';
@@ -63,30 +63,30 @@ function createController(document: Document, value: InputValue<number>) {
 
 	if (c && ConstraintUtil.findConstraint(c, ListConstraint)) {
 		return new ListInputController(document, {
-			disposable: new Disposable(),
 			stringifyValue: NumberConverter.toString,
 			value: value,
+			viewModel: new ViewModel(),
 		});
 	}
 
 	if (c && ConstraintUtil.findConstraint(c, RangeConstraint)) {
 		return new SliderTextInputController(document, {
-			disposable: new Disposable(),
 			formatter: new NumberFormatter(
 				UiUtil.getSuitableDecimalDigits(value.constraint, value.rawValue),
 			),
 			parser: StringNumberParser,
 			value: value,
+			viewModel: new ViewModel(),
 		});
 	}
 
 	return new NumberTextInputController(document, {
-		disposable: new Disposable(),
 		formatter: new NumberFormatter(
 			UiUtil.getSuitableDecimalDigits(value.constraint, value.rawValue),
 		),
 		parser: StringNumberParser,
 		value: value,
+		viewModel: new ViewModel(),
 	});
 }
 
@@ -115,7 +115,7 @@ export function create(
 	return new InputBindingController(document, {
 		binding: binding,
 		controller: controller,
-		disposable: controller.disposable,
 		label: params.label || target.key,
+		viewModel: controller.viewModel,
 	});
 }

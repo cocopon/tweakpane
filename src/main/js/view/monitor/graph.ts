@@ -68,7 +68,7 @@ export class GraphMonitorView extends View implements MonitorView<number> {
 
 		this.update();
 
-		config.disposable.emitter.on('dispose', () => {
+		config.model.emitter.on('dispose', () => {
 			this.lineElem_ = DisposingUtil.disposeElement(this.lineElem_);
 			this.svgElem_ = DisposingUtil.disposeElement(this.svgElem_);
 			this.tooltipElem_ = DisposingUtil.disposeElement(this.tooltipElem_);

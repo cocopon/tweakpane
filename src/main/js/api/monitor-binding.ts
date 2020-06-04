@@ -22,7 +22,7 @@ export class MonitorBindingApi<In> {
 	}
 
 	public dispose(): void {
-		this.controller.controller.disposable.dispose();
+		this.controller.controller.viewModel.dispose();
 	}
 
 	public on<EventName extends keyof MonitorBindingApiEventHandlers>(

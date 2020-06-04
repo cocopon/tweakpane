@@ -8,12 +8,12 @@ import {SingleLogMonitorController} from '../controller/monitor/single-log';
 import {RootController} from '../controller/root';
 import {TestUtil} from '../misc/test-util';
 import {IntervalTicker} from '../misc/ticker/interval';
-import {Disposable} from '../model/disposable';
+import {ViewModel} from '../model/view-model';
 import {RootApi} from './root';
 
 function createApi(): RootApi {
 	const c = new RootController(TestUtil.createWindow().document, {
-		disposable: new Disposable(),
+		viewModel: new ViewModel(),
 	});
 	return new RootApi(c);
 }

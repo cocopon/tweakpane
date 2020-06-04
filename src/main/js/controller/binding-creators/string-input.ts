@@ -6,9 +6,9 @@ import {ListConstraint} from '../../constraint/list';
 import {ConstraintUtil} from '../../constraint/util';
 import * as StringConverter from '../../converter/string';
 import {StringFormatter} from '../../formatter/string';
-import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
 import {Target} from '../../model/target';
+import {ViewModel} from '../../model/view-model';
 import {InputBindingController} from '../input-binding';
 import {ListInputController} from '../input/list';
 import {TextInputController} from '../input/text';
@@ -38,17 +38,17 @@ function createController(document: Document, value: InputValue<string>) {
 
 	if (c && ConstraintUtil.findConstraint(c, ListConstraint)) {
 		return new ListInputController(document, {
-			disposable: new Disposable(),
 			stringifyValue: StringConverter.toString,
 			value: value,
+			viewModel: new ViewModel(),
 		});
 	}
 
 	return new TextInputController(document, {
-		disposable: new Disposable(),
 		formatter: new StringFormatter(),
 		parser: StringConverter.toString,
 		value: value,
+		viewModel: new ViewModel(),
 	});
 }
 
@@ -77,7 +77,7 @@ export function create(
 	return new InputBindingController(document, {
 		binding: binding,
 		controller: controller,
-		disposable: controller.disposable,
 		label: params.label || target.key,
+		viewModel: controller.viewModel,
 	});
 }

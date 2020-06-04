@@ -1,8 +1,8 @@
 import {Formatter} from '../../formatter/formatter';
 import {TypeUtil} from '../../misc/type-util';
 import {Color} from '../../model/color';
-import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
+import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
 import {RgbTextInputView} from '../../view/input/rgb-text';
 import {ControllerConfig} from '../controller';
@@ -21,7 +21,7 @@ const STEP = 1;
  * @hidden
  */
 export class RgbTextInputController implements InputController<Color> {
-	public readonly disposable: Disposable;
+	public readonly viewModel: ViewModel;
 	public readonly value: InputValue<Color>;
 	public readonly view: RgbTextInputView;
 	private parser_: Parser<string, number>;
@@ -33,10 +33,10 @@ export class RgbTextInputController implements InputController<Color> {
 		this.parser_ = config.parser;
 		this.value = config.value;
 
-		this.disposable = config.disposable;
+		this.viewModel = config.viewModel;
 		this.view = new RgbTextInputView(document, {
-			disposable: this.disposable,
 			formatter: config.formatter,
+			model: this.viewModel,
 			value: this.value,
 		});
 		this.view.inputElements.forEach((inputElem) => {

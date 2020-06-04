@@ -3,18 +3,18 @@ import {describe, it} from 'mocha';
 
 import {PaneError} from '../misc/pane-error';
 import {TestUtil} from '../misc/test-util';
-import {Disposable} from '../model/disposable';
+import {ViewModel} from '../model/view-model';
 import {RootView} from './root';
 
 describe(RootView.name, () => {
 	it('should dispose', () => {
 		const doc = TestUtil.createWindow().document;
-		const d = new Disposable();
+		const m = new ViewModel();
 		const v = new RootView(doc, {
-			disposable: d,
 			folder: null,
+			model: m,
 		});
-		d.dispose();
+		m.dispose();
 		assert.throws(() => {
 			// tslint:disable-next-line: no-unused-expression
 			v.containerElement;

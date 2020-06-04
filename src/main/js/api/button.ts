@@ -18,7 +18,7 @@ export class ButtonApi {
 	}
 
 	public dispose(): void {
-		this.controller.disposable.dispose();
+		this.controller.viewModel.dispose();
 	}
 
 	public on<EventName extends keyof ButtonApiEventHandlers>(

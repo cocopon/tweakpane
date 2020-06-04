@@ -52,7 +52,7 @@ export class ListInputView<T> extends View implements InputView<T> {
 
 		this.update();
 
-		config.disposable.emitter.on('dispose', () => {
+		config.model.emitter.on('dispose', () => {
 			this.selectElem_ = DisposingUtil.disposeElement(this.selectElem_);
 		});
 	}

@@ -55,7 +55,7 @@ export class ColorSwatchInputView extends View implements InputView<Color> {
 
 		this.update();
 
-		config.disposable.emitter.on('dispose', () => {
+		config.model.emitter.on('dispose', () => {
 			this.buttonElem_ = DisposingUtil.disposeElement(this.buttonElem_);
 			this.swatchElem_ = DisposingUtil.disposeElement(this.swatchElem_);
 		});

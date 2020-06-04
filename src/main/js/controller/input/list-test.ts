@@ -4,8 +4,8 @@ import {describe, it} from 'mocha';
 import {ListConstraint} from '../../constraint/list';
 import * as NumberConverter from '../../converter/number';
 import {TestUtil} from '../../misc/test-util';
-import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
+import {ViewModel} from '../../model/view-model';
 import {ListInputController} from './list';
 
 describe(ListInputController.name, () => {
@@ -22,9 +22,9 @@ describe(ListInputController.name, () => {
 		);
 		const doc = TestUtil.createWindow().document;
 		const c = new ListInputController(doc, {
-			disposable: new Disposable(),
 			stringifyValue: NumberConverter.toString,
 			value: value,
+			viewModel: new ViewModel(),
 		});
 
 		assert.strictEqual(c.value, value);
@@ -44,9 +44,9 @@ describe(ListInputController.name, () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new ListInputController(doc, {
-			disposable: new Disposable(),
 			stringifyValue: NumberConverter.toString,
 			value: value,
+			viewModel: new ViewModel(),
 		});
 
 		c.view.selectElement.value = '34';
@@ -68,11 +68,11 @@ describe(ListInputController.name, () => {
 		);
 		const doc = TestUtil.createWindow().document;
 		const c = new ListInputController(doc, {
-			disposable: new Disposable(),
+			viewModel: new ViewModel(),
 			stringifyValue: NumberConverter.toString,
 			value: value,
 		});
-		c.disposable.dispose();
-		assert.strictEqual(c.disposable.disposed, true);
+		c.viewModel.dispose();
+		assert.strictEqual(c.viewModel.disposed, true);
 	});
 });

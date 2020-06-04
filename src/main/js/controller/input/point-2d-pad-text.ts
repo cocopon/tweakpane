@@ -1,7 +1,7 @@
 import {Formatter} from '../../formatter/formatter';
-import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
 import {Point2d} from '../../model/point-2d';
+import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
 import {Point2dPadTextInputView} from '../../view/input/point-2d-pad-text';
 import {ControllerConfig} from '../controller';
@@ -20,7 +20,7 @@ interface Config extends ControllerConfig {
  * @hidden
  */
 export class Point2dPadTextInputController implements InputController<Point2d> {
-	public readonly disposable: Disposable;
+	public readonly viewModel: ViewModel;
 	public readonly value: InputValue<Point2d>;
 	public readonly view: Point2dPadTextInputView;
 	private readonly padIc_: Point2dPadInputController;
@@ -32,22 +32,22 @@ export class Point2dPadTextInputController implements InputController<Point2d> {
 
 		this.value = config.value;
 
-		this.disposable = config.disposable;
+		this.viewModel = config.viewModel;
 		this.padIc_ = new Point2dPadInputController(document, {
-			disposable: this.disposable,
 			value: this.value,
+			viewModel: this.viewModel,
 		});
 
 		this.textIc_ = new Point2dTextInputController(document, {
-			disposable: this.disposable,
 			parser: config.parser,
 			value: this.value,
+			viewModel: this.viewModel,
 			xFormatter: config.xFormatter,
 			yFormatter: config.yFormatter,
 		});
 
 		this.view = new Point2dPadTextInputView(document, {
-			disposable: this.disposable,
+			model: this.viewModel,
 			padInputView: this.padIc_.view,
 			textInputView: this.textIc_.view,
 		});

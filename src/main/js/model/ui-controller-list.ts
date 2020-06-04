@@ -9,9 +9,9 @@ import {
 	UiMonitorBindingController,
 } from '../controller/ui';
 import {Emitter, EventTypeMap} from '../misc/emitter';
-import {DisposableEvents} from './disposable';
 import {FolderEvents} from './folder';
 import {List, ListEvents} from './list';
+import {ViewModelEvents} from './view-model';
 
 /**
  * @hidden
@@ -82,7 +82,7 @@ export class UiControllerList {
 			sender: this,
 			uiController: uc,
 		});
-		uc.disposable.emitter.on('dispose', this.onListItemDispose_);
+		uc.viewModel.emitter.on('dispose', this.onListItemDispose_);
 
 		if (uc instanceof InputBindingController) {
 			const emitter = uc.binding.emitter;
@@ -108,9 +108,9 @@ export class UiControllerList {
 		});
 	}
 
-	private onListItemDispose_(_: DisposableEvents['dispose']): void {
+	private onListItemDispose_(_: ViewModelEvents['dispose']): void {
 		const disposedUcs = this.ucList_.items.filter((uc) => {
-			return uc.disposable.disposed;
+			return uc.viewModel.disposed;
 		});
 		disposedUcs.forEach((uc) => {
 			this.ucList_.remove(uc);

@@ -1,9 +1,9 @@
 import {NumberFormatter} from '../../formatter/number';
 import {TypeUtil} from '../../misc/type-util';
 import {Color} from '../../model/color';
-import {Disposable} from '../../model/disposable';
 import {Foldable} from '../../model/foldable';
 import {InputValue} from '../../model/input-value';
+import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
 import {ColorPickerInputView} from '../../view/input/color-picker';
 import {ControllerConfig} from '../controller';
@@ -20,7 +20,7 @@ interface Config extends ControllerConfig {
  * @hidden
  */
 export class ColorPickerInputController implements InputController<Color> {
-	public readonly disposable: Disposable;
+	public readonly viewModel: ViewModel;
 	public readonly foldable: Foldable;
 	public readonly value: InputValue<Color>;
 	public readonly view: ColorPickerInputView;
@@ -34,28 +34,28 @@ export class ColorPickerInputController implements InputController<Color> {
 		this.value = config.value;
 		this.foldable = new Foldable();
 
-		this.disposable = config.disposable;
+		this.viewModel = config.viewModel;
 		this.hPaletteIc_ = new HPaletteInputController(document, {
-			disposable: this.disposable,
 			value: this.value,
+			viewModel: this.viewModel,
 		});
 
 		this.svPaletteIc_ = new SvPaletteInputController(document, {
-			disposable: this.disposable,
 			value: this.value,
+			viewModel: this.viewModel,
 		});
 
 		this.rgbTextIc_ = new RgbTextInputController(document, {
-			disposable: this.disposable,
 			formatter: new NumberFormatter(0),
 			parser: StringNumberParser,
 			value: this.value,
+			viewModel: this.viewModel,
 		});
 
 		this.view = new ColorPickerInputView(document, {
-			disposable: this.disposable,
 			foldable: this.foldable,
 			hPaletteInputView: this.hPaletteIc_.view,
+			model: this.viewModel,
 			rgbTextView: this.rgbTextIc_.view,
 			svPaletteInputView: this.svPaletteIc_.view,
 			value: this.value,

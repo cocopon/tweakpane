@@ -1,24 +1,24 @@
 import * as DomUtil from '../misc/dom-util';
 import {TypeUtil} from '../misc/type-util';
-import {Disposable} from '../model/disposable';
 import {Folder} from '../model/folder';
 import {
 	UiControllerList,
 	UiControllerListEvents,
 } from '../model/ui-controller-list';
+import {ViewModel} from '../model/view-model';
 import {FolderView} from '../view/folder';
 
 interface Config {
-	disposable: Disposable;
 	expanded?: boolean;
 	title: string;
+	viewModel: ViewModel;
 }
 
 /**
  * @hidden
  */
 export class FolderController {
-	public readonly disposable: Disposable;
+	public readonly viewModel: ViewModel;
 	public readonly folder: Folder;
 	public readonly view: FolderView;
 	private doc_: Document;
@@ -29,7 +29,7 @@ export class FolderController {
 		this.onUiControllerListAdd_ = this.onUiControllerListAdd_.bind(this);
 		this.onUiControllerListRemove_ = this.onUiControllerListRemove_.bind(this);
 
-		this.disposable = config.disposable;
+		this.viewModel = config.viewModel;
 		this.folder = new Folder(
 			config.title,
 			TypeUtil.getOrDefault<boolean>(config.expanded, true),
@@ -41,8 +41,8 @@ export class FolderController {
 
 		this.doc_ = document;
 		this.view = new FolderView(this.doc_, {
-			disposable: this.disposable,
 			folder: this.folder,
+			model: this.viewModel,
 		});
 		this.view.titleElement.addEventListener('click', this.onTitleClick_);
 	}

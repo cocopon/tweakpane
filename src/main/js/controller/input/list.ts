@@ -2,8 +2,8 @@ import {ListConstraint} from '../../constraint/list';
 import {ListItem} from '../../constraint/list';
 import {ConstraintUtil} from '../../constraint/util';
 import {TypeUtil} from '../../misc/type-util';
-import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
+import {ViewModel} from '../../model/view-model';
 import {ListInputView} from '../../view/input/list';
 import {ControllerConfig} from '../controller';
 import {InputController} from './input';
@@ -31,7 +31,7 @@ function findListItems<T>(value: InputValue<T>): ListItem<T>[] | null {
  * @hidden
  */
 export class ListInputController<T> implements InputController<T> {
-	public readonly disposable: Disposable;
+	public readonly viewModel: ViewModel;
 	private listItems_: ListItem<T>[];
 	private value_: InputValue<T>;
 	private view_: ListInputView<T>;
@@ -42,9 +42,9 @@ export class ListInputController<T> implements InputController<T> {
 		this.value_ = config.value;
 
 		this.listItems_ = findListItems(this.value_) || [];
-		this.disposable = config.disposable;
+		this.viewModel = config.viewModel;
 		this.view_ = new ListInputView(document, {
-			disposable: this.disposable,
+			model: this.viewModel,
 			options: this.listItems_,
 			stringifyValue: config.stringifyValue,
 			value: this.value_,

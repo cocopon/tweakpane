@@ -5,9 +5,9 @@ import {InputBinding} from '../binding/input';
 import * as NumberConverter from '../converter/number';
 import {NumberFormatter} from '../formatter/number';
 import {TestUtil} from '../misc/test-util';
-import {Disposable} from '../model/disposable';
 import {InputValue} from '../model/input-value';
 import {Target} from '../model/target';
+import {ViewModel} from '../model/view-model';
 import {StringNumberParser} from '../parser/string-number';
 import {InputBindingController} from './input-binding';
 import {TextInputController} from './input/text';
@@ -26,7 +26,7 @@ describe(InputBindingController.name, () => {
 			writer: (v) => v,
 		});
 		const controller = new TextInputController(doc, {
-			disposable: new Disposable(),
+			viewModel: new ViewModel(),
 			formatter: new NumberFormatter(0),
 			parser: StringNumberParser,
 			value: value,
@@ -34,7 +34,7 @@ describe(InputBindingController.name, () => {
 		const bc = new InputBindingController(doc, {
 			binding: binding,
 			controller: controller,
-			disposable: controller.disposable,
+			viewModel: controller.viewModel,
 			label: 'foo',
 		});
 		assert.strictEqual(bc.binding, binding);

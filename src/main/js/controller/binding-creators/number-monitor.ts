@@ -5,9 +5,9 @@ import {NumberFormatter} from '../../formatter/number';
 import {Constants} from '../../misc/constants';
 import {IntervalTicker} from '../../misc/ticker/interval';
 import {TypeUtil} from '../../misc/type-util';
-import {Disposable} from '../../model/disposable';
 import {MonitorValue} from '../../model/monitor-value';
 import {Target} from '../../model/target';
+import {ViewModel} from '../../model/view-model';
 import {MonitorBindingController} from '../monitor-binding';
 import {GraphMonitorController} from '../monitor/graph';
 import {MultiLogMonitorController} from '../monitor/multi-log';
@@ -30,14 +30,14 @@ function createTextMonitor(
 	const controller =
 		value.totalCount === 1
 			? new SingleLogMonitorController(document, {
-					disposable: new Disposable(),
 					formatter: createFormatter(),
 					value: value,
+					viewModel: new ViewModel(),
 			  })
 			: new MultiLogMonitorController(document, {
-					disposable: new Disposable(),
 					formatter: createFormatter(),
 					value: value,
+					viewModel: new ViewModel(),
 			  });
 	const ticker = new IntervalTicker(
 		document,
@@ -55,8 +55,8 @@ function createTextMonitor(
 			value: value,
 		}),
 		controller: controller,
-		disposable: controller.disposable,
 		label: params.label || target.key,
+		viewModel: new ViewModel(),
 	});
 }
 
@@ -76,7 +76,6 @@ function createGraphMonitor(
 		),
 	);
 	const controller = new GraphMonitorController(document, {
-		disposable: new Disposable(),
 		formatter: createFormatter(),
 		maxValue: TypeUtil.getOrDefault<number>(
 			'max' in params ? params.max : null,
@@ -87,6 +86,7 @@ function createGraphMonitor(
 			0,
 		),
 		value: value,
+		viewModel: new ViewModel(),
 	});
 	return new MonitorBindingController(document, {
 		binding: new MonitorBinding({
@@ -96,8 +96,8 @@ function createGraphMonitor(
 			value: value,
 		}),
 		controller: controller,
-		disposable: controller.disposable,
 		label: params.label || target.key,
+		viewModel: new ViewModel(),
 	});
 }
 

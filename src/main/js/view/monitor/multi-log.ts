@@ -41,7 +41,7 @@ export class MultiLogMonitorView<T> extends View implements MonitorView<T> {
 
 		this.update();
 
-		config.disposable.emitter.on('dispose', () => {
+		config.model.emitter.on('dispose', () => {
 			this.textareaElem_ = DisposingUtil.disposeElement(this.textareaElem_);
 		});
 	}

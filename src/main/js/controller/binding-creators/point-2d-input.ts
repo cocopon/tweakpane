@@ -9,10 +9,10 @@ import * as Point2dConverter from '../../converter/point-2d';
 import {NumberFormatter} from '../../formatter/number';
 import {PaneError} from '../../misc/pane-error';
 import {TypeUtil} from '../../misc/type-util';
-import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
 import {Point2d, Point2dObject} from '../../model/point-2d';
 import {Target} from '../../model/target';
+import {ViewModel} from '../../model/view-model';
 import {AnyPoint2dParser} from '../../parser/any-point-2d';
 import {StringNumberParser} from '../../parser/string-number';
 import {InputBindingController} from '../input-binding';
@@ -62,9 +62,9 @@ function createController(document: Document, value: InputValue<Point2d>) {
 	}
 
 	return new Point2dPadTextInputController(document, {
-		disposable: new Disposable(),
 		parser: StringNumberParser,
 		value: value,
+		viewModel: new ViewModel(),
 		xFormatter: new NumberFormatter(
 			UiUtil.getSuitableDecimalDigits(c.xConstraint, value.rawValue.x),
 		),
@@ -100,7 +100,7 @@ export function create(
 	return new InputBindingController(document, {
 		binding: binding,
 		controller: controller,
-		disposable: controller.disposable,
 		label: params.label || target.key,
+		viewModel: controller.viewModel,
 	});
 }

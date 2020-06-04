@@ -4,12 +4,12 @@ import {describe, it} from 'mocha';
 import {RootController} from '../controller/root';
 import {PaneError} from '../misc/pane-error';
 import {TestUtil} from '../misc/test-util';
-import {Disposable} from '../model/disposable';
+import {ViewModel} from '../model/view-model';
 import {RootApi} from './root';
 
 function createApi(): RootApi {
 	const c = new RootController(TestUtil.createWindow().document, {
-		disposable: new Disposable(),
+		viewModel: new ViewModel(),
 	});
 	return new RootApi(c);
 }

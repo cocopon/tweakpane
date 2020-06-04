@@ -46,7 +46,7 @@ export class HPaletteInputView extends View {
 
 		this.update();
 
-		config.disposable.emitter.on('dispose', () => {
+		config.model.emitter.on('dispose', () => {
 			this.canvasElem_ = DisposingUtil.disposeElement(this.canvasElem_);
 			this.markerElem_ = DisposingUtil.disposeElement(this.markerElem_);
 		});

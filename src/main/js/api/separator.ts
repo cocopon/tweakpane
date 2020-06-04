@@ -14,6 +14,6 @@ export class SeparatorApi {
 	}
 
 	public dispose(): void {
-		this.controller.disposable.dispose();
+		this.controller.viewModel.dispose();
 	}
 }

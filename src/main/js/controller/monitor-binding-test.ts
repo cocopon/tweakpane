@@ -6,9 +6,9 @@ import * as NumberConverter from '../converter/number';
 import {NumberFormatter} from '../formatter/number';
 import {TestUtil} from '../misc/test-util';
 import {ManualTicker} from '../misc/ticker/manual';
-import {Disposable} from '../model/disposable';
 import {MonitorValue} from '../model/monitor-value';
 import {Target} from '../model/target';
+import {ViewModel} from '../model/view-model';
 import {MonitorBindingController} from './monitor-binding';
 import {SingleLogMonitorController} from './monitor/single-log';
 
@@ -26,15 +26,15 @@ describe(MonitorBindingController.name, () => {
 			value: value,
 		});
 		const controller = new SingleLogMonitorController(doc, {
-			disposable: new Disposable(),
+			viewModel: new ViewModel(),
 			formatter: new NumberFormatter(0),
 			value: value,
 		});
 		const bc = new MonitorBindingController(doc, {
 			binding: binding,
 			controller: controller,
-			disposable: controller.disposable,
 			label: 'foo',
+			viewModel: controller.viewModel,
 		});
 		assert.strictEqual(bc.binding, binding);
 		assert.strictEqual(bc.controller, controller);

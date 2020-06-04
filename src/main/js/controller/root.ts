@@ -1,16 +1,16 @@
 import {TypeUtil} from '../misc/type-util';
-import {Disposable} from '../model/disposable';
 import {Folder} from '../model/folder';
 import {
 	UiControllerList,
 	UiControllerListEvents,
 } from '../model/ui-controller-list';
+import {ViewModel} from '../model/view-model';
 import {RootView} from '../view/root';
 
 interface Config {
-	disposable: Disposable;
 	expanded?: boolean;
 	title?: string;
+	viewModel: ViewModel;
 }
 
 function createFolder(config: Config): Folder | null {
@@ -28,7 +28,7 @@ function createFolder(config: Config): Folder | null {
  * @hidden
  */
 export class RootController {
-	public readonly disposable: Disposable;
+	public readonly viewModel: ViewModel;
 	public readonly folder: Folder | null;
 	public readonly view: RootView;
 	private doc_: Document;
@@ -44,10 +44,10 @@ export class RootController {
 		this.ucList_.emitter.on('add', this.onUiControllerListAdd_);
 
 		this.doc_ = document;
-		this.disposable = config.disposable;
+		this.viewModel = config.viewModel;
 		this.view = new RootView(this.doc_, {
-			disposable: this.disposable,
 			folder: this.folder,
+			model: this.viewModel,
 		});
 		if (this.view.titleElement) {
 			this.view.titleElement.addEventListener('click', this.onTitleClick_);

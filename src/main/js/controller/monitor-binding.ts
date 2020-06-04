@@ -1,5 +1,5 @@
 import {MonitorBinding} from '../binding/monitor';
-import {Disposable} from '../model/disposable';
+import {ViewModel} from '../model/view-model';
 import {LabeledView} from '../view/labeled';
 import {ControllerConfig} from './controller';
 import {MonitorController} from './monitor/monitor';
@@ -16,21 +16,21 @@ interface Config<In> extends ControllerConfig {
 export class MonitorBindingController<In> {
 	public readonly binding: MonitorBinding<In>;
 	public readonly controller: MonitorController<In>;
-	public readonly disposable: Disposable;
+	public readonly viewModel: ViewModel;
 	public readonly view: LabeledView;
 
 	constructor(document: Document, config: Config<In>) {
 		this.binding = config.binding;
 		this.controller = config.controller;
 
-		this.disposable = config.disposable;
+		this.viewModel = config.viewModel;
 		this.view = new LabeledView(document, {
-			disposable: this.disposable,
 			label: config.label,
+			model: this.viewModel,
 			view: this.controller.view,
 		});
 
-		this.controller.disposable.emitter.on('dispose', () => {
+		this.controller.viewModel.emitter.on('dispose', () => {
 			this.binding.dispose();
 		});
 	}

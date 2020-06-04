@@ -1,21 +1,21 @@
-import {Disposable} from '../model/disposable';
+import {ViewModel} from '../model/view-model';
 import {SeparatorView} from '../view/separator';
 
 interface Config {
-	disposable: Disposable;
+	viewModel: ViewModel;
 }
 
 /**
  * @hidden
  */
 export class SeparatorController {
-	public readonly disposable: Disposable;
+	public readonly viewModel: ViewModel;
 	public readonly view: SeparatorView;
 
 	constructor(document: Document, config: Config) {
-		this.disposable = config.disposable;
+		this.viewModel = config.viewModel;
 		this.view = new SeparatorView(document, {
-			disposable: this.disposable,
+			model: this.viewModel,
 		});
 	}
 }

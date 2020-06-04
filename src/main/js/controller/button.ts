@@ -1,9 +1,9 @@
 import {Button} from '../model/button';
-import {Disposable} from '../model/disposable';
+import {ViewModel} from '../model/view-model';
 import {ButtonView} from '../view/button';
 
 interface Config {
-	disposable: Disposable;
+	viewModel: ViewModel;
 	title: string;
 }
 
@@ -11,19 +11,19 @@ interface Config {
  * @hidden
  */
 export class ButtonController {
-	public readonly disposable: Disposable;
 	public readonly button: Button;
 	public readonly view: ButtonView;
+	public readonly viewModel: ViewModel;
 
 	constructor(document: Document, config: Config) {
 		this.onButtonClick_ = this.onButtonClick_.bind(this);
 
 		this.button = new Button(config.title);
 
-		this.disposable = config.disposable;
+		this.viewModel = config.viewModel;
 		this.view = new ButtonView(document, {
 			button: this.button,
-			disposable: this.disposable,
+			model: this.viewModel,
 		});
 		this.view.buttonElement.addEventListener('click', this.onButtonClick_);
 	}
