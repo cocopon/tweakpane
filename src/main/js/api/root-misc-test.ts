@@ -145,4 +145,14 @@ describe(RootApi.name, () => {
 		const api = createApi();
 		assert.exists(api.element);
 	});
+
+	it('should hide', () => {
+		const api = createApi();
+		assert.strictEqual(api.hidden, false);
+
+		api.hidden = true;
+		assert.isTrue(
+			api.controller.view.element.classList.contains('tp-v-hidden'),
+		);
+	});
 });

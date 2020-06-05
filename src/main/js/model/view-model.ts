@@ -1,11 +1,14 @@
 import {Emitter, EventTypeMap} from '../misc/emitter';
+import {TypeUtil} from '../misc/type-util';
 import {Disposable} from './disposable';
+import {ViewPosition} from './view-positions';
 
 /**
  * @hidden
  */
 export interface ViewModelEvents extends EventTypeMap {
 	change: {
+		propertyName: 'hidden' | 'positions';
 		sender: ViewModel;
 	};
 	dispose: {
@@ -16,29 +19,48 @@ export interface ViewModelEvents extends EventTypeMap {
 export class ViewModel {
 	public readonly emitter: Emitter<ViewModelEvents>;
 	private disposable_: Disposable;
-	private visible_: boolean;
+	private positions_: ViewPosition[];
+	private hidden_: boolean;
 
 	constructor() {
 		this.onDispose_ = this.onDispose_.bind(this);
 
 		this.emitter = new Emitter();
-		this.visible_ = true;
+		this.positions_ = [];
+		this.hidden_ = false;
 
 		this.disposable_ = new Disposable();
 		this.disposable_.emitter.on('dispose', this.onDispose_);
 	}
 
-	get visible(): boolean {
-		return this.visible_;
+	get hidden(): boolean {
+		return this.hidden_;
 	}
 
-	set visible(visible: boolean) {
-		if (this.visible_ === visible) {
+	set hidden(hidden: boolean) {
+		if (this.hidden_ === hidden) {
 			return;
 		}
 
-		this.visible_ = visible;
+		this.hidden_ = hidden;
 		this.emitter.emit('change', {
+			propertyName: 'hidden',
+			sender: this,
+		});
+	}
+
+	get positions(): ViewPosition[] {
+		return this.positions_;
+	}
+
+	set positions(positions: ViewPosition[]) {
+		if (TypeUtil.deepEqualsArray(positions, this.positions_)) {
+			return;
+		}
+
+		this.positions_ = positions;
+		this.emitter.emit('change', {
+			propertyName: 'positions',
 			sender: this,
 		});
 	}

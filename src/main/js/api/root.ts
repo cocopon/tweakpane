@@ -69,6 +69,14 @@ export class RootApi {
 		}
 	}
 
+	get hidden(): boolean {
+		return this.controller.viewModel.hidden;
+	}
+
+	set hidden(hidden: boolean) {
+		this.controller.viewModel.hidden = hidden;
+	}
+
 	public dispose(): void {
 		this.controller.viewModel.dispose();
 	}

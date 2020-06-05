@@ -7,6 +7,7 @@ import {
 } from '../model/ui-controller-list';
 import {ViewModel} from '../model/view-model';
 import {FolderView} from '../view/folder';
+import * as ContainerUtil from './container-util';
 
 interface Config {
 	expanded?: boolean;
@@ -27,6 +28,7 @@ export class FolderController {
 	constructor(document: Document, config: Config) {
 		this.onTitleClick_ = this.onTitleClick_.bind(this);
 		this.onUiControllerListAdd_ = this.onUiControllerListAdd_.bind(this);
+		this.onUiControllerListLayout_ = this.onUiControllerListLayout_.bind(this);
 		this.onUiControllerListRemove_ = this.onUiControllerListRemove_.bind(this);
 
 		this.viewModel = config.viewModel;
@@ -37,6 +39,7 @@ export class FolderController {
 
 		this.ucList_ = new UiControllerList();
 		this.ucList_.emitter.on('add', this.onUiControllerListAdd_);
+		this.ucList_.emitter.on('layout', this.onUiControllerListLayout_);
 		this.ucList_.emitter.on('remove', this.onUiControllerListRemove_);
 
 		this.doc_ = document;
@@ -83,15 +86,26 @@ export class FolderController {
 		this.folder.expanded = !this.folder.expanded;
 	}
 
-	private onUiControllerListAdd_(ev: UiControllerListEvents['add']) {
-		this.view.containerElement.insertBefore(
-			ev.uiController.view.element,
-			this.view.containerElement.children[ev.index],
-		);
+	private applyUiControllerListChange_(): void {
+		ContainerUtil.updateAllItemsPositions(this.uiControllerList);
+
 		this.folder.expandedHeight = this.computeExpandedHeight_();
 	}
 
+	private onUiControllerListAdd_(ev: UiControllerListEvents['add']) {
+		DomUtil.insertElementAt(
+			this.view.containerElement,
+			ev.uiController.view.element,
+			ev.index,
+		);
+		this.applyUiControllerListChange_();
+	}
+
 	private onUiControllerListRemove_(_: UiControllerListEvents['remove']) {
-		this.folder.expandedHeight = this.computeExpandedHeight_();
+		this.applyUiControllerListChange_();
+	}
+
+	private onUiControllerListLayout_(_: UiControllerListEvents['layout']) {
+		this.applyUiControllerListChange_();
 	}
 }

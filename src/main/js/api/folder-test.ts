@@ -47,6 +47,16 @@ describe(FolderApi.name, () => {
 		assert.strictEqual(api.controller.viewModel.disposed, true);
 	});
 
+	it('should hide', () => {
+		const api = createApi();
+		assert.strictEqual(api.hidden, false);
+
+		api.hidden = true;
+		assert.isTrue(
+			api.controller.view.element.classList.contains('tp-v-hidden'),
+		);
+	});
+
 	it('should add button', () => {
 		const api = createApi();
 		const b = api.addButton({

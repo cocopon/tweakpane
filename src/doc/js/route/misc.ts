@@ -367,6 +367,27 @@ ${indentedProps}
 				pane.addButton({title: '**Reset**', index: 1});
 			},
 
+			hidden: (container) => {
+				const PARAMS = {
+					seed: 0.1,
+				};
+				const pane = new Tweakpane({
+					container: container,
+				});
+
+				const f = pane.addFolder({title: 'Advanced'});
+				f.addInput(PARAMS, 'seed');
+
+				pane
+					.addButton({
+						index: 0,
+						title: 'Toggle',
+					})
+					.on('click', () => {
+						f.hidden = !f.hidden;
+					});
+			},
+
 			defaultTheme: (container) => {
 				return setUpThemedPane(container);
 			},

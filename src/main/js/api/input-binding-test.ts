@@ -60,4 +60,17 @@ describe(InputBindingApi.name, () => {
 
 		assert.strictEqual(api.controller.binding.value.rawValue, 123);
 	});
+
+	it('should hide', () => {
+		const PARAMS = {
+			foo: 0,
+		};
+		const api = createApi(new Target(PARAMS, 'foo'));
+		assert.strictEqual(api.hidden, false);
+
+		api.hidden = true;
+		assert.isTrue(
+			api.controller.view.element.classList.contains('tp-v-hidden'),
+		);
+	});
 });
