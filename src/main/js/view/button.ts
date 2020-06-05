@@ -30,7 +30,7 @@ export class ButtonView extends View {
 		this.element.appendChild(buttonElem);
 		this.buttonElem_ = buttonElem;
 
-		config.disposable.emitter.on('dispose', () => {
+		config.model.emitter.on('dispose', () => {
 			this.buttonElem_ = DisposingUtil.disposeElement(this.buttonElem_);
 		});
 	}

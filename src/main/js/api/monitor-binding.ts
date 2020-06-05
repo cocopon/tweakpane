@@ -21,8 +21,16 @@ export class MonitorBindingApi<In> {
 		this.controller = bindingController;
 	}
 
+	get hidden(): boolean {
+		return this.controller.viewModel.hidden;
+	}
+
+	set hidden(hidden: boolean) {
+		this.controller.viewModel.hidden = hidden;
+	}
+
 	public dispose(): void {
-		this.controller.controller.disposable.dispose();
+		this.controller.controller.viewModel.dispose();
 	}
 
 	public on<EventName extends keyof MonitorBindingApiEventHandlers>(

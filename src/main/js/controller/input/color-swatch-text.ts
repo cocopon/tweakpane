@@ -1,7 +1,7 @@
 import {Formatter} from '../../formatter/formatter';
 import {Color} from '../../model/color';
-import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
+import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
 import {ColorSwatchTextInputView} from '../../view/input/color-swatch-text';
 import {ControllerConfig} from '../controller';
@@ -19,7 +19,7 @@ interface Config extends ControllerConfig {
  * @hidden
  */
 export class ColorSwatchTextInputController implements InputController<Color> {
-	public readonly disposable: Disposable;
+	public readonly viewModel: ViewModel;
 	public readonly value: InputValue<Color>;
 	public readonly view: ColorSwatchTextInputView;
 	private swatchIc_: ColorSwatchInputController;
@@ -28,25 +28,23 @@ export class ColorSwatchTextInputController implements InputController<Color> {
 	constructor(document: Document, config: Config) {
 		this.value = config.value;
 
-		this.disposable = config.disposable;
+		this.viewModel = config.viewModel;
 		this.swatchIc_ = new ColorSwatchInputController(document, {
-			disposable: this.disposable,
 			value: this.value,
+			viewModel: this.viewModel,
 		});
 
-		this.disposable = config.disposable;
 		this.textIc_ = new TextInputController(document, {
-			disposable: this.disposable,
 			formatter: config.formatter,
 			parser: config.parser,
 			value: this.value,
+			viewModel: this.viewModel,
 		});
 
-		this.disposable = config.disposable;
 		this.view = new ColorSwatchTextInputView(document, {
-			disposable: this.disposable,
 			swatchInputView: this.swatchIc_.view,
 			textInputView: this.textIc_.view,
+			model: this.viewModel,
 		});
 	}
 }

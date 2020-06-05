@@ -58,7 +58,7 @@ export class RgbTextInputView extends View implements InputView<Color> {
 
 		this.update();
 
-		config.disposable.emitter.on('dispose', () => {
+		config.model.emitter.on('dispose', () => {
 			if (this.inputElems_) {
 				this.inputElems_.forEach((elem) => {
 					DisposingUtil.disposeElement(elem);

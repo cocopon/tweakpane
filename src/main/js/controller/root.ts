@@ -1,16 +1,18 @@
+import * as DomUtil from '../misc/dom-util';
 import {TypeUtil} from '../misc/type-util';
-import {Disposable} from '../model/disposable';
 import {Folder} from '../model/folder';
 import {
 	UiControllerList,
 	UiControllerListEvents,
 } from '../model/ui-controller-list';
+import {ViewModel} from '../model/view-model';
 import {RootView} from '../view/root';
+import * as ContainerUtil from './container-util';
 
 interface Config {
-	disposable: Disposable;
 	expanded?: boolean;
 	title?: string;
+	viewModel: ViewModel;
 }
 
 function createFolder(config: Config): Folder | null {
@@ -28,7 +30,7 @@ function createFolder(config: Config): Folder | null {
  * @hidden
  */
 export class RootController {
-	public readonly disposable: Disposable;
+	public readonly viewModel: ViewModel;
 	public readonly folder: Folder | null;
 	public readonly view: RootView;
 	private doc_: Document;
@@ -37,17 +39,21 @@ export class RootController {
 	constructor(document: Document, config: Config) {
 		this.onTitleClick_ = this.onTitleClick_.bind(this);
 		this.onUiControllerListAdd_ = this.onUiControllerListAdd_.bind(this);
+		this.onUiControllerListLayout_ = this.onUiControllerListLayout_.bind(this);
+		this.onUiControllerListRemove_ = this.onUiControllerListRemove_.bind(this);
 
 		this.folder = createFolder(config);
 
 		this.ucList_ = new UiControllerList();
 		this.ucList_.emitter.on('add', this.onUiControllerListAdd_);
+		this.ucList_.emitter.on('layout', this.onUiControllerListLayout_);
+		this.ucList_.emitter.on('remove', this.onUiControllerListRemove_);
 
 		this.doc_ = document;
-		this.disposable = config.disposable;
+		this.viewModel = config.viewModel;
 		this.view = new RootView(this.doc_, {
-			disposable: this.disposable,
 			folder: this.folder,
+			model: this.viewModel,
 		});
 		if (this.view.titleElement) {
 			this.view.titleElement.addEventListener('click', this.onTitleClick_);
@@ -62,11 +68,25 @@ export class RootController {
 		return this.ucList_;
 	}
 
+	private applyUiControllerListChange_(): void {
+		ContainerUtil.updateAllItemsPositions(this.uiControllerList);
+	}
+
 	private onUiControllerListAdd_(ev: UiControllerListEvents['add']) {
-		this.view.containerElement.insertBefore(
+		DomUtil.insertElementAt(
+			this.view.containerElement,
 			ev.uiController.view.element,
-			this.view.containerElement.children[ev.index],
+			ev.index,
 		);
+		this.applyUiControllerListChange_();
+	}
+
+	private onUiControllerListRemove_(_: UiControllerListEvents['remove']) {
+		this.applyUiControllerListChange_();
+	}
+
+	private onUiControllerListLayout_(_: UiControllerListEvents['layout']) {
+		this.applyUiControllerListChange_();
 	}
 
 	private onTitleClick_() {

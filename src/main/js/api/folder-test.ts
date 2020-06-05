@@ -10,13 +10,13 @@ import {SingleLogMonitorController} from '../controller/monitor/single-log';
 import {SeparatorController} from '../controller/separator';
 import {TestUtil} from '../misc/test-util';
 import {Color} from '../model/color';
-import {Disposable} from '../model/disposable';
+import {ViewModel} from '../model/view-model';
 import {FolderApi} from './folder';
 import {SeparatorApi} from './separator';
 
 function createApi(): FolderApi {
 	const c = new FolderController(TestUtil.createWindow().document, {
-		disposable: new Disposable(),
+		viewModel: new ViewModel(),
 		title: 'Folder',
 	});
 	return new FolderApi(c);
@@ -44,7 +44,17 @@ describe(FolderApi.name, () => {
 	it('should dispose', () => {
 		const api = createApi();
 		api.dispose();
-		assert.strictEqual(api.controller.disposable.disposed, true);
+		assert.strictEqual(api.controller.viewModel.disposed, true);
+	});
+
+	it('should hide', () => {
+		const api = createApi();
+		assert.strictEqual(api.hidden, false);
+
+		api.hidden = true;
+		assert.isTrue(
+			api.controller.view.element.classList.contains('tp-v-hidden'),
+		);
 	});
 
 	it('should add button', () => {

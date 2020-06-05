@@ -1,8 +1,8 @@
-import {Disposable} from '../model/disposable';
+import {ViewModel} from '../model/view-model';
 
 /**
  * @hidden
  */
 export interface ControllerConfig {
-	disposable: Disposable;
+	viewModel: ViewModel;
 }

@@ -53,7 +53,7 @@ export class Point2dTextInputView extends View implements InputView<Point2d> {
 
 		this.update();
 
-		config.disposable.emitter.on('dispose', () => {
+		config.model.emitter.on('dispose', () => {
 			if (this.inputElems_) {
 				this.inputElems_.forEach((elem) => {
 					DisposingUtil.disposeElement(elem);

@@ -59,3 +59,27 @@ export function createSvgIconElement(
 	elem.innerHTML = ICON_ID_TO_INNER_HTML_MAP[iconId];
 	return elem;
 }
+
+export function insertElementAt(
+	parentElement: Element,
+	element: Element,
+	index: number,
+): void {
+	parentElement.insertBefore(element, parentElement.children[index]);
+}
+
+export function removeElement(element: Element): void {
+	if (element.parentElement) {
+		element.parentElement.removeChild(element);
+	}
+}
+
+export function indexOfChildElement(element: Element): number {
+	const parentElem = element.parentElement;
+	if (!parentElem) {
+		return -1;
+	}
+
+	const children: Element[] = Array.prototype.slice.call(parentElem.children);
+	return children.indexOf(element);
+}

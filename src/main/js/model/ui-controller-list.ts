@@ -9,9 +9,9 @@ import {
 	UiMonitorBindingController,
 } from '../controller/ui';
 import {Emitter, EventTypeMap} from '../misc/emitter';
-import {DisposableEvents} from './disposable';
 import {FolderEvents} from './folder';
 import {List, ListEvents} from './list';
+import {ViewModelEvents} from './view-model';
 
 /**
  * @hidden
@@ -30,6 +30,9 @@ export interface UiControllerListEvents extends EventTypeMap {
 		inputBinding: UiInputBinding;
 		sender: UiControllerList;
 		value: unknown;
+	};
+	layout: {
+		sender: UiControllerList;
 	};
 	monitorupdate: {
 		monitorBinding: UiMonitorBinding;
@@ -50,6 +53,8 @@ export class UiControllerList {
 
 	constructor() {
 		this.onItemFolderFold_ = this.onItemFolderFold_.bind(this);
+		this.onListItemLayout_ = this.onListItemLayout_.bind(this);
+		this.onSubitemLayout_ = this.onSubitemLayout_.bind(this);
 		this.onSubitemFolderFold_ = this.onSubitemFolderFold_.bind(this);
 		this.onSubitemInputChange_ = this.onSubitemInputChange_.bind(this);
 		this.onSubitemMonitorUpdate_ = this.onSubitemMonitorUpdate_.bind(this);
@@ -82,7 +87,8 @@ export class UiControllerList {
 			sender: this,
 			uiController: uc,
 		});
-		uc.disposable.emitter.on('dispose', this.onListItemDispose_);
+		uc.viewModel.emitter.on('dispose', this.onListItemDispose_);
+		uc.viewModel.emitter.on('change', this.onListItemLayout_);
 
 		if (uc instanceof InputBindingController) {
 			const emitter = uc.binding.emitter;
@@ -96,6 +102,7 @@ export class UiControllerList {
 			uc.folder.emitter.on('change', this.onItemFolderFold_);
 
 			const emitter = uc.uiControllerList.emitter;
+			emitter.on('layout', this.onSubitemLayout_);
 			emitter.on('fold', this.onSubitemFolderFold_);
 			emitter.on('inputchange', this.onSubitemInputChange_);
 			emitter.on('monitorupdate', this.onSubitemMonitorUpdate_);
@@ -108,9 +115,17 @@ export class UiControllerList {
 		});
 	}
 
-	private onListItemDispose_(_: DisposableEvents['dispose']): void {
+	private onListItemLayout_(ev: ViewModelEvents['change']) {
+		if (ev.propertyName === 'hidden' || ev.propertyName === 'positions') {
+			this.emitter.emit('layout', {
+				sender: this,
+			});
+		}
+	}
+
+	private onListItemDispose_(_: ViewModelEvents['dispose']): void {
 		const disposedUcs = this.ucList_.items.filter((uc) => {
-			return uc.disposable.disposed;
+			return uc.viewModel.disposed;
 		});
 		disposedUcs.forEach((uc) => {
 			this.ucList_.remove(uc);
@@ -140,6 +155,12 @@ export class UiControllerList {
 	private onItemFolderFold_(ev: FolderEvents['change']) {
 		this.emitter.emit('fold', {
 			expanded: ev.expanded,
+			sender: this,
+		});
+	}
+
+	private onSubitemLayout_(_: UiControllerListEvents['layout']) {
+		this.emitter.emit('layout', {
 			sender: this,
 		});
 	}

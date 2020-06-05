@@ -3,9 +3,9 @@ import {InputBinding} from '../../binding/input';
 import * as ColorConverter from '../../converter/color';
 import {ColorFormatter} from '../../formatter/color';
 import {Color, RgbColorObject} from '../../model/color';
-import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
 import {Target} from '../../model/target';
+import {ViewModel} from '../../model/view-model';
 import {NumberColorParser} from '../../parser/number-color';
 import * as StringColorParser from '../../parser/string-color';
 import {InputBindingController} from '../input-binding';
@@ -30,11 +30,10 @@ export function createWithString(
 
 	const converter = ColorConverter.fromMixed;
 	const color = converter(initialValue);
-	const disposable = new Disposable();
+	const viewModel = new ViewModel();
 	const value = new InputValue(color);
 	const writer = ColorConverter.getStringifier(notation);
 	return new InputBindingController(document, {
-		disposable: disposable,
 		binding: new InputBinding({
 			reader: converter,
 			target: target,
@@ -42,12 +41,13 @@ export function createWithString(
 			writer: writer,
 		}),
 		controller: new ColorSwatchTextInputController(document, {
-			disposable: disposable,
 			formatter: new ColorFormatter(writer),
 			parser: StringColorParser.CompositeParser,
 			value: value,
+			viewModel: viewModel,
 		}),
 		label: params.label || target.key,
+		viewModel: viewModel,
 	});
 }
 
@@ -75,7 +75,7 @@ export function createWithNumber(
 	}
 
 	const value = new InputValue(color);
-	const disposable = new Disposable();
+	const viewModel = new ViewModel();
 	return new InputBindingController(document, {
 		binding: new InputBinding({
 			reader: ColorConverter.fromMixed,
@@ -84,13 +84,13 @@ export function createWithNumber(
 			writer: ColorConverter.toNumber,
 		}),
 		controller: new ColorSwatchTextInputController(document, {
-			disposable: disposable,
 			formatter: new ColorFormatter(ColorConverter.toHexRgbString),
 			parser: StringColorParser.CompositeParser,
 			value: value,
+			viewModel: viewModel,
 		}),
-		disposable: disposable,
 		label: params.label || target.key,
+		viewModel: viewModel,
 	});
 }
 
@@ -108,7 +108,7 @@ export function createWithObject(
 	}
 
 	const color = Color.fromRgbObject(initialValue);
-	const disposable = new Disposable();
+	const viewModel = new ViewModel();
 	const value = new InputValue(color);
 	return new InputBindingController(document, {
 		binding: new InputBinding({
@@ -118,12 +118,12 @@ export function createWithObject(
 			writer: Color.toRgbObject,
 		}),
 		controller: new ColorSwatchTextInputController(document, {
-			disposable: disposable,
+			viewModel: viewModel,
 			formatter: new ColorFormatter(ColorConverter.toHexRgbString),
 			parser: StringColorParser.CompositeParser,
 			value: value,
 		}),
-		disposable: disposable,
+		viewModel: viewModel,
 		label: params.label || target.key,
 	});
 }

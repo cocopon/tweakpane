@@ -8,12 +8,12 @@ import {MonitorBindingController} from '../controller/monitor-binding';
 import {RootController} from '../controller/root';
 import {SeparatorController} from '../controller/separator';
 import {TestUtil} from '../misc/test-util';
-import {Disposable} from '../model/disposable';
+import {ViewModel} from '../model/view-model';
 import {RootApi} from './root';
 
 function createApi(title?: string): RootApi {
 	const c = new RootController(TestUtil.createWindow().document, {
-		disposable: new Disposable(),
+		viewModel: new ViewModel(),
 		title: title,
 	});
 	return new RootApi(c);

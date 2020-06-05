@@ -1,6 +1,6 @@
 import {TypeUtil} from '../../misc/type-util';
-import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
+import {ViewModel} from '../../model/view-model';
 import {CheckboxInputView} from '../../view/input/checkbox';
 import {ControllerConfig} from '../controller';
 import {InputController} from './input';
@@ -16,7 +16,7 @@ export interface Config extends ControllerConfig {
  * @hidden
  */
 export class CheckboxInputController implements InputController<boolean> {
-	public readonly disposable: Disposable;
+	public readonly viewModel: ViewModel;
 	public readonly value: InputValue<boolean>;
 	public readonly view: CheckboxInputView;
 
@@ -25,9 +25,9 @@ export class CheckboxInputController implements InputController<boolean> {
 
 		this.value = config.value;
 
-		this.disposable = config.disposable;
+		this.viewModel = config.viewModel;
 		this.view = new CheckboxInputView(document, {
-			disposable: this.disposable,
+			model: this.viewModel,
 			value: this.value,
 		});
 		this.view.inputElement.addEventListener('change', this.onInputChange_);

@@ -208,20 +208,20 @@ $z-index-picker: 1000;
 }
 
 %container {
-	& > .#{$prefix}-fldv:first-child {
+	& > .#{$prefix}-fldv.#{$prefix}-v-first {
 		margin-top: -4px;
 	}
-	& > .#{$prefix}-fldv:last-child {
+	& > .#{$prefix}-fldv.#{$prefix}-v-last {
 		margin-bottom: -4px;
 	}
 
-	& > * + * {
+	& > *:not(.#{$prefix}-v-first) {
 		margin-top: 4px;
 	}
-	& > .#{$prefix}-fldv + .#{$prefix}-fldv {
+	& > .#{$prefix}-fldv:not(.#{$prefix}-v-hidden) + .#{$prefix}-fldv {
 		margin-top: 0;
 	}
-	& > .#{$prefix}-sptv + .#{$prefix}-sptv {
+	& > .#{$prefix}-sptv:not(.#{$prefix}-v-hidden) + .#{$prefix}-sptv {
 		margin-top: 0;
 	}
 }

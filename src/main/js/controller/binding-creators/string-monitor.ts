@@ -5,9 +5,9 @@ import {StringFormatter} from '../../formatter/string';
 import {Constants} from '../../misc/constants';
 import {IntervalTicker} from '../../misc/ticker/interval';
 import {TypeUtil} from '../../misc/type-util';
-import {Disposable} from '../../model/disposable';
 import {MonitorValue} from '../../model/monitor-value';
 import {Target} from '../../model/target';
+import {ViewModel} from '../../model/view-model';
 import {MonitorBindingController} from '../monitor-binding';
 import {MultiLogMonitorController} from '../monitor/multi-log';
 import {SingleLogMonitorController} from '../monitor/single-log';
@@ -33,14 +33,14 @@ export function create(
 		value.totalCount > 1 || ('multiline' in params && params.multiline);
 	const controller = multiline
 		? new MultiLogMonitorController(document, {
-				disposable: new Disposable(),
 				formatter: new StringFormatter(),
 				value: value,
+				viewModel: new ViewModel(),
 		  })
 		: new SingleLogMonitorController(document, {
-				disposable: new Disposable(),
 				formatter: new StringFormatter(),
 				value: value,
+				viewModel: new ViewModel(),
 		  });
 	const ticker = new IntervalTicker(
 		document,
@@ -58,7 +58,7 @@ export function create(
 			value: value,
 		}),
 		controller: controller,
-		disposable: controller.disposable,
 		label: params.label || target.key,
+		viewModel: controller.viewModel,
 	});
 }

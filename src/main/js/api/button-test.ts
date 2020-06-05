@@ -3,14 +3,14 @@ import {describe, it} from 'mocha';
 
 import {ButtonController} from '../controller/button';
 import {TestUtil} from '../misc/test-util';
-import {Disposable} from '../model/disposable';
+import {ViewModel} from '../model/view-model';
 import {ButtonApi} from './button';
 
 describe(ButtonApi.name, () => {
 	it('should listen click event', (done) => {
 		const c = new ButtonController(TestUtil.createWindow().document, {
-			disposable: new Disposable(),
 			title: 'Button',
+			viewModel: new ViewModel(),
 		});
 		const api = new ButtonApi(c);
 		api.on('click', () => {
@@ -21,7 +21,7 @@ describe(ButtonApi.name, () => {
 
 	it('should have chainable event handling', () => {
 		const c = new ButtonController(TestUtil.createWindow().document, {
-			disposable: new Disposable(),
+			viewModel: new ViewModel(),
 			title: 'Button',
 		});
 		const api = new ButtonApi(c);

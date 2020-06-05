@@ -44,7 +44,7 @@ export class CheckboxInputView extends View implements InputView<boolean> {
 
 		this.update();
 
-		config.disposable.emitter.on('dispose', () => {
+		config.model.emitter.on('dispose', () => {
 			this.inputElem_ = DisposingUtil.disposeElement(this.inputElem_);
 		});
 	}

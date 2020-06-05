@@ -23,6 +23,14 @@ export class InputBindingApi<In, Out> {
 		this.controller = bindingController;
 	}
 
+	get hidden(): boolean {
+		return this.controller.viewModel.hidden;
+	}
+
+	set hidden(hidden: boolean) {
+		this.controller.viewModel.hidden = hidden;
+	}
+
 	public on<EventName extends keyof InputBindingApiEventHandlers>(
 		eventName: EventName,
 		handler: InputBindingApiEventHandlers[EventName],

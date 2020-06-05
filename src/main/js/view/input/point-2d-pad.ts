@@ -87,7 +87,7 @@ export class Point2dPadInputView extends View implements InputView<Point2d> {
 
 		this.update();
 
-		config.disposable.emitter.on('dispose', () => {
+		config.model.emitter.on('dispose', () => {
 			this.padElem_ = DisposingUtil.disposeElement(this.padElem_);
 		});
 	}

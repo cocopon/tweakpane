@@ -4,13 +4,16 @@ interface Observer<E> {
 	handler: Handler<E>;
 }
 
+interface EventObject {
+	sender: unknown;
+	[key: string]: any;
+}
+
 /**
  * @hidden
  */
 export interface EventTypeMap {
-	[key: string]: {
-		[key: string]: any;
-	};
+	[key: string]: EventObject;
 }
 
 /**

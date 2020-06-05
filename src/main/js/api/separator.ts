@@ -13,7 +13,15 @@ export class SeparatorApi {
 		this.controller = controller;
 	}
 
+	get hidden(): boolean {
+		return this.controller.viewModel.hidden;
+	}
+
+	set hidden(hidden: boolean) {
+		this.controller.viewModel.hidden = hidden;
+	}
+
 	public dispose(): void {
-		this.controller.disposable.dispose();
+		this.controller.viewModel.dispose();
 	}
 }

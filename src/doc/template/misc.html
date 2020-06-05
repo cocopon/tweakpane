@@ -316,6 +316,31 @@ pane.<strong>refresh</strong>();
 </div>
 
 
+<h3>Component visibility</h3>
+<p>Toggle <code>hidden</code> property to show/hide components.</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-demo">
+		<div class="common-demo_codeLayout">
+			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
+const f = pane.addFolder({
+  title: 'Advanced',
+});
+// f.addInput(PARAMS, ...);
+
+pane.addButton({title: 'Toggle'})
+  .on('click', () => {
+    f.<strong>hidden</strong> = !f.<strong>hidden</strong>;
+  });
+</code></pre></div>
+		</div>
+		<div class="common-demo_resultLayout">
+			<div class="common-paneContainer common-paneContainer-hidden"></div>
+		</div>
+	</div>
+</div>
+
+
 <h3>Disposing</h3>
 <p>If you want to dispose a pane manually, call <code>dispose()</code> of the pane.</p>
 

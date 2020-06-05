@@ -1,7 +1,7 @@
 import {Formatter} from '../../formatter/formatter';
 import {TypeUtil} from '../../misc/type-util';
-import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
+import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
 import {TextInputView} from '../../view/input/text';
 import {ControllerConfig} from '../controller';
@@ -20,7 +20,7 @@ export interface Config<T> extends ControllerConfig {
  * @hidden
  */
 export class TextInputController<T> implements InputController<T> {
-	public readonly disposable: Disposable;
+	public readonly viewModel: ViewModel;
 	public readonly value: InputValue<T>;
 	public readonly view: TextInputView<T>;
 	private parser_: Parser<string, T>;
@@ -31,10 +31,10 @@ export class TextInputController<T> implements InputController<T> {
 		this.parser_ = config.parser;
 		this.value = config.value;
 
-		this.disposable = config.disposable;
+		this.viewModel = config.viewModel;
 		this.view = new TextInputView(document, {
-			disposable: this.disposable,
 			formatter: config.formatter,
+			model: this.viewModel,
 			value: this.value,
 		});
 		this.view.inputElement.addEventListener('change', this.onInputChange_);

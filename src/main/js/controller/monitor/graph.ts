@@ -1,8 +1,8 @@
 import {Formatter} from '../../formatter/formatter';
 import {NumberUtil} from '../../misc/number-util';
-import {Disposable} from '../../model/disposable';
 import {GraphCursor} from '../../model/graph-cursor';
 import {MonitorValue} from '../../model/monitor-value';
+import {ViewModel} from '../../model/view-model';
 import {GraphMonitorView} from '../../view/monitor/graph';
 import {ControllerConfig} from '../controller';
 import {MonitorController} from './monitor';
@@ -18,7 +18,7 @@ interface Config extends ControllerConfig {
  * @hidden
  */
 export class GraphMonitorController implements MonitorController<number> {
-	public readonly disposable: Disposable;
+	public readonly viewModel: ViewModel;
 	public readonly value: MonitorValue<number>;
 	public readonly view: GraphMonitorView;
 	private cursor_: GraphCursor;
@@ -30,13 +30,13 @@ export class GraphMonitorController implements MonitorController<number> {
 		this.value = config.value;
 		this.cursor_ = new GraphCursor();
 
-		this.disposable = config.disposable;
+		this.viewModel = config.viewModel;
 		this.view = new GraphMonitorView(document, {
 			cursor: this.cursor_,
-			disposable: this.disposable,
 			formatter: config.formatter,
 			maxValue: config.maxValue,
 			minValue: config.minValue,
+			model: this.viewModel,
 			value: this.value,
 		});
 		this.view.graphElement.addEventListener(

@@ -4,7 +4,7 @@ import {ClassName} from './misc/class-name';
 import * as DomUtil from './misc/dom-util';
 import {PaneError} from './misc/pane-error';
 import {TypeUtil} from './misc/type-util';
-import {Disposable} from './model/disposable';
+import {ViewModel} from './model/view-model';
 import {TweakpaneConfig} from './tweakpane-config';
 
 function createDefaultWrapperElement(document: Document): HTMLElement {
@@ -29,7 +29,7 @@ export class TweakpaneWithoutStyle extends RootApi {
 		);
 
 		const rootController = new RootController(document, {
-			disposable: new Disposable(),
+			viewModel: new ViewModel(),
 			title: config.title,
 		});
 		super(rootController);

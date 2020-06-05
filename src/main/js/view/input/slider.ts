@@ -49,7 +49,7 @@ export class SliderInputView extends View implements InputView<number> {
 
 		this.update();
 
-		config.disposable.emitter.on('dispose', () => {
+		config.model.emitter.on('dispose', () => {
 			this.innerElem_ = DisposingUtil.disposeElement(this.innerElem_);
 			this.outerElem_ = DisposingUtil.disposeElement(this.outerElem_);
 		});

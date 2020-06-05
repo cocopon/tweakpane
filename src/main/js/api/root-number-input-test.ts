@@ -10,13 +10,13 @@ import {TextInputController} from '../controller/input/text';
 import {RootController} from '../controller/root';
 import {TestUtil} from '../misc/test-util';
 import {TypeUtil} from '../misc/type-util';
-import {Disposable} from '../model/disposable';
 import {InputValue} from '../model/input-value';
+import {ViewModel} from '../model/view-model';
 import {RootApi} from './root';
 
 function createApi(): RootApi {
 	const c = new RootController(TestUtil.createWindow().document, {
-		disposable: new Disposable(),
+		viewModel: new ViewModel(),
 	});
 	return new RootApi(c);
 }

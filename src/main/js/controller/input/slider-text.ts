@@ -1,6 +1,6 @@
 import {Formatter} from '../../formatter/formatter';
-import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
+import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
 import {SliderTextInputView} from '../../view/input/slider-text';
 import {ControllerConfig} from '../controller';
@@ -18,7 +18,7 @@ interface Config extends ControllerConfig {
  * @hidden
  */
 export class SliderTextInputController implements InputController<number> {
-	public disposable: Disposable;
+	public viewModel: ViewModel;
 	private sliderIc_: SliderInputController;
 	private textIc_: NumberTextInputController;
 	private value_: InputValue<number>;
@@ -27,20 +27,20 @@ export class SliderTextInputController implements InputController<number> {
 	constructor(document: Document, config: Config) {
 		this.value_ = config.value;
 
-		this.disposable = config.disposable;
+		this.viewModel = config.viewModel;
 		this.sliderIc_ = new SliderInputController(document, {
-			disposable: this.disposable,
 			value: config.value,
+			viewModel: this.viewModel,
 		});
 		this.textIc_ = new NumberTextInputController(document, {
-			disposable: this.disposable,
 			formatter: config.formatter,
 			parser: config.parser,
 			value: config.value,
+			viewModel: this.viewModel,
 		});
 
 		this.view_ = new SliderTextInputView(document, {
-			disposable: this.disposable,
+			model: this.viewModel,
 			sliderInputView: this.sliderIc_.view,
 			textInputView: this.textIc_.view,
 		});

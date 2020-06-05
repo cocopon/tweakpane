@@ -3,8 +3,8 @@ import * as MonitorBindingControllerCreators from '../controller/binding-creator
 import {ButtonController} from '../controller/button';
 import {FolderController} from '../controller/folder';
 import {SeparatorController} from '../controller/separator';
-import {Disposable} from '../model/disposable';
 import {Target} from '../model/target';
+import {ViewModel} from '../model/view-model';
 import {ButtonApi} from './button';
 import * as EventHandlerAdapters from './event-handler-adapters';
 import {InputBindingApi} from './input-binding';
@@ -44,8 +44,16 @@ export class FolderApi {
 		this.controller.folder.expanded = expanded;
 	}
 
+	get hidden(): boolean {
+		return this.controller.viewModel.hidden;
+	}
+
+	set hidden(hidden: boolean) {
+		this.controller.viewModel.hidden = hidden;
+	}
+
 	public dispose(): void {
-		this.controller.disposable.dispose();
+		this.controller.viewModel.dispose();
 	}
 
 	public addInput(object: object, key: string, opt_params?: InputParams) {
@@ -78,7 +86,7 @@ export class FolderApi {
 	public addButton(params: ButtonParams): ButtonApi {
 		const uc = new ButtonController(this.controller.document, {
 			...params,
-			disposable: new Disposable(),
+			viewModel: new ViewModel(),
 		});
 		this.controller.uiControllerList.add(uc, params.index);
 		return new ButtonApi(uc);
@@ -87,7 +95,7 @@ export class FolderApi {
 	public addSeparator(opt_params?: SeparatorParams): SeparatorApi {
 		const params = opt_params || {};
 		const uc = new SeparatorController(this.controller.document, {
-			disposable: new Disposable(),
+			viewModel: new ViewModel(),
 		});
 		this.controller.uiControllerList.add(uc, params.index);
 		return new SeparatorApi(uc);

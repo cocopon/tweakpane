@@ -4,8 +4,8 @@ import {describe, it} from 'mocha';
 import {NumberFormatter} from '../../formatter/number';
 import {TestUtil} from '../../misc/test-util';
 import {Color, RgbColorObject} from '../../model/color';
-import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
+import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
 import {RgbTextInputController} from './rgb-text';
 
@@ -34,13 +34,13 @@ describe(RgbTextInputController.name, () => {
 	it('should dispose', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new RgbTextInputController(doc, {
-			disposable: new Disposable(),
 			formatter: new NumberFormatter(0),
 			parser: StringNumberParser,
 			value: new InputValue(new Color([0, 0, 0], 'rgb')),
+			viewModel: new ViewModel(),
 		});
-		c.disposable.dispose();
-		assert.strictEqual(c.disposable.disposed, true);
+		c.viewModel.dispose();
+		assert.strictEqual(c.viewModel.disposed, true);
 	});
 
 	[
@@ -87,10 +87,10 @@ describe(RgbTextInputController.name, () => {
 				const win = TestUtil.createWindow();
 				const doc = win.document;
 				const c = new RgbTextInputController(doc, {
-					disposable: new Disposable(),
 					formatter: new NumberFormatter(0),
 					parser: StringNumberParser,
 					value: value,
+					viewModel: new ViewModel(),
 				});
 
 				const inputElem = c.view.inputElements[testCase.params.index];
@@ -153,10 +153,10 @@ describe(RgbTextInputController.name, () => {
 				const win = TestUtil.createWindow();
 				const doc = win.document;
 				const c = new RgbTextInputController(doc, {
-					disposable: new Disposable(),
 					formatter: new NumberFormatter(0),
 					parser: StringNumberParser,
 					value: value,
+					viewModel: new ViewModel(),
 				});
 
 				const inputElem = c.view.inputElements[testCase.params.index];

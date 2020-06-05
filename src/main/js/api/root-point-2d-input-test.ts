@@ -8,12 +8,12 @@ import {ConstraintUtil} from '../constraint/util';
 import {Point2dPadTextInputController} from '../controller/input/point-2d-pad-text';
 import {RootController} from '../controller/root';
 import {TestUtil} from '../misc/test-util';
-import {Disposable} from '../model/disposable';
+import {ViewModel} from '../model/view-model';
 import {RootApi} from './root';
 
 function createApi(): RootApi {
 	const c = new RootController(TestUtil.createWindow().document, {
-		disposable: new Disposable(),
+		viewModel: new ViewModel(),
 	});
 	return new RootApi(c);
 }

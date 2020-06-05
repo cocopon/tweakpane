@@ -3,8 +3,8 @@ import {describe, it} from 'mocha';
 
 import {NumberFormatter} from '../../formatter/number';
 import {TestUtil} from '../../misc/test-util';
-import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
+import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
 import {TextInputController} from './text';
 
@@ -13,7 +13,7 @@ describe(TextInputController.name, () => {
 		const value = new InputValue(0);
 		const doc = TestUtil.createWindow().document;
 		const c = new TextInputController(doc, {
-			disposable: new Disposable(),
+			viewModel: new ViewModel(),
 			formatter: new NumberFormatter(2),
 			parser: StringNumberParser,
 			value: value,
@@ -27,7 +27,7 @@ describe(TextInputController.name, () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new TextInputController(doc, {
-			disposable: new Disposable(),
+			viewModel: new ViewModel(),
 			formatter: new NumberFormatter(2),
 			parser: StringNumberParser,
 			value: value,
@@ -43,12 +43,12 @@ describe(TextInputController.name, () => {
 		const value = new InputValue(0);
 		const doc = TestUtil.createWindow().document;
 		const c = new TextInputController(doc, {
-			disposable: new Disposable(),
+			viewModel: new ViewModel(),
 			formatter: new NumberFormatter(2),
 			parser: StringNumberParser,
 			value: value,
 		});
-		c.disposable.dispose();
-		assert.strictEqual(c.disposable.disposed, true);
+		c.viewModel.dispose();
+		assert.strictEqual(c.viewModel.disposed, true);
 	});
 });

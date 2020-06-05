@@ -1,7 +1,7 @@
 import {TypeUtil} from '../../misc/type-util';
 import {Color} from '../../model/color';
-import {Disposable} from '../../model/disposable';
 import {InputValue} from '../../model/input-value';
+import {ViewModel} from '../../model/view-model';
 import {ColorSwatchInputView} from '../../view/input/color-swatch';
 import {ControllerConfig} from '../controller';
 import {ColorPickerInputController} from './color-picker';
@@ -15,7 +15,7 @@ interface Config extends ControllerConfig {
  * @hidden
  */
 export class ColorSwatchInputController implements InputController<Color> {
-	public readonly disposable: Disposable;
+	public readonly viewModel: ViewModel;
 	public readonly value: InputValue<Color>;
 	public readonly view: ColorSwatchInputView;
 	private pickerIc_: ColorPickerInputController;
@@ -26,14 +26,14 @@ export class ColorSwatchInputController implements InputController<Color> {
 
 		this.value = config.value;
 
-		this.disposable = config.disposable;
+		this.viewModel = config.viewModel;
 		this.pickerIc_ = new ColorPickerInputController(document, {
-			disposable: this.disposable,
 			value: this.value,
+			viewModel: this.viewModel,
 		});
 
 		this.view = new ColorSwatchInputView(document, {
-			disposable: this.disposable,
+			model: this.viewModel,
 			pickerInputView: this.pickerIc_.view,
 			value: this.value,
 		});
