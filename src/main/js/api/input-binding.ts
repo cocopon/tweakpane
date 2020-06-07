@@ -31,6 +31,10 @@ export class InputBindingApi<In, Out> {
 		this.controller.viewModel.hidden = hidden;
 	}
 
+	public dispose(): void {
+		this.controller.viewModel.dispose();
+	}
+
 	public on<EventName extends keyof InputBindingApiEventHandlers>(
 		eventName: EventName,
 		handler: InputBindingApiEventHandlers[EventName],
