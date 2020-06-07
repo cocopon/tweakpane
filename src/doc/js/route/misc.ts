@@ -18,6 +18,9 @@ export const MiscRoute = {
 			name: 'export',
 			size: 10,
 		};
+		const IMEX_LOG = {
+			log: '',
+		};
 
 		const showTheme = (params: ThemeParams) => {
 			const elem = document.querySelector('*[data-themeCss]');
@@ -247,18 +250,15 @@ ${indentedProps}
 					min: 0,
 				});
 				pane.addInput(IMEX_PARAMS, 'color');
+				pane.addSeparator();
+				pane.addMonitor(IMEX_LOG, 'log', {
+					label: '(preset)',
+					multiline: true,
+				});
 
 				const updatePreset = () => {
 					const preset = pane.exportPreset();
-
-					const elems: HTMLElement[] = Array.prototype.slice.call(
-						document.querySelectorAll('*[data-imex]'),
-					);
-					elems.forEach((elem) => {
-						if (elem) {
-							elem.textContent = JSON.stringify(preset, null, 2);
-						}
-					});
+					IMEX_LOG.log = JSON.stringify(preset, null, 2);
 				};
 
 				pane.on('change', updatePreset);
@@ -268,11 +268,16 @@ ${indentedProps}
 			import: (container) => {
 				const PARAMS = {
 					color: '#0080ff',
+					log: '',
 					name: 'import',
 					size: 50,
 				};
 				const pane = new Tweakpane({
 					container: container,
+				});
+				pane.addMonitor(IMEX_LOG, 'log', {
+					label: '(preset)',
+					multiline: true,
 				});
 				pane
 					.addButton({
@@ -288,27 +293,34 @@ ${indentedProps}
 			},
 
 			presetKey: (container) => {
-				const PARAMS1 = {speed: 1 / 3};
-				const PARAMS2 = {speed: 2 / 3};
+				const PARAMS = {
+					foo: {speed: 1 / 3},
+					bar: {speed: 2 / 3},
+					preset: '',
+				};
 				const pane = new Tweakpane({
 					container: container,
 				});
-				pane.addInput(PARAMS1, 'speed', {
+				pane.addInput(PARAMS.foo, 'speed', {
 					max: 1,
 					min: 0,
 				});
-				pane.addInput(PARAMS2, 'speed', {
+				pane.addInput(PARAMS.bar, 'speed', {
 					max: 1,
 					min: 0,
 					presetKey: 'speed2',
 				});
+				pane.addSeparator();
+				const m = pane.addMonitor(PARAMS, 'preset', {
+					interval: 0,
+					label: '(preset)',
+					multiline: true,
+				});
 
 				const updatePreset = () => {
-					const elem = document.querySelector('*[data-presetKey]');
-					if (elem) {
-						const preset = pane.exportPreset();
-						elem.textContent = JSON.stringify(preset, null, 2);
-					}
+					const preset = pane.exportPreset();
+					PARAMS.preset = JSON.stringify(preset, null, 2);
+					m.refresh();
 				};
 
 				pane.on('change', updatePreset);
