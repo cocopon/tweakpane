@@ -1,4 +1,5 @@
 import {InputBindingController} from '../controller/input-binding';
+import {ComponentApi} from './component-api';
 import * as HandlerAdapters from './event-handler-adapters';
 
 interface InputBindingApiEventHandlers {
@@ -10,7 +11,7 @@ interface InputBindingApiEventHandlers {
  * @param In The type inner Tweakpane.
  * @param Out The type outer Tweakpane (= parameter object).
  */
-export class InputBindingApi<In, Out> {
+export class InputBindingApi<In, Out> implements ComponentApi {
 	/**
 	 * @hidden
 	 */
@@ -29,6 +30,10 @@ export class InputBindingApi<In, Out> {
 
 	set hidden(hidden: boolean) {
 		this.controller.viewModel.hidden = hidden;
+	}
+
+	public dispose(): void {
+		this.controller.viewModel.dispose();
 	}
 
 	public on<EventName extends keyof InputBindingApiEventHandlers>(

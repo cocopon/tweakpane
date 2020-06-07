@@ -10,6 +10,7 @@ import * as UiUtil from '../controller/ui-util';
 import {Target} from '../model/target';
 import {ViewModel} from '../model/view-model';
 import {ButtonApi} from './button';
+import {ComponentApi} from './component-api';
 import * as EventHandlerAdapters from './event-handler-adapters';
 import {FolderApi} from './folder';
 import {InputBindingApi} from './input-binding';
@@ -40,7 +41,7 @@ interface RootApiEventHandlers {
  *
  * See [[TweakpaneConfig]] interface for available options.
  */
-export class RootApi {
+export class RootApi implements ComponentApi {
 	/**
 	 * @hidden
 	 */

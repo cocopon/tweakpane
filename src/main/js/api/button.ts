@@ -1,10 +1,11 @@
 import {ButtonController} from '../controller/button';
+import {ComponentApi} from './component-api';
 
 interface ButtonApiEventHandlers {
 	click: () => void;
 }
 
-export class ButtonApi {
+export class ButtonApi implements ComponentApi {
 	/**
 	 * @hidden
 	 */
