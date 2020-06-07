@@ -1,4 +1,5 @@
 import {MonitorBindingController} from '../controller/monitor-binding';
+import {ComponentApi} from './component-api';
 import * as EventHandlerAdapters from './event-handler-adapters';
 
 interface MonitorBindingApiEventHandlers {
@@ -8,7 +9,7 @@ interface MonitorBindingApiEventHandlers {
 /**
  * The API for the monitor binding between the parameter and the pane.
  */
-export class MonitorBindingApi<In> {
+export class MonitorBindingApi<In> implements ComponentApi {
 	/**
 	 * @hidden
 	 */

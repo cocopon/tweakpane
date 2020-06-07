@@ -6,6 +6,7 @@ import {SeparatorController} from '../controller/separator';
 import {Target} from '../model/target';
 import {ViewModel} from '../model/view-model';
 import {ButtonApi} from './button';
+import {ComponentApi} from './component-api';
 import * as EventHandlerAdapters from './event-handler-adapters';
 import {InputBindingApi} from './input-binding';
 import {MonitorBindingApi} from './monitor-binding';
@@ -23,7 +24,7 @@ interface FolderApiEventHandlers {
 	update: (value: unknown) => void;
 }
 
-export class FolderApi {
+export class FolderApi implements ComponentApi {
 	/**
 	 * @hidden
 	 */

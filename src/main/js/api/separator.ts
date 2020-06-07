@@ -1,6 +1,7 @@
 import {SeparatorController} from '../controller/separator';
+import {ComponentApi} from './component-api';
 
-export class SeparatorApi {
+export class SeparatorApi implements ComponentApi {
 	/**
 	 * @hidden
 	 */
