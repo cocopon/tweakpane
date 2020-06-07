@@ -117,4 +117,17 @@ describe(RootApi.name, () => {
 			});
 		});
 	});
+
+	it('should dispose monitor', () => {
+		const PARAMS = {foo: 1};
+		const api = createApi();
+		const bapi = api.addMonitor(PARAMS, 'foo', {
+			interval: 0,
+		});
+		bapi.dispose();
+		assert.strictEqual(
+			api.controller.view.element.querySelector('.tp-lblv'),
+			null,
+		);
+	});
 });
