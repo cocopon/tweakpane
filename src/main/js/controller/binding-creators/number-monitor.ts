@@ -56,7 +56,7 @@ function createTextMonitor(
 		}),
 		controller: controller,
 		label: params.label || target.key,
-		viewModel: new ViewModel(),
+		viewModel: controller.viewModel,
 	});
 }
 
