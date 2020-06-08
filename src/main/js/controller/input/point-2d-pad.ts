@@ -10,6 +10,7 @@ import * as UiUtil from '../ui-util';
 import {InputController} from './input';
 
 interface Config {
+	invertsY: boolean;
 	value: InputValue<Point2d>;
 	viewModel: ViewModel;
 }
@@ -23,6 +24,7 @@ export class Point2dPadInputController implements InputController<Point2d> {
 	public readonly value: InputValue<Point2d>;
 	public readonly view: Point2dPadInputView;
 	private readonly ptHandler_: PointerHandler;
+	private readonly invertsY_: boolean;
 	private readonly maxValue_: number;
 
 	constructor(document: Document, config: Config) {
@@ -37,10 +39,12 @@ export class Point2dPadInputController implements InputController<Point2d> {
 			this.value.constraint,
 			this.value.rawValue,
 		);
+		this.invertsY_ = config.invertsY;
 
 		this.viewModel = config.viewModel;
 		this.view = new Point2dPadInputView(document, {
 			foldable: this.foldable,
+			invertsY: this.invertsY_,
 			maxValue: this.maxValue_,
 			model: this.viewModel,
 			value: this.value,
@@ -54,10 +58,15 @@ export class Point2dPadInputController implements InputController<Point2d> {
 
 	private handlePointerEvent_(d: PointerData): void {
 		const max = this.maxValue_;
-		this.value.rawValue = new Point2d(
-			NumberUtil.map(d.px, 0, 1, -max, +max),
-			NumberUtil.map(d.py, 0, 1, -max, +max),
+		const px = NumberUtil.map(d.px, 0, 1, -max, +max);
+		const py = NumberUtil.map(
+			this.invertsY_ ? 1 - d.py : d.py,
+			0,
+			1,
+			-max,
+			+max,
 		);
+		this.value.rawValue = new Point2d(px, py);
 		this.view.update();
 	}
 

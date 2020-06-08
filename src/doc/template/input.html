@@ -280,5 +280,26 @@ pane.addInput(PARAMS, 'offset', {
 		</div>
 	</div>
 </div>
+
+<p>If you want to invert Y-axis, add <code>inverted</code> to Y parameters.</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-demo">
+		<div class="common-demo_codeLayout">
+			<div class="common-codeBlock"><pre><code class="js">const PARAMS = {
+  offset: {x: 50, y: 50},
+};
+
+const pane = new Tweakpane();
+pane.addInput(PARAMS, 'offset', {
+  y: {<strong>inverted</strong>: true},
+});</code></pre></div>
+		</div>
+		<div class="common-demo_resultLayout">
+			<div class="common-paneContainer common-paneContainer-point2dInvertedY"></div>
+		</div>
+	</div>
+</div>
+
 {% endblock %}
 

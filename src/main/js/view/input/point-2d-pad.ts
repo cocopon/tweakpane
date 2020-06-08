@@ -11,6 +11,7 @@ import {InputView} from './input';
 
 interface Config extends ViewConfig {
 	foldable: Foldable;
+	invertsY: boolean;
 	value: InputValue<Point2d>;
 	maxValue: number;
 }
@@ -24,6 +25,7 @@ const className = ClassName('p2dpad', 'input');
 export class Point2dPadInputView extends View implements InputView<Point2d> {
 	public readonly foldable: Foldable;
 	public readonly value: InputValue<Point2d>;
+	private readonly invertsY_: boolean;
 	private readonly maxValue_: number;
 	private padElem_: HTMLDivElement | null;
 	private svgElem_: Element | null;
@@ -39,6 +41,7 @@ export class Point2dPadInputView extends View implements InputView<Point2d> {
 		this.foldable = config.foldable;
 		this.foldable.emitter.on('change', this.onFoldableChange_);
 
+		this.invertsY_ = config.invertsY;
 		this.maxValue_ = config.maxValue;
 
 		this.element.classList.add(className());
@@ -116,10 +119,11 @@ export class Point2dPadInputView extends View implements InputView<Point2d> {
 		const max = this.maxValue_;
 		const px = NumberUtil.map(x, -max, +max, 0, 100);
 		const py = NumberUtil.map(y, -max, +max, 0, 100);
+		const ipy = this.invertsY_ ? 100 - py : py;
 		lineElem.setAttributeNS(null, 'x2', `${px}%`);
-		lineElem.setAttributeNS(null, 'y2', `${py}%`);
+		lineElem.setAttributeNS(null, 'y2', `${ipy}%`);
 		markerElem.setAttributeNS(null, 'cx', `${px}%`);
-		markerElem.setAttributeNS(null, 'cy', `${py}%`);
+		markerElem.setAttributeNS(null, 'cy', `${ipy}%`);
 	}
 
 	private onValueChange_(): void {

@@ -21,6 +21,12 @@ export interface Point2dDimensionParams {
 	step?: number;
 }
 
+export type Point2dXParams = Point2dDimensionParams;
+
+export interface Point2dYParams extends Point2dDimensionParams {
+	inverted?: boolean;
+}
+
 interface BaseInputParams extends BaseParams, LabelableParams {
 	presetKey?: string;
 }
@@ -40,9 +46,8 @@ interface NumberInputParams extends BaseInputParams {
 }
 
 interface Point2dInputParams extends BaseInputParams {
-	options?: InputParamsOption<unknown>[] | InputParamsOptionDictionary<unknown>;
-	x?: Point2dDimensionParams;
-	y?: Point2dDimensionParams;
+	x?: Point2dXParams;
+	y?: Point2dYParams;
 }
 
 interface StringInputParams extends BaseInputParams {

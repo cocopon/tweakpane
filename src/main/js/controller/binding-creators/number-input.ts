@@ -42,7 +42,7 @@ function createConstraint(params: InputParams): Constraint<number> {
 		);
 	}
 
-	if (params.options) {
+	if ('options' in params && params.options !== undefined) {
 		constraints.push(
 			new ListConstraint({
 				options: UiUtil.normalizeInputParamsOptions(
