@@ -57,7 +57,6 @@ export function create(
 			value: value,
 		}),
 		controller: controller,
-		viewModel: controller.viewModel,
 		label: params.label || target.key,
 	});
 }

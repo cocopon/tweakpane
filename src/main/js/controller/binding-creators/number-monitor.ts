@@ -56,7 +56,6 @@ function createTextMonitor(
 		}),
 		controller: controller,
 		label: params.label || target.key,
-		viewModel: controller.viewModel,
 	});
 }
 
@@ -97,7 +96,6 @@ function createGraphMonitor(
 		}),
 		controller: controller,
 		label: params.label || target.key,
-		viewModel: new ViewModel(),
 	});
 }
 

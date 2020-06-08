@@ -6,12 +6,12 @@ import {InputValue} from '../../model/input-value';
 import {Point2d} from '../../model/point-2d';
 import {ViewModel} from '../../model/view-model';
 import {Point2dPadInputView} from '../../view/input/point-2d-pad';
-import {ControllerConfig} from '../controller';
 import * as UiUtil from '../ui-util';
 import {InputController} from './input';
 
-interface Config extends ControllerConfig {
+interface Config {
 	value: InputValue<Point2d>;
+	viewModel: ViewModel;
 }
 
 /**

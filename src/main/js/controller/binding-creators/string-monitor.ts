@@ -59,6 +59,5 @@ export function create(
 		}),
 		controller: controller,
 		label: params.label || target.key,
-		viewModel: controller.viewModel,
 	});
 }

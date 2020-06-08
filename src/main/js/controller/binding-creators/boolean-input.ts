@@ -73,7 +73,6 @@ export function create(
 	return new InputBindingController(document, {
 		binding: binding,
 		controller: createController(document, value),
-		viewModel: new ViewModel(),
 		label: params.label || target.key,
 	});
 }

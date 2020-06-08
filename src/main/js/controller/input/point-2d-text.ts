@@ -6,13 +6,13 @@ import {Point2d} from '../../model/point-2d';
 import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
 import {Point2dTextInputView} from '../../view/input/point-2d-text';
-import {ControllerConfig} from '../controller';
 import * as UiUtil from '../ui-util';
 import {InputController} from './input';
 
-interface Config extends ControllerConfig {
+interface Config {
 	parser: Parser<string, number>;
 	value: InputValue<Point2d>;
+	viewModel: ViewModel;
 	xFormatter: Formatter<number>;
 	yFormatter: Formatter<number>;
 }

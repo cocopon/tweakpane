@@ -30,7 +30,6 @@ function createApi(target: Target) {
 		}),
 		controller: mc,
 		label: 'label',
-		viewModel: mc.viewModel,
 	});
 	return new MonitorBindingApi(bc);
 }
