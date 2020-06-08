@@ -16,7 +16,7 @@ import * as UiUtil from '../ui-util';
 function createConstraint(params: InputParams): Constraint<boolean> {
 	const constraints: Constraint<boolean>[] = [];
 
-	if (params.options) {
+	if ('options' in params && params.options !== undefined) {
 		constraints.push(
 			new ListConstraint({
 				options: UiUtil.normalizeInputParamsOptions(

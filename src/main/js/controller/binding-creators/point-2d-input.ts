@@ -55,13 +55,18 @@ function createConstraint(params: InputParams): Constraint<Point2d> {
 	});
 }
 
-function createController(document: Document, value: InputValue<Point2d>) {
+function createController(
+	document: Document,
+	value: InputValue<Point2d>,
+	invertsY: boolean,
+) {
 	const c = value.constraint;
 	if (!(c instanceof Point2dConstraint)) {
 		throw PaneError.shouldNeverHappen();
 	}
 
 	return new Point2dPadTextInputController(document, {
+		invertsY: invertsY,
 		parser: StringNumberParser,
 		value: value,
 		viewModel: new ViewModel(),
@@ -96,7 +101,9 @@ export function create(
 		writer: (v) => v.toObject(),
 	});
 
-	const controller = createController(document, value);
+	const yParams = 'y' in params ? params.y : undefined;
+	const invertsY = yParams ? !!yParams.inverted : false;
+	const controller = createController(document, value, invertsY);
 	return new InputBindingController(document, {
 		binding: binding,
 		controller: controller,
