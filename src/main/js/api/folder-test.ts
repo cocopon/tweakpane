@@ -223,4 +223,16 @@ describe(FolderApi.name, () => {
 			});
 		});
 	});
+
+	it('should bind `this` within handler to folder', (done) => {
+		const PARAMS = {foo: 1};
+		const api = createApi();
+		api.on('change', function() {
+			assert.strictEqual(this, api);
+			done();
+		});
+
+		const bapi = api.addInput(PARAMS, 'foo');
+		bapi.controller.binding.value.rawValue = 2;
+	});
 });

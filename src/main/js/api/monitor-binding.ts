@@ -41,7 +41,7 @@ export class MonitorBindingApi<In> implements ComponentApi {
 		EventHandlerAdapters.monitor({
 			binding: this.controller.binding,
 			eventName: eventName,
-			handler: handler,
+			handler: handler.bind(this),
 		});
 		return this;
 	}

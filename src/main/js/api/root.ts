@@ -177,7 +177,7 @@ export class RootApi implements ComponentApi {
 		EventHandlerAdapters.folder({
 			eventName: eventName,
 			folder: this.controller.folder,
-			handler: handler,
+			handler: handler.bind(this),
 			uiControllerList: this.controller.uiControllerList,
 		});
 		return this;

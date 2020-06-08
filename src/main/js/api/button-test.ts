@@ -28,4 +28,17 @@ describe(ButtonApi.name, () => {
 		const retval = api.on('click', () => {});
 		assert.strictEqual(retval, api);
 	});
+
+	it('should bind `this` within handler to API', (done) => {
+		const c = new ButtonController(TestUtil.createWindow().document, {
+			viewModel: new ViewModel(),
+			title: 'Button',
+		});
+		const api = new ButtonApi(c);
+		api.on('click', function() {
+			assert.strictEqual(this, api);
+			done();
+		});
+		c.button.click();
+	});
 });

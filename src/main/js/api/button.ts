@@ -35,7 +35,7 @@ export class ButtonApi implements ComponentApi {
 		handler: ButtonApiEventHandlers[EventName],
 	): ButtonApi {
 		const emitter = this.controller.button.emitter;
-		emitter.on(eventName, handler);
+		emitter.on(eventName, handler.bind(this));
 		return this;
 	}
 }
