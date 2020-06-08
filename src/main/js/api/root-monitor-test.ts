@@ -130,4 +130,18 @@ describe(RootApi.name, () => {
 			null,
 		);
 	});
+
+	it('should bind `this` within handler to monitor itself', (done) => {
+		const PARAMS = {foo: 1};
+		const api = createApi();
+		const bapi = api.addMonitor(PARAMS, 'foo', {
+			interval: 1,
+		});
+		bapi.on('update', function() {
+			bapi.dispose();
+			assert.strictEqual(this, bapi);
+			done();
+		});
+		PARAMS.foo = 2;
+	});
 });

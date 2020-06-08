@@ -43,7 +43,7 @@ export class InputBindingApi<In, Out> implements ComponentApi {
 		HandlerAdapters.input({
 			binding: this.controller.binding,
 			eventName: eventName,
-			handler: handler,
+			handler: handler.bind(this),
 		});
 		return this;
 	}

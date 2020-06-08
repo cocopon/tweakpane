@@ -135,4 +135,15 @@ describe(RootApi.name, () => {
 			null,
 		);
 	});
+
+	it('should bind `this` within handler to input itself', (done) => {
+		const PARAMS = {foo: 1};
+		const api = createApi();
+		const bapi = api.addInput(PARAMS, 'foo');
+		bapi.on('change', function() {
+			assert.strictEqual(this, bapi);
+			done();
+		});
+		bapi.controller.binding.value.rawValue = 2;
+	});
 });
