@@ -34,7 +34,6 @@ describe(InputBindingController.name, () => {
 		const bc = new InputBindingController(doc, {
 			binding: binding,
 			controller: controller,
-			viewModel: controller.viewModel,
 			label: 'foo',
 		});
 		assert.strictEqual(bc.binding, binding);

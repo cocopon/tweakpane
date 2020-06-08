@@ -2,11 +2,11 @@ import {Color} from '../../model/color';
 import {MonitorValue} from '../../model/monitor-value';
 import {ViewModel} from '../../model/view-model';
 import {ColorSwatchMonitorView} from '../../view/monitor/color-swatch';
-import {ControllerConfig} from '../controller';
 import {MonitorController} from './monitor';
 
-interface Config extends ControllerConfig {
+interface Config {
 	value: MonitorValue<Color>;
+	viewModel: ViewModel;
 }
 
 /**

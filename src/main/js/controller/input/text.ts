@@ -4,16 +4,16 @@ import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
 import {TextInputView} from '../../view/input/text';
-import {ControllerConfig} from '../controller';
 import {InputController} from './input';
 
 /**
  * @hidden
  */
-export interface Config<T> extends ControllerConfig {
+export interface Config<T> {
 	formatter: Formatter<T>;
 	parser: Parser<string, T>;
 	value: InputValue<T>;
+	viewModel: ViewModel;
 }
 
 /**

@@ -31,7 +31,7 @@ export class MonitorBindingApi<In> implements ComponentApi {
 	}
 
 	public dispose(): void {
-		this.controller.controller.viewModel.dispose();
+		this.controller.viewModel.dispose();
 	}
 
 	public on<EventName extends keyof MonitorBindingApiEventHandlers>(

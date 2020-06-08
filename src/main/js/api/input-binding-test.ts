@@ -31,7 +31,6 @@ function createApi(target: Target) {
 		}),
 		controller: ic,
 		label: 'label',
-		viewModel: ic.viewModel,
 	});
 	return new InputBindingApi(bc);
 }

@@ -3,15 +3,15 @@ import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
 import {SliderTextInputView} from '../../view/input/slider-text';
-import {ControllerConfig} from '../controller';
 import {InputController} from './input';
 import {NumberTextInputController} from './number-text';
 import {SliderInputController} from './slider';
 
-interface Config extends ControllerConfig {
+interface Config {
 	formatter: Formatter<number>;
 	parser: Parser<string, number>;
 	value: InputValue<number>;
+	viewModel: ViewModel;
 }
 
 /**

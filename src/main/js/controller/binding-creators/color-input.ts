@@ -30,7 +30,6 @@ export function createWithString(
 
 	const converter = ColorConverter.fromMixed;
 	const color = converter(initialValue);
-	const viewModel = new ViewModel();
 	const value = new InputValue(color);
 	const writer = ColorConverter.getStringifier(notation);
 	return new InputBindingController(document, {
@@ -44,10 +43,9 @@ export function createWithString(
 			formatter: new ColorFormatter(writer),
 			parser: StringColorParser.CompositeParser,
 			value: value,
-			viewModel: viewModel,
+			viewModel: new ViewModel(),
 		}),
 		label: params.label || target.key,
-		viewModel: viewModel,
 	});
 }
 
@@ -75,7 +73,6 @@ export function createWithNumber(
 	}
 
 	const value = new InputValue(color);
-	const viewModel = new ViewModel();
 	return new InputBindingController(document, {
 		binding: new InputBinding({
 			reader: ColorConverter.fromMixed,
@@ -87,10 +84,9 @@ export function createWithNumber(
 			formatter: new ColorFormatter(ColorConverter.toHexRgbString),
 			parser: StringColorParser.CompositeParser,
 			value: value,
-			viewModel: viewModel,
+			viewModel: new ViewModel(),
 		}),
 		label: params.label || target.key,
-		viewModel: viewModel,
 	});
 }
 
@@ -108,7 +104,6 @@ export function createWithObject(
 	}
 
 	const color = Color.fromRgbObject(initialValue);
-	const viewModel = new ViewModel();
 	const value = new InputValue(color);
 	return new InputBindingController(document, {
 		binding: new InputBinding({
@@ -118,12 +113,11 @@ export function createWithObject(
 			writer: Color.toRgbObject,
 		}),
 		controller: new ColorSwatchTextInputController(document, {
-			viewModel: viewModel,
+			viewModel: new ViewModel(),
 			formatter: new ColorFormatter(ColorConverter.toHexRgbString),
 			parser: StringColorParser.CompositeParser,
 			value: value,
 		}),
-		viewModel: viewModel,
 		label: params.label || target.key,
 	});
 }

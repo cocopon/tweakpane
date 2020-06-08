@@ -5,14 +5,14 @@ import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
 import {RgbTextInputView} from '../../view/input/rgb-text';
-import {ControllerConfig} from '../controller';
 import * as UiUtil from '../ui-util';
 import {InputController} from './input';
 
-interface Config extends ControllerConfig {
+interface Config {
 	formatter: Formatter<number>;
 	parser: Parser<string, number>;
 	value: InputValue<Color>;
+	viewModel: ViewModel;
 }
 
 const STEP = 1;

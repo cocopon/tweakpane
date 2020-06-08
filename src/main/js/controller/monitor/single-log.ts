@@ -2,12 +2,12 @@ import {Formatter} from '../../formatter/formatter';
 import {MonitorValue} from '../../model/monitor-value';
 import {ViewModel} from '../../model/view-model';
 import {SingleLogMonitorView} from '../../view/monitor/single-log';
-import {ControllerConfig} from '../controller';
 import {MonitorController} from './monitor';
 
-interface Config<T> extends ControllerConfig {
+interface Config<T> {
 	formatter: Formatter<T>;
 	value: MonitorValue<T>;
+	viewModel: ViewModel;
 }
 
 /**

@@ -6,11 +6,11 @@ import {TypeUtil} from '../../misc/type-util';
 import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {SliderInputView} from '../../view/input/slider';
-import {ControllerConfig} from '../controller';
 import {InputController} from './input';
 
-interface Config extends ControllerConfig {
+interface Config {
 	value: InputValue<number>;
+	viewModel: ViewModel;
 }
 
 function findRange(

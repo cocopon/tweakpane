@@ -4,14 +4,14 @@ import {Point2d} from '../../model/point-2d';
 import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
 import {Point2dPadTextInputView} from '../../view/input/point-2d-pad-text';
-import {ControllerConfig} from '../controller';
 import {InputController} from './input';
 import {Point2dPadInputController} from './point-2d-pad';
 import {Point2dTextInputController} from './point-2d-text';
 
-interface Config extends ControllerConfig {
+interface Config {
 	parser: Parser<string, number>;
 	value: InputValue<Point2d>;
+	viewModel: ViewModel;
 	xFormatter: Formatter<number>;
 	yFormatter: Formatter<number>;
 }

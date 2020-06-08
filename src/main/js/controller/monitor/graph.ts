@@ -4,14 +4,14 @@ import {GraphCursor} from '../../model/graph-cursor';
 import {MonitorValue} from '../../model/monitor-value';
 import {ViewModel} from '../../model/view-model';
 import {GraphMonitorView} from '../../view/monitor/graph';
-import {ControllerConfig} from '../controller';
 import {MonitorController} from './monitor';
 
-interface Config extends ControllerConfig {
+interface Config {
 	formatter: Formatter<number>;
 	maxValue: number;
 	minValue: number;
 	value: MonitorValue<number>;
+	viewModel: ViewModel;
 }
 
 /**

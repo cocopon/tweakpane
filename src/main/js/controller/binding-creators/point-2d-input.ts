@@ -101,6 +101,5 @@ export function create(
 		binding: binding,
 		controller: controller,
 		label: params.label || target.key,
-		viewModel: controller.viewModel,
 	});
 }

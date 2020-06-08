@@ -6,14 +6,14 @@ import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
 import {ColorPickerInputView} from '../../view/input/color-picker';
-import {ControllerConfig} from '../controller';
 import {HPaletteInputController} from './h-palette';
 import {InputController} from './input';
 import {RgbTextInputController} from './rgb-text';
 import {SvPaletteInputController} from './sv-palette';
 
-interface Config extends ControllerConfig {
+interface Config {
 	value: InputValue<Color>;
+	viewModel: ViewModel;
 }
 
 /**

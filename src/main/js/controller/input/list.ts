@@ -5,12 +5,12 @@ import {TypeUtil} from '../../misc/type-util';
 import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {ListInputView} from '../../view/input/list';
-import {ControllerConfig} from '../controller';
 import {InputController} from './input';
 
-interface Config<T> extends ControllerConfig {
+interface Config<T> {
 	stringifyValue: (value: T) => string;
 	value: InputValue<T>;
+	viewModel: ViewModel;
 }
 
 function findListItems<T>(value: InputValue<T>): ListItem<T>[] | null {

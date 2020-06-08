@@ -34,7 +34,6 @@ describe(MonitorBindingController.name, () => {
 			binding: binding,
 			controller: controller,
 			label: 'foo',
-			viewModel: controller.viewModel,
 		});
 		assert.strictEqual(bc.binding, binding);
 		assert.strictEqual(bc.controller, controller);

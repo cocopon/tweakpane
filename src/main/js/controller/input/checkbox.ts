@@ -2,14 +2,14 @@ import {TypeUtil} from '../../misc/type-util';
 import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {CheckboxInputView} from '../../view/input/checkbox';
-import {ControllerConfig} from '../controller';
 import {InputController} from './input';
 
 /**
  * @hidden
  */
-export interface Config extends ControllerConfig {
+export interface Config {
 	value: InputValue<boolean>;
+	viewModel: ViewModel;
 }
 
 /**

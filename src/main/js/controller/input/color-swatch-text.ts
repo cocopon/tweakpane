@@ -4,15 +4,15 @@ import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
 import {ColorSwatchTextInputView} from '../../view/input/color-swatch-text';
-import {ControllerConfig} from '../controller';
 import {ColorSwatchInputController} from '../input/color-swatch';
 import {InputController} from './input';
 import {TextInputController} from './text';
 
-interface Config extends ControllerConfig {
+interface Config {
 	formatter: Formatter<Color>;
 	parser: Parser<string, Color>;
 	value: InputValue<Color>;
+	viewModel: ViewModel;
 }
 
 /**

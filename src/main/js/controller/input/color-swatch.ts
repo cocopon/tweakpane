@@ -3,12 +3,12 @@ import {Color} from '../../model/color';
 import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {ColorSwatchInputView} from '../../view/input/color-swatch';
-import {ControllerConfig} from '../controller';
 import {ColorPickerInputController} from './color-picker';
 import {InputController} from './input';
 
-interface Config extends ControllerConfig {
+interface Config {
 	value: InputValue<Color>;
+	viewModel: ViewModel;
 }
 
 /**
