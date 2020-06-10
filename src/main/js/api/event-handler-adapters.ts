@@ -75,10 +75,10 @@ export function folder({
 		});
 	}
 	if (eventName === 'fold') {
-		uiContainer.emitter.on('fold', (ev: UiContainerEvents['fold']) => {
+		uiContainer.emitter.on('itemfold', (ev: UiContainerEvents['itemfold']) => {
 			handler(ev.expanded);
 		});
-		folder?.emitter.on('change', (ev: FolderEvents['fold']) => {
+		folder?.emitter.on('change', (ev: FolderEvents['change']) => {
 			handler(ev.expanded);
 		});
 	}

@@ -36,14 +36,14 @@ export class RootController {
 	constructor(document: Document, config: Config) {
 		this.onTitleClick_ = this.onTitleClick_.bind(this);
 		this.onUiContainerAdd_ = this.onUiContainerAdd_.bind(this);
-		this.onUiContainerLayout_ = this.onUiContainerLayout_.bind(this);
+		this.onUiContainerItemLayout_ = this.onUiContainerItemLayout_.bind(this);
 		this.onUiContainerRemove_ = this.onUiContainerRemove_.bind(this);
 
 		this.folder = createFolder(config);
 
 		this.ucList_ = new UiContainer();
 		this.ucList_.emitter.on('add', this.onUiContainerAdd_);
-		this.ucList_.emitter.on('layout', this.onUiContainerLayout_);
+		this.ucList_.emitter.on('itemlayout', this.onUiContainerItemLayout_);
 		this.ucList_.emitter.on('remove', this.onUiContainerRemove_);
 
 		this.doc_ = document;
@@ -82,7 +82,7 @@ export class RootController {
 		this.applyUiContainerChange_();
 	}
 
-	private onUiContainerLayout_(_: UiContainerEvents['layout']) {
+	private onUiContainerItemLayout_(_: UiContainerEvents['itemlayout']) {
 		this.applyUiContainerChange_();
 	}
 

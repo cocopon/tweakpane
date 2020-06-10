@@ -22,25 +22,26 @@ export interface UiContainerEvents extends EventTypeMap {
 		uiController: UiController;
 		sender: UiContainer;
 	};
-	fold: {
-		expanded: boolean;
+	remove: {
 		sender: UiContainer;
 	};
+
 	inputchange: {
 		inputBinding: UiInputBinding;
 		sender: UiContainer;
 		value: unknown;
 	};
-	layout: {
+	itemfold: {
+		expanded: boolean;
+		sender: UiContainer;
+	};
+	itemlayout: {
 		sender: UiContainer;
 	};
 	monitorupdate: {
 		monitorBinding: UiMonitorBinding;
 		sender: UiContainer;
 		value: unknown;
-	};
-	remove: {
-		sender: UiContainer;
 	};
 }
 
@@ -102,8 +103,8 @@ export class UiContainer {
 			uc.folder.emitter.on('change', this.onItemFolderFold_);
 
 			const emitter = uc.uiContainer.emitter;
-			emitter.on('layout', this.onSubitemLayout_);
-			emitter.on('fold', this.onSubitemFolderFold_);
+			emitter.on('itemfold', this.onSubitemFolderFold_);
+			emitter.on('itemlayout', this.onSubitemLayout_);
 			emitter.on('inputchange', this.onSubitemInputChange_);
 			emitter.on('monitorupdate', this.onSubitemMonitorUpdate_);
 		}
@@ -117,7 +118,7 @@ export class UiContainer {
 
 	private onListItemLayout_(ev: ViewModelEvents['change']) {
 		if (ev.propertyName === 'hidden' || ev.propertyName === 'positions') {
-			this.emitter.emit('layout', {
+			this.emitter.emit('itemlayout', {
 				sender: this,
 			});
 		}
@@ -153,14 +154,14 @@ export class UiContainer {
 	}
 
 	private onItemFolderFold_(ev: FolderEvents['change']) {
-		this.emitter.emit('fold', {
+		this.emitter.emit('itemfold', {
 			expanded: ev.expanded,
 			sender: this,
 		});
 	}
 
-	private onSubitemLayout_(_: UiContainerEvents['layout']) {
-		this.emitter.emit('layout', {
+	private onSubitemLayout_(_: UiContainerEvents['itemlayout']) {
+		this.emitter.emit('itemlayout', {
 			sender: this,
 		});
 	}
@@ -181,8 +182,8 @@ export class UiContainer {
 		});
 	}
 
-	private onSubitemFolderFold_(ev: UiContainerEvents['fold']) {
-		this.emitter.emit('fold', {
+	private onSubitemFolderFold_(ev: UiContainerEvents['itemfold']) {
+		this.emitter.emit('itemfold', {
 			expanded: ev.expanded,
 			sender: this,
 		});
