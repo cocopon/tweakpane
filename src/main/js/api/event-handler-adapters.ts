@@ -79,7 +79,7 @@ export function folder({
 			handler(ev.expanded);
 		});
 		folder?.emitter.on('change', (ev: FolderEvents['change']) => {
-			handler(ev.expanded);
+			handler(ev.sender.expanded);
 		});
 	}
 }

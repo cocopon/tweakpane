@@ -5,7 +5,7 @@ import {Emitter, EventTypeMap} from '../misc/emitter';
  */
 export interface FolderEvents extends EventTypeMap {
 	change: {
-		expanded: boolean;
+		propertyName: 'expanded' | 'expandedHeight';
 		sender: Folder;
 	};
 }
@@ -32,13 +32,15 @@ export class Folder {
 
 	set expanded(expanded: boolean) {
 		const changed = this.expanded_ !== expanded;
-		if (changed) {
-			this.expanded_ = expanded;
-			this.emitter.emit('change', {
-				expanded: expanded,
-				sender: this,
-			});
+		if (!changed) {
+			return;
 		}
+
+		this.expanded_ = expanded;
+		this.emitter.emit('change', {
+			propertyName: 'expanded',
+			sender: this,
+		});
 	}
 
 	get expandedHeight(): number | null {
@@ -47,12 +49,14 @@ export class Folder {
 
 	set expandedHeight(expandedHeight: number | null) {
 		const changed = this.expandedHeight_ !== expandedHeight;
-		if (changed) {
-			this.expandedHeight_ = expandedHeight;
-			this.emitter.emit('change', {
-				expanded: this.expanded_,
-				sender: this,
-			});
+		if (!changed) {
+			return;
 		}
+
+		this.expandedHeight_ = expandedHeight;
+		this.emitter.emit('change', {
+			propertyName: 'expandedHeight',
+			sender: this,
+		});
 	}
 }
