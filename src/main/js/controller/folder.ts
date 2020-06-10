@@ -25,6 +25,7 @@ export class FolderController {
 	constructor(document: Document, config: Config) {
 		this.onTitleClick_ = this.onTitleClick_.bind(this);
 		this.onUiContainerAdd_ = this.onUiContainerAdd_.bind(this);
+		this.onUiContainerItemFold_ = this.onUiContainerItemFold_.bind(this);
 		this.onUiContainerItemLayout_ = this.onUiContainerItemLayout_.bind(this);
 		this.onUiContainerRemove_ = this.onUiContainerRemove_.bind(this);
 
@@ -36,6 +37,7 @@ export class FolderController {
 
 		this.ucList_ = new UiContainer();
 		this.ucList_.emitter.on('add', this.onUiContainerAdd_);
+		this.ucList_.emitter.on('itemfold', this.onUiContainerItemFold_);
 		this.ucList_.emitter.on('itemlayout', this.onUiContainerItemLayout_);
 		this.ucList_.emitter.on('remove', this.onUiContainerRemove_);
 
@@ -99,6 +101,10 @@ export class FolderController {
 	}
 
 	private onUiContainerRemove_(_: UiContainerEvents['remove']) {
+		this.applyUiContainerChange_();
+	}
+
+	private onUiContainerItemFold_(_: UiContainerEvents['itemfold']) {
 		this.applyUiContainerChange_();
 	}
 

@@ -13,6 +13,7 @@ import {MonitorBindingApi} from './monitor-binding';
 import {SeparatorApi} from './separator';
 import {
 	ButtonParams,
+	FolderParams,
 	InputParams,
 	MonitorParams,
 	SeparatorParams,
@@ -82,6 +83,15 @@ export class FolderApi implements ComponentApi {
 		return new MonitorBindingApi<
 			MonitorBindingControllerCreators.MonitorableType
 		>(uc);
+	}
+
+	public addFolder(params: FolderParams): FolderApi {
+		const uc = new FolderController(this.controller.document, {
+			...params,
+			viewModel: new ViewModel(),
+		});
+		this.controller.uiContainer.add(uc, params.index);
+		return new FolderApi(uc);
 	}
 
 	public addButton(params: ButtonParams): ButtonApi {
