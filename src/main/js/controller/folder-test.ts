@@ -34,10 +34,10 @@ describe(FolderController.name, () => {
 			title: 'Foobar',
 			viewModel: new ViewModel(),
 		});
-		c.uiControllerList.add(cc);
+		c.uiContainer.add(cc);
 
-		assert.strictEqual(c.uiControllerList.items.length, 1);
+		assert.strictEqual(c.uiContainer.items.length, 1);
 		cc.viewModel.dispose();
-		assert.strictEqual(c.uiControllerList.items.length, 0);
+		assert.strictEqual(c.uiContainer.items.length, 0);
 	});
 });

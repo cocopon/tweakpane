@@ -1,10 +1,7 @@
 import {InputBinding, InputBindingEvents} from '../binding/input';
 import {MonitorBinding, MonitorBindingEvents} from '../binding/monitor';
 import {Folder, FolderEvents} from '../model/folder';
-import {
-	UiControllerList,
-	UiControllerListEvents,
-} from '../model/ui-controller-list';
+import {UiContainer, UiContainerEvents} from '../model/ui-container';
 
 type InputEventName = 'change';
 type MonitorEventName = 'update';
@@ -57,36 +54,30 @@ export function folder({
 	eventName,
 	folder,
 	handler,
-	uiControllerList,
+	uiContainer,
 }: {
 	eventName: FolderEventName;
 	folder: Folder | null;
 	handler: (value?: unknown) => void;
-	uiControllerList: UiControllerList;
+	uiContainer: UiContainer;
 }) {
 	if (eventName === 'change') {
-		const emitter = uiControllerList.emitter;
-		emitter.on('inputchange', (ev: UiControllerListEvents['inputchange']) => {
+		const emitter = uiContainer.emitter;
+		emitter.on('inputchange', (ev: UiContainerEvents['inputchange']) => {
 			// TODO: Find more type-safe way
 			handler((ev.inputBinding.getValueToWrite as any)(ev.value));
 		});
 	}
 	if (eventName === 'update') {
-		const emitter = uiControllerList.emitter;
-		emitter.on(
-			'monitorupdate',
-			(ev: UiControllerListEvents['monitorupdate']) => {
-				handler(ev.monitorBinding.target.read());
-			},
-		);
+		const emitter = uiContainer.emitter;
+		emitter.on('monitorupdate', (ev: UiContainerEvents['monitorupdate']) => {
+			handler(ev.monitorBinding.target.read());
+		});
 	}
 	if (eventName === 'fold') {
-		uiControllerList.emitter.on(
-			'fold',
-			(ev: UiControllerListEvents['fold']) => {
-				handler(ev.expanded);
-			},
-		);
+		uiContainer.emitter.on('fold', (ev: UiContainerEvents['fold']) => {
+			handler(ev.expanded);
+		});
 		folder?.emitter.on('change', (ev: FolderEvents['fold']) => {
 			handler(ev.expanded);
 		});

@@ -16,39 +16,39 @@ import {ViewModelEvents} from './view-model';
 /**
  * @hidden
  */
-export interface UiControllerListEvents extends EventTypeMap {
+export interface UiContainerEvents extends EventTypeMap {
 	add: {
 		index: number;
 		uiController: UiController;
-		sender: UiControllerList;
+		sender: UiContainer;
 	};
 	fold: {
 		expanded: boolean;
-		sender: UiControllerList;
+		sender: UiContainer;
 	};
 	inputchange: {
 		inputBinding: UiInputBinding;
-		sender: UiControllerList;
+		sender: UiContainer;
 		value: unknown;
 	};
 	layout: {
-		sender: UiControllerList;
+		sender: UiContainer;
 	};
 	monitorupdate: {
 		monitorBinding: UiMonitorBinding;
-		sender: UiControllerList;
+		sender: UiContainer;
 		value: unknown;
 	};
 	remove: {
-		sender: UiControllerList;
+		sender: UiContainer;
 	};
 }
 
 /**
  * @hidden
  */
-export class UiControllerList {
-	public readonly emitter: Emitter<UiControllerListEvents>;
+export class UiContainer {
+	public readonly emitter: Emitter<UiContainerEvents>;
 	private ucList_: List<UiController>;
 
 	constructor() {
@@ -101,7 +101,7 @@ export class UiControllerList {
 		} else if (uc instanceof FolderController) {
 			uc.folder.emitter.on('change', this.onItemFolderFold_);
 
-			const emitter = uc.uiControllerList.emitter;
+			const emitter = uc.uiContainer.emitter;
 			emitter.on('layout', this.onSubitemLayout_);
 			emitter.on('fold', this.onSubitemFolderFold_);
 			emitter.on('inputchange', this.onSubitemInputChange_);
@@ -159,13 +159,13 @@ export class UiControllerList {
 		});
 	}
 
-	private onSubitemLayout_(_: UiControllerListEvents['layout']) {
+	private onSubitemLayout_(_: UiContainerEvents['layout']) {
 		this.emitter.emit('layout', {
 			sender: this,
 		});
 	}
 
-	private onSubitemInputChange_(ev: UiControllerListEvents['inputchange']) {
+	private onSubitemInputChange_(ev: UiContainerEvents['inputchange']) {
 		this.emitter.emit('inputchange', {
 			inputBinding: ev.inputBinding,
 			sender: this,
@@ -173,7 +173,7 @@ export class UiControllerList {
 		});
 	}
 
-	private onSubitemMonitorUpdate_(ev: UiControllerListEvents['monitorupdate']) {
+	private onSubitemMonitorUpdate_(ev: UiContainerEvents['monitorupdate']) {
 		this.emitter.emit('monitorupdate', {
 			monitorBinding: ev.monitorBinding,
 			sender: this,
@@ -181,7 +181,7 @@ export class UiControllerList {
 		});
 	}
 
-	private onSubitemFolderFold_(ev: UiControllerListEvents['fold']) {
+	private onSubitemFolderFold_(ev: UiContainerEvents['fold']) {
 		this.emitter.emit('fold', {
 			expanded: ev.expanded,
 			sender: this,

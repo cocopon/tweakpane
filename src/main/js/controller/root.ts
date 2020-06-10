@@ -1,10 +1,7 @@
 import * as DomUtil from '../misc/dom-util';
 import {TypeUtil} from '../misc/type-util';
 import {Folder} from '../model/folder';
-import {
-	UiControllerList,
-	UiControllerListEvents,
-} from '../model/ui-controller-list';
+import {UiContainer, UiContainerEvents} from '../model/ui-container';
 import {ViewModel} from '../model/view-model';
 import {RootView} from '../view/root';
 import * as ContainerUtil from './container-util';
@@ -34,20 +31,20 @@ export class RootController {
 	public readonly folder: Folder | null;
 	public readonly view: RootView;
 	private doc_: Document;
-	private ucList_: UiControllerList;
+	private ucList_: UiContainer;
 
 	constructor(document: Document, config: Config) {
 		this.onTitleClick_ = this.onTitleClick_.bind(this);
-		this.onUiControllerListAdd_ = this.onUiControllerListAdd_.bind(this);
-		this.onUiControllerListLayout_ = this.onUiControllerListLayout_.bind(this);
-		this.onUiControllerListRemove_ = this.onUiControllerListRemove_.bind(this);
+		this.onUiContainerAdd_ = this.onUiContainerAdd_.bind(this);
+		this.onUiContainerLayout_ = this.onUiContainerLayout_.bind(this);
+		this.onUiContainerRemove_ = this.onUiContainerRemove_.bind(this);
 
 		this.folder = createFolder(config);
 
-		this.ucList_ = new UiControllerList();
-		this.ucList_.emitter.on('add', this.onUiControllerListAdd_);
-		this.ucList_.emitter.on('layout', this.onUiControllerListLayout_);
-		this.ucList_.emitter.on('remove', this.onUiControllerListRemove_);
+		this.ucList_ = new UiContainer();
+		this.ucList_.emitter.on('add', this.onUiContainerAdd_);
+		this.ucList_.emitter.on('layout', this.onUiContainerLayout_);
+		this.ucList_.emitter.on('remove', this.onUiContainerRemove_);
 
 		this.doc_ = document;
 		this.viewModel = config.viewModel;
@@ -64,29 +61,29 @@ export class RootController {
 		return this.doc_;
 	}
 
-	get uiControllerList(): UiControllerList {
+	get uiContainer(): UiContainer {
 		return this.ucList_;
 	}
 
-	private applyUiControllerListChange_(): void {
-		ContainerUtil.updateAllItemsPositions(this.uiControllerList);
+	private applyUiContainerChange_(): void {
+		ContainerUtil.updateAllItemsPositions(this.uiContainer);
 	}
 
-	private onUiControllerListAdd_(ev: UiControllerListEvents['add']) {
+	private onUiContainerAdd_(ev: UiContainerEvents['add']) {
 		DomUtil.insertElementAt(
 			this.view.containerElement,
 			ev.uiController.view.element,
 			ev.index,
 		);
-		this.applyUiControllerListChange_();
+		this.applyUiContainerChange_();
 	}
 
-	private onUiControllerListRemove_(_: UiControllerListEvents['remove']) {
-		this.applyUiControllerListChange_();
+	private onUiContainerRemove_(_: UiContainerEvents['remove']) {
+		this.applyUiContainerChange_();
 	}
 
-	private onUiControllerListLayout_(_: UiControllerListEvents['layout']) {
-		this.applyUiControllerListChange_();
+	private onUiContainerLayout_(_: UiContainerEvents['layout']) {
+		this.applyUiContainerChange_();
 	}
 
 	private onTitleClick_() {

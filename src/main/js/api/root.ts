@@ -89,7 +89,7 @@ export class RootApi implements ComponentApi {
 			new Target(object, key, params.presetKey),
 			params,
 		);
-		this.controller.uiControllerList.add(uc, params.index);
+		this.controller.uiContainer.add(uc, params.index);
 		return new InputBindingApi<
 			InputBindingControllerCreators.InputtableInType,
 			InputBindingControllerCreators.InputtableOutType
@@ -103,7 +103,7 @@ export class RootApi implements ComponentApi {
 			new Target(object, key),
 			params,
 		);
-		this.controller.uiControllerList.add(uc, params.index);
+		this.controller.uiContainer.add(uc, params.index);
 		return new MonitorBindingApi<
 			MonitorBindingControllerCreators.MonitorableType
 		>(uc);
@@ -114,7 +114,7 @@ export class RootApi implements ComponentApi {
 			...params,
 			viewModel: new ViewModel(),
 		});
-		this.controller.uiControllerList.add(uc, params.index);
+		this.controller.uiContainer.add(uc, params.index);
 		return new ButtonApi(uc);
 	}
 
@@ -123,7 +123,7 @@ export class RootApi implements ComponentApi {
 			...params,
 			viewModel: new ViewModel(),
 		});
-		this.controller.uiControllerList.add(uc, params.index);
+		this.controller.uiContainer.add(uc, params.index);
 		return new FolderApi(uc);
 	}
 
@@ -132,7 +132,7 @@ export class RootApi implements ComponentApi {
 		const uc = new SeparatorController(this.controller.document, {
 			viewModel: new ViewModel(),
 		});
-		this.controller.uiControllerList.add(uc, params.index);
+		this.controller.uiContainer.add(uc, params.index);
 		return new SeparatorApi(uc);
 	}
 
@@ -142,7 +142,7 @@ export class RootApi implements ComponentApi {
 	 */
 	public importPreset(preset: PresetObject): void {
 		const targets = UiUtil.findControllers(
-			this.controller.uiControllerList.items,
+			this.controller.uiContainer.items,
 			InputBindingController,
 		).map((ibc) => {
 			return ibc.binding.target;
@@ -157,7 +157,7 @@ export class RootApi implements ComponentApi {
 	 */
 	public exportPreset(): PresetObject {
 		const targets = UiUtil.findControllers(
-			this.controller.uiControllerList.items,
+			this.controller.uiContainer.items,
 			InputBindingController,
 		).map((ibc) => {
 			return ibc.binding.target;
@@ -178,7 +178,7 @@ export class RootApi implements ComponentApi {
 			eventName: eventName,
 			folder: this.controller.folder,
 			handler: handler.bind(this),
-			uiControllerList: this.controller.uiControllerList,
+			uiContainer: this.controller.uiContainer,
 		});
 		return this;
 	}
@@ -189,7 +189,7 @@ export class RootApi implements ComponentApi {
 	public refresh(): void {
 		// Force-read all input bindings
 		UiUtil.findControllers(
-			this.controller.uiControllerList.items,
+			this.controller.uiContainer.items,
 			InputBindingController,
 		).forEach((ibc) => {
 			ibc.binding.read();
@@ -197,7 +197,7 @@ export class RootApi implements ComponentApi {
 
 		// Force-read all monitor bindings
 		UiUtil.findControllers(
-			this.controller.uiControllerList.items,
+			this.controller.uiContainer.items,
 			MonitorBindingController,
 		).forEach((mbc) => {
 			mbc.binding.read();
