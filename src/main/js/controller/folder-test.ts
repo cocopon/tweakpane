@@ -2,6 +2,7 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../misc/test-util';
+import {FolderEvents} from '../model/folder';
 import {ViewModel} from '../model/view-model';
 import {ButtonController} from './button';
 import {FolderController} from './folder';
@@ -16,7 +17,10 @@ describe(FolderController.name, () => {
 
 		assert.strictEqual(c.folder.expanded, true);
 
-		c.folder.emitter.on('change', () => {
+		c.folder.emitter.on('change', (ev: FolderEvents['change']) => {
+			if (ev.propertyName !== 'expanded') {
+				return;
+			}
 			assert.strictEqual(c.folder.expanded, false);
 			done();
 		});

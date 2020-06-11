@@ -79,6 +79,9 @@ export function folder({
 			handler(ev.expanded);
 		});
 		folder?.emitter.on('change', (ev: FolderEvents['change']) => {
+			if (ev.propertyName !== 'expanded') {
+				return;
+			}
 			handler(ev.sender.expanded);
 		});
 	}

@@ -154,6 +154,9 @@ export class UiContainer {
 	}
 
 	private onItemFolderFold_(ev: FolderEvents['change']) {
+		if (ev.propertyName !== 'expanded') {
+			return;
+		}
 		this.emitter.emit('itemfold', {
 			expanded: ev.sender.expanded,
 			sender: this,
