@@ -42,21 +42,21 @@
 
 		// Bottom of the last folder
 		& > .#{$prefix}-fldv:last-child {
-			.#{$prefix}-fldv_c {
+			& > .#{$prefix}-fldv_c {
 				border-bottom-left-radius: $root-border-radius;
 				border-bottom-right-radius: $root-border-radius;
 			}
 		}
 		// Bottom of the last folder title when collapsed
 		& > .#{$prefix}-fldv:last-child:not(.#{$prefix}-fldv-expanded) {
-			.#{$prefix}-fldv_t {
+			& > .#{$prefix}-fldv_t {
 				border-bottom-left-radius: $root-border-radius;
 				border-bottom-right-radius: $root-border-radius;
 			}
 		}
 		// Top of the first folder
 		& > .#{$prefix}-fldv:first-child {
-			.#{$prefix}-fldv_t {
+			& > .#{$prefix}-fldv_t {
 				border-top-left-radius: $root-border-radius;
 				border-top-right-radius: $root-border-radius;
 			}
