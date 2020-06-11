@@ -13,6 +13,7 @@ import {MonitorBindingApi} from './monitor-binding';
 import {SeparatorApi} from './separator';
 import {
 	ButtonParams,
+	FolderParams,
 	InputParams,
 	MonitorParams,
 	SeparatorParams,
@@ -64,7 +65,7 @@ export class FolderApi implements ComponentApi {
 			new Target(object, key, params.presetKey),
 			params,
 		);
-		this.controller.uiControllerList.add(uc, params.index);
+		this.controller.uiContainer.add(uc, params.index);
 		return new InputBindingApi<
 			InputBindingControllerCreators.InputtableInType,
 			InputBindingControllerCreators.InputtableOutType
@@ -78,10 +79,19 @@ export class FolderApi implements ComponentApi {
 			new Target(object, key),
 			params,
 		);
-		this.controller.uiControllerList.add(uc, params.index);
+		this.controller.uiContainer.add(uc, params.index);
 		return new MonitorBindingApi<
 			MonitorBindingControllerCreators.MonitorableType
 		>(uc);
+	}
+
+	public addFolder(params: FolderParams): FolderApi {
+		const uc = new FolderController(this.controller.document, {
+			...params,
+			viewModel: new ViewModel(),
+		});
+		this.controller.uiContainer.add(uc, params.index);
+		return new FolderApi(uc);
 	}
 
 	public addButton(params: ButtonParams): ButtonApi {
@@ -89,7 +99,7 @@ export class FolderApi implements ComponentApi {
 			...params,
 			viewModel: new ViewModel(),
 		});
-		this.controller.uiControllerList.add(uc, params.index);
+		this.controller.uiContainer.add(uc, params.index);
 		return new ButtonApi(uc);
 	}
 
@@ -98,7 +108,7 @@ export class FolderApi implements ComponentApi {
 		const uc = new SeparatorController(this.controller.document, {
 			viewModel: new ViewModel(),
 		});
-		this.controller.uiControllerList.add(uc, params.index);
+		this.controller.uiContainer.add(uc, params.index);
 		return new SeparatorApi(uc);
 	}
 
@@ -110,7 +120,7 @@ export class FolderApi implements ComponentApi {
 			eventName: eventName,
 			folder: this.controller.folder,
 			handler: handler.bind(this),
-			uiControllerList: this.controller.uiControllerList,
+			uiContainer: this.controller.uiContainer,
 		});
 		return this;
 	}

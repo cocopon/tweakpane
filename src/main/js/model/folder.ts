@@ -1,11 +1,21 @@
 import {Emitter, EventTypeMap} from '../misc/emitter';
 
+type ChangeEventPropertyName =
+	| 'expanded'
+	| 'expandedHeight'
+	| 'shouldFixHeight'
+	| 'temporaryExpanded';
+
 /**
  * @hidden
  */
 export interface FolderEvents extends EventTypeMap {
+	beforechange: {
+		propertyName: ChangeEventPropertyName;
+		sender: Folder;
+	};
 	change: {
-		expanded: boolean;
+		propertyName: ChangeEventPropertyName;
 		sender: Folder;
 	};
 }
@@ -18,11 +28,16 @@ export class Folder {
 	public readonly title: string;
 	private expandedHeight_: number | null;
 	private expanded_: boolean;
+	private shouldFixHeight_: boolean;
+	// For computing expanded height
+	private temporaryExpanded_: boolean | null;
 
 	constructor(title: string, expanded: boolean) {
 		this.emitter = new Emitter();
 		this.expanded_ = expanded;
 		this.expandedHeight_ = null;
+		this.temporaryExpanded_ = null;
+		this.shouldFixHeight_ = false;
 		this.title = title;
 	}
 
@@ -32,13 +47,44 @@ export class Folder {
 
 	set expanded(expanded: boolean) {
 		const changed = this.expanded_ !== expanded;
-		if (changed) {
-			this.expanded_ = expanded;
-			this.emitter.emit('change', {
-				expanded: expanded,
-				sender: this,
-			});
+		if (!changed) {
+			return;
 		}
+
+		this.emitter.emit('beforechange', {
+			propertyName: 'expanded',
+			sender: this,
+		});
+
+		this.expanded_ = expanded;
+
+		this.emitter.emit('change', {
+			propertyName: 'expanded',
+			sender: this,
+		});
+	}
+
+	get temporaryExpanded(): boolean | null {
+		return this.temporaryExpanded_;
+	}
+
+	set temporaryExpanded(expanded: boolean | null) {
+		const changed = this.temporaryExpanded_ !== expanded;
+		if (!changed) {
+			return;
+		}
+
+		this.emitter.emit('beforechange', {
+			propertyName: 'temporaryExpanded',
+			sender: this,
+		});
+
+		this.temporaryExpanded_ = expanded;
+
+		this.emitter.emit('change', {
+			propertyName: 'temporaryExpanded',
+			sender: this,
+		});
 	}
 
 	get expandedHeight(): number | null {
@@ -47,12 +93,43 @@ export class Folder {
 
 	set expandedHeight(expandedHeight: number | null) {
 		const changed = this.expandedHeight_ !== expandedHeight;
-		if (changed) {
-			this.expandedHeight_ = expandedHeight;
-			this.emitter.emit('change', {
-				expanded: this.expanded_,
-				sender: this,
-			});
+		if (!changed) {
+			return;
 		}
+
+		this.emitter.emit('beforechange', {
+			propertyName: 'expandedHeight',
+			sender: this,
+		});
+
+		this.expandedHeight_ = expandedHeight;
+
+		this.emitter.emit('change', {
+			propertyName: 'expandedHeight',
+			sender: this,
+		});
+	}
+
+	get shouldFixHeight(): boolean {
+		return this.shouldFixHeight_;
+	}
+
+	set shouldFixHeight(shouldFixHeight: boolean) {
+		const changed = this.shouldFixHeight_ !== shouldFixHeight;
+		if (!changed) {
+			return;
+		}
+
+		this.emitter.emit('beforechange', {
+			propertyName: 'shouldFixHeight',
+			sender: this,
+		});
+
+		this.shouldFixHeight_ = shouldFixHeight;
+
+		this.emitter.emit('change', {
+			propertyName: 'shouldFixHeight',
+			sender: this,
+		});
 	}
 }

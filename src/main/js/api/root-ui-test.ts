@@ -50,13 +50,13 @@ describe(RootApi.name, () => {
 		const api = createApi();
 		api.addSeparator();
 
-		const cs = api.controller.uiControllerList.items;
+		const cs = api.controller.uiContainer.items;
 		assert.instanceOf(cs[cs.length - 1], SeparatorController);
 	});
 
 	it('should dispose separator', () => {
 		const api = createApi();
-		const cs = api.controller.uiControllerList.items;
+		const cs = api.controller.uiContainer.items;
 
 		const s = api.addSeparator();
 		assert.strictEqual(cs.length, 1);
@@ -140,7 +140,7 @@ describe(RootApi.name, () => {
 				api.addInput(params, 'bar');
 				testCase.insert(api, 1);
 
-				const cs = api.controller.uiControllerList.items;
+				const cs = api.controller.uiContainer.items;
 				assert.instanceOf(cs[1], testCase.expected);
 			});
 		});

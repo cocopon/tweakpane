@@ -1,10 +1,7 @@
 import * as DomUtil from '../misc/dom-util';
 import {TypeUtil} from '../misc/type-util';
-import {Folder} from '../model/folder';
-import {
-	UiControllerList,
-	UiControllerListEvents,
-} from '../model/ui-controller-list';
+import {Folder, FolderEvents} from '../model/folder';
+import {UiContainer, UiContainerEvents} from '../model/ui-container';
 import {ViewModel} from '../model/view-model';
 import {FolderView} from '../view/folder';
 import * as ContainerUtil from './container-util';
@@ -23,24 +20,27 @@ export class FolderController {
 	public readonly folder: Folder;
 	public readonly view: FolderView;
 	private doc_: Document;
-	private ucList_: UiControllerList;
+	private ucList_: UiContainer;
 
 	constructor(document: Document, config: Config) {
+		this.onContainerTransitionEnd_ = this.onContainerTransitionEnd_.bind(this);
+		this.onFolderBeforeChange_ = this.onFolderBeforeChange_.bind(this);
 		this.onTitleClick_ = this.onTitleClick_.bind(this);
-		this.onUiControllerListAdd_ = this.onUiControllerListAdd_.bind(this);
-		this.onUiControllerListLayout_ = this.onUiControllerListLayout_.bind(this);
-		this.onUiControllerListRemove_ = this.onUiControllerListRemove_.bind(this);
+		this.onUiContainerAdd_ = this.onUiContainerAdd_.bind(this);
+		this.onUiContainerItemLayout_ = this.onUiContainerItemLayout_.bind(this);
+		this.onUiContainerRemove_ = this.onUiContainerRemove_.bind(this);
 
 		this.viewModel = config.viewModel;
 		this.folder = new Folder(
 			config.title,
 			TypeUtil.getOrDefault<boolean>(config.expanded, true),
 		);
+		this.folder.emitter.on('beforechange', this.onFolderBeforeChange_);
 
-		this.ucList_ = new UiControllerList();
-		this.ucList_.emitter.on('add', this.onUiControllerListAdd_);
-		this.ucList_.emitter.on('layout', this.onUiControllerListLayout_);
-		this.ucList_.emitter.on('remove', this.onUiControllerListRemove_);
+		this.ucList_ = new UiContainer();
+		this.ucList_.emitter.on('add', this.onUiContainerAdd_);
+		this.ucList_.emitter.on('itemlayout', this.onUiContainerItemLayout_);
+		this.ucList_.emitter.on('remove', this.onUiContainerRemove_);
 
 		this.doc_ = document;
 		this.view = new FolderView(this.doc_, {
@@ -48,13 +48,17 @@ export class FolderController {
 			model: this.viewModel,
 		});
 		this.view.titleElement.addEventListener('click', this.onTitleClick_);
+		this.view.containerElement.addEventListener(
+			'transitionend',
+			this.onContainerTransitionEnd_,
+		);
 	}
 
 	get document(): Document {
 		return this.doc_;
 	}
 
-	get uiControllerList(): UiControllerList {
+	get uiContainer(): UiContainer {
 		return this.ucList_;
 	}
 
@@ -63,10 +67,9 @@ export class FolderController {
 
 		let height = 0;
 		DomUtil.disableTransitionTemporarily(elem, () => {
-			// Expand folder
-			const expanded = this.folder.expanded;
+			// Expand folder temporarily
 			this.folder.expandedHeight = null;
-			this.folder.expanded = true;
+			this.folder.temporaryExpanded = true;
 
 			DomUtil.forceReflow(elem);
 
@@ -74,7 +77,7 @@ export class FolderController {
 			height = elem.clientHeight;
 
 			// Restore expanded
-			this.folder.expanded = expanded;
+			this.folder.temporaryExpanded = null;
 
 			DomUtil.forceReflow(elem);
 		});
@@ -82,30 +85,50 @@ export class FolderController {
 		return height;
 	}
 
+	private onFolderBeforeChange_(ev: FolderEvents['beforechange']): void {
+		if (ev.propertyName !== 'expanded') {
+			return;
+		}
+
+		if (TypeUtil.isEmpty(this.folder.expandedHeight)) {
+			this.folder.expandedHeight = this.computeExpandedHeight_();
+		}
+
+		this.folder.shouldFixHeight = true;
+		DomUtil.forceReflow(this.view.containerElement);
+	}
+
 	private onTitleClick_() {
 		this.folder.expanded = !this.folder.expanded;
 	}
 
-	private applyUiControllerListChange_(): void {
-		ContainerUtil.updateAllItemsPositions(this.uiControllerList);
-
-		this.folder.expandedHeight = this.computeExpandedHeight_();
+	private applyUiContainerChange_(): void {
+		ContainerUtil.updateAllItemsPositions(this.uiContainer);
 	}
 
-	private onUiControllerListAdd_(ev: UiControllerListEvents['add']) {
+	private onUiContainerAdd_(ev: UiContainerEvents['add']) {
 		DomUtil.insertElementAt(
 			this.view.containerElement,
 			ev.uiController.view.element,
 			ev.index,
 		);
-		this.applyUiControllerListChange_();
+		this.applyUiContainerChange_();
 	}
 
-	private onUiControllerListRemove_(_: UiControllerListEvents['remove']) {
-		this.applyUiControllerListChange_();
+	private onUiContainerRemove_(_: UiContainerEvents['remove']) {
+		this.applyUiContainerChange_();
 	}
 
-	private onUiControllerListLayout_(_: UiControllerListEvents['layout']) {
-		this.applyUiControllerListChange_();
+	private onUiContainerItemLayout_(_: UiContainerEvents['itemlayout']) {
+		this.applyUiContainerChange_();
+	}
+
+	private onContainerTransitionEnd_(ev: TransitionEvent): void {
+		if (ev.propertyName !== 'height') {
+			return;
+		}
+
+		this.folder.shouldFixHeight = false;
+		this.folder.expandedHeight = null;
 	}
 }

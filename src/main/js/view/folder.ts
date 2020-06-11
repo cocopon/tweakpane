@@ -72,7 +72,10 @@ export class FolderView extends View {
 			throw PaneError.alreadyDisposed();
 		}
 
-		const expanded = this.folder_.expanded;
+		const expanded = TypeUtil.getOrDefault(
+			this.folder_.temporaryExpanded,
+			this.folder_.expanded,
+		);
 		const expandedClass = className(undefined, 'expanded');
 		if (expanded) {
 			this.element.classList.add(expandedClass);
@@ -80,12 +83,14 @@ export class FolderView extends View {
 			this.element.classList.remove(expandedClass);
 		}
 
-		const expandedHeight = this.folder_.expandedHeight;
-		if (!TypeUtil.isEmpty(expandedHeight)) {
-			const containerHeight = expanded ? expandedHeight : 0;
-			containerElem.style.height = `${containerHeight}px`;
+		if (!expanded) {
+			containerElem.style.height = `0px`;
 		} else {
-			containerElem.style.height = expanded ? 'auto' : '0px';
+			const expandedHeight = this.folder_.expandedHeight;
+			containerElem.style.height =
+				this.folder_.shouldFixHeight && !TypeUtil.isEmpty(expandedHeight)
+					? `${expandedHeight}px`
+					: 'auto';
 		}
 	}
 

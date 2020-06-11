@@ -2,6 +2,7 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../misc/test-util';
+import {FolderEvents} from '../model/folder';
 import {ViewModel} from '../model/view-model';
 import {ButtonController} from './button';
 import {FolderController} from './folder';
@@ -16,7 +17,10 @@ describe(FolderController.name, () => {
 
 		assert.strictEqual(c.folder.expanded, true);
 
-		c.folder.emitter.on('change', () => {
+		c.folder.emitter.on('change', (ev: FolderEvents['change']) => {
+			if (ev.propertyName !== 'expanded') {
+				return;
+			}
 			assert.strictEqual(c.folder.expanded, false);
 			done();
 		});
@@ -34,10 +38,10 @@ describe(FolderController.name, () => {
 			title: 'Foobar',
 			viewModel: new ViewModel(),
 		});
-		c.uiControllerList.add(cc);
+		c.uiContainer.add(cc);
 
-		assert.strictEqual(c.uiControllerList.items.length, 1);
+		assert.strictEqual(c.uiContainer.items.length, 1);
 		cc.viewModel.dispose();
-		assert.strictEqual(c.uiControllerList.items.length, 0);
+		assert.strictEqual(c.uiContainer.items.length, 0);
 	});
 });

@@ -11,7 +11,7 @@
 	&_m {
 		@extend %folder_mark;
 	}
-	&#{&}-expanded &_m {
+	&#{&}-expanded > &_t > &_m {
 		@extend %folder_mark-expanded;
 	}
 	&_c {
@@ -37,7 +37,7 @@
 	&_t:active + &_c {
 		border-left-color: var(--folder-background-color-active);
 	}
-	&#{&}-expanded &_c {
+	&#{&}-expanded > &_c {
 		opacity: 1;
 		overflow: visible;
 		padding-bottom: 4px;
@@ -46,5 +46,20 @@
 		// Delay opacity transition to avoid overflow contents
 		transition: height 0.2s ease-in-out, opacity 0.2s linear 0.2s,
 			padding 0.2s ease-in-out;
+	}
+
+	// Subfolder
+	&_c > & {
+		margin-left: 4px;
+	}
+	&_c > & > &_t {
+		border-top-left-radius: $input-border-radius;
+		border-bottom-left-radius: $input-border-radius;
+	}
+	&_c > &#{&}-expanded > &_t {
+		border-bottom-left-radius: 0;
+	}
+	&_c & > &_c {
+		border-bottom-left-radius: $input-border-radius;
 	}
 }
