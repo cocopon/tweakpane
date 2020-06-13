@@ -1,5 +1,8 @@
 import {NumberUtil} from './number-util';
 
+export type ColorComponents3 = [number, number, number];
+export type ColorComponents4 = [number, number, number, number];
+
 export function rgbToHsl(
 	r: number,
 	g: number,
@@ -123,4 +126,12 @@ export function hsvToRgb(
 	}
 
 	return [(rp + m) * 255, (gp + m) * 255, (bp + m) * 255];
+}
+
+export function opaque(comps: ColorComponents3): ColorComponents4 {
+	return [comps[0], comps[1], comps[2], 1];
+}
+
+export function withoutAlpha(comps: ColorComponents4): ColorComponents3 {
+	return [comps[0], comps[1], comps[2]];
 }

@@ -1,5 +1,6 @@
 import {Formatter} from '../../formatter/formatter';
 import {ClassName} from '../../misc/class-name';
+import * as ColorModel from '../../misc/color-model';
 import * as DisposingUtil from '../../misc/disposing-util';
 import {PaneError} from '../../misc/pane-error';
 import {Color} from '../../model/color';
@@ -81,7 +82,9 @@ export class RgbTextInputView extends View implements InputView<Color> {
 			throw PaneError.alreadyDisposed();
 		}
 
-		const rgbComps = this.value.rawValue.getComponents('rgb');
+		const rgbComps = ColorModel.withoutAlpha(
+			this.value.rawValue.getComponents('rgb'),
+		);
 
 		rgbComps.forEach((comp, index) => {
 			const inputElem = inputElems[index];

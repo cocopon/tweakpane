@@ -1,4 +1,5 @@
 import {NumberFormatter} from '../formatter/number';
+import * as ColorModel from '../misc/color-model';
 import {NumberUtil} from '../misc/number-util';
 import {Color} from '../model/color';
 import {NumberColorParser} from '../parser/number-color';
@@ -31,8 +32,7 @@ export function fromMixed(value: unknown): Color {
  * @hidden
  */
 export function toHexRgbString(value: Color): string {
-	const hexes = value
-		.getComponents('rgb')
+	const hexes = ColorModel.withoutAlpha(value.getComponents('rgb'))
 		.map((comp) => {
 			const hex = NumberUtil.constrain(Math.floor(comp), 0, 255).toString(16);
 			return hex.length === 1 ? `0${hex}` : hex;
@@ -46,9 +46,9 @@ export function toHexRgbString(value: Color): string {
  */
 export function toFunctionalRgbString(value: Color): string {
 	const formatter = new NumberFormatter(0);
-	const comps = value
-		.getComponents('rgb')
-		.map((comp) => formatter.format(comp));
+	const comps = ColorModel.withoutAlpha(
+		value.getComponents('rgb'),
+	).map((comp) => formatter.format(comp));
 	return `rgb(${comps.join(', ')})`;
 }
 
@@ -69,7 +69,10 @@ export function getStringifier(
  * @hidden
  */
 export function toNumber(value: Color): number {
-	return value.getComponents('rgb').reduce((result, comp) => {
-		return (result << 8) | (Math.floor(comp) & 0xff);
-	}, 0);
+	return ColorModel.withoutAlpha(value.getComponents('rgb')).reduce(
+		(result, comp) => {
+			return (result << 8) | (Math.floor(comp) & 0xff);
+		},
+		0,
+	);
 }

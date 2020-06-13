@@ -21,6 +21,7 @@ describe(Color.name, () => {
 					expected.r,
 					expected.g,
 					expected.b,
+					1,
 				]);
 			});
 			it('should convert to object', () => {
@@ -50,6 +51,7 @@ describe(Color.name, () => {
 					expected.h,
 					expected.s,
 					expected.v,
+					1,
 				]);
 			});
 		});

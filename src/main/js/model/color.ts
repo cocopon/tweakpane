@@ -1,4 +1,5 @@
 import * as ColorModel from '../misc/color-model';
+import {ColorComponents3, ColorComponents4} from '../misc/color-model';
 import {NumberUtil} from '../misc/number-util';
 import {TypeUtil} from '../misc/type-util';
 
@@ -15,14 +16,14 @@ const CONSTRAINT_MAP: {
 		comps: [number, number, number],
 	) => [number, number, number];
 } = {
-	hsv: (comps: [number, number, number]): [number, number, number] => {
+	hsv: (comps: ColorComponents3): ColorComponents3 => {
 		return [
 			NumberUtil.loop(comps[0], 360),
 			NumberUtil.constrain(comps[1], 0, 100),
 			NumberUtil.constrain(comps[2], 0, 100),
 		];
 	},
-	rgb: (comps: [number, number, number]): [number, number, number] => {
+	rgb: (comps: ColorComponents3): ColorComponents3 => {
 		return [
 			NumberUtil.constrain(comps[0], 0, 255),
 			NumberUtil.constrain(comps[1], 0, 255),
@@ -58,26 +59,32 @@ export class Color {
 		);
 	}
 
-	private comps_: [number, number, number];
+	private comps_: ColorComponents4;
 	private mode_: ColorMode;
 
-	constructor(comps: [number, number, number], mode: ColorMode) {
+	constructor(comps: ColorComponents3, mode: ColorMode) {
 		this.mode_ = mode;
-		this.comps_ = CONSTRAINT_MAP[mode](comps);
+
+		const comps3 = CONSTRAINT_MAP[mode](comps);
+		this.comps_ = [comps3[0], comps3[1], comps3[2], 1];
 	}
 
 	public get mode(): ColorMode {
 		return this.mode_;
 	}
 
-	public getComponents(mode: ColorMode): [number, number, number] {
+	public getComponents(mode: ColorMode): ColorComponents4 {
 		if (this.mode_ === 'hsv' && mode === 'rgb') {
-			return ColorModel.hsvToRgb(...this.comps_);
+			return ColorModel.opaque(
+				ColorModel.hsvToRgb(this.comps_[0], this.comps_[1], this.comps_[2]),
+			);
 		}
 		if (this.mode_ === 'rgb' && mode === 'hsv') {
-			return ColorModel.rgbToHsv(...this.comps_);
+			return ColorModel.opaque(
+				ColorModel.rgbToHsv(this.comps_[0], this.comps_[1], this.comps_[2]),
+			);
 		}
-		return this.comps_;
+		return ColorModel.opaque([this.comps_[0], this.comps_[1], this.comps_[2]]);
 	}
 
 	public toRgbObject(): RgbColorObject {
