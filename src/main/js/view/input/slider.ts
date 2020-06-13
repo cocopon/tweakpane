@@ -74,10 +74,14 @@ export class SliderInputView extends View implements InputView<number> {
 			throw PaneError.alreadyDisposed();
 		}
 
-		const p = NumberUtil.map(
-			this.value.rawValue,
-			this.minValue_,
-			this.maxValue_,
+		const p = NumberUtil.constrain(
+			NumberUtil.map(
+				this.value.rawValue,
+				this.minValue_,
+				this.maxValue_,
+				0,
+				100,
+			),
 			0,
 			100,
 		);

@@ -24,3 +24,7 @@ pre {
 strong {
 	color: $base-heading-color;
 }
+
+:root .tp-dfwv {
+	top: ($global-header-height + 8px);
+}
