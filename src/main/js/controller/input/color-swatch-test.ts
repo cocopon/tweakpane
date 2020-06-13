@@ -11,6 +11,7 @@ describe(ColorSwatchInputController.name, () => {
 	it('should dispose', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new ColorSwatchInputController(doc, {
+			supportsAlpha: false,
 			viewModel: new ViewModel(),
 			value: new InputValue(new Color([0, 0, 0], 'rgb')),
 		});

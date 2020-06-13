@@ -135,3 +135,10 @@ export function opaque(comps: ColorComponents3): ColorComponents4 {
 export function withoutAlpha(comps: ColorComponents4): ColorComponents3 {
 	return [comps[0], comps[1], comps[2]];
 }
+
+export function withAlpha(
+	comps: ColorComponents3,
+	alpha: number,
+): ColorComponents4 {
+	return [comps[0], comps[1], comps[2], alpha];
+}

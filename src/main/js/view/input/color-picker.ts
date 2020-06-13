@@ -3,16 +3,16 @@ import {Color} from '../../model/color';
 import {Foldable} from '../../model/foldable';
 import {InputValue} from '../../model/input-value';
 import {View, ViewConfig} from '../view';
+import {ColorComponentTextsInputView} from './color-component-texts';
 import {HPaletteInputView} from './h-palette';
-import {RgbTextInputView} from './rgb-text';
 import {SvPaletteInputView} from './sv-palette';
 
 const className = ClassName('clp', 'input');
 
 interface Config extends ViewConfig {
+	componentTextsView: ColorComponentTextsInputView;
 	foldable: Foldable;
 	hPaletteInputView: HPaletteInputView;
-	rgbTextView: RgbTextInputView;
 	svPaletteInputView: SvPaletteInputView;
 	value: InputValue<Color>;
 }
@@ -24,7 +24,7 @@ export class ColorPickerInputView extends View {
 	public readonly foldable: Foldable;
 	public readonly value: InputValue<Color>;
 	private hPaletteView_: HPaletteInputView;
-	private rgbTextView_: RgbTextInputView;
+	private compTextsView_: ColorComponentTextsInputView;
 	private svPaletteView_: SvPaletteInputView;
 
 	constructor(document: Document, config: Config) {
@@ -60,8 +60,8 @@ export class ColorPickerInputView extends View {
 
 		const rgbElem = document.createElement('div');
 		rgbElem.classList.add(className('rgb'));
-		this.rgbTextView_ = config.rgbTextView;
-		rgbElem.appendChild(this.rgbTextView_.element);
+		this.compTextsView_ = config.componentTextsView;
+		rgbElem.appendChild(this.compTextsView_.element);
 		this.element.appendChild(rgbElem);
 
 		this.update();
@@ -70,7 +70,7 @@ export class ColorPickerInputView extends View {
 	get allFocusableElements(): HTMLElement[] {
 		return ([] as HTMLElement[]).concat(
 			this.hPaletteView_.canvasElement,
-			this.rgbTextView_.inputElements,
+			this.compTextsView_.inputElements,
 			this.svPaletteView_.canvasElement,
 		);
 	}

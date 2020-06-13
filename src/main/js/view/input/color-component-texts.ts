@@ -1,6 +1,5 @@
-import {Formatter} from '../../formatter/formatter';
+import {NumberFormatter} from '../../formatter/number';
 import {ClassName} from '../../misc/class-name';
-import * as ColorModel from '../../misc/color-model';
 import * as DisposingUtil from '../../misc/disposing-util';
 import {PaneError} from '../../misc/pane-error';
 import {Color} from '../../model/color';
@@ -9,41 +8,52 @@ import {View, ViewConfig} from '../view';
 import {InputView} from './input';
 
 interface Config extends ViewConfig {
-	formatter: Formatter<number>;
+	supportsAlpha: boolean;
 	value: InputValue<Color>;
 }
 
-const className = ClassName('rgbtxt', 'input');
+type HtmlInputElements3 = [
+	HTMLInputElement,
+	HTMLInputElement,
+	HTMLInputElement,
+];
+type HtmlInputElements4 = [
+	HTMLInputElement,
+	HTMLInputElement,
+	HTMLInputElement,
+	HTMLInputElement,
+];
+
+const className = ClassName('cctxts', 'input');
+const alphaFormatter = new NumberFormatter(2);
+const nonAlphaFormatter = new NumberFormatter(0);
 
 /**
  * @hidden
  */
-export class RgbTextInputView extends View implements InputView<Color> {
+export class ColorComponentTextsInputView extends View
+	implements InputView<Color> {
 	public readonly value: InputValue<Color>;
-	private formatter_: Formatter<number>;
-	private inputElems_:
-		| [HTMLInputElement, HTMLInputElement, HTMLInputElement]
-		| null;
+	private inputElems_: HtmlInputElements3 | HtmlInputElements4 | null;
 
 	constructor(document: Document, config: Config) {
 		super(document, config);
 
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
-		this.formatter_ = config.formatter;
-
 		this.element.classList.add(className());
 
 		const labelElem = document.createElement('div');
 		labelElem.classList.add(className('l'));
-		labelElem.textContent = 'RGB';
+		labelElem.textContent = config.supportsAlpha ? 'RGBA' : 'RGB';
 		this.element.appendChild(labelElem);
 
 		const wrapperElem = document.createElement('div');
 		wrapperElem.classList.add(className('w'));
 		this.element.appendChild(wrapperElem);
 
-		const inputElems = [0, 1, 2].map(() => {
+		const indexes = config.supportsAlpha ? [0, 1, 2, 3] : [0, 1, 2];
+		const inputElems = indexes.map(() => {
 			const inputElem = document.createElement('input');
 			inputElem.classList.add(className('i'));
 			inputElem.type = 'text';
@@ -52,7 +62,9 @@ export class RgbTextInputView extends View implements InputView<Color> {
 		inputElems.forEach((elem) => {
 			wrapperElem.appendChild(elem);
 		});
-		this.inputElems_ = [inputElems[0], inputElems[1], inputElems[2]];
+		this.inputElems_ = config.supportsAlpha
+			? [inputElems[0], inputElems[1], inputElems[2], inputElems[3]]
+			: [inputElems[0], inputElems[1], inputElems[2]];
 
 		config.value.emitter.on('change', this.onValueChange_);
 		this.value = config.value;
@@ -69,7 +81,7 @@ export class RgbTextInputView extends View implements InputView<Color> {
 		});
 	}
 
-	get inputElements(): [HTMLInputElement, HTMLInputElement, HTMLInputElement] {
+	get inputElements(): HtmlInputElements3 | HtmlInputElements4 {
 		if (!this.inputElems_) {
 			throw PaneError.alreadyDisposed();
 		}
@@ -82,13 +94,15 @@ export class RgbTextInputView extends View implements InputView<Color> {
 			throw PaneError.alreadyDisposed();
 		}
 
-		const rgbComps = ColorModel.withoutAlpha(
-			this.value.rawValue.getComponents('rgb'),
-		);
-
-		rgbComps.forEach((comp, index) => {
+		const comps = this.value.rawValue.getComponents('rgb');
+		comps.forEach((comp, index) => {
 			const inputElem = inputElems[index];
-			inputElem.value = this.formatter_.format(comp);
+			if (!inputElem) {
+				return;
+			}
+
+			const formatter = index === 3 ? alphaFormatter : nonAlphaFormatter;
+			inputElem.value = formatter.format(comp);
 		});
 	}
 

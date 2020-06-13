@@ -1,4 +1,3 @@
-import {NumberFormatter} from '../../formatter/number';
 import {TypeUtil} from '../../misc/type-util';
 import {Color} from '../../model/color';
 import {Foldable} from '../../model/foldable';
@@ -6,12 +5,13 @@ import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
 import {ColorPickerInputView} from '../../view/input/color-picker';
+import {ColorComponentTextsInputController} from './color-component-texts';
 import {HPaletteInputController} from './h-palette';
 import {InputController} from './input';
-import {RgbTextInputController} from './rgb-text';
 import {SvPaletteInputController} from './sv-palette';
 
 interface Config {
+	supportsAlpha: boolean;
 	value: InputValue<Color>;
 	viewModel: ViewModel;
 }
@@ -25,7 +25,7 @@ export class ColorPickerInputController implements InputController<Color> {
 	public readonly value: InputValue<Color>;
 	public readonly view: ColorPickerInputView;
 	private hPaletteIc_: HPaletteInputController;
-	private rgbTextIc_: RgbTextInputController;
+	private compTextsIc_: ColorComponentTextsInputController;
 	private svPaletteIc_: SvPaletteInputController;
 
 	constructor(document: Document, config: Config) {
@@ -45,9 +45,9 @@ export class ColorPickerInputController implements InputController<Color> {
 			viewModel: this.viewModel,
 		});
 
-		this.rgbTextIc_ = new RgbTextInputController(document, {
-			formatter: new NumberFormatter(0),
+		this.compTextsIc_ = new ColorComponentTextsInputController(document, {
 			parser: StringNumberParser,
+			supportsAlpha: config.supportsAlpha,
 			value: this.value,
 			viewModel: this.viewModel,
 		});
@@ -56,7 +56,7 @@ export class ColorPickerInputController implements InputController<Color> {
 			foldable: this.foldable,
 			hPaletteInputView: this.hPaletteIc_.view,
 			model: this.viewModel,
-			rgbTextView: this.rgbTextIc_.view,
+			componentTextsView: this.compTextsIc_.view,
 			svPaletteInputView: this.svPaletteIc_.view,
 			value: this.value,
 		});

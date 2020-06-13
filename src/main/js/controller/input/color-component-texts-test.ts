@@ -1,13 +1,12 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {NumberFormatter} from '../../formatter/number';
 import {TestUtil} from '../../misc/test-util';
 import {Color, RgbColorObject} from '../../model/color';
 import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
-import {RgbTextInputController} from './rgb-text';
+import {ColorComponentTextsInputController} from './color-component-texts';
 
 interface ChangeTestCase {
 	expected: RgbColorObject;
@@ -30,12 +29,12 @@ interface KeydownTestCase {
 	};
 }
 
-describe(RgbTextInputController.name, () => {
+describe(ColorComponentTextsInputController.name, () => {
 	it('should dispose', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = new RgbTextInputController(doc, {
-			formatter: new NumberFormatter(0),
+		const c = new ColorComponentTextsInputController(doc, {
 			parser: StringNumberParser,
+			supportsAlpha: false,
 			value: new InputValue(new Color([0, 0, 0], 'rgb')),
 			viewModel: new ViewModel(),
 		});
@@ -86,9 +85,9 @@ describe(RgbTextInputController.name, () => {
 
 				const win = TestUtil.createWindow();
 				const doc = win.document;
-				const c = new RgbTextInputController(doc, {
-					formatter: new NumberFormatter(0),
+				const c = new ColorComponentTextsInputController(doc, {
 					parser: StringNumberParser,
+					supportsAlpha: false,
 					value: value,
 					viewModel: new ViewModel(),
 				});
@@ -152,9 +151,9 @@ describe(RgbTextInputController.name, () => {
 
 				const win = TestUtil.createWindow();
 				const doc = win.document;
-				const c = new RgbTextInputController(doc, {
-					formatter: new NumberFormatter(0),
+				const c = new ColorComponentTextsInputController(doc, {
 					parser: StringNumberParser,
+					supportsAlpha: false,
 					value: value,
 					viewModel: new ViewModel(),
 				});

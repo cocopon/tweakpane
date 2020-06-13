@@ -42,6 +42,7 @@ export function createWithString(
 		controller: new ColorSwatchTextInputController(document, {
 			formatter: new ColorFormatter(writer),
 			parser: StringColorParser.CompositeParser,
+			supportsAlpha: false, // TODO: Implement
 			value: value,
 			viewModel: new ViewModel(),
 		}),
@@ -83,6 +84,7 @@ export function createWithNumber(
 		controller: new ColorSwatchTextInputController(document, {
 			formatter: new ColorFormatter(ColorConverter.toHexRgbString),
 			parser: StringColorParser.CompositeParser,
+			supportsAlpha: false, // TODO: Implement
 			value: value,
 			viewModel: new ViewModel(),
 		}),
@@ -116,6 +118,7 @@ export function createWithObject(
 			viewModel: new ViewModel(),
 			formatter: new ColorFormatter(ColorConverter.toHexRgbString),
 			parser: StringColorParser.CompositeParser,
+			supportsAlpha: false, // TODO: Implement
 			value: value,
 		}),
 		label: params.label || target.key,

@@ -13,21 +13,23 @@ export interface RgbColorObject {
 
 const CONSTRAINT_MAP: {
 	[mode in ColorMode]: (
-		comps: [number, number, number],
-	) => [number, number, number];
+		comps: ColorComponents3 | ColorComponents4,
+	) => ColorComponents4;
 } = {
-	hsv: (comps: ColorComponents3): ColorComponents3 => {
+	hsv: (comps) => {
 		return [
 			NumberUtil.loop(comps[0], 360),
 			NumberUtil.constrain(comps[1], 0, 100),
 			NumberUtil.constrain(comps[2], 0, 100),
+			NumberUtil.constrain(TypeUtil.getOrDefault(comps[3], 1), 0, 1),
 		];
 	},
-	rgb: (comps: ColorComponents3): ColorComponents3 => {
+	rgb: (comps) => {
 		return [
 			NumberUtil.constrain(comps[0], 0, 255),
 			NumberUtil.constrain(comps[1], 0, 255),
 			NumberUtil.constrain(comps[2], 0, 255),
+			NumberUtil.constrain(TypeUtil.getOrDefault(comps[3], 1), 0, 1),
 		];
 	},
 };
@@ -62,11 +64,9 @@ export class Color {
 	private comps_: ColorComponents4;
 	private mode_: ColorMode;
 
-	constructor(comps: ColorComponents3, mode: ColorMode) {
+	constructor(comps: ColorComponents3 | ColorComponents4, mode: ColorMode) {
 		this.mode_ = mode;
-
-		const comps3 = CONSTRAINT_MAP[mode](comps);
-		this.comps_ = [comps3[0], comps3[1], comps3[2], 1];
+		this.comps_ = CONSTRAINT_MAP[mode](comps);
 	}
 
 	public get mode(): ColorMode {
@@ -75,16 +75,18 @@ export class Color {
 
 	public getComponents(mode: ColorMode): ColorComponents4 {
 		if (this.mode_ === 'hsv' && mode === 'rgb') {
-			return ColorModel.opaque(
+			return ColorModel.withAlpha(
 				ColorModel.hsvToRgb(this.comps_[0], this.comps_[1], this.comps_[2]),
+				this.comps_[3],
 			);
 		}
 		if (this.mode_ === 'rgb' && mode === 'hsv') {
-			return ColorModel.opaque(
+			return ColorModel.withAlpha(
 				ColorModel.rgbToHsv(this.comps_[0], this.comps_[1], this.comps_[2]),
+				this.comps_[3],
 			);
 		}
-		return ColorModel.opaque([this.comps_[0], this.comps_[1], this.comps_[2]]);
+		return this.comps_;
 	}
 
 	public toRgbObject(): RgbColorObject {
