@@ -1,5 +1,9 @@
 $prefix: 'tp';
 
+// Color
+$transparent-checker-color-dark: #ddd;
+$transparent-checker-color-light: white;
+
 // Geometry
 $input-height: 20px;
 $input-border-radius: 2px;
@@ -150,6 +154,25 @@ $z-index-picker: 1000;
 	&:active {
 		background-color: var(--button-background-color-active);
 	}
+}
+
+@mixin checker-pattern($color, $size) {
+	background-image: linear-gradient(
+			to top right,
+			$color 25%,
+			transparent 25%,
+			transparent 75%,
+			$color 75%
+		),
+		linear-gradient(
+			to top right,
+			$color 25%,
+			transparent 25%,
+			transparent 75%,
+			$color 75%
+		);
+	background-size: $size $size;
+	background-position: 0 0, ($size / 2) ($size / 2);
 }
 
 %folder_title {

@@ -28,15 +28,28 @@ export function fromMixed(value: unknown): Color {
 	return new Color([0, 0, 0], 'rgb');
 }
 
+function zerofill(comp: number): string {
+	const hex = NumberUtil.constrain(Math.floor(comp), 0, 255).toString(16);
+	return hex.length === 1 ? `0${hex}` : hex;
+}
+
 /**
  * @hidden
  */
 export function toHexRgbString(value: Color): string {
 	const hexes = ColorModel.withoutAlpha(value.getComponents('rgb'))
-		.map((comp) => {
-			const hex = NumberUtil.constrain(Math.floor(comp), 0, 255).toString(16);
-			return hex.length === 1 ? `0${hex}` : hex;
-		})
+		.map(zerofill)
+		.join('');
+	return `#${hexes}`;
+}
+
+/**
+ * @hidden
+ */
+export function toHexRgbaString(value: Color): string {
+	const rgbaComps = value.getComponents('rgb');
+	const hexes = [rgbaComps[0], rgbaComps[1], rgbaComps[2], rgbaComps[3] * 255]
+		.map(zerofill)
 		.join('');
 	return `#${hexes}`;
 }

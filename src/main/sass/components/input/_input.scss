@@ -10,6 +10,11 @@
 
 // colorswatch
 .#{$prefix}-cswiv {
+	@include checker-pattern($transparent-checker-color-dark, $input-height / 2);
+
+	background-color: $transparent-checker-color-light;
+	border-radius: $input-border-radius;
+
 	&_sw {
 		@include inputView();
 	}
