@@ -184,13 +184,17 @@ export const InputRoute = {
 			},
 			numberColor: (container) => {
 				const PARAMS = {
-					tint: 0x0088ff,
+					background: 0x0088ff,
+					tint: 0x00ff0088,
 				};
 				const pane = new Tweakpane({
 					container: container,
 				});
-				pane.addInput(PARAMS, 'tint', {
+				pane.addInput(PARAMS, 'background', {
 					input: 'color',
+				});
+				pane.addInput(PARAMS, 'tint', {
+					input: 'color.rgba',
 				});
 			},
 			point2d: (container) => {

@@ -220,18 +220,22 @@ pane.addInput(PARAMS, 'secondary');</code></pre></div>
 	</div>
 </div>
 
-<p>If you want to regard a hex number (like <code>0x0088ff</code>) as a color, specify <code>{input: 'color'}</code> option.</p>
+<p>If you want to regard a hex number (like <code>0x0088ff</code>) as a color, specify <code>{input: 'color'}</code> option. Or, <code>'color.rgba'</code> to add an alpha component.</p>
 
 <div class="common-main_mediaLayout">
 	<div class="common-demo">
 		<div class="common-demo_codeLayout">
 			<div class="common-codeBlock"><pre><code class="js">const PARAMS = {
-  tint: 0x0088ff,
+  background: 0x0088ff,
+  tint: 0x00ff0088,
 };
 
 const pane = new Tweakpane();
-pane.addInput(PARAMS, 'tint', {
+pane.addInput(PARAMS, 'background', {
   <strong>input: 'color'</strong>,
+});
+pane.addInput(PARAMS, 'tint', {
+  <strong>input: 'color.rgba'</strong>,
 });</code></pre></div>
 		</div>
 		<div class="common-demo_resultLayout">

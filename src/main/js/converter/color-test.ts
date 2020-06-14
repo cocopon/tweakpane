@@ -25,6 +25,19 @@ describe('ColorConverter', () => {
 				a: 1,
 			},
 		},
+	].forEach((testCase) => {
+		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
+			it('should convert string to color', () => {
+				assert.deepStrictEqual(
+					ColorConverter.fromString(testCase.input).toRgbaObject(),
+					testCase.expected,
+				);
+			});
+		});
+	});
+
+	// tslint:disable:object-literal-sort-keys
+	[
 		{
 			input: 0x0078ff,
 			expected: {
@@ -34,6 +47,19 @@ describe('ColorConverter', () => {
 				a: 1,
 			},
 		},
+	].forEach((testCase) => {
+		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
+			it('should convert number to color', () => {
+				assert.deepStrictEqual(
+					ColorConverter.fromNumberToRgb(testCase.input).toRgbaObject(),
+					testCase.expected,
+				);
+			});
+		});
+	});
+
+	// tslint:disable:object-literal-sort-keys
+	[
 		{
 			input: {r: 0x00, g: 0x78, b: 0xff},
 			expected: {
@@ -45,9 +71,9 @@ describe('ColorConverter', () => {
 		},
 	].forEach((testCase) => {
 		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
-			it('should convert mixed to color', () => {
+			it('should convert object to color', () => {
 				assert.deepStrictEqual(
-					ColorConverter.fromMixed(testCase.input).toRgbaObject(),
+					ColorConverter.fromObject(testCase.input).toRgbaObject(),
 					testCase.expected,
 				);
 			});
@@ -123,7 +149,7 @@ describe('ColorConverter', () => {
 		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
 			it('should convert color to number', () => {
 				assert.strictEqual(
-					ColorConverter.toNumber(testCase.input),
+					ColorConverter.toRgbNumber(testCase.input),
 					testCase.expected,
 				);
 			});
