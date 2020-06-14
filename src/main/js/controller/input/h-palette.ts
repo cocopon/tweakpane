@@ -44,8 +44,8 @@ export class HPaletteInputController implements InputController<Color> {
 		const hue = NumberUtil.map(d.py, 0, 1, 0, 360);
 
 		const c = this.value.rawValue;
-		const [, s, v] = c.getComponents('hsv');
-		this.value.rawValue = new Color([hue, s, v], 'hsv');
+		const [, s, v, a] = c.getComponents('hsv');
+		this.value.rawValue = new Color([hue, s, v, a], 'hsv');
 		this.view.update();
 	}
 

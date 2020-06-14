@@ -65,11 +65,26 @@ export function toFunctionalRgbString(value: Color): string {
 	return `rgb(${comps.join(', ')})`;
 }
 
+/**
+ * @hidden
+ */
+export function toFunctionalRgbaString(value: Color): string {
+	const alphaFormatter = new NumberFormatter(2);
+	const nonAlphaFormatter = new NumberFormatter(0);
+	const comps = value.getComponents('rgb').map((comp, index) => {
+		const formatter = index === 3 ? alphaFormatter : nonAlphaFormatter;
+		return formatter.format(comp);
+	});
+	return `rgba(${comps.join(', ')})`;
+}
+
 const NOTATION_TO_STRINGIFIER_MAP: {
 	[notation in StringColorNotation]: (value: Color) => string;
 } = {
 	'func.rgb': toFunctionalRgbString,
+	'func.rgba': toFunctionalRgbaString,
 	'hex.rgb': toHexRgbString,
+	'hex.rgba': toHexRgbaString,
 };
 
 export function getStringifier(

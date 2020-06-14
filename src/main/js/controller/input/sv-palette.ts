@@ -44,8 +44,8 @@ export class SvPaletteInputController implements InputController<Color> {
 		const saturation = NumberUtil.map(d.px, 0, 1, 0, 100);
 		const value = NumberUtil.map(d.py, 0, 1, 100, 0);
 
-		const [h] = this.value.rawValue.getComponents('hsv');
-		this.value.rawValue = new Color([h, saturation, value], 'hsv');
+		const [h, , , a] = this.value.rawValue.getComponents('hsv');
+		this.value.rawValue = new Color([h, saturation, value, a], 'hsv');
 		this.view.update();
 	}
 
