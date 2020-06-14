@@ -2,7 +2,7 @@ import {InputParams} from '../../api/types';
 import {InputBinding} from '../../binding/input';
 import * as ColorConverter from '../../converter/color';
 import {ColorFormatter} from '../../formatter/color';
-import {Color, RgbColorObject} from '../../model/color';
+import {Color, RgbaColorObject, RgbColorObject} from '../../model/color';
 import {InputValue} from '../../model/input-value';
 import {Target} from '../../model/target';
 import {ViewModel} from '../../model/view-model';
@@ -99,26 +99,30 @@ export function createWithObject(
 	document: Document,
 	target: Target,
 	params: InputParams,
-): InputBindingController<Color, RgbColorObject> | null {
+): InputBindingController<Color, RgbColorObject | RgbaColorObject> | null {
 	const initialValue = target.read();
-	if (!Color.isRgbColorObject(initialValue)) {
+	if (!Color.isColorObject(initialValue)) {
 		return null;
 	}
 
-	const color = Color.fromRgbObject(initialValue);
+	const supportsAlpha = Color.isRgbaColorObject(initialValue);
+	const color = Color.fromObject(initialValue);
+	const formatter = supportsAlpha
+		? new ColorFormatter(ColorConverter.toHexRgbaString)
+		: new ColorFormatter(ColorConverter.toHexRgbString);
 	const value = new InputValue(color);
 	return new InputBindingController(document, {
 		binding: new InputBinding({
 			reader: ColorConverter.fromMixed,
 			target: target,
 			value: value,
-			writer: Color.toRgbObject,
+			writer: Color.toRgbaObject,
 		}),
 		controller: new ColorSwatchTextInputController(document, {
 			viewModel: new ViewModel(),
-			formatter: new ColorFormatter(ColorConverter.toHexRgbString),
+			formatter: formatter,
 			parser: StringColorParser.CompositeParser,
-			supportsAlpha: true, // TODO: Implement
+			supportsAlpha: supportsAlpha,
 			value: value,
 		}),
 		label: params.label || target.key,

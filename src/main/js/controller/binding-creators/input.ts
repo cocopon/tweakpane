@@ -1,7 +1,7 @@
 import {InputParams} from '../../api/types';
 import {PaneError} from '../../misc/pane-error';
 import {TypeUtil} from '../../misc/type-util';
-import {Color, RgbColorObject} from '../../model/color';
+import {Color, RgbaColorObject} from '../../model/color';
 import {Point2d, Point2dObject} from '../../model/point-2d';
 import {Target} from '../../model/target';
 import * as BooleanInputBindingControllerCreators from './boolean-input';
@@ -16,7 +16,7 @@ export type InputtableOutType =
 	| number
 	| string
 	| Point2dObject
-	| RgbColorObject;
+	| RgbaColorObject;
 
 /**
  * @hidden

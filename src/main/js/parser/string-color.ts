@@ -109,11 +109,16 @@ const NOTATION_TO_PARSER_MAP: {
 		}
 
 		const mRgb = text.match(
-			/^#?([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})$/,
+			/^#?([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})$/,
 		);
 		if (mRgb) {
 			return new Color(
-				[parseInt(mRgb[1], 16), parseInt(mRgb[2], 16), parseInt(mRgb[3], 16)],
+				[
+					parseInt(mRgb[1], 16),
+					parseInt(mRgb[2], 16),
+					parseInt(mRgb[3], 16),
+					NumberUtil.map(parseInt(mRgb[4], 16), 0, 255, 0, 1),
+				],
 				'rgb',
 			);
 		}
@@ -125,18 +130,6 @@ const NOTATION_TO_PARSER_MAP: {
 /**
  * @hidden
  */
-export const CompositeParser: Parser<string, Color> = (
-	text: string,
-): Color | null => {
-	const notations: StringColorNotation[] = Object.keys(
-		NOTATION_TO_PARSER_MAP,
-	) as StringColorNotation[];
-	return notations.reduce((result: Color | null, notation) => {
-		const subparser = NOTATION_TO_PARSER_MAP[notation];
-		return result ? result : subparser(text);
-	}, null);
-};
-
 export function getNotation(text: string): StringColorNotation | null {
 	const notations: StringColorNotation[] = Object.keys(
 		NOTATION_TO_PARSER_MAP,
@@ -149,6 +142,16 @@ export function getNotation(text: string): StringColorNotation | null {
 		return subparser(text) ? notation : null;
 	}, null);
 }
+
+/**
+ * @hidden
+ */
+export const CompositeParser: Parser<string, Color> = (
+	text: string,
+): Color | null => {
+	const notation = getNotation(text);
+	return notation ? NOTATION_TO_PARSER_MAP[notation](text) : null;
+};
 
 export function hasAlphaComponent(notation: StringColorNotation): boolean {
 	return notation === 'func.rgba' || notation === 'hex.rgba';

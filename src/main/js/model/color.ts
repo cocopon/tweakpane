@@ -10,6 +10,12 @@ export interface RgbColorObject {
 	g: number;
 	b: number;
 }
+export interface RgbaColorObject {
+	r: number;
+	g: number;
+	b: number;
+	a: number;
+}
 
 const CONSTRAINT_MAP: {
 	[mode in ColorMode]: (
@@ -45,12 +51,14 @@ function isRgbColorComponent(obj: any, key: string): boolean {
  * @hidden
  */
 export class Color {
-	public static fromRgbObject(obj: RgbColorObject): Color {
-		return new Color([obj.r, obj.g, obj.b], 'rgb');
+	public static fromObject(obj: RgbColorObject | RgbaColorObject): Color {
+		const comps: ColorComponents4 | ColorComponents3 =
+			'a' in obj ? [obj.r, obj.g, obj.b, obj.a] : [obj.r, obj.g, obj.b];
+		return new Color(comps, 'rgb');
 	}
 
-	public static toRgbObject(color: Color): RgbColorObject {
-		return color.toRgbObject();
+	public static toRgbaObject(color: Color): RgbaColorObject {
+		return color.toRgbaObject();
 	}
 
 	public static isRgbColorObject(obj: any): obj is RgbColorObject {
@@ -59,6 +67,16 @@ export class Color {
 			isRgbColorComponent(obj, 'g') &&
 			isRgbColorComponent(obj, 'b')
 		);
+	}
+
+	public static isRgbaColorObject(obj: any): obj is RgbaColorObject {
+		return this.isRgbColorObject(obj) && isRgbColorComponent(obj, 'a');
+	}
+
+	public static isColorObject(
+		obj: any,
+	): obj is RgbColorObject | RgbaColorObject {
+		return this.isRgbColorObject(obj);
 	}
 
 	private comps_: ColorComponents4;
@@ -89,7 +107,7 @@ export class Color {
 		return this.comps_;
 	}
 
-	public toRgbObject(): RgbColorObject {
+	public toRgbaObject(): RgbaColorObject {
 		const rgbComps = this.getComponents('rgb');
 
 		// tslint:disable:object-literal-sort-keys
@@ -97,6 +115,7 @@ export class Color {
 			r: rgbComps[0],
 			g: rgbComps[1],
 			b: rgbComps[2],
+			a: rgbComps[3],
 		};
 		// tslint:enable:object-literal-sort-keys
 	}

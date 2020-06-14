@@ -6,7 +6,7 @@ import * as StringColorParser from './string-color';
 describe('StringColorParser', () => {
 	[
 		{
-			expected: {r: 0x11, g: 0x22, b: 0x33},
+			expected: {r: 0x11, g: 0x22, b: 0x33, a: 1},
 			inputs: [
 				'#112233',
 				'rgb(17,34,51)',
@@ -16,15 +16,15 @@ describe('StringColorParser', () => {
 			],
 		},
 		{
-			expected: {r: 0xdd, g: 0xee, b: 0xff},
+			expected: {r: 0xdd, g: 0xee, b: 0xff, a: 1},
 			inputs: ['#def', 'rgb(221, 238, 100%)'],
 		},
 		{
-			expected: {r: 0x44, g: 0x55, b: 0x66},
+			expected: {r: 0x44, g: 0x55, b: 0x66, a: 1},
 			inputs: ['456'],
 		},
 		{
-			expected: {r: 0x99, g: 0xaa, b: 0xbb},
+			expected: {r: 0x99, g: 0xaa, b: 0xbb, a: 1},
 			inputs: ['99aabb'],
 		},
 	].forEach((testCase) => {
@@ -33,7 +33,7 @@ describe('StringColorParser', () => {
 				it(`it should parse as ${JSON.stringify(testCase.expected)}`, () => {
 					const actual = StringColorParser.CompositeParser(input);
 					assert.deepStrictEqual(
-						actual && actual.toRgbObject(),
+						actual && actual.toRgbaObject(),
 						testCase.expected,
 					);
 				});

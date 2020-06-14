@@ -2,14 +2,14 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../misc/test-util';
-import {Color, RgbColorObject} from '../../model/color';
+import {Color, RgbaColorObject} from '../../model/color';
 import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
 import {ColorComponentTextsInputController} from './color-component-texts';
 
 interface ChangeTestCase {
-	expected: RgbColorObject;
+	expected: RgbaColorObject;
 	params: {
 		components: [number, number, number];
 		index: number;
@@ -18,7 +18,7 @@ interface ChangeTestCase {
 }
 
 interface KeydownTestCase {
-	expected: RgbColorObject;
+	expected: RgbaColorObject;
 	params: {
 		components: [number, number, number];
 		index: number;
@@ -44,7 +44,7 @@ describe(ColorComponentTextsInputController.name, () => {
 
 	[
 		{
-			expected: {r: 123, g: 0, b: 0},
+			expected: {r: 123, g: 0, b: 0, a: 1},
 			params: {
 				components: [0, 0, 0],
 				index: 0,
@@ -52,7 +52,7 @@ describe(ColorComponentTextsInputController.name, () => {
 			},
 		},
 		{
-			expected: {r: 0, g: 255, b: 0},
+			expected: {r: 0, g: 255, b: 0, a: 1},
 			params: {
 				components: [0, 0, 0],
 				index: 1,
@@ -60,7 +60,7 @@ describe(ColorComponentTextsInputController.name, () => {
 			},
 		},
 		{
-			expected: {r: 0, g: 0, b: 1},
+			expected: {r: 0, g: 0, b: 1, a: 1},
 			params: {
 				components: [0, 0, 1],
 				index: 2,
@@ -77,7 +77,7 @@ describe(ColorComponentTextsInputController.name, () => {
 				);
 				value.emitter.on('change', () => {
 					assert.deepStrictEqual(
-						value.rawValue.toRgbObject(),
+						value.rawValue.toRgbaObject(),
 						testCase.expected,
 					);
 					done();
@@ -101,7 +101,7 @@ describe(ColorComponentTextsInputController.name, () => {
 
 	[
 		{
-			expected: {r: 1, g: 0, b: 0},
+			expected: {r: 1, g: 0, b: 0, a: 1},
 			params: {
 				components: [0, 0, 0],
 				index: 0,
@@ -112,7 +112,7 @@ describe(ColorComponentTextsInputController.name, () => {
 			},
 		},
 		{
-			expected: {r: 0, g: 99, b: 0},
+			expected: {r: 0, g: 99, b: 0, a: 1},
 			params: {
 				components: [0, 100, 0],
 				index: 1,
@@ -123,7 +123,7 @@ describe(ColorComponentTextsInputController.name, () => {
 			},
 		},
 		{
-			expected: {r: 0, g: 0, b: 210},
+			expected: {r: 0, g: 0, b: 210, a: 1},
 			params: {
 				components: [0, 0, 200],
 				index: 2,
@@ -143,7 +143,7 @@ describe(ColorComponentTextsInputController.name, () => {
 				);
 				value.emitter.on('change', () => {
 					assert.deepStrictEqual(
-						value.rawValue.toRgbObject(),
+						value.rawValue.toRgbaObject(),
 						testCase.expected,
 					);
 					done();

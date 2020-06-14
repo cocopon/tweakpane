@@ -13,6 +13,7 @@ describe('ColorConverter', () => {
 				r: 0x11,
 				g: 0x22,
 				b: 0x33,
+				a: 1,
 			},
 		},
 		{
@@ -21,6 +22,7 @@ describe('ColorConverter', () => {
 				r: 0,
 				g: 0,
 				b: 0,
+				a: 1,
 			},
 		},
 		{
@@ -29,6 +31,7 @@ describe('ColorConverter', () => {
 				r: 0x00,
 				g: 0x78,
 				b: 0xff,
+				a: 1,
 			},
 		},
 		{
@@ -37,13 +40,14 @@ describe('ColorConverter', () => {
 				r: 0x00,
 				g: 0x78,
 				b: 0xff,
+				a: 1,
 			},
 		},
 	].forEach((testCase) => {
 		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
 			it('should convert mixed to color', () => {
 				assert.deepStrictEqual(
-					ColorConverter.fromMixed(testCase.input).toRgbObject(),
+					ColorConverter.fromMixed(testCase.input).toRgbaObject(),
 					testCase.expected,
 				);
 			});

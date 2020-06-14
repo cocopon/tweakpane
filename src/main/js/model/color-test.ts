@@ -6,11 +6,11 @@ import {Color} from './color';
 describe(Color.name, () => {
 	[
 		{
-			expected: {r: 10, g: 20, b: 30},
+			expected: {r: 10, g: 20, b: 30, a: 1},
 			rgb: {r: 10, g: 20, b: 30},
 		},
 		{
-			expected: {r: 0, g: 255, b: 0},
+			expected: {r: 0, g: 255, b: 0, a: 1},
 			rgb: {r: -1, g: 300, b: 0},
 		},
 	].forEach(({expected, rgb}) => {
@@ -21,11 +21,11 @@ describe(Color.name, () => {
 					expected.r,
 					expected.g,
 					expected.b,
-					1,
+					expected.a,
 				]);
 			});
 			it('should convert to object', () => {
-				assert.deepStrictEqual(c.toRgbObject(), expected);
+				assert.deepStrictEqual(c.toRgbaObject(), expected);
 			});
 		});
 	});
