@@ -5,7 +5,8 @@
 		color: var(--label-foreground-color);
 		display: inline;
 		line-height: $input-height;
-		margin-right: 8px;
+		margin-left: 2px;
+		margin-right: 4px;
 	}
 	&_w {
 		display: flex;
