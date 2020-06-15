@@ -165,10 +165,14 @@ export const InputRoute = {
 				});
 			},
 			objectColor: (container) => {
-				const PARAMS = {tint: {r: 255, g: 127, b: 0}};
+				const PARAMS = {
+					background: {r: 255, g: 127, b: 0},
+					tint: {r: 255, g: 255, b: 0, a: 0.5},
+				};
 				const pane = new Tweakpane({
 					container: container,
 				});
+				pane.addInput(PARAMS, 'background');
 				pane.addInput(PARAMS, 'tint');
 			},
 			stringColor: (container) => {
