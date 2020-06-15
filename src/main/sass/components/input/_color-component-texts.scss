@@ -25,6 +25,8 @@
 		&:last-child {
 			border-bottom-right-radius: $input-border-radius;
 			border-top-right-radius: $input-border-radius;
+		}
+		&:nth-child(4) {
 			flex: 1.3;
 		}
 

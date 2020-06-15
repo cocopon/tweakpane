@@ -3,6 +3,7 @@ import {Color} from '../../model/color';
 import {Foldable} from '../../model/foldable';
 import {InputValue} from '../../model/input-value';
 import {View, ViewConfig} from '../view';
+import {APaletteInputView} from './a-palette';
 import {ColorComponentTextsInputView} from './color-component-texts';
 import {HPaletteInputView} from './h-palette';
 import {SvPaletteInputView} from './sv-palette';
@@ -10,6 +11,7 @@ import {SvPaletteInputView} from './sv-palette';
 const className = ClassName('clp', 'input');
 
 interface Config extends ViewConfig {
+	aPaletteInputView: APaletteInputView | null;
 	componentTextsView: ColorComponentTextsInputView;
 	foldable: Foldable;
 	hPaletteInputView: HPaletteInputView;
@@ -23,6 +25,7 @@ interface Config extends ViewConfig {
 export class ColorPickerInputView extends View {
 	public readonly foldable: Foldable;
 	public readonly value: InputValue<Color>;
+	private aPaletteView_: APaletteInputView | null;
 	private hPaletteView_: HPaletteInputView;
 	private compTextsView_: ColorComponentTextsInputView;
 	private svPaletteView_: SvPaletteInputView;
@@ -55,6 +58,14 @@ export class ColorPickerInputView extends View {
 		this.hPaletteView_ = config.hPaletteInputView;
 		hElem.appendChild(this.hPaletteView_.element);
 		hsvElem.appendChild(hElem);
+
+		this.aPaletteView_ = config.aPaletteInputView;
+		if (this.aPaletteView_) {
+			const aElem = document.createElement('div');
+			aElem.classList.add(className('a'));
+			aElem.appendChild(this.aPaletteView_.element);
+			hsvElem.appendChild(aElem);
+		}
 
 		this.element.appendChild(hsvElem);
 

@@ -16,7 +16,8 @@
 	&_hsv {
 		display: flex;
 	}
-	&_h {
+	&_h,
+	&_a {
 		margin-left: 4px;
 	}
 	&_rgb {
@@ -37,16 +38,9 @@
 		width: 20px;
 	}
 	&_m {
-		border-radius: 100%;
-		border: rgba(white, 0.75) solid 1px;
-		box-shadow: 0 1px 2px rgba(black, 0.1);
-		height: 4px;
+		@extend %colorPicker_marker;
+
 		left: 50%;
-		margin-left: -3px;
-		margin-top: -3px;
-		pointer-events: none;
-		position: absolute;
-		width: 4px;
 	}
 }
 .#{$prefix}-svpiv {
@@ -61,14 +55,26 @@
 		width: 100%;
 	}
 	&_m {
-		border-radius: 100%;
-		border: rgba(white, 0.75) solid 1px;
-		box-shadow: 0 1px 2px rgba(black, 0.1);
-		height: 4px;
-		margin-left: -3px;
-		margin-top: -3px;
-		pointer-events: none;
-		position: absolute;
-		width: 4px;
+		@extend %colorPicker_marker;
+	}
+}
+.#{$prefix}-apliv {
+	@include checker-pattern($transparent-checker-color-dark, 20px / 2);
+
+	background-color: $transparent-checker-color-light;
+	border-radius: $input-border-radius;
+	overflow: hidden;
+	position: relative;
+
+	&_c {
+		cursor: crosshair;
+		display: block;
+		height: 80px;
+		width: 20px;
+	}
+	&_m {
+		@extend %colorPicker_marker;
+
+		left: 50%;
 	}
 }
