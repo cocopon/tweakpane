@@ -1,16 +1,15 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {NumberFormatter} from '../../formatter/number';
 import {TestUtil} from '../../misc/test-util';
-import {Color, RgbColorObject} from '../../model/color';
+import {Color, RgbaColorObject} from '../../model/color';
 import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
-import {RgbTextInputController} from './rgb-text';
+import {ColorComponentTextsInputController} from './color-component-texts';
 
 interface ChangeTestCase {
-	expected: RgbColorObject;
+	expected: RgbaColorObject;
 	params: {
 		components: [number, number, number];
 		index: number;
@@ -19,7 +18,7 @@ interface ChangeTestCase {
 }
 
 interface KeydownTestCase {
-	expected: RgbColorObject;
+	expected: RgbaColorObject;
 	params: {
 		components: [number, number, number];
 		index: number;
@@ -30,12 +29,12 @@ interface KeydownTestCase {
 	};
 }
 
-describe(RgbTextInputController.name, () => {
+describe(ColorComponentTextsInputController.name, () => {
 	it('should dispose', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = new RgbTextInputController(doc, {
-			formatter: new NumberFormatter(0),
+		const c = new ColorComponentTextsInputController(doc, {
 			parser: StringNumberParser,
+			supportsAlpha: false,
 			value: new InputValue(new Color([0, 0, 0], 'rgb')),
 			viewModel: new ViewModel(),
 		});
@@ -45,7 +44,7 @@ describe(RgbTextInputController.name, () => {
 
 	[
 		{
-			expected: {r: 123, g: 0, b: 0},
+			expected: {r: 123, g: 0, b: 0, a: 1},
 			params: {
 				components: [0, 0, 0],
 				index: 0,
@@ -53,7 +52,7 @@ describe(RgbTextInputController.name, () => {
 			},
 		},
 		{
-			expected: {r: 0, g: 255, b: 0},
+			expected: {r: 0, g: 255, b: 0, a: 1},
 			params: {
 				components: [0, 0, 0],
 				index: 1,
@@ -61,7 +60,7 @@ describe(RgbTextInputController.name, () => {
 			},
 		},
 		{
-			expected: {r: 0, g: 0, b: 1},
+			expected: {r: 0, g: 0, b: 1, a: 1},
 			params: {
 				components: [0, 0, 1],
 				index: 2,
@@ -78,7 +77,7 @@ describe(RgbTextInputController.name, () => {
 				);
 				value.emitter.on('change', () => {
 					assert.deepStrictEqual(
-						value.rawValue.toRgbObject(),
+						value.rawValue.toRgbaObject(),
 						testCase.expected,
 					);
 					done();
@@ -86,9 +85,9 @@ describe(RgbTextInputController.name, () => {
 
 				const win = TestUtil.createWindow();
 				const doc = win.document;
-				const c = new RgbTextInputController(doc, {
-					formatter: new NumberFormatter(0),
+				const c = new ColorComponentTextsInputController(doc, {
 					parser: StringNumberParser,
+					supportsAlpha: false,
 					value: value,
 					viewModel: new ViewModel(),
 				});
@@ -102,7 +101,7 @@ describe(RgbTextInputController.name, () => {
 
 	[
 		{
-			expected: {r: 1, g: 0, b: 0},
+			expected: {r: 1, g: 0, b: 0, a: 1},
 			params: {
 				components: [0, 0, 0],
 				index: 0,
@@ -113,7 +112,7 @@ describe(RgbTextInputController.name, () => {
 			},
 		},
 		{
-			expected: {r: 0, g: 99, b: 0},
+			expected: {r: 0, g: 99, b: 0, a: 1},
 			params: {
 				components: [0, 100, 0],
 				index: 1,
@@ -124,7 +123,7 @@ describe(RgbTextInputController.name, () => {
 			},
 		},
 		{
-			expected: {r: 0, g: 0, b: 210},
+			expected: {r: 0, g: 0, b: 210, a: 1},
 			params: {
 				components: [0, 0, 200],
 				index: 2,
@@ -144,7 +143,7 @@ describe(RgbTextInputController.name, () => {
 				);
 				value.emitter.on('change', () => {
 					assert.deepStrictEqual(
-						value.rawValue.toRgbObject(),
+						value.rawValue.toRgbaObject(),
 						testCase.expected,
 					);
 					done();
@@ -152,9 +151,9 @@ describe(RgbTextInputController.name, () => {
 
 				const win = TestUtil.createWindow();
 				const doc = win.document;
-				const c = new RgbTextInputController(doc, {
-					formatter: new NumberFormatter(0),
+				const c = new ColorComponentTextsInputController(doc, {
 					parser: StringNumberParser,
+					supportsAlpha: false,
 					value: value,
 					viewModel: new ViewModel(),
 				});

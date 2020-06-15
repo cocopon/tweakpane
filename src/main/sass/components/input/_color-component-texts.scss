@@ -1,0 +1,38 @@
+.#{$prefix}-cctxtsiv {
+	display: flex;
+
+	&_l {
+		color: var(--label-foreground-color);
+		display: inline;
+		line-height: $input-height;
+		margin-left: 2px;
+		margin-right: 4px;
+	}
+	&_w {
+		display: flex;
+	}
+	&_i {
+		@include inputView();
+
+		border-radius: 0;
+		flex: 1;
+		padding: 0 4px;
+		width: 100%;
+
+		&:first-child {
+			border-bottom-left-radius: $input-border-radius;
+			border-top-left-radius: $input-border-radius;
+		}
+		&:last-child {
+			border-bottom-right-radius: $input-border-radius;
+			border-top-right-radius: $input-border-radius;
+		}
+		&:nth-child(4) {
+			flex: 1.3;
+		}
+
+		& + & {
+			margin-left: 1px;
+		}
+	}
+}

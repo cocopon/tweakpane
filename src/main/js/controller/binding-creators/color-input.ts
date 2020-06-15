@@ -2,11 +2,11 @@ import {InputParams} from '../../api/types';
 import {InputBinding} from '../../binding/input';
 import * as ColorConverter from '../../converter/color';
 import {ColorFormatter} from '../../formatter/color';
-import {Color, RgbColorObject} from '../../model/color';
+import {Color, RgbaColorObject, RgbColorObject} from '../../model/color';
 import {InputValue} from '../../model/input-value';
 import {Target} from '../../model/target';
 import {ViewModel} from '../../model/view-model';
-import {NumberColorParser} from '../../parser/number-color';
+import * as NumberColorParser from '../../parser/number-color';
 import * as StringColorParser from '../../parser/string-color';
 import {InputBindingController} from '../input-binding';
 import {ColorSwatchTextInputController} from '../input/color-swatch-text';
@@ -28,7 +28,7 @@ export function createWithString(
 		return null;
 	}
 
-	const converter = ColorConverter.fromMixed;
+	const converter = ColorConverter.fromString;
 	const color = converter(initialValue);
 	const value = new InputValue(color);
 	const writer = ColorConverter.getStringifier(notation);
@@ -42,6 +42,7 @@ export function createWithString(
 		controller: new ColorSwatchTextInputController(document, {
 			formatter: new ColorFormatter(writer),
 			parser: StringColorParser.CompositeParser,
+			supportsAlpha: StringColorParser.hasAlphaComponent(notation),
 			value: value,
 			viewModel: new ViewModel(),
 		}),
@@ -64,25 +65,44 @@ export function createWithNumber(
 	if (!('input' in params)) {
 		return null;
 	}
-	if (params.input !== 'color' && params.input !== 'color.rgb') {
+	if (
+		params.input !== 'color' &&
+		params.input !== 'color.rgb' &&
+		params.input !== 'color.rgba'
+	) {
 		return null;
 	}
-	const color = NumberColorParser(initialValue);
+	const supportsAlpha = params.input === 'color.rgba';
+	const parser = supportsAlpha
+		? NumberColorParser.RgbaParser
+		: NumberColorParser.RgbParser;
+
+	const color = parser(initialValue);
 	if (!color) {
 		return null;
 	}
 
+	const formatter = supportsAlpha
+		? new ColorFormatter(ColorConverter.toHexRgbaString)
+		: new ColorFormatter(ColorConverter.toHexRgbString);
+	const reader = supportsAlpha
+		? ColorConverter.fromNumberToRgba
+		: ColorConverter.fromNumberToRgb;
+	const writer = supportsAlpha
+		? ColorConverter.toRgbaNumber
+		: ColorConverter.toRgbNumber;
 	const value = new InputValue(color);
 	return new InputBindingController(document, {
 		binding: new InputBinding({
-			reader: ColorConverter.fromMixed,
+			reader: reader,
 			target: target,
 			value: value,
-			writer: ColorConverter.toNumber,
+			writer: writer,
 		}),
 		controller: new ColorSwatchTextInputController(document, {
-			formatter: new ColorFormatter(ColorConverter.toHexRgbString),
+			formatter: formatter,
 			parser: StringColorParser.CompositeParser,
+			supportsAlpha: supportsAlpha,
 			value: value,
 			viewModel: new ViewModel(),
 		}),
@@ -97,25 +117,30 @@ export function createWithObject(
 	document: Document,
 	target: Target,
 	params: InputParams,
-): InputBindingController<Color, RgbColorObject> | null {
+): InputBindingController<Color, RgbColorObject | RgbaColorObject> | null {
 	const initialValue = target.read();
-	if (!Color.isRgbColorObject(initialValue)) {
+	if (!Color.isColorObject(initialValue)) {
 		return null;
 	}
 
-	const color = Color.fromRgbObject(initialValue);
+	const color = Color.fromObject(initialValue);
+	const supportsAlpha = Color.isRgbaColorObject(initialValue);
+	const formatter = supportsAlpha
+		? new ColorFormatter(ColorConverter.toHexRgbaString)
+		: new ColorFormatter(ColorConverter.toHexRgbString);
 	const value = new InputValue(color);
 	return new InputBindingController(document, {
 		binding: new InputBinding({
-			reader: ColorConverter.fromMixed,
+			reader: ColorConverter.fromObject,
 			target: target,
 			value: value,
-			writer: Color.toRgbObject,
+			writer: Color.toRgbaObject,
 		}),
 		controller: new ColorSwatchTextInputController(document, {
 			viewModel: new ViewModel(),
-			formatter: new ColorFormatter(ColorConverter.toHexRgbString),
+			formatter: formatter,
 			parser: StringColorParser.CompositeParser,
+			supportsAlpha: supportsAlpha,
 			value: value,
 		}),
 		label: params.label || target.key,

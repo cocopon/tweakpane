@@ -74,7 +74,7 @@ export class ColorSwatchInputView extends View implements InputView<Color> {
 		}
 
 		const value = this.value.rawValue;
-		this.swatchElem_.style.backgroundColor = ColorConverter.toHexRgbString(
+		this.swatchElem_.style.backgroundColor = ColorConverter.toHexRgbaString(
 			value,
 		);
 	}

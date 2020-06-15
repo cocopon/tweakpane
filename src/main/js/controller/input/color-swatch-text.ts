@@ -11,6 +11,7 @@ import {TextInputController} from './text';
 interface Config {
 	formatter: Formatter<Color>;
 	parser: Parser<string, Color>;
+	supportsAlpha: boolean;
 	value: InputValue<Color>;
 	viewModel: ViewModel;
 }
@@ -30,6 +31,7 @@ export class ColorSwatchTextInputController implements InputController<Color> {
 
 		this.viewModel = config.viewModel;
 		this.swatchIc_ = new ColorSwatchInputController(document, {
+			supportsAlpha: config.supportsAlpha,
 			value: this.value,
 			viewModel: this.viewModel,
 		});

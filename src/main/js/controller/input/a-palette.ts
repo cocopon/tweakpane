@@ -1,10 +1,9 @@
-import {NumberUtil} from '../../misc/number-util';
 import {PointerHandler, PointerHandlerEvents} from '../../misc/pointer-handler';
 import {PointerData} from '../../misc/pointer-handler';
 import {Color} from '../../model/color';
 import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
-import {HPaletteInputView} from '../../view/input/h-palette';
+import {APaletteInputView} from '../../view/input/a-palette';
 import {InputController} from './input';
 
 interface Config {
@@ -15,10 +14,10 @@ interface Config {
 /**
  * @hidden
  */
-export class HPaletteInputController implements InputController<Color> {
+export class APaletteInputController implements InputController<Color> {
 	public readonly viewModel: ViewModel;
 	public readonly value: InputValue<Color>;
-	public readonly view: HPaletteInputView;
+	public readonly view: APaletteInputView;
 	private ptHandler_: PointerHandler;
 
 	constructor(document: Document, config: Config) {
@@ -29,7 +28,7 @@ export class HPaletteInputController implements InputController<Color> {
 		this.value = config.value;
 
 		this.viewModel = config.viewModel;
-		this.view = new HPaletteInputView(document, {
+		this.view = new APaletteInputView(document, {
 			model: this.viewModel,
 			value: this.value,
 		});
@@ -41,11 +40,11 @@ export class HPaletteInputController implements InputController<Color> {
 	}
 
 	private handlePointerEvent_(d: PointerData): void {
-		const hue = NumberUtil.map(d.py, 0, 1, 0, 360);
+		const alpha = 1 - d.py;
 
 		const c = this.value.rawValue;
-		const [, s, v, a] = c.getComponents('hsv');
-		this.value.rawValue = new Color([hue, s, v, a], 'hsv');
+		const [h, s, v] = c.getComponents('hsv');
+		this.value.rawValue = new Color([h, s, v, alpha], 'hsv');
 		this.view.update();
 	}
 

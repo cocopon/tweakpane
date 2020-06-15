@@ -16,6 +16,7 @@ describe(ColorSwatchTextInputController.name, () => {
 		const c = new ColorSwatchTextInputController(doc, {
 			formatter: new ColorFormatter(ColorConverter.toHexRgbString),
 			parser: StringColorParser.CompositeParser,
+			supportsAlpha: false,
 			value: new InputValue(new Color([0, 0, 0], 'rgb')),
 			viewModel: new ViewModel(),
 		});

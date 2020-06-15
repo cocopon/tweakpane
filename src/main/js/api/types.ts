@@ -35,7 +35,7 @@ interface BooleanInputParams extends BaseInputParams {
 	options?: InputParamsOption<unknown>[] | InputParamsOptionDictionary<unknown>;
 }
 
-type NumberInputType = 'color' | 'color.rgb';
+type NumberInputType = 'color' | 'color.rgb' | 'color.rgba';
 
 interface NumberInputParams extends BaseInputParams {
 	input?: NumberInputType;

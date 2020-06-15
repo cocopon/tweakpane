@@ -1,7 +1,13 @@
+import {ColorComponents3, ColorComponents4} from '../misc/color-model';
+import {NumberUtil} from '../misc/number-util';
 import {Color} from '../model/color';
 import {Parser} from './parser';
 
-export type StringColorNotation = 'hex.rgb' | 'func.rgb';
+export type StringColorNotation =
+	| 'hex.rgb'
+	| 'hex.rgba'
+	| 'func.rgb'
+	| 'func.rgba';
 
 function parseCssNumberOrPercentage(text: string, maxValue: number): number {
 	const m = text.match(/^(.+)%$/);
@@ -22,7 +28,7 @@ const NOTATION_TO_PARSER_MAP: {
 			return null;
 		}
 
-		const comps: [number, number, number] = [
+		const comps: ColorComponents3 = [
 			parseCssNumberOrPercentage(m[1], 255),
 			parseCssNumberOrPercentage(m[2], 255),
 			parseCssNumberOrPercentage(m[3], 255),
@@ -33,6 +39,33 @@ const NOTATION_TO_PARSER_MAP: {
 
 		return new Color(comps, 'rgb');
 	},
+
+	'func.rgba': (text) => {
+		const m = text.match(
+			/^rgba\(\s*([0-9A-Fa-f.]+%?)\s*,\s*([0-9A-Fa-f.]+%?)\s*,\s*([0-9A-Fa-f.]+%?)\s*,\s*([0-9A-Fa-f.]+%?)\s*\)$/,
+		);
+		if (!m) {
+			return null;
+		}
+
+		const comps: ColorComponents4 = [
+			parseCssNumberOrPercentage(m[1], 255),
+			parseCssNumberOrPercentage(m[2], 255),
+			parseCssNumberOrPercentage(m[3], 255),
+			parseCssNumberOrPercentage(m[4], 1),
+		];
+		if (
+			isNaN(comps[0]) ||
+			isNaN(comps[1]) ||
+			isNaN(comps[2]) ||
+			isNaN(comps[3])
+		) {
+			return null;
+		}
+
+		return new Color(comps, 'rgb');
+	},
+
 	'hex.rgb': (text) => {
 		const mRrggbb = text.match(/^#?([0-9A-Fa-f])([0-9A-Fa-f])([0-9A-Fa-f])$/);
 		if (mRrggbb) {
@@ -58,23 +91,45 @@ const NOTATION_TO_PARSER_MAP: {
 
 		return null;
 	},
+
+	'hex.rgba': (text) => {
+		const mRrggbb = text.match(
+			/^#?([0-9A-Fa-f])([0-9A-Fa-f])([0-9A-Fa-f])([0-9A-Fa-f])$/,
+		);
+		if (mRrggbb) {
+			return new Color(
+				[
+					parseInt(mRrggbb[1] + mRrggbb[1], 16),
+					parseInt(mRrggbb[2] + mRrggbb[2], 16),
+					parseInt(mRrggbb[3] + mRrggbb[3], 16),
+					NumberUtil.map(parseInt(mRrggbb[4] + mRrggbb[4], 16), 0, 255, 0, 1),
+				],
+				'rgb',
+			);
+		}
+
+		const mRgb = text.match(
+			/^#?([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})$/,
+		);
+		if (mRgb) {
+			return new Color(
+				[
+					parseInt(mRgb[1], 16),
+					parseInt(mRgb[2], 16),
+					parseInt(mRgb[3], 16),
+					NumberUtil.map(parseInt(mRgb[4], 16), 0, 255, 0, 1),
+				],
+				'rgb',
+			);
+		}
+
+		return null;
+	},
 };
 
 /**
  * @hidden
  */
-export const CompositeParser: Parser<string, Color> = (
-	text: string,
-): Color | null => {
-	const notations: StringColorNotation[] = Object.keys(
-		NOTATION_TO_PARSER_MAP,
-	) as StringColorNotation[];
-	return notations.reduce((result: Color | null, notation) => {
-		const subparser = NOTATION_TO_PARSER_MAP[notation];
-		return result ? result : subparser(text);
-	}, null);
-};
-
 export function getNotation(text: string): StringColorNotation | null {
 	const notations: StringColorNotation[] = Object.keys(
 		NOTATION_TO_PARSER_MAP,
@@ -86,4 +141,18 @@ export function getNotation(text: string): StringColorNotation | null {
 		const subparser = NOTATION_TO_PARSER_MAP[notation];
 		return subparser(text) ? notation : null;
 	}, null);
+}
+
+/**
+ * @hidden
+ */
+export const CompositeParser: Parser<string, Color> = (
+	text: string,
+): Color | null => {
+	const notation = getNotation(text);
+	return notation ? NOTATION_TO_PARSER_MAP[notation](text) : null;
+};
+
+export function hasAlphaComponent(notation: StringColorNotation): boolean {
+	return notation === 'func.rgba' || notation === 'hex.rgba';
 }

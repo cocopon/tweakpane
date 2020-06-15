@@ -182,16 +182,18 @@ pane.addInput(PARAMS, 'hidden');</code></pre></div>
 
 
 <h2 id="color">Color</h2>
-<p>For object parameters that have components key <code>r</code>, <code>g</code>, and <code>b</code>, text field with a color swatch will be provided. You can choose a color from a color picker by clicking the swatch.</p>
+<p>For object parameters that have components key <code>r</code>, <code>g</code>, and <code>b</code> (and optional <code>a</code>), text field with a color swatch will be provided. You can choose a color from a color picker by clicking the swatch.</p>
 
 <div class="common-main_mediaLayout">
 	<div class="common-demo">
 		<div class="common-demo_codeLayout">
 			<div class="common-codeBlock"><pre><code class="js">const PARAMS = {
-  tint: {r: 255, g: 127, b: 0},
+  background: {r: 255, g: 127, b: 0},
+  tint: {r: 255, g: 255, b: 0, a: 0.5},
 };
 
 const pane = new Tweakpane();
+pane.addInput(PARAMS, 'background');
 pane.addInput(PARAMS, 'tint');</code></pre></div>
 		</div>
 		<div class="common-demo_resultLayout">
@@ -220,18 +222,22 @@ pane.addInput(PARAMS, 'secondary');</code></pre></div>
 	</div>
 </div>
 
-<p>If you want to regard a hex number (like <code>0x0088ff</code>) as a color, specify <code>{input: 'color'}</code> option.</p>
+<p>If you want to regard a hex number (like <code>0x0088ff</code>) as a color, specify <code>{input: 'color'}</code> option. Or, <code>'color.rgba'</code> to add an alpha component.</p>
 
 <div class="common-main_mediaLayout">
 	<div class="common-demo">
 		<div class="common-demo_codeLayout">
 			<div class="common-codeBlock"><pre><code class="js">const PARAMS = {
-  tint: 0x0088ff,
+  background: 0x0088ff,
+  tint: 0x00ff0044,
 };
 
 const pane = new Tweakpane();
-pane.addInput(PARAMS, 'tint', {
+pane.addInput(PARAMS, 'background', {
   <strong>input: 'color'</strong>,
+});
+pane.addInput(PARAMS, 'tint', {
+  <strong>input: 'color.rgba'</strong>,
 });</code></pre></div>
 		</div>
 		<div class="common-demo_resultLayout">

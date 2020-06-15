@@ -7,6 +7,7 @@ import {ColorPickerInputController} from './color-picker';
 import {InputController} from './input';
 
 interface Config {
+	supportsAlpha: boolean;
 	value: InputValue<Color>;
 	viewModel: ViewModel;
 }
@@ -28,6 +29,7 @@ export class ColorSwatchInputController implements InputController<Color> {
 
 		this.viewModel = config.viewModel;
 		this.pickerIc_ = new ColorPickerInputController(document, {
+			supportsAlpha: config.supportsAlpha,
 			value: this.value,
 			viewModel: this.viewModel,
 		});
