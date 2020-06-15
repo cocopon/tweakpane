@@ -3,7 +3,7 @@ import {ColorComponents3, ColorComponents4} from '../misc/color-model';
 import {NumberUtil} from '../misc/number-util';
 import {TypeUtil} from '../misc/type-util';
 
-type ColorMode = 'hsv' | 'rgb';
+export type ColorMode = 'hsv' | 'rgb';
 
 export interface RgbColorObject {
 	r: number;

@@ -2,18 +2,17 @@ import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
 import * as ColorConverter from '../converter/color';
+import {ColorComponents3, ColorComponents4} from '../misc/color-model';
 import {Color} from '../model/color';
 import {ColorFormatter} from './color';
 
-interface TestCase {
-	components: [number, number, number];
-	hex: string;
-	hsl: string;
-	rgb: string;
-}
-
 describe(ColorFormatter.name, () => {
-	const testCases: TestCase[] = [
+	const testCases: {
+		components: ColorComponents3 | ColorComponents4;
+		hex: string;
+		hsl: string;
+		rgb: string;
+	}[] = [
 		{
 			components: [0, 0, 0],
 			hex: '#000000',
@@ -25,6 +24,12 @@ describe(ColorFormatter.name, () => {
 			hex: '#ffffff',
 			hsl: 'hsl(255, 100%, 100%)',
 			rgb: 'rgb(255, 255, 255)',
+		},
+		{
+			components: [0, 0, 0, 0.4],
+			hex: '#00000066',
+			hsl: 'hsla(0, 0%, 0%, 0.4)',
+			rgb: 'rgba(0, 0, 0, 0.4)',
 		},
 		{
 			components: [0x22, 0x44, 0x88],
@@ -55,20 +60,31 @@ describe(ColorFormatter.name, () => {
 		context(`when ${JSON.stringify(testCase.components)}`, () => {
 			it(`it should format to ${JSON.stringify(testCase.hex)}`, () => {
 				const c = new Color(testCase.components, 'rgb');
-				const f = new ColorFormatter(ColorConverter.toHexRgbString);
+				const f =
+					testCase.components.length === 3
+						? new ColorFormatter(ColorConverter.toHexRgbString)
+						: new ColorFormatter(ColorConverter.toHexRgbaString);
 				assert.strictEqual(f.format(c), testCase.hex);
 			});
 			it(`it should format to ${JSON.stringify(testCase.rgb)}`, () => {
-				assert.strictEqual(
-					ColorFormatter.rgb(...testCase.components),
-					testCase.rgb,
-				);
+				const comps = testCase.components;
+				if (comps.length === 3) {
+					assert.strictEqual(ColorFormatter.rgb(...comps), testCase.rgb);
+				} else if (comps.length === 4) {
+					assert.strictEqual(ColorFormatter.rgb(...comps), testCase.rgb);
+				} else {
+					throw new Error('should not be called');
+				}
 			});
 			it(`it should format to ${JSON.stringify(testCase.hsl)}`, () => {
-				assert.strictEqual(
-					ColorFormatter.hsl(...testCase.components),
-					testCase.hsl,
-				);
+				const comps = testCase.components;
+				if (comps.length === 3) {
+					assert.strictEqual(ColorFormatter.hsl(...comps), testCase.hsl);
+				} else if (comps.length === 4) {
+					assert.strictEqual(ColorFormatter.hsl(...comps), testCase.hsl);
+				} else {
+					throw new Error('should not be called');
+				}
 			});
 		});
 	});

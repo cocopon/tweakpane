@@ -9,15 +9,18 @@ describe('StringColorParser', () => {
 			expected: {r: 0x11, g: 0x22, b: 0x33, a: 1},
 			inputs: [
 				'#112233',
+				'#112233ff',
 				'rgb(17,34,51)',
 				'rgb(17, 34, 51)',
 				'rgb( 17  ,  34  ,  51 )',
+				'rgba( 17  ,  34  ,  51 , 1 )',
 				'rgb(17.0, 34.0, 51.0)',
+				'rgba(17.0, 34.0, 51.0, 1)',
 			],
 		},
 		{
 			expected: {r: 0xdd, g: 0xee, b: 0xff, a: 1},
-			inputs: ['#def', 'rgb(221, 238, 100%)'],
+			inputs: ['#def', '#deff', 'rgb(221, 238, 100%)'],
 		},
 		{
 			expected: {r: 0x44, g: 0x55, b: 0x66, a: 1},
@@ -41,13 +44,18 @@ describe('StringColorParser', () => {
 		});
 	});
 
-	['foobar', '#eeffgg', 'rgb(123, 234, ..5)', 'rgb(123, 234, xyz)'].forEach(
-		(text) => {
-			it(`should not parse invalid string '${text}'`, () => {
-				assert.strictEqual(StringColorParser.CompositeParser(text), null);
-			});
-		},
-	);
+	[
+		'foobar',
+		'#eeffgg',
+		'rgb(123, 234, ..5)',
+		'rgb(123, 234, xyz)',
+		'rgba(55, 66, 78, ..9)',
+		'rgba(55, 66, 78, foo)',
+	].forEach((text) => {
+		it(`should not parse invalid string '${text}'`, () => {
+			assert.strictEqual(StringColorParser.CompositeParser(text), null);
+		});
+	});
 
 	[
 		{

@@ -48,8 +48,20 @@ describe(RootApi.name, () => {
 		},
 		{
 			expectedClass: ColorSwatchTextInputController,
+			params: {
+				input: 'color.rgba',
+			},
+			value: 0x11223344,
+		},
+		{
+			expectedClass: ColorSwatchTextInputController,
 			params: {},
 			value: {r: 0, g: 127, b: 255},
+		},
+		{
+			expectedClass: ColorSwatchTextInputController,
+			params: {},
+			value: {r: 0, g: 127, b: 255, a: 0.5},
 		},
 	];
 	testCases.forEach((testCase) => {

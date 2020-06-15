@@ -20,9 +20,6 @@ export function fromString(value: unknown): Color {
 			return cv;
 		}
 	}
-	if (Color.isColorObject(value)) {
-		return Color.fromObject(value);
-	}
 	return createEmptyColor();
 }
 
