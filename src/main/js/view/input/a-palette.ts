@@ -22,6 +22,7 @@ export class APaletteInputView extends View {
 	public readonly value: InputValue<Color>;
 	private canvasElem_: HTMLCanvasElement | null;
 	private markerElem_: HTMLDivElement | null;
+	private previewElem_: HTMLDivElement | null;
 
 	constructor(document: Document, config: Config) {
 		super(document, config);
@@ -44,6 +45,11 @@ export class APaletteInputView extends View {
 		this.element.appendChild(markerElem);
 		this.markerElem_ = markerElem;
 
+		const previewElem = document.createElement('div');
+		previewElem.classList.add(className('p'));
+		this.markerElem_.appendChild(previewElem);
+		this.previewElem_ = previewElem;
+
 		this.update();
 
 		config.model.emitter.on('dispose', () => {
@@ -60,7 +66,7 @@ export class APaletteInputView extends View {
 	}
 
 	public update(): void {
-		if (!this.markerElem_) {
+		if (!this.markerElem_ || !this.previewElem_) {
 			throw PaneError.alreadyDisposed();
 		}
 
@@ -77,9 +83,9 @@ export class APaletteInputView extends View {
 		const hsvComps = c.getComponents('hsv');
 
 		const cellCount = 64;
-		const ch = Math.ceil(height / cellCount);
-		for (let iy = 0; iy < cellCount; iy++) {
-			const alpha = NumberUtil.map(iy, 0, cellCount - 1, 1, 0);
+		const cw = Math.ceil(width / cellCount);
+		for (let ix = 0; ix < cellCount; ix++) {
+			const alpha = NumberUtil.map(ix, 0, cellCount - 1, 0, 1);
 			const rgbComps = ColorModel.hsvToRgb(
 				hsvComps[0],
 				hsvComps[1],
@@ -92,17 +98,19 @@ export class APaletteInputView extends View {
 				alpha,
 			);
 
-			const y = Math.floor(
-				NumberUtil.map(iy, 0, cellCount - 1, 0, height - ch),
-			);
-			const ny = Math.floor(
-				NumberUtil.map(iy + 1, 0, cellCount - 1, 0, height - ch),
-			);
-			ctx.fillRect(0, y, width, ny - y);
+			const x = Math.floor(NumberUtil.map(ix, 0, cellCount - 1, 0, width - cw));
+			const nx =
+				ix < cellCount - 1
+					? Math.floor(NumberUtil.map(ix + 1, 0, cellCount - 1, 0, width - cw))
+					: width;
+			ctx.fillRect(x, 0, nx - x, height);
 		}
 
-		const top = NumberUtil.map(hsvComps[3], 0, 1, 100, 0);
-		this.markerElem_.style.top = `${top}%`;
+		this.previewElem_.style.backgroundColor = ColorFormatter.rgb(
+			...c.getComponents('rgb'),
+		);
+		const left = NumberUtil.map(hsvComps[3], 0, 1, 0, 100);
+		this.markerElem_.style.left = `${left}%`;
 	}
 
 	private onValueChange_(): void {

@@ -73,22 +73,23 @@ export class HPaletteInputView extends View {
 		const height = this.canvasElement.height;
 
 		const cellCount = 64;
-		const ch = Math.ceil(height / cellCount);
-		for (let iy = 0; iy < cellCount; iy++) {
-			const hue = NumberUtil.map(iy, 0, cellCount - 1, 0, 360);
+		const cw = Math.ceil(width / cellCount);
+		for (let ix = 0; ix < cellCount; ix++) {
+			const hue = NumberUtil.map(ix, 0, cellCount - 1, 0, 360);
 			const rgbComps = ColorModel.hsvToRgb(hue, 100, 100);
 			ctx.fillStyle = ColorFormatter.rgb(...rgbComps);
 
-			const y = Math.floor(
-				NumberUtil.map(iy, 0, cellCount - 1, 0, height - ch),
-			);
-			ctx.fillRect(0, y, width, ch);
+			const x = Math.floor(NumberUtil.map(ix, 0, cellCount - 1, 0, width - cw));
+			ctx.fillRect(x, 0, cw, height);
 		}
 
 		const c = this.value.rawValue;
-		const hsvComps = c.getComponents('hsv');
-		const top = NumberUtil.map(hsvComps[0], 0, 360, 0, 100);
-		this.markerElem_.style.top = `${top}%`;
+		const [h] = c.getComponents('hsv');
+		this.markerElem_.style.backgroundColor = ColorFormatter.rgb(
+			...ColorModel.hsvToRgb(h, 100, 100),
+		);
+		const left = NumberUtil.map(h, 0, 360, 0, 100);
+		this.markerElem_.style.left = `${left}%`;
 	}
 
 	private onValueChange_(): void {

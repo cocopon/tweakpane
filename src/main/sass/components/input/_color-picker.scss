@@ -13,12 +13,13 @@
 		visibility: visible;
 	}
 
-	&_hsv {
-		display: flex;
-	}
 	&_h,
 	&_a {
-		margin-left: 4px;
+		margin-left: $slider-knob-size / 2;
+		margin-right: $slider-knob-size / 2;
+	}
+	&_h {
+		margin-top: 4px;
 	}
 	&_rgb {
 		display: flex;
@@ -26,23 +27,6 @@
 	}
 }
 
-.#{$prefix}-hpliv {
-	border-radius: $input-border-radius;
-	overflow: hidden;
-	position: relative;
-
-	&_c {
-		cursor: crosshair;
-		display: block;
-		height: 80px;
-		width: 20px;
-	}
-	&_m {
-		@extend %colorPicker_marker;
-
-		left: 50%;
-	}
-}
 .#{$prefix}-svpiv {
 	border-radius: $input-border-radius;
 	overflow: hidden;
@@ -55,26 +39,96 @@
 		width: 100%;
 	}
 	&_m {
-		@extend %colorPicker_marker;
+		border-radius: 100%;
+		border: rgba(white, 0.75) solid 2px;
+		box-sizing: border-box;
+		filter: drop-shadow(0 0 1px rgba(black, 0.3));
+		height: $slider-knob-size;
+		margin-left: -($slider-knob-size / 2);
+		margin-top: -($slider-knob-size / 2);
+		pointer-events: none;
+		position: absolute;
+		width: $slider-knob-size;
 	}
 }
-.#{$prefix}-apliv {
-	@include checker-pattern($transparent-checker-color-dark, 20px / 2);
-
-	background-color: $transparent-checker-color-light;
-	border-radius: $input-border-radius;
-	overflow: hidden;
+.#{$prefix}-hpliv {
+	cursor: pointer;
+	height: 20px;
 	position: relative;
 
 	&_c {
-		cursor: crosshair;
+		border-radius: $color-picker-slider-track-width / 2;
 		display: block;
-		height: 80px;
-		width: 20px;
+		height: $color-picker-slider-track-width;
+		left: 0;
+		margin-top: -($color-picker-slider-track-width / 2);
+		position: absolute;
+		top: 50%;
+		width: 100%;
 	}
 	&_m {
-		@extend %colorPicker_marker;
-
+		border-radius: $input-border-radius;
+		border: rgba(white, 0.75) solid 2px;
+		box-shadow: 0 0 2px rgba(black, 0.1);
+		box-sizing: border-box;
+		height: $slider-knob-size;
 		left: 50%;
+		margin-left: -($slider-knob-size / 2);
+		margin-top: -($slider-knob-size / 2);
+		pointer-events: none;
+		position: absolute;
+		top: 50%;
+		width: $slider-knob-size;
+	}
+}
+.#{$prefix}-apliv {
+	cursor: pointer;
+	height: 20px;
+	position: relative;
+
+	&_c {
+		@include checker-pattern(
+			$transparent-checker-color-dark,
+			$color-picker-slider-track-width
+		);
+
+		background-color: $transparent-checker-color-light;
+		border-radius: $color-picker-slider-track-width / 2;
+		display: block;
+		height: $color-picker-slider-track-width;
+		left: 0;
+		margin-top: -($color-picker-slider-track-width / 2);
+		position: absolute;
+		top: 50%;
+		width: 100%;
+	}
+	&_m {
+		@include checker-pattern(
+			$transparent-checker-color-dark,
+			$slider-knob-size
+		);
+
+		background-color: $transparent-checker-color-light;
+		border-radius: $input-border-radius;
+		box-shadow: 0 0 2px rgba(black, 0.1);
+		height: $slider-knob-size;
+		left: 50%;
+		margin-left: -($slider-knob-size / 2);
+		margin-top: -($slider-knob-size / 2);
+		overflow: hidden;
+		pointer-events: none;
+		position: absolute;
+		top: 50%;
+		width: $slider-knob-size;
+	}
+	&_p {
+		border-radius: $input-border-radius;
+		border: rgba(white, 0.75) solid 2px;
+		box-sizing: border-box;
+		bottom: 0;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
 	}
 }

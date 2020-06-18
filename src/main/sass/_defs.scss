@@ -8,6 +8,8 @@ $transparent-checker-color-light: white;
 $input-height: 20px;
 $input-border-radius: 2px;
 $root-border-radius: 6px;
+$color-picker-slider-track-width: 4px;
+$slider-knob-size: 12px;
 
 // Z-index
 $z-index-picker: 1000;
@@ -247,16 +249,4 @@ $z-index-picker: 1000;
 	& > .#{$prefix}-sptv:not(.#{$prefix}-v-hidden) + .#{$prefix}-sptv {
 		margin-top: 0;
 	}
-}
-
-%colorPicker_marker {
-	border-radius: 100%;
-	border: rgba(white, 0.75) solid 1px;
-	box-shadow: 0 1px 2px rgba(black, 0.1);
-	height: 4px;
-	margin-left: -3px;
-	margin-top: -3px;
-	pointer-events: none;
-	position: absolute;
-	width: 4px;
 }
