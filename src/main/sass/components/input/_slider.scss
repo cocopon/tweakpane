@@ -5,7 +5,7 @@
 		box-sizing: border-box;
 		cursor: pointer;
 		height: $input-height;
-		margin: 0 6px;
+		margin: 0 ($slider-knob-size / 2);
 		position: relative;
 
 		&::before {
@@ -34,12 +34,12 @@
 			bottom: 0;
 			content: '';
 			display: block;
-			height: 12px;
+			height: $slider-knob-size;
 			margin: auto;
 			position: absolute;
-			right: -6px;
+			right: -$slider-knob-size / 2;
 			top: 0;
-			width: 12px;
+			width: $slider-knob-size;
 		}
 	}
 	&_o:hover &_i::before {

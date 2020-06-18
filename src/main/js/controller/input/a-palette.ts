@@ -33,14 +33,14 @@ export class APaletteInputController implements InputController<Color> {
 			value: this.value,
 		});
 
-		this.ptHandler_ = new PointerHandler(document, this.view.canvasElement);
+		this.ptHandler_ = new PointerHandler(document, this.view.element);
 		this.ptHandler_.emitter.on('down', this.onPointerDown_);
 		this.ptHandler_.emitter.on('move', this.onPointerMove_);
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
 	}
 
 	private handlePointerEvent_(d: PointerData): void {
-		const alpha = 1 - d.py;
+		const alpha = d.px;
 
 		const c = this.value.rawValue;
 		const [h, s, v] = c.getComponents('hsv');
