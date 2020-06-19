@@ -53,5 +53,8 @@ export class ColorSwatchInputController implements InputController<Color> {
 
 	private onButtonClick_() {
 		this.pickerIc_.foldable.expanded = !this.pickerIc_.foldable.expanded;
+		if (this.pickerIc_.foldable.expanded) {
+			this.pickerIc_.view.allFocusableElements[0].focus();
+		}
 	}
 }

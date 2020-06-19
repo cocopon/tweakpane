@@ -7,6 +7,7 @@ import {APaletteInputView} from './a-palette';
 import {ColorComponentTextsInputView} from './color-component-texts';
 import {HPaletteInputView} from './h-palette';
 import {SvPaletteInputView} from './sv-palette';
+import { TypeUtil } from '../../misc/type-util';
 
 const className = ClassName('clp', 'input');
 
@@ -79,11 +80,15 @@ export class ColorPickerInputView extends View {
 	}
 
 	get allFocusableElements(): HTMLElement[] {
-		return ([] as HTMLElement[]).concat(
-			this.hPaletteView_.canvasElement,
-			this.compTextsView_.inputElements,
-			this.svPaletteView_.canvasElement,
-		);
+		const elems = [
+			this.svPaletteView_.element,
+			this.hPaletteView_.element,
+			...this.compTextsView_.inputElements,
+		];
+		if (this.aPaletteView_) {
+			elems.push(this.aPaletteView_.element);
+		}
+		return TypeUtil.forceCast(elems);
 	}
 
 	public update(): void {
