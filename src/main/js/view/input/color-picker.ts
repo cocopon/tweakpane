@@ -1,4 +1,5 @@
 import {ClassName} from '../../misc/class-name';
+import {TypeUtil} from '../../misc/type-util';
 import {Color} from '../../model/color';
 import {Foldable} from '../../model/foldable';
 import {InputValue} from '../../model/input-value';
@@ -7,7 +8,6 @@ import {APaletteInputView} from './a-palette';
 import {ColorComponentTextsInputView} from './color-component-texts';
 import {HPaletteInputView} from './h-palette';
 import {SvPaletteInputView} from './sv-palette';
-import { TypeUtil } from '../../misc/type-util';
 
 const className = ClassName('clp', 'input');
 

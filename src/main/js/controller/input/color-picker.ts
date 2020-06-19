@@ -32,6 +32,7 @@ export class ColorPickerInputController implements InputController<Color> {
 
 	constructor(document: Document, config: Config) {
 		this.onFocusableElementBlur_ = this.onFocusableElementBlur_.bind(this);
+		this.onKeyDown_ = this.onKeyDown_.bind(this);
 
 		this.value = config.value;
 		this.foldable = new Foldable();
@@ -68,6 +69,7 @@ export class ColorPickerInputController implements InputController<Color> {
 			svPaletteInputView: this.svPaletteIc_.view,
 			value: this.value,
 		});
+		this.view.element.addEventListener('keydown', this.onKeyDown_);
 		this.view.allFocusableElements.forEach((elem) => {
 			elem.addEventListener('blur', this.onFocusableElementBlur_);
 		});
@@ -77,6 +79,12 @@ export class ColorPickerInputController implements InputController<Color> {
 		const elem = this.view.element;
 		const nextTarget: HTMLElement | null = TypeUtil.forceCast(e.relatedTarget);
 		if (!nextTarget || !elem.contains(nextTarget)) {
+			this.foldable.expanded = false;
+		}
+	}
+
+	private onKeyDown_(ev: KeyboardEvent): void {
+		if (ev.keyCode === 27) {
 			this.foldable.expanded = false;
 		}
 	}

@@ -33,6 +33,7 @@ export class Point2dPadInputController implements InputController<Point2d> {
 
 	constructor(document: Document, config: Config) {
 		this.onFocusableElementBlur_ = this.onFocusableElementBlur_.bind(this);
+		this.onKeyDown_ = this.onKeyDown_.bind(this);
 		this.onPadKeyDown_ = this.onPadKeyDown_.bind(this);
 		this.onPointerDown_ = this.onPointerDown_.bind(this);
 		this.onPointerMove_ = this.onPointerMove_.bind(this);
@@ -71,6 +72,7 @@ export class Point2dPadInputController implements InputController<Point2d> {
 
 		this.view.padElement.addEventListener('keydown', this.onPadKeyDown_);
 
+		this.view.element.addEventListener('keydown', this.onKeyDown_);
 		this.view.allFocusableElements.forEach((elem) => {
 			elem.addEventListener('blur', this.onFocusableElementBlur_);
 		});
@@ -120,6 +122,12 @@ export class Point2dPadInputController implements InputController<Point2d> {
 		const elem = this.view.element;
 		const nextTarget: HTMLElement | null = TypeUtil.forceCast(e.relatedTarget);
 		if (!nextTarget || !elem.contains(nextTarget)) {
+			this.foldable.expanded = false;
+		}
+	}
+
+	private onKeyDown_(ev: KeyboardEvent): void {
+		if (ev.keyCode === 27) {
 			this.foldable.expanded = false;
 		}
 	}
