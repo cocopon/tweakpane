@@ -36,6 +36,7 @@ export class SliderInputView extends View implements InputView<number> {
 
 		const outerElem = document.createElement('div');
 		outerElem.classList.add(className('o'));
+		outerElem.tabIndex = 0;
 		this.element.appendChild(outerElem);
 		this.outerElem_ = outerElem;
 

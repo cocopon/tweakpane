@@ -6,6 +6,7 @@
 		cursor: pointer;
 		height: $input-height;
 		margin: 0 ($slider-knob-size / 2);
+		outline: none;
 		position: relative;
 
 		&::before {

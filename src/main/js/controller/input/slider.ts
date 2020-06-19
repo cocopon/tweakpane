@@ -1,11 +1,16 @@
 import {RangeConstraint} from '../../constraint/range';
 import {ConstraintUtil} from '../../constraint/util';
 import {NumberUtil} from '../../misc/number-util';
-import {PointerHandler, PointerHandlerEvents} from '../../misc/pointer-handler';
+import {
+	PointerData,
+	PointerHandler,
+	PointerHandlerEvents,
+} from '../../misc/pointer-handler';
 import {TypeUtil} from '../../misc/type-util';
 import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {SliderInputView} from '../../view/input/slider';
+import * as UiUtil from '../ui-util';
 import {InputController} from './input';
 
 interface Config {
@@ -44,13 +49,16 @@ export class SliderInputController implements InputController<number> {
 	private maxValue_: number;
 	private minValue_: number;
 	private ptHandler_: PointerHandler;
+	private step_: number;
 
 	constructor(document: Document, config: Config) {
+		this.onKeyDown_ = this.onKeyDown_.bind(this);
 		this.onPointerDown_ = this.onPointerDown_.bind(this);
 		this.onPointerMove_ = this.onPointerMove_.bind(this);
 		this.onPointerUp_ = this.onPointerUp_.bind(this);
 
 		this.value = config.value;
+		this.step_ = UiUtil.getStepForTextInput(this.value.constraint);
 
 		const [min, max] = estimateSuitableRange(this.value);
 		this.minValue_ = min;
@@ -68,38 +76,36 @@ export class SliderInputController implements InputController<number> {
 		this.ptHandler_.emitter.on('down', this.onPointerDown_);
 		this.ptHandler_.emitter.on('move', this.onPointerMove_);
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
+
+		this.view.outerElement.addEventListener('keydown', this.onKeyDown_);
+	}
+
+	private handlePointerEvent_(d: PointerData): void {
+		this.value.rawValue = NumberUtil.map(
+			d.px,
+			0,
+			1,
+			this.minValue_,
+			this.maxValue_,
+		);
 	}
 
 	private onPointerDown_(ev: PointerHandlerEvents['down']): void {
-		this.value.rawValue = NumberUtil.map(
-			ev.data.px,
-			0,
-			1,
-			this.minValue_,
-			this.maxValue_,
-		);
-		this.view.update();
+		this.handlePointerEvent_(ev.data);
 	}
 
 	private onPointerMove_(ev: PointerHandlerEvents['move']): void {
-		this.value.rawValue = NumberUtil.map(
-			ev.data.px,
-			0,
-			1,
-			this.minValue_,
-			this.maxValue_,
-		);
-		this.view.update();
+		this.handlePointerEvent_(ev.data);
 	}
 
 	private onPointerUp_(ev: PointerHandlerEvents['up']): void {
-		this.value.rawValue = NumberUtil.map(
-			ev.data.px,
-			0,
-			1,
-			this.minValue_,
-			this.maxValue_,
+		this.handlePointerEvent_(ev.data);
+	}
+
+	private onKeyDown_(ev: KeyboardEvent): void {
+		this.value.rawValue += UiUtil.getStepForKey(
+			this.step_,
+			UiUtil.getHorizontalStepKeys(ev),
 		);
-		this.view.update();
 	}
 }
