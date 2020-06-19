@@ -47,6 +47,7 @@ export class Point2dPadInputView extends View implements InputView<Point2d> {
 		this.element.classList.add(className());
 
 		const padElem = document.createElement('div');
+		padElem.tabIndex = 0;
 		padElem.classList.add(className('p'));
 		this.element.appendChild(padElem);
 		this.padElem_ = padElem;
@@ -100,6 +101,13 @@ export class Point2dPadInputView extends View implements InputView<Point2d> {
 			throw PaneError.alreadyDisposed();
 		}
 		return this.padElem_;
+	}
+
+	get allFocusableElements(): HTMLElement[] {
+		if (!this.padElem_) {
+			throw PaneError.alreadyDisposed();
+		}
+		return [this.padElem_];
 	}
 
 	public update(): void {

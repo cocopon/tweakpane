@@ -19,7 +19,10 @@ export class NumberTextInputController extends TextInputController<number> {
 	}
 
 	private onInputKeyDown_(e: KeyboardEvent): void {
-		const step = UiUtil.getStepForKey(this.step_, e);
+		const step = UiUtil.getStepForKey(
+			this.step_,
+			UiUtil.getVerticalStepKeys(e),
+		);
 		if (step !== 0) {
 			this.value.rawValue += step;
 			this.view.update();

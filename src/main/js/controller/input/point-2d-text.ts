@@ -104,7 +104,7 @@ export class Point2dTextInputController implements InputController<Point2d> {
 
 		const step = UiUtil.getStepForKey(
 			compIndex === 0 ? this.xStep_ : this.yStep_,
-			e,
+			UiUtil.getVerticalStepKeys(e),
 		);
 		if (step === 0) {
 			return;

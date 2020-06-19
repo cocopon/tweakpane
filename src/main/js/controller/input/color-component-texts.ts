@@ -86,7 +86,10 @@ export class ColorComponentTextsInputController
 		const compIndex = this.findIndexOfInputElem_(
 			e.currentTarget as HTMLElement | null,
 		);
-		const step = UiUtil.getStepForKey(getBaseStep(compIndex), e);
+		const step = UiUtil.getStepForKey(
+			getBaseStep(compIndex),
+			UiUtil.getVerticalStepKeys(e),
+		);
 		if (step === 0) {
 			return;
 		}

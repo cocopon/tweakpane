@@ -1,6 +1,8 @@
+import {Point2dConstraint} from '../../constraint/point-2d';
 import {NumberUtil} from '../../misc/number-util';
 import {PointerHandler, PointerHandlerEvents} from '../../misc/pointer-handler';
 import {PointerData} from '../../misc/pointer-handler';
+import {TypeUtil} from '../../misc/type-util';
 import {Foldable} from '../../model/foldable';
 import {InputValue} from '../../model/input-value';
 import {Point2d} from '../../model/point-2d';
@@ -26,8 +28,12 @@ export class Point2dPadInputController implements InputController<Point2d> {
 	private readonly ptHandler_: PointerHandler;
 	private readonly invertsY_: boolean;
 	private readonly maxValue_: number;
+	private readonly xStep_: number;
+	private readonly yStep_: number;
 
 	constructor(document: Document, config: Config) {
+		this.onFocusableElementBlur_ = this.onFocusableElementBlur_.bind(this);
+		this.onPadKeyDown_ = this.onPadKeyDown_.bind(this);
 		this.onPointerDown_ = this.onPointerDown_.bind(this);
 		this.onPointerMove_ = this.onPointerMove_.bind(this);
 		this.onPointerUp_ = this.onPointerUp_.bind(this);
@@ -40,6 +46,14 @@ export class Point2dPadInputController implements InputController<Point2d> {
 			this.value.rawValue,
 		);
 		this.invertsY_ = config.invertsY;
+
+		const c = this.value.constraint;
+		this.xStep_ = UiUtil.getStepForTextInput(
+			c instanceof Point2dConstraint ? c.xConstraint : undefined,
+		);
+		this.yStep_ = UiUtil.getStepForTextInput(
+			c instanceof Point2dConstraint ? c.yConstraint : undefined,
+		);
 
 		this.viewModel = config.viewModel;
 		this.view = new Point2dPadInputView(document, {
@@ -54,6 +68,12 @@ export class Point2dPadInputController implements InputController<Point2d> {
 		this.ptHandler_.emitter.on('down', this.onPointerDown_);
 		this.ptHandler_.emitter.on('move', this.onPointerMove_);
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
+
+		this.view.padElement.addEventListener('keydown', this.onPadKeyDown_);
+
+		this.view.allFocusableElements.forEach((elem) => {
+			elem.addEventListener('blur', this.onFocusableElementBlur_);
+		});
 	}
 
 	private handlePointerEvent_(d: PointerData): void {
@@ -80,5 +100,27 @@ export class Point2dPadInputController implements InputController<Point2d> {
 
 	private onPointerUp_(ev: PointerHandlerEvents['up']): void {
 		this.handlePointerEvent_(ev.data);
+	}
+
+	private onPadKeyDown_(ev: KeyboardEvent): void {
+		if (UiUtil.isArrowKey(ev.keyCode)) {
+			ev.preventDefault();
+		}
+
+		this.value.rawValue = new Point2d(
+			this.value.rawValue.x +
+				UiUtil.getStepForKey(this.xStep_, UiUtil.getHorizontalStepKeys(ev)),
+			this.value.rawValue.y +
+				UiUtil.getStepForKey(this.yStep_, UiUtil.getVerticalStepKeys(ev)) *
+					(this.invertsY_ ? 1 : -1),
+		);
+	}
+
+	private onFocusableElementBlur_(e: FocusEvent): void {
+		const elem = this.view.element;
+		const nextTarget: HTMLElement | null = TypeUtil.forceCast(e.relatedTarget);
+		if (!nextTarget || !elem.contains(nextTarget)) {
+			this.foldable.expanded = false;
+		}
 	}
 }

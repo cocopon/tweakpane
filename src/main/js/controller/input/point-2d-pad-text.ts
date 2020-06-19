@@ -28,7 +28,6 @@ export class Point2dPadTextInputController implements InputController<Point2d> {
 	private readonly textIc_: Point2dTextInputController;
 
 	constructor(document: Document, config: Config) {
-		this.onPadButtonBlur_ = this.onPadButtonBlur_.bind(this);
 		this.onPadButtonClick_ = this.onPadButtonClick_.bind(this);
 
 		this.value = config.value;
@@ -53,15 +52,10 @@ export class Point2dPadTextInputController implements InputController<Point2d> {
 			padInputView: this.padIc_.view,
 			textInputView: this.textIc_.view,
 		});
-		this.view.padButtonElement.addEventListener('blur', this.onPadButtonBlur_);
 		this.view.padButtonElement.addEventListener(
 			'click',
 			this.onPadButtonClick_,
 		);
-	}
-
-	private onPadButtonBlur_(): void {
-		this.padIc_.foldable.expanded = false;
 	}
 
 	private onPadButtonClick_(): void {

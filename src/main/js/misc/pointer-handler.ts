@@ -68,6 +68,8 @@ export class PointerHandler {
 		// Prevent native text selection
 		e.preventDefault();
 
+		(e.currentTarget as HTMLElement | null)?.focus();
+
 		this.pressed_ = true;
 
 		this.emitter.emit('down', {

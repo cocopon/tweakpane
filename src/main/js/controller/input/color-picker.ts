@@ -31,7 +31,7 @@ export class ColorPickerInputController implements InputController<Color> {
 	private svPaletteIc_: SvPaletteInputController;
 
 	constructor(document: Document, config: Config) {
-		this.onInputBlur_ = this.onInputBlur_.bind(this);
+		this.onFocusableElementBlur_ = this.onFocusableElementBlur_.bind(this);
 
 		this.value = config.value;
 		this.foldable = new Foldable();
@@ -69,11 +69,11 @@ export class ColorPickerInputController implements InputController<Color> {
 			value: this.value,
 		});
 		this.view.allFocusableElements.forEach((elem) => {
-			elem.addEventListener('blur', this.onInputBlur_);
+			elem.addEventListener('blur', this.onFocusableElementBlur_);
 		});
 	}
 
-	private onInputBlur_(e: FocusEvent): void {
+	private onFocusableElementBlur_(e: FocusEvent): void {
 		const elem = this.view.element;
 		const nextTarget: HTMLElement | null = TypeUtil.forceCast(e.relatedTarget);
 		if (!nextTarget || !elem.contains(nextTarget)) {
