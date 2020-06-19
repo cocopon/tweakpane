@@ -1,4 +1,5 @@
 import {Formatter} from '../../formatter/formatter';
+import {TypeUtil} from '../../misc/type-util';
 import {InputValue} from '../../model/input-value';
 import {Point2d} from '../../model/point-2d';
 import {ViewModel} from '../../model/view-model';
@@ -60,11 +61,18 @@ export class Point2dPadTextInputController implements InputController<Point2d> {
 		);
 	}
 
-	private onPadButtonBlur_(): void {
-		this.padIc_.foldable.expanded = false;
+	private onPadButtonBlur_(e: FocusEvent) {
+		const elem = this.view.element;
+		const nextTarget: HTMLElement | null = TypeUtil.forceCast(e.relatedTarget);
+		if (!nextTarget || !elem.contains(nextTarget)) {
+			this.padIc_.foldable.expanded = false;
+		}
 	}
 
 	private onPadButtonClick_(): void {
 		this.padIc_.foldable.expanded = !this.padIc_.foldable.expanded;
+		if (this.padIc_.foldable.expanded) {
+			this.padIc_.view.allFocusableElements[0].focus();
+		}
 	}
 }

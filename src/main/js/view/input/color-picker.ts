@@ -1,4 +1,5 @@
 import {ClassName} from '../../misc/class-name';
+import {TypeUtil} from '../../misc/type-util';
 import {Color} from '../../model/color';
 import {Foldable} from '../../model/foldable';
 import {InputValue} from '../../model/input-value';
@@ -79,11 +80,15 @@ export class ColorPickerInputView extends View {
 	}
 
 	get allFocusableElements(): HTMLElement[] {
-		return ([] as HTMLElement[]).concat(
-			this.hPaletteView_.canvasElement,
-			this.compTextsView_.inputElements,
-			this.svPaletteView_.canvasElement,
-		);
+		const elems = [
+			this.svPaletteView_.element,
+			this.hPaletteView_.element,
+			...this.compTextsView_.inputElements,
+		];
+		if (this.aPaletteView_) {
+			elems.push(this.aPaletteView_.element);
+		}
+		return TypeUtil.forceCast(elems);
 	}
 
 	public update(): void {

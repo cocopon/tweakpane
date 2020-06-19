@@ -5,6 +5,7 @@ import {Color} from '../../model/color';
 import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {SvPaletteInputView} from '../../view/input/sv-palette';
+import * as UiUtil from '../ui-util';
 import {InputController} from './input';
 
 interface Config {
@@ -22,6 +23,7 @@ export class SvPaletteInputController implements InputController<Color> {
 	private ptHandler_: PointerHandler;
 
 	constructor(document: Document, config: Config) {
+		this.onKeyDown_ = this.onKeyDown_.bind(this);
 		this.onPointerDown_ = this.onPointerDown_.bind(this);
 		this.onPointerMove_ = this.onPointerMove_.bind(this);
 		this.onPointerUp_ = this.onPointerUp_.bind(this);
@@ -34,10 +36,12 @@ export class SvPaletteInputController implements InputController<Color> {
 			value: this.value,
 		});
 
-		this.ptHandler_ = new PointerHandler(document, this.view.canvasElement);
+		this.ptHandler_ = new PointerHandler(document, this.view.element);
 		this.ptHandler_.emitter.on('down', this.onPointerDown_);
 		this.ptHandler_.emitter.on('move', this.onPointerMove_);
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
+
+		this.view.element.addEventListener('keydown', this.onKeyDown_);
 	}
 
 	private handlePointerEvent_(d: PointerData): void {
@@ -59,5 +63,24 @@ export class SvPaletteInputController implements InputController<Color> {
 
 	private onPointerUp_(ev: PointerHandlerEvents['up']): void {
 		this.handlePointerEvent_(ev.data);
+	}
+
+	private onKeyDown_(ev: KeyboardEvent): void {
+		if (UiUtil.isArrowKey(ev.keyCode)) {
+			ev.preventDefault();
+		}
+
+		const [h, s, v, a] = this.value.rawValue.getComponents('hsv');
+		const baseStep = UiUtil.getBaseStepForColor(false);
+
+		this.value.rawValue = new Color(
+			[
+				h,
+				s + UiUtil.getStepForKey(baseStep, UiUtil.getHorizontalStepKeys(ev)),
+				v + UiUtil.getStepForKey(baseStep, UiUtil.getVerticalStepKeys(ev)),
+				a,
+			],
+			'hsv',
+		);
 	}
 }

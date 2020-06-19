@@ -32,10 +32,10 @@ export class HPaletteInputView extends View {
 		this.value.emitter.on('change', this.onValueChange_);
 
 		this.element.classList.add(className());
+		this.element.tabIndex = 0;
 
 		const canvasElem = document.createElement('canvas');
 		canvasElem.classList.add(className('c'));
-		canvasElem.tabIndex = -1;
 		this.element.appendChild(canvasElem);
 		this.canvasElem_ = canvasElem;
 
