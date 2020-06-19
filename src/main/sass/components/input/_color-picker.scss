@@ -29,6 +29,7 @@
 
 .#{$prefix}-svpiv {
 	border-radius: $input-border-radius;
+	outline: none;
 	overflow: hidden;
 	position: relative;
 
@@ -40,7 +41,7 @@
 	}
 	&_m {
 		border-radius: 100%;
-		border: rgba(white, 0.75) solid 2px;
+		border: $color-picker-marker-border-color solid 2px;
 		box-sizing: border-box;
 		filter: drop-shadow(0 0 1px rgba(black, 0.3));
 		height: $slider-knob-size;
@@ -50,10 +51,14 @@
 		position: absolute;
 		width: $slider-knob-size;
 	}
+	&:focus &_m {
+		border-color: $color-picker-marker-border-color-focus;
+	}
 }
 .#{$prefix}-hpliv {
 	cursor: pointer;
 	height: 20px;
+	outline: none;
 	position: relative;
 
 	&_c {
@@ -68,7 +73,7 @@
 	}
 	&_m {
 		border-radius: $input-border-radius;
-		border: rgba(white, 0.75) solid 2px;
+		border: $color-picker-marker-border-color solid 2px;
 		box-shadow: 0 0 2px rgba(black, 0.1);
 		box-sizing: border-box;
 		height: $slider-knob-size;
@@ -80,10 +85,14 @@
 		top: 50%;
 		width: $slider-knob-size;
 	}
+	&:focus &_m {
+		border-color: $color-picker-marker-border-color-focus;
+	}
 }
 .#{$prefix}-apliv {
 	cursor: pointer;
 	height: 20px;
+	outline: none;
 	position: relative;
 
 	&_c {
@@ -123,12 +132,15 @@
 	}
 	&_p {
 		border-radius: $input-border-radius;
-		border: rgba(white, 0.75) solid 2px;
+		border: $color-picker-marker-border-color solid 2px;
 		box-sizing: border-box;
 		bottom: 0;
 		left: 0;
 		position: absolute;
 		right: 0;
 		top: 0;
+	}
+	&:focus &_p {
+		border-color: $color-picker-marker-border-color-focus;
 	}
 }

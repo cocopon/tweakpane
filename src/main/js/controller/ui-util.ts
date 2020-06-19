@@ -189,3 +189,10 @@ export function getSuitableMaxValueForPoint2dPad(
 	const yr = getSuitableMaxDimensionValue(yc, rawValue.y);
 	return Math.max(xr, yr);
 }
+
+/**
+ * @hidden
+ */
+export function getBaseStepForColor(forAlpha: boolean): number {
+	return forAlpha ? 0.1 : 1;
+}

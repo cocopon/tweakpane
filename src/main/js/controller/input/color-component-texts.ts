@@ -15,10 +15,6 @@ interface Config {
 	viewModel: ViewModel;
 }
 
-function getBaseStep(componentIndex: number | null): number {
-	return componentIndex === 3 ? 0.1 : 1;
-}
-
 /**
  * @hidden
  */
@@ -87,7 +83,7 @@ export class ColorComponentTextsInputController
 			e.currentTarget as HTMLElement | null,
 		);
 		const step = UiUtil.getStepForKey(
-			getBaseStep(compIndex),
+			UiUtil.getBaseStepForColor(compIndex === 3),
 			UiUtil.getVerticalStepKeys(e),
 		);
 		if (step === 0) {
