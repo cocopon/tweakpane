@@ -1,6 +1,8 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
+import {ColorFormatter} from '../formatter/color';
+import {ColorComponents3, ColorComponents4} from '../misc/color-model';
 import {Color} from '../model/color';
 import * as ColorConverter from './color';
 
@@ -210,6 +212,79 @@ describe('ColorConverter', () => {
 					ColorConverter.toRgbNumber(testCase.input),
 					testCase.expected,
 				);
+			});
+		});
+	});
+
+	const testCases: {
+		components: ColorComponents3 | ColorComponents4;
+		hex: string;
+		rgb: string;
+	}[] = [
+		{
+			components: [0, 0, 0],
+			hex: '#000000',
+			rgb: 'rgb(0, 0, 0)',
+		},
+		{
+			components: [255, 255, 255],
+			hex: '#ffffff',
+			rgb: 'rgb(255, 255, 255)',
+		},
+		{
+			components: [0, 0, 0, 0.4],
+			hex: '#00000066',
+			rgb: 'rgba(0, 0, 0, 0.40)',
+		},
+		{
+			components: [0x22, 0x44, 0x88],
+			hex: '#224488',
+			rgb: 'rgb(34, 68, 136)',
+		},
+		{
+			components: [3.14, 0, 0],
+			hex: '#030000',
+			rgb: 'rgb(3, 0, 0)',
+		},
+		{
+			components: [400, 200, 0],
+			hex: '#ffc800',
+			rgb: 'rgb(255, 200, 0)',
+		},
+		{
+			components: [0, 0, 3776],
+			hex: '#0000ff',
+			rgb: 'rgb(0, 0, 255)',
+		},
+	];
+	testCases.forEach((testCase) => {
+		context(`when ${JSON.stringify(testCase.components)}`, () => {
+			it(`it should format to ${JSON.stringify(testCase.hex)}`, () => {
+				const c = new Color(testCase.components, 'rgb');
+				const f =
+					testCase.components.length === 3
+						? new ColorFormatter(ColorConverter.toHexRgbString)
+						: new ColorFormatter(ColorConverter.toHexRgbaString);
+				assert.strictEqual(f.format(c), testCase.hex);
+			});
+
+			it(`it should format to ${JSON.stringify(testCase.rgb)}`, () => {
+				const comps = testCase.components;
+				const c = new Color(comps, 'rgb');
+
+				if (comps.length === 3) {
+					assert.strictEqual(
+						ColorConverter.toFunctionalRgbString(c),
+						testCase.rgb,
+					);
+				} else if (comps.length === 4) {
+					assert.strictEqual(
+						ColorConverter.toFunctionalRgbaString(c),
+						testCase.rgb,
+					);
+				} else {
+					throw new Error('should not be called');
+				}
 			});
 		});
 	});

@@ -1,6 +1,5 @@
-import {ColorFormatter} from '../../formatter/color';
+import * as ColorConverter from '../../converter/color';
 import {ClassName} from '../../misc/class-name';
-import * as ColorModel from '../../misc/color-model';
 import * as DisposingUtil from '../../misc/disposing-util';
 import * as DomUtil from '../../misc/dom-util';
 import {NumberUtil} from '../../misc/number-util';
@@ -76,8 +75,9 @@ export class HPaletteInputView extends View {
 		const cw = Math.ceil(width / cellCount);
 		for (let ix = 0; ix < cellCount; ix++) {
 			const hue = NumberUtil.map(ix, 0, cellCount - 1, 0, 360);
-			const rgbComps = ColorModel.hsvToRgb(hue, 100, 100);
-			ctx.fillStyle = ColorFormatter.rgb(...rgbComps);
+			ctx.fillStyle = ColorConverter.toFunctionalRgbString(
+				new Color([hue, 100, 100], 'hsv'),
+			);
 
 			const x = Math.floor(NumberUtil.map(ix, 0, cellCount - 1, 0, width - cw));
 			ctx.fillRect(x, 0, cw, height);
@@ -85,8 +85,8 @@ export class HPaletteInputView extends View {
 
 		const c = this.value.rawValue;
 		const [h] = c.getComponents('hsv');
-		this.markerElem_.style.backgroundColor = ColorFormatter.rgb(
-			...ColorModel.hsvToRgb(h, 100, 100),
+		this.markerElem_.style.backgroundColor = ColorConverter.toFunctionalRgbString(
+			new Color([h, 100, 100], 'hsv'),
 		);
 		const left = NumberUtil.map(h, 0, 360, 0, 100);
 		this.markerElem_.style.left = `${left}%`;
