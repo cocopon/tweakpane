@@ -1,6 +1,5 @@
-import {ColorFormatter} from '../../formatter/color';
+import * as ColorConverter from '../../converter/color';
 import {ClassName} from '../../misc/class-name';
-import * as ColorModel from '../../misc/color-model';
 import * as DisposingUtil from '../../misc/disposing-util';
 import * as DomUtil from '../../misc/dom-util';
 import {NumberUtil} from '../../misc/number-util';
@@ -81,8 +80,9 @@ export class SvPaletteInputView extends View {
 			for (let ix = 0; ix < cellCount; ix++) {
 				const s = NumberUtil.map(ix, 0, cellCount - 1, 0, 100);
 				const v = NumberUtil.map(iy, 0, cellCount - 1, 100, 0);
-				const rgbComps = ColorModel.hsvToRgb(hsvComps[0], s, v);
-				ctx.fillStyle = ColorFormatter.rgb(...rgbComps);
+				ctx.fillStyle = ColorConverter.toFunctionalRgbString(
+					new Color([hsvComps[0], s, v], 'hsv'),
+				);
 
 				const x = Math.floor(
 					NumberUtil.map(ix, 0, cellCount - 1, 0, width - cw),

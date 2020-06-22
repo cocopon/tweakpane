@@ -1,4 +1,4 @@
-import {ColorFormatter} from '../../formatter/color';
+import * as ColorConverter from '../../converter/color';
 import {ClassName} from '../../misc/class-name';
 import * as ColorModel from '../../misc/color-model';
 import * as DisposingUtil from '../../misc/disposing-util';
@@ -86,16 +86,11 @@ export class APaletteInputView extends View {
 		const cw = Math.ceil(width / cellCount);
 		for (let ix = 0; ix < cellCount; ix++) {
 			const alpha = NumberUtil.map(ix, 0, cellCount - 1, 0, 1);
-			const rgbComps = ColorModel.hsvToRgb(
-				hsvComps[0],
-				hsvComps[1],
-				hsvComps[2],
-			);
-			ctx.fillStyle = ColorFormatter.rgb(
-				rgbComps[0],
-				rgbComps[1],
-				rgbComps[2],
-				alpha,
+			ctx.fillStyle = ColorConverter.toFunctionalRgbaString(
+				new Color(
+					ColorModel.withAlpha(ColorModel.withoutAlpha(hsvComps), alpha),
+					'hsv',
+				),
 			);
 
 			const x = Math.floor(NumberUtil.map(ix, 0, cellCount - 1, 0, width - cw));
@@ -106,8 +101,8 @@ export class APaletteInputView extends View {
 			ctx.fillRect(x, 0, nx - x, height);
 		}
 
-		this.previewElem_.style.backgroundColor = ColorFormatter.rgb(
-			...c.getComponents('rgb'),
+		this.previewElem_.style.backgroundColor = ColorConverter.toFunctionalRgbaString(
+			c,
 		);
 		const left = NumberUtil.map(hsvComps[3], 0, 1, 0, 100);
 		this.markerElem_.style.left = `${left}%`;

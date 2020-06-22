@@ -100,10 +100,10 @@ export function toFunctionalRgbString(value: Color): string {
  * @hidden
  */
 export function toFunctionalRgbaString(value: Color): string {
-	const alphaFormatter = new NumberFormatter(2);
-	const nonAlphaFormatter = new NumberFormatter(0);
+	const aFormatter = new NumberFormatter(2);
+	const rgbFormatter = new NumberFormatter(0);
 	const comps = value.getComponents('rgb').map((comp, index) => {
-		const formatter = index === 3 ? alphaFormatter : nonAlphaFormatter;
+		const formatter = index === 3 ? aFormatter : rgbFormatter;
 		return formatter.format(comp);
 	});
 	return `rgba(${comps.join(', ')})`;
