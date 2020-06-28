@@ -6,7 +6,8 @@ $transparent-checker-color-light: white;
 $color-picker-marker-border-color: rgba(white, 0.75);
 $color-picker-marker-border-color-focus: white;
 
-// Geometry
+// Misc
+$folder-transition-duration: 0.2s;
 $input-height: 20px;
 $input-border-radius: 2px;
 $root-border-radius: 6px;
@@ -196,6 +197,10 @@ $z-index-picker: 1000;
 	white-space: nowrap;
 	width: 100%;
 
+	// Delay border-radius transition to avoid unwanted clipping
+	transition: border-radius $folder-transition-duration ease-in-out
+		$folder-transition-duration;
+
 	&:hover {
 		background-color: var(--folder-background-color-hover);
 	}
@@ -226,7 +231,7 @@ $z-index-picker: 1000;
 	position: absolute;
 	top: 0;
 	transform: rotate(90deg);
-	transition: transform 0.2s ease-in-out;
+	transition: transform $folder-transition-duration ease-in-out;
 	width: 6px;
 }
 
@@ -234,7 +239,18 @@ $z-index-picker: 1000;
 	transform: none;
 }
 
-%container {
+%folder_container {
+	box-sizing: border-box;
+	height: 0;
+	opacity: 0;
+	overflow: hidden;
+	padding-bottom: 0;
+	padding-top: 0;
+	position: relative;
+	transition: height $folder-transition-duration ease-in-out,
+		opacity $folder-transition-duration linear,
+		padding $folder-transition-duration ease-in-out;
+
 	& > .#{$prefix}-fldv.#{$prefix}-v-first {
 		margin-top: -4px;
 	}
@@ -251,4 +267,18 @@ $z-index-picker: 1000;
 	& > .#{$prefix}-sptv:not(.#{$prefix}-v-hidden) + .#{$prefix}-sptv {
 		margin-top: 0;
 	}
+}
+%folder_container-expanded {
+	opacity: 1;
+	padding-bottom: 4px;
+	padding-top: 4px;
+	transform: none;
+
+	// Clip subviews without `overflow: hidden` for popup elements (e.g. color picker)
+	overflow: visible;
+
+	// Delay opacity transition to avoid overflow contents
+	transition: height $folder-transition-duration ease-in-out,
+		opacity $folder-transition-duration linear $folder-transition-duration,
+		padding $folder-transition-duration ease-in-out;
 }

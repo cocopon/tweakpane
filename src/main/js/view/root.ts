@@ -70,15 +70,21 @@ export class RootView extends View {
 	}
 
 	private applyModel_() {
-		const expanded = this.folder_ ? this.folder_.expanded : true;
+		const containerElem = this.containerElem_;
+		if (!containerElem) {
+			throw PaneError.alreadyDisposed();
+		}
+
+		const expanded = this.folder_ ? this.folder_.styleExpanded : true;
 		const expandedClass = className(undefined, 'expanded');
 		if (expanded) {
 			this.element.classList.add(expandedClass);
 		} else {
 			this.element.classList.remove(expandedClass);
 		}
-
-		// TODO: Animate
+		containerElem.style.height = this.folder_
+			? this.folder_.styleHeight
+			: 'auto';
 	}
 
 	private onFolderChange_() {

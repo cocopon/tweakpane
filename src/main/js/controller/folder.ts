@@ -62,36 +62,16 @@ export class FolderController {
 		return this.ucList_;
 	}
 
-	private computeExpandedHeight_(): number {
-		const elem = this.view.containerElement;
-
-		let height = 0;
-		DomUtil.disableTransitionTemporarily(elem, () => {
-			// Expand folder temporarily
-			this.folder.expandedHeight = null;
-			this.folder.temporaryExpanded = true;
-
-			DomUtil.forceReflow(elem);
-
-			// Compute height
-			height = elem.clientHeight;
-
-			// Restore expanded
-			this.folder.temporaryExpanded = null;
-
-			DomUtil.forceReflow(elem);
-		});
-
-		return height;
-	}
-
 	private onFolderBeforeChange_(ev: FolderEvents['beforechange']): void {
 		if (ev.propertyName !== 'expanded') {
 			return;
 		}
 
 		if (TypeUtil.isEmpty(this.folder.expandedHeight)) {
-			this.folder.expandedHeight = this.computeExpandedHeight_();
+			this.folder.expandedHeight = ContainerUtil.computeExpandedFolderHeight(
+				this.folder,
+				this.view.containerElement,
+			);
 		}
 
 		this.folder.shouldFixHeight = true;
