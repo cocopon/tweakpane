@@ -1,9 +1,11 @@
 import * as ColorModel from '../misc/color-model';
-import {ColorComponents3, ColorComponents4} from '../misc/color-model';
+import {
+	ColorComponents3,
+	ColorComponents4,
+	ColorMode,
+} from '../misc/color-model';
 import {NumberUtil} from '../misc/number-util';
 import {TypeUtil} from '../misc/type-util';
-
-export type ColorMode = 'hsv' | 'rgb';
 
 export interface RgbColorObject {
 	r: number;
@@ -22,6 +24,14 @@ const CONSTRAINT_MAP: {
 		comps: ColorComponents3 | ColorComponents4,
 	) => ColorComponents4;
 } = {
+	hsl: (comps) => {
+		return [
+			NumberUtil.loop(comps[0], 360),
+			NumberUtil.constrain(comps[1], 0, 100),
+			NumberUtil.constrain(comps[2], 0, 100),
+			NumberUtil.constrain(TypeUtil.getOrDefault(comps[3], 1), 0, 1),
+		];
+	},
 	hsv: (comps) => {
 		return [
 			NumberUtil.loop(comps[0], 360),
@@ -92,19 +102,14 @@ export class Color {
 	}
 
 	public getComponents(mode: ColorMode): ColorComponents4 {
-		if (this.mode_ === 'hsv' && mode === 'rgb') {
-			return ColorModel.withAlpha(
-				ColorModel.hsvToRgb(this.comps_[0], this.comps_[1], this.comps_[2]),
-				this.comps_[3],
-			);
-		}
-		if (this.mode_ === 'rgb' && mode === 'hsv') {
-			return ColorModel.withAlpha(
-				ColorModel.rgbToHsv(this.comps_[0], this.comps_[1], this.comps_[2]),
-				this.comps_[3],
-			);
-		}
-		return this.comps_;
+		return ColorModel.withAlpha(
+			ColorModel.convertMode(
+				ColorModel.withoutAlpha(this.comps_),
+				this.mode_,
+				mode,
+			),
+			this.comps_[3],
+		);
 	}
 
 	public toRgbaObject(): RgbaColorObject {

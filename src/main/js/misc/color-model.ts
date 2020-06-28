@@ -3,6 +3,11 @@ import {NumberUtil} from './number-util';
 export type ColorComponents3 = [number, number, number];
 export type ColorComponents4 = [number, number, number, number];
 
+export type ColorMode = 'hsl' | 'hsv' | 'rgb';
+
+/**
+ * @hidden
+ */
 export function rgbToHsl(
 	r: number,
 	g: number,
@@ -36,6 +41,9 @@ export function rgbToHsl(
 	return [h * 360, s * 100, l * 100];
 }
 
+/**
+ * @hidden
+ */
 export function hslToRgb(
 	h: number,
 	s: number,
@@ -67,6 +75,9 @@ export function hslToRgb(
 	return [(rp + m) * 255, (gp + m) * 255, (bp + m) * 255];
 }
 
+/**
+ * @hidden
+ */
 export function rgbToHsv(
 	r: number,
 	g: number,
@@ -97,6 +108,9 @@ export function rgbToHsv(
 	return [h, s * 100, v * 100];
 }
 
+/**
+ * @hidden
+ */
 export function hsvToRgb(
 	h: number,
 	s: number,
@@ -128,17 +142,69 @@ export function hsvToRgb(
 	return [(rp + m) * 255, (gp + m) * 255, (bp + m) * 255];
 }
 
+/**
+ * @hidden
+ */
 export function opaque(comps: ColorComponents3): ColorComponents4 {
 	return [comps[0], comps[1], comps[2], 1];
 }
 
+/**
+ * @hidden
+ */
 export function withoutAlpha(comps: ColorComponents4): ColorComponents3 {
 	return [comps[0], comps[1], comps[2]];
 }
 
+/**
+ * @hidden
+ */
 export function withAlpha(
 	comps: ColorComponents3,
 	alpha: number,
 ): ColorComponents4 {
 	return [comps[0], comps[1], comps[2], alpha];
+}
+
+const MODE_CONVERTER_MAP: {
+	[fromMode in ColorMode]: {
+		[toMode in ColorMode]: (
+			c1: number,
+			c2: number,
+			c3: number,
+		) => ColorComponents3;
+	};
+} = {
+	hsl: {
+		hsl: (h, s, l) => [h, s, l],
+		hsv: (h, s, l) => {
+			const [r, g, b] = hslToRgb(h, s, l);
+			return rgbToHsv(r, g, b);
+		},
+		rgb: hslToRgb,
+	},
+	hsv: {
+		hsl: (h, s, v) => {
+			const [r, g, b] = hsvToRgb(h, s, v);
+			return rgbToHsv(r, g, b);
+		},
+		hsv: (h, s, v) => [h, s, v],
+		rgb: hsvToRgb,
+	},
+	rgb: {
+		hsl: rgbToHsl,
+		hsv: rgbToHsv,
+		rgb: (r, g, b) => [r, g, b],
+	},
+};
+
+/**
+ * @hidden
+ */
+export function convertMode(
+	components: ColorComponents3,
+	fromMode: ColorMode,
+	toMode: ColorMode,
+): ColorComponents3 {
+	return MODE_CONVERTER_MAP[fromMode][toMode](...components);
 }

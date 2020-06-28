@@ -1,8 +1,8 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
-import {ColorComponents4} from '../misc/color-model';
-import {Color, ColorMode} from './color';
+import {ColorComponents4, ColorMode} from '../misc/color-model';
+import {Color} from './color';
 
 describe(Color.name, () => {
 	[
