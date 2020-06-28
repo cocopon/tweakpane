@@ -1,6 +1,7 @@
 import {TypeUtil} from '../../misc/type-util';
 import {Color} from '../../model/color';
 import {InputValue} from '../../model/input-value';
+import {PickedColor} from '../../model/picked-color';
 import {ViewModel} from '../../model/view-model';
 import {ColorSwatchInputView} from '../../view/input/color-swatch';
 import {ColorPickerInputController} from './color-picker';
@@ -29,8 +30,8 @@ export class ColorSwatchInputController implements InputController<Color> {
 
 		this.viewModel = config.viewModel;
 		this.pickerIc_ = new ColorPickerInputController(document, {
+			pickedColor: new PickedColor(this.value),
 			supportsAlpha: config.supportsAlpha,
-			value: this.value,
 			viewModel: this.viewModel,
 		});
 

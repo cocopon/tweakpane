@@ -2,6 +2,7 @@ import {ColorComponents4} from '../../misc/color-model';
 import {TypeUtil} from '../../misc/type-util';
 import {Color} from '../../model/color';
 import {InputValue} from '../../model/input-value';
+import {PickedColor} from '../../model/picked-color';
 import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
 import {ColorComponentTextsInputView} from '../../view/input/color-component-texts';
@@ -10,8 +11,8 @@ import {InputController} from './input';
 
 interface Config {
 	parser: Parser<string, number>;
+	pickedColor: PickedColor;
 	supportsAlpha: boolean;
-	value: InputValue<Color>;
 	viewModel: ViewModel;
 }
 
@@ -21,7 +22,7 @@ interface Config {
 export class ColorComponentTextsInputController
 	implements InputController<Color> {
 	public readonly viewModel: ViewModel;
-	public readonly value: InputValue<Color>;
+	public readonly pickedColor: PickedColor;
 	public readonly view: ColorComponentTextsInputView;
 	private parser_: Parser<string, number>;
 
@@ -30,18 +31,22 @@ export class ColorComponentTextsInputController
 		this.onInputKeyDown_ = this.onInputKeyDown_.bind(this);
 
 		this.parser_ = config.parser;
-		this.value = config.value;
+		this.pickedColor = config.pickedColor;
 
 		this.viewModel = config.viewModel;
 		this.view = new ColorComponentTextsInputView(document, {
 			model: this.viewModel,
+			pickedColor: this.pickedColor,
 			supportsAlpha: config.supportsAlpha,
-			value: this.value,
 		});
 		this.view.inputElements.forEach((inputElem) => {
 			inputElem.addEventListener('change', this.onInputChange_);
 			inputElem.addEventListener('keydown', this.onInputKeyDown_);
 		});
+	}
+
+	get value(): InputValue<Color> {
+		return this.pickedColor.value;
 	}
 
 	private findIndexOfInputElem_(inputElem: HTMLElement | null): number | null {

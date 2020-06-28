@@ -3,10 +3,12 @@ import {TypeUtil} from '../../misc/type-util';
 import {Color} from '../../model/color';
 import {Foldable} from '../../model/foldable';
 import {InputValue} from '../../model/input-value';
+import {PickedColor} from '../../model/picked-color';
 import {View, ViewConfig} from '../view';
 import {APaletteInputView} from './a-palette';
 import {ColorComponentTextsInputView} from './color-component-texts';
 import {HPaletteInputView} from './h-palette';
+import {InputView} from './input';
 import {SvPaletteInputView} from './sv-palette';
 
 const className = ClassName('clp', 'input');
@@ -16,16 +18,16 @@ interface Config extends ViewConfig {
 	componentTextsView: ColorComponentTextsInputView;
 	foldable: Foldable;
 	hPaletteInputView: HPaletteInputView;
+	pickedColor: PickedColor;
 	svPaletteInputView: SvPaletteInputView;
-	value: InputValue<Color>;
 }
 
 /**
  * @hidden
  */
-export class ColorPickerInputView extends View {
+export class ColorPickerInputView extends View implements InputView<Color> {
 	public readonly foldable: Foldable;
-	public readonly value: InputValue<Color>;
+	public readonly pickedColor: PickedColor;
 	private aPaletteView_: APaletteInputView | null;
 	private hPaletteView_: HPaletteInputView;
 	private compTextsView_: ColorComponentTextsInputView;
@@ -37,8 +39,8 @@ export class ColorPickerInputView extends View {
 		this.onFoldableChange_ = this.onFoldableChange_.bind(this);
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
-		this.value = config.value;
-		this.value.emitter.on('change', this.onValueChange_);
+		this.pickedColor = config.pickedColor;
+		this.pickedColor.value.emitter.on('change', this.onValueChange_);
 
 		this.foldable = config.foldable;
 		this.foldable.emitter.on('change', this.onFoldableChange_);
@@ -89,6 +91,10 @@ export class ColorPickerInputView extends View {
 			elems.push(this.aPaletteView_.element);
 		}
 		return TypeUtil.forceCast(elems);
+	}
+
+	get value(): InputValue<Color> {
+		return this.pickedColor.value;
 	}
 
 	public update(): void {

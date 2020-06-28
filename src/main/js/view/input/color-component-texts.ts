@@ -4,12 +4,13 @@ import * as DisposingUtil from '../../misc/disposing-util';
 import {PaneError} from '../../misc/pane-error';
 import {Color} from '../../model/color';
 import {InputValue} from '../../model/input-value';
+import {PickedColor} from '../../model/picked-color';
 import {View, ViewConfig} from '../view';
 import {InputView} from './input';
 
 interface Config extends ViewConfig {
+	pickedColor: PickedColor;
 	supportsAlpha: boolean;
-	value: InputValue<Color>;
 }
 
 type HtmlInputElements3 = [
@@ -33,7 +34,7 @@ const nonAlphaFormatter = new NumberFormatter(0);
  */
 export class ColorComponentTextsInputView extends View
 	implements InputView<Color> {
-	public readonly value: InputValue<Color>;
+	public readonly pickedColor: PickedColor;
 	private inputElems_: HtmlInputElements3 | HtmlInputElements4 | null;
 
 	constructor(document: Document, config: Config) {
@@ -66,8 +67,8 @@ export class ColorComponentTextsInputView extends View
 			? [inputElems[0], inputElems[1], inputElems[2], inputElems[3]]
 			: [inputElems[0], inputElems[1], inputElems[2]];
 
-		config.value.emitter.on('change', this.onValueChange_);
-		this.value = config.value;
+		this.pickedColor = config.pickedColor;
+		this.pickedColor.value.emitter.on('change', this.onValueChange_);
 
 		this.update();
 
@@ -88,13 +89,17 @@ export class ColorComponentTextsInputView extends View
 		return this.inputElems_;
 	}
 
+	get value(): InputValue<Color> {
+		return this.pickedColor.value;
+	}
+
 	public update(): void {
 		const inputElems = this.inputElems_;
 		if (!inputElems) {
 			throw PaneError.alreadyDisposed();
 		}
 
-		const comps = this.value.rawValue.getComponents('rgb');
+		const comps = this.pickedColor.value.rawValue.getComponents('rgb');
 		comps.forEach((comp, index) => {
 			const inputElem = inputElems[index];
 			if (!inputElem) {
