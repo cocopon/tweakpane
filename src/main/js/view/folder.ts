@@ -1,7 +1,6 @@
 import {ClassName} from '../misc/class-name';
 import * as DisposingUtil from '../misc/disposing-util';
 import {PaneError} from '../misc/pane-error';
-import {TypeUtil} from '../misc/type-util';
 import {Folder} from '../model/folder';
 import {View, ViewConfig} from './view';
 
@@ -72,26 +71,14 @@ export class FolderView extends View {
 			throw PaneError.alreadyDisposed();
 		}
 
-		const expanded = TypeUtil.getOrDefault(
-			this.folder_.temporaryExpanded,
-			this.folder_.expanded,
-		);
+		const expanded = this.folder_.styleExpanded;
 		const expandedClass = className(undefined, 'expanded');
 		if (expanded) {
 			this.element.classList.add(expandedClass);
 		} else {
 			this.element.classList.remove(expandedClass);
 		}
-
-		if (!expanded) {
-			containerElem.style.height = `0px`;
-		} else {
-			const expandedHeight = this.folder_.expandedHeight;
-			containerElem.style.height =
-				this.folder_.shouldFixHeight && !TypeUtil.isEmpty(expandedHeight)
-					? `${expandedHeight}px`
-					: 'auto';
-		}
+		containerElem.style.height = this.folder_.styleHeight;
 	}
 
 	private onFolderChange_() {

@@ -1,9 +1,6 @@
 .#{$prefix}-fldv {
 	&_t {
 		@extend %folder_title;
-
-		// Delay border-radius transition to avoid unwanted clipping
-		transition: border-radius 0.2s ease-in-out 0.2s;
 	}
 	&#{&}-expanded &_t {
 		transition: border-radius 0s;
@@ -15,18 +12,9 @@
 		@extend %folder_mark-expanded;
 	}
 	&_c {
-		@extend %container;
+		@extend %folder_container;
 
 		border-left: var(--folder-background-color) solid 4px;
-		box-sizing: border-box;
-		height: 0;
-		opacity: 0;
-		overflow: hidden;
-		padding-bottom: 0;
-		padding-top: 0;
-		position: relative;
-		transition: height 0.2s ease-in-out, opacity 0.2s linear,
-			padding 0.2s ease-in-out;
 	}
 	&_t:hover + &_c {
 		border-left-color: var(--folder-background-color-hover);
@@ -38,14 +26,7 @@
 		border-left-color: var(--folder-background-color-active);
 	}
 	&#{&}-expanded > &_c {
-		opacity: 1;
-		overflow: visible;
-		padding-bottom: 4px;
-		padding-top: 4px;
-		transform: none;
-		// Delay opacity transition to avoid overflow contents
-		transition: height 0.2s ease-in-out, opacity 0.2s linear 0.2s,
-			padding 0.2s ease-in-out;
+		@extend %folder_container-expanded;
 	}
 
 	// Subfolder

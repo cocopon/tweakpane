@@ -1,6 +1,6 @@
 import * as DomUtil from '../misc/dom-util';
 import {TypeUtil} from '../misc/type-util';
-import {Folder} from '../model/folder';
+import {Folder, FolderEvents} from '../model/folder';
 import {UiContainer, UiContainerEvents} from '../model/ui-container';
 import {ViewModel} from '../model/view-model';
 import {RootView} from '../view/root';
@@ -34,12 +34,17 @@ export class RootController {
 	private ucList_: UiContainer;
 
 	constructor(document: Document, config: Config) {
+		this.onContainerTransitionEnd_ = this.onContainerTransitionEnd_.bind(this);
+		this.onFolderBeforeChange_ = this.onFolderBeforeChange_.bind(this);
 		this.onTitleClick_ = this.onTitleClick_.bind(this);
 		this.onUiContainerAdd_ = this.onUiContainerAdd_.bind(this);
 		this.onUiContainerItemLayout_ = this.onUiContainerItemLayout_.bind(this);
 		this.onUiContainerRemove_ = this.onUiContainerRemove_.bind(this);
 
 		this.folder = createFolder(config);
+		if (this.folder) {
+			this.folder.emitter.on('beforechange', this.onFolderBeforeChange_);
+		}
 
 		this.ucList_ = new UiContainer();
 		this.ucList_.emitter.on('add', this.onUiContainerAdd_);
@@ -55,6 +60,10 @@ export class RootController {
 		if (this.view.titleElement) {
 			this.view.titleElement.addEventListener('click', this.onTitleClick_);
 		}
+		this.view.containerElement.addEventListener(
+			'transitionend',
+			this.onContainerTransitionEnd_,
+		);
 	}
 
 	get document(): Document {
@@ -63,6 +72,26 @@ export class RootController {
 
 	get uiContainer(): UiContainer {
 		return this.ucList_;
+	}
+
+	private onFolderBeforeChange_(ev: FolderEvents['beforechange']): void {
+		if (ev.propertyName !== 'expanded') {
+			return;
+		}
+		const folder = this.folder;
+		if (!folder) {
+			return;
+		}
+
+		if (TypeUtil.isEmpty(folder.expandedHeight)) {
+			folder.expandedHeight = ContainerUtil.computeExpandedFolderHeight(
+				folder,
+				this.view.containerElement,
+			);
+		}
+
+		folder.shouldFixHeight = true;
+		DomUtil.forceReflow(this.view.containerElement);
 	}
 
 	private applyUiContainerChange_(): void {
@@ -89,6 +118,17 @@ export class RootController {
 	private onTitleClick_() {
 		if (this.folder) {
 			this.folder.expanded = !this.folder.expanded;
+		}
+	}
+
+	private onContainerTransitionEnd_(ev: TransitionEvent): void {
+		if (ev.propertyName !== 'height') {
+			return;
+		}
+
+		if (this.folder) {
+			this.folder.shouldFixHeight = false;
+			this.folder.expandedHeight = null;
 		}
 	}
 }

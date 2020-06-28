@@ -30,15 +30,7 @@
 		@extend %folder_mark-expanded;
 	}
 	&_c {
-		@extend %container;
-
-		box-sizing: border-box;
-		height: 0;
-		overflow: hidden;
-		padding-bottom: 0;
-		padding-top: 0;
-
-		// Clip subviews without `overflow: hidden` for popup elements (e.g. color picker)
+		@extend %folder_container;
 
 		// Bottom of the last folder
 		& > .#{$prefix}-fldv:last-child {
@@ -63,9 +55,6 @@
 		}
 	}
 	&#{&}-expanded &_c {
-		height: auto;
-		overflow: visible;
-		padding-bottom: 4px;
-		padding-top: 4px;
+		@extend %folder_container-expanded;
 	}
 }

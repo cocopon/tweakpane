@@ -1,4 +1,5 @@
 import {Emitter, EventTypeMap} from '../misc/emitter';
+import {TypeUtil} from '../misc/type-util';
 
 type ChangeEventPropertyName =
 	| 'expanded'
@@ -131,5 +132,21 @@ export class Folder {
 			propertyName: 'shouldFixHeight',
 			sender: this,
 		});
+	}
+
+	get styleExpanded(): boolean {
+		return TypeUtil.getOrDefault(this.temporaryExpanded, this.expanded);
+	}
+
+	get styleHeight(): string {
+		if (!this.styleExpanded) {
+			return '0';
+		}
+
+		if (this.shouldFixHeight && !TypeUtil.isEmpty(this.expandedHeight)) {
+			return `${this.expandedHeight}px`;
+		}
+
+		return 'auto';
 	}
 }
