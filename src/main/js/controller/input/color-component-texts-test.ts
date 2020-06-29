@@ -36,7 +36,6 @@ describe(ColorComponentTextsInputController.name, () => {
 		const c = new ColorComponentTextsInputController(doc, {
 			parser: StringNumberParser,
 			pickedColor: new PickedColor(new InputValue(new Color([0, 0, 0], 'rgb'))),
-			supportsAlpha: false,
 			viewModel: new ViewModel(),
 		});
 		c.viewModel.dispose();
@@ -89,7 +88,6 @@ describe(ColorComponentTextsInputController.name, () => {
 				const c = new ColorComponentTextsInputController(doc, {
 					parser: StringNumberParser,
 					pickedColor: new PickedColor(value),
-					supportsAlpha: false,
 					viewModel: new ViewModel(),
 				});
 
@@ -155,7 +153,6 @@ describe(ColorComponentTextsInputController.name, () => {
 				const c = new ColorComponentTextsInputController(doc, {
 					parser: StringNumberParser,
 					pickedColor: new PickedColor(value),
-					supportsAlpha: false,
 					viewModel: new ViewModel(),
 				});
 

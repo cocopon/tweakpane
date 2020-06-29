@@ -2,6 +2,7 @@
 	display: flex;
 
 	&_m {
+		flex: 1;
 		margin-right: 4px;
 		position: relative;
 	}
@@ -25,6 +26,7 @@
 	}
 	&_w {
 		display: flex;
+		flex: 3;
 	}
 	&_i {
 		@include inputView();
@@ -41,9 +43,6 @@
 		&:last-child {
 			border-bottom-right-radius: $input-border-radius;
 			border-top-right-radius: $input-border-radius;
-		}
-		&:nth-child(4) {
-			flex: 1.3;
 		}
 
 		& + & {

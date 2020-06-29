@@ -12,7 +12,6 @@ import {InputController} from './input';
 interface Config {
 	parser: Parser<string, number>;
 	pickedColor: PickedColor;
-	supportsAlpha: boolean;
 	viewModel: ViewModel;
 }
 
@@ -38,7 +37,6 @@ export class ColorComponentTextsInputController
 		this.view = new ColorComponentTextsInputView(document, {
 			model: this.viewModel,
 			pickedColor: this.pickedColor,
-			supportsAlpha: config.supportsAlpha,
 		});
 		this.view.inputElements.forEach((inputElem) => {
 			inputElem.addEventListener('change', this.onInputChange_);

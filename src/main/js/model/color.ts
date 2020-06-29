@@ -101,12 +101,12 @@ export class Color {
 		return this.mode_;
 	}
 
-	public getComponents(mode: ColorMode): ColorComponents4 {
+	public getComponents(opt_mode?: ColorMode): ColorComponents4 {
 		return ColorModel.withAlpha(
 			ColorModel.convertMode(
 				ColorModel.withoutAlpha(this.comps_),
 				this.mode_,
-				mode,
+				opt_mode || this.mode_,
 			),
 			this.comps_[3],
 		);

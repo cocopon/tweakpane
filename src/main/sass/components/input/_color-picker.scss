@@ -14,7 +14,7 @@
 	}
 
 	&_h,
-	&_a {
+	&_ap {
 		margin-left: $slider-knob-size / 2;
 		margin-right: $slider-knob-size / 2;
 	}
@@ -24,6 +24,28 @@
 	&_rgb {
 		display: flex;
 		margin-top: 4px;
+	}
+	&_a {
+		display: flex;
+		margin-top: 4px;
+		padding-top: 8px;
+		position: relative;
+
+		&:before {
+			background-color: var(--separator-color);
+			content: '';
+			height: 4px;
+			left: -4px;
+			position: absolute;
+			right: -4px;
+			top: 0;
+		}
+	}
+	&_ap {
+		flex: 3;
+	}
+	&_at {
+		flex: 1;
 	}
 }
 
