@@ -26,6 +26,7 @@ export class PickedColor {
 
 		this.mode_ = 'rgb';
 		this.value = value;
+		this.value.emitter.on('change', this.onValueChange_);
 
 		this.emitter = new Emitter();
 	}

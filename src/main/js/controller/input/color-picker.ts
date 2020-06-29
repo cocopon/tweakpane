@@ -68,6 +68,7 @@ export class ColorPickerInputController implements InputController<Color> {
 			hPaletteInputView: this.hPaletteIc_.view,
 			model: this.viewModel,
 			pickedColor: this.pickedColor,
+			supportsAlpha: config.supportsAlpha,
 			svPaletteInputView: this.svPaletteIc_.view,
 		});
 		this.view.element.addEventListener('keydown', this.onKeyDown_);

@@ -27,17 +27,12 @@
 		}
 	}
 	&_m {
-		border-color: var(--button-foreground-color) transparent transparent;
-		border-style: solid;
-		border-width: 3px;
+		@include dropdown_arrow(var(--button-foreground-color), 6px);
+
 		bottom: 0;
-		box-sizing: border-box;
-		height: 6px;
 		margin: auto;
-		pointer-events: none;
 		position: absolute;
 		right: 6px;
 		top: 3px;
-		width: 6px;
 	}
 }

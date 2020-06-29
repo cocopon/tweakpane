@@ -29,12 +29,41 @@ const className = ClassName('cctxts', 'input');
 const alphaFormatter = new NumberFormatter(2);
 const nonAlphaFormatter = new NumberFormatter(0);
 
+function createModeSelectElement(
+	document: Document,
+	supportsAlpha: boolean,
+): HTMLSelectElement {
+	const selectElem = document.createElement('select');
+	const items = supportsAlpha
+		? [
+				{text: 'RGBA', value: 'rgb'},
+				{text: 'HSLA', value: 'hsl'},
+				{text: 'HSVA', value: 'hsv'},
+		  ]
+		: [
+				{text: 'RGB', value: 'rgb'},
+				{text: 'HSL', value: 'hsl'},
+				{text: 'HSV', value: 'hsv'},
+		  ];
+	selectElem.appendChild(
+		items.reduce((frag, item) => {
+			const optElem = document.createElement('option');
+			optElem.textContent = item.text;
+			optElem.value = item.value;
+			frag.appendChild(optElem);
+			return frag;
+		}, document.createDocumentFragment()),
+	);
+	return selectElem;
+}
+
 /**
  * @hidden
  */
 export class ColorComponentTextsInputView extends View
 	implements InputView<Color> {
 	public readonly pickedColor: PickedColor;
+	public readonly modeSelectElement: HTMLSelectElement;
 	private inputElems_: HtmlInputElements3 | HtmlInputElements4 | null;
 
 	constructor(document: Document, config: Config) {
@@ -44,10 +73,20 @@ export class ColorComponentTextsInputView extends View
 
 		this.element.classList.add(className());
 
-		const labelElem = document.createElement('div');
-		labelElem.classList.add(className('l'));
-		labelElem.textContent = config.supportsAlpha ? 'RGBA' : 'RGB';
-		this.element.appendChild(labelElem);
+		const modeElem = document.createElement('div');
+		modeElem.classList.add(className('m'));
+		this.modeSelectElement = createModeSelectElement(
+			document,
+			config.supportsAlpha,
+		);
+		this.modeSelectElement.classList.add(className('ms'));
+		modeElem.appendChild(this.modeSelectElement);
+
+		const modeMarkerElem = document.createElement('div');
+		modeMarkerElem.classList.add(className('mm'));
+		modeElem.appendChild(modeMarkerElem);
+
+		this.element.appendChild(modeElem);
 
 		const wrapperElem = document.createElement('div');
 		wrapperElem.classList.add(className('w'));
@@ -68,7 +107,7 @@ export class ColorComponentTextsInputView extends View
 			: [inputElems[0], inputElems[1], inputElems[2]];
 
 		this.pickedColor = config.pickedColor;
-		this.pickedColor.value.emitter.on('change', this.onValueChange_);
+		this.pickedColor.emitter.on('change', this.onValueChange_);
 
 		this.update();
 
@@ -99,7 +138,9 @@ export class ColorComponentTextsInputView extends View
 			throw PaneError.alreadyDisposed();
 		}
 
-		const comps = this.pickedColor.value.rawValue.getComponents('rgb');
+		const comps = this.pickedColor.value.rawValue.getComponents(
+			this.pickedColor.mode,
+		);
 		comps.forEach((comp, index) => {
 			const inputElem = inputElems[index];
 			if (!inputElem) {

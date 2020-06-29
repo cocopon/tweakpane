@@ -19,6 +19,7 @@ interface Config extends ViewConfig {
 	foldable: Foldable;
 	hPaletteInputView: HPaletteInputView;
 	pickedColor: PickedColor;
+	supportsAlpha: boolean;
 	svPaletteInputView: SvPaletteInputView;
 }
 

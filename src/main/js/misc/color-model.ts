@@ -186,7 +186,7 @@ const MODE_CONVERTER_MAP: {
 	hsv: {
 		hsl: (h, s, v) => {
 			const [r, g, b] = hsvToRgb(h, s, v);
-			return rgbToHsv(r, g, b);
+			return rgbToHsl(r, g, b);
 		},
 		hsv: (h, s, v) => [h, s, v],
 		rgb: hsvToRgb,

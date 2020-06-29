@@ -1,4 +1,4 @@
-import {ColorComponents4} from '../../misc/color-model';
+import {ColorComponents4, ColorMode} from '../../misc/color-model';
 import {TypeUtil} from '../../misc/type-util';
 import {Color} from '../../model/color';
 import {InputValue} from '../../model/input-value';
@@ -27,6 +27,7 @@ export class ColorComponentTextsInputController
 	private parser_: Parser<string, number>;
 
 	constructor(document: Document, config: Config) {
+		this.onModeSelectChange_ = this.onModeSelectChange_.bind(this);
 		this.onInputChange_ = this.onInputChange_.bind(this);
 		this.onInputKeyDown_ = this.onInputKeyDown_.bind(this);
 
@@ -43,6 +44,10 @@ export class ColorComponentTextsInputController
 			inputElem.addEventListener('change', this.onInputChange_);
 			inputElem.addEventListener('keydown', this.onInputKeyDown_);
 		});
+		this.view.modeSelectElement.addEventListener(
+			'change',
+			this.onModeSelectChange_,
+		);
 	}
 
 	get value(): InputValue<Color> {
@@ -60,11 +65,12 @@ export class ColorComponentTextsInputController
 	}
 
 	private updateComponent_(index: number, newValue: number): void {
-		const comps = this.value.rawValue.getComponents('rgb');
+		const mode = this.pickedColor.mode;
+		const comps = this.value.rawValue.getComponents(mode);
 		const newComps = comps.map((comp, i) => {
 			return i === index ? newValue : comp;
 		}) as ColorComponents4;
-		this.value.rawValue = new Color(newComps, 'rgb');
+		this.value.rawValue = new Color(newComps, mode);
 
 		this.view.update();
 	}
@@ -104,5 +110,10 @@ export class ColorComponentTextsInputController
 			return;
 		}
 		this.updateComponent_(compIndex, parsedValue + step);
+	}
+
+	private onModeSelectChange_(ev: Event) {
+		const selectElem = ev.currentTarget as HTMLSelectElement;
+		this.pickedColor.mode = selectElem.value as ColorMode;
 	}
 }

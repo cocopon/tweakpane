@@ -180,6 +180,16 @@ $z-index-picker: 1000;
 	background-position: 0 0, ($size / 2) ($size / 2);
 }
 
+@mixin dropdown_arrow($color, $size) {
+	border-color: $color transparent transparent;
+	border-style: solid;
+	border-width: $size / 2;
+	box-sizing: border-box;
+	height: $size;
+	pointer-events: none;
+	width: $size;
+}
+
 %folder_title {
 	@include resetInput();
 

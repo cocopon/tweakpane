@@ -1,12 +1,27 @@
 .#{$prefix}-cctxtsiv {
 	display: flex;
 
-	&_l {
-		color: var(--label-foreground-color);
-		display: inline;
-		line-height: $input-height;
-		margin-left: 2px;
+	&_m {
 		margin-right: 4px;
+		position: relative;
+	}
+	&_ms {
+		@include resetInput();
+
+		color: var(--label-foreground-color);
+		cursor: pointer;
+		height: $input-height;
+		line-height: $input-height;
+		padding: 0 18px 0 4px;
+	}
+	&_mm {
+		@include dropdown_arrow(var(--label-foreground-color), 6px);
+
+		bottom: 0;
+		margin: auto;
+		position: absolute;
+		right: 6px;
+		top: 3px;
 	}
 	&_w {
 		display: flex;
