@@ -109,9 +109,35 @@ export function toFunctionalRgbaString(value: Color): string {
 	return `rgba(${comps.join(', ')})`;
 }
 
+/**
+ * @hidden
+ */
+export function toFunctionalHslString(value: Color): string {
+	const formatter = new NumberFormatter(0);
+	const comps = ColorModel.withoutAlpha(
+		value.getComponents('hsl'),
+	).map((comp) => formatter.format(comp));
+	return `hsl(${comps.join(', ')})`;
+}
+
+/**
+ * @hidden
+ */
+export function toFunctionalHslaString(value: Color): string {
+	const aFormatter = new NumberFormatter(2);
+	const hslFormatter = new NumberFormatter(0);
+	const comps = value.getComponents('hsl').map((comp, index) => {
+		const formatter = index === 3 ? aFormatter : hslFormatter;
+		return formatter.format(comp);
+	});
+	return `hsla(${comps.join(', ')})`;
+}
+
 const NOTATION_TO_STRINGIFIER_MAP: {
 	[notation in StringColorNotation]: (value: Color) => string;
 } = {
+	'func.hsl': toFunctionalHslString,
+	'func.hsla': toFunctionalHslaString,
 	'func.rgb': toFunctionalRgbString,
 	'func.rgba': toFunctionalRgbaString,
 	'hex.rgb': toHexRgbString,

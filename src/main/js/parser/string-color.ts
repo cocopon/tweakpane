@@ -6,6 +6,8 @@ import {Parser} from './parser';
 export type StringColorNotation =
 	| 'hex.rgb'
 	| 'hex.rgba'
+	| 'func.hsl'
+	| 'func.hsla'
 	| 'func.rgb'
 	| 'func.rgba';
 
@@ -15,6 +17,26 @@ function parseCssNumberOrPercentage(text: string, maxValue: number): number {
 		return Math.min(parseFloat(text), maxValue);
 	}
 	return Math.min(parseFloat(m[1]) * 0.01 * maxValue, maxValue);
+}
+
+type CssAngleUnit = 'deg' | 'grad' | 'rad' | 'turn';
+const ANGLE_TO_DEG_MAP: {
+	[unit in CssAngleUnit]: (angle: number) => number;
+} = {
+	deg: (angle) => angle,
+	grad: (angle) => (angle * 360) / 400,
+	rad: (angle) => (angle * 360) / (2 * Math.PI),
+	turn: (angle) => angle * 360,
+};
+
+function parseCssNumberOrAngle(text: string): number {
+	const m = text.match(/^([0-9.]+?)(deg|grad|rad|turn)$/);
+	if (!m) {
+		return parseFloat(text);
+	}
+	const angle = parseFloat(m[1]);
+	const unit = m[2] as CssAngleUnit;
+	return ANGLE_TO_DEG_MAP[unit](angle);
 }
 
 const NOTATION_TO_PARSER_MAP: {
@@ -64,6 +86,52 @@ const NOTATION_TO_PARSER_MAP: {
 		}
 
 		return new Color(comps, 'rgb');
+	},
+
+	'func.hsl': (text) => {
+		const m = text.match(
+			/^hsl\(\s*([0-9A-Fa-f.]+(?:deg|grad|rad|turn)?)\s*,\s*([0-9A-Fa-f.]+%?)\s*,\s*([0-9A-Fa-f.]+%?)\s*\)$/,
+		);
+		if (!m) {
+			return null;
+		}
+
+		const comps: ColorComponents3 = [
+			parseCssNumberOrAngle(m[1]),
+			parseCssNumberOrPercentage(m[2], 100),
+			parseCssNumberOrPercentage(m[3], 100),
+		];
+		if (isNaN(comps[0]) || isNaN(comps[1]) || isNaN(comps[2])) {
+			return null;
+		}
+
+		return new Color(comps, 'hsl');
+	},
+
+	'func.hsla': (text) => {
+		const m = text.match(
+			/^hsla\(\s*([0-9A-Fa-f.]+(?:deg|grad|rad|turn)?)\s*,\s*([0-9A-Fa-f.]+%?)\s*,\s*([0-9A-Fa-f.]+%?)\s*,\s*([0-9A-Fa-f.]+%?)\s*\)$/,
+		);
+		if (!m) {
+			return null;
+		}
+
+		const comps: ColorComponents4 = [
+			parseCssNumberOrAngle(m[1]),
+			parseCssNumberOrPercentage(m[2], 100),
+			parseCssNumberOrPercentage(m[3], 100),
+			parseCssNumberOrPercentage(m[4], 1),
+		];
+		if (
+			isNaN(comps[0]) ||
+			isNaN(comps[1]) ||
+			isNaN(comps[2]) ||
+			isNaN(comps[3])
+		) {
+			return null;
+		}
+
+		return new Color(comps, 'hsl');
 	},
 
 	'hex.rgb': (text) => {
@@ -154,5 +222,9 @@ export const CompositeParser: Parser<string, Color> = (
 };
 
 export function hasAlphaComponent(notation: StringColorNotation): boolean {
-	return notation === 'func.rgba' || notation === 'hex.rgba';
+	return (
+		notation === 'func.hsla' ||
+		notation === 'func.rgba' ||
+		notation === 'hex.rgba'
+	);
 }
