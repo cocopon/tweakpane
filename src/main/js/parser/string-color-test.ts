@@ -1,7 +1,10 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
+import {ColorComponents4, ColorMode} from '../misc/color-model';
 import * as StringColorParser from './string-color';
+
+const DELTA = 1e-5;
 
 describe('StringColorParser', () => {
 	[
@@ -47,6 +50,9 @@ describe('StringColorParser', () => {
 	[
 		'foobar',
 		'#eeffgg',
+		'hsl(55, ..66, 78)',
+		'hsl(55, 66, ..78)',
+		'hsla(55, 66, 78, ..9)',
 		'rgb(123, 234, ..5)',
 		'rgb(123, 234, xyz)',
 		'rgba(55, 66, 78, ..9)',
@@ -80,4 +86,75 @@ describe('StringColorParser', () => {
 			});
 		});
 	});
+
+	[
+		{
+			expected: {
+				components: [123, 45, 67, 1.0],
+				mode: 'hsl',
+			},
+			input: 'hsl(123, 45, 67)',
+		},
+		{
+			expected: {
+				components: [123, 0, 0, 1.0],
+				mode: 'hsl',
+			},
+			input: 'hsla(123, 0, 0, 1)',
+		},
+		{
+			expected: {
+				components: [180, 0, 0, 1.0],
+				mode: 'hsl',
+			},
+			input: 'hsla(180deg, 0, 0, 1)',
+		},
+		{
+			expected: {
+				components: [(3 * 360) / (2 * Math.PI), 0, 0, 1.0],
+				mode: 'hsl',
+			},
+			input: 'hsla(3rad, 0, 0, 1)',
+		},
+		{
+			expected: {
+				components: [180, 0, 0, 1.0],
+				mode: 'hsl',
+			},
+			input: 'hsla(200grad, 0, 0, 1)',
+		},
+		{
+			expected: {
+				components: [90, 0, 0, 1.0],
+				mode: 'hsl',
+			},
+			input: 'hsla(0.25turn, 0, 0, 1)',
+		},
+	].forEach(
+		({
+			expected,
+			input,
+		}: {
+			expected: {
+				components: ColorComponents4;
+				mode: ColorMode;
+			};
+			input: string;
+		}) => {
+			context(`when ${JSON.stringify(input)}`, () => {
+				it('should parse color', () => {
+					const c = StringColorParser.CompositeParser(input);
+					assert.strictEqual(c?.mode, expected.mode);
+
+					const actualComps = c?.getComponents();
+					if (!actualComps) {
+						throw new Error('should not be called');
+					}
+					expected.components.forEach((c, index) => {
+						assert.closeTo(actualComps[index], c, DELTA);
+					});
+				});
+			});
+		},
+	);
 });

@@ -2,6 +2,7 @@ import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
 import * as ColorModel from './color-model';
+import {ColorComponents3} from './color-model';
 
 const DELTA = 2;
 
@@ -56,13 +57,21 @@ describe('ColorModel', () => {
 	testCases.forEach(({rgb, hsl, hsv}) => {
 		context(`when ${JSON.stringify(rgb)}`, () => {
 			it(`it should convert to ${JSON.stringify(hsl)}`, () => {
-				const actual = ColorModel.rgbToHsl(rgb.r, rgb.g, rgb.b);
+				const actual = ColorModel.convertMode(
+					[rgb.r, rgb.g, rgb.b],
+					'rgb',
+					'hsl',
+				);
 				assert.closeTo(actual[0], hsl.h, DELTA);
 				assert.closeTo(actual[1], hsl.s, DELTA);
 				assert.closeTo(actual[2], hsl.l, DELTA);
 			});
 			it(`it should convert to ${JSON.stringify(hsv)}`, () => {
-				const actual = ColorModel.rgbToHsv(rgb.r, rgb.g, rgb.b);
+				const actual = ColorModel.convertMode(
+					[rgb.r, rgb.g, rgb.b],
+					'rgb',
+					'hsv',
+				);
 				assert.closeTo(actual[0], hsv.h, DELTA);
 				assert.closeTo(actual[1], hsv.s, DELTA);
 				assert.closeTo(actual[2], hsv.v, DELTA);
@@ -72,7 +81,11 @@ describe('ColorModel', () => {
 	testCases.forEach(({rgb, hsl}) => {
 		context(`when ${JSON.stringify(hsl)}`, () => {
 			it(`it should convert to ${JSON.stringify(rgb)}`, () => {
-				const actual = ColorModel.hslToRgb(hsl.h, hsl.s, hsl.l);
+				const actual = ColorModel.convertMode(
+					[hsl.h, hsl.s, hsl.l],
+					'hsl',
+					'rgb',
+				);
 				assert.closeTo(actual[0], rgb.r, DELTA);
 				assert.closeTo(actual[1], rgb.g, DELTA);
 				assert.closeTo(actual[2], rgb.b, DELTA);
@@ -82,10 +95,54 @@ describe('ColorModel', () => {
 	testCases.forEach(({rgb, hsv}) => {
 		context(`when ${JSON.stringify(hsv)}`, () => {
 			it(`it should convert to ${JSON.stringify(rgb)}`, () => {
-				const actual = ColorModel.hsvToRgb(hsv.h, hsv.s, hsv.v);
+				const actual = ColorModel.convertMode(
+					[hsv.h, hsv.s, hsv.v],
+					'hsv',
+					'rgb',
+				);
 				assert.closeTo(actual[0], rgb.r, DELTA);
 				assert.closeTo(actual[1], rgb.g, DELTA);
 				assert.closeTo(actual[2], rgb.b, DELTA);
+			});
+		});
+	});
+	testCases.forEach(({hsl, hsv}) => {
+		context(`when ${JSON.stringify(hsl)}`, () => {
+			it(`it should convert to ${JSON.stringify(hsv)}`, () => {
+				const actual = ColorModel.convertMode(
+					[hsl.h, hsl.s, hsl.l],
+					'hsl',
+					'hsv',
+				);
+				assert.closeTo(actual[0], hsv.h, DELTA);
+				assert.closeTo(actual[1], hsv.s, DELTA);
+				assert.closeTo(actual[2], hsv.v, DELTA);
+			});
+		});
+	});
+	testCases.forEach(({hsl, hsv}) => {
+		context(`when ${JSON.stringify(hsv)}`, () => {
+			it(`it should convert to ${JSON.stringify(hsl)}`, () => {
+				const actual = ColorModel.convertMode(
+					[hsv.h, hsv.s, hsv.v],
+					'hsv',
+					'hsl',
+				);
+				assert.closeTo(actual[0], hsl.h, DELTA);
+				assert.closeTo(actual[1], hsl.s, DELTA);
+				assert.closeTo(actual[2], hsl.l, DELTA);
+			});
+		});
+	});
+
+	[
+		[0, 0, 0],
+		[0, 127, 255],
+		[11, 22, 33],
+	].forEach((comps: ColorComponents3) => {
+		context(`when ${JSON.stringify(comps)}`, () => {
+			it('it should make opaque', () => {
+				assert.deepEqual(ColorModel.opaque(comps), [...comps, 1]);
 			});
 		});
 	});

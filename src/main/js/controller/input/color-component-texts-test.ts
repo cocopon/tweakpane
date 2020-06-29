@@ -4,6 +4,7 @@ import {describe, it} from 'mocha';
 import {TestUtil} from '../../misc/test-util';
 import {Color, RgbaColorObject} from '../../model/color';
 import {InputValue} from '../../model/input-value';
+import {PickedColor} from '../../model/picked-color';
 import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
 import {ColorComponentTextsInputController} from './color-component-texts';
@@ -34,8 +35,7 @@ describe(ColorComponentTextsInputController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new ColorComponentTextsInputController(doc, {
 			parser: StringNumberParser,
-			supportsAlpha: false,
-			value: new InputValue(new Color([0, 0, 0], 'rgb')),
+			pickedColor: new PickedColor(new InputValue(new Color([0, 0, 0], 'rgb'))),
 			viewModel: new ViewModel(),
 		});
 		c.viewModel.dispose();
@@ -87,8 +87,7 @@ describe(ColorComponentTextsInputController.name, () => {
 				const doc = win.document;
 				const c = new ColorComponentTextsInputController(doc, {
 					parser: StringNumberParser,
-					supportsAlpha: false,
-					value: value,
+					pickedColor: new PickedColor(value),
 					viewModel: new ViewModel(),
 				});
 
@@ -153,8 +152,7 @@ describe(ColorComponentTextsInputController.name, () => {
 				const doc = win.document;
 				const c = new ColorComponentTextsInputController(doc, {
 					parser: StringNumberParser,
-					supportsAlpha: false,
-					value: value,
+					pickedColor: new PickedColor(value),
 					viewModel: new ViewModel(),
 				});
 

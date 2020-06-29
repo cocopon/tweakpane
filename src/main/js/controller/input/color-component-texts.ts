@@ -1,7 +1,8 @@
-import {ColorComponents4} from '../../misc/color-model';
+import {ColorComponents4, ColorMode} from '../../misc/color-model';
 import {TypeUtil} from '../../misc/type-util';
 import {Color} from '../../model/color';
 import {InputValue} from '../../model/input-value';
+import {PickedColor} from '../../model/picked-color';
 import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
 import {ColorComponentTextsInputView} from '../../view/input/color-component-texts';
@@ -10,8 +11,7 @@ import {InputController} from './input';
 
 interface Config {
 	parser: Parser<string, number>;
-	supportsAlpha: boolean;
-	value: InputValue<Color>;
+	pickedColor: PickedColor;
 	viewModel: ViewModel;
 }
 
@@ -21,27 +21,35 @@ interface Config {
 export class ColorComponentTextsInputController
 	implements InputController<Color> {
 	public readonly viewModel: ViewModel;
-	public readonly value: InputValue<Color>;
+	public readonly pickedColor: PickedColor;
 	public readonly view: ColorComponentTextsInputView;
 	private parser_: Parser<string, number>;
 
 	constructor(document: Document, config: Config) {
+		this.onModeSelectChange_ = this.onModeSelectChange_.bind(this);
 		this.onInputChange_ = this.onInputChange_.bind(this);
 		this.onInputKeyDown_ = this.onInputKeyDown_.bind(this);
 
 		this.parser_ = config.parser;
-		this.value = config.value;
+		this.pickedColor = config.pickedColor;
 
 		this.viewModel = config.viewModel;
 		this.view = new ColorComponentTextsInputView(document, {
 			model: this.viewModel,
-			supportsAlpha: config.supportsAlpha,
-			value: this.value,
+			pickedColor: this.pickedColor,
 		});
 		this.view.inputElements.forEach((inputElem) => {
 			inputElem.addEventListener('change', this.onInputChange_);
 			inputElem.addEventListener('keydown', this.onInputKeyDown_);
 		});
+		this.view.modeSelectElement.addEventListener(
+			'change',
+			this.onModeSelectChange_,
+		);
+	}
+
+	get value(): InputValue<Color> {
+		return this.pickedColor.value;
 	}
 
 	private findIndexOfInputElem_(inputElem: HTMLElement | null): number | null {
@@ -55,11 +63,12 @@ export class ColorComponentTextsInputController
 	}
 
 	private updateComponent_(index: number, newValue: number): void {
-		const comps = this.value.rawValue.getComponents('rgb');
+		const mode = this.pickedColor.mode;
+		const comps = this.value.rawValue.getComponents(mode);
 		const newComps = comps.map((comp, i) => {
 			return i === index ? newValue : comp;
 		}) as ColorComponents4;
-		this.value.rawValue = new Color(newComps, 'rgb');
+		this.value.rawValue = new Color(newComps, mode);
 
 		this.view.update();
 	}
@@ -99,5 +108,10 @@ export class ColorComponentTextsInputController
 			return;
 		}
 		this.updateComponent_(compIndex, parsedValue + step);
+	}
+
+	private onModeSelectChange_(ev: Event) {
+		const selectElem = ev.currentTarget as HTMLSelectElement;
+		this.pickedColor.mode = selectElem.value as ColorMode;
 	}
 }

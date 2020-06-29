@@ -1,62 +1,116 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
-import {ColorComponents4} from '../misc/color-model';
-import {Color, ColorMode} from './color';
+import {
+	ColorComponents3,
+	ColorComponents4,
+	ColorMode,
+} from '../misc/color-model';
+import {Color, RgbaColorObject} from './color';
 
 describe(Color.name, () => {
 	[
 		{
 			expected: {r: 10, g: 20, b: 30, a: 1},
-			rgb: {r: 10, g: 20, b: 30},
+			params: {
+				components: [10, 20, 30],
+			},
 		},
 		{
 			expected: {r: 0, g: 255, b: 0, a: 1},
-			rgb: {r: -1, g: 300, b: 0},
+			params: {
+				components: [-1, 300, 0],
+			},
 		},
-	].forEach(({expected, rgb}) => {
-		context(`when ${JSON.stringify(rgb)}`, () => {
-			const c = new Color([rgb.r, rgb.g, rgb.b], 'rgb');
-			it('should get components', () => {
-				assert.deepStrictEqual(c.getComponents('rgb'), [
-					expected.r,
-					expected.g,
-					expected.b,
-					expected.a,
-				]);
+	].forEach(
+		({
+			expected,
+			params,
+		}: {
+			expected: RgbaColorObject;
+			params: {
+				components: ColorComponents3;
+			};
+		}) => {
+			context(`when ${JSON.stringify(params)}`, () => {
+				const c = new Color(params.components, 'rgb');
+				it('should get components', () => {
+					assert.deepStrictEqual(c.getComponents('rgb'), [
+						expected.r,
+						expected.g,
+						expected.b,
+						expected.a,
+					]);
+				});
+				it('should convert to object', () => {
+					assert.deepStrictEqual(c.toRgbaObject(), expected);
+				});
 			});
-			it('should convert to object', () => {
-				assert.deepStrictEqual(c.toRgbaObject(), expected);
-			});
-		});
-	});
+		},
+	);
 
 	[
 		{
-			expected: {h: 359, s: 0, v: 100},
-			hsv: {h: 359, s: 0, v: 100},
+			expected: [359, 0, 100, 1],
+			params: {
+				components: [359, 0, 100],
+				mode: 'hsv',
+			},
 		},
 		{
-			expected: {h: 350, s: 0, v: 100},
-			hsv: {h: -10, s: -10, v: 100},
+			expected: [350, 0, 100, 1],
+			params: {
+				components: [-10, -10, 100],
+				mode: 'hsv',
+			},
 		},
 		{
-			expected: {h: 10, s: 100, v: 100},
-			hsv: {h: 370, s: 110, v: 100},
+			expected: [10, 100, 100, 1],
+			params: {
+				components: [370, 110, 100],
+				mode: 'hsv',
+			},
 		},
-	].forEach(({expected, hsv}) => {
-		context(`when ${JSON.stringify(hsv)}`, () => {
-			const c = new Color([hsv.h, hsv.s, hsv.v], 'hsv');
-			it('should get components', () => {
-				assert.deepStrictEqual(c.getComponents('hsv'), [
-					expected.h,
-					expected.s,
-					expected.v,
-					1,
-				]);
+		{
+			expected: [359, 0, 100, 1],
+			params: {
+				components: [359, 0, 100],
+				mode: 'hsl',
+			},
+		},
+		{
+			expected: [350, 0, 100, 1],
+			params: {
+				components: [-10, -10, 100],
+				mode: 'hsl',
+			},
+		},
+		{
+			expected: [10, 100, 100, 1],
+			params: {
+				components: [370, 110, 100],
+				mode: 'hsl',
+			},
+		},
+	].forEach(
+		({
+			expected,
+			params,
+		}: {
+			expected: ColorComponents4;
+			params: {
+				components: ColorComponents3;
+				mode: ColorMode;
+			};
+		}) => {
+			context(`when ${JSON.stringify(params)}`, () => {
+				const c = new Color(params.components, params.mode);
+				it('should get components', () => {
+					assert.deepStrictEqual(c.getComponents(params.mode), expected);
+				});
 			});
-		});
-	});
+		},
+	);
 
 	[{r: 0, g: 127, b: 255}].forEach((input: any) => {
 		context(`when ${JSON.stringify(input)}`, () => {

@@ -190,6 +190,43 @@ describe('ColorConverter', () => {
 
 	[
 		{
+			input: new Color([0, 0, 0], 'hsl'),
+			expected: {
+				hsl: 'hsl(0, 0, 0)',
+				hsla: 'hsla(0, 0, 0, 1.00)',
+			},
+		},
+		{
+			input: new Color([0, 127, 255], 'hsl'),
+			expected: {
+				hsl: 'hsl(0, 100, 100)',
+				hsla: 'hsla(0, 100, 100, 1.00)',
+			},
+		},
+		{
+			input: new Color([255, 11, 22], 'hsl'),
+			expected: {
+				hsl: 'hsl(255, 11, 22)',
+				hsla: 'hsla(255, 11, 22, 1.00)',
+			},
+		},
+	].forEach((testCase) => {
+		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
+			it('should convert color to string (HSL)', () => {
+				assert.strictEqual(
+					ColorConverter.toFunctionalHslString(testCase.input),
+					testCase.expected.hsl,
+				);
+				assert.strictEqual(
+					ColorConverter.toFunctionalHslaString(testCase.input),
+					testCase.expected.hsla,
+				);
+			});
+		});
+	});
+
+	[
+		{
 			input: new Color([0, 0, 0], 'rgb'),
 			expected: 0x000000,
 		},
@@ -216,11 +253,7 @@ describe('ColorConverter', () => {
 		});
 	});
 
-	const testCases: {
-		components: ColorComponents3 | ColorComponents4;
-		hex: string;
-		rgb: string;
-	}[] = [
+	[
 		{
 			components: [0, 0, 0],
 			hex: '#000000',
@@ -256,36 +289,41 @@ describe('ColorConverter', () => {
 			hex: '#0000ff',
 			rgb: 'rgb(0, 0, 255)',
 		},
-	];
-	testCases.forEach((testCase) => {
-		context(`when ${JSON.stringify(testCase.components)}`, () => {
-			it(`it should format to ${JSON.stringify(testCase.hex)}`, () => {
-				const c = new Color(testCase.components, 'rgb');
-				const f =
-					testCase.components.length === 3
-						? new ColorFormatter(ColorConverter.toHexRgbString)
-						: new ColorFormatter(ColorConverter.toHexRgbaString);
-				assert.strictEqual(f.format(c), testCase.hex);
-			});
+	].forEach(
+		(testCase: {
+			components: ColorComponents3 | ColorComponents4;
+			hex: string;
+			rgb: string;
+		}) => {
+			context(`when ${JSON.stringify(testCase.components)}`, () => {
+				it(`it should format to ${JSON.stringify(testCase.hex)}`, () => {
+					const c = new Color(testCase.components, 'rgb');
+					const f =
+						testCase.components.length === 3
+							? new ColorFormatter(ColorConverter.toHexRgbString)
+							: new ColorFormatter(ColorConverter.toHexRgbaString);
+					assert.strictEqual(f.format(c), testCase.hex);
+				});
 
-			it(`it should format to ${JSON.stringify(testCase.rgb)}`, () => {
-				const comps = testCase.components;
-				const c = new Color(comps, 'rgb');
+				it(`it should format to ${JSON.stringify(testCase.rgb)}`, () => {
+					const comps = testCase.components;
+					const c = new Color(comps, 'rgb');
 
-				if (comps.length === 3) {
-					assert.strictEqual(
-						ColorConverter.toFunctionalRgbString(c),
-						testCase.rgb,
-					);
-				} else if (comps.length === 4) {
-					assert.strictEqual(
-						ColorConverter.toFunctionalRgbaString(c),
-						testCase.rgb,
-					);
-				} else {
-					throw new Error('should not be called');
-				}
+					if (comps.length === 3) {
+						assert.strictEqual(
+							ColorConverter.toFunctionalRgbString(c),
+							testCase.rgb,
+						);
+					} else if (comps.length === 4) {
+						assert.strictEqual(
+							ColorConverter.toFunctionalRgbaString(c),
+							testCase.rgb,
+						);
+					} else {
+						throw new Error('should not be called');
+					}
+				});
 			});
-		});
-	});
+		},
+	);
 });
