@@ -123,6 +123,7 @@ $z-index-picker: 1000;
 	font-family: inherit;
 	height: $input-height;
 	line-height: $input-height;
+	min-width: 0;
 	width: 100%;
 
 	&:hover {
