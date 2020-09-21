@@ -1,5 +1,5 @@
 import {NumberFormatter} from '../../formatter/number';
-import {TypeUtil} from '../../misc/type-util';
+import * as DomUtil from '../../misc/dom-util';
 import {Color} from '../../model/color';
 import {Foldable} from '../../model/foldable';
 import {InputValue} from '../../model/input-value';
@@ -30,6 +30,7 @@ export class ColorPickerInputController implements InputController<Color> {
 	public readonly foldable: Foldable;
 	public readonly pickedColor: PickedColor;
 	public readonly view: ColorPickerInputView;
+	public triggerElement: HTMLElement | null = null;
 	private alphaIcs_: {
 		palette: APaletteInputController;
 		text: TextInputController<number>;
@@ -121,12 +122,23 @@ export class ColorPickerInputController implements InputController<Color> {
 		return this.pickedColor.value;
 	}
 
-	private onFocusableElementBlur_(e: FocusEvent): void {
+	private onFocusableElementBlur_(ev: FocusEvent): void {
 		const elem = this.view.element;
-		const nextTarget: HTMLElement | null = TypeUtil.forceCast(e.relatedTarget);
-		if (!nextTarget || !elem.contains(nextTarget)) {
-			this.foldable.expanded = false;
+		const nextTarget = DomUtil.findNextTarget(ev);
+		if (nextTarget && elem.contains(nextTarget)) {
+			// Next target is in the picker
+			return;
 		}
+		if (
+			nextTarget &&
+			nextTarget === this.triggerElement &&
+			!DomUtil.supportsTouch(elem.ownerDocument)
+		) {
+			// Next target is the trigger button
+			return;
+		}
+
+		this.foldable.expanded = false;
 	}
 
 	private onKeyDown_(ev: KeyboardEvent): void {

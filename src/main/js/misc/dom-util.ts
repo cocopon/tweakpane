@@ -83,3 +83,18 @@ export function indexOfChildElement(element: Element): number {
 	const children: Element[] = Array.prototype.slice.call(parentElem.children);
 	return children.indexOf(element);
 }
+
+export function findNextTarget(ev: FocusEvent): HTMLElement | null {
+	if (ev.relatedTarget) {
+		return TypeUtil.forceCast(ev.relatedTarget);
+	}
+	// Workaround for Firefox
+	if ('explicitOriginalTarget' in ev) {
+		return (ev as any).explicitOriginalTarget;
+	}
+	// TODO: Workaround for Safari
+	// Safari doesn't set next target for some elements
+	// (e.g. button, input[type=checkbox], etc.)
+
+	return null;
+}

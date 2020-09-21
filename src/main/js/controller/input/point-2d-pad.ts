@@ -1,8 +1,8 @@
 import {Point2dConstraint} from '../../constraint/point-2d';
+import * as DomUtil from '../../misc/dom-util';
 import {NumberUtil} from '../../misc/number-util';
 import {PointerHandler, PointerHandlerEvents} from '../../misc/pointer-handler';
 import {PointerData} from '../../misc/pointer-handler';
-import {TypeUtil} from '../../misc/type-util';
 import {Foldable} from '../../model/foldable';
 import {InputValue} from '../../model/input-value';
 import {Point2d} from '../../model/point-2d';
@@ -25,6 +25,7 @@ export class Point2dPadInputController implements InputController<Point2d> {
 	public readonly foldable: Foldable;
 	public readonly value: InputValue<Point2d>;
 	public readonly view: Point2dPadInputView;
+	public triggerElement: HTMLElement | null = null;
 	private readonly ptHandler_: PointerHandler;
 	private readonly invertsY_: boolean;
 	private readonly maxValue_: number;
@@ -118,12 +119,23 @@ export class Point2dPadInputController implements InputController<Point2d> {
 		);
 	}
 
-	private onFocusableElementBlur_(e: FocusEvent): void {
+	private onFocusableElementBlur_(ev: FocusEvent): void {
 		const elem = this.view.element;
-		const nextTarget: HTMLElement | null = TypeUtil.forceCast(e.relatedTarget);
-		if (!nextTarget || !elem.contains(nextTarget)) {
-			this.foldable.expanded = false;
+		const nextTarget = DomUtil.findNextTarget(ev);
+		if (nextTarget && elem.contains(nextTarget)) {
+			// Next target is in the picker
+			return;
 		}
+		if (
+			nextTarget &&
+			nextTarget === this.triggerElement &&
+			!DomUtil.supportsTouch(elem.ownerDocument)
+		) {
+			// Next target is the trigger button
+			return;
+		}
+
+		this.foldable.expanded = false;
 	}
 
 	private onKeyDown_(ev: KeyboardEvent): void {

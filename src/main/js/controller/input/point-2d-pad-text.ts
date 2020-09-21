@@ -59,6 +59,7 @@ export class Point2dPadTextInputController implements InputController<Point2d> {
 			'click',
 			this.onPadButtonClick_,
 		);
+		this.padIc_.triggerElement = this.view.padButtonElement;
 	}
 
 	private onPadButtonBlur_(e: FocusEvent) {
