@@ -42,6 +42,7 @@ export class ColorSwatchInputController implements InputController<Color> {
 		});
 		this.view.buttonElement.addEventListener('blur', this.onButtonBlur_);
 		this.view.buttonElement.addEventListener('click', this.onButtonClick_);
+		this.pickerIc_.triggerElement = this.view.buttonElement;
 	}
 
 	private onButtonBlur_(e: FocusEvent) {
