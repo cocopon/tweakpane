@@ -29,6 +29,7 @@ export class TweakpaneWithoutStyle extends RootApi {
 		);
 
 		const rootController = new RootController(document, {
+			expanded: config.expanded,
 			viewModel: new ViewModel(),
 			title: config.title,
 		});
