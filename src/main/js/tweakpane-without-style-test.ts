@@ -42,4 +42,23 @@ describe(TweakpaneWithoutStyle.name, () => {
 			c.dispose();
 		}, PaneError);
 	});
+
+	it('should expanded by default', () => {
+		const doc = TestUtil.createWindow().document;
+		const c = new TweakpaneWithoutStyle({
+			document: doc,
+			title: 'Title',
+		});
+		assert.strictEqual(c.controller.folder?.expanded, true);
+	});
+
+	it('should shrink by default with `expanded: false` option', () => {
+		const doc = TestUtil.createWindow().document;
+		const c = new TweakpaneWithoutStyle({
+			document: doc,
+			expanded: false,
+			title: 'Title',
+		});
+		assert.strictEqual(c.controller.folder?.expanded, false);
+	});
 });
