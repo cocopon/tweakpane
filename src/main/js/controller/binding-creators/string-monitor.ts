@@ -2,8 +2,6 @@ import {MonitorParams} from '../../api/types';
 import {MonitorBinding} from '../../binding/monitor';
 import * as StringConverter from '../../converter/string';
 import {StringFormatter} from '../../formatter/string';
-import {Constants} from '../../misc/constants';
-import {IntervalTicker} from '../../misc/ticker/interval';
 import {TypeUtil} from '../../misc/type-util';
 import {MonitorValue} from '../../model/monitor-value';
 import {Target} from '../../model/target';
@@ -11,6 +9,7 @@ import {ViewModel} from '../../model/view-model';
 import {MonitorBindingController} from '../monitor-binding';
 import {MultiLogMonitorController} from '../monitor/multi-log';
 import {SingleLogMonitorController} from '../monitor/single-log';
+import {createTicker} from './util';
 
 /**
  * @hidden
@@ -42,19 +41,12 @@ export function create(
 				value: value,
 				viewModel: new ViewModel(),
 		  });
-	const ticker = new IntervalTicker(
-		document,
-		TypeUtil.getOrDefault<number>(
-			params.interval,
-			Constants.monitorDefaultInterval,
-		),
-	);
 
 	return new MonitorBindingController(document, {
 		binding: new MonitorBinding({
 			reader: StringConverter.fromMixed,
 			target: target,
-			ticker: ticker,
+			ticker: createTicker(document, params.interval),
 			value: value,
 		}),
 		controller: controller,
