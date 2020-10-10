@@ -2,8 +2,6 @@ import {MonitorParams} from '../../api/types';
 import {MonitorBinding} from '../../binding/monitor';
 import * as NumberConverter from '../../converter/number';
 import {NumberFormatter} from '../../formatter/number';
-import {Constants} from '../../misc/constants';
-import {IntervalTicker} from '../../misc/ticker/interval';
 import {TypeUtil} from '../../misc/type-util';
 import {MonitorValue} from '../../model/monitor-value';
 import {Target} from '../../model/target';
@@ -12,6 +10,7 @@ import {MonitorBindingController} from '../monitor-binding';
 import {GraphMonitorController} from '../monitor/graph';
 import {MultiLogMonitorController} from '../monitor/multi-log';
 import {SingleLogMonitorController} from '../monitor/single-log';
+import {createTicker} from './util';
 
 function createFormatter(): NumberFormatter {
 	// TODO: formatter precision
@@ -39,19 +38,12 @@ function createTextMonitor(
 					value: value,
 					viewModel: new ViewModel(),
 			  });
-	const ticker = new IntervalTicker(
-		document,
-		TypeUtil.getOrDefault<number>(
-			params.interval,
-			Constants.monitorDefaultInterval,
-		),
-	);
 
 	return new MonitorBindingController(document, {
 		binding: new MonitorBinding({
 			reader: NumberConverter.fromMixed,
 			target: target,
-			ticker: ticker,
+			ticker: createTicker(document, params.interval),
 			value: value,
 		}),
 		controller: controller,
@@ -66,13 +58,6 @@ function createGraphMonitor(
 ): MonitorBindingController<number> {
 	const value = new MonitorValue<number>(
 		TypeUtil.getOrDefault<number>(params.count, 64),
-	);
-	const ticker = new IntervalTicker(
-		document,
-		TypeUtil.getOrDefault<number>(
-			params.interval,
-			Constants.monitorDefaultInterval,
-		),
 	);
 	const controller = new GraphMonitorController(document, {
 		formatter: createFormatter(),
@@ -91,7 +76,7 @@ function createGraphMonitor(
 		binding: new MonitorBinding({
 			reader: NumberConverter.fromMixed,
 			target: target,
-			ticker: ticker,
+			ticker: createTicker(document, params.interval),
 			value: value,
 		}),
 		controller: controller,
