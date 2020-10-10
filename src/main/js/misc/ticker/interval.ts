@@ -8,16 +8,15 @@ import {Ticker, TickerEvents} from './ticker';
 export class IntervalTicker implements Ticker {
 	public readonly disposable: Disposable;
 	public readonly emitter: Emitter<TickerEvents>;
-	private active_: boolean;
+	// private active_ = true;
 	private doc_: Document;
 	private id_: number | null;
 
 	constructor(document: Document, interval: number) {
 		this.onTick_ = this.onTick_.bind(this);
-		this.onWindowBlur_ = this.onWindowBlur_.bind(this);
-		this.onWindowFocus_ = this.onWindowFocus_.bind(this);
+		// this.onWindowBlur_ = this.onWindowBlur_.bind(this);
+		// this.onWindowFocus_ = this.onWindowFocus_.bind(this);
 
-		this.active_ = true;
 		this.doc_ = document;
 		this.emitter = new Emitter();
 
@@ -26,13 +25,7 @@ export class IntervalTicker implements Ticker {
 		} else {
 			const win = this.doc_.defaultView;
 			if (win) {
-				this.id_ = win.setInterval(() => {
-					if (!this.active_) {
-						return;
-					}
-
-					this.onTick_();
-				}, interval);
+				this.id_ = win.setInterval(this.onTick_, interval);
 			}
 		}
 
@@ -56,16 +49,20 @@ export class IntervalTicker implements Ticker {
 	}
 
 	private onTick_(): void {
+		// if (!this.active_) {
+		// 	return;
+		// }
+
 		this.emitter.emit('tick', {
 			sender: this,
 		});
 	}
 
-	private onWindowBlur_(): void {
-		this.active_ = false;
-	}
+	// private onWindowBlur_(): void {
+	// 	this.active_ = false;
+	// }
 
-	private onWindowFocus_(): void {
-		this.active_ = true;
-	}
+	// private onWindowFocus_(): void {
+	// 	this.active_ = true;
+	// }
 }
