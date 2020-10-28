@@ -1,5 +1,6 @@
 import * as ColorConverter from '../../converter/color';
 import {ClassName} from '../../misc/class-name';
+import {hsvToRgb} from '../../misc/color-model';
 import * as DisposingUtil from '../../misc/disposing-util';
 import * as DomUtil from '../../misc/dom-util';
 import {NumberUtil} from '../../misc/number-util';
@@ -13,6 +14,8 @@ const className = ClassName('hpl', 'input');
 interface Config extends ViewConfig {
 	value: InputValue<Color>;
 }
+
+const CANVAS_RESOL = 64;
 
 /**
  * @hidden
@@ -34,6 +37,8 @@ export class HPaletteInputView extends View {
 		this.element.tabIndex = 0;
 
 		const canvasElem = document.createElement('canvas');
+		canvasElem.height = 1;
+		canvasElem.width = CANVAS_RESOL;
 		canvasElem.classList.add(className('c'));
 		this.element.appendChild(canvasElem);
 		this.canvasElem_ = canvasElem;
@@ -70,18 +75,19 @@ export class HPaletteInputView extends View {
 
 		const width = this.canvasElement.width;
 		const height = this.canvasElement.height;
+		const imgData = ctx.getImageData(0, 0, width, height);
+		const data = imgData.data;
 
-		const cellCount = 64;
-		const cw = Math.ceil(width / cellCount);
-		for (let ix = 0; ix < cellCount; ix++) {
-			const hue = NumberUtil.map(ix, 0, cellCount - 1, 0, 360);
-			ctx.fillStyle = ColorConverter.toFunctionalRgbString(
-				new Color([hue, 100, 100], 'hsv'),
-			);
-
-			const x = Math.floor(NumberUtil.map(ix, 0, cellCount - 1, 0, width - cw));
-			ctx.fillRect(x, 0, cw, height);
+		for (let ix = 0; ix < width; ix++) {
+			const hue = NumberUtil.map(ix, 0, width, 0, 360);
+			const rgbComps = hsvToRgb(hue, 100, 100);
+			const i = ix * 4;
+			data[i] = rgbComps[0];
+			data[i + 1] = rgbComps[1];
+			data[i + 2] = rgbComps[2];
+			data[i + 3] = 255;
 		}
+		ctx.putImageData(imgData, 0, 0);
 
 		const c = this.value.rawValue;
 		const [h] = c.getComponents('hsv');
