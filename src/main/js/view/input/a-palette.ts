@@ -1,6 +1,5 @@
 import * as ColorConverter from '../../converter/color';
 import {ClassName} from '../../misc/class-name';
-import * as ColorModel from '../../misc/color-model';
 import * as DisposingUtil from '../../misc/disposing-util';
 import * as DomUtil from '../../misc/dom-util';
 import {NumberUtil} from '../../misc/number-util';
@@ -14,6 +13,8 @@ const className = ClassName('apl', 'input');
 interface Config extends ViewConfig {
 	value: InputValue<Color>;
 }
+
+const CANVAS_RESOL = 64;
 
 /**
  * @hidden
@@ -36,6 +37,8 @@ export class APaletteInputView extends View {
 		this.element.tabIndex = 0;
 
 		const canvasElem = document.createElement('canvas');
+		canvasElem.height = 1;
+		canvasElem.width = CANVAS_RESOL;
 		canvasElem.classList.add(className('c'));
 		this.element.appendChild(canvasElem);
 		this.canvasElem_ = canvasElem;
@@ -77,34 +80,27 @@ export class APaletteInputView extends View {
 
 		const width = this.canvasElement.width;
 		const height = this.canvasElement.height;
+		const imgData = ctx.getImageData(0, 0, width, height);
+		const data = imgData.data;
 		ctx.clearRect(0, 0, width, height);
 
 		const c = this.value.rawValue;
-		const hsvComps = c.getComponents('hsv');
+		const rgbaComps = c.getComponents('rgb');
 
-		const cellCount = 64;
-		const cw = Math.ceil(width / cellCount);
-		for (let ix = 0; ix < cellCount; ix++) {
-			const alpha = NumberUtil.map(ix, 0, cellCount - 1, 0, 1);
-			ctx.fillStyle = ColorConverter.toFunctionalRgbaString(
-				new Color(
-					ColorModel.withAlpha(ColorModel.withoutAlpha(hsvComps), alpha),
-					'hsv',
-				),
-			);
-
-			const x = Math.floor(NumberUtil.map(ix, 0, cellCount - 1, 0, width - cw));
-			const nx =
-				ix < cellCount - 1
-					? Math.floor(NumberUtil.map(ix + 1, 0, cellCount - 1, 0, width - cw))
-					: width;
-			ctx.fillRect(x, 0, nx - x, height);
+		for (let ix = 0; ix < width; ix++) {
+			const alpha = NumberUtil.map(ix, 0, width, 0, 255);
+			const i = ix * 4;
+			data[i] = rgbaComps[0];
+			data[i + 1] = rgbaComps[1];
+			data[i + 2] = rgbaComps[2];
+			data[i + 3] = alpha;
 		}
+		ctx.putImageData(imgData, 0, 0);
 
 		this.previewElem_.style.backgroundColor = ColorConverter.toFunctionalRgbaString(
 			c,
 		);
-		const left = NumberUtil.map(hsvComps[3], 0, 1, 0, 100);
+		const left = NumberUtil.map(rgbaComps[3], 0, 1, 0, 100);
 		this.markerElem_.style.left = `${left}%`;
 	}
 
