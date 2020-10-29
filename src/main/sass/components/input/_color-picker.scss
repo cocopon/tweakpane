@@ -123,7 +123,7 @@
 	outline: none;
 	position: relative;
 
-	&_c {
+	&_b {
 		@include checker-pattern(
 			$transparent-checker-color-dark,
 			$color-picker-slider-track-width
@@ -135,9 +135,17 @@
 		height: $color-picker-slider-track-width;
 		left: 0;
 		margin-top: -($color-picker-slider-track-width / 2);
+		overflow: hidden;
 		position: absolute;
 		top: 50%;
 		width: 100%;
+	}
+	&_c {
+		bottom: 0;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
 	}
 	&_m {
 		@include checker-pattern(
