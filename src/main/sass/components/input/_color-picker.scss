@@ -86,6 +86,10 @@
 	position: relative;
 
 	&_c {
+		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAABCAYAAABubagXAAAAQ0lEQVQoU2P8z8Dwn0GCgQEDi2OK/RBgYHjBgIpfovFh8j8YBIgzFGQxuqEgPhaDOT5gOhPkdCxOZeBg+IDFZZiGAgCaSSMYtcRHLgAAAABJRU5ErkJggg==);
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
 		border-radius: $color-picker-slider-track-width / 2;
 		display: block;
 		height: $color-picker-slider-track-width;
