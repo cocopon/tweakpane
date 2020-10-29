@@ -1,7 +1,6 @@
 import * as ColorConverter from '../../converter/color';
 import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
-import * as DomUtil from '../../misc/dom-util';
 import {NumberUtil} from '../../misc/number-util';
 import {PaneError} from '../../misc/pane-error';
 import {Color} from '../../model/color';
@@ -19,7 +18,7 @@ interface Config extends ViewConfig {
  */
 export class HPaletteInputView extends View {
 	public readonly value: InputValue<Color>;
-	private canvasElem_: HTMLCanvasElement | null;
+	private colorElem_: HTMLDivElement | null;
 	private markerElem_: HTMLDivElement | null;
 
 	constructor(document: Document, config: Config) {
@@ -33,10 +32,10 @@ export class HPaletteInputView extends View {
 		this.element.classList.add(className());
 		this.element.tabIndex = 0;
 
-		const canvasElem = document.createElement('canvas');
-		canvasElem.classList.add(className('c'));
-		this.element.appendChild(canvasElem);
-		this.canvasElem_ = canvasElem;
+		const colorElem = document.createElement('div');
+		colorElem.classList.add(className('c'));
+		this.element.appendChild(colorElem);
+		this.colorElem_ = colorElem;
 
 		const markerElem = document.createElement('div');
 		markerElem.classList.add(className('m'));
@@ -46,41 +45,14 @@ export class HPaletteInputView extends View {
 		this.update();
 
 		config.model.emitter.on('dispose', () => {
-			this.canvasElem_ = DisposingUtil.disposeElement(this.canvasElem_);
+			this.colorElem_ = DisposingUtil.disposeElement(this.colorElem_);
 			this.markerElem_ = DisposingUtil.disposeElement(this.markerElem_);
 		});
-	}
-
-	get canvasElement(): HTMLCanvasElement {
-		if (!this.canvasElem_) {
-			throw PaneError.alreadyDisposed();
-		}
-		return this.canvasElem_;
 	}
 
 	public update(): void {
 		if (!this.markerElem_) {
 			throw PaneError.alreadyDisposed();
-		}
-
-		const ctx = DomUtil.getCanvasContext(this.canvasElement);
-		if (!ctx) {
-			return;
-		}
-
-		const width = this.canvasElement.width;
-		const height = this.canvasElement.height;
-
-		const cellCount = 64;
-		const cw = Math.ceil(width / cellCount);
-		for (let ix = 0; ix < cellCount; ix++) {
-			const hue = NumberUtil.map(ix, 0, cellCount - 1, 0, 360);
-			ctx.fillStyle = ColorConverter.toFunctionalRgbString(
-				new Color([hue, 100, 100], 'hsv'),
-			);
-
-			const x = Math.floor(NumberUtil.map(ix, 0, cellCount - 1, 0, width - cw));
-			ctx.fillRect(x, 0, cw, height);
 		}
 
 		const c = this.value.rawValue;

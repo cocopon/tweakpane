@@ -1,5 +1,5 @@
-import * as ColorConverter from '../../converter/color';
 import {ClassName} from '../../misc/class-name';
+import {hsvToRgb} from '../../misc/color-model';
 import * as DisposingUtil from '../../misc/disposing-util';
 import * as DomUtil from '../../misc/dom-util';
 import {NumberUtil} from '../../misc/number-util';
@@ -13,6 +13,8 @@ const className = ClassName('svp', 'input');
 interface Config extends ViewConfig {
 	value: InputValue<Color>;
 }
+
+const CANVAS_RESOL = 64;
 
 /**
  * @hidden
@@ -34,6 +36,8 @@ export class SvPaletteInputView extends View {
 		this.element.tabIndex = 0;
 
 		const canvasElem = document.createElement('canvas');
+		canvasElem.height = CANVAS_RESOL;
+		canvasElem.width = CANVAS_RESOL;
 		canvasElem.classList.add(className('c'));
 		this.element.appendChild(canvasElem);
 		this.canvasElem_ = canvasElem;
@@ -72,27 +76,22 @@ export class SvPaletteInputView extends View {
 		const hsvComps = c.getComponents('hsv');
 		const width = this.canvasElement.width;
 		const height = this.canvasElement.height;
+		const imgData = ctx.getImageData(0, 0, width, height);
+		const data = imgData.data;
 
-		const cellCount = 64;
-		const cw = Math.ceil(width / cellCount);
-		const ch = Math.ceil(height / cellCount);
-		for (let iy = 0; iy < cellCount; iy++) {
-			for (let ix = 0; ix < cellCount; ix++) {
-				const s = NumberUtil.map(ix, 0, cellCount - 1, 0, 100);
-				const v = NumberUtil.map(iy, 0, cellCount - 1, 100, 0);
-				ctx.fillStyle = ColorConverter.toFunctionalRgbString(
-					new Color([hsvComps[0], s, v], 'hsv'),
-				);
-
-				const x = Math.floor(
-					NumberUtil.map(ix, 0, cellCount - 1, 0, width - cw),
-				);
-				const y = Math.floor(
-					NumberUtil.map(iy, 0, cellCount - 1, 0, height - ch),
-				);
-				ctx.fillRect(x, y, cw, ch);
+		for (let iy = 0; iy < height; iy++) {
+			for (let ix = 0; ix < width; ix++) {
+				const s = NumberUtil.map(ix, 0, width, 0, 100);
+				const v = NumberUtil.map(iy, 0, height, 100, 0);
+				const rgbComps = hsvToRgb(hsvComps[0], s, v);
+				const i = (iy * width + ix) * 4;
+				data[i] = rgbComps[0];
+				data[i + 1] = rgbComps[1];
+				data[i + 2] = rgbComps[2];
+				data[i + 3] = 255;
 			}
 		}
+		ctx.putImageData(imgData, 0, 0);
 
 		const left = NumberUtil.map(hsvComps[1], 0, 100, 0, 100);
 		this.markerElem_.style.left = `${left}%`;

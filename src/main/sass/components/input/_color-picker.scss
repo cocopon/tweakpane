@@ -86,6 +86,10 @@
 	position: relative;
 
 	&_c {
+		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAABCAYAAABubagXAAAAQ0lEQVQoU2P8z8Dwn0GCgQEDi2OK/RBgYHjBgIpfovFh8j8YBIgzFGQxuqEgPhaDOT5gOhPkdCxOZeBg+IDFZZiGAgCaSSMYtcRHLgAAAABJRU5ErkJggg==);
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
 		border-radius: $color-picker-slider-track-width / 2;
 		display: block;
 		height: $color-picker-slider-track-width;
@@ -119,7 +123,7 @@
 	outline: none;
 	position: relative;
 
-	&_c {
+	&_b {
 		@include checker-pattern(
 			$transparent-checker-color-dark,
 			$color-picker-slider-track-width
@@ -131,9 +135,17 @@
 		height: $color-picker-slider-track-width;
 		left: 0;
 		margin-top: -($color-picker-slider-track-width / 2);
+		overflow: hidden;
 		position: absolute;
 		top: 50%;
 		width: 100%;
+	}
+	&_c {
+		bottom: 0;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
 	}
 	&_m {
 		@include checker-pattern(

@@ -87,7 +87,10 @@ function rgbToHsv(r: number, g: number, b: number): ColorComponents3 {
 	return [h, s * 100, v * 100];
 }
 
-function hsvToRgb(h: number, s: number, v: number): ColorComponents3 {
+/**
+ * @hidden
+ */
+export function hsvToRgb(h: number, s: number, v: number): ColorComponents3 {
 	const hp = NumberUtil.loop(h, 360);
 	const sp = NumberUtil.constrain(s / 100, 0, 1);
 	const vp = NumberUtil.constrain(v / 100, 0, 1);
