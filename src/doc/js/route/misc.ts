@@ -10,7 +10,7 @@ interface ThemeParams {
 }
 
 export const MiscRoute = {
-	pathname: /^(\/tweakpane)?\/misc.html$/,
+	pathname: /^(\/tweakpane)?\/misc\.html$/,
 
 	init: () => {
 		const IMEX_PARAMS = {

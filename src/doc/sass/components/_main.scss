@@ -5,11 +5,27 @@ $prefix: 'common';
 
 	&_globalHeaderLayout {
 		@include wide() {
-			height: $global-header-height;
+			display: none;
 		}
 		@include nonwide() {
 			height: $global-header-height * 2;
 		}
+	}
+	&_mainLayout {
+		position: absolute;
+		right: 0;
+
+		@include wide() {
+			left: $global-nav-width;
+			top: 0;
+		}
+		@include nonwide() {
+			left: 0;
+			top: $global-header-height;
+		}
+	}
+	&#{&}-index &_mainLayout {
+		left: 0;
 	}
 	&_pageHeaderLayout,
 	&_innerLayout {
@@ -30,7 +46,6 @@ $prefix: 'common';
 		}
 	}
 	&_mediaLayout {
-		border-radius: 6px;
 		margin-bottom: 1em;
 		margin-top: 1em;
 	}
@@ -46,6 +61,7 @@ $prefix: 'common';
 
 .#{$prefix}-codeBlock {
 	background-color: $code-block-bg-color;
+	border-radius: 6px;
 	position: relative;
 
 	pre {
@@ -93,6 +109,7 @@ $prefix: 'common';
 
 .#{$prefix}-themes {
 	background-color: var(--themes-background-color);
+	border-radius: 6px;
 	overflow: hidden;
 	position: relative;
 

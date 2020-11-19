@@ -3,7 +3,7 @@ import * as Util from '../util';
 declare let Tweakpane: any;
 
 export const MonitorRoute = {
-	pathname: /^(\/tweakpane)?\/monitor.html$/,
+	pathname: /^(\/tweakpane)?\/monitor\.html$/,
 
 	init: () => {
 		const SHARED_PARAMS = {

@@ -1,9 +1,7 @@
 $prefix: 'common';
 
 .#{$prefix}-globalFooter {
-	background-color: $global-footer-bg-color;
-	color: $global-footer-fg-color;
-	text-align: left;
+	text-align: center;
 
 	&_innerLayout {
 		@include responsive-inner();
@@ -11,91 +9,15 @@ $prefix: 'common';
 		box-sizing: border-box;
 		margin-left: auto;
 		margin-right: auto;
-
-		@include wide() {
-			padding-bottom: 64px;
-			padding-top: 64px;
-		}
-		@include nonwide() {
-			padding-bottom: 32px;
-			padding-top: 32px;
-		}
-	}
-	&_titleLayout {
-		margin-bottom: 32px;
-	}
-	&_menuLayout {
-		a {
-			color: inherit;
-			text-decoration: none;
-
-			&:hover {
-				text-decoration: underline;
-			}
-		}
+		padding-bottom: 16px;
+		padding-top: 16px;
 	}
 	&_copyLayout {
+		color: $base-fg-color-secondary;
 		font-size: 0.8rem;
-		margin-top: 64px;
-		opacity: 0.7;
-
-		@include nonwide() {
-			margin-top: 32px;
-		}
 
 		a {
 			color: inherit;
-		}
-	}
-}
-
-.#{$prefix}-globalFooterMenu {
-	display: flex;
-}
-.#{$prefix}-globalFooterMenuItem {
-	@include wide() {
-		& + & {
-			margin-left: 8em;
-		}
-	}
-	@include nonwide() {
-		flex: 1;
-
-		& + & {
-			margin-left: 2rem;
-		}
-	}
-
-	a {
-		color: inherit;
-		text-decoration: none;
-
-		&:hover {
-			text-decoration: underline;
-		}
-	}
-	.fa-external-link-square-alt {
-		margin-left: 0.5em;
-	}
-
-	& > a {
-		font-weight: 500;
-	}
-
-	&_submenuLayout {
-		margin-top: 0.5em;
-		opacity: 0.7;
-
-		li + li {
-			margin-top: 0.5em;
-		}
-		a {
-			color: inherit;
-			text-decoration: none;
-
-			&:hover {
-				text-decoration: underline;
-			}
 		}
 	}
 }

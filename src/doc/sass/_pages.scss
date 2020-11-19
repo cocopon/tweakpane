@@ -1,0 +1,16 @@
+:root.index {
+	.common-pageHeader_titleLayout p {
+		@include nonwide() {
+			hyphens: auto;
+		}
+	}
+	.common-main_globalHeaderLayout {
+		display: none;
+	}
+	.common-main_mainLayout {
+		top: 0;
+	}
+	.common-main_asideLayout {
+		display: none;
+	}
+}

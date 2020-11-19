@@ -16,7 +16,14 @@ $sp-width: 480px;
 $base-hue: 230;
 $base-bg-color: white;
 $base-fg-color: hsl($base-hue, 7%, 35%);
+$base-fg-color-secondary: rgba($base-fg-color, 0.7);
 $base-heading-color: hsl($base-hue, 7%, 20%);
+
+// Pane
+$pane-bg-color: hsl($base-hue, 7%, 20%);
+$pane-fg-color: hsl($base-hue, 7%, 80%);
+$pane-label-fg-color: hsla($base-hue, 7%, 80%, 0.8);
+$pane-separator-color: hsla($base-hue, 7%, 10%, 0.3);
 
 // Document
 $document-a-color: hsl($base-hue - 20, 70%, 50%);
@@ -24,21 +31,21 @@ $document-code-bg-color: hsl($base-hue, 7%, 95%);
 $document-code-fg-color: hsl($base-hue, 20%, 50%);
 
 // Global footer/header
-$global-footer-bg-color: hsl($base-hue, 7%, 20%);
-$global-footer-fg-color: hsl($base-hue, 7%, 95%);
 $global-header-bg-color: rgba(white, 0.97);
 $global-header-fg-color: inherit;
 $global-header-height: 64px;
+$global-nav-width: 240px;
 
 // Button
 $button-bg-color: hsl($base-hue, 8%, 60%);
-$button-fg-color: $global-footer-fg-color;
+$button-fg-color: hsl($base-hue, 7%, 95%);
 $button-active-bg-color: lighten($button-bg-color, 10%);
 $button-hover-bg-color: lighten($button-bg-color, 5%);
 
 // Z-index
 $z-index-themes-mask: 1001;
 $z-index-global-header: 1002;
+$z-index-global-nav: 1003;
 
 // Misc
 $code-block-bg-color: hsl($base-hue, 7%, 93%);
@@ -47,9 +54,10 @@ $code-block-title-fg-color: hsl($base-hue, 7%, 85%);
 $demo-result-bg-color: $document-code-bg-color;
 $logo-color: $base-fg-color;
 $logo-hover-color: rgba($base-fg-color, 0.8);
-$logo-light-color: $global-footer-fg-color;
+$logo-light-color: hsl($base-hue, 7%, 95%);
 $logo-light-hover-color: rgba($logo-light-color, 0.8);
 $page-header-bg-color: $document-code-bg-color;
+$menu-fg-color-secondary: rgba($pane-label-fg-color, 0.6);
 $support-bg-color: hsl(30deg, 70%, 90%);
 
 // Mixins

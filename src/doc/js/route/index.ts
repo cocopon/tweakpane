@@ -147,25 +147,6 @@ export const IndexRoute = {
 					}, 200);
 				});
 			},
-
-			first: (container) => {
-				const PARAMS = {speed: 0.5};
-				const pane = new Tweakpane({
-					container: container,
-				});
-
-				const updatePreset = () => {
-					const elem = document.querySelector('*[data-first]');
-					if (elem) {
-						const preset = pane.exportPreset();
-						elem.textContent =
-							'PARAMS = ' + JSON.stringify(preset, null, 2) + ';';
-					}
-				};
-
-				pane.addInput(PARAMS, 'speed').on('change', updatePreset);
-				updatePreset();
-			},
 		};
 		Object.keys(markerToFnMap).forEach((marker) => {
 			const initFn = markerToFnMap[marker];

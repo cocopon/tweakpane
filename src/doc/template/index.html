@@ -27,87 +27,61 @@
 </ul>
 
 
-<h2 id="getstarted">Getting started</h2>
-
-
-<h3>1. Add Tweakpane to your project</h3>
-<p>Using <a href="https://www.jsdelivr.com/package/npm/tweakpane" target="_blank">CDN</a> is the easiest way to add the library:</p>
-
-<div class="common-main_mediaLayout">
-	<div class="common-codeBlock">
-		<pre><code class="html">&lt;script src=&quot;<strong>https://cdn.jsdelivr.net/npm/tweakpane@{{ version }}/dist/tweakpane.min.js</strong>&quot;&gt;&lt;/script&gt;</code></pre>
-		<div class="common-codeBlock_title">
-			.html
-		</div>
-	</div>
-</div>
-
-<p>Or, <a href="https://github.com/cocopon/tweakpane/releases">download the latest Tweakpane</a> and import it to your web page:</p>
-
-<div class="common-main_mediaLayout">
-	<div class="common-codeBlock">
-		<pre><code class="html">&lt;script src=&quot;path/to/tweakpane-{{ version }}.min.js&quot;&gt;&lt;/script&gt;</code></pre>
-		<div class="common-codeBlock_title">
-			.html
-		</div>
-	</div>
-</div>
-
-<p>You can also install, require/import it as <a href="https://www.npmjs.com/package/tweakpane" target="_blank">npm package</a>:</p>
-
-<div class="common-main_mediaLayout">
-	<div class="common-codeBlock">
-		<pre><code class="sh">$ npm install --save tweakpane</code></pre>
-	</div>
-</div>
-
-<div class="common-main_mediaLayout">
-	<div class="common-codeBlock">
-		<pre><code class="js">const Tweakpane = require('tweakpane');</code></pre>
-		<div class="common-codeBlock_title">
-			.js
-		</div>
-	</div>
-</div>
-
-
-
-<h3>2. Create a pane</h3>
-<p>Create an instance of Tweakpane by <code>new Tweakpane()</code>.</p>
-
-<div class="common-main_mediaLayout">
-	<div class="common-codeBlock">
-		<pre><code class="js">const pane = new Tweakpane();</code></pre>
-		<div class="common-codeBlock_title">
-			.js
-		</div>
-	</div>
-</div>
-
-
-<h3>3. Ready to go!</h3>
-<p>Create a parameter object, pass itself and its key to fine-tune/monitor values.</p>
-
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">// Parameter object
-const PARAMS = {
-  speed: 0.5,
-};
-
-// Pass the object and its key to pane
-const pane = new Tweakpane();
-pane.addInput(<strong>PARAMS</strong>, <strong>'speed'</strong>);</code></pre></div>
-		</div>
-		<div class="common-demo_resultLayout common-demo_resultLayout-withJson">
-			<div class="common-paneContainer common-paneContainer-first"></div>
-			<div class="common-demo_resultJsonLayout">
-				<pre class="common-demo_resultJson" data-first></pre>
+<h2>Resources</h2>
+<div class="common-rel">
+	<div class="common-relItem">
+		<a class="common-relItem_anchor" href="getting-started.html">
+			<div class="common-relItem_title">
+				Getting started
 			</div>
-		</div>
+			<div class="common-relItem_detail">
+				setting up Tweakpane in only 3 steps
+			</div>
+		</a>
+	</div>
+	<div class="common-relItem">
+		<a class="common-relItem_anchor" href="input.html">
+			<div class="common-relItem_title">
+				Inputs
+			</div>
+			<div class="common-relItem_detail">
+				components for fine-tuning parameter values
+			</div>
+		</a>
+	</div>
+	<div class="common-relItem">
+		<a class="common-relItem_anchor" href="monitor.html">
+			<div class="common-relItem_title">
+				Monitors
+			</div>
+			<div class="common-relItem_detail">
+				components for monitoring value changes
+			</div>
+		</a>
+	</div>
+	<div class="common-relItem">
+		<a class="common-relItem_anchor" href="misc.html">
+			<div class="common-relItem_title">
+				Misc
+			</div>
+			<div class="common-relItem_detail">
+				other useful components, theming, tips, etc.
+			</div>
+		</a>
+	</div>
+	<div class="common-relItem">
+		<a class="common-relItem_anchor" href="api/classes/rootapi.html" target="_blank">
+			<div class="common-relItem_title">
+				API reference<span class="fas fa-external-link-square-alt"></span>
+			</div>
+		</a>
+	</div>
+	<div class="common-relItem">
+		<a class="common-relItem_anchor" href="https://github.com/cocopon/tweakpane" target="_blank">
+			<div class="common-relItem_title">
+				GitHub<span class="fas fa-external-link-square-alt"></span>
+			</div>
+		</a>
 	</div>
 </div>
-
-<p>You can add various components to pane. <a href="input.html">Inputs</a> for fine-tuning parameters, <a href="monitor.html">Monitors</a> for checking values, and <a href="misc.html#othercomponents">more</a>!</p>
 {% endblock %}
