@@ -1,0 +1,81 @@
+$prefix: 'common';
+
+.#{$prefix}-menu {
+	background-color: $pane-bg-color;
+	bottom: 0;
+	left: -$global-nav-width;
+	overflow-y: auto;
+	position: fixed;
+	top: 0;
+	width: $global-nav-width;
+	z-index: $z-index-global-nav;
+
+	@include wide() {
+		transform: translateX($global-nav-width);
+	}
+	@include nonwide() {
+		transform: none;
+
+		&#{&}-expanded {
+			transform: translateX($global-nav-width);
+		}
+	}
+
+	&#{&}-loaded {
+		transition: transform 0.2s ease-in-out;
+	}
+
+	&_logoLayout {
+		border-bottom: $pane-separator-color solid 2px;
+		height: $global-header-height;
+		line-height: $global-header-height;
+		padding-left: 32px;
+		padding-right: 32px;
+	}
+	&_list {
+		padding-top: 24px;
+		padding-bottom: 24px;
+	}
+}
+.#{$prefix}-menuItem {
+	&_anchor {
+		color: $pane-label-fg-color;
+		display: block;
+		font-weight: 500;
+		margin-top: 24px;
+		padding: 8px 32px;
+		text-decoration: none;
+
+		&#{&}-active {
+			background-color: rgba($pane-label-fg-color, 0.05);
+			color: $pane-fg-color;
+		}
+		&:hover {
+			background-color: rgba($pane-label-fg-color, 0.1);
+		}
+
+		.fa-external-link-square-alt {
+			margin-left: 0.5em;
+		}
+	}
+	&:first-child &_anchor {
+		margin-top: 0;
+	}
+}
+
+.#{$prefix}-submenuItem {
+	&_anchor {
+		color: $menu-fg-color-secondary;
+		display: block;
+		padding: 8px 16px 8px 32px;
+		text-decoration: none;
+
+		&#{&}-active {
+			background-color: rgba($pane-label-fg-color, 0.025);
+			color: $pane-fg-color;
+		}
+		&:hover {
+			background-color: rgba($pane-label-fg-color, 0.05);
+		}
+	}
+}

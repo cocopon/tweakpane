@@ -1,13 +1,16 @@
 $prefix: 'common';
 
 .#{$prefix}-demo {
+	background-color: $code-block-bg-color;
+	border-radius: 6px;
+
 	@include wide() {
 		display: flex;
 	}
 
 	&_codeLayout {
-		background-color: $code-block-bg-color;
 		flex: 3;
+		overflow: auto;
 	}
 	&_resultLayout {
 		background-color: $demo-result-bg-color;
@@ -15,7 +18,13 @@ $prefix: 'common';
 		padding: 32px;
 		text-align: center;
 
+		@include wide() {
+			border-bottom-right-radius: 6px;
+			border-top-right-radius: 6px;
+		}
 		@include nonwide() {
+			border-bottom-left-radius: 6px;
+			border-bottom-right-radius: 6px;
 			padding: 16px;
 		}
 

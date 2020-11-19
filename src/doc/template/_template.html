@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="{{ pageId }}">
 <head>
 	<meta charset="UTF-8">
 	<title>Tweakpane</title>
@@ -16,19 +16,24 @@
 	<link rel="stylesheet" href="assets/bundle.css">
 </head>
 <body>
-	<div class="common-main">
-		<div class="common-main_mainLayout">
-			<div class="common-main_globalHeaderLayout">
-				{% include "partial/global-header.html" %}
+	<div class="common-main common-main-{{ pageId }}">
+		<div class="common-main_globalHeaderLayout">
+			{% include "partial/_global-header.html" %}
+		</div>
+		<div class="common-main_wrapLayout">
+			<div class="common-main_asideLayout">
+				{% include "partial/_global-nav.html" %}
 			</div>
-			<div class="common-main_pageHeaderLayout">
-				{% block pageHeader %}{% endblock %}
-			</div>
-			<div class="common-main_innerLayout">
-				{% block content %}{% endblock %}
-			</div>
-			<div class="common-main_globalFooterLayout">
-				{% include "partial/global-footer.html" %}
+			<div class="common-main_mainLayout">
+				<div class="common-main_pageHeaderLayout">
+					{% block pageHeader %}{% endblock %}
+				</div>
+				<div class="common-main_innerLayout">
+					{% block content %}{% endblock %}
+				</div>
+				<div class="common-main_globalFooterLayout">
+					{% include "partial/_global-footer.html" %}
+				</div>
 			</div>
 		</div>
 	</div>

@@ -4,19 +4,14 @@ $prefix: 'common';
 	background-color: $global-header-bg-color;
 	box-shadow: 0 2px 4px rgba(black, 0.05);
 	color: $global-header-fg-color;
+	height: $global-header-height;
 	left: 0;
 	line-height: $global-header-height;
 	position: fixed;
 	right: 0;
+	text-align: center;
 	top: 0;
 	z-index: $z-index-global-header;
-
-	@include wide() {
-		height: $global-header-height;
-	}
-	@include nonwide() {
-		height: $global-header-height * 2;
-	}
 
 	&_innerLayout {
 		@include responsive-inner();
@@ -28,61 +23,18 @@ $prefix: 'common';
 	}
 	&_logoLayout {
 		display: inline-block;
-		margin-right: 1em;
 	}
-	&_menuLayout {
-		@include wide() {
-			display: inline-block;
-		}
-		@include nonwide() {
-			text-align: center;
-		}
-	}
-	&_buttonLayout {
-		font-size: 0.9em;
+	&_spMenuButtonLayout {
+		left: 0;
 		position: absolute;
 		top: 0;
-
-		@include wide() {
-			right: 16px;
-		}
-		@include nonwide() {
-			right: 16px;
-		}
 	}
 }
-.#{$prefix}-globalHeaderMenu {
-	white-space: nowrap;
 
-	&_item {
-		display: inline-block;
-
-		a {
-			color: inherit;
-			display: block;
-			padding: 0 1em;
-			text-decoration: none;
-
-			&:hover {
-				text-decoration: underline;
-			}
-		}
-		&#{&}-active a {
-			font-weight: 500;
-
-			@include wide() {
-				background-color: $page-header-bg-color;
-			}
-			@include nonwide() {
-				background: linear-gradient(
-					to bottom,
-					rgba($page-header-bg-color, 0),
-					$page-header-bg-color
-				);
-			}
-		}
-		.fa-external-link-square-alt {
-			margin-left: 0.5em;
-		}
-	}
+.#{$prefix}-spMenuButton {
+	color: inherit;
+	height: $global-header-height;
+	line-height: $global-header-height;
+	text-align: center;
+	width: $global-header-height;
 }
