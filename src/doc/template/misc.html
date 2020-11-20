@@ -7,7 +7,7 @@
 	<div class="common-pageHeader_innerLayout">
 		<div class="common-pageHeader_titleLayout">
 			<h1 class="common-pageHeader_title">Misc</h1>
-			<p>In addition, Tweakpane has various useful features: Grouping components, buttons, event handling, importing/exporting a preset, etc.</p>
+			<p>Event handling, importing/exporting a preset, theming, and some tips.</p>
 		</div>
 		<div class="common-pageHeader_paneLayout">
 			<div class="common-paneContainer common-paneContainer-misc"></div>
@@ -18,80 +18,6 @@
 
 
 {% block content %}
-<h2 id="othercomponents">Other components</h2>
-
-
-<h3 id="folder">Folder</h3>
-<p>Use <code>addFolder()</code> to add folders. You can add all types of components (except folders) to returned folder just like adding them to the pane.</p>
-
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
-
-const f1 = pane.<strong>addFolder</strong>({
-  title: 'Basic',
-});
-f1.addInput(PARAMS, 'speed');
-
-const f2 = pane.<strong>addFolder</strong>({
-  expanded: false,
-  title: 'Advanced',
-});
-f2.addInput(PARAMS, 'acceleration');
-f2.addInput(PARAMS, 'randomness');</code></pre></div>
-		</div>
-		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer common-paneContainer-folder"></div>
-		</div>
-	</div>
-</div>
-
-
-<h3 id="button">Button</h3>
-<p><code>addButton()</code> adds a button component. Use <code>on()</code> to handle click events.</p>
-
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
-let count = 0;
-
-const btn = pane.<strong>addButton</strong>({
-  title: 'Increment',
-});
-btn.<strong>on</strong>('click', () =&gt; {
-  count += 1;
-  console.log(count);
-});
-</code></pre></div>
-		</div>
-		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer common-paneContainer-button"></div>
-		</div>
-	</div>
-</div>
-
-
-<h3 id="separator">Separator</h3>
-<p><code>addSeparator()</code> is for adding a separator between components.</p>
-
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
-pane.addButton({title: 'Previous'});
-pane.addButton({title: 'Next'});
-pane<strong>.addSeparator</strong>();
-pane.addButton({title: 'Reset'});</code></pre></div>
-		</div>
-		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer common-paneContainer-separator"></div>
-		</div>
-	</div>
-</div>
-
-
 <h2 id="events">Events</h2>
 <p>Use <code>on()</code> of specific components to listen its changes. Input components will emit <code>change</code> events. The first argument of the event handler is the input value.</p>
 

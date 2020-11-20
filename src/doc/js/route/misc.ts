@@ -124,62 +124,6 @@ ${indentedProps}
 				});
 			},
 
-			folder: (container) => {
-				const PARAMS = {
-					acceleration: 0,
-					randomness: 0,
-					speed: 0,
-				};
-				const pane = new Tweakpane({
-					container: container,
-				});
-				const f1 = pane.addFolder({
-					title: 'Basic',
-				});
-				f1.addInput(PARAMS, 'speed');
-				const f2 = pane.addFolder({
-					expanded: false,
-					title: 'Advanced',
-				});
-				f2.addInput(PARAMS, 'acceleration');
-				f2.addInput(PARAMS, 'randomness');
-			},
-
-			button: (container) => {
-				const PARAMS = {count: '0'};
-				const pane = new Tweakpane({
-					container: container,
-				});
-				pane
-					.addButton({
-						title: 'Increment',
-					})
-					.on('click', () => {
-						PARAMS.count = String(parseInt(PARAMS.count, 10) + 1);
-						pane.refresh();
-					});
-				pane.addSeparator();
-				pane.addMonitor(PARAMS, 'count', {
-					interval: 0,
-				});
-			},
-
-			separator: (container) => {
-				const pane = new Tweakpane({
-					container: container,
-				});
-				pane.addButton({
-					title: 'Previous',
-				});
-				pane.addButton({
-					title: 'Next',
-				});
-				pane.addSeparator();
-				pane.addButton({
-					title: 'Reset',
-				});
-			},
-
 			event: (container) => {
 				const PARAMS = {
 					log: '',

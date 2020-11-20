@@ -31,11 +31,11 @@ value changes. It's originally inspired by the popular library [dat.GUI][].
   - Number (text / graph)
   - String (text)
   - Boolean (text)
-- [UI components](https://cocopon.github.io/tweakpane/misc.html)
+- [UI components](https://cocopon.github.io/tweakpane/ui-components.html)
   - Folder
   - Button
   - Separator
-- Misc
+- [Misc](https://cocopon.github.io/tweakpane/misc.html)
   - JSON import / export
   - TypeScript type definitions
 
