@@ -32,6 +32,20 @@ describe(RootApi.name, () => {
 			},
 			value: 'foobar',
 		},
+		{
+			expectedClass: TextInputController,
+			params: {
+				input: 'string',
+			},
+			value: '#112233',
+		},
+		{
+			expectedClass: TextInputController,
+			params: {
+				input: 'string',
+			},
+			value: 'rgb(0, 100, 200)',
+		},
 	].forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should return class ${testCase.expectedClass.name}`, () => {

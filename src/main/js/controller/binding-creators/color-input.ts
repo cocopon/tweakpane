@@ -23,6 +23,9 @@ export function createWithString(
 	if (typeof initialValue !== 'string') {
 		return null;
 	}
+	if ('input' in params && params.input === 'string') {
+		return null;
+	}
 	const notation = StringColorParser.getNotation(initialValue);
 	if (!notation) {
 		return null;
