@@ -246,6 +246,26 @@ pane.addInput(PARAMS, 'tint', {
 	</div>
 </div>
 
+<p>Or, if you want to force a color-like string to be a string input, pass <code>input: 'string'</code> option.</p>
+
+<div class="common-main_mediaLayout">
+	<div class="common-demo">
+		<div class="common-demo_codeLayout">
+			<div class="common-codeBlock"><pre><code class="js">const PARAMS = {
+  hex: '#0088ff',
+};
+
+const pane = new Tweakpane();
+pane.addInput(PARAMS, 'hex', {
+  <strong>input: 'string'</strong>,
+});</code></pre></div>
+		</div>
+		<div class="common-demo_resultLayout">
+			<div class="common-paneContainer common-paneContainer-inputString"></div>
+		</div>
+	</div>
+</div>
+
 
 <h2 id="point2d">Point 2D</h2>
 <p>For object parameters that have number properties <code>x</code> and <code>y</code>, text fields with a X-Y pad will be provided.</p>
