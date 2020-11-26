@@ -201,6 +201,17 @@ export const InputRoute = {
 					input: 'color.rgba',
 				});
 			},
+			inputString: (container) => {
+				const PARAMS = {
+					hex: '#0088ff',
+				};
+				const pane = new Tweakpane({
+					container: container,
+				});
+				pane.addInput(PARAMS, 'hex', {
+					input: 'string',
+				});
+			},
 			point2d: (container) => {
 				const PARAMS = {value: {x: 50, y: 25}};
 				const pane = new Tweakpane({

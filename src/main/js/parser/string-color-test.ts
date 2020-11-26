@@ -25,14 +25,6 @@ describe('StringColorParser', () => {
 			expected: {r: 0xdd, g: 0xee, b: 0xff, a: 1},
 			inputs: ['#def', '#deff', 'rgb(221, 238, 100%)'],
 		},
-		{
-			expected: {r: 0x44, g: 0x55, b: 0x66, a: 1},
-			inputs: ['456'],
-		},
-		{
-			expected: {r: 0x99, g: 0xaa, b: 0xbb, a: 1},
-			inputs: ['99aabb'],
-		},
 	].forEach((testCase) => {
 		testCase.inputs.forEach((input) => {
 			context(`when ${JSON.stringify(input)}`, () => {
@@ -48,6 +40,8 @@ describe('StringColorParser', () => {
 	});
 
 	[
+		'601',
+		'112233',
 		'foobar',
 		'#eeffgg',
 		'hsl(55, ..66, 78)',

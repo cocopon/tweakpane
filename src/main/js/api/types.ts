@@ -50,7 +50,10 @@ interface Point2dInputParams extends BaseInputParams {
 	y?: Point2dYParams;
 }
 
+type StringInputType = 'string';
+
 interface StringInputParams extends BaseInputParams {
+	input?: StringInputType;
 	options?: InputParamsOption<unknown>[] | InputParamsOptionDictionary<unknown>;
 }
 

@@ -135,7 +135,7 @@ const NOTATION_TO_PARSER_MAP: {
 	},
 
 	'hex.rgb': (text) => {
-		const mRrggbb = text.match(/^#?([0-9A-Fa-f])([0-9A-Fa-f])([0-9A-Fa-f])$/);
+		const mRrggbb = text.match(/^#([0-9A-Fa-f])([0-9A-Fa-f])([0-9A-Fa-f])$/);
 		if (mRrggbb) {
 			return new Color(
 				[
@@ -148,7 +148,7 @@ const NOTATION_TO_PARSER_MAP: {
 		}
 
 		const mRgb = text.match(
-			/^#?([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})$/,
+			/^#([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})$/,
 		);
 		if (mRgb) {
 			return new Color(
