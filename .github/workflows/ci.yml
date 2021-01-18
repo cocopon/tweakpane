@@ -5,7 +5,7 @@ on:
       - 'wip-*'
   pull_request:
     branches:
-      - master
+      - main
   release:
     types: [published]
 jobs:
