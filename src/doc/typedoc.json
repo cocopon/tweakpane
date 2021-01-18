@@ -1,0 +1,20 @@
+{
+	"exclude": [
+		"**/src/main/js/binding/**/*.ts",
+		"**/src/main/js/constraint/**/*.ts",
+		"**/src/main/js/controller/**/*.ts",
+		"**/src/main/js/converter/**/*.ts",
+		"**/src/main/js/formatter/**/*.ts",
+		"**/src/main/js/misc/**/*.ts",
+		"**/src/main/js/model/**/*.ts",
+		"**/src/main/js/parser/**/*.ts",
+		"**/src/main/js/view/**/*.ts",
+		"**/src/main/js/index.ts",
+		"**/src/main/js/tweakpane-without-style.ts",
+		"**/src/main/js/**/*.d.ts",
+		"**/src/main/js/**/*-test.ts"
+	],
+	"tsconfig": "src/main/tsconfig.json",
+	"out": "docs/api",
+	"readme": "none"
+}
