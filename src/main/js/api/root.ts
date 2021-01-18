@@ -39,7 +39,7 @@ interface RootApiEventHandlers {
  * new Tweakpane(options: TweakpaneConfig): RootApi
  * ```
  *
- * See [[TweakpaneConfig]] interface for available options.
+ * See [[`TweakpaneConfig`]] interface for available options.
  */
 export class RootApi implements ComponentApi {
 	/**
