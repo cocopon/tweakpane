@@ -192,22 +192,22 @@ describe('ColorConverter', () => {
 		{
 			input: new Color([0, 0, 0], 'hsl'),
 			expected: {
-				hsl: 'hsl(0, 0, 0)',
-				hsla: 'hsla(0, 0, 0, 1.00)',
+				hsl: 'hsl(0, 0%, 0%)',
+				hsla: 'hsla(0, 0%, 0%, 1.00)',
 			},
 		},
 		{
 			input: new Color([0, 127, 255], 'hsl'),
 			expected: {
-				hsl: 'hsl(0, 100, 100)',
-				hsla: 'hsla(0, 100, 100, 1.00)',
+				hsl: 'hsl(0, 100%, 100%)',
+				hsla: 'hsla(0, 100%, 100%, 1.00)',
 			},
 		},
 		{
 			input: new Color([255, 11, 22], 'hsl'),
 			expected: {
-				hsl: 'hsl(255, 11, 22)',
-				hsla: 'hsla(255, 11, 22, 1.00)',
+				hsl: 'hsl(255, 11%, 22%)',
+				hsla: 'hsla(255, 11%, 22%, 1.00)',
 			},
 		},
 	].forEach((testCase) => {

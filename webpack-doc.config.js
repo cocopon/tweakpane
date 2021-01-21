@@ -12,17 +12,20 @@ module.exports = (_env) => {
 			filename: 'bundle.js',
 		},
 		module: {
-		rules: [
-			{
-				test: /\.ts$/,
-				include: [Path.resolve(__dirname, 'src/doc/js/')],
-				exclude: /node_modules/,
-				loader: 'awesome-typescript-loader',
-				options: {
-					configFileName: 'src/doc/tsconfig.json',
+			rules: [
+				{
+					test: /\.ts$/,
+					include: [
+						Path.resolve(__dirname, 'src/doc/js/'),
+						Path.resolve(__dirname, 'src/main/js/'),
+					],
+					exclude: /node_modules/,
+					loader: 'awesome-typescript-loader',
+					options: {
+						configFileName: 'src/doc/tsconfig.json',
+					},
 				},
-			},
-		],
+			],
 		},
 		resolve: {
 			extensions: ['.js', '.ts'],

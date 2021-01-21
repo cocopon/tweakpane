@@ -1,4 +1,5 @@
 import {NumberFormatter} from '../formatter/number';
+import {PercentageFormatter} from '../formatter/percentage';
 import * as ColorModel from '../misc/color-model';
 import {NumberUtil} from '../misc/number-util';
 import {Color} from '../model/color';
@@ -113,10 +114,14 @@ export function toFunctionalRgbaString(value: Color): string {
  * @hidden
  */
 export function toFunctionalHslString(value: Color): string {
-	const formatter = new NumberFormatter(0);
+	const formatters = [
+		new NumberFormatter(0),
+		new PercentageFormatter(),
+		new PercentageFormatter(),
+	];
 	const comps = ColorModel.withoutAlpha(
 		value.getComponents('hsl'),
-	).map((comp) => formatter.format(comp));
+	).map((comp, index) => formatters[index].format(comp));
 	return `hsl(${comps.join(', ')})`;
 }
 
@@ -124,12 +129,15 @@ export function toFunctionalHslString(value: Color): string {
  * @hidden
  */
 export function toFunctionalHslaString(value: Color): string {
-	const aFormatter = new NumberFormatter(2);
-	const hslFormatter = new NumberFormatter(0);
-	const comps = value.getComponents('hsl').map((comp, index) => {
-		const formatter = index === 3 ? aFormatter : hslFormatter;
-		return formatter.format(comp);
-	});
+	const formatters = [
+		new NumberFormatter(0),
+		new PercentageFormatter(),
+		new PercentageFormatter(),
+		new NumberFormatter(2),
+	];
+	const comps = value
+		.getComponents('hsl')
+		.map((comp, index) => formatters[index].format(comp));
 	return `hsla(${comps.join(', ')})`;
 }
 
