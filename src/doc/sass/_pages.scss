@@ -14,3 +14,17 @@
 		display: none;
 	}
 }
+
+:root.theming {
+	.common-pageHeader {
+		background: url(https://source.unsplash.com/u27Rrbs9Dwc/1600x900) no-repeat
+			center;
+		background-size: cover;
+	}
+	.common-pageHeader_titleLayout {
+		h1,
+		p {
+			color: rgba(white, 0.8);
+		}
+	}
+}

@@ -108,43 +108,76 @@ $prefix: 'common';
 	}
 }
 
-.#{$prefix}-themes {
-	background-color: var(--themes-background-color);
+.#{$prefix}-paint {
+	background-color: $demo-result-bg-color;
 	border-radius: 6px;
 	overflow: hidden;
-	position: relative;
 
-	&_mask {
-		bottom: 0;
-		position: absolute;
-		top: 0;
-		width: 16px;
-		z-index: $z-index-themes-mask;
-
-		&#{&}-start {
-			background-color: var(--themes-background-color);
-			box-shadow: 0 0 16px 16px var(--themes-background-color);
-			left: -16px;
-		}
-		&#{&}-end {
-			background-color: var(--themes-background-color);
-			box-shadow: 0 0 16px 16px var(--themes-background-color);
-			right: -16px;
+	&_gui {
+		@include wide() {
+			display: flex;
 		}
 	}
+	&_controller {
+		background-color: $pane-bg-color;
 
-	&_themesLayout {
-		font-size: 0;
-		overflow-x: scroll;
+		@include nonwide() {
+			.common-paneContainer {
+				width: 100%;
+			}
+		}
+
+		.tp-rotv {
+			border-top-right-radius: 0;
+			box-shadow: 0 0 0 transparent;
+		}
+	}
+	&_preview {
+		align-items: center;
+		display: flex;
+		flex: 1;
+		justify-content: center;
+		overflow: hidden;
 		padding: 32px;
-		white-space: nowrap;
-	}
-	&_themeLayout {
-		display: inline-block;
-		vertical-align: top;
+		position: relative;
 
-		& + & {
-			margin-left: 16px;
+		.tp-rotv {
+			position: relative;
 		}
+		.tp-cswtxtiv {
+			height: 20px + 168px !important;
+		}
+		.tp-p2dpadtxtiv {
+			height: 20px + 144px !important;
+		}
+		.tp-clpiv,
+		.tp-p2dpadiv {
+			display: block !important;
+			visibility: visible !important;
+		}
+	}
+	&_bgImage {
+		background-color: black;
+		background: url(https://source.unsplash.com/74ft3aciAY0/900x1600) no-repeat
+			center;
+		background-size: cover;
+		bottom: -16px;
+		left: -16px;
+		position: absolute;
+		right: -16px;
+		top: -16px;
+	}
+}
+
+.#{$prefix}-photoCredit {
+	bottom: 8px;
+	color: rgba(white, 0.5);
+	font-size: 0.6rem;
+	mix-blend-mode: exclusion;
+	position: absolute;
+	right: 8px;
+
+	a {
+		color: currentColor;
 	}
 }

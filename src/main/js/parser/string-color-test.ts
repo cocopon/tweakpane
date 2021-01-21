@@ -124,6 +124,13 @@ describe('StringColorParser', () => {
 			},
 			input: 'hsla(0.25turn, 0, 0, 1)',
 		},
+		{
+			expected: {
+				components: [0, 0, 0, 0.5],
+				mode: 'hsl',
+			},
+			input: 'hsla(0, 0%, 0%, 0.5)',
+		},
 	].forEach(
 		({
 			expected,
