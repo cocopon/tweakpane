@@ -1,17 +1,19 @@
 :root.index {
+	.common-pageHeader_innerLayout {
+		@include wide() {
+			padding-bottom: 128px;
+			padding-top: 128px;
+		}
+	}
 	.common-pageHeader_titleLayout p {
 		@include nonwide() {
 			hyphens: auto;
 		}
 	}
-	.common-main_globalHeaderLayout {
-		display: none;
-	}
-	.common-main_mainLayout {
-		top: 0;
-	}
-	.common-main_asideLayout {
-		display: none;
+	.common-pageHeader_titleLayout p {
+		@include nonwide() {
+			hyphens: auto;
+		}
 	}
 }
 

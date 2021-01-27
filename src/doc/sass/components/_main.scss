@@ -25,9 +25,6 @@ $prefix: 'common';
 			top: $global-header-height;
 		}
 	}
-	&#{&}-index &_mainLayout {
-		left: 0;
-	}
 	&_pageHeaderLayout,
 	&_innerLayout {
 		@include document();
