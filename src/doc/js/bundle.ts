@@ -3,6 +3,7 @@ import {IndexRoute} from './route/index';
 import {InputRoute} from './route/input';
 import {MiscRoute} from './route/misc';
 import {MonitorRoute} from './route/monitor';
+import {QuickTourRoute} from './route/quick-tour';
 import {ThemingRoute} from './route/theming';
 import {UiComponentsRoute} from './route/ui-components';
 import {Screw} from './screw';
@@ -41,6 +42,7 @@ function setUpSpMenu() {
 	router.add(MiscRoute);
 	router.add(MonitorRoute);
 	router.add(ThemingRoute);
+	router.add(QuickTourRoute);
 	router.add(UiComponentsRoute);
 	router.route(location.pathname);
 

@@ -9,28 +9,15 @@ export const GettingStartedRoute = {
 		const markerToFnMap: {
 			[key: string]: (container: HTMLElement | null) => void;
 		} = {
-			first: (container) => {
-				const PARAMS = {speed: 0.5};
-				const pane = new Tweakpane({
+			hello: (container) => {
+				new Tweakpane({
 					container: container,
 				});
-
-				const updatePreset = () => {
-					const elem = document.querySelector('*[data-first]');
-					if (elem) {
-						const preset = pane.exportPreset();
-						elem.textContent =
-							'PARAMS = ' + JSON.stringify(preset, null, 2) + ';';
-					}
-				};
-
-				pane.addInput(PARAMS, 'speed').on('change', updatePreset);
-				updatePreset();
 			},
 		};
 		Object.keys(markerToFnMap).forEach((marker) => {
 			const initFn = markerToFnMap[marker];
-			const container = Util.selectContainer(marker);
+			const container = Util.selectContainer2(marker);
 			initFn(container);
 		});
 	},
