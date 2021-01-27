@@ -19,16 +19,11 @@ export const MonitorRoute = {
 		setInterval(updateTime, 1000);
 		updateTime();
 
-		let wavep = 0;
+		let wavet = 0;
 		setInterval(() => {
-			SHARED_PARAMS.wave =
-				((3 * 4) / Math.PI) *
-				(Math.sin(wavep * 1 * Math.PI) +
-					Math.sin(wavep * 3 * Math.PI) / 3 +
-					Math.sin(wavep * 5 * Math.PI) / 5) *
-				0.25;
+			SHARED_PARAMS.wave = Util.wave(wavet);
 			SHARED_PARAMS.positive = SHARED_PARAMS.wave >= 0;
-			wavep += 0.02;
+			wavet += 1;
 		}, 50);
 
 		const markerToFnMap: {

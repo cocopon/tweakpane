@@ -1,4 +1,4 @@
-{% set pageId = 'gettingstarted' %}
+{% set pageId = 'gettingStarted' %}
 {% extends "_template.html" %}
 
 
@@ -8,6 +8,7 @@
 	<div class="common-pageHeader_innerLayout">
 		<div class="common-pageHeader_titleLayout">
 			<h1 class="common-pageHeader_title">Getting started</h1>
+			<p>Setting up Tweakpane in only 2 steps.</p>
 		</div>
 	</div>
 </div>
@@ -60,38 +61,38 @@
 <p>Create an instance of Tweakpane by <code>new Tweakpane()</code>.</p>
 
 <div class="common-main_mediaLayout">
-	<div class="common-codeBlock">
-		<pre><code class="js">const pane = new Tweakpane();</code></pre>
-		<div class="common-codeBlock_title">
-			.js
-		</div>
-	</div>
-</div>
-
-
-<h2>3. Ready to go!</h2>
-<p>Create a parameter object, pass itself and its key to fine-tune/monitor values.</p>
-
-<div class="common-main_mediaLayout">
 	<div class="common-demo">
 		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">// Parameter object
-const PARAMS = {
-  speed: 0.5,
-};
-
-// Pass the object and its key to pane
-const pane = new Tweakpane();
-pane.addInput(<strong>PARAMS</strong>, <strong>'speed'</strong>);</code></pre></div>
-		</div>
-		<div class="common-demo_resultLayout common-demo_resultLayout-withJson">
-			<div class="common-paneContainer common-paneContainer-first"></div>
-			<div class="common-demo_resultJsonLayout">
-				<pre class="common-demo_resultJson" data-first></pre>
+			<div class="common-codeBlock">
+				<pre><code class="js">const pane = new Tweakpane();</code></pre>
 			</div>
+		</div>
+		<div class="common-demo_resultLayout">
+			<div class="common-paneContainer" data-pane-hello></div>
 		</div>
 	</div>
 </div>
 
-<p>You can add various components to pane. <a href="input.html">Inputs</a> for fine-tuning parameters, <a href="monitor.html">Monitors</a> for checking values, and <a href="ui-components.html">more</a>!</p>
+<p>All set! Now you can add various components to the pane. <a href="input.html">Inputs</a> for fine-tuning parameters, <a href="monitor.html">Monitors</a> for checking values, and <a href="ui-components.html">more</a>.</p>
+
+<h2>What's next</h2>
+<div class="common-rel">
+	<div class="common-relItem">
+		<a class="common-relItem_anchor" href="quick-tour.html">
+			<div class="common-relItem_title">
+				Quick tour
+			</div>
+			<div class="common-relItem_detail">
+				learn the basics of Tweakpane
+			</div>
+		</a>
+	</div>
+	<div class="common-relItem">
+		<a class="common-relItem_anchor" href="api/classes/api_root.rootapi.html" target="_blank">
+			<div class="common-relItem_title">
+				API reference<span class="fas fa-external-link-square-alt"></span>
+			</div>
+		</a>
+	</div>
+</div>
 {% endblock %}
