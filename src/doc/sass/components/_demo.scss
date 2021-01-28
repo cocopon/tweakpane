@@ -24,29 +24,5 @@
 			border-bottom-left-radius: 6px;
 			border-bottom-right-radius: 6px;
 		}
-
-		&#{&}-withJson {
-			& > * + * {
-				margin-top: 16px;
-			}
-		}
-	}
-	&_resultJsonLayout {
-		box-sizing: border-box;
-		padding-left: 8px;
-		padding-right: 8px;
-
-		@include wide() {
-			display: inline-block;
-			min-width: 256px;
-			vertical-align: middle;
-		}
-	}
-	&_resultJson {
-		display: inline-block;
-		font-size: 0.8rem;
-		opacity: 0.7;
-		overflow: hidden;
-		text-align: left;
 	}
 }

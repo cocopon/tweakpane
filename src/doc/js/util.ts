@@ -1,5 +1,11 @@
-export function selectContainer(marker: string): HTMLElement | null {
-	return document.querySelector(`*[data-pane-${marker}]`);
+export function selectContainer(marker: string, console = false): HTMLElement {
+	const postfix = marker + (console ? 'console' : '');
+	const selector = `*[data-pane-${postfix}]`;
+	const elem = document.querySelector(selector);
+	if (!elem) {
+		throw new Error(`container not found: ${selector}`);
+	}
+	return elem as HTMLElement;
 }
 
 export function wave(t: number): number {

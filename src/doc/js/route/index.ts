@@ -67,7 +67,7 @@ export const IndexRoute = {
 		const sketch = new Sketch(sketchElem, ENV);
 
 		const markerToFnMap: {
-			[key: string]: (container: HTMLElement | null) => void;
+			[key: string]: (container: HTMLElement) => void;
 		} = {
 			index: (container) => {
 				const pane = new Tweakpane({

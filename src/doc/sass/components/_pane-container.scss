@@ -32,5 +32,12 @@
 		--tp-monitor-foreground-color: hsla(0, 0%, 0%, 0.3);
 		--tp-label-foreground-color: hsla(0, 0%, 0%, 0.3);
 		--tp-separator-color: hsla(0, 0%, 0%, 0.1);
+
+		.tp-rotv {
+			border: rgba(black, 0.1) dashed 1px;
+		}
+		.tp-mllmv_i {
+			height: 100px;
+		}
 	}
 }

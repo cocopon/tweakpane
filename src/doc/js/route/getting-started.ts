@@ -7,7 +7,7 @@ export const GettingStartedRoute = {
 
 	init: () => {
 		const markerToFnMap: {
-			[key: string]: (container: HTMLElement | null) => void;
+			[key: string]: (container: HTMLElement) => void;
 		} = {
 			hello: (container) => {
 				new Tweakpane({

@@ -7,7 +7,7 @@ export const UiComponentsRoute = {
 
 	init: () => {
 		const markerToFnMap: {
-			[key: string]: (container: HTMLElement | null) => void;
+			[key: string]: (container: HTMLElement) => void;
 		} = {
 			header: (container) => {
 				const pane = new Tweakpane({

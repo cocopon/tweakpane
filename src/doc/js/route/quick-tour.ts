@@ -7,7 +7,7 @@ export const QuickTourRoute = {
 
 	init: () => {
 		const markerToFnMap: {
-			[key: string]: (container: HTMLElement | null) => void;
+			[key: string]: (container: HTMLElement) => void;
 		} = {
 			inputs: (container) => {
 				const PARAMS = {

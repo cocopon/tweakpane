@@ -106,7 +106,7 @@ export const ThemingRoute = {
 		createPreviewPane(previewElem);
 
 		const markerToFnMap: {
-			[key: string]: (container: HTMLElement | null) => void;
+			[key: string]: (container: HTMLElement) => void;
 		} = {
 			header: (container) => {
 				if (container) {

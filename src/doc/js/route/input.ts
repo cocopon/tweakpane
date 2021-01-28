@@ -8,7 +8,7 @@ export const InputRoute = {
 
 	init: () => {
 		const markerToFnMap: {
-			[key: string]: (container: HTMLElement | null) => void;
+			[key: string]: (container: HTMLElement) => void;
 		} = {
 			input: (container) => {
 				const PARAMS = {
@@ -111,22 +111,43 @@ export const InputRoute = {
 				});
 			},
 			numberlist: (container) => {
-				const PARAMS = {value: 50};
+				const PARAMS = {
+					quality: 0,
+				};
+
+				const consoleElem = Util.selectContainer('numberlist', true);
+				const log = {
+					json: '',
+				};
+				const consolePane = new Tweakpane({
+					container: consoleElem,
+				});
+				consolePane.addMonitor(log, 'json', {
+					interval: 0,
+					label: 'PARAMS',
+					multiline: true,
+				});
+
+				const updateLog = () => {
+					log.json = JSON.stringify(PARAMS, undefined, 2);
+					consolePane.refresh();
+				};
+
 				const pane = new Tweakpane({
 					container: container,
 				});
-				pane.addInput(PARAMS, 'value', {
-					label: 'quality',
-					options: {
-						low: 0,
-						medium: 50,
-						high: 100,
-					},
-				});
-				pane.addSeparator();
-				pane.addMonitor(PARAMS, 'value', {
-					label: '(actual)',
-				});
+				pane
+					.addInput(PARAMS, 'quality', {
+						options: {
+							low: 0,
+							medium: 50,
+							high: 100,
+						},
+					})
+					.on('change', () => {
+						updateLog();
+					});
+				updateLog();
 			},
 			stringtext: (container) => {
 				const PARAMS = {value: 'hello, world'};
@@ -139,21 +160,41 @@ export const InputRoute = {
 			},
 			stringlist: (container) => {
 				const PARAMS = {value: ''};
+
+				const consoleElem = Util.selectContainer('stringlist', true);
+				const log = {
+					json: '',
+				};
+				const consolePane = new Tweakpane({
+					container: consoleElem,
+				});
+				consolePane.addMonitor(log, 'json', {
+					interval: 0,
+					label: 'PARAMS',
+					multiline: true,
+				});
+
+				const updateLog = () => {
+					log.json = JSON.stringify(PARAMS, undefined, 2);
+					consolePane.refresh();
+				};
+
 				const pane = new Tweakpane({
 					container: container,
 				});
-				pane.addInput(PARAMS, 'value', {
-					label: 'theme',
-					options: {
-						none: '',
-						dark: 'path/to/dark.json',
-						light: 'path/to/Light.json',
-					},
-				});
-				pane.addSeparator();
-				pane.addMonitor(PARAMS, 'value', {
-					label: '(actual)',
-				});
+				pane
+					.addInput(PARAMS, 'value', {
+						label: 'theme',
+						options: {
+							none: '',
+							dark: 'path/to/dark.json',
+							light: 'path/to/Light.json',
+						},
+					})
+					.on('change', () => {
+						updateLog();
+					});
+				updateLog();
 			},
 			checkbox: (container) => {
 				const PARAMS = {value: true};
