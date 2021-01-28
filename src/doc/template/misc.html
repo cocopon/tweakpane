@@ -10,7 +10,7 @@
 			<p>Event handling, importing/exporting a preset, and some tips.</p>
 		</div>
 		<div class="pageHeader_paneLayout">
-			<div class="paneContainer paneContainer-misc"></div>
+			<div class="paneContainer" data-pane-misc></div>
 		</div>
 	</div>
 </div>
@@ -31,7 +31,7 @@ pane.addInput(PARAMS, 'value')
   });</code></pre></div>
 		</div>
 		<div class="demo_resultLayout">
-			<div class="paneContainer paneContainer-event"></div>
+			<div class="paneContainer" data-pane-event></div>
 		</div>
 	</div>
 </div>
@@ -53,7 +53,7 @@ pane.<strong>on</strong>('change', (value) =&gt; {
 </code></pre></div>
 		</div>
 		<div class="demo_resultLayout">
-			<div class="paneContainer paneContainer-globalEvent"></div>
+			<div class="paneContainer" data-pane-globalevent></div>
 		</div>
 	</div>
 </div>
@@ -74,7 +74,7 @@ console.log(preset);
 </code></pre></div>
 		</div>
 		<div class="demo_resultLayout">
-			<div class="paneContainer paneContainer-export"></div>
+			<div class="paneContainer" data-pane-export></div>
 			<div class="demo_resultJsonLayout">
 				<pre class="demo_resultJson" data-imex></pre>
 			</div>
@@ -97,7 +97,7 @@ pane.<strong>importPreset</strong>(preset);
 		<div class="demo_resultLayout">
 			<pre class="demo_resultJson" data-imex></pre>
 			<div class="demo_resultJsonLayout">
-				<div class="paneContainer paneContainer-import"></div>
+				<div class="paneContainer" data-pane-import></div>
 			</div>
 		</div>
 	</div>
@@ -116,7 +116,7 @@ pane.addInput(PARAMS2, 'speed', {
 </code></pre></div>
 		</div>
 		<div class="demo_resultLayout">
-			<div class="paneContainer paneContainer-presetKey"></div>
+			<div class="paneContainer" data-pane-presetkey></div>
 			<div class="demo_resultJsonLayout">
 				<pre class="demo_resultJson" data-presetKey></pre>
 			</div>
@@ -140,7 +140,7 @@ pane.addInput(PARAMS2, 'speed', {
 </code></pre></div>
 		</div>
 		<div class="demo_resultLayout">
-			<div class="paneContainer paneContainer-rootTitle"></div>
+			<div class="paneContainer" data-pane-roottitle></div>
 		</div>
 	</div>
 </div>
@@ -177,7 +177,7 @@ pane.addInput(PARAMS, 'size', {
 </code></pre></div>
 		</div>
 		<div class="demo_resultLayout">
-			<div class="paneContainer paneContainer-label"></div>
+			<div class="paneContainer" data-pane-label></div>
 		</div>
 	</div>
 </div>
@@ -219,7 +219,7 @@ pane.addButton({title: 'Toggle'})
 </code></pre></div>
 		</div>
 		<div class="demo_resultLayout">
-			<div class="paneContainer paneContainer-hidden"></div>
+			<div class="paneContainer" data-pane-hidden></div>
 		</div>
 	</div>
 </div>
@@ -245,7 +245,7 @@ pane.addButton({
 </code></pre></div>
 		</div>
 		<div class="demo_resultLayout">
-			<div class="paneContainer paneContainer-insert"></div>
+			<div class="paneContainer" data-pane-insert></div>
 		</div>
 	</div>
 </div>

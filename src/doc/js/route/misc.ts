@@ -70,7 +70,7 @@ export const MiscRoute = {
 				});
 			},
 
-			globalEvent: (container) => {
+			globalevent: (container) => {
 				const PARAMS = {
 					boolean: true,
 					color: '#0080ff',
@@ -154,7 +154,7 @@ export const MiscRoute = {
 				pane.addInput(PARAMS, 'color');
 			},
 
-			presetKey: (container) => {
+			presetkey: (container) => {
 				const PARAMS = {
 					foo: {speed: 1 / 3},
 					bar: {speed: 2 / 3},
@@ -189,7 +189,7 @@ export const MiscRoute = {
 				updatePreset();
 			},
 
-			rootTitle: (container) => {
+			roottitle: (container) => {
 				const PARAMS = {
 					bounce: 0.5,
 					gravity: 0.01,

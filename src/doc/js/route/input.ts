@@ -72,7 +72,7 @@ export const InputRoute = {
 					label: 'picker',
 				});
 			},
-			numberText: (container) => {
+			numbertext: (container) => {
 				const PARAMS = {value: 50};
 				const pane = new Tweakpane({
 					container: container,
@@ -110,7 +110,7 @@ export const InputRoute = {
 					step: 10,
 				});
 			},
-			numberList: (container) => {
+			numberlist: (container) => {
 				const PARAMS = {value: 50};
 				const pane = new Tweakpane({
 					container: container,
@@ -128,7 +128,7 @@ export const InputRoute = {
 					label: '(actual)',
 				});
 			},
-			stringText: (container) => {
+			stringtext: (container) => {
 				const PARAMS = {value: 'hello, world'};
 				const pane = new Tweakpane({
 					container: container,
@@ -137,7 +137,7 @@ export const InputRoute = {
 					label: 'message',
 				});
 			},
-			stringList: (container) => {
+			stringlist: (container) => {
 				const PARAMS = {value: ''};
 				const pane = new Tweakpane({
 					container: container,
@@ -164,7 +164,7 @@ export const InputRoute = {
 					label: 'hidden',
 				});
 			},
-			objectColor: (container) => {
+			objectcolor: (container) => {
 				const PARAMS = {
 					background: {r: 255, g: 127, b: 0},
 					tint: {r: 255, g: 255, b: 0, a: 0.5},
@@ -175,7 +175,7 @@ export const InputRoute = {
 				pane.addInput(PARAMS, 'background');
 				pane.addInput(PARAMS, 'tint');
 			},
-			stringColor: (container) => {
+			stringcolor: (container) => {
 				const PARAMS = {
 					primary: '#8df',
 					secondary: 'rgb(255, 136, 221)',
@@ -186,7 +186,7 @@ export const InputRoute = {
 				pane.addInput(PARAMS, 'primary');
 				pane.addInput(PARAMS, 'secondary');
 			},
-			numberColor: (container) => {
+			numbercolor: (container) => {
 				const PARAMS = {
 					background: 0x0088ff,
 					tint: 0x00ff0044,
@@ -201,7 +201,7 @@ export const InputRoute = {
 					input: 'color.rgba',
 				});
 			},
-			inputString: (container) => {
+			inputstring: (container) => {
 				const PARAMS = {
 					hex: '#0088ff',
 				};
@@ -221,7 +221,7 @@ export const InputRoute = {
 					label: 'offset',
 				});
 			},
-			point2dParams: (container) => {
+			point2dparams: (container) => {
 				const PARAMS = {value: {x: 20, y: 30}};
 				const pane = new Tweakpane({
 					container: container,
@@ -232,7 +232,7 @@ export const InputRoute = {
 					y: {min: 0, max: 100},
 				});
 			},
-			point2dInvertedY: (container) => {
+			point2dinvertedy: (container) => {
 				const PARAMS = {value: {x: 50, y: 50}};
 				const pane = new Tweakpane({
 					container: container,

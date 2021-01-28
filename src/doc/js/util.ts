@@ -1,8 +1,4 @@
 export function selectContainer(marker: string): HTMLElement | null {
-	return document.querySelector(`.paneContainer-${marker}`);
-}
-
-export function selectContainer2(marker: string): HTMLElement | null {
 	return document.querySelector(`*[data-pane-${marker}]`);
 }
 

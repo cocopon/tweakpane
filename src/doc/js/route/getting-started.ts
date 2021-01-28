@@ -17,7 +17,7 @@ export const GettingStartedRoute = {
 		};
 		Object.keys(markerToFnMap).forEach((marker) => {
 			const initFn = markerToFnMap[marker];
-			const container = Util.selectContainer2(marker);
+			const container = Util.selectContainer(marker);
 			initFn(container);
 		});
 	},
