@@ -33,6 +33,7 @@
 			display: flex;
 			justify-content: space-between;
 			padding: 64px;
+			max-width: 800px;
 		}
 		@include middle() {
 			max-width: 480px;

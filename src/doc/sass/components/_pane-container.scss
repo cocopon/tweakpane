@@ -1,9 +1,9 @@
 .paneContainer {
-	display: inline-block;
 	flex-grow: 0;
 	flex-shrink: 0;
-	min-width: 256px;
-	vertical-align: middle;
+	margin-left: auto;
+	margin-right: auto;
+	width: 256px;
 
 	& + & {
 		margin-top: 16px;
