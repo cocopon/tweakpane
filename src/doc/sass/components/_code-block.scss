@@ -1,0 +1,29 @@
+.codeBlock {
+	background-color: $code-block-bg-color;
+	border-radius: 6px;
+	position: relative;
+
+	pre {
+		overflow: auto;
+		padding: 32px;
+
+		@include nonwide() {
+			padding: 24px;
+		}
+
+		code {
+			font-size: 0.9rem;
+			font-weight: 500;
+		}
+	}
+	&_title {
+		background-color: $code-block-title-bg-color;
+		color: $code-block-title-fg-color;
+		font-size: 0.8rem;
+		font-weight: 500;
+		padding: 0.25em 0.5em;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+}
