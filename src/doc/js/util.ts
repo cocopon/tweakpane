@@ -1,5 +1,5 @@
 export function selectContainer(marker: string): HTMLElement | null {
-	return document.querySelector(`.common-paneContainer-${marker}`);
+	return document.querySelector(`.paneContainer-${marker}`);
 }
 
 export function selectContainer2(marker: string): HTMLElement | null {

@@ -3,14 +3,14 @@
 
 
 {% block pageHeader %}
-<div class="common-pageHeader">
-	<div class="common-pageHeader_innerLayout">
-		<div class="common-pageHeader_titleLayout">
-			<h1 class="common-pageHeader_title">Misc</h1>
+<div class="pageHeader">
+	<div class="pageHeader_innerLayout">
+		<div class="pageHeader_titleLayout">
+			<h1 class="pageHeader_title">Misc</h1>
 			<p>Event handling, importing/exporting a preset, and some tips.</p>
 		</div>
-		<div class="common-pageHeader_paneLayout">
-			<div class="common-paneContainer common-paneContainer-misc"></div>
+		<div class="pageHeader_paneLayout">
+			<div class="paneContainer paneContainer-misc"></div>
 		</div>
 	</div>
 </div>
@@ -21,27 +21,27 @@
 <h2 id="events">Events</h2>
 <p>Use <code>on()</code> of specific components to listen its changes. Input components will emit <code>change</code> events. The first argument of the event handler is the input value.</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
 pane.addInput(PARAMS, 'value')
   .<strong>on</strong>('change', (value) =&gt; {
     console.log(value.toFixed(2));
   });</code></pre></div>
 		</div>
-		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer common-paneContainer-event"></div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer paneContainer-event"></div>
 		</div>
 	</div>
 </div>
 
 <p>If you want to handle global events (for all of components), <code>on()</code> of the pane is for it.</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
 pane.addInput(PARAMS, 'boolean');
 pane.addInput(PARAMS, 'color');
 pane.addInput(PARAMS, 'number');
@@ -52,8 +52,8 @@ pane.<strong>on</strong>('change', (value) =&gt; {
 });
 </code></pre></div>
 		</div>
-		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer common-paneContainer-globalEvent"></div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer paneContainer-globalEvent"></div>
 		</div>
 	</div>
 </div>
@@ -62,10 +62,10 @@ pane.<strong>on</strong>('change', (value) =&gt; {
 <h2 id="imex">Import/Export</h2>
 <p>Tweakpane has a feature for importing/exporting the current state in JSON object. Use <code>exportPreset()</code> to export it.</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
 // pane.addInput(PARAMS, ...);
 // pane.addInput(PARAMS, ...);
 
@@ -73,10 +73,10 @@ const preset = pane.<strong>exportPreset</strong>();
 console.log(preset);
 </code></pre></div>
 		</div>
-		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer common-paneContainer-export"></div>
-			<div class="common-demo_resultJsonLayout">
-				<pre class="common-demo_resultJson" data-imex></pre>
+		<div class="demo_resultLayout">
+			<div class="paneContainer paneContainer-export"></div>
+			<div class="demo_resultJsonLayout">
+				<pre class="demo_resultJson" data-imex></pre>
 			</div>
 		</div>
 	</div>
@@ -84,20 +84,20 @@ console.log(preset);
 
 <p>To import an exported JSON object, pass it to <code>importPreset()</code>.</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
 // pane.addInput(PARAMS, ...);
 // pane.addInput(PARAMS, ...);
 
 pane.<strong>importPreset</strong>(preset);
 </code></pre></div>
 		</div>
-		<div class="common-demo_resultLayout">
-			<pre class="common-demo_resultJson" data-imex></pre>
-			<div class="common-demo_resultJsonLayout">
-				<div class="common-paneContainer common-paneContainer-import"></div>
+		<div class="demo_resultLayout">
+			<pre class="demo_resultJson" data-imex></pre>
+			<div class="demo_resultJsonLayout">
+				<div class="paneContainer paneContainer-import"></div>
 			</div>
 		</div>
 	</div>
@@ -105,20 +105,20 @@ pane.<strong>importPreset</strong>(preset);
 
 <p>If your pane contains parameters with the same name, specify <code>presetKey</code> to avoid the confliction.</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
 pane.addInput(PARAMS1, 'speed');
 pane.addInput(PARAMS2, 'speed', {
   <strong>presetKey</strong>: 'speed2',
 });
 </code></pre></div>
 		</div>
-		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer common-paneContainer-presetKey"></div>
-			<div class="common-demo_resultJsonLayout">
-				<pre class="common-demo_resultJson" data-presetKey></pre>
+		<div class="demo_resultLayout">
+			<div class="paneContainer paneContainer-presetKey"></div>
+			<div class="demo_resultJsonLayout">
+				<pre class="demo_resultJson" data-presetKey></pre>
 			</div>
 		</div>
 	</div>
@@ -131,16 +131,16 @@ pane.addInput(PARAMS2, 'speed', {
 <h3>Root title</h3>
 <p><code>title</code> option of the pane creates a pane title. It can expand/collapse overall components including folders.</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane({
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane({
   <strong>title</strong>: 'Parameters',
 });
 </code></pre></div>
 		</div>
-		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer common-paneContainer-rootTitle"></div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer paneContainer-rootTitle"></div>
 		</div>
 	</div>
 </div>
@@ -149,10 +149,10 @@ pane.addInput(PARAMS2, 'speed', {
 <h3>Custom container</h3>
 <p>If you want to put a pane into the specific element, pass it as <code>container</code> option of the pane.</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane({
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane({
   <strong>container</strong>: document.getElementById('someContainer'),
 });
 </code></pre></div>
@@ -164,10 +164,10 @@ pane.addInput(PARAMS2, 'speed', {
 <h3>Custom label</h3>
 <p>You can set a label of components by <code>label</code> option.</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
 pane.addInput(PARAMS, 'initSpd', {
   <strong>label</strong>: 'Initial speed',
 });
@@ -176,8 +176,8 @@ pane.addInput(PARAMS, 'size', {
 });
 </code></pre></div>
 		</div>
-		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer common-paneContainer-label"></div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer paneContainer-label"></div>
 		</div>
 	</div>
 </div>
@@ -186,10 +186,10 @@ pane.addInput(PARAMS, 'size', {
 <h3>Refresh manually</h3>
 <p>By default, Tweakpane doesn't detect changes of bound parameters. Use <code>refresh()</code> to force-update all input/monitor components.</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
 // pane.addInput(PARAMS, ...);
 // pane.addInput(PARAMS, ...);
 
@@ -203,10 +203,10 @@ pane.<strong>refresh</strong>();
 <h3>Component visibility</h3>
 <p>Toggle <code>hidden</code> property to show/hide components.</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
 const f = pane.addFolder({
   title: 'Advanced',
 });
@@ -218,8 +218,8 @@ pane.addButton({title: 'Toggle'})
   });
 </code></pre></div>
 		</div>
-		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer common-paneContainer-hidden"></div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer paneContainer-hidden"></div>
 		</div>
 	</div>
 </div>
@@ -232,10 +232,10 @@ pane.addButton({title: 'Toggle'})
 <h3>Adding input/monitor at a specific position</h3>
 <p>Use <code>index</code> option to specify an index.</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
 pane.addButton({title: 'Run'});
 pane.addButton({title: 'Stop'});
 pane.addButton({
@@ -244,8 +244,8 @@ pane.addButton({
 });
 </code></pre></div>
 		</div>
-		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer common-paneContainer-insert"></div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer paneContainer-insert"></div>
 		</div>
 	</div>
 </div>

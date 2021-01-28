@@ -1,6 +1,4 @@
-$prefix: 'common';
-
-.#{$prefix}-main {
+.main {
 	overflow: hidden;
 
 	&_globalHeaderLayout {
@@ -49,7 +47,7 @@ $prefix: 'common';
 	}
 }
 
-.#{$prefix}-paneContainer {
+.paneContainer {
 	display: inline-block;
 	flex-grow: 0;
 	flex-shrink: 0;
@@ -86,7 +84,7 @@ $prefix: 'common';
 	}
 }
 
-.#{$prefix}-codeBlock {
+.codeBlock {
 	background-color: $code-block-bg-color;
 	border-radius: 6px;
 	position: relative;
@@ -116,7 +114,7 @@ $prefix: 'common';
 	}
 }
 
-.#{$prefix}-support {
+.support {
 	background-color: $support-bg-color;
 	padding: 32px;
 
@@ -134,7 +132,7 @@ $prefix: 'common';
 	}
 }
 
-.#{$prefix}-paint {
+.paint {
 	background-color: $demo-result-bg-color;
 	border-radius: 6px;
 	overflow: hidden;
@@ -148,7 +146,7 @@ $prefix: 'common';
 		background-color: $pane-bg-color;
 
 		@include nonwide() {
-			.common-paneContainer {
+			.paneContainer {
 				width: 100%;
 			}
 		}
@@ -195,7 +193,7 @@ $prefix: 'common';
 	}
 }
 
-.#{$prefix}-photoCredit {
+.photoCredit {
 	bottom: 8px;
 	color: rgba(white, 0.5);
 	font-size: 0.6rem;

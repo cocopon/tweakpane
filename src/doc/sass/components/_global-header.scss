@@ -1,6 +1,4 @@
-$prefix: 'common';
-
-.#{$prefix}-globalHeader {
+.globalHeader {
 	background-color: $global-header-bg-color;
 	box-shadow: 0 2px 4px rgba(black, 0.05);
 	color: $global-header-fg-color;
@@ -31,7 +29,7 @@ $prefix: 'common';
 	}
 }
 
-.#{$prefix}-spMenuButton {
+.spMenuButton {
 	color: inherit;
 	height: $global-header-height;
 	line-height: $global-header-height;

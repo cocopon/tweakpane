@@ -3,14 +3,14 @@
 
 
 {% block pageHeader %}
-<div class="common-pageHeader">
-	<div class="common-pageHeader_innerLayout">
-		<div class="common-pageHeader_titleLayout">
-			<h1 class="common-pageHeader_title">UI components</h1>
+<div class="pageHeader">
+	<div class="pageHeader_innerLayout">
+		<div class="pageHeader_titleLayout">
+			<h1 class="pageHeader_title">UI components</h1>
 			<p>Tweakpane has useful components to organize the pane: folders, buttons, etc.</p>
 		</div>
-		<div class="common-pageHeader_paneLayout">
-			<div class="common-paneContainer common-paneContainer-header"></div>
+		<div class="pageHeader_paneLayout">
+			<div class="paneContainer paneContainer-header"></div>
 		</div>
 	</div>
 </div>
@@ -21,10 +21,10 @@
 <h2 id="folder">Folder</h2>
 <p>Use <code>addFolder()</code> to add folders. You can add all types of components to the returned folder just like adding them to the pane.</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
 
 const f1 = pane.<strong>addFolder</strong>({
   title: 'Basic',
@@ -38,8 +38,8 @@ const f2 = pane.<strong>addFolder</strong>({
 f2.addInput(PARAMS, 'acceleration');
 f2.addInput(PARAMS, 'randomness');</code></pre></div>
 		</div>
-		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer common-paneContainer-folder"></div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer paneContainer-folder"></div>
 		</div>
 	</div>
 </div>
@@ -48,10 +48,10 @@ f2.addInput(PARAMS, 'randomness');</code></pre></div>
 <h2 id="button">Button</h2>
 <p><code>addButton()</code> adds a button component. Use <code>on()</code> to handle click events.</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
 let count = 0;
 
 const btn = pane.<strong>addButton</strong>({
@@ -63,8 +63,8 @@ btn.<strong>on</strong>('click', () =&gt; {
 });
 </code></pre></div>
 		</div>
-		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer common-paneContainer-button"></div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer paneContainer-button"></div>
 		</div>
 	</div>
 </div>
@@ -73,17 +73,17 @@ btn.<strong>on</strong>('click', () =&gt; {
 <h2 id="separator">Separator</h2>
 <p><code>addSeparator()</code> is for adding a separator between components.</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock"><pre><code class="js">const pane = new Tweakpane();
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
 pane.addButton({title: 'Previous'});
 pane.addButton({title: 'Next'});
 pane<strong>.addSeparator</strong>();
 pane.addButton({title: 'Reset'});</code></pre></div>
 		</div>
-		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer common-paneContainer-separator"></div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer paneContainer-separator"></div>
 		</div>
 	</div>
 </div>

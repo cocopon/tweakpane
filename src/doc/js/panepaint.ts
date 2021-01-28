@@ -144,7 +144,7 @@ export function createPane(container: Element, theme: Theme): any {
 		})
 		.on('click', () => {
 			const bgElem = document.querySelector(
-				'.common-paint_bgImage',
+				'.paint_bgImage',
 			) as HTMLElement | null;
 			if (!bgElem) {
 				return;
@@ -153,7 +153,7 @@ export function createPane(container: Element, theme: Theme): any {
 			bgElem.style.backgroundImage = `url(https://source.unsplash.com/collection/91620523?date=${now})`;
 
 			const creditElems: HTMLElement[] = Array.prototype.slice.call(
-				document.querySelectorAll('.common-paint .common-photoCredit'),
+				document.querySelectorAll('.paint .photoCredit'),
 			);
 			creditElems.forEach((elem, index) => {
 				elem.style.visibility = index === 0 ? 'visible' : 'hidden';

@@ -1,13 +1,11 @@
-$prefix: 'common';
-
-.#{$prefix}-rel {
+.rel {
 	display: grid;
 	gap: 16px;
 	grid-template-columns: repeat(2, 1fr);
 	margin-bottom: 1em;
 	margin-top: 1em;
 }
-.#{$prefix}-relItem {
+.relItem {
 	align-items: stretch;
 	display: flex;
 

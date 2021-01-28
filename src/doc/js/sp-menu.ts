@@ -17,7 +17,7 @@ export class SpMenu {
 		this.buttonElem_ = config.buttonElement;
 		this.menuElem_ = config.menuElement;
 
-		this.menuElem_.classList.add('common-menu-loaded');
+		this.menuElem_.classList.add('menu-loaded');
 
 		document.addEventListener('click', this.onDocumentClick_);
 		window.addEventListener('hashchange', this.onWindowHashChange_);
@@ -35,14 +35,14 @@ export class SpMenu {
 		this.expanded_ = expanded;
 
 		if (this.expanded_) {
-			this.menuElem_.classList.add('common-menu-expanded');
+			this.menuElem_.classList.add('menu-expanded');
 		} else {
-			this.menuElem_.classList.remove('common-menu-expanded');
+			this.menuElem_.classList.remove('menu-expanded');
 		}
 	}
 
 	private updateActiveItem_(): void {
-		const classNames = ['common-menuItem_anchor', 'common-submenuItem_anchor'];
+		const classNames = ['menuItem_anchor', 'submenuItem_anchor'];
 
 		classNames.forEach((className) => {
 			const activeClass = `${className}-active`;

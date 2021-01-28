@@ -1,16 +1,16 @@
 :root.index {
-	.common-pageHeader_innerLayout {
+	.pageHeader_innerLayout {
 		@include wide() {
 			padding-bottom: 128px;
 			padding-top: 128px;
 		}
 	}
-	.common-pageHeader_titleLayout p {
+	.pageHeader_titleLayout p {
 		@include nonwide() {
 			hyphens: auto;
 		}
 	}
-	.common-pageHeader_titleLayout p {
+	.pageHeader_titleLayout p {
 		@include nonwide() {
 			hyphens: auto;
 		}
@@ -18,12 +18,12 @@
 }
 
 :root.theming {
-	.common-pageHeader {
+	.pageHeader {
 		background: url(https://source.unsplash.com/u27Rrbs9Dwc/1600x900) no-repeat
 			center;
 		background-size: cover;
 	}
-	.common-pageHeader_titleLayout {
+	.pageHeader_titleLayout {
 		h1,
 		p {
 			color: rgba(white, 0.8);

@@ -1,6 +1,4 @@
-$prefix: 'common';
-
-.#{$prefix}-pageHeader {
+.pageHeader {
 	background-color: $page-header-bg-color;
 	position: relative;
 

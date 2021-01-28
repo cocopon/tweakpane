@@ -3,17 +3,17 @@
 
 
 {% block pageHeader %}
-<div class="common-pageHeader">
-	<div class="common-pageHeader_innerLayout">
-		<div class="common-pageHeader_titleLayout">
-			<h1 class="common-pageHeader_title">Theming</h1>
+<div class="pageHeader">
+	<div class="pageHeader_innerLayout">
+		<div class="pageHeader_titleLayout">
+			<h1 class="pageHeader_title">Theming</h1>
 			<p>Tweakpane can be themed easily with CSS variable.</p>
 		</div>
-		<div class="common-pageHeader_paneLayout">
-			<div class="common-paneContainer common-paneContainer-header" data-preview-css></div>
+		<div class="pageHeader_paneLayout">
+			<div class="paneContainer paneContainer-header" data-preview-css></div>
 		</div>
 	</div>
-	<div class="common-photoCredit">Photo by <a href="https://unsplash.com/photos/u27Rrbs9Dwc" target="_blank">Clay Banks</a></div>
+	<div class="photoCredit">Photo by <a href="https://unsplash.com/photos/u27Rrbs9Dwc" target="_blank">Clay Banks</a></div>
 </div>
 {% endblock %}
 
@@ -21,12 +21,12 @@
 {% block content %}
 <p>Add <code>--tp-*</code> variables to the container element to change pane colors. All themeable variables are listed below:</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock">
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock">
 				<pre><code class="html" data-exampleCss></code></pre>
-				<div class="common-codeBlock_title">
+				<div class="codeBlock_title">
 					.html
 				</div>
 			</div>
@@ -36,25 +36,25 @@
 
 <h2 id="builder">Theme builder</h2>
 <p>You can build your own theme with Panepaint!</p>
-<div class="common-main_mediaLayout">
-	<div class="common-paint">
-		<div class="common-paint_gui">
-			<div class="common-paint_controller">
-				<div class="common-paneContainer common-paneContainer-controller">
+<div class="main_mediaLayout">
+	<div class="paint">
+		<div class="paint_gui">
+			<div class="paint_controller">
+				<div class="paneContainer paneContainer-controller">
 				</div>
 			</div>
-			<div class="common-paint_preview">
-				<div class="common-paneContainer common-paneContainer-preview" data-preview-css>
-					<div class="common-paint_bgImage"></div>
-					<div class="common-photoCredit" style="visibility: hidden;">Photo by <a href="https://unsplash.com/collections/91620523" target="_blank">Unsplash</a></div>
-					<div class="common-photoCredit">Photo by <a href="https://unsplash.com/photos/74ft3aciAY0" target="_blank">Mak</a></div>
+			<div class="paint_preview">
+				<div class="paneContainer paneContainer-preview" data-preview-css>
+					<div class="paint_bgImage"></div>
+					<div class="photoCredit" style="visibility: hidden;">Photo by <a href="https://unsplash.com/collections/91620523" target="_blank">Unsplash</a></div>
+					<div class="photoCredit">Photo by <a href="https://unsplash.com/photos/74ft3aciAY0" target="_blank">Mak</a></div>
 				</div>
 			</div>
 		</div>
-		<div class="common-paint_code">
-			<div class="common-demo">
-				<div class="common-demo_codeLayout">
-					<div class="common-codeBlock">
+		<div class="paint_code">
+			<div class="demo">
+				<div class="demo_codeLayout">
+					<div class="codeBlock">
 						<pre><code class="html" data-preview-code></code></pre>
 					</div>
 				</div>

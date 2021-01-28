@@ -3,11 +3,11 @@
 
 
 {% block pageHeader %}
-<div class="common-pageHeader">
-	<div class="common-pageHeader_sketchContainer"></div>
-	<div class="common-pageHeader_innerLayout">
-		<div class="common-pageHeader_titleLayout">
-			<h1 class="common-pageHeader_title">Quick tour</h1>
+<div class="pageHeader">
+	<div class="pageHeader_sketchContainer"></div>
+	<div class="pageHeader_innerLayout">
+		<div class="pageHeader_titleLayout">
+			<h1 class="pageHeader_title">Quick tour</h1>
 			<p>Take a look at the basics of Tweakpane in minutes.</p>
 		</div>
 	</div>
@@ -19,10 +19,10 @@
 <h2 id="inputs">Inputs</h2>
 <p>Use <code>addInput()</code> to add a control to modify parameter values.</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock">
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock">
 				<pre><code class="js">const PARAMS = {
   factor: 123,
   title: 'hello',
@@ -37,18 +37,18 @@ pane.<strong>addInput</strong>(PARAMS, 'color');
 </code></pre>
 			</div>
 		</div>
-		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer" data-pane-inputs></div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-inputs></div>
 		</div>
 	</div>
 </div>
 
 <p>Some kinds of inputs accept additional parameters:</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock">
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock">
 				<pre><code class="js">const PARAMS = {
   percentage: 50,
   theme: 'dark',
@@ -68,8 +68,8 @@ pane.addInput(
 </code></pre>
 			</div>
 		</div>
-		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer" data-pane-inputparams></div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-inputparams></div>
 		</div>
 	</div>
 </div>
@@ -79,10 +79,10 @@ pane.addInput(
 <h2 id="folders">Folders</h2>
 <p>You can organize multiple controls with folders.</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock">
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock">
 				<pre><code class="js">const f = pane.<strong>addFolder</strong>({
   title: 'Title',
   expanded: true,
@@ -93,18 +93,18 @@ f.addInput(PARAMS, 'size');
 </code></pre>
 			</div>
 		</div>
-		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer" data-pane-folders></div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-folders></div>
 		</div>
 	</div>
 </div>
 
 <p>If you want to expand/collapse the whole pane, specify <code>title</code> option of the pane.</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock">
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock">
 				<pre><code class="js">const pane = new Tweakpane({
   <strong>title</strong>: 'Parameters',
   expanded: true,
@@ -112,8 +112,8 @@ f.addInput(PARAMS, 'size');
 </code></pre>
 			</div>
 		</div>
-		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer" data-pane-title></div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-title></div>
 		</div>
 	</div>
 </div>
@@ -123,10 +123,10 @@ f.addInput(PARAMS, 'size');
 <h2 id="events">Events</h2>
 <p>You can handle change events by <code>on()</code> of the input.</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock">
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock">
 				<pre><code class="js">const input = pane.addInput(
   PARAMS, 'size',
   {min: 8, max: 100, step: 1}
@@ -138,9 +138,9 @@ input.<strong>on</strong>('change', function(value) {
 </code></pre>
 			</div>
 		</div>
-		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer" data-pane-events></div>
-			<div class="common-paneContainer common-paneContainer-console" data-pane-eventsconsole></div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-events></div>
+			<div class="paneContainer paneContainer-console" data-pane-eventsconsole></div>
 		</div>
 	</div>
 </div>
@@ -150,10 +150,10 @@ input.<strong>on</strong>('change', function(value) {
 <h2 id="presets">Presets</h2>
 <p>Tweakpane has a support for exporting/importing parameter values in JSON format. Call <code>exportPreset()</code> to export the current state.</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock">
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock">
 				<pre><code class="js">btn.on('click', function() {
   const preset = pane.<strong>exportPreset</strong>();
   console.log(preset);
@@ -161,9 +161,9 @@ input.<strong>on</strong>('change', function(value) {
 </code></pre>
 			</div>
 		</div>
-		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer" data-pane-preset></div>
-			<div class="common-paneContainer common-paneContainer-console" data-pane-presetconsole></div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-preset></div>
+			<div class="paneContainer paneContainer-console" data-pane-presetconsole></div>
 		</div>
 	</div>
 </div>
@@ -173,10 +173,10 @@ input.<strong>on</strong>('change', function(value) {
 <h2 id="monitors">Monitors</h2>
 <p>Tweakpane provides a way to monitor value changes. Use <code>addMonitor()</code> to add a monitor component.</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock">
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock">
 				<pre><code class="js">pane.<strong>addMonitor</strong>(sketch, 'signal', {
   view: 'graph',
   interval: 200,
@@ -185,8 +185,8 @@ input.<strong>on</strong>('change', function(value) {
 });</code></pre>
 			</div>
 		</div>
-		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer" data-pane-monitors></div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-monitors></div>
 		</div>
 	</div>
 </div>
@@ -194,23 +194,23 @@ input.<strong>on</strong>('change', function(value) {
 <p>See <a href="monitor.html">Monitors</a> section for full features.</p>
 
 <h2>What's next</h2>
-<div class="common-rel">
-	<div class="common-relItem">
-		<a class="common-relItem_anchor" href="input.html">
-			<div class="common-relItem_title">
+<div class="rel">
+	<div class="relItem">
+		<a class="relItem_anchor" href="input.html">
+			<div class="relItem_title">
 				Inputs
 			</div>
-			<div class="common-relItem_detail">
+			<div class="relItem_detail">
 				components for fine-tuning parameter values
 			</div>
 		</a>
 	</div>
-	<div class="common-relItem">
-		<a class="common-relItem_anchor" href="monitor.html">
-			<div class="common-relItem_title">
+	<div class="relItem">
+		<a class="relItem_anchor" href="monitor.html">
+			<div class="relItem_title">
 				Monitors
 			</div>
-			<div class="common-relItem_detail">
+			<div class="relItem_detail">
 				components for monitoring value changes
 			</div>
 		</a>

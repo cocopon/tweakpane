@@ -60,9 +60,7 @@ export const IndexRoute = {
 			presetJson: '',
 		};
 
-		const sketchElem = document.querySelector(
-			'.common-pageHeader_sketchContainer',
-		);
+		const sketchElem = document.querySelector('.pageHeader_sketchContainer');
 		if (!sketchElem) {
 			return;
 		}
@@ -77,7 +75,7 @@ export const IndexRoute = {
 					title: 'Tweakpane',
 				});
 				pane.addInput(ENV, 'title').on('change', (value: string) => {
-					const titleElem = document.querySelector('.common-pageHeader_title');
+					const titleElem = document.querySelector('.pageHeader_title');
 					if (titleElem) {
 						titleElem.textContent = value;
 					}

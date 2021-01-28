@@ -3,11 +3,11 @@
 
 
 {% block pageHeader %}
-<div class="common-pageHeader">
-	<div class="common-pageHeader_sketchContainer"></div>
-	<div class="common-pageHeader_innerLayout">
-		<div class="common-pageHeader_titleLayout">
-			<h1 class="common-pageHeader_title">Getting started</h1>
+<div class="pageHeader">
+	<div class="pageHeader_sketchContainer"></div>
+	<div class="pageHeader_innerLayout">
+		<div class="pageHeader_titleLayout">
+			<h1 class="pageHeader_title">Getting started</h1>
 			<p>Setting up Tweakpane in only 2 steps.</p>
 		</div>
 	</div>
@@ -19,10 +19,10 @@
 <h2>1. Integrate Tweakpane with your project</h2>
 <p>Using <a href="https://www.jsdelivr.com/package/npm/tweakpane" target="_blank">CDN</a> is the easiest way to integrate Tweakpane:</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-codeBlock">
+<div class="main_mediaLayout">
+	<div class="codeBlock">
 		<pre><code class="html">&lt;script src=&quot;<strong>https://cdn.jsdelivr.net/npm/tweakpane@{{ version }}/dist/tweakpane.min.js</strong>&quot;&gt;&lt;/script&gt;</code></pre>
-		<div class="common-codeBlock_title">
+		<div class="codeBlock_title">
 			.html
 		</div>
 	</div>
@@ -30,10 +30,10 @@
 
 <p>Or, <a href="https://github.com/cocopon/tweakpane/releases">download the latest Tweakpane</a> and import it to your web page:</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-codeBlock">
+<div class="main_mediaLayout">
+	<div class="codeBlock">
 		<pre><code class="html">&lt;script src=&quot;path/to/tweakpane-{{ version }}.min.js&quot;&gt;&lt;/script&gt;</code></pre>
-		<div class="common-codeBlock_title">
+		<div class="codeBlock_title">
 			.html
 		</div>
 	</div>
@@ -41,16 +41,16 @@
 
 <p>You can also install, require/import it as <a href="https://www.npmjs.com/package/tweakpane" target="_blank">npm package</a>:</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-codeBlock">
+<div class="main_mediaLayout">
+	<div class="codeBlock">
 		<pre><code class="sh">$ npm install --save tweakpane</code></pre>
 	</div>
 </div>
 
-<div class="common-main_mediaLayout">
-	<div class="common-codeBlock">
+<div class="main_mediaLayout">
+	<div class="codeBlock">
 		<pre><code class="js">const Tweakpane = require('tweakpane');</code></pre>
-		<div class="common-codeBlock_title">
+		<div class="codeBlock_title">
 			.js
 		</div>
 	</div>
@@ -60,15 +60,15 @@
 <h2>2. Create a pane</h2>
 <p>Create an instance of Tweakpane by <code>new Tweakpane()</code>.</p>
 
-<div class="common-main_mediaLayout">
-	<div class="common-demo">
-		<div class="common-demo_codeLayout">
-			<div class="common-codeBlock">
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock">
 				<pre><code class="js">const pane = new Tweakpane();</code></pre>
 			</div>
 		</div>
-		<div class="common-demo_resultLayout">
-			<div class="common-paneContainer" data-pane-hello></div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-hello></div>
 		</div>
 	</div>
 </div>
@@ -76,20 +76,20 @@
 <p>All set! Now you can add various components to the pane. <a href="input.html">Inputs</a> for fine-tuning parameters, <a href="monitor.html">Monitors</a> for checking values, and <a href="ui-components.html">more</a>.</p>
 
 <h2>What's next</h2>
-<div class="common-rel">
-	<div class="common-relItem">
-		<a class="common-relItem_anchor" href="quick-tour.html">
-			<div class="common-relItem_title">
+<div class="rel">
+	<div class="relItem">
+		<a class="relItem_anchor" href="quick-tour.html">
+			<div class="relItem_title">
 				Quick tour
 			</div>
-			<div class="common-relItem_detail">
+			<div class="relItem_detail">
 				learn the basics of Tweakpane
 			</div>
 		</a>
 	</div>
-	<div class="common-relItem">
-		<a class="common-relItem_anchor" href="api/classes/api_root.rootapi.html" target="_blank">
-			<div class="common-relItem_title">
+	<div class="relItem">
+		<a class="relItem_anchor" href="api/classes/api_root.rootapi.html" target="_blank">
+			<div class="relItem_title">
 				API reference<span class="fas fa-external-link-square-alt"></span>
 			</div>
 		</a>
