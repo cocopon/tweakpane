@@ -1,0 +1,43 @@
+.paneContainer {
+	flex-grow: 0;
+	flex-shrink: 0;
+	margin-left: auto;
+	margin-right: auto;
+	width: 256px;
+
+	& + & {
+		margin-top: 16px;
+	}
+
+	&#{&}-console {
+		--tp-base-background-color: transparent;
+		--tp-base-shadow-color: transparent;
+		--tp-button-background-color: hsla(0, 0%, 0%, 0.05);
+		--tp-button-background-color-active: hsla(0, 0%, 0%, 0.2);
+		--tp-button-background-color-focus: hsla(0, 0%, 0%, 0.15);
+		--tp-button-background-color-hover: hsla(0, 0%, 0%, 0.1);
+		--tp-button-foreground-color: hsla(0, 0%, 0%, 0.3);
+		--tp-folder-background-color: hsla(0, 0%, 0%, 0.05);
+		--tp-folder-background-color-active: hsla(0, 0%, 0%, 0.2);
+		--tp-folder-background-color-focus: hsla(0, 0%, 0%, 0.15);
+		--tp-folder-background-color-hover: hsla(0, 0%, 0%, 0.1);
+		--tp-folder-foreground-color: hsla(0, 0%, 0%, 0.3);
+		--tp-input-background-color: hsla(0, 0%, 0%, 0.05);
+		--tp-input-background-color-active: hsla(0, 0%, 0%, 0.2);
+		--tp-input-background-color-focus: hsla(0, 0%, 0%, 0.15);
+		--tp-input-background-color-hover: hsla(0, 0%, 0%, 0.1);
+		--tp-input-foreground-color: hsla(0, 0%, 0%, 0.3);
+		--tp-input-guide-color: hsla(0, 0%, 0%, 0.1);
+		--tp-monitor-background-color: hsla(0, 0%, 0%, 0.05);
+		--tp-monitor-foreground-color: hsla(0, 0%, 0%, 0.3);
+		--tp-label-foreground-color: hsla(0, 0%, 0%, 0.3);
+		--tp-separator-color: hsla(0, 0%, 0%, 0.1);
+
+		.tp-rotv {
+			border: rgba(black, 0.1) dashed 1px;
+		}
+		.tp-mllmv_i {
+			height: 100px;
+		}
+	}
+}

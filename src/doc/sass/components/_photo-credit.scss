@@ -1,0 +1,12 @@
+.photoCredit {
+	bottom: 8px;
+	color: rgba(white, 0.5);
+	font-size: 0.6rem;
+	mix-blend-mode: exclusion;
+	position: absolute;
+	right: 8px;
+
+	a {
+		color: currentColor;
+	}
+}

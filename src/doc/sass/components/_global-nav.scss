@@ -1,6 +1,4 @@
-$prefix: 'common';
-
-.#{$prefix}-menu {
+.menu {
 	background-color: $pane-bg-color;
 	bottom: 0;
 	left: -$global-nav-width;
@@ -37,7 +35,7 @@ $prefix: 'common';
 		padding-bottom: 24px;
 	}
 }
-.#{$prefix}-menuItem {
+.menuItem {
 	&_anchor {
 		color: $pane-label-fg-color;
 		display: block;
@@ -63,7 +61,7 @@ $prefix: 'common';
 	}
 }
 
-.#{$prefix}-submenuItem {
+.submenuItem {
 	&_anchor {
 		color: $menu-fg-color-secondary;
 		display: block;

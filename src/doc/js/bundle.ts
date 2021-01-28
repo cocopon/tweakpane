@@ -13,7 +13,7 @@ import {SpMenu} from './sp-menu';
 declare let hljs: any;
 
 function setUpScrews() {
-	const screwElems = document.querySelectorAll('.common-logo_symbol');
+	const screwElems = document.querySelectorAll('.logo_symbol');
 	screwElems.forEach((elem: HTMLElement) => {
 		new Screw(elem);
 	});
@@ -23,7 +23,7 @@ function setUpSpMenu() {
 	const buttonElem: HTMLElement | null = document.getElementById(
 		'spMenuButton',
 	);
-	const menuElem: HTMLElement | null = document.querySelector('.common-menu');
+	const menuElem: HTMLElement | null = document.querySelector('.menu');
 	if (!buttonElem || !menuElem) {
 		return;
 	}

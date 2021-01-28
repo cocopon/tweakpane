@@ -8,7 +8,7 @@ export const MiscRoute = {
 	init: () => {
 		const IMEX_PARAMS = {
 			color: '#ff8000',
-			name: 'export',
+			name: 'exported json',
 			size: 10,
 		};
 		const IMEX_LOG = {
@@ -16,7 +16,7 @@ export const MiscRoute = {
 		};
 
 		const markerToFnMap: {
-			[key: string]: (container: HTMLElement | null) => void;
+			[key: string]: (container: HTMLElement) => void;
 		} = {
 			misc: (container) => {
 				const PARAMS = {value: 0};
@@ -43,14 +43,28 @@ export const MiscRoute = {
 			},
 
 			event: (container) => {
+				const consoleElem = Util.selectContainer('eventconsole');
+				if (!consoleElem) {
+					return;
+				}
+
 				const PARAMS = {
 					log: '',
 					value: 0,
 				};
+
+				const consolePane = new Tweakpane({
+					container: consoleElem,
+				});
+				consolePane.addMonitor(PARAMS, 'log', {
+					count: 10,
+					interval: 0,
+					label: 'console',
+				});
+
 				const pane = new Tweakpane({
 					container: container,
 				});
-				let m: any = null;
 				pane
 					.addInput(PARAMS, 'value', {
 						max: 100,
@@ -58,19 +72,16 @@ export const MiscRoute = {
 					})
 					.on('change', (value: number) => {
 						PARAMS.log = value.toFixed(2);
-						if (m) {
-							m.refresh();
-						}
+						consolePane.refresh();
 					});
-				pane.addSeparator();
-				m = pane.addMonitor(PARAMS, 'log', {
-					count: 10,
-					interval: 0,
-					label: '(log)',
-				});
 			},
 
-			globalEvent: (container) => {
+			globalevent: (container) => {
+				const consoleElem = Util.selectContainer('globaleventconsole');
+				if (!consoleElem) {
+					return;
+				}
+
 				const PARAMS = {
 					boolean: true,
 					color: '#0080ff',
@@ -79,6 +90,16 @@ export const MiscRoute = {
 
 					log: '',
 				};
+
+				const consolePane = new Tweakpane({
+					container: consoleElem,
+				});
+				consolePane.addMonitor(PARAMS, 'log', {
+					count: 10,
+					interval: 0,
+					label: 'console',
+				});
+
 				const pane = new Tweakpane({
 					container: container,
 				});
@@ -89,20 +110,27 @@ export const MiscRoute = {
 					min: 0,
 				});
 				pane.addInput(PARAMS, 'string');
-				pane.addSeparator();
-				const m = pane.addMonitor(PARAMS, 'log', {
-					count: 10,
-					interval: 0,
-					label: '(log)',
-				});
 				pane.on('change', (value: number | string) => {
 					const v = typeof value === 'number' ? value.toFixed(2) : value;
 					PARAMS.log = `changed: ${v}`;
-					m.refresh();
+					consolePane.refresh();
 				});
 			},
 
 			export: (container) => {
+				const consoleElem = Util.selectContainer('exportconsole');
+				if (!consoleElem) {
+					return;
+				}
+
+				const consolePane = new Tweakpane({
+					container: consoleElem,
+				});
+				consolePane.addMonitor(IMEX_LOG, 'log', {
+					label: 'preset',
+					multiline: true,
+				});
+
 				const pane = new Tweakpane({
 					container: container,
 				});
@@ -112,11 +140,6 @@ export const MiscRoute = {
 					min: 0,
 				});
 				pane.addInput(IMEX_PARAMS, 'color');
-				pane.addSeparator();
-				pane.addMonitor(IMEX_LOG, 'log', {
-					label: '(preset)',
-					multiline: true,
-				});
 
 				const updatePreset = () => {
 					const preset = pane.exportPreset();
@@ -128,18 +151,27 @@ export const MiscRoute = {
 			},
 
 			import: (container) => {
+				const consoleElem = Util.selectContainer('importconsole');
+				if (!consoleElem) {
+					return;
+				}
+
+				const consolePane = new Tweakpane({
+					container: consoleElem,
+				});
+				consolePane.addMonitor(IMEX_LOG, 'log', {
+					label: 'preset',
+					multiline: true,
+				});
+
 				const PARAMS = {
 					color: '#0080ff',
 					log: '',
-					name: 'import',
+					name: 'tweakpane',
 					size: 50,
 				};
 				const pane = new Tweakpane({
 					container: container,
-				});
-				pane.addMonitor(IMEX_LOG, 'log', {
-					label: '(preset)',
-					multiline: true,
 				});
 				pane
 					.addButton({
@@ -154,12 +186,27 @@ export const MiscRoute = {
 				pane.addInput(PARAMS, 'color');
 			},
 
-			presetKey: (container) => {
+			presetkey: (container) => {
+				const consoleElem = Util.selectContainer('presetkeyconsole');
+				if (!consoleElem) {
+					return;
+				}
+
 				const PARAMS = {
 					foo: {speed: 1 / 3},
 					bar: {speed: 2 / 3},
 					preset: '',
 				};
+
+				const consolePane = new Tweakpane({
+					container: consoleElem,
+				});
+				consolePane.addMonitor(PARAMS, 'preset', {
+					interval: 0,
+					label: 'preset',
+					multiline: true,
+				});
+
 				const pane = new Tweakpane({
 					container: container,
 				});
@@ -172,24 +219,18 @@ export const MiscRoute = {
 					min: 0,
 					presetKey: 'speed2',
 				});
-				pane.addSeparator();
-				const m = pane.addMonitor(PARAMS, 'preset', {
-					interval: 0,
-					label: '(preset)',
-					multiline: true,
-				});
 
 				const updatePreset = () => {
 					const preset = pane.exportPreset();
 					PARAMS.preset = JSON.stringify(preset, null, 2);
-					m.refresh();
+					consolePane.refresh();
 				};
 
 				pane.on('change', updatePreset);
 				updatePreset();
 			},
 
-			rootTitle: (container) => {
+			roottitle: (container) => {
 				const PARAMS = {
 					bounce: 0.5,
 					gravity: 0.01,

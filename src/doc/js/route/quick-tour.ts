@@ -7,7 +7,7 @@ export const QuickTourRoute = {
 
 	init: () => {
 		const markerToFnMap: {
-			[key: string]: (container: HTMLElement | null) => void;
+			[key: string]: (container: HTMLElement) => void;
 		} = {
 			inputs: (container) => {
 				const PARAMS = {
@@ -86,7 +86,7 @@ export const QuickTourRoute = {
 				});
 			},
 			events: (container) => {
-				const consoleElem = Util.selectContainer2('eventsconsole');
+				const consoleElem = Util.selectContainer('eventsconsole');
 				if (!consoleElem) {
 					return;
 				}
@@ -120,7 +120,7 @@ export const QuickTourRoute = {
 					});
 			},
 			preset: (container) => {
-				const consoleElem = Util.selectContainer2('presetconsole');
+				const consoleElem = Util.selectContainer('presetconsole');
 				if (!consoleElem) {
 					return;
 				}
@@ -185,7 +185,7 @@ export const QuickTourRoute = {
 		};
 		Object.keys(markerToFnMap).forEach((marker) => {
 			const initFn = markerToFnMap[marker];
-			const container = Util.selectContainer2(marker);
+			const container = Util.selectContainer(marker);
 			initFn(container);
 		});
 	},

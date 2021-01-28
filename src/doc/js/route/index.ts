@@ -60,16 +60,14 @@ export const IndexRoute = {
 			presetJson: '',
 		};
 
-		const sketchElem = document.querySelector(
-			'.common-pageHeader_sketchContainer',
-		);
+		const sketchElem = document.querySelector('.pageHeader_sketchContainer');
 		if (!sketchElem) {
 			return;
 		}
 		const sketch = new Sketch(sketchElem, ENV);
 
 		const markerToFnMap: {
-			[key: string]: (container: HTMLElement | null) => void;
+			[key: string]: (container: HTMLElement) => void;
 		} = {
 			index: (container) => {
 				const pane = new Tweakpane({
@@ -77,7 +75,7 @@ export const IndexRoute = {
 					title: 'Tweakpane',
 				});
 				pane.addInput(ENV, 'title').on('change', (value: string) => {
-					const titleElem = document.querySelector('.common-pageHeader_title');
+					const titleElem = document.querySelector('.pageHeader_title');
 					if (titleElem) {
 						titleElem.textContent = value;
 					}

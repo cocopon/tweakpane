@@ -7,7 +7,7 @@ export const GettingStartedRoute = {
 
 	init: () => {
 		const markerToFnMap: {
-			[key: string]: (container: HTMLElement | null) => void;
+			[key: string]: (container: HTMLElement) => void;
 		} = {
 			hello: (container) => {
 				new Tweakpane({
@@ -17,7 +17,7 @@ export const GettingStartedRoute = {
 		};
 		Object.keys(markerToFnMap).forEach((marker) => {
 			const initFn = markerToFnMap[marker];
-			const container = Util.selectContainer2(marker);
+			const container = Util.selectContainer(marker);
 			initFn(container);
 		});
 	},

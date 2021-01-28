@@ -27,7 +27,7 @@ export const MonitorRoute = {
 		}, 50);
 
 		const markerToFnMap: {
-			[key: string]: (container: HTMLElement | null) => void;
+			[key: string]: (container: HTMLElement) => void;
 		} = {
 			monitor: (container) => {
 				const pane = new Tweakpane({

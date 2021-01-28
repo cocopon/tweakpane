@@ -8,7 +8,7 @@ export const InputRoute = {
 
 	init: () => {
 		const markerToFnMap: {
-			[key: string]: (container: HTMLElement | null) => void;
+			[key: string]: (container: HTMLElement) => void;
 		} = {
 			input: (container) => {
 				const PARAMS = {
@@ -72,7 +72,7 @@ export const InputRoute = {
 					label: 'picker',
 				});
 			},
-			numberText: (container) => {
+			numbertext: (container) => {
 				const PARAMS = {value: 50};
 				const pane = new Tweakpane({
 					container: container,
@@ -110,25 +110,46 @@ export const InputRoute = {
 					step: 10,
 				});
 			},
-			numberList: (container) => {
-				const PARAMS = {value: 50};
+			numberlist: (container) => {
+				const PARAMS = {
+					quality: 0,
+				};
+
+				const consoleElem = Util.selectContainer('numberlist', true);
+				const log = {
+					json: '',
+				};
+				const consolePane = new Tweakpane({
+					container: consoleElem,
+				});
+				consolePane.addMonitor(log, 'json', {
+					interval: 0,
+					label: 'PARAMS',
+					multiline: true,
+				});
+
+				const updateLog = () => {
+					log.json = JSON.stringify(PARAMS, undefined, 2);
+					consolePane.refresh();
+				};
+
 				const pane = new Tweakpane({
 					container: container,
 				});
-				pane.addInput(PARAMS, 'value', {
-					label: 'quality',
-					options: {
-						low: 0,
-						medium: 50,
-						high: 100,
-					},
-				});
-				pane.addSeparator();
-				pane.addMonitor(PARAMS, 'value', {
-					label: '(actual)',
-				});
+				pane
+					.addInput(PARAMS, 'quality', {
+						options: {
+							low: 0,
+							medium: 50,
+							high: 100,
+						},
+					})
+					.on('change', () => {
+						updateLog();
+					});
+				updateLog();
 			},
-			stringText: (container) => {
+			stringtext: (container) => {
 				const PARAMS = {value: 'hello, world'};
 				const pane = new Tweakpane({
 					container: container,
@@ -137,23 +158,42 @@ export const InputRoute = {
 					label: 'message',
 				});
 			},
-			stringList: (container) => {
-				const PARAMS = {value: ''};
+			stringlist: (container) => {
+				const PARAMS = {theme: ''};
+
+				const consoleElem = Util.selectContainer('stringlist', true);
+				const log = {
+					json: '',
+				};
+				const consolePane = new Tweakpane({
+					container: consoleElem,
+				});
+				consolePane.addMonitor(log, 'json', {
+					interval: 0,
+					label: 'PARAMS',
+					multiline: true,
+				});
+
+				const updateLog = () => {
+					log.json = JSON.stringify(PARAMS, undefined, 2);
+					consolePane.refresh();
+				};
+
 				const pane = new Tweakpane({
 					container: container,
 				});
-				pane.addInput(PARAMS, 'value', {
-					label: 'theme',
-					options: {
-						none: '',
-						dark: 'path/to/dark.json',
-						light: 'path/to/Light.json',
-					},
-				});
-				pane.addSeparator();
-				pane.addMonitor(PARAMS, 'value', {
-					label: '(actual)',
-				});
+				pane
+					.addInput(PARAMS, 'theme', {
+						options: {
+							none: '',
+							dark: 'dark-theme.json',
+							light: 'light-theme.json',
+						},
+					})
+					.on('change', () => {
+						updateLog();
+					});
+				updateLog();
 			},
 			checkbox: (container) => {
 				const PARAMS = {value: true};
@@ -164,7 +204,7 @@ export const InputRoute = {
 					label: 'hidden',
 				});
 			},
-			objectColor: (container) => {
+			objectcolor: (container) => {
 				const PARAMS = {
 					background: {r: 255, g: 127, b: 0},
 					tint: {r: 255, g: 255, b: 0, a: 0.5},
@@ -175,7 +215,7 @@ export const InputRoute = {
 				pane.addInput(PARAMS, 'background');
 				pane.addInput(PARAMS, 'tint');
 			},
-			stringColor: (container) => {
+			stringcolor: (container) => {
 				const PARAMS = {
 					primary: '#8df',
 					secondary: 'rgb(255, 136, 221)',
@@ -186,7 +226,7 @@ export const InputRoute = {
 				pane.addInput(PARAMS, 'primary');
 				pane.addInput(PARAMS, 'secondary');
 			},
-			numberColor: (container) => {
+			numbercolor: (container) => {
 				const PARAMS = {
 					background: 0x0088ff,
 					tint: 0x00ff0044,
@@ -201,7 +241,7 @@ export const InputRoute = {
 					input: 'color.rgba',
 				});
 			},
-			inputString: (container) => {
+			inputstring: (container) => {
 				const PARAMS = {
 					hex: '#0088ff',
 				};
@@ -221,7 +261,7 @@ export const InputRoute = {
 					label: 'offset',
 				});
 			},
-			point2dParams: (container) => {
+			point2dparams: (container) => {
 				const PARAMS = {value: {x: 20, y: 30}};
 				const pane = new Tweakpane({
 					container: container,
@@ -232,7 +272,7 @@ export const InputRoute = {
 					y: {min: 0, max: 100},
 				});
 			},
-			point2dInvertedY: (container) => {
+			point2dinvertedy: (container) => {
 				const PARAMS = {value: {x: 50, y: 50}};
 				const pane = new Tweakpane({
 					container: container,
