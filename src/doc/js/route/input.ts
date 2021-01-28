@@ -159,7 +159,7 @@ export const InputRoute = {
 				});
 			},
 			stringlist: (container) => {
-				const PARAMS = {value: ''};
+				const PARAMS = {theme: ''};
 
 				const consoleElem = Util.selectContainer('stringlist', true);
 				const log = {
@@ -183,12 +183,11 @@ export const InputRoute = {
 					container: container,
 				});
 				pane
-					.addInput(PARAMS, 'value', {
-						label: 'theme',
+					.addInput(PARAMS, 'theme', {
 						options: {
 							none: '',
-							dark: 'path/to/dark.json',
-							light: 'path/to/Light.json',
+							dark: 'dark-theme.json',
+							light: 'light-theme.json',
 						},
 					})
 					.on('change', () => {
