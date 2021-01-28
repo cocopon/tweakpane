@@ -17,7 +17,7 @@
 
 {% block content %}
 <h2 id="inputs">Inputs</h2>
-<p>Use <code>addInput()</code> to add a control to modify parameter values.</p>
+<p>Use <code>addInput()</code> to modify parameter values.</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
@@ -43,7 +43,7 @@ pane.<strong>addInput</strong>(PARAMS, 'color');
 	</div>
 </div>
 
-<p>Some kinds of inputs accept additional parameters:</p>
+<p>Some kinds of input types accept additional parameters:</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
@@ -77,7 +77,7 @@ pane.addInput(
 <p>See <a href="input.html">Inputs</a> section or <a href="api/classes/api_root.rootapi.html">API reference</a> for details.</p>
 
 <h2 id="folders">Folders</h2>
-<p>You can organize multiple controls with folders.</p>
+<p>Use <code>addFolder()</code> to organize inputs.</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
@@ -99,7 +99,7 @@ f.addInput(PARAMS, 'size');
 	</div>
 </div>
 
-<p>If you want to expand/collapse the whole pane, specify <code>title</code> option of the pane.</p>
+<p>If you want to expand/collapse the whole pane, specify <code>title</code> option of the pane:</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
@@ -118,10 +118,10 @@ f.addInput(PARAMS, 'size');
 	</div>
 </div>
 
-<p>In addition to this, Tweakpane has several useful UI components. See <a href="ui-components.html">UI components</a> section for details.</p>
+<p>See <a href="ui-components.html">UI components</a> section for additional useful components.</p>
 
 <h2 id="events">Events</h2>
-<p>You can handle change events by <code>on()</code> of the input.</p>
+<p>Use <code>on()</code> of the input to handle change events.</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
@@ -145,10 +145,10 @@ input.<strong>on</strong>('change', function(value) {
 	</div>
 </div>
 
-<p>Tweakpane also provides a way to handle <a href="misc.html#events">global events</a> that are for all components.</p>
+<p><a href="misc.html#events">Global events</a> are also available to handle events of all components at once.</p>
 
 <h2 id="presets">Presets</h2>
-<p>Tweakpane has a support for exporting/importing parameter values in JSON format. Call <code>exportPreset()</code> to export the current state.</p>
+<p>Use <code>exportPreset()</code> to export the current state in JSON format.</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
@@ -168,10 +168,10 @@ input.<strong>on</strong>('change', function(value) {
 	</div>
 </div>
 
-<p>Also want to know about importing feature? <a href="misc.html#imex">Interactive demo</a> is available for this case.</p>
+<p>See <a href="misc.html#imex">Import/Export</a> section for details. </p>
 
 <h2 id="monitors">Monitors</h2>
-<p>Tweakpane provides a way to monitor value changes. Use <code>addMonitor()</code> to add a monitor component.</p>
+<p>Use <code>addMonitor()</code> to monitor value changes.</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
