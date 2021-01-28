@@ -21,7 +21,6 @@
 		border-radius: 6px;
 		color: $base-fg-color;
 		display: flex;
-		justify-content: center;
 		flex: 1;
 		flex-direction: column;
 		padding: 24px 32px;
@@ -31,6 +30,9 @@
 		&:hover {
 			background-color: darken($page-header-bg-color, 2%);
 		}
+	}
+	&#{&}-oneline a#{&}_anchor {
+		justify-content: center;
 	}
 	&_title {
 		font-weight: 500;
