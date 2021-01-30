@@ -8,6 +8,7 @@ import {MonitorController} from './monitor';
 
 interface Config {
 	formatter: Formatter<number>;
+	lineCount: number;
 	maxValue: number;
 	minValue: number;
 	value: MonitorValue<number>;
@@ -34,6 +35,7 @@ export class GraphMonitorController implements MonitorController<number> {
 		this.view = new GraphMonitorView(document, {
 			cursor: this.cursor_,
 			formatter: config.formatter,
+			lineCount: config.lineCount,
 			maxValue: config.maxValue,
 			minValue: config.minValue,
 			model: this.viewModel,

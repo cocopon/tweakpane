@@ -66,6 +66,10 @@ function createGraphMonitor(
 	);
 	const controller = new GraphMonitorController(document, {
 		formatter: createFormatter(),
+		lineCount: TypeUtil.getOrDefault(
+			params.lineCount,
+			Constants.monitor.defaultLineCount,
+		),
 		maxValue: TypeUtil.getOrDefault<number>(
 			'max' in params ? params.max : null,
 			100,

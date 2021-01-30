@@ -14,6 +14,7 @@ const SVG_NS = DomUtil.SVG_NS;
 interface Config extends ViewConfig {
 	cursor: GraphCursor;
 	formatter: Formatter<number>;
+	lineCount: number;
 	maxValue: number;
 	minValue: number;
 	value: MonitorValue<number>;
@@ -51,6 +52,7 @@ export class GraphMonitorView extends View implements MonitorView<number> {
 
 		const svgElem = document.createElementNS(SVG_NS, 'svg');
 		svgElem.classList.add(className('g'));
+		svgElem.style.height = `calc(var(--unit-size) * ${config.lineCount})`;
 		this.element.appendChild(svgElem);
 		this.svgElem_ = svgElem;
 
