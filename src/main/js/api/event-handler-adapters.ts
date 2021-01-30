@@ -3,9 +3,9 @@ import {MonitorBinding, MonitorBindingEvents} from '../binding/monitor';
 import {Folder, FolderEvents} from '../model/folder';
 import {UiContainer, UiContainerEvents} from '../model/ui-container';
 
-type InputEventName = 'change';
-type MonitorEventName = 'update';
-type FolderEventName = InputEventName | MonitorEventName | 'fold';
+export type InputEventName = 'change';
+export type MonitorEventName = 'update';
+export type FolderEventName = InputEventName | MonitorEventName | 'fold';
 
 /**
  * @hidden
