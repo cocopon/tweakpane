@@ -43,6 +43,8 @@
 		}
 	}
 	&_ap {
+		align-items: center;
+		display: flex;
 		flex: 3;
 	}
 	&_at {
@@ -81,7 +83,7 @@
 }
 .#{$prefix}-hpliv {
 	cursor: pointer;
-	height: 20px;
+	height: var(--unit-size);
 	outline: none;
 	position: relative;
 
@@ -119,9 +121,10 @@
 }
 .#{$prefix}-apliv {
 	cursor: pointer;
-	height: 20px;
+	height: var(--unit-size);
 	outline: none;
 	position: relative;
+	width: 100%;
 
 	&_b {
 		@include checker-pattern(

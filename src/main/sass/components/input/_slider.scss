@@ -4,7 +4,7 @@
 	&_o {
 		box-sizing: border-box;
 		cursor: pointer;
-		height: $input-height;
+		height: var(--unit-size);
 		margin: 0 ($slider-knob-size / 2);
 		outline: none;
 		position: relative;

@@ -12,8 +12,8 @@
 		border-radius: $input-border-radius;
 		color: var(--label-foreground-color);
 		cursor: pointer;
-		height: $input-height;
-		line-height: $input-height;
+		height: var(--unit-size);
+		line-height: var(--unit-size);
 		padding: 0 18px 0 4px;
 
 		&:hover {

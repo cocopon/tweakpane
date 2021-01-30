@@ -11,8 +11,8 @@
 		color: var(--button-foreground-color);
 		cursor: pointer;
 		display: block;
-		height: $input-height;
-		line-height: $input-height;
+		height: var(--unit-size);
+		line-height: var(--unit-size);
 		padding: 0 4px;
 		width: 100%;
 
