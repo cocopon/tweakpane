@@ -63,6 +63,7 @@ export const MonitorRoute = {
 				});
 				pane
 					.addMonitor(PARAMS, 'params', {
+						lineCount: 5,
 						multiline: true,
 					})
 					.on('update', () => {

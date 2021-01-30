@@ -19,7 +19,7 @@
 
 {% block content %}
 <h2 id="multiline">Multiline</h2>
-<p><code>multiline</code> option provides multiline log components.</p>
+<p><code>multiline</code> option provides a multiline log component. <code>lineCount</code> can change the number of display lines.</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
@@ -27,6 +27,7 @@
 			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
 pane.addMonitor(PARAMS, 'wave', {
   <strong>multiline</strong>: true,
+  <strong>lineCount</strong>: 5,
 });</code></pre></div>
 		</div>
 		<div class="demo_resultLayout">

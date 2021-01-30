@@ -103,6 +103,7 @@ export const QuickTourRoute = {
 					count: 100,
 					interval: 0,
 					label: 'console',
+					lineCount: 5,
 				});
 
 				const pane = new Tweakpane({
@@ -138,6 +139,7 @@ export const QuickTourRoute = {
 				consolePane.addMonitor(PARAMS, 'log', {
 					interval: 0,
 					label: 'preset',
+					lineCount: 5,
 					multiline: true,
 				});
 
