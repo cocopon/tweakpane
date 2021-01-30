@@ -60,6 +60,7 @@ export const MiscRoute = {
 					count: 10,
 					interval: 0,
 					label: 'console',
+					lineCount: 5,
 				});
 
 				const pane = new Tweakpane({
@@ -98,6 +99,7 @@ export const MiscRoute = {
 					count: 10,
 					interval: 0,
 					label: 'console',
+					lineCount: 5,
 				});
 
 				const pane = new Tweakpane({
@@ -128,6 +130,7 @@ export const MiscRoute = {
 				});
 				consolePane.addMonitor(IMEX_LOG, 'log', {
 					label: 'preset',
+					lineCount: 5,
 					multiline: true,
 				});
 
@@ -161,6 +164,7 @@ export const MiscRoute = {
 				});
 				consolePane.addMonitor(IMEX_LOG, 'log', {
 					label: 'preset',
+					lineCount: 5,
 					multiline: true,
 				});
 
@@ -204,6 +208,7 @@ export const MiscRoute = {
 				consolePane.addMonitor(PARAMS, 'preset', {
 					interval: 0,
 					label: 'preset',
+					lineCount: 4,
 					multiline: true,
 				});
 

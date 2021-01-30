@@ -27,17 +27,17 @@ export interface Point2dYParams extends Point2dDimensionParams {
 	inverted?: boolean;
 }
 
-interface BaseInputParams extends BaseParams, LabelableParams {
+export interface BaseInputParams extends BaseParams, LabelableParams {
 	presetKey?: string;
 }
 
-interface BooleanInputParams extends BaseInputParams {
+export interface BooleanInputParams extends BaseInputParams {
 	options?: InputParamsOption<unknown>[] | InputParamsOptionDictionary<unknown>;
 }
 
 type NumberInputType = 'color' | 'color.rgb' | 'color.rgba';
 
-interface NumberInputParams extends BaseInputParams {
+export interface NumberInputParams extends BaseInputParams {
 	input?: NumberInputType;
 	max?: number;
 	min?: number;
@@ -45,14 +45,14 @@ interface NumberInputParams extends BaseInputParams {
 	step?: number;
 }
 
-interface Point2dInputParams extends BaseInputParams {
+export interface Point2dInputParams extends BaseInputParams {
 	x?: Point2dXParams;
 	y?: Point2dYParams;
 }
 
-type StringInputType = 'string';
+export type StringInputType = 'string';
 
-interface StringInputParams extends BaseInputParams {
+export interface StringInputParams extends BaseInputParams {
 	input?: StringInputType;
 	options?: InputParamsOption<unknown>[] | InputParamsOptionDictionary<unknown>;
 }
@@ -63,22 +63,23 @@ export type InputParams =
 	| Point2dInputParams
 	| StringInputParams;
 
-interface BaseMonitorParams extends BaseParams, LabelableParams {
+export interface BaseMonitorParams extends BaseParams, LabelableParams {
 	count?: number;
 	interval?: number;
+	lineCount?: number;
 }
 
-type BooleanMonitorParams = BaseMonitorParams;
+export type BooleanMonitorParams = BaseMonitorParams;
 
-type NumberMonitorViewType = 'graph';
+export type NumberMonitorViewType = 'graph';
 
-interface NumberMonitorParams extends BaseMonitorParams {
+export interface NumberMonitorParams extends BaseMonitorParams {
 	max?: number;
 	min?: number;
 	view?: NumberMonitorViewType;
 }
 
-interface StringMonitorParams extends BaseMonitorParams {
+export interface StringMonitorParams extends BaseMonitorParams {
 	multiline?: boolean;
 }
 

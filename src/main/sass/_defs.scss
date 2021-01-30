@@ -8,7 +8,6 @@ $color-picker-marker-border-color-focus: white;
 
 // Misc
 $folder-transition-duration: 0.2s;
-$input-height: 20px;
 $input-border-radius: 2px;
 $root-border-radius: 6px;
 $color-picker-slider-track-width: 4px;
@@ -36,6 +35,7 @@ $z-index-picker: 1000;
 		'font-family',
 		('Roboto Mono', 'Source Code Pro', Menlo, Courier, monospace)
 	);
+	@include themeVariable('unit-size', 20px);
 
 	@include themeVariable('base-background-color', $bg-color);
 	@include themeVariable('base-shadow-color', rgba(black, 0.2));
@@ -109,7 +109,7 @@ $z-index-picker: 1000;
 	border-radius: $input-border-radius;
 	box-sizing: border-box;
 	color: var(--monitor-foreground-color);
-	height: $input-height;
+	height: var(--unit-size);
 	width: 100%;
 }
 
@@ -121,8 +121,8 @@ $z-index-picker: 1000;
 	box-sizing: border-box;
 	color: var(--input-foreground-color);
 	font-family: inherit;
-	height: $input-height;
-	line-height: $input-height;
+	height: var(--unit-size);
+	line-height: var(--unit-size);
 	min-width: 0;
 	width: 100%;
 
@@ -146,7 +146,7 @@ $z-index-picker: 1000;
 	cursor: pointer;
 	display: block;
 	font-weight: bold;
-	height: $input-height;
+	height: var(--unit-size);
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -198,8 +198,8 @@ $z-index-picker: 1000;
 	color: var(--folder-foreground-color);
 	cursor: pointer;
 	display: block;
-	height: 24px;
-	line-height: 24px;
+	height: calc(var(--unit-size) + 4px);
+	line-height: calc(var(--unit-size) + 4px);
 	overflow: hidden;
 	padding-left: 30px;
 	position: relative;

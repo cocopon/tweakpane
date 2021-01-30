@@ -14,7 +14,7 @@ export function createTicker(
 				document,
 				TypeUtil.getOrDefault<number>(
 					interval,
-					Constants.monitorDefaultInterval,
+					Constants.monitor.defaultInterval,
 				),
 		  );
 }

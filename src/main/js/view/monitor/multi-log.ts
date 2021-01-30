@@ -8,6 +8,7 @@ import {MonitorView} from './monitor';
 
 interface Config<T> extends ViewConfig {
 	formatter: Formatter<T>;
+	lineCount: number;
 	value: MonitorValue<T>;
 }
 
@@ -32,6 +33,7 @@ export class MultiLogMonitorView<T> extends View implements MonitorView<T> {
 
 		const textareaElem = document.createElement('textarea');
 		textareaElem.classList.add(className('i'));
+		textareaElem.style.height = `calc(var(--unit-size) * ${config.lineCount})`;
 		textareaElem.readOnly = true;
 		this.element.appendChild(textareaElem);
 		this.textareaElem_ = textareaElem;

@@ -1,3 +1,6 @@
 export const Constants = {
-	monitorDefaultInterval: 200,
+	monitor: {
+		defaultInterval: 200,
+		defaultLineCount: 3,
+	},
 };

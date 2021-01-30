@@ -17,9 +17,9 @@
 		border-radius: $input-border-radius;
 		cursor: pointer;
 		display: block;
-		height: $input-height;
+		height: var(--unit-size);
 		position: relative;
-		width: $input-height;
+		width: var(--unit-size);
 
 		&::before {
 			background-color: var(--input-foreground-color);

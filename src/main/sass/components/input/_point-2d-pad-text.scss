@@ -5,9 +5,9 @@
 	&_b {
 		@include button();
 
-		height: $input-height;
+		height: var(--unit-size);
 		position: relative;
-		width: $input-height;
+		width: var(--unit-size);
 
 		svg {
 			display: block;
@@ -24,7 +24,7 @@
 		left: -4px;
 		position: absolute;
 		right: -4px;
-		top: $input-height;
+		top: var(--unit-size);
 	}
 	&_t {
 		margin-left: 4px;

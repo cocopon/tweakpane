@@ -6,6 +6,7 @@ import {MonitorController} from './monitor';
 
 interface Config<T> {
 	formatter: Formatter<T>;
+	lineCount: number;
 	value: MonitorValue<T>;
 	viewModel: ViewModel;
 }
@@ -24,6 +25,7 @@ export class MultiLogMonitorController<T> implements MonitorController<T> {
 		this.viewModel = config.viewModel;
 		this.view = new MultiLogMonitorView(document, {
 			formatter: config.formatter,
+			lineCount: config.lineCount,
 			model: this.viewModel,
 			value: this.value,
 		});

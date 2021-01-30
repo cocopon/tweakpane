@@ -11,8 +11,8 @@
 		@include monitorView();
 
 		display: block;
-		height: $input-height * 3;
-		line-height: $input-height;
+		height: calc(var(--unit-size) * 3);
+		line-height: var(--unit-size);
 		padding: 0 4px;
 		resize: none;
 		white-space: pre;

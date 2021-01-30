@@ -7,7 +7,7 @@
 		@include monitorView();
 
 		display: block;
-		height: $input-height * 3;
+		height: calc(var(--unit-size) * 3);
 
 		polyline {
 			fill: none;

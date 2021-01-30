@@ -10,7 +10,7 @@
 
 // colorswatch
 .#{$prefix}-cswiv {
-	@include checker-pattern($transparent-checker-color-dark, $input-height / 2);
+	@include checker-pattern($transparent-checker-color-dark, 10px);
 
 	background-color: $transparent-checker-color-light;
 	border-radius: $input-border-radius;
@@ -24,14 +24,14 @@
 		border-width: 0;
 		cursor: pointer;
 		display: block;
-		height: $input-height;
+		height: var(--unit-size);
 		left: 0;
 		margin: 0;
 		outline: none;
 		padding: 0;
 		position: absolute;
 		top: 0;
-		width: $input-height;
+		width: var(--unit-size);
 
 		&:focus::after {
 			border: rgba(white, 0.75) solid 2px;
@@ -49,7 +49,7 @@
 		left: -4px;
 		position: absolute;
 		right: -4px;
-		top: $input-height;
+		top: var(--unit-size);
 	}
 }
 
@@ -61,7 +61,7 @@
 	&_s {
 		flex-grow: 0;
 		flex-shrink: 0;
-		width: $input-height;
+		width: var(--unit-size);
 	}
 	&_t {
 		flex: 1;
