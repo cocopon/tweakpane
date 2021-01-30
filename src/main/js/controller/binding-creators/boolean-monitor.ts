@@ -2,6 +2,7 @@ import {MonitorParams} from '../../api/types';
 import {MonitorBinding} from '../../binding/monitor';
 import * as BooleanConverter from '../../converter/boolean';
 import {BooleanFormatter} from '../../formatter/boolean';
+import {Constants} from '../../misc/constants';
 import {TypeUtil} from '../../misc/type-util';
 import {MonitorValue} from '../../model/monitor-value';
 import {Target} from '../../model/target';
@@ -38,6 +39,10 @@ export function create(
 			: new MultiLogMonitorController(document, {
 					viewModel: new ViewModel(),
 					formatter: new BooleanFormatter(),
+					lineCount: TypeUtil.getOrDefault(
+						params.lineCount,
+						Constants.monitor.defaultLineCount,
+					),
 					value: value,
 			  });
 

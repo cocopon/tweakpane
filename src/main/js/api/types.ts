@@ -66,6 +66,7 @@ export type InputParams =
 interface BaseMonitorParams extends BaseParams, LabelableParams {
 	count?: number;
 	interval?: number;
+	lineCount?: number;
 }
 
 type BooleanMonitorParams = BaseMonitorParams;

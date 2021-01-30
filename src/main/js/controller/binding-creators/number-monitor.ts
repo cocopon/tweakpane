@@ -2,6 +2,7 @@ import {MonitorParams} from '../../api/types';
 import {MonitorBinding} from '../../binding/monitor';
 import * as NumberConverter from '../../converter/number';
 import {NumberFormatter} from '../../formatter/number';
+import {Constants} from '../../misc/constants';
 import {TypeUtil} from '../../misc/type-util';
 import {MonitorValue} from '../../model/monitor-value';
 import {Target} from '../../model/target';
@@ -35,6 +36,10 @@ function createTextMonitor(
 			  })
 			: new MultiLogMonitorController(document, {
 					formatter: createFormatter(),
+					lineCount: TypeUtil.getOrDefault(
+						params.lineCount,
+						Constants.monitor.defaultLineCount,
+					),
 					value: value,
 					viewModel: new ViewModel(),
 			  });
