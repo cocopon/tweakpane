@@ -1,5 +1,4 @@
 import {InputParams} from '../../api/types';
-import {InputBinding} from '../../binding/input';
 import {CompositeConstraint} from '../../constraint/composite';
 import {Constraint} from '../../constraint/constraint';
 import {ListConstraint} from '../../constraint/list';
@@ -55,20 +54,11 @@ function createController(document: Document, value: InputValue<string>) {
  * @hidden
  */
 export const StringInputPlugin: InputBindingPlugin<string, string> = {
-	getInitialValue: (value) => (typeof value === 'string' ? value : null),
-	createBinding: (params) => {
-		const value = new InputValue(
-			params.initialValue,
-			createConstraint(params.inputParams),
-		);
-		return new InputBinding({
-			reader: StringConverter.fromMixed,
-			target: params.target,
-			value: value,
-			writer: (v) => v,
-		});
-	},
-	createController: (params) => {
+	accept: (value, _params) => (typeof value === 'string' ? value : null),
+	reader: (_args) => StringConverter.fromMixed,
+	writer: (_args) => (v) => v,
+	constraint: (args) => createConstraint(args.params),
+	controller: (params) => {
 		return createController(params.document, params.binding.value);
 	},
 };

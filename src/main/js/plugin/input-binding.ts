@@ -1,60 +1,74 @@
 import {InputParams} from '../api/types';
 import {InputBinding} from '../binding/input';
+import {Constraint} from '../constraint/constraint';
 import {InputBindingController} from '../controller/input-binding';
 import {InputController} from '../controller/input/input';
+import {InputValue} from '../model/input-value';
 import {Target} from '../model/target';
 
-interface BindingParams<Ex> {
-	target: Target;
+interface ValueArgs<Ex> {
 	initialValue: Ex;
-	inputParams: InputParams;
+	params: InputParams;
+	target: Target;
 }
 
-interface ControllerParams<In, Ex> {
+interface ControllerArgs<In, Ex> {
 	binding: InputBinding<In, Ex>;
 	document: Document;
 	initialValue: Ex;
-	inputParams: InputParams;
+	params: InputParams;
 }
 
 export interface InputBindingPlugin<In, Ex> {
-	getInitialValue: (value: unknown) => Ex | null;
-	createBinding: (params: BindingParams<Ex>) => InputBinding<In, Ex> | null;
-	createController: (params: ControllerParams<In, Ex>) => InputController<In>;
+	accept: (value: unknown, params: InputParams) => Ex | null;
+	reader: (args: ValueArgs<Ex>) => (value: Ex) => In;
+	writer: (args: ValueArgs<Ex>) => (value: In) => Ex;
+	controller: (args: ControllerArgs<In, Ex>) => InputController<In>;
+
+	constraint?: (args: ValueArgs<Ex>) => Constraint<In>;
 }
 
-interface Params {
+interface Args {
 	document: Document;
-	inputParams: InputParams;
+	params: InputParams;
 	target: Target;
 }
 
 export function createController<In, Ex>(
 	plugin: InputBindingPlugin<In, Ex>,
-	params: Params,
+	args: Args,
 ): InputBindingController<In, Ex> | null {
-	const initialValue = plugin.getInitialValue(params.target.read());
+	const initialValue = plugin.accept(args.target.read(), args.params);
 	if (initialValue === null) {
 		return null;
 	}
 
-	const binding = plugin.createBinding({
-		target: params.target,
+	const valueArgs = {
+		target: args.target,
 		initialValue: initialValue,
-		inputParams: params.inputParams,
-	});
-	if (!binding) {
-		return null;
-	}
+		params: args.params,
+	};
 
-	return new InputBindingController(params.document, {
+	const reader = plugin.reader(valueArgs);
+	const constraint = plugin.constraint
+		? plugin.constraint(valueArgs)
+		: undefined;
+	const value = new InputValue(reader(initialValue), constraint);
+	const binding = new InputBinding({
+		reader: reader,
+		target: args.target,
+		value: value,
+		writer: plugin.writer(valueArgs),
+	});
+
+	return new InputBindingController(args.document, {
 		binding: binding,
-		controller: plugin.createController({
+		controller: plugin.controller({
 			binding: binding,
-			document: params.document,
+			document: args.document,
 			initialValue: initialValue,
-			inputParams: params.inputParams,
+			params: args.params,
 		}),
-		label: params.inputParams.label || params.target.key,
+		label: args.params.label || args.target.key,
 	});
 }

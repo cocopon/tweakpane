@@ -1,5 +1,4 @@
 import {InputParams, Point2dDimensionParams} from '../../api/types';
-import {InputBinding} from '../../binding/input';
 import {CompositeConstraint} from '../../constraint/composite';
 import {Constraint} from '../../constraint/constraint';
 import {Point2dConstraint} from '../../constraint/point-2d';
@@ -14,7 +13,6 @@ import {TypeUtil} from '../../misc/type-util';
 import {InputValue} from '../../model/input-value';
 import {Point2d, Point2dObject} from '../../model/point-2d';
 import {ViewModel} from '../../model/view-model';
-import {AnyPoint2dParser} from '../../parser/any-point-2d';
 import {StringNumberParser} from '../../parser/string-number';
 import {InputBindingPlugin} from '../input-binding';
 
@@ -82,31 +80,13 @@ function createController(
  * @hidden
  */
 export const Point2dInputPlugin: InputBindingPlugin<Point2d, Point2dObject> = {
-	getInitialValue: (value) => {
-		const p = AnyPoint2dParser(value);
-		if (!p) {
-			return null;
-		}
-		return p;
-	},
-	createBinding: (params) => {
-		const p = AnyPoint2dParser(params.initialValue);
-		if (!p) {
-			return null;
-		}
-
-		const value = new InputValue(p, createConstraint(params.inputParams));
-		return new InputBinding({
-			reader: Point2dConverter.fromMixed,
-			target: params.target,
-			value: value,
-			writer: (v) => v.toObject(),
-		});
-	},
-	createController: (params) => {
-		const yParams =
-			'y' in params.inputParams ? params.inputParams.y : undefined;
+	accept: (value, _params) => (Point2d.isObject(value) ? value : null),
+	reader: (_args) => Point2dConverter.fromMixed,
+	writer: (_args) => (v) => v.toObject(),
+	constraint: (args) => createConstraint(args.params),
+	controller: (args) => {
+		const yParams = 'y' in args.params ? args.params.y : undefined;
 		const invertsY = yParams ? !!yParams.inverted : false;
-		return createController(params.document, params.binding.value, invertsY);
+		return createController(args.document, args.binding.value, invertsY);
 	},
 };

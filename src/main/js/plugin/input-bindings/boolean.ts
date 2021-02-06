@@ -1,5 +1,4 @@
 import {InputParams} from '../../api/types';
-import {InputBinding} from '../../binding/input';
 import {CompositeConstraint} from '../../constraint/composite';
 import {Constraint} from '../../constraint/constraint';
 import {ListConstraint} from '../../constraint/list';
@@ -52,17 +51,11 @@ function createController(document: Document, value: InputValue<boolean>) {
  * @hidden
  */
 export const BooleanInputPlugin: InputBindingPlugin<boolean, boolean> = {
-	getInitialValue: (value) => (typeof value === 'boolean' ? value : null),
-	createBinding: (params) => {
-		const value = new InputValue(false, createConstraint(params.inputParams));
-		return new InputBinding({
-			reader: BooleanConverter.fromMixed,
-			target: params.target,
-			value: value,
-			writer: (v) => v,
-		});
-	},
-	createController: (params) => {
-		return createController(params.document, params.binding.value);
+	accept: (value) => (typeof value === 'boolean' ? value : null),
+	reader: (_args) => BooleanConverter.fromMixed,
+	writer: (_args) => (v) => v,
+	constraint: (args) => createConstraint(args.params),
+	controller: (args) => {
+		return createController(args.document, args.binding.value);
 	},
 };

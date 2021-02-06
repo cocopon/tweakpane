@@ -54,7 +54,7 @@ export function create(
 			createController(plugin, {
 				document: document,
 				target: target,
-				inputParams: params,
+				params: params,
 			}),
 		null,
 	);
