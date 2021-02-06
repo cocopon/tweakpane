@@ -10,13 +10,13 @@ import {TypeUtil} from '../misc/type-util';
 import {MonitorValue} from '../model/monitor-value';
 import {Target} from '../model/target';
 
-interface ValueArgs<Ex> {
+interface ValueArguments<Ex> {
 	initialValue: Ex;
 	params: MonitorParams;
 	target: Target;
 }
 
-interface ControllerArgs<In> {
+interface ControllerArguments<In> {
 	binding: MonitorBinding<In>;
 	document: Document;
 	params: MonitorParams;
@@ -25,14 +25,8 @@ interface ControllerArgs<In> {
 export interface MonitorBindingPlugin<In, Ex> {
 	accept: (value: unknown, params: MonitorParams) => Ex | null;
 	defaultTotalCount: (params: MonitorParams) => number;
-	reader: (args: ValueArgs<Ex>) => (value: Ex) => In;
-	controller: (args: ControllerArgs<In>) => MonitorController<In>;
-}
-
-interface Args {
-	document: Document;
-	params: MonitorParams;
-	target: Target;
+	reader: (args: ValueArguments<Ex>) => (value: Ex) => In;
+	controller: (args: ControllerArguments<In>) => MonitorController<In>;
 }
 
 function createTicker(
@@ -52,7 +46,11 @@ function createTicker(
 
 export function createController<In, Ex>(
 	plugin: MonitorBindingPlugin<In, Ex>,
-	args: Args,
+	args: {
+		document: Document;
+		params: MonitorParams;
+		target: Target;
+	},
 ): MonitorBindingController<In> | null {
 	const initialValue = plugin.accept(args.target.read(), args.params);
 	if (initialValue === null) {

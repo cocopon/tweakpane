@@ -28,15 +28,13 @@ export interface InputBindingPlugin<In, Ex> {
 	constraint?: (args: ValueArgs<Ex>) => Constraint<In>;
 }
 
-interface Args {
-	document: Document;
-	params: InputParams;
-	target: Target;
-}
-
 export function createController<In, Ex>(
 	plugin: InputBindingPlugin<In, Ex>,
-	args: Args,
+	args: {
+		document: Document;
+		params: InputParams;
+		target: Target;
+	},
 ): InputBindingController<In, Ex> | null {
 	const initialValue = plugin.accept(args.target.read(), args.params);
 	if (initialValue === null) {
