@@ -1,4 +1,5 @@
 import {InputBinding} from '../../binding/input';
+import {ColorSwatchTextInputController} from '../../controller/input/color-swatch-text';
 import * as ColorConverter from '../../converter/color';
 import {ColorFormatter} from '../../formatter/color';
 import {PaneError} from '../../misc/pane-error';
@@ -6,7 +7,6 @@ import {Color} from '../../model/color';
 import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import * as StringColorParser from '../../parser/string-color';
-import {ColorSwatchTextInputController} from '../input/color-swatch-text';
 import {InputBindingPlugin} from './input-binding-plugin';
 
 /**

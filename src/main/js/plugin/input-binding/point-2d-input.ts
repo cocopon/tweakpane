@@ -5,6 +5,8 @@ import {Constraint} from '../../constraint/constraint';
 import {Point2dConstraint} from '../../constraint/point-2d';
 import {RangeConstraint} from '../../constraint/range';
 import {StepConstraint} from '../../constraint/step';
+import {Point2dPadTextInputController} from '../../controller/input/point-2d-pad-text';
+import * as UiUtil from '../../controller/ui-util';
 import * as Point2dConverter from '../../converter/point-2d';
 import {NumberFormatter} from '../../formatter/number';
 import {PaneError} from '../../misc/pane-error';
@@ -14,8 +16,6 @@ import {Point2d, Point2dObject} from '../../model/point-2d';
 import {ViewModel} from '../../model/view-model';
 import {AnyPoint2dParser} from '../../parser/any-point-2d';
 import {StringNumberParser} from '../../parser/string-number';
-import {Point2dPadTextInputController} from '../input/point-2d-pad-text';
-import * as UiUtil from '../ui-util';
 import {InputBindingPlugin} from './input-binding-plugin';
 
 function createDimensionConstraint(

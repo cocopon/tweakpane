@@ -4,12 +4,12 @@ import {CompositeConstraint} from '../../constraint/composite';
 import {Constraint} from '../../constraint/constraint';
 import {ListConstraint} from '../../constraint/list';
 import {ConstraintUtil} from '../../constraint/util';
+import {CheckboxInputController} from '../../controller/input/checkbox';
+import {ListInputController} from '../../controller/input/list';
+import * as UiUtil from '../../controller/ui-util';
 import * as BooleanConverter from '../../converter/boolean';
 import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
-import {CheckboxInputController} from '../input/checkbox';
-import {ListInputController} from '../input/list';
-import * as UiUtil from '../ui-util';
 import {InputBindingPlugin} from './input-binding-plugin';
 
 function createConstraint(params: InputParams): Constraint<boolean> {

@@ -1,4 +1,3 @@
-import * as InputBindingControllerCreators from '../controller/binding-creators/input';
 import * as MonitorBindingControllerCreators from '../controller/binding-creators/monitor';
 import {ButtonController} from '../controller/button';
 import {FolderController} from '../controller/folder';
@@ -9,6 +8,7 @@ import {SeparatorController} from '../controller/separator';
 import * as UiUtil from '../controller/ui-util';
 import {Target} from '../model/target';
 import {ViewModel} from '../model/view-model';
+import * as InputBindingControllerCreators from '../plugin/input-binding/input';
 import {ButtonApi} from './button';
 import {ComponentApi} from './component-api';
 import * as EventHandlerAdapters from './event-handler-adapters';

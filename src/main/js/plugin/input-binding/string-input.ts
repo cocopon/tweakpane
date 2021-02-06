@@ -4,13 +4,13 @@ import {CompositeConstraint} from '../../constraint/composite';
 import {Constraint} from '../../constraint/constraint';
 import {ListConstraint} from '../../constraint/list';
 import {ConstraintUtil} from '../../constraint/util';
+import {ListInputController} from '../../controller/input/list';
+import {TextInputController} from '../../controller/input/text';
+import * as UiUtil from '../../controller/ui-util';
 import * as StringConverter from '../../converter/string';
 import {StringFormatter} from '../../formatter/string';
 import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
-import {ListInputController} from '../input/list';
-import {TextInputController} from '../input/text';
-import * as UiUtil from '../ui-util';
 import {InputBindingPlugin} from './input-binding-plugin';
 
 function createConstraint(params: InputParams): Constraint<string> {
