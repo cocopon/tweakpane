@@ -1,15 +1,15 @@
 import {MonitorParams} from '../../api/types';
 import {MonitorBinding} from '../../binding/monitor';
+import {GraphMonitorController} from '../../controller/monitor/graph';
+import {MonitorController} from '../../controller/monitor/monitor';
+import {MultiLogMonitorController} from '../../controller/monitor/multi-log';
+import {SingleLogMonitorController} from '../../controller/monitor/single-log';
 import * as NumberConverter from '../../converter/number';
 import {NumberFormatter} from '../../formatter/number';
 import {Constants} from '../../misc/constants';
 import {TypeUtil} from '../../misc/type-util';
 import {ViewModel} from '../../model/view-model';
-import {MonitorBindingPlugin} from '../../plugin/monitor-binding';
-import {GraphMonitorController} from '../monitor/graph';
-import {MonitorController} from '../monitor/monitor';
-import {MultiLogMonitorController} from '../monitor/multi-log';
-import {SingleLogMonitorController} from '../monitor/single-log';
+import {MonitorBindingPlugin} from '../monitor-binding';
 
 function createFormatter(): NumberFormatter {
 	// TODO: formatter precision

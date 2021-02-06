@@ -1,8 +1,11 @@
 import {MonitorParams} from '../api/types';
 import {MonitorBinding} from '../binding/monitor';
-import {createTicker} from '../controller/binding-creators/util';
 import {MonitorBindingController} from '../controller/monitor-binding';
 import {MonitorController} from '../controller/monitor/monitor';
+import {Constants} from '../misc/constants';
+import {IntervalTicker} from '../misc/ticker/interval';
+import {ManualTicker} from '../misc/ticker/manual';
+import {Ticker} from '../misc/ticker/ticker';
 import {TypeUtil} from '../misc/type-util';
 import {MonitorValue} from '../model/monitor-value';
 import {Target} from '../model/target';
@@ -30,6 +33,21 @@ interface Args {
 	document: Document;
 	params: MonitorParams;
 	target: Target;
+}
+
+function createTicker(
+	document: Document,
+	interval: number | undefined,
+): Ticker {
+	return interval === 0
+		? new ManualTicker()
+		: new IntervalTicker(
+				document,
+				TypeUtil.getOrDefault<number>(
+					interval,
+					Constants.monitor.defaultInterval,
+				),
+		  );
 }
 
 export function createController<In, Ex>(

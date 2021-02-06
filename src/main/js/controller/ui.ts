@@ -1,5 +1,5 @@
 import * as InputBindingControllerCreators from '../api/input-binding-controllers';
-import * as MonitorBindingControllerCreators from './binding-creators/monitor';
+import * as MonitorBindingControllerCreators from '../api/monitor-binding-controllers';
 import {ButtonController} from './button';
 import {FolderController} from './folder';
 import {SeparatorController} from './separator';

@@ -1,4 +1,3 @@
-import * as MonitorBindingControllerCreators from '../controller/binding-creators/monitor';
 import {ButtonController} from '../controller/button';
 import {FolderController} from '../controller/folder';
 import {SeparatorController} from '../controller/separator';
@@ -10,6 +9,7 @@ import * as EventHandlerAdapters from './event-handler-adapters';
 import {InputBindingApi} from './input-binding';
 import * as InputBindingControllers from './input-binding-controllers';
 import {MonitorBindingApi} from './monitor-binding';
+import * as MonitorBindingControllers from './monitor-binding-controllers';
 import {SeparatorApi} from './separator';
 import {
 	ButtonParams,
@@ -74,15 +74,13 @@ export class FolderApi implements ComponentApi {
 
 	public addMonitor(object: object, key: string, opt_params?: MonitorParams) {
 		const params = opt_params || {};
-		const uc = MonitorBindingControllerCreators.create(
+		const uc = MonitorBindingControllers.create(
 			this.controller.document,
 			new Target(object, key),
 			params,
 		);
 		this.controller.uiContainer.add(uc, params.index);
-		return new MonitorBindingApi<
-			MonitorBindingControllerCreators.MonitorableType
-		>(uc);
+		return new MonitorBindingApi<MonitorBindingControllers.MonitorableType>(uc);
 	}
 
 	public addFolder(params: FolderParams): FolderApi {

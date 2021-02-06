@@ -1,14 +1,14 @@
-import {MonitorParams} from '../../api/types';
-import {PaneError} from '../../misc/pane-error';
-import {TypeUtil} from '../../misc/type-util';
-import {Target} from '../../model/target';
+import {PaneError} from '../misc/pane-error';
+import {TypeUtil} from '../misc/type-util';
+import {Target} from '../model/target';
 import {
 	createController,
 	MonitorBindingPlugin,
-} from '../../plugin/monitor-binding';
-import {BooleanMonitorPlugin} from './boolean-monitor';
-import {NumberMonitorPlugin} from './number-monitor';
-import {StringMonitorPlugin} from './string-monitor';
+} from '../plugin/monitor-binding';
+import {BooleanMonitorPlugin} from '../plugin/monitor-bindings/boolean';
+import {NumberMonitorPlugin} from '../plugin/monitor-bindings/number';
+import {StringMonitorPlugin} from '../plugin/monitor-bindings/string';
+import {MonitorParams} from './types';
 
 export type MonitorableType = boolean | number | string;
 

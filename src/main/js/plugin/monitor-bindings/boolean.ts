@@ -1,11 +1,11 @@
+import {MultiLogMonitorController} from '../../controller/monitor/multi-log';
+import {SingleLogMonitorController} from '../../controller/monitor/single-log';
 import * as BooleanConverter from '../../converter/boolean';
 import {BooleanFormatter} from '../../formatter/boolean';
 import {Constants} from '../../misc/constants';
 import {TypeUtil} from '../../misc/type-util';
 import {ViewModel} from '../../model/view-model';
-import {MonitorBindingPlugin} from '../../plugin/monitor-binding';
-import {MultiLogMonitorController} from '../monitor/multi-log';
-import {SingleLogMonitorController} from '../monitor/single-log';
+import {MonitorBindingPlugin} from '../monitor-binding';
 
 /**
  * @hidden
