@@ -1,4 +1,4 @@
 /**
  * @hidden
  */
-export type Parser<In, Out> = (text: In) => Out | null;
+export type Parser<In, Ex> = (text: In) => Ex | null;

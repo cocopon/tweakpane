@@ -67,8 +67,8 @@ export class FolderApi implements ComponentApi {
 		);
 		this.controller.uiContainer.add(uc, params.index);
 		return new InputBindingApi<
-			InputBindingControllerCreators.InputtableInType,
-			InputBindingControllerCreators.InputtableOutType
+			InputBindingControllerCreators.InputIn,
+			InputBindingControllerCreators.InputEx
 		>(uc);
 	}
 

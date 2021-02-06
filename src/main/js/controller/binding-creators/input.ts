@@ -10,8 +10,8 @@ import * as NumberInputBindingControllerCreators from './number-input';
 import * as Point2dInputBindingControllerCreators from './point-2d-input';
 import * as StringInputBindingControllerCreators from './string-input';
 
-export type InputtableInType = boolean | number | string | Color | Point2d;
-export type InputtableOutType =
+export type InputIn = boolean | number | string | Color | Point2d;
+export type InputEx =
 	| boolean
 	| number
 	| string

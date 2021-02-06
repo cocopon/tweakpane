@@ -10,18 +10,18 @@ export type FolderEventName = InputEventName | MonitorEventName | 'fold';
 /**
  * @hidden
  */
-export function input<In, Out>({
+export function input<In, Ex>({
 	binding,
 	eventName,
 	handler,
 }: {
-	binding: InputBinding<In, Out>;
+	binding: InputBinding<In, Ex>;
 	eventName: InputEventName;
 	handler: (value: unknown) => void;
 }) {
 	if (eventName === 'change') {
 		const emitter = binding.emitter;
-		emitter.on('change', (ev: InputBindingEvents<In, Out>['change']) => {
+		emitter.on('change', (ev: InputBindingEvents<In, Ex>['change']) => {
 			handler(ev.sender.getValueToWrite(ev.rawValue));
 		});
 	}
