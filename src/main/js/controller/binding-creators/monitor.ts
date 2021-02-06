@@ -2,9 +2,13 @@ import {MonitorParams} from '../../api/types';
 import {PaneError} from '../../misc/pane-error';
 import {TypeUtil} from '../../misc/type-util';
 import {Target} from '../../model/target';
-import * as BooleanMonitorBindingControllerCreators from './boolean-monitor';
-import * as NumberMonitorBindingControllerCreators from './number-monitor';
-import * as StringMonitorBindingControllerCreators from './string-monitor';
+import {
+	createController,
+	MonitorBindingPlugin,
+} from '../../plugin/monitor-binding';
+import {BooleanMonitorPlugin} from './boolean-monitor';
+import {NumberMonitorPlugin} from './number-monitor';
+import {StringMonitorPlugin} from './string-monitor';
 
 export type MonitorableType = boolean | number | string;
 
@@ -28,12 +32,17 @@ export function create(
 	}
 
 	const bc = [
-		NumberMonitorBindingControllerCreators.create,
-		StringMonitorBindingControllerCreators.create,
-		BooleanMonitorBindingControllerCreators.create,
+		NumberMonitorPlugin,
+		StringMonitorPlugin,
+		BooleanMonitorPlugin,
 	].reduce(
-		(result, createBindingController) =>
-			result || createBindingController(document, target, params),
+		(result, plugin: MonitorBindingPlugin<any, any>) =>
+			result ||
+			createController(plugin, {
+				document: document,
+				params: params,
+				target: target,
+			}),
 		null,
 	);
 	if (bc) {

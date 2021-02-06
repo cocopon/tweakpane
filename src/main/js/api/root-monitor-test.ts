@@ -4,6 +4,7 @@ import {describe, it} from 'mocha';
 import {RootController} from '../controller/root';
 import {PaneError} from '../misc/pane-error';
 import {TestUtil} from '../misc/test-util';
+import {ManualTicker} from '../misc/ticker/manual';
 import {ViewModel} from '../model/view-model';
 import {RootApi} from './root';
 
@@ -90,7 +91,7 @@ describe(RootApi.name, () => {
 				const api = createApi();
 				const obj = {foo: params.propertyValue};
 				const bapi = api.addMonitor(obj, 'foo', {
-					interval: 1,
+					interval: 0,
 				});
 				bapi.on('update', (value: unknown) => {
 					assert.strictEqual(value, expected);
@@ -99,13 +100,14 @@ describe(RootApi.name, () => {
 				});
 
 				obj.foo = params.newInternalValue;
+				(bapi.controller.binding.ticker as ManualTicker).tick();
 			});
 
 			it('should pass right first argument for update event (global)', (done) => {
 				const api = createApi();
 				const obj = {foo: params.propertyValue};
 				const bapi = api.addMonitor(obj, 'foo', {
-					interval: 1,
+					interval: 0,
 				});
 				api.on('update', (value: unknown) => {
 					assert.strictEqual(value, expected);
@@ -114,6 +116,7 @@ describe(RootApi.name, () => {
 				});
 
 				obj.foo = params.newInternalValue;
+				(bapi.controller.binding.ticker as ManualTicker).tick();
 			});
 		});
 	});
@@ -135,13 +138,15 @@ describe(RootApi.name, () => {
 		const PARAMS = {foo: 1};
 		const api = createApi();
 		const bapi = api.addMonitor(PARAMS, 'foo', {
-			interval: 1,
+			interval: 0,
 		});
 		bapi.on('update', function() {
 			bapi.dispose();
 			assert.strictEqual(this, bapi);
 			done();
 		});
+
 		PARAMS.foo = 2;
+		(bapi.controller.binding.ticker as ManualTicker).tick();
 	});
 });

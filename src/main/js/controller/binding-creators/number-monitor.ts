@@ -4,14 +4,12 @@ import * as NumberConverter from '../../converter/number';
 import {NumberFormatter} from '../../formatter/number';
 import {Constants} from '../../misc/constants';
 import {TypeUtil} from '../../misc/type-util';
-import {MonitorValue} from '../../model/monitor-value';
-import {Target} from '../../model/target';
 import {ViewModel} from '../../model/view-model';
-import {MonitorBindingController} from '../monitor-binding';
+import {MonitorBindingPlugin} from '../../plugin/monitor-binding';
 import {GraphMonitorController} from '../monitor/graph';
+import {MonitorController} from '../monitor/monitor';
 import {MultiLogMonitorController} from '../monitor/multi-log';
 import {SingleLogMonitorController} from '../monitor/single-log';
-import {createTicker} from './util';
 
 function createFormatter(): NumberFormatter {
 	// TODO: formatter precision
@@ -20,51 +18,34 @@ function createFormatter(): NumberFormatter {
 
 function createTextMonitor(
 	document: Document,
-	target: Target,
+	binding: MonitorBinding<number>,
 	params: MonitorParams,
-): MonitorBindingController<number> {
-	const value = new MonitorValue<number>(
-		TypeUtil.getOrDefault<number>(params.count, 1),
-	);
+): MonitorController<number> {
+	if (binding.value.totalCount === 1) {
+		return new SingleLogMonitorController(document, {
+			formatter: createFormatter(),
+			value: binding.value,
+			viewModel: new ViewModel(),
+		});
+	}
 
-	const controller =
-		value.totalCount === 1
-			? new SingleLogMonitorController(document, {
-					formatter: createFormatter(),
-					value: value,
-					viewModel: new ViewModel(),
-			  })
-			: new MultiLogMonitorController(document, {
-					formatter: createFormatter(),
-					lineCount: TypeUtil.getOrDefault(
-						params.lineCount,
-						Constants.monitor.defaultLineCount,
-					),
-					value: value,
-					viewModel: new ViewModel(),
-			  });
-
-	return new MonitorBindingController(document, {
-		binding: new MonitorBinding({
-			reader: NumberConverter.fromMixed,
-			target: target,
-			ticker: createTicker(document, params.interval),
-			value: value,
-		}),
-		controller: controller,
-		label: params.label || target.key,
+	return new MultiLogMonitorController(document, {
+		formatter: createFormatter(),
+		lineCount: TypeUtil.getOrDefault(
+			params.lineCount,
+			Constants.monitor.defaultLineCount,
+		),
+		value: binding.value,
+		viewModel: new ViewModel(),
 	});
 }
 
 function createGraphMonitor(
 	document: Document,
-	target: Target,
+	binding: MonitorBinding<number>,
 	params: MonitorParams,
-): MonitorBindingController<number> {
-	const value = new MonitorValue<number>(
-		TypeUtil.getOrDefault<number>(params.count, 64),
-	);
-	const controller = new GraphMonitorController(document, {
+): MonitorController<number> {
+	return new GraphMonitorController(document, {
 		formatter: createFormatter(),
 		lineCount: TypeUtil.getOrDefault(
 			params.lineCount,
@@ -78,34 +59,26 @@ function createGraphMonitor(
 			'min' in params ? params.min : null,
 			0,
 		),
-		value: value,
+		value: binding.value,
 		viewModel: new ViewModel(),
 	});
-	return new MonitorBindingController(document, {
-		binding: new MonitorBinding({
-			reader: NumberConverter.fromMixed,
-			target: target,
-			ticker: createTicker(document, params.interval),
-			value: value,
-		}),
-		controller: controller,
-		label: params.label || target.key,
-	});
 }
 
-export function create(
-	document: Document,
-	target: Target,
-	params: MonitorParams,
-): MonitorBindingController<number> | null {
-	const initialValue = target.read();
-	if (typeof initialValue !== 'number') {
-		return null;
-	}
-
-	if ('view' in params && params.view === 'graph') {
-		return createGraphMonitor(document, target, params);
-	}
-
-	return createTextMonitor(document, target, params);
+function shouldShowGraph(params: MonitorParams): boolean {
+	return 'view' in params && params.view === 'graph';
 }
+
+/**
+ * @hidden
+ */
+export const NumberMonitorPlugin: MonitorBindingPlugin<number, number> = {
+	accept: (value, _params) => (typeof value === 'number' ? value : null),
+	defaultTotalCount: (params) => (shouldShowGraph(params) ? 64 : 1),
+	reader: (_args) => NumberConverter.fromMixed,
+	controller: (args) => {
+		if (shouldShowGraph(args.params)) {
+			return createGraphMonitor(args.document, args.binding, args.params);
+		}
+		return createTextMonitor(args.document, args.binding, args.params);
+	},
+};
