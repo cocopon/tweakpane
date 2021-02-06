@@ -1,17 +1,17 @@
-import {InputParams} from '../../api/types';
-import {PaneError} from '../../misc/pane-error';
-import {TypeUtil} from '../../misc/type-util';
-import {Color, RgbaColorObject} from '../../model/color';
-import {Point2d, Point2dObject} from '../../model/point-2d';
-import {Target} from '../../model/target';
-import {BooleanInputPlugin} from './boolean-input';
-import {NumberColorInputPlugin} from './color-number-input';
-import {ObjectColorInputPlugin} from './color-object-input';
-import {StringColorInputPlugin} from './color-string-input';
-import {createController, InputBindingPlugin} from './input-binding-plugin';
-import {NumberInputPlugin} from './number-input';
-import {Point2dInputPlugin} from './point-2d-input';
-import {StringInputPlugin} from './string-input';
+import {PaneError} from '../misc/pane-error';
+import {TypeUtil} from '../misc/type-util';
+import {Color, RgbaColorObject} from '../model/color';
+import {Point2d, Point2dObject} from '../model/point-2d';
+import {Target} from '../model/target';
+import {createController, InputBindingPlugin} from '../plugin/input-binding';
+import {BooleanInputPlugin} from '../plugin/input-bindings/boolean';
+import {NumberColorInputPlugin} from '../plugin/input-bindings/color-number';
+import {ObjectColorInputPlugin} from '../plugin/input-bindings/color-object';
+import {StringColorInputPlugin} from '../plugin/input-bindings/color-string';
+import {NumberInputPlugin} from '../plugin/input-bindings/number';
+import {Point2dInputPlugin} from '../plugin/input-bindings/point-2d';
+import {StringInputPlugin} from '../plugin/input-bindings/string';
+import {InputParams} from './types';
 
 export type InputIn = boolean | number | string | Color | Point2d;
 export type InputEx =

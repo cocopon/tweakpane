@@ -8,7 +8,7 @@ import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import * as NumberColorParser from '../../parser/number-color';
 import * as StringColorParser from '../../parser/string-color';
-import {InputBindingPlugin} from './input-binding-plugin';
+import {InputBindingPlugin} from '../input-binding';
 
 function shouldSupportAlpha(inputParams: InputParams): boolean {
 	return 'input' in inputParams && inputParams.input === 'color.rgba';

@@ -1,8 +1,8 @@
-import {InputParams} from '../../api/types';
-import {InputBinding} from '../../binding/input';
-import {InputBindingController} from '../../controller/input-binding';
-import {InputController} from '../../controller/input/input';
-import {Target} from '../../model/target';
+import {InputParams} from '../api/types';
+import {InputBinding} from '../binding/input';
+import {InputBindingController} from '../controller/input-binding';
+import {InputController} from '../controller/input/input';
+import {Target} from '../model/target';
 
 interface BindingParams {
 	target: Target;

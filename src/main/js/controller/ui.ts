@@ -1,4 +1,4 @@
-import * as InputBindingControllerCreators from '../plugin/input-binding/input';
+import * as InputBindingControllerCreators from '../api/input-binding-controllers';
 import * as MonitorBindingControllerCreators from './binding-creators/monitor';
 import {ButtonController} from './button';
 import {FolderController} from './folder';

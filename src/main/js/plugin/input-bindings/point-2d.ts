@@ -16,7 +16,7 @@ import {Point2d, Point2dObject} from '../../model/point-2d';
 import {ViewModel} from '../../model/view-model';
 import {AnyPoint2dParser} from '../../parser/any-point-2d';
 import {StringNumberParser} from '../../parser/string-number';
-import {InputBindingPlugin} from './input-binding-plugin';
+import {InputBindingPlugin} from '../input-binding';
 
 function createDimensionConstraint(
 	params: Point2dDimensionParams | undefined,

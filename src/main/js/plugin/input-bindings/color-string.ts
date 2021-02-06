@@ -7,7 +7,7 @@ import {Color} from '../../model/color';
 import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import * as StringColorParser from '../../parser/string-color';
-import {InputBindingPlugin} from './input-binding-plugin';
+import {InputBindingPlugin} from '../input-binding';
 
 /**
  * @hidden

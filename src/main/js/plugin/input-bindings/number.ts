@@ -16,7 +16,7 @@ import {TypeUtil} from '../../misc/type-util';
 import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
-import {InputBindingPlugin} from './input-binding-plugin';
+import {InputBindingPlugin} from '../input-binding';
 
 function createConstraint(params: InputParams): Constraint<number> {
 	const constraints: Constraint<number>[] = [];

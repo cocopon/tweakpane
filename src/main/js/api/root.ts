@@ -8,12 +8,12 @@ import {SeparatorController} from '../controller/separator';
 import * as UiUtil from '../controller/ui-util';
 import {Target} from '../model/target';
 import {ViewModel} from '../model/view-model';
-import * as InputBindingControllerCreators from '../plugin/input-binding/input';
 import {ButtonApi} from './button';
 import {ComponentApi} from './component-api';
 import * as EventHandlerAdapters from './event-handler-adapters';
 import {FolderApi} from './folder';
 import {InputBindingApi} from './input-binding';
+import * as InputBindingControllers from './input-binding-controllers';
 import {MonitorBindingApi} from './monitor-binding';
 import * as Preset from './preset';
 import {PresetObject} from './preset';
@@ -84,15 +84,15 @@ export class RootApi implements ComponentApi {
 
 	public addInput(object: object, key: string, opt_params?: InputParams) {
 		const params = opt_params || {};
-		const uc = InputBindingControllerCreators.create(
+		const uc = InputBindingControllers.create(
 			this.controller.document,
 			new Target(object, key, params.presetKey),
 			params,
 		);
 		this.controller.uiContainer.add(uc, params.index);
 		return new InputBindingApi<
-			InputBindingControllerCreators.InputIn,
-			InputBindingControllerCreators.InputEx
+			InputBindingControllers.InputIn,
+			InputBindingControllers.InputEx
 		>(uc);
 	}
 
