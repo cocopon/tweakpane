@@ -52,12 +52,8 @@ function createController(document: Document, value: InputValue<boolean>) {
  * @hidden
  */
 export const BooleanInputPlugin: InputBindingPlugin<boolean, boolean> = {
+	getInitialValue: (value) => (typeof value === 'boolean' ? value : null),
 	createBinding: (params) => {
-		const initialValue = params.target.read();
-		if (typeof initialValue !== 'boolean') {
-			return null;
-		}
-
 		const value = new InputValue(false, createConstraint(params.inputParams));
 		return new InputBinding({
 			reader: BooleanConverter.fromMixed,

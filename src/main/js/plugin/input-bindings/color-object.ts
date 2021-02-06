@@ -15,13 +15,9 @@ export const ObjectColorInputPlugin: InputBindingPlugin<
 	Color,
 	RgbColorObject | RgbaColorObject
 > = {
+	getInitialValue: (value) => (Color.isColorObject(value) ? value : null),
 	createBinding: (params) => {
-		const initialValue = params.target.read();
-		if (!Color.isColorObject(initialValue)) {
-			return null;
-		}
-
-		const color = Color.fromObject(initialValue);
+		const color = Color.fromObject(params.initialValue);
 		const value = new InputValue(color);
 		return new InputBinding({
 			reader: ColorConverter.fromObject,
@@ -31,8 +27,7 @@ export const ObjectColorInputPlugin: InputBindingPlugin<
 		});
 	},
 	createController: (params) => {
-		const initialValue = params.binding.target.read();
-		const supportsAlpha = Color.isRgbaColorObject(initialValue);
+		const supportsAlpha = Color.isRgbaColorObject(params.initialValue);
 		const formatter = supportsAlpha
 			? new ColorFormatter(ColorConverter.toHexRgbaString)
 			: new ColorFormatter(ColorConverter.toHexRgbString);

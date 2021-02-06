@@ -55,13 +55,12 @@ function createController(document: Document, value: InputValue<string>) {
  * @hidden
  */
 export const StringInputPlugin: InputBindingPlugin<string, string> = {
+	getInitialValue: (value) => (typeof value === 'string' ? value : null),
 	createBinding: (params) => {
-		const initialValue = params.target.read();
-		if (typeof initialValue !== 'string') {
-			return null;
-		}
-
-		const value = new InputValue('', createConstraint(params.inputParams));
+		const value = new InputValue(
+			params.initialValue,
+			createConstraint(params.inputParams),
+		);
 		return new InputBinding({
 			reader: StringConverter.fromMixed,
 			target: params.target,

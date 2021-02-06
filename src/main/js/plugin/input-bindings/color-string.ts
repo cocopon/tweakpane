@@ -13,24 +13,21 @@ import {InputBindingPlugin} from '../input-binding';
  * @hidden
  */
 export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
+	getInitialValue: (value) => (typeof value === 'string' ? value : null),
 	createBinding: (params) => {
-		const initialValue = params.target.read();
-		if (typeof initialValue !== 'string') {
-			return null;
-		}
 		if (
 			'input' in params.inputParams &&
 			params.inputParams.input === 'string'
 		) {
 			return null;
 		}
-		const notation = StringColorParser.getNotation(initialValue);
+		const notation = StringColorParser.getNotation(params.initialValue);
 		if (!notation) {
 			return null;
 		}
 
 		const converter = ColorConverter.fromString;
-		const color = converter(initialValue);
+		const color = converter(params.initialValue);
 		const value = new InputValue(color);
 		const writer = ColorConverter.getStringifier(notation);
 		return new InputBinding({
@@ -41,11 +38,7 @@ export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
 		});
 	},
 	createController: (params) => {
-		const initialValue = params.binding.target.read();
-		const notation =
-			typeof initialValue === 'string'
-				? StringColorParser.getNotation(initialValue)
-				: null;
+		const notation = StringColorParser.getNotation(params.initialValue);
 		if (!notation) {
 			throw PaneError.shouldNeverHappen();
 		}

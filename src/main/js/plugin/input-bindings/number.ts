@@ -93,13 +93,12 @@ function createController(document: Document, value: InputValue<number>) {
  * @hidden
  */
 export const NumberInputPlugin: InputBindingPlugin<number, number> = {
+	getInitialValue: (value) => (typeof value === 'number' ? value : null),
 	createBinding: (params) => {
-		const initialValue = params.target.read();
-		if (typeof initialValue !== 'number') {
-			return null;
-		}
-
-		const value = new InputValue(0, createConstraint(params.inputParams));
+		const value = new InputValue(
+			params.initialValue,
+			createConstraint(params.inputParams),
+		);
 		return new InputBinding({
 			reader: NumberConverter.fromMixed,
 			target: params.target,

@@ -18,11 +18,8 @@ function shouldSupportAlpha(inputParams: InputParams): boolean {
  * @hidden
  */
 export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
+	getInitialValue: (value) => (typeof value === 'number' ? value : null),
 	createBinding: (params) => {
-		const initialValue = params.target.read();
-		if (typeof initialValue !== 'number') {
-			return null;
-		}
 		if (!('input' in params.inputParams)) {
 			return null;
 		}
@@ -38,7 +35,7 @@ export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
 			? NumberColorParser.RgbaParser
 			: NumberColorParser.RgbParser;
 
-		const color = parser(initialValue);
+		const color = parser(params.initialValue);
 		if (!color) {
 			return null;
 		}

@@ -82,9 +82,15 @@ function createController(
  * @hidden
  */
 export const Point2dInputPlugin: InputBindingPlugin<Point2d, Point2dObject> = {
+	getInitialValue: (value) => {
+		const p = AnyPoint2dParser(value);
+		if (!p) {
+			return null;
+		}
+		return p;
+	},
 	createBinding: (params) => {
-		const initialValue = params.target.read();
-		const p = AnyPoint2dParser(initialValue);
+		const p = AnyPoint2dParser(params.initialValue);
 		if (!p) {
 			return null;
 		}
