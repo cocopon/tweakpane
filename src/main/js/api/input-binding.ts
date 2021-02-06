@@ -8,19 +8,19 @@ interface InputBindingApiEventHandlers {
 
 /**
  * The API for the input binding between the parameter and the pane.
- * @param In The type inner Tweakpane.
- * @param Out The type outer Tweakpane (= parameter object).
+ * @param In The type internal Tweakpane.
+ * @param Ex The type externalTweakpane (= parameter object).
  */
-export class InputBindingApi<In, Out> implements ComponentApi {
+export class InputBindingApi<In, Ex> implements ComponentApi {
 	/**
 	 * @hidden
 	 */
-	public readonly controller: InputBindingController<In, Out>;
+	public readonly controller: InputBindingController<In, Ex>;
 
 	/**
 	 * @hidden
 	 */
-	constructor(bindingController: InputBindingController<In, Out>) {
+	constructor(bindingController: InputBindingController<In, Ex>) {
 		this.controller = bindingController;
 	}
 
@@ -39,7 +39,7 @@ export class InputBindingApi<In, Out> implements ComponentApi {
 	public on<EventName extends keyof InputBindingApiEventHandlers>(
 		eventName: EventName,
 		handler: InputBindingApiEventHandlers[EventName],
-	): InputBindingApi<In, Out> {
+	): InputBindingApi<In, Ex> {
 		HandlerAdapters.input({
 			binding: this.controller.binding,
 			eventName: eventName,

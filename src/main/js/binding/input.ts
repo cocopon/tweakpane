@@ -2,38 +2,38 @@ import {Emitter, EventTypeMap} from '../misc/emitter';
 import {InputValue, InputValueEvents} from '../model/input-value';
 import {Target} from '../model/target';
 
-interface Config<In, Out> {
+interface Config<In, Ex> {
 	reader: (outerValue: unknown) => In;
 	target: Target;
 	value: InputValue<In>;
-	writer: (innerValue: In) => Out;
+	writer: (innerValue: In) => Ex;
 }
 
 /**
  * @hidden
  */
-export interface InputBindingEvents<In, Out> extends EventTypeMap {
+export interface InputBindingEvents<In, Ex> extends EventTypeMap {
 	change: {
 		rawValue: In;
-		sender: InputBinding<In, Out>;
+		sender: InputBinding<In, Ex>;
 	};
 }
 
 /**
  * @hidden
  */
-export class InputBinding<In, Out> {
-	public readonly emitter: Emitter<InputBindingEvents<In, Out>>;
+export class InputBinding<In, Ex> {
+	public readonly emitter: Emitter<InputBindingEvents<In, Ex>>;
 	public readonly target: Target;
 	public readonly value: InputValue<In>;
-	private reader_: (outerValue: unknown) => In;
-	private writer_: (innerValue: In) => Out;
+	public readonly reader: (outerValue: unknown) => In;
+	public readonly writer: (innerValue: In) => Ex;
 
-	constructor(config: Config<In, Out>) {
+	constructor(config: Config<In, Ex>) {
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
-		this.reader_ = config.reader;
-		this.writer_ = config.writer;
+		this.reader = config.reader;
+		this.writer = config.writer;
 		this.emitter = new Emitter();
 
 		this.value = config.value;
@@ -46,12 +46,12 @@ export class InputBinding<In, Out> {
 	public read(): void {
 		const targetValue = this.target.read();
 		if (targetValue !== undefined) {
-			this.value.rawValue = this.reader_(targetValue);
+			this.value.rawValue = this.reader(targetValue);
 		}
 	}
 
-	public getValueToWrite(rawValue: In): Out {
-		return this.writer_(rawValue);
+	public getValueToWrite(rawValue: In): Ex {
+		return this.writer(rawValue);
 	}
 
 	public write_(rawValue: In): void {

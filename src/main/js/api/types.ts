@@ -64,7 +64,9 @@ export type InputParams =
 	| StringInputParams;
 
 export interface BaseMonitorParams extends BaseParams, LabelableParams {
+	// TODO: Rename (too broad...)
 	count?: number;
+
 	interval?: number;
 	lineCount?: number;
 }

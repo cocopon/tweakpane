@@ -1,5 +1,3 @@
-import * as InputBindingControllerCreators from '../controller/binding-creators/input';
-import * as MonitorBindingControllerCreators from '../controller/binding-creators/monitor';
 import {ButtonController} from '../controller/button';
 import {FolderController} from '../controller/folder';
 import {SeparatorController} from '../controller/separator';
@@ -9,7 +7,9 @@ import {ButtonApi} from './button';
 import {ComponentApi} from './component-api';
 import * as EventHandlerAdapters from './event-handler-adapters';
 import {InputBindingApi} from './input-binding';
+import * as InputBindingControllers from './input-binding-controllers';
 import {MonitorBindingApi} from './monitor-binding';
+import * as MonitorBindingControllers from './monitor-binding-controllers';
 import {SeparatorApi} from './separator';
 import {
 	ButtonParams,
@@ -60,29 +60,27 @@ export class FolderApi implements ComponentApi {
 
 	public addInput(object: object, key: string, opt_params?: InputParams) {
 		const params = opt_params || {};
-		const uc = InputBindingControllerCreators.create(
+		const uc = InputBindingControllers.create(
 			this.controller.document,
 			new Target(object, key, params.presetKey),
 			params,
 		);
 		this.controller.uiContainer.add(uc, params.index);
 		return new InputBindingApi<
-			InputBindingControllerCreators.InputtableInType,
-			InputBindingControllerCreators.InputtableOutType
+			InputBindingControllers.InputIn,
+			InputBindingControllers.InputEx
 		>(uc);
 	}
 
 	public addMonitor(object: object, key: string, opt_params?: MonitorParams) {
 		const params = opt_params || {};
-		const uc = MonitorBindingControllerCreators.create(
+		const uc = MonitorBindingControllers.create(
 			this.controller.document,
 			new Target(object, key),
 			params,
 		);
 		this.controller.uiContainer.add(uc, params.index);
-		return new MonitorBindingApi<
-			MonitorBindingControllerCreators.MonitorableType
-		>(uc);
+		return new MonitorBindingApi<MonitorBindingControllers.MonitorableType>(uc);
 	}
 
 	public addFolder(params: FolderParams): FolderApi {
