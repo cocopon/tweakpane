@@ -26,14 +26,14 @@ export class InputBinding<In, Ex> {
 	public readonly emitter: Emitter<InputBindingEvents<In, Ex>>;
 	public readonly target: Target;
 	public readonly value: InputValue<In>;
-	private reader_: (outerValue: unknown) => In;
-	private writer_: (innerValue: In) => Ex;
+	public readonly reader: (outerValue: unknown) => In;
+	public readonly writer: (innerValue: In) => Ex;
 
 	constructor(config: Config<In, Ex>) {
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
-		this.reader_ = config.reader;
-		this.writer_ = config.writer;
+		this.reader = config.reader;
+		this.writer = config.writer;
 		this.emitter = new Emitter();
 
 		this.value = config.value;
@@ -46,12 +46,12 @@ export class InputBinding<In, Ex> {
 	public read(): void {
 		const targetValue = this.target.read();
 		if (targetValue !== undefined) {
-			this.value.rawValue = this.reader_(targetValue);
+			this.value.rawValue = this.reader(targetValue);
 		}
 	}
 
 	public getValueToWrite(rawValue: In): Ex {
-		return this.writer_(rawValue);
+		return this.writer(rawValue);
 	}
 
 	public write_(rawValue: In): void {

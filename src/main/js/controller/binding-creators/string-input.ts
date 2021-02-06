@@ -7,13 +7,11 @@ import {ConstraintUtil} from '../../constraint/util';
 import * as StringConverter from '../../converter/string';
 import {StringFormatter} from '../../formatter/string';
 import {InputValue} from '../../model/input-value';
-import {Target} from '../../model/target';
 import {ViewModel} from '../../model/view-model';
-import {InputBindingController} from '../input-binding';
 import {ListInputController} from '../input/list';
 import {TextInputController} from '../input/text';
 import * as UiUtil from '../ui-util';
-import * as InputBindingPlugin from './input-binding-plugin';
+import {InputBindingPlugin} from './input-binding-plugin';
 
 function createConstraint(params: InputParams): Constraint<string> {
 	const constraints: Constraint<string>[] = [];
@@ -56,35 +54,22 @@ function createController(document: Document, value: InputValue<string>) {
 /**
  * @hidden
  */
-export function create(
-	document: Document,
-	target: Target,
-	params: InputParams,
-): InputBindingController<string, string> | null {
-	return InputBindingPlugin.createController(
-		{
-			createBinding: (params) => {
-				const initialValue = target.read();
-				if (typeof initialValue !== 'string') {
-					return null;
-				}
+export const StringInputPlugin: InputBindingPlugin<string, string> = {
+	createBinding: (params) => {
+		const initialValue = params.target.read();
+		if (typeof initialValue !== 'string') {
+			return null;
+		}
 
-				const value = new InputValue('', createConstraint(params.inputParams));
-				return new InputBinding({
-					reader: StringConverter.fromMixed,
-					target: target,
-					value: value,
-					writer: (v) => v,
-				});
-			},
-			createController: (params) => {
-				return createController(document, params.binding.value);
-			},
-		},
-		{
-			document: document,
-			inputParams: params,
-			target: target,
-		},
-	);
-}
+		const value = new InputValue('', createConstraint(params.inputParams));
+		return new InputBinding({
+			reader: StringConverter.fromMixed,
+			target: params.target,
+			value: value,
+			writer: (v) => v,
+		});
+	},
+	createController: (params) => {
+		return createController(params.document, params.binding.value);
+	},
+};

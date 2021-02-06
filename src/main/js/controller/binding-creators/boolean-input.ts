@@ -6,13 +6,11 @@ import {ListConstraint} from '../../constraint/list';
 import {ConstraintUtil} from '../../constraint/util';
 import * as BooleanConverter from '../../converter/boolean';
 import {InputValue} from '../../model/input-value';
-import {Target} from '../../model/target';
 import {ViewModel} from '../../model/view-model';
-import {InputBindingController} from '../input-binding';
 import {CheckboxInputController} from '../input/checkbox';
 import {ListInputController} from '../input/list';
 import * as UiUtil from '../ui-util';
-import * as InputBindingPlugin from './input-binding-plugin';
+import {InputBindingPlugin} from './input-binding-plugin';
 
 function createConstraint(params: InputParams): Constraint<boolean> {
 	const constraints: Constraint<boolean>[] = [];
@@ -53,38 +51,22 @@ function createController(document: Document, value: InputValue<boolean>) {
 /**
  * @hidden
  */
-export function create(
-	document: Document,
-	target: Target,
-	params: InputParams,
-): InputBindingController<boolean, boolean> | null {
-	return InputBindingPlugin.createController(
-		{
-			createBinding: (params) => {
-				const initialValue = target.read();
-				if (typeof initialValue !== 'boolean') {
-					return null;
-				}
+export const BooleanInputPlugin: InputBindingPlugin<boolean, boolean> = {
+	createBinding: (params) => {
+		const initialValue = params.target.read();
+		if (typeof initialValue !== 'boolean') {
+			return null;
+		}
 
-				const value = new InputValue(
-					false,
-					createConstraint(params.inputParams),
-				);
-				return new InputBinding({
-					reader: BooleanConverter.fromMixed,
-					target: target,
-					value: value,
-					writer: (v) => v,
-				});
-			},
-			createController: (params) => {
-				return createController(document, params.binding.value);
-			},
-		},
-		{
-			document: document,
-			inputParams: params,
-			target: target,
-		},
-	);
-}
+		const value = new InputValue(false, createConstraint(params.inputParams));
+		return new InputBinding({
+			reader: BooleanConverter.fromMixed,
+			target: params.target,
+			value: value,
+			writer: (v) => v,
+		});
+	},
+	createController: (params) => {
+		return createController(params.document, params.binding.value);
+	},
+};

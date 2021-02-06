@@ -10,15 +10,13 @@ import * as NumberConverter from '../../converter/number';
 import {NumberFormatter} from '../../formatter/number';
 import {TypeUtil} from '../../misc/type-util';
 import {InputValue} from '../../model/input-value';
-import {Target} from '../../model/target';
 import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
-import {InputBindingController} from '../input-binding';
 import {ListInputController} from '../input/list';
 import {NumberTextInputController} from '../input/number-text';
 import {SliderTextInputController} from '../input/slider-text';
 import * as UiUtil from '../ui-util';
-import * as InputBindingPlugin from './input-binding-plugin';
+import {InputBindingPlugin} from './input-binding-plugin';
 
 function createConstraint(params: InputParams): Constraint<number> {
 	const constraints: Constraint<number>[] = [];
@@ -94,35 +92,22 @@ function createController(document: Document, value: InputValue<number>) {
 /**
  * @hidden
  */
-export function create(
-	document: Document,
-	target: Target,
-	params: InputParams,
-): InputBindingController<number, number> | null {
-	return InputBindingPlugin.createController(
-		{
-			createBinding: (params) => {
-				const initialValue = target.read();
-				if (typeof initialValue !== 'number') {
-					return null;
-				}
+export const NumberInputPlugin: InputBindingPlugin<number, number> = {
+	createBinding: (params) => {
+		const initialValue = params.target.read();
+		if (typeof initialValue !== 'number') {
+			return null;
+		}
 
-				const value = new InputValue(0, createConstraint(params.inputParams));
-				return new InputBinding({
-					reader: NumberConverter.fromMixed,
-					target: target,
-					value: value,
-					writer: (v) => v,
-				});
-			},
-			createController: (params) => {
-				return createController(document, params.binding.value);
-			},
-		},
-		{
-			document: document,
-			inputParams: params,
-			target: target,
-		},
-	);
-}
+		const value = new InputValue(0, createConstraint(params.inputParams));
+		return new InputBinding({
+			reader: NumberConverter.fromMixed,
+			target: params.target,
+			value: value,
+			writer: (v) => v,
+		});
+	},
+	createController: (params) => {
+		return createController(params.document, params.binding.value);
+	},
+};

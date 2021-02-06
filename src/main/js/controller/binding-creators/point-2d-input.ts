@@ -11,14 +11,12 @@ import {PaneError} from '../../misc/pane-error';
 import {TypeUtil} from '../../misc/type-util';
 import {InputValue} from '../../model/input-value';
 import {Point2d, Point2dObject} from '../../model/point-2d';
-import {Target} from '../../model/target';
 import {ViewModel} from '../../model/view-model';
 import {AnyPoint2dParser} from '../../parser/any-point-2d';
 import {StringNumberParser} from '../../parser/string-number';
-import {InputBindingController} from '../input-binding';
 import {Point2dPadTextInputController} from '../input/point-2d-pad-text';
 import * as UiUtil from '../ui-util';
-import * as InputBindingPlugin from './input-binding-plugin';
+import {InputBindingPlugin} from './input-binding-plugin';
 
 function createDimensionConstraint(
 	params: Point2dDimensionParams | undefined,
@@ -83,39 +81,26 @@ function createController(
 /**
  * @hidden
  */
-export function create(
-	document: Document,
-	target: Target,
-	params: InputParams,
-): InputBindingController<Point2d, Point2dObject> | null {
-	return InputBindingPlugin.createController(
-		{
-			createBinding: (params) => {
-				const initialValue = params.target.read();
-				const p = AnyPoint2dParser(initialValue);
-				if (!p) {
-					return null;
-				}
+export const Point2dInputPlugin: InputBindingPlugin<Point2d, Point2dObject> = {
+	createBinding: (params) => {
+		const initialValue = params.target.read();
+		const p = AnyPoint2dParser(initialValue);
+		if (!p) {
+			return null;
+		}
 
-				const value = new InputValue(p, createConstraint(params.inputParams));
-				return new InputBinding({
-					reader: Point2dConverter.fromMixed,
-					target: target,
-					value: value,
-					writer: (v) => v.toObject(),
-				});
-			},
-			createController: (params) => {
-				const yParams =
-					'y' in params.inputParams ? params.inputParams.y : undefined;
-				const invertsY = yParams ? !!yParams.inverted : false;
-				return createController(document, params.binding.value, invertsY);
-			},
-		},
-		{
-			document: document,
-			inputParams: params,
-			target: target,
-		},
-	);
-}
+		const value = new InputValue(p, createConstraint(params.inputParams));
+		return new InputBinding({
+			reader: Point2dConverter.fromMixed,
+			target: params.target,
+			value: value,
+			writer: (v) => v.toObject(),
+		});
+	},
+	createController: (params) => {
+		const yParams =
+			'y' in params.inputParams ? params.inputParams.y : undefined;
+		const invertsY = yParams ? !!yParams.inverted : false;
+		return createController(params.document, params.binding.value, invertsY);
+	},
+};
