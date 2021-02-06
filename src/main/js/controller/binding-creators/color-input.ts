@@ -10,6 +10,7 @@ import * as NumberColorParser from '../../parser/number-color';
 import * as StringColorParser from '../../parser/string-color';
 import {InputBindingController} from '../input-binding';
 import {ColorSwatchTextInputController} from '../input/color-swatch-text';
+import * as InputBindingPlugin from './input-binding-plugin';
 
 /**
  * @hidden
@@ -121,31 +122,42 @@ export function createWithObject(
 	target: Target,
 	params: InputParams,
 ): InputBindingController<Color, RgbColorObject | RgbaColorObject> | null {
-	const initialValue = target.read();
-	if (!Color.isColorObject(initialValue)) {
-		return null;
-	}
+	return InputBindingPlugin.createController(
+		{
+			createBinding: (params) => {
+				const initialValue = params.target.read();
+				if (!Color.isColorObject(initialValue)) {
+					return null;
+				}
 
-	const color = Color.fromObject(initialValue);
-	const supportsAlpha = Color.isRgbaColorObject(initialValue);
-	const formatter = supportsAlpha
-		? new ColorFormatter(ColorConverter.toHexRgbaString)
-		: new ColorFormatter(ColorConverter.toHexRgbString);
-	const value = new InputValue(color);
-	return new InputBindingController(document, {
-		binding: new InputBinding({
-			reader: ColorConverter.fromObject,
+				const color = Color.fromObject(initialValue);
+				const value = new InputValue(color);
+				return new InputBinding({
+					reader: ColorConverter.fromObject,
+					target: target,
+					value: value,
+					writer: Color.toRgbaObject,
+				});
+			},
+			createController: (params) => {
+				const initialValue = params.binding.target.read();
+				const supportsAlpha = Color.isRgbaColorObject(initialValue);
+				const formatter = supportsAlpha
+					? new ColorFormatter(ColorConverter.toHexRgbaString)
+					: new ColorFormatter(ColorConverter.toHexRgbString);
+				return new ColorSwatchTextInputController(document, {
+					viewModel: new ViewModel(),
+					formatter: formatter,
+					parser: StringColorParser.CompositeParser,
+					supportsAlpha: supportsAlpha,
+					value: params.binding.value,
+				});
+			},
+		},
+		{
+			document: document,
+			inputParams: params,
 			target: target,
-			value: value,
-			writer: Color.toRgbaObject,
-		}),
-		controller: new ColorSwatchTextInputController(document, {
-			viewModel: new ViewModel(),
-			formatter: formatter,
-			parser: StringColorParser.CompositeParser,
-			supportsAlpha: supportsAlpha,
-			value: value,
-		}),
-		label: params.label || target.key,
-	});
+		},
+	);
 }

@@ -13,6 +13,7 @@ import {InputBindingController} from '../input-binding';
 import {ListInputController} from '../input/list';
 import {TextInputController} from '../input/text';
 import * as UiUtil from '../ui-util';
+import * as InputBindingPlugin from './input-binding-plugin';
 
 function createConstraint(params: InputParams): Constraint<string> {
 	const constraints: Constraint<string>[] = [];
@@ -60,23 +61,30 @@ export function create(
 	target: Target,
 	params: InputParams,
 ): InputBindingController<string, string> | null {
-	const initialValue = target.read();
-	if (typeof initialValue !== 'string') {
-		return null;
-	}
+	return InputBindingPlugin.createController(
+		{
+			createBinding: (params) => {
+				const initialValue = target.read();
+				if (typeof initialValue !== 'string') {
+					return null;
+				}
 
-	const value = new InputValue('', createConstraint(params));
-	const binding = new InputBinding({
-		reader: StringConverter.fromMixed,
-		target: target,
-		value: value,
-		writer: (v) => v,
-	});
-
-	const controller = createController(document, value);
-	return new InputBindingController(document, {
-		binding: binding,
-		controller: controller,
-		label: params.label || target.key,
-	});
+				const value = new InputValue('', createConstraint(params.inputParams));
+				return new InputBinding({
+					reader: StringConverter.fromMixed,
+					target: target,
+					value: value,
+					writer: (v) => v,
+				});
+			},
+			createController: (params) => {
+				return createController(document, params.binding.value);
+			},
+		},
+		{
+			document: document,
+			inputParams: params,
+			target: target,
+		},
+	);
 }

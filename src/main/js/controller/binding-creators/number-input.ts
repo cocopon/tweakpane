@@ -18,6 +18,7 @@ import {ListInputController} from '../input/list';
 import {NumberTextInputController} from '../input/number-text';
 import {SliderTextInputController} from '../input/slider-text';
 import * as UiUtil from '../ui-util';
+import * as InputBindingPlugin from './input-binding-plugin';
 
 function createConstraint(params: InputParams): Constraint<number> {
 	const constraints: Constraint<number>[] = [];
@@ -98,23 +99,30 @@ export function create(
 	target: Target,
 	params: InputParams,
 ): InputBindingController<number, number> | null {
-	const initialValue = target.read();
-	if (typeof initialValue !== 'number') {
-		return null;
-	}
+	return InputBindingPlugin.createController(
+		{
+			createBinding: (params) => {
+				const initialValue = target.read();
+				if (typeof initialValue !== 'number') {
+					return null;
+				}
 
-	const value = new InputValue(0, createConstraint(params));
-	const binding = new InputBinding({
-		reader: NumberConverter.fromMixed,
-		target: target,
-		value: value,
-		writer: (v) => v,
-	});
-
-	const controller = createController(document, value);
-	return new InputBindingController(document, {
-		binding: binding,
-		controller: controller,
-		label: params.label || target.key,
-	});
+				const value = new InputValue(0, createConstraint(params.inputParams));
+				return new InputBinding({
+					reader: NumberConverter.fromMixed,
+					target: target,
+					value: value,
+					writer: (v) => v,
+				});
+			},
+			createController: (params) => {
+				return createController(document, params.binding.value);
+			},
+		},
+		{
+			document: document,
+			inputParams: params,
+			target: target,
+		},
+	);
 }

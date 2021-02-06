@@ -12,6 +12,7 @@ import {InputBindingController} from '../input-binding';
 import {CheckboxInputController} from '../input/checkbox';
 import {ListInputController} from '../input/list';
 import * as UiUtil from '../ui-util';
+import * as InputBindingPlugin from './input-binding-plugin';
 
 function createConstraint(params: InputParams): Constraint<boolean> {
 	const constraints: Constraint<boolean>[] = [];
@@ -57,22 +58,33 @@ export function create(
 	target: Target,
 	params: InputParams,
 ): InputBindingController<boolean, boolean> | null {
-	const initialValue = target.read();
-	if (typeof initialValue !== 'boolean') {
-		return null;
-	}
+	return InputBindingPlugin.createController(
+		{
+			createBinding: (params) => {
+				const initialValue = target.read();
+				if (typeof initialValue !== 'boolean') {
+					return null;
+				}
 
-	const value = new InputValue(false, createConstraint(params));
-	const binding = new InputBinding({
-		reader: BooleanConverter.fromMixed,
-		target: target,
-		value: value,
-		writer: (v) => v,
-	});
-
-	return new InputBindingController(document, {
-		binding: binding,
-		controller: createController(document, value),
-		label: params.label || target.key,
-	});
+				const value = new InputValue(
+					false,
+					createConstraint(params.inputParams),
+				);
+				return new InputBinding({
+					reader: BooleanConverter.fromMixed,
+					target: target,
+					value: value,
+					writer: (v) => v,
+				});
+			},
+			createController: (params) => {
+				return createController(document, params.binding.value);
+			},
+		},
+		{
+			document: document,
+			inputParams: params,
+			target: target,
+		},
+	);
 }
