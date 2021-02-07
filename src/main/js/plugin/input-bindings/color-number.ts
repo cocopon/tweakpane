@@ -43,6 +43,7 @@ export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
 			? ColorConverter.toRgbaNumber
 			: ColorConverter.toRgbNumber;
 	},
+	equals: Color.equals,
 	controller: (args) => {
 		const supportsAlpha = shouldSupportAlpha(args.params);
 		const formatter = supportsAlpha
