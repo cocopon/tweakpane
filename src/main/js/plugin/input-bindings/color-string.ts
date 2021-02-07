@@ -32,6 +32,7 @@ export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
 		}
 		return ColorConverter.getStringifier(notation);
 	},
+	equals: Color.equals,
 	controller: (args) => {
 		const notation = StringColorParser.getNotation(args.initialValue);
 		if (!notation) {

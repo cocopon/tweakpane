@@ -26,6 +26,7 @@ export interface InputBindingPlugin<In, Ex> {
 	controller: (args: ControllerArgs<In, Ex>) => InputController<In>;
 
 	constraint?: (args: ValueArgs<Ex>) => Constraint<In>;
+	equals?: (v1: In, v2: In) => boolean;
 }
 
 export function createController<In, Ex>(
@@ -51,7 +52,7 @@ export function createController<In, Ex>(
 	const constraint = plugin.constraint
 		? plugin.constraint(valueArgs)
 		: undefined;
-	const value = new InputValue(reader(initialValue), constraint);
+	const value = new InputValue(reader(initialValue), constraint, plugin.equals);
 	const binding = new InputBinding({
 		reader: reader,
 		target: args.target,

@@ -6,6 +6,16 @@ export interface PointerData {
 	py: number;
 }
 
+function computeOffset(ev: MouseEvent, elem: HTMLElement): [number, number] {
+	// NOTE: OffsetX/Y should be computed from page and window properties to capture mouse events
+	const win = elem.ownerDocument.defaultView;
+	const rect = elem.getBoundingClientRect();
+	return [
+		ev.pageX - (((win && win.scrollX) || 0) + rect.left),
+		ev.pageY - (((win && win.scrollY) || 0) + rect.top),
+	];
+}
+
 /**
  * @hidden
  */
@@ -73,7 +83,7 @@ export class PointerHandler {
 		this.pressed_ = true;
 
 		this.emitter.emit('down', {
-			data: this.computePosition_(e.offsetX, e.offsetY),
+			data: this.computePosition_(...computeOffset(e, this.element)),
 			sender: this,
 		});
 	}
@@ -83,13 +93,8 @@ export class PointerHandler {
 			return;
 		}
 
-		const win = this.document.defaultView;
-		const rect = this.element.getBoundingClientRect();
 		this.emitter.emit('move', {
-			data: this.computePosition_(
-				e.pageX - (((win && win.scrollX) || 0) + rect.left),
-				e.pageY - (((win && win.scrollY) || 0) + rect.top),
-			),
+			data: this.computePosition_(...computeOffset(e, this.element)),
 			sender: this,
 		});
 	}
@@ -100,13 +105,8 @@ export class PointerHandler {
 		}
 		this.pressed_ = false;
 
-		const win = this.document.defaultView;
-		const rect = this.element.getBoundingClientRect();
 		this.emitter.emit('up', {
-			data: this.computePosition_(
-				e.pageX - (((win && win.scrollX) || 0) + rect.left),
-				e.pageY - (((win && win.scrollY) || 0) + rect.top),
-			),
+			data: this.computePosition_(...computeOffset(e, this.element)),
 			sender: this,
 		});
 	}

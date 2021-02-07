@@ -89,6 +89,21 @@ export class Color {
 		return this.isRgbColorObject(obj);
 	}
 
+	public static equals(c1: Color, c2: Color): boolean {
+		if (c1.mode_ !== c2.mode_) {
+			return false;
+		}
+
+		const comps1 = c1.comps_;
+		const comps2 = c2.comps_;
+		for (let i = 0; i < comps1.length; i++) {
+			if (comps1[i] !== comps2[i]) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	private comps_: ColorComponents4;
 	private mode_: ColorMode;
 
