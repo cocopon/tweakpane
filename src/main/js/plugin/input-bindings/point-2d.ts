@@ -84,6 +84,7 @@ export const Point2dInputPlugin: InputBindingPlugin<Point2d, Point2dObject> = {
 	reader: (_args) => Point2dConverter.fromMixed,
 	writer: (_args) => (v) => v.toObject(),
 	constraint: (args) => createConstraint(args.params),
+	equals: Point2d.equals,
 	controller: (args) => {
 		const yParams = 'y' in args.params ? args.params.y : undefined;
 		const invertsY = yParams ? !!yParams.inverted : false;

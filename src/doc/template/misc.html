@@ -49,7 +49,7 @@ pane.addInput(PARAMS, 'number');
 pane.addInput(PARAMS, 'string');
 
 pane.<strong>on</strong>('change', (value) =&gt; {
-  console.log('changed: ' + String(value));
+  console.log('changed: ' + JSON.stringify(value));
 });
 </code></pre></div>
 		</div>

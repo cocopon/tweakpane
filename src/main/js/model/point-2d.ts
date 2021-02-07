@@ -32,6 +32,10 @@ export class Point2d {
 		return true;
 	}
 
+	public static equals(v1: Point2d, v2: Point2d): boolean {
+		return v1.x === v2.x && v1.y === v2.y;
+	}
+
 	public toObject(): Point2dObject {
 		return {
 			x: this.x,

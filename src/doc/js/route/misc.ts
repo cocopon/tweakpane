@@ -87,6 +87,7 @@ export const MiscRoute = {
 					boolean: true,
 					color: '#0080ff',
 					number: 0,
+					point2d: {x: 0, y: 0},
 					string: 'text',
 
 					log: '',
@@ -111,10 +112,11 @@ export const MiscRoute = {
 					max: 100,
 					min: 0,
 				});
+				pane.addInput(PARAMS, 'point2d');
 				pane.addInput(PARAMS, 'string');
 				pane.on('change', (value: number | string) => {
 					const v = typeof value === 'number' ? value.toFixed(2) : value;
-					PARAMS.log = `changed: ${v}`;
+					PARAMS.log = `changed: ${JSON.stringify(v)}`;
 					consolePane.refresh();
 				});
 			},
