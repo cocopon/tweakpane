@@ -21,7 +21,7 @@ function createTextMonitor(
 	binding: MonitorBinding<number>,
 	params: MonitorParams,
 ): MonitorController<number> {
-	if (binding.value.totalCount === 1) {
+	if (binding.value.bufferSize === 1) {
 		return new SingleLogMonitorController(document, {
 			formatter: createFormatter(),
 			value: binding.value,
@@ -74,7 +74,7 @@ function shouldShowGraph(params: MonitorParams): boolean {
 export const NumberMonitorPlugin: MonitorBindingPlugin<number, number> = {
 	model: {
 		accept: (value, _params) => (typeof value === 'number' ? value : null),
-		defaultTotalCount: (params) => (shouldShowGraph(params) ? 64 : 1),
+		defaultBufferSize: (params) => (shouldShowGraph(params) ? 64 : 1),
 		reader: (_args) => NumberConverter.fromMixed,
 	},
 	controller: (args) => {

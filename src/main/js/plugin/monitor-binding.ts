@@ -31,7 +31,7 @@ export interface MonitorBindingPlugin<In, Ex> {
 		reader: (args: ValueArguments<Ex>) => (value: Ex) => In;
 
 		// Misc
-		defaultTotalCount: (params: MonitorParams) => number;
+		defaultBufferSize: (params: MonitorParams) => number;
 	};
 	controller: (args: ControllerArguments<In>) => MonitorController<In>;
 }
@@ -71,12 +71,11 @@ export function createController<In, Ex>(
 	};
 
 	const reader = plugin.model.reader(valueArgs);
-	const value = new MonitorValue<In>(
-		TypeUtil.getOrDefault(
-			args.params.count,
-			plugin.model.defaultTotalCount(args.params),
-		),
+	const bufferSize = TypeUtil.getOrDefault(
+		TypeUtil.getOrDefault(args.params.bufferSize, args.params.count),
+		plugin.model.defaultBufferSize(args.params),
 	);
+	const value = new MonitorValue<In>(bufferSize);
 	const binding = new MonitorBinding({
 		reader: reader,
 		target: args.target,

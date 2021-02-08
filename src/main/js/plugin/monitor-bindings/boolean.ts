@@ -13,11 +13,11 @@ import {MonitorBindingPlugin} from '../monitor-binding';
 export const BooleanMonitorPlugin: MonitorBindingPlugin<boolean, boolean> = {
 	model: {
 		accept: (value, _params) => (typeof value === 'boolean' ? value : null),
-		defaultTotalCount: (_params) => 1,
+		defaultBufferSize: (_params) => 1,
 		reader: (_args) => BooleanConverter.fromMixed,
 	},
 	controller: (args) => {
-		if (args.binding.value.totalCount === 1) {
+		if (args.binding.value.bufferSize === 1) {
 			return new SingleLogMonitorController(args.document, {
 				viewModel: new ViewModel(),
 				formatter: new BooleanFormatter(),

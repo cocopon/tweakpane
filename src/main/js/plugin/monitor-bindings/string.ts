@@ -13,13 +13,13 @@ import {MonitorBindingPlugin} from '../monitor-binding';
 export const StringMonitorPlugin: MonitorBindingPlugin<string, string> = {
 	model: {
 		accept: (value, _params) => (typeof value === 'string' ? value : null),
-		defaultTotalCount: (_params) => 1,
+		defaultBufferSize: (_params) => 1,
 		reader: (_args) => StringConverter.fromMixed,
 	},
 	controller: (args) => {
 		const value = args.binding.value;
 		const multiline =
-			value.totalCount > 1 ||
+			value.bufferSize > 1 ||
 			('multiline' in args.params && args.params.multiline);
 		if (multiline) {
 			return new MultiLogMonitorController(args.document, {

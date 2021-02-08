@@ -40,7 +40,7 @@ export const MonitorRoute = {
 					label: 'text',
 				});
 				nf.addMonitor(SHARED_PARAMS, 'wave', {
-					count: 10,
+					bufferSize: 10,
 					label: 'multiline',
 				});
 				nf.addMonitor(SHARED_PARAMS, 'wave', {
@@ -76,7 +76,7 @@ export const MonitorRoute = {
 					container: container,
 				});
 				pane.addMonitor(SHARED_PARAMS, 'wave', {
-					count: 10,
+					bufferSize: 10,
 				});
 			},
 

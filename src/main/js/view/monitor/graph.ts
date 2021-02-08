@@ -93,7 +93,7 @@ export class GraphMonitorView extends View implements MonitorView<number> {
 		const bounds = this.svgElem_.getBoundingClientRect();
 
 		// Graph
-		const maxIndex = this.value.totalCount - 1;
+		const maxIndex = this.value.bufferSize - 1;
 		const min = this.minValue_;
 		const max = this.maxValue_;
 		this.lineElem_.setAttributeNS(

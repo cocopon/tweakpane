@@ -64,24 +64,28 @@ export type InputParams =
 	| StringInputParams;
 
 export interface BaseMonitorParams extends BaseParams, LabelableParams {
-	// TODO: Rename (too broad...)
-	count?: number;
-
+	bufferSize?: number;
 	interval?: number;
-	lineCount?: number;
+
+	// TODO: Deprecated, use `bufferSize` instead
+	count?: number;
 }
 
-export type BooleanMonitorParams = BaseMonitorParams;
+export interface BooleanMonitorParams extends BaseMonitorParams {
+	lineCount?: number;
+}
 
 export type NumberMonitorViewType = 'graph';
 
 export interface NumberMonitorParams extends BaseMonitorParams {
+	lineCount?: number;
 	max?: number;
 	min?: number;
 	view?: NumberMonitorViewType;
 }
 
 export interface StringMonitorParams extends BaseMonitorParams {
+	lineCount?: number;
 	multiline?: boolean;
 }
 

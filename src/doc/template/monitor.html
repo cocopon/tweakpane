@@ -37,15 +37,15 @@ pane.addMonitor(PARAMS, 'wave', {
 </div>
 
 
-<h2 id="count">Count</h2>
-<p>You can use <code>count</code> option to change a buffer size.</p>
+<h2 id="buffersize">Buffer size</h2>
+<p>You can use <code>bufferSize</code> option to change the buffer size.</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
 			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
 pane.addMonitor(PARAMS, 'wave', {
-  <strong>count</strong>: 10,
+  <strong>bufferSize</strong>: 10,
 });</code></pre></div>
 		</div>
 		<div class="demo_resultLayout">
@@ -53,6 +53,8 @@ pane.addMonitor(PARAMS, 'wave', {
 		</div>
 	</div>
 </div>
+
+<p>(NOTE: previously <code>count</code>, still supported yet but will be removed in a future update)</p>
 
 
 <h2 id="interval">Interval</h2>
