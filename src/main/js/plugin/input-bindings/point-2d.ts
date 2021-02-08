@@ -80,11 +80,13 @@ function createController(
  * @hidden
  */
 export const Point2dInputPlugin: InputBindingPlugin<Point2d, Point2dObject> = {
-	accept: (value, _params) => (Point2d.isObject(value) ? value : null),
-	reader: (_args) => Point2dConverter.fromMixed,
-	writer: (_args) => (v) => v.toObject(),
-	constraint: (args) => createConstraint(args.params),
-	equals: Point2d.equals,
+	model: {
+		accept: (value, _params) => (Point2d.isObject(value) ? value : null),
+		reader: (_args) => Point2dConverter.fromMixed,
+		writer: (_args) => (v) => v.toObject(),
+		constraint: (args) => createConstraint(args.params),
+		equals: Point2d.equals,
+	},
 	controller: (args) => {
 		const yParams = 'y' in args.params ? args.params.y : undefined;
 		const invertsY = yParams ? !!yParams.inverted : false;

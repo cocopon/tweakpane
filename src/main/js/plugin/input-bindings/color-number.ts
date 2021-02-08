@@ -15,35 +15,37 @@ function shouldSupportAlpha(inputParams: InputParams): boolean {
  * @hidden
  */
 export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
-	accept: (value, params) => {
-		if (typeof value !== 'number') {
-			return null;
-		}
+	model: {
+		accept: (value, params) => {
+			if (typeof value !== 'number') {
+				return null;
+			}
 
-		if (!('input' in params)) {
-			return null;
-		}
-		if (
-			params.input !== 'color' &&
-			params.input !== 'color.rgb' &&
-			params.input !== 'color.rgba'
-		) {
-			return null;
-		}
+			if (!('input' in params)) {
+				return null;
+			}
+			if (
+				params.input !== 'color' &&
+				params.input !== 'color.rgb' &&
+				params.input !== 'color.rgba'
+			) {
+				return null;
+			}
 
-		return value;
+			return value;
+		},
+		reader: (args) => {
+			return shouldSupportAlpha(args.params)
+				? ColorConverter.fromNumberToRgba
+				: ColorConverter.fromNumberToRgb;
+		},
+		writer: (args) => {
+			return shouldSupportAlpha(args.params)
+				? ColorConverter.toRgbaNumber
+				: ColorConverter.toRgbNumber;
+		},
+		equals: Color.equals,
 	},
-	reader: (args) => {
-		return shouldSupportAlpha(args.params)
-			? ColorConverter.fromNumberToRgba
-			: ColorConverter.fromNumberToRgb;
-	},
-	writer: (args) => {
-		return shouldSupportAlpha(args.params)
-			? ColorConverter.toRgbaNumber
-			: ColorConverter.toRgbNumber;
-	},
-	equals: Color.equals,
 	controller: (args) => {
 		const supportsAlpha = shouldSupportAlpha(args.params);
 		const formatter = supportsAlpha

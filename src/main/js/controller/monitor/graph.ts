@@ -59,7 +59,7 @@ export class GraphMonitorController implements MonitorController<number> {
 		const bounds = this.view.graphElement.getBoundingClientRect();
 		const x = e.offsetX;
 		this.cursor_.index = Math.floor(
-			NumberUtil.map(x, 0, bounds.width, 0, this.value.totalCount),
+			NumberUtil.map(x, 0, bounds.width, 0, this.value.bufferSize),
 		);
 	}
 }

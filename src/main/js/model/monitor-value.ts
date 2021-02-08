@@ -16,27 +16,27 @@ export interface MonitorValueEvents<T> extends EventTypeMap {
 export class MonitorValue<T> {
 	public readonly emitter: Emitter<MonitorValueEvents<T>>;
 	private rawValues_: T[];
-	private totalCount_: number;
+	private bufferSize_: number;
 
-	constructor(totalCount: number) {
+	constructor(bufferSize: number) {
 		this.emitter = new Emitter();
 		this.rawValues_ = [];
-		this.totalCount_ = totalCount;
+		this.bufferSize_ = bufferSize;
 	}
 
 	get rawValues(): T[] {
 		return this.rawValues_;
 	}
 
-	get totalCount(): number {
-		return this.totalCount_;
+	get bufferSize(): number {
+		return this.bufferSize_;
 	}
 
 	public append(rawValue: T): void {
 		this.rawValues_.push(rawValue);
 
-		if (this.rawValues_.length > this.totalCount_) {
-			this.rawValues_.splice(0, this.rawValues_.length - this.totalCount_);
+		if (this.rawValues_.length > this.bufferSize_) {
+			this.rawValues_.splice(0, this.rawValues_.length - this.bufferSize_);
 		}
 
 		this.emitter.emit('update', {

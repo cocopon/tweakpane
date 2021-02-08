@@ -51,10 +51,12 @@ function createController(document: Document, value: InputValue<boolean>) {
  * @hidden
  */
 export const BooleanInputPlugin: InputBindingPlugin<boolean, boolean> = {
-	accept: (value) => (typeof value === 'boolean' ? value : null),
-	reader: (_args) => BooleanConverter.fromMixed,
-	writer: (_args) => (v) => v,
-	constraint: (args) => createConstraint(args.params),
+	model: {
+		accept: (value) => (typeof value === 'boolean' ? value : null),
+		reader: (_args) => BooleanConverter.fromMixed,
+		writer: (_args) => (v) => v,
+		constraint: (args) => createConstraint(args.params),
+	},
 	controller: (args) => {
 		return createController(args.document, args.binding.value);
 	},
