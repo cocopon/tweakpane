@@ -13,10 +13,12 @@ export const ObjectColorInputPlugin: InputBindingPlugin<
 	Color,
 	RgbColorObject | RgbaColorObject
 > = {
-	accept: (value, _params) => (Color.isColorObject(value) ? value : null),
-	reader: (_args) => ColorConverter.fromObject,
-	writer: (_args) => Color.toRgbaObject,
-	equals: Color.equals,
+	model: {
+		accept: (value, _params) => (Color.isColorObject(value) ? value : null),
+		reader: (_args) => ColorConverter.fromObject,
+		writer: (_args) => Color.toRgbaObject,
+		equals: Color.equals,
+	},
 	controller: (args) => {
 		const supportsAlpha = Color.isRgbaColorObject(args.initialValue);
 		const formatter = supportsAlpha

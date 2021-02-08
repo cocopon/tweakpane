@@ -92,10 +92,12 @@ function createController(document: Document, value: InputValue<number>) {
  * @hidden
  */
 export const NumberInputPlugin: InputBindingPlugin<number, number> = {
-	accept: (value) => (typeof value === 'number' ? value : null),
-	reader: (_args) => NumberConverter.fromMixed,
-	writer: (_args) => (v) => v,
-	constraint: (args) => createConstraint(args.params),
+	model: {
+		accept: (value) => (typeof value === 'number' ? value : null),
+		reader: (_args) => NumberConverter.fromMixed,
+		writer: (_args) => (v) => v,
+		constraint: (args) => createConstraint(args.params),
+	},
 	controller: (args) => {
 		return createController(args.document, args.binding.value);
 	},

@@ -11,28 +11,30 @@ import {InputBindingPlugin} from '../input-binding';
  * @hidden
  */
 export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
-	accept: (value, params) => {
-		if (typeof value !== 'string') {
-			return null;
-		}
-		if ('input' in params && params.input === 'string') {
-			return null;
-		}
-		const notation = StringColorParser.getNotation(value);
-		if (!notation) {
-			return null;
-		}
-		return value;
+	model: {
+		accept: (value, params) => {
+			if (typeof value !== 'string') {
+				return null;
+			}
+			if ('input' in params && params.input === 'string') {
+				return null;
+			}
+			const notation = StringColorParser.getNotation(value);
+			if (!notation) {
+				return null;
+			}
+			return value;
+		},
+		reader: (_args) => ColorConverter.fromString,
+		writer: (args) => {
+			const notation = StringColorParser.getNotation(args.initialValue);
+			if (!notation) {
+				throw PaneError.shouldNeverHappen();
+			}
+			return ColorConverter.getStringifier(notation);
+		},
+		equals: Color.equals,
 	},
-	reader: (_args) => ColorConverter.fromString,
-	writer: (args) => {
-		const notation = StringColorParser.getNotation(args.initialValue);
-		if (!notation) {
-			throw PaneError.shouldNeverHappen();
-		}
-		return ColorConverter.getStringifier(notation);
-	},
-	equals: Color.equals,
 	controller: (args) => {
 		const notation = StringColorParser.getNotation(args.initialValue);
 		if (!notation) {

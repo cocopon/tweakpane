@@ -54,10 +54,12 @@ function createController(document: Document, value: InputValue<string>) {
  * @hidden
  */
 export const StringInputPlugin: InputBindingPlugin<string, string> = {
-	accept: (value, _params) => (typeof value === 'string' ? value : null),
-	reader: (_args) => StringConverter.fromMixed,
-	writer: (_args) => (v) => v,
-	constraint: (args) => createConstraint(args.params),
+	model: {
+		accept: (value, _params) => (typeof value === 'string' ? value : null),
+		reader: (_args) => StringConverter.fromMixed,
+		writer: (_args) => (v) => v,
+		constraint: (args) => createConstraint(args.params),
+	},
 	controller: (params) => {
 		return createController(params.document, params.binding.value);
 	},

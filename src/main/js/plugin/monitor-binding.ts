@@ -23,9 +23,16 @@ interface ControllerArguments<In> {
 }
 
 export interface MonitorBindingPlugin<In, Ex> {
-	accept: (value: unknown, params: MonitorParams) => Ex | null;
-	defaultTotalCount: (params: MonitorParams) => number;
-	reader: (args: ValueArguments<Ex>) => (value: Ex) => In;
+	model: {
+		// Accept unknown value as Ex, or deny it
+		accept: (value: unknown, params: MonitorParams) => Ex | null;
+
+		// Convert Ex into In
+		reader: (args: ValueArguments<Ex>) => (value: Ex) => In;
+
+		// Misc
+		defaultTotalCount: (params: MonitorParams) => number;
+	};
 	controller: (args: ControllerArguments<In>) => MonitorController<In>;
 }
 
@@ -52,7 +59,7 @@ export function createController<In, Ex>(
 		target: Target;
 	},
 ): MonitorBindingController<In> | null {
-	const initialValue = plugin.accept(args.target.read(), args.params);
+	const initialValue = plugin.model.accept(args.target.read(), args.params);
 	if (initialValue === null) {
 		return null;
 	}
@@ -63,11 +70,11 @@ export function createController<In, Ex>(
 		params: args.params,
 	};
 
-	const reader = plugin.reader(valueArgs);
+	const reader = plugin.model.reader(valueArgs);
 	const value = new MonitorValue<In>(
 		TypeUtil.getOrDefault(
 			args.params.count,
-			plugin.defaultTotalCount(args.params),
+			plugin.model.defaultTotalCount(args.params),
 		),
 	);
 	const binding = new MonitorBinding({

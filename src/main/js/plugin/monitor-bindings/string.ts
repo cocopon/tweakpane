@@ -11,9 +11,11 @@ import {MonitorBindingPlugin} from '../monitor-binding';
  * @hidden
  */
 export const StringMonitorPlugin: MonitorBindingPlugin<string, string> = {
-	accept: (value, _params) => (typeof value === 'string' ? value : null),
-	defaultTotalCount: (_params) => 1,
-	reader: (_args) => StringConverter.fromMixed,
+	model: {
+		accept: (value, _params) => (typeof value === 'string' ? value : null),
+		defaultTotalCount: (_params) => 1,
+		reader: (_args) => StringConverter.fromMixed,
+	},
 	controller: (args) => {
 		const value = args.binding.value;
 		const multiline =

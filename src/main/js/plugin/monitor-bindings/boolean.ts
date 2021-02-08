@@ -11,9 +11,11 @@ import {MonitorBindingPlugin} from '../monitor-binding';
  * @hidden
  */
 export const BooleanMonitorPlugin: MonitorBindingPlugin<boolean, boolean> = {
-	accept: (value, _params) => (typeof value === 'boolean' ? value : null),
-	defaultTotalCount: (_params) => 1,
-	reader: (_args) => BooleanConverter.fromMixed,
+	model: {
+		accept: (value, _params) => (typeof value === 'boolean' ? value : null),
+		defaultTotalCount: (_params) => 1,
+		reader: (_args) => BooleanConverter.fromMixed,
+	},
 	controller: (args) => {
 		if (args.binding.value.totalCount === 1) {
 			return new SingleLogMonitorController(args.document, {

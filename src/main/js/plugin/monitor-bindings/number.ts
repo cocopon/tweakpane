@@ -72,9 +72,11 @@ function shouldShowGraph(params: MonitorParams): boolean {
  * @hidden
  */
 export const NumberMonitorPlugin: MonitorBindingPlugin<number, number> = {
-	accept: (value, _params) => (typeof value === 'number' ? value : null),
-	defaultTotalCount: (params) => (shouldShowGraph(params) ? 64 : 1),
-	reader: (_args) => NumberConverter.fromMixed,
+	model: {
+		accept: (value, _params) => (typeof value === 'number' ? value : null),
+		defaultTotalCount: (params) => (shouldShowGraph(params) ? 64 : 1),
+		reader: (_args) => NumberConverter.fromMixed,
+	},
 	controller: (args) => {
 		if (shouldShowGraph(args.params)) {
 			return createGraphMonitor(args.document, args.binding, args.params);
