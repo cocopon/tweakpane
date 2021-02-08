@@ -29,6 +29,7 @@ export interface Point2dYParams extends Point2dDimensionParams {
 
 export interface BaseInputParams extends BaseParams, LabelableParams {
 	presetKey?: string;
+	view?: string;
 }
 
 export interface BooleanInputParams extends BaseInputParams {
@@ -66,6 +67,7 @@ export type InputParams =
 export interface BaseMonitorParams extends BaseParams, LabelableParams {
 	bufferSize?: number;
 	interval?: number;
+	view?: string;
 
 	// TODO: Deprecated, use `bufferSize` instead
 	count?: number;
@@ -75,13 +77,10 @@ export interface BooleanMonitorParams extends BaseMonitorParams {
 	lineCount?: number;
 }
 
-export type NumberMonitorViewType = 'graph';
-
 export interface NumberMonitorParams extends BaseMonitorParams {
 	lineCount?: number;
 	max?: number;
 	min?: number;
-	view?: NumberMonitorViewType;
 }
 
 export interface StringMonitorParams extends BaseMonitorParams {
