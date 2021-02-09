@@ -1,6 +1,6 @@
 import * as Style from '../sass/bundle.scss';
+import {PlainTweakpane} from './plain-tweakpane';
 import {TweakpaneConfig} from './tweakpane-config';
-import {TweakpaneWithoutStyle} from './tweakpane-without-style';
 
 function embedDefaultStyleIfNeeded(document: Document) {
 	const MARKER = 'tweakpane';
@@ -17,7 +17,7 @@ function embedDefaultStyleIfNeeded(document: Document) {
 }
 
 // tslint:disable-next-line: no-default-export
-export default class Tweakpane extends TweakpaneWithoutStyle {
+export default class Tweakpane extends PlainTweakpane {
 	constructor(opt_config?: TweakpaneConfig) {
 		super(opt_config);
 		embedDefaultStyleIfNeeded(this.document);

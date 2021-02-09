@@ -1,16 +1,16 @@
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../misc/test-util';
-import {TweakpaneWithoutStyle} from '../tweakpane-without-style';
+import {PlainTweakpane} from '../plain-tweakpane';
 
-function createPane(): TweakpaneWithoutStyle {
-	return new TweakpaneWithoutStyle({
+function createPane(): PlainTweakpane {
+	return new PlainTweakpane({
 		document: TestUtil.createWindow().document,
 		title: 'Title',
 	});
 }
 
-describe(TweakpaneWithoutStyle.name, () => {
+describe(PlainTweakpane.name, () => {
 	it('should listen fold event', (done) => {
 		const api = createPane();
 		api.on('fold', () => {

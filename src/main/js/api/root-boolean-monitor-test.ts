@@ -6,15 +6,15 @@ import {MultiLogMonitorController} from '../controller/monitor/multi-log';
 import {SingleLogMonitorController} from '../controller/monitor/single-log';
 import {TestUtil} from '../misc/test-util';
 import {IntervalTicker} from '../misc/ticker/interval';
-import {TweakpaneWithoutStyle} from '../tweakpane-without-style';
+import {PlainTweakpane} from '../plain-tweakpane';
 
-function createPane(): TweakpaneWithoutStyle {
-	return new TweakpaneWithoutStyle({
+function createPane(): PlainTweakpane {
+	return new PlainTweakpane({
 		document: TestUtil.createWindow().document,
 	});
 }
 
-describe(TweakpaneWithoutStyle.name, () => {
+describe(PlainTweakpane.name, () => {
 	[
 		{
 			expectedClass: SingleLogMonitorController,

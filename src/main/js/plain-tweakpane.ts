@@ -28,7 +28,7 @@ function createDefaultWrapperElement(document: Document): HTMLElement {
 	return elem;
 }
 
-export class TweakpaneWithoutStyle extends RootApi {
+export class PlainTweakpane extends RootApi {
 	private doc_: Document | null;
 	private containerElem_: HTMLElement | null;
 	private usesDefaultWrapper_: boolean;

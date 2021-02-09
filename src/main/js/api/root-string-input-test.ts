@@ -4,15 +4,15 @@ import {describe as context, describe, it} from 'mocha';
 import {ListInputController} from '../controller/input/list';
 import {TextInputController} from '../controller/input/text';
 import {TestUtil} from '../misc/test-util';
-import {TweakpaneWithoutStyle} from '../tweakpane-without-style';
+import {PlainTweakpane} from '../plain-tweakpane';
 
-function createPane(): TweakpaneWithoutStyle {
-	return new TweakpaneWithoutStyle({
+function createPane(): PlainTweakpane {
+	return new PlainTweakpane({
 		document: TestUtil.createWindow().document,
 	});
 }
 
-describe(TweakpaneWithoutStyle.name, () => {
+describe(PlainTweakpane.name, () => {
 	[
 		{
 			expectedClass: TextInputController,

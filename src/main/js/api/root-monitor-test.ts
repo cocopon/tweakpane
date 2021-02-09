@@ -4,15 +4,15 @@ import {describe, it} from 'mocha';
 import {PaneError} from '../misc/pane-error';
 import {TestUtil} from '../misc/test-util';
 import {ManualTicker} from '../misc/ticker/manual';
-import {TweakpaneWithoutStyle} from '../tweakpane-without-style';
+import {PlainTweakpane} from '../plain-tweakpane';
 
-function createPane(): TweakpaneWithoutStyle {
-	return new TweakpaneWithoutStyle({
+function createPane(): PlainTweakpane {
+	return new PlainTweakpane({
 		document: TestUtil.createWindow().document,
 	});
 }
 
-describe(TweakpaneWithoutStyle.name, () => {
+describe(PlainTweakpane.name, () => {
 	[
 		{
 			errorType: 'emptyvalue',

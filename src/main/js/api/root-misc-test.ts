@@ -4,16 +4,16 @@ import {describe, it} from 'mocha';
 import {TestUtil} from '../misc/test-util';
 import {TypeUtil} from '../misc/type-util';
 import {InputValue} from '../model/input-value';
-import {TweakpaneWithoutStyle} from '../tweakpane-without-style';
+import {PlainTweakpane} from '../plain-tweakpane';
 
-function createPane(): TweakpaneWithoutStyle {
-	return new TweakpaneWithoutStyle({
+function createPane(): PlainTweakpane {
+	return new PlainTweakpane({
 		document: TestUtil.createWindow().document,
 		title: 'Tweakpane',
 	});
 }
 
-describe(TweakpaneWithoutStyle.name, () => {
+describe(PlainTweakpane.name, () => {
 	it('should handle global input events', (done) => {
 		const api = createPane();
 		const obj = {foo: 1};

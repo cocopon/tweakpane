@@ -6,12 +6,12 @@ import {InputController} from '../controller/input/input';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
 import {Color} from '../model/color';
-import {TweakpaneWithoutStyle} from '../tweakpane-without-style';
+import {PlainTweakpane} from '../plain-tweakpane';
 import {ColorSwatchTextInputView} from '../view/input/color-swatch-text';
 import {InputParams} from './types';
 
-function createPane(win: Window): TweakpaneWithoutStyle {
-	return new TweakpaneWithoutStyle({
+function createPane(win: Window): PlainTweakpane {
+	return new PlainTweakpane({
 		document: win.document,
 	});
 }
@@ -22,7 +22,7 @@ interface TestCase {
 	value: unknown;
 }
 
-describe(TweakpaneWithoutStyle.name, () => {
+describe(PlainTweakpane.name, () => {
 	const testCases: TestCase[] = [
 		{
 			expectedClass: ColorSwatchTextInputController,

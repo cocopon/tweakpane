@@ -2,11 +2,11 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../misc/test-util';
-import {TweakpaneWithoutStyle} from '../tweakpane-without-style';
+import {PlainTweakpane} from '../plain-tweakpane';
 
-describe(TweakpaneWithoutStyle.name, () => {
+describe(PlainTweakpane.name, () => {
 	it('should toggle expanded when clicking title element', () => {
-		const c = new TweakpaneWithoutStyle({
+		const c = new PlainTweakpane({
 			document: TestUtil.createWindow().document,
 			title: 'Tweakpane',
 		});

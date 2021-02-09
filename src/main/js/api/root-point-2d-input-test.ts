@@ -7,15 +7,15 @@ import {StepConstraint} from '../constraint/step';
 import {ConstraintUtil} from '../constraint/util';
 import {Point2dPadTextInputController} from '../controller/input/point-2d-pad-text';
 import {TestUtil} from '../misc/test-util';
-import {TweakpaneWithoutStyle} from '../tweakpane-without-style';
+import {PlainTweakpane} from '../plain-tweakpane';
 
-function createPane(): TweakpaneWithoutStyle {
-	return new TweakpaneWithoutStyle({
+function createPane(): PlainTweakpane {
+	return new PlainTweakpane({
 		document: TestUtil.createWindow().document,
 	});
 }
 
-describe(TweakpaneWithoutStyle.name, () => {
+describe(PlainTweakpane.name, () => {
 	[
 		{
 			expectedClass: Point2dPadTextInputController,

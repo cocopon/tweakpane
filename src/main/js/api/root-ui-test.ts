@@ -8,16 +8,16 @@ import {MonitorBindingController} from '../controller/monitor-binding';
 import {SeparatorController} from '../controller/separator';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
-import {TweakpaneWithoutStyle} from '../tweakpane-without-style';
+import {PlainTweakpane} from '../plain-tweakpane';
 
-function createApi(title?: string): TweakpaneWithoutStyle {
-	return new TweakpaneWithoutStyle({
+function createApi(title?: string): PlainTweakpane {
+	return new PlainTweakpane({
 		document: TestUtil.createWindow().document,
 		title: title,
 	});
 }
 
-describe(TweakpaneWithoutStyle.name, () => {
+describe(PlainTweakpane.name, () => {
 	it('should add button', () => {
 		const api = createApi();
 		const b = api.addButton({
@@ -127,7 +127,7 @@ describe(TweakpaneWithoutStyle.name, () => {
 			expected: SeparatorController,
 		},
 	] as {
-		insert: (api: TweakpaneWithoutStyle, index: number) => void;
+		insert: (api: PlainTweakpane, index: number) => void;
 		expected: Class<any>;
 	}[]).forEach((testCase) => {
 		context(`when ${testCase.expected.name}`, () => {
