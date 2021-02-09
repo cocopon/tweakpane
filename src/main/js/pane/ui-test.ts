@@ -8,7 +8,7 @@ import {MonitorBindingController} from '../controller/monitor-binding';
 import {SeparatorController} from '../controller/separator';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
-import {PlainTweakpane} from '../pane/plain-tweakpane';
+import {PlainTweakpane} from './plain-tweakpane';
 
 function createApi(title?: string): PlainTweakpane {
 	return new PlainTweakpane({

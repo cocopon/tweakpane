@@ -4,7 +4,7 @@ import {describe, it} from 'mocha';
 import {PaneError} from '../misc/pane-error';
 import {TestUtil} from '../misc/test-util';
 import {ManualTicker} from '../misc/ticker/manual';
-import {PlainTweakpane} from '../pane/plain-tweakpane';
+import {PlainTweakpane} from './plain-tweakpane';
 
 function createPane(): PlainTweakpane {
 	return new PlainTweakpane({

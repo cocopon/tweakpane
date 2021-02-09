@@ -1,7 +1,7 @@
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../misc/test-util';
-import {PlainTweakpane} from '../pane/plain-tweakpane';
+import {PlainTweakpane} from './plain-tweakpane';
 
 function createPane(): PlainTweakpane {
 	return new PlainTweakpane({
