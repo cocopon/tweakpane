@@ -1,21 +1,18 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {RootController} from '../controller/root';
 import {PaneError} from '../misc/pane-error';
 import {TestUtil} from '../misc/test-util';
 import {ManualTicker} from '../misc/ticker/manual';
-import {ViewModel} from '../model/view-model';
-import {RootApi} from './root';
+import {TweakpaneWithoutStyle} from '../tweakpane-without-style';
 
-function createApi(): RootApi {
-	const c = new RootController(TestUtil.createWindow().document, {
-		viewModel: new ViewModel(),
+function createPane(): TweakpaneWithoutStyle {
+	return new TweakpaneWithoutStyle({
+		document: TestUtil.createWindow().document,
 	});
-	return new RootApi(c);
 }
 
-describe(RootApi.name, () => {
+describe(TweakpaneWithoutStyle.name, () => {
 	[
 		{
 			errorType: 'emptyvalue',
@@ -47,7 +44,7 @@ describe(RootApi.name, () => {
 			)} and key = ${JSON.stringify(testCase.key)}`,
 			() => {
 				it(`should throw '${testCase.errorType}' error`, () => {
-					const api = createApi();
+					const api = createPane();
 
 					try {
 						api.addMonitor(testCase.obj, testCase.key, {
@@ -88,7 +85,7 @@ describe(RootApi.name, () => {
 	].forEach(({expected, params}) => {
 		context(`when ${JSON.stringify(params)}`, () => {
 			it('should pass right first argument for update event (local)', (done) => {
-				const api = createApi();
+				const api = createPane();
 				const obj = {foo: params.propertyValue};
 				const bapi = api.addMonitor(obj, 'foo', {
 					interval: 0,
@@ -104,7 +101,7 @@ describe(RootApi.name, () => {
 			});
 
 			it('should pass right first argument for update event (global)', (done) => {
-				const api = createApi();
+				const api = createPane();
 				const obj = {foo: params.propertyValue};
 				const bapi = api.addMonitor(obj, 'foo', {
 					interval: 0,
@@ -123,7 +120,7 @@ describe(RootApi.name, () => {
 
 	it('should dispose monitor', () => {
 		const PARAMS = {foo: 1};
-		const api = createApi();
+		const api = createPane();
 		const bapi = api.addMonitor(PARAMS, 'foo', {
 			interval: 0,
 		});
@@ -136,7 +133,7 @@ describe(RootApi.name, () => {
 
 	it('should bind `this` within handler to monitor itself', (done) => {
 		const PARAMS = {foo: 1};
-		const api = createApi();
+		const api = createPane();
 		const bapi = api.addMonitor(PARAMS, 'foo', {
 			interval: 0,
 		});

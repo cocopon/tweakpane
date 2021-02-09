@@ -1,21 +1,18 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
-import {RootController} from '../controller/root';
 import {PaneError} from '../misc/pane-error';
 import {TestUtil} from '../misc/test-util';
 import {Color} from '../model/color';
-import {ViewModel} from '../model/view-model';
-import {RootApi} from './root';
+import {TweakpaneWithoutStyle} from '../tweakpane-without-style';
 
-function createApi(): RootApi {
-	const c = new RootController(TestUtil.createWindow().document, {
-		viewModel: new ViewModel(),
+function createPane(): TweakpaneWithoutStyle {
+	return new TweakpaneWithoutStyle({
+		document: TestUtil.createWindow().document,
 	});
-	return new RootApi(c);
 }
 
-describe(RootApi.name, () => {
+describe(TweakpaneWithoutStyle.name, () => {
 	[
 		{
 			errorType: 'emptyvalue',
@@ -47,10 +44,10 @@ describe(RootApi.name, () => {
 			)} and key = ${JSON.stringify(testCase.key)}`,
 			() => {
 				it(`should throw '${testCase.errorType}' error`, () => {
-					const api = createApi();
+					const pane = createPane();
 
 					try {
-						api.addInput(testCase.obj, testCase.key);
+						pane.addInput(testCase.obj, testCase.key);
 						throw new Error('should not be called');
 					} catch (e) {
 						assert.instanceOf(e, PaneError);
@@ -100,7 +97,7 @@ describe(RootApi.name, () => {
 	].forEach(({expected, params}) => {
 		context(`when ${JSON.stringify(params)}`, () => {
 			it('should pass right first argument for change event (local)', (done) => {
-				const api = createApi();
+				const api = createPane();
 				const obj = {foo: params.propertyValue};
 				const bapi = api.addInput(obj, 'foo');
 
@@ -112,7 +109,7 @@ describe(RootApi.name, () => {
 			});
 
 			it('should pass right first argument for change event (global)', (done) => {
-				const api = createApi();
+				const api = createPane();
 				api.on('change', (value: unknown) => {
 					assert.strictEqual(value, expected);
 					done();
@@ -127,7 +124,7 @@ describe(RootApi.name, () => {
 
 	it('should dispose input', () => {
 		const PARAMS = {foo: 1};
-		const api = createApi();
+		const api = createPane();
 		const bapi = api.addInput(PARAMS, 'foo');
 		bapi.dispose();
 		assert.strictEqual(
@@ -138,7 +135,7 @@ describe(RootApi.name, () => {
 
 	it('should bind `this` within handler to input itself', (done) => {
 		const PARAMS = {foo: 1};
-		const api = createApi();
+		const api = createPane();
 		const bapi = api.addInput(PARAMS, 'foo');
 		bapi.on('change', function() {
 			assert.strictEqual(this, bapi);

@@ -1,24 +1,21 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {RootController} from '../controller/root';
 import {TestUtil} from '../misc/test-util';
 import {TypeUtil} from '../misc/type-util';
 import {InputValue} from '../model/input-value';
-import {ViewModel} from '../model/view-model';
-import {RootApi} from './root';
+import {TweakpaneWithoutStyle} from '../tweakpane-without-style';
 
-function createApi(): RootApi {
-	const c = new RootController(TestUtil.createWindow().document, {
-		viewModel: new ViewModel(),
+function createPane(): TweakpaneWithoutStyle {
+	return new TweakpaneWithoutStyle({
+		document: TestUtil.createWindow().document,
 		title: 'Tweakpane',
 	});
-	return new RootApi(c);
 }
 
-describe(RootApi.name, () => {
+describe(TweakpaneWithoutStyle.name, () => {
 	it('should handle global input events', (done) => {
-		const api = createApi();
+		const api = createPane();
 		const obj = {foo: 1};
 		api.on('change', (v: unknown) => {
 			assert.strictEqual(v, 2);
@@ -33,7 +30,7 @@ describe(RootApi.name, () => {
 	});
 
 	it('should handle global input events (nested)', (done) => {
-		const api = createApi();
+		const api = createPane();
 		const obj = {foo: 1};
 		api.on('change', (v: unknown) => {
 			assert.strictEqual(v, 2);
@@ -52,7 +49,7 @@ describe(RootApi.name, () => {
 	});
 
 	it('should refresh views', () => {
-		const api = createApi();
+		const api = createPane();
 		const obj = {
 			bar: 'bar',
 			baz: 123,
@@ -79,7 +76,7 @@ describe(RootApi.name, () => {
 	});
 
 	it('should get expanded', () => {
-		const api = createApi();
+		const api = createPane();
 		const folder = api.controller.folder;
 
 		if (folder) {
@@ -93,7 +90,7 @@ describe(RootApi.name, () => {
 	});
 
 	it('should set expanded', () => {
-		const api = createApi();
+		const api = createPane();
 		const folder = api.controller.folder;
 
 		api.expanded = false;
@@ -108,7 +105,7 @@ describe(RootApi.name, () => {
 			baz: 2,
 			foo: 1,
 		};
-		const api = createApi();
+		const api = createPane();
 		api.addInput(PARAMS, 'foo');
 		api.addInput(PARAMS, 'bar');
 		api.addMonitor(PARAMS, 'baz', {
@@ -126,7 +123,7 @@ describe(RootApi.name, () => {
 			bar: 'hello',
 			foo: 1,
 		};
-		const api = createApi();
+		const api = createPane();
 		api.addInput(PARAMS, 'foo');
 		api.addInput(PARAMS, 'bar');
 
@@ -142,12 +139,12 @@ describe(RootApi.name, () => {
 	});
 
 	it('should get element', () => {
-		const api = createApi();
+		const api = createPane();
 		assert.exists(api.element);
 	});
 
 	it('should hide', () => {
-		const api = createApi();
+		const api = createPane();
 		assert.strictEqual(api.hidden, false);
 
 		api.hidden = true;

@@ -5,21 +5,19 @@ import {ButtonController} from '../controller/button';
 import {FolderController} from '../controller/folder';
 import {InputBindingController} from '../controller/input-binding';
 import {MonitorBindingController} from '../controller/monitor-binding';
-import {RootController} from '../controller/root';
 import {SeparatorController} from '../controller/separator';
 import {TestUtil} from '../misc/test-util';
-import {ViewModel} from '../model/view-model';
-import {RootApi} from './root';
+import {Class} from '../misc/type-util';
+import {TweakpaneWithoutStyle} from '../tweakpane-without-style';
 
-function createApi(title?: string): RootApi {
-	const c = new RootController(TestUtil.createWindow().document, {
-		viewModel: new ViewModel(),
+function createApi(title?: string): TweakpaneWithoutStyle {
+	return new TweakpaneWithoutStyle({
+		document: TestUtil.createWindow().document,
 		title: title,
 	});
-	return new RootApi(c);
 }
 
-describe(RootApi.name, () => {
+describe(TweakpaneWithoutStyle.name, () => {
 	it('should add button', () => {
 		const api = createApi();
 		const b = api.addButton({
@@ -92,15 +90,15 @@ describe(RootApi.name, () => {
 		f.expanded = false;
 	});
 
-	[
+	([
 		{
-			insert: (api: RootApi, index: number) => {
+			insert: (api, index) => {
 				api.addInput({foo: 1}, 'foo', {index: index});
 			},
 			expected: InputBindingController,
 		},
 		{
-			insert: (api: RootApi, index: number) => {
+			insert: (api, index) => {
 				api.addMonitor({foo: 1}, 'foo', {
 					index: index,
 					interval: 0,
@@ -109,26 +107,29 @@ describe(RootApi.name, () => {
 			expected: MonitorBindingController,
 		},
 		{
-			insert: (api: RootApi, index: number) => {
+			insert: (api, index) => {
 				api.addButton({index: index, title: 'button'});
 			},
 			expected: ButtonController,
 		},
 		{
-			insert: (api: RootApi, index: number) => {
+			insert: (api, index) => {
 				api.addFolder({index: index, title: 'folder'});
 			},
 			expected: FolderController,
 		},
 		{
-			insert: (api: RootApi, index: number) => {
+			insert: (api, index) => {
 				api.addSeparator({
 					index: index,
 				});
 			},
 			expected: SeparatorController,
 		},
-	].forEach((testCase) => {
+	] as {
+		insert: (api: TweakpaneWithoutStyle, index: number) => void;
+		expected: Class<any>;
+	}[]).forEach((testCase) => {
 		context(`when ${testCase.expected.name}`, () => {
 			it('should insert input/monitor into specified position', () => {
 				const params = {

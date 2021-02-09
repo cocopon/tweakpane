@@ -3,19 +3,16 @@ import {describe as context, describe, it} from 'mocha';
 
 import {ListInputController} from '../controller/input/list';
 import {TextInputController} from '../controller/input/text';
-import {RootController} from '../controller/root';
 import {TestUtil} from '../misc/test-util';
-import {ViewModel} from '../model/view-model';
-import {RootApi} from './root';
+import {TweakpaneWithoutStyle} from '../tweakpane-without-style';
 
-function createApi(): RootApi {
-	const c = new RootController(TestUtil.createWindow().document, {
-		viewModel: new ViewModel(),
+function createPane(): TweakpaneWithoutStyle {
+	return new TweakpaneWithoutStyle({
+		document: TestUtil.createWindow().document,
 	});
-	return new RootApi(c);
 }
 
-describe(RootApi.name, () => {
+describe(TweakpaneWithoutStyle.name, () => {
 	[
 		{
 			expectedClass: TextInputController,
@@ -49,7 +46,7 @@ describe(RootApi.name, () => {
 	].forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should return class ${testCase.expectedClass.name}`, () => {
-				const api = createApi();
+				const api = createPane();
 				const obj = {foo: testCase.value};
 				const bapi = api.addInput(obj, 'foo', testCase.params);
 				assert.instanceOf(bapi.controller.controller, testCase.expectedClass);

@@ -1,21 +1,18 @@
 import {describe, it} from 'mocha';
 
-import {RootController} from '../controller/root';
 import {TestUtil} from '../misc/test-util';
-import {ViewModel} from '../model/view-model';
-import {RootApi} from './root';
+import {TweakpaneWithoutStyle} from '../tweakpane-without-style';
 
-function createApi(): RootApi {
-	const c = new RootController(TestUtil.createWindow().document, {
+function createPane(): TweakpaneWithoutStyle {
+	return new TweakpaneWithoutStyle({
+		document: TestUtil.createWindow().document,
 		title: 'Title',
-		viewModel: new ViewModel(),
 	});
-	return new RootApi(c);
 }
 
-describe(RootApi.name, () => {
+describe(TweakpaneWithoutStyle.name, () => {
 	it('should listen fold event', (done) => {
-		const api = createApi();
+		const api = createPane();
 		api.on('fold', () => {
 			done();
 		});

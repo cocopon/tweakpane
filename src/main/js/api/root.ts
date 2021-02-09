@@ -7,6 +7,8 @@ import {SeparatorController} from '../controller/separator';
 import * as UiUtil from '../controller/ui-util';
 import {Target} from '../model/target';
 import {ViewModel} from '../model/view-model';
+import {InputBindingPlugin} from '../plugin/input-binding';
+import {MonitorBindingPlugin} from '../plugin/monitor-binding';
 import {ButtonApi} from './button';
 import {ComponentApi} from './component-api';
 import * as EventHandlerAdapters from './event-handler-adapters';
@@ -15,6 +17,7 @@ import {InputBindingApi} from './input-binding';
 import * as InputBindingControllers from './input-binding-controllers';
 import {MonitorBindingApi} from './monitor-binding';
 import * as MonitorBindingControllers from './monitor-binding-controllers';
+import {Plugins} from './plugins';
 import * as Preset from './preset';
 import {PresetObject} from './preset';
 import {SeparatorApi} from './separator';
@@ -32,6 +35,16 @@ interface RootApiEventHandlers {
 	update: (value: unknown) => void;
 }
 
+type PluginRegistration<In, Ex> =
+	| {
+			type: 'input';
+			plugin: InputBindingPlugin<In, Ex>;
+	  }
+	| {
+			type: 'monitor';
+			plugin: MonitorBindingPlugin<In, Ex>;
+	  };
+
 /**
  * The Tweakpane interface.
  *
@@ -46,6 +59,18 @@ export class RootApi implements ComponentApi {
 	 * @hidden
 	 */
 	public readonly controller: RootController;
+
+	// TODO: Publish
+	/**
+	 * @hidden
+	 */
+	public static registerPlugin<In, Ex>(r: PluginRegistration<In, Ex>): void {
+		if (r.type === 'input') {
+			Plugins.inputs.push(r.plugin);
+		} else if (r.type === 'monitor') {
+			Plugins.monitors.push(r.plugin);
+		}
+	}
 
 	/**
 	 * @hidden

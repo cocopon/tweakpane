@@ -3,20 +3,17 @@ import {describe as context, describe, it} from 'mocha';
 
 import {ColorSwatchTextInputController} from '../controller/input/color-swatch-text';
 import {InputController} from '../controller/input/input';
-import {RootController} from '../controller/root';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
 import {Color} from '../model/color';
-import {ViewModel} from '../model/view-model';
+import {TweakpaneWithoutStyle} from '../tweakpane-without-style';
 import {ColorSwatchTextInputView} from '../view/input/color-swatch-text';
-import {RootApi} from './root';
 import {InputParams} from './types';
 
-function createApi(win: Window): RootApi {
-	const c = new RootController(win.document, {
-		viewModel: new ViewModel(),
+function createPane(win: Window): TweakpaneWithoutStyle {
+	return new TweakpaneWithoutStyle({
+		document: win.document,
 	});
-	return new RootApi(c);
 }
 
 interface TestCase {
@@ -25,7 +22,7 @@ interface TestCase {
 	value: unknown;
 }
 
-describe(RootApi.name, () => {
+describe(TweakpaneWithoutStyle.name, () => {
 	const testCases: TestCase[] = [
 		{
 			expectedClass: ColorSwatchTextInputController,
@@ -67,7 +64,7 @@ describe(RootApi.name, () => {
 	testCases.forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should return class ${testCase.expectedClass.name}`, () => {
-				const api = createApi(TestUtil.createWindow());
+				const api = createPane(TestUtil.createWindow());
 				const obj = {foo: testCase.value};
 				const bapi = api.addInput(obj, 'foo', testCase.params);
 				assert.instanceOf(bapi.controller.controller, testCase.expectedClass);
@@ -95,7 +92,7 @@ describe(RootApi.name, () => {
 	].forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should have right input value ${testCase.expected.inputValue}`, () => {
-				const api = createApi(TestUtil.createWindow());
+				const api = createPane(TestUtil.createWindow());
 				const obj = {foo: testCase.params.input};
 				const bapi = api.addInput(obj, 'foo');
 
@@ -164,7 +161,7 @@ describe(RootApi.name, () => {
 	].forEach(({expected, params}) => {
 		context(`when params = ${JSON.stringify(params)}`, () => {
 			const win = TestUtil.createWindow();
-			const api = createApi(win);
+			const api = createPane(win);
 			const obj = {foo: params.input};
 			const bapi = api.addInput(obj, 'foo');
 
