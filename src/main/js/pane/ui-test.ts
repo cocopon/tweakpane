@@ -19,16 +19,16 @@ function createApi(title?: string): PlainTweakpane {
 
 describe(PlainTweakpane.name, () => {
 	it('should add button', () => {
-		const api = createApi();
-		const b = api.addButton({
+		const pane = createApi();
+		const b = pane.addButton({
 			title: 'push',
 		});
 		assert.strictEqual(b.controller.button.title, 'push');
 	});
 
 	it('should add folder', () => {
-		const api = createApi();
-		const f = api.addFolder({
+		const pane = createApi();
+		const f = pane.addFolder({
 			title: 'folder',
 		});
 		assert.strictEqual(f.controller.folder.title, 'folder');
@@ -36,8 +36,8 @@ describe(PlainTweakpane.name, () => {
 	});
 
 	it('should add collapsed folder', () => {
-		const api = createApi();
-		const f = api.addFolder({
+		const pane = createApi();
+		const f = pane.addFolder({
 			expanded: false,
 			title: 'folder',
 		});
@@ -61,32 +61,32 @@ describe(PlainTweakpane.name, () => {
 	});
 
 	it('should add separator', () => {
-		const api = createApi();
-		api.addSeparator();
+		const pane = createApi();
+		pane.addSeparator();
 
-		const cs = api.controller.uiContainer.items;
+		const cs = pane.controller.uiContainer.items;
 		assert.instanceOf(cs[cs.length - 1], SeparatorController);
 	});
 
 	it('should dispose separator', () => {
-		const api = createApi();
-		const cs = api.controller.uiContainer.items;
+		const pane = createApi();
+		const cs = pane.controller.uiContainer.items;
 
-		const s = api.addSeparator();
+		const s = pane.addSeparator();
 		assert.strictEqual(cs.length, 1);
 		s.dispose();
 		assert.strictEqual(cs.length, 0);
 	});
 
 	it('should handle root folder events', (done) => {
-		const api = createApi('pane');
+		const pane = createApi('pane');
 
-		api.on('fold', (expanded) => {
+		pane.on('fold', (expanded) => {
 			assert.strictEqual(expanded, false);
 			done();
 		});
 
-		const f = api.controller.folder;
+		const f = pane.controller.folder;
 		if (!f) {
 			throw new Error('Root folder not found');
 		}
@@ -94,12 +94,12 @@ describe(PlainTweakpane.name, () => {
 	});
 
 	it('should handle folder events', (done) => {
-		const api = createApi();
-		const f = api.addFolder({
+		const pane = createApi();
+		const f = pane.addFolder({
 			title: 'folder',
 		});
 
-		api.on('fold', (expanded) => {
+		pane.on('fold', (expanded) => {
 			assert.strictEqual(expanded, false);
 			done();
 		});
@@ -152,12 +152,12 @@ describe(PlainTweakpane.name, () => {
 					bar: 2,
 					foo: 1,
 				};
-				const api = createApi();
-				api.addInput(params, 'foo');
-				api.addInput(params, 'bar');
-				testCase.insert(api, 1);
+				const pane = createApi();
+				pane.addInput(params, 'foo');
+				pane.addInput(params, 'bar');
+				testCase.insert(pane, 1);
 
-				const cs = api.controller.uiContainer.items;
+				const cs = pane.controller.uiContainer.items;
 				assert.instanceOf(cs[1], testCase.expected);
 			});
 		});
@@ -165,13 +165,13 @@ describe(PlainTweakpane.name, () => {
 
 	it('should bind `this` within handler to pane', (done) => {
 		const PARAMS = {foo: 1};
-		const api = createApi();
-		api.on('change', function() {
-			assert.strictEqual(this, api);
+		const pane = createApi();
+		pane.on('change', function() {
+			assert.strictEqual(this, pane);
 			done();
 		});
 
-		const bapi = api.addInput(PARAMS, 'foo');
+		const bapi = pane.addInput(PARAMS, 'foo');
 		bapi.controller.binding.value.rawValue = 2;
 	});
 });

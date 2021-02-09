@@ -44,10 +44,10 @@ describe(PlainTweakpane.name, () => {
 			)} and key = ${JSON.stringify(testCase.key)}`,
 			() => {
 				it(`should throw '${testCase.errorType}' error`, () => {
-					const api = createPane();
+					const pane = createPane();
 
 					try {
-						api.addMonitor(testCase.obj, testCase.key, {
+						pane.addMonitor(testCase.obj, testCase.key, {
 							interval: 0,
 						});
 						throw new Error('should not be called');
@@ -85,9 +85,9 @@ describe(PlainTweakpane.name, () => {
 	].forEach(({expected, params}) => {
 		context(`when ${JSON.stringify(params)}`, () => {
 			it('should pass right first argument for update event (local)', (done) => {
-				const api = createPane();
+				const pane = createPane();
 				const obj = {foo: params.propertyValue};
-				const bapi = api.addMonitor(obj, 'foo', {
+				const bapi = pane.addMonitor(obj, 'foo', {
 					interval: 0,
 				});
 				bapi.on('update', (value: unknown) => {
@@ -101,12 +101,12 @@ describe(PlainTweakpane.name, () => {
 			});
 
 			it('should pass right first argument for update event (global)', (done) => {
-				const api = createPane();
+				const pane = createPane();
 				const obj = {foo: params.propertyValue};
-				const bapi = api.addMonitor(obj, 'foo', {
+				const bapi = pane.addMonitor(obj, 'foo', {
 					interval: 0,
 				});
-				api.on('update', (value: unknown) => {
+				pane.on('update', (value: unknown) => {
 					assert.strictEqual(value, expected);
 					bapi.dispose();
 					done();
@@ -120,21 +120,21 @@ describe(PlainTweakpane.name, () => {
 
 	it('should dispose monitor', () => {
 		const PARAMS = {foo: 1};
-		const api = createPane();
-		const bapi = api.addMonitor(PARAMS, 'foo', {
+		const pane = createPane();
+		const bapi = pane.addMonitor(PARAMS, 'foo', {
 			interval: 0,
 		});
 		bapi.dispose();
 		assert.strictEqual(
-			api.controller.view.element.querySelector('.tp-lblv'),
+			pane.controller.view.element.querySelector('.tp-lblv'),
 			null,
 		);
 	});
 
 	it('should bind `this` within handler to monitor itself', (done) => {
 		const PARAMS = {foo: 1};
-		const api = createPane();
-		const bapi = api.addMonitor(PARAMS, 'foo', {
+		const pane = createPane();
+		const bapi = pane.addMonitor(PARAMS, 'foo', {
 			interval: 0,
 		});
 		bapi.on('update', function() {

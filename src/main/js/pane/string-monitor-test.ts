@@ -31,9 +31,9 @@ describe(PlainTweakpane.name, () => {
 	].forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should return class ${testCase.expectedClass.name}`, () => {
-				const api = createPane();
+				const pane = createPane();
 				const obj = {foo: testCase.value};
-				const bapi = api.addMonitor(obj, 'foo', testCase.params);
+				const bapi = pane.addMonitor(obj, 'foo', testCase.params);
 				assert.instanceOf(bapi.controller.controller, testCase.expectedClass);
 
 				const b = bapi.controller.binding;

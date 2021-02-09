@@ -12,12 +12,12 @@ function createPane(): PlainTweakpane {
 
 describe(PlainTweakpane.name, () => {
 	it('should listen fold event', (done) => {
-		const api = createPane();
-		api.on('fold', () => {
+		const pane = createPane();
+		pane.on('fold', () => {
 			done();
 		});
 
-		const folder = api.controller.folder;
+		const folder = pane.controller.folder;
 		if (folder) {
 			folder.expanded = false;
 		}

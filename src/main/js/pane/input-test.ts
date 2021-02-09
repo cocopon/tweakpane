@@ -97,9 +97,9 @@ describe(PlainTweakpane.name, () => {
 	].forEach(({expected, params}) => {
 		context(`when ${JSON.stringify(params)}`, () => {
 			it('should pass right first argument for change event (local)', (done) => {
-				const api = createPane();
+				const pane = createPane();
 				const obj = {foo: params.propertyValue};
-				const bapi = api.addInput(obj, 'foo');
+				const bapi = pane.addInput(obj, 'foo');
 
 				bapi.on('change', (value: unknown) => {
 					assert.strictEqual(value, expected);
@@ -109,14 +109,14 @@ describe(PlainTweakpane.name, () => {
 			});
 
 			it('should pass right first argument for change event (global)', (done) => {
-				const api = createPane();
-				api.on('change', (value: unknown) => {
+				const pane = createPane();
+				pane.on('change', (value: unknown) => {
 					assert.strictEqual(value, expected);
 					done();
 				});
 
 				const obj = {foo: params.propertyValue};
-				const bapi = api.addInput(obj, 'foo');
+				const bapi = pane.addInput(obj, 'foo');
 				bapi.controller.binding.value.rawValue = params.newInternalValue;
 			});
 		});
@@ -124,19 +124,19 @@ describe(PlainTweakpane.name, () => {
 
 	it('should dispose input', () => {
 		const PARAMS = {foo: 1};
-		const api = createPane();
-		const bapi = api.addInput(PARAMS, 'foo');
+		const pane = createPane();
+		const bapi = pane.addInput(PARAMS, 'foo');
 		bapi.dispose();
 		assert.strictEqual(
-			api.controller.view.element.querySelector('.tp-lblv'),
+			pane.controller.view.element.querySelector('.tp-lblv'),
 			null,
 		);
 	});
 
 	it('should bind `this` within handler to input itself', (done) => {
 		const PARAMS = {foo: 1};
-		const api = createPane();
-		const bapi = api.addInput(PARAMS, 'foo');
+		const pane = createPane();
+		const bapi = pane.addInput(PARAMS, 'foo');
 		bapi.on('change', function() {
 			assert.strictEqual(this, bapi);
 			done();

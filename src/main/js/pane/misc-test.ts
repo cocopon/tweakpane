@@ -15,14 +15,14 @@ function createPane(): PlainTweakpane {
 
 describe(PlainTweakpane.name, () => {
 	it('should handle global input events', (done) => {
-		const api = createPane();
+		const pane = createPane();
 		const obj = {foo: 1};
-		api.on('change', (v: unknown) => {
+		pane.on('change', (v: unknown) => {
 			assert.strictEqual(v, 2);
 			done();
 		});
 
-		const bapi = api.addInput(obj, 'foo');
+		const bapi = pane.addInput(obj, 'foo');
 		const value: InputValue<number> = TypeUtil.forceCast(
 			bapi.controller.binding.value,
 		);
@@ -30,14 +30,14 @@ describe(PlainTweakpane.name, () => {
 	});
 
 	it('should handle global input events (nested)', (done) => {
-		const api = createPane();
+		const pane = createPane();
 		const obj = {foo: 1};
-		api.on('change', (v: unknown) => {
+		pane.on('change', (v: unknown) => {
 			assert.strictEqual(v, 2);
 			done();
 		});
 
-		const fapi = api.addFolder({
+		const fapi = pane.addFolder({
 			title: 'foo',
 		});
 
@@ -49,18 +49,18 @@ describe(PlainTweakpane.name, () => {
 	});
 
 	it('should refresh views', () => {
-		const api = createPane();
+		const pane = createPane();
 		const obj = {
 			bar: 'bar',
 			baz: 123,
 			foo: 1,
 		};
-		const i1 = api.addInput(obj, 'foo');
-		const f = api.addFolder({
+		const i1 = pane.addInput(obj, 'foo');
+		const f = pane.addFolder({
 			title: 'folder',
 		});
 		const i2 = f.addInput(obj, 'bar');
-		const m1 = api.addMonitor(obj, 'baz', {
+		const m1 = pane.addMonitor(obj, 'baz', {
 			interval: 0,
 		});
 
@@ -68,7 +68,7 @@ describe(PlainTweakpane.name, () => {
 		obj.bar = 'changed';
 		obj.baz = 456;
 
-		api.refresh();
+		pane.refresh();
 
 		assert.strictEqual(i1.controller.binding.value.rawValue, 2);
 		assert.strictEqual(i2.controller.binding.value.rawValue, 'changed');
@@ -76,26 +76,26 @@ describe(PlainTweakpane.name, () => {
 	});
 
 	it('should get expanded', () => {
-		const api = createPane();
-		const folder = api.controller.folder;
+		const pane = createPane();
+		const folder = pane.controller.folder;
 
 		if (folder) {
 			folder.expanded = false;
 		}
-		assert.strictEqual(api.expanded, false);
+		assert.strictEqual(pane.expanded, false);
 		if (folder) {
 			folder.expanded = true;
 		}
-		assert.strictEqual(api.expanded, true);
+		assert.strictEqual(pane.expanded, true);
 	});
 
 	it('should set expanded', () => {
-		const api = createPane();
-		const folder = api.controller.folder;
+		const pane = createPane();
+		const folder = pane.controller.folder;
 
-		api.expanded = false;
+		pane.expanded = false;
 		assert.strictEqual(folder && folder.expanded, false);
-		api.expanded = true;
+		pane.expanded = true;
 		assert.strictEqual(folder && folder.expanded, true);
 	});
 
@@ -105,13 +105,13 @@ describe(PlainTweakpane.name, () => {
 			baz: 2,
 			foo: 1,
 		};
-		const api = createPane();
-		api.addInput(PARAMS, 'foo');
-		api.addInput(PARAMS, 'bar');
-		api.addMonitor(PARAMS, 'baz', {
+		const pane = createPane();
+		pane.addInput(PARAMS, 'foo');
+		pane.addInput(PARAMS, 'bar');
+		pane.addMonitor(PARAMS, 'baz', {
 			interval: 0,
 		});
-		const preset = api.exportPreset();
+		const preset = pane.exportPreset();
 		assert.deepStrictEqual(preset, {
 			bar: 'hello',
 			foo: 1,
@@ -123,11 +123,11 @@ describe(PlainTweakpane.name, () => {
 			bar: 'hello',
 			foo: 1,
 		};
-		const api = createPane();
-		api.addInput(PARAMS, 'foo');
-		api.addInput(PARAMS, 'bar');
+		const pane = createPane();
+		pane.addInput(PARAMS, 'foo');
+		pane.addInput(PARAMS, 'bar');
 
-		api.importPreset({
+		pane.importPreset({
 			bar: 'world',
 			foo: 123,
 		});
@@ -139,17 +139,17 @@ describe(PlainTweakpane.name, () => {
 	});
 
 	it('should get element', () => {
-		const api = createPane();
-		assert.exists(api.element);
+		const pane = createPane();
+		assert.exists(pane.element);
 	});
 
 	it('should hide', () => {
-		const api = createPane();
-		assert.strictEqual(api.hidden, false);
+		const pane = createPane();
+		assert.strictEqual(pane.hidden, false);
 
-		api.hidden = true;
+		pane.hidden = true;
 		assert.isTrue(
-			api.controller.view.element.classList.contains('tp-v-hidden'),
+			pane.controller.view.element.classList.contains('tp-v-hidden'),
 		);
 	});
 });

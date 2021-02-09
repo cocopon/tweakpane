@@ -62,18 +62,18 @@ describe(PlainTweakpane.name, () => {
 	].forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should return class ${testCase.expectedClass.name}`, () => {
-				const api = createPane();
+				const pane = createPane();
 				const obj = {foo: testCase.value};
-				const bapi = api.addInput(obj, 'foo', testCase.params);
+				const bapi = pane.addInput(obj, 'foo', testCase.params);
 				assert.instanceOf(bapi.controller.controller, testCase.expectedClass);
 			});
 		});
 	});
 
 	it('should return appropriate step constraint', () => {
-		const api = createPane();
+		const pane = createPane();
 		const obj = {foo: 1};
-		const bapi = api.addInput(obj, 'foo', {
+		const bapi = pane.addInput(obj, 'foo', {
 			step: 1,
 		});
 

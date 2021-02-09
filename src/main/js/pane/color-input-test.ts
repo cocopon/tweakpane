@@ -64,9 +64,9 @@ describe(PlainTweakpane.name, () => {
 	testCases.forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should return class ${testCase.expectedClass.name}`, () => {
-				const api = createPane(TestUtil.createWindow());
+				const pane = createPane(TestUtil.createWindow());
 				const obj = {foo: testCase.value};
-				const bapi = api.addInput(obj, 'foo', testCase.params);
+				const bapi = pane.addInput(obj, 'foo', testCase.params);
 				assert.instanceOf(bapi.controller.controller, testCase.expectedClass);
 			});
 		});
@@ -92,9 +92,9 @@ describe(PlainTweakpane.name, () => {
 	].forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should have right input value ${testCase.expected.inputValue}`, () => {
-				const api = createPane(TestUtil.createWindow());
+				const pane = createPane(TestUtil.createWindow());
 				const obj = {foo: testCase.params.input};
-				const bapi = api.addInput(obj, 'foo');
+				const bapi = pane.addInput(obj, 'foo');
 
 				const view = bapi.controller.controller.view;
 				if (!(view instanceof ColorSwatchTextInputView)) {
@@ -161,9 +161,9 @@ describe(PlainTweakpane.name, () => {
 	].forEach(({expected, params}) => {
 		context(`when params = ${JSON.stringify(params)}`, () => {
 			const win = TestUtil.createWindow();
-			const api = createPane(win);
+			const pane = createPane(win);
 			const obj = {foo: params.input};
-			const bapi = api.addInput(obj, 'foo');
+			const bapi = pane.addInput(obj, 'foo');
 
 			const view = bapi.controller.controller.view;
 			if (!(view instanceof ColorSwatchTextInputView)) {
