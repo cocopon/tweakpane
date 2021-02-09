@@ -1,6 +1,6 @@
 import * as Style from '../sass/bundle.scss';
-import {PlainTweakpane} from './plain-tweakpane';
-import {TweakpaneConfig} from './tweakpane-config';
+import {PlainTweakpane} from './pane/plain-tweakpane';
+import {TweakpaneConfig} from './pane/tweakpane-config';
 
 function embedDefaultStyleIfNeeded(document: Document) {
 	const MARKER = 'tweakpane';

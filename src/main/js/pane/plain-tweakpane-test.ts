@@ -1,8 +1,8 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {PaneError} from './misc/pane-error';
-import {TestUtil} from './misc/test-util';
+import {PaneError} from '../misc/pane-error';
+import {TestUtil} from '../misc/test-util';
 import {PlainTweakpane} from './plain-tweakpane';
 
 describe(PlainTweakpane.name, () => {

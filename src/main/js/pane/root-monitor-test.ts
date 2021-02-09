@@ -1,10 +1,10 @@
 import {assert} from 'chai';
-import {describe as context, describe, it} from 'mocha';
+import {describe, it} from 'mocha';
 
 import {PaneError} from '../misc/pane-error';
 import {TestUtil} from '../misc/test-util';
-import {Color} from '../model/color';
-import {PlainTweakpane} from '../plain-tweakpane';
+import {ManualTicker} from '../misc/ticker/manual';
+import {PlainTweakpane} from '../pane/plain-tweakpane';
 
 function createPane(): PlainTweakpane {
 	return new PlainTweakpane({
@@ -39,15 +39,17 @@ describe(PlainTweakpane.name, () => {
 		},
 	].forEach((testCase) => {
 		context(
-			`when adding input with params = ${JSON.stringify(
+			`when adding monitor with params = ${JSON.stringify(
 				testCase.obj,
 			)} and key = ${JSON.stringify(testCase.key)}`,
 			() => {
 				it(`should throw '${testCase.errorType}' error`, () => {
-					const pane = createPane();
+					const api = createPane();
 
 					try {
-						pane.addInput(testCase.obj, testCase.key);
+						api.addMonitor(testCase.obj, testCase.key, {
+							interval: 0,
+						});
 						throw new Error('should not be called');
 					} catch (e) {
 						assert.instanceOf(e, PaneError);
@@ -80,52 +82,48 @@ describe(PlainTweakpane.name, () => {
 				newInternalValue: true,
 			},
 		},
-		{
-			expected: '#224488',
-			params: {
-				propertyValue: '#123',
-				newInternalValue: new Color([0x22, 0x44, 0x88], 'rgb'),
-			},
-		},
-		{
-			expected: 'rgb(0, 127, 255)',
-			params: {
-				propertyValue: 'rgb(10, 20, 30)',
-				newInternalValue: new Color([0, 127, 255], 'rgb'),
-			},
-		},
 	].forEach(({expected, params}) => {
 		context(`when ${JSON.stringify(params)}`, () => {
-			it('should pass right first argument for change event (local)', (done) => {
+			it('should pass right first argument for update event (local)', (done) => {
 				const api = createPane();
 				const obj = {foo: params.propertyValue};
-				const bapi = api.addInput(obj, 'foo');
-
-				bapi.on('change', (value: unknown) => {
+				const bapi = api.addMonitor(obj, 'foo', {
+					interval: 0,
+				});
+				bapi.on('update', (value: unknown) => {
 					assert.strictEqual(value, expected);
+					bapi.dispose();
 					done();
 				});
-				bapi.controller.binding.value.rawValue = params.newInternalValue;
+
+				obj.foo = params.newInternalValue;
+				(bapi.controller.binding.ticker as ManualTicker).tick();
 			});
 
-			it('should pass right first argument for change event (global)', (done) => {
+			it('should pass right first argument for update event (global)', (done) => {
 				const api = createPane();
-				api.on('change', (value: unknown) => {
+				const obj = {foo: params.propertyValue};
+				const bapi = api.addMonitor(obj, 'foo', {
+					interval: 0,
+				});
+				api.on('update', (value: unknown) => {
 					assert.strictEqual(value, expected);
+					bapi.dispose();
 					done();
 				});
 
-				const obj = {foo: params.propertyValue};
-				const bapi = api.addInput(obj, 'foo');
-				bapi.controller.binding.value.rawValue = params.newInternalValue;
+				obj.foo = params.newInternalValue;
+				(bapi.controller.binding.ticker as ManualTicker).tick();
 			});
 		});
 	});
 
-	it('should dispose input', () => {
+	it('should dispose monitor', () => {
 		const PARAMS = {foo: 1};
 		const api = createPane();
-		const bapi = api.addInput(PARAMS, 'foo');
+		const bapi = api.addMonitor(PARAMS, 'foo', {
+			interval: 0,
+		});
 		bapi.dispose();
 		assert.strictEqual(
 			api.controller.view.element.querySelector('.tp-lblv'),
@@ -133,14 +131,19 @@ describe(PlainTweakpane.name, () => {
 		);
 	});
 
-	it('should bind `this` within handler to input itself', (done) => {
+	it('should bind `this` within handler to monitor itself', (done) => {
 		const PARAMS = {foo: 1};
 		const api = createPane();
-		const bapi = api.addInput(PARAMS, 'foo');
-		bapi.on('change', function() {
+		const bapi = api.addMonitor(PARAMS, 'foo', {
+			interval: 0,
+		});
+		bapi.on('update', function() {
+			bapi.dispose();
 			assert.strictEqual(this, bapi);
 			done();
 		});
-		bapi.controller.binding.value.rawValue = 2;
+
+		PARAMS.foo = 2;
+		(bapi.controller.binding.ticker as ManualTicker).tick();
 	});
 });

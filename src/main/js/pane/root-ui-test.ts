@@ -8,7 +8,7 @@ import {MonitorBindingController} from '../controller/monitor-binding';
 import {SeparatorController} from '../controller/separator';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
-import {PlainTweakpane} from '../plain-tweakpane';
+import {PlainTweakpane} from '../pane/plain-tweakpane';
 
 function createApi(title?: string): PlainTweakpane {
 	return new PlainTweakpane({
@@ -42,6 +42,22 @@ describe(PlainTweakpane.name, () => {
 			title: 'folder',
 		});
 		assert.strictEqual(f.controller.folder.expanded, false);
+	});
+
+	it('should toggle expanded when clicking title element', () => {
+		const c = new PlainTweakpane({
+			document: TestUtil.createWindow().document,
+			title: 'Tweakpane',
+		});
+
+		if (c.controller.view.titleElement) {
+			c.controller.view.titleElement.click();
+		}
+
+		assert.strictEqual(
+			c.controller.folder && c.controller.folder.expanded,
+			false,
+		);
 	});
 
 	it('should add separator', () => {

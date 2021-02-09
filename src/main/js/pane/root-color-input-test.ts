@@ -1,14 +1,14 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
+import {InputParams} from '../api/types';
 import {ColorSwatchTextInputController} from '../controller/input/color-swatch-text';
 import {InputController} from '../controller/input/input';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
 import {Color} from '../model/color';
-import {PlainTweakpane} from '../plain-tweakpane';
+import {PlainTweakpane} from '../pane/plain-tweakpane';
 import {ColorSwatchTextInputView} from '../view/input/color-swatch-text';
-import {InputParams} from './types';
 
 function createPane(win: Window): PlainTweakpane {
 	return new PlainTweakpane({

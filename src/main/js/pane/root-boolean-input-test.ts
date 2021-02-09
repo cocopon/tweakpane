@@ -4,7 +4,7 @@ import {describe as context, describe, it} from 'mocha';
 import {CheckboxInputController} from '../controller/input/checkbox';
 import {ListInputController} from '../controller/input/list';
 import {TestUtil} from '../misc/test-util';
-import {PlainTweakpane} from '../plain-tweakpane';
+import {PlainTweakpane} from './plain-tweakpane';
 
 function createPane(): PlainTweakpane {
 	return new PlainTweakpane({

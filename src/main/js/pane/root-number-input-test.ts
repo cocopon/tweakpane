@@ -10,7 +10,7 @@ import {TextInputController} from '../controller/input/text';
 import {TestUtil} from '../misc/test-util';
 import {TypeUtil} from '../misc/type-util';
 import {InputValue} from '../model/input-value';
-import {PlainTweakpane} from '../plain-tweakpane';
+import {PlainTweakpane} from '../pane/plain-tweakpane';
 
 function createPane(): PlainTweakpane {
 	return new PlainTweakpane({

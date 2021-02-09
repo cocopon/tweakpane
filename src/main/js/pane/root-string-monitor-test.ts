@@ -1,10 +1,12 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
-import {ListInputController} from '../controller/input/list';
-import {TextInputController} from '../controller/input/text';
+import {MonitorBinding} from '../binding/monitor';
+import {MultiLogMonitorController} from '../controller/monitor/multi-log';
+import {SingleLogMonitorController} from '../controller/monitor/single-log';
 import {TestUtil} from '../misc/test-util';
-import {PlainTweakpane} from '../plain-tweakpane';
+import {IntervalTicker} from '../misc/ticker/interval';
+import {PlainTweakpane} from '../pane/plain-tweakpane';
 
 function createPane(): PlainTweakpane {
 	return new PlainTweakpane({
@@ -15,41 +17,32 @@ function createPane(): PlainTweakpane {
 describe(PlainTweakpane.name, () => {
 	[
 		{
-			expectedClass: TextInputController,
+			expectedClass: SingleLogMonitorController,
 			params: {},
 			value: 'foobar',
 		},
 		{
-			expectedClass: ListInputController,
+			expectedClass: MultiLogMonitorController,
 			params: {
-				options: {
-					baz: 'qux',
-					foo: 'bar',
-				},
+				count: 10,
 			},
 			value: 'foobar',
-		},
-		{
-			expectedClass: TextInputController,
-			params: {
-				input: 'string',
-			},
-			value: '#112233',
-		},
-		{
-			expectedClass: TextInputController,
-			params: {
-				input: 'string',
-			},
-			value: 'rgb(0, 100, 200)',
 		},
 	].forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should return class ${testCase.expectedClass.name}`, () => {
 				const api = createPane();
 				const obj = {foo: testCase.value};
-				const bapi = api.addInput(obj, 'foo', testCase.params);
+				const bapi = api.addMonitor(obj, 'foo', testCase.params);
 				assert.instanceOf(bapi.controller.controller, testCase.expectedClass);
+
+				const b = bapi.controller.binding;
+				if (b instanceof MonitorBinding) {
+					const t = b.ticker;
+					if (t instanceof IntervalTicker) {
+						t.disposable.dispose();
+					}
+				}
 			});
 		});
 	});
