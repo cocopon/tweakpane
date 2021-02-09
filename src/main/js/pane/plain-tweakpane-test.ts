@@ -1,14 +1,14 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {PaneError} from './misc/pane-error';
-import {TestUtil} from './misc/test-util';
-import {TweakpaneWithoutStyle} from './tweakpane-without-style';
+import {PaneError} from '../misc/pane-error';
+import {TestUtil} from '../misc/test-util';
+import {PlainTweakpane} from './plain-tweakpane';
 
-describe(TweakpaneWithoutStyle.name, () => {
+describe(PlainTweakpane.name, () => {
 	it('should dispose with default container', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = new TweakpaneWithoutStyle({
+		const c = new PlainTweakpane({
 			document: doc,
 		});
 
@@ -22,7 +22,7 @@ describe(TweakpaneWithoutStyle.name, () => {
 		const containerElem = doc.createElement('div');
 		doc.body.appendChild(containerElem);
 
-		const c = new TweakpaneWithoutStyle({
+		const c = new PlainTweakpane({
 			container: containerElem,
 			document: doc,
 		});
@@ -34,7 +34,7 @@ describe(TweakpaneWithoutStyle.name, () => {
 
 	it("should throw 'alreadyDisposed' error", () => {
 		const doc = TestUtil.createWindow().document;
-		const c = new TweakpaneWithoutStyle({
+		const c = new PlainTweakpane({
 			document: doc,
 		});
 		c.dispose();
@@ -45,7 +45,7 @@ describe(TweakpaneWithoutStyle.name, () => {
 
 	it('should expanded by default', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = new TweakpaneWithoutStyle({
+		const c = new PlainTweakpane({
 			document: doc,
 			title: 'Title',
 		});
@@ -54,7 +54,7 @@ describe(TweakpaneWithoutStyle.name, () => {
 
 	it('should shrink by default with `expanded: false` option', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = new TweakpaneWithoutStyle({
+		const c = new PlainTweakpane({
 			document: doc,
 			expanded: false,
 			title: 'Title',

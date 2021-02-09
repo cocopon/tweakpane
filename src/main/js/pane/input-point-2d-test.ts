@@ -6,19 +6,16 @@ import {RangeConstraint} from '../constraint/range';
 import {StepConstraint} from '../constraint/step';
 import {ConstraintUtil} from '../constraint/util';
 import {Point2dPadTextInputController} from '../controller/input/point-2d-pad-text';
-import {RootController} from '../controller/root';
 import {TestUtil} from '../misc/test-util';
-import {ViewModel} from '../model/view-model';
-import {RootApi} from './root';
+import {PlainTweakpane} from './plain-tweakpane';
 
-function createApi(): RootApi {
-	const c = new RootController(TestUtil.createWindow().document, {
-		viewModel: new ViewModel(),
+function createPane(): PlainTweakpane {
+	return new PlainTweakpane({
+		document: TestUtil.createWindow().document,
 	});
-	return new RootApi(c);
 }
 
-describe(RootApi.name, () => {
+describe(PlainTweakpane.name, () => {
 	[
 		{
 			expectedClass: Point2dPadTextInputController,
@@ -28,18 +25,18 @@ describe(RootApi.name, () => {
 	].forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should return class ${testCase.expectedClass.name}`, () => {
-				const api = createApi();
+				const pane = createPane();
 				const obj = {foo: testCase.value};
-				const bapi = api.addInput(obj, 'foo', testCase.params);
+				const bapi = pane.addInput(obj, 'foo', testCase.params);
 				assert.instanceOf(bapi.controller.controller, testCase.expectedClass);
 			});
 		});
 	});
 
 	it('should create appropriate step constraint', () => {
-		const api = createApi();
+		const pane = createPane();
 		const obj = {foo: {x: 12, y: 34}};
-		const bapi = api.addInput(obj, 'foo', {
+		const bapi = pane.addInput(obj, 'foo', {
 			x: {
 				step: 1,
 			},
@@ -58,9 +55,9 @@ describe(RootApi.name, () => {
 	});
 
 	it('should create appropriate range constraint', () => {
-		const api = createApi();
+		const pane = createPane();
 		const obj = {foo: {x: 12, y: 34}};
-		const bapi = api.addInput(obj, 'foo', {
+		const bapi = pane.addInput(obj, 'foo', {
 			y: {
 				max: 456,
 				min: -123,

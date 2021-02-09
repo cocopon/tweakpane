@@ -5,32 +5,30 @@ import {ButtonController} from '../controller/button';
 import {FolderController} from '../controller/folder';
 import {InputBindingController} from '../controller/input-binding';
 import {MonitorBindingController} from '../controller/monitor-binding';
-import {RootController} from '../controller/root';
 import {SeparatorController} from '../controller/separator';
 import {TestUtil} from '../misc/test-util';
-import {ViewModel} from '../model/view-model';
-import {RootApi} from './root';
+import {Class} from '../misc/type-util';
+import {PlainTweakpane} from './plain-tweakpane';
 
-function createApi(title?: string): RootApi {
-	const c = new RootController(TestUtil.createWindow().document, {
-		viewModel: new ViewModel(),
+function createApi(title?: string): PlainTweakpane {
+	return new PlainTweakpane({
+		document: TestUtil.createWindow().document,
 		title: title,
 	});
-	return new RootApi(c);
 }
 
-describe(RootApi.name, () => {
+describe(PlainTweakpane.name, () => {
 	it('should add button', () => {
-		const api = createApi();
-		const b = api.addButton({
+		const pane = createApi();
+		const b = pane.addButton({
 			title: 'push',
 		});
 		assert.strictEqual(b.controller.button.title, 'push');
 	});
 
 	it('should add folder', () => {
-		const api = createApi();
-		const f = api.addFolder({
+		const pane = createApi();
+		const f = pane.addFolder({
 			title: 'folder',
 		});
 		assert.strictEqual(f.controller.folder.title, 'folder');
@@ -38,41 +36,57 @@ describe(RootApi.name, () => {
 	});
 
 	it('should add collapsed folder', () => {
-		const api = createApi();
-		const f = api.addFolder({
+		const pane = createApi();
+		const f = pane.addFolder({
 			expanded: false,
 			title: 'folder',
 		});
 		assert.strictEqual(f.controller.folder.expanded, false);
 	});
 
-	it('should add separator', () => {
-		const api = createApi();
-		api.addSeparator();
+	it('should toggle expanded when clicking title element', () => {
+		const c = new PlainTweakpane({
+			document: TestUtil.createWindow().document,
+			title: 'Tweakpane',
+		});
 
-		const cs = api.controller.uiContainer.items;
+		if (c.controller.view.titleElement) {
+			c.controller.view.titleElement.click();
+		}
+
+		assert.strictEqual(
+			c.controller.folder && c.controller.folder.expanded,
+			false,
+		);
+	});
+
+	it('should add separator', () => {
+		const pane = createApi();
+		pane.addSeparator();
+
+		const cs = pane.controller.uiContainer.items;
 		assert.instanceOf(cs[cs.length - 1], SeparatorController);
 	});
 
 	it('should dispose separator', () => {
-		const api = createApi();
-		const cs = api.controller.uiContainer.items;
+		const pane = createApi();
+		const cs = pane.controller.uiContainer.items;
 
-		const s = api.addSeparator();
+		const s = pane.addSeparator();
 		assert.strictEqual(cs.length, 1);
 		s.dispose();
 		assert.strictEqual(cs.length, 0);
 	});
 
 	it('should handle root folder events', (done) => {
-		const api = createApi('pane');
+		const pane = createApi('pane');
 
-		api.on('fold', (expanded) => {
+		pane.on('fold', (expanded) => {
 			assert.strictEqual(expanded, false);
 			done();
 		});
 
-		const f = api.controller.folder;
+		const f = pane.controller.folder;
 		if (!f) {
 			throw new Error('Root folder not found');
 		}
@@ -80,27 +94,27 @@ describe(RootApi.name, () => {
 	});
 
 	it('should handle folder events', (done) => {
-		const api = createApi();
-		const f = api.addFolder({
+		const pane = createApi();
+		const f = pane.addFolder({
 			title: 'folder',
 		});
 
-		api.on('fold', (expanded) => {
+		pane.on('fold', (expanded) => {
 			assert.strictEqual(expanded, false);
 			done();
 		});
 		f.expanded = false;
 	});
 
-	[
+	([
 		{
-			insert: (api: RootApi, index: number) => {
+			insert: (api, index) => {
 				api.addInput({foo: 1}, 'foo', {index: index});
 			},
 			expected: InputBindingController,
 		},
 		{
-			insert: (api: RootApi, index: number) => {
+			insert: (api, index) => {
 				api.addMonitor({foo: 1}, 'foo', {
 					index: index,
 					interval: 0,
@@ -109,38 +123,41 @@ describe(RootApi.name, () => {
 			expected: MonitorBindingController,
 		},
 		{
-			insert: (api: RootApi, index: number) => {
+			insert: (api, index) => {
 				api.addButton({index: index, title: 'button'});
 			},
 			expected: ButtonController,
 		},
 		{
-			insert: (api: RootApi, index: number) => {
+			insert: (api, index) => {
 				api.addFolder({index: index, title: 'folder'});
 			},
 			expected: FolderController,
 		},
 		{
-			insert: (api: RootApi, index: number) => {
+			insert: (api, index) => {
 				api.addSeparator({
 					index: index,
 				});
 			},
 			expected: SeparatorController,
 		},
-	].forEach((testCase) => {
+	] as {
+		insert: (api: PlainTweakpane, index: number) => void;
+		expected: Class<any>;
+	}[]).forEach((testCase) => {
 		context(`when ${testCase.expected.name}`, () => {
 			it('should insert input/monitor into specified position', () => {
 				const params = {
 					bar: 2,
 					foo: 1,
 				};
-				const api = createApi();
-				api.addInput(params, 'foo');
-				api.addInput(params, 'bar');
-				testCase.insert(api, 1);
+				const pane = createApi();
+				pane.addInput(params, 'foo');
+				pane.addInput(params, 'bar');
+				testCase.insert(pane, 1);
 
-				const cs = api.controller.uiContainer.items;
+				const cs = pane.controller.uiContainer.items;
 				assert.instanceOf(cs[1], testCase.expected);
 			});
 		});
@@ -148,13 +165,13 @@ describe(RootApi.name, () => {
 
 	it('should bind `this` within handler to pane', (done) => {
 		const PARAMS = {foo: 1};
-		const api = createApi();
-		api.on('change', function() {
-			assert.strictEqual(this, api);
+		const pane = createApi();
+		pane.on('change', function() {
+			assert.strictEqual(this, pane);
 			done();
 		});
 
-		const bapi = api.addInput(PARAMS, 'foo');
+		const bapi = pane.addInput(PARAMS, 'foo');
 		bapi.controller.binding.value.rawValue = 2;
 	});
 });

@@ -1,31 +1,28 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {RootController} from '../controller/root';
 import {TestUtil} from '../misc/test-util';
 import {TypeUtil} from '../misc/type-util';
 import {InputValue} from '../model/input-value';
-import {ViewModel} from '../model/view-model';
-import {RootApi} from './root';
+import {PlainTweakpane} from './plain-tweakpane';
 
-function createApi(): RootApi {
-	const c = new RootController(TestUtil.createWindow().document, {
-		viewModel: new ViewModel(),
+function createPane(): PlainTweakpane {
+	return new PlainTweakpane({
+		document: TestUtil.createWindow().document,
 		title: 'Tweakpane',
 	});
-	return new RootApi(c);
 }
 
-describe(RootApi.name, () => {
+describe(PlainTweakpane.name, () => {
 	it('should handle global input events', (done) => {
-		const api = createApi();
+		const pane = createPane();
 		const obj = {foo: 1};
-		api.on('change', (v: unknown) => {
+		pane.on('change', (v: unknown) => {
 			assert.strictEqual(v, 2);
 			done();
 		});
 
-		const bapi = api.addInput(obj, 'foo');
+		const bapi = pane.addInput(obj, 'foo');
 		const value: InputValue<number> = TypeUtil.forceCast(
 			bapi.controller.binding.value,
 		);
@@ -33,14 +30,14 @@ describe(RootApi.name, () => {
 	});
 
 	it('should handle global input events (nested)', (done) => {
-		const api = createApi();
+		const pane = createPane();
 		const obj = {foo: 1};
-		api.on('change', (v: unknown) => {
+		pane.on('change', (v: unknown) => {
 			assert.strictEqual(v, 2);
 			done();
 		});
 
-		const fapi = api.addFolder({
+		const fapi = pane.addFolder({
 			title: 'foo',
 		});
 
@@ -52,18 +49,18 @@ describe(RootApi.name, () => {
 	});
 
 	it('should refresh views', () => {
-		const api = createApi();
+		const pane = createPane();
 		const obj = {
 			bar: 'bar',
 			baz: 123,
 			foo: 1,
 		};
-		const i1 = api.addInput(obj, 'foo');
-		const f = api.addFolder({
+		const i1 = pane.addInput(obj, 'foo');
+		const f = pane.addFolder({
 			title: 'folder',
 		});
 		const i2 = f.addInput(obj, 'bar');
-		const m1 = api.addMonitor(obj, 'baz', {
+		const m1 = pane.addMonitor(obj, 'baz', {
 			interval: 0,
 		});
 
@@ -71,7 +68,7 @@ describe(RootApi.name, () => {
 		obj.bar = 'changed';
 		obj.baz = 456;
 
-		api.refresh();
+		pane.refresh();
 
 		assert.strictEqual(i1.controller.binding.value.rawValue, 2);
 		assert.strictEqual(i2.controller.binding.value.rawValue, 'changed');
@@ -79,26 +76,26 @@ describe(RootApi.name, () => {
 	});
 
 	it('should get expanded', () => {
-		const api = createApi();
-		const folder = api.controller.folder;
+		const pane = createPane();
+		const folder = pane.controller.folder;
 
 		if (folder) {
 			folder.expanded = false;
 		}
-		assert.strictEqual(api.expanded, false);
+		assert.strictEqual(pane.expanded, false);
 		if (folder) {
 			folder.expanded = true;
 		}
-		assert.strictEqual(api.expanded, true);
+		assert.strictEqual(pane.expanded, true);
 	});
 
 	it('should set expanded', () => {
-		const api = createApi();
-		const folder = api.controller.folder;
+		const pane = createPane();
+		const folder = pane.controller.folder;
 
-		api.expanded = false;
+		pane.expanded = false;
 		assert.strictEqual(folder && folder.expanded, false);
-		api.expanded = true;
+		pane.expanded = true;
 		assert.strictEqual(folder && folder.expanded, true);
 	});
 
@@ -108,13 +105,13 @@ describe(RootApi.name, () => {
 			baz: 2,
 			foo: 1,
 		};
-		const api = createApi();
-		api.addInput(PARAMS, 'foo');
-		api.addInput(PARAMS, 'bar');
-		api.addMonitor(PARAMS, 'baz', {
+		const pane = createPane();
+		pane.addInput(PARAMS, 'foo');
+		pane.addInput(PARAMS, 'bar');
+		pane.addMonitor(PARAMS, 'baz', {
 			interval: 0,
 		});
-		const preset = api.exportPreset();
+		const preset = pane.exportPreset();
 		assert.deepStrictEqual(preset, {
 			bar: 'hello',
 			foo: 1,
@@ -126,11 +123,11 @@ describe(RootApi.name, () => {
 			bar: 'hello',
 			foo: 1,
 		};
-		const api = createApi();
-		api.addInput(PARAMS, 'foo');
-		api.addInput(PARAMS, 'bar');
+		const pane = createPane();
+		pane.addInput(PARAMS, 'foo');
+		pane.addInput(PARAMS, 'bar');
 
-		api.importPreset({
+		pane.importPreset({
 			bar: 'world',
 			foo: 123,
 		});
@@ -142,17 +139,17 @@ describe(RootApi.name, () => {
 	});
 
 	it('should get element', () => {
-		const api = createApi();
-		assert.exists(api.element);
+		const pane = createPane();
+		assert.exists(pane.element);
 	});
 
 	it('should hide', () => {
-		const api = createApi();
-		assert.strictEqual(api.hidden, false);
+		const pane = createPane();
+		assert.strictEqual(pane.hidden, false);
 
-		api.hidden = true;
+		pane.hidden = true;
 		assert.isTrue(
-			api.controller.view.element.classList.contains('tp-v-hidden'),
+			pane.controller.view.element.classList.contains('tp-v-hidden'),
 		);
 	});
 });

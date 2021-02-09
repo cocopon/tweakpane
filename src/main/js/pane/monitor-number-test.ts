@@ -5,20 +5,17 @@ import {MonitorBinding} from '../binding/monitor';
 import {GraphMonitorController} from '../controller/monitor/graph';
 import {MultiLogMonitorController} from '../controller/monitor/multi-log';
 import {SingleLogMonitorController} from '../controller/monitor/single-log';
-import {RootController} from '../controller/root';
 import {TestUtil} from '../misc/test-util';
 import {IntervalTicker} from '../misc/ticker/interval';
-import {ViewModel} from '../model/view-model';
-import {RootApi} from './root';
+import {PlainTweakpane} from './plain-tweakpane';
 
-function createApi(): RootApi {
-	const c = new RootController(TestUtil.createWindow().document, {
-		viewModel: new ViewModel(),
+function createPane(): PlainTweakpane {
+	return new PlainTweakpane({
+		document: TestUtil.createWindow().document,
 	});
-	return new RootApi(c);
 }
 
-describe(RootApi.name, () => {
+describe(PlainTweakpane.name, () => {
 	[
 		{
 			expectedClass: SingleLogMonitorController,
@@ -42,9 +39,9 @@ describe(RootApi.name, () => {
 	].forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should return class ${testCase.expectedClass.name}`, () => {
-				const api = createApi();
+				const pane = createPane();
 				const obj = {foo: testCase.value};
-				const bapi = api.addMonitor(obj, 'foo', testCase.params);
+				const bapi = pane.addMonitor(obj, 'foo', testCase.params);
 				assert.instanceOf(bapi.controller.controller, testCase.expectedClass);
 
 				const b = bapi.controller.binding;

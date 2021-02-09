@@ -3,14 +3,8 @@ import {TypeUtil} from '../misc/type-util';
 import {Color, RgbaColorObject} from '../model/color';
 import {Point2d, Point2dObject} from '../model/point-2d';
 import {Target} from '../model/target';
-import {createController, InputBindingPlugin} from '../plugin/input-binding';
-import {BooleanInputPlugin} from '../plugin/input-bindings/boolean';
-import {NumberColorInputPlugin} from '../plugin/input-bindings/color-number';
-import {ObjectColorInputPlugin} from '../plugin/input-bindings/color-object';
-import {StringColorInputPlugin} from '../plugin/input-bindings/color-string';
-import {NumberInputPlugin} from '../plugin/input-bindings/number';
-import {Point2dInputPlugin} from '../plugin/input-bindings/point-2d';
-import {StringInputPlugin} from '../plugin/input-bindings/string';
+import {createController} from '../plugin/input-binding';
+import {Plugins} from './plugins';
 import {InputParams} from './types';
 
 export type InputIn = boolean | number | string | Color | Point2d;
@@ -40,16 +34,8 @@ export function create(
 		});
 	}
 
-	const bc = [
-		BooleanInputPlugin,
-		NumberColorInputPlugin,
-		ObjectColorInputPlugin,
-		StringColorInputPlugin,
-		NumberInputPlugin,
-		StringInputPlugin,
-		Point2dInputPlugin,
-	].reduce(
-		(result, plugin: InputBindingPlugin<any, any>) =>
+	const bc = Plugins.inputs.reduce(
+		(result, plugin) =>
 			result ||
 			createController(plugin, {
 				document: document,
