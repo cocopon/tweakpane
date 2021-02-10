@@ -15,15 +15,15 @@ $sp-width: 480px;
 // Base
 $base-hue: 230;
 $base-bg-color: white;
-$base-fg-color: hsl($base-hue, 7%, 35%);
+$base-fg-color: hsl($base-hue, 5%, 35%);
 $base-fg-color-secondary: rgba($base-fg-color, 0.7);
-$base-heading-color: hsl($base-hue, 7%, 20%);
+$base-heading-color: hsl($base-hue, 5%, 20%);
 
 // Pane
 $pane-bg-color: hsl($base-hue, 7%, 20%);
 $pane-fg-color: hsl($base-hue, 7%, 80%);
-$pane-label-fg-color: hsla($base-hue, 7%, 80%, 0.8);
-$pane-separator-color: hsla($base-hue, 7%, 10%, 0.3);
+$pane-label-fg-color: hsla($base-hue, 7%, 80%, 0.7);
+$pane-separator-color: hsl($base-hue, 7%, 16%);
 
 // Document
 $document-a-color: hsl($base-hue - 20, 70%, 50%);

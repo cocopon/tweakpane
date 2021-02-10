@@ -13,7 +13,7 @@
 		display: block;
 		height: var(--unit-size);
 		line-height: var(--unit-size);
-		padding: 0 4px;
+		padding: 0 (6px * 2 + 6px) 0 4px;
 		width: 100%;
 
 		&:hover {

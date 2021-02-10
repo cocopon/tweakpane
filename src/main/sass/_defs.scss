@@ -24,7 +24,7 @@ $z-index-picker: 1000;
 
 @mixin themeVariables() {
 	$base-hue: 230;
-	$color-exdark: hsl($base-hue, 7%, 10%);
+	$color-exdark: hsl($base-hue, 7%, 16%);
 	$color-dark: hsl($base-hue, 7%, 20%);
 	$color-light: hsl($base-hue, 7%, 70%);
 	$color-exlight: hsl($base-hue, 7%, 80%);
@@ -67,22 +67,22 @@ $z-index-picker: 1000;
 	);
 	@include themeVariable('folder-foreground-color', $fg-color);
 
-	@include themeVariable('input-background-color', rgba($fg-color, 0.15));
+	@include themeVariable('input-background-color', rgba($fg-color, 0.1));
 	@include themeVariable(
 		'input-background-color-active',
-		rgba($fg-color, 0.35)
+		rgba($fg-color, 0.25)
 	);
-	@include themeVariable('input-background-color-focus', rgba($fg-color, 0.25));
+	@include themeVariable('input-background-color-focus', rgba($fg-color, 0.2));
 	@include themeVariable('input-background-color-hover', rgba($fg-color, 0.15));
 	@include themeVariable('input-foreground-color', $fg-color);
 	@include themeVariable('input-guide-color', rgba($bg-color, 0.5));
 
-	@include themeVariable('label-foreground-color', rgba($fg-color, 0.8));
+	@include themeVariable('label-foreground-color', rgba($fg-color, 0.7));
 
-	@include themeVariable('monitor-background-color', rgba($color-exdark, 0.5));
+	@include themeVariable('monitor-background-color', $color-exdark);
 	@include themeVariable('monitor-foreground-color', rgba($fg-color, 0.7));
 
-	@include themeVariable('separator-color', rgba($color-exdark, 0.3));
+	@include themeVariable('separator-color', $color-exdark);
 }
 
 @mixin resetInput() {
@@ -201,7 +201,7 @@ $z-index-picker: 1000;
 	height: calc(var(--unit-size) + 4px);
 	line-height: calc(var(--unit-size) + 4px);
 	overflow: hidden;
-	padding-left: 30px;
+	padding-left: (4px + 24px);
 	position: relative;
 	text-align: left;
 	text-overflow: ellipsis;
@@ -237,8 +237,9 @@ $z-index-picker: 1000;
 	content: '';
 	display: block;
 	height: 6px;
-	left: 12px;
+	left: (4px + (24px - 6px) / 2);
 	margin: auto;
+	opacity: 0.5;
 	position: absolute;
 	top: 0;
 	transform: rotate(90deg);
