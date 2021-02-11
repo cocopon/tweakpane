@@ -1,5 +1,5 @@
-import * as ColorConverter from '../../main/js/converter/color';
-import {Color} from '../../main/js/model/color';
+import * as ColorConverter from '../../main/ts/converter/color';
+import {Color} from '../../main/ts/model/color';
 import * as Themes from './themes';
 
 declare let Tweakpane: any;

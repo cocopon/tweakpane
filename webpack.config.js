@@ -7,7 +7,7 @@ module.exports = (_env, argv) => {
 	return {
 		devtool: false,
 		entry: {
-			bundle: Path.resolve(__dirname, 'src/main/js/index.ts'),
+			bundle: Path.resolve(__dirname, 'src/main/ts/index.ts'),
 		},
 		output: {
 			path: Path.resolve(__dirname, 'docs/assets/'),
@@ -26,7 +26,7 @@ module.exports = (_env, argv) => {
 			rules: [
 				{
 					test: /\.ts$/,
-					include: [Path.resolve(__dirname, 'src/main/js/')],
+					include: [Path.resolve(__dirname, 'src/main/ts/')],
 					exclude: /node_modules/,
 					loader: 'awesome-typescript-loader',
 					options: {
