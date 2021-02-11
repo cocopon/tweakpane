@@ -2,6 +2,7 @@
 /docs/
 /pages/
 /test-require/dist/
+/test-require/package.json
 /test/
 
 *.tgz
