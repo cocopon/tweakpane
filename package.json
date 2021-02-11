@@ -56,7 +56,7 @@
     "main:test:scss": "prettier --parser scss --list-different 'src/main/sass/**/*.scss'",
     "main:test:ts": "run-p main:test:ts:*",
     "main:test:ts:dynamic": "TS_NODE_PROJECT='src/main/tsconfig.json' nyc --extension '.ts' --exclude '**/*-test.ts' mocha --require ts-node/register 'src/main/ts/**/*-test.ts'",
-    "main:test:ts:module": "npm pack && node project/setup-test-module.js && (cd test-module && npm install && npm run try)",
+    "main:test:ts:module": "npm pack && node project/setup-test-module.js && (cd test-module && npm install && npm test)",
     "main:test:ts:static": "eslint --ext .ts 'src/main/ts/**/*'",
     "main:watch": "webpack --mode development --watch",
     "package": "npm-run-all clean main:build --serial package:dist package:version package:zip",

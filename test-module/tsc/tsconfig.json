@@ -8,5 +8,5 @@
 		"outDir": "dist",
 		"strictNullChecks": true,
 		"target": "es5"
-	},
+	}
 }

@@ -1,7 +1,7 @@
 /dist/
 /docs/
 /pages/
-/test-module/dist/
+/test-module/tsc/dist/
 /test-module/package.json
 /test/
 
@@ -15,9 +15,6 @@
 .DS_Store
 .AppleDouble
 .LSOverride
-
-# Icon must end with two \r
-Icon
 
 # Thumbnails
 ._*
