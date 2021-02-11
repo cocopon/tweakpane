@@ -5,8 +5,8 @@
 const Fs = require('fs-extra');
 const Package = require('../package');
 
-const json = Fs.readFileSync('test-require/package.json.template', 'utf8');
+const json = Fs.readFileSync('test-module/package.json.template', 'utf8');
 Fs.writeFileSync(
-	'test-require/package.json',
+	'test-module/package.json',
 	json.replace('${version}', Package.version),
 );
