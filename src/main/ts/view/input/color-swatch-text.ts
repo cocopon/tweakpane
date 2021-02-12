@@ -1,8 +1,8 @@
 import {ClassName} from '../../misc/class-name';
 import {Color} from '../../model/color';
 import {InputValue} from '../../model/input-value';
-import {ColorSwatchInputView} from '../input/color-swatch';
 import {View, ViewConfig} from '../view';
+import {ColorSwatchInputView} from './color-swatch';
 import {InputView} from './input';
 import {TextInputView} from './text';
 

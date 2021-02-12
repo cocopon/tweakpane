@@ -4,7 +4,7 @@ import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
 import {ColorSwatchTextInputView} from '../../view/input/color-swatch-text';
-import {ColorSwatchInputController} from '../input/color-swatch';
+import {ColorSwatchInputController} from './color-swatch';
 import {InputController} from './input';
 import {TextInputController} from './text';
 

@@ -2,23 +2,23 @@
 
 const Jsdom = require('jsdom').JSDOM;
 
-// Require the default module
+// Require default module
 const Tweakpane = require('tweakpane');
 
 const PARAMS = {
 	foo: 1,
 };
 
-// Creating a pane
+// Create pane
+const doc = new Jsdom('').window.document;
 const pane = new Tweakpane({
-	document: (new Jsdom('')).window.document,
+	document: doc,
 });
 
-// Add an input
-pane.addInput(PARAMS, 'foo', {
+// Add input
+const input = pane.addInput(PARAMS, 'foo', {
 	max: 1,
 	min: 0,
 	step: 1,
 });
-
-console.log(pane);
+console.log(input);
