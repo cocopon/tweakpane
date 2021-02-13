@@ -1,4 +1,3 @@
-import * as Style from '../sass/bundle.scss';
 import {PlainTweakpane} from './pane/plain-tweakpane';
 import {TweakpaneConfig} from './pane/tweakpane-config';
 
@@ -10,7 +9,7 @@ function embedDefaultStyleIfNeeded(document: Document) {
 
 	const styleElem = document.createElement('style');
 	styleElem.dataset.for = MARKER;
-	styleElem.textContent = Style.toString();
+	styleElem.textContent = '__css__';
 	if (document.head) {
 		document.head.appendChild(styleElem);
 	}
