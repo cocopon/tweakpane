@@ -5,7 +5,7 @@
 
 
 Tweakpane is a compact pane library for fine-tuning parameters and monitoring
-value changes. It's originally inspired by the popular library [dat.GUI][].
+value changes, inspired by [dat.GUI][].
 
 ![cover](https://user-images.githubusercontent.com/602961/86352755-41ec8e80-bca1-11ea-8b68-294a0f8b916f.jpg)
 
@@ -21,13 +21,13 @@ value changes. It's originally inspired by the popular library [dat.GUI][].
 
 
 ## Features
-- [Input](https://cocopon.github.io/tweakpane/input.html)
+- [Inputs](https://cocopon.github.io/tweakpane/input.html)
   - Number (text / slider / list)
   - String (text / list)
   - Boolean (checkbox / list)
   - Color (picker)
   - Point2D (picker)
-- [Monitor](https://cocopon.github.io/tweakpane/monitor.html)
+- [Monitors](https://cocopon.github.io/tweakpane/monitor.html)
   - Number (text / graph)
   - String (text)
   - Boolean (text)
@@ -35,6 +35,7 @@ value changes. It's originally inspired by the popular library [dat.GUI][].
   - Folder
   - Button
   - Separator
+- [Theming](https://cocopon.github.io/tweakpane/theming.html)
 - [Misc](https://cocopon.github.io/tweakpane/misc.html)
   - JSON import / export
   - TypeScript type definitions
@@ -58,5 +59,5 @@ MIT License. See `LICENSE.txt` for more information.
 
 
 
-[dat.GUI]: https://workshop.chromeexperiments.com/examples/gui/
+[dat.GUI]: https://github.com/dataarts/dat.gui
 [documents]: https://cocopon.github.io/tweakpane/
