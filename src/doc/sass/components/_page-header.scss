@@ -2,6 +2,11 @@
 	background-color: $page-header-bg-color;
 	position: relative;
 
+	&,
+	&_sketchContainer,
+	&_sketchContainer canvas {
+		border-radius: 6px;
+	}
 	&_sketchContainer {
 		bottom: 0;
 		left: 0;
@@ -21,8 +26,6 @@
 		}
 	}
 	&_innerLayout {
-		@include responsive-inner();
-
 		box-sizing: border-box;
 		margin-left: auto;
 		margin-right: auto;
@@ -48,13 +51,15 @@
 			padding-bottom: 32px;
 			padding-top: 32px;
 		}
+		@include nonwide() {
+			text-align: center;
+		}
 	}
 	&_title {
 		font-size: 3rem;
 
 		@include nonwide() {
 			font-size: 2rem;
-			text-align: center;
 		}
 	}
 	&_paneLayout {

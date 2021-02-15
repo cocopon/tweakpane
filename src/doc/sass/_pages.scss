@@ -1,26 +1,36 @@
 :root.index {
 	.pageHeader_innerLayout {
+		position: static;
+
 		@include wide() {
 			padding-bottom: 128px;
 			padding-top: 128px;
 		}
 	}
+	.pageHeader_titleLayout {
+		mix-blend-mode: difference;
+	}
+	.pageHeader_title {
+		color: white;
+	}
 	.pageHeader_titleLayout p {
+		color: white;
+
 		@include nonwide() {
 			hyphens: auto;
 		}
 	}
-	.pageHeader_titleLayout p {
-		@include nonwide() {
-			hyphens: auto;
-		}
+	.pageHeader_paneLayout {
+		position: relative;
 	}
 }
 
 :root.theming {
 	.pageHeader {
-		background: url(https://source.unsplash.com/u27Rrbs9Dwc/1600x900) no-repeat
-			center;
+		background-color: #21292a;
+		background-image: url(https://source.unsplash.com/u27Rrbs9Dwc/1600x900);
+		background-position: center;
+		background-repeat: no-repeat;
 		background-size: cover;
 	}
 	.pageHeader_titleLayout {

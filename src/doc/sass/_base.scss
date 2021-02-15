@@ -1,9 +1,10 @@
 html {
-	--themes-background-color: #{$demo-result-bg-color};
-
 	color: $base-fg-color;
 	font-family: $font-family;
 	font-size: 16px;
+}
+body {
+	background-color: $base-bg-color;
 }
 h1,
 h2,
