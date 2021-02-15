@@ -91,6 +91,6 @@ export class SpMenu {
 	}
 
 	private onButtonClick_(): void {
-		this.expanded = true;
+		this.expanded = !this.expanded;
 	}
 }

@@ -1,3 +1,5 @@
+import * as ColorConverter from '../../../main/ts/converter/color';
+import {Color} from '../../../main/ts/model/color';
 import {Sketch} from '../sketch';
 import {Environment} from '../sketch';
 import * as Util from '../util';
@@ -35,7 +37,7 @@ export const IndexRoute = {
 			},
 			bubble: {
 				amp: {x: 0.3, y: 0.51},
-				color: '#ffffff',
+				color: '#f2f2f2',
 				freq: {x: 64, y: 32},
 				maxSize: 128,
 				range: 0.65,
@@ -80,7 +82,23 @@ export const IndexRoute = {
 						titleElem.textContent = value;
 					}
 				});
-				pane.addInput(ENV, 'color');
+				pane.addInput(ENV, 'color').on('change', (value: string) => {
+					const headerElem: HTMLElement | null = document.querySelector(
+						'.pageHeader',
+					);
+					if (!headerElem) {
+						return;
+					}
+
+					const comps = ColorConverter.fromString(value).getComponents('hsl');
+					comps[0] += 30;
+					comps[1] *= 1.5;
+					comps[2] *= 1.06;
+					const bg = new Color(comps, 'hsl');
+					headerElem.style.backgroundColor = ColorConverter.toFunctionalRgbaString(
+						bg,
+					);
+				});
 				pane.addSeparator();
 				pane.addInput(ENV, 'spacing', {
 					max: 48,

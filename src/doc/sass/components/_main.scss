@@ -6,13 +6,28 @@
 			display: none;
 		}
 		@include nonwide() {
-			height: $global-header-height * 2;
+			height: $global-header-height;
+		}
+	}
+	&_wrapLayout {
+		@include responsive-inner();
+
+		display: flex;
+		margin-top: 32px;
+	}
+	&_menuLayout {
+		@include wide() {
+			margin-right: 32px;
+			width: $global-nav-width;
+		}
+		@include nonwide() {
+			margin-right: 0;
+			width: 0;
 		}
 	}
 	&_mainLayout {
+		flex: 1;
 		overflow: hidden;
-		position: absolute;
-		right: 0;
 
 		@include wide() {
 			left: $global-nav-width;
@@ -30,8 +45,6 @@
 		flex: 1;
 	}
 	&_innerLayout {
-		@include responsive-inner();
-
 		@include wide() {
 			padding-bottom: 64px;
 			padding-top: 64px;

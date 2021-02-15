@@ -21,9 +21,6 @@ $base-heading-color: hsl($base-hue, 5%, 20%);
 
 // Pane
 $pane-bg-color: hsl($base-hue, 7%, 20%);
-$pane-fg-color: hsl($base-hue, 7%, 80%);
-$pane-label-fg-color: hsla($base-hue, 7%, 80%, 0.7);
-$pane-separator-color: hsl($base-hue, 7%, 16%);
 
 // Document
 $document-a-color: hsl($base-hue - 20, 70%, 50%);
@@ -43,7 +40,6 @@ $button-active-bg-color: lighten($button-bg-color, 10%);
 $button-hover-bg-color: lighten($button-bg-color, 5%);
 
 // Z-index
-$z-index-themes-mask: 1001;
 $z-index-global-header: 1002;
 $z-index-global-nav: 1003;
 
@@ -54,10 +50,7 @@ $code-block-title-fg-color: hsl($base-hue, 7%, 85%);
 $demo-result-bg-color: $document-code-bg-color;
 $logo-color: $base-fg-color;
 $logo-hover-color: rgba($base-fg-color, 0.8);
-$logo-light-color: hsl($base-hue, 7%, 95%);
-$logo-light-hover-color: rgba($logo-light-color, 0.8);
 $page-header-bg-color: $document-code-bg-color;
-$menu-fg-color-secondary: rgba($pane-label-fg-color, 0.6);
 $support-bg-color: hsl(30deg, 70%, 90%);
 
 // Mixins
@@ -89,7 +82,7 @@ $support-bg-color: hsl(30deg, 70%, 90%);
 	@include wide() {
 		margin-left: auto;
 		margin-right: auto;
-		max-width: 800px + 64px * 2;
+		max-width: 1280px;
 		padding-left: 64px;
 		padding-right: 64px;
 	}

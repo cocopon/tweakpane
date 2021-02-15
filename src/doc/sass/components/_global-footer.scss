@@ -2,8 +2,6 @@
 	text-align: center;
 
 	&_innerLayout {
-		@include responsive-inner();
-
 		box-sizing: border-box;
 		margin-left: auto;
 		margin-right: auto;

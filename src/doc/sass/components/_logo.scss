@@ -11,14 +11,6 @@
 		text-decoration: none;
 	}
 
-	&#{&}-light {
-		color: $logo-light-color;
-
-		&:hover {
-			color: $logo-light-hover-color;
-		}
-	}
-
 	&_symbol {
 		background: linear-gradient(
 			to left,
@@ -41,17 +33,6 @@
 		top: 0;
 		width: 12px;
 	}
-	&#{&}-light &_symbol {
-		background: linear-gradient(
-			to left,
-			$logo-light-color,
-			$logo-light-color 4px,
-			transparent 4px,
-			transparent 8px,
-			$logo-light-color 8px,
-			$logo-light-color
-		);
-	}
 	&:hover &_symbol {
 		background: linear-gradient(
 			to left,
@@ -61,17 +42,6 @@
 			transparent 8px,
 			$logo-hover-color 8px,
 			$logo-hover-color
-		);
-	}
-	&#{&}-light:hover &_symbol {
-		background: linear-gradient(
-			to left,
-			$logo-light-hover-color,
-			$logo-light-hover-color 4px,
-			transparent 4px,
-			transparent 8px,
-			$logo-light-hover-color 8px,
-			$logo-light-hover-color
 		);
 	}
 }
