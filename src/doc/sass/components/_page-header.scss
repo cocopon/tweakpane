@@ -5,7 +5,9 @@
 	&,
 	&_sketchContainer,
 	&_sketchContainer canvas {
-		border-radius: 6px;
+		@include wide() {
+			border-radius: 6px;
+		}
 	}
 	&_sketchContainer {
 		bottom: 0;
