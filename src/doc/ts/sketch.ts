@@ -1,3 +1,7 @@
+import * as DomUtil from '../../main/ts/misc/dom-util';
+
+const SVG_NS = DomUtil.SVG_NS;
+
 function map(
 	v: number,
 	s1: number,
@@ -25,41 +29,59 @@ export interface Environment {
 	title: string;
 }
 
-const DEFAULT_DOT_SIZE = 20;
+class Dot {
+	public readonly element: SVGCircleElement;
+	public x: number;
+	public y: number;
+	public en: number;
+	private env_: Environment;
 
-interface Dot extends PIXI.Sprite {
-	en: number;
+	constructor(env: Environment) {
+		this.element = document.createElementNS(SVG_NS, 'circle');
+		this.env_ = env;
+	}
+
+	public update(): void {
+		this.element.setAttributeNS(null, 'cx', `${this.x}px`);
+		this.element.setAttributeNS(null, 'cy', `${this.y}px`);
+
+		const sz = (1 - Math.pow(0.9, this.en)) * this.env_.maxSize;
+		this.element.setAttributeNS(null, 'r', `${sz}px`);
+	}
 }
 
 export class Sketch {
-	private app_: PIXI.Application;
 	private dots_: Dot[];
 	private elem_: Element;
+	private svgElem_: SVGElement;
+	private dotsElem_: SVGGElement;
 	private env_: Environment;
 	private height_: number;
 	private t_: number;
 	private width_: number;
 
 	constructor(element: Element, env: Environment) {
+		this.onTick_ = this.onTick_.bind(this);
+
 		this.elem_ = element;
 		this.env_ = env;
 
 		this.dots_ = [];
 		this.t_ = 0;
 
-		this.app_ = new PIXI.Application({
-			transparent: true,
-		});
-		this.elem_.appendChild(this.app_.renderer.view);
+		const svgElem = document.createElementNS(SVG_NS, 'svg');
+		this.elem_.appendChild(svgElem);
+		this.svgElem_ = svgElem;
+
+		this.dotsElem_ = document.createElementNS(SVG_NS, 'g');
+		this.svgElem_.appendChild(this.dotsElem_);
 
 		window.addEventListener('resize', () => {
 			this.resize();
 		});
 		this.resize();
 
-		this.app_.ticker.add(() => {
-			this.onTick_();
-		});
+		this.onTick_();
 	}
 
 	public reset() {
@@ -67,31 +89,27 @@ export class Sketch {
 		const h = this.height_;
 		const env = this.env_;
 
-		const g = new PIXI.Graphics();
-		const color = parseInt(env.color.substring(1), 16);
-		g.beginFill(color)
-			.drawCircle(0, 0, DEFAULT_DOT_SIZE)
-			.endFill();
-		const tex = g.generateCanvasTexture();
-
-		this.app_.stage.removeChildren();
 		this.dots_ = [];
 
 		const xstep = env.spacing;
 		const ystep = (xstep * Math.sqrt(3)) / 2;
 		const xcount = Math.ceil(w / xstep);
 		const ycount = Math.ceil(h / ystep);
+		const newDotsElem = document.createElementNS(SVG_NS, 'g') as SVGGElement;
+		newDotsElem.setAttributeNS(null, 'fill', env.color);
 		for (let iy = 0; iy <= ycount; iy++) {
 			for (let ix = 0; ix <= xcount; ix++) {
-				const dot = new PIXI.Sprite(tex) as Dot;
-				dot.anchor.set(0.5, 0.5);
+				const dot = new Dot(env);
 				dot.en = 0;
 				dot.x = (ix + (iy % 2 === 0 ? 0 : 0.5)) * xstep;
 				dot.y = iy * ystep;
-				this.app_.stage.addChild(dot);
+				newDotsElem.appendChild(dot.element);
 				this.dots_.push(dot);
 			}
 		}
+		this.svgElem_.appendChild(newDotsElem);
+		this.svgElem_.removeChild(this.dotsElem_);
+		this.dotsElem_ = newDotsElem;
 	}
 
 	public resize() {
@@ -99,7 +117,6 @@ export class Sketch {
 		this.height_ = rect.height;
 		this.width_ = rect.width;
 
-		this.app_.renderer.resize(this.width_, this.height_);
 		this.reset();
 	}
 
@@ -128,8 +145,9 @@ export class Sketch {
 		}
 
 		this.dots_.forEach((dot) => {
-			const sz = ((1 - Math.pow(0.9, dot.en)) * env.maxSize) / DEFAULT_DOT_SIZE;
-			dot.scale.set(sz);
+			dot.update();
 		});
+
+		requestAnimationFrame(this.onTick_);
 	}
 }
