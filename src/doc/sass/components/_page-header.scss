@@ -5,7 +5,9 @@
 	&,
 	&_sketchContainer,
 	&_sketchContainer canvas {
-		border-radius: 6px;
+		@include wide() {
+			border-radius: 6px;
+		}
 	}
 	&_sketchContainer {
 		bottom: 0;
@@ -15,7 +17,7 @@
 		right: 0;
 		top: 0;
 
-		canvas {
+		svg {
 			display: block;
 			height: 100%;
 			left: 0;

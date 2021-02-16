@@ -12,8 +12,10 @@
 	&_wrapLayout {
 		@include responsive-inner();
 
-		display: flex;
-		margin-top: 32px;
+		@include wide() {
+			display: flex;
+			margin-top: 32px;
+		}
 	}
 	&_menuLayout {
 		@include wide() {
@@ -27,10 +29,10 @@
 	}
 	&_mainLayout {
 		flex: 1;
-		overflow: hidden;
 
 		@include wide() {
 			left: $global-nav-width;
+			overflow: hidden;
 			top: 0;
 		}
 		@include nonwide() {
@@ -43,6 +45,16 @@
 		@include document();
 
 		flex: 1;
+	}
+	&_pageHeaderLayout {
+		@include middle() {
+			margin-left: -32px;
+			margin-right: -32px;
+		}
+		@include narrow() {
+			margin-left: -16px;
+			margin-right: -16px;
+		}
 	}
 	&_innerLayout {
 		@include wide() {
