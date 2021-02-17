@@ -1,8 +1,8 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
-import {CheckboxInputController} from '../controller/input/checkbox';
-import {ListInputController} from '../controller/input/list';
+import {CheckboxController} from '../controller/input/checkbox';
+import {ListController} from '../controller/input/list';
 import {TestUtil} from '../misc/test-util';
 import {PlainTweakpane} from './plain-tweakpane';
 
@@ -15,12 +15,12 @@ function createPane(): PlainTweakpane {
 describe(PlainTweakpane.name, () => {
 	[
 		{
-			expectedClass: CheckboxInputController,
+			expectedClass: CheckboxController,
 			params: {},
 			value: false,
 		},
 		{
-			expectedClass: ListInputController,
+			expectedClass: ListController,
 			params: {
 				options: {
 					off: false,

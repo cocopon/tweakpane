@@ -1,16 +1,16 @@
 import {Formatter} from '../../formatter/formatter';
 import {TypeUtil} from '../../misc/type-util';
-import {InputValue} from '../../model/input-value';
 import {Point2d} from '../../model/point-2d';
+import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
-import {Point2dTextInputView} from '../../view/input/point-2d-text';
+import {Point2dTextView} from '../../view/input/point-2d-text';
 import * as UiUtil from '../ui-util';
-import {InputController} from './input';
+import {ValueController} from './value';
 
 interface Config {
 	parser: Parser<string, number>;
-	value: InputValue<Point2d>;
+	value: Value<Point2d>;
 	viewModel: ViewModel;
 	xBaseStep: number;
 	xFormatter: Formatter<number>;
@@ -21,10 +21,10 @@ interface Config {
 /**
  * @hidden
  */
-export class Point2dTextInputController implements InputController<Point2d> {
+export class Point2dTextController implements ValueController<Point2d> {
 	public readonly viewModel: ViewModel;
-	public readonly value: InputValue<Point2d>;
-	public readonly view: Point2dTextInputView;
+	public readonly value: Value<Point2d>;
+	public readonly view: Point2dTextView;
 	private readonly parser_: Parser<string, number>;
 	private readonly xBaseStep_: number;
 	private readonly yBaseStep_: number;
@@ -40,7 +40,7 @@ export class Point2dTextInputController implements InputController<Point2d> {
 		this.yBaseStep_ = config.yBaseStep;
 
 		this.viewModel = config.viewModel;
-		this.view = new Point2dTextInputView(document, {
+		this.view = new Point2dTextView(document, {
 			model: this.viewModel,
 			value: this.value,
 			xFormatter: config.xFormatter,

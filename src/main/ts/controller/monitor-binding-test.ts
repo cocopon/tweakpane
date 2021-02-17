@@ -6,8 +6,8 @@ import * as NumberConverter from '../converter/number';
 import {NumberFormatter} from '../formatter/number';
 import {TestUtil} from '../misc/test-util';
 import {ManualTicker} from '../misc/ticker/manual';
-import {InputValue} from '../model/input-value';
 import {Target} from '../model/target';
+import {Value} from '../model/value';
 import {ViewModel} from '../model/view-model';
 import {MonitorBindingController} from './monitor-binding';
 import {SingleLogMonitorController} from './monitor/single-log';
@@ -18,7 +18,7 @@ describe(MonitorBindingController.name, () => {
 			foo: 123,
 		};
 		const doc = TestUtil.createWindow().document;
-		const value = new InputValue({
+		const value = new Value({
 			bufferSize: 10,
 			values: [],
 		});

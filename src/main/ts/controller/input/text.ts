@@ -1,10 +1,10 @@
 import {Formatter} from '../../formatter/formatter';
 import {TypeUtil} from '../../misc/type-util';
-import {InputValue} from '../../model/input-value';
+import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
-import {TextInputView} from '../../view/input/text';
-import {InputController} from './input';
+import {TextView} from '../../view/input/text';
+import {ValueController} from './value';
 
 /**
  * @hidden
@@ -12,17 +12,17 @@ import {InputController} from './input';
 export interface Config<T> {
 	formatter: Formatter<T>;
 	parser: Parser<string, T>;
-	value: InputValue<T>;
+	value: Value<T>;
 	viewModel: ViewModel;
 }
 
 /**
  * @hidden
  */
-export class TextInputController<T> implements InputController<T> {
+export class TextController<T> implements ValueController<T> {
 	public readonly viewModel: ViewModel;
-	public readonly value: InputValue<T>;
-	public readonly view: TextInputView<T>;
+	public readonly value: Value<T>;
+	public readonly view: TextView<T>;
 	private parser_: Parser<string, T>;
 
 	constructor(document: Document, config: Config<T>) {
@@ -32,7 +32,7 @@ export class TextInputController<T> implements InputController<T> {
 		this.value = config.value;
 
 		this.viewModel = config.viewModel;
-		this.view = new TextInputView(document, {
+		this.view = new TextView(document, {
 			formatter: config.formatter,
 			model: this.viewModel,
 			value: this.value,

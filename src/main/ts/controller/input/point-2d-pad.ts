@@ -3,17 +3,17 @@ import {NumberUtil} from '../../misc/number-util';
 import {PointerHandler, PointerHandlerEvents} from '../../misc/pointer-handler';
 import {PointerData} from '../../misc/pointer-handler';
 import {Foldable} from '../../model/foldable';
-import {InputValue} from '../../model/input-value';
 import {Point2d} from '../../model/point-2d';
+import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
-import {Point2dPadInputView} from '../../view/input/point-2d-pad';
+import {Point2dPadView} from '../../view/input/point-2d-pad';
 import * as UiUtil from '../ui-util';
-import {InputController} from './input';
+import {ValueController} from './value';
 
 interface Config {
 	invertsY: boolean;
 	maxValue: number;
-	value: InputValue<Point2d>;
+	value: Value<Point2d>;
 	viewModel: ViewModel;
 	xBaseStep: number;
 	yBaseStep: number;
@@ -22,11 +22,11 @@ interface Config {
 /**
  * @hidden
  */
-export class Point2dPadInputController implements InputController<Point2d> {
+export class Point2dPadController implements ValueController<Point2d> {
 	public readonly viewModel: ViewModel;
 	public readonly foldable: Foldable;
-	public readonly value: InputValue<Point2d>;
-	public readonly view: Point2dPadInputView;
+	public readonly value: Value<Point2d>;
+	public readonly view: Point2dPadView;
 	public triggerElement: HTMLElement | null = null;
 	private readonly ptHandler_: PointerHandler;
 	private readonly invertsY_: boolean;
@@ -52,7 +52,7 @@ export class Point2dPadInputController implements InputController<Point2d> {
 		this.yBaseStep_ = config.yBaseStep;
 
 		this.viewModel = config.viewModel;
-		this.view = new Point2dPadInputView(document, {
+		this.view = new Point2dPadView(document, {
 			foldable: this.foldable,
 			invertsY: this.invertsY_,
 			maxValue: this.maxValue_,

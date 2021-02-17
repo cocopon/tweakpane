@@ -1,25 +1,25 @@
 import {ListItem} from '../../constraint/list';
 import {TypeUtil} from '../../misc/type-util';
-import {InputValue} from '../../model/input-value';
+import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
-import {ListInputView} from '../../view/input/list';
-import {InputController} from './input';
+import {ListView} from '../../view/input/list';
+import {ValueController} from './value';
 
 interface Config<T> {
 	listItems: ListItem<T>[];
 	stringifyValue: (value: T) => string;
-	value: InputValue<T>;
+	value: Value<T>;
 	viewModel: ViewModel;
 }
 
 /**
  * @hidden
  */
-export class ListInputController<T> implements InputController<T> {
+export class ListController<T> implements ValueController<T> {
 	public readonly viewModel: ViewModel;
 	private listItems_: ListItem<T>[];
-	private value_: InputValue<T>;
-	private view_: ListInputView<T>;
+	private value_: Value<T>;
+	private view_: ListView<T>;
 
 	constructor(document: Document, config: Config<T>) {
 		this.onSelectChange_ = this.onSelectChange_.bind(this);
@@ -28,7 +28,7 @@ export class ListInputController<T> implements InputController<T> {
 
 		this.listItems_ = config.listItems;
 		this.viewModel = config.viewModel;
-		this.view_ = new ListInputView(document, {
+		this.view_ = new ListView(document, {
 			model: this.viewModel,
 			options: this.listItems_,
 			stringifyValue: config.stringifyValue,
@@ -37,11 +37,11 @@ export class ListInputController<T> implements InputController<T> {
 		this.view_.selectElement.addEventListener('change', this.onSelectChange_);
 	}
 
-	get value(): InputValue<T> {
+	get value(): Value<T> {
 		return this.value_;
 	}
 
-	get view(): ListInputView<T> {
+	get view(): ListView<T> {
 		return this.view_;
 	}
 

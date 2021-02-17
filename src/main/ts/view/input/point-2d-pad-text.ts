@@ -1,15 +1,15 @@
 import {ClassName} from '../../misc/class-name';
 import * as DomUtil from '../../misc/dom-util';
-import {InputValue} from '../../model/input-value';
 import {Point2d} from '../../model/point-2d';
+import {Value} from '../../model/value';
 import {View, ViewConfig} from '../view';
-import {InputView} from './input';
-import {Point2dPadInputView} from './point-2d-pad';
-import {Point2dTextInputView} from './point-2d-text';
+import {Point2dPadView} from './point-2d-pad';
+import {Point2dTextView} from './point-2d-text';
+import {ValueView} from './value';
 
 interface Config extends ViewConfig {
-	padInputView: Point2dPadInputView;
-	textInputView: Point2dTextInputView;
+	padView: Point2dPadView;
+	textView: Point2dTextView;
 }
 
 const className = ClassName('p2dpadtxt', 'input');
@@ -17,11 +17,10 @@ const className = ClassName('p2dpadtxt', 'input');
 /**
  * @hidden
  */
-export class Point2dPadTextInputView extends View
-	implements InputView<Point2d> {
+export class Point2dPadTextView extends View implements ValueView<Point2d> {
 	private padButtonElem_: HTMLButtonElement;
-	private padInputView_: Point2dPadInputView;
-	private textInputView_: Point2dTextInputView;
+	private padView_: Point2dPadView;
+	private textView_: Point2dTextView;
 
 	constructor(document: Document, config: Config) {
 		super(document, config);
@@ -42,18 +41,18 @@ export class Point2dPadTextInputView extends View
 		padElem.classList.add(className('p'));
 		padWrapperElem.appendChild(padElem);
 
-		this.padInputView_ = config.padInputView;
-		padElem.appendChild(this.padInputView_.element);
+		this.padView_ = config.padView;
+		padElem.appendChild(this.padView_.element);
 
 		const textElem = document.createElement('div');
 		textElem.classList.add(className('t'));
-		this.textInputView_ = config.textInputView;
-		textElem.appendChild(this.textInputView_.element);
+		this.textView_ = config.textView;
+		textElem.appendChild(this.textView_.element);
 		this.element.appendChild(textElem);
 	}
 
-	get value(): InputValue<Point2d> {
-		return this.textInputView_.value;
+	get value(): Value<Point2d> {
+		return this.textView_.value;
 	}
 
 	get padButtonElement(): HTMLButtonElement {
@@ -61,7 +60,7 @@ export class Point2dPadTextInputView extends View
 	}
 
 	public update(): void {
-		this.padInputView_.update();
-		this.textInputView_.update();
+		this.padView_.update();
+		this.textView_.update();
 	}
 }

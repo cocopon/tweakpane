@@ -4,7 +4,7 @@ import {describe, it} from 'mocha';
 import {ButtonController} from '../controller/button';
 import {FolderController} from '../controller/folder';
 import {InputBindingController} from '../controller/input-binding';
-import {NumberTextInputController} from '../controller/input/number-text';
+import {NumberTextController} from '../controller/input/number-text';
 import {MonitorBindingController} from '../controller/monitor-binding';
 import {SingleLogMonitorController} from '../controller/monitor/single-log';
 import {SeparatorController} from '../controller/separator';
@@ -90,7 +90,7 @@ describe(FolderApi.name, () => {
 		};
 		const api = createApi();
 		const bapi = api.addInput(PARAMS, 'foo');
-		assert.instanceOf(bapi.controller.controller, NumberTextInputController);
+		assert.instanceOf(bapi.controller.controller, NumberTextController);
 	});
 
 	it('should add monitor', () => {

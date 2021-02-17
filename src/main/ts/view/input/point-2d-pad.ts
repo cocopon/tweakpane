@@ -4,15 +4,15 @@ import * as DomUtil from '../../misc/dom-util';
 import {NumberUtil} from '../../misc/number-util';
 import {PaneError} from '../../misc/pane-error';
 import {Foldable} from '../../model/foldable';
-import {InputValue} from '../../model/input-value';
 import {Point2d} from '../../model/point-2d';
+import {Value} from '../../model/value';
 import {View, ViewConfig} from '../view';
-import {InputView} from './input';
+import {ValueView} from './value';
 
 interface Config extends ViewConfig {
 	foldable: Foldable;
 	invertsY: boolean;
-	value: InputValue<Point2d>;
+	value: Value<Point2d>;
 	maxValue: number;
 }
 
@@ -22,9 +22,9 @@ const className = ClassName('p2dpad', 'input');
 /**
  * @hidden
  */
-export class Point2dPadInputView extends View implements InputView<Point2d> {
+export class Point2dPadView extends View implements ValueView<Point2d> {
 	public readonly foldable: Foldable;
-	public readonly value: InputValue<Point2d>;
+	public readonly value: Value<Point2d>;
 	private readonly invertsY_: boolean;
 	private readonly maxValue_: number;
 	private padElem_: HTMLDivElement | null;

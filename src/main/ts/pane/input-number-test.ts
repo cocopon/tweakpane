@@ -4,12 +4,12 @@ import {describe as context, describe, it} from 'mocha';
 import {Constraint} from '../constraint/constraint';
 import {StepConstraint} from '../constraint/step';
 import {ConstraintUtil} from '../constraint/util';
-import {ListInputController} from '../controller/input/list';
-import {SliderTextInputController} from '../controller/input/slider-text';
-import {TextInputController} from '../controller/input/text';
+import {ListController} from '../controller/input/list';
+import {SliderTextController} from '../controller/input/slider-text';
+import {TextController} from '../controller/input/text';
 import {TestUtil} from '../misc/test-util';
 import {TypeUtil} from '../misc/type-util';
-import {InputValue} from '../model/input-value';
+import {Value} from '../model/value';
 import {PlainTweakpane} from './plain-tweakpane';
 
 function createPane(): PlainTweakpane {
@@ -21,26 +21,26 @@ function createPane(): PlainTweakpane {
 describe(PlainTweakpane.name, () => {
 	[
 		{
-			expectedClass: TextInputController,
+			expectedClass: TextController,
 			params: {},
 			value: 3.14,
 		},
 		{
-			expectedClass: SliderTextInputController,
+			expectedClass: SliderTextController,
 			params: {
 				min: 0,
 			},
 			value: 3.14,
 		},
 		{
-			expectedClass: SliderTextInputController,
+			expectedClass: SliderTextController,
 			params: {
 				max: 100,
 			},
 			value: 3.14,
 		},
 		{
-			expectedClass: ListInputController,
+			expectedClass: ListController,
 			params: {
 				options: {
 					bar: 1,
@@ -50,7 +50,7 @@ describe(PlainTweakpane.name, () => {
 			value: 3.14,
 		},
 		{
-			expectedClass: ListInputController,
+			expectedClass: ListController,
 			params: {
 				options: [
 					{text: 'foo', value: 0},
@@ -78,9 +78,9 @@ describe(PlainTweakpane.name, () => {
 		});
 
 		const iv = bapi.controller.controller.value;
-		assert.instanceOf(iv, InputValue);
+		assert.instanceOf(iv, Value);
 
-		if (!(iv instanceof InputValue)) {
+		if (!(iv instanceof Value)) {
 			throw new Error('Input value is empty');
 		}
 		const c: Constraint<unknown> | null = TypeUtil.forceCast(iv.constraint);

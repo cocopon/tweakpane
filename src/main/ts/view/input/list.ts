@@ -2,14 +2,14 @@ import {ListItem} from '../../constraint/list';
 import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
 import {PaneError} from '../../misc/pane-error';
-import {InputValue} from '../../model/input-value';
+import {Value} from '../../model/value';
 import {View, ViewConfig} from '../view';
-import {InputView} from './input';
+import {ValueView} from './value';
 
 interface Config<T> extends ViewConfig {
 	options: ListItem<T>[];
 	stringifyValue: (value: T) => string;
-	value: InputValue<T>;
+	value: Value<T>;
 }
 
 const className = ClassName('lst', 'input');
@@ -17,8 +17,8 @@ const className = ClassName('lst', 'input');
 /**
  * @hidden
  */
-export class ListInputView<T> extends View implements InputView<T> {
-	public readonly value: InputValue<T>;
+export class ListView<T> extends View implements ValueView<T> {
+	public readonly value: Value<T>;
 	private selectElem_: HTMLSelectElement | null;
 	private stringifyValue_: (value: T) => string;
 

@@ -4,20 +4,20 @@ import * as DisposingUtil from '../../misc/disposing-util';
 import {NumberUtil} from '../../misc/number-util';
 import {PaneError} from '../../misc/pane-error';
 import {Color} from '../../model/color';
-import {InputValue} from '../../model/input-value';
+import {Value} from '../../model/value';
 import {View, ViewConfig} from '../view';
 
 const className = ClassName('apl', 'input');
 
 interface Config extends ViewConfig {
-	value: InputValue<Color>;
+	value: Value<Color>;
 }
 
 /**
  * @hidden
  */
-export class APaletteInputView extends View {
-	public readonly value: InputValue<Color>;
+export class APaletteView extends View {
+	public readonly value: Value<Color>;
 	private colorElem_: HTMLDivElement | null;
 	private markerElem_: HTMLDivElement | null;
 	private previewElem_: HTMLDivElement | null;

@@ -1,24 +1,24 @@
 import {PointerHandler, PointerHandlerEvents} from '../../misc/pointer-handler';
 import {PointerData} from '../../misc/pointer-handler';
 import {Color} from '../../model/color';
-import {InputValue} from '../../model/input-value';
+import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
-import {APaletteInputView} from '../../view/input/a-palette';
+import {APaletteView} from '../../view/input/a-palette';
 import * as UiUtil from '../ui-util';
-import {InputController} from './input';
+import {ValueController} from './value';
 
 interface Config {
-	value: InputValue<Color>;
+	value: Value<Color>;
 	viewModel: ViewModel;
 }
 
 /**
  * @hidden
  */
-export class APaletteInputController implements InputController<Color> {
+export class APaletteController implements ValueController<Color> {
 	public readonly viewModel: ViewModel;
-	public readonly value: InputValue<Color>;
-	public readonly view: APaletteInputView;
+	public readonly value: Value<Color>;
+	public readonly view: APaletteView;
 	private ptHandler_: PointerHandler;
 
 	constructor(document: Document, config: Config) {
@@ -30,7 +30,7 @@ export class APaletteInputController implements InputController<Color> {
 		this.value = config.value;
 
 		this.viewModel = config.viewModel;
-		this.view = new APaletteInputView(document, {
+		this.view = new APaletteView(document, {
 			model: this.viewModel,
 			value: this.value,
 		});

@@ -1,12 +1,12 @@
-import {InputValue} from './input-value';
+import {Value} from './value';
 
 /**
  * @hidden
  */
-export interface MonitorBuffer<T> {
+export interface ValueBuffer<T> {
 	values: T[];
 	bufferSize: number;
 }
 
 // TODO: Remove
-export type MonitorValue<T> = InputValue<MonitorBuffer<T>>;
+export type MonitorValue<T> = Value<ValueBuffer<T>>;

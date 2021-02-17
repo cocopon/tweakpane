@@ -3,14 +3,14 @@ import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
 import {PaneError} from '../../misc/pane-error';
 import {Color} from '../../model/color';
-import {InputValue} from '../../model/input-value';
+import {Value} from '../../model/value';
 import {View, ViewConfig} from '../view';
-import {ColorPickerInputView} from './color-picker';
-import {InputView} from './input';
+import {ColorPickerView} from './color-picker';
+import {ValueView} from './value';
 
 interface Config extends ViewConfig {
-	pickerInputView: ColorPickerInputView;
-	value: InputValue<Color>;
+	pickerView: ColorPickerView;
+	value: Value<Color>;
 }
 
 const className = ClassName('csw', 'input');
@@ -18,9 +18,9 @@ const className = ClassName('csw', 'input');
 /**
  * @hidden
  */
-export class ColorSwatchInputView extends View implements InputView<Color> {
-	public readonly value: InputValue<Color>;
-	private pickerView_: ColorPickerInputView;
+export class ColorSwatchView extends View implements ValueView<Color> {
+	public readonly value: Value<Color>;
+	private pickerView_: ColorPickerView;
 	private buttonElem_: HTMLButtonElement | null;
 	private swatchElem_: HTMLDivElement | null;
 
@@ -49,7 +49,7 @@ export class ColorSwatchInputView extends View implements InputView<Color> {
 
 		const pickerElem = document.createElement('div');
 		pickerElem.classList.add(className('p'));
-		this.pickerView_ = config.pickerInputView;
+		this.pickerView_ = config.pickerView;
 		pickerElem.appendChild(this.pickerView_.element);
 		this.element.appendChild(pickerElem);
 

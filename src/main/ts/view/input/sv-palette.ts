@@ -5,13 +5,13 @@ import * as DomUtil from '../../misc/dom-util';
 import {NumberUtil} from '../../misc/number-util';
 import {PaneError} from '../../misc/pane-error';
 import {Color} from '../../model/color';
-import {InputValue} from '../../model/input-value';
+import {Value} from '../../model/value';
 import {View, ViewConfig} from '../view';
 
 const className = ClassName('svp', 'input');
 
 interface Config extends ViewConfig {
-	value: InputValue<Color>;
+	value: Value<Color>;
 }
 
 const CANVAS_RESOL = 64;
@@ -19,8 +19,8 @@ const CANVAS_RESOL = 64;
 /**
  * @hidden
  */
-export class SvPaletteInputView extends View {
-	public readonly value: InputValue<Color>;
+export class SvPaletteView extends View {
+	public readonly value: Value<Color>;
 	private canvasElem_: HTMLCanvasElement | null;
 	private markerElem_: HTMLDivElement | null;
 

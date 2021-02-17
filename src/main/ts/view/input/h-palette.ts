@@ -4,20 +4,21 @@ import * as DisposingUtil from '../../misc/disposing-util';
 import {NumberUtil} from '../../misc/number-util';
 import {PaneError} from '../../misc/pane-error';
 import {Color} from '../../model/color';
-import {InputValue} from '../../model/input-value';
+import {Value} from '../../model/value';
 import {View, ViewConfig} from '../view';
+import {ValueView} from './value';
 
 const className = ClassName('hpl', 'input');
 
 interface Config extends ViewConfig {
-	value: InputValue<Color>;
+	value: Value<Color>;
 }
 
 /**
  * @hidden
  */
-export class HPaletteInputView extends View {
-	public readonly value: InputValue<Color>;
+export class HPaletteView extends View implements ValueView<Color> {
+	public readonly value: Value<Color>;
 	private colorElem_: HTMLDivElement | null;
 	private markerElem_: HTMLDivElement | null;
 

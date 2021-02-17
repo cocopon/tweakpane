@@ -5,13 +5,13 @@ import {ListConstraint} from '../../constraint/list';
 import {RangeConstraint} from '../../constraint/range';
 import {StepConstraint} from '../../constraint/step';
 import {ConstraintUtil} from '../../constraint/util';
-import {ListInputController} from '../../controller/input/list';
-import {NumberTextInputController} from '../../controller/input/number-text';
-import {SliderTextInputController} from '../../controller/input/slider-text';
+import {ListController} from '../../controller/input/list';
+import {NumberTextController} from '../../controller/input/number-text';
+import {SliderTextController} from '../../controller/input/slider-text';
 import * as NumberConverter from '../../converter/number';
 import {NumberFormatter} from '../../formatter/number';
 import {TypeUtil} from '../../misc/type-util';
-import {InputValue} from '../../model/input-value';
+import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
 import {InputBindingPlugin} from '../input-binding';
@@ -61,11 +61,11 @@ function createConstraint(params: InputParams): Constraint<number> {
 	});
 }
 
-function createController(document: Document, value: InputValue<number>) {
+function createController(document: Document, value: Value<number>) {
 	const c = value.constraint;
 
 	if (c && ConstraintUtil.findConstraint(c, ListConstraint)) {
-		return new ListInputController(document, {
+		return new ListController(document, {
 			listItems: findListItems(c) ?? [],
 			stringifyValue: NumberConverter.toString,
 			value: value,
@@ -74,7 +74,7 @@ function createController(document: Document, value: InputValue<number>) {
 	}
 
 	if (c && ConstraintUtil.findConstraint(c, RangeConstraint)) {
-		return new SliderTextInputController(document, {
+		return new SliderTextController(document, {
 			baseStep: getBaseStep(c),
 			formatter: new NumberFormatter(
 				getSuitableDecimalDigits(value.constraint, value.rawValue),
@@ -85,7 +85,7 @@ function createController(document: Document, value: InputValue<number>) {
 		});
 	}
 
-	return new NumberTextInputController(document, {
+	return new NumberTextController(document, {
 		baseStep: getBaseStep(c),
 		formatter: new NumberFormatter(
 			getSuitableDecimalDigits(value.constraint, value.rawValue),

@@ -1,8 +1,8 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
-import {ListInputController} from '../controller/input/list';
-import {TextInputController} from '../controller/input/text';
+import {ListController} from '../controller/input/list';
+import {TextController} from '../controller/input/text';
 import {TestUtil} from '../misc/test-util';
 import {PlainTweakpane} from './plain-tweakpane';
 
@@ -15,12 +15,12 @@ function createPane(): PlainTweakpane {
 describe(PlainTweakpane.name, () => {
 	[
 		{
-			expectedClass: TextInputController,
+			expectedClass: TextController,
 			params: {},
 			value: 'foobar',
 		},
 		{
-			expectedClass: ListInputController,
+			expectedClass: ListController,
 			params: {
 				options: {
 					baz: 'qux',
@@ -30,14 +30,14 @@ describe(PlainTweakpane.name, () => {
 			value: 'foobar',
 		},
 		{
-			expectedClass: TextInputController,
+			expectedClass: TextController,
 			params: {
 				input: 'string',
 			},
 			value: '#112233',
 		},
 		{
-			expectedClass: TextInputController,
+			expectedClass: TextController,
 			params: {
 				input: 'string',
 			},

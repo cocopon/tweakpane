@@ -2,13 +2,13 @@ import {Formatter} from '../../formatter/formatter';
 import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
 import {PaneError} from '../../misc/pane-error';
-import {InputValue} from '../../model/input-value';
 import {Point2d} from '../../model/point-2d';
+import {Value} from '../../model/value';
 import {View, ViewConfig} from '../view';
-import {InputView} from './input';
+import {ValueView} from './value';
 
 interface Config extends ViewConfig {
-	value: InputValue<Point2d>;
+	value: Value<Point2d>;
 	xFormatter: Formatter<number>;
 	yFormatter: Formatter<number>;
 }
@@ -19,8 +19,8 @@ const className = ClassName('p2dtxt', 'input');
 /**
  * @hidden
  */
-export class Point2dTextInputView extends View implements InputView<Point2d> {
-	public readonly value: InputValue<Point2d>;
+export class Point2dTextView extends View implements ValueView<Point2d> {
+	public readonly value: Value<Point2d>;
 	private formatters_: Formatter<number>[];
 	private inputElems_: [HTMLInputElement, HTMLInputElement] | null;
 

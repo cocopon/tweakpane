@@ -1,51 +1,51 @@
 import {Formatter} from '../../formatter/formatter';
 import {Color} from '../../model/color';
-import {InputValue} from '../../model/input-value';
+import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
-import {ColorSwatchTextInputView} from '../../view/input/color-swatch-text';
-import {ColorSwatchInputController} from './color-swatch';
-import {InputController} from './input';
-import {TextInputController} from './text';
+import {ColorSwatchTextView} from '../../view/input/color-swatch-text';
+import {ColorSwatchController} from './color-swatch';
+import {TextController} from './text';
+import {ValueController} from './value';
 
 interface Config {
 	formatter: Formatter<Color>;
 	parser: Parser<string, Color>;
 	supportsAlpha: boolean;
-	value: InputValue<Color>;
+	value: Value<Color>;
 	viewModel: ViewModel;
 }
 
 /**
  * @hidden
  */
-export class ColorSwatchTextInputController implements InputController<Color> {
+export class ColorSwatchTextController implements ValueController<Color> {
 	public readonly viewModel: ViewModel;
-	public readonly value: InputValue<Color>;
-	public readonly view: ColorSwatchTextInputView;
-	private swatchIc_: ColorSwatchInputController;
-	private textIc_: TextInputController<Color>;
+	public readonly value: Value<Color>;
+	public readonly view: ColorSwatchTextView;
+	private swatchIc_: ColorSwatchController;
+	private textIc_: TextController<Color>;
 
 	constructor(document: Document, config: Config) {
 		this.value = config.value;
 
 		this.viewModel = config.viewModel;
-		this.swatchIc_ = new ColorSwatchInputController(document, {
+		this.swatchIc_ = new ColorSwatchController(document, {
 			supportsAlpha: config.supportsAlpha,
 			value: this.value,
 			viewModel: this.viewModel,
 		});
 
-		this.textIc_ = new TextInputController(document, {
+		this.textIc_ = new TextController(document, {
 			formatter: config.formatter,
 			parser: config.parser,
 			value: this.value,
 			viewModel: this.viewModel,
 		});
 
-		this.view = new ColorSwatchTextInputView(document, {
-			swatchInputView: this.swatchIc_.view,
-			textInputView: this.textIc_.view,
+		this.view = new ColorSwatchTextView(document, {
+			swatchView: this.swatchIc_.view,
+			textView: this.textIc_.view,
 			model: this.viewModel,
 		});
 	}

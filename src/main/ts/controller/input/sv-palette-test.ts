@@ -3,16 +3,16 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../misc/test-util';
 import {Color} from '../../model/color';
-import {InputValue} from '../../model/input-value';
+import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
-import {SvPaletteInputController} from './sv-palette';
+import {SvPaletteController} from './sv-palette';
 
-describe(SvPaletteInputController.name, () => {
+describe(SvPaletteController.name, () => {
 	it('should dispose', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = new SvPaletteInputController(doc, {
+		const c = new SvPaletteController(doc, {
 			viewModel: new ViewModel(),
-			value: new InputValue(new Color([0, 0, 0], 'rgb')),
+			value: new Value(new Color([0, 0, 0], 'rgb')),
 		});
 		c.viewModel.dispose();
 		assert.strictEqual(c.viewModel.disposed, true);

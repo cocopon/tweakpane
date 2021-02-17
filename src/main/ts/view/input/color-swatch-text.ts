@@ -1,14 +1,14 @@
 import {ClassName} from '../../misc/class-name';
 import {Color} from '../../model/color';
-import {InputValue} from '../../model/input-value';
+import {Value} from '../../model/value';
 import {View, ViewConfig} from '../view';
-import {ColorSwatchInputView} from './color-swatch';
-import {InputView} from './input';
-import {TextInputView} from './text';
+import {ColorSwatchView} from './color-swatch';
+import {TextView} from './text';
+import {ValueView} from './value';
 
 interface Config extends ViewConfig {
-	swatchInputView: ColorSwatchInputView;
-	textInputView: TextInputView<Color>;
+	swatchView: ColorSwatchView;
+	textView: TextView<Color>;
 }
 
 const className = ClassName('cswtxt', 'input');
@@ -16,9 +16,9 @@ const className = ClassName('cswtxt', 'input');
 /**
  * @hidden
  */
-export class ColorSwatchTextInputView extends View implements InputView<Color> {
-	public readonly textInputView: TextInputView<Color>;
-	private readonly swatchInputView_: ColorSwatchInputView;
+export class ColorSwatchTextView extends View implements ValueView<Color> {
+	public readonly textView: TextView<Color>;
+	private readonly swatchView_: ColorSwatchView;
 
 	constructor(document: Document, config: Config) {
 		super(document, config);
@@ -27,23 +27,23 @@ export class ColorSwatchTextInputView extends View implements InputView<Color> {
 
 		const swatchElem = document.createElement('div');
 		swatchElem.classList.add(className('s'));
-		this.swatchInputView_ = config.swatchInputView;
-		swatchElem.appendChild(this.swatchInputView_.element);
+		this.swatchView_ = config.swatchView;
+		swatchElem.appendChild(this.swatchView_.element);
 		this.element.appendChild(swatchElem);
 
 		const textElem = document.createElement('div');
 		textElem.classList.add(className('t'));
-		this.textInputView = config.textInputView;
-		textElem.appendChild(this.textInputView.element);
+		this.textView = config.textView;
+		textElem.appendChild(this.textView.element);
 		this.element.appendChild(textElem);
 	}
 
-	get value(): InputValue<Color> {
-		return this.textInputView.value;
+	get value(): Value<Color> {
+		return this.textView.value;
 	}
 
 	public update(): void {
-		this.swatchInputView_.update();
-		this.textInputView.update();
+		this.swatchView_.update();
+		this.textView.update();
 	}
 }

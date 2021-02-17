@@ -1,5 +1,5 @@
 import * as UiUtil from '../ui-util';
-import {TextInputController} from './text';
+import {TextController} from './text';
 import {Config as BaseConfig} from './text';
 
 interface Config extends BaseConfig<number> {
@@ -9,7 +9,7 @@ interface Config extends BaseConfig<number> {
 /**
  * @hidden
  */
-export class NumberTextInputController extends TextInputController<number> {
+export class NumberTextController extends TextController<number> {
 	private baseStep_: number;
 
 	constructor(document: Document, config: Config) {

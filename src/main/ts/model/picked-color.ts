@@ -1,7 +1,7 @@
 import {ColorMode} from '../misc/color-model';
 import {Emitter, EventTypeMap} from '../misc/emitter';
 import {Color} from './color';
-import {InputValue} from './input-value';
+import {Value} from './value';
 
 /**
  * @hidden
@@ -18,10 +18,10 @@ export interface PickedColorEvents extends EventTypeMap {
 
 export class PickedColor {
 	public readonly emitter: Emitter<PickedColorEvents>;
-	public readonly value: InputValue<Color>;
+	public readonly value: Value<Color>;
 	private mode_: ColorMode;
 
-	constructor(value: InputValue<Color>) {
+	constructor(value: Value<Color>) {
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
 		this.mode_ = 'rgb';

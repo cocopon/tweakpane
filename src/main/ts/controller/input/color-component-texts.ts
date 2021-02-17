@@ -1,13 +1,13 @@
 import {ColorComponents4, ColorMode} from '../../misc/color-model';
 import {TypeUtil} from '../../misc/type-util';
 import {Color} from '../../model/color';
-import {InputValue} from '../../model/input-value';
 import {PickedColor} from '../../model/picked-color';
+import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
-import {ColorComponentTextsInputView} from '../../view/input/color-component-texts';
+import {ColorComponentTextsView} from '../../view/input/color-component-texts';
 import * as UiUtil from '../ui-util';
-import {InputController} from './input';
+import {ValueController} from './value';
 
 interface Config {
 	parser: Parser<string, number>;
@@ -18,11 +18,10 @@ interface Config {
 /**
  * @hidden
  */
-export class ColorComponentTextsInputController
-	implements InputController<Color> {
+export class ColorComponentTextsController implements ValueController<Color> {
 	public readonly viewModel: ViewModel;
 	public readonly pickedColor: PickedColor;
-	public readonly view: ColorComponentTextsInputView;
+	public readonly view: ColorComponentTextsView;
 	private parser_: Parser<string, number>;
 
 	constructor(document: Document, config: Config) {
@@ -34,7 +33,7 @@ export class ColorComponentTextsInputController
 		this.pickedColor = config.pickedColor;
 
 		this.viewModel = config.viewModel;
-		this.view = new ColorComponentTextsInputView(document, {
+		this.view = new ColorComponentTextsView(document, {
 			model: this.viewModel,
 			pickedColor: this.pickedColor,
 		});
@@ -48,7 +47,7 @@ export class ColorComponentTextsInputController
 		);
 	}
 
-	get value(): InputValue<Color> {
+	get value(): Value<Color> {
 		return this.pickedColor.value;
 	}
 

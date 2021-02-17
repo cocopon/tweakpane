@@ -2,24 +2,24 @@ import {NumberUtil} from '../../misc/number-util';
 import {PointerHandler, PointerHandlerEvents} from '../../misc/pointer-handler';
 import {PointerData} from '../../misc/pointer-handler';
 import {Color} from '../../model/color';
-import {InputValue} from '../../model/input-value';
+import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
-import {HPaletteInputView} from '../../view/input/h-palette';
+import {HPaletteView} from '../../view/input/h-palette';
 import * as UiUtil from '../ui-util';
-import {InputController} from './input';
+import {ValueController} from './value';
 
 interface Config {
-	value: InputValue<Color>;
+	value: Value<Color>;
 	viewModel: ViewModel;
 }
 
 /**
  * @hidden
  */
-export class HPaletteInputController implements InputController<Color> {
+export class HPaletteController implements ValueController<Color> {
 	public readonly viewModel: ViewModel;
-	public readonly value: InputValue<Color>;
-	public readonly view: HPaletteInputView;
+	public readonly value: Value<Color>;
+	public readonly view: HPaletteView;
 	private ptHandler_: PointerHandler;
 
 	constructor(document: Document, config: Config) {
@@ -31,7 +31,7 @@ export class HPaletteInputController implements InputController<Color> {
 		this.value = config.value;
 
 		this.viewModel = config.viewModel;
-		this.view = new HPaletteInputView(document, {
+		this.view = new HPaletteView(document, {
 			model: this.viewModel,
 			value: this.value,
 		});

@@ -3,16 +3,16 @@ import {describe, it} from 'mocha';
 
 import {NumberFormatter} from '../../formatter/number';
 import {TestUtil} from '../../misc/test-util';
-import {InputValue} from '../../model/input-value';
+import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
-import {TextInputController} from './text';
+import {TextController} from './text';
 
-describe(TextInputController.name, () => {
+describe(TextController.name, () => {
 	it('should get value', () => {
-		const value = new InputValue(0);
+		const value = new Value(0);
 		const doc = TestUtil.createWindow().document;
-		const c = new TextInputController(doc, {
+		const c = new TextController(doc, {
 			viewModel: new ViewModel(),
 			formatter: new NumberFormatter(2),
 			parser: StringNumberParser,
@@ -23,10 +23,10 @@ describe(TextInputController.name, () => {
 	});
 
 	it('should apply input to value', () => {
-		const value = new InputValue(0);
+		const value = new Value(0);
 		const win = TestUtil.createWindow();
 		const doc = win.document;
-		const c = new TextInputController(doc, {
+		const c = new TextController(doc, {
 			viewModel: new ViewModel(),
 			formatter: new NumberFormatter(2),
 			parser: StringNumberParser,
@@ -40,9 +40,9 @@ describe(TextInputController.name, () => {
 	});
 
 	it('should dispose', () => {
-		const value = new InputValue(0);
+		const value = new Value(0);
 		const doc = TestUtil.createWindow().document;
-		const c = new TextInputController(doc, {
+		const c = new TextController(doc, {
 			viewModel: new ViewModel(),
 			formatter: new NumberFormatter(2),
 			parser: StringNumberParser,

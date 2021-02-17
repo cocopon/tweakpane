@@ -3,11 +3,11 @@ import {CompositeConstraint} from '../../constraint/composite';
 import {Constraint} from '../../constraint/constraint';
 import {ListConstraint} from '../../constraint/list';
 import {ConstraintUtil} from '../../constraint/util';
-import {ListInputController} from '../../controller/input/list';
-import {TextInputController} from '../../controller/input/text';
+import {ListController} from '../../controller/input/list';
+import {TextController} from '../../controller/input/text';
 import * as StringConverter from '../../converter/string';
 import {StringFormatter} from '../../formatter/string';
-import {InputValue} from '../../model/input-value';
+import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {InputBindingPlugin} from '../input-binding';
 import {findListItems, normalizeInputParamsOptions} from '../util';
@@ -31,11 +31,11 @@ function createConstraint(params: InputParams): Constraint<string> {
 	});
 }
 
-function createController(document: Document, value: InputValue<string>) {
+function createController(document: Document, value: Value<string>) {
 	const c = value.constraint;
 
 	if (c && ConstraintUtil.findConstraint(c, ListConstraint)) {
-		return new ListInputController(document, {
+		return new ListController(document, {
 			listItems: findListItems(c) ?? [],
 			stringifyValue: StringConverter.toString,
 			value: value,
@@ -43,7 +43,7 @@ function createController(document: Document, value: InputValue<string>) {
 		});
 	}
 
-	return new TextInputController(document, {
+	return new TextController(document, {
 		formatter: new StringFormatter(),
 		parser: StringConverter.toString,
 		value: value,

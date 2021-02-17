@@ -2,24 +2,24 @@ import {NumberUtil} from '../../misc/number-util';
 import {PointerHandler, PointerHandlerEvents} from '../../misc/pointer-handler';
 import {PointerData} from '../../misc/pointer-handler';
 import {Color} from '../../model/color';
-import {InputValue} from '../../model/input-value';
+import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
-import {SvPaletteInputView} from '../../view/input/sv-palette';
+import {SvPaletteView} from '../../view/input/sv-palette';
 import * as UiUtil from '../ui-util';
-import {InputController} from './input';
+import {ValueController} from './value';
 
 interface Config {
-	value: InputValue<Color>;
+	value: Value<Color>;
 	viewModel: ViewModel;
 }
 
 /**
  * @hidden
  */
-export class SvPaletteInputController implements InputController<Color> {
+export class SvPaletteController implements ValueController<Color> {
 	public readonly viewModel: ViewModel;
-	public readonly value: InputValue<Color>;
-	public readonly view: SvPaletteInputView;
+	public readonly value: Value<Color>;
+	public readonly view: SvPaletteView;
 	private ptHandler_: PointerHandler;
 
 	constructor(document: Document, config: Config) {
@@ -31,7 +31,7 @@ export class SvPaletteInputController implements InputController<Color> {
 		this.value = config.value;
 
 		this.viewModel = config.viewModel;
-		this.view = new SvPaletteInputView(document, {
+		this.view = new SvPaletteView(document, {
 			model: this.viewModel,
 			value: this.value,
 		});

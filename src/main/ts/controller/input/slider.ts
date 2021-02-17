@@ -7,20 +7,20 @@ import {
 	PointerHandlerEvents,
 } from '../../misc/pointer-handler';
 import {TypeUtil} from '../../misc/type-util';
-import {InputValue} from '../../model/input-value';
+import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
-import {SliderInputView} from '../../view/input/slider';
+import {SliderView} from '../../view/input/slider';
 import * as UiUtil from '../ui-util';
-import {InputController} from './input';
+import {ValueController} from './value';
 
 interface Config {
 	baseStep: number;
-	value: InputValue<number>;
+	value: Value<number>;
 	viewModel: ViewModel;
 }
 
 function findRange(
-	value: InputValue<number>,
+	value: Value<number>,
 ): [number | undefined, number | undefined] {
 	const c = value.constraint
 		? ConstraintUtil.findConstraint(value.constraint, RangeConstraint)
@@ -32,7 +32,7 @@ function findRange(
 	return [c.minValue, c.maxValue];
 }
 
-function estimateSuitableRange(value: InputValue<number>): [number, number] {
+function estimateSuitableRange(value: Value<number>): [number, number] {
 	const [min, max] = findRange(value);
 	return [
 		TypeUtil.getOrDefault<number>(min, 0),
@@ -43,10 +43,10 @@ function estimateSuitableRange(value: InputValue<number>): [number, number] {
 /**
  * @hidden
  */
-export class SliderInputController implements InputController<number> {
+export class SliderController implements ValueController<number> {
 	public readonly viewModel: ViewModel;
-	public readonly value: InputValue<number>;
-	public readonly view: SliderInputView;
+	public readonly value: Value<number>;
+	public readonly view: SliderView;
 	private maxValue_: number;
 	private minValue_: number;
 	private ptHandler_: PointerHandler;
@@ -67,7 +67,7 @@ export class SliderInputController implements InputController<number> {
 		this.maxValue_ = max;
 
 		this.viewModel = config.viewModel;
-		this.view = new SliderInputView(document, {
+		this.view = new SliderView(document, {
 			maxValue: this.maxValue_,
 			minValue: this.minValue_,
 			model: this.viewModel,

@@ -1,26 +1,26 @@
 import {TypeUtil} from '../../misc/type-util';
 import {Color} from '../../model/color';
-import {InputValue} from '../../model/input-value';
 import {PickedColor} from '../../model/picked-color';
+import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
-import {ColorSwatchInputView} from '../../view/input/color-swatch';
-import {ColorPickerInputController} from './color-picker';
-import {InputController} from './input';
+import {ColorSwatchView} from '../../view/input/color-swatch';
+import {ColorPickerController} from './color-picker';
+import {ValueController} from './value';
 
 interface Config {
 	supportsAlpha: boolean;
-	value: InputValue<Color>;
+	value: Value<Color>;
 	viewModel: ViewModel;
 }
 
 /**
  * @hidden
  */
-export class ColorSwatchInputController implements InputController<Color> {
+export class ColorSwatchController implements ValueController<Color> {
 	public readonly viewModel: ViewModel;
-	public readonly value: InputValue<Color>;
-	public readonly view: ColorSwatchInputView;
-	private pickerIc_: ColorPickerInputController;
+	public readonly value: Value<Color>;
+	public readonly view: ColorSwatchView;
+	private pickerIc_: ColorPickerController;
 
 	constructor(document: Document, config: Config) {
 		this.onButtonBlur_ = this.onButtonBlur_.bind(this);
@@ -29,15 +29,15 @@ export class ColorSwatchInputController implements InputController<Color> {
 		this.value = config.value;
 
 		this.viewModel = config.viewModel;
-		this.pickerIc_ = new ColorPickerInputController(document, {
+		this.pickerIc_ = new ColorPickerController(document, {
 			pickedColor: new PickedColor(this.value),
 			supportsAlpha: config.supportsAlpha,
 			viewModel: this.viewModel,
 		});
 
-		this.view = new ColorSwatchInputView(document, {
+		this.view = new ColorSwatchView(document, {
 			model: this.viewModel,
-			pickerInputView: this.pickerIc_.view,
+			pickerView: this.pickerIc_.view,
 			value: this.value,
 		});
 		this.view.buttonElement.addEventListener('blur', this.onButtonBlur_);

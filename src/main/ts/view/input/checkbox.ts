@@ -1,12 +1,12 @@
 import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
 import {PaneError} from '../../misc/pane-error';
-import {InputValue} from '../../model/input-value';
+import {Value} from '../../model/value';
 import {View, ViewConfig} from '../view';
-import {InputView} from './input';
+import {ValueView} from './value';
 
 interface Config extends ViewConfig {
-	value: InputValue<boolean>;
+	value: Value<boolean>;
 }
 
 const className = ClassName('ckb', 'input');
@@ -14,8 +14,8 @@ const className = ClassName('ckb', 'input');
 /**
  * @hidden
  */
-export class CheckboxInputView extends View implements InputView<boolean> {
-	public readonly value: InputValue<boolean>;
+export class CheckboxView extends View implements ValueView<boolean> {
+	public readonly value: Value<boolean>;
 	private inputElem_: HTMLInputElement | null;
 
 	constructor(document: Document, config: Config) {

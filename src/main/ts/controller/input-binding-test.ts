@@ -5,12 +5,12 @@ import {InputBinding} from '../binding/input';
 import * as NumberConverter from '../converter/number';
 import {NumberFormatter} from '../formatter/number';
 import {TestUtil} from '../misc/test-util';
-import {InputValue} from '../model/input-value';
 import {Target} from '../model/target';
+import {Value} from '../model/value';
 import {ViewModel} from '../model/view-model';
 import {StringNumberParser} from '../parser/string-number';
 import {InputBindingController} from './input-binding';
-import {TextInputController} from './input/text';
+import {TextController} from './input/text';
 
 describe(InputBindingController.name, () => {
 	it('should get properties', () => {
@@ -18,14 +18,14 @@ describe(InputBindingController.name, () => {
 			foo: 123,
 		};
 		const doc = TestUtil.createWindow().document;
-		const value = new InputValue(0);
+		const value = new Value(0);
 		const binding = new InputBinding({
 			reader: NumberConverter.fromMixed,
 			target: new Target(obj, 'foo'),
 			value: value,
 			writer: (v) => v,
 		});
-		const controller = new TextInputController(doc, {
+		const controller = new TextController(doc, {
 			viewModel: new ViewModel(),
 			formatter: new NumberFormatter(0),
 			parser: StringNumberParser,

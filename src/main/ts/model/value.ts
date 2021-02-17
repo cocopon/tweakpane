@@ -4,14 +4,14 @@ import {Emitter, EventTypeMap} from '../misc/emitter';
 /**
  * @hidden
  */
-export interface InputValueEvents<In> extends EventTypeMap {
+export interface ValueEvents<In> extends EventTypeMap {
 	change: {
-		sender: InputValue<In>;
+		sender: Value<In>;
 		rawValue: In;
 	};
 }
 
-interface InputValueConfig<T> {
+interface ValueConfig<T> {
 	constraint?: Constraint<T>;
 	equals?: (v1: T, v2: T) => boolean;
 }
@@ -19,13 +19,13 @@ interface InputValueConfig<T> {
 /**
  * @hidden
  */
-export class InputValue<T> {
-	public readonly emitter: Emitter<InputValueEvents<T>>;
+export class Value<T> {
+	public readonly emitter: Emitter<ValueEvents<T>>;
 	private constraint_: Constraint<T> | undefined;
 	private equals_: (v1: T, v2: T) => boolean;
 	private rawValue_: T;
 
-	constructor(initialValue: T, config?: InputValueConfig<T>) {
+	constructor(initialValue: T, config?: ValueConfig<T>) {
 		this.constraint_ = config?.constraint;
 		this.equals_ = config?.equals ?? ((v1, v2) => v1 === v2);
 		this.emitter = new Emitter();

@@ -1,24 +1,24 @@
 import {TypeUtil} from '../../misc/type-util';
-import {InputValue} from '../../model/input-value';
+import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
-import {CheckboxInputView} from '../../view/input/checkbox';
-import {InputController} from './input';
+import {CheckboxView} from '../../view/input/checkbox';
+import {ValueController} from './value';
 
 /**
  * @hidden
  */
 export interface Config {
-	value: InputValue<boolean>;
+	value: Value<boolean>;
 	viewModel: ViewModel;
 }
 
 /**
  * @hidden
  */
-export class CheckboxInputController implements InputController<boolean> {
+export class CheckboxController implements ValueController<boolean> {
 	public readonly viewModel: ViewModel;
-	public readonly value: InputValue<boolean>;
-	public readonly view: CheckboxInputView;
+	public readonly value: Value<boolean>;
+	public readonly view: CheckboxView;
 
 	constructor(document: Document, config: Config) {
 		this.onInputChange_ = this.onInputChange_.bind(this);
@@ -26,7 +26,7 @@ export class CheckboxInputController implements InputController<boolean> {
 		this.value = config.value;
 
 		this.viewModel = config.viewModel;
-		this.view = new CheckboxInputView(document, {
+		this.view = new CheckboxView(document, {
 			model: this.viewModel,
 			value: this.value,
 		});

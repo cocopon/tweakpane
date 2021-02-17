@@ -3,8 +3,8 @@ import {describe, it} from 'mocha';
 
 import * as NumberConverter from '../converter/number';
 import {ManualTicker} from '../misc/ticker/manual';
-import {InputValue} from '../model/input-value';
 import {Target} from '../model/target';
+import {Value} from '../model/value';
 import {MonitorBinding} from './monitor';
 
 describe(MonitorBinding.name, () => {
@@ -13,7 +13,7 @@ describe(MonitorBinding.name, () => {
 			foo: 123,
 		};
 		const target = new Target(obj, 'foo');
-		const value = new InputValue({
+		const value = new Value({
 			bufferSize: 1,
 			values: [],
 		});
@@ -33,7 +33,7 @@ describe(MonitorBinding.name, () => {
 			foo: 123,
 		};
 		const target = new Target(obj, 'foo');
-		const value = new InputValue({
+		const value = new Value({
 			bufferSize: 1,
 			values: [],
 		});
@@ -69,7 +69,7 @@ describe(MonitorBinding.name, () => {
 			foo: 123,
 		};
 		const target = new Target(obj, 'foo');
-		const value = new InputValue({
+		const value = new Value({
 			bufferSize: 1,
 			values: [],
 		});

@@ -8,14 +8,14 @@ import * as NumberConverter from '../converter/number';
 import {NumberFormatter} from '../formatter/number';
 import {TestUtil} from '../misc/test-util';
 import {ManualTicker} from '../misc/ticker/manual';
-import {InputValue} from '../model/input-value';
 import {Target} from '../model/target';
+import {Value} from '../model/value';
 import {ViewModel} from '../model/view-model';
 import {MonitorBindingApi} from './monitor-binding';
 
 function createApi(target: Target) {
 	const doc = TestUtil.createWindow().document;
-	const value = new InputValue({
+	const value = new Value({
 		bufferSize: 1,
 		values: [],
 	});

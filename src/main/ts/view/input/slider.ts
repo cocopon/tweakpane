@@ -2,14 +2,14 @@ import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
 import {NumberUtil} from '../../misc/number-util';
 import {PaneError} from '../../misc/pane-error';
-import {InputValue} from '../../model/input-value';
+import {Value} from '../../model/value';
 import {View, ViewConfig} from '../view';
-import {InputView} from './input';
+import {ValueView} from './value';
 
 interface Config extends ViewConfig {
 	maxValue: number;
 	minValue: number;
-	value: InputValue<number>;
+	value: Value<number>;
 }
 
 const className = ClassName('sld', 'input');
@@ -17,8 +17,8 @@ const className = ClassName('sld', 'input');
 /**
  * @hidden
  */
-export class SliderInputView extends View implements InputView<number> {
-	public readonly value: InputValue<number>;
+export class SliderView extends View implements ValueView<number> {
+	public readonly value: Value<number>;
 	private innerElem_: HTMLDivElement | null;
 	private maxValue_: number;
 	private minValue_: number;

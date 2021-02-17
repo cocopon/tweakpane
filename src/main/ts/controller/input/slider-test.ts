@@ -2,16 +2,16 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../misc/test-util';
-import {InputValue} from '../../model/input-value';
+import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
-import {SliderInputController} from './slider';
+import {SliderController} from './slider';
 
-describe(SliderInputController.name, () => {
+describe(SliderController.name, () => {
 	it('should dispose', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = new SliderInputController(doc, {
+		const c = new SliderController(doc, {
 			baseStep: 1,
-			value: new InputValue(0),
+			value: new Value(0),
 			viewModel: new ViewModel(),
 		});
 		c.viewModel.dispose();

@@ -3,11 +3,11 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../misc/test-util';
 import {Color, RgbaColorObject} from '../../model/color';
-import {InputValue} from '../../model/input-value';
 import {PickedColor} from '../../model/picked-color';
+import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
-import {ColorComponentTextsInputController} from './color-component-texts';
+import {ColorComponentTextsController} from './color-component-texts';
 
 interface ChangeTestCase {
 	expected: RgbaColorObject;
@@ -30,12 +30,12 @@ interface KeydownTestCase {
 	};
 }
 
-describe(ColorComponentTextsInputController.name, () => {
+describe(ColorComponentTextsController.name, () => {
 	it('should dispose', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = new ColorComponentTextsInputController(doc, {
+		const c = new ColorComponentTextsController(doc, {
 			parser: StringNumberParser,
-			pickedColor: new PickedColor(new InputValue(new Color([0, 0, 0], 'rgb'))),
+			pickedColor: new PickedColor(new Value(new Color([0, 0, 0], 'rgb'))),
 			viewModel: new ViewModel(),
 		});
 		c.viewModel.dispose();
@@ -72,9 +72,7 @@ describe(ColorComponentTextsInputController.name, () => {
 			it(`should change component values to ${JSON.stringify(
 				testCase.expected,
 			)}`, (done) => {
-				const value = new InputValue(
-					new Color(testCase.params.components, 'rgb'),
-				);
+				const value = new Value(new Color(testCase.params.components, 'rgb'));
 				value.emitter.on('change', () => {
 					assert.deepStrictEqual(
 						value.rawValue.toRgbaObject(),
@@ -85,7 +83,7 @@ describe(ColorComponentTextsInputController.name, () => {
 
 				const win = TestUtil.createWindow();
 				const doc = win.document;
-				const c = new ColorComponentTextsInputController(doc, {
+				const c = new ColorComponentTextsController(doc, {
 					parser: StringNumberParser,
 					pickedColor: new PickedColor(value),
 					viewModel: new ViewModel(),
@@ -137,9 +135,7 @@ describe(ColorComponentTextsInputController.name, () => {
 			it(`should change component values to ${JSON.stringify(
 				testCase.expected,
 			)}`, (done) => {
-				const value = new InputValue(
-					new Color(testCase.params.components, 'rgb'),
-				);
+				const value = new Value(new Color(testCase.params.components, 'rgb'));
 				value.emitter.on('change', () => {
 					assert.deepStrictEqual(
 						value.rawValue.toRgbaObject(),
@@ -150,7 +146,7 @@ describe(ColorComponentTextsInputController.name, () => {
 
 				const win = TestUtil.createWindow();
 				const doc = win.document;
-				const c = new ColorComponentTextsInputController(doc, {
+				const c = new ColorComponentTextsController(doc, {
 					parser: StringNumberParser,
 					pickedColor: new PickedColor(value),
 					viewModel: new ViewModel(),

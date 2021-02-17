@@ -2,44 +2,44 @@ import {ClassName} from '../../misc/class-name';
 import {TypeUtil} from '../../misc/type-util';
 import {Color} from '../../model/color';
 import {Foldable} from '../../model/foldable';
-import {InputValue} from '../../model/input-value';
 import {PickedColor} from '../../model/picked-color';
+import {Value} from '../../model/value';
 import {View, ViewConfig} from '../view';
-import {APaletteInputView} from './a-palette';
-import {ColorComponentTextsInputView} from './color-component-texts';
-import {HPaletteInputView} from './h-palette';
-import {InputView} from './input';
-import {SvPaletteInputView} from './sv-palette';
-import {TextInputView} from './text';
+import {APaletteView} from './a-palette';
+import {ColorComponentTextsView} from './color-component-texts';
+import {HPaletteView} from './h-palette';
+import {SvPaletteView} from './sv-palette';
+import {TextView} from './text';
+import {ValueView} from './value';
 
 const className = ClassName('clp', 'input');
 
 interface Config extends ViewConfig {
-	alphaInputViews: {
-		palette: APaletteInputView;
-		text: TextInputView<number>;
+	alphaViews: {
+		palette: APaletteView;
+		text: TextView<number>;
 	} | null;
-	componentTextsView: ColorComponentTextsInputView;
+	componentTextsView: ColorComponentTextsView;
 	foldable: Foldable;
-	hPaletteInputView: HPaletteInputView;
+	hPaletteView: HPaletteView;
 	pickedColor: PickedColor;
 	supportsAlpha: boolean;
-	svPaletteInputView: SvPaletteInputView;
+	svPaletteView: SvPaletteView;
 }
 
 /**
  * @hidden
  */
-export class ColorPickerInputView extends View implements InputView<Color> {
+export class ColorPickerView extends View implements ValueView<Color> {
 	public readonly foldable: Foldable;
 	public readonly pickedColor: PickedColor;
 	private alphaViews_: {
-		palette: APaletteInputView;
-		text: TextInputView<number>;
+		palette: APaletteView;
+		text: TextView<number>;
 	} | null;
-	private hPaletteView_: HPaletteInputView;
-	private compTextsView_: ColorComponentTextsInputView;
-	private svPaletteView_: SvPaletteInputView;
+	private hPaletteView_: HPaletteView;
+	private compTextsView_: ColorComponentTextsView;
+	private svPaletteView_: SvPaletteView;
 
 	constructor(document: Document, config: Config) {
 		super(document, config);
@@ -60,13 +60,13 @@ export class ColorPickerInputView extends View implements InputView<Color> {
 
 		const svElem = document.createElement('div');
 		svElem.classList.add(className('sv'));
-		this.svPaletteView_ = config.svPaletteInputView;
+		this.svPaletteView_ = config.svPaletteView;
 		svElem.appendChild(this.svPaletteView_.element);
 		hsvElem.appendChild(svElem);
 
 		const hElem = document.createElement('div');
 		hElem.classList.add(className('h'));
-		this.hPaletteView_ = config.hPaletteInputView;
+		this.hPaletteView_ = config.hPaletteView;
 		hElem.appendChild(this.hPaletteView_.element);
 		hsvElem.appendChild(hElem);
 		this.element.appendChild(hsvElem);
@@ -77,10 +77,10 @@ export class ColorPickerInputView extends View implements InputView<Color> {
 		rgbElem.appendChild(this.compTextsView_.element);
 		this.element.appendChild(rgbElem);
 
-		if (config.alphaInputViews) {
+		if (config.alphaViews) {
 			this.alphaViews_ = {
-				palette: config.alphaInputViews.palette,
-				text: config.alphaInputViews.text,
+				palette: config.alphaViews.palette,
+				text: config.alphaViews.text,
 			};
 
 			const aElem = document.createElement('div');
@@ -117,7 +117,7 @@ export class ColorPickerInputView extends View implements InputView<Color> {
 		return TypeUtil.forceCast(elems);
 	}
 
-	get value(): InputValue<Color> {
+	get value(): Value<Color> {
 		return this.pickedColor.value;
 	}
 

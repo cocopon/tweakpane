@@ -1,4 +1,4 @@
-import {ColorSwatchTextInputController} from '../../controller/input/color-swatch-text';
+import {ColorSwatchTextController} from '../../controller/input/color-swatch-text';
 import * as ColorConverter from '../../converter/color';
 import {ColorFormatter} from '../../formatter/color';
 import {Color, RgbaColorObject, RgbColorObject} from '../../model/color';
@@ -24,7 +24,7 @@ export const ObjectColorInputPlugin: InputBindingPlugin<
 		const formatter = supportsAlpha
 			? new ColorFormatter(ColorConverter.toHexRgbaString)
 			: new ColorFormatter(ColorConverter.toHexRgbString);
-		return new ColorSwatchTextInputController(args.document, {
+		return new ColorSwatchTextController(args.document, {
 			viewModel: new ViewModel(),
 			formatter: formatter,
 			parser: StringColorParser.CompositeParser,

@@ -2,12 +2,12 @@ import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
 import {InputParams} from '../api/types';
-import {ColorSwatchTextInputController} from '../controller/input/color-swatch-text';
-import {InputController} from '../controller/input/input';
+import {ColorSwatchTextController} from '../controller/input/color-swatch-text';
+import {ValueController} from '../controller/input/value';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
 import {Color} from '../model/color';
-import {ColorSwatchTextInputView} from '../view/input/color-swatch-text';
+import {ColorSwatchTextView} from '../view/input/color-swatch-text';
 import {PlainTweakpane} from './plain-tweakpane';
 
 function createPane(win: Window): PlainTweakpane {
@@ -17,7 +17,7 @@ function createPane(win: Window): PlainTweakpane {
 }
 
 interface TestCase {
-	expectedClass: Class<InputController<Color>>;
+	expectedClass: Class<ValueController<Color>>;
 	params: InputParams;
 	value: unknown;
 }
@@ -25,38 +25,38 @@ interface TestCase {
 describe(PlainTweakpane.name, () => {
 	const testCases: TestCase[] = [
 		{
-			expectedClass: ColorSwatchTextInputController,
+			expectedClass: ColorSwatchTextController,
 			params: {},
 			value: '#00ff00',
 		},
 		{
-			expectedClass: ColorSwatchTextInputController,
+			expectedClass: ColorSwatchTextController,
 			params: {
 				input: 'color',
 			},
 			value: 0x112233,
 		},
 		{
-			expectedClass: ColorSwatchTextInputController,
+			expectedClass: ColorSwatchTextController,
 			params: {
 				input: 'color.rgb',
 			},
 			value: 0x112233,
 		},
 		{
-			expectedClass: ColorSwatchTextInputController,
+			expectedClass: ColorSwatchTextController,
 			params: {
 				input: 'color.rgba',
 			},
 			value: 0x11223344,
 		},
 		{
-			expectedClass: ColorSwatchTextInputController,
+			expectedClass: ColorSwatchTextController,
 			params: {},
 			value: {r: 0, g: 127, b: 255},
 		},
 		{
-			expectedClass: ColorSwatchTextInputController,
+			expectedClass: ColorSwatchTextController,
 			params: {},
 			value: {r: 0, g: 127, b: 255, a: 0.5},
 		},
@@ -97,11 +97,11 @@ describe(PlainTweakpane.name, () => {
 				const bapi = pane.addInput(obj, 'foo');
 
 				const view = bapi.controller.controller.view;
-				if (!(view instanceof ColorSwatchTextInputView)) {
+				if (!(view instanceof ColorSwatchTextView)) {
 					throw new Error('Unexpected view');
 				}
 
-				const inputElem = view.textInputView.inputElement;
+				const inputElem = view.textView.inputElement;
 				assert.equal(inputElem.value, testCase.expected.inputValue);
 			});
 		});
@@ -166,10 +166,10 @@ describe(PlainTweakpane.name, () => {
 			const bapi = pane.addInput(obj, 'foo');
 
 			const view = bapi.controller.controller.view;
-			if (!(view instanceof ColorSwatchTextInputView)) {
+			if (!(view instanceof ColorSwatchTextView)) {
 				throw new Error('Unexpected view');
 			}
-			const inputElem = view.textInputView.inputElement;
+			const inputElem = view.textView.inputElement;
 
 			it(`should have initial input value ${expected.initialInputText}`, () => {
 				assert.equal(inputElem.value, expected.initialInputText);

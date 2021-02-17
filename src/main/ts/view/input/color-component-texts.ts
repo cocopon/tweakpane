@@ -3,10 +3,10 @@ import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
 import {PaneError} from '../../misc/pane-error';
 import {Color} from '../../model/color';
-import {InputValue} from '../../model/input-value';
 import {PickedColor} from '../../model/picked-color';
+import {Value} from '../../model/value';
 import {View, ViewConfig} from '../view';
-import {InputView} from './input';
+import {ValueView} from './value';
 
 interface Config extends ViewConfig {
 	pickedColor: PickedColor;
@@ -43,8 +43,7 @@ function createModeSelectElement(document: Document): HTMLSelectElement {
 /**
  * @hidden
  */
-export class ColorComponentTextsInputView extends View
-	implements InputView<Color> {
+export class ColorComponentTextsView extends View implements ValueView<Color> {
 	public readonly pickedColor: PickedColor;
 	public readonly modeSelectElement: HTMLSelectElement;
 	private inputElems_: HtmlInputElements3 | null;
@@ -105,7 +104,7 @@ export class ColorComponentTextsInputView extends View
 		return this.inputElems_;
 	}
 
-	get value(): InputValue<Color> {
+	get value(): Value<Color> {
 		return this.pickedColor.value;
 	}
 

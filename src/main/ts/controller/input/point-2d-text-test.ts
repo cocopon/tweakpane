@@ -3,19 +3,19 @@ import {describe, it} from 'mocha';
 
 import {NumberFormatter} from '../../formatter/number';
 import {TestUtil} from '../../misc/test-util';
-import {InputValue} from '../../model/input-value';
 import {Point2d} from '../../model/point-2d';
+import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
-import {Point2dTextInputController} from './point-2d-text';
+import {Point2dTextController} from './point-2d-text';
 
-describe(Point2dTextInputController.name, () => {
+describe(Point2dTextController.name, () => {
 	it('should dispose', () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
-		const c = new Point2dTextInputController(doc, {
+		const c = new Point2dTextController(doc, {
 			parser: StringNumberParser,
-			value: new InputValue(new Point2d()),
+			value: new Value(new Point2d()),
 			viewModel: new ViewModel(),
 			xBaseStep: 1,
 			xFormatter: new NumberFormatter(0),
@@ -29,9 +29,9 @@ describe(Point2dTextInputController.name, () => {
 	it('should update value with user operation', () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
-		const c = new Point2dTextInputController(doc, {
+		const c = new Point2dTextController(doc, {
 			parser: StringNumberParser,
-			value: new InputValue(new Point2d(12, 34)),
+			value: new Value(new Point2d(12, 34)),
 			viewModel: new ViewModel(),
 			xBaseStep: 1,
 			xFormatter: new NumberFormatter(0),
