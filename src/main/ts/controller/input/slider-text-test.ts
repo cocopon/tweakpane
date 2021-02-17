@@ -12,6 +12,7 @@ describe(SliderTextInputController.name, () => {
 	it('should dispose', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new SliderTextInputController(doc, {
+			baseStep: 1,
 			formatter: new NumberFormatter(2),
 			parser: StringNumberParser,
 			value: new InputValue(0),

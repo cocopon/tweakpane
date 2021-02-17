@@ -17,10 +17,11 @@ function createApi(target: Target) {
 	const doc = TestUtil.createWindow().document;
 	const value = new InputValue(0);
 	const ic = new NumberTextInputController(doc, {
-		viewModel: new ViewModel(),
+		baseStep: 1,
 		formatter: new NumberFormatter(0),
 		parser: StringNumberParser,
 		value: value,
+		viewModel: new ViewModel(),
 	});
 	const bc = new InputBindingController(doc, {
 		binding: new InputBinding({

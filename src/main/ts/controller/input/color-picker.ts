@@ -65,7 +65,7 @@ export class ColorPickerInputController implements InputController<Color> {
 					text: new NumberTextInputController(document, {
 						formatter: new NumberFormatter(2),
 						parser: StringNumberParser,
-						step: 0.1,
+						baseStep: 0.1,
 						value: new InputValue(0),
 						viewModel: this.viewModel,
 					}),

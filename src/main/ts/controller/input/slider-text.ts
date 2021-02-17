@@ -8,6 +8,7 @@ import {NumberTextInputController} from './number-text';
 import {SliderInputController} from './slider';
 
 interface Config {
+	baseStep: number;
 	formatter: Formatter<number>;
 	parser: Parser<string, number>;
 	value: InputValue<number>;
@@ -29,10 +30,12 @@ export class SliderTextInputController implements InputController<number> {
 
 		this.viewModel = config.viewModel;
 		this.sliderIc_ = new SliderInputController(document, {
+			baseStep: config.baseStep,
 			value: config.value,
 			viewModel: this.viewModel,
 		});
 		this.textIc_ = new NumberTextInputController(document, {
+			baseStep: config.baseStep,
 			formatter: config.formatter,
 			parser: config.parser,
 			value: config.value,

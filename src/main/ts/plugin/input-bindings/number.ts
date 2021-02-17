@@ -16,7 +16,7 @@ import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
 import {InputBindingPlugin} from '../input-binding';
-import {findListItems} from '../util';
+import {findListItems, getBaseStep} from '../util';
 
 function createConstraint(params: InputParams): Constraint<number> {
 	const constraints: Constraint<number>[] = [];
@@ -71,6 +71,7 @@ function createController(document: Document, value: InputValue<number>) {
 
 	if (c && ConstraintUtil.findConstraint(c, RangeConstraint)) {
 		return new SliderTextInputController(document, {
+			baseStep: getBaseStep(c),
 			formatter: new NumberFormatter(
 				UiUtil.getSuitableDecimalDigits(value.constraint, value.rawValue),
 			),
@@ -81,6 +82,7 @@ function createController(document: Document, value: InputValue<number>) {
 	}
 
 	return new NumberTextInputController(document, {
+		baseStep: getBaseStep(c),
 		formatter: new NumberFormatter(
 			UiUtil.getSuitableDecimalDigits(value.constraint, value.rawValue),
 		),
