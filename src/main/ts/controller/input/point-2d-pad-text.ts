@@ -14,7 +14,9 @@ interface Config {
 	parser: Parser<string, number>;
 	value: InputValue<Point2d>;
 	viewModel: ViewModel;
+	xBaseStep: number;
 	xFormatter: Formatter<number>;
+	yBaseStep: number;
 	yFormatter: Formatter<number>;
 }
 
@@ -39,13 +41,17 @@ export class Point2dPadTextInputController implements InputController<Point2d> {
 			invertsY: config.invertsY,
 			value: this.value,
 			viewModel: this.viewModel,
+			xBaseStep: config.xBaseStep,
+			yBaseStep: config.yBaseStep,
 		});
 
 		this.textIc_ = new Point2dTextInputController(document, {
 			parser: config.parser,
 			value: this.value,
 			viewModel: this.viewModel,
+			xBaseStep: config.xBaseStep,
 			xFormatter: config.xFormatter,
+			yBaseStep: config.yBaseStep,
 			yFormatter: config.yFormatter,
 		});
 

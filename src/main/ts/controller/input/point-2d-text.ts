@@ -1,4 +1,3 @@
-import {Point2dConstraint} from '../../constraint/point-2d';
 import {Formatter} from '../../formatter/formatter';
 import {TypeUtil} from '../../misc/type-util';
 import {InputValue} from '../../model/input-value';
@@ -13,7 +12,9 @@ interface Config {
 	parser: Parser<string, number>;
 	value: InputValue<Point2d>;
 	viewModel: ViewModel;
+	xBaseStep: number;
 	xFormatter: Formatter<number>;
+	yBaseStep: number;
 	yFormatter: Formatter<number>;
 }
 
@@ -25,8 +26,8 @@ export class Point2dTextInputController implements InputController<Point2d> {
 	public readonly value: InputValue<Point2d>;
 	public readonly view: Point2dTextInputView;
 	private readonly parser_: Parser<string, number>;
-	private readonly xStep_: number;
-	private readonly yStep_: number;
+	private readonly xBaseStep_: number;
+	private readonly yBaseStep_: number;
 
 	constructor(document: Document, config: Config) {
 		this.onInputChange_ = this.onInputChange_.bind(this);
@@ -35,13 +36,8 @@ export class Point2dTextInputController implements InputController<Point2d> {
 		this.parser_ = config.parser;
 		this.value = config.value;
 
-		const c = this.value.constraint;
-		this.xStep_ = UiUtil.getStepForTextInput(
-			c instanceof Point2dConstraint ? c.xConstraint : undefined,
-		);
-		this.yStep_ = UiUtil.getStepForTextInput(
-			c instanceof Point2dConstraint ? c.yConstraint : undefined,
-		);
+		this.xBaseStep_ = config.xBaseStep;
+		this.yBaseStep_ = config.yBaseStep;
 
 		this.viewModel = config.viewModel;
 		this.view = new Point2dTextInputView(document, {
@@ -103,7 +99,7 @@ export class Point2dTextInputController implements InputController<Point2d> {
 		}
 
 		const step = UiUtil.getStepForKey(
-			compIndex === 0 ? this.xStep_ : this.yStep_,
+			compIndex === 0 ? this.xBaseStep_ : this.yBaseStep_,
 			UiUtil.getVerticalStepKeys(e),
 		);
 		if (step === 0) {

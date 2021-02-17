@@ -17,7 +17,9 @@ describe(Point2dTextInputController.name, () => {
 			parser: StringNumberParser,
 			value: new InputValue(new Point2d()),
 			viewModel: new ViewModel(),
+			xBaseStep: 1,
 			xFormatter: new NumberFormatter(0),
+			yBaseStep: 1,
 			yFormatter: new NumberFormatter(0),
 		});
 		c.viewModel.dispose();
@@ -31,7 +33,9 @@ describe(Point2dTextInputController.name, () => {
 			parser: StringNumberParser,
 			value: new InputValue(new Point2d(12, 34)),
 			viewModel: new ViewModel(),
+			xBaseStep: 1,
 			xFormatter: new NumberFormatter(0),
+			yBaseStep: 1,
 			yFormatter: new NumberFormatter(0),
 		});
 

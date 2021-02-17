@@ -67,9 +67,11 @@ function createController(
 		parser: StringNumberParser,
 		value: value,
 		viewModel: new ViewModel(),
+		xBaseStep: UiUtil.getStepForTextInput(c.xConstraint),
 		xFormatter: new NumberFormatter(
 			UiUtil.getSuitableDecimalDigits(c.xConstraint, value.rawValue.x),
 		),
+		yBaseStep: UiUtil.getStepForTextInput(c.yConstraint),
 		yFormatter: new NumberFormatter(
 			UiUtil.getSuitableDecimalDigits(c.yConstraint, value.rawValue.y),
 		),
