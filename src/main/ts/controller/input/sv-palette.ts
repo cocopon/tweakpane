@@ -4,7 +4,7 @@ import {PointerData} from '../../misc/pointer-handler';
 import {Color} from '../../model/color';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
-import {SvPaletteView} from '../../view/input/sv-palette';
+import {SvPaletteView} from '../../view/value/sv-palette';
 import * as UiUtil from '../ui-util';
 import {ValueController} from './value';
 

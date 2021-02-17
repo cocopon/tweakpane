@@ -6,7 +6,7 @@ import {Foldable} from '../../model/foldable';
 import {Point2d} from '../../model/point-2d';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
-import {Point2dPadView} from '../../view/input/point-2d-pad';
+import {Point2dPadView} from '../../view/value/point-2d-pad';
 import * as UiUtil from '../ui-util';
 import {ValueController} from './value';
 

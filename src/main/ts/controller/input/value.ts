@@ -1,6 +1,6 @@
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
-import {ValueView} from '../../view/input/value';
+import {ValueView} from '../../view/value/value';
 import {View} from '../../view/view';
 
 /**

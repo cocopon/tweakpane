@@ -2,7 +2,7 @@ import {ListItem} from '../../constraint/list';
 import {TypeUtil} from '../../misc/type-util';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
-import {ListView} from '../../view/input/list';
+import {ListView} from '../../view/value/list';
 import {ValueController} from './value';
 
 interface Config<T> {

@@ -3,7 +3,7 @@ import {Color} from '../../model/color';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
-import {ColorSwatchTextView} from '../../view/input/color-swatch-text';
+import {ColorSwatchTextView} from '../../view/value/color-swatch-text';
 import {ColorSwatchController} from './color-swatch';
 import {TextController} from './text';
 import {ValueController} from './value';

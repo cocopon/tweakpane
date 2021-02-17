@@ -9,7 +9,7 @@ import {
 import {TypeUtil} from '../../misc/type-util';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
-import {SliderView} from '../../view/input/slider';
+import {SliderView} from '../../view/value/slider';
 import * as UiUtil from '../ui-util';
 import {ValueController} from './value';
 

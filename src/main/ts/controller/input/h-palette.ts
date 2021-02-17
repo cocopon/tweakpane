@@ -4,7 +4,7 @@ import {PointerData} from '../../misc/pointer-handler';
 import {Color} from '../../model/color';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
-import {HPaletteView} from '../../view/input/h-palette';
+import {HPaletteView} from '../../view/value/h-palette';
 import * as UiUtil from '../ui-util';
 import {ValueController} from './value';
 

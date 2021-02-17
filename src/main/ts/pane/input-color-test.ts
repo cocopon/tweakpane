@@ -7,7 +7,7 @@ import {ValueController} from '../controller/input/value';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
 import {Color} from '../model/color';
-import {ColorSwatchTextView} from '../view/input/color-swatch-text';
+import {ColorSwatchTextView} from '../view/value/color-swatch-text';
 import {PlainTweakpane} from './plain-tweakpane';
 
 function createPane(win: Window): PlainTweakpane {

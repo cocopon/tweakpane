@@ -7,7 +7,7 @@ import {PickedColor} from '../../model/picked-color';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
-import {ColorPickerView} from '../../view/input/color-picker';
+import {ColorPickerView} from '../../view/value/color-picker';
 import {APaletteController} from './a-palette';
 import {ColorComponentTextsController} from './color-component-texts';
 import {HPaletteController} from './h-palette';

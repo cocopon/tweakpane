@@ -1,7 +1,7 @@
 import {TypeUtil} from '../../misc/type-util';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
-import {CheckboxView} from '../../view/input/checkbox';
+import {CheckboxView} from '../../view/value/checkbox';
 import {ValueController} from './value';
 
 /**

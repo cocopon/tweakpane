@@ -4,7 +4,7 @@ import {Point2d} from '../../model/point-2d';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
-import {Point2dPadTextView} from '../../view/input/point-2d-pad-text';
+import {Point2dPadTextView} from '../../view/value/point-2d-pad-text';
 import {Point2dPadController} from './point-2d-pad';
 import {Point2dTextController} from './point-2d-text';
 import {ValueController} from './value';

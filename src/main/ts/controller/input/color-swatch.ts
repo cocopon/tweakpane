@@ -3,7 +3,7 @@ import {Color} from '../../model/color';
 import {PickedColor} from '../../model/picked-color';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
-import {ColorSwatchView} from '../../view/input/color-swatch';
+import {ColorSwatchView} from '../../view/value/color-swatch';
 import {ColorPickerController} from './color-picker';
 import {ValueController} from './value';
 

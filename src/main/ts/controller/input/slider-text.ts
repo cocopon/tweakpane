@@ -2,7 +2,7 @@ import {Formatter} from '../../formatter/formatter';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
-import {SliderTextView} from '../../view/input/slider-text';
+import {SliderTextView} from '../../view/value/slider-text';
 import {NumberTextController} from './number-text';
 import {SliderController} from './slider';
 import {ValueController} from './value';

@@ -3,7 +3,7 @@ import {PointerData} from '../../misc/pointer-handler';
 import {Color} from '../../model/color';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
-import {APaletteView} from '../../view/input/a-palette';
+import {APaletteView} from '../../view/value/a-palette';
 import * as UiUtil from '../ui-util';
 import {ValueController} from './value';
 

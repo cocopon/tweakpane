@@ -5,7 +5,7 @@ import {PickedColor} from '../../model/picked-color';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
-import {ColorComponentTextsView} from '../../view/input/color-component-texts';
+import {ColorComponentTextsView} from '../../view/value/color-component-texts';
 import * as UiUtil from '../ui-util';
 import {ValueController} from './value';
 

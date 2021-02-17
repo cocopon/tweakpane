@@ -4,7 +4,7 @@ import {Point2d} from '../../model/point-2d';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
-import {Point2dTextView} from '../../view/input/point-2d-text';
+import {Point2dTextView} from '../../view/value/point-2d-text';
 import * as UiUtil from '../ui-util';
 import {ValueController} from './value';
 

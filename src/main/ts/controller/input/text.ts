@@ -3,7 +3,7 @@ import {TypeUtil} from '../../misc/type-util';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
-import {TextView} from '../../view/input/text';
+import {TextView} from '../../view/value/text';
 import {ValueController} from './value';
 
 /**
