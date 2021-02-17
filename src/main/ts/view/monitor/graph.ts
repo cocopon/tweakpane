@@ -4,8 +4,8 @@ import * as DisposingUtil from '../../misc/disposing-util';
 import * as DomUtil from '../../misc/dom-util';
 import {NumberUtil} from '../../misc/number-util';
 import {PaneError} from '../../misc/pane-error';
+import {BufferedValue} from '../../model/buffered-value';
 import {GraphCursor} from '../../model/graph-cursor';
-import {MonitorValue} from '../../model/monitor-buffer';
 import {View, ViewConfig} from '../view';
 import {MonitorView} from './monitor';
 
@@ -17,7 +17,7 @@ interface Config extends ViewConfig {
 	lineCount: number;
 	maxValue: number;
 	minValue: number;
-	value: MonitorValue<number>;
+	value: BufferedValue<number>;
 }
 
 const className = ClassName('grp', 'monitor');
@@ -26,7 +26,7 @@ const className = ClassName('grp', 'monitor');
  * @hidden
  */
 export class GraphMonitorView extends View implements MonitorView<number> {
-	public readonly value: MonitorValue<number>;
+	public readonly value: BufferedValue<number>;
 	private cursor_: GraphCursor;
 	private formatter_: Formatter<number>;
 	private lineElem_: Element | null;
@@ -93,23 +93,22 @@ export class GraphMonitorView extends View implements MonitorView<number> {
 		const bounds = this.svgElem_.getBoundingClientRect();
 
 		// Graph
-		const maxIndex = this.value.rawValue.bufferSize - 1;
+		const maxIndex = this.value.rawValue.length - 1;
 		const min = this.minValue_;
 		const max = this.maxValue_;
-		this.lineElem_.setAttributeNS(
-			null,
-			'points',
-			this.value.rawValue.values
-				.map((v, index) => {
-					const x = NumberUtil.map(index, 0, maxIndex, 0, bounds.width);
-					const y = NumberUtil.map(v, min, max, bounds.height, 0);
-					return [x, y].join(',');
-				})
-				.join(' '),
-		);
+		const points: string[] = [];
+		this.value.rawValue.forEach((v, index) => {
+			if (v === undefined) {
+				return;
+			}
+			const x = NumberUtil.map(index, 0, maxIndex, 0, bounds.width);
+			const y = NumberUtil.map(v, min, max, bounds.height, 0);
+			points.push([x, y].join(','));
+		});
+		this.lineElem_.setAttributeNS(null, 'points', points.join(' '));
 
 		// Cursor
-		const value = this.value.rawValue.values[this.cursor_.index];
+		const value = this.value.rawValue[this.cursor_.index];
 		if (value === undefined) {
 			tooltipElem.classList.remove(className('t', 'valid'));
 			return;

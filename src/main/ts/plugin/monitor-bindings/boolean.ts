@@ -17,7 +17,7 @@ export const BooleanMonitorPlugin: MonitorBindingPlugin<boolean, boolean> = {
 		reader: (_args) => BooleanConverter.fromMixed,
 	},
 	controller: (args) => {
-		if (args.binding.value.rawValue.bufferSize === 1) {
+		if (args.binding.value.rawValue.length === 1) {
 			return new SingleLogMonitorController(args.document, {
 				viewModel: new ViewModel(),
 				formatter: new BooleanFormatter(),

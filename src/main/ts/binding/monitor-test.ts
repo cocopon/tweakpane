@@ -13,10 +13,7 @@ describe(MonitorBinding.name, () => {
 			foo: 123,
 		};
 		const target = new Target(obj, 'foo');
-		const value = new Value({
-			bufferSize: 1,
-			values: [],
-		});
+		const value = new Value([0]);
 		const ticker = new ManualTicker();
 		const b = new MonitorBinding({
 			reader: NumberConverter.fromMixed,
@@ -33,10 +30,7 @@ describe(MonitorBinding.name, () => {
 			foo: 123,
 		};
 		const target = new Target(obj, 'foo');
-		const value = new Value({
-			bufferSize: 1,
-			values: [],
-		});
+		const value = new Value([0]);
 		const ticker = new ManualTicker();
 		// tslint:disable-next-line:no-unused-expression
 		new MonitorBinding({
@@ -47,7 +41,7 @@ describe(MonitorBinding.name, () => {
 		});
 
 		assert.strictEqual(
-			value.rawValue.values[0],
+			value.rawValue[0],
 			123,
 			'Initial value of target should be applied',
 		);
@@ -56,7 +50,7 @@ describe(MonitorBinding.name, () => {
 		ticker.tick();
 
 		assert.strictEqual(
-			value.rawValue.values[0],
+			value.rawValue[0],
 			456,
 			'Binded value should be updated',
 		);
@@ -69,10 +63,7 @@ describe(MonitorBinding.name, () => {
 			foo: 123,
 		};
 		const target = new Target(obj, 'foo');
-		const value = new Value({
-			bufferSize: 1,
-			values: [],
-		});
+		const value = new Value([0]);
 		const ticker = new ManualTicker();
 		// tslint:disable-next-line:no-unused-expression
 		new MonitorBinding({
@@ -83,7 +74,7 @@ describe(MonitorBinding.name, () => {
 		});
 
 		assert.strictEqual(
-			value.rawValue.values[0],
+			value.rawValue[0],
 			123,
 			'Initial value of target should be applied',
 		);
@@ -92,7 +83,7 @@ describe(MonitorBinding.name, () => {
 		ticker.tick();
 
 		assert.strictEqual(
-			value.rawValue.values[0],
+			value.rawValue[0],
 			123,
 			'Deleted value should be pushed',
 		);

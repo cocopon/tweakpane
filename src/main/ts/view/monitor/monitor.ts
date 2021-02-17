@@ -1,11 +1,10 @@
-import {MonitorValue} from '../../model/monitor-buffer';
+import {BufferedValue} from '../../model/buffered-value';
 
 /**
  * @hidden
  */
-// TODO: Remove
 export interface MonitorView<T> {
-	readonly value: MonitorValue<T>;
+	readonly value: BufferedValue<T>;
 
 	update(): void;
 }

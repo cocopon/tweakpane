@@ -15,10 +15,7 @@ import {MonitorBindingApi} from './monitor-binding';
 
 function createApi(target: Target) {
 	const doc = TestUtil.createWindow().document;
-	const value = new Value({
-		bufferSize: 1,
-		values: [],
-	});
+	const value = new Value([0]);
 	const mc = new SingleLogMonitorController(doc, {
 		viewModel: new ViewModel(),
 		formatter: new NumberFormatter(0),
@@ -65,7 +62,7 @@ describe(MonitorBindingApi.name, () => {
 		PARAMS.foo = 123;
 		api.refresh();
 
-		assert.strictEqual(api.controller.binding.value.rawValue.values[0], 123);
+		assert.strictEqual(api.controller.binding.value.rawValue[0], 123);
 	});
 
 	it('should hide', () => {

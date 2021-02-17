@@ -2,13 +2,13 @@ import {Formatter} from '../../formatter/formatter';
 import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
 import {PaneError} from '../../misc/pane-error';
-import {MonitorValue} from '../../model/monitor-buffer';
+import {BufferedValue} from '../../model/buffered-value';
 import {View, ViewConfig} from '../view';
 import {MonitorView} from './monitor';
 
 interface Config<T> extends ViewConfig {
 	formatter: Formatter<T>;
-	value: MonitorValue<T>;
+	value: BufferedValue<T>;
 }
 
 const className = ClassName('sgl', 'monitor');
@@ -17,7 +17,7 @@ const className = ClassName('sgl', 'monitor');
  * @hidden
  */
 export class SingleLogMonitorView<T> extends View implements MonitorView<T> {
-	public readonly value: MonitorValue<T>;
+	public readonly value: BufferedValue<T>;
 	private formatter_: Formatter<T>;
 	private inputElem_: HTMLInputElement | null;
 
@@ -52,11 +52,10 @@ export class SingleLogMonitorView<T> extends View implements MonitorView<T> {
 			throw PaneError.alreadyDisposed();
 		}
 
-		const values = this.value.rawValue.values;
+		const values = this.value.rawValue;
+		const lastValue = values[values.length - 1];
 		this.inputElem_.value =
-			values.length > 0
-				? this.formatter_.format(values[values.length - 1])
-				: '';
+			lastValue !== undefined ? this.formatter_.format(lastValue) : '';
 	}
 
 	private onValueUpdate_(): void {

@@ -1,13 +1,13 @@
 import {Emitter, EventTypeMap} from '../misc/emitter';
 import {Ticker, TickerEvents} from '../misc/ticker/ticker';
-import {MonitorValue} from '../model/monitor-buffer';
+import {BufferedValue, createPushedBuffer} from '../model/buffered-value';
 import {Target} from '../model/target';
 
 interface Config<In> {
 	reader: (outerValue: unknown) => In;
 	target: Target;
 	ticker: Ticker;
-	value: MonitorValue<In>;
+	value: BufferedValue<In>;
 }
 
 /**
@@ -27,7 +27,7 @@ export class MonitorBinding<In> {
 	public readonly emitter: Emitter<MonitorBindingEvents<In>>;
 	public readonly target: Target;
 	public readonly ticker: Ticker;
-	public readonly value: MonitorValue<In>;
+	public readonly value: BufferedValue<In>;
 	private reader_: (outerValue: unknown) => In;
 
 	constructor(config: Config<In>) {
@@ -54,16 +54,8 @@ export class MonitorBinding<In> {
 		if (targetValue !== undefined) {
 			const buffer = this.value.rawValue;
 			const newValue = this.reader_(targetValue);
-			const newValues = [...buffer.values, newValue];
-			if (newValues.length > buffer.bufferSize) {
-				newValues.splice(0, newValues.length - buffer.bufferSize);
-			}
 
-			this.value.rawValue = {
-				bufferSize: buffer.bufferSize,
-				values: newValues,
-			};
-
+			this.value.rawValue = createPushedBuffer(buffer, newValue);
 			this.emitter.emit('update', {
 				rawValue: newValue,
 				sender: this,

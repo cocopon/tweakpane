@@ -18,10 +18,7 @@ describe(MonitorBindingController.name, () => {
 			foo: 123,
 		};
 		const doc = TestUtil.createWindow().document;
-		const value = new Value({
-			bufferSize: 10,
-			values: [],
-		});
+		const value = new Value(Array(10).fill(undefined));
 		const binding = new MonitorBinding({
 			reader: NumberConverter.fromMixed,
 			target: new Target(obj, 'foo'),

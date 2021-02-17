@@ -2,14 +2,14 @@ import {Formatter} from '../../formatter/formatter';
 import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
 import {PaneError} from '../../misc/pane-error';
-import {MonitorValue} from '../../model/monitor-buffer';
+import {BufferedValue} from '../../model/buffered-value';
 import {View, ViewConfig} from '../view';
 import {MonitorView} from './monitor';
 
 interface Config<T> extends ViewConfig {
 	formatter: Formatter<T>;
 	lineCount: number;
-	value: MonitorValue<T>;
+	value: BufferedValue<T>;
 }
 
 const className = ClassName('mll', 'monitor');
@@ -18,7 +18,7 @@ const className = ClassName('mll', 'monitor');
  * @hidden
  */
 export class MultiLogMonitorView<T> extends View implements MonitorView<T> {
-	public readonly value: MonitorValue<T>;
+	public readonly value: BufferedValue<T>;
 	private formatter_: Formatter<T>;
 	private textareaElem_: HTMLTextAreaElement | null;
 
@@ -57,9 +57,9 @@ export class MultiLogMonitorView<T> extends View implements MonitorView<T> {
 		const shouldScroll =
 			elem.scrollTop === elem.scrollHeight - elem.clientHeight;
 
-		elem.textContent = this.value.rawValue.values
+		elem.textContent = this.value.rawValue
 			.map((value) => {
-				return this.formatter_.format(value);
+				return value !== undefined ? this.formatter_.format(value) : '';
 			})
 			.join('\n');
 

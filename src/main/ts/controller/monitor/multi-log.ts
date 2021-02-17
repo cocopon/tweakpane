@@ -1,5 +1,5 @@
 import {Formatter} from '../../formatter/formatter';
-import {MonitorValue} from '../../model/monitor-buffer';
+import {BufferedValue} from '../../model/buffered-value';
 import {ViewModel} from '../../model/view-model';
 import {MultiLogMonitorView} from '../../view/monitor/multi-log';
 import {MonitorController} from './monitor';
@@ -7,7 +7,7 @@ import {MonitorController} from './monitor';
 interface Config<T> {
 	formatter: Formatter<T>;
 	lineCount: number;
-	value: MonitorValue<T>;
+	value: BufferedValue<T>;
 	viewModel: ViewModel;
 }
 
@@ -16,7 +16,7 @@ interface Config<T> {
  */
 export class MultiLogMonitorController<T> implements MonitorController<T> {
 	public readonly viewModel: ViewModel;
-	public readonly value: MonitorValue<T>;
+	public readonly value: BufferedValue<T>;
 	public readonly view: MultiLogMonitorView<T>;
 
 	constructor(document: Document, config: Config<T>) {

@@ -1,7 +1,7 @@
 import {Formatter} from '../../formatter/formatter';
 import {NumberUtil} from '../../misc/number-util';
+import {BufferedValue} from '../../model/buffered-value';
 import {GraphCursor} from '../../model/graph-cursor';
-import {MonitorValue} from '../../model/monitor-buffer';
 import {ViewModel} from '../../model/view-model';
 import {GraphMonitorView} from '../../view/monitor/graph';
 import {MonitorController} from './monitor';
@@ -11,7 +11,7 @@ interface Config {
 	lineCount: number;
 	maxValue: number;
 	minValue: number;
-	value: MonitorValue<number>;
+	value: BufferedValue<number>;
 	viewModel: ViewModel;
 }
 
@@ -20,7 +20,7 @@ interface Config {
  */
 export class GraphMonitorController implements MonitorController<number> {
 	public readonly viewModel: ViewModel;
-	public readonly value: MonitorValue<number>;
+	public readonly value: BufferedValue<number>;
 	public readonly view: GraphMonitorView;
 	private cursor_: GraphCursor;
 
@@ -59,7 +59,7 @@ export class GraphMonitorController implements MonitorController<number> {
 		const bounds = this.view.graphElement.getBoundingClientRect();
 		const x = e.offsetX;
 		this.cursor_.index = Math.floor(
-			NumberUtil.map(x, 0, bounds.width, 0, this.value.rawValue.bufferSize),
+			NumberUtil.map(x, 0, bounds.width, 0, this.value.rawValue.length),
 		);
 	}
 }

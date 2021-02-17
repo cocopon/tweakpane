@@ -72,7 +72,7 @@ describe(PlainTweakpane.name, () => {
 
 		assert.strictEqual(i1.controller.binding.value.rawValue, 2);
 		assert.strictEqual(i2.controller.binding.value.rawValue, 'changed');
-		assert.strictEqual(m1.controller.binding.value.rawValue.values[0], 456);
+		assert.strictEqual(m1.controller.binding.value.rawValue[0], 456);
 	});
 
 	it('should get expanded', () => {
