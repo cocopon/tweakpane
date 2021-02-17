@@ -8,7 +8,7 @@ import {Value} from '../../model/value';
 import {View, ViewConfig} from '../view';
 import {ValueView} from './value';
 
-const className = ClassName('hpl', 'input');
+const className = ClassName('hpl');
 
 interface Config extends ViewConfig {
 	value: Value<Color>;

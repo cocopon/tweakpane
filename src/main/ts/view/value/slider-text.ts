@@ -10,7 +10,7 @@ interface Config extends ViewConfig {
 	textView: TextView<number>;
 }
 
-const className = ClassName('sldtxt', 'input');
+const className = ClassName('sldtxt');
 
 /**
  * @hidden

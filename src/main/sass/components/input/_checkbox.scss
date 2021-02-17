@@ -1,4 +1,4 @@
-.#{$prefix}-ckbiv {
+.#{$prefix}-ckbv {
 	&_l {
 		display: block;
 		position: relative;
@@ -6,7 +6,6 @@
 	&_i {
 		@include resetInput();
 
-		background: red;
 		left: 0;
 		opacity: 0;
 		position: absolute;

@@ -18,7 +18,7 @@ type HtmlInputElements3 = [
 	HTMLInputElement,
 ];
 
-const className = ClassName('cctxts', 'input');
+const className = ClassName('cctxts');
 const FORMATTER = new NumberFormatter(0);
 
 function createModeSelectElement(document: Document): HTMLSelectElement {

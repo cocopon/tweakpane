@@ -7,7 +7,7 @@ import {Color} from '../../model/color';
 import {Value} from '../../model/value';
 import {View, ViewConfig} from '../view';
 
-const className = ClassName('apl', 'input');
+const className = ClassName('apl');
 
 interface Config extends ViewConfig {
 	value: Value<Color>;

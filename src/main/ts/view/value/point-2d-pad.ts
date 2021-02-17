@@ -17,7 +17,7 @@ interface Config extends ViewConfig {
 }
 
 const SVG_NS = DomUtil.SVG_NS;
-const className = ClassName('p2dpad', 'input');
+const className = ClassName('p2dpad');
 
 /**
  * @hidden

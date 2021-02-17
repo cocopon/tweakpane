@@ -11,7 +11,7 @@ interface Config<T> extends ViewConfig {
 	value: BufferedValue<T>;
 }
 
-const className = ClassName('sgl', 'monitor');
+const className = ClassName('sgl');
 
 /**
  * @hidden

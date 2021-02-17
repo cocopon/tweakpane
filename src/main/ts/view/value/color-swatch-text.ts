@@ -11,7 +11,7 @@ interface Config extends ViewConfig {
 	textView: TextView<Color>;
 }
 
-const className = ClassName('cswtxt', 'input');
+const className = ClassName('cswtxt');
 
 /**
  * @hidden

@@ -1,4 +1,4 @@
-.#{$prefix}-sglmv {
+.#{$prefix}-sglv {
 	&_i {
 		@include monitorView();
 
@@ -6,7 +6,7 @@
 	}
 }
 
-.#{$prefix}-mllmv {
+.#{$prefix}-mllv {
 	&_i {
 		@include monitorView();
 

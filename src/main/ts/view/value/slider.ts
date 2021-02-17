@@ -12,7 +12,7 @@ interface Config extends ViewConfig {
 	value: Value<number>;
 }
 
-const className = ClassName('sld', 'input');
+const className = ClassName('sld');
 
 /**
  * @hidden

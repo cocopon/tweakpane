@@ -12,7 +12,7 @@ interface Config<T> extends ViewConfig {
 	value: BufferedValue<T>;
 }
 
-const className = ClassName('mll', 'monitor');
+const className = ClassName('mll');
 
 /**
  * @hidden

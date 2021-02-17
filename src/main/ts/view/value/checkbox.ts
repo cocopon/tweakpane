@@ -9,7 +9,7 @@ interface Config extends ViewConfig {
 	value: Value<boolean>;
 }
 
-const className = ClassName('ckb', 'input');
+const className = ClassName('ckb');
 
 /**
  * @hidden

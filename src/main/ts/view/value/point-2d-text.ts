@@ -14,7 +14,7 @@ interface Config extends ViewConfig {
 }
 
 const COMPONENT_LABELS: [string, string] = ['X', 'Y'];
-const className = ClassName('p2dtxt', 'input');
+const className = ClassName('p2dtxt');
 
 /**
  * @hidden

@@ -13,7 +13,7 @@ interface Config extends ViewConfig {
 	value: Value<Color>;
 }
 
-const className = ClassName('csw', 'input');
+const className = ClassName('csw');
 
 /**
  * @hidden

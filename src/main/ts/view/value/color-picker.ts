@@ -12,7 +12,7 @@ import {SvPaletteView} from './sv-palette';
 import {TextView} from './text';
 import {ValueView} from './value';
 
-const className = ClassName('clp', 'input');
+const className = ClassName('clp');
 
 interface Config extends ViewConfig {
 	alphaViews: {

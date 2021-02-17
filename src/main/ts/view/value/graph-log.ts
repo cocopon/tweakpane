@@ -20,7 +20,7 @@ interface Config extends ViewConfig {
 	value: BufferedValue<number>;
 }
 
-const className = ClassName('grp', 'monitor');
+const className = ClassName('grl');
 
 /**
  * @hidden

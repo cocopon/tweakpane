@@ -9,7 +9,7 @@
 @import './text';
 
 // colorswatch
-.#{$prefix}-cswiv {
+.#{$prefix}-cswv {
 	@include checker-pattern($transparent-checker-color-dark, 10px);
 
 	background-color: $transparent-checker-color-light;
@@ -54,7 +54,7 @@
 }
 
 // colorswatch-text
-.#{$prefix}-cswtxtiv {
+.#{$prefix}-cswtxtv {
 	display: flex;
 	position: relative;
 
@@ -70,7 +70,7 @@
 }
 
 // slider-text
-.#{$prefix}-sldtxtiv {
+.#{$prefix}-sldtxtv {
 	display: flex;
 
 	&_s {

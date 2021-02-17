@@ -11,7 +11,7 @@ interface Config<T> extends ViewConfig {
 	value: Value<T>;
 }
 
-const className = ClassName('txt', 'input');
+const className = ClassName('txt');
 
 /**
  * @hidden

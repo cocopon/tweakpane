@@ -12,7 +12,7 @@ interface Config extends ViewConfig {
 	textView: Point2dTextView;
 }
 
-const className = ClassName('p2dpadtxt', 'input');
+const className = ClassName('p2dpadtxt');
 
 /**
  * @hidden
