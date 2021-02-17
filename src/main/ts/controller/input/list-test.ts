@@ -11,16 +11,15 @@ import {ListInputController} from './list';
 
 describe(ListInputController.name, () => {
 	it('should get value', () => {
-		const value = new InputValue(
-			0,
-			new ListConstraint({
+		const value = new InputValue(0, {
+			constraint: new ListConstraint({
 				options: [
 					{text: 'foo', value: 12},
 					{text: 'bar', value: 34},
 					{text: 'baz', value: 56},
 				],
 			}),
-		);
+		});
 		const doc = TestUtil.createWindow().document;
 		const c = new ListInputController(doc, {
 			listItems: findListItems(value.constraint) ?? [],
@@ -33,16 +32,15 @@ describe(ListInputController.name, () => {
 	});
 
 	it('should apply input to value', () => {
-		const value = new InputValue(
-			0,
-			new ListConstraint({
+		const value = new InputValue(0, {
+			constraint: new ListConstraint({
 				options: [
 					{text: 'foo', value: 12},
 					{text: 'bar', value: 34},
 					{text: 'baz', value: 56},
 				],
 			}),
-		);
+		});
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new ListInputController(doc, {
@@ -59,16 +57,15 @@ describe(ListInputController.name, () => {
 	});
 
 	it('should dispose', () => {
-		const value = new InputValue(
-			0,
-			new ListConstraint({
+		const value = new InputValue(0, {
+			constraint: new ListConstraint({
 				options: [
 					{text: 'foo', value: 12},
 					{text: 'bar', value: 34},
 					{text: 'baz', value: 56},
 				],
 			}),
-		);
+		});
 		const doc = TestUtil.createWindow().document;
 		const c = new ListInputController(doc, {
 			listItems: findListItems(value.constraint) ?? [],

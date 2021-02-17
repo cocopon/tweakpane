@@ -61,11 +61,10 @@ export function createController<In, Ex>(
 	const constraint = plugin.model.constraint
 		? plugin.model.constraint(valueArgs)
 		: undefined;
-	const value = new InputValue(
-		reader(initialValue),
-		constraint,
-		plugin.model.equals,
-	);
+	const value = new InputValue(reader(initialValue), {
+		constraint: constraint,
+		equals: plugin.model.equals,
+	});
 	const binding = new InputBinding({
 		reader: reader,
 		target: args.target,

@@ -11,6 +11,11 @@ export interface InputValueEvents<In> extends EventTypeMap {
 	};
 }
 
+interface InputValueConfig<T> {
+	constraint?: Constraint<T>;
+	equals?: (v1: T, v2: T) => boolean;
+}
+
 /**
  * @hidden
  */
@@ -20,13 +25,9 @@ export class InputValue<T> {
 	private equals_: (v1: T, v2: T) => boolean;
 	private rawValue_: T;
 
-	constructor(
-		initialValue: T,
-		constraint?: Constraint<T>,
-		equals?: (v1: T, v2: T) => boolean,
-	) {
-		this.constraint_ = constraint;
-		this.equals_ = equals || ((v1, v2) => v1 === v2);
+	constructor(initialValue: T, config?: InputValueConfig<T>) {
+		this.constraint_ = config?.constraint;
+		this.equals_ = config?.equals ?? ((v1, v2) => v1 === v2);
 		this.emitter = new Emitter();
 		this.rawValue_ = initialValue;
 	}
