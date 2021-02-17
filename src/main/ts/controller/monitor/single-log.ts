@@ -1,7 +1,7 @@
 import {Formatter} from '../../formatter/formatter';
 import {BufferedValue} from '../../model/buffered-value';
 import {ViewModel} from '../../model/view-model';
-import {SingleLogMonitorView} from '../../view/monitor/single-log';
+import {SingleLogMonitorView} from '../../view/value/single-log';
 import {MonitorController} from './monitor';
 
 interface Config<T> {

@@ -3,7 +3,7 @@ import {NumberUtil} from '../../misc/number-util';
 import {BufferedValue} from '../../model/buffered-value';
 import {GraphCursor} from '../../model/graph-cursor';
 import {ViewModel} from '../../model/view-model';
-import {GraphMonitorView} from '../../view/monitor/graph';
+import {GraphMonitorView} from '../../view/value/graph';
 import {MonitorController} from './monitor';
 
 interface Config {

@@ -1,6 +1,6 @@
 import {BufferedValue} from '../../model/buffered-value';
 import {ViewModel} from '../../model/view-model';
-import {MonitorView} from '../../view/monitor/monitor';
+import {MonitorView} from '../../view/value/monitor';
 import {View} from '../../view/view';
 
 /**
