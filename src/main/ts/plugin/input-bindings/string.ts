@@ -5,13 +5,12 @@ import {ListConstraint} from '../../constraint/list';
 import {ConstraintUtil} from '../../constraint/util';
 import {ListInputController} from '../../controller/input/list';
 import {TextInputController} from '../../controller/input/text';
-import * as UiUtil from '../../controller/ui-util';
 import * as StringConverter from '../../converter/string';
 import {StringFormatter} from '../../formatter/string';
 import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {InputBindingPlugin} from '../input-binding';
-import {findListItems} from '../util';
+import {findListItems, normalizeInputParamsOptions} from '../util';
 
 function createConstraint(params: InputParams): Constraint<string> {
 	const constraints: Constraint<string>[] = [];
@@ -19,7 +18,7 @@ function createConstraint(params: InputParams): Constraint<string> {
 	if ('options' in params && params.options !== undefined) {
 		constraints.push(
 			new ListConstraint({
-				options: UiUtil.normalizeInputParamsOptions(
+				options: normalizeInputParamsOptions(
 					params.options,
 					StringConverter.fromMixed,
 				),

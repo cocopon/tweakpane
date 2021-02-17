@@ -6,7 +6,6 @@ import {RangeConstraint} from '../../constraint/range';
 import {StepConstraint} from '../../constraint/step';
 import {ConstraintUtil} from '../../constraint/util';
 import {Point2dPadTextInputController} from '../../controller/input/point-2d-pad-text';
-import * as UiUtil from '../../controller/ui-util';
 import * as Point2dConverter from '../../converter/point-2d';
 import {NumberFormatter} from '../../formatter/number';
 import {PaneError} from '../../misc/pane-error';
@@ -16,6 +15,7 @@ import {Point2d, Point2dObject} from '../../model/point-2d';
 import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
 import {InputBindingPlugin} from '../input-binding';
+import {getBaseStep, getSuitableDecimalDigits} from '../util';
 
 function createDimensionConstraint(
 	params: Point2dDimensionParams | undefined,
@@ -63,7 +63,7 @@ function getSuitableMaxDimensionValue(
 		return Math.max(Math.abs(rc.minValue || 0), Math.abs(rc.maxValue || 0));
 	}
 
-	const step = UiUtil.getStepForTextInput(constraint);
+	const step = getBaseStep(constraint);
 	return Math.max(Math.abs(step) * 10, Math.abs(rawValue) * 10);
 }
 
@@ -97,20 +97,19 @@ function createController(
 		throw PaneError.shouldNeverHappen();
 	}
 
-	console.log(value, getSuitableMaxValue(value.rawValue, value.constraint));
 	return new Point2dPadTextInputController(document, {
 		invertsY: invertsY,
 		maxValue: getSuitableMaxValue(value.rawValue, value.constraint),
 		parser: StringNumberParser,
 		value: value,
 		viewModel: new ViewModel(),
-		xBaseStep: UiUtil.getStepForTextInput(c.xConstraint),
+		xBaseStep: getBaseStep(c.xConstraint),
 		xFormatter: new NumberFormatter(
-			UiUtil.getSuitableDecimalDigits(c.xConstraint, value.rawValue.x),
+			getSuitableDecimalDigits(c.xConstraint, value.rawValue.x),
 		),
-		yBaseStep: UiUtil.getStepForTextInput(c.yConstraint),
+		yBaseStep: getBaseStep(c.yConstraint),
 		yFormatter: new NumberFormatter(
-			UiUtil.getSuitableDecimalDigits(c.yConstraint, value.rawValue.y),
+			getSuitableDecimalDigits(c.yConstraint, value.rawValue.y),
 		),
 	});
 }

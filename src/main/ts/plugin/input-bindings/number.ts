@@ -8,7 +8,6 @@ import {ConstraintUtil} from '../../constraint/util';
 import {ListInputController} from '../../controller/input/list';
 import {NumberTextInputController} from '../../controller/input/number-text';
 import {SliderTextInputController} from '../../controller/input/slider-text';
-import * as UiUtil from '../../controller/ui-util';
 import * as NumberConverter from '../../converter/number';
 import {NumberFormatter} from '../../formatter/number';
 import {TypeUtil} from '../../misc/type-util';
@@ -16,7 +15,12 @@ import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
 import {InputBindingPlugin} from '../input-binding';
-import {findListItems, getBaseStep} from '../util';
+import {
+	findListItems,
+	getBaseStep,
+	getSuitableDecimalDigits,
+	normalizeInputParamsOptions,
+} from '../util';
 
 function createConstraint(params: InputParams): Constraint<number> {
 	const constraints: Constraint<number>[] = [];
@@ -44,7 +48,7 @@ function createConstraint(params: InputParams): Constraint<number> {
 	if ('options' in params && params.options !== undefined) {
 		constraints.push(
 			new ListConstraint({
-				options: UiUtil.normalizeInputParamsOptions(
+				options: normalizeInputParamsOptions(
 					params.options,
 					NumberConverter.fromMixed,
 				),
@@ -73,7 +77,7 @@ function createController(document: Document, value: InputValue<number>) {
 		return new SliderTextInputController(document, {
 			baseStep: getBaseStep(c),
 			formatter: new NumberFormatter(
-				UiUtil.getSuitableDecimalDigits(value.constraint, value.rawValue),
+				getSuitableDecimalDigits(value.constraint, value.rawValue),
 			),
 			parser: StringNumberParser,
 			value: value,
@@ -84,7 +88,7 @@ function createController(document: Document, value: InputValue<number>) {
 	return new NumberTextInputController(document, {
 		baseStep: getBaseStep(c),
 		formatter: new NumberFormatter(
-			UiUtil.getSuitableDecimalDigits(value.constraint, value.rawValue),
+			getSuitableDecimalDigits(value.constraint, value.rawValue),
 		),
 		parser: StringNumberParser,
 		value: value,
