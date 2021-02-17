@@ -1,4 +1,4 @@
-import {MultiLogMonitorController} from '../../controller/monitor/multi-log';
+import {MultiLogController} from '../../controller/monitor/multi-log';
 import {SingleLogMonitorController} from '../../controller/monitor/single-log';
 import * as BooleanConverter from '../../converter/boolean';
 import {BooleanFormatter} from '../../formatter/boolean';
@@ -25,7 +25,7 @@ export const BooleanMonitorPlugin: MonitorBindingPlugin<boolean, boolean> = {
 			});
 		}
 
-		return new MultiLogMonitorController(args.document, {
+		return new MultiLogController(args.document, {
 			viewModel: new ViewModel(),
 			formatter: new BooleanFormatter(),
 			lineCount: TypeUtil.getOrDefault(

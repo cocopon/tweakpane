@@ -1,4 +1,4 @@
-import {MultiLogMonitorController} from '../../controller/monitor/multi-log';
+import {MultiLogController} from '../../controller/monitor/multi-log';
 import {SingleLogMonitorController} from '../../controller/monitor/single-log';
 import * as StringConverter from '../../converter/string';
 import {StringFormatter} from '../../formatter/string';
@@ -22,7 +22,7 @@ export const StringMonitorPlugin: MonitorBindingPlugin<string, string> = {
 			value.rawValue.length > 1 ||
 			('multiline' in args.params && args.params.multiline);
 		if (multiline) {
-			return new MultiLogMonitorController(args.document, {
+			return new MultiLogController(args.document, {
 				formatter: new StringFormatter(),
 				lineCount: TypeUtil.getOrDefault(
 					args.params.lineCount,

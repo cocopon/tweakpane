@@ -1,10 +1,10 @@
 import {Formatter} from '../../formatter/formatter';
 import {NumberUtil} from '../../misc/number-util';
-import {BufferedValue} from '../../model/buffered-value';
+import {Buffer, BufferedValue} from '../../model/buffered-value';
 import {GraphCursor} from '../../model/graph-cursor';
 import {ViewModel} from '../../model/view-model';
-import {GraphMonitorView} from '../../view/value/graph';
-import {MonitorController} from './monitor';
+import {GraphLogView} from '../../view/value/graph-log';
+import {ValueController} from '../input/value';
 
 interface Config {
 	formatter: Formatter<number>;
@@ -18,10 +18,10 @@ interface Config {
 /**
  * @hidden
  */
-export class GraphMonitorController implements MonitorController<number> {
+export class GraphLogController implements ValueController<Buffer<number>> {
 	public readonly viewModel: ViewModel;
 	public readonly value: BufferedValue<number>;
-	public readonly view: GraphMonitorView;
+	public readonly view: GraphLogView;
 	private cursor_: GraphCursor;
 
 	constructor(document: Document, config: Config) {
@@ -32,7 +32,7 @@ export class GraphMonitorController implements MonitorController<number> {
 		this.cursor_ = new GraphCursor();
 
 		this.viewModel = config.viewModel;
-		this.view = new GraphMonitorView(document, {
+		this.view = new GraphLogView(document, {
 			cursor: this.cursor_,
 			formatter: config.formatter,
 			lineCount: config.lineCount,

@@ -1,8 +1,8 @@
 import {Formatter} from '../../formatter/formatter';
-import {BufferedValue} from '../../model/buffered-value';
+import {Buffer, BufferedValue} from '../../model/buffered-value';
 import {ViewModel} from '../../model/view-model';
-import {SingleLogMonitorView} from '../../view/value/single-log';
-import {MonitorController} from './monitor';
+import {SingleLogView} from '../../view/value/single-log';
+import {ValueController} from '../input/value';
 
 interface Config<T> {
 	formatter: Formatter<T>;
@@ -13,16 +13,17 @@ interface Config<T> {
 /**
  * @hidden
  */
-export class SingleLogMonitorController<T> implements MonitorController<T> {
+export class SingleLogMonitorController<T>
+	implements ValueController<Buffer<T>> {
 	public readonly viewModel: ViewModel;
 	public readonly value: BufferedValue<T>;
-	public readonly view: SingleLogMonitorView<T>;
+	public readonly view: SingleLogView<T>;
 
 	constructor(document: Document, config: Config<T>) {
 		this.value = config.value;
 
 		this.viewModel = config.viewModel;
-		this.view = new SingleLogMonitorView(document, {
+		this.view = new SingleLogView(document, {
 			formatter: config.formatter,
 			model: this.viewModel,
 			value: this.value,

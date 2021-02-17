@@ -4,10 +4,10 @@ import * as DisposingUtil from '../../misc/disposing-util';
 import * as DomUtil from '../../misc/dom-util';
 import {NumberUtil} from '../../misc/number-util';
 import {PaneError} from '../../misc/pane-error';
-import {BufferedValue} from '../../model/buffered-value';
+import {Buffer, BufferedValue} from '../../model/buffered-value';
 import {GraphCursor} from '../../model/graph-cursor';
 import {View, ViewConfig} from '../view';
-import {MonitorView} from './monitor';
+import {ValueView} from './value';
 
 const SVG_NS = DomUtil.SVG_NS;
 
@@ -25,7 +25,7 @@ const className = ClassName('grp', 'monitor');
 /**
  * @hidden
  */
-export class GraphMonitorView extends View implements MonitorView<number> {
+export class GraphLogView extends View implements ValueView<Buffer<number>> {
 	public readonly value: BufferedValue<number>;
 	private cursor_: GraphCursor;
 	private formatter_: Formatter<number>;

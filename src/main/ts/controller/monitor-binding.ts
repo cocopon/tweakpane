@@ -1,11 +1,12 @@
 import {MonitorBinding} from '../binding/monitor';
+import {Buffer} from '../model/buffered-value';
 import {ViewModel} from '../model/view-model';
 import {LabeledView} from '../view/labeled';
-import {MonitorController} from './monitor/monitor';
+import {ValueController} from './input/value';
 
 interface Config<In> {
 	binding: MonitorBinding<In>;
-	controller: MonitorController<In>;
+	controller: ValueController<Buffer<In>>;
 	label: string;
 }
 
@@ -14,7 +15,7 @@ interface Config<In> {
  */
 export class MonitorBindingController<In> {
 	public readonly binding: MonitorBinding<In>;
-	public readonly controller: MonitorController<In>;
+	public readonly controller: ValueController<Buffer<In>>;
 	public readonly view: LabeledView;
 
 	constructor(document: Document, config: Config<In>) {

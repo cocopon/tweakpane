@@ -1,8 +1,8 @@
 import {Formatter} from '../../formatter/formatter';
-import {BufferedValue} from '../../model/buffered-value';
+import {Buffer, BufferedValue} from '../../model/buffered-value';
 import {ViewModel} from '../../model/view-model';
-import {MultiLogMonitorView} from '../../view/value/multi-log';
-import {MonitorController} from './monitor';
+import {MultiLogView} from '../../view/value/multi-log';
+import {ValueController} from '../input/value';
 
 interface Config<T> {
 	formatter: Formatter<T>;
@@ -14,16 +14,16 @@ interface Config<T> {
 /**
  * @hidden
  */
-export class MultiLogMonitorController<T> implements MonitorController<T> {
+export class MultiLogController<T> implements ValueController<Buffer<T>> {
 	public readonly viewModel: ViewModel;
 	public readonly value: BufferedValue<T>;
-	public readonly view: MultiLogMonitorView<T>;
+	public readonly view: MultiLogView<T>;
 
 	constructor(document: Document, config: Config<T>) {
 		this.value = config.value;
 
 		this.viewModel = config.viewModel;
-		this.view = new MultiLogMonitorView(document, {
+		this.view = new MultiLogView(document, {
 			formatter: config.formatter,
 			lineCount: config.lineCount,
 			model: this.viewModel,

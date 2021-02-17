@@ -2,7 +2,7 @@ import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
 import {MonitorBinding} from '../binding/monitor';
-import {MultiLogMonitorController} from '../controller/monitor/multi-log';
+import {MultiLogController} from '../controller/monitor/multi-log';
 import {SingleLogMonitorController} from '../controller/monitor/single-log';
 import {TestUtil} from '../misc/test-util';
 import {IntervalTicker} from '../misc/ticker/interval';
@@ -22,7 +22,7 @@ describe(PlainTweakpane.name, () => {
 			value: 'foobar',
 		},
 		{
-			expectedClass: MultiLogMonitorController,
+			expectedClass: MultiLogController,
 			params: {
 				count: 10,
 			},

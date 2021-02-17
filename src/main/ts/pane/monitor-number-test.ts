@@ -2,8 +2,8 @@ import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
 import {MonitorBinding} from '../binding/monitor';
-import {GraphMonitorController} from '../controller/monitor/graph';
-import {MultiLogMonitorController} from '../controller/monitor/multi-log';
+import {GraphLogController} from '../controller/monitor/graph-log';
+import {MultiLogController} from '../controller/monitor/multi-log';
 import {SingleLogMonitorController} from '../controller/monitor/single-log';
 import {TestUtil} from '../misc/test-util';
 import {IntervalTicker} from '../misc/ticker/interval';
@@ -23,14 +23,14 @@ describe(PlainTweakpane.name, () => {
 			value: 123,
 		},
 		{
-			expectedClass: MultiLogMonitorController,
+			expectedClass: MultiLogController,
 			params: {
 				count: 10,
 			},
 			value: 123,
 		},
 		{
-			expectedClass: GraphMonitorController,
+			expectedClass: GraphLogController,
 			params: {
 				view: 'graph',
 			},

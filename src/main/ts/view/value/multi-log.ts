@@ -2,9 +2,9 @@ import {Formatter} from '../../formatter/formatter';
 import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
 import {PaneError} from '../../misc/pane-error';
-import {BufferedValue} from '../../model/buffered-value';
+import {Buffer, BufferedValue} from '../../model/buffered-value';
 import {View, ViewConfig} from '../view';
-import {MonitorView} from './monitor';
+import {ValueView} from './value';
 
 interface Config<T> extends ViewConfig {
 	formatter: Formatter<T>;
@@ -17,7 +17,7 @@ const className = ClassName('mll', 'monitor');
 /**
  * @hidden
  */
-export class MultiLogMonitorView<T> extends View implements MonitorView<T> {
+export class MultiLogView<T> extends View implements ValueView<Buffer<T>> {
 	public readonly value: BufferedValue<T>;
 	private formatter_: Formatter<T>;
 	private textareaElem_: HTMLTextAreaElement | null;

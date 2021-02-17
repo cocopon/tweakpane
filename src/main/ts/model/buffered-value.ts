@@ -1,7 +1,10 @@
 import {TypeUtil} from '../misc/type-util';
 import {Value} from './value';
 
-type Buffer<T> = (T | undefined)[];
+/**
+ * @hidden
+ */
+export type Buffer<T> = (T | undefined)[];
 
 /**
  * @hidden
