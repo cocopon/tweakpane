@@ -1,0 +1,103 @@
+%folder_title {
+	@include resetInput();
+
+	background-color: var(--folder-background-color);
+	color: var(--folder-foreground-color);
+	cursor: pointer;
+	display: block;
+	height: calc(var(--unit-size) + 4px);
+	line-height: calc(var(--unit-size) + 4px);
+	overflow: hidden;
+	padding-left: (4px + 24px);
+	position: relative;
+	text-align: left;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 100%;
+
+	// Delay border-radius transition to avoid unwanted clipping
+	transition: border-radius $folder-transition-duration ease-in-out
+		$folder-transition-duration;
+
+	&:hover {
+		background-color: var(--folder-background-color-hover);
+	}
+	&:focus {
+		background-color: var(--folder-background-color-focus);
+	}
+	&:active {
+		background-color: var(--folder-background-color-active);
+	}
+}
+
+%folder_mark {
+	background: linear-gradient(
+		to left,
+		var(--folder-foreground-color),
+		var(--folder-foreground-color) 2px,
+		transparent 2px,
+		transparent 4px,
+		var(--folder-foreground-color) 4px
+	);
+	border-radius: 2px;
+	bottom: 0;
+	content: '';
+	display: block;
+	height: 6px;
+	left: (4px + (24px - 6px) / 2);
+	margin: auto;
+	opacity: 0.5;
+	position: absolute;
+	top: 0;
+	transform: rotate(90deg);
+	transition: transform $folder-transition-duration ease-in-out;
+	width: 6px;
+}
+
+%folder_mark-expanded {
+	transform: none;
+}
+
+%folder_container {
+	box-sizing: border-box;
+	height: 0;
+	opacity: 0;
+	overflow: hidden;
+	padding-bottom: 0;
+	padding-top: 0;
+	position: relative;
+	transition: height $folder-transition-duration ease-in-out,
+		opacity $folder-transition-duration linear,
+		padding $folder-transition-duration ease-in-out;
+
+	& > .#{$prefix}-fldv.#{$prefix}-v-first {
+		margin-top: -4px;
+	}
+	& > .#{$prefix}-fldv.#{$prefix}-v-last {
+		margin-bottom: -4px;
+	}
+
+	& > *:not(.#{$prefix}-v-first) {
+		margin-top: 4px;
+	}
+	& > .#{$prefix}-fldv:not(.#{$prefix}-v-hidden) + .#{$prefix}-fldv {
+		margin-top: 0;
+	}
+	& > .#{$prefix}-sptv:not(.#{$prefix}-v-hidden) + .#{$prefix}-sptv {
+		margin-top: 0;
+	}
+}
+%folder_container-expanded {
+	opacity: 1;
+	padding-bottom: 4px;
+	padding-top: 4px;
+	transform: none;
+
+	// Clip subviews without `overflow: hidden` for popup elements (e.g. color picker)
+	overflow: visible;
+
+	// Delay opacity transition to avoid overflow contents
+	transition: height $folder-transition-duration ease-in-out,
+		opacity $folder-transition-duration linear $folder-transition-duration,
+		padding $folder-transition-duration ease-in-out;
+}
