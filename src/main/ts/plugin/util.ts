@@ -3,6 +3,9 @@ import {ListConstraint, ListItem} from '../constraint/list';
 import {ConstraintUtil} from '../constraint/util';
 import {getStepForTextInput} from '../controller/ui-util';
 
+/**
+ * @hidden
+ */
 export function findListItems<T>(
 	constraint: Constraint<T> | undefined,
 ): ListItem<T>[] | null {
@@ -19,6 +22,9 @@ export function findListItems<T>(
 	return c.options;
 }
 
+/**
+ * @hidden
+ */
 export function getBaseStep(
 	constraint: Constraint<number> | undefined,
 ): number {

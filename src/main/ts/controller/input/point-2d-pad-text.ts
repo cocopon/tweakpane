@@ -11,6 +11,7 @@ import {Point2dTextInputController} from './point-2d-text';
 
 interface Config {
 	invertsY: boolean;
+	maxValue: number;
 	parser: Parser<string, number>;
 	value: InputValue<Point2d>;
 	viewModel: ViewModel;
@@ -39,6 +40,7 @@ export class Point2dPadTextInputController implements InputController<Point2d> {
 		this.viewModel = config.viewModel;
 		this.padIc_ = new Point2dPadInputController(document, {
 			invertsY: config.invertsY,
+			maxValue: config.maxValue,
 			value: this.value,
 			viewModel: this.viewModel,
 			xBaseStep: config.xBaseStep,

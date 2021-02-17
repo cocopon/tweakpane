@@ -4,6 +4,7 @@ import {Constraint} from '../../constraint/constraint';
 import {Point2dConstraint} from '../../constraint/point-2d';
 import {RangeConstraint} from '../../constraint/range';
 import {StepConstraint} from '../../constraint/step';
+import {ConstraintUtil} from '../../constraint/util';
 import {Point2dPadTextInputController} from '../../controller/input/point-2d-pad-text';
 import * as UiUtil from '../../controller/ui-util';
 import * as Point2dConverter from '../../converter/point-2d';
@@ -52,6 +53,40 @@ function createConstraint(params: InputParams): Constraint<Point2d> {
 	});
 }
 
+function getSuitableMaxDimensionValue(
+	constraint: Constraint<number> | undefined,
+	rawValue: number,
+): number {
+	const rc =
+		constraint && ConstraintUtil.findConstraint(constraint, RangeConstraint);
+	if (rc) {
+		return Math.max(Math.abs(rc.minValue || 0), Math.abs(rc.maxValue || 0));
+	}
+
+	const step = UiUtil.getStepForTextInput(constraint);
+	return Math.max(Math.abs(step) * 10, Math.abs(rawValue) * 10);
+}
+
+/**
+ * @hidden
+ */
+export function getSuitableMaxValue(
+	initialValue: Point2d,
+	constraint: Constraint<Point2d> | undefined,
+): number {
+	const xc =
+		constraint instanceof Point2dConstraint
+			? constraint.xConstraint
+			: undefined;
+	const yc =
+		constraint instanceof Point2dConstraint
+			? constraint.yConstraint
+			: undefined;
+	const xr = getSuitableMaxDimensionValue(xc, initialValue.x);
+	const yr = getSuitableMaxDimensionValue(yc, initialValue.y);
+	return Math.max(xr, yr);
+}
+
 function createController(
 	document: Document,
 	value: InputValue<Point2d>,
@@ -62,8 +97,10 @@ function createController(
 		throw PaneError.shouldNeverHappen();
 	}
 
+	console.log(value, getSuitableMaxValue(value.rawValue, value.constraint));
 	return new Point2dPadTextInputController(document, {
 		invertsY: invertsY,
+		maxValue: getSuitableMaxValue(value.rawValue, value.constraint),
 		parser: StringNumberParser,
 		value: value,
 		viewModel: new ViewModel(),

@@ -12,6 +12,7 @@ import {InputController} from './input';
 
 interface Config {
 	invertsY: boolean;
+	maxValue: number;
 	value: InputValue<Point2d>;
 	viewModel: ViewModel;
 	xBaseStep: number;
@@ -44,10 +45,7 @@ export class Point2dPadInputController implements InputController<Point2d> {
 		this.value = config.value;
 		this.foldable = new Foldable();
 
-		this.maxValue_ = UiUtil.getSuitableMaxValueForPoint2dPad(
-			this.value.constraint,
-			this.value.rawValue,
-		);
+		this.maxValue_ = config.maxValue;
 		this.invertsY_ = config.invertsY;
 
 		this.xBaseStep_ = config.xBaseStep;
