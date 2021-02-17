@@ -2,9 +2,9 @@ import {InputParams} from '../api/types';
 import {InputBinding} from '../binding/input';
 import {Constraint} from '../constraint/constraint';
 import {InputBindingController} from '../controller/input-binding';
-import {InputController} from '../controller/input/input';
-import {InputValue} from '../model/input-value';
+import {ValueController} from '../controller/value/value';
 import {Target} from '../model/target';
+import {Value} from '../model/value';
 
 interface ValueArgs<Ex> {
 	initialValue: Ex;
@@ -35,7 +35,7 @@ export interface InputBindingPlugin<In, Ex> {
 		// Convert In into Ex
 		writer: (args: ValueArgs<Ex>) => (value: In) => Ex;
 	};
-	controller: (args: ControllerArgs<In, Ex>) => InputController<In>;
+	controller: (args: ControllerArgs<In, Ex>) => ValueController<In>;
 }
 
 export function createController<In, Ex>(
@@ -61,11 +61,10 @@ export function createController<In, Ex>(
 	const constraint = plugin.model.constraint
 		? plugin.model.constraint(valueArgs)
 		: undefined;
-	const value = new InputValue(
-		reader(initialValue),
-		constraint,
-		plugin.model.equals,
-	);
+	const value = new Value(reader(initialValue), {
+		constraint: constraint,
+		equals: plugin.model.equals,
+	});
 	const binding = new InputBinding({
 		reader: reader,
 		target: args.target,

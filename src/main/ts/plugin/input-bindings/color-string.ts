@@ -1,4 +1,4 @@
-import {ColorSwatchTextInputController} from '../../controller/input/color-swatch-text';
+import {ColorSwatchTextController} from '../../controller/value/color-swatch-text';
 import * as ColorConverter from '../../converter/color';
 import {ColorFormatter} from '../../formatter/color';
 import {PaneError} from '../../misc/pane-error';
@@ -41,7 +41,7 @@ export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
 			throw PaneError.shouldNeverHappen();
 		}
 
-		return new ColorSwatchTextInputController(args.document, {
+		return new ColorSwatchTextController(args.document, {
 			formatter: new ColorFormatter(args.binding.writer),
 			parser: StringColorParser.CompositeParser,
 			supportsAlpha: StringColorParser.hasAlphaComponent(notation),

@@ -2,8 +2,8 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import * as NumberConverter from '../converter/number';
-import {InputValue} from '../model/input-value';
 import {Target} from '../model/target';
+import {Value} from '../model/value';
 import {InputBinding} from './input';
 
 describe(InputBinding.name, () => {
@@ -12,7 +12,7 @@ describe(InputBinding.name, () => {
 			foo: 123,
 		};
 		const target = new Target(obj, 'foo');
-		const value = new InputValue(0);
+		const value = new Value(0);
 		const b = new InputBinding({
 			reader: NumberConverter.fromMixed,
 			target: target,
@@ -28,7 +28,7 @@ describe(InputBinding.name, () => {
 			foo: 123,
 		};
 		const target = new Target(obj, 'foo');
-		const value = new InputValue(0);
+		const value = new Value(0);
 		// tslint:disable-next-line:no-unused-expression
 		new InputBinding({
 			reader: NumberConverter.fromMixed,
@@ -51,7 +51,7 @@ describe(InputBinding.name, () => {
 	it('should not apply binding value to undefined field', () => {
 		const obj = {};
 		const target = new Target(obj, 'foo');
-		const value = new InputValue(0);
+		const value = new Value(0);
 		// tslint:disable-next-line:no-unused-expression
 		new InputBinding({
 			reader: NumberConverter.fromMixed,

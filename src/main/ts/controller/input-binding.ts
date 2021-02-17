@@ -1,11 +1,11 @@
 import {InputBinding} from '../binding/input';
 import {ViewModel} from '../model/view-model';
 import {LabeledView} from '../view/labeled';
-import {InputController} from './input/input';
+import {ValueController} from './value/value';
 
 interface Config<In, Ex> {
 	binding: InputBinding<In, Ex>;
-	controller: InputController<In>;
+	controller: ValueController<In>;
 	label: string;
 }
 
@@ -14,7 +14,7 @@ interface Config<In, Ex> {
  */
 export class InputBindingController<In, Ex> {
 	public readonly binding: InputBinding<In, Ex>;
-	public readonly controller: InputController<In>;
+	public readonly controller: ValueController<In>;
 	public readonly view: LabeledView;
 
 	constructor(document: Document, config: Config<In, Ex>) {

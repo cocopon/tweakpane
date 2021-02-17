@@ -1,13 +1,13 @@
 import {MonitorParams} from '../api/types';
 import {MonitorBinding} from '../binding/monitor';
 import {MonitorBindingController} from '../controller/monitor-binding';
-import {MonitorController} from '../controller/monitor/monitor';
+import {ValueController} from '../controller/value/value';
 import {Constants} from '../misc/constants';
 import {IntervalTicker} from '../misc/ticker/interval';
 import {ManualTicker} from '../misc/ticker/manual';
 import {Ticker} from '../misc/ticker/ticker';
 import {TypeUtil} from '../misc/type-util';
-import {MonitorValue} from '../model/monitor-value';
+import {Buffer, initializeBuffer} from '../model/buffered-value';
 import {Target} from '../model/target';
 
 interface ValueArguments<Ex> {
@@ -33,7 +33,7 @@ export interface MonitorBindingPlugin<In, Ex> {
 		// Misc
 		defaultBufferSize: (params: MonitorParams) => number;
 	};
-	controller: (args: ControllerArguments<In>) => MonitorController<In>;
+	controller: (args: ControllerArguments<In>) => ValueController<Buffer<In>>;
 }
 
 function createTicker(
@@ -75,12 +75,11 @@ export function createController<In, Ex>(
 		TypeUtil.getOrDefault(args.params.bufferSize, args.params.count),
 		plugin.model.defaultBufferSize(args.params),
 	);
-	const value = new MonitorValue<In>(bufferSize);
 	const binding = new MonitorBinding({
 		reader: reader,
 		target: args.target,
 		ticker: createTicker(args.document, args.params.interval),
-		value: value,
+		value: initializeBuffer(reader(initialValue), bufferSize),
 	});
 
 	return new MonitorBindingController(args.document, {

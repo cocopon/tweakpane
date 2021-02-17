@@ -1,13 +1,14 @@
 import {MonitorParams} from '../../api/types';
 import {MonitorBinding} from '../../binding/monitor';
-import {GraphMonitorController} from '../../controller/monitor/graph';
-import {MonitorController} from '../../controller/monitor/monitor';
-import {MultiLogMonitorController} from '../../controller/monitor/multi-log';
-import {SingleLogMonitorController} from '../../controller/monitor/single-log';
+import {GraphLogController} from '../../controller/value/graph-log';
+import {MultiLogController} from '../../controller/value/multi-log';
+import {SingleLogMonitorController} from '../../controller/value/single-log';
+import {ValueController} from '../../controller/value/value';
 import * as NumberConverter from '../../converter/number';
 import {NumberFormatter} from '../../formatter/number';
 import {Constants} from '../../misc/constants';
 import {TypeUtil} from '../../misc/type-util';
+import {Buffer} from '../../model/buffered-value';
 import {ViewModel} from '../../model/view-model';
 import {MonitorBindingPlugin} from '../monitor-binding';
 
@@ -20,8 +21,8 @@ function createTextMonitor(
 	document: Document,
 	binding: MonitorBinding<number>,
 	params: MonitorParams,
-): MonitorController<number> {
-	if (binding.value.bufferSize === 1) {
+): ValueController<Buffer<number>> {
+	if (binding.value.rawValue.length === 1) {
 		return new SingleLogMonitorController(document, {
 			formatter: createFormatter(),
 			value: binding.value,
@@ -29,7 +30,7 @@ function createTextMonitor(
 		});
 	}
 
-	return new MultiLogMonitorController(document, {
+	return new MultiLogController(document, {
 		formatter: createFormatter(),
 		lineCount: TypeUtil.getOrDefault(
 			params.lineCount,
@@ -40,12 +41,16 @@ function createTextMonitor(
 	});
 }
 
-function createGraphMonitor(
-	document: Document,
-	binding: MonitorBinding<number>,
-	params: MonitorParams,
-): MonitorController<number> {
-	return new GraphMonitorController(document, {
+function createGraphMonitor({
+	document,
+	binding,
+	params,
+}: {
+	document: Document;
+	binding: MonitorBinding<number>;
+	params: MonitorParams;
+}): ValueController<Buffer<number>> {
+	return new GraphLogController(document, {
 		formatter: createFormatter(),
 		lineCount: TypeUtil.getOrDefault(
 			params.lineCount,
@@ -79,7 +84,11 @@ export const NumberMonitorPlugin: MonitorBindingPlugin<number, number> = {
 	},
 	controller: (args) => {
 		if (shouldShowGraph(args.params)) {
-			return createGraphMonitor(args.document, args.binding, args.params);
+			return createGraphMonitor({
+				document: args.document,
+				binding: args.binding,
+				params: args.params,
+			});
 		}
 		return createTextMonitor(args.document, args.binding, args.params);
 	},

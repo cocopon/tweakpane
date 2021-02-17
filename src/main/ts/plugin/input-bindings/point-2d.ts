@@ -5,13 +5,13 @@ import {Point2dConstraint} from '../../constraint/point-2d';
 import {RangeConstraint} from '../../constraint/range';
 import {StepConstraint} from '../../constraint/step';
 import {ConstraintUtil} from '../../constraint/util';
-import {Point2dPadTextInputController} from '../../controller/input/point-2d-pad-text';
+import {Point2dPadTextController} from '../../controller/value/point-2d-pad-text';
 import * as Point2dConverter from '../../converter/point-2d';
 import {NumberFormatter} from '../../formatter/number';
 import {PaneError} from '../../misc/pane-error';
 import {TypeUtil} from '../../misc/type-util';
-import {InputValue} from '../../model/input-value';
 import {Point2d, Point2dObject} from '../../model/point-2d';
+import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
 import {InputBindingPlugin} from '../input-binding';
@@ -89,7 +89,7 @@ export function getSuitableMaxValue(
 
 function createController(
 	document: Document,
-	value: InputValue<Point2d>,
+	value: Value<Point2d>,
 	invertsY: boolean,
 ) {
 	const c = value.constraint;
@@ -97,7 +97,7 @@ function createController(
 		throw PaneError.shouldNeverHappen();
 	}
 
-	return new Point2dPadTextInputController(document, {
+	return new Point2dPadTextController(document, {
 		invertsY: invertsY,
 		maxValue: getSuitableMaxValue(value.rawValue, value.constraint),
 		parser: StringNumberParser,

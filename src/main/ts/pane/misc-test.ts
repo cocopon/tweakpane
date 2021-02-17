@@ -3,7 +3,7 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../misc/test-util';
 import {TypeUtil} from '../misc/type-util';
-import {InputValue} from '../model/input-value';
+import {Value} from '../model/value';
 import {PlainTweakpane} from './plain-tweakpane';
 
 function createPane(): PlainTweakpane {
@@ -23,7 +23,7 @@ describe(PlainTweakpane.name, () => {
 		});
 
 		const bapi = pane.addInput(obj, 'foo');
-		const value: InputValue<number> = TypeUtil.forceCast(
+		const value: Value<number> = TypeUtil.forceCast(
 			bapi.controller.binding.value,
 		);
 		value.rawValue += 1;
@@ -42,7 +42,7 @@ describe(PlainTweakpane.name, () => {
 		});
 
 		const bapi = fapi.addInput(obj, 'foo');
-		const value: InputValue<number> = TypeUtil.forceCast(
+		const value: Value<number> = TypeUtil.forceCast(
 			bapi.controller.binding.value,
 		);
 		value.rawValue += 1;
@@ -72,7 +72,7 @@ describe(PlainTweakpane.name, () => {
 
 		assert.strictEqual(i1.controller.binding.value.rawValue, 2);
 		assert.strictEqual(i2.controller.binding.value.rawValue, 'changed');
-		assert.strictEqual(m1.controller.binding.value.rawValues[0], 456);
+		assert.strictEqual(m1.controller.binding.value.rawValue[0], 456);
 	});
 
 	it('should get expanded', () => {

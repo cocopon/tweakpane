@@ -1,9 +1,2 @@
 @import './graph';
 @import './log';
-
-// colorswatch
-.#{$prefix}-cswmv {
-	&_sw {
-		@include monitorView();
-	}
-}

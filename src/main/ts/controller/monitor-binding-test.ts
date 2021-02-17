@@ -6,11 +6,11 @@ import * as NumberConverter from '../converter/number';
 import {NumberFormatter} from '../formatter/number';
 import {TestUtil} from '../misc/test-util';
 import {ManualTicker} from '../misc/ticker/manual';
-import {MonitorValue} from '../model/monitor-value';
 import {Target} from '../model/target';
+import {Value} from '../model/value';
 import {ViewModel} from '../model/view-model';
 import {MonitorBindingController} from './monitor-binding';
-import {SingleLogMonitorController} from './monitor/single-log';
+import {SingleLogMonitorController} from './value/single-log';
 
 describe(MonitorBindingController.name, () => {
 	it('should get properties', () => {
@@ -18,7 +18,7 @@ describe(MonitorBindingController.name, () => {
 			foo: 123,
 		};
 		const doc = TestUtil.createWindow().document;
-		const value = new MonitorValue(10);
+		const value = new Value(Array(10).fill(undefined));
 		const binding = new MonitorBinding({
 			reader: NumberConverter.fromMixed,
 			target: new Target(obj, 'foo'),

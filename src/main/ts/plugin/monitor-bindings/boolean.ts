@@ -1,5 +1,5 @@
-import {MultiLogMonitorController} from '../../controller/monitor/multi-log';
-import {SingleLogMonitorController} from '../../controller/monitor/single-log';
+import {MultiLogController} from '../../controller/value/multi-log';
+import {SingleLogMonitorController} from '../../controller/value/single-log';
 import * as BooleanConverter from '../../converter/boolean';
 import {BooleanFormatter} from '../../formatter/boolean';
 import {Constants} from '../../misc/constants';
@@ -17,7 +17,7 @@ export const BooleanMonitorPlugin: MonitorBindingPlugin<boolean, boolean> = {
 		reader: (_args) => BooleanConverter.fromMixed,
 	},
 	controller: (args) => {
-		if (args.binding.value.bufferSize === 1) {
+		if (args.binding.value.rawValue.length === 1) {
 			return new SingleLogMonitorController(args.document, {
 				viewModel: new ViewModel(),
 				formatter: new BooleanFormatter(),
@@ -25,7 +25,7 @@ export const BooleanMonitorPlugin: MonitorBindingPlugin<boolean, boolean> = {
 			});
 		}
 
-		return new MultiLogMonitorController(args.document, {
+		return new MultiLogController(args.document, {
 			viewModel: new ViewModel(),
 			formatter: new BooleanFormatter(),
 			lineCount: TypeUtil.getOrDefault(
