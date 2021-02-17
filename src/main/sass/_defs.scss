@@ -97,11 +97,6 @@ $z-index-picker: 1000;
 	padding: 0;
 }
 
-@mixin propertyView() {
-	display: block;
-	padding: 0;
-}
-
 @mixin monitorView() {
 	@include resetInput();
 

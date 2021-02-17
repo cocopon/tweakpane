@@ -1,6 +1,4 @@
 .#{$prefix}-txtv {
-	@include propertyView();
-
 	&_i {
 		@include inputView();
 

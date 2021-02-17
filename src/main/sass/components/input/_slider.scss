@@ -1,6 +1,4 @@
 .#{$prefix}-sldv {
-	@include propertyView();
-
 	&_o {
 		box-sizing: border-box;
 		cursor: pointer;
