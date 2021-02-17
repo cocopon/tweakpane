@@ -6,6 +6,7 @@ import * as NumberConverter from '../../converter/number';
 import {TestUtil} from '../../misc/test-util';
 import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
+import {findListItems} from '../../plugin/util';
 import {ListInputController} from './list';
 
 describe(ListInputController.name, () => {
@@ -22,6 +23,7 @@ describe(ListInputController.name, () => {
 		);
 		const doc = TestUtil.createWindow().document;
 		const c = new ListInputController(doc, {
+			listItems: findListItems(value.constraint) ?? [],
 			stringifyValue: NumberConverter.toString,
 			value: value,
 			viewModel: new ViewModel(),
@@ -44,6 +46,7 @@ describe(ListInputController.name, () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new ListInputController(doc, {
+			listItems: findListItems(value.constraint) ?? [],
 			stringifyValue: NumberConverter.toString,
 			value: value,
 			viewModel: new ViewModel(),
@@ -68,6 +71,7 @@ describe(ListInputController.name, () => {
 		);
 		const doc = TestUtil.createWindow().document;
 		const c = new ListInputController(doc, {
+			listItems: findListItems(value.constraint) ?? [],
 			viewModel: new ViewModel(),
 			stringifyValue: NumberConverter.toString,
 			value: value,

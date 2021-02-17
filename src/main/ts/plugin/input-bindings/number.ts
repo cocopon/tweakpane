@@ -16,6 +16,7 @@ import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
 import {InputBindingPlugin} from '../input-binding';
+import {findListItems} from '../util';
 
 function createConstraint(params: InputParams): Constraint<number> {
 	const constraints: Constraint<number>[] = [];
@@ -61,6 +62,7 @@ function createController(document: Document, value: InputValue<number>) {
 
 	if (c && ConstraintUtil.findConstraint(c, ListConstraint)) {
 		return new ListInputController(document, {
+			listItems: findListItems(c) ?? [],
 			stringifyValue: NumberConverter.toString,
 			value: value,
 			viewModel: new ViewModel(),

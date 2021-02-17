@@ -1,6 +1,4 @@
-import {ListConstraint} from '../../constraint/list';
 import {ListItem} from '../../constraint/list';
-import {ConstraintUtil} from '../../constraint/util';
 import {TypeUtil} from '../../misc/type-util';
 import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
@@ -8,23 +6,10 @@ import {ListInputView} from '../../view/input/list';
 import {InputController} from './input';
 
 interface Config<T> {
+	listItems: ListItem<T>[];
 	stringifyValue: (value: T) => string;
 	value: InputValue<T>;
 	viewModel: ViewModel;
-}
-
-function findListItems<T>(value: InputValue<T>): ListItem<T>[] | null {
-	const c = value.constraint
-		? ConstraintUtil.findConstraint<ListConstraint<T>>(
-				value.constraint,
-				ListConstraint,
-		  )
-		: null;
-	if (!c) {
-		return null;
-	}
-
-	return c.options;
 }
 
 /**
@@ -41,7 +26,7 @@ export class ListInputController<T> implements InputController<T> {
 
 		this.value_ = config.value;
 
-		this.listItems_ = findListItems(this.value_) || [];
+		this.listItems_ = config.listItems;
 		this.viewModel = config.viewModel;
 		this.view_ = new ListInputView(document, {
 			model: this.viewModel,

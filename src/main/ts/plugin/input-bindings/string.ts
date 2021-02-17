@@ -11,6 +11,7 @@ import {StringFormatter} from '../../formatter/string';
 import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {InputBindingPlugin} from '../input-binding';
+import {findListItems} from '../util';
 
 function createConstraint(params: InputParams): Constraint<string> {
 	const constraints: Constraint<string>[] = [];
@@ -36,6 +37,7 @@ function createController(document: Document, value: InputValue<string>) {
 
 	if (c && ConstraintUtil.findConstraint(c, ListConstraint)) {
 		return new ListInputController(document, {
+			listItems: findListItems(c) ?? [],
 			stringifyValue: StringConverter.toString,
 			value: value,
 			viewModel: new ViewModel(),

@@ -10,6 +10,7 @@ import * as BooleanConverter from '../../converter/boolean';
 import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {InputBindingPlugin} from '../input-binding';
+import {findListItems} from '../util';
 
 function createConstraint(params: InputParams): Constraint<boolean> {
 	const constraints: Constraint<boolean>[] = [];
@@ -35,6 +36,7 @@ function createController(document: Document, value: InputValue<boolean>) {
 
 	if (c && ConstraintUtil.findConstraint(c, ListConstraint)) {
 		return new ListInputController(document, {
+			listItems: findListItems(c) ?? [],
 			viewModel: new ViewModel(),
 			stringifyValue: BooleanConverter.toString,
 			value: value,
