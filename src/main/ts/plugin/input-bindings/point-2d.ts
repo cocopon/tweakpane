@@ -5,7 +5,7 @@ import {Point2dConstraint} from '../../constraint/point-2d';
 import {RangeConstraint} from '../../constraint/range';
 import {StepConstraint} from '../../constraint/step';
 import {ConstraintUtil} from '../../constraint/util';
-import {Point2dPadTextController} from '../../controller/input/point-2d-pad-text';
+import {Point2dPadTextController} from '../../controller/value/point-2d-pad-text';
 import * as Point2dConverter from '../../converter/point-2d';
 import {NumberFormatter} from '../../formatter/number';
 import {PaneError} from '../../misc/pane-error';

@@ -10,7 +10,7 @@ import {Value} from '../model/value';
 import {ViewModel} from '../model/view-model';
 import {StringNumberParser} from '../parser/string-number';
 import {InputBindingController} from './input-binding';
-import {TextController} from './input/text';
+import {TextController} from './value/text';
 
 describe(InputBindingController.name, () => {
 	it('should get properties', () => {

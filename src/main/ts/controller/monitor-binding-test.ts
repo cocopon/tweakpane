@@ -10,7 +10,7 @@ import {Target} from '../model/target';
 import {Value} from '../model/value';
 import {ViewModel} from '../model/view-model';
 import {MonitorBindingController} from './monitor-binding';
-import {SingleLogMonitorController} from './monitor/single-log';
+import {SingleLogMonitorController} from './value/single-log';
 
 describe(MonitorBindingController.name, () => {
 	it('should get properties', () => {

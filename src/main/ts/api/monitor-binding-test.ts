@@ -3,7 +3,7 @@ import {describe, it} from 'mocha';
 
 import {MonitorBinding} from '../binding/monitor';
 import {MonitorBindingController} from '../controller/monitor-binding';
-import {SingleLogMonitorController} from '../controller/monitor/single-log';
+import {SingleLogMonitorController} from '../controller/value/single-log';
 import * as NumberConverter from '../converter/number';
 import {NumberFormatter} from '../formatter/number';
 import {TestUtil} from '../misc/test-util';

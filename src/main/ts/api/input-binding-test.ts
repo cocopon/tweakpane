@@ -3,7 +3,7 @@ import {describe, it} from 'mocha';
 
 import {InputBinding} from '../binding/input';
 import {InputBindingController} from '../controller/input-binding';
-import {NumberTextController} from '../controller/input/number-text';
+import {NumberTextController} from '../controller/value/number-text';
 import * as NumberConverter from '../converter/number';
 import {NumberFormatter} from '../formatter/number';
 import {TestUtil} from '../misc/test-util';

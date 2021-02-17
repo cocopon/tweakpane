@@ -1,5 +1,5 @@
-import {MultiLogController} from '../../controller/monitor/multi-log';
-import {SingleLogMonitorController} from '../../controller/monitor/single-log';
+import {MultiLogController} from '../../controller/value/multi-log';
+import {SingleLogMonitorController} from '../../controller/value/single-log';
 import * as BooleanConverter from '../../converter/boolean';
 import {BooleanFormatter} from '../../formatter/boolean';
 import {Constants} from '../../misc/constants';

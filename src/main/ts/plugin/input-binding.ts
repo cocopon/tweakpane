@@ -2,7 +2,7 @@ import {InputParams} from '../api/types';
 import {InputBinding} from '../binding/input';
 import {Constraint} from '../constraint/constraint';
 import {InputBindingController} from '../controller/input-binding';
-import {ValueController} from '../controller/input/value';
+import {ValueController} from '../controller/value/value';
 import {Target} from '../model/target';
 import {Value} from '../model/value';
 

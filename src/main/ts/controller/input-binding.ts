@@ -1,7 +1,7 @@
 import {InputBinding} from '../binding/input';
 import {ViewModel} from '../model/view-model';
 import {LabeledView} from '../view/labeled';
-import {ValueController} from './input/value';
+import {ValueController} from './value/value';
 
 interface Config<In, Ex> {
 	binding: InputBinding<In, Ex>;

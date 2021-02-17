@@ -1,8 +1,8 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
-import {ListController} from '../controller/input/list';
-import {TextController} from '../controller/input/text';
+import {ListController} from '../controller/value/list';
+import {TextController} from '../controller/value/text';
 import {TestUtil} from '../misc/test-util';
 import {PlainTweakpane} from './plain-tweakpane';
 

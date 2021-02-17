@@ -2,8 +2,8 @@ import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
 import {MonitorBinding} from '../binding/monitor';
-import {MultiLogController} from '../controller/monitor/multi-log';
-import {SingleLogMonitorController} from '../controller/monitor/single-log';
+import {MultiLogController} from '../controller/value/multi-log';
+import {SingleLogMonitorController} from '../controller/value/single-log';
 import {TestUtil} from '../misc/test-util';
 import {IntervalTicker} from '../misc/ticker/interval';
 import {PlainTweakpane} from './plain-tweakpane';

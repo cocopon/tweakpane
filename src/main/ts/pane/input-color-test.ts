@@ -2,8 +2,8 @@ import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
 import {InputParams} from '../api/types';
-import {ColorSwatchTextController} from '../controller/input/color-swatch-text';
-import {ValueController} from '../controller/input/value';
+import {ColorSwatchTextController} from '../controller/value/color-swatch-text';
+import {ValueController} from '../controller/value/value';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
 import {Color} from '../model/color';

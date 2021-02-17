@@ -1,9 +1,9 @@
 import {MonitorParams} from '../../api/types';
 import {MonitorBinding} from '../../binding/monitor';
-import {ValueController} from '../../controller/input/value';
-import {GraphLogController} from '../../controller/monitor/graph-log';
-import {MultiLogController} from '../../controller/monitor/multi-log';
-import {SingleLogMonitorController} from '../../controller/monitor/single-log';
+import {GraphLogController} from '../../controller/value/graph-log';
+import {MultiLogController} from '../../controller/value/multi-log';
+import {SingleLogMonitorController} from '../../controller/value/single-log';
+import {ValueController} from '../../controller/value/value';
 import * as NumberConverter from '../../converter/number';
 import {NumberFormatter} from '../../formatter/number';
 import {Constants} from '../../misc/constants';

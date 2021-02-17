@@ -4,7 +4,7 @@ import {Buffer, BufferedValue} from '../../model/buffered-value';
 import {GraphCursor} from '../../model/graph-cursor';
 import {ViewModel} from '../../model/view-model';
 import {GraphLogView} from '../../view/value/graph-log';
-import {ValueController} from '../input/value';
+import {ValueController} from './value';
 
 interface Config {
 	formatter: Formatter<number>;

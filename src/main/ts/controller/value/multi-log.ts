@@ -2,7 +2,7 @@ import {Formatter} from '../../formatter/formatter';
 import {Buffer, BufferedValue} from '../../model/buffered-value';
 import {ViewModel} from '../../model/view-model';
 import {MultiLogView} from '../../view/value/multi-log';
-import {ValueController} from '../input/value';
+import {ValueController} from '../value/value';
 
 interface Config<T> {
 	formatter: Formatter<T>;

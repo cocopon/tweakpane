@@ -1,5 +1,5 @@
-import {MultiLogController} from '../../controller/monitor/multi-log';
-import {SingleLogMonitorController} from '../../controller/monitor/single-log';
+import {MultiLogController} from '../../controller/value/multi-log';
+import {SingleLogMonitorController} from '../../controller/value/single-log';
 import * as StringConverter from '../../converter/string';
 import {StringFormatter} from '../../formatter/string';
 import {Constants} from '../../misc/constants';

@@ -1,8 +1,8 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
-import {CheckboxController} from '../controller/input/checkbox';
-import {ListController} from '../controller/input/list';
+import {CheckboxController} from '../controller/value/checkbox';
+import {ListController} from '../controller/value/list';
 import {TestUtil} from '../misc/test-util';
 import {PlainTweakpane} from './plain-tweakpane';
 

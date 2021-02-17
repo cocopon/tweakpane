@@ -2,7 +2,7 @@ import {MonitorBinding} from '../binding/monitor';
 import {Buffer} from '../model/buffered-value';
 import {ViewModel} from '../model/view-model';
 import {LabeledView} from '../view/labeled';
-import {ValueController} from './input/value';
+import {ValueController} from './value/value';
 
 interface Config<In> {
 	binding: MonitorBinding<In>;

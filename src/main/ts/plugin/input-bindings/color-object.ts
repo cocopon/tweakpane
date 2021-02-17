@@ -1,4 +1,4 @@
-import {ColorSwatchTextController} from '../../controller/input/color-swatch-text';
+import {ColorSwatchTextController} from '../../controller/value/color-swatch-text';
 import * as ColorConverter from '../../converter/color';
 import {ColorFormatter} from '../../formatter/color';
 import {Color, RgbaColorObject, RgbColorObject} from '../../model/color';
