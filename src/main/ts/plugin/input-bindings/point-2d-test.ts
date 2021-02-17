@@ -1,11 +1,11 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
-import {Constraint} from '../constraint/constraint';
-import {Point2dConstraint} from '../constraint/point-2d';
-import {RangeConstraint} from '../constraint/range';
-import {Point2d} from '../model/point-2d';
-import * as UiUtil from './ui-util';
+import {Constraint} from '../../constraint/constraint';
+import {Point2dConstraint} from '../../constraint/point-2d';
+import {RangeConstraint} from '../../constraint/range';
+import {Point2d} from '../../model/point-2d';
+import {getSuitableMaxValue} from './point-2d';
 
 interface TestCase {
 	expected: number;
@@ -15,7 +15,7 @@ interface TestCase {
 	};
 }
 
-describe('UiUtil', () => {
+describe('Util', () => {
 	[
 		{
 			expected: 10,
@@ -52,9 +52,9 @@ describe('UiUtil', () => {
 	].forEach((testCase: TestCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should return ${testCase.expected}`, () => {
-				const mv = UiUtil.getSuitableMaxValueForPoint2dPad(
-					testCase.params.constraint,
+				const mv = getSuitableMaxValue(
 					testCase.params.rawValue,
+					testCase.params.constraint,
 				);
 				assert.strictEqual(mv, testCase.expected);
 			});

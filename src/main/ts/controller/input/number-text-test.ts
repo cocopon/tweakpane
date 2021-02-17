@@ -13,6 +13,7 @@ describe(NumberTextInputController.name, () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new NumberTextInputController(doc, {
+			baseStep: 1,
 			formatter: new NumberFormatter(0),
 			parser: StringNumberParser,
 			value: new InputValue(123),

@@ -14,6 +14,7 @@ import * as UiUtil from '../ui-util';
 import {InputController} from './input';
 
 interface Config {
+	baseStep: number;
 	value: InputValue<number>;
 	viewModel: ViewModel;
 }
@@ -49,7 +50,7 @@ export class SliderInputController implements InputController<number> {
 	private maxValue_: number;
 	private minValue_: number;
 	private ptHandler_: PointerHandler;
-	private step_: number;
+	private baseStep_: number;
 
 	constructor(document: Document, config: Config) {
 		this.onKeyDown_ = this.onKeyDown_.bind(this);
@@ -58,7 +59,8 @@ export class SliderInputController implements InputController<number> {
 		this.onPointerUp_ = this.onPointerUp_.bind(this);
 
 		this.value = config.value;
-		this.step_ = UiUtil.getStepForTextInput(this.value.constraint);
+		this.baseStep_ = config.baseStep;
+		//TODO:UiUtil.getStepForTextInput(this.value.constraint);
 
 		const [min, max] = estimateSuitableRange(this.value);
 		this.minValue_ = min;
@@ -104,7 +106,7 @@ export class SliderInputController implements InputController<number> {
 
 	private onKeyDown_(ev: KeyboardEvent): void {
 		this.value.rawValue += UiUtil.getStepForKey(
-			this.step_,
+			this.baseStep_,
 			UiUtil.getHorizontalStepKeys(ev),
 		);
 	}

@@ -1,4 +1,3 @@
-import {Point2dConstraint} from '../../constraint/point-2d';
 import * as DomUtil from '../../misc/dom-util';
 import {NumberUtil} from '../../misc/number-util';
 import {PointerHandler, PointerHandlerEvents} from '../../misc/pointer-handler';
@@ -13,8 +12,11 @@ import {InputController} from './input';
 
 interface Config {
 	invertsY: boolean;
+	maxValue: number;
 	value: InputValue<Point2d>;
 	viewModel: ViewModel;
+	xBaseStep: number;
+	yBaseStep: number;
 }
 
 /**
@@ -29,8 +31,8 @@ export class Point2dPadInputController implements InputController<Point2d> {
 	private readonly ptHandler_: PointerHandler;
 	private readonly invertsY_: boolean;
 	private readonly maxValue_: number;
-	private readonly xStep_: number;
-	private readonly yStep_: number;
+	private readonly xBaseStep_: number;
+	private readonly yBaseStep_: number;
 
 	constructor(document: Document, config: Config) {
 		this.onFocusableElementBlur_ = this.onFocusableElementBlur_.bind(this);
@@ -43,19 +45,11 @@ export class Point2dPadInputController implements InputController<Point2d> {
 		this.value = config.value;
 		this.foldable = new Foldable();
 
-		this.maxValue_ = UiUtil.getSuitableMaxValueForPoint2dPad(
-			this.value.constraint,
-			this.value.rawValue,
-		);
+		this.maxValue_ = config.maxValue;
 		this.invertsY_ = config.invertsY;
 
-		const c = this.value.constraint;
-		this.xStep_ = UiUtil.getStepForTextInput(
-			c instanceof Point2dConstraint ? c.xConstraint : undefined,
-		);
-		this.yStep_ = UiUtil.getStepForTextInput(
-			c instanceof Point2dConstraint ? c.yConstraint : undefined,
-		);
+		this.xBaseStep_ = config.xBaseStep;
+		this.yBaseStep_ = config.yBaseStep;
 
 		this.viewModel = config.viewModel;
 		this.view = new Point2dPadInputView(document, {
@@ -112,9 +106,9 @@ export class Point2dPadInputController implements InputController<Point2d> {
 
 		this.value.rawValue = new Point2d(
 			this.value.rawValue.x +
-				UiUtil.getStepForKey(this.xStep_, UiUtil.getHorizontalStepKeys(ev)),
+				UiUtil.getStepForKey(this.xBaseStep_, UiUtil.getHorizontalStepKeys(ev)),
 			this.value.rawValue.y +
-				UiUtil.getStepForKey(this.yStep_, UiUtil.getVerticalStepKeys(ev)) *
+				UiUtil.getStepForKey(this.yBaseStep_, UiUtil.getVerticalStepKeys(ev)) *
 					(this.invertsY_ ? 1 : -1),
 		);
 	}

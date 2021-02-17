@@ -5,11 +5,11 @@ import {ListConstraint} from '../../constraint/list';
 import {ConstraintUtil} from '../../constraint/util';
 import {CheckboxInputController} from '../../controller/input/checkbox';
 import {ListInputController} from '../../controller/input/list';
-import * as UiUtil from '../../controller/ui-util';
 import * as BooleanConverter from '../../converter/boolean';
 import {InputValue} from '../../model/input-value';
 import {ViewModel} from '../../model/view-model';
 import {InputBindingPlugin} from '../input-binding';
+import {findListItems, normalizeInputParamsOptions} from '../util';
 
 function createConstraint(params: InputParams): Constraint<boolean> {
 	const constraints: Constraint<boolean>[] = [];
@@ -17,7 +17,7 @@ function createConstraint(params: InputParams): Constraint<boolean> {
 	if ('options' in params && params.options !== undefined) {
 		constraints.push(
 			new ListConstraint({
-				options: UiUtil.normalizeInputParamsOptions(
+				options: normalizeInputParamsOptions(
 					params.options,
 					BooleanConverter.fromMixed,
 				),
@@ -35,6 +35,7 @@ function createController(document: Document, value: InputValue<boolean>) {
 
 	if (c && ConstraintUtil.findConstraint(c, ListConstraint)) {
 		return new ListInputController(document, {
+			listItems: findListItems(c) ?? [],
 			viewModel: new ViewModel(),
 			stringifyValue: BooleanConverter.toString,
 			value: value,

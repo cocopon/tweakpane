@@ -54,7 +54,7 @@
     "main:prepare": "npm-run-all main:build --serial package:dist",
     "main:test": "run-s main:test:scss main:test:ts",
     "main:test:scss": "prettier --parser scss --list-different 'src/main/sass/**/*.scss'",
-    "main:test:ts": "run-p main:test:ts:*",
+    "main:test:ts": "run-s main:test:ts:static main:test:ts:dynamic main:test:ts:module",
     "main:test:ts:dynamic": "TS_NODE_PROJECT='src/main/tsconfig.json' nyc --extension '.ts' --exclude '**/*-test.ts' mocha --require ts-node/register 'src/main/ts/**/*-test.ts'",
     "main:test:ts:module": "npm pack && node project/setup-test-module.js && (cd test-module && npm install && npm test)",
     "main:test:ts:static": "eslint --ext .ts 'src/main/ts/**/*'",
