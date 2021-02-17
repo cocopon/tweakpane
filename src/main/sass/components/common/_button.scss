@@ -1,5 +1,5 @@
 %button {
-	@include resetInput();
+	@extend %resetUserAgent;
 
 	background-color: var(--button-background-color);
 	border-radius: $input-border-radius;

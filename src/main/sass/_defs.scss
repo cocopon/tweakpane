@@ -85,7 +85,7 @@ $z-index-picker: 1000;
 	@include themeVariable('separator-color', $color-exdark);
 }
 
-@mixin resetInput() {
+%resetUserAgent {
 	appearance: none;
 	background-color: transparent;
 	border-width: 0;
@@ -95,41 +95,6 @@ $z-index-picker: 1000;
 	margin: 0;
 	outline: none;
 	padding: 0;
-}
-
-@mixin monitorView() {
-	@include resetInput();
-
-	background-color: var(--monitor-background-color);
-	border-radius: $input-border-radius;
-	box-sizing: border-box;
-	color: var(--monitor-foreground-color);
-	height: var(--unit-size);
-	width: 100%;
-}
-
-@mixin inputView() {
-	@include resetInput();
-
-	background-color: var(--input-background-color);
-	border-radius: $input-border-radius;
-	box-sizing: border-box;
-	color: var(--input-foreground-color);
-	font-family: inherit;
-	height: var(--unit-size);
-	line-height: var(--unit-size);
-	min-width: 0;
-	width: 100%;
-
-	&:hover {
-		background-color: var(--input-background-color-hover);
-	}
-	&:focus {
-		background-color: var(--input-background-color-focus);
-	}
-	&:active {
-		background-color: var(--input-background-color-active);
-	}
 }
 
 @mixin checker-pattern($color, $size) {

@@ -1,7 +1,9 @@
 @import './defs';
 
-@import './placeholders/button';
-@import './placeholders/folder';
+@import './components/common/button';
+@import './components/common/folder';
+@import './components/common/input';
+@import './components/common/monitor';
 
 @import './components/button';
 @import './components/default-wrapper';

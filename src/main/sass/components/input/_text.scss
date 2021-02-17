@@ -1,6 +1,6 @@
 .#{$prefix}-txtv {
 	&_i {
-		@include inputView();
+		@extend %input;
 
 		padding: 0 4px;
 	}

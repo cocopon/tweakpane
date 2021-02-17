@@ -1,5 +1,5 @@
 %folder_title {
-	@include resetInput();
+	@extend %resetUserAgent;
 
 	background-color: var(--folder-background-color);
 	color: var(--folder-foreground-color);

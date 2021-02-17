@@ -16,7 +16,7 @@
 	border-radius: $input-border-radius;
 
 	&_sw {
-		@include inputView();
+		@extend %input;
 	}
 	&_b {
 		appearance: none;

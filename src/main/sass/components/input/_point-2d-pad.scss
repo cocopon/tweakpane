@@ -14,7 +14,7 @@
 	}
 
 	&_p {
-		@include inputView();
+		@extend %input;
 
 		cursor: crosshair;
 		height: 0;

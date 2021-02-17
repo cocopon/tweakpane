@@ -10,7 +10,7 @@
 		}
 	}
 	&_i {
-		@include inputView();
+		@extend %input;
 
 		padding: 0 4px;
 		width: 100%;

@@ -4,7 +4,7 @@
 		position: relative;
 	}
 	&_i {
-		@include resetInput();
+		@extend %resetUserAgent;
 
 		left: 0;
 		opacity: 0;

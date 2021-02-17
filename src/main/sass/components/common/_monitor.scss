@@ -1,0 +1,10 @@
+%monitor {
+	@extend %resetUserAgent;
+
+	background-color: var(--monitor-background-color);
+	border-radius: $input-border-radius;
+	box-sizing: border-box;
+	color: var(--monitor-foreground-color);
+	height: var(--unit-size);
+	width: 100%;
+}
