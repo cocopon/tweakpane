@@ -5,7 +5,7 @@ import * as DomUtil from '../../misc/dom-util';
 import {NumberUtil} from '../../misc/number-util';
 import {PaneError} from '../../misc/pane-error';
 import {GraphCursor} from '../../model/graph-cursor';
-import {MonitorValue} from '../../model/monitor-value';
+import {MonitorValue} from '../../model/monitor-buffer';
 import {View, ViewConfig} from '../view';
 import {MonitorView} from './monitor';
 
@@ -65,7 +65,7 @@ export class GraphMonitorView extends View implements MonitorView<number> {
 		this.element.appendChild(tooltipElem);
 		this.tooltipElem_ = tooltipElem;
 
-		config.value.emitter.on('update', this.onValueUpdate_);
+		config.value.emitter.on('change', this.onValueUpdate_);
 		this.value = config.value;
 
 		this.update();
@@ -93,13 +93,13 @@ export class GraphMonitorView extends View implements MonitorView<number> {
 		const bounds = this.svgElem_.getBoundingClientRect();
 
 		// Graph
-		const maxIndex = this.value.bufferSize - 1;
+		const maxIndex = this.value.rawValue.bufferSize - 1;
 		const min = this.minValue_;
 		const max = this.maxValue_;
 		this.lineElem_.setAttributeNS(
 			null,
 			'points',
-			this.value.rawValues
+			this.value.rawValue.values
 				.map((v, index) => {
 					const x = NumberUtil.map(index, 0, maxIndex, 0, bounds.width);
 					const y = NumberUtil.map(v, min, max, bounds.height, 0);
@@ -109,7 +109,7 @@ export class GraphMonitorView extends View implements MonitorView<number> {
 		);
 
 		// Cursor
-		const value = this.value.rawValues[this.cursor_.index];
+		const value = this.value.rawValue.values[this.cursor_.index];
 		if (value === undefined) {
 			tooltipElem.classList.remove(className('t', 'valid'));
 			return;

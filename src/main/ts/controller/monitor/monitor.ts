@@ -1,4 +1,4 @@
-import {MonitorValue} from '../../model/monitor-value';
+import {MonitorValue} from '../../model/monitor-buffer';
 import {ViewModel} from '../../model/view-model';
 import {MonitorView} from '../../view/monitor/monitor';
 import {View} from '../../view/view';

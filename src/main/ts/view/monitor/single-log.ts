@@ -2,7 +2,7 @@ import {Formatter} from '../../formatter/formatter';
 import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
 import {PaneError} from '../../misc/pane-error';
-import {MonitorValue} from '../../model/monitor-value';
+import {MonitorValue} from '../../model/monitor-buffer';
 import {View, ViewConfig} from '../view';
 import {MonitorView} from './monitor';
 
@@ -37,7 +37,7 @@ export class SingleLogMonitorView<T> extends View implements MonitorView<T> {
 		this.element.appendChild(inputElem);
 		this.inputElem_ = inputElem;
 
-		config.value.emitter.on('update', this.onValueUpdate_);
+		config.value.emitter.on('change', this.onValueUpdate_);
 		this.value = config.value;
 
 		this.update();
@@ -52,7 +52,7 @@ export class SingleLogMonitorView<T> extends View implements MonitorView<T> {
 			throw PaneError.alreadyDisposed();
 		}
 
-		const values = this.value.rawValues;
+		const values = this.value.rawValue.values;
 		this.inputElem_.value =
 			values.length > 0
 				? this.formatter_.format(values[values.length - 1])

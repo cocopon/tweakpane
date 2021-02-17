@@ -1,5 +1,5 @@
 import {Formatter} from '../../formatter/formatter';
-import {MonitorValue} from '../../model/monitor-value';
+import {MonitorValue} from '../../model/monitor-buffer';
 import {ViewModel} from '../../model/view-model';
 import {SingleLogMonitorView} from '../../view/monitor/single-log';
 import {MonitorController} from './monitor';

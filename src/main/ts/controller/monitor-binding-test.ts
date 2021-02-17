@@ -6,7 +6,7 @@ import * as NumberConverter from '../converter/number';
 import {NumberFormatter} from '../formatter/number';
 import {TestUtil} from '../misc/test-util';
 import {ManualTicker} from '../misc/ticker/manual';
-import {MonitorValue} from '../model/monitor-value';
+import {InputValue} from '../model/input-value';
 import {Target} from '../model/target';
 import {ViewModel} from '../model/view-model';
 import {MonitorBindingController} from './monitor-binding';
@@ -18,7 +18,10 @@ describe(MonitorBindingController.name, () => {
 			foo: 123,
 		};
 		const doc = TestUtil.createWindow().document;
-		const value = new MonitorValue(10);
+		const value = new InputValue({
+			bufferSize: 10,
+			values: [],
+		});
 		const binding = new MonitorBinding({
 			reader: NumberConverter.fromMixed,
 			target: new Target(obj, 'foo'),

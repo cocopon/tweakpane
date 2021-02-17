@@ -2,7 +2,7 @@ import {Formatter} from '../../formatter/formatter';
 import {ClassName} from '../../misc/class-name';
 import * as DisposingUtil from '../../misc/disposing-util';
 import {PaneError} from '../../misc/pane-error';
-import {MonitorValue} from '../../model/monitor-value';
+import {MonitorValue} from '../../model/monitor-buffer';
 import {View, ViewConfig} from '../view';
 import {MonitorView} from './monitor';
 
@@ -38,7 +38,7 @@ export class MultiLogMonitorView<T> extends View implements MonitorView<T> {
 		this.element.appendChild(textareaElem);
 		this.textareaElem_ = textareaElem;
 
-		config.value.emitter.on('update', this.onValueUpdate_);
+		config.value.emitter.on('change', this.onValueUpdate_);
 		this.value = config.value;
 
 		this.update();
@@ -57,7 +57,7 @@ export class MultiLogMonitorView<T> extends View implements MonitorView<T> {
 		const shouldScroll =
 			elem.scrollTop === elem.scrollHeight - elem.clientHeight;
 
-		elem.textContent = this.value.rawValues
+		elem.textContent = this.value.rawValue.values
 			.map((value) => {
 				return this.formatter_.format(value);
 			})

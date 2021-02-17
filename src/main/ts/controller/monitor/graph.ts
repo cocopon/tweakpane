@@ -1,7 +1,7 @@
 import {Formatter} from '../../formatter/formatter';
 import {NumberUtil} from '../../misc/number-util';
 import {GraphCursor} from '../../model/graph-cursor';
-import {MonitorValue} from '../../model/monitor-value';
+import {MonitorValue} from '../../model/monitor-buffer';
 import {ViewModel} from '../../model/view-model';
 import {GraphMonitorView} from '../../view/monitor/graph';
 import {MonitorController} from './monitor';
@@ -59,7 +59,7 @@ export class GraphMonitorController implements MonitorController<number> {
 		const bounds = this.view.graphElement.getBoundingClientRect();
 		const x = e.offsetX;
 		this.cursor_.index = Math.floor(
-			NumberUtil.map(x, 0, bounds.width, 0, this.value.bufferSize),
+			NumberUtil.map(x, 0, bounds.width, 0, this.value.rawValue.bufferSize),
 		);
 	}
 }

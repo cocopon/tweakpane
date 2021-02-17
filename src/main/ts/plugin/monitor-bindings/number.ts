@@ -21,7 +21,7 @@ function createTextMonitor(
 	binding: MonitorBinding<number>,
 	params: MonitorParams,
 ): MonitorController<number> {
-	if (binding.value.bufferSize === 1) {
+	if (binding.value.rawValue.bufferSize === 1) {
 		return new SingleLogMonitorController(document, {
 			formatter: createFormatter(),
 			value: binding.value,
