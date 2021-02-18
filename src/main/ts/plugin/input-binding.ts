@@ -5,6 +5,7 @@ import {InputBindingController} from '../controller/input-binding';
 import {ValueController} from '../controller/value/value';
 import {Target} from '../model/target';
 import {Value} from '../model/value';
+import {BasePlugin} from './plugin';
 
 interface ValueArgs<Ex> {
 	initialValue: Ex;
@@ -20,9 +21,7 @@ interface ControllerArgs<In, Ex> {
 	document: Document;
 }
 
-export interface InputBindingPlugin<In, Ex> {
-	id: string;
-
+export interface InputBindingPlugin<In, Ex> extends BasePlugin {
 	model: {
 		// Accept unknown value as Ex, or deny it
 		accept: (value: unknown, params: InputParams) => Ex | null;

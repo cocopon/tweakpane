@@ -3,7 +3,7 @@ const Tweakpane = require('tweakpane');
 require('../dist/bundle');
 
 const doc = new Jsdom('').window.document;
-const params = {foo: 'test'};
+const params = {foo: 'hello, world'};
 const pane = new Tweakpane({
 	document: doc,
 });

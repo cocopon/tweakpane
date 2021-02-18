@@ -1,13 +1,15 @@
+import Replace from '@rollup/plugin-replace';
 import Typescript from '@rollup/plugin-typescript';
 import NodeSass from 'node-sass';
 
 export default () => {
-	// eslint-disable-next-line no-undef
-	console.log(
-		NodeSass.renderSync({
-			file: 'plugin/src/plugin.scss',
-		}).css.toString(),
-	);
+	const css = NodeSass.renderSync({
+		file: 'plugin/src/plugin.scss',
+		outputStyle: 'compressed',
+	})
+		.css.toString()
+		.replace(/'/g, "\\'")
+		.trim();
 
 	return {
 		input: 'plugin/src/index.ts',
@@ -25,6 +27,9 @@ export default () => {
 			// https://github.com/Microsoft/typescript/issues/6496
 			Typescript({
 				tsconfig: 'plugin/tsconfig.json',
+			}),
+			Replace({
+				__css__: css,
 			}),
 		],
 	};

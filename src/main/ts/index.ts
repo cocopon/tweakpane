@@ -1,3 +1,4 @@
+import {getAllPlugins} from './api/plugins';
 import {RootApi} from './api/root';
 import {RootController} from './controller/root';
 import {ClassName} from './misc/class-name';
@@ -19,27 +20,35 @@ import {BooleanMonitorPlugin} from './plugin/monitor-bindings/boolean';
 import {NumberMonitorPlugin} from './plugin/monitor-bindings/number';
 import {StringMonitorPlugin} from './plugin/monitor-bindings/string';
 
-function createDefaultWrapperElement(document: Document): HTMLElement {
-	const elem = document.createElement('div');
+const STYLE_PREFIX = 'tweakpane';
+
+function createDefaultWrapperElement(doc: Document): HTMLElement {
+	const elem = doc.createElement('div');
 	elem.classList.add(ClassName('dfw')());
-	if (document.body) {
-		document.body.appendChild(elem);
+	if (doc.body) {
+		doc.body.appendChild(elem);
 	}
 	return elem;
 }
 
-function embedDefaultStyleIfNeeded(document: Document) {
-	const MARKER = 'tweakpane';
-	if (document.querySelector(`style[data-for=${MARKER}]`)) {
+function embedStyle(doc: Document, id: string, css: string) {
+	if (doc.querySelector(`style[data-for=${id}]`)) {
 		return;
 	}
+	const styleElem = doc.createElement('style');
+	styleElem.dataset.for = id;
+	styleElem.textContent = css;
+	doc.head.appendChild(styleElem);
+}
 
-	const styleElem = document.createElement('style');
-	styleElem.dataset.for = MARKER;
-	styleElem.textContent = '__css__';
-	if (document.head) {
-		document.head.appendChild(styleElem);
-	}
+function embedDefaultStyleIfNeeded(doc: Document) {
+	embedStyle(doc, STYLE_PREFIX, '__css__');
+
+	getAllPlugins().forEach((plugin) => {
+		if (plugin.css) {
+			embedStyle(doc, `${STYLE_PREFIX}-${plugin.id}`, plugin.css);
+		}
+	});
 }
 
 export default class Tweakpane extends RootApi {
@@ -49,23 +58,19 @@ export default class Tweakpane extends RootApi {
 
 	constructor(opt_config?: TweakpaneConfig) {
 		const config = opt_config || {};
-		const document = TypeUtil.getOrDefault(
-			config.document,
-			getWindowDocument(),
-		);
+		const doc = TypeUtil.getOrDefault(config.document, getWindowDocument());
 
-		const rootController = new RootController(document, {
+		const rootController = new RootController(doc, {
 			expanded: config.expanded,
 			viewModel: new ViewModel(),
 			title: config.title,
 		});
 		super(rootController);
 
-		this.containerElem_ =
-			config.container || createDefaultWrapperElement(document);
+		this.containerElem_ = config.container || createDefaultWrapperElement(doc);
 		this.containerElem_.appendChild(this.element);
 
-		this.doc_ = document;
+		this.doc_ = doc;
 		this.usesDefaultWrapper_ = !config.container;
 
 		embedDefaultStyleIfNeeded(this.document);

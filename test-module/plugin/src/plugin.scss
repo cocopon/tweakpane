@@ -1,10 +1,9 @@
 // Import individual files
 @import '../../node_modules/tweakpane/src/main/sass/defs';
+@import '../../node_modules/tweakpane/src/main/sass/view/common/input';
 
 .#{$prefix}-tstv {
 	&_v {
-		@extend %resetUserAgent;
-
-		color: var(--label-foreground-color);
+		@extend %input;
 	}
 }

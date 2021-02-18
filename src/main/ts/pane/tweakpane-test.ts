@@ -1,9 +1,13 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
+import {NumberTextController} from '../controller/value/number-text';
+import {NumberFormatter} from '../formatter/number';
 import Tweakpane from '../index';
 import {PaneError} from '../misc/pane-error';
 import {TestUtil} from '../misc/test-util';
+import {ViewModel} from '../model/view-model';
+import {StringNumberParser} from '../parser/string-number';
 
 describe(Tweakpane.name, () => {
 	it('should dispose with default container', () => {
@@ -68,5 +72,42 @@ describe(Tweakpane.name, () => {
 			document: doc,
 		});
 		assert.isNotNull(doc.querySelector('style[data-for=tweakpane]'));
+	});
+
+	it('should embed plugin style', () => {
+		const css = '.tp-tstv{color:white;}';
+		Tweakpane.registerPlugin<number, number>({
+			type: 'input',
+			plugin: {
+				id: 'test',
+				css: css,
+				model: {
+					accept: (value, args) => {
+						return args.view !== 'test'
+							? null
+							: typeof value !== 'number'
+							? null
+							: value;
+					},
+					reader: () => (v) => v,
+					writer: () => (v) => v,
+				},
+				controller: (args) => {
+					return new NumberTextController(args.document, {
+						baseStep: 1,
+						formatter: new NumberFormatter(0),
+						parser: StringNumberParser,
+						value: args.binding.value,
+						viewModel: new ViewModel(),
+					});
+				},
+			},
+		});
+		const doc = TestUtil.createWindow().document;
+		new Tweakpane({
+			document: doc,
+		});
+		const styleElem = doc.querySelector('style[data-for=tweakpane-test]');
+		assert.strictEqual(styleElem?.textContent, css);
 	});
 });

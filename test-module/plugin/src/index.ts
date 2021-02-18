@@ -1,6 +1,7 @@
 import Tweakpane from 'tweakpane';
 // Import individual classes
 import {ValueController} from 'tweakpane/src/main/ts/controller/value/value';
+import {ClassName} from 'tweakpane/src/main/ts/misc/class-name';
 import {Value} from 'tweakpane/src/main/ts/model/value';
 import {ViewModel} from 'tweakpane/src/main/ts/model/view-model';
 import {ValueView} from 'tweakpane/src/main/ts/view/value/value';
@@ -19,7 +20,10 @@ class TestView extends View implements ValueView<string> {
 		super(doc, config);
 
 		this.value = config.value;
+
+		const className = ClassName('tst');
 		this.valueElem_ = doc.createElement('button');
+		this.valueElem_.classList.add(className('v'));
 		this.element.appendChild(this.valueElem_);
 
 		this.update();
@@ -51,6 +55,9 @@ class TestController implements ValueController<string> {
 		type: 'input',
 		plugin: {
 			id: 'input-test',
+			// Embed CSS by @rollup/plugin-replace
+			css: '__css__',
+
 			model: {
 				accept: (value, params) => {
 					if (params.view !== 'test') {
@@ -61,6 +68,7 @@ class TestController implements ValueController<string> {
 				reader: () => (v) => v,
 				writer: () => (v) => v,
 			},
+
 			controller: (args): ValueController<string> => {
 				return new TestController(args.document, {
 					value: args.binding.value,
