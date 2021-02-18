@@ -1,8 +1,7 @@
 /dist/
 /docs/
 /pages/
-/test-module/tsc/dist/
-/test-module/package.json
+/test-module/*/dist/
 /test/
 
 *.tgz

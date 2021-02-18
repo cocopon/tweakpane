@@ -84,13 +84,13 @@ export class PlainTweakpane extends RootApi {
 
 function registerDefaultPlugins() {
 	[
-		BooleanInputPlugin,
-		NumberColorInputPlugin,
-		ObjectColorInputPlugin,
-		StringColorInputPlugin,
-		NumberInputPlugin,
-		StringInputPlugin,
 		Point2dInputPlugin,
+		StringInputPlugin,
+		NumberInputPlugin,
+		StringColorInputPlugin,
+		ObjectColorInputPlugin,
+		NumberColorInputPlugin,
+		BooleanInputPlugin,
 	].forEach((p: InputBindingPlugin<any, any>) => {
 		RootApi.registerPlugin({
 			type: 'input',
@@ -98,7 +98,7 @@ function registerDefaultPlugins() {
 		});
 	});
 
-	[NumberMonitorPlugin, StringMonitorPlugin, BooleanMonitorPlugin].forEach(
+	[BooleanMonitorPlugin, StringMonitorPlugin, NumberMonitorPlugin].forEach(
 		(p: MonitorBindingPlugin<any, any>) => {
 			RootApi.registerPlugin({
 				type: 'monitor',

@@ -12,7 +12,8 @@
     "url": "https://github.com/cocopon/tweakpane.git"
   },
   "files": [
-    "dist"
+    "dist",
+    "src/main"
   ],
   "scripts": {
     "prepare": "run-s clean main:prepare",
@@ -20,7 +21,7 @@
     "start": "npm-run-all main:build:dev doc:build --parallel main:watch doc:watch doc:server",
     "test": "run-s doc:test main:test",
     "build": "run-s main:build doc:build",
-    "clean": "rm -rf dist docs test tweakpane-*.tgz tweakpane-*.zip test-module/package.json test-module/node_modules",
+    "clean": "rm -rf dist docs test tweakpane-*.tgz tweakpane-*.zip test-module/node_modules",
     "coverage": "run-s coverage:report coverage:coveralls",
     "coverage:coveralls": "mkdir -p test/coverage && nyc report --reporter=text-lcov > test/coverage/lcov.info",
     "coverage:report": "run-p coverage:report:*",

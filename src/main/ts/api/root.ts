@@ -66,9 +66,9 @@ export class RootApi implements ComponentApi {
 	 */
 	public static registerPlugin<In, Ex>(r: PluginRegistration<In, Ex>): void {
 		if (r.type === 'input') {
-			Plugins.inputs.push(r.plugin);
+			Plugins.inputs.unshift(r.plugin);
 		} else if (r.type === 'monitor') {
-			Plugins.monitors.push(r.plugin);
+			Plugins.monitors.unshift(r.plugin);
 		}
 	}
 
