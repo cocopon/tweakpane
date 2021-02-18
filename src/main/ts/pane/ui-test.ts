@@ -6,18 +6,18 @@ import {FolderController} from '../controller/folder';
 import {InputBindingController} from '../controller/input-binding';
 import {MonitorBindingController} from '../controller/monitor-binding';
 import {SeparatorController} from '../controller/separator';
+import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
-import {PlainTweakpane} from './plain-tweakpane';
 
-function createApi(title?: string): PlainTweakpane {
-	return new PlainTweakpane({
+function createApi(title?: string): Tweakpane {
+	return new Tweakpane({
 		document: TestUtil.createWindow().document,
 		title: title,
 	});
 }
 
-describe(PlainTweakpane.name, () => {
+describe(Tweakpane.name, () => {
 	it('should add button', () => {
 		const pane = createApi();
 		const b = pane.addButton({
@@ -45,7 +45,7 @@ describe(PlainTweakpane.name, () => {
 	});
 
 	it('should toggle expanded when clicking title element', () => {
-		const c = new PlainTweakpane({
+		const c = new Tweakpane({
 			document: TestUtil.createWindow().document,
 			title: 'Tweakpane',
 		});
@@ -143,7 +143,7 @@ describe(PlainTweakpane.name, () => {
 			expected: SeparatorController,
 		},
 	] as {
-		insert: (api: PlainTweakpane, index: number) => void;
+		insert: (api: Tweakpane, index: number) => void;
 		expected: Class<any>;
 	}[]).forEach((testCase) => {
 		context(`when ${testCase.expected.name}`, () => {

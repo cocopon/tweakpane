@@ -100,6 +100,7 @@ function createController(document: Document, value: Value<number>) {
  * @hidden
  */
 export const NumberInputPlugin: InputBindingPlugin<number, number> = {
+	id: 'input-number',
 	model: {
 		accept: (value) => (typeof value === 'number' ? value : null),
 		reader: (_args) => NumberConverter.fromMixed,

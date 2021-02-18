@@ -1,18 +1,18 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
+import Tweakpane from '../index';
 import {PaneError} from '../misc/pane-error';
 import {TestUtil} from '../misc/test-util';
 import {Color} from '../model/color';
-import {PlainTweakpane} from './plain-tweakpane';
 
-function createPane(): PlainTweakpane {
-	return new PlainTweakpane({
+function createPane(): Tweakpane {
+	return new Tweakpane({
 		document: TestUtil.createWindow().document,
 	});
 }
 
-describe(PlainTweakpane.name, () => {
+describe(Tweakpane.name, () => {
 	[
 		{
 			errorType: 'emptyvalue',

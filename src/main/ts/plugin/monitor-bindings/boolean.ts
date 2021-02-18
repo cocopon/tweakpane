@@ -11,6 +11,7 @@ import {MonitorBindingPlugin} from '../monitor-binding';
  * @hidden
  */
 export const BooleanMonitorPlugin: MonitorBindingPlugin<boolean, boolean> = {
+	id: 'monitor-bool',
 	model: {
 		accept: (value, _params) => (typeof value === 'boolean' ? value : null),
 		defaultBufferSize: (_params) => 1,

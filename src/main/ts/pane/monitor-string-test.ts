@@ -4,17 +4,17 @@ import {describe as context, describe, it} from 'mocha';
 import {MonitorBinding} from '../binding/monitor';
 import {MultiLogController} from '../controller/value/multi-log';
 import {SingleLogMonitorController} from '../controller/value/single-log';
+import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {IntervalTicker} from '../misc/ticker/interval';
-import {PlainTweakpane} from './plain-tweakpane';
 
-function createPane(): PlainTweakpane {
-	return new PlainTweakpane({
+function createPane(): Tweakpane {
+	return new Tweakpane({
 		document: TestUtil.createWindow().document,
 	});
 }
 
-describe(PlainTweakpane.name, () => {
+describe(Tweakpane.name, () => {
 	[
 		{
 			expectedClass: SingleLogMonitorController,

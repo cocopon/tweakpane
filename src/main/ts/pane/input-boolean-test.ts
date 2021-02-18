@@ -3,16 +3,16 @@ import {describe as context, describe, it} from 'mocha';
 
 import {CheckboxController} from '../controller/value/checkbox';
 import {ListController} from '../controller/value/list';
+import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
-import {PlainTweakpane} from './plain-tweakpane';
 
-function createPane(): PlainTweakpane {
-	return new PlainTweakpane({
+function createPane(): Tweakpane {
+	return new Tweakpane({
 		document: TestUtil.createWindow().document,
 	});
 }
 
-describe(PlainTweakpane.name, () => {
+describe(Tweakpane.name, () => {
 	[
 		{
 			expectedClass: CheckboxController,

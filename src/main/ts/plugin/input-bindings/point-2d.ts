@@ -118,6 +118,7 @@ function createController(
  * @hidden
  */
 export const Point2dInputPlugin: InputBindingPlugin<Point2d, Point2dObject> = {
+	id: 'input-point2d',
 	model: {
 		accept: (value, _params) => (Point2d.isObject(value) ? value : null),
 		reader: (_args) => Point2dConverter.fromMixed,

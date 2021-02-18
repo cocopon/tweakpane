@@ -15,6 +15,7 @@ function shouldSupportAlpha(inputParams: InputParams): boolean {
  * @hidden
  */
 export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
+	id: 'input-color-number',
 	model: {
 		accept: (value, params) => {
 			if (typeof value !== 'number') {

@@ -11,6 +11,7 @@ import {InputBindingPlugin} from '../input-binding';
  * @hidden
  */
 export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
+	id: 'input-color-string',
 	model: {
 		accept: (value, params) => {
 			if (typeof value !== 'string') {

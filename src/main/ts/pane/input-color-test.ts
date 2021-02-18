@@ -4,14 +4,14 @@ import {describe as context, describe, it} from 'mocha';
 import {InputParams} from '../api/types';
 import {ColorSwatchTextController} from '../controller/value/color-swatch-text';
 import {ValueController} from '../controller/value/value';
+import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
 import {Color} from '../model/color';
 import {ColorSwatchTextView} from '../view/value/color-swatch-text';
-import {PlainTweakpane} from './plain-tweakpane';
 
-function createPane(win: Window): PlainTweakpane {
-	return new PlainTweakpane({
+function createPane(win: Window): Tweakpane {
+	return new Tweakpane({
 		document: win.document,
 	});
 }
@@ -22,7 +22,7 @@ interface TestCase {
 	value: unknown;
 }
 
-describe(PlainTweakpane.name, () => {
+describe(Tweakpane.name, () => {
 	const testCases: TestCase[] = [
 		{
 			expectedClass: ColorSwatchTextController,

@@ -9,6 +9,7 @@ import {Ticker} from '../misc/ticker/ticker';
 import {TypeUtil} from '../misc/type-util';
 import {Buffer, initializeBuffer} from '../model/buffered-value';
 import {Target} from '../model/target';
+import {BasePlugin} from './plugin';
 
 interface ValueArguments<Ex> {
 	initialValue: Ex;
@@ -22,7 +23,7 @@ interface ControllerArguments<In> {
 	params: MonitorParams;
 }
 
-export interface MonitorBindingPlugin<In, Ex> {
+export interface MonitorBindingPlugin<In, Ex> extends BasePlugin {
 	model: {
 		// Accept unknown value as Ex, or deny it
 		accept: (value: unknown, params: MonitorParams) => Ex | null;

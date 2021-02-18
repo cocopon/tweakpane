@@ -17,9 +17,9 @@ const className = ClassName('');
  * @hidden
  */
 export class View {
-	private readonly model_: ViewModel;
+	protected elem_: HTMLElement | null;
+	protected readonly model_: ViewModel;
 	private doc_: Document | null;
-	private elem_: HTMLElement | null;
 
 	constructor(document: Document, config: ViewConfig) {
 		this.onChange_ = this.onChange_.bind(this);

@@ -52,6 +52,7 @@ function createController(document: Document, value: Value<boolean>) {
  * @hidden
  */
 export const BooleanInputPlugin: InputBindingPlugin<boolean, boolean> = {
+	id: 'input-bool',
 	model: {
 		accept: (value) => (typeof value === 'boolean' ? value : null),
 		reader: (_args) => BooleanConverter.fromMixed,
