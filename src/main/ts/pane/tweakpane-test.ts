@@ -61,4 +61,12 @@ describe(Tweakpane.name, () => {
 		});
 		assert.strictEqual(c.controller.folder?.expanded, false);
 	});
+
+	it('should embed default style', () => {
+		const doc = TestUtil.createWindow().document;
+		new Tweakpane({
+			document: doc,
+		});
+		assert.isNotNull(doc.querySelector('style[data-for=tweakpane]'));
+	});
 });
