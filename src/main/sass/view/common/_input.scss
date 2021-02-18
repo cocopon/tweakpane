@@ -1,0 +1,23 @@
+%input {
+	@extend %resetUserAgent;
+
+	background-color: var(--input-background-color);
+	border-radius: $inner-border-radius;
+	box-sizing: border-box;
+	color: var(--input-foreground-color);
+	font-family: inherit;
+	height: var(--unit-size);
+	line-height: var(--unit-size);
+	min-width: 0;
+	width: 100%;
+
+	&:hover {
+		background-color: var(--input-background-color-hover);
+	}
+	&:focus {
+		background-color: var(--input-background-color-focus);
+	}
+	&:active {
+		background-color: var(--input-background-color-active);
+	}
+}

@@ -1,11 +1,28 @@
 @import './defs';
 
-@import './components/button';
-@import './components/default-wrapper';
-@import './components/folder';
-@import './components/input/input';
-@import './components/labeled';
-@import './components/monitor/monitor';
-@import './components/root';
-@import './components/separator';
-@import './components/view';
+@import './view/common/button';
+@import './view/common/color';
+@import './view/common/folder';
+@import './view/common/input';
+@import './view/common/list';
+@import './view/common/monitor';
+
+@import './view/button';
+@import './view/checkbox';
+@import './view/color-component-texts';
+@import './view/color-picker';
+@import './view/color-swatch';
+@import './view/default-wrapper';
+@import './view/folder';
+@import './view/graph-log';
+@import './view/labeled';
+@import './view/list';
+@import './view/log';
+@import './view/point-2d-pad';
+@import './view/point-2d-pad-text';
+@import './view/point-2d-text';
+@import './view/root';
+@import './view/separator';
+@import './view/slider';
+@import './view/text';
+@import './view/view';

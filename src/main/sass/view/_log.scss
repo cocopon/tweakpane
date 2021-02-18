@@ -1,6 +1,6 @@
 .#{$prefix}-sglv {
 	&_i {
-		@include monitorView();
+		@extend %monitor;
 
 		padding: 0 4px;
 	}
@@ -8,7 +8,7 @@
 
 .#{$prefix}-mllv {
 	&_i {
-		@include monitorView();
+		@extend %monitor;
 
 		display: block;
 		height: calc(var(--unit-size) * 3);

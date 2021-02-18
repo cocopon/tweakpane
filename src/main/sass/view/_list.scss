@@ -1,0 +1,19 @@
+.#{$prefix}-lstv {
+	position: relative;
+
+	&_s {
+		@extend %button;
+
+		padding: 0 (6px * 2 + 6px) 0 4px;
+		width: 100%;
+	}
+	&_m {
+		@include list_arrow(var(--button-foreground-color), 6px);
+
+		bottom: 0;
+		margin: auto;
+		position: absolute;
+		right: 6px;
+		top: 3px;
+	}
+}

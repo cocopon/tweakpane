@@ -1,6 +1,4 @@
 .#{$prefix}-sldv {
-	@include propertyView();
-
 	&_o {
 		box-sizing: border-box;
 		cursor: pointer;
@@ -31,7 +29,7 @@
 
 		&::before {
 			background-color: var(--button-background-color);
-			border-radius: $input-border-radius;
+			border-radius: $inner-border-radius;
 			bottom: 0;
 			content: '';
 			display: block;
@@ -51,5 +49,18 @@
 	}
 	&_o:active &_i::before {
 		background-color: var(--button-background-color-active);
+	}
+}
+
+// slider-text
+.#{$prefix}-sldtxtv {
+	display: flex;
+
+	&_s {
+		flex: 2;
+	}
+	&_t {
+		flex: 1;
+		margin-left: 4px;
 	}
 }

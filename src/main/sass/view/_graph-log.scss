@@ -1,10 +1,8 @@
 .#{$prefix}-grlv {
-	@include propertyView();
-
 	position: relative;
 
 	&_g {
-		@include monitorView();
+		@extend %monitor;
 
 		display: block;
 		height: calc(var(--unit-size) * 3);

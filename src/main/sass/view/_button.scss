@@ -2,7 +2,7 @@
 	padding: 0 4px;
 
 	&_b {
-		@include button();
+		@extend %button;
 
 		width: 100%;
 	}

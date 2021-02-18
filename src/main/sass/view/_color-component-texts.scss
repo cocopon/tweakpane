@@ -7,9 +7,9 @@
 		position: relative;
 	}
 	&_ms {
-		@include resetInput();
+		@extend %resetUserAgent;
 
-		border-radius: $input-border-radius;
+		border-radius: $inner-border-radius;
 		color: var(--label-foreground-color);
 		cursor: pointer;
 		height: var(--unit-size);
@@ -27,7 +27,7 @@
 		}
 	}
 	&_mm {
-		@include dropdown_arrow(var(--label-foreground-color), 6px);
+		@include list_arrow(var(--label-foreground-color), 6px);
 
 		bottom: 0;
 		margin: auto;
@@ -40,19 +40,19 @@
 		flex: 1;
 	}
 	&_i {
-		@include inputView();
+		@extend %input;
 
 		border-radius: 0;
 		flex: 1;
 		padding: 0 4px;
 
 		&:first-child {
-			border-bottom-left-radius: $input-border-radius;
-			border-top-left-radius: $input-border-radius;
+			border-bottom-left-radius: $inner-border-radius;
+			border-top-left-radius: $inner-border-radius;
 		}
 		&:last-child {
-			border-bottom-right-radius: $input-border-radius;
-			border-top-right-radius: $input-border-radius;
+			border-bottom-right-radius: $inner-border-radius;
+			border-top-right-radius: $inner-border-radius;
 		}
 
 		& + & {

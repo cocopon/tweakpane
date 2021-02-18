@@ -1,0 +1,7 @@
+.#{$prefix}-txtv {
+	&_i {
+		@extend %input;
+
+		padding: 0 4px;
+	}
+}

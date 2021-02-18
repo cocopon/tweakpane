@@ -1,0 +1,22 @@
+@mixin checkerboard($size) {
+	$checkerboard-color-dark: #ddd;
+	$checkerboard-color-light: white;
+
+	background-color: $checkerboard-color-light;
+	background-image: linear-gradient(
+			to top right,
+			$checkerboard-color-dark 25%,
+			transparent 25%,
+			transparent 75%,
+			$checkerboard-color-dark 75%
+		),
+		linear-gradient(
+			to top right,
+			$checkerboard-color-dark 25%,
+			transparent 25%,
+			transparent 75%,
+			$checkerboard-color-dark 75%
+		);
+	background-size: $size $size;
+	background-position: 0 0, ($size / 2) ($size / 2);
+}

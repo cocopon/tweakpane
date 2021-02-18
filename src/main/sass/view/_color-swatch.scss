@@ -1,22 +1,10 @@
-@import './checkbox';
-@import './color-component-texts';
-@import './color-picker';
-@import './list';
-@import './point-2d-pad';
-@import './point-2d-pad-text';
-@import './point-2d-text';
-@import './slider';
-@import './text';
-
-// colorswatch
 .#{$prefix}-cswv {
-	@include checker-pattern($transparent-checker-color-dark, 10px);
+	@include checkerboard(10px);
 
-	background-color: $transparent-checker-color-light;
-	border-radius: $input-border-radius;
+	border-radius: $inner-border-radius;
 
 	&_sw {
-		@include inputView();
+		@extend %input;
 	}
 	&_b {
 		appearance: none;
@@ -35,7 +23,7 @@
 
 		&:focus::after {
 			border: rgba(white, 0.75) solid 2px;
-			border-radius: $input-border-radius;
+			border-radius: $inner-border-radius;
 			bottom: 0;
 			content: '';
 			display: block;
@@ -62,19 +50,6 @@
 		flex-grow: 0;
 		flex-shrink: 0;
 		width: var(--unit-size);
-	}
-	&_t {
-		flex: 1;
-		margin-left: 4px;
-	}
-}
-
-// slider-text
-.#{$prefix}-sldtxtv {
-	display: flex;
-
-	&_s {
-		flex: 2;
 	}
 	&_t {
 		flex: 1;

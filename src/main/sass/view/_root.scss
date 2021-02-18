@@ -1,0 +1,128 @@
+@mixin themeVariable($name, $value) {
+	--#{$name}: var(--#{$prefix}-#{$name}, #{$value});
+}
+
+%themeVariables {
+	$base-hue: 230;
+	$color-exdark: hsl($base-hue, 7%, 16%);
+	$color-dark: hsl($base-hue, 7%, 20%);
+	$color-light: hsl($base-hue, 7%, 70%);
+	$color-exlight: hsl($base-hue, 7%, 80%);
+	$bg-color: $color-dark;
+	$fg-color: $color-exlight;
+
+	@include themeVariable(
+		'font-family',
+		('Roboto Mono', 'Source Code Pro', Menlo, Courier, monospace)
+	);
+	@include themeVariable('unit-size', 20px);
+
+	@include themeVariable('base-background-color', $bg-color);
+	@include themeVariable('base-shadow-color', rgba(black, 0.2));
+
+	@include themeVariable('button-background-color', $color-light);
+	@include themeVariable(
+		'button-background-color-active',
+		lighten($color-light, 15%)
+	);
+	@include themeVariable(
+		'button-background-color-focus',
+		lighten($color-light, 10%)
+	);
+	@include themeVariable(
+		'button-background-color-hover',
+		lighten($color-light, 5%)
+	);
+	@include themeVariable('button-foreground-color', $bg-color);
+
+	@include themeVariable('folder-background-color', rgba($fg-color, 0.1));
+	@include themeVariable(
+		'folder-background-color-active',
+		rgba($fg-color, 0.25)
+	);
+	@include themeVariable('folder-background-color-focus', rgba($fg-color, 0.2));
+	@include themeVariable(
+		'folder-background-color-hover',
+		rgba($fg-color, 0.15)
+	);
+	@include themeVariable('folder-foreground-color', $fg-color);
+
+	@include themeVariable('input-background-color', rgba($fg-color, 0.1));
+	@include themeVariable(
+		'input-background-color-active',
+		rgba($fg-color, 0.25)
+	);
+	@include themeVariable('input-background-color-focus', rgba($fg-color, 0.2));
+	@include themeVariable('input-background-color-hover', rgba($fg-color, 0.15));
+	@include themeVariable('input-foreground-color', $fg-color);
+	@include themeVariable('input-guide-color', rgba($bg-color, 0.5));
+
+	@include themeVariable('label-foreground-color', rgba($fg-color, 0.7));
+
+	@include themeVariable('monitor-background-color', $color-exdark);
+	@include themeVariable('monitor-foreground-color', rgba($fg-color, 0.7));
+
+	@include themeVariable('separator-color', $color-exdark);
+}
+
+.#{$prefix}-rotv {
+	@extend %themeVariables;
+
+	background-color: var(--base-background-color);
+	border-radius: $outer-border-radius;
+	box-shadow: 0 2px 4px var(--base-shadow-color);
+	font-family: var(--font-family);
+	font-size: 11px;
+	font-weight: 500;
+	line-height: 1;
+	text-align: left;
+
+	&_t {
+		@extend %folder_title;
+
+		border-bottom-left-radius: $outer-border-radius;
+		border-bottom-right-radius: $outer-border-radius;
+		border-top-left-radius: $outer-border-radius;
+		border-top-right-radius: $outer-border-radius;
+	}
+	&#{&}-expanded &_t {
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+	&_m {
+		@extend %folder_mark;
+
+		transition: none;
+	}
+	&#{&}-expanded &_m {
+		@extend %folder_mark-expanded;
+	}
+	&_c {
+		@extend %folder_container;
+
+		// Bottom of the last folder
+		& > .#{$prefix}-fldv:last-child {
+			& > .#{$prefix}-fldv_c {
+				border-bottom-left-radius: $outer-border-radius;
+				border-bottom-right-radius: $outer-border-radius;
+			}
+		}
+		// Bottom of the last folder title when collapsed
+		& > .#{$prefix}-fldv:last-child:not(.#{$prefix}-fldv-expanded) {
+			& > .#{$prefix}-fldv_t {
+				border-bottom-left-radius: $outer-border-radius;
+				border-bottom-right-radius: $outer-border-radius;
+			}
+		}
+		// Top of the first folder
+		& > .#{$prefix}-fldv:first-child {
+			& > .#{$prefix}-fldv_t {
+				border-top-left-radius: $outer-border-radius;
+				border-top-right-radius: $outer-border-radius;
+			}
+		}
+	}
+	&#{&}-expanded &_c {
+		@extend %folder_container-expanded;
+	}
+}
