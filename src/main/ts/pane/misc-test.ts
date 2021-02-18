@@ -1,19 +1,19 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
+import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {TypeUtil} from '../misc/type-util';
 import {Value} from '../model/value';
-import {PlainTweakpane} from './plain-tweakpane';
 
-function createPane(): PlainTweakpane {
-	return new PlainTweakpane({
+function createPane(): Tweakpane {
+	return new Tweakpane({
 		document: TestUtil.createWindow().document,
 		title: 'Tweakpane',
 	});
 }
 
-describe(PlainTweakpane.name, () => {
+describe(Tweakpane.name, () => {
 	it('should handle global input events', (done) => {
 		const pane = createPane();
 		const obj = {foo: 1};

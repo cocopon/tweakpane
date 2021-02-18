@@ -10,7 +10,6 @@
 		"**/src/main/ts/parser/**/*.ts",
 		"**/src/main/ts/view/**/*.ts",
 		"**/src/main/ts/index.ts",
-		"**/src/main/ts/plain-tweakpane.ts",
 		"**/src/main/ts/**/*.d.ts",
 		"**/src/main/ts/**/*-test.ts"
 	],

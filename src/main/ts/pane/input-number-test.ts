@@ -7,18 +7,18 @@ import {ConstraintUtil} from '../constraint/util';
 import {ListController} from '../controller/value/list';
 import {SliderTextController} from '../controller/value/slider-text';
 import {TextController} from '../controller/value/text';
+import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {TypeUtil} from '../misc/type-util';
 import {Value} from '../model/value';
-import {PlainTweakpane} from './plain-tweakpane';
 
-function createPane(): PlainTweakpane {
-	return new PlainTweakpane({
+function createPane(): Tweakpane {
+	return new Tweakpane({
 		document: TestUtil.createWindow().document,
 	});
 }
 
-describe(PlainTweakpane.name, () => {
+describe(Tweakpane.name, () => {
 	[
 		{
 			expectedClass: TextController,
