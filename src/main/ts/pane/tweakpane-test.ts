@@ -1,13 +1,12 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {NumberTextController} from '../controller/value/number-text';
-import {NumberFormatter} from '../formatter/number';
+import {TextController} from '../controller/value/text';
+import {StringFormatter} from '../formatter/string';
 import Tweakpane from '../index';
 import {PaneError} from '../misc/pane-error';
 import {TestUtil} from '../misc/test-util';
 import {ViewModel} from '../model/view-model';
-import {StringNumberParser} from '../parser/string-number';
 
 describe(Tweakpane.name, () => {
 	it('should dispose with default container', () => {
@@ -71,12 +70,12 @@ describe(Tweakpane.name, () => {
 		new Tweakpane({
 			document: doc,
 		});
-		assert.isNotNull(doc.querySelector('style[data-for=tweakpane]'));
+		assert.isNotNull(doc.querySelector('style[data-tp-style=default]'));
 	});
 
 	it('should embed plugin style', () => {
 		const css = '.tp-tstv{color:white;}';
-		Tweakpane.registerPlugin<number, number>({
+		Tweakpane.registerPlugin<string, string>({
 			type: 'input',
 			plugin: {
 				id: 'test',
@@ -85,7 +84,7 @@ describe(Tweakpane.name, () => {
 					accept: (value, args) => {
 						return args.view !== 'test'
 							? null
-							: typeof value !== 'number'
+							: typeof value !== 'string'
 							? null
 							: value;
 					},
@@ -93,10 +92,9 @@ describe(Tweakpane.name, () => {
 					writer: () => (v) => v,
 				},
 				controller: (args) => {
-					return new NumberTextController(args.document, {
-						baseStep: 1,
-						formatter: new NumberFormatter(0),
-						parser: StringNumberParser,
+					return new TextController(args.document, {
+						formatter: new StringFormatter(),
+						parser: (v) => v,
 						value: args.binding.value,
 						viewModel: new ViewModel(),
 					});
@@ -107,7 +105,7 @@ describe(Tweakpane.name, () => {
 		new Tweakpane({
 			document: doc,
 		});
-		const styleElem = doc.querySelector('style[data-for=tweakpane-test]');
+		const styleElem = doc.querySelector('style[data-tp-style=plugin-test]');
 		assert.strictEqual(styleElem?.textContent, css);
 	});
 });

@@ -20,8 +20,6 @@ import {BooleanMonitorPlugin} from './plugin/monitor-bindings/boolean';
 import {NumberMonitorPlugin} from './plugin/monitor-bindings/number';
 import {StringMonitorPlugin} from './plugin/monitor-bindings/string';
 
-const STYLE_PREFIX = 'tweakpane';
-
 function createDefaultWrapperElement(doc: Document): HTMLElement {
 	const elem = doc.createElement('div');
 	elem.classList.add(ClassName('dfw')());
@@ -32,21 +30,21 @@ function createDefaultWrapperElement(doc: Document): HTMLElement {
 }
 
 function embedStyle(doc: Document, id: string, css: string) {
-	if (doc.querySelector(`style[data-for=${id}]`)) {
+	if (doc.querySelector(`style[data-tp-style=${id}]`)) {
 		return;
 	}
 	const styleElem = doc.createElement('style');
-	styleElem.dataset.for = id;
+	styleElem.dataset.tpStyle = id;
 	styleElem.textContent = css;
 	doc.head.appendChild(styleElem);
 }
 
 function embedDefaultStyleIfNeeded(doc: Document) {
-	embedStyle(doc, STYLE_PREFIX, '__css__');
+	embedStyle(doc, 'default', '__css__');
 
 	getAllPlugins().forEach((plugin) => {
 		if (plugin.css) {
-			embedStyle(doc, `${STYLE_PREFIX}-${plugin.id}`, plugin.css);
+			embedStyle(doc, `plugin-${plugin.id}`, plugin.css);
 		}
 	});
 }
