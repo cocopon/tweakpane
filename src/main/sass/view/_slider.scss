@@ -51,3 +51,16 @@
 		background-color: var(--button-background-color-active);
 	}
 }
+
+// slider-text
+.#{$prefix}-sldtxtv {
+	display: flex;
+
+	&_s {
+		flex: 2;
+	}
+	&_t {
+		flex: 1;
+		margin-left: 4px;
+	}
+}

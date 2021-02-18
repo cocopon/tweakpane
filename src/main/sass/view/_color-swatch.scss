@@ -1,14 +1,3 @@
-@import './checkbox';
-@import './color-component-texts';
-@import './color-picker';
-@import './list';
-@import './point-2d-pad';
-@import './point-2d-pad-text';
-@import './point-2d-text';
-@import './slider';
-@import './text';
-
-// colorswatch
 .#{$prefix}-cswv {
 	@include checkerboard(10px);
 
@@ -61,19 +50,6 @@
 		flex-grow: 0;
 		flex-shrink: 0;
 		width: var(--unit-size);
-	}
-	&_t {
-		flex: 1;
-		margin-left: 4px;
-	}
-}
-
-// slider-text
-.#{$prefix}-sldtxtv {
-	display: flex;
-
-	&_s {
-		flex: 2;
 	}
 	&_t {
 		flex: 1;
