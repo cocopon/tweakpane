@@ -1,12 +1,12 @@
 import {ColorMode} from '../misc/color-model';
-import {Emitter, EventTypeMap} from '../misc/emitter';
+import {Emitter} from '../misc/emitter';
 import {Color} from './color';
 import {Value} from './value';
 
 /**
  * @hidden
  */
-export interface PickedColorEvents extends EventTypeMap {
+export interface PickedColorEvents {
 	change: {
 		propertyName: 'mode' | 'value';
 		sender: PickedColor;

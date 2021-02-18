@@ -1,4 +1,4 @@
-import {Emitter, EventTypeMap} from '../misc/emitter';
+import {Emitter} from '../misc/emitter';
 import {Ticker, TickerEvents} from '../misc/ticker/ticker';
 import {BufferedValue, createPushedBuffer} from '../model/buffered-value';
 import {Target} from '../model/target';
@@ -13,7 +13,7 @@ interface Config<In> {
 /**
  * @hidden
  */
-export interface MonitorBindingEvents<In> extends EventTypeMap {
+export interface MonitorBindingEvents<In> {
 	update: {
 		rawValue: In;
 		sender: MonitorBinding<In>;

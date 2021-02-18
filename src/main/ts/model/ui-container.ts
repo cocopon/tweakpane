@@ -8,7 +8,7 @@ import {
 	UiMonitorBinding,
 	UiMonitorBindingController,
 } from '../controller/ui';
-import {Emitter, EventTypeMap} from '../misc/emitter';
+import {Emitter} from '../misc/emitter';
 import {FolderEvents} from './folder';
 import {List, ListEvents} from './list';
 import {ViewModelEvents} from './view-model';
@@ -16,7 +16,7 @@ import {ViewModelEvents} from './view-model';
 /**
  * @hidden
  */
-export interface UiContainerEvents extends EventTypeMap {
+export interface UiContainerEvents {
 	add: {
 		index: number;
 		uiController: UiController;

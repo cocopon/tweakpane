@@ -1,9 +1,9 @@
-import {Emitter, EventTypeMap} from '../misc/emitter';
+import {Emitter} from '../misc/emitter';
 
 /**
  * @hidden
  */
-export interface FoldableEvents extends EventTypeMap {
+export interface FoldableEvents {
 	change: {
 		sender: Foldable;
 	};

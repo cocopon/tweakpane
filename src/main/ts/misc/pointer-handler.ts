@@ -1,5 +1,5 @@
 import * as DomUtil from './dom-util';
-import {Emitter, EventTypeMap} from './emitter';
+import {Emitter} from './emitter';
 
 export interface PointerData {
 	px: number;
@@ -19,7 +19,7 @@ function computeOffset(ev: MouseEvent, elem: HTMLElement): [number, number] {
 /**
  * @hidden
  */
-export interface PointerHandlerEvents extends EventTypeMap {
+export interface PointerHandlerEvents {
 	down: {
 		data: PointerData;
 		sender: PointerHandler;

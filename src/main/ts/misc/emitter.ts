@@ -4,22 +4,10 @@ interface Observer<E> {
 	handler: Handler<E>;
 }
 
-interface EventObject {
-	sender: unknown;
-	[key: string]: any;
-}
-
 /**
  * @hidden
  */
-export interface EventTypeMap {
-	[key: string]: EventObject;
-}
-
-/**
- * @hidden
- */
-export class Emitter<E extends EventTypeMap> {
+export class Emitter<E> {
 	// Only for type inference
 	public readonly typeMap: E;
 

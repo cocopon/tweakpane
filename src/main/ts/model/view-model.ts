@@ -1,4 +1,4 @@
-import {Emitter, EventTypeMap} from '../misc/emitter';
+import {Emitter} from '../misc/emitter';
 import {TypeUtil} from '../misc/type-util';
 import {Disposable} from './disposable';
 import {ViewPosition} from './view-positions';
@@ -6,7 +6,7 @@ import {ViewPosition} from './view-positions';
 /**
  * @hidden
  */
-export interface ViewModelEvents extends EventTypeMap {
+export interface ViewModelEvents {
 	change: {
 		propertyName: 'hidden' | 'positions';
 		sender: ViewModel;

@@ -1,9 +1,9 @@
-import {Emitter, EventTypeMap} from '../misc/emitter';
+import {Emitter} from '../misc/emitter';
 
 /**
  * @hidden
  */
-export interface GraphCursorEvents extends EventTypeMap {
+export interface GraphCursorEvents {
 	change: {
 		index: number;
 		sender: GraphCursor;
