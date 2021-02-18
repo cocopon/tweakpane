@@ -29,7 +29,7 @@
 
 		&::before {
 			background-color: var(--button-background-color);
-			border-radius: $input-border-radius;
+			border-radius: $inner-border-radius;
 			bottom: 0;
 			content: '';
 			display: block;

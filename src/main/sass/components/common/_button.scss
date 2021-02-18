@@ -2,7 +2,7 @@
 	@extend %resetUserAgent;
 
 	background-color: var(--button-background-color);
-	border-radius: $input-border-radius;
+	border-radius: $inner-border-radius;
 	color: var(--button-foreground-color);
 	cursor: pointer;
 	display: block;

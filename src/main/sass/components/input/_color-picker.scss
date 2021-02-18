@@ -1,3 +1,7 @@
+$marker-border-color: rgba(white, 0.75);
+$marker-border-color-focus: white;
+$slider-track-width: 4px;
+
 .#{$prefix}-clpv {
 	background-color: var(--base-background-color);
 	border-radius: 6px;
@@ -54,7 +58,7 @@
 }
 
 .#{$prefix}-svpv {
-	border-radius: $input-border-radius;
+	border-radius: $inner-border-radius;
 	outline: none;
 	overflow: hidden;
 	position: relative;
@@ -67,7 +71,7 @@
 	}
 	&_m {
 		border-radius: 100%;
-		border: $color-picker-marker-border-color solid 2px;
+		border: $marker-border-color solid 2px;
 		box-sizing: border-box;
 		filter: drop-shadow(0 0 1px rgba(black, 0.3));
 		height: $slider-knob-size;
@@ -78,9 +82,10 @@
 		width: $slider-knob-size;
 	}
 	&:focus &_m {
-		border-color: $color-picker-marker-border-color-focus;
+		border-color: $marker-border-color-focus;
 	}
 }
+
 .#{$prefix}-hplv {
 	cursor: pointer;
 	height: var(--unit-size);
@@ -92,18 +97,18 @@
 		background-position: left top;
 		background-repeat: no-repeat;
 		background-size: 100% 100%;
-		border-radius: $color-picker-slider-track-width / 2;
+		border-radius: $slider-track-width / 2;
 		display: block;
-		height: $color-picker-slider-track-width;
+		height: $slider-track-width;
 		left: 0;
-		margin-top: -($color-picker-slider-track-width / 2);
+		margin-top: -($slider-track-width / 2);
 		position: absolute;
 		top: 50%;
 		width: 100%;
 	}
 	&_m {
-		border-radius: $input-border-radius;
-		border: $color-picker-marker-border-color solid 2px;
+		border-radius: $inner-border-radius;
+		border: $marker-border-color solid 2px;
 		box-shadow: 0 0 2px rgba(black, 0.1);
 		box-sizing: border-box;
 		height: $slider-knob-size;
@@ -116,9 +121,10 @@
 		width: $slider-knob-size;
 	}
 	&:focus &_m {
-		border-color: $color-picker-marker-border-color-focus;
+		border-color: $marker-border-color-focus;
 	}
 }
+
 .#{$prefix}-aplv {
 	cursor: pointer;
 	height: var(--unit-size);
@@ -127,17 +133,13 @@
 	width: 100%;
 
 	&_b {
-		@include checker-pattern(
-			$transparent-checker-color-dark,
-			$color-picker-slider-track-width
-		);
+		@include checkerboard($slider-track-width);
 
-		background-color: $transparent-checker-color-light;
-		border-radius: $color-picker-slider-track-width / 2;
+		border-radius: $slider-track-width / 2;
 		display: block;
-		height: $color-picker-slider-track-width;
+		height: $slider-track-width;
 		left: 0;
-		margin-top: -($color-picker-slider-track-width / 2);
+		margin-top: -($slider-track-width / 2);
 		overflow: hidden;
 		position: absolute;
 		top: 50%;
@@ -151,13 +153,9 @@
 		top: 0;
 	}
 	&_m {
-		@include checker-pattern(
-			$transparent-checker-color-dark,
-			$slider-knob-size
-		);
+		@include checkerboard($slider-knob-size);
 
-		background-color: $transparent-checker-color-light;
-		border-radius: $input-border-radius;
+		border-radius: $inner-border-radius;
 		box-shadow: 0 0 2px rgba(black, 0.1);
 		height: $slider-knob-size;
 		left: 50%;
@@ -170,8 +168,8 @@
 		width: $slider-knob-size;
 	}
 	&_p {
-		border-radius: $input-border-radius;
-		border: $color-picker-marker-border-color solid 2px;
+		border-radius: $inner-border-radius;
+		border: $marker-border-color solid 2px;
 		box-sizing: border-box;
 		bottom: 0;
 		left: 0;
@@ -180,6 +178,6 @@
 		top: 0;
 	}
 	&:focus &_p {
-		border-color: $color-picker-marker-border-color-focus;
+		border-color: $marker-border-color-focus;
 	}
 }

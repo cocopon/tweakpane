@@ -1,89 +1,15 @@
 $prefix: 'tp';
 
-// Color
-$transparent-checker-color-dark: #ddd;
-$transparent-checker-color-light: white;
-$color-picker-marker-border-color: rgba(white, 0.75);
-$color-picker-marker-border-color-focus: white;
-
-// Misc
-$folder-transition-duration: 0.2s;
-$input-border-radius: 2px;
-$root-border-radius: 6px;
-$color-picker-slider-track-width: 4px;
+// Geometry
+$inner-border-radius: 2px;
+$outer-border-radius: 6px;
 $slider-knob-size: 12px;
+
+// Animation
+$folder-transition-duration: 0.2s;
 
 // Z-index
 $z-index-picker: 1000;
-
-// Mixins
-
-@mixin themeVariable($name, $value) {
-	--#{$name}: var(--#{$prefix}-#{$name}, #{$value});
-}
-
-@mixin themeVariables() {
-	$base-hue: 230;
-	$color-exdark: hsl($base-hue, 7%, 16%);
-	$color-dark: hsl($base-hue, 7%, 20%);
-	$color-light: hsl($base-hue, 7%, 70%);
-	$color-exlight: hsl($base-hue, 7%, 80%);
-	$bg-color: $color-dark;
-	$fg-color: $color-exlight;
-
-	@include themeVariable(
-		'font-family',
-		('Roboto Mono', 'Source Code Pro', Menlo, Courier, monospace)
-	);
-	@include themeVariable('unit-size', 20px);
-
-	@include themeVariable('base-background-color', $bg-color);
-	@include themeVariable('base-shadow-color', rgba(black, 0.2));
-
-	@include themeVariable('button-background-color', $color-light);
-	@include themeVariable(
-		'button-background-color-active',
-		lighten($color-light, 15%)
-	);
-	@include themeVariable(
-		'button-background-color-focus',
-		lighten($color-light, 10%)
-	);
-	@include themeVariable(
-		'button-background-color-hover',
-		lighten($color-light, 5%)
-	);
-	@include themeVariable('button-foreground-color', $bg-color);
-
-	@include themeVariable('folder-background-color', rgba($fg-color, 0.1));
-	@include themeVariable(
-		'folder-background-color-active',
-		rgba($fg-color, 0.25)
-	);
-	@include themeVariable('folder-background-color-focus', rgba($fg-color, 0.2));
-	@include themeVariable(
-		'folder-background-color-hover',
-		rgba($fg-color, 0.15)
-	);
-	@include themeVariable('folder-foreground-color', $fg-color);
-
-	@include themeVariable('input-background-color', rgba($fg-color, 0.1));
-	@include themeVariable(
-		'input-background-color-active',
-		rgba($fg-color, 0.25)
-	);
-	@include themeVariable('input-background-color-focus', rgba($fg-color, 0.2));
-	@include themeVariable('input-background-color-hover', rgba($fg-color, 0.15));
-	@include themeVariable('input-foreground-color', $fg-color);
-	@include themeVariable('input-guide-color', rgba($bg-color, 0.5));
-
-	@include themeVariable('label-foreground-color', rgba($fg-color, 0.7));
-
-	@include themeVariable('monitor-background-color', $color-exdark);
-	@include themeVariable('monitor-foreground-color', rgba($fg-color, 0.7));
-
-	@include themeVariable('separator-color', $color-exdark);
-}
 
 %resetUserAgent {
 	appearance: none;
@@ -95,33 +21,4 @@ $z-index-picker: 1000;
 	margin: 0;
 	outline: none;
 	padding: 0;
-}
-
-@mixin checker-pattern($color, $size) {
-	background-image: linear-gradient(
-			to top right,
-			$color 25%,
-			transparent 25%,
-			transparent 75%,
-			$color 75%
-		),
-		linear-gradient(
-			to top right,
-			$color 25%,
-			transparent 25%,
-			transparent 75%,
-			$color 75%
-		);
-	background-size: $size $size;
-	background-position: 0 0, ($size / 2) ($size / 2);
-}
-
-@mixin dropdown_arrow($color, $size) {
-	border-color: $color transparent transparent;
-	border-style: solid;
-	border-width: $size / 2;
-	box-sizing: border-box;
-	height: $size;
-	pointer-events: none;
-	width: $size;
 }

@@ -13,7 +13,7 @@
 	}
 	&_m {
 		background-color: var(--input-background-color);
-		border-radius: $input-border-radius;
+		border-radius: $inner-border-radius;
 		cursor: pointer;
 		display: block;
 		height: var(--unit-size);
@@ -22,7 +22,7 @@
 
 		&::before {
 			background-color: var(--input-foreground-color);
-			border-radius: $input-border-radius;
+			border-radius: $inner-border-radius;
 			bottom: 4px;
 			content: '';
 			display: block;

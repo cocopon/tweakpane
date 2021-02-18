@@ -1,0 +1,9 @@
+@mixin list_arrow($color, $size) {
+	border-color: $color transparent transparent;
+	border-style: solid;
+	border-width: $size / 2;
+	box-sizing: border-box;
+	height: $size;
+	pointer-events: none;
+	width: $size;
+}

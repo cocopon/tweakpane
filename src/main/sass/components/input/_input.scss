@@ -10,10 +10,9 @@
 
 // colorswatch
 .#{$prefix}-cswv {
-	@include checker-pattern($transparent-checker-color-dark, 10px);
+	@include checkerboard(10px);
 
-	background-color: $transparent-checker-color-light;
-	border-radius: $input-border-radius;
+	border-radius: $inner-border-radius;
 
 	&_sw {
 		@extend %input;
@@ -35,7 +34,7 @@
 
 		&:focus::after {
 			border: rgba(white, 0.75) solid 2px;
-			border-radius: $input-border-radius;
+			border-radius: $inner-border-radius;
 			bottom: 0;
 			content: '';
 			display: block;

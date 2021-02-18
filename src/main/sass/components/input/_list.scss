@@ -8,7 +8,7 @@
 		width: 100%;
 	}
 	&_m {
-		@include dropdown_arrow(var(--button-foreground-color), 6px);
+		@include list_arrow(var(--button-foreground-color), 6px);
 
 		bottom: 0;
 		margin: auto;
