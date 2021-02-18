@@ -2,9 +2,9 @@ import {NumberFormatter} from '../../formatter/number';
 import * as DomUtil from '../../misc/dom-util';
 import {Color} from '../../model/color';
 import {Foldable} from '../../model/foldable';
-import * as ModelSync from '../../model/model-sync';
 import {PickedColor} from '../../model/picked-color';
 import {Value} from '../../model/value';
+import {connect} from '../../model/value-sync';
 import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
 import {ColorPickerView} from '../../view/value/color-picker';
@@ -72,22 +72,16 @@ export class ColorPickerController implements ValueController<Color> {
 			  }
 			: null;
 		if (this.alphaIcs_) {
-			ModelSync.connect({
-				primary: {
-					apply(from, to) {
-						to.rawValue = from.value.rawValue.getComponents()[3];
-					},
-					emitter: (m) => m.value.emitter,
-					value: this.pickedColor,
+			connect({
+				primary: this.pickedColor.value,
+				secondary: this.alphaIcs_.text.value,
+				forward: (p) => {
+					return p.rawValue.getComponents()[3];
 				},
-				secondary: {
-					apply(from, to) {
-						const comps = to.value.rawValue.getComponents();
-						comps[3] = from.rawValue;
-						to.value.rawValue = new Color(comps, to.value.rawValue.mode);
-					},
-					emitter: (m) => m.emitter,
-					value: this.alphaIcs_.text.value,
+				backward: (p, s) => {
+					const comps = p.rawValue.getComponents();
+					comps[3] = s.rawValue;
+					return new Color(comps, p.rawValue.mode);
 				},
 			});
 		}

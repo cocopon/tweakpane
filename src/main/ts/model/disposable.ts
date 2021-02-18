@@ -1,9 +1,9 @@
-import {Emitter, EventTypeMap} from '../misc/emitter';
+import {Emitter} from '../misc/emitter';
 
 /**
  * @hidden
  */
-export interface DisposableEvents extends EventTypeMap {
+export interface DisposableEvents {
 	dispose: {
 		sender: Disposable;
 	};

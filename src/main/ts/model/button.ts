@@ -1,9 +1,9 @@
-import {Emitter, EventTypeMap} from '../misc/emitter';
+import {Emitter} from '../misc/emitter';
 
 /**
  * @hidden
  */
-export interface ButtonEvents extends EventTypeMap {
+export interface ButtonEvents {
 	click: {
 		sender: Button;
 	};

@@ -1,10 +1,10 @@
 import {Constraint} from '../constraint/constraint';
-import {Emitter, EventTypeMap} from '../misc/emitter';
+import {Emitter} from '../misc/emitter';
 
 /**
  * @hidden
  */
-export interface ValueEvents<In> extends EventTypeMap {
+export interface ValueEvents<In> {
 	change: {
 		sender: Value<In>;
 		rawValue: In;

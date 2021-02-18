@@ -1,4 +1,4 @@
-import {Emitter, EventTypeMap} from '../misc/emitter';
+import {Emitter} from '../misc/emitter';
 import {Target} from '../model/target';
 import {Value, ValueEvents} from '../model/value';
 
@@ -12,7 +12,7 @@ interface Config<In, Ex> {
 /**
  * @hidden
  */
-export interface InputBindingEvents<In, Ex> extends EventTypeMap {
+export interface InputBindingEvents<In, Ex> {
 	change: {
 		rawValue: In;
 		sender: InputBinding<In, Ex>;

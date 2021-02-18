@@ -1,4 +1,4 @@
-import {Emitter, EventTypeMap} from '../misc/emitter';
+import {Emitter} from '../misc/emitter';
 import {TypeUtil} from '../misc/type-util';
 
 type ChangeEventPropertyName =
@@ -10,7 +10,7 @@ type ChangeEventPropertyName =
 /**
  * @hidden
  */
-export interface FolderEvents extends EventTypeMap {
+export interface FolderEvents {
 	beforechange: {
 		propertyName: ChangeEventPropertyName;
 		sender: Folder;

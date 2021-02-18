@@ -1,10 +1,10 @@
 import {Disposable} from '../../model/disposable';
-import {Emitter, EventTypeMap} from '../emitter';
+import {Emitter} from '../emitter';
 
 /**
  * @hidden
  */
-export interface TickerEvents extends EventTypeMap {
+export interface TickerEvents {
 	tick: {
 		sender: Ticker;
 	};

@@ -1,9 +1,9 @@
-import {Emitter, EventTypeMap} from '../misc/emitter';
+import {Emitter} from '../misc/emitter';
 
 /**
  * @hidden
  */
-export interface ListEvents<T> extends EventTypeMap {
+export interface ListEvents<T> {
 	add: {
 		index: number;
 		item: T;
