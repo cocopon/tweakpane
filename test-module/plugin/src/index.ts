@@ -50,6 +50,7 @@ class TestController implements ValueController<string> {
 	Tweakpane.registerPlugin<string, string>({
 		type: 'input',
 		plugin: {
+			id: 'input-test',
 			model: {
 				accept: (value, params) => {
 					if (params.view !== 'test') {

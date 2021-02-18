@@ -21,6 +21,8 @@ interface ControllerArgs<In, Ex> {
 }
 
 export interface InputBindingPlugin<In, Ex> {
+	id: string;
+
 	model: {
 		// Accept unknown value as Ex, or deny it
 		accept: (value: unknown, params: InputParams) => Ex | null;
@@ -35,6 +37,7 @@ export interface InputBindingPlugin<In, Ex> {
 		// Convert In into Ex
 		writer: (args: ValueArgs<Ex>) => (value: In) => Ex;
 	};
+
 	controller: (args: ControllerArgs<In, Ex>) => ValueController<In>;
 }
 

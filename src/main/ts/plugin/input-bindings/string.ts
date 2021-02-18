@@ -55,6 +55,7 @@ function createController(document: Document, value: Value<string>) {
  * @hidden
  */
 export const StringInputPlugin: InputBindingPlugin<string, string> = {
+	id: 'input-string',
 	model: {
 		accept: (value, _params) => (typeof value === 'string' ? value : null),
 		reader: (_args) => StringConverter.fromMixed,

@@ -23,6 +23,8 @@ interface ControllerArguments<In> {
 }
 
 export interface MonitorBindingPlugin<In, Ex> {
+	id: string;
+
 	model: {
 		// Accept unknown value as Ex, or deny it
 		accept: (value: unknown, params: MonitorParams) => Ex | null;
