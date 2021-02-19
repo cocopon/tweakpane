@@ -1,21 +1,18 @@
 import {MultiLogController} from '../../controller/value/multi-log';
 import {SingleLogMonitorController} from '../../controller/value/single-log';
-import * as BooleanConverter from '../../converter/boolean';
 import {BooleanFormatter} from '../../formatter/boolean';
 import {Constants} from '../../misc/constants';
 import {TypeUtil} from '../../misc/type-util';
 import {ViewModel} from '../../model/view-model';
-import {MonitorBindingPlugin} from '../monitor-binding';
+import {RawMonitorBindingPlugin} from '../monitor-binding';
 
 /**
  * @hidden
  */
-export const BooleanMonitorPlugin: MonitorBindingPlugin<boolean, boolean> = {
+export const BooleanMonitorPlugin: RawMonitorBindingPlugin<boolean> = {
 	id: 'monitor-bool',
 	model: {
 		accept: (value, _params) => (typeof value === 'boolean' ? value : null),
-		defaultBufferSize: (_params) => 1,
-		reader: (_args) => BooleanConverter.fromMixed,
 	},
 	controller: (args) => {
 		if (args.binding.value.rawValue.length === 1) {

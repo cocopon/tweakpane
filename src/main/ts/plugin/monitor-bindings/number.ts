@@ -4,13 +4,12 @@ import {GraphLogController} from '../../controller/value/graph-log';
 import {MultiLogController} from '../../controller/value/multi-log';
 import {SingleLogMonitorController} from '../../controller/value/single-log';
 import {ValueController} from '../../controller/value/value';
-import * as NumberConverter from '../../converter/number';
 import {NumberFormatter} from '../../formatter/number';
 import {Constants} from '../../misc/constants';
 import {TypeUtil} from '../../misc/type-util';
 import {Buffer} from '../../model/buffered-value';
 import {ViewModel} from '../../model/view-model';
-import {MonitorBindingPlugin} from '../monitor-binding';
+import {RawMonitorBindingPlugin} from '../monitor-binding';
 
 function createFormatter(): NumberFormatter {
 	// TODO: formatter precision
@@ -76,12 +75,11 @@ function shouldShowGraph(params: MonitorParams): boolean {
 /**
  * @hidden
  */
-export const NumberMonitorPlugin: MonitorBindingPlugin<number, number> = {
+export const NumberMonitorPlugin: RawMonitorBindingPlugin<number> = {
 	id: 'monitor-number',
 	model: {
 		accept: (value, _params) => (typeof value === 'number' ? value : null),
 		defaultBufferSize: (params) => (shouldShowGraph(params) ? 64 : 1),
-		reader: (_args) => NumberConverter.fromMixed,
 	},
 	controller: (args) => {
 		if (shouldShowGraph(args.params)) {

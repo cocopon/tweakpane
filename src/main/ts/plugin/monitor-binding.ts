@@ -23,16 +23,24 @@ interface ControllerArguments<In> {
 	params: MonitorParams;
 }
 
+export interface RawMonitorBindingPlugin<T> extends BasePlugin {
+	model: {
+		// Accept unknown value as Ex, or deny it
+		accept: (value: unknown, params: MonitorParams) => T | null;
+		// Misc
+		defaultBufferSize?: (params: MonitorParams) => number;
+	};
+	controller: (args: ControllerArguments<T>) => ValueController<Buffer<T>>;
+}
+
 export interface MonitorBindingPlugin<In, Ex> extends BasePlugin {
 	model: {
 		// Accept unknown value as Ex, or deny it
 		accept: (value: unknown, params: MonitorParams) => Ex | null;
-
 		// Convert Ex into In
 		reader: (args: ValueArguments<Ex>) => (value: Ex) => In;
-
 		// Misc
-		defaultBufferSize: (params: MonitorParams) => number;
+		defaultBufferSize?: (params: MonitorParams) => number;
 	};
 	controller: (args: ControllerArguments<In>) => ValueController<Buffer<In>>;
 }
@@ -72,10 +80,12 @@ export function createController<In, Ex>(
 	};
 
 	const reader = plugin.model.reader(valueArgs);
-	const bufferSize = TypeUtil.getOrDefault(
-		TypeUtil.getOrDefault(args.params.bufferSize, args.params.count),
-		plugin.model.defaultBufferSize(args.params),
-	);
+	const bufferSize =
+		args.params.bufferSize ??
+		args.params.count ??
+		(plugin.model.defaultBufferSize &&
+			plugin.model.defaultBufferSize(args.params)) ??
+		1;
 	const binding = new MonitorBinding({
 		reader: reader,
 		target: args.target,
@@ -92,4 +102,28 @@ export function createController<In, Ex>(
 		}),
 		label: args.params.label || args.target.key,
 	});
+}
+
+export function hasReader<In, Ex>(
+	p: MonitorBindingPlugin<In, Ex> | RawMonitorBindingPlugin<In>,
+): p is MonitorBindingPlugin<In, Ex> {
+	if ('reader' in p.model) {
+		return true;
+	}
+	return false;
+}
+
+export function fillReader<T>(
+	p: RawMonitorBindingPlugin<T>,
+): MonitorBindingPlugin<T, T> {
+	return {
+		id: p.id,
+		css: p.css,
+
+		model: {
+			...p.model,
+			reader: () => (v: T) => v,
+		},
+		controller: p.controller,
+	};
 }

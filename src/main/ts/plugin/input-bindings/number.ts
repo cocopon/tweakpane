@@ -14,7 +14,7 @@ import {TypeUtil} from '../../misc/type-util';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
-import {InputBindingPlugin} from '../input-binding';
+import {RawInputBindingPlugin} from '../input-binding';
 import {
 	findListItems,
 	getBaseStep,
@@ -99,12 +99,10 @@ function createController(document: Document, value: Value<number>) {
 /**
  * @hidden
  */
-export const NumberInputPlugin: InputBindingPlugin<number, number> = {
+export const NumberInputPlugin: RawInputBindingPlugin<number> = {
 	id: 'input-number',
 	model: {
 		accept: (value) => (typeof value === 'number' ? value : null),
-		reader: (_args) => NumberConverter.fromMixed,
-		writer: (_args) => (v) => v,
 		constraint: (args) => createConstraint(args.params),
 	},
 	controller: (args) => {

@@ -9,7 +9,7 @@ import * as StringConverter from '../../converter/string';
 import {StringFormatter} from '../../formatter/string';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
-import {InputBindingPlugin} from '../input-binding';
+import {RawInputBindingPlugin} from '../input-binding';
 import {findListItems, normalizeInputParamsOptions} from '../util';
 
 function createConstraint(params: InputParams): Constraint<string> {
@@ -54,12 +54,10 @@ function createController(document: Document, value: Value<string>) {
 /**
  * @hidden
  */
-export const StringInputPlugin: InputBindingPlugin<string, string> = {
+export const StringInputPlugin: RawInputBindingPlugin<string> = {
 	id: 'input-string',
 	model: {
 		accept: (value, _params) => (typeof value === 'string' ? value : null),
-		reader: (_args) => StringConverter.fromMixed,
-		writer: (_args) => (v) => v,
 		constraint: (args) => createConstraint(args.params),
 	},
 	controller: (params) => {

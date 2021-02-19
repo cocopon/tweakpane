@@ -1,3 +1,4 @@
+import {MonitorBindingController} from '../controller/monitor-binding';
 import {PaneError} from '../misc/pane-error';
 import {TypeUtil} from '../misc/type-util';
 import {Target} from '../model/target';
@@ -14,7 +15,7 @@ export function create(
 	document: Document,
 	target: Target,
 	params: MonitorParams,
-) {
+): MonitorBindingController<unknown> {
 	const initialValue = target.read();
 
 	if (TypeUtil.isEmpty(initialValue)) {

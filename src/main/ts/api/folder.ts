@@ -58,7 +58,11 @@ export class FolderApi implements ComponentApi {
 		this.controller.viewModel.dispose();
 	}
 
-	public addInput(object: object, key: string, opt_params?: InputParams) {
+	public addInput(
+		object: object,
+		key: string,
+		opt_params?: InputParams,
+	): InputBindingApi<unknown, unknown> {
 		const params = opt_params || {};
 		const uc = InputBindingControllers.create(
 			this.controller.document,
@@ -66,13 +70,14 @@ export class FolderApi implements ComponentApi {
 			params,
 		);
 		this.controller.uiContainer.add(uc, params.index);
-		return new InputBindingApi<
-			InputBindingControllers.InputIn,
-			InputBindingControllers.InputEx
-		>(uc);
+		return new InputBindingApi(uc);
 	}
 
-	public addMonitor(object: object, key: string, opt_params?: MonitorParams) {
+	public addMonitor(
+		object: object,
+		key: string,
+		opt_params?: MonitorParams,
+	): MonitorBindingApi<unknown> {
 		const params = opt_params || {};
 		const uc = MonitorBindingControllers.create(
 			this.controller.document,
@@ -80,7 +85,7 @@ export class FolderApi implements ComponentApi {
 			params,
 		);
 		this.controller.uiContainer.add(uc, params.index);
-		return new MonitorBindingApi<MonitorBindingControllers.MonitorableType>(uc);
+		return new MonitorBindingApi(uc);
 	}
 
 	public addFolder(params: FolderParams): FolderApi {
