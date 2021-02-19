@@ -7,8 +7,17 @@ import {SeparatorController} from '../controller/separator';
 import * as UiUtil from '../controller/ui-util';
 import {Target} from '../model/target';
 import {ViewModel} from '../model/view-model';
-import {InputBindingPlugin} from '../plugin/input-binding';
-import {MonitorBindingPlugin} from '../plugin/monitor-binding';
+import {
+	fillReaderWriter,
+	hasReaderWriter,
+	InputBindingPlugin,
+	RawInputBindingPlugin,
+} from '../plugin/input-binding';
+import {
+	fillReader,
+	hasReader,
+	MonitorBindingPlugin,
+} from '../plugin/monitor-binding';
 import {ButtonApi} from './button';
 import {ComponentApi} from './component-api';
 import * as EventHandlerAdapters from './event-handler-adapters';
@@ -38,7 +47,7 @@ interface RootApiEventHandlers {
 type PluginRegistration<In, Ex> =
 	| {
 			type: 'input';
-			plugin: InputBindingPlugin<In, Ex>;
+			plugin: InputBindingPlugin<In, Ex> | RawInputBindingPlugin<In>;
 	  }
 	| {
 			type: 'monitor';
@@ -66,9 +75,16 @@ export class RootApi implements ComponentApi {
 	 */
 	public static registerPlugin<In, Ex>(r: PluginRegistration<In, Ex>): void {
 		if (r.type === 'input') {
-			Plugins.inputs.unshift(r.plugin);
+			if ('reader' in r.plugin.model) {
+				r.plugin;
+			}
+			Plugins.inputs.unshift(
+				hasReaderWriter(r.plugin) ? r.plugin : fillReaderWriter(r.plugin),
+			);
 		} else if (r.type === 'monitor') {
-			Plugins.monitors.unshift(r.plugin);
+			Plugins.monitors.unshift(
+				hasReader(r.plugin) ? r.plugin : fillReader(r.plugin),
+			);
 		}
 	}
 
@@ -107,7 +123,11 @@ export class RootApi implements ComponentApi {
 		this.controller.viewModel.dispose();
 	}
 
-	public addInput(object: object, key: string, opt_params?: InputParams) {
+	public addInput(
+		object: object,
+		key: string,
+		opt_params?: InputParams,
+	): InputBindingApi<unknown, unknown> {
 		const params = opt_params || {};
 		const uc = InputBindingControllers.create(
 			this.controller.document,
@@ -115,13 +135,14 @@ export class RootApi implements ComponentApi {
 			params,
 		);
 		this.controller.uiContainer.add(uc, params.index);
-		return new InputBindingApi<
-			InputBindingControllers.InputIn,
-			InputBindingControllers.InputEx
-		>(uc);
+		return new InputBindingApi(uc);
 	}
 
-	public addMonitor(object: object, key: string, opt_params?: MonitorParams) {
+	public addMonitor(
+		object: object,
+		key: string,
+		opt_params?: MonitorParams,
+	): MonitorBindingApi<unknown> {
 		const params = opt_params || {};
 		const uc = MonitorBindingControllers.create(
 			this.controller.document,
@@ -129,7 +150,7 @@ export class RootApi implements ComponentApi {
 			params,
 		);
 		this.controller.uiContainer.add(uc, params.index);
-		return new MonitorBindingApi<MonitorBindingControllers.MonitorableType>(uc);
+		return new MonitorBindingApi(uc);
 	}
 
 	public addButton(params: ButtonParams): ButtonApi {

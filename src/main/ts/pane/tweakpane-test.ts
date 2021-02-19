@@ -88,8 +88,6 @@ describe(Tweakpane.name, () => {
 							? null
 							: value;
 					},
-					reader: () => (v) => v,
-					writer: () => (v) => v,
 				},
 				controller: (args) => {
 					return new TextController(args.document, {

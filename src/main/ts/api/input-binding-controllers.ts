@@ -1,19 +1,10 @@
+import {InputBindingController} from '../controller/input-binding';
 import {PaneError} from '../misc/pane-error';
 import {TypeUtil} from '../misc/type-util';
-import {Color, RgbaColorObject} from '../model/color';
-import {Point2d, Point2dObject} from '../model/point-2d';
 import {Target} from '../model/target';
 import {createController} from '../plugin/input-binding';
 import {Plugins} from './plugins';
 import {InputParams} from './types';
-
-export type InputIn = boolean | number | string | Color | Point2d;
-export type InputEx =
-	| boolean
-	| number
-	| string
-	| Point2dObject
-	| RgbaColorObject;
 
 /**
  * @hidden
@@ -22,7 +13,7 @@ export function create(
 	document: Document,
 	target: Target,
 	params: InputParams,
-) {
+): InputBindingController<unknown, unknown> {
 	const initialValue = target.read();
 
 	if (TypeUtil.isEmpty(initialValue)) {
