@@ -1,5 +1,5 @@
 import {Formatter} from '../../formatter/formatter';
-import {TypeUtil} from '../../misc/type-util';
+import {forceCast} from '../../misc/type-util';
 import {Point2d} from '../../model/point-2d';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
@@ -72,7 +72,7 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 
 	private onPadButtonBlur_(e: FocusEvent) {
 		const elem = this.view.element;
-		const nextTarget: HTMLElement | null = TypeUtil.forceCast(e.relatedTarget);
+		const nextTarget: HTMLElement | null = forceCast(e.relatedTarget);
 		if (!nextTarget || !elem.contains(nextTarget)) {
 			this.padIc_.foldable.expanded = false;
 		}

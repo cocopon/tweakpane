@@ -1,4 +1,4 @@
-import {TypeUtil} from '../../misc/type-util';
+import {forceCast} from '../../misc/type-util';
 import {Color} from '../../model/color';
 import {PickedColor} from '../../model/picked-color';
 import {Value} from '../../model/value';
@@ -47,7 +47,7 @@ export class ColorSwatchController implements ValueController<Color> {
 
 	private onButtonBlur_(e: FocusEvent) {
 		const elem = this.view.element;
-		const nextTarget: HTMLElement | null = TypeUtil.forceCast(e.relatedTarget);
+		const nextTarget: HTMLElement | null = forceCast(e.relatedTarget);
 		if (!nextTarget || !elem.contains(nextTarget)) {
 			this.pickerIc_.foldable.expanded = false;
 		}

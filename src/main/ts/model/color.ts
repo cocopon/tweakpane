@@ -5,7 +5,7 @@ import {
 	ColorMode,
 } from '../misc/color-model';
 import {NumberUtil} from '../misc/number-util';
-import {TypeUtil} from '../misc/type-util';
+import {isEmpty} from '../misc/type-util';
 
 export interface RgbColorObject {
 	r: number;
@@ -51,7 +51,7 @@ const CONSTRAINT_MAP: {
 };
 
 function isRgbColorComponent(obj: any, key: string): boolean {
-	if (typeof obj !== 'object' || TypeUtil.isEmpty(obj)) {
+	if (typeof obj !== 'object' || isEmpty(obj)) {
 		return false;
 	}
 	return key in obj && typeof obj[key] === 'number';

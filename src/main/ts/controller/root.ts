@@ -1,5 +1,5 @@
 import * as DomUtil from '../misc/dom-util';
-import {TypeUtil} from '../misc/type-util';
+import {isEmpty} from '../misc/type-util';
 import {Folder, FolderEvents} from '../model/folder';
 import {UiContainer, UiContainerEvents} from '../model/ui-container';
 import {ViewModel} from '../model/view-model';
@@ -80,7 +80,7 @@ export class RootController {
 			return;
 		}
 
-		if (TypeUtil.isEmpty(folder.expandedHeight)) {
+		if (isEmpty(folder.expandedHeight)) {
 			folder.expandedHeight = ContainerUtil.computeExpandedFolderHeight(
 				folder,
 				this.view.containerElement,

@@ -3,7 +3,7 @@ import {describe, it} from 'mocha';
 
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
-import {TypeUtil} from '../misc/type-util';
+import {forceCast} from '../misc/type-util';
 import {Value} from '../model/value';
 
 function createPane(): Tweakpane {
@@ -23,9 +23,7 @@ describe(Tweakpane.name, () => {
 		});
 
 		const bapi = pane.addInput(obj, 'foo');
-		const value: Value<number> = TypeUtil.forceCast(
-			bapi.controller.binding.value,
-		);
+		const value: Value<number> = forceCast(bapi.controller.binding.value);
 		value.rawValue += 1;
 	});
 
@@ -42,9 +40,7 @@ describe(Tweakpane.name, () => {
 		});
 
 		const bapi = fapi.addInput(obj, 'foo');
-		const value: Value<number> = TypeUtil.forceCast(
-			bapi.controller.binding.value,
-		);
+		const value: Value<number> = forceCast(bapi.controller.binding.value);
 		value.rawValue += 1;
 	});
 

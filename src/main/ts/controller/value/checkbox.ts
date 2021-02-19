@@ -1,4 +1,4 @@
-import {TypeUtil} from '../../misc/type-util';
+import {forceCast} from '../../misc/type-util';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {CheckboxView} from '../../view/value/checkbox';
@@ -34,7 +34,7 @@ export class CheckboxController implements ValueController<boolean> {
 	}
 
 	private onInputChange_(e: Event): void {
-		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
+		const inputElem: HTMLInputElement = forceCast(e.currentTarget);
 		this.value.rawValue = inputElem.checked;
 		this.view.update();
 	}

@@ -1,4 +1,4 @@
-import {TypeUtil} from './type-util';
+import {forceCast} from './type-util';
 
 export const SVG_NS = 'http://www.w3.org/2000/svg';
 
@@ -27,7 +27,7 @@ function getGlobalObject(): any {
 }
 
 export function getWindowDocument(): Document {
-	const globalObj: Window = TypeUtil.forceCast(getGlobalObject());
+	const globalObj: Window = forceCast(getGlobalObject());
 	return globalObj.document;
 }
 
@@ -84,7 +84,7 @@ export function indexOfChildElement(element: Element): number {
 
 export function findNextTarget(ev: FocusEvent): HTMLElement | null {
 	if (ev.relatedTarget) {
-		return TypeUtil.forceCast(ev.relatedTarget);
+		return forceCast(ev.relatedTarget);
 	}
 	// Workaround for Firefox
 	if ('explicitOriginalTarget' in ev) {

@@ -1,4 +1,4 @@
-import {TypeUtil} from '../misc/type-util';
+import {isEmpty} from '../misc/type-util';
 
 export interface Point2dObject {
 	x: number;
@@ -19,7 +19,7 @@ export class Point2d {
 	}
 
 	public static isObject(obj: any): obj is Point2dObject {
-		if (TypeUtil.isEmpty(obj)) {
+		if (isEmpty(obj)) {
 			return false;
 		}
 

@@ -1,5 +1,5 @@
 import {Emitter} from '../misc/emitter';
-import {TypeUtil} from '../misc/type-util';
+import {deepEqualsArray} from '../misc/type-util';
 import {Disposable} from './disposable';
 import {ViewPosition} from './view-positions';
 
@@ -54,7 +54,7 @@ export class ViewModel {
 	}
 
 	set positions(positions: ViewPosition[]) {
-		if (TypeUtil.deepEqualsArray(positions, this.positions_)) {
+		if (deepEqualsArray(positions, this.positions_)) {
 			return;
 		}
 

@@ -1,5 +1,5 @@
 import {Formatter} from '../../formatter/formatter';
-import {TypeUtil} from '../../misc/type-util';
+import {forceCast, isEmpty} from '../../misc/type-util';
 import {Point2d} from '../../model/point-2d';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
@@ -73,28 +73,28 @@ export class Point2dTextController implements ValueController<Point2d> {
 	}
 
 	private onInputChange_(e: Event): void {
-		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
+		const inputElem: HTMLInputElement = forceCast(e.currentTarget);
 
 		const parsedValue = this.parser_(inputElem.value);
-		if (TypeUtil.isEmpty(parsedValue)) {
+		if (isEmpty(parsedValue)) {
 			return;
 		}
 		const compIndex = this.findIndexOfInputElem_(inputElem);
-		if (TypeUtil.isEmpty(compIndex)) {
+		if (isEmpty(compIndex)) {
 			return;
 		}
 		this.updateComponent_(compIndex, parsedValue);
 	}
 
 	private onInputKeyDown_(e: KeyboardEvent): void {
-		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
+		const inputElem: HTMLInputElement = forceCast(e.currentTarget);
 
 		const parsedValue = this.parser_(inputElem.value);
-		if (TypeUtil.isEmpty(parsedValue)) {
+		if (isEmpty(parsedValue)) {
 			return;
 		}
 		const compIndex = this.findIndexOfInputElem_(inputElem);
-		if (TypeUtil.isEmpty(compIndex)) {
+		if (isEmpty(compIndex)) {
 			return;
 		}
 

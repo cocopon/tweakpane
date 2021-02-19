@@ -1,4 +1,4 @@
-import {TypeUtil} from '../misc/type-util';
+import {forceCast} from '../misc/type-util';
 import {Value} from './value';
 
 /**
@@ -31,7 +31,7 @@ export function initializeBuffer<T>(
 
 function createTrimmedBuffer<T>(buffer: Buffer<T>): T[] {
 	const index = buffer.indexOf(undefined);
-	return TypeUtil.forceCast(index < 0 ? buffer : buffer.slice(0, index));
+	return forceCast(index < 0 ? buffer : buffer.slice(0, index));
 }
 
 /**

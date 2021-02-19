@@ -9,7 +9,7 @@ import {SliderTextController} from '../controller/value/slider-text';
 import {TextController} from '../controller/value/text';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
-import {TypeUtil} from '../misc/type-util';
+import {forceCast} from '../misc/type-util';
 import {Value} from '../model/value';
 
 function createPane(): Tweakpane {
@@ -83,7 +83,7 @@ describe(Tweakpane.name, () => {
 		if (!(iv instanceof Value)) {
 			throw new Error('Input value is empty');
 		}
-		const c: Constraint<unknown> | null = TypeUtil.forceCast(iv.constraint);
+		const c: Constraint<unknown> | null = forceCast(iv.constraint);
 		if (!c) {
 			throw new Error('Constraint is empty');
 		}
