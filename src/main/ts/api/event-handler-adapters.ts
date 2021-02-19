@@ -58,7 +58,7 @@ export function folder({
 }: {
 	eventName: FolderEventName;
 	folder: Folder | null;
-	handler: (value?: unknown) => void;
+	handler: (value: unknown) => void;
 	uiContainer: UiContainer;
 }) {
 	if (eventName === 'change') {

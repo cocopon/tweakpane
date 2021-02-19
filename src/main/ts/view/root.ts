@@ -16,7 +16,7 @@ const className = ClassName('rot');
 export class RootView extends View {
 	private containerElem_: HTMLDivElement | null;
 	private folder_: Folder | null;
-	private titleElem_: HTMLButtonElement | null;
+	private titleElem_: HTMLButtonElement | null = null;
 
 	constructor(document: Document, config: Config) {
 		super(document, config);

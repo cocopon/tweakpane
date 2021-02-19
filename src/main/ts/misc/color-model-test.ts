@@ -135,11 +135,11 @@ describe('ColorModel', () => {
 		});
 	});
 
-	[
+	([
 		[0, 0, 0],
 		[0, 127, 255],
 		[11, 22, 33],
-	].forEach((comps: ColorComponents3) => {
+	] as ColorComponents3[]).forEach((comps) => {
 		context(`when ${JSON.stringify(comps)}`, () => {
 			it('it should make opaque', () => {
 				assert.deepEqual(ColorModel.opaque(comps), [...comps, 1]);

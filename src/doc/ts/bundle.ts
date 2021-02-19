@@ -14,8 +14,8 @@ declare let hljs: any;
 
 function setUpScrews() {
 	const screwElems = document.querySelectorAll('.logo_symbol');
-	screwElems.forEach((elem: HTMLElement) => {
-		new Screw(elem);
+	screwElems.forEach((elem: Element) => {
+		new Screw(elem as HTMLElement);
 	});
 }
 

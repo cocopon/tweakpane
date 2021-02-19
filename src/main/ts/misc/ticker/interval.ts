@@ -10,7 +10,7 @@ export class IntervalTicker implements Ticker {
 	public readonly emitter: Emitter<TickerEvents>;
 	// private active_ = true;
 	private doc_: Document;
-	private id_: number | null;
+	private id_: number | null = null;
 
 	constructor(document: Document, interval: number) {
 		this.onTick_ = this.onTick_.bind(this);

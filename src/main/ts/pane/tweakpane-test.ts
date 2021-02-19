@@ -2,6 +2,7 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TextController} from '../controller/value/text';
+import * as StringConverter from '../converter/string';
 import {StringFormatter} from '../formatter/string';
 import Tweakpane from '../index';
 import {PaneError} from '../misc/pane-error';
@@ -88,6 +89,8 @@ describe(Tweakpane.name, () => {
 							? null
 							: value;
 					},
+					reader: () => StringConverter.fromMixed,
+					writer: () => (v: string) => v,
 				},
 				controller: (args) => {
 					return new TextController(args.document, {

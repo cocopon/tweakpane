@@ -41,14 +41,8 @@ export class GraphLogController implements ValueController<Buffer<number>> {
 			model: this.viewModel,
 			value: this.value,
 		});
-		this.view.graphElement.addEventListener(
-			'mouseleave',
-			this.onGraphMouseLeave_,
-		);
-		this.view.graphElement.addEventListener(
-			'mousemove',
-			this.onGraphMouseMove_,
-		);
+		this.view.element.addEventListener('mouseleave', this.onGraphMouseLeave_);
+		this.view.element.addEventListener('mousemove', this.onGraphMouseMove_);
 	}
 
 	private onGraphMouseLeave_(): void {

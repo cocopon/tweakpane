@@ -166,7 +166,7 @@ describe(Tweakpane.name, () => {
 	it('should bind `this` within handler to pane', (done) => {
 		const PARAMS = {foo: 1};
 		const pane = createApi();
-		pane.on('change', function() {
+		pane.on('change', function(this: any) {
 			assert.strictEqual(this, pane);
 			done();
 		});

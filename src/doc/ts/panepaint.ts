@@ -132,7 +132,8 @@ export function createPane(container: Element, theme: Theme): any {
 			}
 
 			const t = Themes.create(value as Themes.ThemeId);
-			Object.keys(t).forEach((prop: ThemeProperty) => {
+			Object.keys(t).forEach((key) => {
+				const prop = key as ThemeProperty;
 				theme[prop] = t[prop];
 			});
 			presetObj.preset = '';
@@ -230,8 +231,9 @@ export function createPane(container: Element, theme: Theme): any {
 }
 
 export function toCss(selector: string, theme: Theme): string {
-	const decls = Object.keys(theme).reduce((result, key: ThemeProperty) => {
-		const a = theme[key];
+	const decls = Object.keys(theme).reduce((result: string[], key: string) => {
+		const prop = key as ThemeProperty;
+		const a = theme[prop];
 		return ([] as string[]).concat(result, `  --tp-${key}: ${a};`);
 	}, []);
 

@@ -123,7 +123,8 @@ export class FolderApi implements ComponentApi {
 		EventHandlerAdapters.folder({
 			eventName: eventName,
 			folder: this.controller.folder,
-			handler: handler.bind(this),
+			// TODO: Type-safe
+			handler: forceCast(handler.bind(this)),
 			uiContainer: this.controller.uiContainer,
 		});
 		return this;

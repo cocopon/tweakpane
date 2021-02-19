@@ -36,7 +36,7 @@ export class ColorPickerView extends View implements ValueView<Color> {
 	private alphaViews_: {
 		palette: APaletteView;
 		text: TextView<number>;
-	} | null;
+	} | null = null;
 	private hPaletteView_: HPaletteView;
 	private compTextsView_: ColorComponentTextsView;
 	private svPaletteView_: SvPaletteView;
