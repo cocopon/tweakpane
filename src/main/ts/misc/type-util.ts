@@ -9,10 +9,6 @@ export const TypeUtil = {
 		return value === null || value === undefined;
 	},
 
-	getOrDefault: <T>(value: T | null | undefined, defaultValue: T): T => {
-		return !TypeUtil.isEmpty(value) ? value : defaultValue;
-	},
-
 	deepEqualsArray<T>(a1: T[], a2: T[]): boolean {
 		if (a1.length !== a2.length) {
 			return false;

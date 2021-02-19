@@ -31,10 +31,7 @@ export class FolderController {
 		this.onUiContainerRemove_ = this.onUiContainerRemove_.bind(this);
 
 		this.viewModel = config.viewModel;
-		this.folder = new Folder(
-			config.title,
-			TypeUtil.getOrDefault<boolean>(config.expanded, true),
-		);
+		this.folder = new Folder(config.title, config.expanded ?? true);
 		this.folder.emitter.on('beforechange', this.onFolderBeforeChange_);
 
 		this.ucList_ = new UiContainer();

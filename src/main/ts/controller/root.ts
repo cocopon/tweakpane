@@ -17,10 +17,7 @@ function createFolder(config: Config): Folder | null {
 		return null;
 	}
 
-	return new Folder(
-		config.title,
-		TypeUtil.getOrDefault<boolean>(config.expanded, true),
-	);
+	return new Folder(config.title, config.expanded ?? true);
 }
 
 /**

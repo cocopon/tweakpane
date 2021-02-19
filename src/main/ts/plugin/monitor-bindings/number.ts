@@ -6,7 +6,6 @@ import {SingleLogMonitorController} from '../../controller/value/single-log';
 import {ValueController} from '../../controller/value/value';
 import {NumberFormatter} from '../../formatter/number';
 import {Constants} from '../../misc/constants';
-import {TypeUtil} from '../../misc/type-util';
 import {Buffer} from '../../model/buffered-value';
 import {ViewModel} from '../../model/view-model';
 import {RawMonitorBindingPlugin} from '../monitor-binding';
@@ -31,10 +30,7 @@ function createTextMonitor(
 
 	return new MultiLogController(document, {
 		formatter: createFormatter(),
-		lineCount: TypeUtil.getOrDefault(
-			params.lineCount,
-			Constants.monitor.defaultLineCount,
-		),
+		lineCount: params.lineCount ?? Constants.monitor.defaultLineCount,
 		value: binding.value,
 		viewModel: new ViewModel(),
 	});
@@ -51,18 +47,9 @@ function createGraphMonitor({
 }): ValueController<Buffer<number>> {
 	return new GraphLogController(document, {
 		formatter: createFormatter(),
-		lineCount: TypeUtil.getOrDefault(
-			params.lineCount,
-			Constants.monitor.defaultLineCount,
-		),
-		maxValue: TypeUtil.getOrDefault<number>(
-			'max' in params ? params.max : null,
-			100,
-		),
-		minValue: TypeUtil.getOrDefault<number>(
-			'min' in params ? params.min : null,
-			0,
-		),
+		lineCount: params.lineCount ?? Constants.monitor.defaultLineCount,
+		maxValue: ('max' in params ? params.max : null) ?? 100,
+		minValue: ('min' in params ? params.min : null) ?? 0,
 		value: binding.value,
 		viewModel: new ViewModel(),
 	});

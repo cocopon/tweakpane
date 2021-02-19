@@ -4,7 +4,6 @@ import {RootController} from './controller/root';
 import {ClassName} from './misc/class-name';
 import {getWindowDocument} from './misc/dom-util';
 import {PaneError} from './misc/pane-error';
-import {TypeUtil} from './misc/type-util';
 import {ViewModel} from './model/view-model';
 import {TweakpaneConfig} from './pane/tweakpane-config';
 import {InputBindingPlugin} from './plugin/input-binding';
@@ -56,7 +55,7 @@ export default class Tweakpane extends RootApi {
 
 	constructor(opt_config?: TweakpaneConfig) {
 		const config = opt_config || {};
-		const doc = TypeUtil.getOrDefault(config.document, getWindowDocument());
+		const doc = config.document ?? getWindowDocument();
 
 		const rootController = new RootController(doc, {
 			expanded: config.expanded,

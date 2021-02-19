@@ -29,7 +29,7 @@ const CONSTRAINT_MAP: {
 			NumberUtil.loop(comps[0], 360),
 			NumberUtil.constrain(comps[1], 0, 100),
 			NumberUtil.constrain(comps[2], 0, 100),
-			NumberUtil.constrain(TypeUtil.getOrDefault(comps[3], 1), 0, 1),
+			NumberUtil.constrain(comps[3] ?? 1, 0, 1),
 		];
 	},
 	hsv: (comps) => {
@@ -37,7 +37,7 @@ const CONSTRAINT_MAP: {
 			NumberUtil.loop(comps[0], 360),
 			NumberUtil.constrain(comps[1], 0, 100),
 			NumberUtil.constrain(comps[2], 0, 100),
-			NumberUtil.constrain(TypeUtil.getOrDefault(comps[3], 1), 0, 1),
+			NumberUtil.constrain(comps[3] ?? 1, 0, 1),
 		];
 	},
 	rgb: (comps) => {
@@ -45,7 +45,7 @@ const CONSTRAINT_MAP: {
 			NumberUtil.constrain(comps[0], 0, 255),
 			NumberUtil.constrain(comps[1], 0, 255),
 			NumberUtil.constrain(comps[2], 0, 255),
-			NumberUtil.constrain(TypeUtil.getOrDefault(comps[3], 1), 0, 1),
+			NumberUtil.constrain(comps[3] ?? 1, 0, 1),
 		];
 	},
 };

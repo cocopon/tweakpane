@@ -6,7 +6,6 @@ import {
 	PointerHandler,
 	PointerHandlerEvents,
 } from '../../misc/pointer-handler';
-import {TypeUtil} from '../../misc/type-util';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {SliderView} from '../../view/value/slider';
@@ -34,10 +33,7 @@ function findRange(
 
 function estimateSuitableRange(value: Value<number>): [number, number] {
 	const [min, max] = findRange(value);
-	return [
-		TypeUtil.getOrDefault<number>(min, 0),
-		TypeUtil.getOrDefault<number>(max, 100),
-	];
+	return [min ?? 0, max ?? 100];
 }
 
 /**

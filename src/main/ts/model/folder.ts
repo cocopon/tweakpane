@@ -135,7 +135,7 @@ export class Folder {
 	}
 
 	get styleExpanded(): boolean {
-		return TypeUtil.getOrDefault(this.temporaryExpanded, this.expanded);
+		return this.temporaryExpanded ?? this.expanded;
 	}
 
 	get styleHeight(): string {

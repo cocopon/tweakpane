@@ -1,5 +1,3 @@
-import {TypeUtil} from '../misc/type-util';
-
 /**
  * @hidden
  */
@@ -11,7 +9,7 @@ export class Target {
 	constructor(object: object, key: string, opt_id?: string) {
 		this.obj_ = object;
 		this.key_ = key;
-		this.presetKey_ = TypeUtil.getOrDefault(opt_id, key);
+		this.presetKey_ = opt_id ?? key;
 	}
 
 	get key(): string {

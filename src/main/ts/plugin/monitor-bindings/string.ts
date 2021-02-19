@@ -2,7 +2,6 @@ import {MultiLogController} from '../../controller/value/multi-log';
 import {SingleLogMonitorController} from '../../controller/value/single-log';
 import {StringFormatter} from '../../formatter/string';
 import {Constants} from '../../misc/constants';
-import {TypeUtil} from '../../misc/type-util';
 import {ViewModel} from '../../model/view-model';
 import {RawMonitorBindingPlugin} from '../monitor-binding';
 
@@ -22,10 +21,7 @@ export const StringMonitorPlugin: RawMonitorBindingPlugin<string> = {
 		if (multiline) {
 			return new MultiLogController(args.document, {
 				formatter: new StringFormatter(),
-				lineCount: TypeUtil.getOrDefault(
-					args.params.lineCount,
-					Constants.monitor.defaultLineCount,
-				),
+				lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,
 				value: value,
 				viewModel: new ViewModel(),
 			});
