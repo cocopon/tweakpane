@@ -71,7 +71,7 @@ export class Color {
 		return color.toRgbaObject();
 	}
 
-	public static isRgbColorObject(obj: any): obj is RgbColorObject {
+	public static isRgbColorObject(obj: unknown): obj is RgbColorObject {
 		return (
 			isRgbColorComponent(obj, 'r') &&
 			isRgbColorComponent(obj, 'g') &&
@@ -79,12 +79,12 @@ export class Color {
 		);
 	}
 
-	public static isRgbaColorObject(obj: any): obj is RgbaColorObject {
+	public static isRgbaColorObject(obj: unknown): obj is RgbaColorObject {
 		return this.isRgbColorObject(obj) && isRgbColorComponent(obj, 'a');
 	}
 
 	public static isColorObject(
-		obj: any,
+		obj: unknown,
 	): obj is RgbColorObject | RgbaColorObject {
 		return this.isRgbColorObject(obj);
 	}

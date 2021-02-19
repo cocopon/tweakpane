@@ -1,8 +1,10 @@
 import {JSDOM} from 'jsdom';
 
+import {TypeUtil} from './type-util';
+
 export const TestUtil = {
 	createWindow: (): Window => {
-		return new JSDOM('').window as any;
+		return TypeUtil.forceCast(new JSDOM('').window);
 	},
 
 	createEvent: (win: Window, type: string, options?: object): Event => {
