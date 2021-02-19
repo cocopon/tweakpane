@@ -42,7 +42,7 @@ describe(ColorComponentTextsController.name, () => {
 		assert.strictEqual(c.viewModel.disposed, true);
 	});
 
-	[
+	([
 		{
 			expected: {r: 123, g: 0, b: 0, a: 1},
 			params: {
@@ -67,7 +67,7 @@ describe(ColorComponentTextsController.name, () => {
 				value: '1',
 			},
 		},
-	].forEach((testCase: ChangeTestCase) => {
+	] as ChangeTestCase[]).forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should change component values to ${JSON.stringify(
 				testCase.expected,
@@ -96,7 +96,7 @@ describe(ColorComponentTextsController.name, () => {
 		});
 	});
 
-	[
+	([
 		{
 			expected: {r: 1, g: 0, b: 0, a: 1},
 			params: {
@@ -130,7 +130,7 @@ describe(ColorComponentTextsController.name, () => {
 				},
 			},
 		},
-	].forEach((testCase: KeydownTestCase) => {
+	] as KeydownTestCase[]).forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should change component values to ${JSON.stringify(
 				testCase.expected,

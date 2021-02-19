@@ -15,7 +15,7 @@ export const ConstraintUtil = {
 		}
 
 		if (c instanceof CompositeConstraint) {
-			const result = c.constraints.reduce((tmpResult, sc) => {
+			const result = c.constraints.reduce((tmpResult: C | null, sc) => {
 				if (tmpResult) {
 					return tmpResult;
 				}

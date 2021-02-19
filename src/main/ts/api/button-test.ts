@@ -35,7 +35,7 @@ describe(ButtonApi.name, () => {
 			title: 'Button',
 		});
 		const api = new ButtonApi(c);
-		api.on('click', function() {
+		api.on('click', function(this: any) {
 			assert.strictEqual(this, api);
 			done();
 		});

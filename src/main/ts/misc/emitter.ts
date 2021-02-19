@@ -8,9 +8,6 @@ interface Observer<E> {
  * @hidden
  */
 export class Emitter<E> {
-	// Only for type inference
-	public readonly typeMap: E;
-
 	private observers_: {[EventName in keyof E]?: Observer<E[EventName]>[]};
 
 	constructor() {

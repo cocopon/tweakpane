@@ -253,7 +253,7 @@ describe('ColorConverter', () => {
 		});
 	});
 
-	[
+	([
 		{
 			components: [0, 0, 0],
 			hex: '#000000',
@@ -289,41 +289,39 @@ describe('ColorConverter', () => {
 			hex: '#0000ff',
 			rgb: 'rgb(0, 0, 255)',
 		},
-	].forEach(
-		(testCase: {
-			components: ColorComponents3 | ColorComponents4;
-			hex: string;
-			rgb: string;
-		}) => {
-			context(`when ${JSON.stringify(testCase.components)}`, () => {
-				it(`it should format to ${JSON.stringify(testCase.hex)}`, () => {
-					const c = new Color(testCase.components, 'rgb');
-					const f =
-						testCase.components.length === 3
-							? new ColorFormatter(ColorConverter.toHexRgbString)
-							: new ColorFormatter(ColorConverter.toHexRgbaString);
-					assert.strictEqual(f.format(c), testCase.hex);
-				});
-
-				it(`it should format to ${JSON.stringify(testCase.rgb)}`, () => {
-					const comps = testCase.components;
-					const c = new Color(comps, 'rgb');
-
-					if (comps.length === 3) {
-						assert.strictEqual(
-							ColorConverter.toFunctionalRgbString(c),
-							testCase.rgb,
-						);
-					} else if (comps.length === 4) {
-						assert.strictEqual(
-							ColorConverter.toFunctionalRgbaString(c),
-							testCase.rgb,
-						);
-					} else {
-						throw new Error('should not be called');
-					}
-				});
+	] as {
+		components: ColorComponents3 | ColorComponents4;
+		hex: string;
+		rgb: string;
+	}[]).forEach((testCase) => {
+		context(`when ${JSON.stringify(testCase.components)}`, () => {
+			it(`it should format to ${JSON.stringify(testCase.hex)}`, () => {
+				const c = new Color(testCase.components, 'rgb');
+				const f =
+					testCase.components.length === 3
+						? new ColorFormatter(ColorConverter.toHexRgbString)
+						: new ColorFormatter(ColorConverter.toHexRgbaString);
+				assert.strictEqual(f.format(c), testCase.hex);
 			});
-		},
-	);
+
+			it(`it should format to ${JSON.stringify(testCase.rgb)}`, () => {
+				const comps = testCase.components;
+				const c = new Color(comps, 'rgb');
+
+				if (comps.length === 3) {
+					assert.strictEqual(
+						ColorConverter.toFunctionalRgbString(c),
+						testCase.rgb,
+					);
+				} else if (comps.length === 4) {
+					assert.strictEqual(
+						ColorConverter.toFunctionalRgbaString(c),
+						testCase.rgb,
+					);
+				} else {
+					throw new Error('should not be called');
+				}
+			});
+		});
+	});
 });

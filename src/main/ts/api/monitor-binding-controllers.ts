@@ -28,7 +28,7 @@ export function create(
 	}
 
 	const bc = Plugins.monitors.reduce(
-		(result, plugin) =>
+		(result: MonitorBindingController<unknown> | null, plugin) =>
 			result ||
 			createController(plugin, {
 				document: document,

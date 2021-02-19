@@ -6,7 +6,7 @@
 			"dom",
 			"es2015"
 		],
-		"strictNullChecks": true,
+		"strict": true,
 		"target": "es5",
 		"paths": {
 			"tweakpane": ["../node_modules/tweakpane/src/main/ts/index"],

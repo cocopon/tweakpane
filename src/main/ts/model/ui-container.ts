@@ -1,13 +1,9 @@
+import {InputBindingEvents} from '../binding/input';
+import {MonitorBindingEvents} from '../binding/monitor';
 import {FolderController} from '../controller/folder';
 import {InputBindingController} from '../controller/input-binding';
 import {MonitorBindingController} from '../controller/monitor-binding';
-import {
-	UiController,
-	UiInputBinding,
-	UiInputBindingController,
-	UiMonitorBinding,
-	UiMonitorBindingController,
-} from '../controller/ui';
+import {UiController, UiInputBinding, UiMonitorBinding} from '../controller/ui';
 import {Emitter} from '../misc/emitter';
 import {FolderEvents} from './folder';
 import {List, ListEvents} from './list';
@@ -98,7 +94,7 @@ export class UiContainer {
 		} else if (uc instanceof MonitorBindingController) {
 			const emitter = uc.binding.emitter;
 			// TODO: Find more type-safe way
-			(emitter.on as any)('update', this.onItemMonitorUpdate_);
+			emitter.on('update', this.onItemMonitorUpdate_);
 		} else if (uc instanceof FolderController) {
 			uc.folder.emitter.on('change', this.onItemFolderFold_);
 
@@ -134,7 +130,7 @@ export class UiContainer {
 	}
 
 	private onItemInputChange_(
-		ev: UiInputBindingController['binding']['emitter']['typeMap']['change'],
+		ev: InputBindingEvents<unknown, unknown>['change'],
 	): void {
 		this.emitter.emit('inputchange', {
 			inputBinding: ev.sender,
@@ -144,7 +140,7 @@ export class UiContainer {
 	}
 
 	private onItemMonitorUpdate_(
-		ev: UiMonitorBindingController['binding']['emitter']['typeMap']['update'],
+		ev: MonitorBindingEvents<unknown>['update'],
 	): void {
 		this.emitter.emit('monitorupdate', {
 			monitorBinding: ev.sender,

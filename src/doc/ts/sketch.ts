@@ -31,9 +31,9 @@ export interface Environment {
 
 class Dot {
 	public readonly element: SVGCircleElement;
-	public x: number;
-	public y: number;
-	public en: number;
+	public x = 0;
+	public y = 0;
+	public en = 0;
 	private env_: Environment;
 
 	constructor(env: Environment) {
@@ -56,9 +56,9 @@ export class Sketch {
 	private svgElem_: SVGElement;
 	private dotsElem_: SVGGElement;
 	private env_: Environment;
-	private height_: number;
+	private height_ = 0;
 	private t_: number;
-	private width_: number;
+	private width_ = 0;
 
 	constructor(element: Element, env: Environment) {
 		this.onTick_ = this.onTick_.bind(this);

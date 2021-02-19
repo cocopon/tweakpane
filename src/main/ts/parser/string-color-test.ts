@@ -81,7 +81,7 @@ describe('StringColorParser', () => {
 		});
 	});
 
-	[
+	([
 		{
 			expected: {
 				components: [123, 45, 67, 1.0],
@@ -131,31 +131,26 @@ describe('StringColorParser', () => {
 			},
 			input: 'hsla(0, 0%, 0%, 0.5)',
 		},
-	].forEach(
-		({
-			expected,
-			input,
-		}: {
-			expected: {
-				components: ColorComponents4;
-				mode: ColorMode;
-			};
-			input: string;
-		}) => {
-			context(`when ${JSON.stringify(input)}`, () => {
-				it('should parse color', () => {
-					const c = StringColorParser.CompositeParser(input);
-					assert.strictEqual(c?.mode, expected.mode);
+	] as {
+		expected: {
+			components: ColorComponents4;
+			mode: ColorMode;
+		};
+		input: string;
+	}[]).forEach(({expected, input}) => {
+		context(`when ${JSON.stringify(input)}`, () => {
+			it('should parse color', () => {
+				const c = StringColorParser.CompositeParser(input);
+				assert.strictEqual(c?.mode, expected.mode);
 
-					const actualComps = c?.getComponents();
-					if (!actualComps) {
-						throw new Error('should not be called');
-					}
-					expected.components.forEach((c, index) => {
-						assert.closeTo(actualComps[index], c, DELTA);
-					});
+				const actualComps = c?.getComponents();
+				if (!actualComps) {
+					throw new Error('should not be called');
+				}
+				expected.components.forEach((c, index) => {
+					assert.closeTo(actualComps[index], c, DELTA);
 				});
 			});
-		},
-	);
+		});
+	});
 });

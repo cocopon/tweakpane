@@ -3,8 +3,8 @@ import {MonitorBindingPlugin} from '../plugin/monitor-binding';
 import {BasePlugin} from '../plugin/plugin';
 
 export const Plugins: {
-	inputs: InputBindingPlugin<unknown, unknown>[];
-	monitors: MonitorBindingPlugin<unknown, unknown>[];
+	inputs: InputBindingPlugin<any, any>[];
+	monitors: MonitorBindingPlugin<any, any>[];
 } = {
 	inputs: [],
 	monitors: [],

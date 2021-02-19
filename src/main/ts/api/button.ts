@@ -1,4 +1,5 @@
 import {ButtonController} from '../controller/button';
+import {forceCast} from '../misc/type-util';
 import {ComponentApi} from './component-api';
 
 interface ButtonApiEventHandlers {
@@ -35,7 +36,8 @@ export class ButtonApi implements ComponentApi {
 		handler: ButtonApiEventHandlers[EventName],
 	): ButtonApi {
 		const emitter = this.controller.button.emitter;
-		emitter.on(eventName, handler.bind(this));
+		// TODO: Type-safe
+		emitter.on(eventName, forceCast(handler.bind(this)));
 		return this;
 	}
 }

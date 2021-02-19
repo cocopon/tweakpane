@@ -8,17 +8,8 @@ import * as UiUtil from '../controller/ui-util';
 import {forceCast} from '../misc/type-util';
 import {Target} from '../model/target';
 import {ViewModel} from '../model/view-model';
-import {
-	fillReaderWriter,
-	hasReaderWriter,
-	InputBindingPlugin,
-	RawInputBindingPlugin,
-} from '../plugin/input-binding';
-import {
-	fillReader,
-	hasReader,
-	MonitorBindingPlugin,
-} from '../plugin/monitor-binding';
+import {InputBindingPlugin} from '../plugin/input-binding';
+import {MonitorBindingPlugin} from '../plugin/monitor-binding';
 import {ButtonApi} from './button';
 import {ComponentApi} from './component-api';
 import * as EventHandlerAdapters from './event-handler-adapters';
@@ -48,7 +39,7 @@ interface RootApiEventHandlers {
 type PluginRegistration<In, Ex> =
 	| {
 			type: 'input';
-			plugin: InputBindingPlugin<In, Ex> | RawInputBindingPlugin<In>;
+			plugin: InputBindingPlugin<In, Ex>;
 	  }
 	| {
 			type: 'monitor';
@@ -76,16 +67,9 @@ export class RootApi implements ComponentApi {
 	 */
 	public static registerPlugin<In, Ex>(r: PluginRegistration<In, Ex>): void {
 		if (r.type === 'input') {
-			if ('reader' in r.plugin.model) {
-				r.plugin;
-			}
-			Plugins.inputs.unshift(
-				hasReaderWriter(r.plugin) ? r.plugin : fillReaderWriter(r.plugin),
-			);
+			Plugins.inputs.unshift(r.plugin);
 		} else if (r.type === 'monitor') {
-			Plugins.monitors.unshift(
-				hasReader(r.plugin) ? r.plugin : fillReader(r.plugin),
-			);
+			Plugins.monitors.unshift(r.plugin);
 		}
 	}
 
@@ -222,7 +206,8 @@ export class RootApi implements ComponentApi {
 		EventHandlerAdapters.folder({
 			eventName: eventName,
 			folder: this.controller.folder,
-			handler: handler.bind(this),
+			// TODO: Type-safe
+			handler: forceCast(handler.bind(this)),
 			uiContainer: this.controller.uiContainer,
 		});
 		return this;

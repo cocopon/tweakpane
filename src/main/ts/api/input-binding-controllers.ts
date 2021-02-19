@@ -26,7 +26,7 @@ export function create(
 	}
 
 	const bc = Plugins.inputs.reduce(
-		(result, plugin) =>
+		(result: InputBindingController<unknown, unknown> | null, plugin) =>
 			result ||
 			createController(plugin, {
 				document: document,

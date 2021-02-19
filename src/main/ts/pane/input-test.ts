@@ -137,7 +137,7 @@ describe(Tweakpane.name, () => {
 		const PARAMS = {foo: 1};
 		const pane = createPane();
 		const bapi = pane.addInput(PARAMS, 'foo');
-		bapi.on('change', function() {
+		bapi.on('change', function(this: any) {
 			assert.strictEqual(this, bapi);
 			done();
 		});

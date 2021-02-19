@@ -8,7 +8,7 @@ import {ListController} from '../../controller/value/list';
 import * as BooleanConverter from '../../converter/boolean';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
-import {RawInputBindingPlugin} from '../input-binding';
+import {InputBindingPlugin} from '../input-binding';
 import {findListItems, normalizeInputParamsOptions} from '../util';
 
 function createConstraint(params: InputParams): Constraint<boolean> {
@@ -51,11 +51,13 @@ function createController(document: Document, value: Value<boolean>) {
 /**
  * @hidden
  */
-export const BooleanInputPlugin: RawInputBindingPlugin<boolean> = {
+export const BooleanInputPlugin: InputBindingPlugin<boolean, boolean> = {
 	id: 'input-bool',
 	model: {
 		accept: (value) => (typeof value === 'boolean' ? value : null),
 		constraint: (args) => createConstraint(args.params),
+		reader: (_args) => BooleanConverter.fromMixed,
+		writer: (_args) => (v: boolean) => v,
 	},
 	controller: (args) => {
 		return createController(args.document, args.binding.value);

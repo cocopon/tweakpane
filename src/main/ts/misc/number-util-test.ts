@@ -21,7 +21,7 @@ interface LoopTestCase {
 }
 
 describe('NumberUtil', () => {
-	[
+	([
 		{
 			args: [100, 0, 200, 0, 1],
 			expected: 0.5,
@@ -38,7 +38,7 @@ describe('NumberUtil', () => {
 			args: [1.5, 0, 1, -30, 30],
 			expected: 60,
 		},
-	].forEach((testCase: MapTestCase) => {
+	] as MapTestCase[]).forEach((testCase) => {
 		context(`when ${JSON.stringify(testCase.args)}`, () => {
 			it(`should map to ${testCase.expected}`, () => {
 				assert.closeTo(
@@ -86,7 +86,7 @@ describe('NumberUtil', () => {
 		});
 	});
 
-	[
+	([
 		{
 			args: [0, 0, 0],
 			expected: 0,
@@ -99,7 +99,7 @@ describe('NumberUtil', () => {
 			args: [123, 10, 100],
 			expected: 100,
 		},
-	].forEach((testCase: ConstrainTestCase) => {
+	] as ConstrainTestCase[]).forEach((testCase) => {
 		context(`when ${JSON.stringify(testCase.args)}`, () => {
 			it(`should constrain ${testCase.expected}`, () => {
 				assert.strictEqual(
@@ -110,7 +110,7 @@ describe('NumberUtil', () => {
 		});
 	});
 
-	[
+	([
 		{
 			args: [260 - 360 * 3, 360],
 			expected: 260,
@@ -131,7 +131,7 @@ describe('NumberUtil', () => {
 			args: [360 * 2 + 123, 360],
 			expected: 123,
 		},
-	].forEach((testCase: LoopTestCase) => {
+	] as LoopTestCase[]).forEach((testCase) => {
 		context(`when ${JSON.stringify(testCase.args)}`, () => {
 			it(`should loop ${testCase.expected}`, () => {
 				assert.strictEqual(

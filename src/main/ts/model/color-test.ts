@@ -9,7 +9,7 @@ import {
 import {Color, RgbaColorObject} from './color';
 
 describe(Color.name, () => {
-	[
+	([
 		{
 			expected: {r: 10, g: 20, b: 30, a: 1},
 			params: {
@@ -22,34 +22,29 @@ describe(Color.name, () => {
 				components: [-1, 300, 0],
 			},
 		},
-	].forEach(
-		({
-			expected,
-			params,
-		}: {
-			expected: RgbaColorObject;
-			params: {
-				components: ColorComponents3;
-			};
-		}) => {
-			context(`when ${JSON.stringify(params)}`, () => {
-				const c = new Color(params.components, 'rgb');
-				it('should get components', () => {
-					assert.deepStrictEqual(c.getComponents('rgb'), [
-						expected.r,
-						expected.g,
-						expected.b,
-						expected.a,
-					]);
-				});
-				it('should convert to object', () => {
-					assert.deepStrictEqual(c.toRgbaObject(), expected);
-				});
+	] as {
+		expected: RgbaColorObject;
+		params: {
+			components: ColorComponents3;
+		};
+	}[]).forEach(({expected, params}) => {
+		context(`when ${JSON.stringify(params)}`, () => {
+			const c = new Color(params.components, 'rgb');
+			it('should get components', () => {
+				assert.deepStrictEqual(c.getComponents('rgb'), [
+					expected.r,
+					expected.g,
+					expected.b,
+					expected.a,
+				]);
 			});
-		},
-	);
+			it('should convert to object', () => {
+				assert.deepStrictEqual(c.toRgbaObject(), expected);
+			});
+		});
+	});
 
-	[
+	([
 		{
 			expected: [359, 0, 100, 1],
 			params: {
@@ -92,25 +87,20 @@ describe(Color.name, () => {
 				mode: 'hsl',
 			},
 		},
-	].forEach(
-		({
-			expected,
-			params,
-		}: {
-			expected: ColorComponents4;
-			params: {
-				components: ColorComponents3;
-				mode: ColorMode;
-			};
-		}) => {
-			context(`when ${JSON.stringify(params)}`, () => {
-				const c = new Color(params.components, params.mode);
-				it('should get components', () => {
-					assert.deepStrictEqual(c.getComponents(params.mode), expected);
-				});
+	] as {
+		expected: ColorComponents4;
+		params: {
+			components: ColorComponents3;
+			mode: ColorMode;
+		};
+	}[]).forEach(({expected, params}) => {
+		context(`when ${JSON.stringify(params)}`, () => {
+			const c = new Color(params.components, params.mode);
+			it('should get components', () => {
+				assert.deepStrictEqual(c.getComponents(params.mode), expected);
 			});
-		},
-	);
+		});
+	});
 
 	[{r: 0, g: 127, b: 255}].forEach((input: unknown) => {
 		context(`when ${JSON.stringify(input)}`, () => {
@@ -167,7 +157,7 @@ describe(Color.name, () => {
 		});
 	});
 
-	[{mode: 'rgb'}, {mode: 'hsv'}].forEach(({mode}: {mode: ColorMode}) => {
+	([{mode: 'rgb'}, {mode: 'hsv'}] as {mode: ColorMode}[]).forEach(({mode}) => {
 		context(`when ${JSON.stringify({mode})}`, () => {
 			it('should get mode', () => {
 				const c = new Color([0, 0, 0], mode);

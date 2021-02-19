@@ -1,17 +1,19 @@
 import {MultiLogController} from '../../controller/value/multi-log';
 import {SingleLogMonitorController} from '../../controller/value/single-log';
+import * as StringConverter from '../../converter/string';
 import {StringFormatter} from '../../formatter/string';
 import {Constants} from '../../misc/constants';
 import {ViewModel} from '../../model/view-model';
-import {RawMonitorBindingPlugin} from '../monitor-binding';
+import {MonitorBindingPlugin} from '../monitor-binding';
 
 /**
  * @hidden
  */
-export const StringMonitorPlugin: RawMonitorBindingPlugin<string> = {
+export const StringMonitorPlugin: MonitorBindingPlugin<string, string> = {
 	id: 'monitor-string',
 	model: {
 		accept: (value, _params) => (typeof value === 'string' ? value : null),
+		reader: (_args) => StringConverter.fromMixed,
 	},
 	controller: (args) => {
 		const value = args.binding.value;

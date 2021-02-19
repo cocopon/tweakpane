@@ -137,7 +137,7 @@ describe(Tweakpane.name, () => {
 		const bapi = pane.addMonitor(PARAMS, 'foo', {
 			interval: 0,
 		});
-		bapi.on('update', function() {
+		bapi.on('update', function(this: any) {
 			bapi.dispose();
 			assert.strictEqual(this, bapi);
 			done();

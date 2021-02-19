@@ -3,6 +3,7 @@ import {describe, it} from 'mocha';
 
 import * as NumberConverter from '../converter/number';
 import {ManualTicker} from '../misc/ticker/manual';
+import {Buffer} from '../model/buffered-value';
 import {Target} from '../model/target';
 import {Value} from '../model/value';
 import {MonitorBinding} from './monitor';
@@ -13,7 +14,7 @@ describe(MonitorBinding.name, () => {
 			foo: 123,
 		};
 		const target = new Target(obj, 'foo');
-		const value = new Value([0]);
+		const value = new Value([0] as Buffer<number>);
 		const ticker = new ManualTicker();
 		const b = new MonitorBinding({
 			reader: NumberConverter.fromMixed,
@@ -30,7 +31,7 @@ describe(MonitorBinding.name, () => {
 			foo: 123,
 		};
 		const target = new Target(obj, 'foo');
-		const value = new Value([0]);
+		const value = new Value([0] as Buffer<number>);
 		const ticker = new ManualTicker();
 		// tslint:disable-next-line:no-unused-expression
 		new MonitorBinding({
@@ -63,7 +64,7 @@ describe(MonitorBinding.name, () => {
 			foo: 123,
 		};
 		const target = new Target(obj, 'foo');
-		const value = new Value([0]);
+		const value = new Value([0] as Buffer<number>);
 		const ticker = new ManualTicker();
 		// tslint:disable-next-line:no-unused-expression
 		new MonitorBinding({
