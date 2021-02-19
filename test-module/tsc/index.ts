@@ -3,7 +3,8 @@ import {JSDOM} from 'jsdom';
 import Tweakpane from 'tweakpane';
 
 const PARAMS = {
-	foo: 1,
+	num: 1,
+	p2d: {x: 0, y: 0},
 };
 
 // Create pane
@@ -13,9 +14,17 @@ const pane = new Tweakpane({
 });
 
 // Add input
-const input = pane.addInput(PARAMS, 'foo', {
-	max: 1,
-	min: 0,
-	step: 1,
+pane
+	.addInput(PARAMS, 'num', {
+		max: 1,
+		min: 0,
+		step: 1,
+	})
+	.on('change', (value: number) => {
+		console.log(value);
+	});
+pane.addInput(PARAMS, 'p2d').on('change', (value: {x: number; y: number}) => {
+	console.log(value);
 });
-console.log(input);
+
+console.log(pane);
