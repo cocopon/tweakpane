@@ -10,7 +10,7 @@ import {NumberTextController} from '../../controller/value/number-text';
 import {SliderTextController} from '../../controller/value/slider-text';
 import * as NumberConverter from '../../converter/number';
 import {NumberFormatter} from '../../formatter/number';
-import {TypeUtil} from '../../misc/type-util';
+import {isEmpty} from '../../misc/type-util';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {StringNumberParser} from '../../parser/string-number';
@@ -25,7 +25,7 @@ import {
 function createConstraint(params: InputParams): Constraint<number> {
 	const constraints: Constraint<number>[] = [];
 
-	if ('step' in params && !TypeUtil.isEmpty(params.step)) {
+	if ('step' in params && !isEmpty(params.step)) {
 		constraints.push(
 			new StepConstraint({
 				step: params.step,
@@ -34,8 +34,8 @@ function createConstraint(params: InputParams): Constraint<number> {
 	}
 
 	if (
-		('max' in params && !TypeUtil.isEmpty(params.max)) ||
-		('min' in params && !TypeUtil.isEmpty(params.min))
+		('max' in params && !isEmpty(params.max)) ||
+		('min' in params && !isEmpty(params.min))
 	) {
 		constraints.push(
 			new RangeConstraint({

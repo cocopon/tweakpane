@@ -4,7 +4,6 @@ import {ListConstraint, ListItem} from '../constraint/list';
 import {StepConstraint} from '../constraint/step';
 import {ConstraintUtil} from '../constraint/util';
 import {NumberUtil} from '../misc/number-util';
-import {TypeUtil} from '../misc/type-util';
 
 /**
  * @hidden
@@ -85,5 +84,5 @@ export function getBaseStep(
 	constraint: Constraint<number> | undefined,
 ): number {
 	const step = findStep(constraint);
-	return TypeUtil.getOrDefault<number>(step, 1);
+	return step ?? 1;
 }

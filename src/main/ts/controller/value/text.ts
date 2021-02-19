@@ -1,5 +1,5 @@
 import {Formatter} from '../../formatter/formatter';
-import {TypeUtil} from '../../misc/type-util';
+import {forceCast, isEmpty} from '../../misc/type-util';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {Parser} from '../../parser/parser';
@@ -41,11 +41,11 @@ export class TextController<T> implements ValueController<T> {
 	}
 
 	private onInputChange_(e: Event): void {
-		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
+		const inputElem: HTMLInputElement = forceCast(e.currentTarget);
 		const value = inputElem.value;
 
 		const parsedValue = this.parser_(value);
-		if (!TypeUtil.isEmpty(parsedValue)) {
+		if (!isEmpty(parsedValue)) {
 			this.value.rawValue = parsedValue;
 		}
 		this.view.update();

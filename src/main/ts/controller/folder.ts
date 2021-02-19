@@ -1,5 +1,5 @@
 import * as DomUtil from '../misc/dom-util';
-import {TypeUtil} from '../misc/type-util';
+import {isEmpty} from '../misc/type-util';
 import {Folder, FolderEvents} from '../model/folder';
 import {UiContainer, UiContainerEvents} from '../model/ui-container';
 import {ViewModel} from '../model/view-model';
@@ -31,10 +31,7 @@ export class FolderController {
 		this.onUiContainerRemove_ = this.onUiContainerRemove_.bind(this);
 
 		this.viewModel = config.viewModel;
-		this.folder = new Folder(
-			config.title,
-			TypeUtil.getOrDefault<boolean>(config.expanded, true),
-		);
+		this.folder = new Folder(config.title, config.expanded ?? true);
 		this.folder.emitter.on('beforechange', this.onFolderBeforeChange_);
 
 		this.ucList_ = new UiContainer();
@@ -67,7 +64,7 @@ export class FolderController {
 			return;
 		}
 
-		if (TypeUtil.isEmpty(this.folder.expandedHeight)) {
+		if (isEmpty(this.folder.expandedHeight)) {
 			this.folder.expandedHeight = ContainerUtil.computeExpandedFolderHeight(
 				this.folder,
 				this.view.containerElement,

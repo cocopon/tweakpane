@@ -9,7 +9,7 @@ import {Point2dPadTextController} from '../../controller/value/point-2d-pad-text
 import * as Point2dConverter from '../../converter/point-2d';
 import {NumberFormatter} from '../../formatter/number';
 import {PaneError} from '../../misc/pane-error';
-import {TypeUtil} from '../../misc/type-util';
+import {isEmpty} from '../../misc/type-util';
 import {Point2d, Point2dObject} from '../../model/point-2d';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
@@ -26,14 +26,14 @@ function createDimensionConstraint(
 
 	const constraints: Constraint<number>[] = [];
 
-	if (!TypeUtil.isEmpty(params.step)) {
+	if (!isEmpty(params.step)) {
 		constraints.push(
 			new StepConstraint({
 				step: params.step,
 			}),
 		);
 	}
-	if (!TypeUtil.isEmpty(params.max) || !TypeUtil.isEmpty(params.min)) {
+	if (!isEmpty(params.max) || !isEmpty(params.min)) {
 		constraints.push(
 			new RangeConstraint({
 				max: params.max,

@@ -1,6 +1,6 @@
 import {InputBindingController} from '../controller/input-binding';
 import {PaneError} from '../misc/pane-error';
-import {TypeUtil} from '../misc/type-util';
+import {isEmpty} from '../misc/type-util';
 import {Target} from '../model/target';
 import {createController} from '../plugin/input-binding';
 import {Plugins} from './plugins';
@@ -16,7 +16,7 @@ export function create(
 ): InputBindingController<unknown, unknown> {
 	const initialValue = target.read();
 
-	if (TypeUtil.isEmpty(initialValue)) {
+	if (isEmpty(initialValue)) {
 		throw new PaneError({
 			context: {
 				key: target.key,

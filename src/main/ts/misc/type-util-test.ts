@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
-import {TypeUtil} from './type-util';
+import {deepEqualsArray} from './type-util';
 
 describe('TypeUtil', () => {
 	[
@@ -36,10 +36,7 @@ describe('TypeUtil', () => {
 	].forEach(({expected, params}) => {
 		context(`when ${JSON.stringify(params)}`, () => {
 			it('should compare array deeply', () => {
-				assert.strictEqual(
-					TypeUtil.deepEqualsArray(params.a1, params.a2),
-					expected,
-				);
+				assert.strictEqual(deepEqualsArray(params.a1, params.a2), expected);
 			});
 		});
 	});

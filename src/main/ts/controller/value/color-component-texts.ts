@@ -1,5 +1,5 @@
 import {ColorComponents4, ColorMode} from '../../misc/color-model';
-import {TypeUtil} from '../../misc/type-util';
+import {forceCast, isEmpty} from '../../misc/type-util';
 import {Color} from '../../model/color';
 import {PickedColor} from '../../model/picked-color';
 import {Value} from '../../model/value';
@@ -73,14 +73,14 @@ export class ColorComponentTextsController implements ValueController<Color> {
 	}
 
 	private onInputChange_(e: Event): void {
-		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
+		const inputElem: HTMLInputElement = forceCast(e.currentTarget);
 
 		const parsedValue = this.parser_(inputElem.value);
-		if (TypeUtil.isEmpty(parsedValue)) {
+		if (isEmpty(parsedValue)) {
 			return;
 		}
 		const compIndex = this.findIndexOfInputElem_(inputElem);
-		if (TypeUtil.isEmpty(compIndex)) {
+		if (isEmpty(compIndex)) {
 			return;
 		}
 		this.updateComponent_(compIndex, parsedValue);
@@ -98,12 +98,12 @@ export class ColorComponentTextsController implements ValueController<Color> {
 			return;
 		}
 
-		const inputElem: HTMLInputElement = TypeUtil.forceCast(e.currentTarget);
+		const inputElem: HTMLInputElement = forceCast(e.currentTarget);
 		const parsedValue = this.parser_(inputElem.value);
-		if (TypeUtil.isEmpty(parsedValue)) {
+		if (isEmpty(parsedValue)) {
 			return;
 		}
-		if (TypeUtil.isEmpty(compIndex)) {
+		if (isEmpty(compIndex)) {
 			return;
 		}
 		this.updateComponent_(compIndex, parsedValue + step);

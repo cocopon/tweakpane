@@ -1,4 +1,4 @@
-import {TypeUtil} from '../misc/type-util';
+import {isEmpty} from '../misc/type-util';
 import {StringNumberParser} from '../parser/string-number';
 
 /**
@@ -11,7 +11,7 @@ export function fromMixed(value: unknown): number {
 
 	if (typeof value === 'string') {
 		const pv = StringNumberParser(value);
-		if (!TypeUtil.isEmpty(pv)) {
+		if (!isEmpty(pv)) {
 			return pv;
 		}
 	}

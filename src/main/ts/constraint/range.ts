@@ -1,4 +1,4 @@
-import {TypeUtil} from '../misc/type-util';
+import {isEmpty} from '../misc/type-util';
 import {Constraint} from './constraint';
 
 interface Config {
@@ -20,10 +20,10 @@ export class RangeConstraint implements Constraint<number> {
 
 	public constrain(value: number): number {
 		let result = value;
-		if (!TypeUtil.isEmpty(this.minValue)) {
+		if (!isEmpty(this.minValue)) {
 			result = Math.max(result, this.minValue);
 		}
-		if (!TypeUtil.isEmpty(this.maxValue)) {
+		if (!isEmpty(this.maxValue)) {
 			result = Math.min(result, this.maxValue);
 		}
 		return result;

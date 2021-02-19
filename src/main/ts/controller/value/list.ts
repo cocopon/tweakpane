@@ -1,5 +1,5 @@
 import {ListItem} from '../../constraint/list';
-import {TypeUtil} from '../../misc/type-util';
+import {forceCast} from '../../misc/type-util';
 import {Value} from '../../model/value';
 import {ViewModel} from '../../model/view-model';
 import {ListView} from '../../view/value/list';
@@ -46,7 +46,7 @@ export class ListController<T> implements ValueController<T> {
 	}
 
 	private onSelectChange_(e: Event): void {
-		const selectElem: HTMLSelectElement = TypeUtil.forceCast(e.currentTarget);
+		const selectElem: HTMLSelectElement = forceCast(e.currentTarget);
 		const optElem = selectElem.selectedOptions.item(0);
 		if (!optElem) {
 			return;

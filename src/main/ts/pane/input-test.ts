@@ -101,7 +101,7 @@ describe(Tweakpane.name, () => {
 				const obj = {foo: params.propertyValue};
 				const bapi = pane.addInput(obj, 'foo');
 
-				bapi.on('change', (value: unknown) => {
+				bapi.on('change', (value) => {
 					assert.strictEqual(value, expected);
 					done();
 				});
@@ -110,7 +110,7 @@ describe(Tweakpane.name, () => {
 
 			it('should pass right first argument for change event (global)', (done) => {
 				const pane = createPane();
-				pane.on('change', (value: unknown) => {
+				pane.on('change', (value) => {
 					assert.strictEqual(value, expected);
 					done();
 				});

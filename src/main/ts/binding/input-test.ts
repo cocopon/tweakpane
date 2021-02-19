@@ -49,7 +49,7 @@ describe(InputBinding.name, () => {
 	});
 
 	it('should not apply binding value to undefined field', () => {
-		const obj = {};
+		const obj: {foo?: string} = {};
 		const target = new Target(obj, 'foo');
 		const value = new Value(0);
 		// tslint:disable-next-line:no-unused-expression
@@ -60,6 +60,6 @@ describe(InputBinding.name, () => {
 			writer: (v) => v,
 		});
 
-		assert.isUndefined((obj as any).foo);
+		assert.isUndefined(obj.foo);
 	});
 });

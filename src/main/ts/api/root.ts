@@ -5,6 +5,7 @@ import {MonitorBindingController} from '../controller/monitor-binding';
 import {RootController} from '../controller/root';
 import {SeparatorController} from '../controller/separator';
 import * as UiUtil from '../controller/ui-util';
+import {forceCast} from '../misc/type-util';
 import {Target} from '../model/target';
 import {ViewModel} from '../model/view-model';
 import {
@@ -123,11 +124,11 @@ export class RootApi implements ComponentApi {
 		this.controller.viewModel.dispose();
 	}
 
-	public addInput(
-		object: object,
-		key: string,
+	public addInput<O extends Record<string, any>, Key extends string>(
+		object: O,
+		key: Key,
 		opt_params?: InputParams,
-	): InputBindingApi<unknown, unknown> {
+	): InputBindingApi<unknown, O[Key]> {
 		const params = opt_params || {};
 		const uc = InputBindingControllers.create(
 			this.controller.document,
@@ -135,7 +136,7 @@ export class RootApi implements ComponentApi {
 			params,
 		);
 		this.controller.uiContainer.add(uc, params.index);
-		return new InputBindingApi(uc);
+		return new InputBindingApi(forceCast(uc));
 	}
 
 	public addMonitor(

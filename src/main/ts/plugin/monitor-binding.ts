@@ -6,7 +6,6 @@ import {Constants} from '../misc/constants';
 import {IntervalTicker} from '../misc/ticker/interval';
 import {ManualTicker} from '../misc/ticker/manual';
 import {Ticker} from '../misc/ticker/ticker';
-import {TypeUtil} from '../misc/type-util';
 import {Buffer, initializeBuffer} from '../model/buffered-value';
 import {Target} from '../model/target';
 import {BasePlugin} from './plugin';
@@ -53,10 +52,7 @@ function createTicker(
 		? new ManualTicker()
 		: new IntervalTicker(
 				document,
-				TypeUtil.getOrDefault<number>(
-					interval,
-					Constants.monitor.defaultInterval,
-				),
+				interval ?? Constants.monitor.defaultInterval,
 		  );
 }
 

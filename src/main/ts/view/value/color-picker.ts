@@ -1,5 +1,5 @@
 import {ClassName} from '../../misc/class-name';
-import {TypeUtil} from '../../misc/type-util';
+import {forceCast} from '../../misc/type-util';
 import {Color} from '../../model/color';
 import {Foldable} from '../../model/foldable';
 import {PickedColor} from '../../model/picked-color';
@@ -114,7 +114,7 @@ export class ColorPickerView extends View implements ValueView<Color> {
 				this.alphaViews_.text.inputElement,
 			);
 		}
-		return TypeUtil.forceCast(elems);
+		return forceCast(elems);
 	}
 
 	get value(): Value<Color> {

@@ -5,7 +5,7 @@ import {
 	ColorMode,
 } from '../misc/color-model';
 import {NumberUtil} from '../misc/number-util';
-import {TypeUtil} from '../misc/type-util';
+import {isEmpty} from '../misc/type-util';
 
 export interface RgbColorObject {
 	r: number;
@@ -29,7 +29,7 @@ const CONSTRAINT_MAP: {
 			NumberUtil.loop(comps[0], 360),
 			NumberUtil.constrain(comps[1], 0, 100),
 			NumberUtil.constrain(comps[2], 0, 100),
-			NumberUtil.constrain(TypeUtil.getOrDefault(comps[3], 1), 0, 1),
+			NumberUtil.constrain(comps[3] ?? 1, 0, 1),
 		];
 	},
 	hsv: (comps) => {
@@ -37,7 +37,7 @@ const CONSTRAINT_MAP: {
 			NumberUtil.loop(comps[0], 360),
 			NumberUtil.constrain(comps[1], 0, 100),
 			NumberUtil.constrain(comps[2], 0, 100),
-			NumberUtil.constrain(TypeUtil.getOrDefault(comps[3], 1), 0, 1),
+			NumberUtil.constrain(comps[3] ?? 1, 0, 1),
 		];
 	},
 	rgb: (comps) => {
@@ -45,13 +45,13 @@ const CONSTRAINT_MAP: {
 			NumberUtil.constrain(comps[0], 0, 255),
 			NumberUtil.constrain(comps[1], 0, 255),
 			NumberUtil.constrain(comps[2], 0, 255),
-			NumberUtil.constrain(TypeUtil.getOrDefault(comps[3], 1), 0, 1),
+			NumberUtil.constrain(comps[3] ?? 1, 0, 1),
 		];
 	},
 };
 
 function isRgbColorComponent(obj: any, key: string): boolean {
-	if (typeof obj !== 'object' || TypeUtil.isEmpty(obj)) {
+	if (typeof obj !== 'object' || isEmpty(obj)) {
 		return false;
 	}
 	return key in obj && typeof obj[key] === 'number';
@@ -71,7 +71,7 @@ export class Color {
 		return color.toRgbaObject();
 	}
 
-	public static isRgbColorObject(obj: any): obj is RgbColorObject {
+	public static isRgbColorObject(obj: unknown): obj is RgbColorObject {
 		return (
 			isRgbColorComponent(obj, 'r') &&
 			isRgbColorComponent(obj, 'g') &&
@@ -79,12 +79,12 @@ export class Color {
 		);
 	}
 
-	public static isRgbaColorObject(obj: any): obj is RgbaColorObject {
+	public static isRgbaColorObject(obj: unknown): obj is RgbaColorObject {
 		return this.isRgbColorObject(obj) && isRgbColorComponent(obj, 'a');
 	}
 
 	public static isColorObject(
-		obj: any,
+		obj: unknown,
 	): obj is RgbColorObject | RgbaColorObject {
 		return this.isRgbColorObject(obj);
 	}

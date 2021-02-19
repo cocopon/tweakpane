@@ -2,7 +2,6 @@ import {MultiLogController} from '../../controller/value/multi-log';
 import {SingleLogMonitorController} from '../../controller/value/single-log';
 import {BooleanFormatter} from '../../formatter/boolean';
 import {Constants} from '../../misc/constants';
-import {TypeUtil} from '../../misc/type-util';
 import {ViewModel} from '../../model/view-model';
 import {RawMonitorBindingPlugin} from '../monitor-binding';
 
@@ -26,10 +25,7 @@ export const BooleanMonitorPlugin: RawMonitorBindingPlugin<boolean> = {
 		return new MultiLogController(args.document, {
 			viewModel: new ViewModel(),
 			formatter: new BooleanFormatter(),
-			lineCount: TypeUtil.getOrDefault(
-				args.params.lineCount,
-				Constants.monitor.defaultLineCount,
-			),
+			lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,
 			value: args.binding.value,
 		});
 	},

@@ -2,8 +2,8 @@ import {InputBindingController} from '../controller/input-binding';
 import {ComponentApi} from './component-api';
 import * as HandlerAdapters from './event-handler-adapters';
 
-interface InputBindingApiEventHandlers {
-	change: (value: unknown) => void;
+interface InputBindingApiEventHandlers<Ex> {
+	change: (value: Ex) => void;
 }
 
 /**
@@ -36,9 +36,9 @@ export class InputBindingApi<In, Ex> implements ComponentApi {
 		this.controller.viewModel.dispose();
 	}
 
-	public on<EventName extends keyof InputBindingApiEventHandlers>(
+	public on<EventName extends keyof InputBindingApiEventHandlers<Ex>>(
 		eventName: EventName,
-		handler: InputBindingApiEventHandlers[EventName],
+		handler: InputBindingApiEventHandlers<Ex>[EventName],
 	): InputBindingApi<In, Ex> {
 		HandlerAdapters.input({
 			binding: this.controller.binding,
