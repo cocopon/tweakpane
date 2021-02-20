@@ -12,15 +12,14 @@ import {InputBindingPlugin} from '../plugin/input-binding';
 import {MonitorBindingPlugin} from '../plugin/monitor-binding';
 import {ButtonApi} from './button';
 import {ComponentApi} from './component-api';
-import * as EventHandlerAdapters from './event-handler-adapters';
+import {handleFolder} from './event-handler-adapters';
 import {FolderApi} from './folder';
 import {InputBindingApi} from './input-binding';
-import * as InputBindingControllers from './input-binding-controllers';
+import {createInputBindingController} from './input-binding-controllers';
 import {MonitorBindingApi} from './monitor-binding';
-import * as MonitorBindingControllers from './monitor-binding-controllers';
+import {createMonitorBindingController} from './monitor-binding-controllers';
 import {Plugins} from './plugins';
-import * as Preset from './preset';
-import {PresetObject} from './preset';
+import {exportPresetJson, importPresetJson, PresetObject} from './preset';
 import {SeparatorApi} from './separator';
 import {
 	ButtonParams,
@@ -114,7 +113,7 @@ export class RootApi implements ComponentApi {
 		opt_params?: InputParams,
 	): InputBindingApi<unknown, O[Key]> {
 		const params = opt_params || {};
-		const uc = InputBindingControllers.create(
+		const uc = createInputBindingController(
 			this.controller.document,
 			new Target(object, key, params.presetKey),
 			params,
@@ -129,7 +128,7 @@ export class RootApi implements ComponentApi {
 		opt_params?: MonitorParams,
 	): MonitorBindingApi<O[Key]> {
 		const params = opt_params || {};
-		const uc = MonitorBindingControllers.create(
+		const uc = createMonitorBindingController(
 			this.controller.document,
 			new Target(object, key),
 			params,
@@ -176,7 +175,7 @@ export class RootApi implements ComponentApi {
 		).map((ibc) => {
 			return ibc.binding.target;
 		});
-		Preset.importJson(targets, preset);
+		importPresetJson(targets, preset);
 		this.refresh();
 	}
 
@@ -191,7 +190,7 @@ export class RootApi implements ComponentApi {
 		).map((ibc) => {
 			return ibc.binding.target;
 		});
-		return Preset.exportJson(targets);
+		return exportPresetJson(targets);
 	}
 
 	/**
@@ -203,7 +202,7 @@ export class RootApi implements ComponentApi {
 		eventName: EventName,
 		handler: RootApiEventHandlers[EventName],
 	): RootApi {
-		EventHandlerAdapters.folder({
+		handleFolder({
 			eventName: eventName,
 			folder: this.controller.folder,
 			// TODO: Type-safe

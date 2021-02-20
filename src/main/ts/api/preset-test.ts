@@ -2,7 +2,7 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {Target} from '../plugin/common/model/target';
-import * as Preset from './preset';
+import {exportPresetJson, importPresetJson} from './preset';
 
 describe('Preset', () => {
 	it('should export JSON', () => {
@@ -11,7 +11,7 @@ describe('Preset', () => {
 			foo: 1,
 		};
 
-		const preset = Preset.exportJson([
+		const preset = exportPresetJson([
 			new Target(PARAMS, 'foo'),
 			new Target(PARAMS, 'bar'),
 		]);
@@ -28,11 +28,11 @@ describe('Preset', () => {
 		};
 
 		const targets = [new Target(PARAMS, 'foo'), new Target(PARAMS, 'bar')];
-		const preset = Preset.exportJson(targets);
+		const preset = exportPresetJson(targets);
 		preset.foo = 123;
 		preset.bar = 'world';
 
-		Preset.importJson(targets, preset);
+		importPresetJson(targets, preset);
 
 		assert.strictEqual(PARAMS.foo, 123);
 		assert.strictEqual(PARAMS.bar, 'world');

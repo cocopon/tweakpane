@@ -3,7 +3,7 @@ import {SVG_NS} from '../../../common/dom-util';
 import {Foldable} from '../../../common/model/foldable';
 import {Point2d} from '../../../common/model/point-2d';
 import {Value} from '../../../common/model/value';
-import * as NumberUtil from '../../../common/number-util';
+import {mapRange} from '../../../common/number-util';
 import {PaneError} from '../../../common/pane-error';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
@@ -124,8 +124,8 @@ export class Point2dPadView extends View implements ValueView<Point2d> {
 
 		const [x, y] = this.value.rawValue.getComponents();
 		const max = this.maxValue_;
-		const px = NumberUtil.map(x, -max, +max, 0, 100);
-		const py = NumberUtil.map(y, -max, +max, 0, 100);
+		const px = mapRange(x, -max, +max, 0, 100);
+		const py = mapRange(y, -max, +max, 0, 100);
 		const ipy = this.invertsY_ ? 100 - py : py;
 		lineElem.setAttributeNS(null, 'x2', `${px}%`);
 		lineElem.setAttributeNS(null, 'y2', `${ipy}%`);

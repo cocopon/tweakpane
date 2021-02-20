@@ -1,7 +1,12 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
-import * as NumberUtil from './number-util';
+import {
+	constrainRange,
+	getDecimalDigits,
+	loopRange,
+	mapRange,
+} from './number-util';
 
 const DELTA = 1e-5;
 
@@ -41,11 +46,7 @@ describe('NumberUtil', () => {
 	] as MapTestCase[]).forEach((testCase) => {
 		context(`when ${JSON.stringify(testCase.args)}`, () => {
 			it(`should map to ${testCase.expected}`, () => {
-				assert.closeTo(
-					NumberUtil.map(...testCase.args),
-					testCase.expected,
-					DELTA,
-				);
+				assert.closeTo(mapRange(...testCase.args), testCase.expected, DELTA);
 			});
 		});
 	});
@@ -78,10 +79,7 @@ describe('NumberUtil', () => {
 	].forEach((testCase) => {
 		context(`when ${testCase.arg}`, () => {
 			it(`should return digits = ${testCase.expected}`, () => {
-				assert.strictEqual(
-					NumberUtil.getDecimalDigits(testCase.arg),
-					testCase.expected,
-				);
+				assert.strictEqual(getDecimalDigits(testCase.arg), testCase.expected);
 			});
 		});
 	});
@@ -102,10 +100,7 @@ describe('NumberUtil', () => {
 	] as ConstrainTestCase[]).forEach((testCase) => {
 		context(`when ${JSON.stringify(testCase.args)}`, () => {
 			it(`should constrain ${testCase.expected}`, () => {
-				assert.strictEqual(
-					NumberUtil.constrain(...testCase.args),
-					testCase.expected,
-				);
+				assert.strictEqual(constrainRange(...testCase.args), testCase.expected);
 			});
 		});
 	});
@@ -134,10 +129,7 @@ describe('NumberUtil', () => {
 	] as LoopTestCase[]).forEach((testCase) => {
 		context(`when ${JSON.stringify(testCase.args)}`, () => {
 			it(`should loop ${testCase.expected}`, () => {
-				assert.strictEqual(
-					NumberUtil.loop(...testCase.args),
-					testCase.expected,
-				);
+				assert.strictEqual(loopRange(...testCase.args), testCase.expected);
 			});
 		});
 	});

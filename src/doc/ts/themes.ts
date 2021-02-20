@@ -155,6 +155,6 @@ const ID_TO_THEME_MAP: {[id in ThemeId]: () => Theme} = {
 	}),
 };
 
-export function create(id: ThemeId): Theme {
+export function createTheme(id: ThemeId): Theme {
 	return ID_TO_THEME_MAP[id]();
 }

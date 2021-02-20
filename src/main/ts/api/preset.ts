@@ -7,7 +7,7 @@ export interface PresetObject {
 /**
  * @hidden
  */
-export function exportJson(targets: Target[]): PresetObject {
+export function exportPresetJson(targets: Target[]): PresetObject {
 	return targets.reduce((result, target) => {
 		return Object.assign(result, {
 			[target.presetKey]: target.read(),
@@ -18,7 +18,10 @@ export function exportJson(targets: Target[]): PresetObject {
 /**
  * @hidden
  */
-export function importJson(targets: Target[], preset: PresetObject): void {
+export function importPresetJson(
+	targets: Target[],
+	preset: PresetObject,
+): void {
 	targets.forEach((target) => {
 		const value = preset[target.presetKey];
 		if (value !== undefined) {

@@ -1,6 +1,6 @@
 import {disposeElement} from '../../../common/disposing-util';
 import {Value} from '../../../common/model/value';
-import * as NumberUtil from '../../../common/number-util';
+import {constrainRange, mapRange} from '../../../common/number-util';
 import {PaneError} from '../../../common/pane-error';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
@@ -75,14 +75,8 @@ export class SliderView extends View implements ValueView<number> {
 			throw PaneError.alreadyDisposed();
 		}
 
-		const p = NumberUtil.constrain(
-			NumberUtil.map(
-				this.value.rawValue,
-				this.minValue_,
-				this.maxValue_,
-				0,
-				100,
-			),
+		const p = constrainRange(
+			mapRange(this.value.rawValue, this.minValue_, this.maxValue_, 0, 100),
 			0,
 			100,
 		);

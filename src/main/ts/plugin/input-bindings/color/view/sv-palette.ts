@@ -3,7 +3,7 @@ import {getCanvasContext} from '../../../common/dom-util';
 import {Color} from '../../../common/model/color';
 import {hsvToRgb} from '../../../common/model/color-model';
 import {Value} from '../../../common/model/value';
-import * as NumberUtil from '../../../common/number-util';
+import {mapRange} from '../../../common/number-util';
 import {PaneError} from '../../../common/pane-error';
 import {ClassName} from '../../../common/view/class-name';
 import {View, ViewConfig} from '../../../common/view/view';
@@ -81,8 +81,8 @@ export class SvPaletteView extends View {
 
 		for (let iy = 0; iy < height; iy++) {
 			for (let ix = 0; ix < width; ix++) {
-				const s = NumberUtil.map(ix, 0, width, 0, 100);
-				const v = NumberUtil.map(iy, 0, height, 100, 0);
+				const s = mapRange(ix, 0, width, 0, 100);
+				const v = mapRange(iy, 0, height, 100, 0);
 				const rgbComps = hsvToRgb(hsvComps[0], s, v);
 				const i = (iy * width + ix) * 4;
 				data[i] = rgbComps[0];
@@ -93,9 +93,9 @@ export class SvPaletteView extends View {
 		}
 		ctx.putImageData(imgData, 0, 0);
 
-		const left = NumberUtil.map(hsvComps[1], 0, 100, 0, 100);
+		const left = mapRange(hsvComps[1], 0, 100, 0, 100);
 		this.markerElem_.style.left = `${left}%`;
-		const top = NumberUtil.map(hsvComps[2], 0, 100, 100, 0);
+		const top = mapRange(hsvComps[2], 0, 100, 100, 0);
 		this.markerElem_.style.top = `${top}%`;
 	}
 

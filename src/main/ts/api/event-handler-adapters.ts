@@ -16,7 +16,7 @@ export type FolderEventName = InputEventName | MonitorEventName | 'fold';
 /**
  * @hidden
  */
-export function input<In, Ex>({
+export function handleInputBinding<In, Ex>({
 	binding,
 	eventName,
 	handler,
@@ -36,7 +36,7 @@ export function input<In, Ex>({
 /**
  * @hidden
  */
-export function monitor<T>({
+export function handleMonitorBinding<T>({
 	binding,
 	eventName,
 	handler,
@@ -56,7 +56,7 @@ export function monitor<T>({
 /**
  * @hidden
  */
-export function folder({
+export function handleFolder({
 	eventName,
 	folder,
 	handler,

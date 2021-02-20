@@ -1,5 +1,5 @@
 import {Color} from '../model/color';
-import * as NumberUtil from '../number-util';
+import {mapRange} from '../number-util';
 import {Parser} from './parser';
 
 /**
@@ -20,7 +20,7 @@ export const RgbaParser: Parser<number, Color> = (
 			(num >> 24) & 0xff,
 			(num >> 16) & 0xff,
 			(num >> 8) & 0xff,
-			NumberUtil.map(num & 0xff, 0, 255, 0, 1),
+			mapRange(num & 0xff, 0, 255, 0, 1),
 		],
 		'rgb',
 	);

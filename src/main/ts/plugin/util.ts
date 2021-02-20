@@ -3,7 +3,7 @@ import {Constraint} from './common/constraint/constraint';
 import {ListConstraint, ListItem} from './common/constraint/list';
 import {StepConstraint} from './common/constraint/step';
 import {ConstraintUtil} from './common/constraint/util';
-import * as NumberUtil from './common/number-util';
+import {getDecimalDigits} from './common/number-util';
 
 /**
  * @hidden
@@ -71,10 +71,10 @@ export function getSuitableDecimalDigits(
 	const sc =
 		constraint && ConstraintUtil.findConstraint(constraint, StepConstraint);
 	if (sc) {
-		return NumberUtil.getDecimalDigits(sc.step);
+		return getDecimalDigits(sc.step);
 	}
 
-	return Math.max(NumberUtil.getDecimalDigits(rawValue), 2);
+	return Math.max(getDecimalDigits(rawValue), 2);
 }
 
 /**

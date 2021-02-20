@@ -37,7 +37,7 @@ function createController(document: Document, value: Value<string>) {
 	if (c && ConstraintUtil.findConstraint(c, ListConstraint)) {
 		return new ListController(document, {
 			listItems: findListItems(c) ?? [],
-			stringifyValue: StringConverter.toString,
+			stringifyValue: (v) => v,
 			value: value,
 			viewModel: new ViewModel(),
 		});
@@ -45,7 +45,7 @@ function createController(document: Document, value: Value<string>) {
 
 	return new TextController(document, {
 		formatter: new StringFormatter(),
-		parser: StringConverter.toString,
+		parser: (v) => v,
 		value: value,
 		viewModel: new ViewModel(),
 	});

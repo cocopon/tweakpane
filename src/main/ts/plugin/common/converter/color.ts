@@ -1,8 +1,8 @@
 import {NumberFormatter} from '../formatter/number';
 import {PercentageFormatter} from '../formatter/percentage';
 import {Color} from '../model/color';
-import * as ColorModel from '../model/color-model';
-import * as NumberUtil from '../number-util';
+import {removeAlphaComponent} from '../model/color-model';
+import {constrainRange} from '../number-util';
 import * as NumberColorParser from '../parser/number-color';
 import * as StringColorParser from '../parser/string-color';
 import {StringColorNotation} from '../parser/string-color';
@@ -61,7 +61,7 @@ export function fromNumberToRgba(value: unknown): Color {
 }
 
 function zerofill(comp: number): string {
-	const hex = NumberUtil.constrain(Math.floor(comp), 0, 255).toString(16);
+	const hex = constrainRange(Math.floor(comp), 0, 255).toString(16);
 	return hex.length === 1 ? `0${hex}` : hex;
 }
 
@@ -69,7 +69,7 @@ function zerofill(comp: number): string {
  * @hidden
  */
 export function toHexRgbString(value: Color): string {
-	const hexes = ColorModel.withoutAlpha(value.getComponents('rgb'))
+	const hexes = removeAlphaComponent(value.getComponents('rgb'))
 		.map(zerofill)
 		.join('');
 	return `#${hexes}`;
@@ -91,9 +91,9 @@ export function toHexRgbaString(value: Color): string {
  */
 export function toFunctionalRgbString(value: Color): string {
 	const formatter = new NumberFormatter(0);
-	const comps = ColorModel.withoutAlpha(
-		value.getComponents('rgb'),
-	).map((comp) => formatter.format(comp));
+	const comps = removeAlphaComponent(value.getComponents('rgb')).map((comp) =>
+		formatter.format(comp),
+	);
 	return `rgb(${comps.join(', ')})`;
 }
 
@@ -119,7 +119,7 @@ export function toFunctionalHslString(value: Color): string {
 		new PercentageFormatter(),
 		new PercentageFormatter(),
 	];
-	const comps = ColorModel.withoutAlpha(
+	const comps = removeAlphaComponent(
 		value.getComponents('hsl'),
 	).map((comp, index) => formatters[index].format(comp));
 	return `hsl(${comps.join(', ')})`;
@@ -162,7 +162,7 @@ export function getStringifier(
  * @hidden
  */
 export function toRgbNumber(value: Color): number {
-	return ColorModel.withoutAlpha(value.getComponents('rgb')).reduce(
+	return removeAlphaComponent(value.getComponents('rgb')).reduce(
 		(result, comp) => {
 			return (result << 8) | (Math.floor(comp) & 0xff);
 		},

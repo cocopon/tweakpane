@@ -1,7 +1,7 @@
 import {forceCast} from '../misc/type-util';
 import {MonitorBindingController} from '../plugin/common/controller/monitor-binding';
 import {ComponentApi} from './component-api';
-import * as EventHandlerAdapters from './event-handler-adapters';
+import {handleMonitorBinding} from './event-handler-adapters';
 
 interface MonitorBindingApiEventHandlers<T> {
 	update: (value: T) => void;
@@ -39,7 +39,7 @@ export class MonitorBindingApi<T> implements ComponentApi {
 		eventName: EventName,
 		handler: MonitorBindingApiEventHandlers<T>[EventName],
 	): MonitorBindingApi<T> {
-		EventHandlerAdapters.monitor({
+		handleMonitorBinding({
 			binding: this.controller.binding,
 			eventName: eventName,
 			// TODO: Type-safe

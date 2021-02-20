@@ -7,7 +7,7 @@ import {
 import {ValueController} from '../../../common/controller/value';
 import {Value} from '../../../common/model/value';
 import {ViewModel} from '../../../common/model/view-model';
-import * as NumberUtil from '../../../common/number-util';
+import {mapRange} from '../../../common/number-util';
 import {
 	PointerData,
 	PointerHandler,
@@ -81,13 +81,7 @@ export class SliderController implements ValueController<number> {
 	}
 
 	private handlePointerEvent_(d: PointerData): void {
-		this.value.rawValue = NumberUtil.map(
-			d.px,
-			0,
-			1,
-			this.minValue_,
-			this.maxValue_,
-		);
+		this.value.rawValue = mapRange(d.px, 0, 1, this.minValue_, this.maxValue_);
 	}
 
 	private onPointerDown_(ev: PointerHandlerEvents['down']): void {

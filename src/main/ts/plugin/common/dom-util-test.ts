@@ -2,7 +2,7 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../misc/test-util';
-import * as DomUtil from './dom-util';
+import {indexOfChildElement, removeElement} from './dom-util';
 
 describe('DomUtil', () => {
 	it('should get index of child element', () => {
@@ -11,7 +11,7 @@ describe('DomUtil', () => {
 		const child = w.document.createElement('div');
 		parent.appendChild(child);
 
-		DomUtil.removeElement(child);
+		removeElement(child);
 		assert.isNull(child.parentElement);
 	});
 	it('should get index of child element', () => {
@@ -23,7 +23,7 @@ describe('DomUtil', () => {
 		parent.appendChild(child);
 		parent.appendChild(w.document.createElement('div'));
 
-		assert.strictEqual(DomUtil.indexOfChildElement(child), 2);
+		assert.strictEqual(indexOfChildElement(child), 2);
 	});
 
 	it('should return negative index if not found', () => {
@@ -33,6 +33,6 @@ describe('DomUtil', () => {
 		parent.appendChild(w.document.createElement('div'));
 
 		const elem = w.document.createElement('div');
-		assert.strictEqual(DomUtil.indexOfChildElement(elem), -1);
+		assert.strictEqual(indexOfChildElement(elem), -1);
 	});
 });

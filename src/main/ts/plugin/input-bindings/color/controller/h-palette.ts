@@ -7,7 +7,7 @@ import {ValueController} from '../../../common/controller/value';
 import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
 import {ViewModel} from '../../../common/model/view-model';
-import * as NumberUtil from '../../../common/number-util';
+import {mapRange} from '../../../common/number-util';
 import {
 	PointerData,
 	PointerHandler,
@@ -52,7 +52,7 @@ export class HPaletteController implements ValueController<Color> {
 	}
 
 	private handlePointerEvent_(d: PointerData): void {
-		const hue = NumberUtil.map(d.px, 0, 1, 0, 360);
+		const hue = mapRange(d.px, 0, 1, 0, 360);
 
 		const c = this.value.rawValue;
 		const [, s, v, a] = c.getComponents('hsv');

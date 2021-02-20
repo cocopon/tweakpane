@@ -1,7 +1,13 @@
 import {isEmpty} from '../../../misc/type-util';
-import * as NumberUtil from '../number-util';
-import {ColorComponents3, ColorComponents4, ColorMode} from './color-model';
-import * as ColorModel from './color-model';
+import {constrainRange, loopRange} from '../number-util';
+import {
+	appendAlphaComponent,
+	ColorComponents3,
+	ColorComponents4,
+	ColorMode,
+	convertColorMode,
+	removeAlphaComponent,
+} from './color-model';
 
 export interface RgbColorObject {
 	r: number;
@@ -22,26 +28,26 @@ const CONSTRAINT_MAP: {
 } = {
 	hsl: (comps) => {
 		return [
-			NumberUtil.loop(comps[0], 360),
-			NumberUtil.constrain(comps[1], 0, 100),
-			NumberUtil.constrain(comps[2], 0, 100),
-			NumberUtil.constrain(comps[3] ?? 1, 0, 1),
+			loopRange(comps[0], 360),
+			constrainRange(comps[1], 0, 100),
+			constrainRange(comps[2], 0, 100),
+			constrainRange(comps[3] ?? 1, 0, 1),
 		];
 	},
 	hsv: (comps) => {
 		return [
-			NumberUtil.loop(comps[0], 360),
-			NumberUtil.constrain(comps[1], 0, 100),
-			NumberUtil.constrain(comps[2], 0, 100),
-			NumberUtil.constrain(comps[3] ?? 1, 0, 1),
+			loopRange(comps[0], 360),
+			constrainRange(comps[1], 0, 100),
+			constrainRange(comps[2], 0, 100),
+			constrainRange(comps[3] ?? 1, 0, 1),
 		];
 	},
 	rgb: (comps) => {
 		return [
-			NumberUtil.constrain(comps[0], 0, 255),
-			NumberUtil.constrain(comps[1], 0, 255),
-			NumberUtil.constrain(comps[2], 0, 255),
-			NumberUtil.constrain(comps[3] ?? 1, 0, 1),
+			constrainRange(comps[0], 0, 255),
+			constrainRange(comps[1], 0, 255),
+			constrainRange(comps[2], 0, 255),
+			constrainRange(comps[3] ?? 1, 0, 1),
 		];
 	},
 };
@@ -113,9 +119,9 @@ export class Color {
 	}
 
 	public getComponents(opt_mode?: ColorMode): ColorComponents4 {
-		return ColorModel.withAlpha(
-			ColorModel.convertMode(
-				ColorModel.withoutAlpha(this.comps_),
+		return appendAlphaComponent(
+			convertColorMode(
+				removeAlphaComponent(this.comps_),
 				this.mode_,
 				opt_mode || this.mode_,
 			),

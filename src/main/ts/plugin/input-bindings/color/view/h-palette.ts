@@ -2,7 +2,7 @@ import * as ColorConverter from '../../../common/converter/color';
 import {disposeElement} from '../../../common/disposing-util';
 import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
-import * as NumberUtil from '../../../common/number-util';
+import {mapRange} from '../../../common/number-util';
 import {PaneError} from '../../../common/pane-error';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
@@ -61,7 +61,7 @@ export class HPaletteView extends View implements ValueView<Color> {
 		this.markerElem_.style.backgroundColor = ColorConverter.toFunctionalRgbString(
 			new Color([h, 100, 100], 'hsv'),
 		);
-		const left = NumberUtil.map(h, 0, 360, 0, 100);
+		const left = mapRange(h, 0, 360, 0, 100);
 		this.markerElem_.style.left = `${left}%`;
 	}
 

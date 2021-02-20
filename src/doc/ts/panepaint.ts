@@ -1,6 +1,6 @@
 import * as ColorConverter from '../../main/ts/plugin/common/converter/color';
 import {Color} from '../../main/ts/plugin/common/model/color';
-import * as Themes from './themes';
+import {createTheme, ThemeId} from './themes';
 
 declare let Tweakpane: any;
 
@@ -131,7 +131,7 @@ export function createPane(container: Element, theme: Theme): any {
 				return;
 			}
 
-			const t = Themes.create(value as Themes.ThemeId);
+			const t = createTheme(value as ThemeId);
 			Object.keys(t).forEach((key) => {
 				const prop = key as ThemeProperty;
 				theme[prop] = t[prop];

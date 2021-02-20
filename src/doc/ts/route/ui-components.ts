@@ -1,4 +1,4 @@
-import * as Util from '../util';
+import {selectContainer} from '../util';
 
 declare let Tweakpane: any;
 
@@ -95,7 +95,7 @@ export const UiComponentsRoute = {
 		};
 		Object.keys(markerToFnMap).forEach((marker) => {
 			const initFn = markerToFnMap[marker];
-			const container = Util.selectContainer(marker);
+			const container = selectContainer(marker);
 			initFn(container);
 		});
 	},

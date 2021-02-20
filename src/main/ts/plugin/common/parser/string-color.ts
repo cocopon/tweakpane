@@ -1,6 +1,6 @@
 import {Color} from '../model/color';
 import {ColorComponents3, ColorComponents4} from '../model/color-model';
-import * as NumberUtil from '../number-util';
+import {mapRange} from '../number-util';
 import {Parser} from './parser';
 
 export type StringColorNotation =
@@ -170,7 +170,7 @@ const NOTATION_TO_PARSER_MAP: {
 					parseInt(mRrggbb[1] + mRrggbb[1], 16),
 					parseInt(mRrggbb[2] + mRrggbb[2], 16),
 					parseInt(mRrggbb[3] + mRrggbb[3], 16),
-					NumberUtil.map(parseInt(mRrggbb[4] + mRrggbb[4], 16), 0, 255, 0, 1),
+					mapRange(parseInt(mRrggbb[4] + mRrggbb[4], 16), 0, 255, 0, 1),
 				],
 				'rgb',
 			);
@@ -185,7 +185,7 @@ const NOTATION_TO_PARSER_MAP: {
 					parseInt(mRgb[1], 16),
 					parseInt(mRgb[2], 16),
 					parseInt(mRgb[3], 16),
-					NumberUtil.map(parseInt(mRgb[4], 16), 0, 255, 0, 1),
+					mapRange(parseInt(mRgb[4], 16), 0, 255, 0, 1),
 				],
 				'rgb',
 			);

@@ -10,7 +10,7 @@ import {Foldable} from '../../../common/model/foldable';
 import {Point2d} from '../../../common/model/point-2d';
 import {Value} from '../../../common/model/value';
 import {ViewModel} from '../../../common/model/view-model';
-import * as NumberUtil from '../../../common/number-util';
+import {mapRange} from '../../../common/number-util';
 import {
 	PointerData,
 	PointerHandler,
@@ -83,14 +83,8 @@ export class Point2dPadController implements ValueController<Point2d> {
 
 	private handlePointerEvent_(d: PointerData): void {
 		const max = this.maxValue_;
-		const px = NumberUtil.map(d.px, 0, 1, -max, +max);
-		const py = NumberUtil.map(
-			this.invertsY_ ? 1 - d.py : d.py,
-			0,
-			1,
-			-max,
-			+max,
-		);
+		const px = mapRange(d.px, 0, 1, -max, +max);
+		const py = mapRange(this.invertsY_ ? 1 - d.py : d.py, 0, 1, -max, +max);
 		this.value.rawValue = new Point2d(px, py);
 		this.view.update();
 	}

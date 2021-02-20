@@ -1,5 +1,5 @@
 export type ViewPosition = 'first' | 'last';
 
-export function getAll(): ViewPosition[] {
+export function getAllViewPositions(): ViewPosition[] {
 	return ['first', 'last'];
 }

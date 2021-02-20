@@ -6,11 +6,11 @@ import {FolderController} from '../plugin/general/folder/controller';
 import {SeparatorController} from '../plugin/general/separator/controller';
 import {ButtonApi} from './button';
 import {ComponentApi} from './component-api';
-import * as EventHandlerAdapters from './event-handler-adapters';
+import {handleFolder} from './event-handler-adapters';
 import {InputBindingApi} from './input-binding';
-import * as InputBindingControllers from './input-binding-controllers';
+import {createInputBindingController} from './input-binding-controllers';
 import {MonitorBindingApi} from './monitor-binding';
-import * as MonitorBindingControllers from './monitor-binding-controllers';
+import {createMonitorBindingController} from './monitor-binding-controllers';
 import {SeparatorApi} from './separator';
 import {
 	ButtonParams,
@@ -65,7 +65,7 @@ export class FolderApi implements ComponentApi {
 		opt_params?: InputParams,
 	): InputBindingApi<unknown, O[Key]> {
 		const params = opt_params || {};
-		const uc = InputBindingControllers.create(
+		const uc = createInputBindingController(
 			this.controller.document,
 			new Target(object, key, params.presetKey),
 			params,
@@ -80,7 +80,7 @@ export class FolderApi implements ComponentApi {
 		opt_params?: MonitorParams,
 	): MonitorBindingApi<O[Key]> {
 		const params = opt_params || {};
-		const uc = MonitorBindingControllers.create(
+		const uc = createMonitorBindingController(
 			this.controller.document,
 			new Target(object, key),
 			params,
@@ -120,7 +120,7 @@ export class FolderApi implements ComponentApi {
 		eventName: EventName,
 		handler: FolderApiEventHandlers[EventName],
 	): FolderApi {
-		EventHandlerAdapters.folder({
+		handleFolder({
 			eventName: eventName,
 			folder: this.controller.folder,
 			// TODO: Type-safe

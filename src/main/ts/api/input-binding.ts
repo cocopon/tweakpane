@@ -1,7 +1,7 @@
 import {forceCast} from '../misc/type-util';
 import {InputBindingController} from '../plugin/common/controller/input-binding';
 import {ComponentApi} from './component-api';
-import * as HandlerAdapters from './event-handler-adapters';
+import {handleInputBinding} from './event-handler-adapters';
 
 interface InputBindingApiEventHandlers<Ex> {
 	change: (value: Ex) => void;
@@ -41,7 +41,7 @@ export class InputBindingApi<In, Ex> implements ComponentApi {
 		eventName: EventName,
 		handler: InputBindingApiEventHandlers<Ex>[EventName],
 	): InputBindingApi<In, Ex> {
-		HandlerAdapters.input({
+		handleInputBinding({
 			binding: this.controller.binding,
 			eventName: eventName,
 			// TODO: Type-safe

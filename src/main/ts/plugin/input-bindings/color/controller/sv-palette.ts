@@ -9,7 +9,7 @@ import {ValueController} from '../../../common/controller/value';
 import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
 import {ViewModel} from '../../../common/model/view-model';
-import * as NumberUtil from '../../../common/number-util';
+import {mapRange} from '../../../common/number-util';
 import {
 	PointerData,
 	PointerHandler,
@@ -54,8 +54,8 @@ export class SvPaletteController implements ValueController<Color> {
 	}
 
 	private handlePointerEvent_(d: PointerData): void {
-		const saturation = NumberUtil.map(d.px, 0, 1, 0, 100);
-		const value = NumberUtil.map(d.py, 0, 1, 100, 0);
+		const saturation = mapRange(d.px, 0, 1, 0, 100);
+		const value = mapRange(d.py, 0, 1, 100, 0);
 
 		const [h, , , a] = this.value.rawValue.getComponents('hsv');
 		this.value.rawValue = new Color([h, saturation, value, a], 'hsv');

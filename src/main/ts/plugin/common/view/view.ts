@@ -1,6 +1,6 @@
 import {disposeElement} from '../disposing-util';
 import {ViewModel, ViewModelEvents} from '../model/view-model';
-import * as ViewPositions from '../model/view-positions';
+import {getAllViewPositions} from '../model/view-positions';
 import {PaneError} from '../pane-error';
 import {ClassName} from './class-name';
 
@@ -67,7 +67,7 @@ export class View {
 				elem.classList.remove(hiddenClass);
 			}
 		} else if (ev.propertyName === 'positions') {
-			ViewPositions.getAll().forEach((pos) => {
+			getAllViewPositions().forEach((pos) => {
 				elem.classList.remove(className(undefined, pos));
 			});
 			this.model_.positions.forEach((pos) => {

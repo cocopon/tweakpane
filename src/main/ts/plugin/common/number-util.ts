@@ -1,4 +1,4 @@
-export function map(
+export function mapRange(
 	value: number,
 	start1: number,
 	end1: number,
@@ -15,10 +15,14 @@ export function getDecimalDigits(value: number): number {
 	return frac.replace(/0+$/, '').length;
 }
 
-export function constrain(value: number, min: number, max: number): number {
+export function constrainRange(
+	value: number,
+	min: number,
+	max: number,
+): number {
 	return Math.min(Math.max(value, min), max);
 }
 
-export function loop(value: number, max: number): number {
+export function loopRange(value: number, max: number): number {
 	return ((value % max) + max) % max;
 }

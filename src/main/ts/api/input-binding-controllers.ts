@@ -9,7 +9,7 @@ import {InputParams} from './types';
 /**
  * @hidden
  */
-export function create(
+export function createInputBindingController(
 	document: Document,
 	target: Target,
 	params: InputParams,

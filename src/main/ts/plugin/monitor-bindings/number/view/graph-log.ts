@@ -3,7 +3,7 @@ import {SVG_NS} from '../../../common/dom-util';
 import {Formatter} from '../../../common/formatter/formatter';
 import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
 import {GraphCursor} from '../../../common/model/graph-cursor';
-import * as NumberUtil from '../../../common/number-util';
+import {mapRange} from '../../../common/number-util';
 import {PaneError} from '../../../common/pane-error';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
@@ -99,8 +99,8 @@ export class GraphLogView extends View implements ValueView<Buffer<number>> {
 			if (v === undefined) {
 				return;
 			}
-			const x = NumberUtil.map(index, 0, maxIndex, 0, bounds.width);
-			const y = NumberUtil.map(v, min, max, bounds.height, 0);
+			const x = mapRange(index, 0, maxIndex, 0, bounds.width);
+			const y = mapRange(v, min, max, bounds.height, 0);
 			points.push([x, y].join(','));
 		});
 		this.lineElem_.setAttributeNS(null, 'points', points.join(' '));
@@ -113,8 +113,8 @@ export class GraphLogView extends View implements ValueView<Buffer<number>> {
 		}
 		tooltipElem.classList.add(className('t', 'valid'));
 
-		const tx = NumberUtil.map(this.cursor_.index, 0, maxIndex, 0, bounds.width);
-		const ty = NumberUtil.map(value, min, max, bounds.height, 0);
+		const tx = mapRange(this.cursor_.index, 0, maxIndex, 0, bounds.width);
+		const ty = mapRange(value, min, max, bounds.height, 0);
 		tooltipElem.style.left = `${tx}px`;
 		tooltipElem.style.top = `${ty}px`;
 		tooltipElem.textContent = `${this.formatter_.format(value)}`;

@@ -1,5 +1,4 @@
-// tslint:disable:object-literal-sort-keys
-import * as Util from '../util';
+import {selectContainer} from '../util';
 
 declare let Tweakpane: any;
 
@@ -115,7 +114,7 @@ export const InputRoute = {
 					quality: 0,
 				};
 
-				const consoleElem = Util.selectContainer('numberlist', true);
+				const consoleElem = selectContainer('numberlist', true);
 				const log = {
 					json: '',
 				};
@@ -161,7 +160,7 @@ export const InputRoute = {
 			stringlist: (container) => {
 				const PARAMS = {theme: ''};
 
-				const consoleElem = Util.selectContainer('stringlist', true);
+				const consoleElem = selectContainer('stringlist', true);
 				const log = {
 					json: '',
 				};
@@ -285,7 +284,7 @@ export const InputRoute = {
 		};
 		Object.keys(markerToFnMap).forEach((marker) => {
 			const initFn = markerToFnMap[marker];
-			const container = Util.selectContainer(marker);
+			const container = selectContainer(marker);
 			initFn(container);
 		});
 	},

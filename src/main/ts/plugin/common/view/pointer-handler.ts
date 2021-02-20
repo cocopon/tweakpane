@@ -1,4 +1,4 @@
-import * as DomUtil from '../dom-util';
+import {supportsTouch} from '../dom-util';
 import {Emitter} from '../model/emitter';
 
 export interface PointerData {
@@ -56,7 +56,7 @@ export class PointerHandler {
 		this.emitter = new Emitter();
 		this.pressed_ = false;
 
-		if (DomUtil.supportsTouch(this.document)) {
+		if (supportsTouch(this.document)) {
 			element.addEventListener('touchstart', this.onTouchStart_);
 			element.addEventListener('touchmove', this.onTouchMove_);
 		} else {

@@ -3,7 +3,7 @@ import {Formatter} from '../../../common/formatter/formatter';
 import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
 import {GraphCursor} from '../../../common/model/graph-cursor';
 import {ViewModel} from '../../../common/model/view-model';
-import * as NumberUtil from '../../../common/number-util';
+import {mapRange} from '../../../common/number-util';
 import {GraphLogView} from '../view/graph-log';
 
 interface Config {
@@ -53,7 +53,7 @@ export class GraphLogController implements ValueController<Buffer<number>> {
 		const bounds = this.view.graphElement.getBoundingClientRect();
 		const x = e.offsetX;
 		this.cursor_.index = Math.floor(
-			NumberUtil.map(x, 0, bounds.width, 0, this.value.rawValue.length),
+			mapRange(x, 0, bounds.width, 0, this.value.rawValue.length),
 		);
 	}
 }

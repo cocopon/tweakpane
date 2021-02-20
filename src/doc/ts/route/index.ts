@@ -2,7 +2,7 @@ import * as ColorConverter from '../../../main/ts/plugin/common/converter/color'
 import {Color} from '../../../main/ts/plugin/common/model/color';
 import {Sketch} from '../sketch';
 import {Environment} from '../sketch';
-import * as Util from '../util';
+import {selectContainer} from '../util';
 
 declare let Tweakpane: any;
 
@@ -166,7 +166,7 @@ export const IndexRoute = {
 		};
 		Object.keys(markerToFnMap).forEach((marker) => {
 			const initFn = markerToFnMap[marker];
-			const container = Util.selectContainer(marker);
+			const container = selectContainer(marker);
 			initFn(container);
 		});
 

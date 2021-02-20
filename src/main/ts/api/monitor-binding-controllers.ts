@@ -11,7 +11,7 @@ export type MonitorableType = boolean | number | string;
 /**
  * @hidden
  */
-export function create(
+export function createMonitorBindingController(
 	document: Document,
 	target: Target,
 	params: MonitorParams,

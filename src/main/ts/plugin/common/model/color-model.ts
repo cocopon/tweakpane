@@ -1,4 +1,4 @@
-import * as NumberUtil from '../number-util';
+import {constrainRange, loopRange} from '../number-util';
 
 export type ColorComponents3 = [number, number, number];
 export type ColorComponents4 = [number, number, number, number];
@@ -6,9 +6,9 @@ export type ColorComponents4 = [number, number, number, number];
 export type ColorMode = 'hsl' | 'hsv' | 'rgb';
 
 function rgbToHsl(r: number, g: number, b: number): ColorComponents3 {
-	const rp = NumberUtil.constrain(r / 255, 0, 1);
-	const gp = NumberUtil.constrain(g / 255, 0, 1);
-	const bp = NumberUtil.constrain(b / 255, 0, 1);
+	const rp = constrainRange(r / 255, 0, 1);
+	const gp = constrainRange(g / 255, 0, 1);
+	const bp = constrainRange(b / 255, 0, 1);
 
 	const cmax = Math.max(rp, gp, bp);
 	const cmin = Math.min(rp, gp, bp);
@@ -36,8 +36,8 @@ function rgbToHsl(r: number, g: number, b: number): ColorComponents3 {
 
 function hslToRgb(h: number, s: number, l: number): ColorComponents3 {
 	const hp = ((h % 360) + 360) % 360;
-	const sp = NumberUtil.constrain(s / 100, 0, 1);
-	const lp = NumberUtil.constrain(l / 100, 0, 1);
+	const sp = constrainRange(s / 100, 0, 1);
+	const lp = constrainRange(l / 100, 0, 1);
 
 	const c = (1 - Math.abs(2 * lp - 1)) * sp;
 	const x = c * (1 - Math.abs(((hp / 60) % 2) - 1));
@@ -62,9 +62,9 @@ function hslToRgb(h: number, s: number, l: number): ColorComponents3 {
 }
 
 function rgbToHsv(r: number, g: number, b: number): ColorComponents3 {
-	const rp = NumberUtil.constrain(r / 255, 0, 1);
-	const gp = NumberUtil.constrain(g / 255, 0, 1);
-	const bp = NumberUtil.constrain(b / 255, 0, 1);
+	const rp = constrainRange(r / 255, 0, 1);
+	const gp = constrainRange(g / 255, 0, 1);
+	const bp = constrainRange(b / 255, 0, 1);
 
 	const cmax = Math.max(rp, gp, bp);
 	const cmin = Math.min(rp, gp, bp);
@@ -91,9 +91,9 @@ function rgbToHsv(r: number, g: number, b: number): ColorComponents3 {
  * @hidden
  */
 export function hsvToRgb(h: number, s: number, v: number): ColorComponents3 {
-	const hp = NumberUtil.loop(h, 360);
-	const sp = NumberUtil.constrain(s / 100, 0, 1);
-	const vp = NumberUtil.constrain(v / 100, 0, 1);
+	const hp = loopRange(h, 360);
+	const sp = constrainRange(s / 100, 0, 1);
+	const vp = constrainRange(v / 100, 0, 1);
 
 	const c = vp * sp;
 	const x = c * (1 - Math.abs(((hp / 60) % 2) - 1));
@@ -120,21 +120,16 @@ export function hsvToRgb(h: number, s: number, v: number): ColorComponents3 {
 /**
  * @hidden
  */
-export function opaque(comps: ColorComponents3): ColorComponents4 {
-	return [comps[0], comps[1], comps[2], 1];
-}
-
-/**
- * @hidden
- */
-export function withoutAlpha(comps: ColorComponents4): ColorComponents3 {
+export function removeAlphaComponent(
+	comps: ColorComponents4,
+): ColorComponents3 {
 	return [comps[0], comps[1], comps[2]];
 }
 
 /**
  * @hidden
  */
-export function withAlpha(
+export function appendAlphaComponent(
 	comps: ColorComponents3,
 	alpha: number,
 ): ColorComponents4 {
@@ -176,7 +171,7 @@ const MODE_CONVERTER_MAP: {
 /**
  * @hidden
  */
-export function convertMode(
+export function convertColorMode(
 	components: ColorComponents3,
 	fromMode: ColorMode,
 	toMode: ColorMode,
