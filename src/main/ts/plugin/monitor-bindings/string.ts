@@ -9,7 +9,7 @@ import {MonitorBindingPlugin} from '../monitor-binding';
 /**
  * @hidden
  */
-export const StringMonitorPlugin: MonitorBindingPlugin<string, string> = {
+export const StringMonitorPlugin: MonitorBindingPlugin<string> = {
 	id: 'monitor-string',
 	model: {
 		accept: (value, _params) => (typeof value === 'string' ? value : null),

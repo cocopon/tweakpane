@@ -43,7 +43,7 @@ type PluginRegistration<In, Ex> =
 	  }
 	| {
 			type: 'monitor';
-			plugin: MonitorBindingPlugin<In, Ex>;
+			plugin: MonitorBindingPlugin<Ex>;
 	  };
 
 /**
@@ -123,11 +123,11 @@ export class RootApi implements ComponentApi {
 		return new InputBindingApi(forceCast(uc));
 	}
 
-	public addMonitor(
-		object: object,
-		key: string,
+	public addMonitor<O extends Record<string, any>, Key extends string>(
+		object: O,
+		key: Key,
 		opt_params?: MonitorParams,
-	): MonitorBindingApi<unknown> {
+	): MonitorBindingApi<O[Key]> {
 		const params = opt_params || {};
 		const uc = MonitorBindingControllers.create(
 			this.controller.document,
@@ -135,7 +135,7 @@ export class RootApi implements ComponentApi {
 			params,
 		);
 		this.controller.uiContainer.add(uc, params.index);
-		return new MonitorBindingApi(uc);
+		return new MonitorBindingApi(forceCast(uc));
 	}
 
 	public addButton(params: ButtonParams): ButtonApi {

@@ -1,24 +1,25 @@
 import {MonitorBindingController} from '../controller/monitor-binding';
+import {forceCast} from '../misc/type-util';
 import {ComponentApi} from './component-api';
 import * as EventHandlerAdapters from './event-handler-adapters';
 
-interface MonitorBindingApiEventHandlers {
-	update: (value: unknown) => void;
+interface MonitorBindingApiEventHandlers<T> {
+	update: (value: T) => void;
 }
 
 /**
  * The API for the monitor binding between the parameter and the pane.
  */
-export class MonitorBindingApi<In> implements ComponentApi {
+export class MonitorBindingApi<T> implements ComponentApi {
 	/**
 	 * @hidden
 	 */
-	public readonly controller: MonitorBindingController<In>;
+	public readonly controller: MonitorBindingController<T>;
 
 	/**
 	 * @hidden
 	 */
-	constructor(bindingController: MonitorBindingController<In>) {
+	constructor(bindingController: MonitorBindingController<T>) {
 		this.controller = bindingController;
 	}
 
@@ -34,14 +35,15 @@ export class MonitorBindingApi<In> implements ComponentApi {
 		this.controller.viewModel.dispose();
 	}
 
-	public on<EventName extends keyof MonitorBindingApiEventHandlers>(
+	public on<EventName extends keyof MonitorBindingApiEventHandlers<T>>(
 		eventName: EventName,
-		handler: MonitorBindingApiEventHandlers[EventName],
-	): MonitorBindingApi<In> {
+		handler: MonitorBindingApiEventHandlers<T>[EventName],
+	): MonitorBindingApi<T> {
 		EventHandlerAdapters.monitor({
 			binding: this.controller.binding,
 			eventName: eventName,
-			handler: handler.bind(this),
+			// TODO: Type-safe
+			handler: forceCast(handler.bind(this)),
 		});
 		return this;
 	}

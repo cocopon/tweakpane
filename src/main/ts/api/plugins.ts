@@ -4,7 +4,7 @@ import {BasePlugin} from '../plugin/plugin';
 
 export const Plugins: {
 	inputs: InputBindingPlugin<any, any>[];
-	monitors: MonitorBindingPlugin<any, any>[];
+	monitors: MonitorBindingPlugin<any>[];
 } = {
 	inputs: [],
 	monitors: [],

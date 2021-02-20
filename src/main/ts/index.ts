@@ -117,7 +117,7 @@ function registerDefaultPlugins() {
 	});
 
 	[BooleanMonitorPlugin, StringMonitorPlugin, NumberMonitorPlugin].forEach(
-		(p: MonitorBindingPlugin<any, any>) => {
+		(p: MonitorBindingPlugin<any>) => {
 			RootApi.registerPlugin({
 				type: 'monitor',
 				plugin: p,
