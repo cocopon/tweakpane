@@ -2,7 +2,7 @@ import {forceCast, isEmpty} from '../../../../misc/type-util';
 import {
 	getStepForKey,
 	getVerticalStepKeys,
-} from '../../../common/controller/ui-util';
+} from '../../../common/controller/ui';
 import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/formatter/formatter';
 import {Point2d} from '../../../common/model/point-2d';

@@ -3,7 +3,7 @@ import {
 	getStepForKey,
 	getVerticalStepKeys,
 	isArrowKey,
-} from '../../../common/controller/ui-util';
+} from '../../../common/controller/ui';
 import {ValueController} from '../../../common/controller/value';
 import {findNextTarget, supportsTouch} from '../../../common/dom-util';
 import {Foldable} from '../../../common/model/foldable';

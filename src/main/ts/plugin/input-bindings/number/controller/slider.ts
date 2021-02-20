@@ -3,7 +3,7 @@ import {ConstraintUtil} from '../../../common/constraint/util';
 import {
 	getHorizontalStepKeys,
 	getStepForKey,
-} from '../../../common/controller/ui-util';
+} from '../../../common/controller/ui';
 import {ValueController} from '../../../common/controller/value';
 import {Value} from '../../../common/model/value';
 import {ViewModel} from '../../../common/model/view-model';
@@ -59,7 +59,6 @@ export class SliderController implements ValueController<number> {
 
 		this.value = config.value;
 		this.baseStep_ = config.baseStep;
-		//TODO:UiUtil.getStepForTextInput(this.value.constraint);
 
 		const [min, max] = estimateSuitableRange(this.value);
 		this.minValue_ = min;

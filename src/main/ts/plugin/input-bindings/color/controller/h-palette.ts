@@ -2,7 +2,7 @@ import {
 	getBaseStepForColor,
 	getHorizontalStepKeys,
 	getStepForKey,
-} from '../../../common/controller/ui-util';
+} from '../../../common/controller/ui';
 import {ValueController} from '../../../common/controller/value';
 import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';

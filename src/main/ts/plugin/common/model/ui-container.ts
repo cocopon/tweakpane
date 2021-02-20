@@ -1,9 +1,9 @@
 import {FolderController} from '../../general/folder/controller';
-import {InputBindingEvents} from '../binding/input';
-import {MonitorBindingEvents} from '../binding/monitor';
+import {InputBinding, InputBindingEvents} from '../binding/input';
+import {MonitorBinding, MonitorBindingEvents} from '../binding/monitor';
 import {InputBindingController} from '../controller/input-binding';
 import {MonitorBindingController} from '../controller/monitor-binding';
-import {UiController, UiInputBinding, UiMonitorBinding} from '../controller/ui';
+import {UiController} from '../controller/ui';
 import {Emitter} from './emitter';
 import {FolderEvents} from './folder';
 import {List, ListEvents} from './list';
@@ -23,7 +23,7 @@ export interface UiContainerEvents {
 	};
 
 	inputchange: {
-		inputBinding: UiInputBinding;
+		inputBinding: InputBinding<unknown, unknown>;
 		sender: UiContainer;
 		value: unknown;
 	};
@@ -35,7 +35,7 @@ export interface UiContainerEvents {
 		sender: UiContainer;
 	};
 	monitorupdate: {
-		monitorBinding: UiMonitorBinding;
+		monitorBinding: MonitorBinding<unknown>;
 		sender: UiContainer;
 		value: unknown;
 	};

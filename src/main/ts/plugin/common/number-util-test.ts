@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
-import {NumberUtil} from './number-util';
+import * as NumberUtil from './number-util';
 
 const DELTA = 1e-5;
 
