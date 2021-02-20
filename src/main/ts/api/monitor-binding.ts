@@ -1,5 +1,5 @@
-import {MonitorBindingController} from '../controller/monitor-binding';
 import {forceCast} from '../misc/type-util';
+import {MonitorBindingController} from '../plugin/common/controller/monitor-binding';
 import {ComponentApi} from './component-api';
 import * as EventHandlerAdapters from './event-handler-adapters';
 

@@ -4,7 +4,7 @@ import {describe, it} from 'mocha';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {forceCast} from '../misc/type-util';
-import {Value} from '../model/value';
+import {Value} from '../plugin/common/model/value';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({

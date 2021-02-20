@@ -1,4 +1,4 @@
-import {Target} from '../model/target';
+import {Target} from '../plugin/common/model/target';
 
 export interface PresetObject {
 	[key: string]: unknown;

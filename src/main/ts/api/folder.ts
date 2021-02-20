@@ -1,9 +1,9 @@
-import {ButtonController} from '../controller/button';
-import {FolderController} from '../controller/folder';
-import {SeparatorController} from '../controller/separator';
 import {forceCast} from '../misc/type-util';
-import {Target} from '../model/target';
-import {ViewModel} from '../model/view-model';
+import {Target} from '../plugin/common/model/target';
+import {ViewModel} from '../plugin/common/model/view-model';
+import {ButtonController} from '../plugin/general/button/controller';
+import {FolderController} from '../plugin/general/folder/controller';
+import {SeparatorController} from '../plugin/general/separator/controller';
 import {ButtonApi} from './button';
 import {ComponentApi} from './component-api';
 import * as EventHandlerAdapters from './event-handler-adapters';

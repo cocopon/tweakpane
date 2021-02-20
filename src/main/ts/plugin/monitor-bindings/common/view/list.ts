@@ -1,0 +1,77 @@
+import {ListItem} from '../../../common/constraint/list';
+import {disposeElement} from '../../../common/disposing-util';
+import {Value} from '../../../common/model/value';
+import {PaneError} from '../../../common/pane-error';
+import {ClassName} from '../../../common/view/class-name';
+import {ValueView} from '../../../common/view/value';
+import {View, ViewConfig} from '../../../common/view/view';
+
+interface Config<T> extends ViewConfig {
+	options: ListItem<T>[];
+	stringifyValue: (value: T) => string;
+	value: Value<T>;
+}
+
+const className = ClassName('lst');
+
+/**
+ * @hidden
+ */
+export class ListView<T> extends View implements ValueView<T> {
+	public readonly value: Value<T>;
+	private selectElem_: HTMLSelectElement | null;
+	private stringifyValue_: (value: T) => string;
+
+	constructor(document: Document, config: Config<T>) {
+		super(document, config);
+
+		this.onValueChange_ = this.onValueChange_.bind(this);
+
+		this.element.classList.add(className());
+
+		this.stringifyValue_ = config.stringifyValue;
+
+		const selectElem = document.createElement('select');
+		selectElem.classList.add(className('s'));
+		config.options.forEach((item, index) => {
+			const optionElem = document.createElement('option');
+			optionElem.dataset.index = String(index);
+			optionElem.textContent = item.text;
+			optionElem.value = this.stringifyValue_(item.value);
+			selectElem.appendChild(optionElem);
+		});
+		this.element.appendChild(selectElem);
+		this.selectElem_ = selectElem;
+
+		const markElem = document.createElement('div');
+		markElem.classList.add(className('m'));
+		this.element.appendChild(markElem);
+
+		config.value.emitter.on('change', this.onValueChange_);
+		this.value = config.value;
+
+		this.update();
+
+		config.model.emitter.on('dispose', () => {
+			this.selectElem_ = disposeElement(this.selectElem_);
+		});
+	}
+
+	get selectElement(): HTMLSelectElement {
+		if (!this.selectElem_) {
+			throw PaneError.alreadyDisposed();
+		}
+		return this.selectElem_;
+	}
+
+	public update(): void {
+		if (!this.selectElem_) {
+			throw PaneError.alreadyDisposed();
+		}
+		this.selectElem_.value = this.stringifyValue_(this.value.rawValue);
+	}
+
+	private onValueChange_(): void {
+		this.update();
+	}
+}

@@ -1,10 +1,10 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
-import {ListController} from '../controller/value/list';
-import {TextController} from '../controller/value/text';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
+import {ListController} from '../plugin/input-bindings/common/controller/list';
+import {TextController} from '../plugin/input-bindings/common/controller/text';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({

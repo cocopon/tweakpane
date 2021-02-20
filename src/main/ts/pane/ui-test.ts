@@ -1,14 +1,14 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
-import {ButtonController} from '../controller/button';
-import {FolderController} from '../controller/folder';
-import {InputBindingController} from '../controller/input-binding';
-import {MonitorBindingController} from '../controller/monitor-binding';
-import {SeparatorController} from '../controller/separator';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
+import {InputBindingController} from '../plugin/common/controller/input-binding';
+import {MonitorBindingController} from '../plugin/common/controller/monitor-binding';
+import {ButtonController} from '../plugin/general/button/controller';
+import {FolderController} from '../plugin/general/folder/controller';
+import {SeparatorController} from '../plugin/general/separator/controller';
 
 function createApi(title?: string): Tweakpane {
 	return new Tweakpane({

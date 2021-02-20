@@ -1,5 +1,5 @@
-import * as ColorConverter from '../../../main/ts/converter/color';
-import {Color} from '../../../main/ts/model/color';
+import * as ColorConverter from '../../../main/ts/plugin/common/converter/color';
+import {Color} from '../../../main/ts/plugin/common/model/color';
 import {Sketch} from '../sketch';
 import {Environment} from '../sketch';
 import * as Util from '../util';

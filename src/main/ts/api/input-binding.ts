@@ -1,5 +1,5 @@
-import {InputBindingController} from '../controller/input-binding';
 import {forceCast} from '../misc/type-util';
+import {InputBindingController} from '../plugin/common/controller/input-binding';
 import {ComponentApi} from './component-api';
 import * as HandlerAdapters from './event-handler-adapters';
 

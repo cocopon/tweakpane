@@ -1,16 +1,16 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
-import {Constraint} from '../constraint/constraint';
-import {StepConstraint} from '../constraint/step';
-import {ConstraintUtil} from '../constraint/util';
-import {ListController} from '../controller/value/list';
-import {SliderTextController} from '../controller/value/slider-text';
-import {TextController} from '../controller/value/text';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {forceCast} from '../misc/type-util';
-import {Value} from '../model/value';
+import {Constraint} from '../plugin/common/constraint/constraint';
+import {StepConstraint} from '../plugin/common/constraint/step';
+import {ConstraintUtil} from '../plugin/common/constraint/util';
+import {Value} from '../plugin/common/model/value';
+import {ListController} from '../plugin/input-bindings/common/controller/list';
+import {TextController} from '../plugin/input-bindings/common/controller/text';
+import {SliderTextController} from '../plugin/input-bindings/number/controller/slider-text';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({

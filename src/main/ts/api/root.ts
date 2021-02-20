@@ -1,13 +1,13 @@
-import {ButtonController} from '../controller/button';
-import {FolderController} from '../controller/folder';
-import {InputBindingController} from '../controller/input-binding';
-import {MonitorBindingController} from '../controller/monitor-binding';
-import {RootController} from '../controller/root';
-import {SeparatorController} from '../controller/separator';
-import * as UiUtil from '../controller/ui-util';
 import {forceCast} from '../misc/type-util';
-import {Target} from '../model/target';
-import {ViewModel} from '../model/view-model';
+import {InputBindingController} from '../plugin/common/controller/input-binding';
+import {MonitorBindingController} from '../plugin/common/controller/monitor-binding';
+import {findControllers} from '../plugin/common/controller/ui-util';
+import {Target} from '../plugin/common/model/target';
+import {ViewModel} from '../plugin/common/model/view-model';
+import {ButtonController} from '../plugin/general/button/controller';
+import {FolderController} from '../plugin/general/folder/controller';
+import {RootController} from '../plugin/general/root/controller';
+import {SeparatorController} from '../plugin/general/separator/controller';
 import {InputBindingPlugin} from '../plugin/input-binding';
 import {MonitorBindingPlugin} from '../plugin/monitor-binding';
 import {ButtonApi} from './button';
@@ -170,7 +170,7 @@ export class RootApi implements ComponentApi {
 	 * @param preset The preset object to import.
 	 */
 	public importPreset(preset: PresetObject): void {
-		const targets = UiUtil.findControllers(
+		const targets = findControllers(
 			this.controller.uiContainer.items,
 			InputBindingController,
 		).map((ibc) => {
@@ -185,7 +185,7 @@ export class RootApi implements ComponentApi {
 	 * @return The exported preset object.
 	 */
 	public exportPreset(): PresetObject {
-		const targets = UiUtil.findControllers(
+		const targets = findControllers(
 			this.controller.uiContainer.items,
 			InputBindingController,
 		).map((ibc) => {
@@ -218,7 +218,7 @@ export class RootApi implements ComponentApi {
 	 */
 	public refresh(): void {
 		// Force-read all input bindings
-		UiUtil.findControllers(
+		findControllers(
 			this.controller.uiContainer.items,
 			InputBindingController,
 		).forEach((ibc) => {
@@ -226,7 +226,7 @@ export class RootApi implements ComponentApi {
 		});
 
 		// Force-read all monitor bindings
-		UiUtil.findControllers(
+		findControllers(
 			this.controller.uiContainer.items,
 			MonitorBindingController,
 		).forEach((mbc) => {

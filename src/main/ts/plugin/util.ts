@@ -1,9 +1,9 @@
 import {InputParamsOption, InputParamsOptionDictionary} from '../api/types';
-import {Constraint} from '../constraint/constraint';
-import {ListConstraint, ListItem} from '../constraint/list';
-import {StepConstraint} from '../constraint/step';
-import {ConstraintUtil} from '../constraint/util';
 import {NumberUtil} from '../misc/number-util';
+import {Constraint} from './common/constraint/constraint';
+import {ListConstraint, ListItem} from './common/constraint/list';
+import {StepConstraint} from './common/constraint/step';
+import {ConstraintUtil} from './common/constraint/util';
 
 /**
  * @hidden

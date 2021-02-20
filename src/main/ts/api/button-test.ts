@@ -1,9 +1,9 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {ButtonController} from '../controller/button';
 import {TestUtil} from '../misc/test-util';
-import {ViewModel} from '../model/view-model';
+import {ViewModel} from '../plugin/common/model/view-model';
+import {ButtonController} from '../plugin/general/button/controller';
 import {ButtonApi} from './button';
 
 describe(ButtonApi.name, () => {

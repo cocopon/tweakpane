@@ -2,9 +2,9 @@ import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
 import Tweakpane from '../index';
-import {PaneError} from '../misc/pane-error';
 import {TestUtil} from '../misc/test-util';
-import {Color} from '../model/color';
+import {Color} from '../plugin/common/model/color';
+import {PaneError} from '../plugin/common/pane-error';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({

@@ -2,9 +2,9 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import Tweakpane from '../index';
-import {PaneError} from '../misc/pane-error';
 import {TestUtil} from '../misc/test-util';
-import {ManualTicker} from '../misc/ticker/manual';
+import {ManualTicker} from '../plugin/common/binding/ticker/manual';
+import {PaneError} from '../plugin/common/pane-error';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({

@@ -1,17 +1,17 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {MonitorBinding} from '../binding/monitor';
-import {MonitorBindingController} from '../controller/monitor-binding';
-import {SingleLogMonitorController} from '../controller/value/single-log';
-import * as NumberConverter from '../converter/number';
-import {NumberFormatter} from '../formatter/number';
 import {TestUtil} from '../misc/test-util';
-import {ManualTicker} from '../misc/ticker/manual';
-import {Buffer} from '../model/buffered-value';
-import {Target} from '../model/target';
-import {Value} from '../model/value';
-import {ViewModel} from '../model/view-model';
+import {MonitorBinding} from '../plugin/common/binding/monitor';
+import {ManualTicker} from '../plugin/common/binding/ticker/manual';
+import {MonitorBindingController} from '../plugin/common/controller/monitor-binding';
+import * as NumberConverter from '../plugin/common/converter/number';
+import {NumberFormatter} from '../plugin/common/formatter/number';
+import {Buffer} from '../plugin/common/model/buffered-value';
+import {Target} from '../plugin/common/model/target';
+import {Value} from '../plugin/common/model/value';
+import {ViewModel} from '../plugin/common/model/view-model';
+import {SingleLogMonitorController} from '../plugin/monitor-bindings/common/controller/single-log';
 import {MonitorBindingApi} from './monitor-binding';
 
 function createApi(target: Target) {

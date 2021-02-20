@@ -1,10 +1,10 @@
 import {InputParams} from '../api/types';
-import {InputBinding} from '../binding/input';
-import {Constraint} from '../constraint/constraint';
-import {InputBindingController} from '../controller/input-binding';
-import {ValueController} from '../controller/value/value';
-import {Target} from '../model/target';
-import {Value} from '../model/value';
+import {InputBinding} from './common/binding/input';
+import {Constraint} from './common/constraint/constraint';
+import {InputBindingController} from './common/controller/input-binding';
+import {ValueController} from './common/controller/value';
+import {Target} from './common/model/target';
+import {Value} from './common/model/value';
 import {BasePlugin} from './plugin';
 
 interface ValueArgs<Ex> {

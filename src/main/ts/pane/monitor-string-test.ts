@@ -1,12 +1,12 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
-import {MonitorBinding} from '../binding/monitor';
-import {MultiLogController} from '../controller/value/multi-log';
-import {SingleLogMonitorController} from '../controller/value/single-log';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
-import {IntervalTicker} from '../misc/ticker/interval';
+import {MonitorBinding} from '../plugin/common/binding/monitor';
+import {IntervalTicker} from '../plugin/common/binding/ticker/interval';
+import {MultiLogController} from '../plugin/monitor-bindings/common/controller/multi-log';
+import {SingleLogMonitorController} from '../plugin/monitor-bindings/common/controller/single-log';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({

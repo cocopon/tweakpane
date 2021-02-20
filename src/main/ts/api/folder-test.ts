@@ -1,16 +1,16 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {ButtonController} from '../controller/button';
-import {FolderController} from '../controller/folder';
-import {InputBindingController} from '../controller/input-binding';
-import {MonitorBindingController} from '../controller/monitor-binding';
-import {SeparatorController} from '../controller/separator';
-import {NumberTextController} from '../controller/value/number-text';
-import {SingleLogMonitorController} from '../controller/value/single-log';
 import {TestUtil} from '../misc/test-util';
-import {Color} from '../model/color';
-import {ViewModel} from '../model/view-model';
+import {InputBindingController} from '../plugin/common/controller/input-binding';
+import {MonitorBindingController} from '../plugin/common/controller/monitor-binding';
+import {Color} from '../plugin/common/model/color';
+import {ViewModel} from '../plugin/common/model/view-model';
+import {ButtonController} from '../plugin/general/button/controller';
+import {FolderController} from '../plugin/general/folder/controller';
+import {SeparatorController} from '../plugin/general/separator/controller';
+import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
+import {SingleLogMonitorController} from '../plugin/monitor-bindings/common/controller/single-log';
 import {FolderApi} from './folder';
 import {SeparatorApi} from './separator';
 

@@ -1,13 +1,13 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {TextController} from '../controller/value/text';
-import * as StringConverter from '../converter/string';
-import {StringFormatter} from '../formatter/string';
-import Tweakpane from '../index';
-import {PaneError} from '../misc/pane-error';
+import Tweakpane from '..';
 import {TestUtil} from '../misc/test-util';
-import {ViewModel} from '../model/view-model';
+import * as StringConverter from '../plugin/common/converter/string';
+import {StringFormatter} from '../plugin/common/formatter/string';
+import {ViewModel} from '../plugin/common/model/view-model';
+import {PaneError} from '../plugin/common/pane-error';
+import {TextController} from '../plugin/input-bindings/common/controller/text';
 
 describe(Tweakpane.name, () => {
 	it('should dispose with default container', () => {

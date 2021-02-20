@@ -1,13 +1,14 @@
 import {MonitorParams} from '../api/types';
-import {MonitorBinding} from '../binding/monitor';
-import {MonitorBindingController} from '../controller/monitor-binding';
-import {ValueController} from '../controller/value/value';
 import {Constants} from '../misc/constants';
-import {IntervalTicker} from '../misc/ticker/interval';
-import {ManualTicker} from '../misc/ticker/manual';
-import {Ticker} from '../misc/ticker/ticker';
-import {Buffer, initializeBuffer} from '../model/buffered-value';
-import {Target} from '../model/target';
+import {MonitorBinding} from './common/binding/monitor';
+import {IntervalTicker} from './common/binding/ticker/interval';
+import {ManualTicker} from './common/binding/ticker/manual';
+import {Ticker} from './common/binding/ticker/ticker';
+import {MonitorBindingController} from './common/controller/monitor-binding';
+import {ValueController} from './common/controller/value';
+import {initializeBuffer} from './common/model/buffered-value';
+import {Buffer} from './common/model/buffered-value';
+import {Target} from './common/model/target';
 import {BasePlugin} from './plugin';
 
 interface ValueArguments<T> {

@@ -1,6 +1,4 @@
-import * as DomUtil from '../../main/ts/misc/dom-util';
-
-const SVG_NS = DomUtil.SVG_NS;
+import {SVG_NS} from '../../main/ts/plugin/common/dom-util';
 
 function map(
 	v: number,
