@@ -9,7 +9,7 @@ import {MonitorBindingPlugin} from '../monitor-binding';
 /**
  * @hidden
  */
-export const BooleanMonitorPlugin: MonitorBindingPlugin<boolean, boolean> = {
+export const BooleanMonitorPlugin: MonitorBindingPlugin<boolean> = {
 	id: 'monitor-bool',
 	model: {
 		accept: (value, _params) => (typeof value === 'boolean' ? value : null),

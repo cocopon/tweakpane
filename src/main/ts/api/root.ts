@@ -43,7 +43,7 @@ type PluginRegistration<In, Ex> =
 	  }
 	| {
 			type: 'monitor';
-			plugin: MonitorBindingPlugin<In, Ex>;
+			plugin: MonitorBindingPlugin<Ex>;
 	  };
 
 /**

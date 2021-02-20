@@ -3,34 +3,34 @@ import {Ticker, TickerEvents} from '../misc/ticker/ticker';
 import {BufferedValue, createPushedBuffer} from '../model/buffered-value';
 import {Target} from '../model/target';
 
-interface Config<In> {
-	reader: (outerValue: unknown) => In;
+interface Config<T> {
+	reader: (exValue: unknown) => T;
 	target: Target;
 	ticker: Ticker;
-	value: BufferedValue<In>;
+	value: BufferedValue<T>;
 }
 
 /**
  * @hidden
  */
-export interface MonitorBindingEvents<In> {
+export interface MonitorBindingEvents<T> {
 	update: {
-		rawValue: In;
-		sender: MonitorBinding<In>;
+		rawValue: T;
+		sender: MonitorBinding<T>;
 	};
 }
 
 /**
  * @hidden
  */
-export class MonitorBinding<In> {
-	public readonly emitter: Emitter<MonitorBindingEvents<In>>;
+export class MonitorBinding<T> {
+	public readonly emitter: Emitter<MonitorBindingEvents<T>>;
 	public readonly target: Target;
 	public readonly ticker: Ticker;
-	public readonly value: BufferedValue<In>;
-	private reader_: (outerValue: unknown) => In;
+	public readonly value: BufferedValue<T>;
+	private reader_: (exValue: unknown) => T;
 
-	constructor(config: Config<In>) {
+	constructor(config: Config<T>) {
 		this.onTick_ = this.onTick_.bind(this);
 
 		this.reader_ = config.reader;
@@ -51,16 +51,17 @@ export class MonitorBinding<In> {
 
 	public read(): void {
 		const targetValue = this.target.read();
-		if (targetValue !== undefined) {
-			const buffer = this.value.rawValue;
-			const newValue = this.reader_(targetValue);
-
-			this.value.rawValue = createPushedBuffer(buffer, newValue);
-			this.emitter.emit('update', {
-				rawValue: newValue,
-				sender: this,
-			});
+		if (targetValue === undefined) {
+			return;
 		}
+
+		const buffer = this.value.rawValue;
+		const newValue = this.reader_(targetValue);
+		this.value.rawValue = createPushedBuffer(buffer, newValue);
+		this.emitter.emit('update', {
+			rawValue: newValue,
+			sender: this,
+		});
 	}
 
 	private onTick_(_: TickerEvents['tick']): void {

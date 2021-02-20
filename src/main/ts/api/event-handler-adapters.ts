@@ -30,18 +30,18 @@ export function input<In, Ex>({
 /**
  * @hidden
  */
-export function monitor<In>({
+export function monitor<T>({
 	binding,
 	eventName,
 	handler,
 }: {
-	binding: MonitorBinding<In>;
+	binding: MonitorBinding<T>;
 	eventName: MonitorEventName;
 	handler: (value: unknown) => void;
 }) {
 	if (eventName === 'update') {
 		const emitter = binding.emitter;
-		emitter.on('update', (ev: MonitorBindingEvents<In>['update']) => {
+		emitter.on('update', (ev: MonitorBindingEvents<T>['update']) => {
 			handler(ev.sender.target.read());
 		});
 	}

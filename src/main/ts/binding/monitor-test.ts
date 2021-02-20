@@ -86,7 +86,7 @@ describe(MonitorBinding.name, () => {
 		assert.strictEqual(
 			value.rawValue[0],
 			123,
-			'Deleted value should be pushed',
+			'Deleted value should not be pushed',
 		);
 	});
 });

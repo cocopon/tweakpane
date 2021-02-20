@@ -10,28 +10,28 @@ import {Buffer, initializeBuffer} from '../model/buffered-value';
 import {Target} from '../model/target';
 import {BasePlugin} from './plugin';
 
-interface ValueArguments<Ex> {
-	initialValue: Ex;
+interface ValueArguments<T> {
+	initialValue: T;
 	params: MonitorParams;
 	target: Target;
 }
 
-interface ControllerArguments<In> {
-	binding: MonitorBinding<In>;
+interface ControllerArguments<T> {
+	binding: MonitorBinding<T>;
 	document: Document;
 	params: MonitorParams;
 }
 
-export interface MonitorBindingPlugin<In, Ex> extends BasePlugin {
+export interface MonitorBindingPlugin<T> extends BasePlugin {
 	model: {
-		// Accept unknown value as Ex, or deny it
-		accept: (value: unknown, params: MonitorParams) => Ex | null;
-		// Convert Ex into In
-		reader: (args: ValueArguments<Ex>) => (value: unknown) => In;
+		// Accept unknown value as T, or deny it
+		accept: (value: unknown, params: MonitorParams) => T | null;
+		// Convert bound value into T
+		reader: (args: ValueArguments<T>) => (value: unknown) => T;
 		// Misc
 		defaultBufferSize?: (params: MonitorParams) => number;
 	};
-	controller: (args: ControllerArguments<In>) => ValueController<Buffer<In>>;
+	controller: (args: ControllerArguments<T>) => ValueController<Buffer<T>>;
 }
 
 function createTicker(
@@ -46,14 +46,14 @@ function createTicker(
 		  );
 }
 
-export function createController<In, Ex>(
-	plugin: MonitorBindingPlugin<In, Ex>,
+export function createController<T>(
+	plugin: MonitorBindingPlugin<T>,
 	args: {
 		document: Document;
 		params: MonitorParams;
 		target: Target;
 	},
-): MonitorBindingController<In> | null {
+): MonitorBindingController<T> | null {
 	const initialValue = plugin.model.accept(args.target.read(), args.params);
 	if (initialValue === null) {
 		return null;

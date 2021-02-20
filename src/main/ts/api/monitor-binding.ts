@@ -9,16 +9,16 @@ interface MonitorBindingApiEventHandlers {
 /**
  * The API for the monitor binding between the parameter and the pane.
  */
-export class MonitorBindingApi<In> implements ComponentApi {
+export class MonitorBindingApi<T> implements ComponentApi {
 	/**
 	 * @hidden
 	 */
-	public readonly controller: MonitorBindingController<In>;
+	public readonly controller: MonitorBindingController<T>;
 
 	/**
 	 * @hidden
 	 */
-	constructor(bindingController: MonitorBindingController<In>) {
+	constructor(bindingController: MonitorBindingController<T>) {
 		this.controller = bindingController;
 	}
 
@@ -37,7 +37,7 @@ export class MonitorBindingApi<In> implements ComponentApi {
 	public on<EventName extends keyof MonitorBindingApiEventHandlers>(
 		eventName: EventName,
 		handler: MonitorBindingApiEventHandlers[EventName],
-	): MonitorBindingApi<In> {
+	): MonitorBindingApi<T> {
 		EventHandlerAdapters.monitor({
 			binding: this.controller.binding,
 			eventName: eventName,

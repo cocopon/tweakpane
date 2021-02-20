@@ -63,7 +63,7 @@ function shouldShowGraph(params: MonitorParams): boolean {
 /**
  * @hidden
  */
-export const NumberMonitorPlugin: MonitorBindingPlugin<number, number> = {
+export const NumberMonitorPlugin: MonitorBindingPlugin<number> = {
 	id: 'monitor-number',
 	model: {
 		accept: (value, _params) => (typeof value === 'number' ? value : null),

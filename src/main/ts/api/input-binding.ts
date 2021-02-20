@@ -10,7 +10,7 @@ interface InputBindingApiEventHandlers<Ex> {
 /**
  * The API for the input binding between the parameter and the pane.
  * @param In The type internal Tweakpane.
- * @param Ex The type externalTweakpane (= parameter object).
+ * @param Ex The type external Tweakpane (= parameter object).
  */
 export class InputBindingApi<In, Ex> implements ComponentApi {
 	/**

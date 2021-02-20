@@ -4,21 +4,21 @@ import {ViewModel} from '../model/view-model';
 import {LabeledView} from '../view/labeled';
 import {ValueController} from './value/value';
 
-interface Config<In> {
-	binding: MonitorBinding<In>;
-	controller: ValueController<Buffer<In>>;
+interface Config<T> {
+	binding: MonitorBinding<T>;
+	controller: ValueController<Buffer<T>>;
 	label: string;
 }
 
 /**
  * @hidden
  */
-export class MonitorBindingController<In> {
-	public readonly binding: MonitorBinding<In>;
-	public readonly controller: ValueController<Buffer<In>>;
+export class MonitorBindingController<T> {
+	public readonly binding: MonitorBinding<T>;
+	public readonly controller: ValueController<Buffer<T>>;
 	public readonly view: LabeledView;
 
-	constructor(document: Document, config: Config<In>) {
+	constructor(document: Document, config: Config<T>) {
 		this.binding = config.binding;
 		this.controller = config.controller;
 

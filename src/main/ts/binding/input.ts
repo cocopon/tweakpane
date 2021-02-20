@@ -3,10 +3,10 @@ import {Target} from '../model/target';
 import {Value, ValueEvents} from '../model/value';
 
 interface Config<In, Ex> {
-	reader: (outerValue: unknown) => In;
+	reader: (exValue: unknown) => In;
 	target: Target;
 	value: Value<In>;
-	writer: (innerValue: In) => Ex;
+	writer: (inValue: In) => Ex;
 }
 
 /**
@@ -26,8 +26,8 @@ export class InputBinding<In, Ex> {
 	public readonly emitter: Emitter<InputBindingEvents<In, Ex>>;
 	public readonly target: Target;
 	public readonly value: Value<In>;
-	public readonly reader: (outerValue: unknown) => In;
-	public readonly writer: (innerValue: In) => Ex;
+	public readonly reader: (exValue: unknown) => In;
+	public readonly writer: (inValue: In) => Ex;
 
 	constructor(config: Config<In, Ex>) {
 		this.onValueChange_ = this.onValueChange_.bind(this);
