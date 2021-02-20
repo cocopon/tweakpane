@@ -1,9 +1,10 @@
 import {MonitorBindingController} from '../controller/monitor-binding';
+import {forceCast} from '../misc/type-util';
 import {ComponentApi} from './component-api';
 import * as EventHandlerAdapters from './event-handler-adapters';
 
-interface MonitorBindingApiEventHandlers {
-	update: (value: unknown) => void;
+interface MonitorBindingApiEventHandlers<T> {
+	update: (value: T) => void;
 }
 
 /**
@@ -34,14 +35,15 @@ export class MonitorBindingApi<T> implements ComponentApi {
 		this.controller.viewModel.dispose();
 	}
 
-	public on<EventName extends keyof MonitorBindingApiEventHandlers>(
+	public on<EventName extends keyof MonitorBindingApiEventHandlers<T>>(
 		eventName: EventName,
-		handler: MonitorBindingApiEventHandlers[EventName],
+		handler: MonitorBindingApiEventHandlers<T>[EventName],
 	): MonitorBindingApi<T> {
 		EventHandlerAdapters.monitor({
 			binding: this.controller.binding,
 			eventName: eventName,
-			handler: handler.bind(this),
+			// TODO: Type-safe
+			handler: forceCast(handler.bind(this)),
 		});
 		return this;
 	}
