@@ -1,4 +1,3 @@
-import {NumberUtil} from '../../../../misc/number-util';
 import {
 	getHorizontalStepKeys,
 	getStepForKey,
@@ -11,6 +10,7 @@ import {Foldable} from '../../../common/model/foldable';
 import {Point2d} from '../../../common/model/point-2d';
 import {Value} from '../../../common/model/value';
 import {ViewModel} from '../../../common/model/view-model';
+import * as NumberUtil from '../../../common/number-util';
 import {
 	PointerData,
 	PointerHandler,

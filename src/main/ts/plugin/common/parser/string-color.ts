@@ -1,6 +1,6 @@
-import {NumberUtil} from '../../../misc/number-util';
 import {Color} from '../model/color';
 import {ColorComponents3, ColorComponents4} from '../model/color-model';
+import * as NumberUtil from '../number-util';
 import {Parser} from './parser';
 
 export type StringColorNotation =

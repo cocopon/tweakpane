@@ -1,6 +1,6 @@
-import {NumberUtil} from '../../../../misc/number-util';
 import {disposeElement} from '../../../common/disposing-util';
 import {Value} from '../../../common/model/value';
+import * as NumberUtil from '../../../common/number-util';
 import {PaneError} from '../../../common/pane-error';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';

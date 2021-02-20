@@ -1,5 +1,5 @@
-import {NumberUtil} from '../../../misc/number-util';
 import {Color} from '../model/color';
+import * as NumberUtil from '../number-util';
 import {Parser} from './parser';
 
 /**

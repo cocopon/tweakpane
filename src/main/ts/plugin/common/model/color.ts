@@ -1,5 +1,5 @@
-import {NumberUtil} from '../../../misc/number-util';
 import {isEmpty} from '../../../misc/type-util';
+import * as NumberUtil from '../number-util';
 import {ColorComponents3, ColorComponents4, ColorMode} from './color-model';
 import * as ColorModel from './color-model';
 

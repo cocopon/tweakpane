@@ -1,8 +1,8 @@
-import {NumberUtil} from '../../../misc/number-util';
 import {NumberFormatter} from '../formatter/number';
 import {PercentageFormatter} from '../formatter/percentage';
 import {Color} from '../model/color';
 import * as ColorModel from '../model/color-model';
+import * as NumberUtil from '../number-util';
 import * as NumberColorParser from '../parser/number-color';
 import * as StringColorParser from '../parser/string-color';
 import {StringColorNotation} from '../parser/string-color';

@@ -1,4 +1,3 @@
-import {NumberUtil} from '../../../../misc/number-util';
 import {RangeConstraint} from '../../../common/constraint/range';
 import {ConstraintUtil} from '../../../common/constraint/util';
 import {
@@ -8,6 +7,7 @@ import {
 import {ValueController} from '../../../common/controller/value';
 import {Value} from '../../../common/model/value';
 import {ViewModel} from '../../../common/model/view-model';
+import * as NumberUtil from '../../../common/number-util';
 import {
 	PointerData,
 	PointerHandler,

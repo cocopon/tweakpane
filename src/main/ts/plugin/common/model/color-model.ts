@@ -1,4 +1,4 @@
-import {NumberUtil} from '../../../misc/number-util';
+import * as NumberUtil from '../number-util';
 
 export type ColorComponents3 = [number, number, number];
 export type ColorComponents4 = [number, number, number, number];

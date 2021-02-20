@@ -1,4 +1,3 @@
-import {NumberUtil} from '../../../../misc/number-util';
 import {
 	getBaseStepForColor,
 	getHorizontalStepKeys,
@@ -8,6 +7,7 @@ import {ValueController} from '../../../common/controller/value';
 import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
 import {ViewModel} from '../../../common/model/view-model';
+import * as NumberUtil from '../../../common/number-util';
 import {
 	PointerData,
 	PointerHandler,

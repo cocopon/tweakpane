@@ -1,9 +1,9 @@
-import {NumberUtil} from '../../../../misc/number-util';
 import {disposeElement} from '../../../common/disposing-util';
 import {SVG_NS} from '../../../common/dom-util';
 import {Foldable} from '../../../common/model/foldable';
 import {Point2d} from '../../../common/model/point-2d';
 import {Value} from '../../../common/model/value';
+import * as NumberUtil from '../../../common/number-util';
 import {PaneError} from '../../../common/pane-error';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';

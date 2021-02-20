@@ -1,8 +1,8 @@
-import {NumberUtil} from '../../../../misc/number-util';
 import * as ColorConverter from '../../../common/converter/color';
 import {disposeElement} from '../../../common/disposing-util';
 import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
+import * as NumberUtil from '../../../common/number-util';
 import {PaneError} from '../../../common/pane-error';
 import {ClassName} from '../../../common/view/class-name';
 import {View, ViewConfig} from '../../../common/view/view';
