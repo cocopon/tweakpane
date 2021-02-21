@@ -2,14 +2,14 @@ import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
 import {Point2dObject} from '../model/point-2d';
-import {AnyPoint2dParser} from './any-point-2d';
+import {point2dFromUnknown} from './point-2d';
 
 interface TestCase {
 	expected: Point2dObject;
 	input: any;
 }
 
-describe(AnyPoint2dParser.name, () => {
+describe('Point2dParser', () => {
 	[
 		{
 			expected: {x: 123, y: 456},
@@ -18,7 +18,7 @@ describe(AnyPoint2dParser.name, () => {
 	].forEach((testCase: TestCase) => {
 		context(`when ${JSON.stringify(testCase.input)}`, () => {
 			it(`should parse as ${JSON.stringify(testCase.expected)}`, () => {
-				const actual = AnyPoint2dParser(testCase.input);
+				const actual = point2dFromUnknown(testCase.input);
 				if (!actual) {
 					throw new Error('cannot parse');
 				}
@@ -27,13 +27,22 @@ describe(AnyPoint2dParser.name, () => {
 		});
 	});
 
-	[{x: 123}, {y: 456}, null, undefined, new Date(), 123, 'text'].forEach(
-		(input: unknown) => {
-			context(`when ${JSON.stringify(input)}`, () => {
-				it('should not parse', () => {
-					assert.isNull(AnyPoint2dParser(input));
-				});
-			});
-		},
-	);
+	it('should convert mixed to point2d', () => {
+		assert.deepStrictEqual(point2dFromUnknown({x: 123, y: 3.1416}).toObject(), {
+			x: 123,
+			y: 3.1416,
+		});
+		assert.deepStrictEqual(point2dFromUnknown({x: 123}).toObject(), {
+			x: 0,
+			y: 0,
+		});
+		assert.deepStrictEqual(point2dFromUnknown({y: 42}).toObject(), {
+			x: 0,
+			y: 0,
+		});
+		assert.deepStrictEqual(point2dFromUnknown('foobar').toObject(), {
+			x: 0,
+			y: 0,
+		});
+	});
 });

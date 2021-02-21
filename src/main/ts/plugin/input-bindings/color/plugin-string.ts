@@ -5,8 +5,12 @@ import {
 import {Color} from '../../common/model/color';
 import {ViewModel} from '../../common/model/view-model';
 import {PaneError} from '../../common/pane-error';
-import * as StringColorParser from '../../common/parser/string-color';
-import {colorFromString} from '../../common/parser/string-color';
+import {
+	colorFromString,
+	CompositeColorParser,
+	getColorNotation,
+	hasAlphaComponent,
+} from '../../common/parser/string-color';
 import {InputBindingPlugin} from '../../input-binding';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
 
@@ -23,7 +27,7 @@ export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
 			if ('input' in params && params.input === 'string') {
 				return null;
 			}
-			const notation = StringColorParser.getNotation(value);
+			const notation = getColorNotation(value);
 			if (!notation) {
 				return null;
 			}
@@ -31,7 +35,7 @@ export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
 		},
 		reader: (_args) => colorFromString,
 		writer: (args) => {
-			const notation = StringColorParser.getNotation(args.initialValue);
+			const notation = getColorNotation(args.initialValue);
 			if (!notation) {
 				throw PaneError.shouldNeverHappen();
 			}
@@ -40,15 +44,15 @@ export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
 		equals: Color.equals,
 	},
 	controller: (args) => {
-		const notation = StringColorParser.getNotation(args.initialValue);
+		const notation = getColorNotation(args.initialValue);
 		if (!notation) {
 			throw PaneError.shouldNeverHappen();
 		}
 
 		return new ColorSwatchTextController(args.document, {
 			formatter: new ColorFormatter(args.binding.writer),
-			parser: StringColorParser.CompositeColorParser,
-			supportsAlpha: StringColorParser.hasAlphaComponent(notation),
+			parser: CompositeColorParser,
+			supportsAlpha: hasAlphaComponent(notation),
 			value: args.binding.value,
 			viewModel: new ViewModel(),
 		});

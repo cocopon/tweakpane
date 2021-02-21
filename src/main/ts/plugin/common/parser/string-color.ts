@@ -198,7 +198,7 @@ const NOTATION_TO_PARSER_MAP: {
 /**
  * @hidden
  */
-export function getNotation(text: string): StringColorNotation | null {
+export function getColorNotation(text: string): StringColorNotation | null {
 	const notations: StringColorNotation[] = Object.keys(
 		NOTATION_TO_PARSER_MAP,
 	) as StringColorNotation[];
@@ -217,7 +217,7 @@ export function getNotation(text: string): StringColorNotation | null {
 export const CompositeColorParser: Parser<string, Color> = (
 	text: string,
 ): Color | null => {
-	const notation = getNotation(text);
+	const notation = getColorNotation(text);
 	return notation ? NOTATION_TO_PARSER_MAP[notation](text) : null;
 };
 

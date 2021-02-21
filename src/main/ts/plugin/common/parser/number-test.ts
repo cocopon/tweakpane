@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
-import * as NumberConverter from './number';
+import {numberFromUnknown} from './number';
 
 describe('NumberConverter', () => {
 	[
@@ -24,15 +24,8 @@ describe('NumberConverter', () => {
 	].forEach((testCase) => {
 		context(`when ${JSON.stringify(testCase.arg)}`, () => {
 			it(`should convert to ${testCase.expected}`, () => {
-				assert.strictEqual(
-					NumberConverter.fromMixed(testCase.arg),
-					testCase.expected,
-				);
+				assert.strictEqual(numberFromUnknown(testCase.arg), testCase.expected);
 			});
 		});
-	});
-
-	it('should convert number to string', () => {
-		assert.strictEqual(NumberConverter.toString(3.14), '3.14');
 	});
 });

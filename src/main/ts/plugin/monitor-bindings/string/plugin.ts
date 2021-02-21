@@ -1,7 +1,7 @@
 import {Constants} from '../../../misc/constants';
-import * as StringConverter from '../../common/converter/string';
 import {StringFormatter} from '../../common/formatter/string';
 import {ViewModel} from '../../common/model/view-model';
+import {stringFromUnknown} from '../../common/parser/string';
 import {MonitorBindingPlugin} from '../../monitor-binding';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogMonitorController} from '../common/controller/single-log';
@@ -13,7 +13,7 @@ export const StringMonitorPlugin: MonitorBindingPlugin<string> = {
 	id: 'monitor-string',
 	model: {
 		accept: (value, _params) => (typeof value === 'string' ? value : null),
-		reader: (_args) => StringConverter.fromMixed,
+		reader: (_args) => stringFromUnknown,
 	},
 	controller: (args) => {
 		const value = args.binding.value;

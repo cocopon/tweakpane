@@ -1,7 +1,7 @@
 import {Constants} from '../../../misc/constants';
-import * as BooleanConverter from '../../common/converter/boolean';
 import {BooleanFormatter} from '../../common/formatter/boolean';
 import {ViewModel} from '../../common/model/view-model';
+import {boolFromUnknown} from '../../common/parser/boolean';
 import {MonitorBindingPlugin} from '../../monitor-binding';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogMonitorController} from '../common/controller/single-log';
@@ -13,7 +13,7 @@ export const BooleanMonitorPlugin: MonitorBindingPlugin<boolean> = {
 	id: 'monitor-bool',
 	model: {
 		accept: (value, _params) => (typeof value === 'boolean' ? value : null),
-		reader: (_args) => BooleanConverter.fromMixed,
+		reader: (_args) => boolFromUnknown,
 	},
 	controller: (args) => {
 		if (args.binding.value.rawValue.length === 1) {

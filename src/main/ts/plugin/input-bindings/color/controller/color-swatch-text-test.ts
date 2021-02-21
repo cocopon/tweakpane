@@ -9,7 +9,7 @@ import {
 import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
 import {ViewModel} from '../../../common/model/view-model';
-import * as StringColorParser from '../../../common/parser/string-color';
+import {CompositeColorParser} from '../../../common/parser/string-color';
 import {ColorSwatchTextController} from './color-swatch-text';
 
 describe(ColorSwatchTextController.name, () => {
@@ -17,7 +17,7 @@ describe(ColorSwatchTextController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new ColorSwatchTextController(doc, {
 			formatter: new ColorFormatter(colorToHexRgbString),
-			parser: StringColorParser.CompositeColorParser,
+			parser: CompositeColorParser,
 			supportsAlpha: false,
 			value: new Value(new Color([0, 0, 0], 'rgb')),
 			viewModel: new ViewModel(),

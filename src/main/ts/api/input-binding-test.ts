@@ -4,11 +4,11 @@ import {describe, it} from 'mocha';
 import {TestUtil} from '../misc/test-util';
 import {InputBinding} from '../plugin/common/binding/input';
 import {InputBindingController} from '../plugin/common/controller/input-binding';
-import * as NumberConverter from '../plugin/common/converter/number';
 import {NumberFormatter} from '../plugin/common/formatter/number';
 import {Target} from '../plugin/common/model/target';
 import {Value} from '../plugin/common/model/value';
 import {ViewModel} from '../plugin/common/model/view-model';
+import {numberFromUnknown} from '../plugin/common/parser/number';
 import {StringNumberParser} from '../plugin/common/parser/string-number';
 import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
 import {InputBindingApi} from './input-binding';
@@ -25,7 +25,7 @@ function createApi(target: Target) {
 	});
 	const bc = new InputBindingController(doc, {
 		binding: new InputBinding({
-			reader: NumberConverter.fromMixed,
+			reader: numberFromUnknown,
 			target: target,
 			value: value,
 			writer: (v) => v,

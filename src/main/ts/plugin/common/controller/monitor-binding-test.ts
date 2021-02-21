@@ -5,11 +5,11 @@ import {TestUtil} from '../../../misc/test-util';
 import {SingleLogMonitorController} from '../../monitor-bindings/common/controller/single-log';
 import {MonitorBinding} from '../binding/monitor';
 import {ManualTicker} from '../binding/ticker/manual';
-import * as NumberConverter from '../converter/number';
 import {NumberFormatter} from '../formatter/number';
 import {Target} from '../model/target';
 import {Value} from '../model/value';
 import {ViewModel} from '../model/view-model';
+import {numberFromUnknown} from '../parser/number';
 import {MonitorBindingController} from './monitor-binding';
 
 describe(MonitorBindingController.name, () => {
@@ -20,7 +20,7 @@ describe(MonitorBindingController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const value = new Value(Array(10).fill(undefined));
 		const binding = new MonitorBinding({
-			reader: NumberConverter.fromMixed,
+			reader: numberFromUnknown,
 			target: new Target(obj, 'foo'),
 			ticker: new ManualTicker(),
 			value: value,

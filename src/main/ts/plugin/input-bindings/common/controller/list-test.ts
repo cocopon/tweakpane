@@ -3,7 +3,7 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
 import {ListConstraint} from '../../../common/constraint/list';
-import * as NumberConverter from '../../../common/converter/number';
+import {numberToString} from '../../../common/formatter/number';
 import {Value} from '../../../common/model/value';
 import {ViewModel} from '../../../common/model/view-model';
 import {findListItems} from '../../../util';
@@ -23,7 +23,7 @@ describe(ListController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new ListController(doc, {
 			listItems: findListItems(value.constraint) ?? [],
-			stringifyValue: NumberConverter.toString,
+			stringifyValue: numberToString,
 			value: value,
 			viewModel: new ViewModel(),
 		});
@@ -45,7 +45,7 @@ describe(ListController.name, () => {
 		const doc = win.document;
 		const c = new ListController(doc, {
 			listItems: findListItems(value.constraint) ?? [],
-			stringifyValue: NumberConverter.toString,
+			stringifyValue: numberToString,
 			value: value,
 			viewModel: new ViewModel(),
 		});
@@ -70,7 +70,7 @@ describe(ListController.name, () => {
 		const c = new ListController(doc, {
 			listItems: findListItems(value.constraint) ?? [],
 			viewModel: new ViewModel(),
-			stringifyValue: NumberConverter.toString,
+			stringifyValue: numberToString,
 			value: value,
 		});
 		c.viewModel.dispose();

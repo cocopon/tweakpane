@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {NumberFormatter} from './number';
+import {NumberFormatter, numberToString} from './number';
 
 describe(NumberFormatter.name, () => {
 	it('should get digits', () => {
@@ -49,5 +49,9 @@ describe(NumberFormatter.name, () => {
 				});
 			});
 		});
+	});
+
+	it('should convert number to string', () => {
+		assert.strictEqual(numberToString(3.14), '3.14');
 	});
 });

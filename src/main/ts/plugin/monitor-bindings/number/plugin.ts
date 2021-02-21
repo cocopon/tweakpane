@@ -2,10 +2,10 @@ import {MonitorParams} from '../../../api/types';
 import {Constants} from '../../../misc/constants';
 import {MonitorBinding} from '../../common/binding/monitor';
 import {ValueController} from '../../common/controller/value';
-import * as NumberConverter from '../../common/converter/number';
 import {NumberFormatter} from '../../common/formatter/number';
 import {Buffer} from '../../common/model/buffered-value';
 import {ViewModel} from '../../common/model/view-model';
+import {numberFromUnknown} from '../../common/parser/number';
 import {MonitorBindingPlugin} from '../../monitor-binding';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogMonitorController} from '../common/controller/single-log';
@@ -68,7 +68,7 @@ export const NumberMonitorPlugin: MonitorBindingPlugin<number> = {
 	model: {
 		accept: (value, _params) => (typeof value === 'number' ? value : null),
 		defaultBufferSize: (params) => (shouldShowGraph(params) ? 64 : 1),
-		reader: (_args) => NumberConverter.fromMixed,
+		reader: (_args) => numberFromUnknown,
 	},
 	controller: (args) => {
 		if (shouldShowGraph(args.params)) {

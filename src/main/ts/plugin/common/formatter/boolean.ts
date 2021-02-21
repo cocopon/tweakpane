@@ -1,11 +1,17 @@
-import * as BooleanConverter from '../converter/boolean';
 import {Formatter} from './formatter';
+
+/**
+ * @hidden
+ */
+export function boolToString(value: boolean): string {
+	return String(value);
+}
 
 /**
  * @hidden
  */
 export class BooleanFormatter implements Formatter<boolean> {
 	public format(value: boolean): string {
-		return BooleanConverter.toString(value);
+		return boolToString(value);
 	}
 }

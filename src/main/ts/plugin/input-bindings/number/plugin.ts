@@ -6,10 +6,10 @@ import {ListConstraint} from '../../common/constraint/list';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
 import {ConstraintUtil} from '../../common/constraint/util';
-import * as NumberConverter from '../../common/converter/number';
-import {NumberFormatter} from '../../common/formatter/number';
+import {NumberFormatter, numberToString} from '../../common/formatter/number';
 import {Value} from '../../common/model/value';
 import {ViewModel} from '../../common/model/view-model';
+import {numberFromUnknown} from '../../common/parser/number';
 import {StringNumberParser} from '../../common/parser/string-number';
 import {InputBindingPlugin} from '../../input-binding';
 import {
@@ -48,10 +48,7 @@ function createConstraint(params: InputParams): Constraint<number> {
 	if ('options' in params && params.options !== undefined) {
 		constraints.push(
 			new ListConstraint({
-				options: normalizeInputParamsOptions(
-					params.options,
-					NumberConverter.fromMixed,
-				),
+				options: normalizeInputParamsOptions(params.options, numberFromUnknown),
 			}),
 		);
 	}
@@ -67,7 +64,7 @@ function createController(document: Document, value: Value<number>) {
 	if (c && ConstraintUtil.findConstraint(c, ListConstraint)) {
 		return new ListController(document, {
 			listItems: findListItems(c) ?? [],
-			stringifyValue: NumberConverter.toString,
+			stringifyValue: numberToString,
 			value: value,
 			viewModel: new ViewModel(),
 		});
@@ -104,7 +101,7 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 	model: {
 		accept: (value) => (typeof value === 'number' ? value : null),
 		constraint: (args) => createConstraint(args.params),
-		reader: (_args) => NumberConverter.fromMixed,
+		reader: (_args) => numberFromUnknown,
 		writer: (_args) => (v: number) => v,
 	},
 	controller: (args) => {

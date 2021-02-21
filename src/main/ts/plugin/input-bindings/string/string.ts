@@ -3,10 +3,10 @@ import {CompositeConstraint} from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
 import {ListConstraint} from '../../common/constraint/list';
 import {ConstraintUtil} from '../../common/constraint/util';
-import * as StringConverter from '../../common/converter/string';
 import {StringFormatter} from '../../common/formatter/string';
 import {Value} from '../../common/model/value';
 import {ViewModel} from '../../common/model/view-model';
+import {stringFromUnknown} from '../../common/parser/string';
 import {InputBindingPlugin} from '../../input-binding';
 import {findListItems, normalizeInputParamsOptions} from '../../util';
 import {ListController} from '../common/controller/list';
@@ -18,10 +18,7 @@ function createConstraint(params: InputParams): Constraint<string> {
 	if ('options' in params && params.options !== undefined) {
 		constraints.push(
 			new ListConstraint({
-				options: normalizeInputParamsOptions(
-					params.options,
-					StringConverter.fromMixed,
-				),
+				options: normalizeInputParamsOptions(params.options, stringFromUnknown),
 			}),
 		);
 	}
@@ -59,7 +56,7 @@ export const StringInputPlugin: InputBindingPlugin<string, string> = {
 	model: {
 		accept: (value, _params) => (typeof value === 'string' ? value : null),
 		constraint: (args) => createConstraint(args.params),
-		reader: (_args) => StringConverter.fromMixed,
+		reader: (_args) => stringFromUnknown,
 		writer: (_args) => (v: string) => v,
 	},
 	controller: (params) => {

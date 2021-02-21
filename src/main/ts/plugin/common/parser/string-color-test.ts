@@ -5,7 +5,7 @@ import {ColorComponents4, ColorMode} from '../model/color-model';
 import {
 	colorFromString,
 	CompositeColorParser,
-	getNotation,
+	getColorNotation,
 } from './string-color';
 
 const DELTA = 1e-5;
@@ -79,7 +79,7 @@ describe('StringColorParser', () => {
 			it(`it should detect notation as ${JSON.stringify(
 				testCase.expected,
 			)}`, () => {
-				const actual = getNotation(testCase.input);
+				const actual = getColorNotation(testCase.input);
 				assert.deepStrictEqual(actual, testCase.expected);
 			});
 		});

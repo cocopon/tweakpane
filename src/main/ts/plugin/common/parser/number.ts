@@ -1,10 +1,10 @@
 import {isEmpty} from '../../../misc/type-util';
-import {StringNumberParser} from '../parser/string-number';
+import {StringNumberParser} from './string-number';
 
 /**
  * @hidden
  */
-export function fromMixed(value: unknown): number {
+export function numberFromUnknown(value: unknown): number {
 	if (typeof value === 'number') {
 		return value;
 	}
@@ -17,11 +17,4 @@ export function fromMixed(value: unknown): number {
 	}
 
 	return 0;
-}
-
-/**
- * @hidden
- */
-export function toString(value: number): string {
-	return String(value);
 }

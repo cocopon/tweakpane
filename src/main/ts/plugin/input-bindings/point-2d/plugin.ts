@@ -6,12 +6,12 @@ import {Point2dConstraint} from '../../common/constraint/point-2d';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
 import {ConstraintUtil} from '../../common/constraint/util';
-import * as Point2dConverter from '../../common/converter/point-2d';
 import {NumberFormatter} from '../../common/formatter/number';
 import {Point2d, Point2dObject} from '../../common/model/point-2d';
 import {Value} from '../../common/model/value';
 import {ViewModel} from '../../common/model/view-model';
 import {PaneError} from '../../common/pane-error';
+import {point2dFromUnknown} from '../../common/parser/point-2d';
 import {StringNumberParser} from '../../common/parser/string-number';
 import {InputBindingPlugin} from '../../input-binding';
 import {getBaseStep, getSuitableDecimalDigits} from '../../util';
@@ -121,7 +121,7 @@ export const Point2dInputPlugin: InputBindingPlugin<Point2d, Point2dObject> = {
 	id: 'input-point2d',
 	model: {
 		accept: (value, _params) => (Point2d.isObject(value) ? value : null),
-		reader: (_args) => Point2dConverter.fromMixed,
+		reader: (_args) => point2dFromUnknown,
 		writer: (_args) => (v) => v.toObject(),
 		constraint: (args) => createConstraint(args.params),
 		equals: Point2d.equals,

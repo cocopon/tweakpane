@@ -12,7 +12,7 @@ import {
 	colorFromNumberToRgb,
 	colorFromNumberToRgba,
 } from '../../common/parser/number-color';
-import * as StringColorParser from '../../common/parser/string-color';
+import {CompositeColorParser} from '../../common/parser/string-color';
 import {InputBindingPlugin} from '../../input-binding';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
 
@@ -63,7 +63,7 @@ export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
 			: new ColorFormatter(colorToHexRgbString);
 		return new ColorSwatchTextController(args.document, {
 			formatter: formatter,
-			parser: StringColorParser.CompositeColorParser,
+			parser: CompositeColorParser,
 			supportsAlpha: supportsAlpha,
 			value: args.binding.value,
 			viewModel: new ViewModel(),

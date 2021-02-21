@@ -1,9 +1,9 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import * as NumberConverter from '../converter/number';
 import {Target} from '../model/target';
 import {Value} from '../model/value';
+import {numberFromUnknown} from '../parser/number';
 import {InputBinding} from './input';
 
 describe(InputBinding.name, () => {
@@ -14,7 +14,7 @@ describe(InputBinding.name, () => {
 		const target = new Target(obj, 'foo');
 		const value = new Value(0);
 		const b = new InputBinding({
-			reader: NumberConverter.fromMixed,
+			reader: numberFromUnknown,
 			target: target,
 			value: value,
 			writer: (v) => v,
@@ -31,7 +31,7 @@ describe(InputBinding.name, () => {
 		const value = new Value(0);
 		// tslint:disable-next-line:no-unused-expression
 		new InputBinding({
-			reader: NumberConverter.fromMixed,
+			reader: numberFromUnknown,
 			target: target,
 			value: value,
 			writer: (v) => v,
@@ -54,7 +54,7 @@ describe(InputBinding.name, () => {
 		const value = new Value(0);
 		// tslint:disable-next-line:no-unused-expression
 		new InputBinding({
-			reader: NumberConverter.fromMixed,
+			reader: numberFromUnknown,
 			target: target,
 			value: value,
 			writer: (v) => v,

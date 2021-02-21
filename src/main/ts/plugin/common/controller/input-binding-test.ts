@@ -4,11 +4,11 @@ import {describe, it} from 'mocha';
 import {TestUtil} from '../../../misc/test-util';
 import {TextController} from '../../input-bindings/common/controller/text';
 import {InputBinding} from '../binding/input';
-import * as NumberConverter from '../converter/number';
 import {NumberFormatter} from '../formatter/number';
 import {Target} from '../model/target';
 import {Value} from '../model/value';
 import {ViewModel} from '../model/view-model';
+import {numberFromUnknown} from '../parser/number';
 import {StringNumberParser} from '../parser/string-number';
 import {InputBindingController} from './input-binding';
 
@@ -20,7 +20,7 @@ describe(InputBindingController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const value = new Value(0);
 		const binding = new InputBinding({
-			reader: NumberConverter.fromMixed,
+			reader: numberFromUnknown,
 			target: new Target(obj, 'foo'),
 			value: value,
 			writer: (v) => v,

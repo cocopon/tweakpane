@@ -3,9 +3,10 @@ import {CompositeConstraint} from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
 import {ListConstraint} from '../../common/constraint/list';
 import {ConstraintUtil} from '../../common/constraint/util';
-import * as BooleanConverter from '../../common/converter/boolean';
+import {boolToString} from '../../common/formatter/boolean';
 import {Value} from '../../common/model/value';
 import {ViewModel} from '../../common/model/view-model';
+import {boolFromUnknown} from '../../common/parser/boolean';
 import {InputBindingPlugin} from '../../input-binding';
 import {findListItems, normalizeInputParamsOptions} from '../../util';
 import {ListController} from '../common/controller/list';
@@ -17,10 +18,7 @@ function createConstraint(params: InputParams): Constraint<boolean> {
 	if ('options' in params && params.options !== undefined) {
 		constraints.push(
 			new ListConstraint({
-				options: normalizeInputParamsOptions(
-					params.options,
-					BooleanConverter.fromMixed,
-				),
+				options: normalizeInputParamsOptions(params.options, boolFromUnknown),
 			}),
 		);
 	}
@@ -37,7 +35,7 @@ function createController(document: Document, value: Value<boolean>) {
 		return new ListController(document, {
 			listItems: findListItems(c) ?? [],
 			viewModel: new ViewModel(),
-			stringifyValue: BooleanConverter.toString,
+			stringifyValue: boolToString,
 			value: value,
 		});
 	}
@@ -56,7 +54,7 @@ export const BooleanInputPlugin: InputBindingPlugin<boolean, boolean> = {
 	model: {
 		accept: (value) => (typeof value === 'boolean' ? value : null),
 		constraint: (args) => createConstraint(args.params),
-		reader: (_args) => BooleanConverter.fromMixed,
+		reader: (_args) => boolFromUnknown,
 		writer: (_args) => (v: boolean) => v,
 	},
 	controller: (args) => {

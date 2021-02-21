@@ -3,6 +3,13 @@ import {Formatter} from './formatter';
 /**
  * @hidden
  */
+export function numberToString(value: number): string {
+	return String(value);
+}
+
+/**
+ * @hidden
+ */
 export class NumberFormatter implements Formatter<number> {
 	private digits_: number;
 
