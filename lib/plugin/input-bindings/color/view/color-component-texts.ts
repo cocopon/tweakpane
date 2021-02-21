@@ -45,7 +45,7 @@ function createModeSelectElement(document: Document): HTMLSelectElement {
  */
 export class ColorComponentTextsView extends View implements ValueView<Color> {
 	public readonly pickedColor: PickedColor;
-	public readonly modeSelectElement: HTMLSelectElement;
+	private modeElem_: HTMLSelectElement | null;
 	private inputElems_: HtmlInputElements3 | null;
 
 	constructor(document: Document, config: Config) {
@@ -57,8 +57,8 @@ export class ColorComponentTextsView extends View implements ValueView<Color> {
 
 		const modeElem = document.createElement('div');
 		modeElem.classList.add(className('m'));
-		this.modeSelectElement = createModeSelectElement(document);
-		this.modeSelectElement.classList.add(className('ms'));
+		this.modeElem_ = createModeSelectElement(document);
+		this.modeElem_.classList.add(className('ms'));
 		modeElem.appendChild(this.modeSelectElement);
 
 		const modeMarkerElem = document.createElement('div');
@@ -88,6 +88,7 @@ export class ColorComponentTextsView extends View implements ValueView<Color> {
 		this.update();
 
 		config.model.emitter.on('dispose', () => {
+			this.modeElem_ = disposeElement(this.modeElem_);
 			if (this.inputElems_) {
 				this.inputElems_.forEach((elem) => {
 					disposeElement(elem);
@@ -95,6 +96,13 @@ export class ColorComponentTextsView extends View implements ValueView<Color> {
 				this.inputElems_ = null;
 			}
 		});
+	}
+
+	get modeSelectElement(): HTMLSelectElement {
+		if (!this.modeElem_) {
+			throw PaneError.alreadyDisposed();
+		}
+		return this.modeElem_;
 	}
 
 	get inputElements(): HtmlInputElements3 {
@@ -109,10 +117,13 @@ export class ColorComponentTextsView extends View implements ValueView<Color> {
 	}
 
 	public update(): void {
+		const modeElem = this.modeElem_;
 		const inputElems = this.inputElems_;
-		if (!inputElems) {
+		if (!modeElem || !inputElems) {
 			throw PaneError.alreadyDisposed();
 		}
+
+		modeElem.value = this.pickedColor.mode;
 
 		const comps = this.pickedColor.value.rawValue.getComponents(
 			this.pickedColor.mode,
