@@ -1,8 +1,9 @@
-import * as ColorConverter from '../../../main/ts/converter/color';
-import {Color} from '../../../main/ts/model/color';
+import {Color} from '../../../../lib/plugin/common/model/color';
+import {colorFromString} from '../../../../lib/plugin/common/reader/string-color';
+import {colorToFunctionalRgbaString} from '../../../../lib/plugin/common/writer/color';
 import {Sketch} from '../sketch';
 import {Environment} from '../sketch';
-import * as Util from '../util';
+import {selectContainer} from '../util';
 
 declare let Tweakpane: any;
 
@@ -90,14 +91,12 @@ export const IndexRoute = {
 						return;
 					}
 
-					const comps = ColorConverter.fromString(value).getComponents('hsl');
+					const comps = colorFromString(value).getComponents('hsl');
 					comps[0] += 30;
 					comps[1] *= 1.5;
 					comps[2] *= 1.06;
 					const bg = new Color(comps, 'hsl');
-					headerElem.style.backgroundColor = ColorConverter.toFunctionalRgbaString(
-						bg,
-					);
+					headerElem.style.backgroundColor = colorToFunctionalRgbaString(bg);
 				});
 				pane.addSeparator();
 				pane.addInput(ENV, 'spacing', {
@@ -166,7 +165,7 @@ export const IndexRoute = {
 		};
 		Object.keys(markerToFnMap).forEach((marker) => {
 			const initFn = markerToFnMap[marker];
-			const container = Util.selectContainer(marker);
+			const container = selectContainer(marker);
 			initFn(container);
 		});
 

@@ -1,4 +1,4 @@
-import * as Util from '../util';
+import {selectContainer, wave} from '../util';
 
 declare let Tweakpane: any;
 
@@ -86,7 +86,7 @@ export const QuickTourRoute = {
 				});
 			},
 			events: (container) => {
-				const consoleElem = Util.selectContainer('eventsconsole');
+				const consoleElem = selectContainer('eventsconsole');
 				if (!consoleElem) {
 					return;
 				}
@@ -121,7 +121,7 @@ export const QuickTourRoute = {
 					});
 			},
 			preset: (container) => {
-				const consoleElem = Util.selectContainer('presetconsole');
+				const consoleElem = selectContainer('presetconsole');
 				if (!consoleElem) {
 					return;
 				}
@@ -171,7 +171,7 @@ export const QuickTourRoute = {
 
 				let t = 0;
 				setInterval(() => {
-					PARAMS.signal = Util.wave(t);
+					PARAMS.signal = wave(t);
 					t += 1;
 				}, 50);
 
@@ -187,7 +187,7 @@ export const QuickTourRoute = {
 		};
 		Object.keys(markerToFnMap).forEach((marker) => {
 			const initFn = markerToFnMap[marker];
-			const container = Util.selectContainer(marker);
+			const container = selectContainer(marker);
 			initFn(container);
 		});
 	},

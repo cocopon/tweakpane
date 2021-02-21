@@ -1,4 +1,4 @@
-import * as Util from '../util';
+import {selectContainer} from '../util';
 
 declare let Tweakpane: any;
 
@@ -43,7 +43,7 @@ export const MiscRoute = {
 			},
 
 			event: (container) => {
-				const consoleElem = Util.selectContainer('eventconsole');
+				const consoleElem = selectContainer('eventconsole');
 				if (!consoleElem) {
 					return;
 				}
@@ -78,7 +78,7 @@ export const MiscRoute = {
 			},
 
 			globalevent: (container) => {
-				const consoleElem = Util.selectContainer('globaleventconsole');
+				const consoleElem = selectContainer('globaleventconsole');
 				if (!consoleElem) {
 					return;
 				}
@@ -122,7 +122,7 @@ export const MiscRoute = {
 			},
 
 			export: (container) => {
-				const consoleElem = Util.selectContainer('exportconsole');
+				const consoleElem = selectContainer('exportconsole');
 				if (!consoleElem) {
 					return;
 				}
@@ -156,7 +156,7 @@ export const MiscRoute = {
 			},
 
 			import: (container) => {
-				const consoleElem = Util.selectContainer('importconsole');
+				const consoleElem = selectContainer('importconsole');
 				if (!consoleElem) {
 					return;
 				}
@@ -193,7 +193,7 @@ export const MiscRoute = {
 			},
 
 			presetkey: (container) => {
-				const consoleElem = Util.selectContainer('presetkeyconsole');
+				const consoleElem = selectContainer('presetkeyconsole');
 				if (!consoleElem) {
 					return;
 				}
@@ -312,7 +312,7 @@ export const MiscRoute = {
 		};
 		Object.keys(markerToFnMap).forEach((marker) => {
 			const initFn = markerToFnMap[marker];
-			const container = Util.selectContainer(marker);
+			const container = selectContainer(marker);
 			initFn(container);
 		});
 	},

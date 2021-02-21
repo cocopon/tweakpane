@@ -9,12 +9,12 @@
 		"strict": true,
 		"target": "es5",
 		"paths": {
-			"tweakpane": ["../node_modules/tweakpane/src/main/ts/index"],
+			"tweakpane": ["../node_modules/tweakpane/lib/index"],
 			"tweakpane/*": ["../node_modules/tweakpane/*"],
 		}
 	},
 	"include": [
 		"src/*.ts",
-		"../node_modules/tweakpane/src/main/ts/**/*"
+		"../node_modules/tweakpane/lib/**/*"
 	]
 }

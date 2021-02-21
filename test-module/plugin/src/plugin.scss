@@ -1,6 +1,6 @@
 // Import individual files
-@import '../../node_modules/tweakpane/src/main/sass/defs';
-@import '../../node_modules/tweakpane/src/main/sass/view/common/input';
+@import '../../node_modules/tweakpane/lib/sass/defs';
+@import '../../node_modules/tweakpane/lib/sass/view/common/input';
 
 .#{$prefix}-tstv {
 	&_v {

@@ -1,6 +1,6 @@
 import {createPane, Theme, toCss} from '../panepaint';
-import * as Themes from '../themes';
-import * as Util from '../util';
+import {createTheme} from '../themes';
+import {selectContainer} from '../util';
 
 declare let hljs: any;
 declare let Tweakpane: any;
@@ -82,13 +82,13 @@ export const ThemingRoute = {
 		const styleElem = document.createElement('style');
 		document.head.appendChild(styleElem);
 
-		const controllerElem = Util.selectContainer('controller');
-		const previewElem = Util.selectContainer('preview');
+		const controllerElem = selectContainer('controller');
+		const previewElem = selectContainer('preview');
 		if (!controllerElem || !previewElem) {
 			return;
 		}
 
-		const theme = Themes.create('translucent');
+		const theme = createTheme('translucent');
 		applyPreviewHtml('*[data-exampleCss]', theme, 'Example theme: Translucent');
 
 		const pane = createPane(controllerElem, theme);
@@ -116,7 +116,7 @@ export const ThemingRoute = {
 		};
 		Object.keys(markerToFnMap).forEach((marker) => {
 			const initFn = markerToFnMap[marker];
-			const container = Util.selectContainer(marker);
+			const container = selectContainer(marker);
 			initFn(container);
 		});
 	},

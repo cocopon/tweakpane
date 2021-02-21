@@ -1,4 +1,4 @@
-import * as Util from '../util';
+import {selectContainer, wave} from '../util';
 
 declare let Tweakpane: any;
 
@@ -21,7 +21,7 @@ export const MonitorRoute = {
 
 		let wavet = 0;
 		setInterval(() => {
-			SHARED_PARAMS.wave = Util.wave(wavet);
+			SHARED_PARAMS.wave = wave(wavet);
 			SHARED_PARAMS.positive = SHARED_PARAMS.wave >= 0;
 			wavet += 1;
 		}, 50);
@@ -102,7 +102,7 @@ export const MonitorRoute = {
 		};
 		Object.keys(markerToFnMap).forEach((marker) => {
 			const initFn = markerToFnMap[marker];
-			const container = Util.selectContainer(marker);
+			const container = selectContainer(marker);
 			initFn(container);
 		});
 	},

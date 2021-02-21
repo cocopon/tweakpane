@@ -1,11 +1,11 @@
 import Tweakpane from 'tweakpane';
 // Import individual classes
-import {ValueController} from 'tweakpane/src/main/ts/controller/value/value';
-import {ClassName} from 'tweakpane/src/main/ts/misc/class-name';
-import {Value} from 'tweakpane/src/main/ts/model/value';
-import {ViewModel} from 'tweakpane/src/main/ts/model/view-model';
-import {ValueView} from 'tweakpane/src/main/ts/view/value/value';
-import {View} from 'tweakpane/src/main/ts/view/view';
+import {ValueController} from 'tweakpane/lib/plugin/common/controller/value';
+import {Value} from 'tweakpane/lib/plugin/common/model/value';
+import {ViewModel} from 'tweakpane/lib/plugin/common/model/view-model';
+import {ClassName} from 'tweakpane/lib/plugin/common/view/class-name';
+import {ValueView} from 'tweakpane/lib/plugin/common/view/value';
+import {View} from 'tweakpane/lib/plugin/common/view/view';
 
 interface ViewConfig {
 	model: ViewModel;
