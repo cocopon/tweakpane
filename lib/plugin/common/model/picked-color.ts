@@ -24,7 +24,7 @@ export class PickedColor {
 	constructor(value: Value<Color>) {
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
-		this.mode_ = 'rgb';
+		this.mode_ = value.rawValue.mode;
 		this.value = value;
 		this.value.emitter.on('change', this.onValueChange_);
 
