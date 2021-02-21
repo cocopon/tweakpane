@@ -62,7 +62,7 @@ pane.<strong>on</strong>('change', (value) =&gt; {
 
 
 <h2 id="imex">Import/Export</h2>
-<p>Tweakpane has a feature for importing/exporting the current state in JSON object. Use <code>exportPreset()</code> to export it.</p>
+<p>Tweakpane has a feature for importing/exporting bound values in JSON object. Use <code>exportPreset()</code> to export it.</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
@@ -222,7 +222,25 @@ pane.addButton({title: 'Toggle'})
 
 
 <h3>Disposing</h3>
-<p>If you want to dispose a pane manually, call <code>dispose()</code> of the pane.</p>
+<p>If you want to dispose a pane manually, call <code>dispose()</code> of the pane. You can also dispose each component in the same way.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
+const i = pane.addInput(PARAMS, 'count');
+
+// ...
+
+// Dispose the input
+i.<strong>dispose</strong>();
+
+// Dispose the pane
+pane.<strong>dispose</strong>();
+</code></pre></div>
+		</div>
+	</div>
+</div>
 
 
 <h3>Adding input/monitor at a specific position</h3>
