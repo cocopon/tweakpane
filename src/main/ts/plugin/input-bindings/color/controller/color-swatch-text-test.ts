@@ -2,8 +2,10 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
-import * as ColorConverter from '../../../common/converter/color';
-import {ColorFormatter} from '../../../common/formatter/color';
+import {
+	ColorFormatter,
+	colorToHexRgbString,
+} from '../../../common/formatter/color';
 import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
 import {ViewModel} from '../../../common/model/view-model';
@@ -14,8 +16,8 @@ describe(ColorSwatchTextController.name, () => {
 	it('should dispose', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new ColorSwatchTextController(doc, {
-			formatter: new ColorFormatter(ColorConverter.toHexRgbString),
-			parser: StringColorParser.CompositeParser,
+			formatter: new ColorFormatter(colorToHexRgbString),
+			parser: StringColorParser.CompositeColorParser,
 			supportsAlpha: false,
 			value: new Value(new Color([0, 0, 0], 'rgb')),
 			viewModel: new ViewModel(),

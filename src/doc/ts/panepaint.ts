@@ -1,5 +1,6 @@
-import * as ColorConverter from '../../main/ts/plugin/common/converter/color';
+import {colorToFunctionalRgbaString} from '../../main/ts/plugin/common/formatter/color';
 import {Color} from '../../main/ts/plugin/common/model/color';
+import {colorFromString} from '../../main/ts/plugin/common/parser/string-color';
 import {createTheme, ThemeId} from './themes';
 
 declare let Tweakpane: any;
@@ -185,28 +186,22 @@ export function createPane(container: Element, theme: Theme): any {
 				title: 'Autofill',
 			}).on('click', () => {
 				const value = theme[m[1] as ThemeProperty];
-				const c = ColorConverter.fromString(value);
+				const c = colorFromString(value);
 				const hslComps = c.getComponents('hsl');
 				const sign = hslComps[2] > 50 ? -1 : +1;
-				theme[
-					`${m[1]}-hover` as ThemeProperty
-				] = ColorConverter.toFunctionalRgbaString(
+				theme[`${m[1]}-hover` as ThemeProperty] = colorToFunctionalRgbaString(
 					new Color(
 						[hslComps[0], hslComps[1], hslComps[2] + 5 * sign, hslComps[3]],
 						'hsl',
 					),
 				);
-				theme[
-					`${m[1]}-focus` as ThemeProperty
-				] = ColorConverter.toFunctionalRgbaString(
+				theme[`${m[1]}-focus` as ThemeProperty] = colorToFunctionalRgbaString(
 					new Color(
 						[hslComps[0], hslComps[1], hslComps[2] + 10 * sign, hslComps[3]],
 						'hsl',
 					),
 				);
-				theme[
-					`${m[1]}-active` as ThemeProperty
-				] = ColorConverter.toFunctionalRgbaString(
+				theme[`${m[1]}-active` as ThemeProperty] = colorToFunctionalRgbaString(
 					new Color(
 						[hslComps[0], hslComps[1], hslComps[2] + 15 * sign, hslComps[3]],
 						'hsl',

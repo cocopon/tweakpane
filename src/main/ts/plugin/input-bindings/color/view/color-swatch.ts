@@ -1,5 +1,5 @@
-import * as ColorConverter from '../../../common/converter/color';
 import {disposeElement} from '../../../common/disposing-util';
+import {colorToHexRgbaString} from '../../../common/formatter/color';
 import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
 import {PaneError} from '../../../common/pane-error';
@@ -74,9 +74,7 @@ export class ColorSwatchView extends View implements ValueView<Color> {
 		}
 
 		const value = this.value.rawValue;
-		this.swatchElem_.style.backgroundColor = ColorConverter.toHexRgbaString(
-			value,
-		);
+		this.swatchElem_.style.backgroundColor = colorToHexRgbaString(value);
 	}
 
 	private onValueChange_(): void {

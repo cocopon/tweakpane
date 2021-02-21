@@ -63,6 +63,10 @@ function isRgbColorComponent(obj: any, key: string): boolean {
  * @hidden
  */
 export class Color {
+	public static black(): Color {
+		return new Color([0, 0, 0], 'rgb');
+	}
+
 	public static fromObject(obj: RgbColorObject | RgbaColorObject): Color {
 		const comps: ColorComponents4 | ColorComponents3 =
 			'a' in obj ? [obj.r, obj.g, obj.b, obj.a] : [obj.r, obj.g, obj.b];

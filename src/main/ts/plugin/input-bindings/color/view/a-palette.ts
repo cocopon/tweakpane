@@ -1,5 +1,5 @@
-import * as ColorConverter from '../../../common/converter/color';
 import {disposeElement} from '../../../common/disposing-util';
+import {colorToFunctionalRgbaString} from '../../../common/formatter/color';
 import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
 import {mapRange} from '../../../common/number-util';
@@ -77,16 +77,14 @@ export class APaletteView extends View {
 		);
 		const gradientComps = [
 			'to right',
-			ColorConverter.toFunctionalRgbaString(leftColor),
-			ColorConverter.toFunctionalRgbaString(rightColor),
+			colorToFunctionalRgbaString(leftColor),
+			colorToFunctionalRgbaString(rightColor),
 		];
 		this.colorElem_.style.background = `linear-gradient(${gradientComps.join(
 			',',
 		)})`;
 
-		this.previewElem_.style.backgroundColor = ColorConverter.toFunctionalRgbaString(
-			c,
-		);
+		this.previewElem_.style.backgroundColor = colorToFunctionalRgbaString(c);
 		const left = mapRange(rgbaComps[3], 0, 1, 0, 100);
 		this.markerElem_.style.left = `${left}%`;
 	}

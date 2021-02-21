@@ -12,9 +12,7 @@ export const RgbParser: Parser<number, Color> = (num: number): Color | null => {
 /**
  * @hidden
  */
-export const RgbaParser: Parser<number, Color> = (
-	num: number,
-): Color | null => {
+const RgbaParser: Parser<number, Color> = (num: number): Color | null => {
 	return new Color(
 		[
 			(num >> 24) & 0xff,
@@ -25,3 +23,29 @@ export const RgbaParser: Parser<number, Color> = (
 		'rgb',
 	);
 };
+
+/**
+ * @hidden
+ */
+export function colorFromNumberToRgb(value: unknown): Color {
+	if (typeof value === 'number') {
+		const cv = RgbParser(value);
+		if (cv) {
+			return cv;
+		}
+	}
+	return Color.black();
+}
+
+/**
+ * @hidden
+ */
+export function colorFromNumberToRgba(value: unknown): Color {
+	if (typeof value === 'number') {
+		const cv = RgbaParser(value);
+		if (cv) {
+			return cv;
+		}
+	}
+	return Color.black();
+}

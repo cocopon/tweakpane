@@ -2,7 +2,11 @@ import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
 import {ColorComponents4, ColorMode} from '../model/color-model';
-import * as StringColorParser from './string-color';
+import {
+	colorFromString,
+	CompositeColorParser,
+	getNotation,
+} from './string-color';
 
 const DELTA = 1e-5;
 
@@ -29,7 +33,7 @@ describe('StringColorParser', () => {
 		testCase.inputs.forEach((input) => {
 			context(`when ${JSON.stringify(input)}`, () => {
 				it(`it should parse as ${JSON.stringify(testCase.expected)}`, () => {
-					const actual = StringColorParser.CompositeParser(input);
+					const actual = CompositeColorParser(input);
 					assert.deepStrictEqual(
 						actual && actual.toRgbaObject(),
 						testCase.expected,
@@ -53,7 +57,7 @@ describe('StringColorParser', () => {
 		'rgba(55, 66, 78, foo)',
 	].forEach((text) => {
 		it(`should not parse invalid string '${text}'`, () => {
-			assert.strictEqual(StringColorParser.CompositeParser(text), null);
+			assert.strictEqual(CompositeColorParser(text), null);
 		});
 	});
 
@@ -75,7 +79,7 @@ describe('StringColorParser', () => {
 			it(`it should detect notation as ${JSON.stringify(
 				testCase.expected,
 			)}`, () => {
-				const actual = StringColorParser.getNotation(testCase.input);
+				const actual = getNotation(testCase.input);
 				assert.deepStrictEqual(actual, testCase.expected);
 			});
 		});
@@ -140,7 +144,7 @@ describe('StringColorParser', () => {
 	}[]).forEach(({expected, input}) => {
 		context(`when ${JSON.stringify(input)}`, () => {
 			it('should parse color', () => {
-				const c = StringColorParser.CompositeParser(input);
+				const c = CompositeColorParser(input);
 				assert.strictEqual(c?.mode, expected.mode);
 
 				const actualComps = c?.getComponents();
@@ -150,6 +154,37 @@ describe('StringColorParser', () => {
 				expected.components.forEach((c, index) => {
 					assert.closeTo(actualComps[index], c, DELTA);
 				});
+			});
+		});
+	});
+
+	// tslint:disable:object-literal-sort-keys
+	[
+		{
+			input: '#112233',
+			expected: {
+				r: 0x11,
+				g: 0x22,
+				b: 0x33,
+				a: 1,
+			},
+		},
+		{
+			input: 'foobar',
+			expected: {
+				r: 0,
+				g: 0,
+				b: 0,
+				a: 1,
+			},
+		},
+	].forEach((testCase) => {
+		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
+			it('should convert string to color', () => {
+				assert.deepStrictEqual(
+					colorFromString(testCase.input).toRgbaObject(),
+					testCase.expected,
+				);
 			});
 		});
 	});

@@ -214,7 +214,7 @@ export function getNotation(text: string): StringColorNotation | null {
 /**
  * @hidden
  */
-export const CompositeParser: Parser<string, Color> = (
+export const CompositeColorParser: Parser<string, Color> = (
 	text: string,
 ): Color | null => {
 	const notation = getNotation(text);
@@ -227,4 +227,17 @@ export function hasAlphaComponent(notation: StringColorNotation): boolean {
 		notation === 'func.rgba' ||
 		notation === 'hex.rgba'
 	);
+}
+
+/**
+ * @hidden
+ */
+export function colorFromString(value: unknown): Color {
+	if (typeof value === 'string') {
+		const cv = CompositeColorParser(value);
+		if (cv) {
+			return cv;
+		}
+	}
+	return Color.black();
 }

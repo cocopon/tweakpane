@@ -1,5 +1,5 @@
-import * as ColorConverter from '../../../common/converter/color';
 import {disposeElement} from '../../../common/disposing-util';
+import {colorToFunctionalRgbString} from '../../../common/formatter/color';
 import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
 import {mapRange} from '../../../common/number-util';
@@ -58,7 +58,7 @@ export class HPaletteView extends View implements ValueView<Color> {
 
 		const c = this.value.rawValue;
 		const [h] = c.getComponents('hsv');
-		this.markerElem_.style.backgroundColor = ColorConverter.toFunctionalRgbString(
+		this.markerElem_.style.backgroundColor = colorToFunctionalRgbString(
 			new Color([h, 100, 100], 'hsv'),
 		);
 		const left = mapRange(h, 0, 360, 0, 100);

@@ -1,5 +1,6 @@
-import * as ColorConverter from '../../../main/ts/plugin/common/converter/color';
+import {colorToFunctionalRgbaString} from '../../../main/ts/plugin/common/formatter/color';
 import {Color} from '../../../main/ts/plugin/common/model/color';
+import {colorFromString} from '../../../main/ts/plugin/common/parser/string-color';
 import {Sketch} from '../sketch';
 import {Environment} from '../sketch';
 import {selectContainer} from '../util';
@@ -90,14 +91,12 @@ export const IndexRoute = {
 						return;
 					}
 
-					const comps = ColorConverter.fromString(value).getComponents('hsl');
+					const comps = colorFromString(value).getComponents('hsl');
 					comps[0] += 30;
 					comps[1] *= 1.5;
 					comps[2] *= 1.06;
 					const bg = new Color(comps, 'hsl');
-					headerElem.style.backgroundColor = ColorConverter.toFunctionalRgbaString(
-						bg,
-					);
+					headerElem.style.backgroundColor = colorToFunctionalRgbaString(bg);
 				});
 				pane.addSeparator();
 				pane.addInput(ENV, 'spacing', {
