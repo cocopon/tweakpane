@@ -222,7 +222,25 @@ pane.addButton({title: 'Toggle'})
 
 
 <h3>Disposing</h3>
-<p>If you want to dispose a pane manually, call <code>dispose()</code> of the pane.</p>
+<p>If you want to dispose a pane manually, call <code>dispose()</code> of the pane. You can also dispose each component in the same way.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
+const i = pane.addInput(PARAMS, 'count');
+
+// ...
+
+// Dispose the input
+i.<strong>dispose</strong>();
+
+// Dispose the pane
+pane.<strong>dispose</strong>();
+</code></pre></div>
+		</div>
+	</div>
+</div>
 
 
 <h3>Adding input/monitor at a specific position</h3>
