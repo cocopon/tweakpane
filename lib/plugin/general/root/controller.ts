@@ -1,4 +1,5 @@
 import {isEmpty} from '../../../misc/type-util';
+import {BladeController, setUpBladeView} from '../../common/controller/blade';
 import {
 	computeExpandedFolderHeight,
 	updateAllItemsPositions,
@@ -26,14 +27,14 @@ function createFolder(config: Config): Folder | null {
 /**
  * @hidden
  */
-export class RootController {
+export class RootController implements BladeController {
 	public readonly viewModel: ViewModel;
 	public readonly folder: Folder | null;
 	public readonly view: RootView;
 	private doc_: Document;
 	private ucList_: UiContainer;
 
-	constructor(document: Document, config: Config) {
+	constructor(doc: Document, config: Config) {
 		this.onContainerTransitionEnd_ = this.onContainerTransitionEnd_.bind(this);
 		this.onFolderBeforeChange_ = this.onFolderBeforeChange_.bind(this);
 		this.onTitleClick_ = this.onTitleClick_.bind(this);
@@ -51,11 +52,10 @@ export class RootController {
 		this.ucList_.emitter.on('itemlayout', this.onUiContainerItemLayout_);
 		this.ucList_.emitter.on('remove', this.onUiContainerRemove_);
 
-		this.doc_ = document;
+		this.doc_ = doc;
 		this.viewModel = config.viewModel;
 		this.view = new RootView(this.doc_, {
 			folder: this.folder,
-			model: this.viewModel,
 		});
 		if (this.view.titleElement) {
 			this.view.titleElement.addEventListener('click', this.onTitleClick_);
@@ -64,6 +64,7 @@ export class RootController {
 			'transitionend',
 			this.onContainerTransitionEnd_,
 		);
+		setUpBladeView(this.view, this.viewModel);
 	}
 
 	get document(): Document {

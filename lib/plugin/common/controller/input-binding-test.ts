@@ -26,7 +26,6 @@ describe(InputBindingController.name, () => {
 			writer: (v) => v,
 		});
 		const controller = new TextController(doc, {
-			viewModel: new ViewModel(),
 			formatter: new NumberFormatter(0),
 			parser: StringNumberParser,
 			value: value,
@@ -35,6 +34,7 @@ describe(InputBindingController.name, () => {
 			binding: binding,
 			controller: controller,
 			label: 'foo',
+			viewModel: new ViewModel(),
 		});
 		assert.strictEqual(bc.binding, binding);
 		assert.strictEqual(bc.controller, controller);

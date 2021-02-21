@@ -3,7 +3,6 @@ import {Constants} from '../../../misc/constants';
 import {MonitorBinding} from '../../common/binding/monitor';
 import {ValueController} from '../../common/controller/value';
 import {Buffer} from '../../common/model/buffered-value';
-import {ViewModel} from '../../common/model/view-model';
 import {numberFromUnknown} from '../../common/reader/number';
 import {NumberFormatter} from '../../common/writer/number';
 import {MonitorBindingPlugin} from '../../monitor-binding';
@@ -25,7 +24,6 @@ function createTextMonitor(
 		return new SingleLogMonitorController(document, {
 			formatter: createFormatter(),
 			value: binding.value,
-			viewModel: new ViewModel(),
 		});
 	}
 
@@ -33,7 +31,6 @@ function createTextMonitor(
 		formatter: createFormatter(),
 		lineCount: params.lineCount ?? Constants.monitor.defaultLineCount,
 		value: binding.value,
-		viewModel: new ViewModel(),
 	});
 }
 
@@ -52,7 +49,6 @@ function createGraphMonitor({
 		maxValue: ('max' in params ? params.max : null) ?? 100,
 		minValue: ('min' in params ? params.min : null) ?? 0,
 		value: binding.value,
-		viewModel: new ViewModel(),
 	});
 }
 

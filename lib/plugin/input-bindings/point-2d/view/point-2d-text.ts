@@ -1,13 +1,10 @@
-import {disposeElement} from '../../../common/disposing-util';
 import {Point2d} from '../../../common/model/point-2d';
 import {Value} from '../../../common/model/value';
-import {PaneError} from '../../../common/pane-error';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
-import {View, ViewConfig} from '../../../common/view/view';
 import {Formatter} from '../../../common/writer/formatter';
 
-interface Config extends ViewConfig {
+interface Config {
 	value: Value<Point2d>;
 	xFormatter: Formatter<number>;
 	yFormatter: Formatter<number>;
@@ -19,28 +16,28 @@ const className = ClassName('p2dtxt');
 /**
  * @hidden
  */
-export class Point2dTextView extends View implements ValueView<Point2d> {
+export class Point2dTextView implements ValueView<Point2d> {
+	public readonly element: HTMLElement;
 	public readonly value: Value<Point2d>;
 	private formatters_: Formatter<number>[];
-	private inputElems_: [HTMLInputElement, HTMLInputElement] | null;
+	private inputElems_: [HTMLInputElement, HTMLInputElement];
 
-	constructor(document: Document, config: Config) {
-		super(document, config);
-
+	constructor(doc: Document, config: Config) {
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
 		this.formatters_ = [config.xFormatter, config.yFormatter];
 
+		this.element = doc.createElement('div');
 		this.element.classList.add(className());
 
 		const inputElems = COMPONENT_LABELS.map(() => {
-			const inputElem = document.createElement('input');
+			const inputElem = doc.createElement('input');
 			inputElem.classList.add(className('i'));
 			inputElem.type = 'text';
 			return inputElem;
 		});
 		COMPONENT_LABELS.forEach((_, index) => {
-			const elem = document.createElement('div');
+			const elem = doc.createElement('div');
 			elem.classList.add(className('w'));
 			elem.appendChild(inputElems[index]);
 			this.element.appendChild(elem);
@@ -52,34 +49,16 @@ export class Point2dTextView extends View implements ValueView<Point2d> {
 		this.value = config.value;
 
 		this.update();
-
-		config.model.emitter.on('dispose', () => {
-			if (this.inputElems_) {
-				this.inputElems_.forEach((elem) => {
-					disposeElement(elem);
-				});
-				this.inputElems_ = null;
-			}
-		});
 	}
 
 	get inputElements(): [HTMLInputElement, HTMLInputElement] {
-		if (!this.inputElems_) {
-			throw PaneError.alreadyDisposed();
-		}
 		return this.inputElems_;
 	}
 
 	public update(): void {
-		const inputElems = this.inputElems_;
-		if (!inputElems) {
-			throw PaneError.alreadyDisposed();
-		}
-
 		const xyComps = this.value.rawValue.getComponents();
-
 		xyComps.forEach((comp, index) => {
-			const inputElem = inputElems[index];
+			const inputElem = this.inputElems_[index];
 			inputElem.value = this.formatters_[index].format(comp);
 		});
 	}

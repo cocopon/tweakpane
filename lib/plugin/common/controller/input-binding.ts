@@ -1,34 +1,34 @@
 import {LabeledView} from '../../general/labeled/view';
 import {InputBinding} from '../binding/input';
 import {ViewModel} from '../model/view-model';
+import {BladeController, setUpBladeView} from './blade';
 import {ValueController} from './value';
 
 interface Config<In, Ex> {
 	binding: InputBinding<In, Ex>;
 	controller: ValueController<In>;
 	label: string;
+	viewModel: ViewModel;
 }
 
 /**
  * @hidden
  */
-export class InputBindingController<In, Ex> {
+export class InputBindingController<In, Ex> implements BladeController {
 	public readonly binding: InputBinding<In, Ex>;
 	public readonly controller: ValueController<In>;
 	public readonly view: LabeledView;
+	public readonly viewModel: ViewModel;
 
-	constructor(document: Document, config: Config<In, Ex>) {
+	constructor(doc: Document, config: Config<In, Ex>) {
 		this.binding = config.binding;
 		this.controller = config.controller;
 
-		this.view = new LabeledView(document, {
-			model: this.controller.viewModel,
+		this.view = new LabeledView(doc, {
 			label: config.label,
 			view: this.controller.view,
 		});
-	}
-
-	get viewModel(): ViewModel {
-		return this.controller.viewModel;
+		this.viewModel = config.viewModel;
+		setUpBladeView(this.view, this.viewModel);
 	}
 }

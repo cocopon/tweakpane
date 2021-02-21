@@ -9,6 +9,7 @@ import {ValueController} from './common/controller/value';
 import {initializeBuffer} from './common/model/buffered-value';
 import {Buffer} from './common/model/buffered-value';
 import {Target} from './common/model/target';
+import {ViewModel} from './common/model/view-model';
 import {BasePlugin} from './plugin';
 
 interface ValueArguments<T> {
@@ -88,5 +89,6 @@ export function createController<T>(
 			params: args.params,
 		}),
 		label: args.params.label || args.target.key,
+		viewModel: new ViewModel(),
 	});
 }

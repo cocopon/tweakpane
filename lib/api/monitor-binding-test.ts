@@ -18,7 +18,6 @@ function createApi(target: Target) {
 	const doc = TestUtil.createWindow().document;
 	const value = new Value([0] as Buffer<number>);
 	const mc = new SingleLogMonitorController(doc, {
-		viewModel: new ViewModel(),
 		formatter: new NumberFormatter(0),
 		value: value,
 	});
@@ -31,6 +30,7 @@ function createApi(target: Target) {
 		}),
 		controller: mc,
 		label: 'label',
+		viewModel: new ViewModel(),
 	});
 	return new MonitorBindingApi(bc);
 }

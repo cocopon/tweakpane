@@ -1,4 +1,5 @@
 import {isEmpty} from '../../../misc/type-util';
+import {BladeController, setUpBladeView} from '../../common/controller/blade';
 import {
 	computeExpandedFolderHeight,
 	updateAllItemsPositions,
@@ -18,14 +19,14 @@ interface Config {
 /**
  * @hidden
  */
-export class FolderController {
-	public readonly viewModel: ViewModel;
+export class FolderController implements BladeController {
 	public readonly folder: Folder;
 	public readonly view: FolderView;
+	public readonly viewModel: ViewModel;
 	private doc_: Document;
 	private ucList_: UiContainer;
 
-	constructor(document: Document, config: Config) {
+	constructor(doc: Document, config: Config) {
 		this.onContainerTransitionEnd_ = this.onContainerTransitionEnd_.bind(this);
 		this.onFolderBeforeChange_ = this.onFolderBeforeChange_.bind(this);
 		this.onTitleClick_ = this.onTitleClick_.bind(this);
@@ -42,16 +43,16 @@ export class FolderController {
 		this.ucList_.emitter.on('itemlayout', this.onUiContainerItemLayout_);
 		this.ucList_.emitter.on('remove', this.onUiContainerRemove_);
 
-		this.doc_ = document;
+		this.doc_ = doc;
 		this.view = new FolderView(this.doc_, {
 			folder: this.folder,
-			model: this.viewModel,
 		});
 		this.view.titleElement.addEventListener('click', this.onTitleClick_);
 		this.view.containerElement.addEventListener(
 			'transitionend',
 			this.onContainerTransitionEnd_,
 		);
+		setUpBladeView(this.view, this.viewModel);
 	}
 
 	get document(): Document {

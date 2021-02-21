@@ -5,7 +5,6 @@ import {Foldable} from '../../../common/model/foldable';
 import {PickedColor} from '../../../common/model/picked-color';
 import {Value} from '../../../common/model/value';
 import {connect} from '../../../common/model/value-sync';
-import {ViewModel} from '../../../common/model/view-model';
 import {StringNumberParser} from '../../../common/reader/string-number';
 import {NumberFormatter} from '../../../common/writer/number';
 import {TextController} from '../../common/controller/text';
@@ -19,14 +18,12 @@ import {SvPaletteController} from './sv-palette';
 interface Config {
 	pickedColor: PickedColor;
 	supportsAlpha: boolean;
-	viewModel: ViewModel;
 }
 
 /**
  * @hidden
  */
 export class ColorPickerController implements ValueController<Color> {
-	public readonly viewModel: ViewModel;
 	public readonly foldable: Foldable;
 	public readonly pickedColor: PickedColor;
 	public readonly view: ColorPickerView;
@@ -39,35 +36,29 @@ export class ColorPickerController implements ValueController<Color> {
 	private compTextsIc_: ColorComponentTextsController;
 	private svPaletteIc_: SvPaletteController;
 
-	constructor(document: Document, config: Config) {
+	constructor(doc: Document, config: Config) {
 		this.onFocusableElementBlur_ = this.onFocusableElementBlur_.bind(this);
 		this.onKeyDown_ = this.onKeyDown_.bind(this);
 
 		this.pickedColor = config.pickedColor;
 		this.foldable = new Foldable();
 
-		this.viewModel = config.viewModel;
-
-		this.hPaletteIc_ = new HPaletteController(document, {
+		this.hPaletteIc_ = new HPaletteController(doc, {
 			value: this.pickedColor.value,
-			viewModel: this.viewModel,
 		});
-		this.svPaletteIc_ = new SvPaletteController(document, {
+		this.svPaletteIc_ = new SvPaletteController(doc, {
 			value: this.pickedColor.value,
-			viewModel: this.viewModel,
 		});
 		this.alphaIcs_ = config.supportsAlpha
 			? {
-					palette: new APaletteController(document, {
+					palette: new APaletteController(doc, {
 						value: this.pickedColor.value,
-						viewModel: this.viewModel,
 					}),
-					text: new NumberTextController(document, {
+					text: new NumberTextController(doc, {
 						formatter: new NumberFormatter(2),
 						parser: StringNumberParser,
 						baseStep: 0.1,
 						value: new Value(0),
-						viewModel: this.viewModel,
 					}),
 			  }
 			: null;
@@ -85,13 +76,12 @@ export class ColorPickerController implements ValueController<Color> {
 				},
 			});
 		}
-		this.compTextsIc_ = new ColorComponentTextsController(document, {
+		this.compTextsIc_ = new ColorComponentTextsController(doc, {
 			parser: StringNumberParser,
 			pickedColor: this.pickedColor,
-			viewModel: this.viewModel,
 		});
 
-		this.view = new ColorPickerView(document, {
+		this.view = new ColorPickerView(doc, {
 			alphaViews: this.alphaIcs_
 				? {
 						palette: this.alphaIcs_.palette.view,
@@ -101,7 +91,6 @@ export class ColorPickerController implements ValueController<Color> {
 			componentTextsView: this.compTextsIc_.view,
 			foldable: this.foldable,
 			hPaletteView: this.hPaletteIc_.view,
-			model: this.viewModel,
 			pickedColor: this.pickedColor,
 			supportsAlpha: config.supportsAlpha,
 			svPaletteView: this.svPaletteIc_.view,

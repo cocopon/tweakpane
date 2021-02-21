@@ -4,7 +4,6 @@ import {Constraint} from '../../common/constraint/constraint';
 import {ListConstraint} from '../../common/constraint/list';
 import {ConstraintUtil} from '../../common/constraint/util';
 import {Value} from '../../common/model/value';
-import {ViewModel} from '../../common/model/view-model';
 import {boolFromUnknown} from '../../common/reader/boolean';
 import {boolToString} from '../../common/writer/boolean';
 import {InputBindingPlugin} from '../../input-binding';
@@ -28,20 +27,18 @@ function createConstraint(params: InputParams): Constraint<boolean> {
 	});
 }
 
-function createController(document: Document, value: Value<boolean>) {
+function createController(doc: Document, value: Value<boolean>) {
 	const c = value.constraint;
 
 	if (c && ConstraintUtil.findConstraint(c, ListConstraint)) {
-		return new ListController(document, {
+		return new ListController(doc, {
 			listItems: findListItems(c) ?? [],
-			viewModel: new ViewModel(),
 			stringifyValue: boolToString,
 			value: value,
 		});
 	}
 
-	return new CheckboxController(document, {
-		viewModel: new ViewModel(),
+	return new CheckboxController(doc, {
 		value: value,
 	});
 }

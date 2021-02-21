@@ -3,11 +3,10 @@ import {Point2d} from '../../../common/model/point-2d';
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
-import {View, ViewConfig} from '../../../common/view/view';
 import {Point2dPadView} from './point-2d-pad';
 import {Point2dTextView} from './point-2d-text';
 
-interface Config extends ViewConfig {
+interface Config {
 	padView: Point2dPadView;
 	textView: Point2dTextView;
 }
@@ -17,34 +16,34 @@ const className = ClassName('p2dpadtxt');
 /**
  * @hidden
  */
-export class Point2dPadTextView extends View implements ValueView<Point2d> {
+export class Point2dPadTextView implements ValueView<Point2d> {
+	public readonly element: HTMLElement;
 	private padButtonElem_: HTMLButtonElement;
 	private padView_: Point2dPadView;
 	private textView_: Point2dTextView;
 
-	constructor(document: Document, config: Config) {
-		super(document, config);
-
+	constructor(doc: Document, config: Config) {
+		this.element = doc.createElement('div');
 		this.element.classList.add(className());
 
-		const padWrapperElem = document.createElement('div');
+		const padWrapperElem = doc.createElement('div');
 		padWrapperElem.classList.add(className('w'));
 		this.element.appendChild(padWrapperElem);
 
-		const buttonElem = document.createElement('button');
+		const buttonElem = doc.createElement('button');
 		buttonElem.classList.add(className('b'));
-		buttonElem.appendChild(createSvgIconElement(document, 'p2dpad'));
+		buttonElem.appendChild(createSvgIconElement(doc, 'p2dpad'));
 		padWrapperElem.appendChild(buttonElem);
 		this.padButtonElem_ = buttonElem;
 
-		const padElem = document.createElement('div');
+		const padElem = doc.createElement('div');
 		padElem.classList.add(className('p'));
 		padWrapperElem.appendChild(padElem);
 
 		this.padView_ = config.padView;
 		padElem.appendChild(this.padView_.element);
 
-		const textElem = document.createElement('div');
+		const textElem = doc.createElement('div');
 		textElem.classList.add(className('t'));
 		this.textView_ = config.textView;
 		textElem.appendChild(this.textView_.element);

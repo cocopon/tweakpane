@@ -1,15 +1,12 @@
-import {disposeElement} from '../../../common/disposing-util';
 import {SVG_NS} from '../../../common/dom-util';
 import {Foldable} from '../../../common/model/foldable';
 import {Point2d} from '../../../common/model/point-2d';
 import {Value} from '../../../common/model/value';
 import {mapRange} from '../../../common/number-util';
-import {PaneError} from '../../../common/pane-error';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
-import {View, ViewConfig} from '../../../common/view/view';
 
-interface Config extends ViewConfig {
+interface Config {
 	foldable: Foldable;
 	invertsY: boolean;
 	value: Value<Point2d>;
@@ -21,19 +18,18 @@ const className = ClassName('p2dpad');
 /**
  * @hidden
  */
-export class Point2dPadView extends View implements ValueView<Point2d> {
+export class Point2dPadView implements ValueView<Point2d> {
+	public readonly element: HTMLElement;
 	public readonly foldable: Foldable;
+	public readonly padElement: HTMLDivElement;
 	public readonly value: Value<Point2d>;
 	private readonly invertsY_: boolean;
 	private readonly maxValue_: number;
-	private padElem_: HTMLDivElement | null;
-	private svgElem_: Element | null;
-	private lineElem_: Element | null;
-	private markerElem_: Element | null;
+	private svgElem_: Element;
+	private lineElem_: Element;
+	private markerElem_: Element;
 
-	constructor(document: Document, config: Config) {
-		super(document, config);
-
+	constructor(doc: Document, config: Config) {
 		this.onFoldableChange_ = this.onFoldableChange_.bind(this);
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
@@ -43,20 +39,21 @@ export class Point2dPadView extends View implements ValueView<Point2d> {
 		this.invertsY_ = config.invertsY;
 		this.maxValue_ = config.maxValue;
 
+		this.element = doc.createElement('div');
 		this.element.classList.add(className());
 
-		const padElem = document.createElement('div');
+		const padElem = doc.createElement('div');
 		padElem.tabIndex = 0;
 		padElem.classList.add(className('p'));
 		this.element.appendChild(padElem);
-		this.padElem_ = padElem;
+		this.padElement = padElem;
 
-		const svgElem = document.createElementNS(SVG_NS, 'svg');
+		const svgElem = doc.createElementNS(SVG_NS, 'svg');
 		svgElem.classList.add(className('g'));
-		this.padElem_.appendChild(svgElem);
+		this.padElement.appendChild(svgElem);
 		this.svgElem_ = svgElem;
 
-		const xAxisElem = document.createElementNS(SVG_NS, 'line');
+		const xAxisElem = doc.createElementNS(SVG_NS, 'line');
 		xAxisElem.classList.add(className('ax'));
 		xAxisElem.setAttributeNS(null, 'x1', '0');
 		xAxisElem.setAttributeNS(null, 'y1', '50%');
@@ -64,7 +61,7 @@ export class Point2dPadView extends View implements ValueView<Point2d> {
 		xAxisElem.setAttributeNS(null, 'y2', '50%');
 		this.svgElem_.appendChild(xAxisElem);
 
-		const yAxisElem = document.createElementNS(SVG_NS, 'line');
+		const yAxisElem = doc.createElementNS(SVG_NS, 'line');
 		yAxisElem.classList.add(className('ax'));
 		yAxisElem.setAttributeNS(null, 'x1', '50%');
 		yAxisElem.setAttributeNS(null, 'y1', '0');
@@ -72,14 +69,14 @@ export class Point2dPadView extends View implements ValueView<Point2d> {
 		yAxisElem.setAttributeNS(null, 'y2', '100%');
 		this.svgElem_.appendChild(yAxisElem);
 
-		const lineElem = document.createElementNS(SVG_NS, 'line');
+		const lineElem = doc.createElementNS(SVG_NS, 'line');
 		lineElem.classList.add(className('l'));
 		lineElem.setAttributeNS(null, 'x1', '50%');
 		lineElem.setAttributeNS(null, 'y1', '50%');
 		this.svgElem_.appendChild(lineElem);
 		this.lineElem_ = lineElem;
 
-		const markerElem = document.createElementNS(SVG_NS, 'circle');
+		const markerElem = doc.createElementNS(SVG_NS, 'circle');
 		markerElem.classList.add(className('m'));
 		markerElem.setAttributeNS(null, 'r', '2px');
 		this.svgElem_.appendChild(markerElem);
@@ -89,24 +86,10 @@ export class Point2dPadView extends View implements ValueView<Point2d> {
 		this.value = config.value;
 
 		this.update();
-
-		config.model.emitter.on('dispose', () => {
-			this.padElem_ = disposeElement(this.padElem_);
-		});
-	}
-
-	get padElement(): HTMLDivElement {
-		if (!this.padElem_) {
-			throw PaneError.alreadyDisposed();
-		}
-		return this.padElem_;
 	}
 
 	get allFocusableElements(): HTMLElement[] {
-		if (!this.padElem_) {
-			throw PaneError.alreadyDisposed();
-		}
-		return [this.padElem_];
+		return [this.padElement];
 	}
 
 	public update(): void {
@@ -116,21 +99,15 @@ export class Point2dPadView extends View implements ValueView<Point2d> {
 			this.element.classList.remove(className(undefined, 'expanded'));
 		}
 
-		const lineElem = this.lineElem_;
-		const markerElem = this.markerElem_;
-		if (!lineElem || !markerElem) {
-			throw PaneError.alreadyDisposed();
-		}
-
 		const [x, y] = this.value.rawValue.getComponents();
 		const max = this.maxValue_;
 		const px = mapRange(x, -max, +max, 0, 100);
 		const py = mapRange(y, -max, +max, 0, 100);
 		const ipy = this.invertsY_ ? 100 - py : py;
-		lineElem.setAttributeNS(null, 'x2', `${px}%`);
-		lineElem.setAttributeNS(null, 'y2', `${ipy}%`);
-		markerElem.setAttributeNS(null, 'cx', `${px}%`);
-		markerElem.setAttributeNS(null, 'cy', `${ipy}%`);
+		this.lineElem_.setAttributeNS(null, 'x2', `${px}%`);
+		this.lineElem_.setAttributeNS(null, 'y2', `${ipy}%`);
+		this.markerElem_.setAttributeNS(null, 'cx', `${px}%`);
+		this.markerElem_.setAttributeNS(null, 'cy', `${ipy}%`);
 	}
 
 	private onValueChange_(): void {

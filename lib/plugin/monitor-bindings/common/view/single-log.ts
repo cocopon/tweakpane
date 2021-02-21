@@ -1,12 +1,9 @@
-import {disposeElement} from '../../../common/disposing-util';
 import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
-import {PaneError} from '../../../common/pane-error';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
-import {View, ViewConfig} from '../../../common/view/view';
 import {Formatter} from '../../../common/writer/formatter';
 
-interface Config<T> extends ViewConfig {
+interface Config<T> {
 	formatter: Formatter<T>;
 	value: BufferedValue<T>;
 }
@@ -16,21 +13,21 @@ const className = ClassName('sgl');
 /**
  * @hidden
  */
-export class SingleLogView<T> extends View implements ValueView<Buffer<T>> {
+export class SingleLogView<T> implements ValueView<Buffer<T>> {
+	public readonly element: HTMLElement;
 	public readonly value: BufferedValue<T>;
 	private formatter_: Formatter<T>;
-	private inputElem_: HTMLInputElement | null;
+	private inputElem_: HTMLInputElement;
 
-	constructor(document: Document, config: Config<T>) {
-		super(document, config);
-
+	constructor(doc: Document, config: Config<T>) {
 		this.onValueUpdate_ = this.onValueUpdate_.bind(this);
 
 		this.formatter_ = config.formatter;
 
+		this.element = doc.createElement('div');
 		this.element.classList.add(className());
 
-		const inputElem = document.createElement('input');
+		const inputElem = doc.createElement('input');
 		inputElem.classList.add(className('i'));
 		inputElem.readOnly = true;
 		inputElem.type = 'text';
@@ -41,17 +38,9 @@ export class SingleLogView<T> extends View implements ValueView<Buffer<T>> {
 		this.value = config.value;
 
 		this.update();
-
-		config.model.emitter.on('dispose', () => {
-			this.inputElem_ = disposeElement(this.inputElem_);
-		});
 	}
 
 	public update(): void {
-		if (!this.inputElem_) {
-			throw PaneError.alreadyDisposed();
-		}
-
 		const values = this.value.rawValue;
 		const lastValue = values[values.length - 1];
 		this.inputElem_.value =

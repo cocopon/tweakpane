@@ -15,8 +15,8 @@ interface Config extends BaseConfig<number> {
 export class NumberTextController extends TextController<number> {
 	private baseStep_: number;
 
-	constructor(document: Document, config: Config) {
-		super(document, config);
+	constructor(doc: Document, config: Config) {
+		super(doc, config);
 
 		this.onInputKeyDown_ = this.onInputKeyDown_.bind(this);
 

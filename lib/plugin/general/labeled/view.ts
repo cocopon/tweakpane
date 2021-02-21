@@ -1,22 +1,22 @@
 import {ClassName} from '../../common/view/class-name';
-import {View, ViewConfig} from '../../common/view/view';
+import {View} from '../../common/view/view';
 
-interface Config extends ViewConfig {
+interface Config {
 	label: string;
 	view: View;
 }
 
 const className = ClassName('lbl');
 
-function createLabelNode(document: Document, label: string): DocumentFragment {
-	const frag = document.createDocumentFragment();
+function createLabelNode(doc: Document, label: string): DocumentFragment {
+	const frag = doc.createDocumentFragment();
 
 	const lineNodes = label.split('\n').map((line) => {
-		return document.createTextNode(line);
+		return doc.createTextNode(line);
 	});
 	lineNodes.forEach((lineNode, index) => {
 		if (index > 0) {
-			frag.appendChild(document.createElement('br'));
+			frag.appendChild(doc.createElement('br'));
 		}
 		frag.appendChild(lineNode);
 	});
@@ -27,24 +27,28 @@ function createLabelNode(document: Document, label: string): DocumentFragment {
 /**
  * @hidden
  */
-export class LabeledView extends View {
+export class LabeledView implements View {
 	public readonly label: string;
+	private elem_: HTMLElement;
 
-	constructor(document: Document, config: Config) {
-		super(document, config);
-
+	constructor(doc: Document, config: Config) {
 		this.label = config.label;
 
-		this.element.classList.add(className());
+		this.elem_ = doc.createElement('div');
+		this.elem_.classList.add(className());
 
-		const labelElem = document.createElement('div');
+		const labelElem = doc.createElement('div');
 		labelElem.classList.add(className('l'));
-		labelElem.appendChild(createLabelNode(document, this.label));
-		this.element.appendChild(labelElem);
+		labelElem.appendChild(createLabelNode(doc, this.label));
+		this.elem_.appendChild(labelElem);
 
-		const viewElem = document.createElement('div');
+		const viewElem = doc.createElement('div');
 		viewElem.classList.add(className('v'));
 		viewElem.appendChild(config.view.element);
-		this.element.appendChild(viewElem);
+		this.elem_.appendChild(viewElem);
+	}
+
+	get element(): HTMLElement {
+		return this.elem_;
 	}
 }

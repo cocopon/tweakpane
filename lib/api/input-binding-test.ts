@@ -21,7 +21,6 @@ function createApi(target: Target) {
 		formatter: new NumberFormatter(0),
 		parser: StringNumberParser,
 		value: value,
-		viewModel: new ViewModel(),
 	});
 	const bc = new InputBindingController(doc, {
 		binding: new InputBinding({
@@ -32,6 +31,7 @@ function createApi(target: Target) {
 		}),
 		controller: ic,
 		label: 'label',
+		viewModel: new ViewModel(),
 	});
 	return new InputBindingApi(bc);
 }

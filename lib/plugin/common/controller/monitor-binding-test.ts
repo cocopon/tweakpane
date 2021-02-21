@@ -26,7 +26,6 @@ describe(MonitorBindingController.name, () => {
 			value: value,
 		});
 		const controller = new SingleLogMonitorController(doc, {
-			viewModel: new ViewModel(),
 			formatter: new NumberFormatter(0),
 			value: value,
 		});
@@ -34,6 +33,7 @@ describe(MonitorBindingController.name, () => {
 			binding: binding,
 			controller: controller,
 			label: 'foo',
+			viewModel: new ViewModel(),
 		});
 		assert.strictEqual(bc.binding, binding);
 		assert.strictEqual(bc.controller, controller);

@@ -7,7 +7,6 @@ import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
 import {ConstraintUtil} from '../../common/constraint/util';
 import {Value} from '../../common/model/value';
-import {ViewModel} from '../../common/model/view-model';
 import {numberFromUnknown} from '../../common/reader/number';
 import {StringNumberParser} from '../../common/reader/string-number';
 import {NumberFormatter, numberToString} from '../../common/writer/number';
@@ -58,38 +57,35 @@ function createConstraint(params: InputParams): Constraint<number> {
 	});
 }
 
-function createController(document: Document, value: Value<number>) {
+function createController(doc: Document, value: Value<number>) {
 	const c = value.constraint;
 
 	if (c && ConstraintUtil.findConstraint(c, ListConstraint)) {
-		return new ListController(document, {
+		return new ListController(doc, {
 			listItems: findListItems(c) ?? [],
 			stringifyValue: numberToString,
 			value: value,
-			viewModel: new ViewModel(),
 		});
 	}
 
 	if (c && ConstraintUtil.findConstraint(c, RangeConstraint)) {
-		return new SliderTextController(document, {
+		return new SliderTextController(doc, {
 			baseStep: getBaseStep(c),
 			formatter: new NumberFormatter(
 				getSuitableDecimalDigits(value.constraint, value.rawValue),
 			),
 			parser: StringNumberParser,
 			value: value,
-			viewModel: new ViewModel(),
 		});
 	}
 
-	return new NumberTextController(document, {
+	return new NumberTextController(doc, {
 		baseStep: getBaseStep(c),
 		formatter: new NumberFormatter(
 			getSuitableDecimalDigits(value.constraint, value.rawValue),
 		),
 		parser: StringNumberParser,
 		value: value,
-		viewModel: new ViewModel(),
 	});
 }
 

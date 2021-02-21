@@ -1,7 +1,6 @@
 import {ValueController} from '../../../common/controller/value';
 import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
 import {GraphCursor} from '../../../common/model/graph-cursor';
-import {ViewModel} from '../../../common/model/view-model';
 import {mapRange} from '../../../common/number-util';
 import {Formatter} from '../../../common/writer/formatter';
 import {GraphLogView} from '../view/graph-log';
@@ -12,33 +11,29 @@ interface Config {
 	maxValue: number;
 	minValue: number;
 	value: BufferedValue<number>;
-	viewModel: ViewModel;
 }
 
 /**
  * @hidden
  */
 export class GraphLogController implements ValueController<Buffer<number>> {
-	public readonly viewModel: ViewModel;
 	public readonly value: BufferedValue<number>;
 	public readonly view: GraphLogView;
 	private cursor_: GraphCursor;
 
-	constructor(document: Document, config: Config) {
+	constructor(doc: Document, config: Config) {
 		this.onGraphMouseLeave_ = this.onGraphMouseLeave_.bind(this);
 		this.onGraphMouseMove_ = this.onGraphMouseMove_.bind(this);
 
 		this.value = config.value;
 		this.cursor_ = new GraphCursor();
 
-		this.viewModel = config.viewModel;
-		this.view = new GraphLogView(document, {
+		this.view = new GraphLogView(doc, {
 			cursor: this.cursor_,
 			formatter: config.formatter,
 			lineCount: config.lineCount,
 			maxValue: config.maxValue,
 			minValue: config.minValue,
-			model: this.viewModel,
 			value: this.value,
 		});
 		this.view.element.addEventListener('mouseleave', this.onGraphMouseLeave_);
