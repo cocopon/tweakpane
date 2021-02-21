@@ -4,13 +4,13 @@ import Autoprefixer from 'autoprefixer';
 import NodeSass from 'node-sass';
 import Postcss from 'postcss';
 import Cleanup from 'rollup-plugin-cleanup';
-import {terser as Terser} from 'rollup-plugin-terser';
+import { terser as Terser } from 'rollup-plugin-terser';
 
 import Package from './package.json';
 
 async function compileCss() {
 	const css = NodeSass.renderSync({
-		file: 'src/main/sass/bundle.scss',
+		file: 'lib/sass/bundle.scss',
 		outputStyle: 'compressed',
 	}).css.toString();
 
@@ -23,7 +23,7 @@ async function compileCss() {
 function getPlugins(css, shouldMinify) {
 	const plugins = [
 		Typescript({
-			tsconfig: 'src/main/tsconfig.json',
+			tsconfig: 'lib/tsconfig.json',
 		}),
 		Replace({
 			__css__: css,
@@ -47,7 +47,7 @@ export default async () => {
 
 	const css = await compileCss();
 	return {
-		input: 'src/main/ts/index.ts',
+		input: 'lib/index.ts',
 		output: {
 			banner: `/*! Tweakpane ${Package.version} (c) 2016 cocopon, licensed under the MIT license. */`,
 			file: `docs/assets/tweakpane${postfix}.js`,

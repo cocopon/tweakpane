@@ -1,19 +1,11 @@
 {
 	"exclude": [
-		"**/src/main/ts/binding/**/*.ts",
-		"**/src/main/ts/constraint/**/*.ts",
-		"**/src/main/ts/controller/**/*.ts",
-		"**/src/main/ts/converter/**/*.ts",
-		"**/src/main/ts/formatter/**/*.ts",
-		"**/src/main/ts/misc/**/*.ts",
-		"**/src/main/ts/model/**/*.ts",
-		"**/src/main/ts/parser/**/*.ts",
-		"**/src/main/ts/view/**/*.ts",
-		"**/src/main/ts/index.ts",
-		"**/src/main/ts/**/*.d.ts",
-		"**/src/main/ts/**/*-test.ts"
+		"**/lib/misc/**/*.ts",
+		"**/lib/plugin/**/*.ts",
+		"**/lib/**/*.d.ts",
+		"**/lib/**/*-test.ts"
 	],
-	"tsconfig": "src/main/tsconfig.json",
+	"tsconfig": "lib/tsconfig.json",
 	"out": "docs/api",
 	"readme": "none"
 }
