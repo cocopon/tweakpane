@@ -1,11 +1,11 @@
 import {disposeElement} from '../../../common/disposing-util';
-import {colorToHexRgbaString} from '../../../common/formatter/color';
 import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
 import {PaneError} from '../../../common/pane-error';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
 import {View, ViewConfig} from '../../../common/view/view';
+import {colorToHexRgbaString} from '../../../common/writer/color';
 import {ColorPickerView} from './color-picker';
 
 interface Config extends ViewConfig {

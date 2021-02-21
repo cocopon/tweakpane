@@ -5,11 +5,11 @@ import {TestUtil} from '../../../misc/test-util';
 import {SingleLogMonitorController} from '../../monitor-bindings/common/controller/single-log';
 import {MonitorBinding} from '../binding/monitor';
 import {ManualTicker} from '../binding/ticker/manual';
-import {NumberFormatter} from '../formatter/number';
 import {Target} from '../model/target';
 import {Value} from '../model/value';
 import {ViewModel} from '../model/view-model';
-import {numberFromUnknown} from '../parser/number';
+import {numberFromUnknown} from '../reader/number';
+import {NumberFormatter} from '../writer/number';
 import {MonitorBindingController} from './monitor-binding';
 
 describe(MonitorBindingController.name, () => {

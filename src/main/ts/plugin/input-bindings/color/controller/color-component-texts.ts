@@ -10,7 +10,7 @@ import {ColorComponents4, ColorMode} from '../../../common/model/color-model';
 import {PickedColor} from '../../../common/model/picked-color';
 import {Value} from '../../../common/model/value';
 import {ViewModel} from '../../../common/model/view-model';
-import {Parser} from '../../../common/parser/parser';
+import {Parser} from '../../../common/reader/parser';
 import {ColorComponentTextsView} from '../view/color-component-texts';
 
 interface Config {

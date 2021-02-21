@@ -1,12 +1,12 @@
+import {Color, RgbaColorObject, RgbColorObject} from '../../common/model/color';
+import {ViewModel} from '../../common/model/view-model';
+import {colorFromObject} from '../../common/reader/object-color';
+import {CompositeColorParser} from '../../common/reader/string-color';
 import {
 	ColorFormatter,
 	colorToHexRgbaString,
 	colorToHexRgbString,
-} from '../../common/formatter/color';
-import {Color, RgbaColorObject, RgbColorObject} from '../../common/model/color';
-import {ViewModel} from '../../common/model/view-model';
-import {colorFromObject} from '../../common/parser/object-color';
-import {CompositeColorParser} from '../../common/parser/string-color';
+} from '../../common/writer/color';
 import {InputBindingPlugin} from '../../input-binding';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
 

@@ -6,7 +6,7 @@ import {Color, RgbaColorObject} from '../../../common/model/color';
 import {PickedColor} from '../../../common/model/picked-color';
 import {Value} from '../../../common/model/value';
 import {ViewModel} from '../../../common/model/view-model';
-import {StringNumberParser} from '../../../common/parser/string-number';
+import {StringNumberParser} from '../../../common/reader/string-number';
 import {ColorComponentTextsController} from './color-component-texts';
 
 interface ChangeTestCase {

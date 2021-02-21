@@ -2,14 +2,14 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
-import {
-	ColorFormatter,
-	colorToHexRgbString,
-} from '../../../common/formatter/color';
 import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
 import {ViewModel} from '../../../common/model/view-model';
-import {CompositeColorParser} from '../../../common/parser/string-color';
+import {CompositeColorParser} from '../../../common/reader/string-color';
+import {
+	ColorFormatter,
+	colorToHexRgbString,
+} from '../../../common/writer/color';
 import {ColorSwatchTextController} from './color-swatch-text';
 
 describe(ColorSwatchTextController.name, () => {

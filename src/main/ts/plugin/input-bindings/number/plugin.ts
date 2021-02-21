@@ -6,11 +6,11 @@ import {ListConstraint} from '../../common/constraint/list';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
 import {ConstraintUtil} from '../../common/constraint/util';
-import {NumberFormatter, numberToString} from '../../common/formatter/number';
 import {Value} from '../../common/model/value';
 import {ViewModel} from '../../common/model/view-model';
-import {numberFromUnknown} from '../../common/parser/number';
-import {StringNumberParser} from '../../common/parser/string-number';
+import {numberFromUnknown} from '../../common/reader/number';
+import {StringNumberParser} from '../../common/reader/string-number';
+import {NumberFormatter, numberToString} from '../../common/writer/number';
 import {InputBindingPlugin} from '../../input-binding';
 import {
 	findListItems,

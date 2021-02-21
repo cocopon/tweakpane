@@ -1,6 +1,6 @@
-import {colorToFunctionalRgbaString} from '../../main/ts/plugin/common/formatter/color';
 import {Color} from '../../main/ts/plugin/common/model/color';
-import {colorFromString} from '../../main/ts/plugin/common/parser/string-color';
+import {colorFromString} from '../../main/ts/plugin/common/reader/string-color';
+import {colorToFunctionalRgbaString} from '../../main/ts/plugin/common/writer/color';
 import {createTheme, ThemeId} from './themes';
 
 declare let Tweakpane: any;

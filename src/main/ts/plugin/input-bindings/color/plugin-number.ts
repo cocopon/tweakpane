@@ -1,18 +1,18 @@
 import {InputParams} from '../../../api/types';
+import {Color} from '../../common/model/color';
+import {ViewModel} from '../../common/model/view-model';
+import {
+	colorFromNumberToRgb,
+	colorFromNumberToRgba,
+} from '../../common/reader/number-color';
+import {CompositeColorParser} from '../../common/reader/string-color';
 import {
 	ColorFormatter,
 	colorToHexRgbaString,
 	colorToHexRgbString,
 	colorToRgbaNumber,
 	colorToRgbNumber,
-} from '../../common/formatter/color';
-import {Color} from '../../common/model/color';
-import {ViewModel} from '../../common/model/view-model';
-import {
-	colorFromNumberToRgb,
-	colorFromNumberToRgba,
-} from '../../common/parser/number-color';
-import {CompositeColorParser} from '../../common/parser/string-color';
+} from '../../common/writer/color';
 import {InputBindingPlugin} from '../../input-binding';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
 

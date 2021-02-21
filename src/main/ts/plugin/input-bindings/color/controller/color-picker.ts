@@ -1,13 +1,13 @@
 import {ValueController} from '../../../common/controller/value';
 import {findNextTarget, supportsTouch} from '../../../common/dom-util';
-import {NumberFormatter} from '../../../common/formatter/number';
 import {Color} from '../../../common/model/color';
 import {Foldable} from '../../../common/model/foldable';
 import {PickedColor} from '../../../common/model/picked-color';
 import {Value} from '../../../common/model/value';
 import {connect} from '../../../common/model/value-sync';
 import {ViewModel} from '../../../common/model/view-model';
-import {StringNumberParser} from '../../../common/parser/string-number';
+import {StringNumberParser} from '../../../common/reader/string-number';
+import {NumberFormatter} from '../../../common/writer/number';
 import {TextController} from '../../common/controller/text';
 import {NumberTextController} from '../../number/controller/number-text';
 import {ColorPickerView} from '../view/color-picker';

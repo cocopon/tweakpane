@@ -2,10 +2,10 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
-import {NumberFormatter} from '../../../common/formatter/number';
 import {Value} from '../../../common/model/value';
 import {ViewModel} from '../../../common/model/view-model';
-import {StringNumberParser} from '../../../common/parser/string-number';
+import {StringNumberParser} from '../../../common/reader/string-number';
+import {NumberFormatter} from '../../../common/writer/number';
 import {TextController} from './text';
 
 describe(TextController.name, () => {

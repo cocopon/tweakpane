@@ -3,7 +3,7 @@ import {describe, it} from 'mocha';
 
 import {Target} from '../model/target';
 import {Value} from '../model/value';
-import {numberFromUnknown} from '../parser/number';
+import {numberFromUnknown} from '../reader/number';
 import {InputBinding} from './input';
 
 describe(InputBinding.name, () => {

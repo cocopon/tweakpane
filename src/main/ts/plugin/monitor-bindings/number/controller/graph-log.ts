@@ -1,9 +1,9 @@
 import {ValueController} from '../../../common/controller/value';
-import {Formatter} from '../../../common/formatter/formatter';
 import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
 import {GraphCursor} from '../../../common/model/graph-cursor';
 import {ViewModel} from '../../../common/model/view-model';
 import {mapRange} from '../../../common/number-util';
+import {Formatter} from '../../../common/writer/formatter';
 import {GraphLogView} from '../view/graph-log';
 
 interface Config {

@@ -1,11 +1,11 @@
 import {disposeElement} from '../../../common/disposing-util';
-import {Formatter} from '../../../common/formatter/formatter';
 import {Point2d} from '../../../common/model/point-2d';
 import {Value} from '../../../common/model/value';
 import {PaneError} from '../../../common/pane-error';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
 import {View, ViewConfig} from '../../../common/view/view';
+import {Formatter} from '../../../common/writer/formatter';
 
 interface Config extends ViewConfig {
 	value: Value<Point2d>;

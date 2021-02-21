@@ -3,9 +3,9 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
 import {ListConstraint} from '../../../common/constraint/list';
-import {numberToString} from '../../../common/formatter/number';
 import {Value} from '../../../common/model/value';
 import {ViewModel} from '../../../common/model/view-model';
+import {numberToString} from '../../../common/writer/number';
 import {findListItems} from '../../../util';
 import {ListController} from './list';
 

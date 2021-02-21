@@ -1,11 +1,11 @@
 import {disposeElement} from '../../../common/disposing-util';
-import {colorToFunctionalRgbaString} from '../../../common/formatter/color';
 import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
 import {mapRange} from '../../../common/number-util';
 import {PaneError} from '../../../common/pane-error';
 import {ClassName} from '../../../common/view/class-name';
 import {View, ViewConfig} from '../../../common/view/view';
+import {colorToFunctionalRgbaString} from '../../../common/writer/color';
 
 const className = ClassName('apl');
 

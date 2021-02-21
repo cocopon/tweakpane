@@ -1,5 +1,4 @@
 import {disposeElement} from '../../../common/disposing-util';
-import {NumberFormatter} from '../../../common/formatter/number';
 import {Color} from '../../../common/model/color';
 import {PickedColor} from '../../../common/model/picked-color';
 import {Value} from '../../../common/model/value';
@@ -7,6 +6,7 @@ import {PaneError} from '../../../common/pane-error';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
 import {View, ViewConfig} from '../../../common/view/view';
+import {NumberFormatter} from '../../../common/writer/number';
 
 interface Config extends ViewConfig {
 	pickedColor: PickedColor;

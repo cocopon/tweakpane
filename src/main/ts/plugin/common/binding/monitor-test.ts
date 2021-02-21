@@ -4,7 +4,7 @@ import {describe, it} from 'mocha';
 import {Buffer} from '../model/buffered-value';
 import {Target} from '../model/target';
 import {Value} from '../model/value';
-import {numberFromUnknown} from '../parser/number';
+import {numberFromUnknown} from '../reader/number';
 import {MonitorBinding} from './monitor';
 import {ManualTicker} from './ticker/manual';
 

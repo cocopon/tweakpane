@@ -1,6 +1,5 @@
 import {disposeElement} from '../../../common/disposing-util';
 import {SVG_NS} from '../../../common/dom-util';
-import {Formatter} from '../../../common/formatter/formatter';
 import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
 import {GraphCursor} from '../../../common/model/graph-cursor';
 import {mapRange} from '../../../common/number-util';
@@ -8,6 +7,7 @@ import {PaneError} from '../../../common/pane-error';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
 import {View, ViewConfig} from '../../../common/view/view';
+import {Formatter} from '../../../common/writer/formatter';
 
 interface Config extends ViewConfig {
 	cursor: GraphCursor;
