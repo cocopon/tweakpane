@@ -329,5 +329,29 @@ pane.addInput(PARAMS, 'offset', {
 	</div>
 </div>
 
+
+<h2 id="point3d">Point 3D</h2>
+<p>Tweakpane also has a support for 3D vector object. You can constrain each axis same as Point 2D.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  source: {x: 0, y: 0, z: 0},
+  camera: {x: 0, y: 20, z: -10},
+};
+
+const pane = new Tweakpane();
+pane.addInput(PARAMS, 'source');
+pane.addInput(PARAMS, 'camera', {
+  y: {step: 10},
+  z: {max: 0},
+});</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-point3d></div>
+		</div>
+	</div>
+</div>
 {% endblock %}
 

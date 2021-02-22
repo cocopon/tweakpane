@@ -1,4 +1,4 @@
-import {InputParams, Point2dDimensionParams} from '../../../api/types';
+import {InputParams, PointDimensionParams} from '../../../api/types';
 import {isEmpty} from '../../../misc/type-util';
 import {CompositeConstraint} from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
@@ -17,7 +17,7 @@ import {getBaseStep, getSuitableDecimalDigits} from '../../util';
 import {Point2dPadTextController} from './controller/point-2d-pad-text';
 
 function createDimensionConstraint(
-	params: Point2dDimensionParams | undefined,
+	params: PointDimensionParams | undefined,
 ): Constraint<number> | undefined {
 	if (!params) {
 		return undefined;
@@ -112,6 +112,19 @@ function createController(
 	});
 }
 
+function shouldInvertY(params: InputParams): boolean {
+	if (!('y' in params)) {
+		return false;
+	}
+
+	const yParams = params.y;
+	if (!yParams) {
+		return false;
+	}
+
+	return 'inverted' in yParams ? !!yParams.inverted : false;
+}
+
 /**
  * @hidden
  */
@@ -125,8 +138,10 @@ export const Point2dInputPlugin: InputBindingPlugin<Point2d, Point2dObject> = {
 		equals: Point2d.equals,
 	},
 	controller: (args) => {
-		const yParams = 'y' in args.params ? args.params.y : undefined;
-		const invertsY = yParams ? !!yParams.inverted : false;
-		return createController(args.document, args.binding.value, invertsY);
+		return createController(
+			args.document,
+			args.binding.value,
+			shouldInvertY(args.params),
+		);
 	},
 };
