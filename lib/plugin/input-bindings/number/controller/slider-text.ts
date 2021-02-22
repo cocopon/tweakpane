@@ -17,13 +17,13 @@ interface Config {
  * @hidden
  */
 export class SliderTextController implements ValueController<number> {
+	public readonly value: Value<number>;
+	public readonly view: SliderTextView;
 	private sliderIc_: SliderController;
 	private textIc_: NumberTextController;
-	private value_: Value<number>;
-	private view_: SliderTextView;
 
 	constructor(doc: Document, config: Config) {
-		this.value_ = config.value;
+		this.value = config.value;
 
 		this.sliderIc_ = new SliderController(doc, {
 			baseStep: config.baseStep,
@@ -36,17 +36,9 @@ export class SliderTextController implements ValueController<number> {
 			value: config.value,
 		});
 
-		this.view_ = new SliderTextView(doc, {
+		this.view = new SliderTextView(doc, {
 			sliderView: this.sliderIc_.view,
 			textView: this.textIc_.view,
 		});
-	}
-
-	get value(): Value<number> {
-		return this.value_;
-	}
-
-	get view(): SliderTextView {
-		return this.view_;
 	}
 }

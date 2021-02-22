@@ -14,26 +14,22 @@ interface Config<T> {
  * @hidden
  */
 export class ListController<T> implements ValueController<T> {
+	public readonly value: Value<T>;
 	public readonly view: ListView<T>;
 	private listItems_: ListItem<T>[];
-	private value_: Value<T>;
 
 	constructor(doc: Document, config: Config<T>) {
 		this.onSelectChange_ = this.onSelectChange_.bind(this);
 
-		this.value_ = config.value;
+		this.value = config.value;
 
 		this.listItems_ = config.listItems;
 		this.view = new ListView(doc, {
 			options: this.listItems_,
 			stringifyValue: config.stringifyValue,
-			value: this.value_,
+			value: this.value,
 		});
 		this.view.selectElement.addEventListener('change', this.onSelectChange_);
-	}
-
-	get value(): Value<T> {
-		return this.value_;
 	}
 
 	private onSelectChange_(e: Event): void {
@@ -44,7 +40,7 @@ export class ListController<T> implements ValueController<T> {
 		}
 
 		const itemIndex = Number(optElem.dataset.index);
-		this.value_.rawValue = this.listItems_[itemIndex].value;
+		this.value.rawValue = this.listItems_[itemIndex].value;
 
 		this.view.update();
 	}
