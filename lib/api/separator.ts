@@ -1,4 +1,4 @@
-import {SeparatorController} from '../plugin/general/separator/controller';
+import {SeparatorController} from '../plugin/blade/separator/controller';
 import {ComponentApi} from './component-api';
 
 export class SeparatorApi implements ComponentApi {

@@ -1,15 +1,15 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {TestUtil} from '../../../misc/test-util';
-import {SingleLogMonitorController} from '../../monitor-bindings/common/controller/single-log';
-import {MonitorBinding} from '../binding/monitor';
-import {ManualTicker} from '../binding/ticker/manual';
+import {TestUtil} from '../../../../misc/test-util';
+import {MonitorBinding} from '../../../common/binding/monitor';
+import {ManualTicker} from '../../../common/binding/ticker/manual';
+import {Target} from '../../../common/model/target';
+import {Value} from '../../../common/model/value';
+import {numberFromUnknown} from '../../../common/reader/number';
+import {NumberFormatter} from '../../../common/writer/number';
+import {SingleLogMonitorController} from '../../../monitor-bindings/common/controller/single-log';
 import {Blade} from '../model/blade';
-import {Target} from '../model/target';
-import {Value} from '../model/value';
-import {numberFromUnknown} from '../reader/number';
-import {NumberFormatter} from '../writer/number';
 import {MonitorBindingController} from './monitor-binding';
 
 describe(MonitorBindingController.name, () => {

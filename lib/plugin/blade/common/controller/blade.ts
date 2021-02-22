@@ -1,9 +1,9 @@
-import {disposeElement} from '../disposing-util';
+import {Controller} from '../../../common/controller/controller';
+import {disposeElement} from '../../../common/disposing-util';
+import {ClassName} from '../../../common/view/class-name';
+import {View} from '../../../common/view/view';
 import {Blade, BladeEvents} from '../model/blade';
 import {getAllBladePositions} from '../model/blade-positions';
-import {ClassName} from '../view/class-name';
-import {View} from '../view/view';
-import {Controller} from './controller';
 
 export interface BladeController extends Controller {
 	readonly blade: Blade;

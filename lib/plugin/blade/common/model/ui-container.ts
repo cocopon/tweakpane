@@ -1,13 +1,16 @@
-import {FolderController} from '../../general/folder/controller';
-import {InputBinding, InputBindingEvents} from '../binding/input';
-import {MonitorBinding, MonitorBindingEvents} from '../binding/monitor';
+import {InputBinding, InputBindingEvents} from '../../../common/binding/input';
+import {
+	MonitorBinding,
+	MonitorBindingEvents,
+} from '../../../common/binding/monitor';
+import {Emitter} from '../../../common/model/emitter';
+import {FolderEvents} from '../../../common/model/folder';
+import {List, ListEvents} from '../../../common/model/list';
+import {FolderController} from '../../folder/controller';
 import {InputBindingController} from '../controller/input-binding';
 import {MonitorBindingController} from '../controller/monitor-binding';
 import {UiController} from '../controller/ui';
 import {BladeEvents} from './blade';
-import {Emitter} from './emitter';
-import {FolderEvents} from './folder';
-import {List, ListEvents} from './list';
 
 /**
  * @hidden

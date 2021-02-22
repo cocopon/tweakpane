@@ -1,5 +1,5 @@
 import {forceCast} from '../misc/type-util';
-import {ButtonController} from '../plugin/general/button/controller';
+import {ButtonController} from '../plugin/blade/button/controller';
 import {ComponentApi} from './component-api';
 
 interface ButtonApiEventHandlers {

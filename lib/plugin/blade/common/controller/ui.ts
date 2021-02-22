@@ -1,7 +1,7 @@
-import {Class} from '../../../misc/type-util';
-import {ButtonController} from '../../general/button/controller';
-import {FolderController} from '../../general/folder/controller';
-import {SeparatorController} from '../../general/separator/controller';
+import {Class} from '../../../../misc/type-util';
+import {ButtonController} from '../../button/controller';
+import {FolderController} from '../../folder/controller';
+import {SeparatorController} from '../../separator/controller';
 import {InputBindingController} from './input-binding';
 import {MonitorBindingController} from './monitor-binding';
 

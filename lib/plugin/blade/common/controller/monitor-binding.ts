@@ -1,9 +1,9 @@
-import {LabeledView} from '../../general/labeled/view';
-import {MonitorBinding} from '../binding/monitor';
+import {MonitorBinding} from '../../../common/binding/monitor';
+import {ValueController} from '../../../common/controller/value';
+import {Buffer} from '../../../common/model/buffered-value';
+import {LabeledView} from '../../labeled/view';
 import {Blade} from '../model/blade';
-import {Buffer} from '../model/buffered-value';
 import {BladeController, setUpBladeView} from './blade';
-import {ValueController} from './value';
 
 interface Config<T> {
 	binding: MonitorBinding<T>;

@@ -1,15 +1,15 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {TestUtil} from '../../../misc/test-util';
-import {TextController} from '../../input-bindings/common/controller/text';
-import {InputBinding} from '../binding/input';
+import {TestUtil} from '../../../../misc/test-util';
+import {InputBinding} from '../../../common/binding/input';
+import {Target} from '../../../common/model/target';
+import {Value} from '../../../common/model/value';
+import {numberFromUnknown} from '../../../common/reader/number';
+import {StringNumberParser} from '../../../common/reader/string-number';
+import {NumberFormatter} from '../../../common/writer/number';
+import {TextController} from '../../../input-bindings/common/controller/text';
 import {Blade} from '../model/blade';
-import {Target} from '../model/target';
-import {Value} from '../model/value';
-import {numberFromUnknown} from '../reader/number';
-import {StringNumberParser} from '../reader/string-number';
-import {NumberFormatter} from '../writer/number';
 import {InputBindingController} from './input-binding';
 
 describe(InputBindingController.name, () => {

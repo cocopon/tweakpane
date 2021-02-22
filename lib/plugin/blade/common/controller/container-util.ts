@@ -1,6 +1,9 @@
-import {disableTransitionTemporarily, forceReflow} from '../dom-util';
+import {
+	disableTransitionTemporarily,
+	forceReflow,
+} from '../../../common/dom-util';
+import {Folder} from '../../../common/model/folder';
 import {BladePosition} from '../model/blade-positions';
-import {Folder} from '../model/folder';
 import {UiContainer} from '../model/ui-container';
 
 export function updateAllItemsPositions(uiContainer: UiContainer): void {

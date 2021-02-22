@@ -1,5 +1,5 @@
 import {forceCast} from '../misc/type-util';
-import {MonitorBindingController} from '../plugin/common/controller/monitor-binding';
+import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
 import {ComponentApi} from './component-api';
 import {handleMonitorBinding} from './event-handler-adapters';
 

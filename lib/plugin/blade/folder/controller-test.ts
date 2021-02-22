@@ -2,9 +2,9 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../misc/test-util';
-import {Blade} from '../../common/model/blade';
 import {FolderEvents} from '../../common/model/folder';
 import {ButtonController} from '../button/controller';
+import {Blade} from '../common/model/blade';
 import {FolderController} from './controller';
 
 describe(FolderController.name, () => {

@@ -1,7 +1,7 @@
-import {deepEqualsArray} from '../../../misc/type-util';
+import {deepEqualsArray} from '../../../../misc/type-util';
+import {Disposable} from '../../../common/model/disposable';
+import {Emitter} from '../../../common/model/emitter';
 import {BladePosition} from './blade-positions';
-import {Disposable} from './disposable';
-import {Emitter} from './emitter';
 
 /**
  * @hidden

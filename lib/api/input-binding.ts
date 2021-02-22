@@ -1,5 +1,5 @@
 import {forceCast} from '../misc/type-util';
-import {InputBindingController} from '../plugin/common/controller/input-binding';
+import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
 import {ComponentApi} from './component-api';
 import {handleInputBinding} from './event-handler-adapters';
 

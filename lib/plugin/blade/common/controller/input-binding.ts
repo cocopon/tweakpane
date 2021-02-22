@@ -1,8 +1,8 @@
-import {LabeledView} from '../../general/labeled/view';
-import {InputBinding} from '../binding/input';
+import {InputBinding} from '../../../common/binding/input';
+import {ValueController} from '../../../common/controller/value';
+import {LabeledView} from '../../labeled/view';
 import {Blade} from '../model/blade';
 import {BladeController, setUpBladeView} from './blade';
-import {ValueController} from './value';
 
 interface Config<In, Ex> {
 	binding: InputBinding<In, Ex>;

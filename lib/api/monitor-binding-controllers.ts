@@ -1,5 +1,5 @@
 import {isEmpty} from '../misc/type-util';
-import {MonitorBindingController} from '../plugin/common/controller/monitor-binding';
+import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
 import {Target} from '../plugin/common/model/target';
 import {PaneError} from '../plugin/common/pane-error';
 import {createController} from '../plugin/monitor-binding';

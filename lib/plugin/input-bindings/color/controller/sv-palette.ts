@@ -4,7 +4,7 @@ import {
 	getStepForKey,
 	getVerticalStepKeys,
 	isArrowKey,
-} from '../../../common/controller/ui';
+} from '../../../blade/common/controller/ui';
 import {ValueController} from '../../../common/controller/value';
 import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';

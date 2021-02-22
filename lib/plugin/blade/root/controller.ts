@@ -1,28 +1,36 @@
 import {isEmpty} from '../../../misc/type-util';
-import {BladeController, setUpBladeView} from '../../common/controller/blade';
+import {forceReflow, insertElementAt} from '../../common/dom-util';
+import {Folder, FolderEvents} from '../../common/model/folder';
+import {BladeController, setUpBladeView} from '../common/controller/blade';
 import {
 	computeExpandedFolderHeight,
 	updateAllItemsPositions,
-} from '../../common/controller/container-util';
-import {forceReflow, insertElementAt} from '../../common/dom-util';
-import {Blade} from '../../common/model/blade';
-import {Folder, FolderEvents} from '../../common/model/folder';
-import {UiContainer, UiContainerEvents} from '../../common/model/ui-container';
-import {FolderView} from './view';
+} from '../common/controller/container-util';
+import {Blade} from '../common/model/blade';
+import {UiContainer, UiContainerEvents} from '../common/model/ui-container';
+import {RootView} from './view';
 
 interface Config {
 	expanded?: boolean;
-	title: string;
+	title?: string;
 	blade: Blade;
+}
+
+function createFolder(config: Config): Folder | null {
+	if (!config.title) {
+		return null;
+	}
+
+	return new Folder(config.title, config.expanded ?? true);
 }
 
 /**
  * @hidden
  */
-export class FolderController implements BladeController {
-	public readonly folder: Folder;
-	public readonly view: FolderView;
+export class RootController implements BladeController {
 	public readonly blade: Blade;
+	public readonly folder: Folder | null;
+	public readonly view: RootView;
 	private doc_: Document;
 	private ucList_: UiContainer;
 
@@ -34,9 +42,10 @@ export class FolderController implements BladeController {
 		this.onUiContainerItemLayout_ = this.onUiContainerItemLayout_.bind(this);
 		this.onUiContainerRemove_ = this.onUiContainerRemove_.bind(this);
 
-		this.blade = config.blade;
-		this.folder = new Folder(config.title, config.expanded ?? true);
-		this.folder.emitter.on('beforechange', this.onFolderBeforeChange_);
+		this.folder = createFolder(config);
+		if (this.folder) {
+			this.folder.emitter.on('beforechange', this.onFolderBeforeChange_);
+		}
 
 		this.ucList_ = new UiContainer();
 		this.ucList_.emitter.on('add', this.onUiContainerAdd_);
@@ -44,10 +53,13 @@ export class FolderController implements BladeController {
 		this.ucList_.emitter.on('remove', this.onUiContainerRemove_);
 
 		this.doc_ = doc;
-		this.view = new FolderView(this.doc_, {
+		this.blade = config.blade;
+		this.view = new RootView(this.doc_, {
 			folder: this.folder,
 		});
-		this.view.titleElement.addEventListener('click', this.onTitleClick_);
+		if (this.view.titleElement) {
+			this.view.titleElement.addEventListener('click', this.onTitleClick_);
+		}
 		this.view.containerElement.addEventListener(
 			'transitionend',
 			this.onContainerTransitionEnd_,
@@ -67,20 +79,20 @@ export class FolderController implements BladeController {
 		if (ev.propertyName !== 'expanded') {
 			return;
 		}
+		const folder = this.folder;
+		if (!folder) {
+			return;
+		}
 
-		if (isEmpty(this.folder.expandedHeight)) {
-			this.folder.expandedHeight = computeExpandedFolderHeight(
-				this.folder,
+		if (isEmpty(folder.expandedHeight)) {
+			folder.expandedHeight = computeExpandedFolderHeight(
+				folder,
 				this.view.containerElement,
 			);
 		}
 
-		this.folder.shouldFixHeight = true;
+		folder.shouldFixHeight = true;
 		forceReflow(this.view.containerElement);
-	}
-
-	private onTitleClick_() {
-		this.folder.expanded = !this.folder.expanded;
 	}
 
 	private applyUiContainerChange_(): void {
@@ -104,12 +116,20 @@ export class FolderController implements BladeController {
 		this.applyUiContainerChange_();
 	}
 
+	private onTitleClick_() {
+		if (this.folder) {
+			this.folder.expanded = !this.folder.expanded;
+		}
+	}
+
 	private onContainerTransitionEnd_(ev: TransitionEvent): void {
 		if (ev.propertyName !== 'height') {
 			return;
 		}
 
-		this.folder.shouldFixHeight = false;
-		this.folder.expandedHeight = null;
+		if (this.folder) {
+			this.folder.shouldFixHeight = false;
+			this.folder.expandedHeight = null;
+		}
 	}
 }

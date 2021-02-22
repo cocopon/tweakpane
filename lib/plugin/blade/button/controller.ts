@@ -1,6 +1,6 @@
-import {BladeController, setUpBladeView} from '../../common/controller/blade';
-import {Blade} from '../../common/model/blade';
 import {Button} from '../../common/model/button';
+import {BladeController, setUpBladeView} from '../common/controller/blade';
+import {Blade} from '../common/model/blade';
 import {ButtonView} from './view';
 
 interface Config {

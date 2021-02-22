@@ -1,9 +1,9 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {TestUtil} from '../../../misc/test-util';
+import {TestUtil} from '../../../../misc/test-util';
+import {View} from '../../../common/view/view';
 import {Blade} from '../model/blade';
-import {View} from '../view/view';
 import {setUpBladeView} from './blade';
 
 class TestView implements View {

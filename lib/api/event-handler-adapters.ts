@@ -1,13 +1,13 @@
+import {
+	UiContainer,
+	UiContainerEvents,
+} from '../plugin/blade/common/model/ui-container';
 import {InputBinding, InputBindingEvents} from '../plugin/common/binding/input';
 import {
 	MonitorBinding,
 	MonitorBindingEvents,
 } from '../plugin/common/binding/monitor';
 import {Folder, FolderEvents} from '../plugin/common/model/folder';
-import {
-	UiContainer,
-	UiContainerEvents,
-} from '../plugin/common/model/ui-container';
 
 export type InputEventName = 'change';
 export type MonitorEventName = 'update';

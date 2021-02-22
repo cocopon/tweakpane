@@ -1,5 +1,5 @@
-import {BladeController, setUpBladeView} from '../../common/controller/blade';
-import {Blade} from '../../common/model/blade';
+import {BladeController, setUpBladeView} from '../common/controller/blade';
+import {Blade} from '../common/model/blade';
 import {SeparatorView} from './view';
 
 interface Config {
