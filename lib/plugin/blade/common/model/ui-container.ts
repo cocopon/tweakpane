@@ -7,9 +7,9 @@ import {Emitter} from '../../../common/model/emitter';
 import {FolderEvents} from '../../../common/model/folder';
 import {List, ListEvents} from '../../../common/model/list';
 import {FolderController} from '../../folder/controller';
+import {BladeController} from '../controller/blade';
 import {InputBindingController} from '../controller/input-binding';
 import {MonitorBindingController} from '../controller/monitor-binding';
-import {UiController} from '../controller/ui';
 import {BladeEvents} from './blade';
 
 /**
@@ -18,7 +18,7 @@ import {BladeEvents} from './blade';
 export interface UiContainerEvents {
 	add: {
 		index: number;
-		uiController: UiController;
+		uiController: BladeController;
 		sender: UiContainer;
 	};
 	remove: {
@@ -49,7 +49,7 @@ export interface UiContainerEvents {
  */
 export class UiContainer {
 	public readonly emitter: Emitter<UiContainerEvents>;
-	private ucList_: List<UiController>;
+	private ucList_: List<BladeController>;
 
 	constructor() {
 		this.onItemFolderFold_ = this.onItemFolderFold_.bind(this);
@@ -71,15 +71,15 @@ export class UiContainer {
 		this.ucList_.emitter.on('remove', this.onListRemove_);
 	}
 
-	get items(): UiController[] {
+	get items(): BladeController[] {
 		return this.ucList_.items;
 	}
 
-	public add(uc: UiController, opt_index?: number): void {
+	public add(uc: BladeController, opt_index?: number): void {
 		this.ucList_.add(uc, opt_index);
 	}
 
-	private onListAdd_(ev: ListEvents<UiController>['add']) {
+	private onListAdd_(ev: ListEvents<BladeController>['add']) {
 		const uc = ev.item;
 
 		this.emitter.emit('add', {
@@ -109,7 +109,7 @@ export class UiContainer {
 		}
 	}
 
-	private onListRemove_(_: ListEvents<UiController>['remove']) {
+	private onListRemove_(_: ListEvents<BladeController>['remove']) {
 		this.emitter.emit('remove', {
 			sender: this,
 		});

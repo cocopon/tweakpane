@@ -1,25 +1,12 @@
 import {Class} from '../../../../misc/type-util';
-import {ButtonController} from '../../button/controller';
 import {FolderController} from '../../folder/controller';
-import {SeparatorController} from '../../separator/controller';
-import {InputBindingController} from './input-binding';
-import {MonitorBindingController} from './monitor-binding';
-
-/**
- * @hidden
- */
-export type UiController =
-	| ButtonController
-	| FolderController
-	| SeparatorController
-	| InputBindingController<unknown, unknown>
-	| MonitorBindingController<unknown>;
+import {BladeController} from './blade';
 
 /**
  * @hidden
  */
 export function findControllers<Controller>(
-	uiControllers: UiController[],
+	uiControllers: BladeController[],
 	controllerClass: Class<Controller>,
 ): Controller[] {
 	return uiControllers.reduce((results, uc) => {
