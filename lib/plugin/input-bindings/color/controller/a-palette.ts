@@ -1,11 +1,11 @@
+import {ValueController} from '../../../common/controller/value';
+import {Color} from '../../../common/model/color';
+import {Value} from '../../../common/model/value';
 import {
 	getBaseStepForColor,
 	getHorizontalStepKeys,
 	getStepForKey,
-} from '../../../blade/common/controller/ui';
-import {ValueController} from '../../../common/controller/value';
-import {Color} from '../../../common/model/color';
-import {Value} from '../../../common/model/value';
+} from '../../../common/ui';
 import {
 	PointerData,
 	PointerHandler,

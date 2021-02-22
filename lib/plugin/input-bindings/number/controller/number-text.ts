@@ -1,7 +1,4 @@
-import {
-	getStepForKey,
-	getVerticalStepKeys,
-} from '../../../blade/common/controller/ui';
+import {getStepForKey, getVerticalStepKeys} from '../../../common/ui';
 import {TextController} from '../../common/controller/text';
 import {Config as BaseConfig} from '../../common/controller/text';
 

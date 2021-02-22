@@ -1,12 +1,9 @@
-import {
-	getHorizontalStepKeys,
-	getStepForKey,
-} from '../../../blade/common/controller/ui';
 import {RangeConstraint} from '../../../common/constraint/range';
 import {ConstraintUtil} from '../../../common/constraint/util';
 import {ValueController} from '../../../common/controller/value';
 import {Value} from '../../../common/model/value';
 import {mapRange} from '../../../common/number-util';
+import {getHorizontalStepKeys, getStepForKey} from '../../../common/ui';
 import {
 	PointerData,
 	PointerHandler,

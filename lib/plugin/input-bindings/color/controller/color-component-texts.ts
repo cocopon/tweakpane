@@ -1,15 +1,15 @@
 import {forceCast, isEmpty} from '../../../../misc/type-util';
-import {
-	getBaseStepForColor,
-	getStepForKey,
-	getVerticalStepKeys,
-} from '../../../blade/common/controller/ui';
 import {ValueController} from '../../../common/controller/value';
 import {Color} from '../../../common/model/color';
 import {ColorComponents4, ColorMode} from '../../../common/model/color-model';
 import {PickedColor} from '../../../common/model/picked-color';
 import {Value} from '../../../common/model/value';
 import {Parser} from '../../../common/reader/parser';
+import {
+	getBaseStepForColor,
+	getStepForKey,
+	getVerticalStepKeys,
+} from '../../../common/ui';
 import {ColorComponentTextsView} from '../view/color-component-texts';
 
 interface Config {

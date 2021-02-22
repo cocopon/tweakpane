@@ -1,28 +1,3 @@
-import {Class} from '../../../../misc/type-util';
-import {FolderController} from '../../folder/controller';
-import {BladeController} from './blade';
-
-/**
- * @hidden
- */
-export function findControllers<Controller>(
-	uiControllers: BladeController[],
-	controllerClass: Class<Controller>,
-): Controller[] {
-	return uiControllers.reduce((results, uc) => {
-		if (uc instanceof FolderController) {
-			// eslint-disable-next-line no-use-before-define
-			results.push(...findControllers(uc.uiContainer.items, controllerClass));
-		}
-
-		if (uc instanceof controllerClass) {
-			results.push(uc);
-		}
-
-		return results;
-	}, [] as Controller[]);
-}
-
 interface StepKeys {
 	altKey: boolean;
 	downKey: boolean;

@@ -64,13 +64,13 @@ describe(Tweakpane.name, () => {
 		const pane = createApi();
 		pane.addSeparator();
 
-		const cs = pane.controller.uiContainer.items;
+		const cs = pane.controller.bladeRack.items;
 		assert.instanceOf(cs[cs.length - 1], SeparatorController);
 	});
 
 	it('should dispose separator', () => {
 		const pane = createApi();
-		const cs = pane.controller.uiContainer.items;
+		const cs = pane.controller.bladeRack.items;
 
 		const s = pane.addSeparator();
 		assert.strictEqual(cs.length, 1);
@@ -157,7 +157,7 @@ describe(Tweakpane.name, () => {
 				pane.addInput(params, 'bar');
 				testCase.insert(pane, 1);
 
-				const cs = pane.controller.uiContainer.items;
+				const cs = pane.controller.bladeRack.items;
 				assert.instanceOf(cs[1], testCase.expected);
 			});
 		});

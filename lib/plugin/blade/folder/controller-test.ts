@@ -38,10 +38,10 @@ describe(FolderController.name, () => {
 			title: 'Foobar',
 			blade: new Blade(),
 		});
-		c.uiContainer.add(cc);
+		c.bladeRack.add(cc);
 
-		assert.strictEqual(c.uiContainer.items.length, 1);
+		assert.strictEqual(c.bladeRack.items.length, 1);
 		cc.blade.dispose();
-		assert.strictEqual(c.uiContainer.items.length, 0);
+		assert.strictEqual(c.bladeRack.items.length, 0);
 	});
 });

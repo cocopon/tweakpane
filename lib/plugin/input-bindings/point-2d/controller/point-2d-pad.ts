@@ -1,15 +1,15 @@
-import {
-	getHorizontalStepKeys,
-	getStepForKey,
-	getVerticalStepKeys,
-	isArrowKey,
-} from '../../../blade/common/controller/ui';
 import {ValueController} from '../../../common/controller/value';
 import {findNextTarget, supportsTouch} from '../../../common/dom-util';
 import {Foldable} from '../../../common/model/foldable';
 import {Point2d} from '../../../common/model/point-2d';
 import {Value} from '../../../common/model/value';
 import {mapRange} from '../../../common/number-util';
+import {
+	getHorizontalStepKeys,
+	getStepForKey,
+	getVerticalStepKeys,
+	isArrowKey,
+} from '../../../common/ui';
 import {
 	PointerData,
 	PointerHandler,

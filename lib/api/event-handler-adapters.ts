@@ -1,7 +1,7 @@
 import {
-	UiContainer,
-	UiContainerEvents,
-} from '../plugin/blade/common/model/ui-container';
+	BladeRack,
+	BladeRackEvents,
+} from '../plugin/blade/common/model/blade-rack';
 import {InputBinding, InputBindingEvents} from '../plugin/common/binding/input';
 import {
 	MonitorBinding,
@@ -57,31 +57,31 @@ export function handleMonitorBinding<T>({
  * @hidden
  */
 export function handleFolder({
+	bladeRack,
 	eventName,
 	folder,
 	handler,
-	uiContainer,
 }: {
+	bladeRack: BladeRack;
 	eventName: FolderEventName;
 	folder: Folder | null;
 	handler: (value: unknown) => void;
-	uiContainer: UiContainer;
 }) {
 	if (eventName === 'change') {
-		const emitter = uiContainer.emitter;
-		emitter.on('inputchange', (ev: UiContainerEvents['inputchange']) => {
+		const emitter = bladeRack.emitter;
+		emitter.on('inputchange', (ev: BladeRackEvents['inputchange']) => {
 			// TODO: Find more type-safe way
 			handler((ev.inputBinding.getValueToWrite as any)(ev.value));
 		});
 	}
 	if (eventName === 'update') {
-		const emitter = uiContainer.emitter;
-		emitter.on('monitorupdate', (ev: UiContainerEvents['monitorupdate']) => {
+		const emitter = bladeRack.emitter;
+		emitter.on('monitorupdate', (ev: BladeRackEvents['monitorupdate']) => {
 			handler(ev.monitorBinding.target.read());
 		});
 	}
 	if (eventName === 'fold') {
-		uiContainer.emitter.on('itemfold', (ev: UiContainerEvents['itemfold']) => {
+		bladeRack.emitter.on('itemfold', (ev: BladeRackEvents['itemfold']) => {
 			handler(ev.expanded);
 		});
 		folder?.emitter.on('change', (ev: FolderEvents['change']) => {

@@ -2,7 +2,6 @@ import {forceCast} from '../misc/type-util';
 import {ButtonController} from '../plugin/blade/button/controller';
 import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
 import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
-import {findControllers} from '../plugin/blade/common/controller/ui';
 import {Blade} from '../plugin/blade/common/model/blade';
 import {FolderController} from '../plugin/blade/folder/controller';
 import {RootController} from '../plugin/blade/root/controller';
@@ -113,13 +112,13 @@ export class RootApi implements ComponentApi {
 		opt_params?: InputParams,
 	): InputBindingApi<unknown, O[Key]> {
 		const params = opt_params || {};
-		const uc = createInputBindingController(
+		const bc = createInputBindingController(
 			this.controller.document,
 			new Target(object, key, params.presetKey),
 			params,
 		);
-		this.controller.uiContainer.add(uc, params.index);
-		return new InputBindingApi(forceCast(uc));
+		this.controller.bladeRack.add(bc, params.index);
+		return new InputBindingApi(forceCast(bc));
 	}
 
 	public addMonitor<O extends Record<string, any>, Key extends string>(
@@ -128,40 +127,40 @@ export class RootApi implements ComponentApi {
 		opt_params?: MonitorParams,
 	): MonitorBindingApi<O[Key]> {
 		const params = opt_params || {};
-		const uc = createMonitorBindingController(
+		const bc = createMonitorBindingController(
 			this.controller.document,
 			new Target(object, key),
 			params,
 		);
-		this.controller.uiContainer.add(uc, params.index);
-		return new MonitorBindingApi(forceCast(uc));
+		this.controller.bladeRack.add(bc, params.index);
+		return new MonitorBindingApi(forceCast(bc));
 	}
 
 	public addButton(params: ButtonParams): ButtonApi {
-		const uc = new ButtonController(this.controller.document, {
+		const bc = new ButtonController(this.controller.document, {
 			...params,
 			blade: new Blade(),
 		});
-		this.controller.uiContainer.add(uc, params.index);
-		return new ButtonApi(uc);
+		this.controller.bladeRack.add(bc, params.index);
+		return new ButtonApi(bc);
 	}
 
 	public addFolder(params: FolderParams): FolderApi {
-		const uc = new FolderController(this.controller.document, {
+		const bc = new FolderController(this.controller.document, {
 			...params,
 			blade: new Blade(),
 		});
-		this.controller.uiContainer.add(uc, params.index);
-		return new FolderApi(uc);
+		this.controller.bladeRack.add(bc, params.index);
+		return new FolderApi(bc);
 	}
 
 	public addSeparator(opt_params?: SeparatorParams): SeparatorApi {
 		const params = opt_params || {};
-		const uc = new SeparatorController(this.controller.document, {
+		const bc = new SeparatorController(this.controller.document, {
 			blade: new Blade(),
 		});
-		this.controller.uiContainer.add(uc, params.index);
-		return new SeparatorApi(uc);
+		this.controller.bladeRack.add(bc, params.index);
+		return new SeparatorApi(bc);
 	}
 
 	/**
@@ -169,12 +168,11 @@ export class RootApi implements ComponentApi {
 	 * @param preset The preset object to import.
 	 */
 	public importPreset(preset: PresetObject): void {
-		const targets = findControllers(
-			this.controller.uiContainer.items,
-			InputBindingController,
-		).map((ibc) => {
-			return ibc.binding.target;
-		});
+		const targets = this.controller.bladeRack
+			.find(InputBindingController)
+			.map((ibc) => {
+				return ibc.binding.target;
+			});
 		importPresetJson(targets, preset);
 		this.refresh();
 	}
@@ -184,12 +182,11 @@ export class RootApi implements ComponentApi {
 	 * @return The exported preset object.
 	 */
 	public exportPreset(): PresetObject {
-		const targets = findControllers(
-			this.controller.uiContainer.items,
-			InputBindingController,
-		).map((ibc) => {
-			return ibc.binding.target;
-		});
+		const targets = this.controller.bladeRack
+			.find(InputBindingController)
+			.map((ibc) => {
+				return ibc.binding.target;
+			});
 		return exportPresetJson(targets);
 	}
 
@@ -207,7 +204,7 @@ export class RootApi implements ComponentApi {
 			folder: this.controller.folder,
 			// TODO: Type-safe
 			handler: forceCast(handler.bind(this)),
-			uiContainer: this.controller.uiContainer,
+			bladeRack: this.controller.bladeRack,
 		});
 		return this;
 	}
@@ -217,18 +214,12 @@ export class RootApi implements ComponentApi {
 	 */
 	public refresh(): void {
 		// Force-read all input bindings
-		findControllers(
-			this.controller.uiContainer.items,
-			InputBindingController,
-		).forEach((ibc) => {
+		this.controller.bladeRack.find(InputBindingController).forEach((ibc) => {
 			ibc.binding.read();
 		});
 
 		// Force-read all monitor bindings
-		findControllers(
-			this.controller.uiContainer.items,
-			MonitorBindingController,
-		).forEach((mbc) => {
+		this.controller.bladeRack.find(MonitorBindingController).forEach((mbc) => {
 			mbc.binding.read();
 		});
 	}

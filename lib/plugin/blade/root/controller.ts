@@ -7,7 +7,7 @@ import {
 	updateAllItemsPositions,
 } from '../common/controller/container-util';
 import {Blade} from '../common/model/blade';
-import {UiContainer, UiContainerEvents} from '../common/model/ui-container';
+import {BladeRack, BladeRackEvents} from '../common/model/blade-rack';
 import {RootView} from './view';
 
 interface Config {
@@ -29,28 +29,28 @@ function createFolder(config: Config): Folder | null {
  */
 export class RootController implements BladeController {
 	public readonly blade: Blade;
+	public readonly bladeRack: BladeRack;
 	public readonly folder: Folder | null;
 	public readonly view: RootView;
 	private doc_: Document;
-	private ucList_: UiContainer;
 
 	constructor(doc: Document, config: Config) {
 		this.onContainerTransitionEnd_ = this.onContainerTransitionEnd_.bind(this);
 		this.onFolderBeforeChange_ = this.onFolderBeforeChange_.bind(this);
 		this.onTitleClick_ = this.onTitleClick_.bind(this);
-		this.onUiContainerAdd_ = this.onUiContainerAdd_.bind(this);
-		this.onUiContainerItemLayout_ = this.onUiContainerItemLayout_.bind(this);
-		this.onUiContainerRemove_ = this.onUiContainerRemove_.bind(this);
+		this.onRackAdd_ = this.onRackAdd_.bind(this);
+		this.onRackItemLayout_ = this.onRackItemLayout_.bind(this);
+		this.onRackRemove_ = this.onRackRemove_.bind(this);
 
 		this.folder = createFolder(config);
 		if (this.folder) {
 			this.folder.emitter.on('beforechange', this.onFolderBeforeChange_);
 		}
 
-		this.ucList_ = new UiContainer();
-		this.ucList_.emitter.on('add', this.onUiContainerAdd_);
-		this.ucList_.emitter.on('itemlayout', this.onUiContainerItemLayout_);
-		this.ucList_.emitter.on('remove', this.onUiContainerRemove_);
+		this.bladeRack = new BladeRack();
+		this.bladeRack.emitter.on('add', this.onRackAdd_);
+		this.bladeRack.emitter.on('itemlayout', this.onRackItemLayout_);
+		this.bladeRack.emitter.on('remove', this.onRackRemove_);
 
 		this.doc_ = doc;
 		this.blade = config.blade;
@@ -69,10 +69,6 @@ export class RootController implements BladeController {
 
 	get document(): Document {
 		return this.doc_;
-	}
-
-	get uiContainer(): UiContainer {
-		return this.ucList_;
 	}
 
 	private onFolderBeforeChange_(ev: FolderEvents['beforechange']): void {
@@ -95,25 +91,25 @@ export class RootController implements BladeController {
 		forceReflow(this.view.containerElement);
 	}
 
-	private applyUiContainerChange_(): void {
-		updateAllItemsPositions(this.uiContainer);
+	private applyRackChange_(): void {
+		updateAllItemsPositions(this.bladeRack);
 	}
 
-	private onUiContainerAdd_(ev: UiContainerEvents['add']) {
+	private onRackAdd_(ev: BladeRackEvents['add']) {
 		insertElementAt(
 			this.view.containerElement,
-			ev.uiController.view.element,
+			ev.blade.view.element,
 			ev.index,
 		);
-		this.applyUiContainerChange_();
+		this.applyRackChange_();
 	}
 
-	private onUiContainerRemove_(_: UiContainerEvents['remove']) {
-		this.applyUiContainerChange_();
+	private onRackRemove_(_: BladeRackEvents['remove']) {
+		this.applyRackChange_();
 	}
 
-	private onUiContainerItemLayout_(_: UiContainerEvents['itemlayout']) {
-		this.applyUiContainerChange_();
+	private onRackItemLayout_(_: BladeRackEvents['itemlayout']) {
+		this.applyRackChange_();
 	}
 
 	private onTitleClick_() {

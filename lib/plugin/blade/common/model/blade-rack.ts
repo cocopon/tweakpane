@@ -1,3 +1,4 @@
+import {Class} from '../../../../misc/type-util';
 import {InputBinding, InputBindingEvents} from '../../../common/binding/input';
 import {
 	MonitorBinding,
@@ -15,31 +16,31 @@ import {BladeEvents} from './blade';
 /**
  * @hidden
  */
-export interface UiContainerEvents {
+export interface BladeRackEvents {
 	add: {
+		blade: BladeController;
 		index: number;
-		uiController: BladeController;
-		sender: UiContainer;
+		sender: BladeRack;
 	};
 	remove: {
-		sender: UiContainer;
+		sender: BladeRack;
 	};
 
 	inputchange: {
 		inputBinding: InputBinding<unknown, unknown>;
-		sender: UiContainer;
+		sender: BladeRack;
 		value: unknown;
 	};
 	itemfold: {
 		expanded: boolean;
-		sender: UiContainer;
+		sender: BladeRack;
 	};
 	itemlayout: {
-		sender: UiContainer;
+		sender: BladeRack;
 	};
 	monitorupdate: {
 		monitorBinding: MonitorBinding<unknown>;
-		sender: UiContainer;
+		sender: BladeRack;
 		value: unknown;
 	};
 }
@@ -47,9 +48,9 @@ export interface UiContainerEvents {
 /**
  * @hidden
  */
-export class UiContainer {
-	public readonly emitter: Emitter<UiContainerEvents>;
-	private ucList_: List<BladeController>;
+export class BladeRack {
+	public readonly emitter: Emitter<BladeRackEvents>;
+	private blades_: List<BladeController>;
 
 	constructor() {
 		this.onItemFolderFold_ = this.onItemFolderFold_.bind(this);
@@ -64,44 +65,58 @@ export class UiContainer {
 		this.onListRemove_ = this.onListRemove_.bind(this);
 		this.onItemMonitorUpdate_ = this.onItemMonitorUpdate_.bind(this);
 
-		this.ucList_ = new List();
+		this.blades_ = new List();
 		this.emitter = new Emitter();
 
-		this.ucList_.emitter.on('add', this.onListAdd_);
-		this.ucList_.emitter.on('remove', this.onListRemove_);
+		this.blades_.emitter.on('add', this.onListAdd_);
+		this.blades_.emitter.on('remove', this.onListRemove_);
 	}
 
 	get items(): BladeController[] {
-		return this.ucList_.items;
+		return this.blades_.items;
 	}
 
-	public add(uc: BladeController, opt_index?: number): void {
-		this.ucList_.add(uc, opt_index);
+	public add(bc: BladeController, opt_index?: number): void {
+		this.blades_.add(bc, opt_index);
+	}
+
+	public find<B extends BladeController>(controllerClass: Class<B>): B[] {
+		return this.items.reduce((results, bc) => {
+			if (bc instanceof FolderController) {
+				results.push(...bc.bladeRack.find(controllerClass));
+			}
+
+			if (bc instanceof controllerClass) {
+				results.push(bc);
+			}
+
+			return results;
+		}, [] as B[]);
 	}
 
 	private onListAdd_(ev: ListEvents<BladeController>['add']) {
-		const uc = ev.item;
+		const bc = ev.item;
 
 		this.emitter.emit('add', {
+			blade: bc,
 			index: ev.index,
 			sender: this,
-			uiController: uc,
 		});
-		uc.blade.emitter.on('dispose', this.onListItemDispose_);
-		uc.blade.emitter.on('change', this.onListItemLayout_);
+		bc.blade.emitter.on('dispose', this.onListItemDispose_);
+		bc.blade.emitter.on('change', this.onListItemLayout_);
 
-		if (uc instanceof InputBindingController) {
-			const emitter = uc.binding.emitter;
+		if (bc instanceof InputBindingController) {
+			const emitter = bc.binding.emitter;
 			// TODO: Find more type-safe way
 			(emitter.on as any)('change', this.onItemInputChange_);
-		} else if (uc instanceof MonitorBindingController) {
-			const emitter = uc.binding.emitter;
+		} else if (bc instanceof MonitorBindingController) {
+			const emitter = bc.binding.emitter;
 			// TODO: Find more type-safe way
 			emitter.on('update', this.onItemMonitorUpdate_);
-		} else if (uc instanceof FolderController) {
-			uc.folder.emitter.on('change', this.onItemFolderFold_);
+		} else if (bc instanceof FolderController) {
+			bc.folder.emitter.on('change', this.onItemFolderFold_);
 
-			const emitter = uc.uiContainer.emitter;
+			const emitter = bc.bladeRack.emitter;
 			emitter.on('itemfold', this.onSubitemFolderFold_);
 			emitter.on('itemlayout', this.onSubitemLayout_);
 			emitter.on('inputchange', this.onSubitemInputChange_);
@@ -124,11 +139,11 @@ export class UiContainer {
 	}
 
 	private onListItemDispose_(_: BladeEvents['dispose']): void {
-		const disposedUcs = this.ucList_.items.filter((uc) => {
-			return uc.blade.disposed;
+		const disposedUcs = this.blades_.items.filter((bc) => {
+			return bc.blade.disposed;
 		});
-		disposedUcs.forEach((uc) => {
-			this.ucList_.remove(uc);
+		disposedUcs.forEach((bc) => {
+			this.blades_.remove(bc);
 		});
 	}
 
@@ -162,13 +177,13 @@ export class UiContainer {
 		});
 	}
 
-	private onSubitemLayout_(_: UiContainerEvents['itemlayout']) {
+	private onSubitemLayout_(_: BladeRackEvents['itemlayout']) {
 		this.emitter.emit('itemlayout', {
 			sender: this,
 		});
 	}
 
-	private onSubitemInputChange_(ev: UiContainerEvents['inputchange']) {
+	private onSubitemInputChange_(ev: BladeRackEvents['inputchange']) {
 		this.emitter.emit('inputchange', {
 			inputBinding: ev.inputBinding,
 			sender: this,
@@ -176,7 +191,7 @@ export class UiContainer {
 		});
 	}
 
-	private onSubitemMonitorUpdate_(ev: UiContainerEvents['monitorupdate']) {
+	private onSubitemMonitorUpdate_(ev: BladeRackEvents['monitorupdate']) {
 		this.emitter.emit('monitorupdate', {
 			monitorBinding: ev.monitorBinding,
 			sender: this,
@@ -184,7 +199,7 @@ export class UiContainer {
 		});
 	}
 
-	private onSubitemFolderFold_(ev: UiContainerEvents['itemfold']) {
+	private onSubitemFolderFold_(ev: BladeRackEvents['itemfold']) {
 		this.emitter.emit('itemfold', {
 			expanded: ev.expanded,
 			sender: this,

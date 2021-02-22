@@ -4,22 +4,22 @@ import {
 } from '../../../common/dom-util';
 import {Folder} from '../../../common/model/folder';
 import {BladePosition} from '../model/blade-positions';
-import {UiContainer} from '../model/ui-container';
+import {BladeRack} from '../model/blade-rack';
 
-export function updateAllItemsPositions(uiContainer: UiContainer): void {
-	const visibleItems = uiContainer.items.filter((uc) => !uc.blade.hidden);
+export function updateAllItemsPositions(bladeRack: BladeRack): void {
+	const visibleItems = bladeRack.items.filter((bc) => !bc.blade.hidden);
 	const firstVisibleItem = visibleItems[0];
 	const lastVisibleItem = visibleItems[visibleItems.length - 1];
 
-	uiContainer.items.forEach((uc) => {
+	bladeRack.items.forEach((bc) => {
 		const ps: BladePosition[] = [];
-		if (uc === firstVisibleItem) {
+		if (bc === firstVisibleItem) {
 			ps.push('first');
 		}
-		if (uc === lastVisibleItem) {
+		if (bc === lastVisibleItem) {
 			ps.push('last');
 		}
-		uc.blade.positions = ps;
+		bc.blade.positions = ps;
 	});
 }
 
