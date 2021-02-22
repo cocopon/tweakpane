@@ -53,7 +53,7 @@ class TestController implements ValueController<string> {
 			// Embed CSS by @rollup/plugin-replace
 			css: '__css__',
 
-			model: {
+			binding: {
 				accept: (value, params) => {
 					if (params.view !== 'test') {
 						return null;

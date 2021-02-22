@@ -15,7 +15,7 @@ import {ColorSwatchTextController} from './controller/color-swatch-text';
  */
 export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
 	id: 'input-color-string',
-	model: {
+	binding: {
 		accept: (value, params) => {
 			if (typeof value !== 'string') {
 				return null;

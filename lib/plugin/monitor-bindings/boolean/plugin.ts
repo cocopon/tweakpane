@@ -10,7 +10,7 @@ import {SingleLogMonitorController} from '../common/controller/single-log';
  */
 export const BooleanMonitorPlugin: MonitorBindingPlugin<boolean> = {
 	id: 'monitor-bool',
-	model: {
+	binding: {
 		accept: (value, _params) => (typeof value === 'boolean' ? value : null),
 		reader: (_args) => boolFromUnknown,
 	},

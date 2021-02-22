@@ -8,13 +8,13 @@ import {Target} from './common/model/target';
 import {Value} from './common/model/value';
 import {BasePlugin} from './plugin';
 
-interface ValueArgs<Ex> {
+interface BindingArguments<Ex> {
 	initialValue: Ex;
 	params: InputParams;
 	target: Target;
 }
 
-interface ControllerArgs<In, Ex> {
+interface ControllerArguments<In, Ex> {
 	binding: InputBinding<In, Ex>;
 	initialValue: Ex;
 	params: InputParams;
@@ -23,20 +23,20 @@ interface ControllerArgs<In, Ex> {
 }
 
 export interface InputBindingPlugin<In, Ex> extends BasePlugin {
-	model: {
+	binding: {
 		// Accept user input as Ex, or deny it
 		accept: (value: unknown, params: InputParams) => Ex | null;
 		// Convert bound value into In
-		reader: (args: ValueArgs<Ex>) => (value: unknown) => In;
+		reader: (args: BindingArguments<Ex>) => (value: unknown) => In;
 		// Create constraint from user input
-		constraint?: (args: ValueArgs<Ex>) => Constraint<In>;
+		constraint?: (args: BindingArguments<Ex>) => Constraint<In>;
 		// Compare In with In
 		equals?: (v1: In, v2: In) => boolean;
 
 		// Convert In into Ex
-		writer: (args: ValueArgs<Ex>) => (value: In) => Ex;
+		writer: (args: BindingArguments<Ex>) => (value: In) => Ex;
 	};
-	controller: (args: ControllerArgs<In, Ex>) => ValueController<In>;
+	controller: (args: ControllerArguments<In, Ex>) => ValueController<In>;
 }
 
 export function createController<In, Ex>(
@@ -47,7 +47,7 @@ export function createController<In, Ex>(
 		target: Target;
 	},
 ): InputBindingController<In, Ex> | null {
-	const initialValue = plugin.model.accept(args.target.read(), args.params);
+	const initialValue = plugin.binding.accept(args.target.read(), args.params);
 	if (initialValue === null) {
 		return null;
 	}
@@ -58,19 +58,19 @@ export function createController<In, Ex>(
 		params: args.params,
 	};
 
-	const reader = plugin.model.reader(valueArgs);
-	const constraint = plugin.model.constraint
-		? plugin.model.constraint(valueArgs)
+	const reader = plugin.binding.reader(valueArgs);
+	const constraint = plugin.binding.constraint
+		? plugin.binding.constraint(valueArgs)
 		: undefined;
 	const value = new Value(reader(initialValue), {
 		constraint: constraint,
-		equals: plugin.model.equals,
+		equals: plugin.binding.equals,
 	});
 	const binding = new InputBinding({
 		reader: reader,
 		target: args.target,
 		value: value,
-		writer: plugin.model.writer(valueArgs),
+		writer: plugin.binding.writer(valueArgs),
 	});
 	const controller = plugin.controller({
 		binding: binding,

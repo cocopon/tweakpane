@@ -80,7 +80,7 @@ describe(Tweakpane.name, () => {
 			plugin: {
 				id: 'test',
 				css: css,
-				model: {
+				binding: {
 					accept: (value, args) => {
 						return args.view !== 'test'
 							? null

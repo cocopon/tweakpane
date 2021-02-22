@@ -117,7 +117,7 @@ function createController(
  */
 export const Point2dInputPlugin: InputBindingPlugin<Point2d, Point2dObject> = {
 	id: 'input-point2d',
-	model: {
+	binding: {
 		accept: (value, _params) => (Point2d.isObject(value) ? value : null),
 		reader: (_args) => point2dFromUnknown,
 		writer: (_args) => (v) => v.toObject(),
