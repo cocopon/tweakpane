@@ -5,15 +5,15 @@ import {
 	updateAllItemsPositions,
 } from '../../common/controller/container-util';
 import {forceReflow, insertElementAt} from '../../common/dom-util';
+import {Blade} from '../../common/model/blade';
 import {Folder, FolderEvents} from '../../common/model/folder';
 import {UiContainer, UiContainerEvents} from '../../common/model/ui-container';
-import {ViewModel} from '../../common/model/view-model';
 import {RootView} from './view';
 
 interface Config {
 	expanded?: boolean;
 	title?: string;
-	viewModel: ViewModel;
+	blade: Blade;
 }
 
 function createFolder(config: Config): Folder | null {
@@ -28,7 +28,7 @@ function createFolder(config: Config): Folder | null {
  * @hidden
  */
 export class RootController implements BladeController {
-	public readonly viewModel: ViewModel;
+	public readonly blade: Blade;
 	public readonly folder: Folder | null;
 	public readonly view: RootView;
 	private doc_: Document;
@@ -53,7 +53,7 @@ export class RootController implements BladeController {
 		this.ucList_.emitter.on('remove', this.onUiContainerRemove_);
 
 		this.doc_ = doc;
-		this.viewModel = config.viewModel;
+		this.blade = config.blade;
 		this.view = new RootView(this.doc_, {
 			folder: this.folder,
 		});
@@ -64,7 +64,7 @@ export class RootController implements BladeController {
 			'transitionend',
 			this.onContainerTransitionEnd_,
 		);
-		setUpBladeView(this.view, this.viewModel);
+		setUpBladeView(this.view, this.blade);
 	}
 
 	get document(): Document {

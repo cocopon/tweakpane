@@ -1,20 +1,20 @@
 import {disposeElement} from '../disposing-util';
-import {ViewModel, ViewModelEvents} from '../model/view-model';
-import {getAllViewPositions} from '../model/view-positions';
+import {Blade, BladeEvents} from '../model/blade';
+import {getAllBladePositions} from '../model/blade-positions';
 import {ClassName} from '../view/class-name';
 import {View} from '../view/view';
 import {Controller} from './controller';
 
 export interface BladeController extends Controller {
-	readonly viewModel: ViewModel;
+	readonly blade: Blade;
 }
 
 const className = ClassName('');
 
-export function setUpBladeView(view: View, model: ViewModel) {
+export function setUpBladeView(view: View, model: Blade) {
 	const elem = view.element;
 
-	model.emitter.on('change', (ev: ViewModelEvents['change']) => {
+	model.emitter.on('change', (ev: BladeEvents['change']) => {
 		if (ev.propertyName === 'hidden') {
 			const hiddenClass = className(undefined, 'hidden');
 			if (model.hidden) {
@@ -23,7 +23,7 @@ export function setUpBladeView(view: View, model: ViewModel) {
 				elem.classList.remove(hiddenClass);
 			}
 		} else if (ev.propertyName === 'positions') {
-			getAllViewPositions().forEach((pos) => {
+			getAllBladePositions().forEach((pos) => {
 				elem.classList.remove(className(undefined, pos));
 			});
 			model.positions.forEach((pos) => {

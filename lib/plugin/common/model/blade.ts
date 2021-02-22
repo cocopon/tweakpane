@@ -1,25 +1,25 @@
 import {deepEqualsArray} from '../../../misc/type-util';
+import {BladePosition} from './blade-positions';
 import {Disposable} from './disposable';
 import {Emitter} from './emitter';
-import {ViewPosition} from './view-positions';
 
 /**
  * @hidden
  */
-export interface ViewModelEvents {
+export interface BladeEvents {
 	change: {
 		propertyName: 'hidden' | 'positions';
-		sender: ViewModel;
+		sender: Blade;
 	};
 	dispose: {
-		sender: ViewModel;
+		sender: Blade;
 	};
 }
 
-export class ViewModel {
-	public readonly emitter: Emitter<ViewModelEvents>;
+export class Blade {
+	public readonly emitter: Emitter<BladeEvents>;
 	private disposable_: Disposable;
-	private positions_: ViewPosition[];
+	private positions_: BladePosition[];
 	private hidden_: boolean;
 
 	constructor() {
@@ -49,11 +49,11 @@ export class ViewModel {
 		});
 	}
 
-	get positions(): ViewPosition[] {
+	get positions(): BladePosition[] {
 		return this.positions_;
 	}
 
-	set positions(positions: ViewPosition[]) {
+	set positions(positions: BladePosition[]) {
 		if (deepEqualsArray(positions, this.positions_)) {
 			return;
 		}

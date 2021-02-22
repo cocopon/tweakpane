@@ -1,10 +1,10 @@
 import {BladeController, setUpBladeView} from '../../common/controller/blade';
+import {Blade} from '../../common/model/blade';
 import {Button} from '../../common/model/button';
-import {ViewModel} from '../../common/model/view-model';
 import {ButtonView} from './view';
 
 interface Config {
-	viewModel: ViewModel;
+	blade: Blade;
 	title: string;
 }
 
@@ -14,19 +14,19 @@ interface Config {
 export class ButtonController implements BladeController {
 	public readonly button: Button;
 	public readonly view: ButtonView;
-	public readonly viewModel: ViewModel;
+	public readonly blade: Blade;
 
 	constructor(doc: Document, config: Config) {
 		this.onButtonClick_ = this.onButtonClick_.bind(this);
 
 		this.button = new Button(config.title);
 
-		this.viewModel = config.viewModel;
+		this.blade = config.blade;
 		this.view = new ButtonView(doc, {
 			button: this.button,
 		});
 		this.view.buttonElement.addEventListener('click', this.onButtonClick_);
-		setUpBladeView(this.view, this.viewModel);
+		setUpBladeView(this.view, this.blade);
 	}
 
 	private onButtonClick_() {

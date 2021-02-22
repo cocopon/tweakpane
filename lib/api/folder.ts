@@ -1,6 +1,6 @@
 import {forceCast} from '../misc/type-util';
+import {Blade} from '../plugin/common/model/blade';
 import {Target} from '../plugin/common/model/target';
-import {ViewModel} from '../plugin/common/model/view-model';
 import {ButtonController} from '../plugin/general/button/controller';
 import {FolderController} from '../plugin/general/folder/controller';
 import {SeparatorController} from '../plugin/general/separator/controller';
@@ -48,15 +48,15 @@ export class FolderApi implements ComponentApi {
 	}
 
 	get hidden(): boolean {
-		return this.controller.viewModel.hidden;
+		return this.controller.blade.hidden;
 	}
 
 	set hidden(hidden: boolean) {
-		this.controller.viewModel.hidden = hidden;
+		this.controller.blade.hidden = hidden;
 	}
 
 	public dispose(): void {
-		this.controller.viewModel.dispose();
+		this.controller.blade.dispose();
 	}
 
 	public addInput<O extends Record<string, any>, Key extends string>(
@@ -92,7 +92,7 @@ export class FolderApi implements ComponentApi {
 	public addFolder(params: FolderParams): FolderApi {
 		const uc = new FolderController(this.controller.document, {
 			...params,
-			viewModel: new ViewModel(),
+			blade: new Blade(),
 		});
 		this.controller.uiContainer.add(uc, params.index);
 		return new FolderApi(uc);
@@ -101,7 +101,7 @@ export class FolderApi implements ComponentApi {
 	public addButton(params: ButtonParams): ButtonApi {
 		const uc = new ButtonController(this.controller.document, {
 			...params,
-			viewModel: new ViewModel(),
+			blade: new Blade(),
 		});
 		this.controller.uiContainer.add(uc, params.index);
 		return new ButtonApi(uc);
@@ -110,7 +110,7 @@ export class FolderApi implements ComponentApi {
 	public addSeparator(opt_params?: SeparatorParams): SeparatorApi {
 		const params = opt_params || {};
 		const uc = new SeparatorController(this.controller.document, {
-			viewModel: new ViewModel(),
+			blade: new Blade(),
 		});
 		this.controller.uiContainer.add(uc, params.index);
 		return new SeparatorApi(uc);

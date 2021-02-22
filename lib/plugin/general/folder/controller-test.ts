@@ -2,8 +2,8 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../misc/test-util';
+import {Blade} from '../../common/model/blade';
 import {FolderEvents} from '../../common/model/folder';
-import {ViewModel} from '../../common/model/view-model';
 import {ButtonController} from '../button/controller';
 import {FolderController} from './controller';
 
@@ -12,7 +12,7 @@ describe(FolderController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new FolderController(doc, {
 			title: 'Push',
-			viewModel: new ViewModel(),
+			blade: new Blade(),
 		});
 
 		assert.strictEqual(c.folder.expanded, true);
@@ -32,16 +32,16 @@ describe(FolderController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new FolderController(doc, {
 			title: 'Push',
-			viewModel: new ViewModel(),
+			blade: new Blade(),
 		});
 		const cc = new ButtonController(doc, {
 			title: 'Foobar',
-			viewModel: new ViewModel(),
+			blade: new Blade(),
 		});
 		c.uiContainer.add(cc);
 
 		assert.strictEqual(c.uiContainer.items.length, 1);
-		cc.viewModel.dispose();
+		cc.blade.dispose();
 		assert.strictEqual(c.uiContainer.items.length, 0);
 	});
 });

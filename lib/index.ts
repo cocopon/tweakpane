@@ -2,7 +2,7 @@ import {getAllPlugins} from './api/plugins';
 import {RootApi} from './api/root';
 import {TweakpaneConfig} from './pane/tweakpane-config';
 import {getWindowDocument} from './plugin/common/dom-util';
-import {ViewModel} from './plugin/common/model/view-model';
+import {Blade} from './plugin/common/model/blade';
 import {PaneError} from './plugin/common/pane-error';
 import {ClassName} from './plugin/common/view/class-name';
 import {RootController} from './plugin/general/root/controller';
@@ -59,7 +59,7 @@ export default class Tweakpane extends RootApi {
 
 		const rootController = new RootController(doc, {
 			expanded: config.expanded,
-			viewModel: new ViewModel(),
+			blade: new Blade(),
 			title: config.title,
 		});
 		super(rootController);

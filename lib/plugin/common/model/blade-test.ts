@@ -1,29 +1,29 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {ViewModel} from './view-model';
+import {Blade} from './blade';
 
-describe(ViewModel.name, () => {
+describe(Blade.name, () => {
 	it('should be shown by default', () => {
-		const vm = new ViewModel();
-		assert.strictEqual(vm.hidden, false);
+		const b = new Blade();
+		assert.strictEqual(b.hidden, false);
 	});
 
 	it('should emit change event for hidden', (done) => {
-		const vm = new ViewModel();
-		vm.emitter.on('change', (ev) => {
+		const b = new Blade();
+		b.emitter.on('change', (ev) => {
 			assert.strictEqual(ev.propertyName, 'hidden');
-			assert.strictEqual(vm.hidden, true);
+			assert.strictEqual(b.hidden, true);
 			done();
 		});
-		vm.hidden = true;
+		b.hidden = true;
 	});
 
 	it('should not emit change event by setting hidden to same value', () => {
-		const vm = new ViewModel();
-		vm.emitter.on('change', () => {
+		const b = new Blade();
+		b.emitter.on('change', () => {
 			throw new Error('should not be called');
 		});
-		vm.hidden = false;
+		b.hidden = false;
 	});
 });

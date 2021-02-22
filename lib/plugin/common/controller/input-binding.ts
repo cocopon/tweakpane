@@ -1,6 +1,6 @@
 import {LabeledView} from '../../general/labeled/view';
 import {InputBinding} from '../binding/input';
-import {ViewModel} from '../model/view-model';
+import {Blade} from '../model/blade';
 import {BladeController, setUpBladeView} from './blade';
 import {ValueController} from './value';
 
@@ -8,7 +8,7 @@ interface Config<In, Ex> {
 	binding: InputBinding<In, Ex>;
 	controller: ValueController<In>;
 	label: string;
-	viewModel: ViewModel;
+	blade: Blade;
 }
 
 /**
@@ -18,7 +18,7 @@ export class InputBindingController<In, Ex> implements BladeController {
 	public readonly binding: InputBinding<In, Ex>;
 	public readonly controller: ValueController<In>;
 	public readonly view: LabeledView;
-	public readonly viewModel: ViewModel;
+	public readonly blade: Blade;
 
 	constructor(doc: Document, config: Config<In, Ex>) {
 		this.binding = config.binding;
@@ -28,7 +28,7 @@ export class InputBindingController<In, Ex> implements BladeController {
 			label: config.label,
 			view: this.controller.view,
 		});
-		this.viewModel = config.viewModel;
-		setUpBladeView(this.view, this.viewModel);
+		this.blade = config.blade;
+		setUpBladeView(this.view, this.blade);
 	}
 }

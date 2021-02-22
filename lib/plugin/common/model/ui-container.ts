@@ -4,10 +4,10 @@ import {MonitorBinding, MonitorBindingEvents} from '../binding/monitor';
 import {InputBindingController} from '../controller/input-binding';
 import {MonitorBindingController} from '../controller/monitor-binding';
 import {UiController} from '../controller/ui';
+import {BladeEvents} from './blade';
 import {Emitter} from './emitter';
 import {FolderEvents} from './folder';
 import {List, ListEvents} from './list';
-import {ViewModelEvents} from './view-model';
 
 /**
  * @hidden
@@ -84,8 +84,8 @@ export class UiContainer {
 			sender: this,
 			uiController: uc,
 		});
-		uc.viewModel.emitter.on('dispose', this.onListItemDispose_);
-		uc.viewModel.emitter.on('change', this.onListItemLayout_);
+		uc.blade.emitter.on('dispose', this.onListItemDispose_);
+		uc.blade.emitter.on('change', this.onListItemLayout_);
 
 		if (uc instanceof InputBindingController) {
 			const emitter = uc.binding.emitter;
@@ -112,7 +112,7 @@ export class UiContainer {
 		});
 	}
 
-	private onListItemLayout_(ev: ViewModelEvents['change']) {
+	private onListItemLayout_(ev: BladeEvents['change']) {
 		if (ev.propertyName === 'hidden' || ev.propertyName === 'positions') {
 			this.emitter.emit('itemlayout', {
 				sender: this,
@@ -120,9 +120,9 @@ export class UiContainer {
 		}
 	}
 
-	private onListItemDispose_(_: ViewModelEvents['dispose']): void {
+	private onListItemDispose_(_: BladeEvents['dispose']): void {
 		const disposedUcs = this.ucList_.items.filter((uc) => {
-			return uc.viewModel.disposed;
+			return uc.blade.disposed;
 		});
 		disposedUcs.forEach((uc) => {
 			this.ucList_.remove(uc);

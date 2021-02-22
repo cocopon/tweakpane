@@ -5,10 +5,10 @@ import {TestUtil} from '../misc/test-util';
 import {MonitorBinding} from '../plugin/common/binding/monitor';
 import {ManualTicker} from '../plugin/common/binding/ticker/manual';
 import {MonitorBindingController} from '../plugin/common/controller/monitor-binding';
+import {Blade} from '../plugin/common/model/blade';
 import {Buffer} from '../plugin/common/model/buffered-value';
 import {Target} from '../plugin/common/model/target';
 import {Value} from '../plugin/common/model/value';
-import {ViewModel} from '../plugin/common/model/view-model';
 import {numberFromUnknown} from '../plugin/common/reader/number';
 import {NumberFormatter} from '../plugin/common/writer/number';
 import {SingleLogMonitorController} from '../plugin/monitor-bindings/common/controller/single-log';
@@ -28,9 +28,9 @@ function createApi(target: Target) {
 			ticker: new ManualTicker(),
 			value: value,
 		}),
+		blade: new Blade(),
 		controller: mc,
 		label: 'label',
-		viewModel: new ViewModel(),
 	});
 	return new MonitorBindingApi(bc);
 }

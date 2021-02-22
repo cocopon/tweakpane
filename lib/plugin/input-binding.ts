@@ -3,9 +3,9 @@ import {InputBinding} from './common/binding/input';
 import {Constraint} from './common/constraint/constraint';
 import {InputBindingController} from './common/controller/input-binding';
 import {ValueController} from './common/controller/value';
+import {Blade} from './common/model/blade';
 import {Target} from './common/model/target';
 import {Value} from './common/model/value';
-import {ViewModel} from './common/model/view-model';
 import {BasePlugin} from './plugin';
 
 interface ValueArgs<Ex> {
@@ -83,6 +83,6 @@ export function createController<In, Ex>(
 		binding: binding,
 		controller: controller,
 		label: args.params.label || args.target.key,
-		viewModel: new ViewModel(),
+		blade: new Blade(),
 	});
 }

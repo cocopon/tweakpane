@@ -1,7 +1,7 @@
 import {LabeledView} from '../../general/labeled/view';
 import {MonitorBinding} from '../binding/monitor';
+import {Blade} from '../model/blade';
 import {Buffer} from '../model/buffered-value';
-import {ViewModel} from '../model/view-model';
 import {BladeController, setUpBladeView} from './blade';
 import {ValueController} from './value';
 
@@ -9,7 +9,7 @@ interface Config<T> {
 	binding: MonitorBinding<T>;
 	controller: ValueController<Buffer<T>>;
 	label: string;
-	viewModel: ViewModel;
+	blade: Blade;
 }
 
 /**
@@ -19,7 +19,7 @@ export class MonitorBindingController<T> implements BladeController {
 	public readonly binding: MonitorBinding<T>;
 	public readonly controller: ValueController<Buffer<T>>;
 	public readonly view: LabeledView;
-	public readonly viewModel: ViewModel;
+	public readonly blade: Blade;
 
 	constructor(doc: Document, config: Config<T>) {
 		this.binding = config.binding;
@@ -30,10 +30,10 @@ export class MonitorBindingController<T> implements BladeController {
 			view: this.controller.view,
 		});
 
-		this.viewModel = config.viewModel;
-		this.viewModel.emitter.on('dispose', () => {
+		this.blade = config.blade;
+		this.blade.emitter.on('dispose', () => {
 			this.binding.dispose();
 		});
-		setUpBladeView(this.view, this.viewModel);
+		setUpBladeView(this.view, this.blade);
 	}
 }

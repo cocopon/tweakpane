@@ -4,8 +4,8 @@ import {describe, it} from 'mocha';
 import {TestUtil} from '../misc/test-util';
 import {InputBindingController} from '../plugin/common/controller/input-binding';
 import {MonitorBindingController} from '../plugin/common/controller/monitor-binding';
+import {Blade} from '../plugin/common/model/blade';
 import {Color} from '../plugin/common/model/color';
-import {ViewModel} from '../plugin/common/model/view-model';
 import {ButtonController} from '../plugin/general/button/controller';
 import {FolderController} from '../plugin/general/folder/controller';
 import {SeparatorController} from '../plugin/general/separator/controller';
@@ -16,7 +16,7 @@ import {SeparatorApi} from './separator';
 
 function createApi(): FolderApi {
 	const c = new FolderController(TestUtil.createWindow().document, {
-		viewModel: new ViewModel(),
+		blade: new Blade(),
 		title: 'Folder',
 	});
 	return new FolderApi(c);
@@ -44,7 +44,7 @@ describe(FolderApi.name, () => {
 	it('should dispose', () => {
 		const api = createApi();
 		api.dispose();
-		assert.strictEqual(api.controller.viewModel.disposed, true);
+		assert.strictEqual(api.controller.blade.disposed, true);
 	});
 
 	it('should hide', () => {

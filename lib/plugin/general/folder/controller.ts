@@ -5,15 +5,15 @@ import {
 	updateAllItemsPositions,
 } from '../../common/controller/container-util';
 import {forceReflow, insertElementAt} from '../../common/dom-util';
+import {Blade} from '../../common/model/blade';
 import {Folder, FolderEvents} from '../../common/model/folder';
 import {UiContainer, UiContainerEvents} from '../../common/model/ui-container';
-import {ViewModel} from '../../common/model/view-model';
 import {FolderView} from './view';
 
 interface Config {
 	expanded?: boolean;
 	title: string;
-	viewModel: ViewModel;
+	blade: Blade;
 }
 
 /**
@@ -22,7 +22,7 @@ interface Config {
 export class FolderController implements BladeController {
 	public readonly folder: Folder;
 	public readonly view: FolderView;
-	public readonly viewModel: ViewModel;
+	public readonly blade: Blade;
 	private doc_: Document;
 	private ucList_: UiContainer;
 
@@ -34,7 +34,7 @@ export class FolderController implements BladeController {
 		this.onUiContainerItemLayout_ = this.onUiContainerItemLayout_.bind(this);
 		this.onUiContainerRemove_ = this.onUiContainerRemove_.bind(this);
 
-		this.viewModel = config.viewModel;
+		this.blade = config.blade;
 		this.folder = new Folder(config.title, config.expanded ?? true);
 		this.folder.emitter.on('beforechange', this.onFolderBeforeChange_);
 
@@ -52,7 +52,7 @@ export class FolderController implements BladeController {
 			'transitionend',
 			this.onContainerTransitionEnd_,
 		);
-		setUpBladeView(this.view, this.viewModel);
+		setUpBladeView(this.view, this.blade);
 	}
 
 	get document(): Document {

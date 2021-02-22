@@ -4,9 +4,9 @@ import {describe, it} from 'mocha';
 import {TestUtil} from '../../../misc/test-util';
 import {TextController} from '../../input-bindings/common/controller/text';
 import {InputBinding} from '../binding/input';
+import {Blade} from '../model/blade';
 import {Target} from '../model/target';
 import {Value} from '../model/value';
-import {ViewModel} from '../model/view-model';
 import {numberFromUnknown} from '../reader/number';
 import {StringNumberParser} from '../reader/string-number';
 import {NumberFormatter} from '../writer/number';
@@ -34,7 +34,7 @@ describe(InputBindingController.name, () => {
 			binding: binding,
 			controller: controller,
 			label: 'foo',
-			viewModel: new ViewModel(),
+			blade: new Blade(),
 		});
 		assert.strictEqual(bc.binding, binding);
 		assert.strictEqual(bc.controller, controller);

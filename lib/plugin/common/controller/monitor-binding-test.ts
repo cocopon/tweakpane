@@ -5,9 +5,9 @@ import {TestUtil} from '../../../misc/test-util';
 import {SingleLogMonitorController} from '../../monitor-bindings/common/controller/single-log';
 import {MonitorBinding} from '../binding/monitor';
 import {ManualTicker} from '../binding/ticker/manual';
+import {Blade} from '../model/blade';
 import {Target} from '../model/target';
 import {Value} from '../model/value';
-import {ViewModel} from '../model/view-model';
 import {numberFromUnknown} from '../reader/number';
 import {NumberFormatter} from '../writer/number';
 import {MonitorBindingController} from './monitor-binding';
@@ -33,7 +33,7 @@ describe(MonitorBindingController.name, () => {
 			binding: binding,
 			controller: controller,
 			label: 'foo',
-			viewModel: new ViewModel(),
+			blade: new Blade(),
 		});
 		assert.strictEqual(bc.binding, binding);
 		assert.strictEqual(bc.controller, controller);

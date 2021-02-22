@@ -2,7 +2,7 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../misc/test-util';
-import {ViewModel} from '../model/view-model';
+import {Blade} from '../model/blade';
 import {View} from '../view/view';
 import {setUpBladeView} from './blade';
 
@@ -16,8 +16,8 @@ class TestView implements View {
 	onDispose() {}
 }
 
-function create(doc: Document): [ViewModel, View] {
-	const m = new ViewModel();
+function create(doc: Document): [Blade, View] {
+	const m = new Blade();
 	const v = new TestView(doc);
 	setUpBladeView(v, m);
 	return [m, v];
