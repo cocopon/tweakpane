@@ -2,13 +2,13 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../misc/test-util';
+import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
+import {Blade} from '../plugin/blade/common/model/blade';
 import {MonitorBinding} from '../plugin/common/binding/monitor';
 import {ManualTicker} from '../plugin/common/binding/ticker/manual';
-import {MonitorBindingController} from '../plugin/common/controller/monitor-binding';
 import {Buffer} from '../plugin/common/model/buffered-value';
 import {Target} from '../plugin/common/model/target';
 import {Value} from '../plugin/common/model/value';
-import {ViewModel} from '../plugin/common/model/view-model';
 import {numberFromUnknown} from '../plugin/common/reader/number';
 import {NumberFormatter} from '../plugin/common/writer/number';
 import {SingleLogMonitorController} from '../plugin/monitor-bindings/common/controller/single-log';
@@ -18,7 +18,6 @@ function createApi(target: Target) {
 	const doc = TestUtil.createWindow().document;
 	const value = new Value([0] as Buffer<number>);
 	const mc = new SingleLogMonitorController(doc, {
-		viewModel: new ViewModel(),
 		formatter: new NumberFormatter(0),
 		value: value,
 	});
@@ -29,6 +28,7 @@ function createApi(target: Target) {
 			ticker: new ManualTicker(),
 			value: value,
 		}),
+		blade: new Blade(),
 		controller: mc,
 		label: 'label',
 	});

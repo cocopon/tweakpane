@@ -1,11 +1,11 @@
 import {getAllPlugins} from './api/plugins';
 import {RootApi} from './api/root';
 import {TweakpaneConfig} from './pane/tweakpane-config';
+import {Blade} from './plugin/blade/common/model/blade';
+import {RootController} from './plugin/blade/root/controller';
 import {getWindowDocument} from './plugin/common/dom-util';
-import {ViewModel} from './plugin/common/model/view-model';
 import {PaneError} from './plugin/common/pane-error';
 import {ClassName} from './plugin/common/view/class-name';
-import {RootController} from './plugin/general/root/controller';
 import {InputBindingPlugin} from './plugin/input-binding';
 import {BooleanInputPlugin} from './plugin/input-bindings/boolean/plugin';
 import {NumberColorInputPlugin} from './plugin/input-bindings/color/plugin-number';
@@ -13,7 +13,7 @@ import {ObjectColorInputPlugin} from './plugin/input-bindings/color/plugin-objec
 import {StringColorInputPlugin} from './plugin/input-bindings/color/plugin-string';
 import {NumberInputPlugin} from './plugin/input-bindings/number/plugin';
 import {Point2dInputPlugin} from './plugin/input-bindings/point-2d/plugin';
-import {StringInputPlugin} from './plugin/input-bindings/string/string';
+import {StringInputPlugin} from './plugin/input-bindings/string/plugin';
 import {MonitorBindingPlugin} from './plugin/monitor-binding';
 import {BooleanMonitorPlugin} from './plugin/monitor-bindings/boolean/plugin';
 import {NumberMonitorPlugin} from './plugin/monitor-bindings/number/plugin';
@@ -59,7 +59,7 @@ export default class Tweakpane extends RootApi {
 
 		const rootController = new RootController(doc, {
 			expanded: config.expanded,
-			viewModel: new ViewModel(),
+			blade: new Blade(),
 			title: config.title,
 		});
 		super(rootController);

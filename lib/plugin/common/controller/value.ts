@@ -1,13 +1,12 @@
 import {Value} from '../model/value';
-import {ViewModel} from '../model/view-model';
 import {ValueView} from '../view/value';
 import {View} from '../view/view';
+import {Controller} from './controller';
 
 /**
  * @hidden
  */
-export interface ValueController<T> {
+export interface ValueController<T> extends Controller {
 	readonly value: Value<T>;
 	readonly view: View & ValueView<T>;
-	readonly viewModel: ViewModel;
 }

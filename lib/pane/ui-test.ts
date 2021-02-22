@@ -4,11 +4,11 @@ import {describe as context, describe, it} from 'mocha';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
-import {InputBindingController} from '../plugin/common/controller/input-binding';
-import {MonitorBindingController} from '../plugin/common/controller/monitor-binding';
-import {ButtonController} from '../plugin/general/button/controller';
-import {FolderController} from '../plugin/general/folder/controller';
-import {SeparatorController} from '../plugin/general/separator/controller';
+import {ButtonController} from '../plugin/blade/button/controller';
+import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
+import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
+import {FolderController} from '../plugin/blade/folder/controller';
+import {SeparatorController} from '../plugin/blade/separator/controller';
 
 function createApi(title?: string): Tweakpane {
 	return new Tweakpane({
@@ -64,13 +64,13 @@ describe(Tweakpane.name, () => {
 		const pane = createApi();
 		pane.addSeparator();
 
-		const cs = pane.controller.uiContainer.items;
+		const cs = pane.controller.bladeRack.items;
 		assert.instanceOf(cs[cs.length - 1], SeparatorController);
 	});
 
 	it('should dispose separator', () => {
 		const pane = createApi();
-		const cs = pane.controller.uiContainer.items;
+		const cs = pane.controller.bladeRack.items;
 
 		const s = pane.addSeparator();
 		assert.strictEqual(cs.length, 1);
@@ -157,7 +157,7 @@ describe(Tweakpane.name, () => {
 				pane.addInput(params, 'bar');
 				testCase.insert(pane, 1);
 
-				const cs = pane.controller.uiContainer.items;
+				const cs = pane.controller.bladeRack.items;
 				assert.instanceOf(cs[1], testCase.expected);
 			});
 		});

@@ -1,13 +1,9 @@
 import {RangeConstraint} from '../../../common/constraint/range';
 import {ConstraintUtil} from '../../../common/constraint/util';
-import {
-	getHorizontalStepKeys,
-	getStepForKey,
-} from '../../../common/controller/ui';
 import {ValueController} from '../../../common/controller/value';
 import {Value} from '../../../common/model/value';
-import {ViewModel} from '../../../common/model/view-model';
 import {mapRange} from '../../../common/number-util';
+import {getHorizontalStepKeys, getStepForKey} from '../../../common/ui';
 import {
 	PointerData,
 	PointerHandler,
@@ -18,7 +14,6 @@ import {SliderView} from '../view/slider';
 interface Config {
 	baseStep: number;
 	value: Value<number>;
-	viewModel: ViewModel;
 }
 
 function findRange(
@@ -43,7 +38,6 @@ function estimateSuitableRange(value: Value<number>): [number, number] {
  * @hidden
  */
 export class SliderController implements ValueController<number> {
-	public readonly viewModel: ViewModel;
 	public readonly value: Value<number>;
 	public readonly view: SliderView;
 	private maxValue_: number;
@@ -51,7 +45,7 @@ export class SliderController implements ValueController<number> {
 	private ptHandler_: PointerHandler;
 	private baseStep_: number;
 
-	constructor(document: Document, config: Config) {
+	constructor(doc: Document, config: Config) {
 		this.onKeyDown_ = this.onKeyDown_.bind(this);
 		this.onPointerDown_ = this.onPointerDown_.bind(this);
 		this.onPointerMove_ = this.onPointerMove_.bind(this);
@@ -64,15 +58,13 @@ export class SliderController implements ValueController<number> {
 		this.minValue_ = min;
 		this.maxValue_ = max;
 
-		this.viewModel = config.viewModel;
-		this.view = new SliderView(document, {
+		this.view = new SliderView(doc, {
 			maxValue: this.maxValue_,
 			minValue: this.minValue_,
-			model: this.viewModel,
 			value: this.value,
 		});
 
-		this.ptHandler_ = new PointerHandler(document, this.view.outerElement);
+		this.ptHandler_ = new PointerHandler(doc, this.view.outerElement);
 		this.ptHandler_.emitter.on('down', this.onPointerDown_);
 		this.ptHandler_.emitter.on('move', this.onPointerMove_);
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);

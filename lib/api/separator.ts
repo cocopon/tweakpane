@@ -1,4 +1,4 @@
-import {SeparatorController} from '../plugin/general/separator/controller';
+import {SeparatorController} from '../plugin/blade/separator/controller';
 import {ComponentApi} from './component-api';
 
 export class SeparatorApi implements ComponentApi {
@@ -15,14 +15,14 @@ export class SeparatorApi implements ComponentApi {
 	}
 
 	get hidden(): boolean {
-		return this.controller.viewModel.hidden;
+		return this.controller.blade.hidden;
 	}
 
 	set hidden(hidden: boolean) {
-		this.controller.viewModel.hidden = hidden;
+		this.controller.blade.hidden = hidden;
 	}
 
 	public dispose(): void {
-		this.controller.viewModel.dispose();
+		this.controller.blade.dispose();
 	}
 }

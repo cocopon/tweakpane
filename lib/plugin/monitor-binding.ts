@@ -1,10 +1,11 @@
 import {MonitorParams} from '../api/types';
 import {Constants} from '../misc/constants';
+import {MonitorBindingController} from './blade/common/controller/monitor-binding';
+import {Blade} from './blade/common/model/blade';
 import {MonitorBinding} from './common/binding/monitor';
 import {IntervalTicker} from './common/binding/ticker/interval';
 import {ManualTicker} from './common/binding/ticker/manual';
 import {Ticker} from './common/binding/ticker/ticker';
-import {MonitorBindingController} from './common/controller/monitor-binding';
 import {ValueController} from './common/controller/value';
 import {initializeBuffer} from './common/model/buffered-value';
 import {Buffer} from './common/model/buffered-value';
@@ -88,5 +89,6 @@ export function createController<T>(
 			params: args.params,
 		}),
 		label: args.params.label || args.target.key,
+		blade: new Blade(),
 	});
 }

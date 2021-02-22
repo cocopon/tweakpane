@@ -2,15 +2,15 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../misc/test-util';
-import {ViewModel} from '../plugin/common/model/view-model';
-import {ButtonController} from '../plugin/general/button/controller';
+import {ButtonController} from '../plugin/blade/button/controller';
+import {Blade} from '../plugin/blade/common/model/blade';
 import {ButtonApi} from './button';
 
 describe(ButtonApi.name, () => {
 	it('should listen click event', (done) => {
 		const c = new ButtonController(TestUtil.createWindow().document, {
 			title: 'Button',
-			viewModel: new ViewModel(),
+			blade: new Blade(),
 		});
 		const api = new ButtonApi(c);
 		api.on('click', () => {
@@ -21,7 +21,7 @@ describe(ButtonApi.name, () => {
 
 	it('should have chainable event handling', () => {
 		const c = new ButtonController(TestUtil.createWindow().document, {
-			viewModel: new ViewModel(),
+			blade: new Blade(),
 			title: 'Button',
 		});
 		const api = new ButtonApi(c);
@@ -31,7 +31,7 @@ describe(ButtonApi.name, () => {
 
 	it('should bind `this` within handler to API', (done) => {
 		const c = new ButtonController(TestUtil.createWindow().document, {
-			viewModel: new ViewModel(),
+			blade: new Blade(),
 			title: 'Button',
 		});
 		const api = new ButtonApi(c);

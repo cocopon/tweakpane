@@ -1,16 +1,14 @@
-import {disposeElement} from '../../../common/disposing-util';
 import {getCanvasContext} from '../../../common/dom-util';
 import {Color} from '../../../common/model/color';
 import {hsvToRgb} from '../../../common/model/color-model';
 import {Value} from '../../../common/model/value';
 import {mapRange} from '../../../common/number-util';
-import {PaneError} from '../../../common/pane-error';
 import {ClassName} from '../../../common/view/class-name';
-import {View, ViewConfig} from '../../../common/view/view';
+import {ValueView} from '../../../common/view/value';
 
 const className = ClassName('svp');
 
-interface Config extends ViewConfig {
+interface Config {
 	value: Value<Color>;
 }
 
@@ -19,54 +17,38 @@ const CANVAS_RESOL = 64;
 /**
  * @hidden
  */
-export class SvPaletteView extends View {
+export class SvPaletteView implements ValueView<Color> {
+	public readonly element: HTMLElement;
 	public readonly value: Value<Color>;
-	private canvasElem_: HTMLCanvasElement | null;
-	private markerElem_: HTMLDivElement | null;
+	public readonly canvasElement: HTMLCanvasElement;
+	private markerElem_: HTMLDivElement;
 
-	constructor(document: Document, config: Config) {
-		super(document, config);
-
+	constructor(doc: Document, config: Config) {
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
 		this.value = config.value;
 		this.value.emitter.on('change', this.onValueChange_);
 
+		this.element = doc.createElement('div');
 		this.element.classList.add(className());
 		this.element.tabIndex = 0;
 
-		const canvasElem = document.createElement('canvas');
+		const canvasElem = doc.createElement('canvas');
 		canvasElem.height = CANVAS_RESOL;
 		canvasElem.width = CANVAS_RESOL;
 		canvasElem.classList.add(className('c'));
 		this.element.appendChild(canvasElem);
-		this.canvasElem_ = canvasElem;
+		this.canvasElement = canvasElem;
 
-		const markerElem = document.createElement('div');
+		const markerElem = doc.createElement('div');
 		markerElem.classList.add(className('m'));
 		this.element.appendChild(markerElem);
 		this.markerElem_ = markerElem;
 
 		this.update();
-
-		config.model.emitter.on('dispose', () => {
-			this.canvasElem_ = disposeElement(this.canvasElem_);
-			this.markerElem_ = disposeElement(this.markerElem_);
-		});
-	}
-
-	get canvasElement(): HTMLCanvasElement {
-		if (!this.canvasElem_) {
-			throw PaneError.alreadyDisposed();
-		}
-		return this.canvasElem_;
 	}
 
 	public update(): void {
-		if (!this.markerElem_) {
-			throw PaneError.alreadyDisposed();
-		}
-
 		const ctx = getCanvasContext(this.canvasElement);
 		if (!ctx) {
 			return;

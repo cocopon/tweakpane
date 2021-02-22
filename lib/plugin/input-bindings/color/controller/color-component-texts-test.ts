@@ -5,7 +5,6 @@ import {TestUtil} from '../../../../misc/test-util';
 import {Color, RgbaColorObject} from '../../../common/model/color';
 import {PickedColor} from '../../../common/model/picked-color';
 import {Value} from '../../../common/model/value';
-import {ViewModel} from '../../../common/model/view-model';
 import {StringNumberParser} from '../../../common/reader/string-number';
 import {ColorComponentTextsController} from './color-component-texts';
 
@@ -31,17 +30,6 @@ interface KeydownTestCase {
 }
 
 describe(ColorComponentTextsController.name, () => {
-	it('should dispose', () => {
-		const doc = TestUtil.createWindow().document;
-		const c = new ColorComponentTextsController(doc, {
-			parser: StringNumberParser,
-			pickedColor: new PickedColor(new Value(new Color([0, 0, 0], 'rgb'))),
-			viewModel: new ViewModel(),
-		});
-		c.viewModel.dispose();
-		assert.strictEqual(c.viewModel.disposed, true);
-	});
-
 	([
 		{
 			expected: {r: 123, g: 0, b: 0, a: 1},
@@ -86,7 +74,6 @@ describe(ColorComponentTextsController.name, () => {
 				const c = new ColorComponentTextsController(doc, {
 					parser: StringNumberParser,
 					pickedColor: new PickedColor(value),
-					viewModel: new ViewModel(),
 				});
 
 				const inputElem = c.view.inputElements[testCase.params.index];
@@ -149,7 +136,6 @@ describe(ColorComponentTextsController.name, () => {
 				const c = new ColorComponentTextsController(doc, {
 					parser: StringNumberParser,
 					pickedColor: new PickedColor(value),
-					viewModel: new ViewModel(),
 				});
 
 				const inputElem = c.view.inputElements[testCase.params.index];

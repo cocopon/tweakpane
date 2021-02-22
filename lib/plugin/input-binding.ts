@@ -1,7 +1,8 @@
 import {InputParams} from '../api/types';
+import {InputBindingController} from './blade/common/controller/input-binding';
+import {Blade} from './blade/common/model/blade';
 import {InputBinding} from './common/binding/input';
 import {Constraint} from './common/constraint/constraint';
-import {InputBindingController} from './common/controller/input-binding';
 import {ValueController} from './common/controller/value';
 import {Target} from './common/model/target';
 import {Value} from './common/model/value';
@@ -71,15 +72,17 @@ export function createController<In, Ex>(
 		value: value,
 		writer: plugin.model.writer(valueArgs),
 	});
+	const controller = plugin.controller({
+		binding: binding,
+		document: args.document,
+		initialValue: initialValue,
+		params: args.params,
+	});
 
 	return new InputBindingController(args.document, {
 		binding: binding,
-		controller: plugin.controller({
-			binding: binding,
-			document: args.document,
-			initialValue: initialValue,
-			params: args.params,
-		}),
+		controller: controller,
 		label: args.params.label || args.target.key,
+		blade: new Blade(),
 	});
 }

@@ -1,5 +1,5 @@
 import {isEmpty} from '../misc/type-util';
-import {InputBindingController} from '../plugin/common/controller/input-binding';
+import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
 import {Target} from '../plugin/common/model/target';
 import {PaneError} from '../plugin/common/pane-error';
 import {createController} from '../plugin/input-binding';

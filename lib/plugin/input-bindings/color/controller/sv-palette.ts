@@ -1,15 +1,14 @@
+import {ValueController} from '../../../common/controller/value';
+import {Color} from '../../../common/model/color';
+import {Value} from '../../../common/model/value';
+import {mapRange} from '../../../common/number-util';
 import {
 	getBaseStepForColor,
 	getHorizontalStepKeys,
 	getStepForKey,
 	getVerticalStepKeys,
 	isArrowKey,
-} from '../../../common/controller/ui';
-import {ValueController} from '../../../common/controller/value';
-import {Color} from '../../../common/model/color';
-import {Value} from '../../../common/model/value';
-import {ViewModel} from '../../../common/model/view-model';
-import {mapRange} from '../../../common/number-util';
+} from '../../../common/ui';
 import {
 	PointerData,
 	PointerHandler,
@@ -19,19 +18,17 @@ import {SvPaletteView} from '../view/sv-palette';
 
 interface Config {
 	value: Value<Color>;
-	viewModel: ViewModel;
 }
 
 /**
  * @hidden
  */
 export class SvPaletteController implements ValueController<Color> {
-	public readonly viewModel: ViewModel;
 	public readonly value: Value<Color>;
 	public readonly view: SvPaletteView;
 	private ptHandler_: PointerHandler;
 
-	constructor(document: Document, config: Config) {
+	constructor(doc: Document, config: Config) {
 		this.onKeyDown_ = this.onKeyDown_.bind(this);
 		this.onPointerDown_ = this.onPointerDown_.bind(this);
 		this.onPointerMove_ = this.onPointerMove_.bind(this);
@@ -39,13 +36,11 @@ export class SvPaletteController implements ValueController<Color> {
 
 		this.value = config.value;
 
-		this.viewModel = config.viewModel;
-		this.view = new SvPaletteView(document, {
-			model: this.viewModel,
+		this.view = new SvPaletteView(doc, {
 			value: this.value,
 		});
 
-		this.ptHandler_ = new PointerHandler(document, this.view.element);
+		this.ptHandler_ = new PointerHandler(doc, this.view.element);
 		this.ptHandler_.emitter.on('down', this.onPointerDown_);
 		this.ptHandler_.emitter.on('move', this.onPointerMove_);
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);

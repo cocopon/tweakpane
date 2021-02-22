@@ -1,5 +1,5 @@
 import {forceCast} from '../misc/type-util';
-import {InputBindingController} from '../plugin/common/controller/input-binding';
+import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
 import {ComponentApi} from './component-api';
 import {handleInputBinding} from './event-handler-adapters';
 
@@ -26,15 +26,15 @@ export class InputBindingApi<In, Ex> implements ComponentApi {
 	}
 
 	get hidden(): boolean {
-		return this.controller.viewModel.hidden;
+		return this.controller.blade.hidden;
 	}
 
 	set hidden(hidden: boolean) {
-		this.controller.viewModel.hidden = hidden;
+		this.controller.blade.hidden = hidden;
 	}
 
 	public dispose(): void {
-		this.controller.viewModel.dispose();
+		this.controller.blade.dispose();
 	}
 
 	public on<EventName extends keyof InputBindingApiEventHandlers<Ex>>(

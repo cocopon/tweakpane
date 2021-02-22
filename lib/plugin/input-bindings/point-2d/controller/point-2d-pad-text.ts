@@ -2,7 +2,6 @@ import {forceCast} from '../../../../misc/type-util';
 import {ValueController} from '../../../common/controller/value';
 import {Point2d} from '../../../common/model/point-2d';
 import {Value} from '../../../common/model/value';
-import {ViewModel} from '../../../common/model/view-model';
 import {Parser} from '../../../common/reader/parser';
 import {Formatter} from '../../../common/writer/formatter';
 import {Point2dPadTextView} from '../view/point-2d-pad-text';
@@ -14,7 +13,6 @@ interface Config {
 	maxValue: number;
 	parser: Parser<string, number>;
 	value: Value<Point2d>;
-	viewModel: ViewModel;
 	xBaseStep: number;
 	xFormatter: Formatter<number>;
 	yBaseStep: number;
@@ -25,40 +23,35 @@ interface Config {
  * @hidden
  */
 export class Point2dPadTextController implements ValueController<Point2d> {
-	public readonly viewModel: ViewModel;
 	public readonly value: Value<Point2d>;
 	public readonly view: Point2dPadTextView;
 	private readonly padIc_: Point2dPadController;
 	private readonly textIc_: Point2dTextController;
 
-	constructor(document: Document, config: Config) {
+	constructor(doc: Document, config: Config) {
 		this.onPadButtonBlur_ = this.onPadButtonBlur_.bind(this);
 		this.onPadButtonClick_ = this.onPadButtonClick_.bind(this);
 
 		this.value = config.value;
 
-		this.viewModel = config.viewModel;
-		this.padIc_ = new Point2dPadController(document, {
+		this.padIc_ = new Point2dPadController(doc, {
 			invertsY: config.invertsY,
 			maxValue: config.maxValue,
 			value: this.value,
-			viewModel: this.viewModel,
 			xBaseStep: config.xBaseStep,
 			yBaseStep: config.yBaseStep,
 		});
 
-		this.textIc_ = new Point2dTextController(document, {
+		this.textIc_ = new Point2dTextController(doc, {
 			parser: config.parser,
 			value: this.value,
-			viewModel: this.viewModel,
 			xBaseStep: config.xBaseStep,
 			xFormatter: config.xFormatter,
 			yBaseStep: config.yBaseStep,
 			yFormatter: config.yFormatter,
 		});
 
-		this.view = new Point2dPadTextView(document, {
-			model: this.viewModel,
+		this.view = new Point2dPadTextView(doc, {
 			padView: this.padIc_.view,
 			textView: this.textIc_.view,
 		});

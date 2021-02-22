@@ -8,7 +8,6 @@ import {StepConstraint} from '../../common/constraint/step';
 import {ConstraintUtil} from '../../common/constraint/util';
 import {Point2d, Point2dObject} from '../../common/model/point-2d';
 import {Value} from '../../common/model/value';
-import {ViewModel} from '../../common/model/view-model';
 import {PaneError} from '../../common/pane-error';
 import {point2dFromUnknown} from '../../common/reader/point-2d';
 import {StringNumberParser} from '../../common/reader/string-number';
@@ -102,7 +101,6 @@ function createController(
 		maxValue: getSuitableMaxValue(value.rawValue, value.constraint),
 		parser: StringNumberParser,
 		value: value,
-		viewModel: new ViewModel(),
 		xBaseStep: getBaseStep(c.xConstraint),
 		xFormatter: new NumberFormatter(
 			getSuitableDecimalDigits(c.xConstraint, value.rawValue.x),

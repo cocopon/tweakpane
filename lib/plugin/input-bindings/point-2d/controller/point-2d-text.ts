@@ -1,20 +1,15 @@
 import {forceCast, isEmpty} from '../../../../misc/type-util';
-import {
-	getStepForKey,
-	getVerticalStepKeys,
-} from '../../../common/controller/ui';
 import {ValueController} from '../../../common/controller/value';
 import {Point2d} from '../../../common/model/point-2d';
 import {Value} from '../../../common/model/value';
-import {ViewModel} from '../../../common/model/view-model';
 import {Parser} from '../../../common/reader/parser';
+import {getStepForKey, getVerticalStepKeys} from '../../../common/ui';
 import {Formatter} from '../../../common/writer/formatter';
 import {Point2dTextView} from '../view/point-2d-text';
 
 interface Config {
 	parser: Parser<string, number>;
 	value: Value<Point2d>;
-	viewModel: ViewModel;
 	xBaseStep: number;
 	xFormatter: Formatter<number>;
 	yBaseStep: number;
@@ -25,14 +20,13 @@ interface Config {
  * @hidden
  */
 export class Point2dTextController implements ValueController<Point2d> {
-	public readonly viewModel: ViewModel;
 	public readonly value: Value<Point2d>;
 	public readonly view: Point2dTextView;
 	private readonly parser_: Parser<string, number>;
 	private readonly xBaseStep_: number;
 	private readonly yBaseStep_: number;
 
-	constructor(document: Document, config: Config) {
+	constructor(doc: Document, config: Config) {
 		this.onInputChange_ = this.onInputChange_.bind(this);
 		this.onInputKeyDown_ = this.onInputKeyDown_.bind(this);
 
@@ -42,9 +36,7 @@ export class Point2dTextController implements ValueController<Point2d> {
 		this.xBaseStep_ = config.xBaseStep;
 		this.yBaseStep_ = config.yBaseStep;
 
-		this.viewModel = config.viewModel;
-		this.view = new Point2dTextView(document, {
-			model: this.viewModel,
+		this.view = new Point2dTextView(doc, {
 			value: this.value,
 			xFormatter: config.xFormatter,
 			yFormatter: config.yFormatter,

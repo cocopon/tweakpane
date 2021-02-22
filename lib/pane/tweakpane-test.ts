@@ -3,7 +3,6 @@ import {describe, it} from 'mocha';
 
 import Tweakpane from '..';
 import {TestUtil} from '../misc/test-util';
-import {ViewModel} from '../plugin/common/model/view-model';
 import {PaneError} from '../plugin/common/pane-error';
 import {stringFromUnknown} from '../plugin/common/reader/string';
 import {StringFormatter} from '../plugin/common/writer/string';
@@ -97,7 +96,6 @@ describe(Tweakpane.name, () => {
 						formatter: new StringFormatter(),
 						parser: (v) => v,
 						value: args.binding.value,
-						viewModel: new ViewModel(),
 					});
 				},
 			},

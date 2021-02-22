@@ -1,5 +1,4 @@
 import {Color, RgbaColorObject, RgbColorObject} from '../../common/model/color';
-import {ViewModel} from '../../common/model/view-model';
 import {colorFromObject} from '../../common/reader/object-color';
 import {CompositeColorParser} from '../../common/reader/string-color';
 import {
@@ -30,7 +29,6 @@ export const ObjectColorInputPlugin: InputBindingPlugin<
 			? new ColorFormatter(colorToHexRgbaString)
 			: new ColorFormatter(colorToHexRgbString);
 		return new ColorSwatchTextController(args.document, {
-			viewModel: new ViewModel(),
 			formatter: formatter,
 			parser: CompositeColorParser,
 			supportsAlpha: supportsAlpha,

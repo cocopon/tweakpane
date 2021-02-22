@@ -1,7 +1,4 @@
-import {
-	getStepForKey,
-	getVerticalStepKeys,
-} from '../../../common/controller/ui';
+import {getStepForKey, getVerticalStepKeys} from '../../../common/ui';
 import {TextController} from '../../common/controller/text';
 import {Config as BaseConfig} from '../../common/controller/text';
 
@@ -15,8 +12,8 @@ interface Config extends BaseConfig<number> {
 export class NumberTextController extends TextController<number> {
 	private baseStep_: number;
 
-	constructor(document: Document, config: Config) {
-		super(document, config);
+	constructor(doc: Document, config: Config) {
+		super(doc, config);
 
 		this.onInputKeyDown_ = this.onInputKeyDown_.bind(this);
 

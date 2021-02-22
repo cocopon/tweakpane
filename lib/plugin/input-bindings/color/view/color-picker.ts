@@ -5,7 +5,6 @@ import {PickedColor} from '../../../common/model/picked-color';
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
-import {View, ViewConfig} from '../../../common/view/view';
 import {TextView} from '../../common/view/text';
 import {APaletteView} from './a-palette';
 import {ColorComponentTextsView} from './color-component-texts';
@@ -14,7 +13,7 @@ import {SvPaletteView} from './sv-palette';
 
 const className = ClassName('clp');
 
-interface Config extends ViewConfig {
+interface Config {
 	alphaViews: {
 		palette: APaletteView;
 		text: TextView<number>;
@@ -30,7 +29,8 @@ interface Config extends ViewConfig {
 /**
  * @hidden
  */
-export class ColorPickerView extends View implements ValueView<Color> {
+export class ColorPickerView implements ValueView<Color> {
+	public readonly element: HTMLElement;
 	public readonly foldable: Foldable;
 	public readonly pickedColor: PickedColor;
 	private alphaViews_: {
@@ -41,9 +41,7 @@ export class ColorPickerView extends View implements ValueView<Color> {
 	private compTextsView_: ColorComponentTextsView;
 	private svPaletteView_: SvPaletteView;
 
-	constructor(document: Document, config: Config) {
-		super(document, config);
-
+	constructor(doc: Document, config: Config) {
 		this.onFoldableChange_ = this.onFoldableChange_.bind(this);
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
@@ -53,25 +51,26 @@ export class ColorPickerView extends View implements ValueView<Color> {
 		this.foldable = config.foldable;
 		this.foldable.emitter.on('change', this.onFoldableChange_);
 
+		this.element = doc.createElement('div');
 		this.element.classList.add(className());
 
-		const hsvElem = document.createElement('div');
+		const hsvElem = doc.createElement('div');
 		hsvElem.classList.add(className('hsv'));
 
-		const svElem = document.createElement('div');
+		const svElem = doc.createElement('div');
 		svElem.classList.add(className('sv'));
 		this.svPaletteView_ = config.svPaletteView;
 		svElem.appendChild(this.svPaletteView_.element);
 		hsvElem.appendChild(svElem);
 
-		const hElem = document.createElement('div');
+		const hElem = doc.createElement('div');
 		hElem.classList.add(className('h'));
 		this.hPaletteView_ = config.hPaletteView;
 		hElem.appendChild(this.hPaletteView_.element);
 		hsvElem.appendChild(hElem);
 		this.element.appendChild(hsvElem);
 
-		const rgbElem = document.createElement('div');
+		const rgbElem = doc.createElement('div');
 		rgbElem.classList.add(className('rgb'));
 		this.compTextsView_ = config.componentTextsView;
 		rgbElem.appendChild(this.compTextsView_.element);
@@ -83,15 +82,15 @@ export class ColorPickerView extends View implements ValueView<Color> {
 				text: config.alphaViews.text,
 			};
 
-			const aElem = document.createElement('div');
+			const aElem = doc.createElement('div');
 			aElem.classList.add(className('a'));
 
-			const apElem = document.createElement('div');
+			const apElem = doc.createElement('div');
 			apElem.classList.add(className('ap'));
 			apElem.appendChild(this.alphaViews_.palette.element);
 			aElem.appendChild(apElem);
 
-			const atElem = document.createElement('div');
+			const atElem = doc.createElement('div');
 			atElem.classList.add(className('at'));
 			atElem.appendChild(this.alphaViews_.text.element);
 			aElem.appendChild(atElem);

@@ -1,6 +1,5 @@
 import {InputParams} from '../../../api/types';
 import {Color} from '../../common/model/color';
-import {ViewModel} from '../../common/model/view-model';
 import {
 	colorFromNumberToRgb,
 	colorFromNumberToRgba,
@@ -66,7 +65,6 @@ export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
 			parser: CompositeColorParser,
 			supportsAlpha: supportsAlpha,
 			value: args.binding.value,
-			viewModel: new ViewModel(),
 		});
 	},
 };

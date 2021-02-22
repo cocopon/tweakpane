@@ -1,5 +1,4 @@
 import {Constants} from '../../../misc/constants';
-import {ViewModel} from '../../common/model/view-model';
 import {boolFromUnknown} from '../../common/reader/boolean';
 import {BooleanFormatter} from '../../common/writer/boolean';
 import {MonitorBindingPlugin} from '../../monitor-binding';
@@ -18,14 +17,12 @@ export const BooleanMonitorPlugin: MonitorBindingPlugin<boolean> = {
 	controller: (args) => {
 		if (args.binding.value.rawValue.length === 1) {
 			return new SingleLogMonitorController(args.document, {
-				viewModel: new ViewModel(),
 				formatter: new BooleanFormatter(),
 				value: args.binding.value,
 			});
 		}
 
 		return new MultiLogController(args.document, {
-			viewModel: new ViewModel(),
 			formatter: new BooleanFormatter(),
 			lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,
 			value: args.binding.value,

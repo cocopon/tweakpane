@@ -2,11 +2,10 @@ import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
-import {View, ViewConfig} from '../../../common/view/view';
 import {TextView} from '../../common/view/text';
 import {ColorSwatchView} from './color-swatch';
 
-interface Config extends ViewConfig {
+interface Config {
 	swatchView: ColorSwatchView;
 	textView: TextView<Color>;
 }
@@ -16,22 +15,22 @@ const className = ClassName('cswtxt');
 /**
  * @hidden
  */
-export class ColorSwatchTextView extends View implements ValueView<Color> {
+export class ColorSwatchTextView implements ValueView<Color> {
+	public readonly element: HTMLElement;
 	public readonly textView: TextView<Color>;
 	private readonly swatchView_: ColorSwatchView;
 
-	constructor(document: Document, config: Config) {
-		super(document, config);
-
+	constructor(doc: Document, config: Config) {
+		this.element = doc.createElement('div');
 		this.element.classList.add(className());
 
-		const swatchElem = document.createElement('div');
+		const swatchElem = doc.createElement('div');
 		swatchElem.classList.add(className('s'));
 		this.swatchView_ = config.swatchView;
 		swatchElem.appendChild(this.swatchView_.element);
 		this.element.appendChild(swatchElem);
 
-		const textElem = document.createElement('div');
+		const textElem = doc.createElement('div');
 		textElem.classList.add(className('t'));
 		this.textView = config.textView;
 		textElem.appendChild(this.textView.element);

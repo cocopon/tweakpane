@@ -2,11 +2,11 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../misc/test-util';
+import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
+import {Blade} from '../plugin/blade/common/model/blade';
 import {InputBinding} from '../plugin/common/binding/input';
-import {InputBindingController} from '../plugin/common/controller/input-binding';
 import {Target} from '../plugin/common/model/target';
 import {Value} from '../plugin/common/model/value';
-import {ViewModel} from '../plugin/common/model/view-model';
 import {numberFromUnknown} from '../plugin/common/reader/number';
 import {StringNumberParser} from '../plugin/common/reader/string-number';
 import {NumberFormatter} from '../plugin/common/writer/number';
@@ -21,7 +21,6 @@ function createApi(target: Target) {
 		formatter: new NumberFormatter(0),
 		parser: StringNumberParser,
 		value: value,
-		viewModel: new ViewModel(),
 	});
 	const bc = new InputBindingController(doc, {
 		binding: new InputBinding({
@@ -30,6 +29,7 @@ function createApi(target: Target) {
 			value: value,
 			writer: (v) => v,
 		}),
+		blade: new Blade(),
 		controller: ic,
 		label: 'label',
 	});

@@ -12,12 +12,12 @@ export class IntervalTicker implements Ticker {
 	private doc_: Document;
 	private id_: number | null = null;
 
-	constructor(document: Document, interval: number) {
+	constructor(doc: Document, interval: number) {
 		this.onTick_ = this.onTick_.bind(this);
 		// this.onWindowBlur_ = this.onWindowBlur_.bind(this);
 		// this.onWindowFocus_ = this.onWindowFocus_.bind(this);
 
-		this.doc_ = document;
+		this.doc_ = doc;
 		this.emitter = new Emitter();
 
 		if (interval <= 0) {

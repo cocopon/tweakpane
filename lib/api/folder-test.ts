@@ -2,13 +2,13 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../misc/test-util';
-import {InputBindingController} from '../plugin/common/controller/input-binding';
-import {MonitorBindingController} from '../plugin/common/controller/monitor-binding';
+import {ButtonController} from '../plugin/blade/button/controller';
+import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
+import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
+import {Blade} from '../plugin/blade/common/model/blade';
+import {FolderController} from '../plugin/blade/folder/controller';
+import {SeparatorController} from '../plugin/blade/separator/controller';
 import {Color} from '../plugin/common/model/color';
-import {ViewModel} from '../plugin/common/model/view-model';
-import {ButtonController} from '../plugin/general/button/controller';
-import {FolderController} from '../plugin/general/folder/controller';
-import {SeparatorController} from '../plugin/general/separator/controller';
 import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
 import {SingleLogMonitorController} from '../plugin/monitor-bindings/common/controller/single-log';
 import {FolderApi} from './folder';
@@ -16,7 +16,7 @@ import {SeparatorApi} from './separator';
 
 function createApi(): FolderApi {
 	const c = new FolderController(TestUtil.createWindow().document, {
-		viewModel: new ViewModel(),
+		blade: new Blade(),
 		title: 'Folder',
 	});
 	return new FolderApi(c);
@@ -44,7 +44,7 @@ describe(FolderApi.name, () => {
 	it('should dispose', () => {
 		const api = createApi();
 		api.dispose();
-		assert.strictEqual(api.controller.viewModel.disposed, true);
+		assert.strictEqual(api.controller.blade.disposed, true);
 	});
 
 	it('should hide', () => {
@@ -70,13 +70,13 @@ describe(FolderApi.name, () => {
 		const s = api.addSeparator();
 		assert.instanceOf(s, SeparatorApi);
 
-		const cs = api.controller.uiContainer.items;
+		const cs = api.controller.bladeRack.items;
 		assert.instanceOf(cs[cs.length - 1], SeparatorController);
 	});
 
 	it('should dispose separator', () => {
 		const api = createApi();
-		const cs = api.controller.uiContainer.items;
+		const cs = api.controller.bladeRack.items;
 
 		const s = api.addSeparator();
 		assert.strictEqual(cs.length, 1);
@@ -154,7 +154,7 @@ describe(FolderApi.name, () => {
 				api.addInput(params, 'bar');
 				testCase.insert(api, 1);
 
-				const cs = api.controller.uiContainer.items;
+				const cs = api.controller.bladeRack.items;
 				assert.instanceOf(cs[1], testCase.expected);
 			});
 		});

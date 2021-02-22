@@ -3,40 +3,34 @@ import {ValueController} from '../../../common/controller/value';
 import {Color} from '../../../common/model/color';
 import {PickedColor} from '../../../common/model/picked-color';
 import {Value} from '../../../common/model/value';
-import {ViewModel} from '../../../common/model/view-model';
 import {ColorSwatchView} from '../view/color-swatch';
 import {ColorPickerController} from './color-picker';
 
 interface Config {
 	supportsAlpha: boolean;
 	value: Value<Color>;
-	viewModel: ViewModel;
 }
 
 /**
  * @hidden
  */
 export class ColorSwatchController implements ValueController<Color> {
-	public readonly viewModel: ViewModel;
 	public readonly value: Value<Color>;
 	public readonly view: ColorSwatchView;
 	private pickerIc_: ColorPickerController;
 
-	constructor(document: Document, config: Config) {
+	constructor(doc: Document, config: Config) {
 		this.onButtonBlur_ = this.onButtonBlur_.bind(this);
 		this.onButtonClick_ = this.onButtonClick_.bind(this);
 
 		this.value = config.value;
 
-		this.viewModel = config.viewModel;
-		this.pickerIc_ = new ColorPickerController(document, {
+		this.pickerIc_ = new ColorPickerController(doc, {
 			pickedColor: new PickedColor(this.value),
 			supportsAlpha: config.supportsAlpha,
-			viewModel: this.viewModel,
 		});
 
-		this.view = new ColorSwatchView(document, {
-			model: this.viewModel,
+		this.view = new ColorSwatchView(doc, {
 			pickerView: this.pickerIc_.view,
 			value: this.value,
 		});

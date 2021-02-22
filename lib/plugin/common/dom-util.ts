@@ -18,8 +18,8 @@ export function disableTransitionTemporarily(
 	element.style.transition = t;
 }
 
-export function supportsTouch(document: Document): boolean {
-	return document.ontouchstart !== undefined;
+export function supportsTouch(doc: Document): boolean {
+	return doc.ontouchstart !== undefined;
 }
 
 function getGlobalObject(): any {

@@ -1,9 +1,9 @@
 import {forceCast} from '../misc/type-util';
+import {ButtonController} from '../plugin/blade/button/controller';
+import {Blade} from '../plugin/blade/common/model/blade';
+import {FolderController} from '../plugin/blade/folder/controller';
+import {SeparatorController} from '../plugin/blade/separator/controller';
 import {Target} from '../plugin/common/model/target';
-import {ViewModel} from '../plugin/common/model/view-model';
-import {ButtonController} from '../plugin/general/button/controller';
-import {FolderController} from '../plugin/general/folder/controller';
-import {SeparatorController} from '../plugin/general/separator/controller';
 import {ButtonApi} from './button';
 import {ComponentApi} from './component-api';
 import {handleFolder} from './event-handler-adapters';
@@ -48,15 +48,15 @@ export class FolderApi implements ComponentApi {
 	}
 
 	get hidden(): boolean {
-		return this.controller.viewModel.hidden;
+		return this.controller.blade.hidden;
 	}
 
 	set hidden(hidden: boolean) {
-		this.controller.viewModel.hidden = hidden;
+		this.controller.blade.hidden = hidden;
 	}
 
 	public dispose(): void {
-		this.controller.viewModel.dispose();
+		this.controller.blade.dispose();
 	}
 
 	public addInput<O extends Record<string, any>, Key extends string>(
@@ -65,13 +65,13 @@ export class FolderApi implements ComponentApi {
 		opt_params?: InputParams,
 	): InputBindingApi<unknown, O[Key]> {
 		const params = opt_params || {};
-		const uc = createInputBindingController(
+		const bc = createInputBindingController(
 			this.controller.document,
 			new Target(object, key, params.presetKey),
 			params,
 		);
-		this.controller.uiContainer.add(uc, params.index);
-		return new InputBindingApi(forceCast(uc));
+		this.controller.bladeRack.add(bc, params.index);
+		return new InputBindingApi(forceCast(bc));
 	}
 
 	public addMonitor<O extends Record<string, any>, Key extends string>(
@@ -80,40 +80,40 @@ export class FolderApi implements ComponentApi {
 		opt_params?: MonitorParams,
 	): MonitorBindingApi<O[Key]> {
 		const params = opt_params || {};
-		const uc = createMonitorBindingController(
+		const bc = createMonitorBindingController(
 			this.controller.document,
 			new Target(object, key),
 			params,
 		);
-		this.controller.uiContainer.add(uc, params.index);
-		return new MonitorBindingApi(forceCast(uc));
+		this.controller.bladeRack.add(bc, params.index);
+		return new MonitorBindingApi(forceCast(bc));
 	}
 
 	public addFolder(params: FolderParams): FolderApi {
-		const uc = new FolderController(this.controller.document, {
+		const bc = new FolderController(this.controller.document, {
 			...params,
-			viewModel: new ViewModel(),
+			blade: new Blade(),
 		});
-		this.controller.uiContainer.add(uc, params.index);
-		return new FolderApi(uc);
+		this.controller.bladeRack.add(bc, params.index);
+		return new FolderApi(bc);
 	}
 
 	public addButton(params: ButtonParams): ButtonApi {
-		const uc = new ButtonController(this.controller.document, {
+		const bc = new ButtonController(this.controller.document, {
 			...params,
-			viewModel: new ViewModel(),
+			blade: new Blade(),
 		});
-		this.controller.uiContainer.add(uc, params.index);
-		return new ButtonApi(uc);
+		this.controller.bladeRack.add(bc, params.index);
+		return new ButtonApi(bc);
 	}
 
 	public addSeparator(opt_params?: SeparatorParams): SeparatorApi {
 		const params = opt_params || {};
-		const uc = new SeparatorController(this.controller.document, {
-			viewModel: new ViewModel(),
+		const bc = new SeparatorController(this.controller.document, {
+			blade: new Blade(),
 		});
-		this.controller.uiContainer.add(uc, params.index);
-		return new SeparatorApi(uc);
+		this.controller.bladeRack.add(bc, params.index);
+		return new SeparatorApi(bc);
 	}
 
 	public on<EventName extends keyof FolderApiEventHandlers>(
@@ -125,7 +125,7 @@ export class FolderApi implements ComponentApi {
 			folder: this.controller.folder,
 			// TODO: Type-safe
 			handler: forceCast(handler.bind(this)),
-			uiContainer: this.controller.uiContainer,
+			bladeRack: this.controller.bladeRack,
 		});
 		return this;
 	}

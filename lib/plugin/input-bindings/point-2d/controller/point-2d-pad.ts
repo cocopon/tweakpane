@@ -1,16 +1,15 @@
-import {
-	getHorizontalStepKeys,
-	getStepForKey,
-	getVerticalStepKeys,
-	isArrowKey,
-} from '../../../common/controller/ui';
 import {ValueController} from '../../../common/controller/value';
 import {findNextTarget, supportsTouch} from '../../../common/dom-util';
 import {Foldable} from '../../../common/model/foldable';
 import {Point2d} from '../../../common/model/point-2d';
 import {Value} from '../../../common/model/value';
-import {ViewModel} from '../../../common/model/view-model';
 import {mapRange} from '../../../common/number-util';
+import {
+	getHorizontalStepKeys,
+	getStepForKey,
+	getVerticalStepKeys,
+	isArrowKey,
+} from '../../../common/ui';
 import {
 	PointerData,
 	PointerHandler,
@@ -22,7 +21,6 @@ interface Config {
 	invertsY: boolean;
 	maxValue: number;
 	value: Value<Point2d>;
-	viewModel: ViewModel;
 	xBaseStep: number;
 	yBaseStep: number;
 }
@@ -31,7 +29,6 @@ interface Config {
  * @hidden
  */
 export class Point2dPadController implements ValueController<Point2d> {
-	public readonly viewModel: ViewModel;
 	public readonly foldable: Foldable;
 	public readonly value: Value<Point2d>;
 	public readonly view: Point2dPadView;
@@ -42,7 +39,7 @@ export class Point2dPadController implements ValueController<Point2d> {
 	private readonly xBaseStep_: number;
 	private readonly yBaseStep_: number;
 
-	constructor(document: Document, config: Config) {
+	constructor(doc: Document, config: Config) {
 		this.onFocusableElementBlur_ = this.onFocusableElementBlur_.bind(this);
 		this.onKeyDown_ = this.onKeyDown_.bind(this);
 		this.onPadKeyDown_ = this.onPadKeyDown_.bind(this);
@@ -59,16 +56,14 @@ export class Point2dPadController implements ValueController<Point2d> {
 		this.xBaseStep_ = config.xBaseStep;
 		this.yBaseStep_ = config.yBaseStep;
 
-		this.viewModel = config.viewModel;
-		this.view = new Point2dPadView(document, {
+		this.view = new Point2dPadView(doc, {
 			foldable: this.foldable,
 			invertsY: this.invertsY_,
 			maxValue: this.maxValue_,
-			model: this.viewModel,
 			value: this.value,
 		});
 
-		this.ptHandler_ = new PointerHandler(document, this.view.padElement);
+		this.ptHandler_ = new PointerHandler(doc, this.view.padElement);
 		this.ptHandler_.emitter.on('down', this.onPointerDown_);
 		this.ptHandler_.emitter.on('move', this.onPointerMove_);
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);

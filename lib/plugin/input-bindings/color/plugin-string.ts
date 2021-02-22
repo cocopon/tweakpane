@@ -1,5 +1,4 @@
 import {Color} from '../../common/model/color';
-import {ViewModel} from '../../common/model/view-model';
 import {PaneError} from '../../common/pane-error';
 import {
 	colorFromString,
@@ -51,7 +50,6 @@ export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
 			parser: CompositeColorParser,
 			supportsAlpha: hasAlphaComponent(notation),
 			value: args.binding.value,
-			viewModel: new ViewModel(),
 		});
 	},
 };

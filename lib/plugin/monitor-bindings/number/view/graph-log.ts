@@ -1,15 +1,12 @@
-import {disposeElement} from '../../../common/disposing-util';
 import {SVG_NS} from '../../../common/dom-util';
 import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
 import {GraphCursor} from '../../../common/model/graph-cursor';
 import {mapRange} from '../../../common/number-util';
-import {PaneError} from '../../../common/pane-error';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
-import {View, ViewConfig} from '../../../common/view/view';
 import {Formatter} from '../../../common/writer/formatter';
 
-interface Config extends ViewConfig {
+interface Config {
 	cursor: GraphCursor;
 	formatter: Formatter<number>;
 	lineCount: number;
@@ -23,22 +20,22 @@ const className = ClassName('grl');
 /**
  * @hidden
  */
-export class GraphLogView extends View implements ValueView<Buffer<number>> {
+export class GraphLogView implements ValueView<Buffer<number>> {
+	public readonly element: HTMLElement;
 	public readonly value: BufferedValue<number>;
 	private cursor_: GraphCursor;
 	private formatter_: Formatter<number>;
-	private lineElem_: Element | null;
+	private lineElem_: Element;
 	private maxValue_: number;
 	private minValue_: number;
-	private svgElem_: Element | null;
-	private tooltipElem_: HTMLElement | null;
+	private svgElem_: Element;
+	private tooltipElem_: HTMLElement;
 
-	constructor(document: Document, config: Config) {
-		super(document, config);
-
+	constructor(doc: Document, config: Config) {
 		this.onCursorChange_ = this.onCursorChange_.bind(this);
 		this.onValueUpdate_ = this.onValueUpdate_.bind(this);
 
+		this.element = doc.createElement('div');
 		this.element.classList.add(className());
 
 		this.formatter_ = config.formatter;
@@ -48,17 +45,17 @@ export class GraphLogView extends View implements ValueView<Buffer<number>> {
 		this.cursor_ = config.cursor;
 		this.cursor_.emitter.on('change', this.onCursorChange_);
 
-		const svgElem = document.createElementNS(SVG_NS, 'svg');
+		const svgElem = doc.createElementNS(SVG_NS, 'svg');
 		svgElem.classList.add(className('g'));
 		svgElem.style.height = `calc(var(--unit-size) * ${config.lineCount})`;
 		this.element.appendChild(svgElem);
 		this.svgElem_ = svgElem;
 
-		const lineElem = document.createElementNS(SVG_NS, 'polyline');
+		const lineElem = doc.createElementNS(SVG_NS, 'polyline');
 		this.svgElem_.appendChild(lineElem);
 		this.lineElem_ = lineElem;
 
-		const tooltipElem = document.createElement('div');
+		const tooltipElem = doc.createElement('div');
 		tooltipElem.classList.add(className('t'));
 		this.element.appendChild(tooltipElem);
 		this.tooltipElem_ = tooltipElem;
@@ -67,27 +64,13 @@ export class GraphLogView extends View implements ValueView<Buffer<number>> {
 		this.value = config.value;
 
 		this.update();
-
-		config.model.emitter.on('dispose', () => {
-			this.lineElem_ = disposeElement(this.lineElem_);
-			this.svgElem_ = disposeElement(this.svgElem_);
-			this.tooltipElem_ = disposeElement(this.tooltipElem_);
-		});
 	}
 
 	get graphElement(): Element {
-		if (!this.svgElem_) {
-			throw PaneError.alreadyDisposed();
-		}
 		return this.svgElem_;
 	}
 
 	public update(): void {
-		const tooltipElem = this.tooltipElem_;
-		if (!this.lineElem_ || !this.svgElem_ || !tooltipElem) {
-			throw PaneError.alreadyDisposed();
-		}
-
 		const bounds = this.svgElem_.getBoundingClientRect();
 
 		// Graph
@@ -106,6 +89,7 @@ export class GraphLogView extends View implements ValueView<Buffer<number>> {
 		this.lineElem_.setAttributeNS(null, 'points', points.join(' '));
 
 		// Cursor
+		const tooltipElem = this.tooltipElem_;
 		const value = this.value.rawValue[this.cursor_.index];
 		if (value === undefined) {
 			tooltipElem.classList.remove(className('t', 'valid'));

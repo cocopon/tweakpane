@@ -1,12 +1,9 @@
-import {disposeElement} from '../../../common/disposing-util';
 import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
-import {PaneError} from '../../../common/pane-error';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
-import {View, ViewConfig} from '../../../common/view/view';
 import {Formatter} from '../../../common/writer/formatter';
 
-interface Config<T> extends ViewConfig {
+interface Config<T> {
 	formatter: Formatter<T>;
 	lineCount: number;
 	value: BufferedValue<T>;
@@ -17,21 +14,21 @@ const className = ClassName('mll');
 /**
  * @hidden
  */
-export class MultiLogView<T> extends View implements ValueView<Buffer<T>> {
+export class MultiLogView<T> implements ValueView<Buffer<T>> {
+	public readonly element: HTMLElement;
 	public readonly value: BufferedValue<T>;
 	private formatter_: Formatter<T>;
-	private textareaElem_: HTMLTextAreaElement | null;
+	private textareaElem_: HTMLTextAreaElement;
 
-	constructor(document: Document, config: Config<T>) {
-		super(document, config);
-
+	constructor(doc: Document, config: Config<T>) {
 		this.onValueUpdate_ = this.onValueUpdate_.bind(this);
 
 		this.formatter_ = config.formatter;
 
+		this.element = doc.createElement('div');
 		this.element.classList.add(className());
 
-		const textareaElem = document.createElement('textarea');
+		const textareaElem = doc.createElement('textarea');
 		textareaElem.classList.add(className('i'));
 		textareaElem.style.height = `calc(var(--unit-size) * ${config.lineCount})`;
 		textareaElem.readOnly = true;
@@ -42,18 +39,10 @@ export class MultiLogView<T> extends View implements ValueView<Buffer<T>> {
 		this.value = config.value;
 
 		this.update();
-
-		config.model.emitter.on('dispose', () => {
-			this.textareaElem_ = disposeElement(this.textareaElem_);
-		});
 	}
 
 	public update(): void {
 		const elem = this.textareaElem_;
-		if (!elem) {
-			throw PaneError.alreadyDisposed();
-		}
-
 		const shouldScroll =
 			elem.scrollTop === elem.scrollHeight - elem.clientHeight;
 

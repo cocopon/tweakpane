@@ -1,34 +1,31 @@
 import {forceCast, isEmpty} from '../../../../misc/type-util';
-import {
-	getBaseStepForColor,
-	getStepForKey,
-	getVerticalStepKeys,
-} from '../../../common/controller/ui';
 import {ValueController} from '../../../common/controller/value';
 import {Color} from '../../../common/model/color';
 import {ColorComponents4, ColorMode} from '../../../common/model/color-model';
 import {PickedColor} from '../../../common/model/picked-color';
 import {Value} from '../../../common/model/value';
-import {ViewModel} from '../../../common/model/view-model';
 import {Parser} from '../../../common/reader/parser';
+import {
+	getBaseStepForColor,
+	getStepForKey,
+	getVerticalStepKeys,
+} from '../../../common/ui';
 import {ColorComponentTextsView} from '../view/color-component-texts';
 
 interface Config {
 	parser: Parser<string, number>;
 	pickedColor: PickedColor;
-	viewModel: ViewModel;
 }
 
 /**
  * @hidden
  */
 export class ColorComponentTextsController implements ValueController<Color> {
-	public readonly viewModel: ViewModel;
 	public readonly pickedColor: PickedColor;
 	public readonly view: ColorComponentTextsView;
 	private parser_: Parser<string, number>;
 
-	constructor(document: Document, config: Config) {
+	constructor(doc: Document, config: Config) {
 		this.onModeSelectChange_ = this.onModeSelectChange_.bind(this);
 		this.onInputChange_ = this.onInputChange_.bind(this);
 		this.onInputKeyDown_ = this.onInputKeyDown_.bind(this);
@@ -36,9 +33,7 @@ export class ColorComponentTextsController implements ValueController<Color> {
 		this.parser_ = config.parser;
 		this.pickedColor = config.pickedColor;
 
-		this.viewModel = config.viewModel;
-		this.view = new ColorComponentTextsView(document, {
-			model: this.viewModel,
+		this.view = new ColorComponentTextsView(doc, {
 			pickedColor: this.pickedColor,
 		});
 		this.view.inputElements.forEach((inputElem) => {

@@ -1,61 +1,47 @@
-import {disposeElement} from '../../../common/disposing-util';
 import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
 import {mapRange} from '../../../common/number-util';
-import {PaneError} from '../../../common/pane-error';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
-import {View, ViewConfig} from '../../../common/view/view';
 import {colorToFunctionalRgbString} from '../../../common/writer/color';
 
 const className = ClassName('hpl');
 
-interface Config extends ViewConfig {
+interface Config {
 	value: Value<Color>;
 }
 
 /**
  * @hidden
  */
-export class HPaletteView extends View implements ValueView<Color> {
+export class HPaletteView implements ValueView<Color> {
+	public readonly element: HTMLElement;
 	public readonly value: Value<Color>;
-	private colorElem_: HTMLDivElement | null;
-	private markerElem_: HTMLDivElement | null;
+	private markerElem_: HTMLDivElement;
 
-	constructor(document: Document, config: Config) {
-		super(document, config);
-
+	constructor(doc: Document, config: Config) {
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
 		this.value = config.value;
 		this.value.emitter.on('change', this.onValueChange_);
 
+		this.element = doc.createElement('div');
 		this.element.classList.add(className());
 		this.element.tabIndex = 0;
 
-		const colorElem = document.createElement('div');
+		const colorElem = doc.createElement('div');
 		colorElem.classList.add(className('c'));
 		this.element.appendChild(colorElem);
-		this.colorElem_ = colorElem;
 
-		const markerElem = document.createElement('div');
+		const markerElem = doc.createElement('div');
 		markerElem.classList.add(className('m'));
 		this.element.appendChild(markerElem);
 		this.markerElem_ = markerElem;
 
 		this.update();
-
-		config.model.emitter.on('dispose', () => {
-			this.colorElem_ = disposeElement(this.colorElem_);
-			this.markerElem_ = disposeElement(this.markerElem_);
-		});
 	}
 
 	public update(): void {
-		if (!this.markerElem_) {
-			throw PaneError.alreadyDisposed();
-		}
-
 		const c = this.value.rawValue;
 		const [h] = c.getComponents('hsv');
 		this.markerElem_.style.backgroundColor = colorToFunctionalRgbString(

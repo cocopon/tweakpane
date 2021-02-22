@@ -44,14 +44,14 @@ export class PointerHandler {
 	public readonly element: HTMLElement;
 	private pressed_: boolean;
 
-	constructor(document: Document, element: HTMLElement) {
+	constructor(doc: Document, element: HTMLElement) {
 		this.onDocumentMouseMove_ = this.onDocumentMouseMove_.bind(this);
 		this.onDocumentMouseUp_ = this.onDocumentMouseUp_.bind(this);
 		this.onMouseDown_ = this.onMouseDown_.bind(this);
 		this.onTouchMove_ = this.onTouchMove_.bind(this);
 		this.onTouchStart_ = this.onTouchStart_.bind(this);
 
-		this.document = document;
+		this.document = doc;
 		this.element = element;
 		this.emitter = new Emitter();
 		this.pressed_ = false;

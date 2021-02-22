@@ -1,11 +1,10 @@
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
-import {View, ViewConfig} from '../../../common/view/view';
 import {TextView} from '../../common/view/text';
 import {SliderView} from './slider';
 
-interface Config extends ViewConfig {
+interface Config {
 	sliderView: SliderView;
 	textView: TextView<number>;
 }
@@ -15,22 +14,22 @@ const className = ClassName('sldtxt');
 /**
  * @hidden
  */
-export class SliderTextView extends View implements ValueView<number> {
+export class SliderTextView implements ValueView<number> {
+	public readonly element: HTMLElement;
 	private sliderView_: SliderView;
 	private textView_: TextView<number>;
 
-	constructor(document: Document, config: Config) {
-		super(document, config);
-
+	constructor(doc: Document, config: Config) {
+		this.element = doc.createElement('div');
 		this.element.classList.add(className());
 
-		const sliderElem = document.createElement('div');
+		const sliderElem = doc.createElement('div');
 		sliderElem.classList.add(className('s'));
 		this.sliderView_ = config.sliderView;
 		sliderElem.appendChild(this.sliderView_.element);
 		this.element.appendChild(sliderElem);
 
-		const textElem = document.createElement('div');
+		const textElem = doc.createElement('div');
 		textElem.classList.add(className('t'));
 		this.textView_ = config.textView;
 		textElem.appendChild(this.textView_.element);
