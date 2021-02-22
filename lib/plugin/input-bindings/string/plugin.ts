@@ -50,7 +50,7 @@ function createController(doc: Document, value: Value<string>) {
  */
 export const StringInputPlugin: InputBindingPlugin<string, string> = {
 	id: 'input-string',
-	model: {
+	binding: {
 		accept: (value, _params) => (typeof value === 'string' ? value : null),
 		constraint: (args) => createConstraint(args.params),
 		reader: (_args) => stringFromUnknown,

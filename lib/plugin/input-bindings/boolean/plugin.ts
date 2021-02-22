@@ -48,7 +48,7 @@ function createController(doc: Document, value: Value<boolean>) {
  */
 export const BooleanInputPlugin: InputBindingPlugin<boolean, boolean> = {
 	id: 'input-bool',
-	model: {
+	binding: {
 		accept: (value) => (typeof value === 'boolean' ? value : null),
 		constraint: (args) => createConstraint(args.params),
 		reader: (_args) => boolFromUnknown,

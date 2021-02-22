@@ -61,7 +61,7 @@ function shouldShowGraph(params: MonitorParams): boolean {
  */
 export const NumberMonitorPlugin: MonitorBindingPlugin<number> = {
 	id: 'monitor-number',
-	model: {
+	binding: {
 		accept: (value, _params) => (typeof value === 'number' ? value : null),
 		defaultBufferSize: (params) => (shouldShowGraph(params) ? 64 : 1),
 		reader: (_args) => numberFromUnknown,

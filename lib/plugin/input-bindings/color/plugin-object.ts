@@ -17,7 +17,7 @@ export const ObjectColorInputPlugin: InputBindingPlugin<
 	RgbColorObject | RgbaColorObject
 > = {
 	id: 'input-color-object',
-	model: {
+	binding: {
 		accept: (value, _params) => (Color.isColorObject(value) ? value : null),
 		reader: (_args) => colorFromObject,
 		writer: (_args) => Color.toRgbaObject,

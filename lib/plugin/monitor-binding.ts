@@ -12,7 +12,7 @@ import {Buffer} from './common/model/buffered-value';
 import {Target} from './common/model/target';
 import {BasePlugin} from './plugin';
 
-interface ValueArguments<T> {
+interface BindingArguments<T> {
 	initialValue: T;
 	params: MonitorParams;
 	target: Target;
@@ -25,11 +25,11 @@ interface ControllerArguments<T> {
 }
 
 export interface MonitorBindingPlugin<T> extends BasePlugin {
-	model: {
+	binding: {
 		// Accept unknown value as T, or deny it
 		accept: (value: unknown, params: MonitorParams) => T | null;
 		// Convert bound value into T
-		reader: (args: ValueArguments<T>) => (value: unknown) => T;
+		reader: (args: BindingArguments<T>) => (value: unknown) => T;
 		// Misc
 		defaultBufferSize?: (params: MonitorParams) => number;
 	};
@@ -56,7 +56,7 @@ export function createController<T>(
 		target: Target;
 	},
 ): MonitorBindingController<T> | null {
-	const initialValue = plugin.model.accept(args.target.read(), args.params);
+	const initialValue = plugin.binding.accept(args.target.read(), args.params);
 	if (initialValue === null) {
 		return null;
 	}
@@ -67,12 +67,12 @@ export function createController<T>(
 		params: args.params,
 	};
 
-	const reader = plugin.model.reader(valueArgs);
+	const reader = plugin.binding.reader(valueArgs);
 	const bufferSize =
 		args.params.bufferSize ??
 		args.params.count ??
-		(plugin.model.defaultBufferSize &&
-			plugin.model.defaultBufferSize(args.params)) ??
+		(plugin.binding.defaultBufferSize &&
+			plugin.binding.defaultBufferSize(args.params)) ??
 		1;
 	const binding = new MonitorBinding({
 		reader: reader,
