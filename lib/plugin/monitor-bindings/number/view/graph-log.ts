@@ -1,10 +1,10 @@
+import {Formatter} from '../../../common/converter/formatter';
 import {SVG_NS} from '../../../common/dom-util';
 import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
 import {GraphCursor} from '../../../common/model/graph-cursor';
 import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
-import {Formatter} from '../../../common/writer/formatter';
 
 interface Config {
 	cursor: GraphCursor;
@@ -101,7 +101,7 @@ export class GraphLogView implements ValueView<Buffer<number>> {
 		const ty = mapRange(value, min, max, bounds.height, 0);
 		tooltipElem.style.left = `${tx}px`;
 		tooltipElem.style.top = `${ty}px`;
-		tooltipElem.textContent = `${this.formatter_.format(value)}`;
+		tooltipElem.textContent = `${this.formatter_(value)}`;
 	}
 
 	private onValueUpdate_(): void {

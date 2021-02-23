@@ -1,7 +1,7 @@
+import {Formatter} from '../../../common/converter/formatter';
 import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
-import {Formatter} from '../../../common/writer/formatter';
 
 interface Config<T> {
 	formatter: Formatter<T>;
@@ -44,7 +44,7 @@ export class SingleLogView<T> implements ValueView<Buffer<T>> {
 		const values = this.value.rawValue;
 		const lastValue = values[values.length - 1];
 		this.inputElem_.value =
-			lastValue !== undefined ? this.formatter_.format(lastValue) : '';
+			lastValue !== undefined ? this.formatter_(lastValue) : '';
 	}
 
 	private onValueUpdate_(): void {

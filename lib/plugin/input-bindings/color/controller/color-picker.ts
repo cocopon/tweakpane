@@ -1,14 +1,16 @@
 import {ValueController} from '../../../common/controller/value';
+import {
+	createNumberFormatter,
+	parseNumber,
+} from '../../../common/converter/number';
 import {findNextTarget, supportsTouch} from '../../../common/dom-util';
-import {Color} from '../../../common/model/color';
 import {Foldable} from '../../../common/model/foldable';
-import {PickedColor} from '../../../common/model/picked-color';
 import {Value} from '../../../common/model/value';
 import {connect} from '../../../common/model/value-sync';
-import {StringNumberParser} from '../../../common/reader/string-number';
-import {NumberFormatter} from '../../../common/writer/number';
 import {TextController} from '../../common/controller/text';
 import {NumberTextController} from '../../number/controller/number-text';
+import {PickedColor} from '..//model/picked-color';
+import {Color} from '../model/color';
 import {ColorPickerView} from '../view/color-picker';
 import {APaletteController} from './a-palette';
 import {ColorComponentTextsController} from './color-component-texts';
@@ -55,8 +57,8 @@ export class ColorPickerController implements ValueController<Color> {
 						value: this.pickedColor.value,
 					}),
 					text: new NumberTextController(doc, {
-						formatter: new NumberFormatter(2),
-						parser: StringNumberParser,
+						formatter: createNumberFormatter(2),
+						parser: parseNumber,
 						baseStep: 0.1,
 						value: new Value(0),
 					}),
@@ -77,7 +79,7 @@ export class ColorPickerController implements ValueController<Color> {
 			});
 		}
 		this.compTextsIc_ = new ColorComponentTextsController(doc, {
-			parser: StringNumberParser,
+			parser: parseNumber,
 			pickedColor: this.pickedColor,
 		});
 

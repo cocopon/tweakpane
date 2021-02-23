@@ -1,7 +1,7 @@
+import {Formatter} from '../../../common/converter/formatter';
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
-import {Formatter} from '../../../common/writer/formatter';
 import {Point2d} from '../model/point-2d';
 
 interface Config {
@@ -57,7 +57,7 @@ export class Point2dTextView implements ValueView<Point2d> {
 		const xyComps = this.value.rawValue.getComponents();
 		xyComps.forEach((comp, index) => {
 			const inputElem = this.inputElems_[index];
-			inputElem.value = this.formatters_[index].format(comp);
+			inputElem.value = this.formatters_[index](comp);
 		});
 	}
 

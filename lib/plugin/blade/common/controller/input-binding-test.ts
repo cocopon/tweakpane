@@ -3,11 +3,13 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
 import {InputBinding} from '../../../common/binding/input';
-import {Target} from '../../../common/model/target';
+import {BindingTarget} from '../../../common/binding/target';
+import {
+	createNumberFormatter,
+	parseNumber,
+} from '../../../common/converter/number';
+import {numberFromUnknown} from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
-import {numberFromUnknown} from '../../../common/reader/number';
-import {StringNumberParser} from '../../../common/reader/string-number';
-import {NumberFormatter} from '../../../common/writer/number';
 import {TextController} from '../../../input-bindings/common/controller/text';
 import {Blade} from '../model/blade';
 import {InputBindingController} from './input-binding';
@@ -21,13 +23,13 @@ describe(InputBindingController.name, () => {
 		const value = new Value(0);
 		const binding = new InputBinding({
 			reader: numberFromUnknown,
-			target: new Target(obj, 'foo'),
+			target: new BindingTarget(obj, 'foo'),
 			value: value,
 			writer: (v) => v,
 		});
 		const controller = new TextController(doc, {
-			formatter: new NumberFormatter(0),
-			parser: StringNumberParser,
+			formatter: createNumberFormatter(0),
+			parser: parseNumber,
 			value: value,
 		});
 		const bc = new InputBindingController(doc, {

@@ -1,19 +1,19 @@
 import {forceCast, isEmpty} from '../../../../misc/type-util';
 import {ValueController} from '../../../common/controller/value';
-import {Color} from '../../../common/model/color';
-import {ColorComponents4, ColorMode} from '../../../common/model/color-model';
-import {PickedColor} from '../../../common/model/picked-color';
+import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
-import {Parser} from '../../../common/reader/parser';
 import {
 	getBaseStepForColor,
 	getStepForKey,
 	getVerticalStepKeys,
 } from '../../../common/ui';
+import {Color} from '../model/color';
+import {ColorComponents4, ColorMode} from '../model/color-model';
+import {PickedColor} from '../model/picked-color';
 import {ColorComponentTextsView} from '../view/color-component-texts';
 
 interface Config {
-	parser: Parser<string, number>;
+	parser: Parser<number>;
 	pickedColor: PickedColor;
 }
 
@@ -23,7 +23,7 @@ interface Config {
 export class ColorComponentTextsController implements ValueController<Color> {
 	public readonly pickedColor: PickedColor;
 	public readonly view: ColorComponentTextsView;
-	private parser_: Parser<string, number>;
+	private parser_: Parser<number>;
 
 	constructor(doc: Document, config: Config) {
 		this.onModeSelectChange_ = this.onModeSelectChange_.bind(this);

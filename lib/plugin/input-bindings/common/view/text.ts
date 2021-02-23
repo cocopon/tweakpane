@@ -1,7 +1,7 @@
+import {Formatter} from '../../../common/converter/formatter';
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
-import {Formatter} from '../../../common/writer/formatter';
 
 interface Config<T> {
 	formatter: Formatter<T>;
@@ -40,7 +40,7 @@ export class TextView<T> implements ValueView<T> {
 	}
 
 	public update(): void {
-		this.inputElement.value = this.formatter_.format(this.value.rawValue);
+		this.inputElement.value = this.formatter_(this.value.rawValue);
 	}
 
 	private onValueChange_(): void {

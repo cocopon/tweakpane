@@ -3,8 +3,8 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
 import {ListConstraint} from '../../../common/constraint/list';
+import {numberToString} from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
-import {numberToString} from '../../../common/writer/number';
 import {findListItems} from '../../../util';
 import {ListController} from './list';
 

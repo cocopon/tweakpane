@@ -1,8 +1,8 @@
 import {forceCast} from '../../../../misc/type-util';
 import {ValueController} from '../../../common/controller/value';
-import {Color} from '../../../common/model/color';
-import {PickedColor} from '../../../common/model/picked-color';
 import {Value} from '../../../common/model/value';
+import {Color} from '../model/color';
+import {PickedColor} from '../model/picked-color';
 import {ColorSwatchView} from '../view/color-swatch';
 import {ColorPickerController} from './color-picker';
 

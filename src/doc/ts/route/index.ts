@@ -1,6 +1,8 @@
-import {Color} from '../../../../lib/plugin/common/model/color';
-import {colorFromString} from '../../../../lib/plugin/common/reader/string-color';
-import {colorToFunctionalRgbaString} from '../../../../lib/plugin/common/writer/color';
+import {
+	colorFromString,
+	colorToFunctionalRgbaString,
+} from '../../../../lib/plugin/input-bindings/color/converter/color-string';
+import {Color} from '../../../../lib/plugin/input-bindings/color/model/color';
 import {Sketch} from '../sketch';
 import {Environment} from '../sketch';
 import {selectContainer} from '../util';

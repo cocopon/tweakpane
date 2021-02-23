@@ -1,6 +1,6 @@
 import {ValueController} from '../../../common/controller/value';
+import {Formatter} from '../../../common/converter/formatter';
 import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
-import {Formatter} from '../../../common/writer/formatter';
 import {SingleLogView} from '../view/single-log';
 
 interface Config<T> {

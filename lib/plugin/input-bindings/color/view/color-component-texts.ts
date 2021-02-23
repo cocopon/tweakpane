@@ -1,9 +1,9 @@
-import {Color} from '../../../common/model/color';
-import {PickedColor} from '../../../common/model/picked-color';
+import {createNumberFormatter} from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
-import {NumberFormatter} from '../../../common/writer/number';
+import {Color} from '../model/color';
+import {PickedColor} from '../model/picked-color';
 
 interface Config {
 	pickedColor: PickedColor;
@@ -16,7 +16,7 @@ type HtmlInputElements3 = [
 ];
 
 const className = ClassName('cctxts');
-const FORMATTER = new NumberFormatter(0);
+const FORMATTER = createNumberFormatter(0);
 
 function createModeSelectElement(doc: Document): HTMLSelectElement {
 	const selectElem = doc.createElement('select');
@@ -109,7 +109,7 @@ export class ColorComponentTextsView implements ValueView<Color> {
 				return;
 			}
 
-			inputElem.value = FORMATTER.format(comp);
+			inputElem.value = FORMATTER(comp);
 		});
 	}
 

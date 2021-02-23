@@ -1,8 +1,8 @@
-import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
 import {TextView} from '../../common/view/text';
+import {Color} from '../model/color';
 import {ColorSwatchView} from './color-swatch';
 
 interface Config {

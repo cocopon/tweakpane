@@ -1,10 +1,10 @@
 import {getCanvasContext} from '../../../common/dom-util';
-import {Color} from '../../../common/model/color';
-import {hsvToRgb} from '../../../common/model/color-model';
 import {Value} from '../../../common/model/value';
 import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
+import {Color} from '../model/color';
+import {hsvToRgb} from '../model/color-model';
 
 const className = ClassName('svp');
 

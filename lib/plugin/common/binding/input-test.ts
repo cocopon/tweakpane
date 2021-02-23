@@ -1,17 +1,18 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {Target} from '../model/target';
+import {numberFromUnknown} from '../converter/number';
 import {Value} from '../model/value';
-import {numberFromUnknown} from '../reader/number';
+import {writePrimitive} from '../writer/primitive';
 import {InputBinding} from './input';
+import {BindingTarget} from './target';
 
 describe(InputBinding.name, () => {
 	it('should get value', () => {
 		const obj = {
 			foo: 123,
 		};
-		const target = new Target(obj, 'foo');
+		const target = new BindingTarget(obj, 'foo');
 		const value = new Value(0);
 		const b = new InputBinding({
 			reader: numberFromUnknown,
@@ -27,14 +28,14 @@ describe(InputBinding.name, () => {
 		const obj = {
 			foo: 123,
 		};
-		const target = new Target(obj, 'foo');
+		const target = new BindingTarget(obj, 'foo');
 		const value = new Value(0);
 		// tslint:disable-next-line:no-unused-expression
 		new InputBinding({
 			reader: numberFromUnknown,
 			target: target,
 			value: value,
-			writer: (v) => v,
+			writer: writePrimitive,
 		});
 
 		assert.strictEqual(
@@ -45,12 +46,12 @@ describe(InputBinding.name, () => {
 
 		value.rawValue = 456;
 
-		assert.strictEqual(obj.foo, 456, 'Binded value should be updated');
+		assert.strictEqual(obj.foo, 456, 'Bound value should be updated');
 	});
 
 	it('should not apply binding value to undefined field', () => {
 		const obj: {foo?: string} = {};
-		const target = new Target(obj, 'foo');
+		const target = new BindingTarget(obj, 'foo');
 		const value = new Value(0);
 		// tslint:disable-next-line:no-unused-expression
 		new InputBinding({

@@ -1,7 +1,7 @@
+import {Formatter} from '../../../common/converter/formatter';
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
-import {Formatter} from '../../../common/writer/formatter';
 import {Point3d} from '../model/point-3d';
 
 interface Config {
@@ -61,7 +61,7 @@ export class Point3dTextView implements ValueView<Point3d> {
 		const comps = this.value.rawValue.getComponents();
 		comps.forEach((comp, index) => {
 			const inputElem = this.inputElems_[index];
-			inputElem.value = this.formatters_[index].format(comp);
+			inputElem.value = this.formatters_[index](comp);
 		});
 	}
 

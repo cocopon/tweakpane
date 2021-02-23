@@ -5,20 +5,20 @@ import {TestUtil} from '../misc/test-util';
 import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
 import {Blade} from '../plugin/blade/common/model/blade';
 import {MonitorBinding} from '../plugin/common/binding/monitor';
+import {BindingTarget} from '../plugin/common/binding/target';
 import {ManualTicker} from '../plugin/common/binding/ticker/manual';
+import {createNumberFormatter} from '../plugin/common/converter/number';
+import {numberFromUnknown} from '../plugin/common/converter/number';
 import {Buffer} from '../plugin/common/model/buffered-value';
-import {Target} from '../plugin/common/model/target';
 import {Value} from '../plugin/common/model/value';
-import {numberFromUnknown} from '../plugin/common/reader/number';
-import {NumberFormatter} from '../plugin/common/writer/number';
 import {SingleLogMonitorController} from '../plugin/monitor-bindings/common/controller/single-log';
 import {MonitorBindingApi} from './monitor-binding';
 
-function createApi(target: Target) {
+function createApi(target: BindingTarget) {
 	const doc = TestUtil.createWindow().document;
 	const value = new Value([0] as Buffer<number>);
 	const mc = new SingleLogMonitorController(doc, {
-		formatter: new NumberFormatter(0),
+		formatter: createNumberFormatter(0),
 		value: value,
 	});
 	const bc = new MonitorBindingController(doc, {
@@ -40,7 +40,7 @@ describe(MonitorBindingApi.name, () => {
 		const PARAMS = {
 			foo: 0,
 		};
-		const api = createApi(new Target(PARAMS, 'foo'));
+		const api = createApi(new BindingTarget(PARAMS, 'foo'));
 		api.on('update', (value: unknown) => {
 			assert.strictEqual(value, 123);
 			done();
@@ -58,7 +58,7 @@ describe(MonitorBindingApi.name, () => {
 		const PARAMS = {
 			foo: 0,
 		};
-		const api = createApi(new Target(PARAMS, 'foo'));
+		const api = createApi(new BindingTarget(PARAMS, 'foo'));
 
 		PARAMS.foo = 123;
 		api.refresh();
@@ -70,7 +70,7 @@ describe(MonitorBindingApi.name, () => {
 		const PARAMS = {
 			foo: 0,
 		};
-		const api = createApi(new Target(PARAMS, 'foo'));
+		const api = createApi(new BindingTarget(PARAMS, 'foo'));
 		assert.strictEqual(api.hidden, false);
 
 		api.hidden = true;

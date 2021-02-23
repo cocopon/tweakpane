@@ -1,19 +1,17 @@
 import {InputParams} from '../../../api/types';
-import {Color} from '../../common/model/color';
-import {
-	colorFromNumberToRgb,
-	colorFromNumberToRgba,
-} from '../../common/reader/number-color';
-import {CompositeColorParser} from '../../common/reader/string-color';
-import {
-	ColorFormatter,
-	colorToHexRgbaString,
-	colorToHexRgbString,
-	colorToRgbaNumber,
-	colorToRgbNumber,
-} from '../../common/writer/color';
 import {InputBindingPlugin} from '../../input-binding';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
+import {
+	colorFromRgbaNumber,
+	colorFromRgbNumber,
+} from './converter/color-number';
+import {
+	colorToHexRgbaString,
+	colorToHexRgbString,
+	CompositeColorParser,
+} from './converter/color-string';
+import {Color} from './model/color';
+import {createColorNumberWriter} from './writer/color';
 
 function shouldSupportAlpha(inputParams: InputParams): boolean {
 	return 'input' in inputParams && inputParams.input === 'color.rgba';
@@ -45,21 +43,19 @@ export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
 		},
 		reader: (args) => {
 			return shouldSupportAlpha(args.params)
-				? colorFromNumberToRgba
-				: colorFromNumberToRgb;
+				? colorFromRgbaNumber
+				: colorFromRgbNumber;
 		},
 		writer: (args) => {
-			return shouldSupportAlpha(args.params)
-				? colorToRgbaNumber
-				: colorToRgbNumber;
+			return createColorNumberWriter(shouldSupportAlpha(args.params));
 		},
 		equals: Color.equals,
 	},
 	controller: (args) => {
 		const supportsAlpha = shouldSupportAlpha(args.params);
 		const formatter = supportsAlpha
-			? new ColorFormatter(colorToHexRgbaString)
-			: new ColorFormatter(colorToHexRgbString);
+			? colorToHexRgbaString
+			: colorToHexRgbString;
 		return new ColorSwatchTextController(args.document, {
 			formatter: formatter,
 			parser: CompositeColorParser,

@@ -1,5 +1,5 @@
-import {isEmpty} from '../../../misc/type-util';
-import {constrainRange, loopRange} from '../number-util';
+import {isEmpty} from '../../../../misc/type-util';
+import {constrainRange, loopRange} from '../../../common/number-util';
 import {
 	appendAlphaComponent,
 	ColorComponents3,

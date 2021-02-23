@@ -4,16 +4,19 @@ import {CompositeConstraint} from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
+import {
+	createNumberFormatter,
+	parseNumber,
+} from '../../common/converter/number';
 import {Value} from '../../common/model/value';
 import {PaneError} from '../../common/pane-error';
-import {StringNumberParser} from '../../common/reader/string-number';
-import {NumberFormatter} from '../../common/writer/number';
 import {InputBindingPlugin} from '../../input-binding';
 import {getBaseStep, getSuitableDecimalDigits} from '../../util';
 import {Point3dConstraint} from './constraint/point-3d';
 import {Point3dTextController} from './controller/point-3d-text';
 import {Point3d, Point3dObject} from './model/point-3d';
 import {point3dFromUnknown} from './reader/point-3d';
+import {writePoint3d} from './writer/point-3d';
 
 function createDimensionConstraint(
 	params: PointDimensionParams | undefined,
@@ -61,7 +64,7 @@ export function getAxis(
 ) {
 	return {
 		baseStep: getBaseStep(constraint),
-		formatter: new NumberFormatter(
+		formatter: createNumberFormatter(
 			getSuitableDecimalDigits(constraint, initialValue),
 		),
 	};
@@ -79,7 +82,7 @@ function createController(document: Document, value: Value<Point3d>) {
 			getAxis(value.rawValue.y, c.y),
 			getAxis(value.rawValue.z, c.z),
 		],
-		parser: StringNumberParser,
+		parser: parseNumber,
 		value: value,
 	});
 }
@@ -92,7 +95,7 @@ export const Point3dInputPlugin: InputBindingPlugin<Point3d, Point3dObject> = {
 	binding: {
 		accept: (value, _params) => (Point3d.isObject(value) ? value : null),
 		reader: (_args) => point3dFromUnknown,
-		writer: (_args) => (v) => v.toObject(),
+		writer: (_args) => writePoint3d,
 		constraint: (args) => createConstraint(args.params),
 		equals: Point3d.equals,
 	},

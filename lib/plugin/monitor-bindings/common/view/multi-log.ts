@@ -1,7 +1,7 @@
+import {Formatter} from '../../../common/converter/formatter';
 import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
-import {Formatter} from '../../../common/writer/formatter';
 
 interface Config<T> {
 	formatter: Formatter<T>;
@@ -48,7 +48,7 @@ export class MultiLogView<T> implements ValueView<Buffer<T>> {
 
 		elem.textContent = this.value.rawValue
 			.map((value) => {
-				return value !== undefined ? this.formatter_.format(value) : '';
+				return value !== undefined ? this.formatter_(value) : '';
 			})
 			.join('\n');
 

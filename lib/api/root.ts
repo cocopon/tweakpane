@@ -6,7 +6,7 @@ import {Blade} from '../plugin/blade/common/model/blade';
 import {FolderController} from '../plugin/blade/folder/controller';
 import {RootController} from '../plugin/blade/root/controller';
 import {SeparatorController} from '../plugin/blade/separator/controller';
-import {Target} from '../plugin/common/model/target';
+import {BindingTarget} from '../plugin/common/binding/target';
 import {InputBindingPlugin} from '../plugin/input-binding';
 import {MonitorBindingPlugin} from '../plugin/monitor-binding';
 import {ButtonApi} from './button';
@@ -114,7 +114,7 @@ export class RootApi implements ComponentApi {
 		const params = opt_params || {};
 		const bc = createInputBindingController(
 			this.controller.document,
-			new Target(object, key, params.presetKey),
+			new BindingTarget(object, key, params.presetKey),
 			params,
 		);
 		this.controller.bladeRack.add(bc, params.index);
@@ -129,7 +129,7 @@ export class RootApi implements ComponentApi {
 		const params = opt_params || {};
 		const bc = createMonitorBindingController(
 			this.controller.document,
-			new Target(object, key),
+			new BindingTarget(object, key),
 			params,
 		);
 		this.controller.bladeRack.add(bc, params.index);

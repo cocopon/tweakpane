@@ -3,19 +3,19 @@ import {Constants} from '../misc/constants';
 import {MonitorBindingController} from './blade/common/controller/monitor-binding';
 import {Blade} from './blade/common/model/blade';
 import {MonitorBinding} from './common/binding/monitor';
+import {BindingTarget} from './common/binding/target';
 import {IntervalTicker} from './common/binding/ticker/interval';
 import {ManualTicker} from './common/binding/ticker/manual';
 import {Ticker} from './common/binding/ticker/ticker';
 import {ValueController} from './common/controller/value';
 import {initializeBuffer} from './common/model/buffered-value';
 import {Buffer} from './common/model/buffered-value';
-import {Target} from './common/model/target';
 import {BasePlugin} from './plugin';
 
 interface BindingArguments<T> {
 	initialValue: T;
 	params: MonitorParams;
-	target: Target;
+	target: BindingTarget;
 }
 
 interface ControllerArguments<T> {
@@ -53,7 +53,7 @@ export function createController<T>(
 	args: {
 		document: Document;
 		params: MonitorParams;
-		target: Target;
+		target: BindingTarget;
 	},
 ): MonitorBindingController<T> | null {
 	const initialValue = plugin.binding.accept(args.target.read(), args.params);

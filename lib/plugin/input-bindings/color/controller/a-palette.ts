@@ -1,5 +1,4 @@
 import {ValueController} from '../../../common/controller/value';
-import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
 import {
 	getBaseStepForColor,
@@ -11,6 +10,7 @@ import {
 	PointerHandler,
 	PointerHandlerEvents,
 } from '../../../common/view/pointer-handler';
+import {Color} from '../model/color';
 import {APaletteView} from '../view/a-palette';
 
 interface Config {

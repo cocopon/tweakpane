@@ -27,7 +27,7 @@ export interface BladeRackEvents {
 	};
 
 	inputchange: {
-		inputBinding: InputBinding<unknown, unknown>;
+		inputBinding: InputBinding<unknown>;
 		sender: BladeRack;
 		value: unknown;
 	};
@@ -147,9 +147,7 @@ export class BladeRack {
 		});
 	}
 
-	private onItemInputChange_(
-		ev: InputBindingEvents<unknown, unknown>['change'],
-	): void {
+	private onItemInputChange_(ev: InputBindingEvents<unknown>['change']): void {
 		this.emitter.emit('inputchange', {
 			inputBinding: ev.sender,
 			sender: this,

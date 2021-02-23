@@ -2,9 +2,11 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
+import {
+	createNumberFormatter,
+	parseNumber,
+} from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
-import {StringNumberParser} from '../../../common/reader/string-number';
-import {NumberFormatter} from '../../../common/writer/number';
 import {NumberTextController} from './number-text';
 
 describe(NumberTextController.name, () => {
@@ -13,8 +15,8 @@ describe(NumberTextController.name, () => {
 		const doc = win.document;
 		const c = new NumberTextController(doc, {
 			baseStep: 1,
-			formatter: new NumberFormatter(0),
-			parser: StringNumberParser,
+			formatter: createNumberFormatter(0),
+			parser: parseNumber,
 			value: new Value(123),
 		});
 

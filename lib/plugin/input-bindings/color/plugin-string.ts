@@ -1,14 +1,15 @@
-import {Color} from '../../common/model/color';
 import {PaneError} from '../../common/pane-error';
+import {InputBindingPlugin} from '../../input-binding';
+import {ColorSwatchTextController} from './controller/color-swatch-text';
 import {
 	colorFromString,
 	CompositeColorParser,
 	getColorNotation,
+	getColorStringifier,
 	hasAlphaComponent,
-} from '../../common/reader/string-color';
-import {ColorFormatter, getColorStringifier} from '../../common/writer/color';
-import {InputBindingPlugin} from '../../input-binding';
-import {ColorSwatchTextController} from './controller/color-swatch-text';
+} from './converter/color-string';
+import {Color} from './model/color';
+import {createColorStringWriter} from './writer/color';
 
 /**
  * @hidden
@@ -35,7 +36,7 @@ export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
 			if (!notation) {
 				throw PaneError.shouldNeverHappen();
 			}
-			return getColorStringifier(notation);
+			return createColorStringWriter(notation);
 		},
 		equals: Color.equals,
 	},
@@ -45,8 +46,9 @@ export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
 			throw PaneError.shouldNeverHappen();
 		}
 
+		const stringifier = getColorStringifier(notation);
 		return new ColorSwatchTextController(args.document, {
-			formatter: new ColorFormatter(args.binding.writer),
+			formatter: stringifier,
 			parser: CompositeColorParser,
 			supportsAlpha: hasAlphaComponent(notation),
 			value: args.binding.value,

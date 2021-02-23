@@ -6,8 +6,8 @@ import {InputParams} from '../api/types';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
 import {ValueController} from '../plugin/common/controller/value';
-import {Color} from '../plugin/common/model/color';
 import {ColorSwatchTextController} from '../plugin/input-bindings/color/controller/color-swatch-text';
+import {Color} from '../plugin/input-bindings/color/model/color';
 import {ColorSwatchTextView} from '../plugin/input-bindings/color/view/color-swatch-text';
 
 function createPane(win: Window): Tweakpane {

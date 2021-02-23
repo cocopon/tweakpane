@@ -1,9 +1,14 @@
 import {assert} from 'chai';
-import {describe as context, describe, it} from 'mocha';
+import {describe, it} from 'mocha';
 
-import {boolFromUnknown} from './boolean';
+import {boolFromUnknown, boolToString} from './boolean';
 
-describe('BooleanConverter', () => {
+describe('booleanConverter', () => {
+	it('should convert boolean to string', () => {
+		assert.strictEqual(boolToString(true), 'true');
+		assert.strictEqual(boolToString(false), 'false');
+	});
+
 	[
 		{
 			arg: true,

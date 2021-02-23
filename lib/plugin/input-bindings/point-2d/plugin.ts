@@ -7,16 +7,19 @@ import {
 import {Constraint} from '../../common/constraint/constraint';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
+import {
+	createNumberFormatter,
+	parseNumber,
+} from '../../common/converter/number';
 import {Value} from '../../common/model/value';
 import {PaneError} from '../../common/pane-error';
-import {StringNumberParser} from '../../common/reader/string-number';
-import {NumberFormatter} from '../../common/writer/number';
 import {InputBindingPlugin} from '../../input-binding';
 import {getBaseStep, getSuitableDecimalDigits} from '../../util';
 import {Point2dConstraint} from './constraint/point-2d';
 import {Point2dPadTextController} from './controller/point-2d-pad-text';
 import {Point2d, Point2dObject} from './model/point-2d';
 import {point2dFromUnknown} from './reader/point-2d';
+import {writePoint2d} from './writer/point-2d';
 
 function createDimensionConstraint(
 	params: PointDimensionParams | undefined,
@@ -95,20 +98,20 @@ function createController(
 		axes: [
 			{
 				baseStep: getBaseStep(c.x),
-				formatter: new NumberFormatter(
+				formatter: createNumberFormatter(
 					getSuitableDecimalDigits(c.x, value.rawValue.x),
 				),
 			},
 			{
 				baseStep: getBaseStep(c.y),
-				formatter: new NumberFormatter(
+				formatter: createNumberFormatter(
 					getSuitableDecimalDigits(c.y, value.rawValue.y),
 				),
 			},
 		],
 		invertsY: invertsY,
 		maxValue: getSuitableMaxValue(value.rawValue, value.constraint),
-		parser: StringNumberParser,
+		parser: parseNumber,
 		value: value,
 	});
 }
@@ -134,7 +137,7 @@ export const Point2dInputPlugin: InputBindingPlugin<Point2d, Point2dObject> = {
 	binding: {
 		accept: (value, _params) => (Point2d.isObject(value) ? value : null),
 		reader: (_args) => point2dFromUnknown,
-		writer: (_args) => (v) => v.toObject(),
+		writer: (_args) => writePoint2d,
 		constraint: (args) => createConstraint(args.params),
 		equals: Point2d.equals,
 	},

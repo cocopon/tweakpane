@@ -1,9 +1,9 @@
 import {forceCast, isEmpty} from '../../../../misc/type-util';
 import {ValueController} from '../../../common/controller/value';
+import {Formatter} from '../../../common/converter/formatter';
+import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
-import {Parser} from '../../../common/reader/parser';
 import {getStepForKey, getVerticalStepKeys} from '../../../common/ui';
-import {Formatter} from '../../../common/writer/formatter';
 import {Point2d} from '../model/point-2d';
 import {Point2dTextView} from '../view/point-2d-text';
 
@@ -14,7 +14,7 @@ interface Axis {
 
 interface Config {
 	axes: [Axis, Axis];
-	parser: Parser<string, number>;
+	parser: Parser<number>;
 	value: Value<Point2d>;
 }
 
@@ -24,7 +24,7 @@ interface Config {
 export class Point2dTextController implements ValueController<Point2d> {
 	public readonly value: Value<Point2d>;
 	public readonly view: Point2dTextView;
-	private readonly parser_: Parser<string, number>;
+	private readonly parser_: Parser<number>;
 	private readonly baseSteps_: [number, number];
 
 	constructor(doc: Document, config: Config) {

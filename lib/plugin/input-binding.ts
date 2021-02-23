@@ -1,21 +1,21 @@
 import {InputParams} from '../api/types';
 import {InputBindingController} from './blade/common/controller/input-binding';
 import {Blade} from './blade/common/model/blade';
-import {InputBinding} from './common/binding/input';
+import {BindingWriter, InputBinding} from './common/binding/input';
+import {BindingTarget} from './common/binding/target';
 import {Constraint} from './common/constraint/constraint';
 import {ValueController} from './common/controller/value';
-import {Target} from './common/model/target';
 import {Value} from './common/model/value';
 import {BasePlugin} from './plugin';
 
 interface BindingArguments<Ex> {
 	initialValue: Ex;
 	params: InputParams;
-	target: Target;
+	target: BindingTarget;
 }
 
 interface ControllerArguments<In, Ex> {
-	binding: InputBinding<In, Ex>;
+	binding: InputBinding<In>;
 	initialValue: Ex;
 	params: InputParams;
 
@@ -34,7 +34,7 @@ export interface InputBindingPlugin<In, Ex> extends BasePlugin {
 		equals?: (v1: In, v2: In) => boolean;
 
 		// Convert In into Ex
-		writer: (args: BindingArguments<Ex>) => (value: In) => Ex;
+		writer: (args: BindingArguments<Ex>) => BindingWriter<In>;
 	};
 	controller: (args: ControllerArguments<In, Ex>) => ValueController<In>;
 }
@@ -44,9 +44,9 @@ export function createController<In, Ex>(
 	args: {
 		document: Document;
 		params: InputParams;
-		target: Target;
+		target: BindingTarget;
 	},
-): InputBindingController<In, Ex> | null {
+): InputBindingController<In> | null {
 	const initialValue = plugin.binding.accept(args.target.read(), args.params);
 	if (initialValue === null) {
 		return null;

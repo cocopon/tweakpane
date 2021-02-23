@@ -8,10 +8,14 @@ import {Constraint} from '../../common/constraint/constraint';
 import {ListConstraint} from '../../common/constraint/list';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
+import {
+	createNumberFormatter,
+	numberToString,
+	parseNumber,
+} from '../../common/converter/number';
+import {numberFromUnknown} from '../../common/converter/number';
 import {Value} from '../../common/model/value';
-import {numberFromUnknown} from '../../common/reader/number';
-import {StringNumberParser} from '../../common/reader/string-number';
-import {NumberFormatter, numberToString} from '../../common/writer/number';
+import {writePrimitive} from '../../common/writer/primitive';
 import {InputBindingPlugin} from '../../input-binding';
 import {
 	findListItems,
@@ -73,20 +77,20 @@ function createController(doc: Document, value: Value<number>) {
 	if (c && findConstraint(c, RangeConstraint)) {
 		return new SliderTextController(doc, {
 			baseStep: getBaseStep(c),
-			formatter: new NumberFormatter(
+			formatter: createNumberFormatter(
 				getSuitableDecimalDigits(value.constraint, value.rawValue),
 			),
-			parser: StringNumberParser,
+			parser: parseNumber,
 			value: value,
 		});
 	}
 
 	return new NumberTextController(doc, {
 		baseStep: getBaseStep(c),
-		formatter: new NumberFormatter(
+		formatter: createNumberFormatter(
 			getSuitableDecimalDigits(value.constraint, value.rawValue),
 		),
-		parser: StringNumberParser,
+		parser: parseNumber,
 		value: value,
 	});
 }
@@ -100,7 +104,7 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 		accept: (value) => (typeof value === 'number' ? value : null),
 		constraint: (args) => createConstraint(args.params),
 		reader: (_args) => numberFromUnknown,
-		writer: (_args) => (v: number) => v,
+		writer: (_args) => writePrimitive,
 	},
 	controller: (args) => {
 		return createController(args.document, args.binding.value);

@@ -1,7 +1,13 @@
+import {createNumberFormatter} from '../../../common/converter/number';
+import {Parser} from '../../../common/converter/parser';
+import {formatPercentage} from '../../../common/converter/percentage';
+import {constrainRange, mapRange} from '../../../common/number-util';
 import {Color} from '../model/color';
-import {ColorComponents3, ColorComponents4} from '../model/color-model';
-import {mapRange} from '../number-util';
-import {Parser} from './parser';
+import {
+	ColorComponents3,
+	ColorComponents4,
+	removeAlphaComponent,
+} from '../model/color-model';
 
 export type StringColorNotation =
 	| 'hex.rgb'
@@ -40,7 +46,7 @@ function parseCssNumberOrAngle(text: string): number {
 }
 
 const NOTATION_TO_PARSER_MAP: {
-	[notation in StringColorNotation]: Parser<string, Color>;
+	[notation in StringColorNotation]: Parser<Color>;
 } = {
 	'func.rgb': (text) => {
 		const m = text.match(
@@ -214,7 +220,7 @@ export function getColorNotation(text: string): StringColorNotation | null {
 /**
  * @hidden
  */
-export const CompositeColorParser: Parser<string, Color> = (
+export const CompositeColorParser: Parser<Color> = (
 	text: string,
 ): Color | null => {
 	const notation = getColorNotation(text);
@@ -240,4 +246,102 @@ export function colorFromString(value: unknown): Color {
 		}
 	}
 	return Color.black();
+}
+
+function zerofill(comp: number): string {
+	const hex = constrainRange(Math.floor(comp), 0, 255).toString(16);
+	return hex.length === 1 ? `0${hex}` : hex;
+}
+
+/**
+ * @hidden
+ */
+export function colorToHexRgbString(value: Color): string {
+	const hexes = removeAlphaComponent(value.getComponents('rgb'))
+		.map(zerofill)
+		.join('');
+	return `#${hexes}`;
+}
+
+/**
+ * @hidden
+ */
+export function colorToHexRgbaString(value: Color): string {
+	const rgbaComps = value.getComponents('rgb');
+	const hexes = [rgbaComps[0], rgbaComps[1], rgbaComps[2], rgbaComps[3] * 255]
+		.map(zerofill)
+		.join('');
+	return `#${hexes}`;
+}
+
+/**
+ * @hidden
+ */
+export function colorToFunctionalRgbString(value: Color): string {
+	const formatter = createNumberFormatter(0);
+	const comps = removeAlphaComponent(value.getComponents('rgb')).map((comp) =>
+		formatter(comp),
+	);
+	return `rgb(${comps.join(', ')})`;
+}
+
+/**
+ * @hidden
+ */
+export function colorToFunctionalRgbaString(value: Color): string {
+	const aFormatter = createNumberFormatter(2);
+	const rgbFormatter = createNumberFormatter(0);
+	const comps = value.getComponents('rgb').map((comp, index) => {
+		const formatter = index === 3 ? aFormatter : rgbFormatter;
+		return formatter(comp);
+	});
+	return `rgba(${comps.join(', ')})`;
+}
+
+/**
+ * @hidden
+ */
+export function colorToFunctionalHslString(value: Color): string {
+	const formatters = [
+		createNumberFormatter(0),
+		formatPercentage,
+		formatPercentage,
+	];
+	const comps = removeAlphaComponent(
+		value.getComponents('hsl'),
+	).map((comp, index) => formatters[index](comp));
+	return `hsl(${comps.join(', ')})`;
+}
+
+/**
+ * @hidden
+ */
+export function colorToFunctionalHslaString(value: Color): string {
+	const formatters = [
+		createNumberFormatter(0),
+		formatPercentage,
+		formatPercentage,
+		createNumberFormatter(2),
+	];
+	const comps = value
+		.getComponents('hsl')
+		.map((comp, index) => formatters[index](comp));
+	return `hsla(${comps.join(', ')})`;
+}
+
+const NOTATION_TO_STRINGIFIER_MAP: {
+	[notation in StringColorNotation]: (value: Color) => string;
+} = {
+	'func.hsl': colorToFunctionalHslString,
+	'func.hsla': colorToFunctionalHslaString,
+	'func.rgb': colorToFunctionalRgbString,
+	'func.rgba': colorToFunctionalRgbaString,
+	'hex.rgb': colorToHexRgbString,
+	'hex.rgba': colorToHexRgbaString,
+};
+
+export function getColorStringifier(
+	notation: StringColorNotation,
+): (value: Color) => string {
+	return NOTATION_TO_STRINGIFIER_MAP[notation];
 }

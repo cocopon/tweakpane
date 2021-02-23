@@ -5,9 +5,9 @@ import {
 } from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
 import {ListConstraint} from '../../common/constraint/list';
+import {formatString, stringFromUnknown} from '../../common/converter/string';
 import {Value} from '../../common/model/value';
-import {stringFromUnknown} from '../../common/reader/string';
-import {StringFormatter} from '../../common/writer/string';
+import {writePrimitive} from '../../common/writer/primitive';
 import {InputBindingPlugin} from '../../input-binding';
 import {findListItems, normalizeInputParamsOptions} from '../../util';
 import {ListController} from '../common/controller/list';
@@ -41,7 +41,7 @@ function createController(doc: Document, value: Value<string>) {
 	}
 
 	return new TextController(doc, {
-		formatter: new StringFormatter(),
+		formatter: formatString,
 		parser: (v) => v,
 		value: value,
 	});
@@ -56,7 +56,7 @@ export const StringInputPlugin: InputBindingPlugin<string, string> = {
 		accept: (value, _params) => (typeof value === 'string' ? value : null),
 		constraint: (args) => createConstraint(args.params),
 		reader: (_args) => stringFromUnknown,
-		writer: (_args) => (v: string) => v,
+		writer: (_args) => writePrimitive,
 	},
 	controller: (params) => {
 		return createController(params.document, params.binding.value);

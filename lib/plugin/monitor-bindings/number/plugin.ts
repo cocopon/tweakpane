@@ -2,17 +2,20 @@ import {MonitorParams} from '../../../api/types';
 import {Constants} from '../../../misc/constants';
 import {MonitorBinding} from '../../common/binding/monitor';
 import {ValueController} from '../../common/controller/value';
+import {Formatter} from '../../common/converter/formatter';
+import {
+	createNumberFormatter,
+	numberFromUnknown,
+} from '../../common/converter/number';
 import {Buffer} from '../../common/model/buffered-value';
-import {numberFromUnknown} from '../../common/reader/number';
-import {NumberFormatter} from '../../common/writer/number';
 import {MonitorBindingPlugin} from '../../monitor-binding';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogMonitorController} from '../common/controller/single-log';
 import {GraphLogController} from './controller/graph-log';
 
-function createFormatter(): NumberFormatter {
+function createFormatter(): Formatter<number> {
 	// TODO: formatter precision
-	return new NumberFormatter(2);
+	return createNumberFormatter(2);
 }
 
 function createTextMonitor(

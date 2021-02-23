@@ -5,21 +5,24 @@ import {TestUtil} from '../misc/test-util';
 import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
 import {Blade} from '../plugin/blade/common/model/blade';
 import {InputBinding} from '../plugin/common/binding/input';
-import {Target} from '../plugin/common/model/target';
+import {BindingTarget} from '../plugin/common/binding/target';
+import {
+	createNumberFormatter,
+	parseNumber,
+} from '../plugin/common/converter/number';
+import {numberFromUnknown} from '../plugin/common/converter/number';
 import {Value} from '../plugin/common/model/value';
-import {numberFromUnknown} from '../plugin/common/reader/number';
-import {StringNumberParser} from '../plugin/common/reader/string-number';
-import {NumberFormatter} from '../plugin/common/writer/number';
+import {writePrimitive} from '../plugin/common/writer/primitive';
 import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
 import {InputBindingApi} from './input-binding';
 
-function createApi(target: Target) {
+function createApi(target: BindingTarget) {
 	const doc = TestUtil.createWindow().document;
 	const value = new Value(0);
 	const ic = new NumberTextController(doc, {
 		baseStep: 1,
-		formatter: new NumberFormatter(0),
-		parser: StringNumberParser,
+		formatter: createNumberFormatter(0),
+		parser: parseNumber,
 		value: value,
 	});
 	const bc = new InputBindingController(doc, {
@@ -27,7 +30,7 @@ function createApi(target: Target) {
 			reader: numberFromUnknown,
 			target: target,
 			value: value,
-			writer: (v) => v,
+			writer: writePrimitive,
 		}),
 		blade: new Blade(),
 		controller: ic,
@@ -41,7 +44,7 @@ describe(InputBindingApi.name, () => {
 		const PARAMS = {
 			foo: 0,
 		};
-		const api = createApi(new Target(PARAMS, 'foo'));
+		const api = createApi(new BindingTarget(PARAMS, 'foo'));
 		api.on('change', (value: unknown) => {
 			assert.strictEqual(value, 123);
 			done();
@@ -53,7 +56,7 @@ describe(InputBindingApi.name, () => {
 		const PARAMS = {
 			foo: 0,
 		};
-		const api = createApi(new Target(PARAMS, 'foo'));
+		const api = createApi(new BindingTarget(PARAMS, 'foo'));
 
 		PARAMS.foo = 123;
 		api.refresh();
@@ -65,7 +68,7 @@ describe(InputBindingApi.name, () => {
 		const PARAMS = {
 			foo: 0,
 		};
-		const api = createApi(new Target(PARAMS, 'foo'));
+		const api = createApi(new BindingTarget(PARAMS, 'foo'));
 		assert.strictEqual(api.hidden, false);
 
 		api.hidden = true;

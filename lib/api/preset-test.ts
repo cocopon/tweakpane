@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {Target} from '../plugin/common/model/target';
+import {BindingTarget} from '../plugin/common/binding/target';
 import {exportPresetJson, importPresetJson} from './preset';
 
 describe('Preset', () => {
@@ -12,8 +12,8 @@ describe('Preset', () => {
 		};
 
 		const preset = exportPresetJson([
-			new Target(PARAMS, 'foo'),
-			new Target(PARAMS, 'bar'),
+			new BindingTarget(PARAMS, 'foo'),
+			new BindingTarget(PARAMS, 'bar'),
 		]);
 		assert.deepStrictEqual(preset, {
 			bar: 'hello',
@@ -27,7 +27,10 @@ describe('Preset', () => {
 			foo: 1,
 		};
 
-		const targets = [new Target(PARAMS, 'foo'), new Target(PARAMS, 'bar')];
+		const targets = [
+			new BindingTarget(PARAMS, 'foo'),
+			new BindingTarget(PARAMS, 'bar'),
+		];
 		const preset = exportPresetJson(targets);
 		preset.foo = 123;
 		preset.bar = 'world';

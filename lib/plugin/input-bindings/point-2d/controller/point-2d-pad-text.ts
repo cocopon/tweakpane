@@ -1,8 +1,8 @@
 import {forceCast} from '../../../../misc/type-util';
 import {ValueController} from '../../../common/controller/value';
+import {Formatter} from '../../../common/converter/formatter';
+import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
-import {Parser} from '../../../common/reader/parser';
-import {Formatter} from '../../../common/writer/formatter';
 import {Point2d} from '../model/point-2d';
 import {Point2dPadTextView} from '../view/point-2d-pad-text';
 import {Point2dPadController} from './point-2d-pad';
@@ -17,7 +17,7 @@ interface Config {
 	axes: [Axis, Axis];
 	invertsY: boolean;
 	maxValue: number;
-	parser: Parser<string, number>;
+	parser: Parser<number>;
 	value: Value<Point2d>;
 }
 

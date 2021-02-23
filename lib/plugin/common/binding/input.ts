@@ -1,35 +1,37 @@
 import {Emitter} from '../model/emitter';
-import {Target} from '../model/target';
 import {Value, ValueEvents} from '../model/value';
+import {BindingTarget} from './target';
 
-interface Config<In, Ex> {
+export type BindingWriter<In> = (target: BindingTarget, inValue: In) => void;
+
+interface Config<In> {
 	reader: (exValue: unknown) => In;
-	target: Target;
+	target: BindingTarget;
 	value: Value<In>;
-	writer: (inValue: In) => Ex;
+	writer: BindingWriter<In>;
 }
 
 /**
  * @hidden
  */
-export interface InputBindingEvents<In, Ex> {
+export interface InputBindingEvents<In> {
 	change: {
 		rawValue: In;
-		sender: InputBinding<In, Ex>;
+		sender: InputBinding<In>;
 	};
 }
 
 /**
  * @hidden
  */
-export class InputBinding<In, Ex> {
-	public readonly emitter: Emitter<InputBindingEvents<In, Ex>>;
-	public readonly target: Target;
+export class InputBinding<In> {
+	public readonly emitter: Emitter<InputBindingEvents<In>>;
+	public readonly target: BindingTarget;
 	public readonly value: Value<In>;
 	public readonly reader: (exValue: unknown) => In;
-	public readonly writer: (inValue: In) => Ex;
+	public readonly writer: (target: BindingTarget, inValue: In) => void;
 
-	constructor(config: Config<In, Ex>) {
+	constructor(config: Config<In>) {
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
 		this.reader = config.reader;
@@ -50,12 +52,8 @@ export class InputBinding<In, Ex> {
 		}
 	}
 
-	public getValueToWrite(rawValue: In): Ex {
-		return this.writer(rawValue);
-	}
-
-	public write_(rawValue: In): void {
-		this.target.write(this.getValueToWrite(rawValue));
+	private write_(rawValue: In): void {
+		this.writer(this.target, rawValue);
 	}
 
 	private onValueChange_(ev: ValueEvents<In>['change']): void {
