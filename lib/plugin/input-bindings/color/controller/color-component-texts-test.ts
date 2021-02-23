@@ -3,9 +3,9 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
 import {parseNumber} from '../../../common/converter/number';
-import {Color, RgbaColorObject} from '../../../common/model/color';
-import {PickedColor} from '../../../common/model/picked-color';
 import {Value} from '../../../common/model/value';
+import {Color, RgbaColorObject} from '../model/color';
+import {PickedColor} from '../model/picked-color';
 import {ColorComponentTextsController} from './color-component-texts';
 
 interface ChangeTestCase {

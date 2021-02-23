@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {Color} from '../../../common/model/color';
+import {Color} from '../model/color';
 import {
 	colorFromObject,
 	colorFromRgbaNumber,

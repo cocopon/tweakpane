@@ -1,4 +1,3 @@
-import {Color, RgbaColorObject, RgbColorObject} from '../../common/model/color';
 import {InputBindingPlugin} from '../../input-binding';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
 import {colorFromObject} from './converter/color-number';
@@ -7,6 +6,7 @@ import {
 	colorToHexRgbString,
 	CompositeColorParser,
 } from './converter/color-string';
+import {Color, RgbaColorObject, RgbColorObject} from './model/color';
 import {createColorObjectWriter} from './writer/color';
 
 function shouldSupportAlpha(

@@ -4,13 +4,13 @@ import {
 	parseNumber,
 } from '../../../common/converter/number';
 import {findNextTarget, supportsTouch} from '../../../common/dom-util';
-import {Color} from '../../../common/model/color';
 import {Foldable} from '../../../common/model/foldable';
-import {PickedColor} from '../../../common/model/picked-color';
 import {Value} from '../../../common/model/value';
 import {connect} from '../../../common/model/value-sync';
 import {TextController} from '../../common/controller/text';
 import {NumberTextController} from '../../number/controller/number-text';
+import {PickedColor} from '..//model/picked-color';
+import {Color} from '../model/color';
 import {ColorPickerView} from '../view/color-picker';
 import {APaletteController} from './a-palette';
 import {ColorComponentTextsController} from './color-component-texts';

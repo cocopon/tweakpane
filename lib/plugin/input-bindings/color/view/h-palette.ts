@@ -1,9 +1,9 @@
-import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
 import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
 import {colorToFunctionalRgbString} from '../converter/color-string';
+import {Color} from '../model/color';
 
 const className = ClassName('hpl');
 

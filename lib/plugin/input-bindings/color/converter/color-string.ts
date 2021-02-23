@@ -1,13 +1,13 @@
 import {createNumberFormatter} from '../../../common/converter/number';
 import {Parser} from '../../../common/converter/parser';
 import {formatPercentage} from '../../../common/converter/percentage';
-import {Color} from '../../../common/model/color';
+import {constrainRange, mapRange} from '../../../common/number-util';
+import {Color} from '../model/color';
 import {
 	ColorComponents3,
 	ColorComponents4,
 	removeAlphaComponent,
-} from '../../../common/model/color-model';
-import {constrainRange, mapRange} from '../../../common/number-util';
+} from '../model/color-model';
 
 export type StringColorNotation =
 	| 'hex.rgb'

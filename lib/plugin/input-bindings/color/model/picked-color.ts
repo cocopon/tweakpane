@@ -1,7 +1,7 @@
+import {Emitter} from '../../../common/model/emitter';
+import {Value} from '../../../common/model/value';
 import {Color} from './color';
 import {ColorMode} from './color-model';
-import {Emitter} from './emitter';
-import {Value} from './value';
 
 /**
  * @hidden

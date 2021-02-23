@@ -1,9 +1,9 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
+import {Value} from '../../../common/model/value';
 import {Color} from './color';
 import {PickedColor} from './picked-color';
-import {Value} from './value';
 
 describe(PickedColor.name, () => {
 	it('should emit change event', (done) => {

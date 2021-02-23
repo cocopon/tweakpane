@@ -1,12 +1,12 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
-import {Color} from '../../../common/model/color';
+import {Color} from '../model/color';
 import {
 	ColorComponents3,
 	ColorComponents4,
 	ColorMode,
-} from '../../../common/model/color-model';
+} from '../model/color-model';
 import {
 	colorFromString,
 	colorToFunctionalHslaString,

@@ -2,7 +2,7 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {BindingTarget} from '../../../common/binding/target';
-import {Color} from '../../../common/model/color';
+import {Color} from '../model/color';
 import {writeRgbaColorObject, writeRgbColorObject} from './color';
 
 describe('writer/color', () => {

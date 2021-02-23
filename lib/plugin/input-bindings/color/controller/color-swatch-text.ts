@@ -1,9 +1,9 @@
 import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
 import {Parser} from '../../../common/converter/parser';
-import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
 import {TextController} from '../../common/controller/text';
+import {Color} from '../model/color';
 import {ColorSwatchTextView} from '../view/color-swatch-text';
 import {ColorSwatchController} from './color-swatch';
 

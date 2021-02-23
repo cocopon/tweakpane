@@ -1,9 +1,9 @@
 import {createNumberFormatter} from '../../../common/converter/number';
-import {Color} from '../../../common/model/color';
-import {PickedColor} from '../../../common/model/picked-color';
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
+import {Color} from '../model/color';
+import {PickedColor} from '../model/picked-color';
 
 interface Config {
 	pickedColor: PickedColor;

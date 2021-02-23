@@ -1,6 +1,6 @@
-import {Color} from '../../../common/model/color';
-import {removeAlphaComponent} from '../../../common/model/color-model';
 import {mapRange} from '../../../common/number-util';
+import {Color} from '../model/color';
+import {removeAlphaComponent} from '../model/color-model';
 
 /**
  * @hidden

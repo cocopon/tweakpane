@@ -1,4 +1,4 @@
-import {constrainRange, loopRange} from '../number-util';
+import {constrainRange, loopRange} from '../../../common/number-util';
 
 export type ColorComponents3 = [number, number, number];
 export type ColorComponents4 = [number, number, number, number];

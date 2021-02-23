@@ -1,5 +1,4 @@
 import {InputParams} from '../../../api/types';
-import {Color} from '../../common/model/color';
 import {InputBindingPlugin} from '../../input-binding';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
 import {
@@ -11,6 +10,7 @@ import {
 	colorToHexRgbString,
 	CompositeColorParser,
 } from './converter/color-string';
+import {Color} from './model/color';
 import {createColorNumberWriter} from './writer/color';
 
 function shouldSupportAlpha(inputParams: InputParams): boolean {

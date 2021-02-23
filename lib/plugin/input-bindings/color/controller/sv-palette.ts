@@ -1,5 +1,4 @@
 import {ValueController} from '../../../common/controller/value';
-import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
 import {mapRange} from '../../../common/number-util';
 import {
@@ -14,6 +13,7 @@ import {
 	PointerHandler,
 	PointerHandlerEvents,
 } from '../../../common/view/pointer-handler';
+import {Color} from '../model/color';
 import {SvPaletteView} from '../view/sv-palette';
 
 interface Config {
