@@ -8,8 +8,8 @@ import {Constraint} from '../../common/constraint/constraint';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
 import {
-	NumberFormatter,
-	StringNumberParser,
+	createNumberFormatter,
+	parseNumber,
 } from '../../common/converter/number';
 import {Value} from '../../common/model/value';
 import {PaneError} from '../../common/pane-error';
@@ -98,20 +98,20 @@ function createController(
 		axes: [
 			{
 				baseStep: getBaseStep(c.x),
-				formatter: new NumberFormatter(
+				formatter: createNumberFormatter(
 					getSuitableDecimalDigits(c.x, value.rawValue.x),
 				),
 			},
 			{
 				baseStep: getBaseStep(c.y),
-				formatter: new NumberFormatter(
+				formatter: createNumberFormatter(
 					getSuitableDecimalDigits(c.y, value.rawValue.y),
 				),
 			},
 		],
 		invertsY: invertsY,
 		maxValue: getSuitableMaxValue(value.rawValue, value.constraint),
-		parser: StringNumberParser,
+		parser: parseNumber,
 		value: value,
 	});
 }

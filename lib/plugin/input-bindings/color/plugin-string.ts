@@ -3,7 +3,6 @@ import {PaneError} from '../../common/pane-error';
 import {InputBindingPlugin} from '../../input-binding';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
 import {
-	ColorFormatter,
 	colorFromString,
 	CompositeColorParser,
 	getColorNotation,
@@ -49,7 +48,7 @@ export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
 
 		const stringifier = getColorStringifier(notation);
 		return new ColorSwatchTextController(args.document, {
-			formatter: new ColorFormatter(stringifier),
+			formatter: stringifier,
 			parser: CompositeColorParser,
 			supportsAlpha: hasAlphaComponent(notation),
 			value: args.binding.value,

@@ -5,8 +5,8 @@ import {TestUtil} from '../../../../misc/test-util';
 import {InputBinding} from '../../../common/binding/input';
 import {BindingTarget} from '../../../common/binding/target';
 import {
-	NumberFormatter,
-	StringNumberParser,
+	createNumberFormatter,
+	parseNumber,
 } from '../../../common/converter/number';
 import {numberFromUnknown} from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
@@ -28,8 +28,8 @@ describe(InputBindingController.name, () => {
 			writer: (v) => v,
 		});
 		const controller = new TextController(doc, {
-			formatter: new NumberFormatter(0),
-			parser: StringNumberParser,
+			formatter: createNumberFormatter(0),
+			parser: parseNumber,
 			value: value,
 		});
 		const bc = new InputBindingController(doc, {

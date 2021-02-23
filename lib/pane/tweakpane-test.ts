@@ -3,8 +3,10 @@ import {describe, it} from 'mocha';
 
 import Tweakpane from '..';
 import {TestUtil} from '../misc/test-util';
-import {StringFormatter} from '../plugin/common/converter/string';
-import {stringFromUnknown} from '../plugin/common/converter/string';
+import {
+	formatString,
+	stringFromUnknown,
+} from '../plugin/common/converter/string';
 import {PaneError} from '../plugin/common/pane-error';
 import {writePrimitive} from '../plugin/common/writer/primitive';
 import {TextController} from '../plugin/input-bindings/common/controller/text';
@@ -94,7 +96,7 @@ describe(Tweakpane.name, () => {
 				},
 				controller: (args) => {
 					return new TextController(args.document, {
-						formatter: new StringFormatter(),
+						formatter: formatString,
 						parser: (v) => v,
 						value: args.binding.value,
 					});

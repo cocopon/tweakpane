@@ -1,8 +1,5 @@
 import {Constants} from '../../../misc/constants';
-import {
-	StringFormatter,
-	stringFromUnknown,
-} from '../../common/converter/string';
+import {formatString, stringFromUnknown} from '../../common/converter/string';
 import {MonitorBindingPlugin} from '../../monitor-binding';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogMonitorController} from '../common/controller/single-log';
@@ -23,14 +20,14 @@ export const StringMonitorPlugin: MonitorBindingPlugin<string> = {
 			('multiline' in args.params && args.params.multiline);
 		if (multiline) {
 			return new MultiLogController(args.document, {
-				formatter: new StringFormatter(),
+				formatter: formatString,
 				lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,
 				value: value,
 			});
 		}
 
 		return new SingleLogMonitorController(args.document, {
-			formatter: new StringFormatter(),
+			formatter: formatString,
 			value: value,
 		});
 	},

@@ -4,7 +4,7 @@ import {Formatter} from './formatter';
 /**
  * @hidden
  */
-export function StringNumberParser(text: string): number | null {
+export function parseNumber(text: string): number | null {
 	const num = parseFloat(text);
 	if (isNaN(num)) {
 		return null;
@@ -22,7 +22,7 @@ export function numberFromUnknown(value: unknown): number {
 	}
 
 	if (typeof value === 'string') {
-		const pv = StringNumberParser(value);
+		const pv = parseNumber(value);
 		if (!isEmpty(pv)) {
 			return pv;
 		}
@@ -41,18 +41,8 @@ export function numberToString(value: number): string {
 /**
  * @hidden
  */
-export class NumberFormatter implements Formatter<number> {
-	private digits_: number;
-
-	constructor(digits: number) {
-		this.digits_ = digits;
-	}
-
-	get digits(): number {
-		return this.digits_;
-	}
-
-	public format(value: number): string {
-		return value.toFixed(Math.max(Math.min(this.digits_, 20), 0));
-	}
+export function createNumberFormatter(digits: number): Formatter<number> {
+	return (value: number): string => {
+		return value.toFixed(Math.max(Math.min(digits, 20), 0));
+	};
 }

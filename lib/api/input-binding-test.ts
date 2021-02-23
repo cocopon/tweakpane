@@ -7,8 +7,8 @@ import {Blade} from '../plugin/blade/common/model/blade';
 import {InputBinding} from '../plugin/common/binding/input';
 import {BindingTarget} from '../plugin/common/binding/target';
 import {
-	NumberFormatter,
-	StringNumberParser,
+	createNumberFormatter,
+	parseNumber,
 } from '../plugin/common/converter/number';
 import {numberFromUnknown} from '../plugin/common/converter/number';
 import {Value} from '../plugin/common/model/value';
@@ -21,8 +21,8 @@ function createApi(target: BindingTarget) {
 	const value = new Value(0);
 	const ic = new NumberTextController(doc, {
 		baseStep: 1,
-		formatter: new NumberFormatter(0),
-		parser: StringNumberParser,
+		formatter: createNumberFormatter(0),
+		parser: parseNumber,
 		value: value,
 	});
 	const bc = new InputBindingController(doc, {

@@ -5,8 +5,7 @@ import {
 } from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
 import {ListConstraint} from '../../common/constraint/list';
-import {StringFormatter} from '../../common/converter/string';
-import {stringFromUnknown} from '../../common/converter/string';
+import {formatString, stringFromUnknown} from '../../common/converter/string';
 import {Value} from '../../common/model/value';
 import {writePrimitive} from '../../common/writer/primitive';
 import {InputBindingPlugin} from '../../input-binding';
@@ -42,7 +41,7 @@ function createController(doc: Document, value: Value<string>) {
 	}
 
 	return new TextController(doc, {
-		formatter: new StringFormatter(),
+		formatter: formatString,
 		parser: (v) => v,
 		value: value,
 	});

@@ -1,13 +1,10 @@
-import {Formatter} from './formatter';
-import {NumberFormatter} from './number';
+import {createNumberFormatter} from './number';
 
-const innerFormatter = new NumberFormatter(0);
+const innerFormatter = createNumberFormatter(0);
 
 /**
  * @hidden
  */
-export class PercentageFormatter implements Formatter<number> {
-	public format(value: number): string {
-		return innerFormatter.format(value) + '%';
-	}
+export function formatPercentage(value: number): string {
+	return innerFormatter(value) + '%';
 }

@@ -1,6 +1,4 @@
 /**
  * @hidden
  */
-export interface Formatter<T> {
-	format(value: T): string;
-}
+export type Formatter<T> = (value: T) => string;

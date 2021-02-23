@@ -7,7 +7,6 @@ import {
 	colorFromRgbNumber,
 } from './converter/color-number';
 import {
-	ColorFormatter,
 	colorToHexRgbaString,
 	colorToHexRgbString,
 	CompositeColorParser,
@@ -55,8 +54,8 @@ export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
 	controller: (args) => {
 		const supportsAlpha = shouldSupportAlpha(args.params);
 		const formatter = supportsAlpha
-			? new ColorFormatter(colorToHexRgbaString)
-			: new ColorFormatter(colorToHexRgbString);
+			? colorToHexRgbaString
+			: colorToHexRgbString;
 		return new ColorSwatchTextController(args.document, {
 			formatter: formatter,
 			parser: CompositeColorParser,

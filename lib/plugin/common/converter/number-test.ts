@@ -2,13 +2,13 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {
-	NumberFormatter,
+	createNumberFormatter,
 	numberFromUnknown,
 	numberToString,
-	StringNumberParser,
+	parseNumber,
 } from './number';
 
-describe(NumberFormatter.name, () => {
+describe('converter/number', () => {
 	[
 		{
 			arg: 3.14,
@@ -32,11 +32,6 @@ describe(NumberFormatter.name, () => {
 				assert.strictEqual(numberFromUnknown(testCase.arg), testCase.expected);
 			});
 		});
-	});
-
-	it('should get digits', () => {
-		const f = new NumberFormatter(3);
-		assert.strictEqual(f.digits, 3);
 	});
 
 	[
@@ -64,8 +59,8 @@ describe(NumberFormatter.name, () => {
 	].forEach((testCase) => {
 		context(`when ${JSON.stringify(testCase.params)}`, () => {
 			it(`it should format to ${JSON.stringify(testCase.expected)}`, () => {
-				const f = new NumberFormatter(testCase.params.digits);
-				assert.strictEqual(f.format(testCase.params.value), testCase.expected);
+				const f = createNumberFormatter(testCase.params.digits);
+				assert.strictEqual(f(testCase.params.value), testCase.expected);
 			});
 		});
 	});
@@ -73,9 +68,9 @@ describe(NumberFormatter.name, () => {
 	[-10, 0, 20, 100, 1000].forEach((digits) => {
 		context(`when ${digits}`, () => {
 			it(`it should format without error`, () => {
-				const f = new NumberFormatter(digits);
+				const f = createNumberFormatter(digits);
 				assert.doesNotThrow(() => {
-					f.format(Math.PI);
+					f(Math.PI);
 				});
 			});
 		});
@@ -86,10 +81,10 @@ describe(NumberFormatter.name, () => {
 	});
 });
 
-describe(StringNumberParser.name, () => {
+describe(parseNumber.name, () => {
 	it('should parse number', () => {
-		assert.strictEqual(StringNumberParser('3.14'), 3.14);
-		assert.strictEqual(StringNumberParser('abc'), null);
-		assert.strictEqual(StringNumberParser('1e-3'), 0.001);
+		assert.strictEqual(parseNumber('3.14'), 3.14);
+		assert.strictEqual(parseNumber('abc'), null);
+		assert.strictEqual(parseNumber('1e-3'), 0.001);
 	});
 });

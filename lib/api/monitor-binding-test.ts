@@ -7,7 +7,7 @@ import {Blade} from '../plugin/blade/common/model/blade';
 import {MonitorBinding} from '../plugin/common/binding/monitor';
 import {BindingTarget} from '../plugin/common/binding/target';
 import {ManualTicker} from '../plugin/common/binding/ticker/manual';
-import {NumberFormatter} from '../plugin/common/converter/number';
+import {createNumberFormatter} from '../plugin/common/converter/number';
 import {numberFromUnknown} from '../plugin/common/converter/number';
 import {Buffer} from '../plugin/common/model/buffered-value';
 import {Value} from '../plugin/common/model/value';
@@ -18,7 +18,7 @@ function createApi(target: BindingTarget) {
 	const doc = TestUtil.createWindow().document;
 	const value = new Value([0] as Buffer<number>);
 	const mc = new SingleLogMonitorController(doc, {
-		formatter: new NumberFormatter(0),
+		formatter: createNumberFormatter(0),
 		value: value,
 	});
 	const bc = new MonitorBindingController(doc, {

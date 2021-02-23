@@ -8,7 +8,6 @@ import {
 	ColorMode,
 } from '../../../common/model/color-model';
 import {
-	ColorFormatter,
 	colorFromString,
 	colorToFunctionalHslaString,
 	colorToFunctionalHslString,
@@ -205,10 +204,8 @@ describe('StringColorParser', () => {
 		const stringifier = (color: Color): string => {
 			return String(color);
 		};
-		const f = new ColorFormatter(stringifier);
-
 		const c = new Color([0, 127, 255], 'rgb');
-		assert.strictEqual(f.format(c), stringifier(c));
+		assert.strictEqual(stringifier(c), stringifier(c));
 	});
 
 	[
@@ -369,9 +366,9 @@ describe('StringColorParser', () => {
 				const c = new Color(testCase.components, 'rgb');
 				const f =
 					testCase.components.length === 3
-						? new ColorFormatter(colorToHexRgbString)
-						: new ColorFormatter(colorToHexRgbaString);
-				assert.strictEqual(f.format(c), testCase.hex);
+						? colorToHexRgbString
+						: colorToHexRgbaString;
+				assert.strictEqual(f(c), testCase.hex);
 			});
 
 			it(`it should format to ${JSON.stringify(testCase.rgb)}`, () => {

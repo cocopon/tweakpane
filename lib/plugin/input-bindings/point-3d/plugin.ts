@@ -5,8 +5,8 @@ import {Constraint} from '../../common/constraint/constraint';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
 import {
-	NumberFormatter,
-	StringNumberParser,
+	createNumberFormatter,
+	parseNumber,
 } from '../../common/converter/number';
 import {Value} from '../../common/model/value';
 import {PaneError} from '../../common/pane-error';
@@ -64,7 +64,7 @@ export function getAxis(
 ) {
 	return {
 		baseStep: getBaseStep(constraint),
-		formatter: new NumberFormatter(
+		formatter: createNumberFormatter(
 			getSuitableDecimalDigits(constraint, initialValue),
 		),
 	};
@@ -82,7 +82,7 @@ function createController(document: Document, value: Value<Point3d>) {
 			getAxis(value.rawValue.y, c.y),
 			getAxis(value.rawValue.z, c.z),
 		],
-		parser: StringNumberParser,
+		parser: parseNumber,
 		value: value,
 	});
 }

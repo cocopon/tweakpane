@@ -1,4 +1,3 @@
-import {Formatter} from './formatter';
 /**
  * @hidden
  */
@@ -9,8 +8,6 @@ export function stringFromUnknown(value: unknown): string {
 /**
  * @hidden
  */
-export class StringFormatter implements Formatter<string> {
-	public format(value: string): string {
-		return value;
-	}
+export function formatString(value: string): string {
+	return value;
 }

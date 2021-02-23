@@ -3,8 +3,8 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
 import {
-	NumberFormatter,
-	StringNumberParser,
+	createNumberFormatter,
+	parseNumber,
 } from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
 import {Point2d} from '../model/point-2d';
@@ -16,10 +16,10 @@ describe(Point2dTextController.name, () => {
 		const doc = win.document;
 		const c = new Point2dTextController(doc, {
 			axes: [
-				{baseStep: 1, formatter: new NumberFormatter(0)},
-				{baseStep: 1, formatter: new NumberFormatter(0)},
+				{baseStep: 1, formatter: createNumberFormatter(0)},
+				{baseStep: 1, formatter: createNumberFormatter(0)},
 			],
-			parser: StringNumberParser,
+			parser: parseNumber,
 			value: new Value(new Point2d(12, 34)),
 		});
 

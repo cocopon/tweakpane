@@ -3,8 +3,8 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
 import {
-	NumberFormatter,
-	StringNumberParser,
+	createNumberFormatter,
+	parseNumber,
 } from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
 import {Point3d} from '../model/point-3d';
@@ -16,11 +16,11 @@ describe(Point3dTextController.name, () => {
 		const doc = win.document;
 		const c = new Point3dTextController(doc, {
 			axes: [
-				{baseStep: 1, formatter: new NumberFormatter(2)},
-				{baseStep: 1, formatter: new NumberFormatter(2)},
-				{baseStep: 1, formatter: new NumberFormatter(2)},
+				{baseStep: 1, formatter: createNumberFormatter(2)},
+				{baseStep: 1, formatter: createNumberFormatter(2)},
+				{baseStep: 1, formatter: createNumberFormatter(2)},
 			],
-			parser: StringNumberParser,
+			parser: parseNumber,
 			value: new Value(new Point3d(12, 34, 56)),
 		});
 

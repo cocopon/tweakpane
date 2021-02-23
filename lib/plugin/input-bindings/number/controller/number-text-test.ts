@@ -3,8 +3,8 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
 import {
-	NumberFormatter,
-	StringNumberParser,
+	createNumberFormatter,
+	parseNumber,
 } from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
 import {NumberTextController} from './number-text';
@@ -15,8 +15,8 @@ describe(NumberTextController.name, () => {
 		const doc = win.document;
 		const c = new NumberTextController(doc, {
 			baseStep: 1,
-			formatter: new NumberFormatter(0),
-			parser: StringNumberParser,
+			formatter: createNumberFormatter(0),
+			parser: parseNumber,
 			value: new Value(123),
 		});
 

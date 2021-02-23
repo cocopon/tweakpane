@@ -48,7 +48,7 @@ export class MultiLogView<T> implements ValueView<Buffer<T>> {
 
 		elem.textContent = this.value.rawValue
 			.map((value) => {
-				return value !== undefined ? this.formatter_.format(value) : '';
+				return value !== undefined ? this.formatter_(value) : '';
 			})
 			.join('\n');
 

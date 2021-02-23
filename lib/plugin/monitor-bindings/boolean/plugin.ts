@@ -19,13 +19,13 @@ export const BooleanMonitorPlugin: MonitorBindingPlugin<boolean> = {
 	controller: (args) => {
 		if (args.binding.value.rawValue.length === 1) {
 			return new SingleLogMonitorController(args.document, {
-				formatter: new BooleanFormatter(),
+				formatter: BooleanFormatter,
 				value: args.binding.value,
 			});
 		}
 
 		return new MultiLogController(args.document, {
-			formatter: new BooleanFormatter(),
+			formatter: BooleanFormatter,
 			lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,
 			value: args.binding.value,
 		});

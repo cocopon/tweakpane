@@ -1,7 +1,6 @@
-import {Formatter} from '../../../common/converter/formatter';
-import {NumberFormatter} from '../../../common/converter/number';
+import {createNumberFormatter} from '../../../common/converter/number';
 import {Parser} from '../../../common/converter/parser';
-import {PercentageFormatter} from '../../../common/converter/percentage';
+import {formatPercentage} from '../../../common/converter/percentage';
 import {Color} from '../../../common/model/color';
 import {
 	ColorComponents3,
@@ -249,21 +248,6 @@ export function colorFromString(value: unknown): Color {
 	return Color.black();
 }
 
-/**
- * @hidden
- */
-export class ColorFormatter implements Formatter<Color> {
-	private stringifier_: (color: Color) => string;
-
-	constructor(stringifier: (color: Color) => string) {
-		this.stringifier_ = stringifier;
-	}
-
-	public format(value: Color): string {
-		return this.stringifier_(value);
-	}
-}
-
 function zerofill(comp: number): string {
 	const hex = constrainRange(Math.floor(comp), 0, 255).toString(16);
 	return hex.length === 1 ? `0${hex}` : hex;
@@ -294,9 +278,9 @@ export function colorToHexRgbaString(value: Color): string {
  * @hidden
  */
 export function colorToFunctionalRgbString(value: Color): string {
-	const formatter = new NumberFormatter(0);
+	const formatter = createNumberFormatter(0);
 	const comps = removeAlphaComponent(value.getComponents('rgb')).map((comp) =>
-		formatter.format(comp),
+		formatter(comp),
 	);
 	return `rgb(${comps.join(', ')})`;
 }
@@ -305,11 +289,11 @@ export function colorToFunctionalRgbString(value: Color): string {
  * @hidden
  */
 export function colorToFunctionalRgbaString(value: Color): string {
-	const aFormatter = new NumberFormatter(2);
-	const rgbFormatter = new NumberFormatter(0);
+	const aFormatter = createNumberFormatter(2);
+	const rgbFormatter = createNumberFormatter(0);
 	const comps = value.getComponents('rgb').map((comp, index) => {
 		const formatter = index === 3 ? aFormatter : rgbFormatter;
-		return formatter.format(comp);
+		return formatter(comp);
 	});
 	return `rgba(${comps.join(', ')})`;
 }
@@ -319,13 +303,13 @@ export function colorToFunctionalRgbaString(value: Color): string {
  */
 export function colorToFunctionalHslString(value: Color): string {
 	const formatters = [
-		new NumberFormatter(0),
-		new PercentageFormatter(),
-		new PercentageFormatter(),
+		createNumberFormatter(0),
+		formatPercentage,
+		formatPercentage,
 	];
 	const comps = removeAlphaComponent(
 		value.getComponents('hsl'),
-	).map((comp, index) => formatters[index].format(comp));
+	).map((comp, index) => formatters[index](comp));
 	return `hsl(${comps.join(', ')})`;
 }
 
@@ -334,14 +318,14 @@ export function colorToFunctionalHslString(value: Color): string {
  */
 export function colorToFunctionalHslaString(value: Color): string {
 	const formatters = [
-		new NumberFormatter(0),
-		new PercentageFormatter(),
-		new PercentageFormatter(),
-		new NumberFormatter(2),
+		createNumberFormatter(0),
+		formatPercentage,
+		formatPercentage,
+		createNumberFormatter(2),
 	];
 	const comps = value
 		.getComponents('hsl')
-		.map((comp, index) => formatters[index].format(comp));
+		.map((comp, index) => formatters[index](comp));
 	return `hsla(${comps.join(', ')})`;
 }
 

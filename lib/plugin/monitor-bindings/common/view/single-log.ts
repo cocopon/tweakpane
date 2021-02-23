@@ -44,7 +44,7 @@ export class SingleLogView<T> implements ValueView<Buffer<T>> {
 		const values = this.value.rawValue;
 		const lastValue = values[values.length - 1];
 		this.inputElem_.value =
-			lastValue !== undefined ? this.formatter_.format(lastValue) : '';
+			lastValue !== undefined ? this.formatter_(lastValue) : '';
 	}
 
 	private onValueUpdate_(): void {

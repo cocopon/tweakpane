@@ -1,9 +1,9 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {PercentageFormatter} from './percentage';
+import {formatPercentage} from './percentage';
 
-describe(PercentageFormatter.name, () => {
+describe('converter/percentage', () => {
 	[
 		{
 			expected: '0%',
@@ -26,8 +26,10 @@ describe(PercentageFormatter.name, () => {
 	].forEach((testCase) => {
 		context(`when ${JSON.stringify(testCase.params)}`, () => {
 			it(`it should format to ${JSON.stringify(testCase.expected)}`, () => {
-				const f = new PercentageFormatter();
-				assert.strictEqual(f.format(testCase.params.value), testCase.expected);
+				assert.strictEqual(
+					formatPercentage(testCase.params.value),
+					testCase.expected,
+				);
 			});
 		});
 	});

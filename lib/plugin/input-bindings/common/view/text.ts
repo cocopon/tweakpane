@@ -40,7 +40,7 @@ export class TextView<T> implements ValueView<T> {
 	}
 
 	public update(): void {
-		this.inputElement.value = this.formatter_.format(this.value.rawValue);
+		this.inputElement.value = this.formatter_(this.value.rawValue);
 	}
 
 	private onValueChange_(): void {

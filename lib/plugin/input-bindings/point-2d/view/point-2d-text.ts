@@ -57,7 +57,7 @@ export class Point2dTextView implements ValueView<Point2d> {
 		const xyComps = this.value.rawValue.getComponents();
 		xyComps.forEach((comp, index) => {
 			const inputElem = this.inputElems_[index];
-			inputElem.value = this.formatters_[index].format(comp);
+			inputElem.value = this.formatters_[index](comp);
 		});
 	}
 

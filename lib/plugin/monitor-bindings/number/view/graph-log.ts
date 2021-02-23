@@ -101,7 +101,7 @@ export class GraphLogView implements ValueView<Buffer<number>> {
 		const ty = mapRange(value, min, max, bounds.height, 0);
 		tooltipElem.style.left = `${tx}px`;
 		tooltipElem.style.top = `${ty}px`;
-		tooltipElem.textContent = `${this.formatter_.format(value)}`;
+		tooltipElem.textContent = `${this.formatter_(value)}`;
 	}
 
 	private onValueUpdate_(): void {

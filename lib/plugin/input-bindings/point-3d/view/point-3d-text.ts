@@ -61,7 +61,7 @@ export class Point3dTextView implements ValueView<Point3d> {
 		const comps = this.value.rawValue.getComponents();
 		comps.forEach((comp, index) => {
 			const inputElem = this.inputElems_[index];
-			inputElem.value = this.formatters_[index].format(comp);
+			inputElem.value = this.formatters_[index](comp);
 		});
 	}
 

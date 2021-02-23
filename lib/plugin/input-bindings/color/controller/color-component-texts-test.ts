@@ -2,7 +2,7 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
-import {StringNumberParser} from '../../../common/converter/number';
+import {parseNumber} from '../../../common/converter/number';
 import {Color, RgbaColorObject} from '../../../common/model/color';
 import {PickedColor} from '../../../common/model/picked-color';
 import {Value} from '../../../common/model/value';
@@ -72,7 +72,7 @@ describe(ColorComponentTextsController.name, () => {
 				const win = TestUtil.createWindow();
 				const doc = win.document;
 				const c = new ColorComponentTextsController(doc, {
-					parser: StringNumberParser,
+					parser: parseNumber,
 					pickedColor: new PickedColor(value),
 				});
 
@@ -134,7 +134,7 @@ describe(ColorComponentTextsController.name, () => {
 				const win = TestUtil.createWindow();
 				const doc = win.document;
 				const c = new ColorComponentTextsController(doc, {
-					parser: StringNumberParser,
+					parser: parseNumber,
 					pickedColor: new PickedColor(value),
 				});
 

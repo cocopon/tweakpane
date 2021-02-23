@@ -3,8 +3,8 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
 import {
-	NumberFormatter,
-	StringNumberParser,
+	createNumberFormatter,
+	parseNumber,
 } from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
 import {TextController} from './text';
@@ -14,8 +14,8 @@ describe(TextController.name, () => {
 		const value = new Value(0);
 		const doc = TestUtil.createWindow().document;
 		const c = new TextController(doc, {
-			formatter: new NumberFormatter(2),
-			parser: StringNumberParser,
+			formatter: createNumberFormatter(2),
+			parser: parseNumber,
 			value: value,
 		});
 
@@ -27,8 +27,8 @@ describe(TextController.name, () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new TextController(doc, {
-			formatter: new NumberFormatter(2),
-			parser: StringNumberParser,
+			formatter: createNumberFormatter(2),
+			parser: parseNumber,
 			value: value,
 		});
 

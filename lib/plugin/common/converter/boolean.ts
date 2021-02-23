@@ -1,5 +1,3 @@
-import {Formatter} from './formatter';
-
 /**
  * @hidden
  */
@@ -19,8 +17,6 @@ export function boolFromUnknown(value: unknown): boolean {
 /**
  * @hidden
  */
-export class BooleanFormatter implements Formatter<boolean> {
-	public format(value: boolean): string {
-		return boolToString(value);
-	}
+export function BooleanFormatter(value: boolean): string {
+	return boolToString(value);
 }

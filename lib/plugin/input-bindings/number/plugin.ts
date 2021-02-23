@@ -9,9 +9,9 @@ import {ListConstraint} from '../../common/constraint/list';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
 import {
-	NumberFormatter,
+	createNumberFormatter,
 	numberToString,
-	StringNumberParser,
+	parseNumber,
 } from '../../common/converter/number';
 import {numberFromUnknown} from '../../common/converter/number';
 import {Value} from '../../common/model/value';
@@ -77,20 +77,20 @@ function createController(doc: Document, value: Value<number>) {
 	if (c && findConstraint(c, RangeConstraint)) {
 		return new SliderTextController(doc, {
 			baseStep: getBaseStep(c),
-			formatter: new NumberFormatter(
+			formatter: createNumberFormatter(
 				getSuitableDecimalDigits(value.constraint, value.rawValue),
 			),
-			parser: StringNumberParser,
+			parser: parseNumber,
 			value: value,
 		});
 	}
 
 	return new NumberTextController(doc, {
 		baseStep: getBaseStep(c),
-		formatter: new NumberFormatter(
+		formatter: createNumberFormatter(
 			getSuitableDecimalDigits(value.constraint, value.rawValue),
 		),
-		parser: StringNumberParser,
+		parser: parseNumber,
 		value: value,
 	});
 }

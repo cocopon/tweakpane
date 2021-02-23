@@ -1,7 +1,7 @@
 import {ValueController} from '../../../common/controller/value';
 import {
-	NumberFormatter,
-	StringNumberParser,
+	createNumberFormatter,
+	parseNumber,
 } from '../../../common/converter/number';
 import {findNextTarget, supportsTouch} from '../../../common/dom-util';
 import {Color} from '../../../common/model/color';
@@ -57,8 +57,8 @@ export class ColorPickerController implements ValueController<Color> {
 						value: this.pickedColor.value,
 					}),
 					text: new NumberTextController(doc, {
-						formatter: new NumberFormatter(2),
-						parser: StringNumberParser,
+						formatter: createNumberFormatter(2),
+						parser: parseNumber,
 						baseStep: 0.1,
 						value: new Value(0),
 					}),
@@ -79,7 +79,7 @@ export class ColorPickerController implements ValueController<Color> {
 			});
 		}
 		this.compTextsIc_ = new ColorComponentTextsController(doc, {
-			parser: StringNumberParser,
+			parser: parseNumber,
 			pickedColor: this.pickedColor,
 		});
 

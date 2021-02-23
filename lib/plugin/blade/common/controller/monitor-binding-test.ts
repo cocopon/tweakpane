@@ -5,7 +5,7 @@ import {TestUtil} from '../../../../misc/test-util';
 import {MonitorBinding} from '../../../common/binding/monitor';
 import {BindingTarget} from '../../../common/binding/target';
 import {ManualTicker} from '../../../common/binding/ticker/manual';
-import {NumberFormatter} from '../../../common/converter/number';
+import {createNumberFormatter} from '../../../common/converter/number';
 import {numberFromUnknown} from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
 import {SingleLogMonitorController} from '../../../monitor-bindings/common/controller/single-log';
@@ -26,7 +26,7 @@ describe(MonitorBindingController.name, () => {
 			value: value,
 		});
 		const controller = new SingleLogMonitorController(doc, {
-			formatter: new NumberFormatter(0),
+			formatter: createNumberFormatter(0),
 			value: value,
 		});
 		const bc = new MonitorBindingController(doc, {
