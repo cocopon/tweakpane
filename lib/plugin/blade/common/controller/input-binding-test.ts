@@ -4,10 +4,12 @@ import {describe, it} from 'mocha';
 import {TestUtil} from '../../../../misc/test-util';
 import {InputBinding} from '../../../common/binding/input';
 import {BindingTarget} from '../../../common/binding/target';
-import {NumberFormatter} from '../../../common/converter/number';
+import {
+	NumberFormatter,
+	StringNumberParser,
+} from '../../../common/converter/number';
 import {numberFromUnknown} from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
-import {StringNumberParser} from '../../../common/reader/string-number';
 import {TextController} from '../../../input-bindings/common/controller/text';
 import {Blade} from '../model/blade';
 import {InputBindingController} from './input-binding';

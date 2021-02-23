@@ -1,6 +1,17 @@
 import {isEmpty} from '../../../misc/type-util';
-import {StringNumberParser} from '../reader/string-number';
 import {Formatter} from './formatter';
+
+/**
+ * @hidden
+ */
+export function StringNumberParser(text: string): number | null {
+	const num = parseFloat(text);
+	if (isNaN(num)) {
+		return null;
+	}
+
+	return num;
+}
 
 /**
  * @hidden

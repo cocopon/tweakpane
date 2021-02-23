@@ -1,8 +1,8 @@
-import {colorToHexRgbaString} from '../../../common/converter/color';
 import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
+import {colorToHexRgbaString} from '../converter/color-string';
 import {ColorPickerView} from './color-picker';
 
 interface Config {

@@ -1,7 +1,12 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {NumberFormatter, numberFromUnknown, numberToString} from './number';
+import {
+	NumberFormatter,
+	numberFromUnknown,
+	numberToString,
+	StringNumberParser,
+} from './number';
 
 describe(NumberFormatter.name, () => {
 	[
@@ -78,5 +83,13 @@ describe(NumberFormatter.name, () => {
 
 	it('should convert number to string', () => {
 		assert.strictEqual(numberToString(3.14), '3.14');
+	});
+});
+
+describe(StringNumberParser.name, () => {
+	it('should parse number', () => {
+		assert.strictEqual(StringNumberParser('3.14'), 3.14);
+		assert.strictEqual(StringNumberParser('abc'), null);
+		assert.strictEqual(StringNumberParser('1e-3'), 0.001);
 	});
 });

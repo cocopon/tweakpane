@@ -1,6 +1,8 @@
-import {colorToFunctionalRgbaString} from '../../../lib/plugin/common/converter/color';
 import {Color} from '../../../lib/plugin/common/model/color';
-import {colorFromString} from '../../../lib/plugin/common/reader/string-color';
+import {
+	colorFromString,
+	colorToFunctionalRgbaString,
+} from '../../../lib/plugin/input-bindings/color/converter/color-string';
 import {createTheme, ThemeId} from './themes';
 
 declare let Tweakpane: any;

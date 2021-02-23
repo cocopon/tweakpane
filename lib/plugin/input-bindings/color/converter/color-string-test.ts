@@ -1,44 +1,200 @@
 import {assert} from 'chai';
-import {describe, it} from 'mocha';
+import {describe as context, describe, it} from 'mocha';
 
-import {Color} from '../model/color';
-import {ColorComponents3, ColorComponents4} from '../model/color-model';
+import {Color} from '../../../common/model/color';
+import {
+	ColorComponents3,
+	ColorComponents4,
+	ColorMode,
+} from '../../../common/model/color-model';
 import {
 	ColorFormatter,
-	colorFromObject,
-	colorFromRgbaNumber,
-	colorFromRgbNumber,
+	colorFromString,
 	colorToFunctionalHslaString,
 	colorToFunctionalHslString,
 	colorToFunctionalRgbaString,
 	colorToFunctionalRgbString,
 	colorToHexRgbaString,
 	colorToHexRgbString,
-	colorToRgbaNumber,
-	colorToRgbNumber,
-	numberToRgbColor,
-} from './color';
+	CompositeColorParser,
+	getColorNotation,
+} from './color-string';
 
-describe(ColorFormatter.name, () => {
+const DELTA = 1e-5;
+
+describe('StringColorParser', () => {
 	[
 		{
-			input: {r: 0x00, g: 0x78, b: 0xff},
+			expected: {r: 0x11, g: 0x22, b: 0x33, a: 1},
+			inputs: [
+				'#112233',
+				'#112233ff',
+				'rgb(17,34,51)',
+				'rgb(17, 34, 51)',
+				'rgb( 17  ,  34  ,  51 )',
+				'rgba( 17  ,  34  ,  51 , 1 )',
+				'rgb(17.0, 34.0, 51.0)',
+				'rgba(17.0, 34.0, 51.0, 1)',
+			],
+		},
+		{
+			expected: {r: 0xdd, g: 0xee, b: 0xff, a: 1},
+			inputs: ['#def', '#deff', 'rgb(221, 238, 100%)'],
+		},
+	].forEach((testCase) => {
+		testCase.inputs.forEach((input) => {
+			context(`when ${JSON.stringify(input)}`, () => {
+				it(`it should parse as ${JSON.stringify(testCase.expected)}`, () => {
+					const actual = CompositeColorParser(input);
+					assert.deepStrictEqual(
+						actual && actual.toRgbaObject(),
+						testCase.expected,
+					);
+				});
+			});
+		});
+	});
+
+	[
+		'601',
+		'112233',
+		'foobar',
+		'#eeffgg',
+		'hsl(55, ..66, 78)',
+		'hsl(55, 66, ..78)',
+		'hsla(55, 66, 78, ..9)',
+		'rgb(123, 234, ..5)',
+		'rgb(123, 234, xyz)',
+		'rgba(55, 66, 78, ..9)',
+		'rgba(55, 66, 78, foo)',
+	].forEach((text) => {
+		it(`should not parse invalid string '${text}'`, () => {
+			assert.strictEqual(CompositeColorParser(text), null);
+		});
+	});
+
+	[
+		{
+			expected: 'hex.rgb',
+			input: '#009aff',
+		},
+		{
+			expected: 'func.rgb',
+			input: 'rgb(17,34,51)',
+		},
+		{
+			expected: null,
+			input: 'foobar',
+		},
+	].forEach((testCase) => {
+		context(`when ${JSON.stringify(testCase.input)}`, () => {
+			it(`it should detect notation as ${JSON.stringify(
+				testCase.expected,
+			)}`, () => {
+				const actual = getColorNotation(testCase.input);
+				assert.deepStrictEqual(actual, testCase.expected);
+			});
+		});
+	});
+
+	([
+		{
 			expected: {
-				r: 0x00,
-				g: 0x78,
-				b: 0xff,
+				components: [123, 45, 67, 1.0],
+				mode: 'hsl',
+			},
+			input: 'hsl(123, 45, 67)',
+		},
+		{
+			expected: {
+				components: [123, 0, 0, 1.0],
+				mode: 'hsl',
+			},
+			input: 'hsla(123, 0, 0, 1)',
+		},
+		{
+			expected: {
+				components: [180, 0, 0, 1.0],
+				mode: 'hsl',
+			},
+			input: 'hsla(180deg, 0, 0, 1)',
+		},
+		{
+			expected: {
+				components: [(3 * 360) / (2 * Math.PI), 0, 0, 1.0],
+				mode: 'hsl',
+			},
+			input: 'hsla(3rad, 0, 0, 1)',
+		},
+		{
+			expected: {
+				components: [180, 0, 0, 1.0],
+				mode: 'hsl',
+			},
+			input: 'hsla(200grad, 0, 0, 1)',
+		},
+		{
+			expected: {
+				components: [90, 0, 0, 1.0],
+				mode: 'hsl',
+			},
+			input: 'hsla(0.25turn, 0, 0, 1)',
+		},
+		{
+			expected: {
+				components: [0, 0, 0, 0.5],
+				mode: 'hsl',
+			},
+			input: 'hsla(0, 0%, 0%, 0.5)',
+		},
+	] as {
+		expected: {
+			components: ColorComponents4;
+			mode: ColorMode;
+		};
+		input: string;
+	}[]).forEach(({expected, input}) => {
+		context(`when ${JSON.stringify(input)}`, () => {
+			it('should parse color', () => {
+				const c = CompositeColorParser(input);
+				assert.strictEqual(c?.mode, expected.mode);
+
+				const actualComps = c?.getComponents();
+				if (!actualComps) {
+					throw new Error('should not be called');
+				}
+				expected.components.forEach((c, index) => {
+					assert.closeTo(actualComps[index], c, DELTA);
+				});
+			});
+		});
+	});
+
+	// tslint:disable:object-literal-sort-keys
+	[
+		{
+			input: '#112233',
+			expected: {
+				r: 0x11,
+				g: 0x22,
+				b: 0x33,
 				a: 1,
 			},
 		},
 		{
-			input: {foo: 'bar'},
-			expected: {r: 0, g: 0, b: 0, a: 1},
+			input: 'foobar',
+			expected: {
+				r: 0,
+				g: 0,
+				b: 0,
+				a: 1,
+			},
 		},
 	].forEach((testCase) => {
 		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
-			it('should convert object to color', () => {
+			it('should convert string to color', () => {
 				assert.deepStrictEqual(
-					colorFromObject(testCase.input).toRgbaObject(),
+					colorFromString(testCase.input).toRgbaObject(),
 					testCase.expected,
 				);
 			});
@@ -103,10 +259,6 @@ describe(ColorFormatter.name, () => {
 					testCase.frgba,
 				);
 			});
-
-			it('should convert color to number', () => {
-				assert.strictEqual(colorToRgbaNumber(testCase.input), testCase.number);
-			});
 		});
 	});
 
@@ -167,31 +319,6 @@ describe(ColorFormatter.name, () => {
 					colorToFunctionalHslaString(testCase.input),
 					testCase.expected.hsla,
 				);
-			});
-		});
-	});
-
-	[
-		{
-			input: new Color([0, 0, 0], 'rgb'),
-			expected: 0x000000,
-		},
-		{
-			input: new Color([0, 127, 255], 'rgb'),
-			expected: 0x007fff,
-		},
-		{
-			input: new Color([0.1, 127.2, 255.4], 'rgb'),
-			expected: 0x007fff,
-		},
-		{
-			input: new Color([255, 255, 255], 'rgb'),
-			expected: 0xffffff,
-		},
-	].forEach((testCase) => {
-		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
-			it('should convert color to number', () => {
-				assert.strictEqual(colorToRgbNumber(testCase.input), testCase.expected);
 			});
 		});
 	});
@@ -258,77 +385,6 @@ describe(ColorFormatter.name, () => {
 				} else {
 					throw new Error('should not be called');
 				}
-			});
-		});
-	});
-
-	[
-		{
-			expected: {r: 0x11, g: 0x22, b: 0x33, a: 1},
-			input: 0x112233,
-		},
-		{
-			expected: {r: 0x00, g: 0xaa, b: 0xff, a: 1},
-			input: 0x00aaff,
-		},
-	].forEach((testCase) => {
-		context(`when ${JSON.stringify(testCase.input)}`, () => {
-			it(`it should parse as ${JSON.stringify(testCase.expected)}`, () => {
-				const actual = numberToRgbColor(testCase.input);
-				assert.deepStrictEqual(
-					actual && actual.toRgbaObject(),
-					testCase.expected,
-				);
-			});
-		});
-	});
-
-	[
-		{
-			input: 0x0078ff,
-			expected: {
-				r: 0x00,
-				g: 0x78,
-				b: 0xff,
-				a: 1,
-			},
-		},
-		{
-			input: 'Not a number',
-			expected: {r: 0, g: 0, b: 0, a: 1},
-		},
-	].forEach((testCase) => {
-		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
-			it('should convert number to rgb color', () => {
-				assert.deepStrictEqual(
-					colorFromRgbNumber(testCase.input).toRgbaObject(),
-					testCase.expected,
-				);
-			});
-		});
-	});
-
-	[
-		{
-			input: 0x9abcde33,
-			expected: {
-				r: 0x9a,
-				g: 0xbc,
-				b: 0xde,
-				a: 0.2,
-			},
-		},
-		{
-			input: 'Not a number',
-			expected: {r: 0, g: 0, b: 0, a: 1},
-		},
-	].forEach((testCase) => {
-		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
-			it('should convert number to rgba color', () => {
-				assert.deepStrictEqual(
-					colorFromRgbaNumber(testCase.input).toRgbaObject(),
-					testCase.expected,
-				);
 			});
 		});
 	});

@@ -1,15 +1,15 @@
 import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
+import {Parser} from '../../../common/converter/parser';
 import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
-import {Parser} from '../../../common/reader/parser';
 import {TextController} from '../../common/controller/text';
 import {ColorSwatchTextView} from '../view/color-swatch-text';
 import {ColorSwatchController} from './color-swatch';
 
 interface Config {
 	formatter: Formatter<Color>;
-	parser: Parser<string, Color>;
+	parser: Parser<Color>;
 	supportsAlpha: boolean;
 	value: Value<Color>;
 }

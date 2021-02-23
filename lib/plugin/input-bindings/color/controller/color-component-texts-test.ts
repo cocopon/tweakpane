@@ -2,10 +2,10 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
+import {StringNumberParser} from '../../../common/converter/number';
 import {Color, RgbaColorObject} from '../../../common/model/color';
 import {PickedColor} from '../../../common/model/picked-color';
 import {Value} from '../../../common/model/value';
-import {StringNumberParser} from '../../../common/reader/string-number';
 import {ColorComponentTextsController} from './color-component-texts';
 
 interface ChangeTestCase {

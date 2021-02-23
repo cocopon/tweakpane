@@ -2,9 +2,11 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
-import {NumberFormatter} from '../../../common/converter/number';
+import {
+	NumberFormatter,
+	StringNumberParser,
+} from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
-import {StringNumberParser} from '../../../common/reader/string-number';
 import {Point3d} from '../model/point-3d';
 import {Point3dTextController} from './point-3d-text';
 

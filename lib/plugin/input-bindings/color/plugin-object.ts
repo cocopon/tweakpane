@@ -1,13 +1,13 @@
-import {
-	ColorFormatter,
-	colorFromObject,
-	colorToHexRgbaString,
-	colorToHexRgbString,
-} from '../../common/converter/color';
 import {Color, RgbaColorObject, RgbColorObject} from '../../common/model/color';
-import {CompositeColorParser} from '../../common/reader/string-color';
 import {InputBindingPlugin} from '../../input-binding';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
+import {colorFromObject} from './converter/color-number';
+import {
+	ColorFormatter,
+	colorToHexRgbaString,
+	colorToHexRgbString,
+	CompositeColorParser,
+} from './converter/color-string';
 import {createColorObjectWriter} from './writer/color';
 
 function shouldSupportAlpha(

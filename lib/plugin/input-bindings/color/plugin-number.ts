@@ -1,17 +1,17 @@
 import {InputParams} from '../../../api/types';
+import {Color} from '../../common/model/color';
+import {InputBindingPlugin} from '../../input-binding';
+import {ColorSwatchTextController} from './controller/color-swatch-text';
+import {
+	colorFromRgbaNumber,
+	colorFromRgbNumber,
+} from './converter/color-number';
 import {
 	ColorFormatter,
 	colorToHexRgbaString,
 	colorToHexRgbString,
-} from '../../common/converter/color';
-import {
-	colorFromRgbaNumber,
-	colorFromRgbNumber,
-} from '../../common/converter/color';
-import {Color} from '../../common/model/color';
-import {CompositeColorParser} from '../../common/reader/string-color';
-import {InputBindingPlugin} from '../../input-binding';
-import {ColorSwatchTextController} from './controller/color-swatch-text';
+	CompositeColorParser,
+} from './converter/color-string';
 import {createColorNumberWriter} from './writer/color';
 
 function shouldSupportAlpha(inputParams: InputParams): boolean {

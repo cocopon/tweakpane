@@ -1,8 +1,8 @@
 import {forceCast, isEmpty} from '../../../../misc/type-util';
 import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
+import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
-import {Parser} from '../../../common/reader/parser';
 import {TextView} from '../view/text';
 
 /**
@@ -10,7 +10,7 @@ import {TextView} from '../view/text';
  */
 export interface Config<T> {
 	formatter: Formatter<T>;
-	parser: Parser<string, T>;
+	parser: Parser<T>;
 	value: Value<T>;
 }
 
@@ -20,7 +20,7 @@ export interface Config<T> {
 export class TextController<T> implements ValueController<T> {
 	public readonly value: Value<T>;
 	public readonly view: TextView<T>;
-	private parser_: Parser<string, T>;
+	private parser_: Parser<T>;
 
 	constructor(doc: Document, config: Config<T>) {
 		this.onInputChange_ = this.onInputChange_.bind(this);

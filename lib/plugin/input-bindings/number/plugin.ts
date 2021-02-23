@@ -8,10 +8,13 @@ import {Constraint} from '../../common/constraint/constraint';
 import {ListConstraint} from '../../common/constraint/list';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
-import {NumberFormatter, numberToString} from '../../common/converter/number';
+import {
+	NumberFormatter,
+	numberToString,
+	StringNumberParser,
+} from '../../common/converter/number';
 import {numberFromUnknown} from '../../common/converter/number';
 import {Value} from '../../common/model/value';
-import {StringNumberParser} from '../../common/reader/string-number';
 import {writePrimitive} from '../../common/writer/primitive';
 import {InputBindingPlugin} from '../../input-binding';
 import {

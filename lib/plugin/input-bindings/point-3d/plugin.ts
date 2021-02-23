@@ -4,10 +4,12 @@ import {CompositeConstraint} from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
-import {NumberFormatter} from '../../common/converter/number';
+import {
+	NumberFormatter,
+	StringNumberParser,
+} from '../../common/converter/number';
 import {Value} from '../../common/model/value';
 import {PaneError} from '../../common/pane-error';
-import {StringNumberParser} from '../../common/reader/string-number';
 import {InputBindingPlugin} from '../../input-binding';
 import {getBaseStep, getSuitableDecimalDigits} from '../../util';
 import {Point3dConstraint} from './constraint/point-3d';

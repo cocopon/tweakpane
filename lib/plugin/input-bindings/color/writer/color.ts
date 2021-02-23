@@ -1,13 +1,10 @@
 import {BindingWriter} from '../../../common/binding/input';
 import {BindingTarget} from '../../../common/binding/target';
-import {
-	colorToRgbaNumber,
-	colorToRgbNumber,
-	getColorStringifier,
-} from '../../../common/converter/color';
 import {Color} from '../../../common/model/color';
-import {StringColorNotation} from '../../../common/reader/string-color';
 import {writePrimitive} from '../../../common/writer/primitive';
+import {colorToRgbaNumber, colorToRgbNumber} from '../converter/color-number';
+import {getColorStringifier} from '../converter/color-string';
+import {StringColorNotation} from '../converter/color-string';
 
 export function createColorStringWriter(
 	notation: StringColorNotation,

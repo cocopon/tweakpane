@@ -1,7 +1,7 @@
 import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
+import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
-import {Parser} from '../../../common/reader/parser';
 import {SliderTextView} from '../view/slider-text';
 import {NumberTextController} from './number-text';
 import {SliderController} from './slider';
@@ -9,7 +9,7 @@ import {SliderController} from './slider';
 interface Config {
 	baseStep: number;
 	formatter: Formatter<number>;
-	parser: Parser<string, number>;
+	parser: Parser<number>;
 	value: Value<number>;
 }
 

@@ -1,8 +1,8 @@
 import {forceCast, isEmpty} from '../../../../misc/type-util';
 import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
+import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
-import {Parser} from '../../../common/reader/parser';
 import {getStepForKey, getVerticalStepKeys} from '../../../common/ui';
 import {Point3d} from '../model/point-3d';
 import {Point3dTextView} from '../view/point-3d-text';
@@ -14,7 +14,7 @@ interface Axis {
 
 interface Config {
 	axes: [Axis, Axis, Axis];
-	parser: Parser<string, number>;
+	parser: Parser<number>;
 	value: Value<Point3d>;
 }
 
@@ -24,7 +24,7 @@ interface Config {
 export class Point3dTextController implements ValueController<Point3d> {
 	public readonly value: Value<Point3d>;
 	public readonly view: Point3dTextView;
-	private readonly parser_: Parser<string, number>;
+	private readonly parser_: Parser<number>;
 	private readonly baseSteps_: [number, number, number];
 
 	constructor(doc: Document, config: Config) {

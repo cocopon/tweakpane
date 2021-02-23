@@ -6,10 +6,12 @@ import {InputBindingController} from '../plugin/blade/common/controller/input-bi
 import {Blade} from '../plugin/blade/common/model/blade';
 import {InputBinding} from '../plugin/common/binding/input';
 import {BindingTarget} from '../plugin/common/binding/target';
-import {NumberFormatter} from '../plugin/common/converter/number';
+import {
+	NumberFormatter,
+	StringNumberParser,
+} from '../plugin/common/converter/number';
 import {numberFromUnknown} from '../plugin/common/converter/number';
 import {Value} from '../plugin/common/model/value';
-import {StringNumberParser} from '../plugin/common/reader/string-number';
 import {writePrimitive} from '../plugin/common/writer/primitive';
 import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
 import {InputBindingApi} from './input-binding';
