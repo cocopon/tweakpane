@@ -14,6 +14,7 @@ import {Point3dConstraint} from './constraint/point-3d';
 import {Point3dTextController} from './controller/point-3d-text';
 import {Point3d, Point3dObject} from './model/point-3d';
 import {point3dFromUnknown} from './reader/point-3d';
+import {writePoint3d} from './writer/point-3d';
 
 function createDimensionConstraint(
 	params: PointDimensionParams | undefined,
@@ -92,7 +93,7 @@ export const Point3dInputPlugin: InputBindingPlugin<Point3d, Point3dObject> = {
 	binding: {
 		accept: (value, _params) => (Point3d.isObject(value) ? value : null),
 		reader: (_args) => point3dFromUnknown,
-		writer: (_args) => (v) => v.toObject(),
+		writer: (_args) => writePoint3d,
 		constraint: (args) => createConstraint(args.params),
 		equals: Point3d.equals,
 	},

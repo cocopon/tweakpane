@@ -3,6 +3,7 @@ type ErrorType =
 	| 'emptyvalue'
 	| 'invalidparams'
 	| 'nomatchingcontroller'
+	| 'propertynotfound'
 	| 'shouldneverhappen';
 
 type Config =
@@ -22,6 +23,10 @@ type Config =
 			type: 'nomatchingcontroller';
 	  }
 	| {
+			context: {name: string};
+			type: 'propertynotfound';
+	  }
+	| {
 			type: 'shouldneverhappen';
 	  };
 
@@ -30,13 +35,16 @@ function createMessage(config: Config): string {
 		return 'View has been already disposed';
 	}
 	if (config.type === 'emptyvalue') {
-		return `Value is empty for ${config.context.key}`;
+		return `Value is empty for '${config.context.key}'`;
 	}
 	if (config.type === 'invalidparams') {
-		return `Invalid parameters for ${config.context.name}`;
+		return `Invalid parameters for '${config.context.name}'`;
 	}
 	if (config.type === 'nomatchingcontroller') {
-		return `No matching controller for ${config.context.key}`;
+		return `No matching controller for '${config.context.key}'`;
+	}
+	if (config.type === 'propertynotfound') {
+		return `Property '${config.context.name}' not found`;
 	}
 	if (config.type === 'shouldneverhappen') {
 		return 'This error should never happen';
@@ -47,6 +55,15 @@ function createMessage(config: Config): string {
 export class PaneError {
 	public static alreadyDisposed(): PaneError {
 		return new PaneError({type: 'alreadydisposed'});
+	}
+
+	public static propertyNotFound(name: string): PaneError {
+		return new PaneError({
+			type: 'propertynotfound',
+			context: {
+				name: name,
+			},
+		});
 	}
 
 	public static shouldNeverHappen(): PaneError {

@@ -8,6 +8,7 @@ import {RangeConstraint} from '../plugin/common/constraint/range';
 import {StepConstraint} from '../plugin/common/constraint/step';
 import {Point2dConstraint} from '../plugin/input-bindings/point-2d/constraint/point-2d';
 import {Point2dPadTextController} from '../plugin/input-bindings/point-2d/controller/point-2d-pad-text';
+import {Point2d} from '../plugin/input-bindings/point-2d/model/point-2d';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({
@@ -75,5 +76,23 @@ describe(Tweakpane.name, () => {
 		const rc = findConstraint(yc, RangeConstraint);
 		assert.strictEqual(rc && rc.minValue, -123);
 		assert.strictEqual(rc && rc.maxValue, 456);
+	});
+
+	it('should not break original object', () => {
+		const pane = createPane();
+		const p = {x: 12, y: 34, hello: 'world'};
+		const obj = {p: p};
+		const bapi = pane.addInput(obj, 'p');
+
+		const v = bapi.controller.binding.value;
+		if (!(v.rawValue instanceof Point2d)) {
+			throw new Error('Unexpected value type');
+		}
+
+		v.rawValue = new Point2d(56, 78);
+		assert.strictEqual(p, obj.p);
+		assert.strictEqual(p.x, 56);
+		assert.strictEqual(p.y, 78);
+		assert.strictEqual(p.hello, 'world');
 	});
 });

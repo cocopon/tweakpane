@@ -9,8 +9,7 @@ import {
 	ColorFormatter,
 	colorToHexRgbaString,
 	colorToHexRgbString,
-	colorToRgbaNumber,
-	colorToRgbNumber,
+	createColorNumberWriter,
 } from '../../common/writer/color';
 import {InputBindingPlugin} from '../../input-binding';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
@@ -49,9 +48,7 @@ export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
 				: colorFromNumberToRgb;
 		},
 		writer: (args) => {
-			return shouldSupportAlpha(args.params)
-				? colorToRgbaNumber
-				: colorToRgbNumber;
+			return createColorNumberWriter(shouldSupportAlpha(args.params));
 		},
 		equals: Color.equals,
 	},

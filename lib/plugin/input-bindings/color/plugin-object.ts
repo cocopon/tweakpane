@@ -5,9 +5,16 @@ import {
 	ColorFormatter,
 	colorToHexRgbaString,
 	colorToHexRgbString,
+	createObjectColorWriter as createColorObjectWriter,
 } from '../../common/writer/color';
 import {InputBindingPlugin} from '../../input-binding';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
+
+function shouldSupportAlpha(
+	initialValue: RgbColorObject | RgbaColorObject,
+): boolean {
+	return Color.isRgbaColorObject(initialValue);
+}
 
 /**
  * @hidden
@@ -20,7 +27,8 @@ export const ObjectColorInputPlugin: InputBindingPlugin<
 	binding: {
 		accept: (value, _params) => (Color.isColorObject(value) ? value : null),
 		reader: (_args) => colorFromObject,
-		writer: (_args) => Color.toRgbaObject,
+		writer: (args) =>
+			createColorObjectWriter(shouldSupportAlpha(args.initialValue)),
 		equals: Color.equals,
 	},
 	controller: (args) => {

@@ -13,7 +13,7 @@ export function createInputBindingController(
 	document: Document,
 	target: Target,
 	params: InputParams,
-): InputBindingController<unknown, unknown> {
+): InputBindingController<unknown> {
 	const initialValue = target.read();
 
 	if (isEmpty(initialValue)) {
@@ -26,7 +26,7 @@ export function createInputBindingController(
 	}
 
 	const bc = Plugins.inputs.reduce(
-		(result: InputBindingController<unknown, unknown> | null, plugin) =>
+		(result: InputBindingController<unknown> | null, plugin) =>
 			result ||
 			createController(plugin, {
 				document: document,

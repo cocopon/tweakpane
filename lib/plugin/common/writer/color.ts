@@ -1,10 +1,13 @@
+import {BindingWriter} from '../binding/input';
 import {Color} from '../model/color';
 import {removeAlphaComponent} from '../model/color-model';
+import {Target} from '../model/target';
 import {constrainRange} from '../number-util';
 import {StringColorNotation} from '../reader/string-color';
 import {Formatter} from './formatter';
 import {NumberFormatter} from './number';
 import {PercentageFormatter} from './percentage';
+import {writePrimitive} from './primitive';
 
 /**
  * @hidden
@@ -141,4 +144,43 @@ export function colorToRgbaNumber(value: Color): number {
 			return (result << 8) | hex;
 		}, 0) >>> 0
 	);
+}
+
+export function createColorStringWriter(
+	notation: StringColorNotation,
+): BindingWriter<Color> {
+	const stringify = getColorStringifier(notation);
+	return (target, value) => {
+		writePrimitive(target, stringify(value));
+	};
+}
+
+export function createColorNumberWriter(
+	supportsAlpha: boolean,
+): BindingWriter<Color> {
+	const colorToNumber = supportsAlpha ? colorToRgbaNumber : colorToRgbNumber;
+	return (target, value) => {
+		writePrimitive(target, colorToNumber(value));
+	};
+}
+
+function writeRgbaColorObject(target: Target, value: Color) {
+	const obj = value.toRgbaObject();
+	target.writeProperty('r', obj.r);
+	target.writeProperty('g', obj.g);
+	target.writeProperty('b', obj.b);
+	target.writeProperty('a', obj.a);
+}
+
+function writeRgbColorObject(target: Target, value: Color) {
+	const obj = value.toRgbaObject();
+	target.writeProperty('r', obj.r);
+	target.writeProperty('g', obj.g);
+	target.writeProperty('b', obj.b);
+}
+
+export function createObjectColorWriter(
+	supportsAlpha: boolean,
+): BindingWriter<Color> {
+	return supportsAlpha ? writeRgbaColorObject : writeRgbColorObject;
 }

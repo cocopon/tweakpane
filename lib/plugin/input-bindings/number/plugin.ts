@@ -12,6 +12,7 @@ import {Value} from '../../common/model/value';
 import {numberFromUnknown} from '../../common/reader/number';
 import {StringNumberParser} from '../../common/reader/string-number';
 import {NumberFormatter, numberToString} from '../../common/writer/number';
+import {writePrimitive} from '../../common/writer/primitive';
 import {InputBindingPlugin} from '../../input-binding';
 import {
 	findListItems,
@@ -100,7 +101,7 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 		accept: (value) => (typeof value === 'number' ? value : null),
 		constraint: (args) => createConstraint(args.params),
 		reader: (_args) => numberFromUnknown,
-		writer: (_args) => (v: number) => v,
+		writer: (_args) => writePrimitive,
 	},
 	controller: (args) => {
 		return createController(args.document, args.binding.value);

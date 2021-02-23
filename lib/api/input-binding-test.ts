@@ -10,6 +10,7 @@ import {Value} from '../plugin/common/model/value';
 import {numberFromUnknown} from '../plugin/common/reader/number';
 import {StringNumberParser} from '../plugin/common/reader/string-number';
 import {NumberFormatter} from '../plugin/common/writer/number';
+import {writePrimitive} from '../plugin/common/writer/primitive';
 import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
 import {InputBindingApi} from './input-binding';
 
@@ -27,7 +28,7 @@ function createApi(target: Target) {
 			reader: numberFromUnknown,
 			target: target,
 			value: value,
-			writer: (v) => v,
+			writer: writePrimitive,
 		}),
 		blade: new Blade(),
 		controller: ic,

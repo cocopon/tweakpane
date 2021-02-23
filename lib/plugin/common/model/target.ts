@@ -1,13 +1,16 @@
+import {isEmpty} from '../../../misc/type-util';
+import {PaneError} from '../pane-error';
+
 /**
  * @hidden
  */
 export class Target {
 	private key_: string;
-	private obj_: object;
+	private obj_: unknown;
 	private presetKey_: string;
 
-	constructor(object: object, key: string, opt_id?: string) {
-		this.obj_ = object;
+	constructor(obj: unknown, key: string, opt_id?: string) {
+		this.obj_ = obj;
 		this.key_ = key;
 		this.presetKey_ = opt_id ?? key;
 	}
@@ -26,5 +29,22 @@ export class Target {
 
 	public write(value: unknown): void {
 		(this.obj_ as any)[this.key_] = value;
+	}
+
+	public writeProperty(name: string, value: unknown): void {
+		const valueObj: any = this.read();
+
+		if (isEmpty(valueObj)) {
+			throw new PaneError({
+				context: {
+					key: this.key_,
+				},
+				type: 'emptyvalue',
+			});
+		}
+		if (!(name in valueObj)) {
+			throw PaneError.propertyNotFound(name);
+		}
+		valueObj[name] = value;
 	}
 }

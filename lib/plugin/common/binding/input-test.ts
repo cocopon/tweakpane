@@ -4,6 +4,7 @@ import {describe, it} from 'mocha';
 import {Target} from '../model/target';
 import {Value} from '../model/value';
 import {numberFromUnknown} from '../reader/number';
+import {writePrimitive} from '../writer/primitive';
 import {InputBinding} from './input';
 
 describe(InputBinding.name, () => {
@@ -34,7 +35,7 @@ describe(InputBinding.name, () => {
 			reader: numberFromUnknown,
 			target: target,
 			value: value,
-			writer: (v) => v,
+			writer: writePrimitive,
 		});
 
 		assert.strictEqual(
@@ -45,7 +46,7 @@ describe(InputBinding.name, () => {
 
 		value.rawValue = 456;
 
-		assert.strictEqual(obj.foo, 456, 'Binded value should be updated');
+		assert.strictEqual(obj.foo, 456, 'Bound value should be updated');
 	});
 
 	it('should not apply binding value to undefined field', () => {

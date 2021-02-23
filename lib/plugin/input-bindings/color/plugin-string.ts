@@ -6,7 +6,11 @@ import {
 	getColorNotation,
 	hasAlphaComponent,
 } from '../../common/reader/string-color';
-import {ColorFormatter, getColorStringifier} from '../../common/writer/color';
+import {
+	ColorFormatter,
+	createColorStringWriter,
+	getColorStringifier,
+} from '../../common/writer/color';
 import {InputBindingPlugin} from '../../input-binding';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
 
@@ -35,7 +39,7 @@ export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
 			if (!notation) {
 				throw PaneError.shouldNeverHappen();
 			}
-			return getColorStringifier(notation);
+			return createColorStringWriter(notation);
 		},
 		equals: Color.equals,
 	},
@@ -45,8 +49,9 @@ export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
 			throw PaneError.shouldNeverHappen();
 		}
 
+		const stringifier = getColorStringifier(notation);
 		return new ColorSwatchTextController(args.document, {
-			formatter: new ColorFormatter(args.binding.writer),
+			formatter: new ColorFormatter(stringifier),
 			parser: CompositeColorParser,
 			supportsAlpha: hasAlphaComponent(notation),
 			value: args.binding.value,

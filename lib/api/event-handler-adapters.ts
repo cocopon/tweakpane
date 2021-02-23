@@ -1,3 +1,4 @@
+import {forceCast} from '../misc/type-util';
 import {
 	BladeRack,
 	BladeRackEvents,
@@ -21,14 +22,14 @@ export function handleInputBinding<In, Ex>({
 	eventName,
 	handler,
 }: {
-	binding: InputBinding<In, Ex>;
+	binding: InputBinding<In>;
 	eventName: InputEventName;
-	handler: (value: unknown) => void;
+	handler: (value: Ex) => void;
 }) {
 	if (eventName === 'change') {
 		const emitter = binding.emitter;
-		emitter.on('change', (ev: InputBindingEvents<In, Ex>['change']) => {
-			handler(ev.sender.getValueToWrite(ev.rawValue));
+		emitter.on('change', (ev: InputBindingEvents<In>['change']) => {
+			handler(forceCast(ev.sender.target.read()));
 		});
 	}
 }
@@ -70,8 +71,7 @@ export function handleFolder({
 	if (eventName === 'change') {
 		const emitter = bladeRack.emitter;
 		emitter.on('inputchange', (ev: BladeRackEvents['inputchange']) => {
-			// TODO: Find more type-safe way
-			handler((ev.inputBinding.getValueToWrite as any)(ev.value));
+			handler(ev.inputBinding.target.read());
 		});
 	}
 	if (eventName === 'update') {

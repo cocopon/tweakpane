@@ -8,6 +8,7 @@ import {ListConstraint} from '../../common/constraint/list';
 import {Value} from '../../common/model/value';
 import {boolFromUnknown} from '../../common/reader/boolean';
 import {boolToString} from '../../common/writer/boolean';
+import {writePrimitive} from '../../common/writer/primitive';
 import {InputBindingPlugin} from '../../input-binding';
 import {findListItems, normalizeInputParamsOptions} from '../../util';
 import {ListController} from '../common/controller/list';
@@ -54,7 +55,7 @@ export const BooleanInputPlugin: InputBindingPlugin<boolean, boolean> = {
 		accept: (value) => (typeof value === 'boolean' ? value : null),
 		constraint: (args) => createConstraint(args.params),
 		reader: (_args) => boolFromUnknown,
-		writer: (_args) => (v: boolean) => v,
+		writer: (_args) => writePrimitive,
 	},
 	controller: (args) => {
 		return createController(args.document, args.binding.value);

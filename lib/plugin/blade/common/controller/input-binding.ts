@@ -4,8 +4,8 @@ import {LabeledView} from '../../labeled/view';
 import {Blade} from '../model/blade';
 import {BladeController, setUpBladeView} from './blade';
 
-interface Config<In, Ex> {
-	binding: InputBinding<In, Ex>;
+interface Config<In> {
+	binding: InputBinding<In>;
 	controller: ValueController<In>;
 	label: string;
 	blade: Blade;
@@ -14,13 +14,13 @@ interface Config<In, Ex> {
 /**
  * @hidden
  */
-export class InputBindingController<In, Ex> implements BladeController {
-	public readonly binding: InputBinding<In, Ex>;
+export class InputBindingController<In> implements BladeController {
+	public readonly binding: InputBinding<In>;
 	public readonly controller: ValueController<In>;
 	public readonly view: LabeledView;
 	public readonly blade: Blade;
 
-	constructor(doc: Document, config: Config<In, Ex>) {
+	constructor(doc: Document, config: Config<In>) {
 		this.binding = config.binding;
 		this.controller = config.controller;
 

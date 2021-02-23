@@ -1,4 +1,3 @@
-import {forceCast} from '../misc/type-util';
 import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
 import {ComponentApi} from './component-api';
 import {handleInputBinding} from './event-handler-adapters';
@@ -9,19 +8,19 @@ interface InputBindingApiEventHandlers<Ex> {
 
 /**
  * The API for the input binding between the parameter and the pane.
- * @param In The type internal Tweakpane.
- * @param Ex The type external Tweakpane (= parameter object).
+ * @param In The internal type.
+ * @param Ex The external type (= parameter object).
  */
 export class InputBindingApi<In, Ex> implements ComponentApi {
 	/**
 	 * @hidden
 	 */
-	public readonly controller: InputBindingController<In, Ex>;
+	public readonly controller: InputBindingController<In>;
 
 	/**
 	 * @hidden
 	 */
-	constructor(bindingController: InputBindingController<In, Ex>) {
+	constructor(bindingController: InputBindingController<In>) {
 		this.controller = bindingController;
 	}
 
@@ -44,8 +43,7 @@ export class InputBindingApi<In, Ex> implements ComponentApi {
 		handleInputBinding({
 			binding: this.controller.binding,
 			eventName: eventName,
-			// TODO: Type-safe
-			handler: forceCast(handler.bind(this)),
+			handler: handler.bind(this),
 		});
 		return this;
 	}
