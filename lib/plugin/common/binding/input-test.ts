@@ -1,8 +1,8 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
+import {numberFromUnknown} from '../converter/number';
 import {Value} from '../model/value';
-import {numberFromUnknown} from '../reader/number';
 import {writePrimitive} from '../writer/primitive';
 import {InputBinding} from './input';
 import {BindingTarget} from './target';

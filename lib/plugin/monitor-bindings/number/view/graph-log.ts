@@ -1,10 +1,10 @@
+import {Formatter} from '../../../common/converter/formatter';
 import {SVG_NS} from '../../../common/dom-util';
 import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
 import {GraphCursor} from '../../../common/model/graph-cursor';
 import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
-import {Formatter} from '../../../common/writer/formatter';
 
 interface Config {
 	cursor: GraphCursor;

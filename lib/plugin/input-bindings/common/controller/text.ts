@@ -1,8 +1,8 @@
 import {forceCast, isEmpty} from '../../../../misc/type-util';
 import {ValueController} from '../../../common/controller/value';
+import {Formatter} from '../../../common/converter/formatter';
 import {Value} from '../../../common/model/value';
 import {Parser} from '../../../common/reader/parser';
-import {Formatter} from '../../../common/writer/formatter';
 import {TextView} from '../view/text';
 
 /**

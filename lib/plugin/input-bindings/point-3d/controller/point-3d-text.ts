@@ -1,9 +1,9 @@
 import {forceCast, isEmpty} from '../../../../misc/type-util';
 import {ValueController} from '../../../common/controller/value';
+import {Formatter} from '../../../common/converter/formatter';
 import {Value} from '../../../common/model/value';
 import {Parser} from '../../../common/reader/parser';
 import {getStepForKey, getVerticalStepKeys} from '../../../common/ui';
-import {Formatter} from '../../../common/writer/formatter';
 import {Point3d} from '../model/point-3d';
 import {Point3dTextView} from '../view/point-3d-text';
 

@@ -1,9 +1,34 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {NumberFormatter, numberToString} from './number';
+import {NumberFormatter, numberFromUnknown, numberToString} from './number';
 
 describe(NumberFormatter.name, () => {
+	[
+		{
+			arg: 3.14,
+			expected: 3.14,
+		},
+		{
+			arg: '1.4141356',
+			expected: 1.4141356,
+		},
+		{
+			arg: 'foobar',
+			expected: 0,
+		},
+		{
+			arg: {foo: 'bar'},
+			expected: 0,
+		},
+	].forEach((testCase) => {
+		context(`when ${JSON.stringify(testCase.arg)}`, () => {
+			it(`should convert to ${testCase.expected}`, () => {
+				assert.strictEqual(numberFromUnknown(testCase.arg), testCase.expected);
+			});
+		});
+	});
+
 	it('should get digits', () => {
 		const f = new NumberFormatter(3);
 		assert.strictEqual(f.digits, 3);

@@ -1,4 +1,10 @@
 import {Formatter} from './formatter';
+/**
+ * @hidden
+ */
+export function stringFromUnknown(value: unknown): string {
+	return String(value);
+}
 
 /**
  * @hidden

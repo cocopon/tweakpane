@@ -3,10 +3,10 @@ import {describe, it} from 'mocha';
 
 import Tweakpane from '..';
 import {TestUtil} from '../misc/test-util';
+import {StringFormatter} from '../plugin/common/converter/string';
+import {stringFromUnknown} from '../plugin/common/converter/string';
 import {PaneError} from '../plugin/common/pane-error';
-import {stringFromUnknown} from '../plugin/common/reader/string';
 import {writePrimitive} from '../plugin/common/writer/primitive';
-import {StringFormatter} from '../plugin/common/writer/string';
 import {TextController} from '../plugin/input-bindings/common/controller/text';
 
 describe(Tweakpane.name, () => {

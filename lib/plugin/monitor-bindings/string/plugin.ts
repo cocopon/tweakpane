@@ -1,6 +1,8 @@
 import {Constants} from '../../../misc/constants';
-import {stringFromUnknown} from '../../common/reader/string';
-import {StringFormatter} from '../../common/writer/string';
+import {
+	StringFormatter,
+	stringFromUnknown,
+} from '../../common/converter/string';
 import {MonitorBindingPlugin} from '../../monitor-binding';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogMonitorController} from '../common/controller/single-log';

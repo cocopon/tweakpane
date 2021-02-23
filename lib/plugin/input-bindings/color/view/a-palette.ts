@@ -1,9 +1,9 @@
+import {colorToFunctionalRgbaString} from '../../../common/converter/color';
 import {Color} from '../../../common/model/color';
 import {Value} from '../../../common/model/value';
 import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
-import {colorToFunctionalRgbaString} from '../../../common/writer/color';
 
 const className = ClassName('apl');
 

@@ -1,9 +1,9 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
+import {numberFromUnknown} from '../converter/number';
 import {Buffer} from '../model/buffered-value';
 import {Value} from '../model/value';
-import {numberFromUnknown} from '../reader/number';
 import {MonitorBinding} from './monitor';
 import {BindingTarget} from './target';
 import {ManualTicker} from './ticker/manual';

@@ -5,10 +5,10 @@ import {
 } from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
 import {ListConstraint} from '../../common/constraint/list';
+import {StringFormatter} from '../../common/converter/string';
+import {stringFromUnknown} from '../../common/converter/string';
 import {Value} from '../../common/model/value';
-import {stringFromUnknown} from '../../common/reader/string';
 import {writePrimitive} from '../../common/writer/primitive';
-import {StringFormatter} from '../../common/writer/string';
 import {InputBindingPlugin} from '../../input-binding';
 import {findListItems, normalizeInputParamsOptions} from '../../util';
 import {ListController} from '../common/controller/list';

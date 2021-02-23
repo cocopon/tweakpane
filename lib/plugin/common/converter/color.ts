@@ -1,10 +1,20 @@
 import {Color} from '../model/color';
 import {removeAlphaComponent} from '../model/color-model';
-import {constrainRange} from '../number-util';
+import {constrainRange, mapRange} from '../number-util';
 import {StringColorNotation} from '../reader/string-color';
 import {Formatter} from './formatter';
 import {NumberFormatter} from './number';
 import {PercentageFormatter} from './percentage';
+
+/**
+ * @hidden
+ */
+export function colorFromObject(value: unknown): Color {
+	if (Color.isColorObject(value)) {
+		return Color.fromObject(value);
+	}
+	return Color.black();
+}
 
 /**
  * @hidden
@@ -141,4 +151,46 @@ export function colorToRgbaNumber(value: Color): number {
 			return (result << 8) | hex;
 		}, 0) >>> 0
 	);
+}
+
+/**
+ * @hidden
+ */
+export function numberToRgbColor(num: number): Color {
+	return new Color([(num >> 16) & 0xff, (num >> 8) & 0xff, num & 0xff], 'rgb');
+}
+
+/**
+ * @hidden
+ */
+export function numberToRgbaColor(num: number): Color {
+	return new Color(
+		[
+			(num >> 24) & 0xff,
+			(num >> 16) & 0xff,
+			(num >> 8) & 0xff,
+			mapRange(num & 0xff, 0, 255, 0, 1),
+		],
+		'rgb',
+	);
+}
+
+/**
+ * @hidden
+ */
+export function colorFromRgbNumber(value: unknown): Color {
+	if (typeof value !== 'number') {
+		return Color.black();
+	}
+	return numberToRgbColor(value);
+}
+
+/**
+ * @hidden
+ */
+export function colorFromRgbaNumber(value: unknown): Color {
+	if (typeof value !== 'number') {
+		return Color.black();
+	}
+	return numberToRgbaColor(value);
 }

@@ -1,6 +1,8 @@
 import {Constants} from '../../../misc/constants';
-import {boolFromUnknown} from '../../common/reader/boolean';
-import {BooleanFormatter} from '../../common/writer/boolean';
+import {
+	BooleanFormatter,
+	boolFromUnknown,
+} from '../../common/converter/boolean';
 import {MonitorBindingPlugin} from '../../monitor-binding';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogMonitorController} from '../common/controller/single-log';

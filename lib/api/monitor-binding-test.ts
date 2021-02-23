@@ -8,9 +8,9 @@ import {MonitorBinding} from '../plugin/common/binding/monitor';
 import {BindingTarget} from '../plugin/common/binding/target';
 import {ManualTicker} from '../plugin/common/binding/ticker/manual';
 import {NumberFormatter} from '../plugin/common/converter/number';
+import {numberFromUnknown} from '../plugin/common/converter/number';
 import {Buffer} from '../plugin/common/model/buffered-value';
 import {Value} from '../plugin/common/model/value';
-import {numberFromUnknown} from '../plugin/common/reader/number';
 import {SingleLogMonitorController} from '../plugin/monitor-bindings/common/controller/single-log';
 import {MonitorBindingApi} from './monitor-binding';
 

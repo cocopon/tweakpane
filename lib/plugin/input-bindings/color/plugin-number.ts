@@ -4,11 +4,11 @@ import {
 	colorToHexRgbaString,
 	colorToHexRgbString,
 } from '../../common/converter/color';
-import {Color} from '../../common/model/color';
 import {
-	colorFromNumberToRgb,
-	colorFromNumberToRgba,
-} from '../../common/reader/number-color';
+	colorFromRgbaNumber,
+	colorFromRgbNumber,
+} from '../../common/converter/color';
+import {Color} from '../../common/model/color';
 import {CompositeColorParser} from '../../common/reader/string-color';
 import {InputBindingPlugin} from '../../input-binding';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
@@ -44,8 +44,8 @@ export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
 		},
 		reader: (args) => {
 			return shouldSupportAlpha(args.params)
-				? colorFromNumberToRgba
-				: colorFromNumberToRgb;
+				? colorFromRgbaNumber
+				: colorFromRgbNumber;
 		},
 		writer: (args) => {
 			return createColorNumberWriter(shouldSupportAlpha(args.params));

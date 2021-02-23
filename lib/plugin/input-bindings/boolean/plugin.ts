@@ -5,9 +5,9 @@ import {
 } from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
 import {ListConstraint} from '../../common/constraint/list';
+import {boolToString} from '../../common/converter/boolean';
+import {boolFromUnknown} from '../../common/converter/boolean';
 import {Value} from '../../common/model/value';
-import {boolFromUnknown} from '../../common/reader/boolean';
-import {boolToString} from '../../common/writer/boolean';
 import {writePrimitive} from '../../common/writer/primitive';
 import {InputBindingPlugin} from '../../input-binding';
 import {findListItems, normalizeInputParamsOptions} from '../../util';
