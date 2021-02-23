@@ -1,5 +1,5 @@
 import {forceCast} from '../../../../misc/type-util';
-import {Foldable} from '../../../common/model/foldable';
+import {Foldable} from '../../../blade/folder/model/foldable';
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';

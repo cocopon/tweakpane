@@ -2,14 +2,11 @@ import {forceCast, isEmpty} from '../../../../misc/type-util';
 import {ValueController} from '../../../common/controller/value';
 import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
-import {
-	getBaseStepForColor,
-	getStepForKey,
-	getVerticalStepKeys,
-} from '../../../common/ui';
+import {getStepForKey, getVerticalStepKeys} from '../../../common/ui';
 import {Color} from '../model/color';
 import {ColorComponents4, ColorMode} from '../model/color-model';
 import {PickedColor} from '../model/picked-color';
+import {getBaseStepForColor} from '../util';
 import {ColorComponentTextsView} from '../view/color-component-texts';
 
 interface Config {

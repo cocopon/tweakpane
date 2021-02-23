@@ -1,6 +1,6 @@
-import {Button} from '../../common/model/button';
 import {ClassName} from '../../common/view/class-name';
 import {View} from '../../common/view/view';
+import {Button} from './model/button';
 
 interface Config {
 	button: Button;

@@ -1,4 +1,4 @@
-import {Emitter} from '../model/emitter';
+import {Emitter} from '../../../common/model/emitter';
 
 /**
  * @hidden

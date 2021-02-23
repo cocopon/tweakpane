@@ -5,13 +5,13 @@ import {
 	MonitorBindingEvents,
 } from '../../../common/binding/monitor';
 import {Emitter} from '../../../common/model/emitter';
-import {FolderEvents} from '../../../common/model/folder';
-import {List, ListEvents} from '../../../common/model/list';
 import {FolderController} from '../../folder/controller';
+import {FolderEvents} from '../../folder/model/folder';
 import {BladeController} from '../controller/blade';
 import {InputBindingController} from '../controller/input-binding';
 import {MonitorBindingController} from '../controller/monitor-binding';
 import {BladeEvents} from './blade';
+import {List, ListEvents} from './list';
 
 /**
  * @hidden

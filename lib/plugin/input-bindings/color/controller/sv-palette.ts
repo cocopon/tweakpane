@@ -2,7 +2,6 @@ import {ValueController} from '../../../common/controller/value';
 import {Value} from '../../../common/model/value';
 import {mapRange} from '../../../common/number-util';
 import {
-	getBaseStepForColor,
 	getHorizontalStepKeys,
 	getStepForKey,
 	getVerticalStepKeys,
@@ -14,6 +13,7 @@ import {
 	PointerHandlerEvents,
 } from '../../../common/view/pointer-handler';
 import {Color} from '../model/color';
+import {getBaseStepForColor} from '../util';
 import {SvPaletteView} from '../view/sv-palette';
 
 interface Config {

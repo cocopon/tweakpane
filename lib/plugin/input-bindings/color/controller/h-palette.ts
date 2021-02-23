@@ -1,17 +1,14 @@
 import {ValueController} from '../../../common/controller/value';
 import {Value} from '../../../common/model/value';
 import {mapRange} from '../../../common/number-util';
-import {
-	getBaseStepForColor,
-	getHorizontalStepKeys,
-	getStepForKey,
-} from '../../../common/ui';
+import {getHorizontalStepKeys, getStepForKey} from '../../../common/ui';
 import {
 	PointerData,
 	PointerHandler,
 	PointerHandlerEvents,
 } from '../../../common/view/pointer-handler';
 import {Color} from '../model/color';
+import {getBaseStepForColor} from '../util';
 import {HPaletteView} from '../view/h-palette';
 
 interface Config {
