@@ -1,19 +1,21 @@
 import {forceCast, isEmpty} from '../../../../misc/type-util';
 import {ValueController} from '../../../common/controller/value';
-import {Point2d} from '../../../common/model/point-2d';
 import {Value} from '../../../common/model/value';
 import {Parser} from '../../../common/reader/parser';
 import {getStepForKey, getVerticalStepKeys} from '../../../common/ui';
 import {Formatter} from '../../../common/writer/formatter';
+import {Point2d} from '../model/point-2d';
 import {Point2dTextView} from '../view/point-2d-text';
 
+interface Axis {
+	baseStep: number;
+	formatter: Formatter<number>;
+}
+
 interface Config {
+	axes: [Axis, Axis];
 	parser: Parser<string, number>;
 	value: Value<Point2d>;
-	xBaseStep: number;
-	xFormatter: Formatter<number>;
-	yBaseStep: number;
-	yFormatter: Formatter<number>;
 }
 
 /**
@@ -23,8 +25,7 @@ export class Point2dTextController implements ValueController<Point2d> {
 	public readonly value: Value<Point2d>;
 	public readonly view: Point2dTextView;
 	private readonly parser_: Parser<string, number>;
-	private readonly xBaseStep_: number;
-	private readonly yBaseStep_: number;
+	private readonly baseSteps_: [number, number];
 
 	constructor(doc: Document, config: Config) {
 		this.onInputChange_ = this.onInputChange_.bind(this);
@@ -33,13 +34,11 @@ export class Point2dTextController implements ValueController<Point2d> {
 		this.parser_ = config.parser;
 		this.value = config.value;
 
-		this.xBaseStep_ = config.xBaseStep;
-		this.yBaseStep_ = config.yBaseStep;
+		this.baseSteps_ = [config.axes[0].baseStep, config.axes[1].baseStep];
 
 		this.view = new Point2dTextView(doc, {
+			formatters: [config.axes[0].formatter, config.axes[1].formatter],
 			value: this.value,
-			xFormatter: config.xFormatter,
-			yFormatter: config.yFormatter,
 		});
 		this.view.inputElements.forEach((inputElem) => {
 			inputElem.addEventListener('change', this.onInputChange_);
@@ -94,7 +93,7 @@ export class Point2dTextController implements ValueController<Point2d> {
 		}
 
 		const step = getStepForKey(
-			compIndex === 0 ? this.xBaseStep_ : this.yBaseStep_,
+			this.baseSteps_[compIndex],
 			getVerticalStepKeys(e),
 		);
 		if (step === 0) {

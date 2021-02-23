@@ -1,16 +1,14 @@
-import {Point2d} from '../../../common/model/point-2d';
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
 import {Formatter} from '../../../common/writer/formatter';
+import {Point2d} from '../model/point-2d';
 
 interface Config {
+	formatters: [Formatter<number>, Formatter<number>];
 	value: Value<Point2d>;
-	xFormatter: Formatter<number>;
-	yFormatter: Formatter<number>;
 }
 
-const COMPONENT_LABELS: [string, string] = ['X', 'Y'];
 const className = ClassName('p2dtxt');
 
 /**
@@ -19,24 +17,24 @@ const className = ClassName('p2dtxt');
 export class Point2dTextView implements ValueView<Point2d> {
 	public readonly element: HTMLElement;
 	public readonly value: Value<Point2d>;
-	private formatters_: Formatter<number>[];
+	private formatters_: [Formatter<number>, Formatter<number>];
 	private inputElems_: [HTMLInputElement, HTMLInputElement];
 
 	constructor(doc: Document, config: Config) {
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
-		this.formatters_ = [config.xFormatter, config.yFormatter];
+		this.formatters_ = config.formatters;
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
 
-		const inputElems = COMPONENT_LABELS.map(() => {
+		const inputElems = [0, 1].map(() => {
 			const inputElem = doc.createElement('input');
 			inputElem.classList.add(className('i'));
 			inputElem.type = 'text';
 			return inputElem;
 		});
-		COMPONENT_LABELS.forEach((_, index) => {
+		[0, 1].forEach((_, index) => {
 			const elem = doc.createElement('div');
 			elem.classList.add(className('w'));
 			elem.appendChild(inputElems[index]);

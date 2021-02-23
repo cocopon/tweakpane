@@ -2,10 +2,10 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
-import {Point2d} from '../../../common/model/point-2d';
 import {Value} from '../../../common/model/value';
 import {StringNumberParser} from '../../../common/reader/string-number';
 import {NumberFormatter} from '../../../common/writer/number';
+import {Point2d} from '../model/point-2d';
 import {Point2dTextController} from './point-2d-text';
 
 describe(Point2dTextController.name, () => {
@@ -13,12 +13,12 @@ describe(Point2dTextController.name, () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new Point2dTextController(doc, {
+			axes: [
+				{baseStep: 1, formatter: new NumberFormatter(0)},
+				{baseStep: 1, formatter: new NumberFormatter(0)},
+			],
 			parser: StringNumberParser,
 			value: new Value(new Point2d(12, 34)),
-			xBaseStep: 1,
-			xFormatter: new NumberFormatter(0),
-			yBaseStep: 1,
-			yFormatter: new NumberFormatter(0),
 		});
 
 		c.view.inputElements[0].value = '3.14';

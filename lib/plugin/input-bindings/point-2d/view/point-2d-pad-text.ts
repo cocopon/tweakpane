@@ -1,8 +1,8 @@
 import {createSvgIconElement} from '../../../common/dom-util';
-import {Point2d} from '../../../common/model/point-2d';
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
+import {Point2d} from '../model/point-2d';
 import {Point2dPadView} from './point-2d-pad';
 import {Point2dTextView} from './point-2d-text';
 

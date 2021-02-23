@@ -4,9 +4,9 @@ import {describe as context, describe, it} from 'mocha';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {forceCast} from '../misc/type-util';
+import {findConstraint} from '../plugin/common/constraint/composite';
 import {Constraint} from '../plugin/common/constraint/constraint';
 import {StepConstraint} from '../plugin/common/constraint/step';
-import {ConstraintUtil} from '../plugin/common/constraint/util';
 import {Value} from '../plugin/common/model/value';
 import {ListController} from '../plugin/input-bindings/common/controller/list';
 import {TextController} from '../plugin/input-bindings/common/controller/text';
@@ -88,6 +88,6 @@ describe(Tweakpane.name, () => {
 			throw new Error('Constraint is empty');
 		}
 
-		assert.isNotNull(ConstraintUtil.findConstraint(c, StepConstraint));
+		assert.isNotNull(findConstraint(c, StepConstraint));
 	});
 });

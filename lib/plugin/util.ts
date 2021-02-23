@@ -1,8 +1,8 @@
 import {InputParamsOption, InputParamsOptionDictionary} from '../api/types';
+import {findConstraint} from './common/constraint/composite';
 import {Constraint} from './common/constraint/constraint';
 import {ListConstraint, ListItem} from './common/constraint/list';
 import {StepConstraint} from './common/constraint/step';
-import {ConstraintUtil} from './common/constraint/util';
 import {getDecimalDigits} from './common/number-util';
 
 /**
@@ -38,10 +38,7 @@ export function findListItems<T>(
 	constraint: Constraint<T> | undefined,
 ): ListItem<T>[] | null {
 	const c = constraint
-		? ConstraintUtil.findConstraint<ListConstraint<T>>(
-				constraint,
-				ListConstraint,
-		  )
+		? findConstraint<ListConstraint<T>>(constraint, ListConstraint)
 		: null;
 	if (!c) {
 		return null;
@@ -51,9 +48,7 @@ export function findListItems<T>(
 }
 
 function findStep(constraint: Constraint<number> | undefined): number | null {
-	const c = constraint
-		? ConstraintUtil.findConstraint(constraint, StepConstraint)
-		: null;
+	const c = constraint ? findConstraint(constraint, StepConstraint) : null;
 	if (!c) {
 		return null;
 	}
@@ -68,8 +63,7 @@ export function getSuitableDecimalDigits(
 	constraint: Constraint<number> | undefined,
 	rawValue: number,
 ): number {
-	const sc =
-		constraint && ConstraintUtil.findConstraint(constraint, StepConstraint);
+	const sc = constraint && findConstraint(constraint, StepConstraint);
 	if (sc) {
 		return getDecimalDigits(sc.step);
 	}

@@ -1,10 +1,10 @@
 import {SVG_NS} from '../../../common/dom-util';
 import {Foldable} from '../../../common/model/foldable';
-import {Point2d} from '../../../common/model/point-2d';
 import {Value} from '../../../common/model/value';
 import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
+import {Point2d} from '../model/point-2d';
 
 interface Config {
 	foldable: Foldable;

@@ -1,4 +1,4 @@
-import {isEmpty} from '../../../misc/type-util';
+import {isEmpty} from '../../../../misc/type-util';
 
 export interface Point2dObject {
 	x: number;

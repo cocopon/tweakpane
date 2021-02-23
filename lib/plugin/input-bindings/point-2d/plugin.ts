@@ -1,20 +1,22 @@
 import {InputParams, PointDimensionParams} from '../../../api/types';
 import {isEmpty} from '../../../misc/type-util';
-import {CompositeConstraint} from '../../common/constraint/composite';
+import {
+	CompositeConstraint,
+	findConstraint,
+} from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
-import {Point2dConstraint} from '../../common/constraint/point-2d';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
-import {ConstraintUtil} from '../../common/constraint/util';
-import {Point2d, Point2dObject} from '../../common/model/point-2d';
 import {Value} from '../../common/model/value';
 import {PaneError} from '../../common/pane-error';
-import {point2dFromUnknown} from '../../common/reader/point-2d';
 import {StringNumberParser} from '../../common/reader/string-number';
 import {NumberFormatter} from '../../common/writer/number';
 import {InputBindingPlugin} from '../../input-binding';
 import {getBaseStep, getSuitableDecimalDigits} from '../../util';
+import {Point2dConstraint} from './constraint/point-2d';
 import {Point2dPadTextController} from './controller/point-2d-pad-text';
+import {Point2d, Point2dObject} from './model/point-2d';
+import {point2dFromUnknown} from './reader/point-2d';
 
 function createDimensionConstraint(
 	params: PointDimensionParams | undefined,
@@ -56,8 +58,7 @@ function getSuitableMaxDimensionValue(
 	constraint: Constraint<number> | undefined,
 	rawValue: number,
 ): number {
-	const rc =
-		constraint && ConstraintUtil.findConstraint(constraint, RangeConstraint);
+	const rc = constraint && findConstraint(constraint, RangeConstraint);
 	if (rc) {
 		return Math.max(Math.abs(rc.minValue || 0), Math.abs(rc.maxValue || 0));
 	}
@@ -73,14 +74,8 @@ export function getSuitableMaxValue(
 	initialValue: Point2d,
 	constraint: Constraint<Point2d> | undefined,
 ): number {
-	const xc =
-		constraint instanceof Point2dConstraint
-			? constraint.xConstraint
-			: undefined;
-	const yc =
-		constraint instanceof Point2dConstraint
-			? constraint.yConstraint
-			: undefined;
+	const xc = constraint instanceof Point2dConstraint ? constraint.x : undefined;
+	const yc = constraint instanceof Point2dConstraint ? constraint.y : undefined;
 	const xr = getSuitableMaxDimensionValue(xc, initialValue.x);
 	const yr = getSuitableMaxDimensionValue(yc, initialValue.y);
 	return Math.max(xr, yr);
@@ -97,18 +92,24 @@ function createController(
 	}
 
 	return new Point2dPadTextController(document, {
+		axes: [
+			{
+				baseStep: getBaseStep(c.x),
+				formatter: new NumberFormatter(
+					getSuitableDecimalDigits(c.x, value.rawValue.x),
+				),
+			},
+			{
+				baseStep: getBaseStep(c.y),
+				formatter: new NumberFormatter(
+					getSuitableDecimalDigits(c.y, value.rawValue.y),
+				),
+			},
+		],
 		invertsY: invertsY,
 		maxValue: getSuitableMaxValue(value.rawValue, value.constraint),
 		parser: StringNumberParser,
 		value: value,
-		xBaseStep: getBaseStep(c.xConstraint),
-		xFormatter: new NumberFormatter(
-			getSuitableDecimalDigits(c.xConstraint, value.rawValue.x),
-		),
-		yBaseStep: getBaseStep(c.yConstraint),
-		yFormatter: new NumberFormatter(
-			getSuitableDecimalDigits(c.yConstraint, value.rawValue.y),
-		),
 	});
 }
 
