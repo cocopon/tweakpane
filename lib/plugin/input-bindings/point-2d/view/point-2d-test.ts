@@ -2,9 +2,9 @@ import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
 import {Constraint} from '../../../common/constraint/constraint';
-import {Point2dConstraint} from '../../../common/constraint/point-2d';
 import {RangeConstraint} from '../../../common/constraint/range';
-import {Point2d} from '../../../common/model/point-2d';
+import {Point2dConstraint} from '..//constraint/point-2d';
+import {Point2d} from '../model/point-2d';
 import {getSuitableMaxValue} from '../plugin';
 
 interface TestCase {

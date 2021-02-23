@@ -1,7 +1,6 @@
 import {ValueController} from '../../../common/controller/value';
 import {findNextTarget, supportsTouch} from '../../../common/dom-util';
 import {Foldable} from '../../../common/model/foldable';
-import {Point2d} from '../../../common/model/point-2d';
 import {Value} from '../../../common/model/value';
 import {mapRange} from '../../../common/number-util';
 import {
@@ -15,6 +14,7 @@ import {
 	PointerHandler,
 	PointerHandlerEvents,
 } from '../../../common/view/pointer-handler';
+import {Point2d} from '../model/point-2d';
 import {Point2dPadView} from '../view/point-2d-pad';
 
 interface Config {

@@ -1,5 +1,5 @@
+import {Constraint} from '../../../common/constraint/constraint';
 import {Point2d} from '../model/point-2d';
-import {Constraint} from './constraint';
 
 interface Config {
 	x?: Constraint<number> | undefined;

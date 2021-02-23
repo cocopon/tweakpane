@@ -2,19 +2,19 @@ import {InputParams, PointDimensionParams} from '../../../api/types';
 import {isEmpty} from '../../../misc/type-util';
 import {CompositeConstraint} from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
-import {Point2dConstraint} from '../../common/constraint/point-2d';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
 import {ConstraintUtil} from '../../common/constraint/util';
-import {Point2d, Point2dObject} from '../../common/model/point-2d';
 import {Value} from '../../common/model/value';
 import {PaneError} from '../../common/pane-error';
-import {point2dFromUnknown} from '../../common/reader/point-2d';
 import {StringNumberParser} from '../../common/reader/string-number';
 import {NumberFormatter} from '../../common/writer/number';
 import {InputBindingPlugin} from '../../input-binding';
 import {getBaseStep, getSuitableDecimalDigits} from '../../util';
+import {Point2dConstraint} from './constraint/point-2d';
 import {Point2dPadTextController} from './controller/point-2d-pad-text';
+import {Point2d, Point2dObject} from './model/point-2d';
+import {point2dFromUnknown} from './reader/point-2d';
 
 function createDimensionConstraint(
 	params: PointDimensionParams | undefined,

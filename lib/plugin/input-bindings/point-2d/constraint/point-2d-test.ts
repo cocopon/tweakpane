@@ -1,10 +1,10 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
+import {Constraint} from '../../../common/constraint/constraint';
+import {RangeConstraint} from '../../../common/constraint/range';
 import {Point2d, Point2dObject} from '../model/point-2d';
-import {Constraint} from './constraint';
 import {Point2dConstraint} from './point-2d';
-import {RangeConstraint} from './range';
 
 interface TestCase {
 	expected: Point2dObject;
