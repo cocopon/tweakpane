@@ -1,8 +1,11 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {CompositeConstraint} from './composite';
+import {CompositeConstraint, findConstraint} from './composite';
 import {Constraint} from './constraint';
+import {ListConstraint} from './list';
+import {RangeConstraint} from './range';
+import {StepConstraint} from './step';
 
 class DoubleConstraint implements Constraint<number> {
 	public constrain(value: number): number {
@@ -33,5 +36,22 @@ describe(CompositeConstraint.name, () => {
 		});
 		assert.strictEqual(c.constrain(5), 2 * 5 - 1);
 		assert.strictEqual(c.constrain(10), 2 * 10 - 1);
+	});
+
+	it('should find constraint itself', () => {
+		const c = new RangeConstraint({});
+		assert.strictEqual(findConstraint(c, RangeConstraint), c);
+		assert.isNull(findConstraint(c, StepConstraint));
+	});
+
+	it('should find sub constraint', () => {
+		const rc = new RangeConstraint({});
+		const sc = new StepConstraint({step: 1});
+		const c = new CompositeConstraint({
+			constraints: [rc, sc],
+		});
+		assert.strictEqual(findConstraint(c, RangeConstraint), rc);
+		assert.strictEqual(findConstraint(c, StepConstraint), sc);
+		assert.isNull(findConstraint(c, ListConstraint));
 	});
 });

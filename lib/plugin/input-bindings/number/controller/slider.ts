@@ -1,5 +1,5 @@
+import {findConstraint} from '../../../common/constraint/composite';
 import {RangeConstraint} from '../../../common/constraint/range';
-import {ConstraintUtil} from '../../../common/constraint/util';
 import {ValueController} from '../../../common/controller/value';
 import {Value} from '../../../common/model/value';
 import {mapRange} from '../../../common/number-util';
@@ -20,7 +20,7 @@ function findRange(
 	value: Value<number>,
 ): [number | undefined, number | undefined] {
 	const c = value.constraint
-		? ConstraintUtil.findConstraint(value.constraint, RangeConstraint)
+		? findConstraint(value.constraint, RangeConstraint)
 		: null;
 	if (!c) {
 		return [undefined, undefined];

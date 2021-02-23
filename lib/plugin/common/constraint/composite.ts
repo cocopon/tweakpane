@@ -1,3 +1,4 @@
+import {Class} from '../../../misc/type-util';
 import {Constraint} from './constraint';
 
 interface Config<T> {
@@ -23,4 +24,28 @@ export class CompositeConstraint<T> implements Constraint<T> {
 			return c.constrain(result);
 		}, value);
 	}
+}
+
+export function findConstraint<C>(
+	c: Constraint<unknown>,
+	constraintClass: Class<C>,
+): C | null {
+	if (c instanceof constraintClass) {
+		return c;
+	}
+
+	if (c instanceof CompositeConstraint) {
+		const result = c.constraints.reduce((tmpResult: C | null, sc) => {
+			if (tmpResult) {
+				return tmpResult;
+			}
+
+			return sc instanceof constraintClass ? sc : null;
+		}, null);
+		if (result) {
+			return result;
+		}
+	}
+
+	return null;
 }

@@ -3,9 +3,9 @@ import {describe as context, describe, it} from 'mocha';
 
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
+import {findConstraint} from '../plugin/common/constraint/composite';
 import {RangeConstraint} from '../plugin/common/constraint/range';
 import {StepConstraint} from '../plugin/common/constraint/step';
-import {ConstraintUtil} from '../plugin/common/constraint/util';
 import {Point2dConstraint} from '../plugin/input-bindings/point-2d/constraint/point-2d';
 import {Point2dPadTextController} from '../plugin/input-bindings/point-2d/controller/point-2d-pad-text';
 
@@ -50,7 +50,7 @@ describe(Tweakpane.name, () => {
 		if (!xc) {
 			throw new Error('Unexpected constraint');
 		}
-		const sc = ConstraintUtil.findConstraint(xc, StepConstraint);
+		const sc = findConstraint(xc, StepConstraint);
 		assert.strictEqual(sc && sc.step, 1);
 	});
 
@@ -72,7 +72,7 @@ describe(Tweakpane.name, () => {
 		if (!yc) {
 			throw new Error('Unexpected constraint');
 		}
-		const rc = ConstraintUtil.findConstraint(yc, RangeConstraint);
+		const rc = findConstraint(yc, RangeConstraint);
 		assert.strictEqual(rc && rc.minValue, -123);
 		assert.strictEqual(rc && rc.maxValue, 456);
 	});

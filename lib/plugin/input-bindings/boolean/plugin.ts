@@ -1,8 +1,10 @@
 import {InputParams} from '../../../api/types';
-import {CompositeConstraint} from '../../common/constraint/composite';
+import {
+	CompositeConstraint,
+	findConstraint,
+} from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
 import {ListConstraint} from '../../common/constraint/list';
-import {ConstraintUtil} from '../../common/constraint/util';
 import {Value} from '../../common/model/value';
 import {boolFromUnknown} from '../../common/reader/boolean';
 import {boolToString} from '../../common/writer/boolean';
@@ -30,7 +32,7 @@ function createConstraint(params: InputParams): Constraint<boolean> {
 function createController(doc: Document, value: Value<boolean>) {
 	const c = value.constraint;
 
-	if (c && ConstraintUtil.findConstraint(c, ListConstraint)) {
+	if (c && findConstraint(c, ListConstraint)) {
 		return new ListController(doc, {
 			listItems: findListItems(c) ?? [],
 			stringifyValue: boolToString,

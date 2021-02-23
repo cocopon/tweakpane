@@ -1,11 +1,13 @@
 import {InputParams} from '../../../api/types';
 import {isEmpty} from '../../../misc/type-util';
-import {CompositeConstraint} from '../../common/constraint/composite';
+import {
+	CompositeConstraint,
+	findConstraint,
+} from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
 import {ListConstraint} from '../../common/constraint/list';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
-import {ConstraintUtil} from '../../common/constraint/util';
 import {Value} from '../../common/model/value';
 import {numberFromUnknown} from '../../common/reader/number';
 import {StringNumberParser} from '../../common/reader/string-number';
@@ -60,7 +62,7 @@ function createConstraint(params: InputParams): Constraint<number> {
 function createController(doc: Document, value: Value<number>) {
 	const c = value.constraint;
 
-	if (c && ConstraintUtil.findConstraint(c, ListConstraint)) {
+	if (c && findConstraint(c, ListConstraint)) {
 		return new ListController(doc, {
 			listItems: findListItems(c) ?? [],
 			stringifyValue: numberToString,
@@ -68,7 +70,7 @@ function createController(doc: Document, value: Value<number>) {
 		});
 	}
 
-	if (c && ConstraintUtil.findConstraint(c, RangeConstraint)) {
+	if (c && findConstraint(c, RangeConstraint)) {
 		return new SliderTextController(doc, {
 			baseStep: getBaseStep(c),
 			formatter: new NumberFormatter(
