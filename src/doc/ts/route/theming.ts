@@ -75,49 +75,45 @@ function createPreviewPane(containerElem: Element) {
 	return pane;
 }
 
-export const ThemingRoute = {
-	pathname: /^(\/tweakpane)?\/theming\.html$/,
+export function initTheming() {
+	const styleElem = document.createElement('style');
+	document.head.appendChild(styleElem);
 
-	init: () => {
-		const styleElem = document.createElement('style');
-		document.head.appendChild(styleElem);
+	const controllerElem = selectContainer('controller');
+	const previewElem = selectContainer('preview');
+	if (!controllerElem || !previewElem) {
+		return;
+	}
 
-		const controllerElem = selectContainer('controller');
-		const previewElem = selectContainer('preview');
-		if (!controllerElem || !previewElem) {
-			return;
-		}
+	const theme = createTheme('translucent');
+	applyPreviewHtml('*[data-exampleCss]', theme, 'Example theme: Translucent');
 
-		const theme = createTheme('translucent');
-		applyPreviewHtml('*[data-exampleCss]', theme, 'Example theme: Translucent');
-
-		const pane = createPane(controllerElem, theme);
+	const pane = createPane(controllerElem, theme);
+	applyTheme({
+		styleElem: styleElem,
+		theme: theme,
+	});
+	pane.on('change', () => {
 		applyTheme({
 			styleElem: styleElem,
 			theme: theme,
 		});
-		pane.on('change', () => {
-			applyTheme({
-				styleElem: styleElem,
-				theme: theme,
-			});
-		});
+	});
 
-		createPreviewPane(previewElem);
+	createPreviewPane(previewElem);
 
-		const markerToFnMap: {
-			[key: string]: (container: HTMLElement) => void;
-		} = {
-			header: (container) => {
-				if (container) {
-					createPreviewPane(container);
-				}
-			},
-		};
-		Object.keys(markerToFnMap).forEach((marker) => {
-			const initFn = markerToFnMap[marker];
-			const container = selectContainer(marker);
-			initFn(container);
-		});
-	},
-};
+	const markerToFnMap: {
+		[key: string]: (container: HTMLElement) => void;
+	} = {
+		header: (container) => {
+			if (container) {
+				createPreviewPane(container);
+			}
+		},
+	};
+	Object.keys(markerToFnMap).forEach((marker) => {
+		const initFn = markerToFnMap[marker];
+		const container = selectContainer(marker);
+		initFn(container);
+	});
+}

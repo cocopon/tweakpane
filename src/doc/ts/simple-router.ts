@@ -10,8 +10,11 @@ export class SimpleRouter {
 		this.routes_ = [];
 	}
 
-	public add(route: Route): void {
-		this.routes_.push(route);
+	public add(pathname: RegExp, callback: () => void): void {
+		this.routes_.push({
+			init: callback,
+			pathname: pathname,
+		});
 	}
 
 	public route(pathname: string): void {

@@ -2,318 +2,314 @@ import {selectContainer} from '../util';
 
 declare let Tweakpane: any;
 
-export const MiscRoute = {
-	pathname: /^(\/tweakpane)?\/misc\.html$/,
+export function initMisc() {
+	const IMEX_PARAMS = {
+		color: '#ff8000',
+		name: 'exported json',
+		size: 10,
+	};
+	const IMEX_LOG = {
+		log: '',
+	};
 
-	init: () => {
-		const IMEX_PARAMS = {
-			color: '#ff8000',
-			name: 'exported json',
-			size: 10,
-		};
-		const IMEX_LOG = {
-			log: '',
-		};
+	const markerToFnMap: {
+		[key: string]: (container: HTMLElement) => void;
+	} = {
+		misc: (container) => {
+			const PARAMS = {value: 0};
+			const pane = new Tweakpane({
+				container: container,
+				title: 'Global title',
+			});
+			pane.addInput(PARAMS, 'value', {
+				label: 'custom label',
+			});
+			const f = pane.addFolder({
+				title: 'Folder',
+			});
+			f.addButton({
+				title: 'Button1',
+			});
+			f.addButton({
+				title: 'Button2',
+			});
+			f.addSeparator();
+			f.addButton({
+				title: 'Button3',
+			});
+		},
 
-		const markerToFnMap: {
-			[key: string]: (container: HTMLElement) => void;
-		} = {
-			misc: (container) => {
-				const PARAMS = {value: 0};
-				const pane = new Tweakpane({
-					container: container,
-					title: 'Global title',
-				});
-				pane.addInput(PARAMS, 'value', {
-					label: 'custom label',
-				});
-				const f = pane.addFolder({
-					title: 'Folder',
-				});
-				f.addButton({
-					title: 'Button1',
-				});
-				f.addButton({
-					title: 'Button2',
-				});
-				f.addSeparator();
-				f.addButton({
-					title: 'Button3',
-				});
-			},
+		event: (container) => {
+			const consoleElem = selectContainer('eventconsole');
+			if (!consoleElem) {
+				return;
+			}
 
-			event: (container) => {
-				const consoleElem = selectContainer('eventconsole');
-				if (!consoleElem) {
-					return;
-				}
+			const PARAMS = {
+				log: '',
+				value: 0,
+			};
 
-				const PARAMS = {
-					log: '',
-					value: 0,
-				};
+			const consolePane = new Tweakpane({
+				container: consoleElem,
+			});
+			consolePane.addMonitor(PARAMS, 'log', {
+				count: 10,
+				interval: 0,
+				label: 'console',
+				lineCount: 5,
+			});
 
-				const consolePane = new Tweakpane({
-					container: consoleElem,
-				});
-				consolePane.addMonitor(PARAMS, 'log', {
-					count: 10,
-					interval: 0,
-					label: 'console',
-					lineCount: 5,
-				});
-
-				const pane = new Tweakpane({
-					container: container,
-				});
-				pane
-					.addInput(PARAMS, 'value', {
-						max: 100,
-						min: 0,
-					})
-					.on('change', (value: number) => {
-						PARAMS.log = value.toFixed(2);
-						consolePane.refresh();
-					});
-			},
-
-			globalevent: (container) => {
-				const consoleElem = selectContainer('globaleventconsole');
-				if (!consoleElem) {
-					return;
-				}
-
-				const PARAMS = {
-					boolean: true,
-					color: '#0080ff',
-					number: 0,
-					point2d: {x: 0, y: 0},
-					string: 'text',
-
-					log: '',
-				};
-
-				const consolePane = new Tweakpane({
-					container: consoleElem,
-				});
-				consolePane.addMonitor(PARAMS, 'log', {
-					count: 10,
-					interval: 0,
-					label: 'console',
-					lineCount: 5,
-				});
-
-				const pane = new Tweakpane({
-					container: container,
-				});
-				pane.addInput(PARAMS, 'boolean');
-				pane.addInput(PARAMS, 'color');
-				pane.addInput(PARAMS, 'number', {
+			const pane = new Tweakpane({
+				container: container,
+			});
+			pane
+				.addInput(PARAMS, 'value', {
 					max: 100,
 					min: 0,
-				});
-				pane.addInput(PARAMS, 'point2d');
-				pane.addInput(PARAMS, 'string');
-				pane.on('change', (value: number | string) => {
-					const v = typeof value === 'number' ? value.toFixed(2) : value;
-					PARAMS.log = `changed: ${JSON.stringify(v)}`;
+				})
+				.on('change', (value: number) => {
+					PARAMS.log = value.toFixed(2);
 					consolePane.refresh();
 				});
-			},
+		},
 
-			export: (container) => {
-				const consoleElem = selectContainer('exportconsole');
-				if (!consoleElem) {
-					return;
-				}
+		globalevent: (container) => {
+			const consoleElem = selectContainer('globaleventconsole');
+			if (!consoleElem) {
+				return;
+			}
 
-				const consolePane = new Tweakpane({
-					container: consoleElem,
-				});
-				consolePane.addMonitor(IMEX_LOG, 'log', {
-					label: 'preset',
-					lineCount: 5,
-					multiline: true,
-				});
+			const PARAMS = {
+				boolean: true,
+				color: '#0080ff',
+				number: 0,
+				point2d: {x: 0, y: 0},
+				string: 'text',
 
-				const pane = new Tweakpane({
-					container: container,
-				});
-				pane.addInput(IMEX_PARAMS, 'name');
-				pane.addInput(IMEX_PARAMS, 'size', {
-					max: 100,
-					min: 0,
-				});
-				pane.addInput(IMEX_PARAMS, 'color');
+				log: '',
+			};
 
-				const updatePreset = () => {
-					const preset = pane.exportPreset();
-					IMEX_LOG.log = JSON.stringify(preset, null, 2);
-				};
+			const consolePane = new Tweakpane({
+				container: consoleElem,
+			});
+			consolePane.addMonitor(PARAMS, 'log', {
+				count: 10,
+				interval: 0,
+				label: 'console',
+				lineCount: 5,
+			});
 
-				pane.on('change', updatePreset);
-				updatePreset();
-			},
+			const pane = new Tweakpane({
+				container: container,
+			});
+			pane.addInput(PARAMS, 'boolean');
+			pane.addInput(PARAMS, 'color');
+			pane.addInput(PARAMS, 'number', {
+				max: 100,
+				min: 0,
+			});
+			pane.addInput(PARAMS, 'point2d');
+			pane.addInput(PARAMS, 'string');
+			pane.on('change', (value: number | string) => {
+				const v = typeof value === 'number' ? value.toFixed(2) : value;
+				PARAMS.log = `changed: ${JSON.stringify(v)}`;
+				consolePane.refresh();
+			});
+		},
 
-			import: (container) => {
-				const consoleElem = selectContainer('importconsole');
-				if (!consoleElem) {
-					return;
-				}
+		export: (container) => {
+			const consoleElem = selectContainer('exportconsole');
+			if (!consoleElem) {
+				return;
+			}
 
-				const consolePane = new Tweakpane({
-					container: consoleElem,
-				});
-				consolePane.addMonitor(IMEX_LOG, 'log', {
-					label: 'preset',
-					lineCount: 5,
-					multiline: true,
-				});
+			const consolePane = new Tweakpane({
+				container: consoleElem,
+			});
+			consolePane.addMonitor(IMEX_LOG, 'log', {
+				label: 'preset',
+				lineCount: 5,
+				multiline: true,
+			});
 
-				const PARAMS = {
-					color: '#0080ff',
-					log: '',
-					name: 'tweakpane',
-					size: 50,
-				};
-				const pane = new Tweakpane({
-					container: container,
-				});
-				pane
-					.addButton({
-						title: 'Import',
-					})
-					.on('click', () => {
-						pane.importPreset(IMEX_PARAMS);
-					});
-				pane.addSeparator();
-				pane.addInput(PARAMS, 'name');
-				pane.addInput(PARAMS, 'size');
-				pane.addInput(PARAMS, 'color');
-			},
+			const pane = new Tweakpane({
+				container: container,
+			});
+			pane.addInput(IMEX_PARAMS, 'name');
+			pane.addInput(IMEX_PARAMS, 'size', {
+				max: 100,
+				min: 0,
+			});
+			pane.addInput(IMEX_PARAMS, 'color');
 
-			presetkey: (container) => {
-				const consoleElem = selectContainer('presetkeyconsole');
-				if (!consoleElem) {
-					return;
-				}
+			const updatePreset = () => {
+				const preset = pane.exportPreset();
+				IMEX_LOG.log = JSON.stringify(preset, null, 2);
+			};
 
-				const PARAMS = {
-					foo: {speed: 1 / 3},
-					bar: {speed: 2 / 3},
-					preset: '',
-				};
+			pane.on('change', updatePreset);
+			updatePreset();
+		},
 
-				const consolePane = new Tweakpane({
-					container: consoleElem,
-				});
-				consolePane.addMonitor(PARAMS, 'preset', {
-					interval: 0,
-					label: 'preset',
-					lineCount: 4,
-					multiline: true,
-				});
+		import: (container) => {
+			const consoleElem = selectContainer('importconsole');
+			if (!consoleElem) {
+				return;
+			}
 
-				const pane = new Tweakpane({
-					container: container,
-				});
-				pane.addInput(PARAMS.foo, 'speed', {
-					max: 1,
-					min: 0,
-				});
-				pane.addInput(PARAMS.bar, 'speed', {
-					max: 1,
-					min: 0,
-					presetKey: 'speed2',
-				});
+			const consolePane = new Tweakpane({
+				container: consoleElem,
+			});
+			consolePane.addMonitor(IMEX_LOG, 'log', {
+				label: 'preset',
+				lineCount: 5,
+				multiline: true,
+			});
 
-				const updatePreset = () => {
-					const preset = pane.exportPreset();
-					PARAMS.preset = JSON.stringify(preset, null, 2);
-					consolePane.refresh();
-				};
+			const PARAMS = {
+				color: '#0080ff',
+				log: '',
+				name: 'tweakpane',
+				size: 50,
+			};
+			const pane = new Tweakpane({
+				container: container,
+			});
+			pane
+				.addButton({
+					title: 'Import',
+				})
+				.on('click', () => {
+					pane.importPreset(IMEX_PARAMS);
+				});
+			pane.addSeparator();
+			pane.addInput(PARAMS, 'name');
+			pane.addInput(PARAMS, 'size');
+			pane.addInput(PARAMS, 'color');
+		},
 
-				pane.on('change', updatePreset);
-				updatePreset();
-			},
+		presetkey: (container) => {
+			const consoleElem = selectContainer('presetkeyconsole');
+			if (!consoleElem) {
+				return;
+			}
 
-			roottitle: (container) => {
-				const PARAMS = {
-					bounce: 0.5,
-					gravity: 0.01,
-					speed: 0.1,
-				};
-				const pane = new Tweakpane({
-					container: container,
-					title: 'Parameters',
-				});
-				pane.addInput(PARAMS, 'speed', {
-					max: 1,
-					min: 0,
-				});
-				const f = pane.addFolder({
-					title: 'Advanced',
-				});
-				f.addInput(PARAMS, 'gravity', {
-					max: 1,
-					min: 0,
-				});
-				f.addInput(PARAMS, 'bounce', {
-					max: 1,
-					min: 0,
-				});
-			},
+			const PARAMS = {
+				foo: {speed: 1 / 3},
+				bar: {speed: 2 / 3},
+				preset: '',
+			};
 
-			label: (container) => {
-				const PARAMS = {
-					initSpd: 0,
-					size: 30,
-				};
-				const pane = new Tweakpane({
-					container: container,
-				});
-				pane.addInput(PARAMS, 'initSpd', {
-					label: 'Initial speed',
-				});
-				pane.addInput(PARAMS, 'size', {
-					label: 'Force field\nradius',
-				});
-			},
+			const consolePane = new Tweakpane({
+				container: consoleElem,
+			});
+			consolePane.addMonitor(PARAMS, 'preset', {
+				interval: 0,
+				label: 'preset',
+				lineCount: 4,
+				multiline: true,
+			});
 
-			insert: (container) => {
-				const pane = new Tweakpane({
-					container: container,
+			const pane = new Tweakpane({
+				container: container,
+			});
+			pane.addInput(PARAMS.foo, 'speed', {
+				max: 1,
+				min: 0,
+			});
+			pane.addInput(PARAMS.bar, 'speed', {
+				max: 1,
+				min: 0,
+				presetKey: 'speed2',
+			});
+
+			const updatePreset = () => {
+				const preset = pane.exportPreset();
+				PARAMS.preset = JSON.stringify(preset, null, 2);
+				consolePane.refresh();
+			};
+
+			pane.on('change', updatePreset);
+			updatePreset();
+		},
+
+		roottitle: (container) => {
+			const PARAMS = {
+				bounce: 0.5,
+				gravity: 0.01,
+				speed: 0.1,
+			};
+			const pane = new Tweakpane({
+				container: container,
+				title: 'Parameters',
+			});
+			pane.addInput(PARAMS, 'speed', {
+				max: 1,
+				min: 0,
+			});
+			const f = pane.addFolder({
+				title: 'Advanced',
+			});
+			f.addInput(PARAMS, 'gravity', {
+				max: 1,
+				min: 0,
+			});
+			f.addInput(PARAMS, 'bounce', {
+				max: 1,
+				min: 0,
+			});
+		},
+
+		label: (container) => {
+			const PARAMS = {
+				initSpd: 0,
+				size: 30,
+			};
+			const pane = new Tweakpane({
+				container: container,
+			});
+			pane.addInput(PARAMS, 'initSpd', {
+				label: 'Initial speed',
+			});
+			pane.addInput(PARAMS, 'size', {
+				label: 'Force field\nradius',
+			});
+		},
+
+		insert: (container) => {
+			const pane = new Tweakpane({
+				container: container,
+			});
+			pane.addButton({title: 'Run'});
+			pane.addButton({title: 'Stop'});
+			pane.addButton({title: '**Reset**', index: 1});
+		},
+
+		hidden: (container) => {
+			const PARAMS = {
+				seed: 0.1,
+			};
+			const pane = new Tweakpane({
+				container: container,
+			});
+
+			const f = pane.addFolder({title: 'Advanced'});
+			f.addInput(PARAMS, 'seed');
+
+			pane
+				.addButton({
+					index: 0,
+					title: 'Toggle',
+				})
+				.on('click', () => {
+					f.hidden = !f.hidden;
 				});
-				pane.addButton({title: 'Run'});
-				pane.addButton({title: 'Stop'});
-				pane.addButton({title: '**Reset**', index: 1});
-			},
-
-			hidden: (container) => {
-				const PARAMS = {
-					seed: 0.1,
-				};
-				const pane = new Tweakpane({
-					container: container,
-				});
-
-				const f = pane.addFolder({title: 'Advanced'});
-				f.addInput(PARAMS, 'seed');
-
-				pane
-					.addButton({
-						index: 0,
-						title: 'Toggle',
-					})
-					.on('click', () => {
-						f.hidden = !f.hidden;
-					});
-			},
-		};
-		Object.keys(markerToFnMap).forEach((marker) => {
-			const initFn = markerToFnMap[marker];
-			const container = selectContainer(marker);
-			initFn(container);
-		});
-	},
-};
+		},
+	};
+	Object.keys(markerToFnMap).forEach((marker) => {
+		const initFn = markerToFnMap[marker];
+		const container = selectContainer(marker);
+		initFn(container);
+	});
+}
