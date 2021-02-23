@@ -4,7 +4,7 @@ import {PaneError} from '../pane-error';
 /**
  * @hidden
  */
-export class Target {
+export class BindingTarget {
 	private key_: string;
 	private obj_: unknown;
 	private presetKey_: string;

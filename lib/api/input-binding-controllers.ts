@@ -1,6 +1,6 @@
 import {isEmpty} from '../misc/type-util';
 import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
-import {Target} from '../plugin/common/model/target';
+import {BindingTarget} from '../plugin/common/binding/target';
 import {PaneError} from '../plugin/common/pane-error';
 import {createController} from '../plugin/input-binding';
 import {Plugins} from './plugins';
@@ -11,7 +11,7 @@ import {InputParams} from './types';
  */
 export function createInputBindingController(
 	document: Document,
-	target: Target,
+	target: BindingTarget,
 	params: InputParams,
 ): InputBindingController<unknown> {
 	const initialValue = target.read();

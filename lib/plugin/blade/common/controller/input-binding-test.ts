@@ -3,7 +3,7 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
 import {InputBinding} from '../../../common/binding/input';
-import {Target} from '../../../common/model/target';
+import {BindingTarget} from '../../../common/binding/target';
 import {Value} from '../../../common/model/value';
 import {numberFromUnknown} from '../../../common/reader/number';
 import {StringNumberParser} from '../../../common/reader/string-number';
@@ -21,7 +21,7 @@ describe(InputBindingController.name, () => {
 		const value = new Value(0);
 		const binding = new InputBinding({
 			reader: numberFromUnknown,
-			target: new Target(obj, 'foo'),
+			target: new BindingTarget(obj, 'foo'),
 			value: value,
 			writer: (v) => v,
 		});

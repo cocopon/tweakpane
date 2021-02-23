@@ -1,4 +1,4 @@
-import {Target} from '../plugin/common/model/target';
+import {BindingTarget} from '../plugin/common/binding/target';
 
 export interface PresetObject {
 	[key: string]: unknown;
@@ -7,7 +7,7 @@ export interface PresetObject {
 /**
  * @hidden
  */
-export function exportPresetJson(targets: Target[]): PresetObject {
+export function exportPresetJson(targets: BindingTarget[]): PresetObject {
 	return targets.reduce((result, target) => {
 		return Object.assign(result, {
 			[target.presetKey]: target.read(),
@@ -19,7 +19,7 @@ export function exportPresetJson(targets: Target[]): PresetObject {
  * @hidden
  */
 export function importPresetJson(
-	targets: Target[],
+	targets: BindingTarget[],
 	preset: PresetObject,
 ): void {
 	targets.forEach((target) => {

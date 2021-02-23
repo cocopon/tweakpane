@@ -2,10 +2,10 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {Buffer} from '../model/buffered-value';
-import {Target} from '../model/target';
 import {Value} from '../model/value';
 import {numberFromUnknown} from '../reader/number';
 import {MonitorBinding} from './monitor';
+import {BindingTarget} from './target';
 import {ManualTicker} from './ticker/manual';
 
 describe(MonitorBinding.name, () => {
@@ -13,7 +13,7 @@ describe(MonitorBinding.name, () => {
 		const obj = {
 			foo: 123,
 		};
-		const target = new Target(obj, 'foo');
+		const target = new BindingTarget(obj, 'foo');
 		const value = new Value([0] as Buffer<number>);
 		const ticker = new ManualTicker();
 		const b = new MonitorBinding({
@@ -30,7 +30,7 @@ describe(MonitorBinding.name, () => {
 		const obj = {
 			foo: 123,
 		};
-		const target = new Target(obj, 'foo');
+		const target = new BindingTarget(obj, 'foo');
 		const value = new Value([0] as Buffer<number>);
 		const ticker = new ManualTicker();
 		// tslint:disable-next-line:no-unused-expression
@@ -63,7 +63,7 @@ describe(MonitorBinding.name, () => {
 		} = {
 			foo: 123,
 		};
-		const target = new Target(obj, 'foo');
+		const target = new BindingTarget(obj, 'foo');
 		const value = new Value([0] as Buffer<number>);
 		const ticker = new ManualTicker();
 		// tslint:disable-next-line:no-unused-expression

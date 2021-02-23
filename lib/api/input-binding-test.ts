@@ -5,7 +5,7 @@ import {TestUtil} from '../misc/test-util';
 import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
 import {Blade} from '../plugin/blade/common/model/blade';
 import {InputBinding} from '../plugin/common/binding/input';
-import {Target} from '../plugin/common/model/target';
+import {BindingTarget} from '../plugin/common/binding/target';
 import {Value} from '../plugin/common/model/value';
 import {numberFromUnknown} from '../plugin/common/reader/number';
 import {StringNumberParser} from '../plugin/common/reader/string-number';
@@ -14,7 +14,7 @@ import {writePrimitive} from '../plugin/common/writer/primitive';
 import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
 import {InputBindingApi} from './input-binding';
 
-function createApi(target: Target) {
+function createApi(target: BindingTarget) {
 	const doc = TestUtil.createWindow().document;
 	const value = new Value(0);
 	const ic = new NumberTextController(doc, {
@@ -42,7 +42,7 @@ describe(InputBindingApi.name, () => {
 		const PARAMS = {
 			foo: 0,
 		};
-		const api = createApi(new Target(PARAMS, 'foo'));
+		const api = createApi(new BindingTarget(PARAMS, 'foo'));
 		api.on('change', (value: unknown) => {
 			assert.strictEqual(value, 123);
 			done();
@@ -54,7 +54,7 @@ describe(InputBindingApi.name, () => {
 		const PARAMS = {
 			foo: 0,
 		};
-		const api = createApi(new Target(PARAMS, 'foo'));
+		const api = createApi(new BindingTarget(PARAMS, 'foo'));
 
 		PARAMS.foo = 123;
 		api.refresh();
@@ -66,7 +66,7 @@ describe(InputBindingApi.name, () => {
 		const PARAMS = {
 			foo: 0,
 		};
-		const api = createApi(new Target(PARAMS, 'foo'));
+		const api = createApi(new BindingTarget(PARAMS, 'foo'));
 		assert.strictEqual(api.hidden, false);
 
 		api.hidden = true;

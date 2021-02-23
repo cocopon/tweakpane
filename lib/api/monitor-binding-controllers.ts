@@ -1,6 +1,6 @@
 import {isEmpty} from '../misc/type-util';
 import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
-import {Target} from '../plugin/common/model/target';
+import {BindingTarget} from '../plugin/common/binding/target';
 import {PaneError} from '../plugin/common/pane-error';
 import {createController} from '../plugin/monitor-binding';
 import {Plugins} from './plugins';
@@ -13,7 +13,7 @@ export type MonitorableType = boolean | number | string;
  */
 export function createMonitorBindingController(
 	document: Document,
-	target: Target,
+	target: BindingTarget,
 	params: MonitorParams,
 ): MonitorBindingController<unknown> {
 	const initialValue = target.read();

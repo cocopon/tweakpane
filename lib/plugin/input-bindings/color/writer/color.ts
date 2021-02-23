@@ -1,6 +1,6 @@
 import {BindingWriter} from '../../../common/binding/input';
+import {BindingTarget} from '../../../common/binding/target';
 import {Color} from '../../../common/model/color';
-import {Target} from '../../../common/model/target';
 import {StringColorNotation} from '../../../common/reader/string-color';
 import {
 	colorToRgbaNumber,
@@ -27,7 +27,7 @@ export function createColorNumberWriter(
 	};
 }
 
-export function writeRgbaColorObject(target: Target, value: Color) {
+export function writeRgbaColorObject(target: BindingTarget, value: Color) {
 	const obj = value.toRgbaObject();
 	target.writeProperty('r', obj.r);
 	target.writeProperty('g', obj.g);
@@ -35,7 +35,7 @@ export function writeRgbaColorObject(target: Target, value: Color) {
 	target.writeProperty('a', obj.a);
 }
 
-export function writeRgbColorObject(target: Target, value: Color) {
+export function writeRgbColorObject(target: BindingTarget, value: Color) {
 	const obj = value.toRgbaObject();
 	target.writeProperty('r', obj.r);
 	target.writeProperty('g', obj.g);

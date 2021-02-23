@@ -1,18 +1,18 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {Target} from '../model/target';
 import {Value} from '../model/value';
 import {numberFromUnknown} from '../reader/number';
 import {writePrimitive} from '../writer/primitive';
 import {InputBinding} from './input';
+import {BindingTarget} from './target';
 
 describe(InputBinding.name, () => {
 	it('should get value', () => {
 		const obj = {
 			foo: 123,
 		};
-		const target = new Target(obj, 'foo');
+		const target = new BindingTarget(obj, 'foo');
 		const value = new Value(0);
 		const b = new InputBinding({
 			reader: numberFromUnknown,
@@ -28,7 +28,7 @@ describe(InputBinding.name, () => {
 		const obj = {
 			foo: 123,
 		};
-		const target = new Target(obj, 'foo');
+		const target = new BindingTarget(obj, 'foo');
 		const value = new Value(0);
 		// tslint:disable-next-line:no-unused-expression
 		new InputBinding({
@@ -51,7 +51,7 @@ describe(InputBinding.name, () => {
 
 	it('should not apply binding value to undefined field', () => {
 		const obj: {foo?: string} = {};
-		const target = new Target(obj, 'foo');
+		const target = new BindingTarget(obj, 'foo');
 		const value = new Value(0);
 		// tslint:disable-next-line:no-unused-expression
 		new InputBinding({

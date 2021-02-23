@@ -3,8 +3,8 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
 import {MonitorBinding} from '../../../common/binding/monitor';
+import {BindingTarget} from '../../../common/binding/target';
 import {ManualTicker} from '../../../common/binding/ticker/manual';
-import {Target} from '../../../common/model/target';
 import {Value} from '../../../common/model/value';
 import {numberFromUnknown} from '../../../common/reader/number';
 import {NumberFormatter} from '../../../common/writer/number';
@@ -21,7 +21,7 @@ describe(MonitorBindingController.name, () => {
 		const value = new Value(Array(10).fill(undefined));
 		const binding = new MonitorBinding({
 			reader: numberFromUnknown,
-			target: new Target(obj, 'foo'),
+			target: new BindingTarget(obj, 'foo'),
 			ticker: new ManualTicker(),
 			value: value,
 		});
