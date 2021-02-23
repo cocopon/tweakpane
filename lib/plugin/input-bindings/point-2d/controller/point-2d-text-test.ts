@@ -13,12 +13,12 @@ describe(Point2dTextController.name, () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new Point2dTextController(doc, {
+			axes: [
+				{baseStep: 1, formatter: new NumberFormatter(0)},
+				{baseStep: 1, formatter: new NumberFormatter(0)},
+			],
 			parser: StringNumberParser,
 			value: new Value(new Point2d(12, 34)),
-			xBaseStep: 1,
-			xFormatter: new NumberFormatter(0),
-			yBaseStep: 1,
-			yFormatter: new NumberFormatter(0),
 		});
 
 		c.view.inputElements[0].value = '3.14';

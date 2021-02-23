@@ -74,14 +74,8 @@ export function getSuitableMaxValue(
 	initialValue: Point2d,
 	constraint: Constraint<Point2d> | undefined,
 ): number {
-	const xc =
-		constraint instanceof Point2dConstraint
-			? constraint.xConstraint
-			: undefined;
-	const yc =
-		constraint instanceof Point2dConstraint
-			? constraint.yConstraint
-			: undefined;
+	const xc = constraint instanceof Point2dConstraint ? constraint.x : undefined;
+	const yc = constraint instanceof Point2dConstraint ? constraint.y : undefined;
 	const xr = getSuitableMaxDimensionValue(xc, initialValue.x);
 	const yr = getSuitableMaxDimensionValue(yc, initialValue.y);
 	return Math.max(xr, yr);
@@ -98,18 +92,24 @@ function createController(
 	}
 
 	return new Point2dPadTextController(document, {
+		axes: [
+			{
+				baseStep: getBaseStep(c.x),
+				formatter: new NumberFormatter(
+					getSuitableDecimalDigits(c.x, value.rawValue.x),
+				),
+			},
+			{
+				baseStep: getBaseStep(c.y),
+				formatter: new NumberFormatter(
+					getSuitableDecimalDigits(c.y, value.rawValue.y),
+				),
+			},
+		],
 		invertsY: invertsY,
 		maxValue: getSuitableMaxValue(value.rawValue, value.constraint),
 		parser: StringNumberParser,
 		value: value,
-		xBaseStep: getBaseStep(c.xConstraint),
-		xFormatter: new NumberFormatter(
-			getSuitableDecimalDigits(c.xConstraint, value.rawValue.x),
-		),
-		yBaseStep: getBaseStep(c.yConstraint),
-		yFormatter: new NumberFormatter(
-			getSuitableDecimalDigits(c.yConstraint, value.rawValue.y),
-		),
 	});
 }
 

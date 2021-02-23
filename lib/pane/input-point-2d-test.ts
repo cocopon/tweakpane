@@ -46,7 +46,7 @@ describe(Tweakpane.name, () => {
 		if (!(c instanceof Point2dConstraint)) {
 			throw new Error('Unexpected constraint');
 		}
-		const xc = c.xConstraint;
+		const xc = c.x;
 		if (!xc) {
 			throw new Error('Unexpected constraint');
 		}
@@ -68,7 +68,7 @@ describe(Tweakpane.name, () => {
 		if (!(c instanceof Point2dConstraint)) {
 			throw new Error('Unexpected constraint');
 		}
-		const yc = c.yConstraint;
+		const yc = c.y;
 		if (!yc) {
 			throw new Error('Unexpected constraint');
 		}

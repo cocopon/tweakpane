@@ -8,15 +8,17 @@ import {Point2dPadTextView} from '../view/point-2d-pad-text';
 import {Point2dPadController} from './point-2d-pad';
 import {Point2dTextController} from './point-2d-text';
 
+interface Axis {
+	baseStep: number;
+	formatter: Formatter<number>;
+}
+
 interface Config {
+	axes: [Axis, Axis];
 	invertsY: boolean;
 	maxValue: number;
 	parser: Parser<string, number>;
 	value: Value<Point2d>;
-	xBaseStep: number;
-	xFormatter: Formatter<number>;
-	yBaseStep: number;
-	yFormatter: Formatter<number>;
 }
 
 /**
@@ -35,20 +37,16 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 		this.value = config.value;
 
 		this.padIc_ = new Point2dPadController(doc, {
+			baseSteps: [config.axes[0].baseStep, config.axes[1].baseStep],
 			invertsY: config.invertsY,
 			maxValue: config.maxValue,
 			value: this.value,
-			xBaseStep: config.xBaseStep,
-			yBaseStep: config.yBaseStep,
 		});
 
 		this.textIc_ = new Point2dTextController(doc, {
+			axes: config.axes,
 			parser: config.parser,
 			value: this.value,
-			xBaseStep: config.xBaseStep,
-			xFormatter: config.xFormatter,
-			yBaseStep: config.yBaseStep,
-			yFormatter: config.yFormatter,
 		});
 
 		this.view = new Point2dPadTextView(doc, {

@@ -18,11 +18,10 @@ import {Point2d} from '../model/point-2d';
 import {Point2dPadView} from '../view/point-2d-pad';
 
 interface Config {
+	baseSteps: [number, number];
 	invertsY: boolean;
 	maxValue: number;
 	value: Value<Point2d>;
-	xBaseStep: number;
-	yBaseStep: number;
 }
 
 /**
@@ -33,11 +32,10 @@ export class Point2dPadController implements ValueController<Point2d> {
 	public readonly value: Value<Point2d>;
 	public readonly view: Point2dPadView;
 	public triggerElement: HTMLElement | null = null;
+	private readonly baseSteps_: [number, number];
 	private readonly ptHandler_: PointerHandler;
 	private readonly invertsY_: boolean;
 	private readonly maxValue_: number;
-	private readonly xBaseStep_: number;
-	private readonly yBaseStep_: number;
 
 	constructor(doc: Document, config: Config) {
 		this.onFocusableElementBlur_ = this.onFocusableElementBlur_.bind(this);
@@ -50,11 +48,9 @@ export class Point2dPadController implements ValueController<Point2d> {
 		this.value = config.value;
 		this.foldable = new Foldable();
 
+		this.baseSteps_ = config.baseSteps;
 		this.maxValue_ = config.maxValue;
 		this.invertsY_ = config.invertsY;
-
-		this.xBaseStep_ = config.xBaseStep;
-		this.yBaseStep_ = config.yBaseStep;
 
 		this.view = new Point2dPadView(doc, {
 			foldable: this.foldable,
@@ -103,9 +99,9 @@ export class Point2dPadController implements ValueController<Point2d> {
 
 		this.value.rawValue = new Point2d(
 			this.value.rawValue.x +
-				getStepForKey(this.xBaseStep_, getHorizontalStepKeys(ev)),
+				getStepForKey(this.baseSteps_[0], getHorizontalStepKeys(ev)),
 			this.value.rawValue.y +
-				getStepForKey(this.yBaseStep_, getVerticalStepKeys(ev)) *
+				getStepForKey(this.baseSteps_[1], getVerticalStepKeys(ev)) *
 					(this.invertsY_ ? 1 : -1),
 		);
 	}
