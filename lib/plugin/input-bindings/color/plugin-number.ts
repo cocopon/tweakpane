@@ -1,15 +1,15 @@
 import {InputParams} from '../../../api/types';
+import {
+	ColorFormatter,
+	colorToHexRgbaString,
+	colorToHexRgbString,
+} from '../../common/converter/color';
 import {Color} from '../../common/model/color';
 import {
 	colorFromNumberToRgb,
 	colorFromNumberToRgba,
 } from '../../common/reader/number-color';
 import {CompositeColorParser} from '../../common/reader/string-color';
-import {
-	ColorFormatter,
-	colorToHexRgbaString,
-	colorToHexRgbString,
-} from '../../common/writer/color';
 import {InputBindingPlugin} from '../../input-binding';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
 import {createColorNumberWriter} from './writer/color';

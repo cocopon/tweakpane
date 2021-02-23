@@ -1,11 +1,11 @@
-import {Color, RgbaColorObject, RgbColorObject} from '../../common/model/color';
-import {colorFromObject} from '../../common/reader/object-color';
-import {CompositeColorParser} from '../../common/reader/string-color';
 import {
 	ColorFormatter,
 	colorToHexRgbaString,
 	colorToHexRgbString,
-} from '../../common/writer/color';
+} from '../../common/converter/color';
+import {Color, RgbaColorObject, RgbColorObject} from '../../common/model/color';
+import {colorFromObject} from '../../common/reader/object-color';
+import {CompositeColorParser} from '../../common/reader/string-color';
 import {InputBindingPlugin} from '../../input-binding';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
 import {createColorObjectWriter} from './writer/color';

@@ -1,3 +1,7 @@
+import {
+	ColorFormatter,
+	getColorStringifier,
+} from '../../common/converter/color';
 import {Color} from '../../common/model/color';
 import {PaneError} from '../../common/pane-error';
 import {
@@ -6,7 +10,6 @@ import {
 	getColorNotation,
 	hasAlphaComponent,
 } from '../../common/reader/string-color';
-import {ColorFormatter, getColorStringifier} from '../../common/writer/color';
 import {InputBindingPlugin} from '../../input-binding';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
 import {createColorStringWriter} from './writer/color';
