@@ -14,7 +14,8 @@ export const InputRoute = {
 					b: true,
 					c: '#ff8800',
 					n: 50,
-					p: {x: 12, y: 34},
+					v2: {x: 12, y: 34},
+					v3: {x: 12, y: 34, z: 56},
 					s: 'string',
 				};
 				const pane = new Tweakpane({
@@ -58,17 +59,17 @@ export const InputRoute = {
 				bf.addInput(PARAMS, 'b', {
 					label: 'checkbox',
 				});
-				const cf = pane.addFolder({
-					title: 'Color',
+				const mf = pane.addFolder({
+					title: 'Misc',
 				});
-				cf.addInput(PARAMS, 'c', {
-					label: 'picker',
+				mf.addInput(PARAMS, 'c', {
+					label: 'color',
 				});
-				const pf = pane.addFolder({
-					title: 'Point',
+				mf.addInput(PARAMS, 'v2', {
+					label: '2d',
 				});
-				pf.addInput(PARAMS, 'p', {
-					label: 'picker',
+				mf.addInput(PARAMS, 'v3', {
+					label: '3d',
 				});
 			},
 			numbertext: (container) => {
