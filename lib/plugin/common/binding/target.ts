@@ -35,12 +35,7 @@ export class BindingTarget {
 		const valueObj: any = this.read();
 
 		if (isEmpty(valueObj)) {
-			throw new TpError({
-				context: {
-					key: this.key_,
-				},
-				type: 'emptyvalue',
-			});
+			throw TpError.valueIsEmpty(this.key_);
 		}
 		if (!(name in valueObj)) {
 			throw TpError.propertyNotFound(name);

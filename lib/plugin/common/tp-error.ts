@@ -1,63 +1,59 @@
-type ErrorType =
-	| 'alreadydisposed'
-	| 'emptyvalue'
-	| 'invalidparams'
-	| 'nomatchingcontroller'
-	| 'propertynotfound'
-	| 'shouldneverhappen';
+import {forceCast} from '../../misc/type-util';
 
-type Config =
-	| {
-			type: 'alreadydisposed';
-	  }
-	| {
-			context: {key: string};
-			type: 'emptyvalue';
-	  }
-	| {
-			context: {name: string};
-			type: 'invalidparams';
-	  }
-	| {
-			context: {key: string};
-			type: 'nomatchingcontroller';
-	  }
-	| {
-			context: {name: string};
-			type: 'propertynotfound';
-	  }
-	| {
-			type: 'shouldneverhappen';
-	  };
-
-function createMessage(config: Config): string {
-	if (config.type === 'alreadydisposed') {
-		return 'View has been already disposed';
-	}
-	if (config.type === 'emptyvalue') {
-		return `Value is empty for '${config.context.key}'`;
-	}
-	if (config.type === 'invalidparams') {
-		return `Invalid parameters for '${config.context.name}'`;
-	}
-	if (config.type === 'nomatchingcontroller') {
-		return `No matching controller for '${config.context.key}'`;
-	}
-	if (config.type === 'propertynotfound') {
-		return `Property '${config.context.name}' not found`;
-	}
-	if (config.type === 'shouldneverhappen') {
-		return 'This error should never happen';
-	}
-	return 'Unexpected error';
+interface ErrorContext {
+	alreadydisposed: {};
+	emptyvalue: {key: string};
+	invalidparams: {name: string};
+	nomatchingcontroller: {key: string};
+	propertynotfound: {name: string};
+	shouldneverhappen: {};
 }
 
-export class TpError {
-	public static alreadyDisposed(): TpError {
-		return new TpError({type: 'alreadydisposed'});
+type ErrorType = keyof ErrorContext;
+
+interface Config<T extends ErrorType> {
+	context: ErrorContext[T];
+	type: T;
+}
+
+type CreateMessage<T extends ErrorType> = (context: ErrorContext[T]) => string;
+
+const CREATE_MESSAGE_MAP: {[key in ErrorType]: CreateMessage<key>} = {
+	alreadydisposed(_context) {
+		return 'View has been already disposed';
+	},
+	emptyvalue(context) {
+		return `Value is empty for '${context.key}'`;
+	},
+	invalidparams(context) {
+		return `Invalid parameters for '${context.name}'`;
+	},
+	nomatchingcontroller(context) {
+		return `No matching controller for '${context.key}'`;
+	},
+	propertynotfound(context) {
+		return `Property '${context.name}' not found`;
+	},
+	shouldneverhappen(_context) {
+		return 'This error should never happen';
+	},
+};
+
+export class TpError<T extends ErrorType> {
+	public static alreadyDisposed(): TpError<'alreadydisposed'> {
+		return new TpError({context: {}, type: 'alreadydisposed'});
 	}
 
-	public static propertyNotFound(name: string): TpError {
+	public static valueIsEmpty(key: string): TpError<'emptyvalue'> {
+		return new TpError({
+			context: {
+				key: key,
+			},
+			type: 'emptyvalue',
+		});
+	}
+
+	public static propertyNotFound(name: string): TpError<'propertynotfound'> {
 		return new TpError({
 			type: 'propertynotfound',
 			context: {
@@ -66,8 +62,8 @@ export class TpError {
 		});
 	}
 
-	public static shouldNeverHappen(): TpError {
-		return new TpError({type: 'shouldneverhappen'});
+	public static shouldNeverHappen(): TpError<'shouldneverhappen'> {
+		return new TpError({context: {}, type: 'shouldneverhappen'});
 	}
 
 	public readonly message: string;
@@ -75,8 +71,10 @@ export class TpError {
 	public readonly stack?: string;
 	public readonly type: ErrorType;
 
-	constructor(config: Config) {
-		this.message = createMessage(config);
+	constructor(config: Config<T>) {
+		this.message =
+			CREATE_MESSAGE_MAP[config.type](forceCast(config.context)) ??
+			'Unexpected error';
 
 		this.name = this.constructor.name;
 		this.stack = new Error(this.message).stack;
