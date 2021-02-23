@@ -12,7 +12,7 @@ import {
 	parseNumber,
 } from '../../common/converter/number';
 import {Value} from '../../common/model/value';
-import {PaneError} from '../../common/pane-error';
+import {TpError} from '../../common/tp-error';
 import {InputBindingPlugin} from '../../input-binding';
 import {getBaseStep, getSuitableDecimalDigits} from '../../util';
 import {Point2dConstraint} from './constraint/point-2d';
@@ -91,7 +91,7 @@ function createController(
 ) {
 	const c = value.constraint;
 	if (!(c instanceof Point2dConstraint)) {
-		throw PaneError.shouldNeverHappen();
+		throw TpError.shouldNeverHappen();
 	}
 
 	return new Point2dPadTextController(document, {

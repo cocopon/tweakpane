@@ -9,7 +9,7 @@ import {
 	parseNumber,
 } from '../../common/converter/number';
 import {Value} from '../../common/model/value';
-import {PaneError} from '../../common/pane-error';
+import {TpError} from '../../common/tp-error';
 import {InputBindingPlugin} from '../../input-binding';
 import {getBaseStep, getSuitableDecimalDigits} from '../../util';
 import {Point3dConstraint} from './constraint/point-3d';
@@ -73,7 +73,7 @@ export function getAxis(
 function createController(document: Document, value: Value<Point3d>) {
 	const c = value.constraint;
 	if (!(c instanceof Point3dConstraint)) {
-		throw PaneError.shouldNeverHappen();
+		throw TpError.shouldNeverHappen();
 	}
 
 	return new Point3dTextController(document, {

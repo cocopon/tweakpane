@@ -1,11 +1,11 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
-import {PaneError} from './pane-error';
+import {TpError} from './tp-error';
 
-describe(PaneError.name, () => {
+describe(TpError.name, () => {
 	it('should instanciate for invalid parameters', () => {
-		const e = new PaneError({
+		const e = new TpError({
 			context: {
 				name: 'foo',
 			},
@@ -16,7 +16,7 @@ describe(PaneError.name, () => {
 	});
 
 	it('should instanciate for no matching controller', () => {
-		const e = new PaneError({
+		const e = new TpError({
 			context: {
 				key: 'foo',
 			},
@@ -27,7 +27,7 @@ describe(PaneError.name, () => {
 	});
 
 	it('should instanciate for empty value', () => {
-		const e = new PaneError({
+		const e = new TpError({
 			context: {
 				key: 'foo',
 			},

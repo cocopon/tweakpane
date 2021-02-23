@@ -52,13 +52,13 @@ function createMessage(config: Config): string {
 	return 'Unexpected error';
 }
 
-export class PaneError {
-	public static alreadyDisposed(): PaneError {
-		return new PaneError({type: 'alreadydisposed'});
+export class TpError {
+	public static alreadyDisposed(): TpError {
+		return new TpError({type: 'alreadydisposed'});
 	}
 
-	public static propertyNotFound(name: string): PaneError {
-		return new PaneError({
+	public static propertyNotFound(name: string): TpError {
+		return new TpError({
 			type: 'propertynotfound',
 			context: {
 				name: name,
@@ -66,8 +66,8 @@ export class PaneError {
 		});
 	}
 
-	public static shouldNeverHappen(): PaneError {
-		return new PaneError({type: 'shouldneverhappen'});
+	public static shouldNeverHappen(): TpError {
+		return new TpError({type: 'shouldneverhappen'});
 	}
 
 	public readonly message: string;
@@ -83,5 +83,5 @@ export class PaneError {
 		this.type = config.type;
 	}
 }
-(PaneError as any).prototype = Object.create(Error.prototype);
-(PaneError.prototype as any).constructor = PaneError;
+(TpError as any).prototype = Object.create(Error.prototype);
+(TpError.prototype as any).constructor = TpError;

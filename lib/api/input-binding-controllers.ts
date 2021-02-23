@@ -1,7 +1,7 @@
 import {isEmpty} from '../misc/type-util';
 import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
 import {BindingTarget} from '../plugin/common/binding/target';
-import {PaneError} from '../plugin/common/pane-error';
+import {TpError} from '../plugin/common/tp-error';
 import {createController} from '../plugin/input-binding';
 import {Plugins} from './plugins';
 import {InputParams} from './types';
@@ -17,7 +17,7 @@ export function createInputBindingController(
 	const initialValue = target.read();
 
 	if (isEmpty(initialValue)) {
-		throw new PaneError({
+		throw new TpError({
 			context: {
 				key: target.key,
 			},
@@ -39,7 +39,7 @@ export function createInputBindingController(
 		return bc;
 	}
 
-	throw new PaneError({
+	throw new TpError({
 		context: {
 			key: target.key,
 		},

@@ -4,7 +4,7 @@ import {describe, it} from 'mocha';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {ManualTicker} from '../plugin/common/binding/ticker/manual';
-import {PaneError} from '../plugin/common/pane-error';
+import {TpError} from '../plugin/common/tp-error';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({
@@ -52,7 +52,7 @@ describe(Tweakpane.name, () => {
 						});
 						throw new Error('should not be called');
 					} catch (e) {
-						assert.instanceOf(e, PaneError);
+						assert.instanceOf(e, TpError);
 						assert.strictEqual(e.type, testCase.errorType);
 					}
 				});

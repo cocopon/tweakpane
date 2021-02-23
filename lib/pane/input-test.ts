@@ -3,7 +3,7 @@ import {describe as context, describe, it} from 'mocha';
 
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
-import {PaneError} from '../plugin/common/pane-error';
+import {TpError} from '../plugin/common/tp-error';
 import {Color} from '../plugin/input-bindings/color/model/color';
 
 function createPane(): Tweakpane {
@@ -50,7 +50,7 @@ describe(Tweakpane.name, () => {
 						pane.addInput(testCase.obj, testCase.key);
 						throw new Error('should not be called');
 					} catch (e) {
-						assert.instanceOf(e, PaneError);
+						assert.instanceOf(e, TpError);
 						assert.strictEqual(e.type, testCase.errorType);
 					}
 				});
