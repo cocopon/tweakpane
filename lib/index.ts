@@ -13,6 +13,7 @@ import {ObjectColorInputPlugin} from './plugin/input-bindings/color/plugin-objec
 import {StringColorInputPlugin} from './plugin/input-bindings/color/plugin-string';
 import {NumberInputPlugin} from './plugin/input-bindings/number/plugin';
 import {Point2dInputPlugin} from './plugin/input-bindings/point-2d/plugin';
+import {Point3dInputPlugin} from './plugin/input-bindings/point-3d/plugin';
 import {StringInputPlugin} from './plugin/input-bindings/string/plugin';
 import {MonitorBindingPlugin} from './plugin/monitor-binding';
 import {BooleanMonitorPlugin} from './plugin/monitor-bindings/boolean/plugin';
@@ -103,6 +104,7 @@ export default class Tweakpane extends RootApi {
 function registerDefaultPlugins() {
 	[
 		Point2dInputPlugin,
+		Point3dInputPlugin,
 		StringInputPlugin,
 		NumberInputPlugin,
 		StringColorInputPlugin,

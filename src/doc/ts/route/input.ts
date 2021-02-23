@@ -281,6 +281,20 @@ export const InputRoute = {
 					y: {inverted: true},
 				});
 			},
+			point3d: (container) => {
+				const PARAMS = {
+					camera: {x: 0, y: 20, z: -10},
+					source: {x: 0, y: 0, z: 0},
+				};
+				const pane = new Tweakpane({
+					container: container,
+				});
+				pane.addInput(PARAMS, 'source');
+				pane.addInput(PARAMS, 'camera', {
+					y: {step: 10},
+					z: {max: 0},
+				});
+			},
 		};
 		Object.keys(markerToFnMap).forEach((marker) => {
 			const initFn = markerToFnMap[marker];

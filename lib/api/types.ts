@@ -15,15 +15,13 @@ export interface InputParamsOptionDictionary<T> {
 	[key: string]: T;
 }
 
-export interface Point2dDimensionParams {
+export interface PointDimensionParams {
 	max?: number;
 	min?: number;
 	step?: number;
 }
 
-export type Point2dXParams = Point2dDimensionParams;
-
-export interface Point2dYParams extends Point2dDimensionParams {
+export interface Point2dYParams extends PointDimensionParams {
 	inverted?: boolean;
 }
 
@@ -47,8 +45,14 @@ export interface NumberInputParams extends BaseInputParams {
 }
 
 export interface Point2dInputParams extends BaseInputParams {
-	x?: Point2dXParams;
+	x?: PointDimensionParams;
 	y?: Point2dYParams;
+}
+
+export interface Point3dInputParams extends BaseInputParams {
+	x?: PointDimensionParams;
+	y?: PointDimensionParams;
+	z?: PointDimensionParams;
 }
 
 export type StringInputType = 'string';
@@ -62,6 +66,7 @@ export type InputParams =
 	| BooleanInputParams
 	| NumberInputParams
 	| Point2dInputParams
+	| Point3dInputParams
 	| StringInputParams;
 
 export interface BaseMonitorParams extends BaseParams, LabelableParams {
