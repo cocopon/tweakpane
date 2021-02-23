@@ -5,8 +5,8 @@ import {Target} from '../../../common/model/target';
 import {Point3d} from '../model/point-3d';
 import {writePoint3d} from './point-3d';
 
-describe('writer/point-2d', () => {
-	it('should write value', () => {
+describe('writer/point-3d', () => {
+	it('should write value without destruction', () => {
 		const obj = {
 			foo: {x: 12, y: 34, z: -56},
 		};

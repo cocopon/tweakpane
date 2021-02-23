@@ -6,13 +6,10 @@ import {
 	getColorNotation,
 	hasAlphaComponent,
 } from '../../common/reader/string-color';
-import {
-	ColorFormatter,
-	createColorStringWriter,
-	getColorStringifier,
-} from '../../common/writer/color';
+import {ColorFormatter, getColorStringifier} from '../../common/writer/color';
 import {InputBindingPlugin} from '../../input-binding';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
+import {createColorStringWriter} from './writer/color';
 
 /**
  * @hidden

@@ -6,7 +6,7 @@ import {Point2d} from '../model/point-2d';
 import {writePoint2d} from './point-2d';
 
 describe('writer/point-2d', () => {
-	it('should write value', () => {
+	it('should write value without destruction', () => {
 		const obj = {
 			foo: {x: 12, y: 34},
 		};

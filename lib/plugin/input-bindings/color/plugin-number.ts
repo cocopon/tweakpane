@@ -9,10 +9,10 @@ import {
 	ColorFormatter,
 	colorToHexRgbaString,
 	colorToHexRgbString,
-	createColorNumberWriter,
 } from '../../common/writer/color';
 import {InputBindingPlugin} from '../../input-binding';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
+import {createColorNumberWriter} from './writer/color';
 
 function shouldSupportAlpha(inputParams: InputParams): boolean {
 	return 'input' in inputParams && inputParams.input === 'color.rgba';

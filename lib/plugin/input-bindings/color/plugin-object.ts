@@ -5,10 +5,10 @@ import {
 	ColorFormatter,
 	colorToHexRgbaString,
 	colorToHexRgbString,
-	createObjectColorWriter as createColorObjectWriter,
 } from '../../common/writer/color';
 import {InputBindingPlugin} from '../../input-binding';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
+import {createColorObjectWriter} from './writer/color';
 
 function shouldSupportAlpha(
 	initialValue: RgbColorObject | RgbaColorObject,
