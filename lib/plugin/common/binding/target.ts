@@ -10,6 +10,10 @@ export class BindingTarget {
 	private presetKey_: string;
 
 	constructor(obj: unknown, key: string, opt_id?: string) {
+		if (isEmpty(obj)) {
+			throw TpError.valueIsEmpty();
+		}
+
 		this.obj_ = obj;
 		this.key_ = key;
 		this.presetKey_ = opt_id ?? key;
@@ -35,7 +39,7 @@ export class BindingTarget {
 		const valueObj: any = this.read();
 
 		if (isEmpty(valueObj)) {
-			throw TpError.valueIsEmpty(this.key_);
+			throw TpError.valueIsEmpty();
 		}
 		if (!(name in valueObj)) {
 			throw TpError.propertyNotFound(name);

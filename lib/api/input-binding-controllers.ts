@@ -17,7 +17,12 @@ export function createInputBindingController(
 	const initialValue = target.read();
 
 	if (isEmpty(initialValue)) {
-		throw TpError.valueIsEmpty(target.key);
+		throw new TpError({
+			context: {
+				key: target.key,
+			},
+			type: 'nomatchingcontroller',
+		});
 	}
 
 	const bc = Plugins.inputs.reduce(

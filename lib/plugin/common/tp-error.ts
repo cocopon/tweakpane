@@ -2,7 +2,7 @@ import {forceCast} from '../../misc/type-util';
 
 interface ErrorContext {
 	alreadydisposed: {};
-	emptyvalue: {key: string};
+	emptyvalue: {};
 	invalidparams: {name: string};
 	nomatchingcontroller: {key: string};
 	propertynotfound: {name: string};
@@ -22,8 +22,8 @@ const CREATE_MESSAGE_MAP: {[key in ErrorType]: CreateMessage<key>} = {
 	alreadydisposed(_context) {
 		return 'View has been already disposed';
 	},
-	emptyvalue(context) {
-		return `Value is empty for '${context.key}'`;
+	emptyvalue(_context) {
+		return `Value is empty`;
 	},
 	invalidparams(context) {
 		return `Invalid parameters for '${context.name}'`;
@@ -44,11 +44,9 @@ export class TpError<T extends ErrorType> {
 		return new TpError({context: {}, type: 'alreadydisposed'});
 	}
 
-	public static valueIsEmpty(key: string): TpError<'emptyvalue'> {
+	public static valueIsEmpty(): TpError<'emptyvalue'> {
 		return new TpError({
-			context: {
-				key: key,
-			},
+			context: {},
 			type: 'emptyvalue',
 		});
 	}
