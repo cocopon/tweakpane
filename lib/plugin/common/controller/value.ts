@@ -1,6 +1,5 @@
 import {Value} from '../model/value';
 import {ValueView} from '../view/value';
-import {View} from '../view/view';
 import {Controller} from './controller';
 
 /**
@@ -8,5 +7,5 @@ import {Controller} from './controller';
  */
 export interface ValueController<T> extends Controller {
 	readonly value: Value<T>;
-	readonly view: View & ValueView<T>;
+	readonly view: ValueView<T>;
 }
