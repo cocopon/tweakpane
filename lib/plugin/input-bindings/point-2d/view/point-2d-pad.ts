@@ -1,5 +1,5 @@
+import {Foldable} from '../../../blade/folder/model/foldable';
 import {SVG_NS} from '../../../common/dom-util';
-import {Foldable} from '../../../common/model/foldable';
 import {Value} from '../../../common/model/value';
 import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';

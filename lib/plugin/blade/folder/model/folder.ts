@@ -1,5 +1,5 @@
-import {isEmpty} from '../../../misc/type-util';
-import {Emitter} from './emitter';
+import {isEmpty} from '../../../../misc/type-util';
+import {Emitter} from '../../../common/model/emitter';
 
 type ChangeEventPropertyName =
 	| 'expanded'

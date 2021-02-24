@@ -1,6 +1,6 @@
+import {Foldable} from '../../../blade/folder/model/foldable';
 import {ValueController} from '../../../common/controller/value';
 import {findNextTarget, supportsTouch} from '../../../common/dom-util';
-import {Foldable} from '../../../common/model/foldable';
 import {Value} from '../../../common/model/value';
 import {mapRange} from '../../../common/number-util';
 import {

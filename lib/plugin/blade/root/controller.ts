@@ -1,6 +1,5 @@
 import {isEmpty} from '../../../misc/type-util';
 import {forceReflow, insertElementAt} from '../../common/dom-util';
-import {Folder, FolderEvents} from '../../common/model/folder';
 import {BladeController, setUpBladeView} from '../common/controller/blade';
 import {
 	computeExpandedFolderHeight,
@@ -8,6 +7,7 @@ import {
 } from '../common/controller/container-util';
 import {Blade} from '../common/model/blade';
 import {BladeRack, BladeRackEvents} from '../common/model/blade-rack';
+import {Folder, FolderEvents} from '../folder/model/folder';
 import {RootView} from './view';
 
 interface Config {

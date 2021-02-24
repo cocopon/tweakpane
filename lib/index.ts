@@ -4,7 +4,7 @@ import {TweakpaneConfig} from './pane/tweakpane-config';
 import {Blade} from './plugin/blade/common/model/blade';
 import {RootController} from './plugin/blade/root/controller';
 import {getWindowDocument} from './plugin/common/dom-util';
-import {PaneError} from './plugin/common/pane-error';
+import {TpError} from './plugin/common/tp-error';
 import {ClassName} from './plugin/common/view/class-name';
 import {InputBindingPlugin} from './plugin/input-binding';
 import {BooleanInputPlugin} from './plugin/input-bindings/boolean/plugin';
@@ -76,7 +76,7 @@ export default class Tweakpane extends RootApi {
 
 	public get document(): Document {
 		if (!this.doc_) {
-			throw PaneError.alreadyDisposed();
+			throw TpError.alreadyDisposed();
 		}
 		return this.doc_;
 	}
@@ -84,7 +84,7 @@ export default class Tweakpane extends RootApi {
 	public dispose() {
 		const containerElem = this.containerElem_;
 		if (!containerElem) {
-			throw PaneError.alreadyDisposed();
+			throw TpError.alreadyDisposed();
 		}
 
 		if (this.usesDefaultWrapper_) {

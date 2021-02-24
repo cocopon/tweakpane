@@ -2,7 +2,7 @@ import {
 	disableTransitionTemporarily,
 	forceReflow,
 } from '../../../common/dom-util';
-import {Folder} from '../../../common/model/folder';
+import {Folder} from '../../folder/model/folder';
 import {BladePosition} from '../model/blade-positions';
 import {BladeRack} from '../model/blade-rack';
 

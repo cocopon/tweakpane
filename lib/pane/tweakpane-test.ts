@@ -7,7 +7,7 @@ import {
 	formatString,
 	stringFromUnknown,
 } from '../plugin/common/converter/string';
-import {PaneError} from '../plugin/common/pane-error';
+import {TpError} from '../plugin/common/tp-error';
 import {writePrimitive} from '../plugin/common/writer/primitive';
 import {TextController} from '../plugin/input-bindings/common/controller/text';
 
@@ -46,7 +46,7 @@ describe(Tweakpane.name, () => {
 		c.dispose();
 		assert.throws(() => {
 			c.dispose();
-		}, PaneError);
+		}, TpError);
 	});
 
 	it('should expanded by default', () => {

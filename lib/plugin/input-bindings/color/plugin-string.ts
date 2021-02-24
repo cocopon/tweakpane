@@ -1,4 +1,4 @@
-import {PaneError} from '../../common/pane-error';
+import {TpError} from '../../common/tp-error';
 import {InputBindingPlugin} from '../../input-binding';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
 import {
@@ -34,7 +34,7 @@ export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
 		writer: (args) => {
 			const notation = getColorNotation(args.initialValue);
 			if (!notation) {
-				throw PaneError.shouldNeverHappen();
+				throw TpError.shouldNeverHappen();
 			}
 			return createColorStringWriter(notation);
 		},
@@ -43,7 +43,7 @@ export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
 	controller: (args) => {
 		const notation = getColorNotation(args.initialValue);
 		if (!notation) {
-			throw PaneError.shouldNeverHappen();
+			throw TpError.shouldNeverHappen();
 		}
 
 		const stringifier = getColorStringifier(notation);

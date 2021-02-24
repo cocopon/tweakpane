@@ -1,6 +1,6 @@
-import {Folder} from '../../common/model/folder';
 import {ClassName} from '../../common/view/class-name';
 import {View} from '../../common/view/view';
+import {Folder} from '../folder/model/folder';
 
 interface Config {
 	folder: Folder | null;

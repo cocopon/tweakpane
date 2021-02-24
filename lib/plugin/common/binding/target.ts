@@ -1,5 +1,5 @@
 import {isEmpty} from '../../../misc/type-util';
-import {PaneError} from '../pane-error';
+import {TpError} from '../tp-error';
 
 /**
  * @hidden
@@ -10,6 +10,10 @@ export class BindingTarget {
 	private presetKey_: string;
 
 	constructor(obj: unknown, key: string, opt_id?: string) {
+		if (isEmpty(obj)) {
+			throw TpError.valueIsEmpty();
+		}
+
 		this.obj_ = obj;
 		this.key_ = key;
 		this.presetKey_ = opt_id ?? key;
@@ -35,15 +39,10 @@ export class BindingTarget {
 		const valueObj: any = this.read();
 
 		if (isEmpty(valueObj)) {
-			throw new PaneError({
-				context: {
-					key: this.key_,
-				},
-				type: 'emptyvalue',
-			});
+			throw TpError.valueIsEmpty();
 		}
 		if (!(name in valueObj)) {
-			throw PaneError.propertyNotFound(name);
+			throw TpError.propertyNotFound(name);
 		}
 		valueObj[name] = value;
 	}

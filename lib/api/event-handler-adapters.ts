@@ -3,12 +3,12 @@ import {
 	BladeRack,
 	BladeRackEvents,
 } from '../plugin/blade/common/model/blade-rack';
+import {Folder, FolderEvents} from '../plugin/blade/folder/model/folder';
 import {InputBinding, InputBindingEvents} from '../plugin/common/binding/input';
 import {
 	MonitorBinding,
 	MonitorBindingEvents,
 } from '../plugin/common/binding/monitor';
-import {Folder, FolderEvents} from '../plugin/common/model/folder';
 
 export type InputEventName = 'change';
 export type MonitorEventName = 'update';

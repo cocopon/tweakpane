@@ -56,10 +56,3 @@ export function isVerticalArrowKey(keyCode: number): boolean {
 export function isArrowKey(keyCode: number): boolean {
 	return isVerticalArrowKey(keyCode) || keyCode === 37 || keyCode === 39;
 }
-
-/**
- * @hidden
- */
-export function getBaseStepForColor(forAlpha: boolean): number {
-	return forAlpha ? 0.1 : 1;
-}
