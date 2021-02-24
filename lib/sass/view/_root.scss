@@ -125,4 +125,10 @@
 	&#{&}-expanded &_c {
 		@extend %folder_container-expanded;
 	}
+
+	// BladeView.hidden
+	&.#{$prefix}-v-hidden,
+	.#{$prefix}-v-hidden {
+		display: none;
+	}
 }
