@@ -15,14 +15,14 @@ function createPane(): Tweakpane {
 describe(Tweakpane.name, () => {
 	[
 		{
-			errorType: 'emptyvalue',
+			errorType: 'nomatchingcontroller',
 			key: 'baz',
 			obj: {
 				foo: 'bar',
 			},
 		},
 		{
-			errorType: 'emptyvalue',
+			errorType: 'nomatchingcontroller',
 			key: 'foo',
 			obj: {
 				foo: null,

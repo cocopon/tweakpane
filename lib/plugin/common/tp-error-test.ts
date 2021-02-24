@@ -14,26 +14,4 @@ describe(TpError.name, () => {
 
 		assert.strictEqual(e.type, 'invalidparams');
 	});
-
-	it('should instanciate for no matching controller', () => {
-		const e = new TpError({
-			context: {
-				key: 'foo',
-			},
-			type: 'nomatchingcontroller',
-		});
-
-		assert.strictEqual(e.type, 'nomatchingcontroller');
-	});
-
-	it('should instanciate for empty value', () => {
-		const e = new TpError({
-			context: {
-				key: 'foo',
-			},
-			type: 'emptyvalue',
-		});
-
-		assert.strictEqual(e.type, 'emptyvalue');
-	});
 });

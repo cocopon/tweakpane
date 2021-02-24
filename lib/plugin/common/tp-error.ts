@@ -2,9 +2,9 @@ import {forceCast} from '../../misc/type-util';
 
 interface ErrorContext {
 	alreadydisposed: {};
-	emptyvalue: {};
 	invalidparams: {name: string};
 	nomatchingcontroller: {key: string};
+	notbindable: {};
 	propertynotfound: {name: string};
 	shouldneverhappen: {};
 }
@@ -19,24 +19,13 @@ interface Config<T extends ErrorType> {
 type CreateMessage<T extends ErrorType> = (context: ErrorContext[T]) => string;
 
 const CREATE_MESSAGE_MAP: {[key in ErrorType]: CreateMessage<key>} = {
-	alreadydisposed(_context) {
-		return 'View has been already disposed';
-	},
-	emptyvalue(_context) {
-		return `Value is empty`;
-	},
-	invalidparams(context) {
-		return `Invalid parameters for '${context.name}'`;
-	},
-	nomatchingcontroller(context) {
-		return `No matching controller for '${context.key}'`;
-	},
-	propertynotfound(context) {
-		return `Property '${context.name}' not found`;
-	},
-	shouldneverhappen(_context) {
-		return 'This error should never happen';
-	},
+	alreadydisposed: () => 'View has been already disposed',
+	invalidparams: (context) => `Invalid parameters for '${context.name}'`,
+	nomatchingcontroller: (context) =>
+		`No matching controller for '${context.key}'`,
+	notbindable: () => `Value is not bindable`,
+	propertynotfound: (context) => `Property '${context.name}' not found`,
+	shouldneverhappen: () => 'This error should never happen',
 };
 
 export class TpError<T extends ErrorType> {
@@ -44,10 +33,10 @@ export class TpError<T extends ErrorType> {
 		return new TpError({context: {}, type: 'alreadydisposed'});
 	}
 
-	public static valueIsEmpty(): TpError<'emptyvalue'> {
+	public static notBindable(): TpError<'notbindable'> {
 		return new TpError({
 			context: {},
-			type: 'emptyvalue',
+			type: 'notbindable',
 		});
 	}
 
