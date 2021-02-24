@@ -3,9 +3,15 @@ import {ButtonController} from '../plugin/blade/button/controller';
 import {Blade} from '../plugin/blade/common/model/blade';
 import {FolderController} from '../plugin/blade/folder/controller';
 import {SeparatorController} from '../plugin/blade/separator/controller';
+import {
+	TpChangeEvent,
+	TpFoldEvent,
+	TpUpdateEvent,
+} from '../plugin/common/event/tp-event';
+import {Emitter} from '../plugin/common/model/emitter';
 import {ButtonApi} from './button';
 import {ComponentApi} from './component-api';
-import {handleFolder} from './event-handler-adapters';
+import {adaptFolder} from './event-handler-adapters';
 import {InputBindingApi} from './input-binding';
 import {createInputBindingController} from './input-binding-controllers';
 import {MonitorBindingApi} from './monitor-binding';
@@ -20,10 +26,16 @@ import {
 } from './types';
 import {createBindingTarget} from './util';
 
-interface FolderApiEventHandlers {
-	change: (value: unknown) => void;
-	fold: (expanded: boolean) => void;
-	update: (value: unknown) => void;
+export interface FolderApiEvents<Ex> {
+	change: {
+		event: TpChangeEvent<Ex>;
+	};
+	fold: {
+		event: TpFoldEvent;
+	};
+	update: {
+		event: TpUpdateEvent<Ex>;
+	};
 }
 
 export class FolderApi implements ComponentApi {
@@ -31,12 +43,20 @@ export class FolderApi implements ComponentApi {
 	 * @hidden
 	 */
 	public readonly controller: FolderController;
+	private readonly emitter_: Emitter<FolderApiEvents<unknown>>;
 
 	/**
 	 * @hidden
 	 */
 	constructor(controller: FolderController) {
 		this.controller = controller;
+
+		this.emitter_ = new Emitter();
+		adaptFolder({
+			emitter: this.emitter_,
+			folder: this.controller.folder,
+			rack: this.controller.bladeRack,
+		});
 	}
 
 	get expanded(): boolean {
@@ -121,16 +141,13 @@ export class FolderApi implements ComponentApi {
 	 * @param eventName The event name to listen.
 	 * @return The API object itself.
 	 */
-	public on<EventName extends keyof FolderApiEventHandlers>(
+	public on<EventName extends keyof FolderApiEvents<unknown>>(
 		eventName: EventName,
-		handler: FolderApiEventHandlers[EventName],
+		handler: (ev: FolderApiEvents<unknown>[EventName]['event']) => void,
 	): FolderApi {
-		handleFolder({
-			eventName: eventName,
-			folder: this.controller.folder,
-			// TODO: Type-safe
-			handler: forceCast(handler.bind(this)),
-			bladeRack: this.controller.bladeRack,
+		const bh = handler.bind(this);
+		this.emitter_.on(eventName, (ev) => {
+			bh(ev.event);
 		});
 		return this;
 	}

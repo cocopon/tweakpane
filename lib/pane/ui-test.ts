@@ -9,6 +9,7 @@ import {InputBindingController} from '../plugin/blade/common/controller/input-bi
 import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
 import {FolderController} from '../plugin/blade/folder/controller';
 import {SeparatorController} from '../plugin/blade/separator/controller';
+import {TpFoldEvent} from '../plugin/common/event/tp-event';
 
 function createApi(title?: string): Tweakpane {
 	return new Tweakpane({
@@ -81,8 +82,9 @@ describe(Tweakpane.name, () => {
 	it('should handle root folder events', (done) => {
 		const pane = createApi('pane');
 
-		pane.on('fold', (expanded) => {
-			assert.strictEqual(expanded, false);
+		pane.on('fold', (ev) => {
+			assert.instanceOf(ev, TpFoldEvent);
+			assert.strictEqual(ev.expanded, false);
 			done();
 		});
 
@@ -99,8 +101,9 @@ describe(Tweakpane.name, () => {
 			title: 'folder',
 		});
 
-		pane.on('fold', (expanded) => {
-			assert.strictEqual(expanded, false);
+		pane.on('fold', (ev) => {
+			assert.instanceOf(ev, TpFoldEvent);
+			assert.strictEqual(ev.expanded, false);
 			done();
 		});
 		f.expanded = false;

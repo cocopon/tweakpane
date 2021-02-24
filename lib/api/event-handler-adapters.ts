@@ -9,86 +9,84 @@ import {
 	MonitorBinding,
 	MonitorBindingEvents,
 } from '../plugin/common/binding/monitor';
+import {
+	TpChangeEvent,
+	TpFoldEvent,
+	TpUpdateEvent,
+} from '../plugin/common/event/tp-event';
+import {Emitter} from '../plugin/common/model/emitter';
+import {FolderApiEvents} from './folder';
+import {InputBindingApiEvents} from './input-binding';
+import {MonitorBindingApiEvents} from './monitor-binding';
 
 export type InputEventName = 'change';
 export type MonitorEventName = 'update';
 export type FolderEventName = InputEventName | MonitorEventName | 'fold';
 
-/**
- * @hidden
- */
-export function handleInputBinding<In, Ex>({
+export function adaptInputBinding<In, Ex>({
 	binding,
-	eventName,
-	handler,
+	emitter,
 }: {
 	binding: InputBinding<In>;
-	eventName: InputEventName;
-	handler: (value: Ex) => void;
-}) {
-	if (eventName === 'change') {
-		const emitter = binding.emitter;
-		emitter.on('change', (ev: InputBindingEvents<In>['change']) => {
-			handler(forceCast(ev.sender.target.read()));
+	emitter: Emitter<InputBindingApiEvents<Ex>>;
+}): void {
+	binding.emitter.on('change', (inEv: InputBindingEvents<In>['change']) => {
+		const value = inEv.sender.target.read();
+		emitter.emit('change', {
+			event: new TpChangeEvent(forceCast(value), binding.target.presetKey),
 		});
-	}
+	});
 }
 
-/**
- * @hidden
- */
-export function handleMonitorBinding<T>({
+export function adaptMonitorBinding<T>({
 	binding,
-	eventName,
-	handler,
+	emitter,
 }: {
 	binding: MonitorBinding<T>;
-	eventName: MonitorEventName;
-	handler: (value: unknown) => void;
-}) {
-	if (eventName === 'update') {
-		const emitter = binding.emitter;
-		emitter.on('update', (ev: MonitorBindingEvents<T>['update']) => {
-			handler(ev.sender.target.read());
+	emitter: Emitter<MonitorBindingApiEvents<T>>;
+}): void {
+	binding.emitter.on('update', (inEv: MonitorBindingEvents<T>['update']) => {
+		const value = inEv.sender.target.read();
+		emitter.emit('update', {
+			event: new TpUpdateEvent(forceCast(value), binding.target.presetKey),
 		});
-	}
+	});
 }
 
-/**
- * @hidden
- */
-export function handleFolder({
-	bladeRack,
-	eventName,
+export function adaptFolder({
+	emitter,
 	folder,
-	handler,
+	rack,
 }: {
-	bladeRack: BladeRack;
-	eventName: FolderEventName;
-	folder: Folder | null;
-	handler: (value: unknown) => void;
-}) {
-	if (eventName === 'change') {
-		const emitter = bladeRack.emitter;
-		emitter.on('inputchange', (ev: BladeRackEvents['inputchange']) => {
-			handler(ev.inputBinding.target.read());
+	emitter: Emitter<FolderApiEvents<unknown>>;
+	folder?: Folder;
+	rack: BladeRack;
+}): void {
+	rack.emitter.on('inputchange', (inEv: BladeRackEvents['inputchange']) => {
+		const binding = inEv.inputBinding;
+		const value = binding.target.read();
+		emitter.emit('change', {
+			event: new TpChangeEvent(forceCast(value), binding.target.presetKey),
 		});
-	}
-	if (eventName === 'update') {
-		const emitter = bladeRack.emitter;
-		emitter.on('monitorupdate', (ev: BladeRackEvents['monitorupdate']) => {
-			handler(ev.monitorBinding.target.read());
+	});
+	rack.emitter.on('monitorupdate', (inEv: BladeRackEvents['monitorupdate']) => {
+		const binding = inEv.monitorBinding;
+		const value = binding.target.read();
+		emitter.emit('update', {
+			event: new TpUpdateEvent(forceCast(value), binding.target.presetKey),
 		});
-	}
-	if (eventName === 'fold') {
-		bladeRack.emitter.on('itemfold', (ev: BladeRackEvents['itemfold']) => {
-			handler(ev.expanded);
+	});
+	rack.emitter.on('itemfold', (inEv: BladeRackEvents['itemfold']) => {
+		emitter.emit('fold', {
+			event: new TpFoldEvent(inEv.expanded),
 		});
-		folder?.emitter.on('change', (ev: FolderEvents['change']) => {
-			if (ev.propertyName !== 'expanded') {
-				return;
-			}
-			handler(ev.sender.expanded);
+	});
+	folder?.emitter.on('change', (inEv: FolderEvents['change']) => {
+		if (inEv.propertyName !== 'expanded') {
+			return;
+		}
+		emitter.emit('fold', {
+			event: new TpFoldEvent(inEv.sender.expanded),
 		});
-	}
+	});
 }

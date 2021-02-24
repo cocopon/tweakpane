@@ -8,6 +8,7 @@ import {MonitorBindingController} from '../plugin/blade/common/controller/monito
 import {Blade} from '../plugin/blade/common/model/blade';
 import {FolderController} from '../plugin/blade/folder/controller';
 import {SeparatorController} from '../plugin/blade/separator/controller';
+import {TpChangeEvent} from '../plugin/common/event/tp-event';
 import {Color} from '../plugin/input-bindings/color/model/color';
 import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
 import {SingleLogMonitorController} from '../plugin/monitor-bindings/common/controller/single-log';
@@ -198,25 +199,29 @@ describe(FolderApi.name, () => {
 		},
 	].forEach(({expected, params}) => {
 		context(`when ${JSON.stringify(params)}`, () => {
-			it('should pass right first argument for change event (local)', (done) => {
+			it('should pass event for change event (local)', (done) => {
 				const api = createApi();
 				const obj = {foo: params.propertyValue};
 				const bapi = api.addInput(obj, 'foo');
 
-				bapi.on('change', (value: unknown) => {
-					assert.strictEqual(value, expected);
+				bapi.on('change', (ev) => {
+					assert.instanceOf(ev, TpChangeEvent);
+					assert.strictEqual(ev.presetKey, 'foo');
+					assert.strictEqual(ev.value, expected);
 					done();
 				});
 				bapi.controller.binding.value.rawValue = params.newInternalValue;
 			});
 
-			it('should pass right first argument for change event (global)', (done) => {
+			it('should pass event for change event (global)', (done) => {
 				const api = createApi();
 				const obj = {foo: params.propertyValue};
 				const bapi = api.addInput(obj, 'foo');
 
-				api.on('change', (value: unknown) => {
-					assert.strictEqual(value, expected);
+				api.on('change', (ev) => {
+					assert.instanceOf(ev, TpChangeEvent);
+					assert.strictEqual(ev.presetKey, 'foo');
+					assert.strictEqual(ev.value, expected);
 					done();
 				});
 				bapi.controller.binding.value.rawValue = params.newInternalValue;

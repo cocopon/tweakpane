@@ -9,6 +9,7 @@ import {BindingTarget} from '../plugin/common/binding/target';
 import {ManualTicker} from '../plugin/common/binding/ticker/manual';
 import {createNumberFormatter} from '../plugin/common/converter/number';
 import {numberFromUnknown} from '../plugin/common/converter/number';
+import {TpUpdateEvent} from '../plugin/common/event/tp-event';
 import {Buffer} from '../plugin/common/model/buffered-value';
 import {Value} from '../plugin/common/model/value';
 import {SingleLogMonitorController} from '../plugin/monitor-bindings/common/controller/single-log';
@@ -41,8 +42,9 @@ describe(MonitorBindingApi.name, () => {
 			foo: 0,
 		};
 		const api = createApi(new BindingTarget(PARAMS, 'foo'));
-		api.on('update', (value: unknown) => {
-			assert.strictEqual(value, 123);
+		api.on('update', (ev) => {
+			assert.instanceOf(ev, TpUpdateEvent);
+			assert.strictEqual(ev.value, 123);
 			done();
 		});
 

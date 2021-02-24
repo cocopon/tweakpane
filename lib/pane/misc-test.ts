@@ -4,6 +4,7 @@ import {describe, it} from 'mocha';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {forceCast} from '../misc/type-util';
+import {TpChangeEvent} from '../plugin/common/event/tp-event';
 import {Value} from '../plugin/common/model/value';
 
 function createPane(): Tweakpane {
@@ -17,8 +18,10 @@ describe(Tweakpane.name, () => {
 	it('should handle global input events', (done) => {
 		const pane = createPane();
 		const obj = {foo: 1};
-		pane.on('change', (v: unknown) => {
-			assert.strictEqual(v, 2);
+		pane.on('change', (ev) => {
+			assert.instanceOf(ev, TpChangeEvent);
+			assert.strictEqual(ev.presetKey, 'foo');
+			assert.strictEqual(ev.value, 2);
 			done();
 		});
 
@@ -30,8 +33,10 @@ describe(Tweakpane.name, () => {
 	it('should handle global input events (nested)', (done) => {
 		const pane = createPane();
 		const obj = {foo: 1};
-		pane.on('change', (v: unknown) => {
-			assert.strictEqual(v, 2);
+		pane.on('change', (ev) => {
+			assert.instanceOf(ev, TpChangeEvent);
+			assert.strictEqual(ev.presetKey, 'foo');
+			assert.strictEqual(ev.value, 2);
 			done();
 		});
 

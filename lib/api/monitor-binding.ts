@@ -1,10 +1,13 @@
-import {forceCast} from '../misc/type-util';
 import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
+import {TpUpdateEvent} from '../plugin/common/event/tp-event';
+import {Emitter} from '../plugin/common/model/emitter';
 import {ComponentApi} from './component-api';
-import {handleMonitorBinding} from './event-handler-adapters';
+import {adaptMonitorBinding} from './event-handler-adapters';
 
-interface MonitorBindingApiEventHandlers<T> {
-	update: (value: T) => void;
+export interface MonitorBindingApiEvents<T> {
+	update: {
+		event: TpUpdateEvent<T>;
+	};
 }
 
 /**
@@ -15,12 +18,19 @@ export class MonitorBindingApi<T> implements ComponentApi {
 	 * @hidden
 	 */
 	public readonly controller: MonitorBindingController<T>;
+	private readonly emitter_: Emitter<MonitorBindingApiEvents<T>>;
 
 	/**
 	 * @hidden
 	 */
 	constructor(bindingController: MonitorBindingController<T>) {
 		this.controller = bindingController;
+
+		this.emitter_ = new Emitter();
+		adaptMonitorBinding({
+			binding: bindingController.binding,
+			emitter: this.emitter_,
+		});
 	}
 
 	get hidden(): boolean {
@@ -35,15 +45,13 @@ export class MonitorBindingApi<T> implements ComponentApi {
 		this.controller.blade.dispose();
 	}
 
-	public on<EventName extends keyof MonitorBindingApiEventHandlers<T>>(
+	public on<EventName extends keyof MonitorBindingApiEvents<T>>(
 		eventName: EventName,
-		handler: MonitorBindingApiEventHandlers<T>[EventName],
+		handler: (ev: MonitorBindingApiEvents<T>[EventName]['event']) => void,
 	): MonitorBindingApi<T> {
-		handleMonitorBinding({
-			binding: this.controller.binding,
-			eventName: eventName,
-			// TODO: Type-safe
-			handler: forceCast(handler.bind(this)),
+		const bh = handler.bind(this);
+		this.emitter_.on(eventName, (ev) => {
+			bh(ev.event);
 		});
 		return this;
 	}
