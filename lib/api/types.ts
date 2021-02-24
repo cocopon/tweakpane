@@ -74,7 +74,9 @@ export interface BaseMonitorParams extends BaseParams, LabelableParams {
 	interval?: number;
 	view?: string;
 
-	// TODO: Deprecated, use `bufferSize` instead
+	/**
+	 * @deprecated Use `bufferSize` instead
+	 */
 	count?: number;
 }
 
