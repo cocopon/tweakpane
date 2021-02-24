@@ -1,4 +1,3 @@
-import {isEmpty} from '../misc/type-util';
 import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
 import {BindingTarget} from '../plugin/common/binding/target';
 import {TpError} from '../plugin/common/tp-error';
@@ -16,17 +15,6 @@ export function createMonitorBindingController(
 	target: BindingTarget,
 	params: MonitorParams,
 ): MonitorBindingController<unknown> {
-	const initialValue = target.read();
-
-	if (isEmpty(initialValue)) {
-		throw new TpError({
-			context: {
-				key: target.key,
-			},
-			type: 'emptyvalue',
-		});
-	}
-
 	const bc = Plugins.monitors.reduce(
 		(result: MonitorBindingController<unknown> | null, plugin) =>
 			result ||
