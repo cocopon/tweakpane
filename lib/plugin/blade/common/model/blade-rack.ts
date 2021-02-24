@@ -106,13 +106,9 @@ export class BladeRack {
 		bc.blade.emitter.on('change', this.onListItemLayout_);
 
 		if (bc instanceof InputBindingController) {
-			const emitter = bc.binding.emitter;
-			// TODO: Find more type-safe way
-			(emitter.on as any)('change', this.onItemInputChange_);
+			bc.binding.emitter.on('change', this.onItemInputChange_);
 		} else if (bc instanceof MonitorBindingController) {
-			const emitter = bc.binding.emitter;
-			// TODO: Find more type-safe way
-			emitter.on('update', this.onItemMonitorUpdate_);
+			bc.binding.emitter.on('update', this.onItemMonitorUpdate_);
 		} else if (bc instanceof FolderController) {
 			bc.folder.emitter.on('change', this.onItemFolderFold_);
 

@@ -33,7 +33,6 @@ describe(MonitorBinding.name, () => {
 		const target = new BindingTarget(obj, 'foo');
 		const value = new Value([0] as Buffer<number>);
 		const ticker = new ManualTicker();
-		// tslint:disable-next-line:no-unused-expression
 		new MonitorBinding({
 			reader: numberFromUnknown,
 			target: target,
@@ -66,7 +65,6 @@ describe(MonitorBinding.name, () => {
 		const target = new BindingTarget(obj, 'foo');
 		const value = new Value([0] as Buffer<number>);
 		const ticker = new ManualTicker();
-		// tslint:disable-next-line:no-unused-expression
 		new MonitorBinding({
 			reader: numberFromUnknown,
 			target: target,

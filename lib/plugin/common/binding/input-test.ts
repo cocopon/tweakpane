@@ -30,7 +30,6 @@ describe(InputBinding.name, () => {
 		};
 		const target = new BindingTarget(obj, 'foo');
 		const value = new Value(0);
-		// tslint:disable-next-line:no-unused-expression
 		new InputBinding({
 			reader: numberFromUnknown,
 			target: target,
@@ -53,7 +52,6 @@ describe(InputBinding.name, () => {
 		const obj: {foo?: string} = {};
 		const target = new BindingTarget(obj, 'foo');
 		const value = new Value(0);
-		// tslint:disable-next-line:no-unused-expression
 		new InputBinding({
 			reader: numberFromUnknown,
 			target: target,
