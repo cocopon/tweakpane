@@ -135,14 +135,11 @@ export class Color {
 
 	public toRgbaObject(): RgbaColorObject {
 		const rgbComps = this.getComponents('rgb');
-
-		// tslint:disable:object-literal-sort-keys
 		return {
 			r: rgbComps[0],
 			g: rgbComps[1],
 			b: rgbComps[2],
 			a: rgbComps[3],
 		};
-		// tslint:enable:object-literal-sort-keys
 	}
 }

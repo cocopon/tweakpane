@@ -169,7 +169,6 @@ describe('StringColorParser', () => {
 		});
 	});
 
-	// tslint:disable:object-literal-sort-keys
 	[
 		{
 			input: '#112233',
