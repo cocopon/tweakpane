@@ -1,10 +1,10 @@
-import {Foldable} from '../../../blade/folder/model/foldable';
 import {ValueController} from '../../../common/controller/value';
 import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../../common/converter/number';
 import {findNextTarget, supportsTouch} from '../../../common/dom-util';
+import {Foldable} from '../../../common/model/foldable';
 import {Value} from '../../../common/model/value';
 import {connect} from '../../../common/model/value-sync';
 import {TextController} from '../../common/controller/text';
