@@ -9,19 +9,16 @@ import {formatString, stringFromUnknown} from '../../common/converter/string';
 import {Value} from '../../common/model/value';
 import {writePrimitive} from '../../common/writer/primitive';
 import {InputBindingPlugin} from '../../input-binding';
-import {findListItems, normalizeInputParamsOptions} from '../../util';
+import {createListConstraint, findListItems} from '../../util';
 import {ListController} from '../common/controller/list';
 import {TextController} from '../common/controller/text';
 
 function createConstraint(params: InputParams): Constraint<string> {
 	const constraints: Constraint<string>[] = [];
 
-	if ('options' in params && params.options !== undefined) {
-		constraints.push(
-			new ListConstraint({
-				options: normalizeInputParamsOptions(params.options, stringFromUnknown),
-			}),
-		);
+	const lc = createListConstraint(params, stringFromUnknown);
+	if (lc) {
+		constraints.push(lc);
 	}
 
 	return new CompositeConstraint({

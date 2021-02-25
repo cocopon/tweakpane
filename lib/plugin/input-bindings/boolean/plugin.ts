@@ -10,19 +10,16 @@ import {boolFromUnknown} from '../../common/converter/boolean';
 import {Value} from '../../common/model/value';
 import {writePrimitive} from '../../common/writer/primitive';
 import {InputBindingPlugin} from '../../input-binding';
-import {findListItems, normalizeInputParamsOptions} from '../../util';
+import {createListConstraint, findListItems} from '../../util';
 import {ListController} from '../common/controller/list';
 import {CheckboxController} from './controller';
 
 function createConstraint(params: InputParams): Constraint<boolean> {
 	const constraints: Constraint<boolean>[] = [];
 
-	if ('options' in params && params.options !== undefined) {
-		constraints.push(
-			new ListConstraint({
-				options: normalizeInputParamsOptions(params.options, boolFromUnknown),
-			}),
-		);
+	const lc = createListConstraint(params, boolFromUnknown);
+	if (lc) {
+		constraints.push(lc);
 	}
 
 	return new CompositeConstraint({
