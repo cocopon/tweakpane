@@ -5,7 +5,8 @@ interface Observer<E> {
 }
 
 /**
- * @hidden
+ * A type-safe event emitter.
+ * @template E The interface that maps event names and event objects.
  */
 export class Emitter<E> {
 	private observers_: {[EventName in keyof E]?: Observer<E[EventName]>[]};
@@ -14,6 +15,11 @@ export class Emitter<E> {
 		this.observers_ = {};
 	}
 
+	/**
+	 * Adds an event listener to the emitter.
+	 * @param eventName The event name to listen.
+	 * @param handler The event handler.
+	 */
 	public on<EventName extends keyof E>(
 		eventName: EventName,
 		handler: Handler<E[EventName]>,
@@ -30,6 +36,11 @@ export class Emitter<E> {
 		return this;
 	}
 
+	/**
+	 * Removes an event listener from the emitter.
+	 * @param eventName The event name.
+	 * @param handler The event handler to remove.
+	 */
 	public off<EventName extends keyof E>(
 		eventName: EventName,
 		handler: Handler<E[EventName]>,

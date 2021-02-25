@@ -1,8 +1,17 @@
 import {supportsTouch} from '../dom-util';
 import {Emitter} from '../model/emitter';
 
+/**
+ * Data for pointer events.
+ */
 export interface PointerData {
+	/**
+	 * The relative X coordinate in the element [0-1].
+	 */
 	px: number;
+	/**
+	 * The relative Y coordinate in the element [0-1].
+	 */
 	py: number;
 }
 
@@ -16,9 +25,6 @@ function computeOffset(ev: MouseEvent, elem: HTMLElement): [number, number] {
 	];
 }
 
-/**
- * @hidden
- */
 export interface PointerHandlerEvents {
 	down: {
 		data: PointerData;
@@ -36,7 +42,6 @@ export interface PointerHandlerEvents {
 
 /**
  * A utility class to handle both mouse and touch events.
- * @hidden
  */
 export class PointerHandler {
 	public readonly document: Document;

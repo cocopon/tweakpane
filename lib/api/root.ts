@@ -164,7 +164,7 @@ export class RootApi implements ComponentApi {
 	}
 
 	/**
-	 * Import a preset of all inputs.
+	 * Imports a preset of all inputs.
 	 * @param preset The preset object to import.
 	 */
 	public importPreset(preset: PresetObject): void {
@@ -178,8 +178,8 @@ export class RootApi implements ComponentApi {
 	}
 
 	/**
-	 * Export a preset of all inputs.
-	 * @return The exported preset object.
+	 * Exports a preset of all inputs.
+	 * @return An exported preset object.
 	 */
 	public exportPreset(): PresetObject {
 		const targets = this.controller.bladeRack
