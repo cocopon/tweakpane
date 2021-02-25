@@ -16,11 +16,10 @@ interface BindingArguments<Ex> {
 }
 
 interface ControllerArguments<In, Ex> {
+	document: Document;
 	initialValue: Ex;
 	params: InputParams;
 	value: Value<In>;
-
-	document: Document;
 }
 
 /**

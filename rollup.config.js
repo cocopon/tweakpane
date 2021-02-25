@@ -42,6 +42,7 @@ function getPlugins(css, shouldMinify) {
 }
 
 export default async () => {
+	// eslint-disable-next-line no-undef
 	const production = process.env.BUILD === 'production';
 	const postfix = production ? '.min' : '';
 

@@ -59,9 +59,11 @@ export class RootApi implements ComponentApi {
 	 */
 	public readonly controller: RootController;
 
-	// TODO: Publish
 	/**
-	 * @hidden
+	 * Registers a plugin.
+	 * @template In The type of the internal value.
+	 * @template Ex The type of the external value.
+	 * @param r The configuration of the plugin.
 	 */
 	public static registerPlugin<In, Ex>(r: PluginRegistration<In, Ex>): void {
 		if (r.type === 'input') {
