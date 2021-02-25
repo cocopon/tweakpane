@@ -54,6 +54,6 @@ export const StringInputPlugin: InputBindingPlugin<string, string> = {
 		writer: (_args) => writePrimitive,
 	},
 	controller: (params) => {
-		return createController(params.document, params.binding.value);
+		return createController(params.document, params.value);
 	},
 };

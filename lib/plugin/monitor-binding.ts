@@ -9,7 +9,7 @@ import {IntervalTicker} from './common/binding/ticker/interval';
 import {ManualTicker} from './common/binding/ticker/manual';
 import {Ticker} from './common/binding/ticker/ticker';
 import {ValueController} from './common/controller/value';
-import {initializeBuffer} from './common/model/buffered-value';
+import {BufferedValue, initializeBuffer} from './common/model/buffered-value';
 import {Buffer} from './common/model/buffered-value';
 import {BasePlugin} from './plugin';
 
@@ -20,9 +20,9 @@ interface BindingArguments<T> {
 }
 
 interface ControllerArguments<T> {
-	binding: MonitorBinding<T>;
 	document: Document;
 	params: MonitorParams;
+	value: BufferedValue<T>;
 }
 
 /**
@@ -126,9 +126,9 @@ export function createController<T>(
 	return new MonitorBindingController(args.document, {
 		binding: binding,
 		controller: plugin.controller({
-			binding: binding,
 			document: args.document,
 			params: args.params,
+			value: binding.value,
 		}),
 		label: args.params.label || args.target.key,
 		blade: new Blade(),

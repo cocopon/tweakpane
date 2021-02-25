@@ -39,7 +39,7 @@ export const ObjectColorInputPlugin: InputBindingPlugin<
 			formatter: formatter,
 			parser: CompositeColorParser,
 			supportsAlpha: supportsAlpha,
-			value: args.binding.value,
+			value: args.value,
 		});
 	},
 };

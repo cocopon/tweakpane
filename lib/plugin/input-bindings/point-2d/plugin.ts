@@ -138,7 +138,7 @@ export const Point2dInputPlugin: InputBindingPlugin<Point2d, Point2dObject> = {
 	controller: (args) => {
 		return createController(
 			args.document,
-			args.binding.value,
+			args.value,
 			shouldInvertY(args.params),
 		);
 	},

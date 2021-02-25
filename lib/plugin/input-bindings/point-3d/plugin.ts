@@ -94,6 +94,6 @@ export const Point3dInputPlugin: InputBindingPlugin<Point3d, Point3dObject> = {
 		equals: Point3d.equals,
 	},
 	controller: (args) => {
-		return createController(args.document, args.binding.value);
+		return createController(args.document, args.value);
 	},
 };

@@ -124,6 +124,6 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 		writer: (_args) => writePrimitive,
 	},
 	controller: (args) => {
-		return createController(args.document, args.binding.value);
+		return createController(args.document, args.value);
 	},
 };

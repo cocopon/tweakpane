@@ -98,7 +98,7 @@ describe(Tweakpane.name, () => {
 					return new TextController(args.document, {
 						formatter: formatString,
 						parser: (v) => v,
-						value: args.binding.value,
+						value: args.value,
 					});
 				},
 			},
