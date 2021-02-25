@@ -21,9 +21,7 @@ function createConstraint(params: InputParams): Constraint<string> {
 		constraints.push(lc);
 	}
 
-	return new CompositeConstraint({
-		constraints: constraints,
-	});
+	return new CompositeConstraint(constraints);
 }
 
 function createController(doc: Document, value: Value<string>) {

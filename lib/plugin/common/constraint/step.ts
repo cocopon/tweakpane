@@ -1,17 +1,13 @@
 import {Constraint} from './constraint';
 
-interface Config {
-	step: number;
-}
-
 /**
  * A number step range constraint.
  */
 export class StepConstraint implements Constraint<number> {
 	public readonly step: number;
 
-	constructor(config: Config) {
-		this.step = config.step;
+	constructor(step: number) {
+		this.step = step;
 	}
 
 	public constrain(value: number): number {

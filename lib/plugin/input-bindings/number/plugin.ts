@@ -36,9 +36,7 @@ export function createStepConstraint(
 	params: InputParams,
 ): Constraint<number> | null {
 	if ('step' in params && !isEmpty(params.step)) {
-		return new StepConstraint({
-			step: params.step,
-		});
+		return new StepConstraint(params.step);
 	}
 	return null;
 }
@@ -79,9 +77,7 @@ function createConstraint(params: InputParams): Constraint<number> {
 		constraints.push(lc);
 	}
 
-	return new CompositeConstraint({
-		constraints: constraints,
-	});
+	return new CompositeConstraint(constraints);
 }
 
 function createController(doc: Document, value: Value<number>) {

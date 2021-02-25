@@ -11,13 +11,11 @@ import {ListController} from './list';
 describe(ListController.name, () => {
 	it('should get value', () => {
 		const value = new Value(0, {
-			constraint: new ListConstraint({
-				options: [
-					{text: 'foo', value: 12},
-					{text: 'bar', value: 34},
-					{text: 'baz', value: 56},
-				],
-			}),
+			constraint: new ListConstraint([
+				{text: 'foo', value: 12},
+				{text: 'bar', value: 34},
+				{text: 'baz', value: 56},
+			]),
 		});
 		const doc = TestUtil.createWindow().document;
 		const c = new ListController(doc, {
@@ -31,13 +29,11 @@ describe(ListController.name, () => {
 
 	it('should apply input to value', () => {
 		const value = new Value(0, {
-			constraint: new ListConstraint({
-				options: [
-					{text: 'foo', value: 12},
-					{text: 'bar', value: 34},
-					{text: 'baz', value: 56},
-				],
-			}),
+			constraint: new ListConstraint([
+				{text: 'foo', value: 12},
+				{text: 'bar', value: 34},
+				{text: 'baz', value: 56},
+			]),
 		});
 		const win = TestUtil.createWindow();
 		const doc = win.document;

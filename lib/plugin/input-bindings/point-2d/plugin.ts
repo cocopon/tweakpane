@@ -31,11 +31,7 @@ function createDimensionConstraint(
 	const constraints: Constraint<number>[] = [];
 
 	if (!isEmpty(params.step)) {
-		constraints.push(
-			new StepConstraint({
-				step: params.step,
-			}),
-		);
+		constraints.push(new StepConstraint(params.step));
 	}
 	if (!isEmpty(params.max) || !isEmpty(params.min)) {
 		constraints.push(
@@ -45,9 +41,7 @@ function createDimensionConstraint(
 			}),
 		);
 	}
-	return new CompositeConstraint({
-		constraints: constraints,
-	});
+	return new CompositeConstraint(constraints);
 }
 
 function createConstraint(params: InputParams): Constraint<Point2d> {

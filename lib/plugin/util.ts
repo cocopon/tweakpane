@@ -44,9 +44,9 @@ export function createListConstraint<T>(
 	convert: (value: unknown) => T,
 ): ListConstraint<T> | null {
 	if ('options' in params && params.options !== undefined) {
-		return new ListConstraint({
-			options: normalizeInputParamsOptions(params.options, convert),
-		});
+		return new ListConstraint(
+			normalizeInputParamsOptions(params.options, convert),
+		);
 	}
 	return null;
 }

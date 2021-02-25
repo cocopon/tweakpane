@@ -22,9 +22,7 @@ function createConstraint(params: InputParams): Constraint<boolean> {
 		constraints.push(lc);
 	}
 
-	return new CompositeConstraint({
-		constraints: constraints,
-	});
+	return new CompositeConstraint(constraints);
 }
 
 function createController(doc: Document, value: Value<boolean>) {
