@@ -11,21 +11,25 @@ export interface ValueEvents<In> {
 	};
 }
 
-interface ValueConfig<T> {
+interface Config<T> {
 	constraint?: Constraint<T>;
 	equals?: (v1: T, v2: T) => boolean;
 }
 
 /**
- * @hidden
+ * A model for handling value changes.
+ * @template T The type of the raw value.
  */
 export class Value<T> {
+	/**
+	 * The event emitter for value changes.
+	 */
 	public readonly emitter: Emitter<ValueEvents<T>>;
 	private constraint_: Constraint<T> | undefined;
 	private equals_: (v1: T, v2: T) => boolean;
 	private rawValue_: T;
 
-	constructor(initialValue: T, config?: ValueConfig<T>) {
+	constructor(initialValue: T, config?: Config<T>) {
 		this.constraint_ = config?.constraint;
 		this.equals_ = config?.equals ?? ((v1, v2) => v1 === v2);
 		this.emitter = new Emitter();
@@ -36,6 +40,9 @@ export class Value<T> {
 		return this.constraint_;
 	}
 
+	/**
+	 * The raw value of the model.
+	 */
 	get rawValue(): T {
 		return this.rawValue_;
 	}

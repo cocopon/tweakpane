@@ -28,11 +28,7 @@ function createDimensionConstraint(
 	const constraints: Constraint<number>[] = [];
 
 	if (!isEmpty(params.step)) {
-		constraints.push(
-			new StepConstraint({
-				step: params.step,
-			}),
-		);
+		constraints.push(new StepConstraint(params.step));
 	}
 	if (!isEmpty(params.max) || !isEmpty(params.min)) {
 		constraints.push(
@@ -42,9 +38,7 @@ function createDimensionConstraint(
 			}),
 		);
 	}
-	return new CompositeConstraint({
-		constraints: constraints,
-	});
+	return new CompositeConstraint(constraints);
 }
 
 function createConstraint(params: InputParams): Constraint<Point3d> {
@@ -100,6 +94,6 @@ export const Point3dInputPlugin: InputBindingPlugin<Point3d, Point3dObject> = {
 		equals: Point3d.equals,
 	},
 	controller: (args) => {
-		return createController(args.document, args.binding.value);
+		return createController(args.document, args.value);
 	},
 };

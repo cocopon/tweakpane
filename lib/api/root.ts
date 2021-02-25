@@ -59,9 +59,11 @@ export class RootApi implements ComponentApi {
 	 */
 	public readonly controller: RootController;
 
-	// TODO: Publish
 	/**
-	 * @hidden
+	 * Registers a plugin.
+	 * @template In The type of the internal value.
+	 * @template Ex The type of the external value.
+	 * @param r The configuration of the plugin.
 	 */
 	public static registerPlugin<In, Ex>(r: PluginRegistration<In, Ex>): void {
 		if (r.type === 'input') {
@@ -164,7 +166,7 @@ export class RootApi implements ComponentApi {
 	}
 
 	/**
-	 * Import a preset of all inputs.
+	 * Imports a preset of all inputs.
 	 * @param preset The preset object to import.
 	 */
 	public importPreset(preset: PresetObject): void {
@@ -178,8 +180,8 @@ export class RootApi implements ComponentApi {
 	}
 
 	/**
-	 * Export a preset of all inputs.
-	 * @return The exported preset object.
+	 * Exports a preset of all inputs.
+	 * @return An exported preset object.
 	 */
 	public exportPreset(): PresetObject {
 		const targets = this.controller.bladeRack

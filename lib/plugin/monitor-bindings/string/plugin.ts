@@ -14,7 +14,7 @@ export const StringMonitorPlugin: MonitorBindingPlugin<string> = {
 		reader: (_args) => stringFromUnknown,
 	},
 	controller: (args) => {
-		const value = args.binding.value;
+		const value = args.value;
 		const multiline =
 			value.rawValue.length > 1 ||
 			('multiline' in args.params && args.params.multiline);

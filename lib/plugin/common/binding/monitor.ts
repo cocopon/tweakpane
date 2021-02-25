@@ -1,10 +1,11 @@
 import {Ticker, TickerEvents} from '../binding/ticker/ticker';
 import {BufferedValue, createPushedBuffer} from '../model/buffered-value';
 import {Emitter} from '../model/emitter';
+import {BindingReader} from './binding';
 import {BindingTarget} from './target';
 
 interface Config<T> {
-	reader: (exValue: unknown) => T;
+	reader: BindingReader<T>;
 	target: BindingTarget;
 	ticker: Ticker;
 	value: BufferedValue<T>;
@@ -28,7 +29,7 @@ export class MonitorBinding<T> {
 	public readonly target: BindingTarget;
 	public readonly ticker: Ticker;
 	public readonly value: BufferedValue<T>;
-	private reader_: (exValue: unknown) => T;
+	private reader_: BindingReader<T>;
 
 	constructor(config: Config<T>) {
 		this.onTick_ = this.onTick_.bind(this);

@@ -31,11 +31,7 @@ function createDimensionConstraint(
 	const constraints: Constraint<number>[] = [];
 
 	if (!isEmpty(params.step)) {
-		constraints.push(
-			new StepConstraint({
-				step: params.step,
-			}),
-		);
+		constraints.push(new StepConstraint(params.step));
 	}
 	if (!isEmpty(params.max) || !isEmpty(params.min)) {
 		constraints.push(
@@ -45,9 +41,7 @@ function createDimensionConstraint(
 			}),
 		);
 	}
-	return new CompositeConstraint({
-		constraints: constraints,
-	});
+	return new CompositeConstraint(constraints);
 }
 
 function createConstraint(params: InputParams): Constraint<Point2d> {
@@ -144,7 +138,7 @@ export const Point2dInputPlugin: InputBindingPlugin<Point2d, Point2dObject> = {
 	controller: (args) => {
 		return createController(
 			args.document,
-			args.binding.value,
+			args.value,
 			shouldInvertY(args.params),
 		);
 	},

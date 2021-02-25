@@ -17,17 +17,17 @@ export const BooleanMonitorPlugin: MonitorBindingPlugin<boolean> = {
 		reader: (_args) => boolFromUnknown,
 	},
 	controller: (args) => {
-		if (args.binding.value.rawValue.length === 1) {
+		if (args.value.rawValue.length === 1) {
 			return new SingleLogMonitorController(args.document, {
 				formatter: BooleanFormatter,
-				value: args.binding.value,
+				value: args.value,
 			});
 		}
 
 		return new MultiLogController(args.document, {
 			formatter: BooleanFormatter,
 			lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,
-			value: args.binding.value,
+			value: args.value,
 		});
 	},
 };

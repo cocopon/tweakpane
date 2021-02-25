@@ -1,17 +1,18 @@
-import {InputParamsOption, InputParamsOptionDictionary} from '../api/types';
+import {
+	InputParams,
+	InputParamsOption,
+	InputParamsOptionDictionary,
+} from '../api/types';
 import {findConstraint} from './common/constraint/composite';
 import {Constraint} from './common/constraint/constraint';
 import {ListConstraint, ListItem} from './common/constraint/list';
 import {StepConstraint} from './common/constraint/step';
 import {getDecimalDigits} from './common/number-util';
 
-/**
- * @hidden
- */
-export function normalizeInputParamsOptions<T1, T2>(
-	options: InputParamsOption<T1>[] | InputParamsOptionDictionary<T1>,
-	convert: (value: T1) => T2,
-): InputParamsOption<T2>[] {
+function normalizeInputParamsOptions<T>(
+	options: InputParamsOption<unknown>[] | InputParamsOptionDictionary<unknown>,
+	convert: (value: unknown) => T,
+): InputParamsOption<T>[] {
 	if (Array.isArray(options)) {
 		return options.map((item) => {
 			return {
@@ -28,7 +29,26 @@ export function normalizeInputParamsOptions<T1, T2>(
 			text: text,
 			value: convert(textToValueMap[text]),
 		});
-	}, [] as InputParamsOption<T2>[]);
+	}, [] as InputParamsOption<T>[]);
+}
+
+/**
+ * Tries to create a list constraint.
+ * @template T The type of the raw value.
+ * @param params The input parameters object.
+ * @param convert The converter that converts unknown value into T.
+ * @return A constraint or null if not found.
+ */
+export function createListConstraint<T>(
+	params: InputParams,
+	convert: (value: unknown) => T,
+): ListConstraint<T> | null {
+	if ('options' in params && params.options !== undefined) {
+		return new ListConstraint(
+			normalizeInputParamsOptions(params.options, convert),
+		);
+	}
+	return null;
 }
 
 /**

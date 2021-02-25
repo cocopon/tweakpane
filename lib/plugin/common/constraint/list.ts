@@ -8,26 +8,19 @@ export interface ListItem<T> {
 	value: T;
 }
 
-interface Config<T> {
-	options: ListItem<T>[];
-}
-
 /**
- * @hidden
+ * A list constranit.
+ * @template T The type of the value.
  */
 export class ListConstraint<T> implements Constraint<T> {
-	private opts_: ListItem<T>[];
+	public readonly options: ListItem<T>[];
 
-	constructor(config: Config<T>) {
-		this.opts_ = config.options;
-	}
-
-	get options(): ListItem<T>[] {
-		return this.opts_;
+	constructor(options: ListItem<T>[]) {
+		this.options = options;
 	}
 
 	public constrain(value: T): T {
-		const opts = this.opts_;
+		const opts = this.options;
 
 		if (opts.length === 0) {
 			return value;

@@ -64,7 +64,7 @@ export class SliderController implements ValueController<number> {
 			value: this.value,
 		});
 
-		this.ptHandler_ = new PointerHandler(doc, this.view.outerElement);
+		this.ptHandler_ = new PointerHandler(this.view.outerElement);
 		this.ptHandler_.emitter.on('down', this.onPointerDown_);
 		this.ptHandler_.emitter.on('move', this.onPointerMove_);
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
@@ -73,7 +73,13 @@ export class SliderController implements ValueController<number> {
 	}
 
 	private handlePointerEvent_(d: PointerData): void {
-		this.value.rawValue = mapRange(d.px, 0, 1, this.minValue_, this.maxValue_);
+		this.value.rawValue = mapRange(
+			d.x,
+			0,
+			d.bounds.width,
+			this.minValue_,
+			this.maxValue_,
+		);
 	}
 
 	private onPointerDown_(ev: PointerHandlerEvents['down']): void {

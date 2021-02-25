@@ -60,7 +60,7 @@ export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
 			formatter: formatter,
 			parser: CompositeColorParser,
 			supportsAlpha: supportsAlpha,
-			value: args.binding.value,
+			value: args.value,
 		});
 	},
 };

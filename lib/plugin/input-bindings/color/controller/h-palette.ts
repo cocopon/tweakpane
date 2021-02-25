@@ -35,7 +35,7 @@ export class HPaletteController implements ValueController<Color> {
 			value: this.value,
 		});
 
-		this.ptHandler_ = new PointerHandler(doc, this.view.element);
+		this.ptHandler_ = new PointerHandler(this.view.element);
 		this.ptHandler_.emitter.on('down', this.onPointerDown_);
 		this.ptHandler_.emitter.on('move', this.onPointerMove_);
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
@@ -44,7 +44,7 @@ export class HPaletteController implements ValueController<Color> {
 	}
 
 	private handlePointerEvent_(d: PointerData): void {
-		const hue = mapRange(d.px, 0, 1, 0, 360);
+		const hue = mapRange(d.x, 0, d.bounds.width, 0, 360);
 
 		const c = this.value.rawValue;
 		const [, s, v, a] = c.getComponents('hsv');

@@ -1,9 +1,25 @@
 import {supportsTouch} from '../dom-util';
 import {Emitter} from '../model/emitter';
 
+/**
+ * Data for pointer events.
+ */
 export interface PointerData {
-	px: number;
-	py: number;
+	/**
+	 * The size of the bounds.
+	 */
+	bounds: {
+		height: number;
+		width: number;
+	};
+	/**
+	 * The X coordinate in the element.
+	 */
+	x: number;
+	/**
+	 * The Y coordinate in the element.
+	 */
+	y: number;
 }
 
 function computeOffset(ev: MouseEvent, elem: HTMLElement): [number, number] {
@@ -17,60 +33,58 @@ function computeOffset(ev: MouseEvent, elem: HTMLElement): [number, number] {
 }
 
 /**
- * @hidden
+ * An event for PointerHandler.
  */
+export interface PointerHandlerEvent {
+	data: PointerData;
+	sender: PointerHandler;
+}
+
 export interface PointerHandlerEvents {
-	down: {
-		data: PointerData;
-		sender: PointerHandler;
-	};
-	move: {
-		data: PointerData;
-		sender: PointerHandler;
-	};
-	up: {
-		data: PointerData;
-		sender: PointerHandler;
-	};
+	down: PointerHandlerEvent;
+	move: PointerHandlerEvent;
+	up: PointerHandlerEvent;
 }
 
 /**
  * A utility class to handle both mouse and touch events.
- * @hidden
  */
 export class PointerHandler {
-	public readonly document: Document;
 	public readonly emitter: Emitter<PointerHandlerEvents>;
 	public readonly element: HTMLElement;
 	private pressed_: boolean;
 
-	constructor(doc: Document, element: HTMLElement) {
+	constructor(element: HTMLElement) {
 		this.onDocumentMouseMove_ = this.onDocumentMouseMove_.bind(this);
 		this.onDocumentMouseUp_ = this.onDocumentMouseUp_.bind(this);
 		this.onMouseDown_ = this.onMouseDown_.bind(this);
 		this.onTouchMove_ = this.onTouchMove_.bind(this);
 		this.onTouchStart_ = this.onTouchStart_.bind(this);
 
-		this.document = doc;
 		this.element = element;
 		this.emitter = new Emitter();
 		this.pressed_ = false;
 
-		if (supportsTouch(this.document)) {
+		const doc = this.element.ownerDocument;
+		if (supportsTouch(doc)) {
 			element.addEventListener('touchstart', this.onTouchStart_);
 			element.addEventListener('touchmove', this.onTouchMove_);
 		} else {
 			element.addEventListener('mousedown', this.onMouseDown_);
-			this.document.addEventListener('mousemove', this.onDocumentMouseMove_);
-			this.document.addEventListener('mouseup', this.onDocumentMouseUp_);
+			doc.addEventListener('mousemove', this.onDocumentMouseMove_);
+			doc.addEventListener('mouseup', this.onDocumentMouseUp_);
 		}
 	}
 
 	private computePosition_(offsetX: number, offsetY: number): PointerData {
 		const rect = this.element.getBoundingClientRect();
 		return {
-			px: offsetX / rect.width,
-			py: offsetY / rect.height,
+			bounds: {
+				width: rect.width,
+				height: rect.height,
+			},
+			x: offsetX,
+			y: offsetY,
 		};
 	}
 

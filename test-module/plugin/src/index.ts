@@ -1,9 +1,12 @@
 import Tweakpane from 'tweakpane';
 // Import individual classes
 import {ValueController} from 'tweakpane/lib/plugin/common/controller/value';
+import {stringFromUnknown} from 'tweakpane/lib/plugin/common/converter/string';
 import {Value} from 'tweakpane/lib/plugin/common/model/value';
 import {ClassName} from 'tweakpane/lib/plugin/common/view/class-name';
 import {ValueView} from 'tweakpane/lib/plugin/common/view/value';
+import {writePrimitive} from 'tweakpane/lib/plugin/common/writer/primitive';
+import {InputBindingPlugin} from 'tweakpane/lib/plugin/input-binding';
 
 interface ViewConfig {
 	value: Value<string>;
@@ -46,29 +49,29 @@ class TestController implements ValueController<string> {
 }
 
 {
-	Tweakpane.registerPlugin<string, string>({
+	Tweakpane.registerPlugin({
 		type: 'input',
 		plugin: {
 			id: 'input-test',
-			// Embed CSS by @rollup/plugin-replace
+			// Inject CSS by @rollup/plugin-replace
 			css: '__css__',
 
 			binding: {
-				accept: (value, params) => {
+				accept(value, params) {
 					if (params.view !== 'test') {
 						return null;
 					}
 					return typeof value === 'string' ? value : null;
 				},
-				reader: () => (v) => String(v),
-				writer: () => (v) => v,
+				reader: () => stringFromUnknown,
+				writer: () => writePrimitive,
 			},
 
-			controller: (args): ValueController<string> => {
+			controller(args) {
 				return new TestController(args.document, {
-					value: args.binding.value,
+					value: args.value,
 				});
 			},
-		},
+		} as InputBindingPlugin<string, string>,
 	});
 }

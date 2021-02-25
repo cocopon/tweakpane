@@ -1,26 +1,19 @@
 import {Class} from '../../../misc/type-util';
 import {Constraint} from './constraint';
 
-interface Config<T> {
-	constraints: Constraint<T>[];
-}
-
 /**
- * @hidden
+ * A constraint to combine multiple constraints.
+ * @template T The type of the value.
  */
 export class CompositeConstraint<T> implements Constraint<T> {
-	private constraints_: Constraint<T>[];
+	public readonly constraints: Constraint<T>[];
 
-	constructor(config: Config<T>) {
-		this.constraints_ = config.constraints;
-	}
-
-	get constraints(): Constraint<T>[] {
-		return this.constraints_;
+	constructor(constraints: Constraint<T>[]) {
+		this.constraints = constraints;
 	}
 
 	public constrain(value: T): T {
-		return this.constraints_.reduce((result, c) => {
+		return this.constraints.reduce((result, c) => {
 			return c.constrain(result);
 		}, value);
 	}

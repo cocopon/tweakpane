@@ -8,8 +8,8 @@ interface InputBindingApiEventHandlers<Ex> {
 
 /**
  * The API for the input binding between the parameter and the pane.
- * @param In The internal type.
- * @param Ex The external type (= parameter object).
+ * @template In The internal type.
+ * @template Ex The external type (= parameter object).
  */
 export class InputBindingApi<In, Ex> implements ComponentApi {
 	/**

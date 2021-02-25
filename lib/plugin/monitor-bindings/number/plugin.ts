@@ -1,13 +1,12 @@
 import {MonitorParams} from '../../../api/types';
 import {Constants} from '../../../misc/constants';
-import {MonitorBinding} from '../../common/binding/monitor';
 import {ValueController} from '../../common/controller/value';
 import {Formatter} from '../../common/converter/formatter';
 import {
 	createNumberFormatter,
 	numberFromUnknown,
 } from '../../common/converter/number';
-import {Buffer} from '../../common/model/buffered-value';
+import {Buffer, BufferedValue} from '../../common/model/buffered-value';
 import {MonitorBindingPlugin} from '../../monitor-binding';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogMonitorController} from '../common/controller/single-log';
@@ -18,40 +17,44 @@ function createFormatter(): Formatter<number> {
 	return createNumberFormatter(2);
 }
 
-function createTextMonitor(
-	document: Document,
-	binding: MonitorBinding<number>,
-	params: MonitorParams,
-): ValueController<Buffer<number>> {
-	if (binding.value.rawValue.length === 1) {
+function createTextMonitor({
+	document,
+	params,
+	value,
+}: {
+	document: Document;
+	params: MonitorParams;
+	value: BufferedValue<number>;
+}): ValueController<Buffer<number>> {
+	if (value.rawValue.length === 1) {
 		return new SingleLogMonitorController(document, {
 			formatter: createFormatter(),
-			value: binding.value,
+			value: value,
 		});
 	}
 
 	return new MultiLogController(document, {
 		formatter: createFormatter(),
 		lineCount: params.lineCount ?? Constants.monitor.defaultLineCount,
-		value: binding.value,
+		value: value,
 	});
 }
 
 function createGraphMonitor({
 	document,
-	binding,
 	params,
+	value,
 }: {
 	document: Document;
-	binding: MonitorBinding<number>;
 	params: MonitorParams;
+	value: BufferedValue<number>;
 }): ValueController<Buffer<number>> {
 	return new GraphLogController(document, {
 		formatter: createFormatter(),
 		lineCount: params.lineCount ?? Constants.monitor.defaultLineCount,
 		maxValue: ('max' in params ? params.max : null) ?? 100,
 		minValue: ('min' in params ? params.min : null) ?? 0,
-		value: binding.value,
+		value: value,
 	});
 }
 
@@ -71,12 +74,8 @@ export const NumberMonitorPlugin: MonitorBindingPlugin<number> = {
 	},
 	controller: (args) => {
 		if (shouldShowGraph(args.params)) {
-			return createGraphMonitor({
-				document: args.document,
-				binding: args.binding,
-				params: args.params,
-			});
+			return createGraphMonitor(args);
 		}
-		return createTextMonitor(args.document, args.binding, args.params);
+		return createTextMonitor(args);
 	},
 };

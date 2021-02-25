@@ -34,7 +34,7 @@ export class APaletteController implements ValueController<Color> {
 			value: this.value,
 		});
 
-		this.ptHandler_ = new PointerHandler(doc, this.view.element);
+		this.ptHandler_ = new PointerHandler(this.view.element);
 		this.ptHandler_.emitter.on('down', this.onPointerDown_);
 		this.ptHandler_.emitter.on('move', this.onPointerMove_);
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
@@ -43,7 +43,7 @@ export class APaletteController implements ValueController<Color> {
 	}
 
 	private handlePointerEvent_(d: PointerData): void {
-		const alpha = d.px;
+		const alpha = d.x / d.bounds.width;
 
 		const c = this.value.rawValue;
 		const [h, s, v] = c.getComponents('hsv');
