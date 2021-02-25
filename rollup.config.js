@@ -4,7 +4,7 @@ import Autoprefixer from 'autoprefixer';
 import NodeSass from 'node-sass';
 import Postcss from 'postcss';
 import Cleanup from 'rollup-plugin-cleanup';
-import { terser as Terser } from 'rollup-plugin-terser';
+import {terser as Terser} from 'rollup-plugin-terser';
 
 import Package from './package.json';
 
