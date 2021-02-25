@@ -59,7 +59,7 @@ export class Point2dPadController implements ValueController<Point2d> {
 			value: this.value,
 		});
 
-		this.ptHandler_ = new PointerHandler(doc, this.view.padElement);
+		this.ptHandler_ = new PointerHandler(this.view.padElement);
 		this.ptHandler_.emitter.on('down', this.onPointerDown_);
 		this.ptHandler_.emitter.on('move', this.onPointerMove_);
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
@@ -74,8 +74,14 @@ export class Point2dPadController implements ValueController<Point2d> {
 
 	private handlePointerEvent_(d: PointerData): void {
 		const max = this.maxValue_;
-		const px = mapRange(d.px, 0, 1, -max, +max);
-		const py = mapRange(this.invertsY_ ? 1 - d.py : d.py, 0, 1, -max, +max);
+		const px = mapRange(d.x, 0, d.bounds.width, -max, +max);
+		const py = mapRange(
+			this.invertsY_ ? d.bounds.height - d.y : d.y,
+			0,
+			d.bounds.height,
+			-max,
+			+max,
+		);
 		this.value.rawValue = new Point2d(px, py);
 		this.view.update();
 	}

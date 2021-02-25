@@ -40,7 +40,7 @@ export class SvPaletteController implements ValueController<Color> {
 			value: this.value,
 		});
 
-		this.ptHandler_ = new PointerHandler(doc, this.view.element);
+		this.ptHandler_ = new PointerHandler(this.view.element);
 		this.ptHandler_.emitter.on('down', this.onPointerDown_);
 		this.ptHandler_.emitter.on('move', this.onPointerMove_);
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
@@ -49,8 +49,8 @@ export class SvPaletteController implements ValueController<Color> {
 	}
 
 	private handlePointerEvent_(d: PointerData): void {
-		const saturation = mapRange(d.px, 0, 1, 0, 100);
-		const value = mapRange(d.py, 0, 1, 100, 0);
+		const saturation = mapRange(d.x, 0, d.bounds.width, 0, 100);
+		const value = mapRange(d.y, 0, d.bounds.height, 100, 0);
 
 		const [h, , , a] = this.value.rawValue.getComponents('hsv');
 		this.value.rawValue = new Color([h, saturation, value, a], 'hsv');
