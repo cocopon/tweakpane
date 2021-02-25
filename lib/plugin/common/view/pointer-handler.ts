@@ -32,19 +32,18 @@ function computeOffset(ev: MouseEvent, elem: HTMLElement): [number, number] {
 	];
 }
 
+/**
+ * An event for PointerHandler.
+ */
+export interface PointerHandlerEvent {
+	data: PointerData;
+	sender: PointerHandler;
+}
+
 export interface PointerHandlerEvents {
-	down: {
-		data: PointerData;
-		sender: PointerHandler;
-	};
-	move: {
-		data: PointerData;
-		sender: PointerHandler;
-	};
-	up: {
-		data: PointerData;
-		sender: PointerHandler;
-	};
+	down: PointerHandlerEvent;
+	move: PointerHandlerEvent;
+	up: PointerHandlerEvent;
 }
 
 /**

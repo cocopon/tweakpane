@@ -13,7 +13,8 @@ interface Config<T> {
 }
 
 /**
- * @hidden
+ * A list constranit.
+ * @template T The type of the value.
  */
 export class ListConstraint<T> implements Constraint<T> {
 	private opts_: ListItem<T>[];

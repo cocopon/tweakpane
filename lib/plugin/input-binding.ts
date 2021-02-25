@@ -1,7 +1,8 @@
 import {InputParams} from '../api/types';
 import {InputBindingController} from './blade/common/controller/input-binding';
 import {Blade} from './blade/common/model/blade';
-import {BindingWriter, InputBinding} from './common/binding/input';
+import {BindingReader, BindingWriter} from './common/binding/binding';
+import {InputBinding} from './common/binding/input';
 import {BindingTarget} from './common/binding/target';
 import {Constraint} from './common/constraint/constraint';
 import {ValueController} from './common/controller/value';
@@ -22,21 +23,85 @@ interface ControllerArguments<In, Ex> {
 	document: Document;
 }
 
+/**
+ * An input binding plugin interface.
+ * @template In The type of the internal value.
+ * @template Ex The type of the external value. It will be provided by users.
+ */
 export interface InputBindingPlugin<In, Ex> extends BasePlugin {
+	/**
+	 * Configurations of the binding.
+	 */
 	binding: {
-		// Accept user input as Ex, or deny it
-		accept: (value: unknown, params: InputParams) => Ex | null;
-		// Convert bound value into In
-		reader: (args: BindingArguments<Ex>) => (value: unknown) => In;
-		// Create constraint from user input
-		constraint?: (args: BindingArguments<Ex>) => Constraint<In>;
-		// Compare In with In
-		equals?: (v1: In, v2: In) => boolean;
+		/**
+		 * Decides whether the plugin accepts the provided value and the parameters.
+		 */
+		accept: {
+			/**
+			 * @param exValue The value input by users.
+			 * @param params The additional parameters specified by users.
+			 * @return A typed value if the plugin accepts the input, or null if the plugin sees them off and pass them to the next plugin.
+			 */
+			(exValue: unknown, params: InputParams): Ex | null;
+		};
 
-		// Convert In into Ex
-		writer: (args: BindingArguments<Ex>) => BindingWriter<In>;
+		/**
+		 * Creates a value reader from the user input.
+		 */
+		reader: {
+			/**
+			 * @param args The arguments for binding.
+			 * @return A value reader.
+			 */
+			(args: BindingArguments<Ex>): BindingReader<In>;
+		};
+
+		/**
+		 * Creates a value writer from the user input.
+		 */
+		writer: {
+			/**
+			 * @param args The arguments for binding.
+			 * @return A value writer.
+			 */
+			(args: BindingArguments<Ex>): BindingWriter<In>;
+		};
+
+		/**
+		 * Creates a value constraint from the user input.
+		 */
+		constraint?: {
+			/**
+			 * @param args The arguments for binding.
+			 * @return A value constraint.
+			 */
+			(args: BindingArguments<Ex>): Constraint<In>;
+		};
+
+		/**
+		 * Compares two internal values.
+		 * Used for the complex objects that cannot be compared with `===`.
+		 */
+		equals?: {
+			/**
+			 * @param v1 The value.
+			 * @param v2 The another value.
+			 * @return Equality of two values.
+			 */
+			(v1: In, v2: In): boolean;
+		};
 	};
-	controller: (args: ControllerArguments<In, Ex>) => ValueController<In>;
+
+	/**
+	 * Creates a custom controller for the plugin.
+	 */
+	controller: {
+		/**
+		 * @param args The arguments for creating a controller.
+		 * @return A custom controller that contains a custom view.
+		 */
+		(args: ControllerArguments<In, Ex>): ValueController<In>;
+	};
 }
 
 export function createController<In, Ex>(

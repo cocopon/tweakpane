@@ -7,7 +7,7 @@ interface Config {
 }
 
 /**
- * @hidden
+ * A number range constraint.
  */
 export class RangeConstraint implements Constraint<number> {
 	public readonly maxValue: number | undefined;

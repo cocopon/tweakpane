@@ -2,6 +2,7 @@ import {MonitorParams} from '../api/types';
 import {Constants} from '../misc/constants';
 import {MonitorBindingController} from './blade/common/controller/monitor-binding';
 import {Blade} from './blade/common/model/blade';
+import {BindingReader} from './common/binding/binding';
 import {MonitorBinding} from './common/binding/monitor';
 import {BindingTarget} from './common/binding/target';
 import {IntervalTicker} from './common/binding/ticker/interval';
@@ -24,16 +25,57 @@ interface ControllerArguments<T> {
 	params: MonitorParams;
 }
 
+/**
+ * A monitor binding plugin interface.
+ * @template T The type of the value.
+ */
 export interface MonitorBindingPlugin<T> extends BasePlugin {
+	/**
+	 * Configurations of the binding.
+	 */
 	binding: {
-		// Accept unknown value as T, or deny it
-		accept: (value: unknown, params: MonitorParams) => T | null;
-		// Convert bound value into T
-		reader: (args: BindingArguments<T>) => (value: unknown) => T;
-		// Misc
-		defaultBufferSize?: (params: MonitorParams) => number;
+		accept: {
+			/**
+			 * @param exValue The value input by users.
+			 * @param params The additional parameters specified by users.
+			 * @return A typed value if the plugin accepts the input, or null if the plugin sees them off and pass them to the next plugin.
+			 */
+			(exValue: unknown, params: MonitorParams): T | null;
+		};
+
+		/**
+		 * Creates a value reader from the user input.
+		 */
+		reader: {
+			/**
+			 * @param args The arguments for binding.
+			 * @return A value reader.
+			 */
+			(args: BindingArguments<T>): BindingReader<T>;
+		};
+
+		/**
+		 * Determinates the default buffer size of the plugin.
+		 */
+		defaultBufferSize?: {
+			/**
+			 * @param params The additional parameters specified by users.
+			 * @return The default buffer size
+			 */
+			(params: MonitorParams): number;
+		};
 	};
-	controller: (args: ControllerArguments<T>) => ValueController<Buffer<T>>;
+
+	/**
+	 * Creates a custom controller for the plugin.
+	 */
+	controller: {
+		/**
+		 * @param args The arguments for creating a controller.
+		 * @return A custom controller that contains a custom view.
+		 */
+		(args: ControllerArguments<T>): ValueController<Buffer<T>>;
+	};
 }
 
 function createTicker(

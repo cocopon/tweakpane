@@ -6,7 +6,8 @@ interface Config<T> {
 }
 
 /**
- * @hidden
+ * A constraint to combine multiple constraints.
+ * @template T The type of the value.
  */
 export class CompositeConstraint<T> implements Constraint<T> {
 	private constraints_: Constraint<T>[];

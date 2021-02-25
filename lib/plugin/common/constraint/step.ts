@@ -5,7 +5,7 @@ interface Config {
 }
 
 /**
- * @hidden
+ * A number step range constraint.
  */
 export class StepConstraint implements Constraint<number> {
 	public readonly step: number;
