@@ -2,7 +2,7 @@ import {getAllPlugins} from './api/plugins';
 import {RootApi} from './api/root';
 import {TweakpaneConfig} from './pane/tweakpane-config';
 import {Blade} from './plugin/blade/common/model/blade';
-import {RootController} from './plugin/blade/root/controller';
+import {RootController} from './plugin/blade/folder/root';
 import {getWindowDocument} from './plugin/common/dom-util';
 import {TpError} from './plugin/common/tp-error';
 import {ClassName} from './plugin/common/view/class-name';
