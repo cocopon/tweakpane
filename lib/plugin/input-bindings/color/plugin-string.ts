@@ -16,20 +16,20 @@ import {createColorStringWriter} from './writer/color';
  */
 export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
 	id: 'input-color-string',
+	accept: (value, params) => {
+		if (typeof value !== 'string') {
+			return null;
+		}
+		if ('input' in params && params.input === 'string') {
+			return null;
+		}
+		const notation = getColorNotation(value);
+		if (!notation) {
+			return null;
+		}
+		return value;
+	},
 	binding: {
-		accept: (value, params) => {
-			if (typeof value !== 'string') {
-				return null;
-			}
-			if ('input' in params && params.input === 'string') {
-				return null;
-			}
-			const notation = getColorNotation(value);
-			if (!notation) {
-				return null;
-			}
-			return value;
-		},
 		reader: (_args) => colorFromString,
 		equals: Color.equals,
 		writer: (args) => {

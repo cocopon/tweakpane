@@ -56,19 +56,17 @@ class TestController implements ValueController<string> {
 		type: 'input',
 		plugin: {
 			id: 'input-test',
-
+			accept(value, params) {
+				if (params.view !== 'test') {
+					return null;
+				}
+				return typeof value === 'string' ? value : null;
+			},
 			binding: {
-				accept(value, params) {
-					if (params.view !== 'test') {
-						return null;
-					}
-					return typeof value === 'string' ? value : null;
-				},
 				reader: () => stringFromUnknown,
 				equals: equalsPrimitive,
 				writer: () => writePrimitive,
 			},
-
 			controller(args) {
 				return new TestController(args.document, {
 					value: args.value,

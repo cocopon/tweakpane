@@ -30,19 +30,19 @@ interface ControllerArguments<T> {
  * @template T The type of the value.
  */
 export interface MonitorBindingPlugin<T> extends BasePlugin {
+	accept: {
+		/**
+		 * @param exValue The value input by users.
+		 * @param params The additional parameters specified by users.
+		 * @return A typed value if the plugin accepts the input, or null if the plugin sees them off and pass them to the next plugin.
+		 */
+		(exValue: unknown, params: MonitorParams): T | null;
+	};
+
 	/**
 	 * Configurations of the binding.
 	 */
 	binding: {
-		accept: {
-			/**
-			 * @param exValue The value input by users.
-			 * @param params The additional parameters specified by users.
-			 * @return A typed value if the plugin accepts the input, or null if the plugin sees them off and pass them to the next plugin.
-			 */
-			(exValue: unknown, params: MonitorParams): T | null;
-		};
-
 		/**
 		 * Creates a value reader from the user input.
 		 */
@@ -98,7 +98,7 @@ export function createController<T>(
 		target: BindingTarget;
 	},
 ): MonitorBindingController<T> | null {
-	const initialValue = plugin.binding.accept(args.target.read(), args.params);
+	const initialValue = plugin.accept(args.target.read(), args.params);
 	if (initialValue === null) {
 		return null;
 	}

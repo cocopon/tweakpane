@@ -86,8 +86,8 @@ function createController(document: Document, value: Value<Point3d>) {
  */
 export const Point3dInputPlugin: InputBindingPlugin<Point3d, Point3dObject> = {
 	id: 'input-point3d',
+	accept: (value, _params) => (Point3d.isObject(value) ? value : null),
 	binding: {
-		accept: (value, _params) => (Point3d.isObject(value) ? value : null),
 		reader: (_args) => point3dFromUnknown,
 		constraint: (args) => createConstraint(args.params),
 		equals: Point3d.equals,

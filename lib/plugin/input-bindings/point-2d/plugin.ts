@@ -128,8 +128,8 @@ function shouldInvertY(params: InputParams): boolean {
  */
 export const Point2dInputPlugin: InputBindingPlugin<Point2d, Point2dObject> = {
 	id: 'input-point2d',
+	accept: (value, _params) => (Point2d.isObject(value) ? value : null),
 	binding: {
-		accept: (value, _params) => (Point2d.isObject(value) ? value : null),
 		reader: (_args) => point2dFromUnknown,
 		constraint: (args) => createConstraint(args.params),
 		equals: Point2d.equals,

@@ -9,8 +9,8 @@ import {SingleLogMonitorController} from '../common/controller/single-log';
  */
 export const StringMonitorPlugin: MonitorBindingPlugin<string> = {
 	id: 'monitor-string',
+	accept: (value, _params) => (typeof value === 'string' ? value : null),
 	binding: {
-		accept: (value, _params) => (typeof value === 'string' ? value : null),
 		reader: (_args) => stringFromUnknown,
 	},
 	controller: (args) => {

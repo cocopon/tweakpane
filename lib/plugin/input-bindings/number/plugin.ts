@@ -117,8 +117,8 @@ function createController(doc: Document, value: Value<number>) {
  */
 export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 	id: 'input-number',
+	accept: (value) => (typeof value === 'number' ? value : null),
 	binding: {
-		accept: (value) => (typeof value === 'number' ? value : null),
 		reader: (_args) => numberFromUnknown,
 		constraint: (args) => createConstraint(args.params),
 		equals: equalsPrimitive,

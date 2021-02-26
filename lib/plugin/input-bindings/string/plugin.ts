@@ -47,8 +47,8 @@ function createController(doc: Document, value: Value<string>) {
  */
 export const StringInputPlugin: InputBindingPlugin<string, string> = {
 	id: 'input-string',
+	accept: (value, _params) => (typeof value === 'string' ? value : null),
 	binding: {
-		accept: (value, _params) => (typeof value === 'string' ? value : null),
 		reader: (_args) => stringFromUnknown,
 		constraint: (args) => createConstraint(args.params),
 		equals: equalsPrimitive,
