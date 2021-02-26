@@ -67,7 +67,7 @@ class TestController implements ValueController<string> {
 					return typeof value === 'string' ? value : null;
 				},
 				reader: () => stringFromUnknown,
-				compare: equalsPrimitive,
+				equals: equalsPrimitive,
 				writer: () => writePrimitive,
 			},
 

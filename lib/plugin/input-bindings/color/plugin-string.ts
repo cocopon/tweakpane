@@ -31,7 +31,7 @@ export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
 			return value;
 		},
 		reader: (_args) => colorFromString,
-		compare: Color.equals,
+		equals: Color.equals,
 		writer: (args) => {
 			const notation = getColorNotation(args.initialValue);
 			if (!notation) {

@@ -121,7 +121,7 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 		accept: (value) => (typeof value === 'number' ? value : null),
 		reader: (_args) => numberFromUnknown,
 		constraint: (args) => createConstraint(args.params),
-		compare: equalsPrimitive,
+		equals: equalsPrimitive,
 		writer: (_args) => writePrimitive,
 	},
 	controller: (args) => {

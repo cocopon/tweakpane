@@ -50,7 +50,7 @@ export const BooleanInputPlugin: InputBindingPlugin<boolean, boolean> = {
 		accept: (value) => (typeof value === 'boolean' ? value : null),
 		reader: (_args) => boolFromUnknown,
 		constraint: (args) => createConstraint(args.params),
-		compare: equalsPrimitive,
+		equals: equalsPrimitive,
 		writer: (_args) => writePrimitive,
 	},
 	controller: (args) => {

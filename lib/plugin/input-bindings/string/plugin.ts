@@ -51,7 +51,7 @@ export const StringInputPlugin: InputBindingPlugin<string, string> = {
 		accept: (value, _params) => (typeof value === 'string' ? value : null),
 		reader: (_args) => stringFromUnknown,
 		constraint: (args) => createConstraint(args.params),
-		compare: equalsPrimitive,
+		equals: equalsPrimitive,
 		writer: (_args) => writePrimitive,
 	},
 	controller: (params) => {

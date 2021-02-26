@@ -132,7 +132,7 @@ export const Point2dInputPlugin: InputBindingPlugin<Point2d, Point2dObject> = {
 		accept: (value, _params) => (Point2d.isObject(value) ? value : null),
 		reader: (_args) => point2dFromUnknown,
 		constraint: (args) => createConstraint(args.params),
-		compare: Point2d.equals,
+		equals: Point2d.equals,
 		writer: (_args) => writePoint2d,
 	},
 	controller: (args) => {

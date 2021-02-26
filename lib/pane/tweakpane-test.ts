@@ -92,7 +92,7 @@ describe(Tweakpane.name, () => {
 							: value;
 					},
 					reader: () => stringFromUnknown,
-					compare: equalsPrimitive,
+					equals: equalsPrimitive,
 					writer: () => writePrimitive,
 				},
 				controller: (args) => {

@@ -67,10 +67,10 @@ export interface InputBindingPlugin<In, Ex> extends BasePlugin {
 		};
 
 		/**
-		 * Compares two internal values.
+		 * Compares the equality of two internal values.
 		 * Use `===` for primitive values, or a custom comparator for complex objects.
 		 */
-		compare: {
+		equals: {
 			/**
 			 * @param v1 The value.
 			 * @param v2 The another value.
@@ -128,7 +128,7 @@ export function createController<In, Ex>(
 		: undefined;
 	const value = new Value(reader(initialValue), {
 		constraint: constraint,
-		equals: plugin.binding.compare,
+		equals: plugin.binding.equals,
 	});
 	const binding = new InputBinding({
 		reader: reader,

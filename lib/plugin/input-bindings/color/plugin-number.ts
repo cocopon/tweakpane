@@ -46,7 +46,7 @@ export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
 				? colorFromRgbaNumber
 				: colorFromRgbNumber;
 		},
-		compare: Color.equals,
+		equals: Color.equals,
 		writer: (args) => {
 			return createColorNumberWriter(shouldSupportAlpha(args.params));
 		},
