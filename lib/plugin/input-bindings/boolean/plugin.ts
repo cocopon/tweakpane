@@ -8,7 +8,7 @@ import {ListConstraint} from '../../common/constraint/list';
 import {boolToString} from '../../common/converter/boolean';
 import {boolFromUnknown} from '../../common/converter/boolean';
 import {Value} from '../../common/model/value';
-import {writePrimitive} from '../../common/writer/primitive';
+import {equalsPrimitive, writePrimitive} from '../../common/primitive';
 import {InputBindingPlugin} from '../../input-binding';
 import {createListConstraint, findListItems} from '../../util';
 import {ListController} from '../common/controller/list';
@@ -48,8 +48,9 @@ export const BooleanInputPlugin: InputBindingPlugin<boolean, boolean> = {
 	id: 'input-bool',
 	binding: {
 		accept: (value) => (typeof value === 'boolean' ? value : null),
-		constraint: (args) => createConstraint(args.params),
 		reader: (_args) => boolFromUnknown,
+		constraint: (args) => createConstraint(args.params),
+		compare: equalsPrimitive,
 		writer: (_args) => writePrimitive,
 	},
 	controller: (args) => {

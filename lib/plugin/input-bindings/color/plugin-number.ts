@@ -46,10 +46,10 @@ export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
 				? colorFromRgbaNumber
 				: colorFromRgbNumber;
 		},
+		compare: Color.equals,
 		writer: (args) => {
 			return createColorNumberWriter(shouldSupportAlpha(args.params));
 		},
-		equals: Color.equals,
 	},
 	controller: (args) => {
 		const supportsAlpha = shouldSupportAlpha(args.params);

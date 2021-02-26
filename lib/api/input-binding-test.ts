@@ -12,7 +12,7 @@ import {
 } from '../plugin/common/converter/number';
 import {numberFromUnknown} from '../plugin/common/converter/number';
 import {Value} from '../plugin/common/model/value';
-import {writePrimitive} from '../plugin/common/writer/primitive';
+import {writePrimitive} from '../plugin/common/primitive';
 import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
 import {InputBindingApi} from './input-binding';
 

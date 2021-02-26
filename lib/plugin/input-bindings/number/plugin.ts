@@ -15,7 +15,7 @@ import {
 } from '../../common/converter/number';
 import {numberFromUnknown} from '../../common/converter/number';
 import {Value} from '../../common/model/value';
-import {writePrimitive} from '../../common/writer/primitive';
+import {equalsPrimitive, writePrimitive} from '../../common/primitive';
 import {InputBindingPlugin} from '../../input-binding';
 import {
 	createListConstraint,
@@ -119,8 +119,9 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 	id: 'input-number',
 	binding: {
 		accept: (value) => (typeof value === 'number' ? value : null),
-		constraint: (args) => createConstraint(args.params),
 		reader: (_args) => numberFromUnknown,
+		constraint: (args) => createConstraint(args.params),
+		compare: equalsPrimitive,
 		writer: (_args) => writePrimitive,
 	},
 	controller: (args) => {

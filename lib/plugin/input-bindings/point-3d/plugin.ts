@@ -89,9 +89,9 @@ export const Point3dInputPlugin: InputBindingPlugin<Point3d, Point3dObject> = {
 	binding: {
 		accept: (value, _params) => (Point3d.isObject(value) ? value : null),
 		reader: (_args) => point3dFromUnknown,
-		writer: (_args) => writePoint3d,
 		constraint: (args) => createConstraint(args.params),
-		equals: Point3d.equals,
+		compare: Point3d.equals,
+		writer: (_args) => writePoint3d,
 	},
 	controller: (args) => {
 		return createController(args.document, args.value);

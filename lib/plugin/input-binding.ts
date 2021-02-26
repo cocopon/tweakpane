@@ -56,17 +56,6 @@ export interface InputBindingPlugin<In, Ex> extends BasePlugin {
 		};
 
 		/**
-		 * Creates a value writer from the user input.
-		 */
-		writer: {
-			/**
-			 * @param args The arguments for binding.
-			 * @return A value writer.
-			 */
-			(args: BindingArguments<Ex>): BindingWriter<In>;
-		};
-
-		/**
 		 * Creates a value constraint from the user input.
 		 */
 		constraint?: {
@@ -79,15 +68,26 @@ export interface InputBindingPlugin<In, Ex> extends BasePlugin {
 
 		/**
 		 * Compares two internal values.
-		 * Used for the complex objects that cannot be compared with `===`.
+		 * Use `===` for primitive values, or a custom comparator for complex objects.
 		 */
-		equals?: {
+		compare: {
 			/**
 			 * @param v1 The value.
 			 * @param v2 The another value.
-			 * @return Equality of two values.
+			 * @return true if equal, false otherwise.
 			 */
 			(v1: In, v2: In): boolean;
+		};
+
+		/**
+		 * Creates a value writer from the user input.
+		 */
+		writer: {
+			/**
+			 * @param args The arguments for binding.
+			 * @return A value writer.
+			 */
+			(args: BindingArguments<Ex>): BindingWriter<In>;
 		};
 	};
 
@@ -128,7 +128,7 @@ export function createController<In, Ex>(
 		: undefined;
 	const value = new Value(reader(initialValue), {
 		constraint: constraint,
-		equals: plugin.binding.equals,
+		equals: plugin.binding.compare,
 	});
 	const binding = new InputBinding({
 		reader: reader,

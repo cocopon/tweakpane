@@ -26,9 +26,9 @@ export const ObjectColorInputPlugin: InputBindingPlugin<
 	binding: {
 		accept: (value, _params) => (Color.isColorObject(value) ? value : null),
 		reader: (_args) => colorFromObject,
+		compare: Color.equals,
 		writer: (args) =>
 			createColorObjectWriter(shouldSupportAlpha(args.initialValue)),
-		equals: Color.equals,
 	},
 	controller: (args) => {
 		const supportsAlpha = Color.isRgbaColorObject(args.initialValue);
