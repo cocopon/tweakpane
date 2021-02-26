@@ -83,16 +83,16 @@ describe(Tweakpane.name, () => {
 			plugin: {
 				id: 'test',
 				css: css,
+				accept: (value, args) => {
+					return args.view !== 'test'
+						? null
+						: typeof value !== 'string'
+						? null
+						: value;
+				},
 				binding: {
-					accept: (value, args) => {
-						return args.view !== 'test'
-							? null
-							: typeof value !== 'string'
-							? null
-							: value;
-					},
 					reader: () => stringFromUnknown,
-					compare: equalsPrimitive,
+					equals: equalsPrimitive,
 					writer: () => writePrimitive,
 				},
 				controller: (args) => {

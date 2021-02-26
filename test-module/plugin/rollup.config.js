@@ -1,16 +1,6 @@
-import Replace from '@rollup/plugin-replace';
 import Typescript from '@rollup/plugin-typescript';
-import NodeSass from 'node-sass';
 
 export default () => {
-	const css = NodeSass.renderSync({
-		file: 'plugin/src/plugin.scss',
-		outputStyle: 'compressed',
-	})
-		.css.toString()
-		.replace(/'/g, "\\'")
-		.trim();
-
 	return {
 		input: 'plugin/src/index.ts',
 		external: ['tweakpane'],
@@ -27,9 +17,6 @@ export default () => {
 			// https://github.com/Microsoft/typescript/issues/6496
 			Typescript({
 				tsconfig: 'plugin/tsconfig.json',
-			}),
-			Replace({
-				__css__: css,
 			}),
 		],
 	};

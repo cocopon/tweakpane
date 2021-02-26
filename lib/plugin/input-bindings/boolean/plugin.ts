@@ -46,11 +46,11 @@ function createController(doc: Document, value: Value<boolean>) {
  */
 export const BooleanInputPlugin: InputBindingPlugin<boolean, boolean> = {
 	id: 'input-bool',
+	accept: (value) => (typeof value === 'boolean' ? value : null),
 	binding: {
-		accept: (value) => (typeof value === 'boolean' ? value : null),
 		reader: (_args) => boolFromUnknown,
 		constraint: (args) => createConstraint(args.params),
-		compare: equalsPrimitive,
+		equals: equalsPrimitive,
 		writer: (_args) => writePrimitive,
 	},
 	controller: (args) => {

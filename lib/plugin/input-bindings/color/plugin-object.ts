@@ -23,10 +23,10 @@ export const ObjectColorInputPlugin: InputBindingPlugin<
 	RgbColorObject | RgbaColorObject
 > = {
 	id: 'input-color-object',
+	accept: (value, _params) => (Color.isColorObject(value) ? value : null),
 	binding: {
-		accept: (value, _params) => (Color.isColorObject(value) ? value : null),
 		reader: (_args) => colorFromObject,
-		compare: Color.equals,
+		equals: Color.equals,
 		writer: (args) =>
 			createColorObjectWriter(shouldSupportAlpha(args.initialValue)),
 	},

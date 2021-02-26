@@ -29,21 +29,21 @@ interface ControllerArguments<In, Ex> {
  */
 export interface InputBindingPlugin<In, Ex> extends BasePlugin {
 	/**
+	 * Decides whether the plugin accepts the provided value and the parameters.
+	 */
+	accept: {
+		/**
+		 * @param exValue The value input by users.
+		 * @param params The additional parameters specified by users.
+		 * @return A typed value if the plugin accepts the input, or null if the plugin sees them off and pass them to the next plugin.
+		 */
+		(exValue: unknown, params: InputParams): Ex | null;
+	};
+
+	/**
 	 * Configurations of the binding.
 	 */
 	binding: {
-		/**
-		 * Decides whether the plugin accepts the provided value and the parameters.
-		 */
-		accept: {
-			/**
-			 * @param exValue The value input by users.
-			 * @param params The additional parameters specified by users.
-			 * @return A typed value if the plugin accepts the input, or null if the plugin sees them off and pass them to the next plugin.
-			 */
-			(exValue: unknown, params: InputParams): Ex | null;
-		};
-
 		/**
 		 * Creates a value reader from the user input.
 		 */
@@ -67,10 +67,10 @@ export interface InputBindingPlugin<In, Ex> extends BasePlugin {
 		};
 
 		/**
-		 * Compares two internal values.
+		 * Compares the equality of two internal values.
 		 * Use `===` for primitive values, or a custom comparator for complex objects.
 		 */
-		compare: {
+		equals: {
 			/**
 			 * @param v1 The value.
 			 * @param v2 The another value.
@@ -111,7 +111,7 @@ export function createController<In, Ex>(
 		target: BindingTarget;
 	},
 ): InputBindingController<In> | null {
-	const initialValue = plugin.binding.accept(args.target.read(), args.params);
+	const initialValue = plugin.accept(args.target.read(), args.params);
 	if (initialValue === null) {
 		return null;
 	}
@@ -128,7 +128,7 @@ export function createController<In, Ex>(
 		: undefined;
 	const value = new Value(reader(initialValue), {
 		constraint: constraint,
-		equals: plugin.binding.compare,
+		equals: plugin.binding.equals,
 	});
 	const binding = new InputBinding({
 		reader: reader,

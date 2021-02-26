@@ -22,31 +22,31 @@ function shouldSupportAlpha(inputParams: InputParams): boolean {
  */
 export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
 	id: 'input-color-number',
+	accept: (value, params) => {
+		if (typeof value !== 'number') {
+			return null;
+		}
+
+		if (!('input' in params)) {
+			return null;
+		}
+		if (
+			params.input !== 'color' &&
+			params.input !== 'color.rgb' &&
+			params.input !== 'color.rgba'
+		) {
+			return null;
+		}
+
+		return value;
+	},
 	binding: {
-		accept: (value, params) => {
-			if (typeof value !== 'number') {
-				return null;
-			}
-
-			if (!('input' in params)) {
-				return null;
-			}
-			if (
-				params.input !== 'color' &&
-				params.input !== 'color.rgb' &&
-				params.input !== 'color.rgba'
-			) {
-				return null;
-			}
-
-			return value;
-		},
 		reader: (args) => {
 			return shouldSupportAlpha(args.params)
 				? colorFromRgbaNumber
 				: colorFromRgbNumber;
 		},
-		compare: Color.equals,
+		equals: Color.equals,
 		writer: (args) => {
 			return createColorNumberWriter(shouldSupportAlpha(args.params));
 		},
