@@ -3,7 +3,7 @@ import {describe, it} from 'mocha';
 
 import {numberFromUnknown} from '../converter/number';
 import {Value} from '../model/value';
-import {writePrimitive} from '../writer/primitive';
+import {writePrimitive} from '../primitive';
 import {InputBinding} from './input';
 import {BindingTarget} from './target';
 

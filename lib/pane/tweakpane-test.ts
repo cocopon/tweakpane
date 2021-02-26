@@ -7,8 +7,8 @@ import {
 	formatString,
 	stringFromUnknown,
 } from '../plugin/common/converter/string';
+import {equalsPrimitive, writePrimitive} from '../plugin/common/primitive';
 import {TpError} from '../plugin/common/tp-error';
-import {writePrimitive} from '../plugin/common/writer/primitive';
 import {TextController} from '../plugin/input-bindings/common/controller/text';
 
 describe(Tweakpane.name, () => {
@@ -92,6 +92,7 @@ describe(Tweakpane.name, () => {
 							: value;
 					},
 					reader: () => stringFromUnknown,
+					compare: equalsPrimitive,
 					writer: () => writePrimitive,
 				},
 				controller: (args) => {

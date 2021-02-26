@@ -3,9 +3,12 @@ import Tweakpane from 'tweakpane';
 import {ValueController} from 'tweakpane/lib/plugin/common/controller/value';
 import {stringFromUnknown} from 'tweakpane/lib/plugin/common/converter/string';
 import {Value} from 'tweakpane/lib/plugin/common/model/value';
+import {
+	equalsPrimitive,
+	writePrimitive,
+} from 'tweakpane/lib/plugin/common/primitive';
 import {ClassName} from 'tweakpane/lib/plugin/common/view/class-name';
 import {ValueView} from 'tweakpane/lib/plugin/common/view/value';
-import {writePrimitive} from 'tweakpane/lib/plugin/common/writer/primitive';
 import {InputBindingPlugin} from 'tweakpane/lib/plugin/input-binding';
 
 interface ViewConfig {
@@ -64,6 +67,7 @@ class TestController implements ValueController<string> {
 					return typeof value === 'string' ? value : null;
 				},
 				reader: () => stringFromUnknown,
+				compare: equalsPrimitive,
 				writer: () => writePrimitive,
 			},
 

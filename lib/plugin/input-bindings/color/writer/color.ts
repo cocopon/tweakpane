@@ -1,6 +1,6 @@
 import {BindingWriter} from '../../../common/binding/binding';
 import {BindingTarget} from '../../../common/binding/target';
-import {writePrimitive} from '../../../common/writer/primitive';
+import {writePrimitive} from '../../../common/primitive';
 import {colorToRgbaNumber, colorToRgbNumber} from '../converter/color-number';
 import {getColorStringifier} from '../converter/color-string';
 import {StringColorNotation} from '../converter/color-string';
