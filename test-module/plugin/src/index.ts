@@ -56,8 +56,6 @@ class TestController implements ValueController<string> {
 		type: 'input',
 		plugin: {
 			id: 'input-test',
-			// Inject CSS by @rollup/plugin-replace
-			css: '__css__',
 
 			binding: {
 				accept(value, params) {
