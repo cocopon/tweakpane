@@ -1,9 +1,14 @@
+import {forceCast} from '../misc/type-util';
 import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
+import {InputBindingEvents} from '../plugin/common/binding/input';
+import {Emitter} from '../plugin/common/model/emitter';
 import {ComponentApi} from './component-api';
-import {handleInputBinding} from './event-handler-adapters';
+import {TpChangeEvent} from './tp-event';
 
-interface InputBindingApiEventHandlers<Ex> {
-	change: (value: Ex) => void;
+export interface InputBindingApiEvents<Ex> {
+	change: {
+		event: TpChangeEvent<Ex>;
+	};
 }
 
 /**
@@ -16,12 +21,18 @@ export class InputBindingApi<In, Ex> implements ComponentApi {
 	 * @hidden
 	 */
 	public readonly controller: InputBindingController<In>;
+	private readonly emitter_: Emitter<InputBindingApiEvents<Ex>>;
 
 	/**
 	 * @hidden
 	 */
 	constructor(bindingController: InputBindingController<In>) {
+		this.onBindingChange_ = this.onBindingChange_.bind(this);
+
+		this.emitter_ = new Emitter();
+
 		this.controller = bindingController;
+		this.controller.binding.emitter.on('change', this.onBindingChange_);
 	}
 
 	get hidden(): boolean {
@@ -36,19 +47,29 @@ export class InputBindingApi<In, Ex> implements ComponentApi {
 		this.controller.blade.dispose();
 	}
 
-	public on<EventName extends keyof InputBindingApiEventHandlers<Ex>>(
+	public on<EventName extends keyof InputBindingApiEvents<Ex>>(
 		eventName: EventName,
-		handler: InputBindingApiEventHandlers<Ex>[EventName],
+		handler: (ev: InputBindingApiEvents<Ex>[EventName]['event']) => void,
 	): InputBindingApi<In, Ex> {
-		handleInputBinding({
-			binding: this.controller.binding,
-			eventName: eventName,
-			handler: handler.bind(this),
+		const bh = handler.bind(this);
+		this.emitter_.on(eventName, (ev) => {
+			bh(ev.event);
 		});
 		return this;
 	}
 
 	public refresh(): void {
 		this.controller.binding.read();
+	}
+
+	private onBindingChange_(ev: InputBindingEvents<In>['change']) {
+		const value = ev.sender.target.read();
+		this.emitter_.emit('change', {
+			event: new TpChangeEvent(
+				this,
+				forceCast(value),
+				this.controller.binding.target.presetKey,
+			),
+		});
 	}
 }

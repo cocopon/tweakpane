@@ -1,16 +1,19 @@
 import {forceCast} from '../misc/type-util';
 import {ButtonController} from '../plugin/blade/button/controller';
 import {Blade} from '../plugin/blade/common/model/blade';
+import {BladeRackEvents} from '../plugin/blade/common/model/blade-rack';
 import {FolderController} from '../plugin/blade/folder/controller';
+import {FolderEvents} from '../plugin/blade/folder/model/folder';
 import {SeparatorController} from '../plugin/blade/separator/controller';
+import {Emitter} from '../plugin/common/model/emitter';
 import {ButtonApi} from './button';
 import {ComponentApi} from './component-api';
-import {handleFolder} from './event-handler-adapters';
 import {InputBindingApi} from './input-binding';
 import {createInputBindingController} from './input-binding-controllers';
 import {MonitorBindingApi} from './monitor-binding';
 import {createMonitorBindingController} from './monitor-binding-controllers';
 import {SeparatorApi} from './separator';
+import {TpChangeEvent, TpFoldEvent, TpUpdateEvent} from './tp-event';
 import {
 	ButtonParams,
 	FolderParams,
@@ -20,10 +23,16 @@ import {
 } from './types';
 import {createBindingTarget} from './util';
 
-interface FolderApiEventHandlers {
-	change: (value: unknown) => void;
-	fold: (expanded: boolean) => void;
-	update: (value: unknown) => void;
+export interface FolderApiEvents<Ex> {
+	change: {
+		event: TpChangeEvent<Ex>;
+	};
+	fold: {
+		event: TpFoldEvent;
+	};
+	update: {
+		event: TpUpdateEvent<Ex>;
+	};
 }
 
 export class FolderApi implements ComponentApi {
@@ -31,12 +40,27 @@ export class FolderApi implements ComponentApi {
 	 * @hidden
 	 */
 	public readonly controller: FolderController;
+	private readonly emitter_: Emitter<FolderApiEvents<unknown>>;
 
 	/**
 	 * @hidden
 	 */
 	constructor(controller: FolderController) {
+		this.onFolderChange_ = this.onFolderChange_.bind(this);
+		this.onRackInputChange_ = this.onRackInputChange_.bind(this);
+		this.onRackItemFold_ = this.onRackItemFold_.bind(this);
+		this.onRackMonitorUpdate_ = this.onRackMonitorUpdate_.bind(this);
+
 		this.controller = controller;
+
+		this.emitter_ = new Emitter();
+
+		this.controller.folder.emitter.on('change', this.onFolderChange_);
+
+		const rack = this.controller.bladeRack;
+		rack.emitter.on('inputchange', this.onRackInputChange_);
+		rack.emitter.on('monitorupdate', this.onRackMonitorUpdate_);
+		rack.emitter.on('itemfold', this.onRackItemFold_);
 	}
 
 	get expanded(): boolean {
@@ -121,17 +145,55 @@ export class FolderApi implements ComponentApi {
 	 * @param eventName The event name to listen.
 	 * @return The API object itself.
 	 */
-	public on<EventName extends keyof FolderApiEventHandlers>(
+	public on<EventName extends keyof FolderApiEvents<unknown>>(
 		eventName: EventName,
-		handler: FolderApiEventHandlers[EventName],
+		handler: (ev: FolderApiEvents<unknown>[EventName]['event']) => void,
 	): FolderApi {
-		handleFolder({
-			eventName: eventName,
-			folder: this.controller.folder,
-			// TODO: Type-safe
-			handler: forceCast(handler.bind(this)),
-			bladeRack: this.controller.bladeRack,
+		const bh = handler.bind(this);
+		this.emitter_.on(eventName, (ev) => {
+			bh(ev.event);
 		});
 		return this;
+	}
+
+	private onRackInputChange_(ev: BladeRackEvents['inputchange']) {
+		const bapi = new InputBindingApi(ev.bindingController);
+		const binding = ev.bindingController.binding;
+		this.emitter_.emit('change', {
+			event: new TpChangeEvent(
+				bapi,
+				forceCast(binding.target.read()),
+				binding.target.presetKey,
+			),
+		});
+	}
+
+	private onRackMonitorUpdate_(ev: BladeRackEvents['monitorupdate']) {
+		const bapi = new MonitorBindingApi(ev.bindingController);
+		const binding = ev.bindingController.binding;
+		this.emitter_.emit('update', {
+			event: new TpUpdateEvent(
+				bapi,
+				forceCast(binding.target.read()),
+				binding.target.presetKey,
+			),
+		});
+	}
+
+	private onRackItemFold_(ev: BladeRackEvents['itemfold']) {
+		const fapi = new FolderApi(ev.folderController);
+		this.emitter_.emit('fold', {
+			event: new TpFoldEvent(fapi, ev.folderController.folder.expanded),
+		});
+	}
+
+	private onFolderChange_(ev: FolderEvents['change']) {
+		if (ev.propertyName !== 'expanded') {
+			return;
+		}
+
+		this.emitter_.emit('fold', {
+			event: new TpFoldEvent(this, ev.sender.expanded),
+		});
 	}
 }

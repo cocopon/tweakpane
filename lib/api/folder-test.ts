@@ -12,7 +12,9 @@ import {Color} from '../plugin/input-bindings/color/model/color';
 import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
 import {SingleLogMonitorController} from '../plugin/monitor-bindings/common/controller/single-log';
 import {FolderApi} from './folder';
+import {InputBindingApi} from './input-binding';
 import {SeparatorApi} from './separator';
+import {TpChangeEvent} from './tp-event';
 
 function createApi(): FolderApi {
 	const c = new FolderController(TestUtil.createWindow().document, {
@@ -198,25 +200,36 @@ describe(FolderApi.name, () => {
 		},
 	].forEach(({expected, params}) => {
 		context(`when ${JSON.stringify(params)}`, () => {
-			it('should pass right first argument for change event (local)', (done) => {
+			it('should pass event for change event (local)', (done) => {
 				const api = createApi();
 				const obj = {foo: params.propertyValue};
 				const bapi = api.addInput(obj, 'foo');
 
-				bapi.on('change', (value: unknown) => {
-					assert.strictEqual(value, expected);
+				bapi.on('change', (ev) => {
+					assert.instanceOf(ev, TpChangeEvent);
+					assert.strictEqual(ev.target, bapi);
+					assert.strictEqual(ev.presetKey, 'foo');
+					assert.strictEqual(ev.value, expected);
 					done();
 				});
 				bapi.controller.binding.value.rawValue = params.newInternalValue;
 			});
 
-			it('should pass right first argument for change event (global)', (done) => {
+			it('should pass event for change event (global)', (done) => {
 				const api = createApi();
 				const obj = {foo: params.propertyValue};
 				const bapi = api.addInput(obj, 'foo');
 
-				api.on('change', (value: unknown) => {
-					assert.strictEqual(value, expected);
+				api.on('change', (ev) => {
+					assert.instanceOf(ev, TpChangeEvent);
+					assert.strictEqual(ev.presetKey, 'foo');
+					assert.strictEqual(ev.value, expected);
+
+					if (!(ev.target instanceof InputBindingApi)) {
+						throw new Error('unexpected target');
+					}
+					assert.strictEqual(ev.target.controller, bapi.controller);
+
 					done();
 				});
 				bapi.controller.binding.value.rawValue = params.newInternalValue;

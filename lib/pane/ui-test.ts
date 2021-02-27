@@ -1,6 +1,7 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
+import {TpFoldEvent} from '../api/tp-event';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
@@ -81,8 +82,9 @@ describe(Tweakpane.name, () => {
 	it('should handle root folder events', (done) => {
 		const pane = createApi('pane');
 
-		pane.on('fold', (expanded) => {
-			assert.strictEqual(expanded, false);
+		pane.on('fold', (ev) => {
+			assert.instanceOf(ev, TpFoldEvent);
+			assert.strictEqual(ev.expanded, false);
 			done();
 		});
 
@@ -99,8 +101,9 @@ describe(Tweakpane.name, () => {
 			title: 'folder',
 		});
 
-		pane.on('fold', (expanded) => {
-			assert.strictEqual(expanded, false);
+		pane.on('fold', (ev) => {
+			assert.instanceOf(ev, TpFoldEvent);
+			assert.strictEqual(ev.expanded, false);
 			done();
 		});
 		f.expanded = false;

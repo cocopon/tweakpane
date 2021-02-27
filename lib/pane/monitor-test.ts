@@ -1,6 +1,7 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
+import {TpUpdateEvent} from '../api/tp-event';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {ManualTicker} from '../plugin/common/binding/ticker/manual';
@@ -84,14 +85,15 @@ describe(Tweakpane.name, () => {
 		},
 	].forEach(({expected, params}) => {
 		context(`when ${JSON.stringify(params)}`, () => {
-			it('should pass right first argument for update event (local)', (done) => {
+			it('should pass event argument for update event (local)', (done) => {
 				const pane = createPane();
 				const obj = {foo: params.propertyValue};
 				const bapi = pane.addMonitor(obj, 'foo', {
 					interval: 0,
 				});
-				bapi.on('update', (value: unknown) => {
-					assert.strictEqual(value, expected);
+				bapi.on('update', (ev) => {
+					assert.instanceOf(ev, TpUpdateEvent);
+					assert.strictEqual(ev.value, expected);
 					bapi.dispose();
 					done();
 				});
@@ -100,14 +102,15 @@ describe(Tweakpane.name, () => {
 				(bapi.controller.binding.ticker as ManualTicker).tick();
 			});
 
-			it('should pass right first argument for update event (global)', (done) => {
+			it('should pass event for update event (global)', (done) => {
 				const pane = createPane();
 				const obj = {foo: params.propertyValue};
 				const bapi = pane.addMonitor(obj, 'foo', {
 					interval: 0,
 				});
-				pane.on('update', (value: unknown) => {
-					assert.strictEqual(value, expected);
+				pane.on('update', (ev) => {
+					assert.instanceOf(ev, TpUpdateEvent);
+					assert.strictEqual(ev.value, expected);
 					bapi.dispose();
 					done();
 				});

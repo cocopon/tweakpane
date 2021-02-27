@@ -1,6 +1,6 @@
-import {selectContainer} from '../util';
+import Tweakpane from 'tweakpane';
 
-declare let Tweakpane: any;
+import {selectContainer} from '../util';
 
 export function initMisc() {
 	const IMEX_PARAMS = {
@@ -54,7 +54,7 @@ export function initMisc() {
 				container: consoleElem,
 			});
 			consolePane.addMonitor(PARAMS, 'log', {
-				count: 10,
+				bufferSize: 10,
 				interval: 0,
 				label: 'console',
 				lineCount: 5,
@@ -68,8 +68,8 @@ export function initMisc() {
 					max: 100,
 					min: 0,
 				})
-				.on('change', (value: number) => {
-					PARAMS.log = value.toFixed(2);
+				.on('change', (ev) => {
+					PARAMS.log = ev.value.toFixed(2);
 					consolePane.refresh();
 				});
 		},
@@ -94,7 +94,7 @@ export function initMisc() {
 				container: consoleElem,
 			});
 			consolePane.addMonitor(PARAMS, 'log', {
-				count: 10,
+				bufferSize: 10,
 				interval: 0,
 				label: 'console',
 				lineCount: 5,
@@ -111,9 +111,12 @@ export function initMisc() {
 			});
 			pane.addInput(PARAMS, 'point2d');
 			pane.addInput(PARAMS, 'string');
-			pane.on('change', (value: number | string) => {
-				const v = typeof value === 'number' ? value.toFixed(2) : value;
-				PARAMS.log = `changed: ${JSON.stringify(v)}`;
+			pane.on('change', (ev) => {
+				const v =
+					typeof ev.value === 'number'
+						? ev.value.toFixed(2)
+						: JSON.stringify(ev.value);
+				PARAMS.log = `changed: ${v}`;
 				consolePane.refresh();
 			});
 		},

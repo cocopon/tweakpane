@@ -3,7 +3,7 @@ import {createTheme} from '../themes';
 import {selectContainer} from '../util';
 
 declare let hljs: any;
-declare let Tweakpane: any;
+import Tweakpane from 'tweakpane';
 
 function applyPreviewHtml(selector: string, theme: Theme, comment: string) {
 	const elem = document.querySelector(selector);
@@ -37,7 +37,7 @@ function applyTheme({
 	);
 }
 
-function createPreviewPane(containerElem: Element) {
+function createPreviewPane(containerElem: HTMLElement) {
 	const PARAMS = {
 		color: 'rgba(0, 0, 0, 0)',
 		point2d: {x: 0, y: 0},

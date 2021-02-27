@@ -1,6 +1,6 @@
-import {selectContainer} from '../util';
+import Tweakpane from 'tweakpane';
 
-declare let Tweakpane: any;
+import {selectContainer} from '../util';
 
 export function initGettingStarted() {
 	const markerToFnMap: {

@@ -5,8 +5,13 @@ import {terser as Terser} from 'rollup-plugin-terser';
 export default async () => {
 	return {
 		input: 'src/doc/ts/bundle.ts',
+		external: ['tweakpane'],
 		output: {
 			file: `docs/assets/bundle.js`,
+			format: 'umd',
+			globals: {
+				tweakpane: 'Tweakpane',
+			},
 		},
 		plugins: [
 			Typescript({

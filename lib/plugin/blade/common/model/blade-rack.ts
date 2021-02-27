@@ -6,7 +6,7 @@ import {
 } from '../../../common/binding/monitor';
 import {Emitter} from '../../../common/model/emitter';
 import {FolderController} from '../../folder/controller';
-import {FolderEvents} from '../../folder/model/folder';
+import {Folder, FolderEvents} from '../../folder/model/folder';
 import {BladeController} from '../controller/blade';
 import {InputBindingController} from '../controller/input-binding';
 import {MonitorBindingController} from '../controller/monitor-binding';
@@ -18,7 +18,7 @@ import {List, ListEvents} from './list';
  */
 export interface BladeRackEvents {
 	add: {
-		blade: BladeController;
+		bladeController: BladeController;
 		index: number;
 		sender: BladeRack;
 	};
@@ -27,22 +27,59 @@ export interface BladeRackEvents {
 	};
 
 	inputchange: {
-		inputBinding: InputBinding<unknown>;
+		bindingController: InputBindingController<unknown>;
 		sender: BladeRack;
-		value: unknown;
 	};
 	itemfold: {
-		expanded: boolean;
+		folderController: FolderController;
 		sender: BladeRack;
 	};
 	itemlayout: {
 		sender: BladeRack;
 	};
 	monitorupdate: {
-		monitorBinding: MonitorBinding<unknown>;
+		bindingController: MonitorBindingController<unknown>;
 		sender: BladeRack;
-		value: unknown;
 	};
+}
+
+function findInputBindingController<In>(
+	bcs: InputBindingController<In>[],
+	b: InputBinding<In>,
+): InputBindingController<In> | null {
+	for (let i = 0; i < bcs.length; i++) {
+		const bc = bcs[i];
+		if (bc instanceof InputBindingController && bc.binding === b) {
+			return bc;
+		}
+	}
+	return null;
+}
+
+function findMonitorBindingController<In>(
+	bcs: MonitorBindingController<In>[],
+	b: MonitorBinding<In>,
+): MonitorBindingController<In> | null {
+	for (let i = 0; i < bcs.length; i++) {
+		const bc = bcs[i];
+		if (bc instanceof MonitorBindingController && bc.binding === b) {
+			return bc;
+		}
+	}
+	return null;
+}
+
+function findFolderController(
+	bcs: FolderController[],
+	f: Folder,
+): FolderController | null {
+	for (let i = 0; i < bcs.length; i++) {
+		const bc = bcs[i];
+		if (bc instanceof FolderController && bc.folder === f) {
+			return bc;
+		}
+	}
+	return null;
 }
 
 /**
@@ -50,7 +87,7 @@ export interface BladeRackEvents {
  */
 export class BladeRack {
 	public readonly emitter: Emitter<BladeRackEvents>;
-	private blades_: List<BladeController>;
+	private bcList_: List<BladeController>;
 
 	constructor() {
 		this.onItemFolderFold_ = this.onItemFolderFold_.bind(this);
@@ -65,19 +102,19 @@ export class BladeRack {
 		this.onListRemove_ = this.onListRemove_.bind(this);
 		this.onItemMonitorUpdate_ = this.onItemMonitorUpdate_.bind(this);
 
-		this.blades_ = new List();
+		this.bcList_ = new List();
 		this.emitter = new Emitter();
 
-		this.blades_.emitter.on('add', this.onListAdd_);
-		this.blades_.emitter.on('remove', this.onListRemove_);
+		this.bcList_.emitter.on('add', this.onListAdd_);
+		this.bcList_.emitter.on('remove', this.onListRemove_);
 	}
 
 	get items(): BladeController[] {
-		return this.blades_.items;
+		return this.bcList_.items;
 	}
 
 	public add(bc: BladeController, opt_index?: number): void {
-		this.blades_.add(bc, opt_index);
+		this.bcList_.add(bc, opt_index);
 	}
 
 	public find<B extends BladeController>(controllerClass: Class<B>): B[] {
@@ -98,7 +135,7 @@ export class BladeRack {
 		const bc = ev.item;
 
 		this.emitter.emit('add', {
-			blade: bc,
+			bladeController: bc,
 			index: ev.index,
 			sender: this,
 		});
@@ -135,29 +172,43 @@ export class BladeRack {
 	}
 
 	private onListItemDispose_(_: BladeEvents['dispose']): void {
-		const disposedUcs = this.blades_.items.filter((bc) => {
+		const disposedUcs = this.bcList_.items.filter((bc) => {
 			return bc.blade.disposed;
 		});
 		disposedUcs.forEach((bc) => {
-			this.blades_.remove(bc);
+			this.bcList_.remove(bc);
 		});
 	}
 
 	private onItemInputChange_(ev: InputBindingEvents<unknown>['change']): void {
+		const ibc = findInputBindingController(
+			this.find(InputBindingController),
+			ev.sender,
+		);
+		if (!ibc) {
+			return;
+		}
+
 		this.emitter.emit('inputchange', {
-			inputBinding: ev.sender,
+			bindingController: ibc,
 			sender: this,
-			value: ev.rawValue,
 		});
 	}
 
 	private onItemMonitorUpdate_(
 		ev: MonitorBindingEvents<unknown>['update'],
 	): void {
+		const mbc = findMonitorBindingController(
+			this.find(MonitorBindingController),
+			ev.sender,
+		);
+		if (!mbc) {
+			return;
+		}
+
 		this.emitter.emit('monitorupdate', {
-			monitorBinding: ev.sender,
+			bindingController: mbc,
 			sender: this,
-			value: ev.rawValue,
 		});
 	}
 
@@ -165,10 +216,14 @@ export class BladeRack {
 		if (ev.propertyName !== 'expanded') {
 			return;
 		}
-		this.emitter.emit('itemfold', {
-			expanded: ev.sender.expanded,
-			sender: this,
-		});
+
+		const fc = findFolderController(this.find(FolderController), ev.sender);
+		if (fc) {
+			this.emitter.emit('itemfold', {
+				folderController: fc,
+				sender: this,
+			});
+		}
 	}
 
 	private onSubitemLayout_(_: BladeRackEvents['itemlayout']) {
@@ -179,23 +234,21 @@ export class BladeRack {
 
 	private onSubitemInputChange_(ev: BladeRackEvents['inputchange']) {
 		this.emitter.emit('inputchange', {
-			inputBinding: ev.inputBinding,
+			bindingController: ev.bindingController,
 			sender: this,
-			value: ev.value,
 		});
 	}
 
 	private onSubitemMonitorUpdate_(ev: BladeRackEvents['monitorupdate']) {
 		this.emitter.emit('monitorupdate', {
-			monitorBinding: ev.monitorBinding,
+			bindingController: ev.bindingController,
 			sender: this,
-			value: ev.value,
 		});
 	}
 
 	private onSubitemFolderFold_(ev: BladeRackEvents['itemfold']) {
 		this.emitter.emit('itemfold', {
-			expanded: ev.expanded,
+			folderController: ev.folderController,
 			sender: this,
 		});
 	}

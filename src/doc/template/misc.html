@@ -19,15 +19,15 @@
 
 {% block content %}
 <h2 id="events">Events</h2>
-<p>Use <code>on()</code> of specific components to listen its changes. Input components will emit <code>change</code> events. The first argument of the event handler is the input value.</p>
+<p>Use <code>on()</code> of specific components to listen its changes. Input components will emit <code>change</code> events. The first argument of the event handler is the <a href="./api/classes/api_tp_event.tpchangeevent.html">event object</a> that contains a value.</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
 			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
 pane.addInput(PARAMS, 'value')
-  .<strong>on</strong>('change', (value) =&gt; {
-    console.log(value.toFixed(2));
+  .<strong>on</strong>('change', (ev) =&gt; {
+    console.log(ev.value.toFixed(2));
   });</code></pre></div>
 		</div>
 		<div class="demo_resultLayout">
@@ -48,8 +48,8 @@ pane.addInput(PARAMS, 'color');
 pane.addInput(PARAMS, 'number');
 pane.addInput(PARAMS, 'string');
 
-pane.<strong>on</strong>('change', (value) =&gt; {
-  console.log('changed: ' + JSON.stringify(value));
+pane.<strong>on</strong>('change', (ev) =&gt; {
+  console.log('changed: ' + JSON.stringify(ev.value));
 });
 </code></pre></div>
 		</div>

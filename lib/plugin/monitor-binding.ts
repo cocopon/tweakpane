@@ -112,7 +112,6 @@ export function createController<T>(
 	const reader = plugin.binding.reader(valueArgs);
 	const bufferSize =
 		args.params.bufferSize ??
-		args.params.count ??
 		(plugin.binding.defaultBufferSize &&
 			plugin.binding.defaultBufferSize(args.params)) ??
 		1;

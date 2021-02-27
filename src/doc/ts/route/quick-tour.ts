@@ -1,6 +1,6 @@
-import {selectContainer, wave} from '../util';
+import Tweakpane from 'tweakpane';
 
-declare let Tweakpane: any;
+import {selectContainer, wave} from '../util';
 
 export function initQuickTour() {
 	const markerToFnMap: {
@@ -97,7 +97,7 @@ export function initQuickTour() {
 				container: consoleElem,
 			});
 			consolePane.addMonitor(PARAMS, 'log', {
-				count: 100,
+				bufferSize: 100,
 				interval: 0,
 				label: 'console',
 				lineCount: 5,
@@ -112,8 +112,8 @@ export function initQuickTour() {
 					max: 100,
 					step: 1,
 				})
-				.on('change', (value: number) => {
-					PARAMS.log = `change: ${value}`;
+				.on('change', (ev) => {
+					PARAMS.log = `change: ${ev.value}`;
 					consolePane.refresh();
 				});
 		},

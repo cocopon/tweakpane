@@ -1,8 +1,9 @@
 import {JSDOM} from 'jsdom';
 // Import default module
 import Tweakpane from 'tweakpane';
+import {TpChangeEvent, TpUpdateEvent} from 'tweakpane/lib/api/tp-event';
 
-interface Vector2 {
+interface V2dObj {
 	x: number;
 	y: number;
 }
@@ -26,11 +27,11 @@ pane
 		min: 0,
 		step: 1,
 	})
-	.on('change', (value: number) => {
-		console.log(value);
+	.on('change', (ev: TpChangeEvent<number>) => {
+		console.log(ev);
 	});
-pane.addInput(PARAMS, 'xy').on('change', (value: Vector2) => {
-	console.log(value);
+pane.addInput(PARAMS, 'xy').on('change', (ev: TpChangeEvent<V2dObj>) => {
+	console.log(ev);
 });
 
 // Add monitor
@@ -38,32 +39,38 @@ pane
 	.addMonitor(PARAMS, 'num', {
 		interval: 0,
 	})
-	.on('update', (value: number) => {
-		console.log(value);
+	.on('update', (ev: TpUpdateEvent<number>) => {
+		console.log(ev);
 	});
 pane
 	.addMonitor(PARAMS, 'text', {
 		interval: 0,
 	})
-	.on('update', (value: string) => {
-		console.log(value);
+	.on('update', (ev: TpUpdateEvent<string>) => {
+		console.log(ev);
 	});
 
 // Add folder
 const f1 = pane.addFolder({
 	title: 'folder',
 });
-f1.addInput(PARAMS, 'num').on('change', (value: number) => {
-	console.log(value);
+f1.addInput(PARAMS, 'num').on('change', (ev: TpChangeEvent<number>) => {
+	console.log(ev);
 });
-f1.addInput(PARAMS, 'xy').on('change', (value: Vector2) => {
-	console.log(value);
+f1.addInput(PARAMS, 'xy').on('change', (ev: TpChangeEvent<V2dObj>) => {
+	console.log(ev);
 });
-f1.addMonitor(PARAMS, 'num', {interval: 0}).on('update', (value: number) => {
-	console.log(value);
-});
-f1.addMonitor(PARAMS, 'text', {interval: 0}).on('update', (value: string) => {
-	console.log(value);
-});
+f1.addMonitor(PARAMS, 'num', {interval: 0}).on(
+	'update',
+	(ev: TpChangeEvent<number>) => {
+		console.log(ev);
+	},
+);
+f1.addMonitor(PARAMS, 'text', {interval: 0}).on(
+	'update',
+	(ev: TpChangeEvent<string>) => {
+		console.log(ev);
+	},
+);
 
 console.log(pane);
