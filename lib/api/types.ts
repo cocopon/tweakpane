@@ -73,11 +73,6 @@ export interface BaseMonitorParams extends BaseParams, LabelableParams {
 	bufferSize?: number;
 	interval?: number;
 	view?: string;
-
-	/**
-	 * @deprecated Use `bufferSize` instead
-	 */
-	count?: number;
 }
 
 export interface BooleanMonitorParams extends BaseMonitorParams {

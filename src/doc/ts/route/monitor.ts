@@ -68,7 +68,7 @@ export function initMonitor() {
 				});
 		},
 
-		count: (container) => {
+		buffersize: (container) => {
 			const pane = new Tweakpane({
 				container: container,
 			});
