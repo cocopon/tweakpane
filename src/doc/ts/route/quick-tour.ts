@@ -97,7 +97,7 @@ export function initQuickTour() {
 				container: consoleElem,
 			});
 			consolePane.addMonitor(PARAMS, 'log', {
-				count: 100,
+				bufferSize: 100,
 				interval: 0,
 				label: 'console',
 				lineCount: 5,

@@ -54,7 +54,7 @@ export function initMisc() {
 				container: consoleElem,
 			});
 			consolePane.addMonitor(PARAMS, 'log', {
-				count: 10,
+				bufferSize: 10,
 				interval: 0,
 				label: 'console',
 				lineCount: 5,
@@ -94,7 +94,7 @@ export function initMisc() {
 				container: consoleElem,
 			});
 			consolePane.addMonitor(PARAMS, 'log', {
-				count: 10,
+				bufferSize: 10,
 				interval: 0,
 				label: 'console',
 				lineCount: 5,

@@ -24,7 +24,7 @@ describe(Tweakpane.name, () => {
 		{
 			expectedClass: MultiLogController,
 			params: {
-				count: 10,
+				bufferSize: 10,
 			},
 			value: 'foobar',
 		},
