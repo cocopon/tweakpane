@@ -1,0 +1,36 @@
+{% set pageId = 'plugin' %}
+{% extends "_template.html" %}
+
+
+{% block pageHeader %}
+<div class="pageHeader">
+	<div class="pageHeader_sketchContainer"></div>
+	<div class="pageHeader_innerLayout">
+		<div class="pageHeader_titleLayout">
+			<h1 class="pageHeader_title">Plugin</h1>
+			<p>(public beta)</p>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<p>From version 2.0.0, you can provide custom input/monitor components for various user inputs with the plugin system.</p>
+
+<div class="main_mediaLayout">
+	<div class="codeBlock">
+		<pre><code class="js">Tweakpane.registerPlugin({
+  type: 'input',
+  plugin: {
+    ...
+  },
+});</code></pre>
+		<div class="codeBlock_title">
+			.js
+		</div>
+	</div>
+</div>
+
+<p>See the <a href="https://github.com/cocopon/tweakpane-plugin-template">template repository</a> for details.</p>
+{% endblock %}
