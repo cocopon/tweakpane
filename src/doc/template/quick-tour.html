@@ -132,8 +132,8 @@ f.addInput(PARAMS, 'size');
   {min: 8, max: 100, step: 1}
 );
 
-input.<strong>on</strong>('change', function(value) {
-  console.log(`change: ${value}`);
+input.<strong>on</strong>('change', function(ev) {
+  console.log(`change: ${ev.value}`);
 });
 </code></pre>
 			</div>

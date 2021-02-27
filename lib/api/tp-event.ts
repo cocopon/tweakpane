@@ -1,15 +1,37 @@
+/**
+ * A base class of Tweakpane API events.
+ */
 export class TpEvent {
+	/**
+	 * The event dispatcher.
+	 */
 	public readonly target: unknown;
 
+	/**
+	 * @hidden
+	 */
 	constructor(target: unknown) {
 		this.target = target;
 	}
 }
 
+/**
+ * An event class for value changes of input bindings.
+ * @template T The type of the value.
+ */
 export class TpChangeEvent<T> extends TpEvent {
+	/**
+	 * The preset key of the event target.
+	 */
 	public readonly presetKey: string;
+	/**
+	 * The value.
+	 */
 	public readonly value: T;
 
+	/**
+	 * @hidden
+	 */
 	constructor(target: unknown, value: T, presetKey: string) {
 		super(target);
 
@@ -18,10 +40,23 @@ export class TpChangeEvent<T> extends TpEvent {
 	}
 }
 
+/**
+ * An event class for value updates of monitor bindings.
+ * @template T The type of the value.
+ */
 export class TpUpdateEvent<T> extends TpEvent {
+	/**
+	 * The preset key of the event target.
+	 */
 	public readonly presetKey: string;
+	/**
+	 * The value.
+	 */
 	public readonly value: T;
 
+	/**
+	 * @hidden
+	 */
 	constructor(target: unknown, value: T, presetKey: string) {
 		super(target);
 
@@ -30,9 +65,18 @@ export class TpUpdateEvent<T> extends TpEvent {
 	}
 }
 
+/**
+ * An event class for folder.
+ */
 export class TpFoldEvent extends TpEvent {
+	/**
+	 * The current state of the folder expansion.
+	 */
 	public readonly expanded: boolean;
 
+	/**
+	 * @hidden
+	 */
 	constructor(target: unknown, expanded: boolean) {
 		super(target);
 

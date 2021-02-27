@@ -2,10 +2,10 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {InputBindingApi} from '../api/input-binding';
+import {TpChangeEvent} from '../api/tp-event';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {forceCast} from '../misc/type-util';
-import {TpChangeEvent} from '../plugin/common/event/tp-event';
 import {Value} from '../plugin/common/model/value';
 
 function createPane(): Tweakpane {

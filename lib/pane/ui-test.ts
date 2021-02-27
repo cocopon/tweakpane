@@ -1,6 +1,7 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
+import {TpFoldEvent} from '../api/tp-event';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
@@ -9,7 +10,6 @@ import {InputBindingController} from '../plugin/blade/common/controller/input-bi
 import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
 import {FolderController} from '../plugin/blade/folder/controller';
 import {SeparatorController} from '../plugin/blade/separator/controller';
-import {TpFoldEvent} from '../plugin/common/event/tp-event';
 
 function createApi(title?: string): Tweakpane {
 	return new Tweakpane({

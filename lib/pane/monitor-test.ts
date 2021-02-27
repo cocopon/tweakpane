@@ -1,10 +1,10 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
+import {TpUpdateEvent} from '../api/tp-event';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {ManualTicker} from '../plugin/common/binding/ticker/manual';
-import {TpUpdateEvent} from '../plugin/common/event/tp-event';
 import {TpError} from '../plugin/common/tp-error';
 
 function createPane(): Tweakpane {

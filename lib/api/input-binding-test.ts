@@ -11,11 +11,11 @@ import {
 	parseNumber,
 } from '../plugin/common/converter/number';
 import {numberFromUnknown} from '../plugin/common/converter/number';
-import {TpChangeEvent} from '../plugin/common/event/tp-event';
 import {Value} from '../plugin/common/model/value';
 import {writePrimitive} from '../plugin/common/primitive';
 import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
 import {InputBindingApi} from './input-binding';
+import {TpChangeEvent} from './tp-event';
 
 function createApi(target: BindingTarget) {
 	const doc = TestUtil.createWindow().document;

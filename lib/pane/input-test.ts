@@ -2,9 +2,9 @@ import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
 import {InputBindingApi} from '../api/input-binding';
+import {TpChangeEvent} from '../api/tp-event';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
-import {TpChangeEvent} from '../plugin/common/event/tp-event';
 import {TpError} from '../plugin/common/tp-error';
 import {Color} from '../plugin/input-bindings/color/model/color';
 

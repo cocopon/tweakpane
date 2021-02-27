@@ -5,11 +5,6 @@ import {BladeRackEvents} from '../plugin/blade/common/model/blade-rack';
 import {FolderController} from '../plugin/blade/folder/controller';
 import {FolderEvents} from '../plugin/blade/folder/model/folder';
 import {SeparatorController} from '../plugin/blade/separator/controller';
-import {
-	TpChangeEvent,
-	TpFoldEvent,
-	TpUpdateEvent,
-} from '../plugin/common/event/tp-event';
 import {Emitter} from '../plugin/common/model/emitter';
 import {ButtonApi} from './button';
 import {ComponentApi} from './component-api';
@@ -18,6 +13,7 @@ import {createInputBindingController} from './input-binding-controllers';
 import {MonitorBindingApi} from './monitor-binding';
 import {createMonitorBindingController} from './monitor-binding-controllers';
 import {SeparatorApi} from './separator';
+import {TpChangeEvent, TpFoldEvent, TpUpdateEvent} from './tp-event';
 import {
 	ButtonParams,
 	FolderParams,

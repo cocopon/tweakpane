@@ -9,11 +9,11 @@ import {BindingTarget} from '../plugin/common/binding/target';
 import {ManualTicker} from '../plugin/common/binding/ticker/manual';
 import {createNumberFormatter} from '../plugin/common/converter/number';
 import {numberFromUnknown} from '../plugin/common/converter/number';
-import {TpUpdateEvent} from '../plugin/common/event/tp-event';
 import {Buffer} from '../plugin/common/model/buffered-value';
 import {Value} from '../plugin/common/model/value';
 import {SingleLogMonitorController} from '../plugin/monitor-bindings/common/controller/single-log';
 import {MonitorBindingApi} from './monitor-binding';
+import {TpUpdateEvent} from './tp-event';
 
 function createApi(target: BindingTarget) {
 	const doc = TestUtil.createWindow().document;
