@@ -24,6 +24,7 @@ See the [official page][documents] for details.
   - Boolean (checkbox / list)
   - Color (picker)
   - Point2D (picker)
+  - Point3D (text)
 - [Monitors](https://cocopon.github.io/tweakpane/monitor.html)
   - Number (text / graph)
   - String (text)
