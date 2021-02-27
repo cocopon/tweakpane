@@ -15,6 +15,7 @@ import {Value} from '../plugin/common/model/value';
 import {writePrimitive} from '../plugin/common/primitive';
 import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
 import {InputBindingApi} from './input-binding';
+import {TpChangeEvent} from './tp-event';
 
 function createApi(target: BindingTarget) {
 	const doc = TestUtil.createWindow().document;
@@ -45,8 +46,23 @@ describe(InputBindingApi.name, () => {
 			foo: 0,
 		};
 		const api = createApi(new BindingTarget(PARAMS, 'foo'));
-		api.on('change', (value: unknown) => {
-			assert.strictEqual(value, 123);
+		api.on('change', (ev) => {
+			assert.instanceOf(ev, TpChangeEvent);
+			assert.strictEqual(ev.target, api);
+			assert.strictEqual(ev.presetKey, 'foo');
+			assert.strictEqual(ev.value, 123);
+			done();
+		});
+		api.controller.controller.value.rawValue = 123;
+	});
+
+	it('should apply presetKey to event object', (done) => {
+		const PARAMS = {
+			foo: 0,
+		};
+		const api = createApi(new BindingTarget(PARAMS, 'foo', 'renamed'));
+		api.on('change', (ev) => {
+			assert.strictEqual(ev.presetKey, 'renamed');
 			done();
 		});
 		api.controller.controller.value.rawValue = 123;

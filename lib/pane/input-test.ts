@@ -1,6 +1,8 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
+import {InputBindingApi} from '../api/input-binding';
+import {TpChangeEvent} from '../api/tp-event';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {TpError} from '../plugin/common/tp-error';
@@ -96,27 +98,38 @@ describe(Tweakpane.name, () => {
 		},
 	].forEach(({expected, params}) => {
 		context(`when ${JSON.stringify(params)}`, () => {
-			it('should pass right first argument for change event (local)', (done) => {
+			it('should pass right argument for change event (local)', (done) => {
 				const pane = createPane();
 				const obj = {foo: params.propertyValue};
 				const bapi = pane.addInput(obj, 'foo');
 
-				bapi.on('change', (value) => {
-					assert.strictEqual(value, expected);
+				bapi.on('change', (ev) => {
+					assert.instanceOf(ev, TpChangeEvent);
+					assert.strictEqual(ev.target, bapi);
+					assert.strictEqual(ev.presetKey, 'foo');
+					assert.strictEqual(ev.value, expected);
 					done();
 				});
 				bapi.controller.binding.value.rawValue = params.newInternalValue;
 			});
 
-			it('should pass right first argument for change event (global)', (done) => {
+			it('should pass right argument for change event (global)', (done) => {
 				const pane = createPane();
-				pane.on('change', (value) => {
-					assert.strictEqual(value, expected);
-					done();
-				});
-
 				const obj = {foo: params.propertyValue};
 				const bapi = pane.addInput(obj, 'foo');
+
+				pane.on('change', (ev) => {
+					assert.instanceOf(ev, TpChangeEvent);
+					assert.strictEqual(ev.presetKey, 'foo');
+					assert.strictEqual(ev.value, expected);
+
+					if (!(ev.target instanceof InputBindingApi)) {
+						throw new Error('unexpected target');
+					}
+					assert.strictEqual(ev.target.controller, bapi.controller);
+
+					done();
+				});
 				bapi.controller.binding.value.rawValue = params.newInternalValue;
 			});
 		});

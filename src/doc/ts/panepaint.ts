@@ -1,11 +1,11 @@
+import Tweakpane from 'tweakpane';
+
 import {
 	colorFromString,
 	colorToFunctionalRgbaString,
 } from '../../../lib/plugin/input-bindings/color/converter/color-string';
 import {Color} from '../../../lib/plugin/input-bindings/color/model/color';
 import {createTheme, ThemeId} from './themes';
-
-declare let Tweakpane: any;
 
 export type ThemeProperty =
 	| 'base-background-color'
@@ -108,7 +108,7 @@ const GROUPS: ThemePaneGroup[] = [
 	},
 ];
 
-export function createPane(container: Element, theme: Theme): any {
+export function createPane(container: HTMLElement, theme: Theme): any {
 	const pane = new Tweakpane({
 		container: container,
 		title: 'Panepaint',
@@ -129,12 +129,12 @@ export function createPane(container: Element, theme: Theme): any {
 				Translucent: 'translucent',
 			},
 		})
-		.on('change', (value: string) => {
-			if (value === '') {
+		.on('change', (ev) => {
+			if (ev.value === '') {
 				return;
 			}
 
-			const t = createTheme(value as ThemeId);
+			const t = createTheme(ev.value as ThemeId);
 			Object.keys(t).forEach((key) => {
 				const prop = key as ThemeProperty;
 				theme[prop] = t[prop];

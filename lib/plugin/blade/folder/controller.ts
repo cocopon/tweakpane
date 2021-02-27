@@ -23,11 +23,11 @@ interface Config {
  * @hidden
  */
 export class FolderController implements BladeController {
+	public readonly blade: Blade;
+	public readonly bladeRack: BladeRack;
 	public readonly folder: Folder;
 	public readonly view: FolderView;
-	public readonly blade: Blade;
 	private doc_: Document;
-	private rack_: BladeRack;
 
 	constructor(doc: Document, config: Config) {
 		this.onContainerTransitionEnd_ = this.onContainerTransitionEnd_.bind(this);
@@ -41,10 +41,11 @@ export class FolderController implements BladeController {
 		this.folder = new Folder(config.title, config.expanded ?? true);
 		this.folder.emitter.on('beforechange', this.onFolderBeforeChange_);
 
-		this.rack_ = new BladeRack();
-		this.rack_.emitter.on('add', this.onRackAdd_);
-		this.rack_.emitter.on('itemlayout', this.onRackItemLayout_);
-		this.rack_.emitter.on('remove', this.onRackRemove_);
+		const rack = new BladeRack();
+		rack.emitter.on('add', this.onRackAdd_);
+		rack.emitter.on('itemlayout', this.onRackItemLayout_);
+		rack.emitter.on('remove', this.onRackRemove_);
+		this.bladeRack = rack;
 
 		this.doc_ = doc;
 		this.view = new FolderView(this.doc_, {
@@ -62,10 +63,6 @@ export class FolderController implements BladeController {
 
 	get document(): Document {
 		return this.doc_;
-	}
-
-	get bladeRack(): BladeRack {
-		return this.rack_;
 	}
 
 	private onFolderBeforeChange_(ev: FolderEvents['beforechange']): void {
@@ -95,7 +92,7 @@ export class FolderController implements BladeController {
 	private onRackAdd_(ev: BladeRackEvents['add']) {
 		insertElementAt(
 			this.view.containerElement,
-			ev.blade.view.element,
+			ev.bladeController.view.element,
 			ev.index,
 		);
 		this.applyRackChange_();

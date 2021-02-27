@@ -1,3 +1,5 @@
+import Tweakpane from 'tweakpane';
+
 import {
 	colorFromString,
 	colorToFunctionalRgbaString,
@@ -6,8 +8,6 @@ import {Color} from '../../../../lib/plugin/input-bindings/color/model/color';
 import {Sketch} from '../sketch';
 import {Environment} from '../sketch';
 import {selectContainer} from '../util';
-
-declare let Tweakpane: any;
 
 export function initIndex() {
 	const ENV: Environment = {
@@ -76,13 +76,13 @@ export function initIndex() {
 				container: container,
 				title: 'Tweakpane',
 			});
-			pane.addInput(ENV, 'title').on('change', (value: string) => {
+			pane.addInput(ENV, 'title').on('change', (ev) => {
 				const titleElem = document.querySelector('.pageHeader_title');
 				if (titleElem) {
-					titleElem.textContent = value;
+					titleElem.textContent = ev.value;
 				}
 			});
-			pane.addInput(ENV, 'color').on('change', (value: string) => {
+			pane.addInput(ENV, 'color').on('change', (ev) => {
 				const headerElem: HTMLElement | null = document.querySelector(
 					'.pageHeader',
 				);
@@ -90,7 +90,7 @@ export function initIndex() {
 					return;
 				}
 
-				const comps = colorFromString(value).getComponents('hsl');
+				const comps = colorFromString(ev.value).getComponents('hsl');
 				comps[0] += 30;
 				comps[1] *= 1.5;
 				comps[2] *= 1.06;
@@ -132,11 +132,11 @@ export function initIndex() {
 					Bubble: 'bubble',
 					Cloud: 'cloud',
 				},
-			}).on('change', (value: string) => {
-				const preset = PRESETS[value];
+			}).on('change', (ev) => {
+				const preset = PRESETS[ev.value];
 				if (preset) {
 					HIDDEN_PARAMS.presetId = '';
-					pane.importPreset(preset);
+					pane.importPreset(preset as any);
 				}
 			});
 			pf.addMonitor(HIDDEN_PARAMS, 'presetJson', {

@@ -58,7 +58,7 @@
     "main:test:ts": "run-s main:test:ts:static main:test:ts:dynamic main:test:ts:module",
     "main:test:ts:dynamic": "TS_NODE_PROJECT='lib/tsconfig.json' nyc --extension '.ts' --exclude '**/*-test.ts' mocha --require ts-node/register 'lib/**/*-test.ts'",
     "main:test:ts:dynamic:inspect": "TS_NODE_PROJECT='lib/tsconfig.json' nyc --extension '.ts' --exclude '**/*-test.ts' mocha --require ts-node/register 'lib/**/*-test.ts' --inspect-brk",
-    "main:test:ts:module": "npm pack && node project/setup-test-module.js && (cd test-module && npm install && npm test)",
+    "main:test:ts:module": "npm pack && node project/setup-test-module.js && (cd test-module && rm -rf ./node_modules/tweakpane && npm install && npm test)",
     "main:test:ts:static": "eslint --ext .ts 'lib/**/*.ts'",
     "main:watch": "run-p main:watch:*",
     "main:watch:ts": "rollup --config rollup.config.js --watch",

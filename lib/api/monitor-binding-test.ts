@@ -13,6 +13,7 @@ import {Buffer} from '../plugin/common/model/buffered-value';
 import {Value} from '../plugin/common/model/value';
 import {SingleLogMonitorController} from '../plugin/monitor-bindings/common/controller/single-log';
 import {MonitorBindingApi} from './monitor-binding';
+import {TpUpdateEvent} from './tp-event';
 
 function createApi(target: BindingTarget) {
 	const doc = TestUtil.createWindow().document;
@@ -41,8 +42,9 @@ describe(MonitorBindingApi.name, () => {
 			foo: 0,
 		};
 		const api = createApi(new BindingTarget(PARAMS, 'foo'));
-		api.on('update', (value: unknown) => {
-			assert.strictEqual(value, 123);
+		api.on('update', (ev) => {
+			assert.instanceOf(ev, TpUpdateEvent);
+			assert.strictEqual(ev.value, 123);
 			done();
 		});
 

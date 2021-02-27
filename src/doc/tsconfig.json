@@ -1,5 +1,6 @@
 {
 	"compilerOptions": {
+		"baseUrl": ".",
 		"lib": [
 			"dom",
 			"es2015"
@@ -8,6 +9,10 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"strict": true,
-		"target": "es5"
+		"target": "es5",
+		"paths": {
+			"tweakpane": ["../../lib/index"],
+			"tweakpane/*": ["../../lib/*"],
+		}
 	}
 }

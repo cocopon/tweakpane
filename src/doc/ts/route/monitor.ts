@@ -1,6 +1,6 @@
-import {selectContainer, wave} from '../util';
+import Tweakpane from 'tweakpane';
 
-declare let Tweakpane: any;
+import {selectContainer, wave} from '../util';
 
 export function initMonitor() {
 	const SHARED_PARAMS = {
