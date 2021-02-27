@@ -1,6 +1,7 @@
 import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
+import {InputBindingApi} from '../api/input-binding';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {forceCast} from '../misc/type-util';
@@ -18,14 +19,21 @@ describe(Tweakpane.name, () => {
 	it('should handle global input events', (done) => {
 		const pane = createPane();
 		const obj = {foo: 1};
+		const bapi = pane.addInput(obj, 'foo');
+
 		pane.on('change', (ev) => {
 			assert.instanceOf(ev, TpChangeEvent);
 			assert.strictEqual(ev.presetKey, 'foo');
 			assert.strictEqual(ev.value, 2);
+
+			if (!(ev.target instanceof InputBindingApi)) {
+				throw new Error('unexpected target');
+			}
+			assert.strictEqual(ev.target.controller, bapi.controller);
+
 			done();
 		});
 
-		const bapi = pane.addInput(obj, 'foo');
 		const value: Value<number> = forceCast(bapi.controller.binding.value);
 		value.rawValue += 1;
 	});
@@ -33,18 +41,24 @@ describe(Tweakpane.name, () => {
 	it('should handle global input events (nested)', (done) => {
 		const pane = createPane();
 		const obj = {foo: 1};
+		const fapi = pane.addFolder({
+			title: 'foo',
+		});
+		const bapi = fapi.addInput(obj, 'foo');
+
 		pane.on('change', (ev) => {
 			assert.instanceOf(ev, TpChangeEvent);
 			assert.strictEqual(ev.presetKey, 'foo');
 			assert.strictEqual(ev.value, 2);
+
+			if (!(ev.target instanceof InputBindingApi)) {
+				throw new Error('unexpected target');
+			}
+			assert.strictEqual(ev.target.controller, bapi.controller);
+
 			done();
 		});
 
-		const fapi = pane.addFolder({
-			title: 'foo',
-		});
-
-		const bapi = fapi.addInput(obj, 'foo');
 		const value: Value<number> = forceCast(bapi.controller.binding.value);
 		value.rawValue += 1;
 	});

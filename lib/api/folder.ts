@@ -1,7 +1,9 @@
 import {forceCast} from '../misc/type-util';
 import {ButtonController} from '../plugin/blade/button/controller';
 import {Blade} from '../plugin/blade/common/model/blade';
+import {BladeRackEvents} from '../plugin/blade/common/model/blade-rack';
 import {FolderController} from '../plugin/blade/folder/controller';
+import {FolderEvents} from '../plugin/blade/folder/model/folder';
 import {SeparatorController} from '../plugin/blade/separator/controller';
 import {
 	TpChangeEvent,
@@ -11,7 +13,6 @@ import {
 import {Emitter} from '../plugin/common/model/emitter';
 import {ButtonApi} from './button';
 import {ComponentApi} from './component-api';
-import {adaptFolder} from './event-handler-adapters';
 import {InputBindingApi} from './input-binding';
 import {createInputBindingController} from './input-binding-controllers';
 import {MonitorBindingApi} from './monitor-binding';
@@ -49,14 +50,21 @@ export class FolderApi implements ComponentApi {
 	 * @hidden
 	 */
 	constructor(controller: FolderController) {
+		this.onFolderChange_ = this.onFolderChange_.bind(this);
+		this.onRackInputChange_ = this.onRackInputChange_.bind(this);
+		this.onRackItemFold_ = this.onRackItemFold_.bind(this);
+		this.onRackMonitorUpdate_ = this.onRackMonitorUpdate_.bind(this);
+
 		this.controller = controller;
 
 		this.emitter_ = new Emitter();
-		adaptFolder({
-			emitter: this.emitter_,
-			folder: this.controller.folder,
-			rack: this.controller.bladeRack,
-		});
+
+		this.controller.folder.emitter.on('change', this.onFolderChange_);
+
+		const rack = this.controller.bladeRack;
+		rack.emitter.on('inputchange', this.onRackInputChange_);
+		rack.emitter.on('monitorupdate', this.onRackMonitorUpdate_);
+		rack.emitter.on('itemfold', this.onRackItemFold_);
 	}
 
 	get expanded(): boolean {
@@ -150,5 +158,46 @@ export class FolderApi implements ComponentApi {
 			bh(ev.event);
 		});
 		return this;
+	}
+
+	private onRackInputChange_(ev: BladeRackEvents['inputchange']) {
+		const bapi = new InputBindingApi(ev.bindingController);
+		const binding = ev.bindingController.binding;
+		this.emitter_.emit('change', {
+			event: new TpChangeEvent(
+				bapi,
+				forceCast(binding.target.read()),
+				binding.target.presetKey,
+			),
+		});
+	}
+
+	private onRackMonitorUpdate_(ev: BladeRackEvents['monitorupdate']) {
+		const bapi = new MonitorBindingApi(ev.bindingController);
+		const binding = ev.bindingController.binding;
+		this.emitter_.emit('update', {
+			event: new TpUpdateEvent(
+				bapi,
+				forceCast(binding.target.read()),
+				binding.target.presetKey,
+			),
+		});
+	}
+
+	private onRackItemFold_(ev: BladeRackEvents['itemfold']) {
+		const fapi = new FolderApi(ev.folderController);
+		this.emitter_.emit('fold', {
+			event: new TpFoldEvent(fapi, ev.folderController.folder.expanded),
+		});
+	}
+
+	private onFolderChange_(ev: FolderEvents['change']) {
+		if (ev.propertyName !== 'expanded') {
+			return;
+		}
+
+		this.emitter_.emit('fold', {
+			event: new TpFoldEvent(this, ev.sender.expanded),
+		});
 	}
 }

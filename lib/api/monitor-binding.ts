@@ -1,8 +1,9 @@
+import {forceCast} from '../misc/type-util';
 import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
+import {MonitorBindingEvents} from '../plugin/common/binding/monitor';
 import {TpUpdateEvent} from '../plugin/common/event/tp-event';
 import {Emitter} from '../plugin/common/model/emitter';
 import {ComponentApi} from './component-api';
-import {adaptMonitorBinding} from './event-handler-adapters';
 
 export interface MonitorBindingApiEvents<T> {
 	update: {
@@ -24,13 +25,12 @@ export class MonitorBindingApi<T> implements ComponentApi {
 	 * @hidden
 	 */
 	constructor(bindingController: MonitorBindingController<T>) {
-		this.controller = bindingController;
+		this.onBindingUpdate_ = this.onBindingUpdate_.bind(this);
 
 		this.emitter_ = new Emitter();
-		adaptMonitorBinding({
-			binding: bindingController.binding,
-			emitter: this.emitter_,
-		});
+
+		this.controller = bindingController;
+		this.controller.binding.emitter.on('update', this.onBindingUpdate_);
 	}
 
 	get hidden(): boolean {
@@ -58,5 +58,16 @@ export class MonitorBindingApi<T> implements ComponentApi {
 
 	public refresh(): void {
 		this.controller.binding.read();
+	}
+
+	private onBindingUpdate_(ev: MonitorBindingEvents<T>['update']) {
+		const value = ev.sender.target.read();
+		this.emitter_.emit('update', {
+			event: new TpUpdateEvent(
+				this,
+				forceCast(value),
+				this.controller.binding.target.presetKey,
+			),
+		});
 	}
 }

@@ -48,6 +48,7 @@ describe(InputBindingApi.name, () => {
 		const api = createApi(new BindingTarget(PARAMS, 'foo'));
 		api.on('change', (ev) => {
 			assert.instanceOf(ev, TpChangeEvent);
+			assert.strictEqual(ev.target, api);
 			assert.strictEqual(ev.presetKey, 'foo');
 			assert.strictEqual(ev.value, 123);
 			done();

@@ -13,6 +13,7 @@ import {Color} from '../plugin/input-bindings/color/model/color';
 import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
 import {SingleLogMonitorController} from '../plugin/monitor-bindings/common/controller/single-log';
 import {FolderApi} from './folder';
+import {InputBindingApi} from './input-binding';
 import {SeparatorApi} from './separator';
 
 function createApi(): FolderApi {
@@ -206,6 +207,7 @@ describe(FolderApi.name, () => {
 
 				bapi.on('change', (ev) => {
 					assert.instanceOf(ev, TpChangeEvent);
+					assert.strictEqual(ev.target, bapi);
 					assert.strictEqual(ev.presetKey, 'foo');
 					assert.strictEqual(ev.value, expected);
 					done();
@@ -222,6 +224,12 @@ describe(FolderApi.name, () => {
 					assert.instanceOf(ev, TpChangeEvent);
 					assert.strictEqual(ev.presetKey, 'foo');
 					assert.strictEqual(ev.value, expected);
+
+					if (!(ev.target instanceof InputBindingApi)) {
+						throw new Error('unexpected target');
+					}
+					assert.strictEqual(ev.target.controller, bapi.controller);
+
 					done();
 				});
 				bapi.controller.binding.value.rawValue = params.newInternalValue;

@@ -1,8 +1,9 @@
+import {forceCast} from '../misc/type-util';
 import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
+import {InputBindingEvents} from '../plugin/common/binding/input';
 import {TpChangeEvent} from '../plugin/common/event/tp-event';
 import {Emitter} from '../plugin/common/model/emitter';
 import {ComponentApi} from './component-api';
-import {adaptInputBinding} from './event-handler-adapters';
 
 export interface InputBindingApiEvents<Ex> {
 	change: {
@@ -26,13 +27,12 @@ export class InputBindingApi<In, Ex> implements ComponentApi {
 	 * @hidden
 	 */
 	constructor(bindingController: InputBindingController<In>) {
-		this.controller = bindingController;
+		this.onBindingChange_ = this.onBindingChange_.bind(this);
 
 		this.emitter_ = new Emitter();
-		adaptInputBinding<In, Ex>({
-			binding: bindingController.binding,
-			emitter: this.emitter_,
-		});
+
+		this.controller = bindingController;
+		this.controller.binding.emitter.on('change', this.onBindingChange_);
 	}
 
 	get hidden(): boolean {
@@ -60,5 +60,16 @@ export class InputBindingApi<In, Ex> implements ComponentApi {
 
 	public refresh(): void {
 		this.controller.binding.read();
+	}
+
+	private onBindingChange_(ev: InputBindingEvents<In>['change']) {
+		const value = ev.sender.target.read();
+		this.emitter_.emit('change', {
+			event: new TpChangeEvent(
+				this,
+				forceCast(value),
+				this.controller.binding.target.presetKey,
+			),
+		});
 	}
 }

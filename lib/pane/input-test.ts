@@ -1,6 +1,7 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
+import {InputBindingApi} from '../api/input-binding';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {TpChangeEvent} from '../plugin/common/event/tp-event';
@@ -104,6 +105,7 @@ describe(Tweakpane.name, () => {
 
 				bapi.on('change', (ev) => {
 					assert.instanceOf(ev, TpChangeEvent);
+					assert.strictEqual(ev.target, bapi);
 					assert.strictEqual(ev.presetKey, 'foo');
 					assert.strictEqual(ev.value, expected);
 					done();
@@ -113,15 +115,21 @@ describe(Tweakpane.name, () => {
 
 			it('should pass right argument for change event (global)', (done) => {
 				const pane = createPane();
+				const obj = {foo: params.propertyValue};
+				const bapi = pane.addInput(obj, 'foo');
+
 				pane.on('change', (ev) => {
 					assert.instanceOf(ev, TpChangeEvent);
 					assert.strictEqual(ev.presetKey, 'foo');
 					assert.strictEqual(ev.value, expected);
+
+					if (!(ev.target instanceof InputBindingApi)) {
+						throw new Error('unexpected target');
+					}
+					assert.strictEqual(ev.target.controller, bapi.controller);
+
 					done();
 				});
-
-				const obj = {foo: params.propertyValue};
-				const bapi = pane.addInput(obj, 'foo');
 				bapi.controller.binding.value.rawValue = params.newInternalValue;
 			});
 		});
