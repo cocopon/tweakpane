@@ -35,8 +35,8 @@ export class FolderApi implements ComponentApi {
 	/**
 	 * @hidden
 	 */
-	constructor(folderController: FolderController) {
-		this.controller = folderController;
+	constructor(controller: FolderController) {
+		this.controller = controller;
 	}
 
 	get expanded(): boolean {
@@ -116,6 +116,11 @@ export class FolderApi implements ComponentApi {
 		return new SeparatorApi(bc);
 	}
 
+	/**
+	 * Adds a global event listener. It handles all events of child inputs/monitors.
+	 * @param eventName The event name to listen.
+	 * @return The API object itself.
+	 */
 	public on<EventName extends keyof FolderApiEventHandlers>(
 		eventName: EventName,
 		handler: FolderApiEventHandlers[EventName],

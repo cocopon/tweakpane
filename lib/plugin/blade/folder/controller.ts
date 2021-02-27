@@ -14,6 +14,9 @@ interface Config {
 	expanded?: boolean;
 	title: string;
 	blade: Blade;
+
+	hidesTitle?: boolean;
+	viewName?: string;
 }
 
 /**
@@ -46,6 +49,8 @@ export class FolderController implements BladeController {
 		this.doc_ = doc;
 		this.view = new FolderView(this.doc_, {
 			folder: this.folder,
+			hidesTitle: config.hidesTitle,
+			viewName: config.viewName,
 		});
 		this.view.titleElement.addEventListener('click', this.onTitleClick_);
 		this.view.containerElement.addEventListener(

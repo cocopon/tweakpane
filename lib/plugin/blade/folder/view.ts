@@ -2,11 +2,12 @@ import {ClassName} from '../../common/view/class-name';
 import {View} from '../../common/view/view';
 import {Folder} from './model/folder';
 
-interface Config {
+export interface Config {
 	folder: Folder;
-}
 
-const className = ClassName('fld');
+	hidesTitle?: boolean;
+	viewName?: string;
+}
 
 /**
  * @hidden
@@ -16,6 +17,7 @@ export class FolderView implements View {
 	public readonly titleElement: HTMLButtonElement;
 	public readonly element: HTMLElement;
 	private folder_: Folder;
+	private className_: ReturnType<typeof ClassName>;
 
 	constructor(doc: Document, config: Config) {
 		this.onFolderChange_ = this.onFolderChange_.bind(this);
@@ -23,21 +25,25 @@ export class FolderView implements View {
 		this.folder_ = config.folder;
 		this.folder_.emitter.on('change', this.onFolderChange_);
 
+		this.className_ = ClassName(config.viewName || 'fld');
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(this.className_());
 
 		const titleElem = doc.createElement('button');
-		titleElem.classList.add(className('t'));
+		titleElem.classList.add(this.className_('t'));
 		titleElem.textContent = this.folder_.title;
+		if (config.hidesTitle) {
+			titleElem.style.display = 'none';
+		}
 		this.element.appendChild(titleElem);
 		this.titleElement = titleElem;
 
 		const markElem = doc.createElement('div');
-		markElem.classList.add(className('m'));
+		markElem.classList.add(this.className_('m'));
 		this.titleElement.appendChild(markElem);
 
 		const containerElem = doc.createElement('div');
-		containerElem.classList.add(className('c'));
+		containerElem.classList.add(this.className_('c'));
 		this.element.appendChild(containerElem);
 		this.containerElement = containerElem;
 
@@ -46,7 +52,7 @@ export class FolderView implements View {
 
 	private applyModel_() {
 		const expanded = this.folder_.styleExpanded;
-		const expandedClass = className(undefined, 'expanded');
+		const expandedClass = this.className_(undefined, 'expanded');
 		if (expanded) {
 			this.element.classList.add(expandedClass);
 		} else {
