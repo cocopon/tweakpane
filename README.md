@@ -16,7 +16,7 @@ value changes, inspired by [dat.GUI][].
 
 
 ## Features
-See the [official page][documents] for more detailed information.
+See the [official page][documents] for details.
 
 - [Inputs](https://cocopon.github.io/tweakpane/input.html)
   - Number (text / slider / list)
@@ -36,6 +36,7 @@ See the [official page][documents] for more detailed information.
 - [Misc](https://cocopon.github.io/tweakpane/misc.html)
   - JSON import / export
   - TypeScript type definitions
+- [Plugin](https://cocopon.github.io/tweakpane/plugin.html) (public beta)
 
 
 ## Development
