@@ -37,7 +37,7 @@ See the [official page][documents] for details.
 - [Misc](https://cocopon.github.io/tweakpane/misc.html)
   - JSON import / export
   - TypeScript type definitions
-- [Plugin](https://cocopon.github.io/tweakpane/plugin.html) (public beta)
+- [Plugin](https://cocopon.github.io/tweakpane/plugin.html)
 
 
 ## Development
