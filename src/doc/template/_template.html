@@ -2,7 +2,11 @@
 <html lang="en" class="{{ pageId }}">
 <head>
 	<meta charset="UTF-8">
+	{% if title %}
+	<title>{{ title }} | Tweakpane</title>
+	{% else %}
 	<title>Tweakpane</title>
+	{% endif %}
 	<meta name="viewport" content="initial-scale=1,minimum-scale=1,maximum-scale=1">
 	<meta name="og:description" content="{{ description }}">
 	<meta property="og:image" content="https://cocopon.github.io/tweakpane/assets/og.jpg">

@@ -1,4 +1,5 @@
 {% set pageId = 'monitor' %}
+{% set title = 'Monitors' %}
 {% extends "_template.html" %}
 
 
@@ -6,7 +7,7 @@
 <div class="pageHeader">
 	<div class="pageHeader_innerLayout">
 		<div class="pageHeader_titleLayout">
-			<h1 class="pageHeader_title">Monitors</h1>
+			<h1 class="pageHeader_title">{{ title }}</h1>
 			<p>Tweakpane also has a feature for monitoring value changes. Use <code>addMonitor()</code> to add components.</p>
 		</div>
 		<div class="pageHeader_paneLayout">

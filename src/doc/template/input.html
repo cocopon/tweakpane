@@ -1,4 +1,5 @@
 {% set pageId = 'input' %}
+{% set title = 'Inputs' %}
 {% extends "_template.html" %}
 
 
@@ -6,7 +7,7 @@
 <div class="pageHeader">
 	<div class="pageHeader_innerLayout">
 		<div class="pageHeader_titleLayout">
-			<h1 class="pageHeader_title">Inputs</h1>
+			<h1 class="pageHeader_title">{{ title }}</h1>
 			<p>For fine-tuning parameters, use <code>addInput()</code> of the pane to add components. Tweakpane checks specified parameter types and provides suitable components.</p>
 		</div>
 		<div class="pageHeader_paneLayout">
