@@ -1,18 +1,18 @@
 import {forceCast} from '../../misc/type-util';
 
 interface ErrorContext {
-	alreadydisposed: {};
+	alreadydisposed: undefined;
 	invalidparams: {name: string};
 	nomatchingcontroller: {key: string};
-	notbindable: {};
+	notbindable: undefined;
 	propertynotfound: {name: string};
-	shouldneverhappen: {};
+	shouldneverhappen: undefined;
 }
 
 type ErrorType = keyof ErrorContext;
 
 interface Config<T extends ErrorType> {
-	context: ErrorContext[T];
+	context?: ErrorContext[T];
 	type: T;
 }
 
@@ -30,12 +30,11 @@ const CREATE_MESSAGE_MAP: {[key in ErrorType]: CreateMessage<key>} = {
 
 export class TpError<T extends ErrorType> {
 	public static alreadyDisposed(): TpError<'alreadydisposed'> {
-		return new TpError({context: {}, type: 'alreadydisposed'});
+		return new TpError({type: 'alreadydisposed'});
 	}
 
 	public static notBindable(): TpError<'notbindable'> {
 		return new TpError({
-			context: {},
 			type: 'notbindable',
 		});
 	}
@@ -50,7 +49,7 @@ export class TpError<T extends ErrorType> {
 	}
 
 	public static shouldNeverHappen(): TpError<'shouldneverhappen'> {
-		return new TpError({context: {}, type: 'shouldneverhappen'});
+		return new TpError({type: 'shouldneverhappen'});
 	}
 
 	public readonly message: string;
