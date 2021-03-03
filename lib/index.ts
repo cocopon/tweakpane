@@ -1,5 +1,6 @@
 import {getAllPlugins} from './api/plugins';
 import {RootApi} from './api/root';
+import {Semver} from './misc/semver';
 import {TweakpaneConfig} from './pane/tweakpane-config';
 import {Blade} from './plugin/blade/common/model/blade';
 import {RootController} from './plugin/blade/folder/root';
@@ -50,6 +51,7 @@ function embedDefaultStyleIfNeeded(doc: Document) {
 }
 
 export default class Tweakpane extends RootApi {
+	public static readonly version = new Semver('3.14.16');
 	private doc_: Document | null;
 	private containerElem_: HTMLElement | null;
 	private usesDefaultWrapper_: boolean;

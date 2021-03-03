@@ -1,0 +1,46 @@
+import {assert} from 'chai';
+import {describe as context, describe, it} from 'mocha';
+
+import {Semver} from './semver';
+
+describe(Semver.name, () => {
+	[
+		{
+			expected: {
+				major: 0,
+				minor: 0,
+				patch: 0,
+				text: '0.0.0',
+			},
+			text: '0.0.0',
+		},
+		{
+			expected: {
+				major: 3,
+				minor: 14,
+				patch: 16,
+				text: '3.14.16',
+			},
+			text: '3.14.16',
+		},
+		{
+			expected: {
+				major: 0,
+				minor: 1,
+				patch: 100,
+				text: '0.1.100',
+			},
+			text: '0.01.0100',
+		},
+	].forEach(({expected, text}) => {
+		context(`when ${JSON.stringify(text)}`, () => {
+			it('should compare array deeply', () => {
+				const semver = new Semver(text);
+				assert.strictEqual(semver.major, expected.major);
+				assert.strictEqual(semver.minor, expected.minor);
+				assert.strictEqual(semver.patch, expected.patch);
+				assert.strictEqual(semver.toString(), expected.text);
+			});
+		});
+	});
+});
