@@ -4,7 +4,6 @@ module.exports = {
 		'plugin:@typescript-eslint/eslint-recommended',
 		'plugin:@typescript-eslint/recommended',
 		'plugin:prettier/recommended',
-		'prettier/@typescript-eslint',
 	],
 	parser: '@typescript-eslint/parser',
 	plugins: [
@@ -18,9 +17,14 @@ module.exports = {
 		'sort-imports': 'off',
 
 		'prettier/prettier': 'error',
-		'simple-import-sort/sort': 'error',
-		'@typescript-eslint/camelcase': ['error', {
-			allow: ['^opt_'],
+		'simple-import-sort/imports': 'error',
+		'@typescript-eslint/naming-convention': ['error', {
+			selector: 'variable',
+			format: ['camelCase', 'PascalCase', 'UPPER_CASE'],
+			custom: {
+				regex: '^opt_',
+				match: false,
+			},
 		}],
 		'@typescript-eslint/explicit-function-return-type': 'off',
 		'@typescript-eslint/no-empty-function': 'off',
@@ -28,5 +32,8 @@ module.exports = {
 		'@typescript-eslint/no-unused-vars': ['error', {
 			argsIgnorePattern: '^_',
 		}],
+
+		// TODO: Resolve latest lint warnings
+		'@typescript-eslint/explicit-module-boundary-types': 'off',
 	}
 };
