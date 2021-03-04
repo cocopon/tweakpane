@@ -20,6 +20,10 @@
 		.tp-rotv {
 			border-top-right-radius: 0;
 			box-shadow: 0 0 0 transparent;
+
+			@include nonwide() {
+				--tp-value-width: 60vw;
+			}
 		}
 	}
 	&_preview {

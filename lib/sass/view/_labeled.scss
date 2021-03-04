@@ -17,6 +17,6 @@
 		align-self: flex-start;
 		flex-grow: 0;
 		flex-shrink: 0;
-		width: 160px;
+		width: var(--value-width);
 	}
 }
