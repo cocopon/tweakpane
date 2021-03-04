@@ -1,26 +1,7 @@
 .#{$prefix}-p2dtxtv {
-	display: flex;
+	@extend %texts;
 
-	&_w {
-		align-items: center;
-		display: flex;
-
-		& + & {
-			margin-left: 2px;
-		}
-	}
 	&_i {
-		@extend %input;
-
-		padding: 0 4px;
-		width: 100%;
-	}
-	&_w:nth-child(1) &_i {
-		border-top-right-radius: 0;
-		border-bottom-right-radius: 0;
-	}
-	&_w:nth-child(2) &_i {
-		border-top-left-radius: 0;
-		border-bottom-left-radius: 0;
+		@extend %texts_input;
 	}
 }

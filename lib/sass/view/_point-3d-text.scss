@@ -1,29 +1,7 @@
 .#{$prefix}-p3dtxtv {
-	display: flex;
+	@extend %texts;
 
-	&_w {
-		align-items: center;
-		display: flex;
-
-		& + & {
-			margin-left: 2px;
-		}
-	}
 	&_i {
-		@extend %input;
-
-		padding: 0 4px;
-		width: 100%;
-	}
-	&_w:first-child &_i {
-		border-top-right-radius: 0;
-		border-bottom-right-radius: 0;
-	}
-	&_w:not(:first-child):not(:last-child) &_i {
-		border-radius: 0;
-	}
-	&_w:last-child &_i {
-		border-top-left-radius: 0;
-		border-bottom-left-radius: 0;
+		@extend %texts_input;
 	}
 }
