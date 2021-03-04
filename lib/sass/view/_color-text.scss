@@ -1,4 +1,4 @@
-.#{$prefix}-cctxtsv {
+.#{$prefix}-cltxtv {
 	display: flex;
 	width: 100%;
 
@@ -36,27 +36,11 @@
 		top: 3px;
 	}
 	&_w {
-		display: flex;
+		@extend %texts;
+
 		flex: 1;
 	}
 	&_i {
-		@extend %input;
-
-		border-radius: 0;
-		flex: 1;
-		padding: 0 4px;
-
-		&:first-child {
-			border-bottom-left-radius: $inner-border-radius;
-			border-top-left-radius: $inner-border-radius;
-		}
-		&:last-child {
-			border-bottom-right-radius: $inner-border-radius;
-			border-top-right-radius: $inner-border-radius;
-		}
-
-		& + & {
-			margin-left: 2px;
-		}
+		@extend %texts_input;
 	}
 }

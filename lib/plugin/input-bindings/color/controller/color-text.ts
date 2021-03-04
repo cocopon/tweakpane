@@ -7,7 +7,7 @@ import {Color} from '../model/color';
 import {ColorComponents4, ColorMode} from '../model/color-model';
 import {PickedColor} from '../model/picked-color';
 import {getBaseStepForColor} from '../util';
-import {ColorComponentTextsView} from '../view/color-component-texts';
+import {ColorTextView} from '../view/color-text';
 
 interface Config {
 	parser: Parser<number>;
@@ -17,9 +17,9 @@ interface Config {
 /**
  * @hidden
  */
-export class ColorComponentTextsController implements ValueController<Color> {
+export class ColorTextController implements ValueController<Color> {
 	public readonly pickedColor: PickedColor;
-	public readonly view: ColorComponentTextsView;
+	public readonly view: ColorTextView;
 	private parser_: Parser<number>;
 
 	constructor(doc: Document, config: Config) {
@@ -30,7 +30,7 @@ export class ColorComponentTextsController implements ValueController<Color> {
 		this.parser_ = config.parser;
 		this.pickedColor = config.pickedColor;
 
-		this.view = new ColorComponentTextsView(doc, {
+		this.view = new ColorTextView(doc, {
 			pickedColor: this.pickedColor,
 		});
 		this.view.inputElements.forEach((inputElem) => {

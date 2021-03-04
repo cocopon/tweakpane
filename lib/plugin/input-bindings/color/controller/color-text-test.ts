@@ -6,7 +6,7 @@ import {parseNumber} from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
 import {Color, RgbaColorObject} from '../model/color';
 import {PickedColor} from '../model/picked-color';
-import {ColorComponentTextsController} from './color-component-texts';
+import {ColorTextController} from './color-text';
 
 interface ChangeTestCase {
 	expected: RgbaColorObject;
@@ -29,7 +29,7 @@ interface KeydownTestCase {
 	};
 }
 
-describe(ColorComponentTextsController.name, () => {
+describe(ColorTextController.name, () => {
 	([
 		{
 			expected: {r: 123, g: 0, b: 0, a: 1},
@@ -71,7 +71,7 @@ describe(ColorComponentTextsController.name, () => {
 
 				const win = TestUtil.createWindow();
 				const doc = win.document;
-				const c = new ColorComponentTextsController(doc, {
+				const c = new ColorTextController(doc, {
 					parser: parseNumber,
 					pickedColor: new PickedColor(value),
 				});
@@ -133,7 +133,7 @@ describe(ColorComponentTextsController.name, () => {
 
 				const win = TestUtil.createWindow();
 				const doc = win.document;
-				const c = new ColorComponentTextsController(doc, {
+				const c = new ColorTextController(doc, {
 					parser: parseNumber,
 					pickedColor: new PickedColor(value),
 				});

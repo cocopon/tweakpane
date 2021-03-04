@@ -15,7 +15,7 @@ type HtmlInputElements3 = [
 	HTMLInputElement,
 ];
 
-const className = ClassName('cctxts');
+const className = ClassName('cltxt');
 const FORMATTER = createNumberFormatter(0);
 
 function createModeSelectElement(doc: Document): HTMLSelectElement {
@@ -40,7 +40,7 @@ function createModeSelectElement(doc: Document): HTMLSelectElement {
 /**
  * @hidden
  */
-export class ColorComponentTextsView implements ValueView<Color> {
+export class ColorTextView implements ValueView<Color> {
 	public readonly element: HTMLElement;
 	public readonly pickedColor: PickedColor;
 	private modeElem_: HTMLSelectElement;

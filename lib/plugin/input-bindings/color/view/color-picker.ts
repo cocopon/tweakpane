@@ -7,7 +7,7 @@ import {TextView} from '../../common/view/text';
 import {Color} from '../model/color';
 import {PickedColor} from '../model/picked-color';
 import {APaletteView} from './a-palette';
-import {ColorComponentTextsView} from './color-component-texts';
+import {ColorTextView} from './color-text';
 import {HPaletteView} from './h-palette';
 import {SvPaletteView} from './sv-palette';
 
@@ -18,12 +18,12 @@ interface Config {
 		palette: APaletteView;
 		text: TextView<number>;
 	} | null;
-	componentTextsView: ColorComponentTextsView;
 	foldable: Foldable;
 	hPaletteView: HPaletteView;
 	pickedColor: PickedColor;
 	supportsAlpha: boolean;
 	svPaletteView: SvPaletteView;
+	textView: ColorTextView;
 }
 
 /**
@@ -38,8 +38,8 @@ export class ColorPickerView implements ValueView<Color> {
 		text: TextView<number>;
 	} | null = null;
 	private hPaletteView_: HPaletteView;
-	private compTextsView_: ColorComponentTextsView;
 	private svPaletteView_: SvPaletteView;
+	private textView_: ColorTextView;
 
 	constructor(doc: Document, config: Config) {
 		this.onFoldableChange_ = this.onFoldableChange_.bind(this);
@@ -72,8 +72,8 @@ export class ColorPickerView implements ValueView<Color> {
 
 		const rgbElem = doc.createElement('div');
 		rgbElem.classList.add(className('rgb'));
-		this.compTextsView_ = config.componentTextsView;
-		rgbElem.appendChild(this.compTextsView_.element);
+		this.textView_ = config.textView;
+		rgbElem.appendChild(this.textView_.element);
 		this.element.appendChild(rgbElem);
 
 		if (config.alphaViews) {
@@ -105,7 +105,7 @@ export class ColorPickerView implements ValueView<Color> {
 		const elems = [
 			this.svPaletteView_.element,
 			this.hPaletteView_.element,
-			...this.compTextsView_.inputElements,
+			...this.textView_.inputElements,
 		];
 		if (this.alphaViews_) {
 			elems.push(

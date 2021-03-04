@@ -38,11 +38,8 @@ export class Point3dTextView implements ValueView<Point3d> {
 			inputElem.type = 'text';
 			return inputElem;
 		});
-		[0, 1, 2].forEach((_, index) => {
-			const elem = doc.createElement('div');
-			elem.classList.add(className('w'));
-			elem.appendChild(inputElems[index]);
-			this.element.appendChild(elem);
+		inputElems.forEach((inputElem) => {
+			this.element.appendChild(inputElem);
 		});
 
 		this.inputElems_ = [inputElems[0], inputElems[1], inputElems[2]];

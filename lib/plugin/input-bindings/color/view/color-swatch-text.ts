@@ -10,7 +10,7 @@ interface Config {
 	textView: TextView<Color>;
 }
 
-const className = ClassName('cswtxt');
+const className = ClassName('clswtxt');
 
 /**
  * @hidden
