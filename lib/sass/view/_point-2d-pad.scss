@@ -1,16 +1,10 @@
 .#{$prefix}-p2dpadv {
-	background-color: var(--base-background-color);
-	border-radius: 6px;
-	box-shadow: 0 2px 4px var(--base-shadow-color);
-	display: none;
-	padding: 4px 4px 4px calc(4px * 2 + var(--unit-size));
-	position: relative;
-	visibility: hidden;
-	z-index: $z-index-picker;
+	@extend %picker;
+
+	padding-left: calc(4px * 2 + var(--unit-size));
 
 	&#{&}-expanded {
-		display: block;
-		visibility: visible;
+		@extend %picker-expanded;
 	}
 
 	&_p {

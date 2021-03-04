@@ -3,18 +3,10 @@ $marker-border-color-focus: white;
 $slider-track-width: 4px;
 
 .#{$prefix}-clpv {
-	background-color: var(--base-background-color);
-	border-radius: 6px;
-	box-shadow: 0 2px 4px var(--base-shadow-color);
-	display: none;
-	padding: 4px;
-	position: relative;
-	visibility: hidden;
-	z-index: $z-index-picker;
+	@extend %picker;
 
 	&#{&}-expanded {
-		display: block;
-		visibility: visible;
+		@extend %picker-expanded;
 	}
 
 	&_h,

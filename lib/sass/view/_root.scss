@@ -16,6 +16,7 @@
 		('Roboto Mono', 'Source Code Pro', Menlo, Courier, monospace)
 	);
 	@include themeVariable('unit-size', 20px);
+	@include themeVariable('value-width', 160px);
 
 	@include themeVariable('base-background-color', $bg-color);
 	@include themeVariable('base-shadow-color', rgba(black, 0.2));

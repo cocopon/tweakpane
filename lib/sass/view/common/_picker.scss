@@ -1,0 +1,16 @@
+%picker {
+	background-color: var(--base-background-color);
+	border-radius: 6px;
+	box-shadow: 0 2px 4px var(--base-shadow-color);
+	display: none;
+	max-width: 160px + 2 * 4px;
+	padding: 4px;
+	position: relative;
+	visibility: hidden;
+	z-index: $z-index-picker;
+}
+
+%picker-expanded {
+	display: block;
+	visibility: visible;
+}
