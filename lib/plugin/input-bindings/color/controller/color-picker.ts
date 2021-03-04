@@ -13,7 +13,7 @@ import {PickedColor} from '..//model/picked-color';
 import {Color} from '../model/color';
 import {ColorPickerView} from '../view/color-picker';
 import {APaletteController} from './a-palette';
-import {ColorComponentTextsController} from './color-component-texts';
+import {ColorTextController} from './color-text';
 import {HPaletteController} from './h-palette';
 import {SvPaletteController} from './sv-palette';
 
@@ -35,8 +35,8 @@ export class ColorPickerController implements ValueController<Color> {
 		text: TextController<number>;
 	} | null;
 	private hPaletteIc_: HPaletteController;
-	private compTextsIc_: ColorComponentTextsController;
 	private svPaletteIc_: SvPaletteController;
+	private textIc_: ColorTextController;
 
 	constructor(doc: Document, config: Config) {
 		this.onFocusableElementBlur_ = this.onFocusableElementBlur_.bind(this);
@@ -78,7 +78,7 @@ export class ColorPickerController implements ValueController<Color> {
 				},
 			});
 		}
-		this.compTextsIc_ = new ColorComponentTextsController(doc, {
+		this.textIc_ = new ColorTextController(doc, {
 			parser: parseNumber,
 			pickedColor: this.pickedColor,
 		});
@@ -90,12 +90,12 @@ export class ColorPickerController implements ValueController<Color> {
 						text: this.alphaIcs_.text.view,
 				  }
 				: null,
-			componentTextsView: this.compTextsIc_.view,
 			foldable: this.foldable,
 			hPaletteView: this.hPaletteIc_.view,
 			pickedColor: this.pickedColor,
 			supportsAlpha: config.supportsAlpha,
 			svPaletteView: this.svPaletteIc_.view,
+			textView: this.textIc_.view,
 		});
 		this.view.element.addEventListener('keydown', this.onKeyDown_);
 		this.view.allFocusableElements.forEach((elem) => {

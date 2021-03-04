@@ -10,7 +10,7 @@ interface Config {
 	value: Value<Color>;
 }
 
-const className = ClassName('csw');
+const className = ClassName('clsw');
 
 /**
  * @hidden

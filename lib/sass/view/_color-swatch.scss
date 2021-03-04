@@ -1,4 +1,4 @@
-.#{$prefix}-cswv {
+.#{$prefix}-clswv {
 	@include checkerboard(10px);
 
 	border-radius: $inner-border-radius;
@@ -42,7 +42,7 @@
 }
 
 // colorswatch-text
-.#{$prefix}-cswtxtv {
+.#{$prefix}-clswtxtv {
 	display: flex;
 	position: relative;
 
