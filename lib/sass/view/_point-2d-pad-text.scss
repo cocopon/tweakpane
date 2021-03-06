@@ -18,6 +18,15 @@
 			position: absolute;
 			top: 50%;
 			width: 16px;
+
+			path {
+				stroke: currentColor;
+				stroke-linecap: round;
+				stroke-width: 2;
+			}
+			circle {
+				fill: currentColor;
+			}
 		}
 	}
 	&_p {

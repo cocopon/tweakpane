@@ -46,7 +46,7 @@ type IconId = 'p2dpad';
 
 const ICON_ID_TO_INNER_HTML_MAP: {[key in IconId]: string} = {
 	p2dpad:
-		'<path d="M8 2V14" stroke="currentColor" stroke-width="1.5"/><path d="M2 8H14" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="8" r="2" fill="currentColor"/>',
+		'<path d="M8 5v6"/><path d="M5 8h6"/><circle cx="12" cy="12" r="1.2"/>',
 };
 
 export function createSvgIconElement(
