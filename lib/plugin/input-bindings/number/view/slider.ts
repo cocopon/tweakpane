@@ -19,7 +19,6 @@ export class SliderView implements ValueView<number> {
 	public readonly knobElement: HTMLDivElement;
 	public readonly trackElement: HTMLDivElement;
 	public readonly value: Value<number>;
-	private readonly barElem_: HTMLElement;
 	private maxValue_: number;
 	private minValue_: number;
 
@@ -38,11 +37,6 @@ export class SliderView implements ValueView<number> {
 		this.element.appendChild(trackElem);
 		this.trackElement = trackElem;
 
-		const barElem = doc.createElement('div');
-		barElem.classList.add(className('b'));
-		this.trackElement.appendChild(barElem);
-		this.barElem_ = barElem;
-
 		const knobElem = doc.createElement('div');
 		knobElem.classList.add(className('k'));
 		this.trackElement.appendChild(knobElem);
@@ -60,7 +54,6 @@ export class SliderView implements ValueView<number> {
 			0,
 			100,
 		);
-		this.barElem_.style.width = `${p}%`;
 		this.knobElement.style.width = `${p}%`;
 	}
 

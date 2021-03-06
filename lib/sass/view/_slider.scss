@@ -21,18 +21,6 @@
 			top: 0;
 		}
 	}
-	&_b {
-		background-color: var(--input-foreground-color);
-		border-radius: 1px;
-		bottom: 0;
-		display: block;
-		height: 2px;
-		left: 0;
-		margin-bottom: auto;
-		margin-top: auto;
-		position: absolute;
-		top: 0;
-	}
 	&_k {
 		height: 100%;
 		left: 0;
@@ -40,26 +28,41 @@
 		top: 0;
 
 		&::before {
+			background-color: var(--input-foreground-color);
+			border-radius: 1px;
+			bottom: 0;
+			content: '';
+			display: block;
+			height: 2px;
+			left: 0;
+			margin-bottom: auto;
+			margin-top: auto;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+		&::after {
 			background-color: var(--button-background-color);
 			border-radius: $inner-border-radius;
 			bottom: 0;
 			content: '';
 			display: block;
 			height: $slider-knob-size;
-			margin: auto;
+			margin-bottom: auto;
+			margin-top: auto;
 			position: absolute;
 			right: -$slider-knob-size / 2;
 			top: 0;
 			width: $slider-knob-size;
 		}
 	}
-	&_t:hover &_k::before {
+	&_t:hover &_k::after {
 		background-color: var(--button-background-color-hover);
 	}
-	&_t:focus &_k::before {
+	&_t:focus &_k::after {
 		background-color: var(--button-background-color-focus);
 	}
-	&_t:active &_k::before {
+	&_t:active &_k::after {
 		background-color: var(--button-background-color-active);
 	}
 }
