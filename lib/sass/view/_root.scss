@@ -85,6 +85,8 @@
 		border-bottom-right-radius: $outer-border-radius;
 		border-top-left-radius: $outer-border-radius;
 		border-top-right-radius: $outer-border-radius;
+		padding-right: (4px + 24px);
+		text-align: center;
 	}
 	&#{&}-expanded &_t {
 		border-bottom-left-radius: 0;
