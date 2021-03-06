@@ -4,7 +4,7 @@
 
 %themeVariables {
 	$base-hue: 230;
-	$color-exdark: hsl($base-hue, 7%, 16%);
+	$color-exdark: hsl($base-hue, 7%, 0%);
 	$color-dark: hsl($base-hue, 7%, 20%);
 	$color-light: hsl($base-hue, 7%, 70%);
 	$color-exlight: hsl($base-hue, 7%, 80%);
@@ -56,14 +56,14 @@
 	@include themeVariable('input-background-color-focus', rgba($fg-color, 0.2));
 	@include themeVariable('input-background-color-hover', rgba($fg-color, 0.15));
 	@include themeVariable('input-foreground-color', $fg-color);
-	@include themeVariable('input-guide-color', rgba($bg-color, 0.5));
+	@include themeVariable('input-guide-color', rgba($color-exdark, 0.2));
 
 	@include themeVariable('label-foreground-color', rgba($fg-color, 0.7));
 
-	@include themeVariable('monitor-background-color', $color-exdark);
+	@include themeVariable('monitor-background-color', rgba($color-exdark, 0.2));
 	@include themeVariable('monitor-foreground-color', rgba($fg-color, 0.7));
 
-	@include themeVariable('separator-color', $color-exdark);
+	@include themeVariable('separator-color', rgba($color-exdark, 0.2));
 }
 
 .#{$prefix}-rotv {
