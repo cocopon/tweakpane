@@ -1,3 +1,4 @@
+import {createSvgIconElement} from '../../common/dom-util';
 import {Value} from '../../common/model/value';
 import {ClassName} from '../../common/view/class-name';
 import {ValueView} from '../../common/view/value';
@@ -32,9 +33,12 @@ export class CheckboxView implements ValueView<boolean> {
 		labelElem.appendChild(inputElem);
 		this.inputElement = inputElem;
 
-		const markElem = doc.createElement('div');
-		markElem.classList.add(className('m'));
-		labelElem.appendChild(markElem);
+		const wrapperElem = doc.createElement('div');
+		wrapperElem.classList.add(className('w'));
+		labelElem.appendChild(wrapperElem);
+
+		const markElem = createSvgIconElement(doc, 'check');
+		wrapperElem.appendChild(markElem);
 
 		config.value.emitter.on('change', this.onValueChange_);
 		this.value = config.value;

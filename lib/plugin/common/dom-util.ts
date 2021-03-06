@@ -42,12 +42,13 @@ export function getCanvasContext(
 	return isBrowser() ? canvasElement.getContext('2d') : null;
 }
 
-type IconId = 'p2dpad';
-
-const ICON_ID_TO_INNER_HTML_MAP: {[key in IconId]: string} = {
+const ICON_ID_TO_INNER_HTML_MAP: {[key in string]: string} = {
+	check: '<path d="M2 8l4 4l8 -8"/>',
 	p2dpad:
-		'<path d="M8 5v6"/><path d="M5 8h6"/><circle cx="12" cy="12" r="1.2"/>',
+		'<path d="M8 4v8"/><path d="M4 8h8"/><circle cx="12" cy="12" r="1.2"/>',
 };
+
+type IconId = keyof typeof ICON_ID_TO_INNER_HTML_MAP;
 
 export function createSvgIconElement(
 	document: Document,

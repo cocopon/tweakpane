@@ -11,7 +11,7 @@
 		position: absolute;
 		top: 0;
 	}
-	&_m {
+	&_w {
 		background-color: var(--input-background-color);
 		border-radius: $inner-border-radius;
 		cursor: pointer;
@@ -20,29 +20,35 @@
 		position: relative;
 		width: var(--unit-size);
 
-		&::before {
-			background-color: var(--input-foreground-color);
-			border-radius: $inner-border-radius;
-			bottom: 4px;
-			content: '';
+		svg {
+			bottom: 0;
 			display: block;
-			left: 4px;
+			height: 16px;
+			left: 0;
+			margin: auto;
 			opacity: 0;
 			position: absolute;
-			right: 4px;
-			top: 4px;
+			right: 0;
+			top: 0;
+			width: 16px;
+
+			path {
+				fill: none;
+				stroke: var(--input-foreground-color);
+				stroke-width: 2;
+			}
 		}
 	}
-	&_i:hover + &_m {
+	&_i:hover + &_w {
 		background-color: var(--input-background-color-hover);
 	}
-	&_i:focus + &_m {
+	&_i:focus + &_w {
 		background-color: var(--input-background-color-focus);
 	}
-	&_i:active + &_m {
+	&_i:active + &_w {
 		background-color: var(--input-background-color-active);
 	}
-	&_i:checked + &_m::before {
+	&_i:checked + &_w svg {
 		opacity: 1;
 	}
 }
