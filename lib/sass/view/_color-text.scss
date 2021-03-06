@@ -3,8 +3,9 @@
 	width: 100%;
 
 	&_m {
+		@extend %list;
+
 		margin-right: 4px;
-		position: relative;
 	}
 	&_ms {
 		@extend %resetUserAgent;
@@ -27,13 +28,9 @@
 		}
 	}
 	&_mm {
-		@include list_arrow(var(--label-foreground-color), 6px);
+		@extend %list_arrow;
 
-		bottom: 0;
-		margin: auto;
-		position: absolute;
-		right: 6px;
-		top: 3px;
+		color: var(--label-foreground-color);
 	}
 	&_w {
 		@extend %texts;

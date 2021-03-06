@@ -39,9 +39,11 @@ function applyTheme({
 
 function createPreviewPane(containerElem: HTMLElement) {
 	const PARAMS = {
+		checkbox: true,
 		color: 'rgba(0, 0, 0, 0)',
+		list: 'item',
 		point2d: {x: 0, y: 0},
-		slider: 0,
+		slider: 32,
 		text: 'text',
 		monitor: [0, 1, 2, 3].map(() => Math.random().toFixed(2)).join('\n'),
 	};
@@ -54,6 +56,10 @@ function createPreviewPane(containerElem: HTMLElement) {
 		max: 64,
 		min: 0,
 	});
+	pane.addInput(PARAMS, 'list', {
+		options: {item: 'item'},
+	});
+	pane.addInput(PARAMS, 'checkbox');
 	pane.addButton({
 		title: 'button',
 	});

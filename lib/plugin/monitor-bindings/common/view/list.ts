@@ -1,4 +1,5 @@
 import {ListItem} from '../../../common/constraint/list';
+import {createSvgIconElement} from '../../../common/dom-util';
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
@@ -42,6 +43,7 @@ export class ListView<T> implements ValueView<T> {
 
 		const markElem = doc.createElement('div');
 		markElem.classList.add(className('m'));
+		markElem.appendChild(createSvgIconElement(doc, 'dropdown'));
 		this.element.appendChild(markElem);
 
 		config.value.emitter.on('change', this.onValueChange_);

@@ -1,19 +1,15 @@
 .#{$prefix}-lstv {
-	position: relative;
+	@extend %list;
 
 	&_s {
-		@extend %button;
+		@extend %list_select;
 
-		padding: 0 (6px * 2 + 6px) 0 4px;
+		padding: 0 (16px + 2px * 2) 0 4px;
 		width: 100%;
 	}
 	&_m {
-		@include list_arrow(var(--button-foreground-color), 6px);
+		@extend %list_arrow;
 
-		bottom: 0;
-		margin: auto;
-		position: absolute;
-		right: 6px;
-		top: 3px;
+		color: var(--button-foreground-color);
 	}
 }

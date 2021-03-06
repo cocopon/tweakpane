@@ -1,5 +1,5 @@
 .#{$prefix}-sldv {
-	&_o {
+	&_t {
 		box-sizing: border-box;
 		cursor: pointer;
 		height: var(--unit-size);
@@ -21,33 +21,48 @@
 			top: 0;
 		}
 	}
-	&_i {
+	&_k {
 		height: 100%;
 		left: 0;
 		position: absolute;
 		top: 0;
 
 		&::before {
+			background-color: var(--input-foreground-color);
+			border-radius: 1px;
+			bottom: 0;
+			content: '';
+			display: block;
+			height: 2px;
+			left: 0;
+			margin-bottom: auto;
+			margin-top: auto;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+		&::after {
 			background-color: var(--button-background-color);
 			border-radius: $inner-border-radius;
 			bottom: 0;
 			content: '';
 			display: block;
 			height: $slider-knob-size;
-			margin: auto;
+			margin-bottom: auto;
+			margin-top: auto;
 			position: absolute;
 			right: -$slider-knob-size / 2;
 			top: 0;
 			width: $slider-knob-size;
 		}
 	}
-	&_o:hover &_i::before {
+	&_t:hover &_k::after {
 		background-color: var(--button-background-color-hover);
 	}
-	&_o:focus &_i::before {
+	&_t:focus &_k::after {
 		background-color: var(--button-background-color-focus);
 	}
-	&_o:active &_i::before {
+	&_t:active &_k::after {
 		background-color: var(--button-background-color-active);
 	}
 }

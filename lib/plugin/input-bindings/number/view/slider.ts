@@ -16,8 +16,8 @@ const className = ClassName('sld');
  */
 export class SliderView implements ValueView<number> {
 	public readonly element: HTMLElement;
-	public readonly innerElement: HTMLDivElement;
-	public readonly outerElement: HTMLDivElement;
+	public readonly knobElement: HTMLDivElement;
+	public readonly trackElement: HTMLDivElement;
 	public readonly value: Value<number>;
 	private maxValue_: number;
 	private minValue_: number;
@@ -31,16 +31,16 @@ export class SliderView implements ValueView<number> {
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
 
-		const outerElem = doc.createElement('div');
-		outerElem.classList.add(className('o'));
-		outerElem.tabIndex = 0;
-		this.element.appendChild(outerElem);
-		this.outerElement = outerElem;
+		const trackElem = doc.createElement('div');
+		trackElem.classList.add(className('t'));
+		trackElem.tabIndex = 0;
+		this.element.appendChild(trackElem);
+		this.trackElement = trackElem;
 
-		const innerElem = doc.createElement('div');
-		innerElem.classList.add(className('i'));
-		this.outerElement.appendChild(innerElem);
-		this.innerElement = innerElem;
+		const knobElem = doc.createElement('div');
+		knobElem.classList.add(className('k'));
+		this.trackElement.appendChild(knobElem);
+		this.knobElement = knobElem;
 
 		config.value.emitter.on('change', this.onValueChange_);
 		this.value = config.value;
@@ -54,7 +54,7 @@ export class SliderView implements ValueView<number> {
 			0,
 			100,
 		);
-		this.innerElement.style.width = `${p}%`;
+		this.knobElement.style.width = `${p}%`;
 	}
 
 	private onValueChange_(): void {

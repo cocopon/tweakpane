@@ -48,7 +48,7 @@
     "doc:watch": "run-p doc:watch:*",
     "doc:watch:scss": "onchange 'src/doc/sass/**/*.scss' -- npm run doc:build:scss",
     "doc:watch:html": "onchange 'src/doc/template/**/*.html' -- npm run doc:build:html",
-    "doc:watch:ts": "rollup --config rollup-doc.config.js --watch",
+    "doc:watch:ts": "onchange 'src/doc/ts/**/*.ts' -- npm run doc:build:ts",
     "main:build": "run-p main:build:*",
     "main:build:dts": "tsc --project lib/tsconfig-dts.json",
     "main:build:dev": "rollup --config rollup.config.js",
@@ -65,7 +65,7 @@
     "main:test:ts:module": "npm pack && node scripts/main-test-ts-module-pre.js && (cd test-module && rm -rf ./node_modules/tweakpane && npm install && npm test)",
     "main:test:ts:static": "eslint --ext .ts 'lib/**/*.ts'",
     "main:watch": "run-p main:watch:*",
-    "main:watch:ts": "rollup --config rollup.config.js --watch",
+    "main:watch:ts": "onchange 'lib/**/*.ts' -- npm run main:build:dev",
     "main:watch:scss": "onchange 'lib/sass/**/*.scss' -- npm run main:build:dev"
   },
   "devDependencies": {
