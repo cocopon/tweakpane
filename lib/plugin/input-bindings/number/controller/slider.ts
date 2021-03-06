@@ -64,12 +64,12 @@ export class SliderController implements ValueController<number> {
 			value: this.value,
 		});
 
-		this.ptHandler_ = new PointerHandler(this.view.outerElement);
+		this.ptHandler_ = new PointerHandler(this.view.trackElement);
 		this.ptHandler_.emitter.on('down', this.onPointerDown_);
 		this.ptHandler_.emitter.on('move', this.onPointerMove_);
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
 
-		this.view.outerElement.addEventListener('keydown', this.onKeyDown_);
+		this.view.trackElement.addEventListener('keydown', this.onKeyDown_);
 	}
 
 	private handlePointerEvent_(d: PointerData): void {
