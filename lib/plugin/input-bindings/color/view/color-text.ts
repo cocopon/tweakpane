@@ -1,4 +1,5 @@
 import {createNumberFormatter} from '../../../common/converter/number';
+import {createSvgIconElement} from '../../../common/dom-util';
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
@@ -60,6 +61,7 @@ export class ColorTextView implements ValueView<Color> {
 
 		const modeMarkerElem = doc.createElement('div');
 		modeMarkerElem.classList.add(className('mm'));
+		modeMarkerElem.appendChild(createSvgIconElement(doc, 'dropdown'));
 		modeElem.appendChild(modeMarkerElem);
 
 		this.element.appendChild(modeElem);

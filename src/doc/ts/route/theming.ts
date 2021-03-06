@@ -41,6 +41,7 @@ function createPreviewPane(containerElem: HTMLElement) {
 	const PARAMS = {
 		checkbox: true,
 		color: 'rgba(0, 0, 0, 0)',
+		list: 'item',
 		point2d: {x: 0, y: 0},
 		slider: 32,
 		text: 'text',
@@ -54,6 +55,9 @@ function createPreviewPane(containerElem: HTMLElement) {
 	pane.addInput(PARAMS, 'slider', {
 		max: 64,
 		min: 0,
+	});
+	pane.addInput(PARAMS, 'list', {
+		options: {item: 'item'},
 	});
 	pane.addInput(PARAMS, 'checkbox');
 	pane.addButton({
