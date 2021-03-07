@@ -15,30 +15,6 @@ export function initMisc() {
 	const markerToFnMap: {
 		[key: string]: (container: HTMLElement) => void;
 	} = {
-		misc: (container) => {
-			const PARAMS = {value: 0};
-			const pane = new Tweakpane({
-				container: container,
-				title: 'Global title',
-			});
-			pane.addInput(PARAMS, 'value', {
-				label: 'custom label',
-			});
-			const f = pane.addFolder({
-				title: 'Folder',
-			});
-			f.addButton({
-				title: 'Button1',
-			});
-			f.addButton({
-				title: 'Button2',
-			});
-			f.addSeparator();
-			f.addButton({
-				title: 'Button3',
-			});
-		},
-
 		event: (container) => {
 			const consoleElem = selectContainer('eventconsole');
 			if (!consoleElem) {
