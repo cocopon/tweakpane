@@ -95,7 +95,7 @@ export type MonitorParams =
 	| NumberMonitorParams
 	| StringMonitorParams;
 
-export interface ButtonParams extends BaseParams {
+export interface ButtonParams extends BaseParams, LabelableParams {
 	title: string;
 }
 

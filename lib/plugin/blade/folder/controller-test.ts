@@ -2,8 +2,9 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../misc/test-util';
-import {ButtonController} from '../button/controller';
+import {ButtonController} from '../button/controller/button';
 import {Blade} from '../common/model/blade';
+import {LabeledController} from '../labeled/controller';
 import {FolderController} from './controller';
 import {FolderEvents} from './model/folder';
 
@@ -34,9 +35,11 @@ describe(FolderController.name, () => {
 			title: 'Push',
 			blade: new Blade(),
 		});
-		const cc = new ButtonController(doc, {
-			title: 'Foobar',
+		const cc = new LabeledController(doc, {
 			blade: new Blade(),
+			valueController: new ButtonController(doc, {
+				title: 'Foobar',
+			}),
 		});
 		c.bladeRack.add(cc);
 

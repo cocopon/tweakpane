@@ -1,9 +1,10 @@
 import {forceCast} from '../misc/type-util';
-import {ButtonController} from '../plugin/blade/button/controller';
+import {ButtonController} from '../plugin/blade/button/controller/button';
 import {Blade} from '../plugin/blade/common/model/blade';
 import {BladeRackEvents} from '../plugin/blade/common/model/blade-rack';
 import {FolderController} from '../plugin/blade/folder/controller';
 import {FolderEvents} from '../plugin/blade/folder/model/folder';
+import {LabeledController} from '../plugin/blade/labeled/controller';
 import {SeparatorController} from '../plugin/blade/separator/controller';
 import {Emitter} from '../plugin/common/model/emitter';
 import {ButtonApi} from './button';
@@ -123,9 +124,11 @@ export class FolderApi implements ComponentApi {
 	}
 
 	public addButton(params: ButtonParams): ButtonApi {
-		const bc = new ButtonController(this.controller.document, {
-			...params,
+		const doc = this.controller.document;
+		const bc = new LabeledController(doc, {
 			blade: new Blade(),
+			label: params.label,
+			valueController: new ButtonController(doc, params),
 		});
 		this.controller.bladeRack.add(bc, params.index);
 		return new ButtonApi(bc);

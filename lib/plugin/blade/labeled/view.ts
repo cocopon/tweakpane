@@ -2,7 +2,7 @@ import {ClassName} from '../../common/view/class-name';
 import {View} from '../../common/view/view';
 
 interface Config {
-	label: string;
+	label?: string;
 }
 
 const className = ClassName('lbl');
@@ -28,7 +28,7 @@ function createLabelNode(doc: Document, label: string): DocumentFragment {
  */
 export class LabeledView implements View {
 	public readonly element: HTMLElement;
-	public readonly label: string;
+	public readonly label?: string;
 	public readonly valueElement: HTMLElement;
 
 	constructor(doc: Document, config: Config) {
@@ -37,10 +37,14 @@ export class LabeledView implements View {
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
 
-		const labelElem = doc.createElement('div');
-		labelElem.classList.add(className('l'));
-		labelElem.appendChild(createLabelNode(doc, this.label));
-		this.element.appendChild(labelElem);
+		if (this.label !== undefined) {
+			const labelElem = doc.createElement('div');
+			labelElem.classList.add(className('l'));
+			labelElem.appendChild(createLabelNode(doc, this.label));
+			this.element.appendChild(labelElem);
+		} else {
+			this.element.classList.add(className(undefined, 'nol'));
+		}
 
 		const valueElem = doc.createElement('div');
 		valueElem.classList.add(className('v'));
