@@ -27,8 +27,8 @@ export class MonitorBindingController<T> implements BladeController {
 
 		this.view = new LabeledView(doc, {
 			label: config.label,
-			view: this.controller.view,
 		});
+		this.view.valueElement.appendChild(this.controller.view.element);
 
 		this.blade = config.blade;
 		this.blade.emitter.on('dispose', () => {

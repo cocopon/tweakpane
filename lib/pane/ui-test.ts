@@ -5,10 +5,10 @@ import {TpFoldEvent} from '../api/tp-event';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
-import {ButtonController} from '../plugin/blade/button/controller';
 import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
 import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
 import {FolderController} from '../plugin/blade/folder/controller';
+import {LabeledController} from '../plugin/blade/labeled/controller';
 import {SeparatorController} from '../plugin/blade/separator/controller';
 
 function createApi(title?: string): Tweakpane {
@@ -24,7 +24,19 @@ describe(Tweakpane.name, () => {
 		const b = pane.addButton({
 			title: 'push',
 		});
-		assert.strictEqual(b.controller.button.title, 'push');
+		assert.strictEqual(b.controller.valueController.button.title, 'push');
+	});
+
+	it('should add button with label', () => {
+		const pane = createApi();
+		const b = pane.addButton({
+			label: 'foobarlabel',
+			title: 'push',
+		});
+		assert.strictEqual(b.controller.valueController.button.title, 'push');
+		assert.isTrue(
+			b.controller.view.element.innerHTML.indexOf('foobarlabel') >= 0,
+		);
 	});
 
 	it('should add folder', () => {
@@ -129,7 +141,7 @@ describe(Tweakpane.name, () => {
 			insert: (api, index) => {
 				api.addButton({index: index, title: 'button'});
 			},
-			expected: ButtonController,
+			expected: LabeledController,
 		},
 		{
 			insert: (api, index) => {

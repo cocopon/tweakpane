@@ -1,5 +1,6 @@
 import {forceCast} from '../misc/type-util';
-import {ButtonController} from '../plugin/blade/button/controller';
+import {ButtonController} from '../plugin/blade/button/controller/button';
+import {LabeledController} from '../plugin/blade/labeled/controller';
 import {ComponentApi} from './component-api';
 
 interface ButtonApiEventHandlers {
@@ -10,12 +11,12 @@ export class ButtonApi implements ComponentApi {
 	/**
 	 * @hidden
 	 */
-	public readonly controller: ButtonController;
+	public readonly controller: LabeledController<ButtonController>;
 
 	/**
 	 * @hidden
 	 */
-	constructor(buttonController: ButtonController) {
+	constructor(buttonController: LabeledController<ButtonController>) {
 		this.controller = buttonController;
 	}
 
@@ -35,7 +36,7 @@ export class ButtonApi implements ComponentApi {
 		eventName: EventName,
 		handler: ButtonApiEventHandlers[EventName],
 	): ButtonApi {
-		const emitter = this.controller.button.emitter;
+		const emitter = this.controller.valueController.button.emitter;
 		// TODO: Type-safe
 		emitter.on(eventName, forceCast(handler.bind(this)));
 		return this;

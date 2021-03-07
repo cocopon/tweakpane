@@ -5,6 +5,10 @@
 	padding-left: 4px;
 	padding-right: 4px;
 
+	&#{&}-nol {
+		display: block;
+	}
+
 	&_l {
 		color: var(--label-foreground-color);
 		flex: 1;
@@ -18,5 +22,8 @@
 		flex-grow: 0;
 		flex-shrink: 0;
 		width: var(--value-width);
+	}
+	&#{&}-nol &_v {
+		width: 100%;
 	}
 }

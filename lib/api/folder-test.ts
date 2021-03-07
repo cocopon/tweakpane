@@ -2,11 +2,11 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../misc/test-util';
-import {ButtonController} from '../plugin/blade/button/controller';
 import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
 import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
 import {Blade} from '../plugin/blade/common/model/blade';
 import {FolderController} from '../plugin/blade/folder/controller';
+import {LabeledController} from '../plugin/blade/labeled/controller';
 import {SeparatorController} from '../plugin/blade/separator/controller';
 import {Color} from '../plugin/input-bindings/color/model/color';
 import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
@@ -64,7 +64,7 @@ describe(FolderApi.name, () => {
 		const b = api.addButton({
 			title: 'push',
 		});
-		assert.strictEqual(b.controller.button.title, 'push');
+		assert.strictEqual(b.controller.valueController.button.title, 'push');
 	});
 
 	it('should add separator', () => {
@@ -134,7 +134,7 @@ describe(FolderApi.name, () => {
 			insert: (api: FolderApi, index: number) => {
 				api.addButton({index: index, title: 'button'});
 			},
-			expected: ButtonController,
+			expected: LabeledController,
 		},
 		{
 			insert: (api: FolderApi, index: number) => {

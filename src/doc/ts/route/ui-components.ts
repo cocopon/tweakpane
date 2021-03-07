@@ -16,20 +16,15 @@ export function initUiComponents() {
 			f.addButton({
 				title: 'Button',
 			});
+			f.addSeparator();
 			f.addButton({
+				label: 'label',
 				title: 'Button',
 			});
 			const sf = f.addFolder({
 				title: 'Subfolder',
 			});
 			sf.addButton({
-				title: 'Button',
-			});
-			sf.addButton({
-				title: 'Button',
-			});
-			f.addSeparator();
-			f.addButton({
 				title: 'Button',
 			});
 		},
@@ -57,21 +52,27 @@ export function initUiComponents() {
 
 		button: (container) => {
 			const PARAMS = {count: '0'};
+
+			const consoleElem = selectContainer('button', true);
+			const consolePane = new Tweakpane({
+				container: consoleElem,
+			});
+			consolePane.addMonitor(PARAMS, 'count', {
+				interval: 0,
+			});
+
 			const pane = new Tweakpane({
 				container: container,
 			});
 			pane
 				.addButton({
+					label: 'counter',
 					title: 'Increment',
 				})
 				.on('click', () => {
 					PARAMS.count = String(parseInt(PARAMS.count, 10) + 1);
-					pane.refresh();
+					consolePane.refresh();
 				});
-			pane.addSeparator();
-			pane.addMonitor(PARAMS, 'count', {
-				interval: 0,
-			});
 		},
 
 		separator: (container) => {

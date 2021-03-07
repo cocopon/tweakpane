@@ -181,6 +181,7 @@ export function initMisc() {
 			});
 			pane
 				.addButton({
+					label: 'preset',
 					title: 'Import',
 				})
 				.on('click', () => {
@@ -303,6 +304,7 @@ export function initMisc() {
 			pane
 				.addButton({
 					index: 0,
+					label: 'advanced',
 					title: 'Toggle',
 				})
 				.on('click', () => {
