@@ -3,7 +3,6 @@ import {View} from '../../common/view/view';
 
 interface Config {
 	label: string;
-	view: View;
 }
 
 const className = ClassName('lbl');
@@ -28,27 +27,24 @@ function createLabelNode(doc: Document, label: string): DocumentFragment {
  * @hidden
  */
 export class LabeledView implements View {
+	public readonly element: HTMLElement;
 	public readonly label: string;
-	private elem_: HTMLElement;
+	public readonly valueElement: HTMLElement;
 
 	constructor(doc: Document, config: Config) {
 		this.label = config.label;
 
-		this.elem_ = doc.createElement('div');
-		this.elem_.classList.add(className());
+		this.element = doc.createElement('div');
+		this.element.classList.add(className());
 
 		const labelElem = doc.createElement('div');
 		labelElem.classList.add(className('l'));
 		labelElem.appendChild(createLabelNode(doc, this.label));
-		this.elem_.appendChild(labelElem);
+		this.element.appendChild(labelElem);
 
-		const viewElem = doc.createElement('div');
-		viewElem.classList.add(className('v'));
-		viewElem.appendChild(config.view.element);
-		this.elem_.appendChild(viewElem);
-	}
-
-	get element(): HTMLElement {
-		return this.elem_;
+		const valueElem = doc.createElement('div');
+		valueElem.classList.add(className('v'));
+		this.element.appendChild(valueElem);
+		this.valueElement = valueElem;
 	}
 }
