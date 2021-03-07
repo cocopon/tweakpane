@@ -1,6 +1,6 @@
 .logo {
-	$logo-color: $base-fg-color;
-	$logo-hover-color: rgba($base-fg-color, 0.8);
+	$logo-color: var(--fg-color);
+	$logo-hover-color: var(--fg-color-action);
 
 	color: $logo-color;
 	display: block;

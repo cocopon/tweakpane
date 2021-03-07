@@ -14,12 +14,6 @@ $global-nav-width: 240px;
 
 // Colors
 $base-hue: 230;
-$base-bg-color: white;
-$base-bg-color-secondary: hsl($base-hue, 7%, 95%);
-$base-fg-color: hsl($base-hue, 5%, 35%);
-$base-fg-color-secondary: rgba($base-fg-color, 0.7);
-$base-guide-color: hsl($base-hue, 30%, 15%);
-$base-heading-color: hsl($base-hue, 5%, 20%);
 $pane-bg-color: hsl($base-hue, 7%, 20%);
 
 // Z-index
@@ -70,10 +64,6 @@ $z-index-global-nav: 1003;
 }
 
 @mixin document() {
-	$document-a-color: hsl($base-hue - 20, 70%, 50%);
-	$document-code-bg-color: $base-bg-color-secondary;
-	$document-code-fg-color: hsl($base-hue, 20%, 50%);
-
 	h2 {
 		font-size: 1.5rem;
 		margin-top: 2em;
@@ -120,15 +110,15 @@ $z-index-global-nav: 1003;
 		line-height: 1.6;
 
 		code {
-			background-color: $document-code-bg-color;
+			background-color: var(--bg-color-secondary);
 			border-radius: 2px;
-			color: $document-code-fg-color;
+			color: var(--code-color);
 			font-weight: 500;
 			padding-left: 0.25em;
 			padding-right: 0.25em;
 		}
 	}
 	a {
-		color: $document-a-color;
+		color: var(--a-color);
 	}
 }

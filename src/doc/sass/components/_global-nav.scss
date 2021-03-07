@@ -1,5 +1,5 @@
 .menu {
-	background-color: $base-bg-color;
+	background-color: var(--bg-color);
 	overflow-y: auto;
 	position: fixed;
 	width: $global-nav-width;
@@ -25,7 +25,7 @@
 	}
 
 	&_logoLayout {
-		border-bottom: rgba($base-fg-color, 0.1) solid 2px;
+		border-bottom: var(--bg-color-secondary) solid 2px;
 		height: $global-header-height;
 		line-height: $global-header-height;
 		padding-left: 32px;
@@ -42,7 +42,7 @@
 }
 .menuItem {
 	&_anchor {
-		color: $base-fg-color;
+		color: var(--fg-color);
 		display: block;
 		font-weight: 500;
 		margin-top: 24px;
@@ -54,11 +54,11 @@
 		}
 
 		&#{&}-active {
-			background-color: $base-bg-color-secondary;
-			color: $base-fg-color;
+			background-color: var(--bg-color-secondary);
+			color: var(--fg-color);
 		}
 		&:hover {
-			background-color: $base-bg-color-secondary;
+			background-color: var(--bg-color-secondary);
 		}
 
 		.fa-external-link-square-alt {
@@ -72,7 +72,7 @@
 
 .submenuItem {
 	&_anchor {
-		color: $base-fg-color-secondary;
+		color: var(--fg-color-secondary);
 		display: block;
 		padding: 8px 16px 8px 32px;
 		text-decoration: none;
@@ -82,11 +82,11 @@
 		}
 
 		&#{&}-active {
-			background-color: $base-bg-color-secondary;
+			background-color: var(--bg-color-secondary);
 		}
 		&:hover {
-			background-color: $base-bg-color-secondary;
-			color: $base-fg-color;
+			background-color: var(--bg-color-secondary);
+			color: var(--fg-color);
 		}
 	}
 }
