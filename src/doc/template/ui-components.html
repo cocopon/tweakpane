@@ -33,14 +33,33 @@ const f1 = pane.<strong>addFolder</strong>({
 f1.addInput(PARAMS, 'speed');
 
 const f2 = pane.<strong>addFolder</strong>({
-  expanded: false,
   title: 'Advanced',
+  expanded: false,   // optional
 });
 f2.addInput(PARAMS, 'acceleration');
 f2.addInput(PARAMS, 'randomness');</code></pre></div>
 		</div>
 		<div class="demo_resultLayout">
 			<div class="paneContainer" data-pane-folder></div>
+		</div>
+	</div>
+</div>
+
+<h3 id="pane_title">Pane title</h3>
+<p><code>title</code> option of the pane creates a root title. It can expand/collapse the whole pane.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane({
+  <strong>title</strong>: 'Parameters',
+});
+
+// ...
+</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-panetitle></div>
 		</div>
 	</div>
 </div>
