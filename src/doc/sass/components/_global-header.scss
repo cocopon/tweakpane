@@ -1,4 +1,8 @@
 .globalHeader {
+	$global-header-bg-color: rgba(white, 0.97);
+	$global-header-fg-color: inherit;
+
+	backdrop-filter: blur(2px);
 	background-color: rgba($base-bg-color, 0.9);
 	box-shadow: 0 2px 4px rgba(black, 0.05);
 	color: $global-header-fg-color;

@@ -42,7 +42,6 @@
 }
 .menuItem {
 	&_anchor {
-		border-radius: 6px;
 		color: $base-fg-color;
 		display: block;
 		font-weight: 500;
@@ -50,12 +49,16 @@
 		padding: 8px 32px;
 		text-decoration: none;
 
+		@include wide() {
+			border-radius: 6px;
+		}
+
 		&#{&}-active {
-			background-color: rgba($base-fg-color, 0.05);
+			background-color: $base-bg-color-secondary;
 			color: $base-fg-color;
 		}
 		&:hover {
-			background-color: rgba($base-fg-color, 0.05);
+			background-color: $base-bg-color-secondary;
 		}
 
 		.fa-external-link-square-alt {
@@ -69,17 +72,20 @@
 
 .submenuItem {
 	&_anchor {
-		border-radius: 6px;
 		color: $base-fg-color-secondary;
 		display: block;
 		padding: 8px 16px 8px 32px;
 		text-decoration: none;
 
+		@include wide() {
+			border-radius: 6px;
+		}
+
 		&#{&}-active {
-			background-color: rgba($base-fg-color-secondary, 0.05);
+			background-color: $base-bg-color-secondary;
 		}
 		&:hover {
-			background-color: rgba($base-fg-color-secondary, 0.05);
+			background-color: $base-bg-color-secondary;
 			color: $base-fg-color;
 		}
 	}

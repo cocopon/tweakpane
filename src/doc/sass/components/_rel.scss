@@ -17,7 +17,7 @@
 	display: flex;
 
 	a#{&}_anchor {
-		background-color: $page-header-bg-color;
+		background-color: $base-bg-color-secondary;
 		border-radius: 6px;
 		color: $base-fg-color;
 		display: flex;
@@ -28,7 +28,7 @@
 
 		&:focus,
 		&:hover {
-			background-color: darken($page-header-bg-color, 2%);
+			background-color: darken($base-bg-color-secondary, 2%);
 		}
 	}
 	&#{&}-oneline a#{&}_anchor {

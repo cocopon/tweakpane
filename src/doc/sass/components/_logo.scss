@@ -1,4 +1,7 @@
 .logo {
+	$logo-color: $base-fg-color;
+	$logo-hover-color: rgba($base-fg-color, 0.8);
+
 	color: $logo-color;
 	display: block;
 	font-weight: 500;
