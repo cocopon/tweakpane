@@ -12,29 +12,29 @@
 	&#{&}-console {
 		--tp-base-background-color: transparent;
 		--tp-base-shadow-color: transparent;
-		--tp-button-background-color: hsla(0, 0%, 0%, 0.05);
-		--tp-button-background-color-active: hsla(0, 0%, 0%, 0.2);
-		--tp-button-background-color-focus: hsla(0, 0%, 0%, 0.15);
-		--tp-button-background-color-hover: hsla(0, 0%, 0%, 0.1);
-		--tp-button-foreground-color: hsla(0, 0%, 0%, 0.3);
-		--tp-folder-background-color: hsla(0, 0%, 0%, 0.05);
-		--tp-folder-background-color-active: hsla(0, 0%, 0%, 0.2);
-		--tp-folder-background-color-focus: hsla(0, 0%, 0%, 0.15);
-		--tp-folder-background-color-hover: hsla(0, 0%, 0%, 0.1);
-		--tp-folder-foreground-color: hsla(0, 0%, 0%, 0.3);
-		--tp-input-background-color: hsla(0, 0%, 0%, 0.05);
-		--tp-input-background-color-active: hsla(0, 0%, 0%, 0.2);
-		--tp-input-background-color-focus: hsla(0, 0%, 0%, 0.15);
-		--tp-input-background-color-hover: hsla(0, 0%, 0%, 0.1);
-		--tp-input-foreground-color: hsla(0, 0%, 0%, 0.3);
-		--tp-input-guide-color: hsla(0, 0%, 0%, 0.1);
-		--tp-monitor-background-color: hsla(0, 0%, 0%, 0.05);
-		--tp-monitor-foreground-color: hsla(0, 0%, 0%, 0.3);
-		--tp-label-foreground-color: hsla(0, 0%, 0%, 0.3);
-		--tp-separator-color: hsla(0, 0%, 0%, 0.1);
+		--tp-button-background-color: #{#{rgba($base-guide-color, 0.05)}};
+		--tp-button-background-color-active: #{#{rgba($base-guide-color, 0.05)}};
+		--tp-button-background-color-focus: #{#{rgba($base-guide-color, 0.05)}};
+		--tp-button-background-color-hover: #{rgba($base-guide-color, 0.05)};
+		--tp-button-foreground-color: #{rgba($base-guide-color, 0.4)};
+		--tp-folder-background-color: #{rgba($base-guide-color, 0.05)};
+		--tp-folder-background-color-active: #{rgba($base-guide-color, 0.05)};
+		--tp-folder-background-color-focus: #{rgba($base-guide-color, 0.05)};
+		--tp-folder-background-color-hover: #{rgba($base-guide-color, 0.05)};
+		--tp-folder-foreground-color: #{rgba($base-guide-color, 0.4)};
+		--tp-input-background-color: #{rgba($base-guide-color, 0.05)};
+		--tp-input-background-color-active: #{rgba($base-guide-color, 0.05)};
+		--tp-input-background-color-focus: #{rgba($base-guide-color, 0.05)};
+		--tp-input-background-color-hover: #{rgba($base-guide-color, 0.05)};
+		--tp-input-foreground-color: #{rgba($base-guide-color, 0.4)};
+		--tp-input-guide-color: #{rgba($base-guide-color, 0.1)};
+		--tp-monitor-background-color: #{rgba($base-guide-color, 0.05)};
+		--tp-monitor-foreground-color: #{rgba($base-guide-color, 0.4)};
+		--tp-label-foreground-color: #{rgba($base-guide-color, 0.4)};
+		--tp-separator-color: #{rgba($base-guide-color, 0.1)};
 
 		.tp-rotv {
-			border: rgba(black, 0.1) dashed 1px;
+			border: #{rgba($base-guide-color, 0.1)} dashed 1px;
 		}
 	}
 }

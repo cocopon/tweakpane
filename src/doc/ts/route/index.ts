@@ -74,13 +74,7 @@ export function initIndex() {
 		index: (container) => {
 			const pane = new Tweakpane({
 				container: container,
-				title: 'Tweakpane',
-			});
-			pane.addInput(ENV, 'title').on('change', (ev) => {
-				const titleElem = document.querySelector('.pageHeader_title');
-				if (titleElem) {
-					titleElem.textContent = ev.value;
-				}
+				title: 'Parameters',
 			});
 			pane.addInput(ENV, 'color').on('change', (ev) => {
 				const headerElem: HTMLElement | null = document.querySelector(
@@ -96,6 +90,12 @@ export function initIndex() {
 				comps[2] *= 1.06;
 				const bg = new Color(comps, 'hsl');
 				headerElem.style.backgroundColor = colorToFunctionalRgbaString(bg);
+			});
+			pane.addInput(ENV, 'title').on('change', (ev) => {
+				const titleElem = document.querySelector('.pageHeader_title');
+				if (titleElem) {
+					titleElem.textContent = ev.value;
+				}
 			});
 			pane.addSeparator();
 			pane.addInput(ENV, 'spacing', {

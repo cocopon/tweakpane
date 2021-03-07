@@ -1,5 +1,5 @@
 .demo {
-	background-color: $code-block-bg-color;
+	background-color: $base-bg-color-secondary;
 	border-radius: 6px;
 
 	@include wide() {
@@ -11,18 +11,22 @@
 		overflow: auto;
 	}
 	&_resultLayout {
-		background-color: $demo-result-bg-color;
+		border-color: rgba($base-guide-color, 0.1);
+		border-style: dashed;
+		border-width: 0;
 		flex: 2;
 		padding: 32px;
 		text-align: center;
 
 		@include wide() {
+			border-left-width: 1px;
 			border-bottom-right-radius: 6px;
 			border-top-right-radius: 6px;
 		}
 		@include nonwide() {
 			border-bottom-left-radius: 6px;
 			border-bottom-right-radius: 6px;
+			border-top-width: 1px;
 		}
 	}
 }

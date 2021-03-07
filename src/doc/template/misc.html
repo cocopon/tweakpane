@@ -10,9 +10,6 @@
 			<h1 class="pageHeader_title">{{ title }}</h1>
 			<p>Event handling, importing/exporting a preset, and some tips.</p>
 		</div>
-		<div class="pageHeader_paneLayout">
-			<div class="paneContainer" data-pane-misc></div>
-		</div>
 	</div>
 </div>
 {% endblock %}
@@ -123,24 +120,6 @@ pane.addInput(PARAMS2, 'speed', {
 
 
 <h2 id="tips">Tips</h2>
-
-
-<h3>Root title</h3>
-<p><code>title</code> option of the pane creates a pane title. It can expand/collapse overall components including folders.</p>
-
-<div class="main_mediaLayout">
-	<div class="demo">
-		<div class="demo_codeLayout">
-			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane({
-  <strong>title</strong>: 'Parameters',
-});
-</code></pre></div>
-		</div>
-		<div class="demo_resultLayout">
-			<div class="paneContainer" data-pane-roottitle></div>
-		</div>
-	</div>
-</div>
 
 
 <h3>Custom container</h3>

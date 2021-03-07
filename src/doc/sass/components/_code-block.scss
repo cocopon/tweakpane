@@ -1,4 +1,8 @@
 .codeBlock {
+	$code-block-bg-color: $base-bg-color-secondary;
+	$code-block-title-bg-color: hsl($base-hue, 10%, 50%);
+	$code-block-title-fg-color: $base-bg-color-secondary;
+
 	background-color: $code-block-bg-color;
 	border-radius: 6px;
 	position: relative;
@@ -18,12 +22,13 @@
 	}
 	&_title {
 		background-color: $code-block-title-bg-color;
-		border-bottom-left-radius: 2px;
+		border-bottom-left-radius: 1px;
 		border-top-right-radius: 6px;
 		color: $code-block-title-fg-color;
-		font-size: 0.8rem;
+		font-family: $font-family-mono;
+		font-size: 0.7rem;
 		font-weight: 500;
-		padding: 0.25em 0.5em;
+		padding: 0.2em 0.5em;
 		position: absolute;
 		right: 0;
 		top: 0;

@@ -15,30 +15,6 @@ export function initMisc() {
 	const markerToFnMap: {
 		[key: string]: (container: HTMLElement) => void;
 	} = {
-		misc: (container) => {
-			const PARAMS = {value: 0};
-			const pane = new Tweakpane({
-				container: container,
-				title: 'Global title',
-			});
-			pane.addInput(PARAMS, 'value', {
-				label: 'custom label',
-			});
-			const f = pane.addFolder({
-				title: 'Folder',
-			});
-			f.addButton({
-				title: 'Button1',
-			});
-			f.addButton({
-				title: 'Button2',
-			});
-			f.addSeparator();
-			f.addButton({
-				title: 'Button3',
-			});
-		},
-
 		event: (container) => {
 			const consoleElem = selectContainer('eventconsole');
 			if (!consoleElem) {
@@ -236,33 +212,6 @@ export function initMisc() {
 
 			pane.on('change', updatePreset);
 			updatePreset();
-		},
-
-		roottitle: (container) => {
-			const PARAMS = {
-				bounce: 0.5,
-				gravity: 0.01,
-				speed: 0.1,
-			};
-			const pane = new Tweakpane({
-				container: container,
-				title: 'Parameters',
-			});
-			pane.addInput(PARAMS, 'speed', {
-				max: 1,
-				min: 0,
-			});
-			const f = pane.addFolder({
-				title: 'Advanced',
-			});
-			f.addInput(PARAMS, 'gravity', {
-				max: 1,
-				min: 0,
-			});
-			f.addInput(PARAMS, 'bounce', {
-				max: 1,
-				min: 0,
-			});
 		},
 
 		label: (container) => {
