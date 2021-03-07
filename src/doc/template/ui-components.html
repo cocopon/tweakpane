@@ -53,11 +53,13 @@ f2.addInput(PARAMS, 'randomness');</code></pre></div>
 	<div class="demo">
 		<div class="demo_codeLayout">
 			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
-let count = 0;
 
 const btn = pane.<strong>addButton</strong>({
   title: 'Increment',
+  label: 'counter',   // optional
 });
+
+let count = 0;
 btn.<strong>on</strong>('click', () =&gt; {
   count += 1;
   console.log(count);
@@ -66,6 +68,7 @@ btn.<strong>on</strong>('click', () =&gt; {
 		</div>
 		<div class="demo_resultLayout">
 			<div class="paneContainer" data-pane-button></div>
+			<div class="paneContainer paneContainer-console" data-pane-buttonconsole></div>
 		</div>
 	</div>
 </div>

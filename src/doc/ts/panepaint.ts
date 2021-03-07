@@ -144,7 +144,8 @@ export function createPane(container: HTMLElement, theme: Theme): any {
 		});
 	pane
 		.addButton({
-			title: 'Shuffle background image',
+			label: 'bg-image',
+			title: 'Shuffle',
 		})
 		.on('click', () => {
 			const bgElem = document.querySelector(
