@@ -20,11 +20,8 @@ function fillBuffer<T>(buffer: Buffer<T>, bufferSize: number) {
 /**
  * @hidden
  */
-export function initializeBuffer<T>(
-	initialValue: T,
-	bufferSize: number,
-): BufferedValue<T> {
-	const buffer: Buffer<T> = [initialValue];
+export function initializeBuffer<T>(bufferSize: number): BufferedValue<T> {
+	const buffer: Buffer<T> = [];
 	fillBuffer(buffer, bufferSize);
 	return new Value(buffer);
 }

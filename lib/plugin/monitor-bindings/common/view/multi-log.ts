@@ -46,11 +46,13 @@ export class MultiLogView<T> implements ValueView<Buffer<T>> {
 		const shouldScroll =
 			elem.scrollTop === elem.scrollHeight - elem.clientHeight;
 
-		elem.textContent = this.value.rawValue
-			.map((value) => {
-				return value !== undefined ? this.formatter_(value) : '';
-			})
-			.join('\n');
+		const lines: string[] = [];
+		this.value.rawValue.forEach((value) => {
+			if (value !== undefined) {
+				lines.push(this.formatter_(value));
+			}
+		});
+		elem.textContent = lines.join('\n');
 
 		if (shouldScroll) {
 			elem.scrollTop = elem.scrollHeight;
