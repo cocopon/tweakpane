@@ -54,4 +54,22 @@ describe(Tweakpane.name, () => {
 			});
 		});
 	});
+
+	it('should have right initial buffer', () => {
+		const pane = createPane();
+		const obj = {foo: 123};
+		const bapi = pane.addMonitor(obj, 'foo', {
+			bufferSize: 5,
+			interval: 0,
+		});
+
+		const v = bapi.controller.binding.value;
+		assert.deepStrictEqual(v.rawValue, [
+			123,
+			undefined,
+			undefined,
+			undefined,
+			undefined,
+		]);
+	});
 });

@@ -6,24 +6,22 @@ import {createPushedBuffer, initializeBuffer} from './buffered-value';
 describe('BufferedValue', () => {
 	[
 		{
-			expected: [123],
+			expected: [undefined],
 			params: {
 				bufferSize: 1,
-				initialValue: 123,
 			},
 		},
 		{
-			expected: [0, undefined, undefined, undefined],
+			expected: [undefined, undefined, undefined, undefined],
 			params: {
 				bufferSize: 4,
-				initialValue: 0,
 			},
 		},
 	].forEach(({expected, params}) => {
 		context(`when ${JSON.stringify(params)}`, () => {
 			it('should initialize buffer', () => {
 				assert.deepStrictEqual(
-					initializeBuffer(params.initialValue, params.bufferSize).rawValue,
+					initializeBuffer(params.bufferSize).rawValue,
 					expected,
 				);
 			});

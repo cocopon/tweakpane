@@ -119,7 +119,7 @@ export function createController<T>(
 		reader: reader,
 		target: args.target,
 		ticker: createTicker(args.document, args.params.interval),
-		value: initializeBuffer(reader(initialValue), bufferSize),
+		value: initializeBuffer<T>(bufferSize),
 	});
 
 	return new MonitorBindingController(args.document, {
