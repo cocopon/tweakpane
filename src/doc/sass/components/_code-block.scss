@@ -1,9 +1,5 @@
 .codeBlock {
-	$code-block-bg-color: $base-bg-color-secondary;
-	$code-block-title-bg-color: hsl($base-hue, 10%, 50%);
-	$code-block-title-fg-color: $base-bg-color-secondary;
-
-	background-color: $code-block-bg-color;
+	background-color: var(--bg-color-secondary);
 	border-radius: 6px;
 	position: relative;
 
@@ -21,10 +17,10 @@
 		}
 	}
 	&_title {
-		background-color: $code-block-title-bg-color;
+		background-color: var(--hl-comment);
 		border-bottom-left-radius: 1px;
 		border-top-right-radius: 6px;
-		color: $code-block-title-fg-color;
+		color: var(--bg-color-secondary);
 		font-family: $font-family-mono;
 		font-size: 0.7rem;
 		font-weight: 500;

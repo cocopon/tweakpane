@@ -12,7 +12,7 @@ import {selectContainer} from '../util';
 export function initIndex() {
 	const ENV: Environment = {
 		amp: {x: 0.1, y: 0.5},
-		color: '#e4e4e7',
+		color: '#d8dbde',
 		freq: {
 			x: 12.57,
 			y: 6.28,
@@ -24,10 +24,14 @@ export function initIndex() {
 		title: 'Tweakpane',
 	};
 
+	if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+		ENV.color = '#020202';
+	}
+
 	const PRESETS: {[key: string]: Environment} = {
 		atmos: {
 			amp: {x: 0.1, y: 0.53},
-			color: '#e4e4e7',
+			color: '#cacbcd',
 			freq: {x: 45, y: 16},
 			maxSize: 128,
 			range: 0.79,
@@ -85,10 +89,10 @@ export function initIndex() {
 				}
 
 				const comps = colorFromString(ev.value).getComponents('hsl');
-				comps[0] += 30;
-				comps[1] *= 1.5;
-				comps[2] *= 1.06;
-				const bg = new Color(comps, 'hsl');
+				const bg = new Color(
+					[comps[0] + 30, comps[1] * 1.5, comps[2] + 8],
+					'hsl',
+				);
 				headerElem.style.backgroundColor = colorToFunctionalRgbaString(bg);
 			});
 			pane.addInput(ENV, 'title').on('change', (ev) => {

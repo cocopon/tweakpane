@@ -1,15 +1,15 @@
 $prefix: 'hljs';
 
 .#{$prefix}-comment {
-	color: hsl($base-hue, 7%, 60%);
+	color: var(--hl-comment);
 }
 .#{$prefix}-keyword {
-	color: hsl(225, 43%, 47%);
+	color: var(--hl-keyword);
 }
 .#{$prefix}-literal,
 .#{$prefix}-number {
-	color: hsl(270, 43%, 58%);
+	color: var(--hl-constant);
 }
 .#{$prefix}-string {
-	color: hsl($base-hue, 15%, 50%);
+	color: var(--hl-string);
 }

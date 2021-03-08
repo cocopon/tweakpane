@@ -9,7 +9,7 @@
 		padding-top: 16px;
 	}
 	&_copyLayout {
-		color: $base-fg-color-secondary;
+		color: var(--fg-color-secondary);
 		font-size: 0.8rem;
 
 		a {

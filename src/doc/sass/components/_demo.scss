@@ -1,5 +1,5 @@
 .demo {
-	background-color: $base-bg-color-secondary;
+	background-color: var(--bg-color-secondary);
 	border-radius: 6px;
 
 	@include wide() {
@@ -11,7 +11,7 @@
 		overflow: auto;
 	}
 	&_resultLayout {
-		border-color: rgba($base-guide-color, 0.1);
+		border-color: unquote('hsla(var(--guide-color-comps), 0.1)');
 		border-style: dashed;
 		border-width: 0;
 		flex: 2;
