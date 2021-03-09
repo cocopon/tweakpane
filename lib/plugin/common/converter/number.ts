@@ -1,16 +1,13 @@
 import {isEmpty} from '../../../misc/type-util';
+import {parseEcmaNumberExpression} from './ecma/parser';
 import {Formatter} from './formatter';
 
 /**
  * @hidden
  */
 export function parseNumber(text: string): number | null {
-	const num = parseFloat(text);
-	if (isNaN(num)) {
-		return null;
-	}
-
-	return num;
+	const r = parseEcmaNumberExpression(text);
+	return r?.evaluate() ?? null;
 }
 
 /**

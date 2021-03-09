@@ -82,9 +82,44 @@ describe('converter/number', () => {
 });
 
 describe(parseNumber.name, () => {
-	it('should parse number', () => {
-		assert.strictEqual(parseNumber('3.14'), 3.14);
-		assert.strictEqual(parseNumber('abc'), null);
-		assert.strictEqual(parseNumber('1e-3'), 0.001);
+	[
+		{
+			text: '3.14',
+			expected: 3.14,
+		},
+		{
+			text: 'abc',
+			expected: null,
+		},
+		{
+			text: '1e-3',
+			expected: 0.001,
+		},
+		{
+			text: '1 + 2',
+			expected: 1 + 2,
+		},
+		{
+			text: '3.14.16',
+			expected: null,
+		},
+		{
+			text: '((1234.56',
+			expected: null,
+		},
+		{
+			text: '(3.14 + 2) * -3',
+			expected: (3.14 + 2) * -3,
+		},
+		{
+			text: 'process.exit(1)',
+			expected: null,
+		},
+	].forEach(({text, expected}) => {
+		context(`when ${JSON.stringify(text)}`, () => {
+			it('should parse number', () => {
+				assert.strictEqual(parseNumber(text), expected);
+			});
+		});
 	});
 });
