@@ -2,24 +2,11 @@
 	display: flex;
 }
 
+// TODO: Rename
 %texts_input {
-	@extend %input;
-
-	padding: 0 4px;
 	width: 100%;
 
 	& + & {
 		margin-left: 2px;
-	}
-	&:first-child {
-		border-top-right-radius: 0;
-		border-bottom-right-radius: 0;
-	}
-	&:not(:first-child):not(:last-child) {
-		border-radius: 0;
-	}
-	&:last-child {
-		border-top-left-radius: 0;
-		border-bottom-left-radius: 0;
 	}
 }

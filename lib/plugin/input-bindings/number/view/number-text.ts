@@ -4,7 +4,7 @@ import {constrainRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
 import {Config, TextView} from '../../common/view/text';
 
-const className = ClassName('ntxt');
+const className = ClassName('txt');
 
 interface NumberConfig extends Config<number> {
 	dragging: Value<number | null>;

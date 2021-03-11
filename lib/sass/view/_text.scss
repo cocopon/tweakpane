@@ -6,9 +6,21 @@
 
 		padding: 0 4px;
 	}
+	&#{&}-fst &_i {
+		border-bottom-right-radius: 0;
+		border-top-right-radius: 0;
+	}
+	&#{&}-mid &_i {
+		border-radius: 0;
+	}
+	&#{&}-lst &_i {
+		border-bottom-left-radius: 0;
+		border-top-left-radius: 0;
+	}
 }
 
-.#{$prefix}-ntxtv {
+// number-text
+.#{$prefix}-txtv {
 	$knob-bounds-width: 12px;
 	$knob-visual-width: 4px;
 
@@ -43,6 +55,11 @@
 			width: $knob-visual-width;
 		}
 	}
+	&#{&}-mid &_k::before,
+	&#{&}-lst &_k::before {
+		border-bottom-left-radius: 0;
+		border-top-left-radius: 0;
+	}
 	&_k:hover::before,
 	&#{&}-drg &_k::before {
 		opacity: 1;
@@ -50,6 +67,11 @@
 	&#{&}-drg &_k::before {
 		border-radius: 2px;
 		height: 4px;
+	}
+	&#{&}-drg#{&}-mid &_k::before,
+	&#{&}-drg#{&}-list &_k::before {
+		border-bottom-left-radius: 2px;
+		border-top-left-radius: 2px;
 	}
 	&_g {
 		bottom: 0;
@@ -63,7 +85,6 @@
 		top: 0;
 		visibility: hidden;
 		width: 100%;
-
 	}
 	&#{&}-drg &_g {
 		visibility: visible;

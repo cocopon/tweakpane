@@ -10,6 +10,7 @@ import {Point2dTextController} from './point-2d-text';
 
 interface Axis {
 	baseStep: number;
+	draggingScale: number;
 	formatter: Formatter<number>;
 }
 

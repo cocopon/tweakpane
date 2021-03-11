@@ -9,7 +9,8 @@
 	&::before {
 		$size: 4px;
 
-		border-color: var(--input-foreground-color) transparent transparent transparent;
+		border-color: var(--input-foreground-color) transparent transparent
+			transparent;
 		border-style: solid;
 		border-width: $size / 2;
 		box-sizing: border-box;

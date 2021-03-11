@@ -16,6 +16,8 @@ interface Config {
 	formatter: Formatter<number>;
 	parser: Parser<number>;
 	value: Value<number>;
+
+	arrayPosition?: 'fst' | 'mid' | 'lst';
 }
 
 /**
@@ -44,6 +46,7 @@ export class NumberTextController implements ValueController<number> {
 
 		this.dragging_ = new Value<number | null>(null);
 		this.view = new NumberTextView(doc, {
+			arrayPosition: config.arrayPosition,
 			formatter: config.formatter,
 			dragging: this.dragging_,
 			draggingScale: this.draggingScale_,

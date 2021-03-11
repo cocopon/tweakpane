@@ -6,6 +6,8 @@ import {ValueView} from '../../../common/view/value';
 export interface Config<T> {
 	formatter: Formatter<T>;
 	value: Value<T>;
+
+	arrayPosition?: 'fst' | 'mid' | 'lst';
 }
 
 const className = ClassName('txt');
@@ -26,6 +28,9 @@ export class TextView<T> implements ValueView<T> {
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
+		if (config.arrayPosition) {
+			this.element.classList.add(className(undefined, config.arrayPosition));
+		}
 
 		const inputElem = doc.createElement('input');
 		inputElem.classList.add(className('i'));

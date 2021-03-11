@@ -16,18 +16,28 @@ describe(Point2dTextController.name, () => {
 		const doc = win.document;
 		const c = new Point2dTextController(doc, {
 			axes: [
-				{baseStep: 1, formatter: createNumberFormatter(0)},
-				{baseStep: 1, formatter: createNumberFormatter(0)},
+				{
+					baseStep: 1,
+					formatter: createNumberFormatter(0),
+					draggingScale: 1,
+				},
+				{
+					baseStep: 1,
+					formatter: createNumberFormatter(0),
+					draggingScale: 1,
+				},
 			],
 			parser: parseNumber,
 			value: new Value(new Point2d(12, 34)),
 		});
 
-		c.view.inputElements[0].value = '3.14';
-		c.view.inputElements[0].dispatchEvent(TestUtil.createEvent(win, 'change'));
+		c.view.textViews[0].inputElement.value = '3.14';
+		c.view.textViews[0].inputElement.dispatchEvent(
+			TestUtil.createEvent(win, 'change'),
+		);
 		assert.strictEqual(c.value.rawValue.x, 3.14);
 
-		c.view.inputElements[1].dispatchEvent(
+		c.view.textViews[1].inputElement.dispatchEvent(
 			TestUtil.createKeyboardEvent(win, 'keydown', {
 				keyCode: 38,
 				shiftKey: true,
