@@ -44,7 +44,11 @@ export class HPaletteController implements ValueController<Color> {
 	}
 
 	private handlePointerEvent_(d: PointerData): void {
-		const hue = mapRange(d.x, 0, d.bounds.width, 0, 360);
+		if (!d.point) {
+			return;
+		}
+
+		const hue = mapRange(d.point.x, 0, d.bounds.width, 0, 360);
 
 		const c = this.value.rawValue;
 		const [, s, v, a] = c.getComponents('hsv');

@@ -49,8 +49,12 @@ export class SvPaletteController implements ValueController<Color> {
 	}
 
 	private handlePointerEvent_(d: PointerData): void {
-		const saturation = mapRange(d.x, 0, d.bounds.width, 0, 100);
-		const value = mapRange(d.y, 0, d.bounds.height, 100, 0);
+		if (!d.point) {
+			return;
+		}
+
+		const saturation = mapRange(d.point.x, 0, d.bounds.width, 0, 100);
+		const value = mapRange(d.point.y, 0, d.bounds.height, 100, 0);
 
 		const [h, , , a] = this.value.rawValue.getComponents('hsv');
 		this.value.rawValue = new Color([h, saturation, value, a], 'hsv');

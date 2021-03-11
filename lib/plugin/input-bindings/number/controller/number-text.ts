@@ -86,12 +86,16 @@ export class NumberTextController implements ValueController<number> {
 	}
 
 	private onPointerMove_(ev: PointerHandlerEvent) {
-		const dx = ev.data.x - ev.data.bounds.width / 2;
+		if (!ev.data.point) {
+			return;
+		}
+
+		const dx = ev.data.point.x - ev.data.bounds.width / 2;
 		this.value.rawValue = this.originRawValue_ + dx * this.draggingScale_;
 		this.dragging_.rawValue = this.value.rawValue - this.originRawValue_;
 	}
 
-	private onPointerUp_(_ev: PointerHandlerEvent) {
+	private onPointerUp_() {
 		this.dragging_.rawValue = null;
 	}
 }

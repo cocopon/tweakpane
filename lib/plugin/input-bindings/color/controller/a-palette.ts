@@ -43,7 +43,11 @@ export class APaletteController implements ValueController<Color> {
 	}
 
 	private handlePointerEvent_(d: PointerData): void {
-		const alpha = d.x / d.bounds.width;
+		if (!d.point) {
+			return;
+		}
+
+		const alpha = d.point.x / d.bounds.width;
 
 		const c = this.value.rawValue;
 		const [h, s, v] = c.getComponents('hsv');
