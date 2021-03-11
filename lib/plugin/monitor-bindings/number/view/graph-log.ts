@@ -1,5 +1,5 @@
 import {Formatter} from '../../../common/converter/formatter';
-import {SVG_NS} from '../../../common/dom-util';
+import {forceReflow, SVG_NS} from '../../../common/dom-util';
 import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
 import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
@@ -95,13 +95,19 @@ export class GraphLogView implements ValueView<Buffer<number>> {
 			tooltipElem.classList.remove(className('t', 'a'));
 			return;
 		}
-		tooltipElem.classList.add(className('t', 'a'));
 
 		const tx = mapRange(this.cursor_.index, 0, maxIndex, 0, bounds.width);
 		const ty = mapRange(value, min, max, bounds.height, 0);
 		tooltipElem.style.left = `${tx}px`;
 		tooltipElem.style.top = `${ty}px`;
 		tooltipElem.textContent = `${this.formatter_(value)}`;
+
+		if (!tooltipElem.classList.contains(className('t', 'a'))) {
+			// Suppresses unwanted initial transition
+			tooltipElem.classList.add(className('t', 'a'), className('t', 'in'));
+			forceReflow(tooltipElem);
+			tooltipElem.classList.remove(className('t', 'in'));
+		}
 	}
 
 	private onValueUpdate_(): void {

@@ -15,11 +15,14 @@
 	}
 	&_t {
 		margin-top: -4px;
-		transition: 0.05s left, 0.05s top;
+		transition: left 0.05s, top 0.05s;
 		visibility: hidden;
 
 		&#{&}-a {
 			visibility: visible;
+		}
+		&#{&}-in {
+			transition: none;
 		}
 	}
 
