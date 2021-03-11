@@ -25,11 +25,11 @@ function findAxisConstraint(
 	config: Config,
 	index: number,
 ): Constraint<number> | undefined {
-	const c2d = config.value.constraint;
-	if (!(c2d instanceof Point2dConstraint)) {
+	const pc = config.value.constraint;
+	if (!(pc instanceof Point2dConstraint)) {
 		return undefined;
 	}
-	return index === 0 ? c2d.x : c2d.y;
+	return [pc.x, pc.y][index];
 }
 
 function createAxisController(

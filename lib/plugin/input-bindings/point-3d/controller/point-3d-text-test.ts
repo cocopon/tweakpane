@@ -16,19 +16,33 @@ describe(Point3dTextController.name, () => {
 		const doc = win.document;
 		const c = new Point3dTextController(doc, {
 			axes: [
-				{baseStep: 1, formatter: createNumberFormatter(2)},
-				{baseStep: 1, formatter: createNumberFormatter(2)},
-				{baseStep: 1, formatter: createNumberFormatter(2)},
+				{
+					baseStep: 1,
+					draggingScale: 1,
+					formatter: createNumberFormatter(2),
+				},
+				{
+					baseStep: 1,
+					draggingScale: 1,
+					formatter: createNumberFormatter(2),
+				},
+				{
+					baseStep: 1,
+					draggingScale: 1,
+					formatter: createNumberFormatter(2),
+				},
 			],
 			parser: parseNumber,
 			value: new Value(new Point3d(12, 34, 56)),
 		});
 
-		c.view.inputElements[2].value = '3.14';
-		c.view.inputElements[2].dispatchEvent(TestUtil.createEvent(win, 'change'));
+		c.view.textViews[2].inputElement.value = '3.14';
+		c.view.textViews[2].inputElement.dispatchEvent(
+			TestUtil.createEvent(win, 'change'),
+		);
 		assert.strictEqual(c.value.rawValue.z, 3.14);
 
-		c.view.inputElements[2].dispatchEvent(
+		c.view.textViews[2].inputElement.dispatchEvent(
 			TestUtil.createKeyboardEvent(win, 'keydown', {
 				keyCode: 38,
 				shiftKey: true,

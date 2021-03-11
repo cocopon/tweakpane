@@ -1,14 +1,17 @@
-import {forceCast, isEmpty} from '../../../../misc/type-util';
+import {Constraint} from '../../../common/constraint/constraint';
 import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
 import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
-import {getStepForKey, getVerticalStepKeys} from '../../../common/ui';
+import {connect} from '../../../common/model/value-sync';
+import {NumberTextController} from '../../number/controller/number-text';
+import {Point3dConstraint} from '../constraint/point-3d';
 import {Point3d} from '../model/point-3d';
 import {Point3dTextView} from '../view/point-3d-text';
 
 interface Axis {
 	baseStep: number;
+	draggingScale: number;
 	formatter: Formatter<number>;
 }
 
@@ -18,89 +21,72 @@ interface Config {
 	value: Value<Point3d>;
 }
 
+function findAxisConstraint(
+	config: Config,
+	index: number,
+): Constraint<number> | undefined {
+	const pc = config.value.constraint;
+	if (!(pc instanceof Point3dConstraint)) {
+		return undefined;
+	}
+	return [pc.x, pc.y, pc.z][index];
+}
+
+function createAxisController(
+	doc: Document,
+	config: Config,
+	index: number,
+): NumberTextController {
+	return new NumberTextController(doc, {
+		arrayPosition: index === 0 ? 'fst' : index === 3 - 1 ? 'lst' : 'mid',
+		baseStep: config.axes[index].baseStep,
+		formatter: config.axes[index].formatter,
+		draggingScale: config.axes[index].draggingScale,
+		parser: config.parser,
+		value: new Value(0, {
+			constraint: findAxisConstraint(config, index),
+		}),
+	});
+}
+
 /**
  * @hidden
  */
 export class Point3dTextController implements ValueController<Point3d> {
 	public readonly value: Value<Point3d>;
 	public readonly view: Point3dTextView;
-	private readonly parser_: Parser<number>;
-	private readonly baseSteps_: [number, number, number];
+	private readonly acs_: [
+		NumberTextController,
+		NumberTextController,
+		NumberTextController,
+	];
 
 	constructor(doc: Document, config: Config) {
-		this.onInputChange_ = this.onInputChange_.bind(this);
-		this.onInputKeyDown_ = this.onInputKeyDown_.bind(this);
-
-		this.parser_ = config.parser;
 		this.value = config.value;
 
-		const axes = config.axes;
-		this.baseSteps_ = [axes[0].baseStep, axes[1].baseStep, axes[2].baseStep];
+		this.acs_ = [
+			createAxisController(doc, config, 0),
+			createAxisController(doc, config, 1),
+			createAxisController(doc, config, 2),
+		];
 
 		this.view = new Point3dTextView(doc, {
-			formatters: [axes[0].formatter, axes[1].formatter, axes[2].formatter],
+			textViews: [this.acs_[0].view, this.acs_[1].view, this.acs_[2].view],
 			value: this.value,
 		});
-		this.view.inputElements.forEach((inputElem) => {
-			inputElem.addEventListener('change', this.onInputChange_);
-			inputElem.addEventListener('keydown', this.onInputKeyDown_);
+		this.acs_.forEach((c, index) => {
+			connect({
+				primary: this.value,
+				secondary: c.value,
+				forward: (p) => {
+					return p.rawValue.getComponents()[index];
+				},
+				backward: (p, s) => {
+					const comps = p.rawValue.getComponents();
+					comps[index] = s.rawValue;
+					return new Point3d(comps[0], comps[1], comps[2]);
+				},
+			});
 		});
-	}
-
-	private findIndexOfInputElem_(inputElem: HTMLInputElement): number | null {
-		const inputElems = this.view.inputElements;
-		for (let i = 0; i < inputElems.length; i++) {
-			if (inputElems[i] === inputElem) {
-				return i;
-			}
-		}
-		return null;
-	}
-
-	private updateComponent_(index: number, newValue: number): void {
-		const comps = this.value.rawValue.getComponents();
-		const newComps = comps.map((comp, i) => {
-			return i === index ? newValue : comp;
-		});
-		this.value.rawValue = new Point3d(newComps[0], newComps[1], newComps[2]);
-
-		this.view.update();
-	}
-
-	private onInputChange_(e: Event): void {
-		const inputElem: HTMLInputElement = forceCast(e.currentTarget);
-
-		const parsedValue = this.parser_(inputElem.value);
-		if (isEmpty(parsedValue)) {
-			return;
-		}
-		const compIndex = this.findIndexOfInputElem_(inputElem);
-		if (isEmpty(compIndex)) {
-			return;
-		}
-		this.updateComponent_(compIndex, parsedValue);
-	}
-
-	private onInputKeyDown_(e: KeyboardEvent): void {
-		const inputElem: HTMLInputElement = forceCast(e.currentTarget);
-
-		const parsedValue = this.parser_(inputElem.value);
-		if (isEmpty(parsedValue)) {
-			return;
-		}
-		const compIndex = this.findIndexOfInputElem_(inputElem);
-		if (isEmpty(compIndex)) {
-			return;
-		}
-
-		const step = getStepForKey(
-			this.baseSteps_[compIndex],
-			getVerticalStepKeys(e),
-		);
-		if (step === 0) {
-			return;
-		}
-
-		this.updateComponent_(compIndex, parsedValue + step);
 	}
 }
