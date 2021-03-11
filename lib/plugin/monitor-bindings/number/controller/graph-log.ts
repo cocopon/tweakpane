@@ -1,7 +1,12 @@
 import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
+import {supportsTouch} from '../../../common/dom-util';
 import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
 import {mapRange} from '../../../common/number-util';
+import {
+	PointerHandler,
+	PointerHandlerEvent,
+} from '../../../common/view/pointer-handler';
 import {GraphCursor} from '../model/graph-cursor';
 import {GraphLogView} from '../view/graph-log';
 
@@ -22,8 +27,11 @@ export class GraphLogController implements ValueController<Buffer<number>> {
 	private cursor_: GraphCursor;
 
 	constructor(doc: Document, config: Config) {
-		this.onGraphMouseLeave_ = this.onGraphMouseLeave_.bind(this);
 		this.onGraphMouseMove_ = this.onGraphMouseMove_.bind(this);
+		this.onGraphMouseLeave_ = this.onGraphMouseLeave_.bind(this);
+		this.onGraphPointerDown_ = this.onGraphPointerDown_.bind(this);
+		this.onGraphPointerMove_ = this.onGraphPointerMove_.bind(this);
+		this.onGraphPointerUp_ = this.onGraphPointerUp_.bind(this);
 
 		this.value = config.value;
 		this.cursor_ = new GraphCursor();
@@ -36,19 +44,51 @@ export class GraphLogController implements ValueController<Buffer<number>> {
 			minValue: config.minValue,
 			value: this.value,
 		});
-		this.view.element.addEventListener('mouseleave', this.onGraphMouseLeave_);
-		this.view.element.addEventListener('mousemove', this.onGraphMouseMove_);
+
+		if (!supportsTouch(doc)) {
+			this.view.element.addEventListener('mousemove', this.onGraphMouseMove_);
+			this.view.element.addEventListener('mouseleave', this.onGraphMouseLeave_);
+		} else {
+			const ph = new PointerHandler(this.view.element);
+			ph.emitter.on('down', this.onGraphPointerDown_);
+			ph.emitter.on('move', this.onGraphPointerMove_);
+			ph.emitter.on('up', this.onGraphPointerUp_);
+		}
 	}
 
 	private onGraphMouseLeave_(): void {
 		this.cursor_.index = -1;
 	}
 
-	private onGraphMouseMove_(e: MouseEvent): void {
-		const bounds = this.view.graphElement.getBoundingClientRect();
-		const x = e.offsetX;
+	private onGraphMouseMove_(ev: MouseEvent): void {
+		const bounds = this.view.element.getBoundingClientRect();
 		this.cursor_.index = Math.floor(
-			mapRange(x, 0, bounds.width, 0, this.value.rawValue.length),
+			mapRange(ev.offsetX, 0, bounds.width, 0, this.value.rawValue.length),
 		);
+	}
+
+	private onGraphPointerDown_(ev: PointerHandlerEvent): void {
+		this.onGraphPointerMove_(ev);
+	}
+
+	private onGraphPointerMove_(ev: PointerHandlerEvent): void {
+		if (!ev.data.point) {
+			this.cursor_.index = -1;
+			return;
+		}
+
+		this.cursor_.index = Math.floor(
+			mapRange(
+				ev.data.point.x,
+				0,
+				ev.data.bounds.width,
+				0,
+				this.value.rawValue.length,
+			),
+		);
+	}
+
+	private onGraphPointerUp_(): void {
+		this.cursor_.index = -1;
 	}
 }

@@ -1,5 +1,5 @@
 import {Formatter} from '../../../common/converter/formatter';
-import {SVG_NS} from '../../../common/dom-util';
+import {forceReflow, SVG_NS} from '../../../common/dom-util';
 import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
 import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
@@ -56,7 +56,7 @@ export class GraphLogView implements ValueView<Buffer<number>> {
 		this.lineElem_ = lineElem;
 
 		const tooltipElem = doc.createElement('div');
-		tooltipElem.classList.add(className('t'));
+		tooltipElem.classList.add(className('t'), ClassName('tt')());
 		this.element.appendChild(tooltipElem);
 		this.tooltipElem_ = tooltipElem;
 
@@ -92,16 +92,22 @@ export class GraphLogView implements ValueView<Buffer<number>> {
 		const tooltipElem = this.tooltipElem_;
 		const value = this.value.rawValue[this.cursor_.index];
 		if (value === undefined) {
-			tooltipElem.classList.remove(className('t', 'valid'));
+			tooltipElem.classList.remove(className('t', 'a'));
 			return;
 		}
-		tooltipElem.classList.add(className('t', 'valid'));
 
 		const tx = mapRange(this.cursor_.index, 0, maxIndex, 0, bounds.width);
 		const ty = mapRange(value, min, max, bounds.height, 0);
 		tooltipElem.style.left = `${tx}px`;
 		tooltipElem.style.top = `${ty}px`;
 		tooltipElem.textContent = `${this.formatter_(value)}`;
+
+		if (!tooltipElem.classList.contains(className('t', 'a'))) {
+			// Suppresses unwanted initial transition
+			tooltipElem.classList.add(className('t', 'a'), className('t', 'in'));
+			forceReflow(tooltipElem);
+			tooltipElem.classList.remove(className('t', 'in'));
+		}
 	}
 
 	private onValueUpdate_(): void {
