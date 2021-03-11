@@ -1,5 +1,4 @@
 .#{$prefix}-grlv {
-	overflow: hidden;
 	position: relative;
 
 	&_g {
@@ -15,29 +14,20 @@
 		}
 	}
 	&_t {
-		color: var(--monitor-foreground-color);
-		font-size: 0.9em;
-		left: 0;
-		pointer-events: none;
-		position: absolute;
-		text-indent: 4px;
-		top: 0;
+		margin-top: -4px;
+		transition: 0.05s left, 0.05s top;
 		visibility: hidden;
 
-		&#{&}-valid {
+		&#{&}-a {
 			visibility: visible;
 		}
+	}
+
+	.#{$prefix}-ttv {
+		background-color: var(--monitor-foreground-color);
 
 		&::before {
-			background-color: var(--monitor-foreground-color);
-			border-radius: 100%;
-			content: '';
-			display: block;
-			height: 4px;
-			left: -2px;
-			position: absolute;
-			top: -2px;
-			width: 4px;
+			border-top-color: var(--monitor-foreground-color);
 		}
 	}
 }
