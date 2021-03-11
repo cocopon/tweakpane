@@ -9,18 +9,22 @@
 }
 
 .#{$prefix}-ntxtv {
-	$knob-width: 4px;
+	$knob-bounds-width: 12px;
+	$knob-visual-width: 4px;
 
 	&_i {
 		text-align: right;
 	}
+	&#{&}-drg &_i {
+		opacity: 0.3;
+	}
 	&_k {
 		cursor: pointer;
 		height: 100%;
-		left: -((12px - $knob-width) / 2);
+		left: -(($knob-bounds-width - $knob-visual-width) / 2);
 		position: absolute;
 		top: 0;
-		width: 12px;
+		width: $knob-bounds-width;
 
 		&::before {
 			background-color: var(--input-foreground-color);
@@ -30,22 +34,22 @@
 			height: var(--unit-size);
 			left: 50%;
 			margin-bottom: auto;
-			margin-left: -($knob-width / 2);
+			margin-left: -($knob-visual-width / 2);
 			margin-top: auto;
 			opacity: 0.1;
 			position: absolute;
 			top: 0;
 			transition: height 0.1s;
-			width: $knob-width;
+			width: $knob-visual-width;
 		}
-		&:hover::before,
-		&#{&}-a::before {
-			opacity: 1;
-		}
-		&#{&}-a::before {
-			border-radius: 2px;
-			height: 4px;
-		}
+	}
+	&_k:hover::before,
+	&#{&}-drg &_k::before {
+		opacity: 1;
+	}
+	&#{&}-drg &_k::before {
+		border-radius: 2px;
+		height: 4px;
 	}
 	&_g {
 		bottom: 0;
@@ -60,9 +64,9 @@
 		visibility: hidden;
 		width: 100%;
 
-		&#{&}-a {
-			visibility: visible;
-		}
+	}
+	&#{&}-drg &_g {
+		visibility: visible;
 	}
 	&_gb {
 		fill: none;
@@ -72,5 +76,13 @@
 	&_gh {
 		fill: none;
 		stroke: var(--input-foreground-color);
+	}
+
+	.#{$prefix}-ttv {
+		margin-left: $knob-bounds-width / 2;
+		visibility: hidden;
+	}
+	&#{&}-drg .#{$prefix}-ttv {
+		visibility: visible;
 	}
 }

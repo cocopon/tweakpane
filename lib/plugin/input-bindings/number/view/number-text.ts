@@ -15,9 +15,9 @@ export class NumberTextView extends TextView<number> {
 	public readonly knobElement: HTMLElement;
 	private readonly dragging_: Value<number | null>;
 	private readonly draggingScale_: number;
-	private readonly guideElem_: SVGElement;
 	private readonly guideBodyElem_: SVGPathElement;
 	private readonly guideHeadElem_: SVGPathElement;
+	private readonly tooltipElem_: HTMLElement;
 
 	constructor(doc: Document, config: NumberConfig) {
 		super(doc, config);
@@ -39,7 +39,6 @@ export class NumberTextView extends TextView<number> {
 		const guideElem = doc.createElementNS(SVG_NS, 'svg');
 		guideElem.classList.add(className('g'));
 		this.knobElement.appendChild(guideElem);
-		this.guideElem_ = guideElem;
 
 		const bodyElem = doc.createElementNS(SVG_NS, 'path');
 		bodyElem.classList.add(className('gb'));
@@ -50,17 +49,20 @@ export class NumberTextView extends TextView<number> {
 		headElem.classList.add(className('gh'));
 		guideElem.appendChild(headElem);
 		this.guideHeadElem_ = headElem;
+
+		const tooltipElem = doc.createElement('div');
+		tooltipElem.classList.add(ClassName('tt')());
+		this.knobElement.appendChild(tooltipElem);
+		this.tooltipElem_ = tooltipElem;
 	}
 
 	private onDraggingChange_(ev: ValueEvents<number | null>['change']) {
 		if (ev.rawValue === null) {
-			this.knobElement.classList.remove(className('k', 'a'));
-			this.guideElem_.classList.remove(className('g', 'a'));
+			this.element.classList.remove(className(undefined, 'drg'));
 			return;
 		}
 
-		this.knobElement.classList.add(className('k', 'a'));
-		this.guideElem_.classList.add(className('g', 'a'));
+		this.element.classList.add(className(undefined, 'drg'));
 
 		const x = ev.rawValue / this.draggingScale_;
 		const aox = x + (x > 0 ? -1 : x < 0 ? +1 : 0);
@@ -73,5 +75,8 @@ export class NumberTextView extends TextView<number> {
 			),
 		);
 		this.guideBodyElem_.setAttributeNS(null, 'd', `M 0,4 L${x},4`);
+
+		this.tooltipElem_.textContent = this.formatter(this.value.rawValue);
+		this.tooltipElem_.style.left = `${x}px`;
 	}
 }

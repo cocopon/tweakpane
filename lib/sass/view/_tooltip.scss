@@ -1,0 +1,25 @@
+.#{$prefix}-ttv {
+	background-color: var(--input-foreground-color);
+	border-radius: $inner-border-radius;
+	color: var(--base-background-color);
+	padding: 2px 4px;
+	position: absolute;
+	transform: translate(-50%, -100%);
+
+	&::before {
+		$size: 4px;
+
+		border-color: var(--input-foreground-color) transparent transparent transparent;
+		border-style: solid;
+		border-width: $size / 2;
+		box-sizing: border-box;
+		content: '';
+		font-size: 0.9em;
+		height: $size;
+		left: 50%;
+		margin-left: -$size / 2;
+		position: absolute;
+		top: 100%;
+		width: $size;
+	}
+}
