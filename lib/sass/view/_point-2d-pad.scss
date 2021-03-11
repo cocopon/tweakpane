@@ -30,8 +30,7 @@
 	}
 	&_l {
 		stroke: var(--input-foreground-color);
-		stroke-linecap: round;
-		stroke-dasharray: 1px 3px;
+		stroke-dasharray: 2px 2px;
 	}
 	&_m {
 		fill: var(--input-foreground-color);

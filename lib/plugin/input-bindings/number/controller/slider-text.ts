@@ -8,6 +8,7 @@ import {SliderController} from './slider';
 
 interface Config {
 	baseStep: number;
+	draggingScale: number;
 	formatter: Formatter<number>;
 	parser: Parser<number>;
 	value: Value<number>;
@@ -31,6 +32,7 @@ export class SliderTextController implements ValueController<number> {
 		});
 		this.textIc_ = new NumberTextController(doc, {
 			baseStep: config.baseStep,
+			draggingScale: config.draggingScale,
 			formatter: config.formatter,
 			parser: config.parser,
 			value: config.value,

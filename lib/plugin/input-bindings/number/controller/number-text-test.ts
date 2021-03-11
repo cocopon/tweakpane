@@ -15,6 +15,7 @@ describe(NumberTextController.name, () => {
 		const doc = win.document;
 		const c = new NumberTextController(doc, {
 			baseStep: 1,
+			draggingScale: 1,
 			formatter: createNumberFormatter(0),
 			parser: parseNumber,
 			value: new Value(123),

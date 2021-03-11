@@ -22,6 +22,7 @@ import {
 	findListItems,
 	getBaseStep,
 	getSuitableDecimalDigits,
+	getSuitableDraggingScale,
 } from '../../util';
 import {ListController} from '../common/controller/list';
 import {NumberTextController} from './controller/number-text';
@@ -94,6 +95,7 @@ function createController(doc: Document, value: Value<number>) {
 	if (c && findConstraint(c, RangeConstraint)) {
 		return new SliderTextController(doc, {
 			baseStep: getBaseStep(c),
+			draggingScale: getSuitableDraggingScale(value.constraint, value.rawValue),
 			formatter: createNumberFormatter(
 				getSuitableDecimalDigits(value.constraint, value.rawValue),
 			),
@@ -104,6 +106,7 @@ function createController(doc: Document, value: Value<number>) {
 
 	return new NumberTextController(doc, {
 		baseStep: getBaseStep(c),
+		draggingScale: getSuitableDraggingScale(value.constraint, value.rawValue),
 		formatter: createNumberFormatter(
 			getSuitableDecimalDigits(value.constraint, value.rawValue),
 		),

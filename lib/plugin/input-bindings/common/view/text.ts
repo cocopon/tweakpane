@@ -3,7 +3,7 @@ import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
 
-interface Config<T> {
+export interface Config<T> {
 	formatter: Formatter<T>;
 	value: Value<T>;
 }
