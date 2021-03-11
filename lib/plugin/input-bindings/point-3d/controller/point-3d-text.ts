@@ -3,7 +3,7 @@ import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
 import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
-import {connect} from '../../../common/model/value-sync';
+import {connectValues} from '../../../common/model/value-sync';
 import {NumberTextController} from '../../number/controller/number-text';
 import {Point3dConstraint} from '../constraint/point-3d';
 import {Point3d} from '../model/point-3d';
@@ -75,7 +75,7 @@ export class Point3dTextController implements ValueController<Point3d> {
 			value: this.value,
 		});
 		this.acs_.forEach((c, index) => {
-			connect({
+			connectValues({
 				primary: this.value,
 				secondary: c.value,
 				forward: (p) => {

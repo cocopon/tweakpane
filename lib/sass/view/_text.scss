@@ -24,7 +24,7 @@
 	$knob-bounds-width: 12px;
 	$knob-visual-width: 4px;
 
-	&_i {
+	&#{&}-num &_i {
 		text-align: right;
 	}
 	&#{&}-drg &_i {

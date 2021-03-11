@@ -3,7 +3,7 @@ import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
 import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
-import {connect} from '../../../common/model/value-sync';
+import {connectValues} from '../../../common/model/value-sync';
 import {NumberTextController} from '../../number/controller/number-text';
 import {Point2dConstraint} from '../constraint/point-2d';
 import {Point2d} from '../model/point-2d';
@@ -65,7 +65,7 @@ export class Point2dTextController implements ValueController<Point2d> {
 			createAxisController(doc, config, 1),
 		];
 		this.acs_.forEach((c, index) => {
-			connect({
+			connectValues({
 				primary: this.value,
 				secondary: c.value,
 				forward: (p) => {

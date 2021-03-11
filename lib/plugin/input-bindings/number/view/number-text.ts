@@ -22,6 +22,8 @@ export class NumberTextView extends TextView<number> {
 	constructor(doc: Document, config: NumberConfig) {
 		super(doc, config);
 
+		this.element.classList.add(className(undefined, 'num'));
+
 		this.onDraggingChange_ = this.onDraggingChange_.bind(this);
 
 		this.dragging_ = config.dragging;
