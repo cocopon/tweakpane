@@ -109,7 +109,7 @@ export function getSuitableDraggingScale(
 	rawValue: number,
 ): number {
 	const sc = constraint && findConstraint(constraint, StepConstraint);
-	const base = sc?.step ?? rawValue;
+	const base = Math.abs(sc?.step ?? rawValue);
 
 	return base === 0 ? 0.1 : Math.pow(10, Math.floor(Math.log10(base)) - 1);
 }

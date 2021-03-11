@@ -11,6 +11,13 @@ describe(getSuitableDraggingScale.name, () => {
 		{
 			params: {
 				constraint: undefined,
+				rawValue: -10,
+			},
+			expected: 1,
+		},
+		{
+			params: {
+				constraint: undefined,
 				rawValue: 1,
 			},
 			expected: 0.1,
