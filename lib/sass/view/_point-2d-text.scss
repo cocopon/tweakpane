@@ -1,7 +1,7 @@
 .#{$prefix}-p2dtxtv {
 	@extend %texts;
 
-	&_i {
-		@extend %texts_input;
+	&_a {
+		@extend %texts_item;
 	}
 }

@@ -11,7 +11,11 @@ import {
 import {Value} from '../../common/model/value';
 import {TpError} from '../../common/tp-error';
 import {InputBindingPlugin} from '../../input-binding';
-import {getBaseStep, getSuitableDecimalDigits} from '../../util';
+import {
+	getBaseStep,
+	getSuitableDecimalDigits,
+	getSuitableDraggingScale,
+} from '../../util';
 import {Point3dConstraint} from './constraint/point-3d';
 import {Point3dTextController} from './controller/point-3d-text';
 import {Point3d, Point3dObject} from './model/point-3d';
@@ -58,6 +62,7 @@ export function getAxis(
 ) {
 	return {
 		baseStep: getBaseStep(constraint),
+		draggingScale: getSuitableDraggingScale(constraint, initialValue),
 		formatter: createNumberFormatter(
 			getSuitableDecimalDigits(constraint, initialValue),
 		),

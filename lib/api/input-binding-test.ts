@@ -22,6 +22,7 @@ function createApi(target: BindingTarget) {
 	const value = new Value(0);
 	const ic = new NumberTextController(doc, {
 		baseStep: 1,
+		draggingScale: 1,
 		formatter: createNumberFormatter(0),
 		parser: parseNumber,
 		value: value,

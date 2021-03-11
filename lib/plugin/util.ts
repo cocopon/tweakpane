@@ -100,3 +100,16 @@ export function getBaseStep(
 	const step = findStep(constraint);
 	return step ?? 1;
 }
+
+/**
+ * @hidden
+ */
+export function getSuitableDraggingScale(
+	constraint: Constraint<number> | undefined,
+	rawValue: number,
+): number {
+	const sc = constraint && findConstraint(constraint, StepConstraint);
+	const base = Math.abs(sc?.step ?? rawValue);
+
+	return base === 0 ? 0.1 : Math.pow(10, Math.floor(Math.log10(base)) - 1);
+}

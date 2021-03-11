@@ -9,7 +9,7 @@ import {Constraint} from '../plugin/common/constraint/constraint';
 import {StepConstraint} from '../plugin/common/constraint/step';
 import {Value} from '../plugin/common/model/value';
 import {ListController} from '../plugin/input-bindings/common/controller/list';
-import {TextController} from '../plugin/input-bindings/common/controller/text';
+import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
 import {SliderTextController} from '../plugin/input-bindings/number/controller/slider-text';
 
 function createPane(): Tweakpane {
@@ -21,7 +21,7 @@ function createPane(): Tweakpane {
 describe(Tweakpane.name, () => {
 	[
 		{
-			expectedClass: TextController,
+			expectedClass: NumberTextController,
 			params: {},
 			value: 3.14,
 		},

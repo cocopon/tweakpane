@@ -1,7 +1,109 @@
 .#{$prefix}-txtv {
+	position: relative;
+
 	&_i {
 		@extend %input;
 
 		padding: 0 4px;
+	}
+	&#{&}-fst &_i {
+		border-bottom-right-radius: 0;
+		border-top-right-radius: 0;
+	}
+	&#{&}-mid &_i {
+		border-radius: 0;
+	}
+	&#{&}-lst &_i {
+		border-bottom-left-radius: 0;
+		border-top-left-radius: 0;
+	}
+}
+
+// number-text
+.#{$prefix}-txtv {
+	$knob-bounds-width: 12px;
+	$knob-visual-width: 4px;
+
+	&#{&}-num &_i {
+		text-align: right;
+	}
+	&#{&}-drg &_i {
+		opacity: 0.3;
+	}
+	&_k {
+		cursor: pointer;
+		height: 100%;
+		left: -(($knob-bounds-width - $knob-visual-width) / 2);
+		position: absolute;
+		top: 0;
+		width: $knob-bounds-width;
+
+		&::before {
+			background-color: var(--input-foreground-color);
+			border-radius: 2px 0 0 2px;
+			bottom: 0;
+			content: '';
+			height: var(--unit-size);
+			left: 50%;
+			margin-bottom: auto;
+			margin-left: -($knob-visual-width / 2);
+			margin-top: auto;
+			opacity: 0.1;
+			position: absolute;
+			top: 0;
+			transition: height 0.1s;
+			width: $knob-visual-width;
+		}
+	}
+	&#{&}-mid &_k::before,
+	&#{&}-lst &_k::before {
+		border-bottom-left-radius: 0;
+		border-top-left-radius: 0;
+	}
+	&_k:hover::before,
+	&#{&}-drg &_k::before {
+		opacity: 1;
+	}
+	&#{&}-drg &_k::before {
+		border-radius: 2px;
+		height: 4px;
+	}
+	&#{&}-drg#{&}-mid &_k::before,
+	&#{&}-drg#{&}-list &_k::before {
+		border-bottom-left-radius: 2px;
+		border-top-left-radius: 2px;
+	}
+	&_g {
+		bottom: 0;
+		display: block;
+		height: 8px;
+		left: 50%;
+		margin: auto;
+		overflow: visible;
+		pointer-events: none;
+		position: absolute;
+		top: 0;
+		visibility: hidden;
+		width: 100%;
+	}
+	&#{&}-drg &_g {
+		visibility: visible;
+	}
+	&_gb {
+		fill: none;
+		stroke: var(--input-foreground-color);
+		stroke-dasharray: 2px 2px;
+	}
+	&_gh {
+		fill: none;
+		stroke: var(--input-foreground-color);
+	}
+
+	.#{$prefix}-ttv {
+		margin-left: $knob-bounds-width / 2;
+		visibility: hidden;
+	}
+	&#{&}-drg .#{$prefix}-ttv {
+		visibility: visible;
 	}
 }

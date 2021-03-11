@@ -73,10 +73,14 @@ export class Point2dPadController implements ValueController<Point2d> {
 	}
 
 	private handlePointerEvent_(d: PointerData): void {
+		if (!d.point) {
+			return;
+		}
+
 		const max = this.maxValue_;
-		const px = mapRange(d.x, 0, d.bounds.width, -max, +max);
+		const px = mapRange(d.point.x, 0, d.bounds.width, -max, +max);
 		const py = mapRange(
-			this.invertsY_ ? d.bounds.height - d.y : d.y,
+			this.invertsY_ ? d.bounds.height - d.point.y : d.point.y,
 			0,
 			d.bounds.height,
 			-max,

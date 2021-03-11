@@ -3,9 +3,11 @@ import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
 
-interface Config<T> {
+export interface Config<T> {
 	formatter: Formatter<T>;
 	value: Value<T>;
+
+	arrayPosition?: 'fst' | 'mid' | 'lst';
 }
 
 const className = ClassName('txt');
@@ -17,15 +19,18 @@ export class TextView<T> implements ValueView<T> {
 	public readonly inputElement: HTMLInputElement;
 	public readonly value: Value<T>;
 	public readonly element: HTMLElement;
-	private formatter_: Formatter<T>;
+	protected readonly formatter: Formatter<T>;
 
 	constructor(doc: Document, config: Config<T>) {
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
-		this.formatter_ = config.formatter;
+		this.formatter = config.formatter;
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
+		if (config.arrayPosition) {
+			this.element.classList.add(className(undefined, config.arrayPosition));
+		}
 
 		const inputElem = doc.createElement('input');
 		inputElem.classList.add(className('i'));
@@ -40,7 +45,7 @@ export class TextView<T> implements ValueView<T> {
 	}
 
 	public update(): void {
-		this.inputElement.value = this.formatter_(this.value.rawValue);
+		this.inputElement.value = this.formatter(this.value.rawValue);
 	}
 
 	private onValueChange_(): void {

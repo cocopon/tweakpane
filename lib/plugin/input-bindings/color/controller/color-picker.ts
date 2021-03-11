@@ -1,3 +1,4 @@
+import {RangeConstraint} from '../../../common/constraint/range';
 import {ValueController} from '../../../common/controller/value';
 import {
 	createNumberFormatter,
@@ -6,8 +7,7 @@ import {
 import {findNextTarget, supportsTouch} from '../../../common/dom-util';
 import {Foldable} from '../../../common/model/foldable';
 import {Value} from '../../../common/model/value';
-import {connect} from '../../../common/model/value-sync';
-import {TextController} from '../../common/controller/text';
+import {connectValues} from '../../../common/model/value-sync';
 import {NumberTextController} from '../../number/controller/number-text';
 import {PickedColor} from '..//model/picked-color';
 import {Color} from '../model/color';
@@ -32,7 +32,7 @@ export class ColorPickerController implements ValueController<Color> {
 	public triggerElement: HTMLElement | null = null;
 	private alphaIcs_: {
 		palette: APaletteController;
-		text: TextController<number>;
+		text: NumberTextController;
 	} | null;
 	private hPaletteIc_: HPaletteController;
 	private svPaletteIc_: SvPaletteController;
@@ -57,15 +57,18 @@ export class ColorPickerController implements ValueController<Color> {
 						value: this.pickedColor.value,
 					}),
 					text: new NumberTextController(doc, {
+						draggingScale: 0.01,
 						formatter: createNumberFormatter(2),
 						parser: parseNumber,
 						baseStep: 0.1,
-						value: new Value(0),
+						value: new Value(0, {
+							constraint: new RangeConstraint({min: 0, max: 1}),
+						}),
 					}),
 			  }
 			: null;
 		if (this.alphaIcs_) {
-			connect({
+			connectValues({
 				primary: this.pickedColor.value,
 				secondary: this.alphaIcs_.text.value,
 				forward: (p) => {

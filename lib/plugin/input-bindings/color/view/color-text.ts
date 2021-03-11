@@ -1,23 +1,17 @@
-import {createNumberFormatter} from '../../../common/converter/number';
 import {createSvgIconElement} from '../../../common/dom-util';
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
+import {NumberTextView} from '../../number/view/number-text';
 import {Color} from '../model/color';
 import {PickedColor} from '../model/picked-color';
 
 interface Config {
 	pickedColor: PickedColor;
+	textViews: [NumberTextView, NumberTextView, NumberTextView];
 }
 
-type HtmlInputElements3 = [
-	HTMLInputElement,
-	HTMLInputElement,
-	HTMLInputElement,
-];
-
 const className = ClassName('cltxt');
-const FORMATTER = createNumberFormatter(0);
 
 function createModeSelectElement(doc: Document): HTMLSelectElement {
 	const selectElem = doc.createElement('select');
@@ -44,8 +38,9 @@ function createModeSelectElement(doc: Document): HTMLSelectElement {
 export class ColorTextView implements ValueView<Color> {
 	public readonly element: HTMLElement;
 	public readonly pickedColor: PickedColor;
+	private textViews_: [NumberTextView, NumberTextView, NumberTextView];
 	private modeElem_: HTMLSelectElement;
-	private inputElems_: HtmlInputElements3;
+	private textsElem_: HTMLElement;
 
 	constructor(doc: Document, config: Config) {
 		this.onValueChange_ = this.onValueChange_.bind(this);
@@ -66,20 +61,13 @@ export class ColorTextView implements ValueView<Color> {
 
 		this.element.appendChild(modeElem);
 
-		const wrapperElem = doc.createElement('div');
-		wrapperElem.classList.add(className('w'));
-		this.element.appendChild(wrapperElem);
+		const textsElem = doc.createElement('div');
+		textsElem.classList.add(className('w'));
+		this.element.appendChild(textsElem);
+		this.textsElem_ = textsElem;
 
-		const inputElems = [0, 1, 2].map(() => {
-			const inputElem = doc.createElement('input');
-			inputElem.classList.add(className('i'));
-			inputElem.type = 'text';
-			return inputElem;
-		});
-		inputElems.forEach((elem) => {
-			wrapperElem.appendChild(elem);
-		});
-		this.inputElems_ = [inputElems[0], inputElems[1], inputElems[2]];
+		this.textViews_ = config.textViews;
+		this.applyTextViews_();
 
 		this.pickedColor = config.pickedColor;
 		this.pickedColor.emitter.on('change', this.onValueChange_);
@@ -91,8 +79,13 @@ export class ColorTextView implements ValueView<Color> {
 		return this.modeElem_;
 	}
 
-	get inputElements(): HtmlInputElements3 {
-		return this.inputElems_;
+	get textViews(): [NumberTextView, NumberTextView, NumberTextView] {
+		return this.textViews_;
+	}
+
+	set textViews(textViews: [NumberTextView, NumberTextView, NumberTextView]) {
+		this.textViews_ = textViews;
+		this.applyTextViews_();
 	}
 
 	get value(): Value<Color> {
@@ -101,17 +94,19 @@ export class ColorTextView implements ValueView<Color> {
 
 	public update(): void {
 		this.modeElem_.value = this.pickedColor.mode;
+	}
 
-		const comps = this.pickedColor.value.rawValue.getComponents(
-			this.pickedColor.mode,
-		);
-		comps.forEach((comp, index) => {
-			const inputElem = this.inputElems_[index];
-			if (!inputElem) {
-				return;
-			}
+	private applyTextViews_() {
+		while (this.textsElem_.children.length > 0) {
+			this.textsElem_.removeChild(this.textsElem_.children[0]);
+		}
 
-			inputElem.value = FORMATTER(comp);
+		const doc = this.element.ownerDocument;
+		this.textViews_.forEach((v) => {
+			const compElem = doc.createElement('div');
+			compElem.classList.add(className('c'));
+			compElem.appendChild(v.element);
+			this.textsElem_.appendChild(compElem);
 		});
 	}
 

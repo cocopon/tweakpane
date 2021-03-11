@@ -13,23 +13,31 @@ export interface PointerData {
 		width: number;
 	};
 	/**
-	 * The X coordinate in the element.
+	 * The pointer coordinates.
 	 */
-	x: number;
-	/**
-	 * The Y coordinate in the element.
-	 */
-	y: number;
+	point: {
+		/**
+		 * The X coordinate in the element.
+		 */
+		x: number;
+		/**
+		 * The Y coordinate in the element.
+		 */
+		y: number;
+	} | null;
 }
 
-function computeOffset(ev: MouseEvent, elem: HTMLElement): [number, number] {
+function computeOffset(
+	ev: MouseEvent,
+	elem: HTMLElement,
+): {x: number; y: number} {
 	// NOTE: OffsetX/Y should be computed from page and window properties to capture mouse events
 	const win = elem.ownerDocument.defaultView;
 	const rect = elem.getBoundingClientRect();
-	return [
-		ev.pageX - (((win && win.scrollX) || 0) + rect.left),
-		ev.pageY - (((win && win.scrollY) || 0) + rect.top),
-	];
+	return {
+		x: ev.pageX - (((win && win.scrollX) || 0) + rect.left),
+		y: ev.pageY - (((win && win.scrollY) || 0) + rect.top),
+	};
 }
 
 /**
@@ -58,6 +66,7 @@ export class PointerHandler {
 		this.onDocumentMouseMove_ = this.onDocumentMouseMove_.bind(this);
 		this.onDocumentMouseUp_ = this.onDocumentMouseUp_.bind(this);
 		this.onMouseDown_ = this.onMouseDown_.bind(this);
+		this.onTouchEnd_ = this.onTouchEnd_.bind(this);
 		this.onTouchMove_ = this.onTouchMove_.bind(this);
 		this.onTouchStart_ = this.onTouchStart_.bind(this);
 
@@ -69,6 +78,7 @@ export class PointerHandler {
 		if (supportsTouch(doc)) {
 			element.addEventListener('touchstart', this.onTouchStart_);
 			element.addEventListener('touchmove', this.onTouchMove_);
+			element.addEventListener('touchend', this.onTouchEnd_);
 		} else {
 			element.addEventListener('mousedown', this.onMouseDown_);
 			doc.addEventListener('mousemove', this.onDocumentMouseMove_);
@@ -76,15 +86,19 @@ export class PointerHandler {
 		}
 	}
 
-	private computePosition_(offsetX: number, offsetY: number): PointerData {
+	private computePosition_(offset?: {x: number; y: number}): PointerData {
 		const rect = this.element.getBoundingClientRect();
 		return {
 			bounds: {
 				width: rect.width,
 				height: rect.height,
 			},
-			x: offsetX,
-			y: offsetY,
+			point: offset
+				? {
+						x: offset.x,
+						y: offset.y,
+				  }
+				: null,
 		};
 	}
 
@@ -97,7 +111,7 @@ export class PointerHandler {
 		this.pressed_ = true;
 
 		this.emitter.emit('down', {
-			data: this.computePosition_(...computeOffset(e, this.element)),
+			data: this.computePosition_(computeOffset(e, this.element)),
 			sender: this,
 		});
 	}
@@ -108,7 +122,7 @@ export class PointerHandler {
 		}
 
 		this.emitter.emit('move', {
-			data: this.computePosition_(...computeOffset(e, this.element)),
+			data: this.computePosition_(computeOffset(e, this.element)),
 			sender: this,
 		});
 	}
@@ -120,7 +134,7 @@ export class PointerHandler {
 		this.pressed_ = false;
 
 		this.emitter.emit('up', {
-			data: this.computePosition_(...computeOffset(e, this.element)),
+			data: this.computePosition_(computeOffset(e, this.element)),
 			sender: this,
 		});
 	}
@@ -129,24 +143,48 @@ export class PointerHandler {
 		// Prevent native page scroll
 		e.preventDefault();
 
-		const touch = e.targetTouches[0];
+		const touch = e.targetTouches.item(0);
 		const rect = this.element.getBoundingClientRect();
 		this.emitter.emit('down', {
 			data: this.computePosition_(
-				touch.clientX - rect.left,
-				touch.clientY - rect.top,
+				touch
+					? {
+							x: touch.clientX - rect.left,
+							y: touch.clientY - rect.top,
+					  }
+					: undefined,
 			),
 			sender: this,
 		});
 	}
 
 	private onTouchMove_(e: TouchEvent) {
-		const touch = e.targetTouches[0];
+		const touch = e.targetTouches.item(0);
 		const rect = this.element.getBoundingClientRect();
 		this.emitter.emit('move', {
 			data: this.computePosition_(
-				touch.clientX - rect.left,
-				touch.clientY - rect.top,
+				touch
+					? {
+							x: touch.clientX - rect.left,
+							y: touch.clientY - rect.top,
+					  }
+					: undefined,
+			),
+			sender: this,
+		});
+	}
+
+	private onTouchEnd_(e: TouchEvent) {
+		const touch = e.targetTouches.item(0);
+		const rect = this.element.getBoundingClientRect();
+		this.emitter.emit('up', {
+			data: this.computePosition_(
+				touch
+					? {
+							x: touch.clientX - rect.left,
+							y: touch.clientY - rect.top,
+					  }
+					: undefined,
 			),
 			sender: this,
 		});

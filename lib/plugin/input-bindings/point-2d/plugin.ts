@@ -14,7 +14,11 @@ import {
 import {Value} from '../../common/model/value';
 import {TpError} from '../../common/tp-error';
 import {InputBindingPlugin} from '../../input-binding';
-import {getBaseStep, getSuitableDecimalDigits} from '../../util';
+import {
+	getBaseStep,
+	getSuitableDecimalDigits,
+	getSuitableDraggingScale,
+} from '../../util';
 import {Point2dConstraint} from './constraint/point-2d';
 import {Point2dPadTextController} from './controller/point-2d-pad-text';
 import {Point2d, Point2dObject} from './model/point-2d';
@@ -92,12 +96,14 @@ function createController(
 		axes: [
 			{
 				baseStep: getBaseStep(c.x),
+				draggingScale: getSuitableDraggingScale(c.x, value.rawValue.x),
 				formatter: createNumberFormatter(
 					getSuitableDecimalDigits(c.x, value.rawValue.x),
 				),
 			},
 			{
 				baseStep: getBaseStep(c.y),
+				draggingScale: getSuitableDraggingScale(c.y, value.rawValue.y),
 				formatter: createNumberFormatter(
 					getSuitableDecimalDigits(c.y, value.rawValue.y),
 				),

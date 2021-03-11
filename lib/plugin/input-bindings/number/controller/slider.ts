@@ -73,8 +73,12 @@ export class SliderController implements ValueController<number> {
 	}
 
 	private handlePointerEvent_(d: PointerData): void {
+		if (!d.point) {
+			return;
+		}
+
 		this.value.rawValue = mapRange(
-			d.x,
+			d.point.x,
 			0,
 			d.bounds.width,
 			this.minValue_,

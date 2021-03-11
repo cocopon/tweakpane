@@ -48,11 +48,11 @@ describe(ColorTextController.name, () => {
 			},
 		},
 		{
-			expected: {r: 0, g: 0, b: 1, a: 1},
+			expected: {r: 12, g: 34, b: 0, a: 1},
 			params: {
-				components: [0, 0, 1],
+				components: [12, 34, 56],
 				index: 2,
-				value: '1',
+				value: '0',
 			},
 		},
 	] as ChangeTestCase[]).forEach((testCase) => {
@@ -76,7 +76,7 @@ describe(ColorTextController.name, () => {
 					pickedColor: new PickedColor(value),
 				});
 
-				const inputElem = c.view.inputElements[testCase.params.index];
+				const inputElem = c.view.textViews[testCase.params.index].inputElement;
 				inputElem.value = testCase.params.value;
 				inputElem.dispatchEvent(TestUtil.createEvent(win, 'change'));
 			});
@@ -138,7 +138,7 @@ describe(ColorTextController.name, () => {
 					pickedColor: new PickedColor(value),
 				});
 
-				const inputElem = c.view.inputElements[testCase.params.index];
+				const inputElem = c.view.textViews[testCase.params.index].inputElement;
 				inputElem.dispatchEvent(
 					TestUtil.createKeyboardEvent(win, 'keydown', {
 						keyCode: testCase.params.keys.code,

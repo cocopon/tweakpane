@@ -105,7 +105,7 @@ export class ColorPickerView implements ValueView<Color> {
 		const elems = [
 			this.svPaletteView_.element,
 			this.hPaletteView_.element,
-			...this.textView_.inputElements,
+			...this.textView_.textViews.map((v) => v.inputElement),
 		];
 		if (this.alphaViews_) {
 			elems.push(
