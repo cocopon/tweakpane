@@ -5,9 +5,9 @@ import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
 import {connectValues} from '../../../common/model/value-sync';
 import {NumberTextController} from '../../number/controller/number-text';
-import {Point2dConstraint} from '../constraint/point-2d';
-import {Point2d} from '../model/point-2d';
-import {Point2dTextView} from '../view/point-2d-text';
+import {PointNdConstraint} from '../constraint/point-nd';
+import {PointNdAssembly} from '../model/point-nd';
+import {PointNdTextView} from '../view/point-nd-text';
 
 interface Axis {
 	baseStep: number;
@@ -15,30 +15,32 @@ interface Axis {
 	formatter: Formatter<number>;
 }
 
-interface Config {
-	axes: [Axis, Axis];
+interface Config<PointNd> {
+	assembly: PointNdAssembly<PointNd>;
+	axes: Axis[];
 	parser: Parser<number>;
-	value: Value<Point2d>;
+	value: Value<PointNd>;
 }
 
-function findAxisConstraint(
-	config: Config,
+function findAxisConstraint<PointNd>(
+	config: Config<PointNd>,
 	index: number,
 ): Constraint<number> | undefined {
 	const pc = config.value.constraint;
-	if (!(pc instanceof Point2dConstraint)) {
+	if (!(pc instanceof PointNdConstraint)) {
 		return undefined;
 	}
-	return [pc.x, pc.y][index];
+	return pc.components[index];
 }
 
-function createAxisController(
+function createAxisController<PointNd>(
 	doc: Document,
-	config: Config,
+	config: Config<PointNd>,
 	index: number,
 ): NumberTextController {
 	return new NumberTextController(doc, {
-		arrayPosition: index === 0 ? 'fst' : 'lst',
+		arrayPosition:
+			index === 0 ? 'fst' : index === config.axes.length - 1 ? 'lst' : 'mid',
 		baseStep: config.axes[index].baseStep,
 		formatter: config.axes[index].formatter,
 		draggingScale: config.axes[index].draggingScale,
@@ -52,35 +54,35 @@ function createAxisController(
 /**
  * @hidden
  */
-export class Point2dTextController implements ValueController<Point2d> {
-	public readonly value: Value<Point2d>;
-	public readonly view: Point2dTextView;
-	private readonly acs_: [NumberTextController, NumberTextController];
+export class PointNdTextController<PointNd>
+	implements ValueController<PointNd> {
+	public readonly value: Value<PointNd>;
+	public readonly view: PointNdTextView<PointNd>;
+	private readonly acs_: NumberTextController[];
 
-	constructor(doc: Document, config: Config) {
+	constructor(doc: Document, config: Config<PointNd>) {
 		this.value = config.value;
 
-		this.acs_ = [
-			createAxisController(doc, config, 0),
-			createAxisController(doc, config, 1),
-		];
+		this.acs_ = config.axes.map((_, index) =>
+			createAxisController(doc, config, index),
+		);
 		this.acs_.forEach((c, index) => {
 			connectValues({
 				primary: this.value,
 				secondary: c.value,
 				forward: (p) => {
-					return p.rawValue.getComponents()[index];
+					return config.assembly.toComponents(p.rawValue)[index];
 				},
 				backward: (p, s) => {
-					const comps = p.rawValue.getComponents();
+					const comps = config.assembly.toComponents(p.rawValue);
 					comps[index] = s.rawValue;
-					return new Point2d(comps[0], comps[1]);
+					return config.assembly.fromComponents(comps);
 				},
 			});
 		});
 
-		this.view = new Point2dTextView(doc, {
-			textViews: [this.acs_[0].view, this.acs_[1].view],
+		this.view = new PointNdTextView(doc, {
+			textViews: this.acs_.map((ac) => ac.view),
 			value: this.value,
 		});
 	}

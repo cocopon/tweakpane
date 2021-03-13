@@ -1,21 +1,12 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
-import {Constraint} from '../../../common/constraint/constraint';
-import {RangeConstraint} from '../../../common/constraint/range';
-import {Point2dConstraint} from '..//constraint/point-2d';
-import {Point2d} from '../model/point-2d';
-import {getSuitableMaxValue} from '../plugin';
+import {RangeConstraint} from '../../common/constraint/range';
+import {PointNdConstraint} from '../common/constraint/point-nd';
+import {Point2d, Point2dAssembly} from './model/point-2d';
+import {getSuitableMaxValue} from './plugin';
 
-interface TestCase {
-	expected: number;
-	params: {
-		constraint: Constraint<Point2d> | undefined;
-		rawValue: Point2d;
-	};
-}
-
-describe('Util', () => {
+describe(getSuitableMaxValue.name, () => {
 	[
 		{
 			expected: 10,
@@ -34,8 +25,9 @@ describe('Util', () => {
 		{
 			expected: 10,
 			params: {
-				constraint: new Point2dConstraint({
-					x: new RangeConstraint({min: 0, max: 10}),
+				constraint: new PointNdConstraint({
+					assembly: Point2dAssembly,
+					components: [new RangeConstraint({min: 0, max: 10})],
 				}),
 				rawValue: new Point2d(),
 			},
@@ -43,13 +35,14 @@ describe('Util', () => {
 		{
 			expected: 100,
 			params: {
-				constraint: new Point2dConstraint({
-					y: new RangeConstraint({min: -100, max: 0}),
+				constraint: new PointNdConstraint({
+					assembly: Point2dAssembly,
+					components: [undefined, new RangeConstraint({min: -100, max: 0})],
 				}),
 				rawValue: new Point2d(),
 			},
 		},
-	].forEach((testCase: TestCase) => {
+	].forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should return ${testCase.expected}`, () => {
 				const mv = getSuitableMaxValue(

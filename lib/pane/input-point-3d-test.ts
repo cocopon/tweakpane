@@ -6,8 +6,8 @@ import {TestUtil} from '../misc/test-util';
 import {findConstraint} from '../plugin/common/constraint/composite';
 import {RangeConstraint} from '../plugin/common/constraint/range';
 import {StepConstraint} from '../plugin/common/constraint/step';
-import {Point3dConstraint} from '../plugin/input-bindings/point-3d/constraint/point-3d';
-import {Point3dTextController} from '../plugin/input-bindings/point-3d/controller/point-3d-text';
+import {PointNdConstraint} from '../plugin/input-bindings/common/constraint/point-nd';
+import {PointNdTextController} from '../plugin/input-bindings/common/controller/point-nd-text';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({
@@ -18,17 +18,21 @@ function createPane(): Tweakpane {
 describe(Tweakpane.name, () => {
 	[
 		{
-			expectedClass: Point3dTextController,
 			params: {},
 			value: {x: 12, y: 34, z: 56},
 		},
 	].forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
-			it(`should return class ${testCase.expectedClass.name}`, () => {
+			it('should return controller for Point3d', () => {
 				const pane = createPane();
 				const obj = {foo: testCase.value};
 				const bapi = pane.addInput(obj, 'foo', testCase.params);
-				assert.instanceOf(bapi.controller.controller, testCase.expectedClass);
+
+				const ic = bapi.controller.controller;
+				if (!(ic instanceof PointNdTextController)) {
+					throw new Error('unexpected controller class');
+				}
+				assert.strictEqual(ic.view.textViews.length, 3);
 			});
 		});
 	});
@@ -43,10 +47,10 @@ describe(Tweakpane.name, () => {
 		});
 
 		const c = bapi.controller.binding.value.constraint;
-		if (!(c instanceof Point3dConstraint)) {
+		if (!(c instanceof PointNdConstraint)) {
 			throw new Error('Unexpected constraint');
 		}
-		const zc = c.z;
+		const zc = c.components[2];
 		if (!zc) {
 			throw new Error('Unexpected constraint');
 		}
@@ -65,10 +69,10 @@ describe(Tweakpane.name, () => {
 		});
 
 		const c = bapi.controller.binding.value.constraint;
-		if (!(c instanceof Point3dConstraint)) {
+		if (!(c instanceof PointNdConstraint)) {
 			throw new Error('Unexpected constraint');
 		}
-		const zc = c.z;
+		const zc = c.components[2];
 		if (!zc) {
 			throw new Error('Unexpected constraint');
 		}

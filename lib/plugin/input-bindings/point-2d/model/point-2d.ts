@@ -1,4 +1,5 @@
 import {isEmpty} from '../../../../misc/type-util';
+import {PointNdAssembly} from '../../common/model/point-nd';
 
 export interface Point2dObject {
 	x: number;
@@ -43,3 +44,8 @@ export class Point2d {
 		};
 	}
 }
+
+export const Point2dAssembly: PointNdAssembly<Point2d> = {
+	toComponents: (p: Point2d) => p.getComponents(),
+	fromComponents: (comps: number[]) => new Point2d(...comps),
+};

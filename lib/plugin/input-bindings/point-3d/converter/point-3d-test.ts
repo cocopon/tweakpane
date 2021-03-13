@@ -5,7 +5,7 @@ import {BindingTarget} from '../../../common/binding/target';
 import {Point3d} from '../model/point-3d';
 import {writePoint3d} from './point-3d';
 
-describe('writer/point-3d', () => {
+describe(writePoint3d.name, () => {
 	it('should write value without destruction', () => {
 		const obj = {
 			foo: {x: 12, y: 34, z: -56},

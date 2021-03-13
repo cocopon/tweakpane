@@ -19,11 +19,10 @@ import {
 	getSuitableDecimalDigits,
 	getSuitableDraggingScale,
 } from '../../util';
-import {Point2dConstraint} from './constraint/point-2d';
+import {PointNdConstraint} from '../common/constraint/point-nd';
 import {Point2dPadTextController} from './controller/point-2d-pad-text';
-import {Point2d, Point2dObject} from './model/point-2d';
-import {point2dFromUnknown} from './reader/point-2d';
-import {writePoint2d} from './writer/point-2d';
+import {point2dFromUnknown, writePoint2d} from './converter/point-2d';
+import {Point2d, Point2dAssembly, Point2dObject} from './model/point-2d';
 
 function createDimensionConstraint(
 	params: PointDimensionParams | undefined,
@@ -49,9 +48,12 @@ function createDimensionConstraint(
 }
 
 function createConstraint(params: InputParams): Constraint<Point2d> {
-	return new Point2dConstraint({
-		x: createDimensionConstraint('x' in params ? params.x : undefined),
-		y: createDimensionConstraint('y' in params ? params.y : undefined),
+	return new PointNdConstraint({
+		assembly: Point2dAssembly,
+		components: [
+			createDimensionConstraint('x' in params ? params.x : undefined),
+			createDimensionConstraint('y' in params ? params.y : undefined),
+		],
 	});
 }
 
@@ -75,11 +77,30 @@ export function getSuitableMaxValue(
 	initialValue: Point2d,
 	constraint: Constraint<Point2d> | undefined,
 ): number {
-	const xc = constraint instanceof Point2dConstraint ? constraint.x : undefined;
-	const yc = constraint instanceof Point2dConstraint ? constraint.y : undefined;
+	const xc =
+		constraint instanceof PointNdConstraint
+			? constraint.components[0]
+			: undefined;
+	const yc =
+		constraint instanceof PointNdConstraint
+			? constraint.components[1]
+			: undefined;
 	const xr = getSuitableMaxDimensionValue(xc, initialValue.x);
 	const yr = getSuitableMaxDimensionValue(yc, initialValue.y);
 	return Math.max(xr, yr);
+}
+
+function createAxis(
+	initialValue: number,
+	constraint: Constraint<number> | undefined,
+) {
+	return {
+		baseStep: getBaseStep(constraint),
+		draggingScale: getSuitableDraggingScale(constraint, initialValue),
+		formatter: createNumberFormatter(
+			getSuitableDecimalDigits(constraint, initialValue),
+		),
+	};
 }
 
 function createController(
@@ -88,26 +109,14 @@ function createController(
 	invertsY: boolean,
 ) {
 	const c = value.constraint;
-	if (!(c instanceof Point2dConstraint)) {
+	if (!(c instanceof PointNdConstraint)) {
 		throw TpError.shouldNeverHappen();
 	}
 
 	return new Point2dPadTextController(document, {
 		axes: [
-			{
-				baseStep: getBaseStep(c.x),
-				draggingScale: getSuitableDraggingScale(c.x, value.rawValue.x),
-				formatter: createNumberFormatter(
-					getSuitableDecimalDigits(c.x, value.rawValue.x),
-				),
-			},
-			{
-				baseStep: getBaseStep(c.y),
-				draggingScale: getSuitableDraggingScale(c.y, value.rawValue.y),
-				formatter: createNumberFormatter(
-					getSuitableDecimalDigits(c.y, value.rawValue.y),
-				),
-			},
+			createAxis(value.rawValue.x, c.components[0]),
+			createAxis(value.rawValue.y, c.components[1]),
 		],
 		invertsY: invertsY,
 		maxValue: getSuitableMaxValue(value.rawValue, value.constraint),
