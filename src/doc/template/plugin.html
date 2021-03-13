@@ -33,4 +33,46 @@
 </div>
 
 <p>See the <a href="https://github.com/cocopon/tweakpane-plugin-template">template repository</a> for details.</p>
+
+
+<h2>Plugins</h2>
+
+
+<h3>Interval</h3>
+<p>
+	<a href="https://github.com/cocopon/tweakpane-plugin-interval">tweakpane-plugin-interval</a>
+	by <a href="https://github.com/cocopon">cocopon</a>
+</p>
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock">
+				<pre><code class="js">const PARAMS = {
+  size1: {min: 16, max: 48},
+  size2: {min: 16, max: 48},
+};
+
+// Text inputs by default
+pane.addInput(PARAMS, 'size1');
+
+// Additional range slider with `min` and `max` option
+pane.addInput(PARAMS, 'size2', {
+  min: 0,
+  max: 100,
+  step: 1,
+});
+				</code></pre>
+			</div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-interval></div>
+			<div class="paneContainer paneContainer-console" data-pane-intervalconsole></div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block pluginScripts %}
+<script src="https://cdn.jsdelivr.net/npm/tweakpane-plugin-interval@0.2.2/dist/tweakpane-plugin-interval.min.js"></script>
 {% endblock %}
