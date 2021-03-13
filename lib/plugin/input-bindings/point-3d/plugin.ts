@@ -18,9 +18,9 @@ import {
 } from '../../util';
 import {Point3dConstraint} from './constraint/point-3d';
 import {Point3dTextController} from './controller/point-3d-text';
+import {writePoint3d} from './converter/point-3d';
 import {Point3d, Point3dObject} from './model/point-3d';
 import {point3dFromUnknown} from './reader/point-3d';
-import {writePoint3d} from './writer/point-3d';
 
 function createDimensionConstraint(
 	params: PointDimensionParams | undefined,

@@ -5,9 +5,9 @@ import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
 import {connectValues} from '../../../common/model/value-sync';
 import {NumberTextController} from '../../number/controller/number-text';
+import {PointNdTextView} from '../../point-2d/view/point-nd-text';
 import {Point3dConstraint} from '../constraint/point-3d';
 import {Point3d} from '../model/point-3d';
-import {Point3dTextView} from '../view/point-3d-text';
 
 interface Axis {
 	baseStep: number;
@@ -54,7 +54,7 @@ function createAxisController(
  */
 export class Point3dTextController implements ValueController<Point3d> {
 	public readonly value: Value<Point3d>;
-	public readonly view: Point3dTextView;
+	public readonly view: PointNdTextView<Point3d>;
 	private readonly acs_: [
 		NumberTextController,
 		NumberTextController,
@@ -70,8 +70,8 @@ export class Point3dTextController implements ValueController<Point3d> {
 			createAxisController(doc, config, 2),
 		];
 
-		this.view = new Point3dTextView(doc, {
-			textViews: [this.acs_[0].view, this.acs_[1].view, this.acs_[2].view],
+		this.view = new PointNdTextView(doc, {
+			textViews: this.acs_.map((ac) => ac.view),
 			value: this.value,
 		});
 		this.acs_.forEach((c, index) => {

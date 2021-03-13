@@ -21,9 +21,8 @@ import {
 } from '../../util';
 import {Point2dConstraint} from './constraint/point-2d';
 import {Point2dPadTextController} from './controller/point-2d-pad-text';
+import {point2dFromUnknown, writePoint2d} from './converter/point-2d';
 import {Point2d, Point2dObject} from './model/point-2d';
-import {point2dFromUnknown} from './reader/point-2d';
-import {writePoint2d} from './writer/point-2d';
 
 function createDimensionConstraint(
 	params: PointDimensionParams | undefined,

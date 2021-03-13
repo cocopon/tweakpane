@@ -7,7 +7,7 @@ import {connectValues} from '../../../common/model/value-sync';
 import {NumberTextController} from '../../number/controller/number-text';
 import {Point2dConstraint} from '../constraint/point-2d';
 import {Point2d} from '../model/point-2d';
-import {Point2dTextView} from '../view/point-2d-text';
+import {PointNdTextView} from '../view/point-nd-text';
 
 interface Axis {
 	baseStep: number;
@@ -54,7 +54,7 @@ function createAxisController(
  */
 export class Point2dTextController implements ValueController<Point2d> {
 	public readonly value: Value<Point2d>;
-	public readonly view: Point2dTextView;
+	public readonly view: PointNdTextView<Point2d>;
 	private readonly acs_: [NumberTextController, NumberTextController];
 
 	constructor(doc: Document, config: Config) {
@@ -79,8 +79,8 @@ export class Point2dTextController implements ValueController<Point2d> {
 			});
 		});
 
-		this.view = new Point2dTextView(doc, {
-			textViews: [this.acs_[0].view, this.acs_[1].view],
+		this.view = new PointNdTextView(doc, {
+			textViews: this.acs_.map((ac) => ac.view),
 			value: this.value,
 		});
 	}

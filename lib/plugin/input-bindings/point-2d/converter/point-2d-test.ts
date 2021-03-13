@@ -1,21 +1,17 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
-import {Point2dObject} from '../model/point-2d';
-import {point2dFromUnknown} from './point-2d';
+import {BindingTarget} from '../../../common/binding/target';
+import {Point2d} from '../model/point-2d';
+import {point2dFromUnknown, writePoint2d} from './point-2d';
 
-interface TestCase {
-	expected: Point2dObject;
-	input: any;
-}
-
-describe('Point2dParser', () => {
+describe(point2dFromUnknown.name, () => {
 	[
 		{
 			expected: {x: 123, y: 456},
 			input: {x: 123, y: 456},
 		},
-	].forEach((testCase: TestCase) => {
+	].forEach((testCase) => {
 		context(`when ${JSON.stringify(testCase.input)}`, () => {
 			it(`should parse as ${JSON.stringify(testCase.expected)}`, () => {
 				const actual = point2dFromUnknown(testCase.input);
@@ -44,5 +40,20 @@ describe('Point2dParser', () => {
 			x: 0,
 			y: 0,
 		});
+	});
+});
+
+describe(writePoint2d.name, () => {
+	it('should write value without destruction', () => {
+		const obj = {
+			foo: {x: 12, y: 34},
+		};
+		const objFoo = obj.foo;
+		const t = new BindingTarget(obj, 'foo');
+		writePoint2d(t, new Point2d(56, 78));
+
+		assert.strictEqual(obj.foo, objFoo);
+		assert.strictEqual(obj.foo.x, 56);
+		assert.strictEqual(obj.foo.y, 78);
 	});
 });

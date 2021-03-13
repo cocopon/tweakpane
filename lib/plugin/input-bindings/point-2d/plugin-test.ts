@@ -1,11 +1,11 @@
 import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
-import {Constraint} from '../../../common/constraint/constraint';
-import {RangeConstraint} from '../../../common/constraint/range';
-import {Point2dConstraint} from '..//constraint/point-2d';
-import {Point2d} from '../model/point-2d';
-import {getSuitableMaxValue} from '../plugin';
+import {Constraint} from '../../common/constraint/constraint';
+import {RangeConstraint} from '../../common/constraint/range';
+import {Point2dConstraint} from './constraint/point-2d';
+import {Point2d} from './model/point-2d';
+import {getSuitableMaxValue} from './plugin';
 
 interface TestCase {
 	expected: number;
@@ -15,7 +15,7 @@ interface TestCase {
 	};
 }
 
-describe('Util', () => {
+describe(getSuitableMaxValue.name, () => {
 	[
 		{
 			expected: 10,

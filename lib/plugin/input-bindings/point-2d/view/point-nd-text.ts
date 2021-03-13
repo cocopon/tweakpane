@@ -2,11 +2,10 @@ import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
 import {NumberTextView} from '../../number/view/number-text';
-import {Point2d} from '../model/point-2d';
 
-interface Config {
-	value: Value<Point2d>;
-	textViews: [NumberTextView, NumberTextView];
+interface Config<PointNd> {
+	value: Value<PointNd>;
+	textViews: NumberTextView[];
 }
 
 const className = ClassName('p2dtxt');
@@ -14,12 +13,12 @@ const className = ClassName('p2dtxt');
 /**
  * @hidden
  */
-export class Point2dTextView implements ValueView<Point2d> {
+export class PointNdTextView<PointNd> implements ValueView<PointNd> {
 	public readonly element: HTMLElement;
-	public readonly textViews: [NumberTextView, NumberTextView];
-	public readonly value: Value<Point2d>;
+	public readonly textViews: NumberTextView[];
+	public readonly value: Value<PointNd>;
 
-	constructor(doc: Document, config: Config) {
+	constructor(doc: Document, config: Config<PointNd>) {
 		this.textViews = config.textViews;
 
 		this.element = doc.createElement('div');

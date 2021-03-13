@@ -4,11 +4,11 @@ import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
 import {Point2d} from '../model/point-2d';
 import {Point2dPadView} from './point-2d-pad';
-import {Point2dTextView} from './point-2d-text';
+import {PointNdTextView} from './point-nd-text';
 
 interface Config {
 	padView: Point2dPadView;
-	textView: Point2dTextView;
+	textView: PointNdTextView<Point2d>;
 }
 
 const className = ClassName('p2dpadtxt');
@@ -20,7 +20,7 @@ export class Point2dPadTextView implements ValueView<Point2d> {
 	public readonly element: HTMLElement;
 	private padButtonElem_: HTMLButtonElement;
 	private padView_: Point2dPadView;
-	private textView_: Point2dTextView;
+	private textView_: PointNdTextView<Point2d>;
 
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
