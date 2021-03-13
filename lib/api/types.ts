@@ -55,6 +55,13 @@ export interface Point3dInputParams extends BaseInputParams {
 	z?: PointDimensionParams;
 }
 
+export interface Point4dInputParams extends BaseInputParams {
+	x?: PointDimensionParams;
+	y?: PointDimensionParams;
+	z?: PointDimensionParams;
+	w?: PointDimensionParams;
+}
+
 export type StringInputType = 'string';
 
 export interface StringInputParams extends BaseInputParams {
@@ -67,6 +74,7 @@ export type InputParams =
 	| NumberInputParams
 	| Point2dInputParams
 	| Point3dInputParams
+	| Point4dInputParams
 	| StringInputParams;
 
 export interface BaseMonitorParams extends BaseParams, LabelableParams {

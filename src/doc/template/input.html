@@ -270,7 +270,10 @@ pane.addInput(PARAMS, 'hex', {
 </div>
 
 
-<h2 id="point2d">Point 2D</h2>
+<h2 id="point">Point</h2>
+
+
+<h3 id="point2d">Point 2D</h3>
 <p>For object parameters that have number properties <code>x</code> and <code>y</code>, text fields with a X-Y pad will be provided.</p>
 
 <div class="main_mediaLayout">
@@ -331,8 +334,8 @@ pane.addInput(PARAMS, 'offset', {
 </div>
 
 
-<h2 id="point3d">Point 3D</h2>
-<p>Tweakpane also has a support for 3D vector object. You can constrain each axis same as Point 2D.</p>
+<h3 id="pointnd">Point 3D/4D</h3>
+<p>Tweakpane also has a support for 3D and 4D vector object. You can constrain each axis same as Point 2D.</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
@@ -340,17 +343,29 @@ pane.addInput(PARAMS, 'offset', {
 			<div class="codeBlock"><pre><code class="js">const PARAMS = {
   source: {x: 0, y: 0, z: 0},
   camera: {x: 0, y: 20, z: -10},
+  color: {x: 0, y: 0, z: 0, w: 1},
 };
 
+// 3d
 const pane = new Tweakpane();
 pane.addInput(PARAMS, 'source');
 pane.addInput(PARAMS, 'camera', {
   y: {step: 10},
   z: {max: 0},
-});</code></pre></div>
+});
+
+// 4d
+pane.addInput(PARAMS, 'color', {
+  x: {min: 0, max: 1},
+  y: {min: 0, max: 1},
+  z: {min: 0, max: 1},
+  w: {min: 0, max: 1},
+});
+</code></pre></div>
 		</div>
 		<div class="demo_resultLayout">
 			<div class="paneContainer" data-pane-point3d></div>
+			<div class="paneContainer" data-pane-point4d></div>
 		</div>
 	</div>
 </div>
