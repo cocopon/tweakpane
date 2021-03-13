@@ -293,6 +293,21 @@ export function initInput() {
 				z: {max: 0},
 			});
 		},
+		point4d: (container) => {
+			const PARAMS = {
+				color: {x: 0, y: 0, z: 0, w: 1},
+			};
+			const pane = new Tweakpane({
+				container: container,
+			});
+			const copt = {min: 0, max: 1};
+			pane.addInput(PARAMS, 'color', {
+				x: copt,
+				y: copt,
+				z: copt,
+				w: copt,
+			});
+		},
 	};
 	Object.keys(markerToFnMap).forEach((marker) => {
 		const initFn = markerToFnMap[marker];
