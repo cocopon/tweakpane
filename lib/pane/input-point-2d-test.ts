@@ -6,7 +6,7 @@ import {TestUtil} from '../misc/test-util';
 import {findConstraint} from '../plugin/common/constraint/composite';
 import {RangeConstraint} from '../plugin/common/constraint/range';
 import {StepConstraint} from '../plugin/common/constraint/step';
-import {Point2dConstraint} from '../plugin/input-bindings/point-2d/constraint/point-2d';
+import {PointNdConstraint} from '../plugin/input-bindings/point-2d/constraint/point-nd';
 import {Point2dPadTextController} from '../plugin/input-bindings/point-2d/controller/point-2d-pad-text';
 import {Point2d} from '../plugin/input-bindings/point-2d/model/point-2d';
 
@@ -44,10 +44,10 @@ describe(Tweakpane.name, () => {
 		});
 
 		const c = bapi.controller.binding.value.constraint;
-		if (!(c instanceof Point2dConstraint)) {
+		if (!(c instanceof PointNdConstraint)) {
 			throw new Error('Unexpected constraint');
 		}
-		const xc = c.x;
+		const xc = c.components[0];
 		if (!xc) {
 			throw new Error('Unexpected constraint');
 		}
@@ -66,10 +66,10 @@ describe(Tweakpane.name, () => {
 		});
 
 		const c = bapi.controller.binding.value.constraint;
-		if (!(c instanceof Point2dConstraint)) {
+		if (!(c instanceof PointNdConstraint)) {
 			throw new Error('Unexpected constraint');
 		}
-		const yc = c.y;
+		const yc = c.components[1];
 		if (!yc) {
 			throw new Error('Unexpected constraint');
 		}

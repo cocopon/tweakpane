@@ -7,7 +7,7 @@ import {
 	parseNumber,
 } from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
-import {Point2d} from '../model/point-2d';
+import {Point2d, Point2dAssembly} from '../model/point-2d';
 import {PointNdTextController} from './point-nd-text';
 
 describe(PointNdTextController.name, () => {
@@ -15,6 +15,7 @@ describe(PointNdTextController.name, () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new PointNdTextController(doc, {
+			assembly: Point2dAssembly,
 			axes: [
 				{
 					baseStep: 1,
@@ -27,10 +28,6 @@ describe(PointNdTextController.name, () => {
 					draggingScale: 1,
 				},
 			],
-			convert: {
-				fromComponents: (comps) => new Point2d(comps[0], comps[1]),
-				toComponents: (p) => p.getComponents(),
-			},
 			parser: parseNumber,
 			value: new Value(new Point2d(12, 34)),
 		});

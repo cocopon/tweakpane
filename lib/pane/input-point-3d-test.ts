@@ -6,8 +6,8 @@ import {TestUtil} from '../misc/test-util';
 import {findConstraint} from '../plugin/common/constraint/composite';
 import {RangeConstraint} from '../plugin/common/constraint/range';
 import {StepConstraint} from '../plugin/common/constraint/step';
+import {PointNdConstraint} from '../plugin/input-bindings/point-2d/constraint/point-nd';
 import {PointNdTextController} from '../plugin/input-bindings/point-2d/controller/point-nd-text';
-import {Point3dConstraint} from '../plugin/input-bindings/point-3d/constraint/point-3d';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({
@@ -43,10 +43,10 @@ describe(Tweakpane.name, () => {
 		});
 
 		const c = bapi.controller.binding.value.constraint;
-		if (!(c instanceof Point3dConstraint)) {
+		if (!(c instanceof PointNdConstraint)) {
 			throw new Error('Unexpected constraint');
 		}
-		const zc = c.z;
+		const zc = c.components[2];
 		if (!zc) {
 			throw new Error('Unexpected constraint');
 		}
@@ -65,10 +65,10 @@ describe(Tweakpane.name, () => {
 		});
 
 		const c = bapi.controller.binding.value.constraint;
-		if (!(c instanceof Point3dConstraint)) {
+		if (!(c instanceof PointNdConstraint)) {
 			throw new Error('Unexpected constraint');
 		}
-		const zc = c.z;
+		const zc = c.components[2];
 		if (!zc) {
 			throw new Error('Unexpected constraint');
 		}

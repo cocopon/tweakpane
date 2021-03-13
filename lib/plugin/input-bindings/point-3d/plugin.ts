@@ -16,10 +16,10 @@ import {
 	getSuitableDecimalDigits,
 	getSuitableDraggingScale,
 } from '../../util';
+import {PointNdConstraint} from '../point-2d/constraint/point-nd';
 import {PointNdTextController} from '../point-2d/controller/point-nd-text';
-import {Point3dConstraint} from './constraint/point-3d';
 import {point3dFromUnknown, writePoint3d} from './converter/point-3d';
-import {Point3d, Point3dObject} from './model/point-3d';
+import {Point3d, Point3dAssembly, Point3dObject} from './model/point-3d';
 
 function createDimensionConstraint(
 	params: PointDimensionParams | undefined,
@@ -45,17 +45,17 @@ function createDimensionConstraint(
 }
 
 function createConstraint(params: InputParams): Constraint<Point3d> {
-	return new Point3dConstraint({
-		x: createDimensionConstraint('x' in params ? params.x : undefined),
-		y: createDimensionConstraint('y' in params ? params.y : undefined),
-		z: createDimensionConstraint('z' in params ? params.z : undefined),
+	return new PointNdConstraint({
+		assembly: Point3dAssembly,
+		components: [
+			createDimensionConstraint('x' in params ? params.x : undefined),
+			createDimensionConstraint('y' in params ? params.y : undefined),
+			createDimensionConstraint('z' in params ? params.z : undefined),
+		],
 	});
 }
 
-/**
- * @hidden
- */
-export function getAxis(
+function createAxis(
 	initialValue: number,
 	constraint: Constraint<number> | undefined,
 ) {
@@ -70,20 +70,17 @@ export function getAxis(
 
 function createController(document: Document, value: Value<Point3d>) {
 	const c = value.constraint;
-	if (!(c instanceof Point3dConstraint)) {
+	if (!(c instanceof PointNdConstraint)) {
 		throw TpError.shouldNeverHappen();
 	}
 
 	return new PointNdTextController(document, {
+		assembly: Point3dAssembly,
 		axes: [
-			getAxis(value.rawValue.x, c.x),
-			getAxis(value.rawValue.y, c.y),
-			getAxis(value.rawValue.z, c.z),
+			createAxis(value.rawValue.x, c.components[0]),
+			createAxis(value.rawValue.y, c.components[1]),
+			createAxis(value.rawValue.z, c.components[2]),
 		],
-		convert: {
-			fromComponents: (comps) => new Point3d(...comps),
-			toComponents: (p) => p.getComponents(),
-		},
 		parser: parseNumber,
 		value: value,
 	});

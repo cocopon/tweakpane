@@ -3,8 +3,8 @@ import {describe as context, describe, it} from 'mocha';
 
 import {Constraint} from '../../../common/constraint/constraint';
 import {RangeConstraint} from '../../../common/constraint/range';
-import {Point2d, Point2dObject} from '../model/point-2d';
-import {Point2dConstraint} from './point-2d';
+import {Point2d, Point2dAssembly, Point2dObject} from '../model/point-2d';
+import {PointNdConstraint} from './point-nd';
 
 interface TestCase {
 	expected: Point2dObject;
@@ -17,7 +17,7 @@ interface TestCase {
 	};
 }
 
-describe(Point2dConstraint.name, () => {
+describe(PointNdConstraint.name, () => {
 	[
 		{
 			expected: {x: 123, y: -123},
@@ -41,7 +41,10 @@ describe(Point2dConstraint.name, () => {
 			it(`should constrain value to ${JSON.stringify(
 				testCase.expected,
 			)}`, () => {
-				const c = new Point2dConstraint(testCase.params.config);
+				const c = new PointNdConstraint({
+					assembly: Point2dAssembly,
+					components: [testCase.params.config.x, testCase.params.config.y],
+				});
 				const v = c.constrain(
 					new Point2d(testCase.params.value.x, testCase.params.value.y),
 				);

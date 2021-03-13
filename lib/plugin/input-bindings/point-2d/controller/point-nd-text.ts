@@ -5,7 +5,8 @@ import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
 import {connectValues} from '../../../common/model/value-sync';
 import {NumberTextController} from '../../number/controller/number-text';
-import {Point2dConstraint} from '../constraint/point-2d';
+import {PointNdConstraint} from '../constraint/point-nd';
+import {PointNdAssembly} from '../model/point-nd';
 import {PointNdTextView} from '../view/point-nd-text';
 
 interface Axis {
@@ -15,11 +16,8 @@ interface Axis {
 }
 
 interface Config<PointNd> {
+	assembly: PointNdAssembly<PointNd>;
 	axes: Axis[];
-	convert: {
-		toComponents: (p: PointNd) => number[];
-		fromComponents: (comps: number[]) => PointNd;
-	};
 	parser: Parser<number>;
 	value: Value<PointNd>;
 }
@@ -29,10 +27,10 @@ function findAxisConstraint<PointNd>(
 	index: number,
 ): Constraint<number> | undefined {
 	const pc = config.value.constraint;
-	if (!(pc instanceof Point2dConstraint)) {
+	if (!(pc instanceof PointNdConstraint)) {
 		return undefined;
 	}
-	return [pc.x, pc.y][index];
+	return pc.components[index];
 }
 
 function createAxisController<PointNd>(
@@ -74,12 +72,12 @@ export class PointNdTextController<PointNd>
 				primary: this.value,
 				secondary: c.value,
 				forward: (p) => {
-					return config.convert.toComponents(p.rawValue)[index];
+					return config.assembly.toComponents(p.rawValue)[index];
 				},
 				backward: (p, s) => {
-					const comps = config.convert.toComponents(p.rawValue);
+					const comps = config.assembly.toComponents(p.rawValue);
 					comps[index] = s.rawValue;
-					return config.convert.fromComponents(comps);
+					return config.assembly.fromComponents(comps);
 				},
 			});
 		});
