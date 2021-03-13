@@ -58,15 +58,14 @@ export class PointNdTextController<PointNd>
 	implements ValueController<PointNd> {
 	public readonly value: Value<PointNd>;
 	public readonly view: PointNdTextView<PointNd>;
-	private readonly acs_: [NumberTextController, NumberTextController];
+	private readonly acs_: NumberTextController[];
 
 	constructor(doc: Document, config: Config<PointNd>) {
 		this.value = config.value;
 
-		this.acs_ = [
-			createAxisController(doc, config, 0),
-			createAxisController(doc, config, 1),
-		];
+		this.acs_ = config.axes.map((_, index) =>
+			createAxisController(doc, config, index),
+		);
 		this.acs_.forEach((c, index) => {
 			connectValues({
 				primary: this.value,

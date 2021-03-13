@@ -18,17 +18,21 @@ function createPane(): Tweakpane {
 describe(Tweakpane.name, () => {
 	[
 		{
-			expectedClass: PointNdTextController,
 			params: {},
 			value: {x: 12, y: 34, z: 56},
 		},
 	].forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
-			it(`should return class ${testCase.expectedClass.name}`, () => {
+			it('should return controller for Point3d', () => {
 				const pane = createPane();
 				const obj = {foo: testCase.value};
 				const bapi = pane.addInput(obj, 'foo', testCase.params);
-				assert.instanceOf(bapi.controller.controller, testCase.expectedClass);
+
+				const ic = bapi.controller.controller;
+				if (!(ic instanceof PointNdTextController)) {
+					throw new Error('unexpected controller class');
+				}
+				assert.strictEqual(ic.view.textViews.length, 3);
 			});
 		});
 	});
