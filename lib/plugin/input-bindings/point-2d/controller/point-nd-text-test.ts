@@ -7,47 +7,46 @@ import {
 	parseNumber,
 } from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
-import {Point3d} from '../model/point-3d';
-import {Point3dTextController} from './point-3d-text';
+import {Point2d} from '../model/point-2d';
+import {PointNdTextController} from './point-nd-text';
 
-describe(Point3dTextController.name, () => {
+describe(PointNdTextController.name, () => {
 	it('should update value with user operation', () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
-		const c = new Point3dTextController(doc, {
+		const c = new PointNdTextController(doc, {
 			axes: [
 				{
 					baseStep: 1,
+					formatter: createNumberFormatter(0),
 					draggingScale: 1,
-					formatter: createNumberFormatter(2),
 				},
 				{
 					baseStep: 1,
+					formatter: createNumberFormatter(0),
 					draggingScale: 1,
-					formatter: createNumberFormatter(2),
-				},
-				{
-					baseStep: 1,
-					draggingScale: 1,
-					formatter: createNumberFormatter(2),
 				},
 			],
+			convert: {
+				fromComponents: (comps) => new Point2d(comps[0], comps[1]),
+				toComponents: (p) => p.getComponents(),
+			},
 			parser: parseNumber,
-			value: new Value(new Point3d(12, 34, 56)),
+			value: new Value(new Point2d(12, 34)),
 		});
 
-		c.view.textViews[2].inputElement.value = '3.14';
-		c.view.textViews[2].inputElement.dispatchEvent(
+		c.view.textViews[0].inputElement.value = '3.14';
+		c.view.textViews[0].inputElement.dispatchEvent(
 			TestUtil.createEvent(win, 'change'),
 		);
-		assert.strictEqual(c.value.rawValue.z, 3.14);
+		assert.strictEqual(c.value.rawValue.x, 3.14);
 
-		c.view.textViews[2].inputElement.dispatchEvent(
+		c.view.textViews[1].inputElement.dispatchEvent(
 			TestUtil.createKeyboardEvent(win, 'keydown', {
 				keyCode: 38,
 				shiftKey: true,
 			}),
 		);
-		assert.strictEqual(c.value.rawValue.z, 3.14 + 10);
+		assert.strictEqual(c.value.rawValue.y, 34 + 10);
 	});
 });

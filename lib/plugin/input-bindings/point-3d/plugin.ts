@@ -16,11 +16,10 @@ import {
 	getSuitableDecimalDigits,
 	getSuitableDraggingScale,
 } from '../../util';
+import {PointNdTextController} from '../point-2d/controller/point-nd-text';
 import {Point3dConstraint} from './constraint/point-3d';
-import {Point3dTextController} from './controller/point-3d-text';
-import {writePoint3d} from './converter/point-3d';
+import {point3dFromUnknown, writePoint3d} from './converter/point-3d';
 import {Point3d, Point3dObject} from './model/point-3d';
-import {point3dFromUnknown} from './reader/point-3d';
 
 function createDimensionConstraint(
 	params: PointDimensionParams | undefined,
@@ -75,12 +74,16 @@ function createController(document: Document, value: Value<Point3d>) {
 		throw TpError.shouldNeverHappen();
 	}
 
-	return new Point3dTextController(document, {
+	return new PointNdTextController(document, {
 		axes: [
 			getAxis(value.rawValue.x, c.x),
 			getAxis(value.rawValue.y, c.y),
 			getAxis(value.rawValue.z, c.z),
 		],
+		convert: {
+			fromComponents: (comps) => new Point3d(...comps),
+			toComponents: (p) => p.getComponents(),
+		},
 		parser: parseNumber,
 		value: value,
 	});

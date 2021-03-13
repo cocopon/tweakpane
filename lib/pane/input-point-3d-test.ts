@@ -6,8 +6,8 @@ import {TestUtil} from '../misc/test-util';
 import {findConstraint} from '../plugin/common/constraint/composite';
 import {RangeConstraint} from '../plugin/common/constraint/range';
 import {StepConstraint} from '../plugin/common/constraint/step';
+import {PointNdTextController} from '../plugin/input-bindings/point-2d/controller/point-nd-text';
 import {Point3dConstraint} from '../plugin/input-bindings/point-3d/constraint/point-3d';
-import {Point3dTextController} from '../plugin/input-bindings/point-3d/controller/point-3d-text';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({
@@ -18,7 +18,7 @@ function createPane(): Tweakpane {
 describe(Tweakpane.name, () => {
 	[
 		{
-			expectedClass: Point3dTextController,
+			expectedClass: PointNdTextController,
 			params: {},
 			value: {x: 12, y: 34, z: 56},
 		},

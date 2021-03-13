@@ -6,7 +6,7 @@ import {Value} from '../../../common/model/value';
 import {Point2d} from '../model/point-2d';
 import {Point2dPadTextView} from '../view/point-2d-pad-text';
 import {Point2dPadController} from './point-2d-pad';
-import {Point2dTextController} from './point-2d-text';
+import {PointNdTextController} from './point-nd-text';
 
 interface Axis {
 	baseStep: number;
@@ -29,7 +29,7 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 	public readonly value: Value<Point2d>;
 	public readonly view: Point2dPadTextView;
 	private readonly padIc_: Point2dPadController;
-	private readonly textIc_: Point2dTextController;
+	private readonly textIc_: PointNdTextController<Point2d>;
 
 	constructor(doc: Document, config: Config) {
 		this.onPadButtonBlur_ = this.onPadButtonBlur_.bind(this);
@@ -44,8 +44,12 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 			value: this.value,
 		});
 
-		this.textIc_ = new Point2dTextController(doc, {
+		this.textIc_ = new PointNdTextController(doc, {
 			axes: config.axes,
+			convert: {
+				fromComponents: (comps) => new Point2d(...comps),
+				toComponents: (p) => p.getComponents(),
+			},
 			parser: config.parser,
 			value: this.value,
 		});
