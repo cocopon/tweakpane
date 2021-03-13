@@ -6,7 +6,7 @@ import {TestUtil} from '../misc/test-util';
 import {findConstraint} from '../plugin/common/constraint/composite';
 import {RangeConstraint} from '../plugin/common/constraint/range';
 import {StepConstraint} from '../plugin/common/constraint/step';
-import {PointNdConstraint} from '../plugin/input-bindings/point-2d/constraint/point-nd';
+import {PointNdConstraint} from '../plugin/input-bindings/common/constraint/point-nd';
 import {Point2dPadTextController} from '../plugin/input-bindings/point-2d/controller/point-2d-pad-text';
 import {Point2d} from '../plugin/input-bindings/point-2d/model/point-2d';
 

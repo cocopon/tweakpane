@@ -2,7 +2,7 @@ import {assert} from 'chai';
 import {describe as context, describe, it} from 'mocha';
 
 import {RangeConstraint} from '../../common/constraint/range';
-import {PointNdConstraint} from './constraint/point-nd';
+import {PointNdConstraint} from '../common/constraint/point-nd';
 import {Point2d, Point2dAssembly} from './model/point-2d';
 import {getSuitableMaxValue} from './plugin';
 

@@ -16,8 +16,8 @@ import {
 	getSuitableDecimalDigits,
 	getSuitableDraggingScale,
 } from '../../util';
-import {PointNdConstraint} from '../point-2d/constraint/point-nd';
-import {PointNdTextController} from '../point-2d/controller/point-nd-text';
+import {PointNdConstraint} from '../common/constraint/point-nd';
+import {PointNdTextController} from '../common/controller/point-nd-text';
 import {point3dFromUnknown, writePoint3d} from './converter/point-3d';
 import {Point3d, Point3dAssembly, Point3dObject} from './model/point-3d';
 

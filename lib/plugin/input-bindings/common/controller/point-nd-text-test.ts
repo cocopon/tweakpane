@@ -7,7 +7,7 @@ import {
 	parseNumber,
 } from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
-import {Point2d, Point2dAssembly} from '../model/point-2d';
+import {Point2d, Point2dAssembly} from '../../point-2d/model/point-2d';
 import {PointNdTextController} from './point-nd-text';
 
 describe(PointNdTextController.name, () => {

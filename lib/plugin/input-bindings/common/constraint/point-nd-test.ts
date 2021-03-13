@@ -3,7 +3,11 @@ import {describe as context, describe, it} from 'mocha';
 
 import {Constraint} from '../../../common/constraint/constraint';
 import {RangeConstraint} from '../../../common/constraint/range';
-import {Point2d, Point2dAssembly, Point2dObject} from '../model/point-2d';
+import {
+	Point2d,
+	Point2dAssembly,
+	Point2dObject,
+} from '../../point-2d/model/point-2d';
 import {PointNdConstraint} from './point-nd';
 
 interface TestCase {

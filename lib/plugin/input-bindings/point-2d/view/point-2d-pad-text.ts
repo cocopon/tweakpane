@@ -2,9 +2,9 @@ import {createSvgIconElement} from '../../../common/dom-util';
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {ValueView} from '../../../common/view/value';
+import {PointNdTextView} from '../../common/view/point-nd-text';
 import {Point2d} from '../model/point-2d';
 import {Point2dPadView} from './point-2d-pad';
-import {PointNdTextView} from './point-nd-text';
 
 interface Config {
 	padView: Point2dPadView;
