@@ -10,7 +10,6 @@ import {Color} from '../model/color';
 import {
 	appendAlphaComponent,
 	ColorMode,
-	convertColorMode,
 	removeAlphaComponent,
 } from '../model/color-model';
 import {PickedColor} from '../model/picked-color';
@@ -121,16 +120,13 @@ export class ColorTextController implements ValueController<Color> {
 					return p.rawValue.getComponents(this.pickedColor.mode)[index];
 				},
 				backward: (p, s) => {
-					const rawMode = p.rawValue.mode;
 					const pickedMode = this.pickedColor.mode;
 					const comps = p.rawValue.getComponents(pickedMode);
 					comps[index] = s.rawValue;
-					const newComps = convertColorMode(
-						removeAlphaComponent(comps),
+					return new Color(
+						appendAlphaComponent(removeAlphaComponent(comps), comps[3]),
 						pickedMode,
-						rawMode,
 					);
-					return new Color(appendAlphaComponent(newComps, comps[3]), rawMode);
 				},
 			});
 		});
