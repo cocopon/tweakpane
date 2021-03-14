@@ -40,6 +40,12 @@ export function connectValues<T1, T2>({
 		preventFeedback(() => {
 			primary.rawValue = backward(primary, secondary);
 		});
+
+		// Re-update secondary value
+		// to apply change from constraint of primary value
+		preventFeedback(() => {
+			secondary.rawValue = forward(primary, secondary);
+		});
 	});
 
 	preventFeedback(() => {

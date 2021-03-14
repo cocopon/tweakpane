@@ -5,6 +5,9 @@ export type ColorComponents4 = [number, number, number, number];
 
 export type ColorMode = 'hsl' | 'hsv' | 'rgb';
 
+/**
+ * Converts RGB color components into HSL (cylindrical, used in CSS).
+ */
 function rgbToHsl(r: number, g: number, b: number): ColorComponents3 {
 	const rp = constrainRange(r / 255, 0, 1);
 	const gp = constrainRange(g / 255, 0, 1);
@@ -18,7 +21,7 @@ function rgbToHsl(r: number, g: number, b: number): ColorComponents3 {
 	const l = (cmin + cmax) / 2;
 
 	if (c !== 0) {
-		s = l > 0.5 ? c / (2 - cmin - cmax) : c / (cmax + cmin);
+		s = c / (1 - Math.abs(cmax + cmin - 1));
 
 		if (rp === cmax) {
 			h = (gp - bp) / c;
@@ -120,6 +123,26 @@ export function hsvToRgb(h: number, s: number, v: number): ColorComponents3 {
 /**
  * @hidden
  */
+export function hslToHsv(h: number, s: number, l: number): ColorComponents3 {
+	const sd = l + (s * (100 - Math.abs(2 * l - 100))) / (2 * 100);
+	return [
+		h,
+		sd !== 0 ? (s * (100 - Math.abs(2 * l - 100))) / sd : 0,
+		l + (s * (100 - Math.abs(2 * l - 100))) / (2 * 100),
+	];
+}
+
+/**
+ * @hidden
+ */
+export function hsvToHsl(h: number, s: number, v: number): ColorComponents3 {
+	const sd = 100 - Math.abs((v * (200 - s)) / 100 - 100);
+	return [h, sd !== 0 ? (s * v) / sd : 0, (v * (200 - s)) / (2 * 100)];
+}
+
+/**
+ * @hidden
+ */
 export function removeAlphaComponent(
 	comps: ColorComponents4,
 ): ColorComponents3 {
@@ -147,17 +170,11 @@ const MODE_CONVERTER_MAP: {
 } = {
 	hsl: {
 		hsl: (h, s, l) => [h, s, l],
-		hsv: (h, s, l) => {
-			const [r, g, b] = hslToRgb(h, s, l);
-			return rgbToHsv(r, g, b);
-		},
+		hsv: hslToHsv,
 		rgb: hslToRgb,
 	},
 	hsv: {
-		hsl: (h, s, v) => {
-			const [r, g, b] = hsvToRgb(h, s, v);
-			return rgbToHsl(r, g, b);
-		},
+		hsl: hsvToHsl,
 		hsv: (h, s, v) => [h, s, v],
 		rgb: hsvToRgb,
 	},

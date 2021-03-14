@@ -36,7 +36,7 @@ export class ColorPickerController implements ValueController<Color> {
 	} | null;
 	private hPaletteIc_: HPaletteController;
 	private svPaletteIc_: SvPaletteController;
-	private textIc_: ColorTextController;
+	private tc_: ColorTextController;
 
 	constructor(doc: Document, config: Config) {
 		this.onFocusableElementBlur_ = this.onFocusableElementBlur_.bind(this);
@@ -81,7 +81,7 @@ export class ColorPickerController implements ValueController<Color> {
 				},
 			});
 		}
-		this.textIc_ = new ColorTextController(doc, {
+		this.tc_ = new ColorTextController(doc, {
 			parser: parseNumber,
 			pickedColor: this.pickedColor,
 		});
@@ -98,7 +98,7 @@ export class ColorPickerController implements ValueController<Color> {
 			pickedColor: this.pickedColor,
 			supportsAlpha: config.supportsAlpha,
 			svPaletteView: this.svPaletteIc_.view,
-			textView: this.textIc_.view,
+			textView: this.tc_.view,
 		});
 		this.view.element.addEventListener('keydown', this.onKeyDown_);
 		this.view.allFocusableElements.forEach((elem) => {
@@ -108,6 +108,10 @@ export class ColorPickerController implements ValueController<Color> {
 
 	get value(): Value<Color> {
 		return this.pickedColor.value;
+	}
+
+	get textController(): ColorTextController {
+		return this.tc_;
 	}
 
 	private onFocusableElementBlur_(ev: FocusEvent): void {
