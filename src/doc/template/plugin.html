@@ -1,5 +1,5 @@
 {% set pageId = 'plugin' %}
-{% set title = 'Plugin' %}
+{% set title = 'Plugins' %}
 {% extends "_template.html" %}
 
 
@@ -9,6 +9,7 @@
 	<div class="pageHeader_innerLayout">
 		<div class="pageHeader_titleLayout">
 			<h1 class="pageHeader_title">{{ title }}</h1>
+			<p>Expand Tweakpane world.</p>
 		</div>
 	</div>
 </div>
@@ -16,33 +17,8 @@
 
 
 {% block content %}
-<p>From version 2.0.0, you can provide custom input/monitor components for various user inputs with the plugin system.</p>
-
-<div class="main_mediaLayout">
-	<div class="codeBlock">
-		<pre><code class="js">Tweakpane.registerPlugin({
-  type: 'input',
-  plugin: {
-    ...
-  },
-});</code></pre>
-		<div class="codeBlock_title">
-			.js
-		</div>
-	</div>
-</div>
-
-<p>See the <a href="https://github.com/cocopon/tweakpane-plugin-template">template repository</a> for details.</p>
-
-
-<h2>Plugins</h2>
-
-
-<h3>Interval</h3>
-<p>
-	<a href="https://github.com/cocopon/tweakpane-plugin-interval">tweakpane-plugin-interval</a>
-	by <a href="https://github.com/cocopon">cocopon</a>
-</p>
+<h2>Interval</h2>
+<p>Range slider control for interval object value <code>{min, max}</code>.</p>
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
@@ -70,13 +46,14 @@ pane.addInput(PARAMS, 'size2', {
 		</div>
 	</div>
 </div>
-
-
-<h3>Camerakit</h3>
 <p>
-	<a href="https://github.com/cocopon/tweakpane-plugin-camerakit">tweakpane-plugin-camerakit</a>
+	<a href="https://github.com/cocopon/tweakpane-plugin-interval">tweakpane-plugin-interval</a>
 	by <a href="https://github.com/cocopon">cocopon</a>
 </p>
+
+
+<h2>Camerakit</h2>
+<p>Enjoyable camera flavored controls.</p>
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
@@ -113,6 +90,30 @@ pane.addInput(PARAMS, 'fnum', {
 		</div>
 	</div>
 </div>
+<p>
+	<a href="https://github.com/cocopon/tweakpane-plugin-camerakit">tweakpane-plugin-camerakit</a>
+	by <a href="https://github.com/cocopon">cocopon</a>
+</p>
+
+
+<h2>Create your own plugin</h2>
+<p>From version 2.0.0, you can provide custom input/monitor components for various user inputs with the plugin system.</p>
+
+<div class="main_mediaLayout">
+	<div class="codeBlock">
+		<pre><code class="js">Tweakpane.registerPlugin({
+  type: 'input',
+  plugin: {
+    ...
+  },
+});</code></pre>
+		<div class="codeBlock_title">
+			.js
+		</div>
+	</div>
+</div>
+
+<p>See the <a href="https://github.com/cocopon/tweakpane-plugin-template">template repository</a> for details.</p>
 {% endblock %}
 
 
