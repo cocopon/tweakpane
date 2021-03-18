@@ -1,0 +1,123 @@
+{% set pageId = 'plugin' %}
+{% set title = 'Plugins' %}
+{% extends "_template.html" %}
+
+
+{% block pageHeader %}
+<div class="pageHeader">
+	<div class="pageHeader_sketchContainer"></div>
+	<div class="pageHeader_innerLayout">
+		<div class="pageHeader_titleLayout">
+			<h1 class="pageHeader_title">{{ title }}</h1>
+			<p>Expand Tweakpane world.</p>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<h2 id="interval">Interval</h2>
+<p>Range slider control for interval object value <code>{min, max}</code>.</p>
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock">
+				<pre><code class="js">const PARAMS = {
+  size1: {min: 16, max: 48},
+  size2: {min: 16, max: 48},
+};
+
+// Text inputs by default
+pane.addInput(PARAMS, 'size1');
+
+// Additional range slider with `min` and `max` option
+pane.addInput(PARAMS, 'size2', {
+  min: 0,
+  max: 100,
+  step: 1,
+});
+				</code></pre>
+			</div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-interval></div>
+			<div class="paneContainer paneContainer-console" data-pane-intervalconsole></div>
+		</div>
+	</div>
+</div>
+<p>
+	<a href="https://github.com/cocopon/tweakpane-plugin-interval">tweakpane-plugin-interval</a>
+	by <a href="https://github.com/cocopon">cocopon</a>
+</p>
+
+
+<h2 id="camerakit">Camerakit</h2>
+<p>Enjoyable camera flavored controls.</p>
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock">
+				<pre><code class="js">const PARAMS = {
+  flen: 55,
+  fnum: 1.8,
+  iso: 100,
+};
+
+// ...
+
+pane.addInput(PARAMS, 'fnum', {
+  // Use a ring view of Camerakit
+  plugin: 'camerakit',
+  view: 'ring',
+  // Appearance of the ring
+  series: 1,
+  // Configuration of the scale unit
+  unit: {ticks: 10, pixels: 40, value: 0.2},
+  // Hide a text input and widen the ring
+  wide: true,
+  // Number constraints
+  min: 1.4,
+  step: 0.02,
+});
+
+// ...
+				</code></pre>
+			</div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-camerakit></div>
+		</div>
+	</div>
+</div>
+<p>
+	<a href="https://github.com/cocopon/tweakpane-plugin-camerakit">tweakpane-plugin-camerakit</a>
+	by <a href="https://github.com/cocopon">cocopon</a>
+</p>
+
+
+<h2 id="create">Create your own plugin</h2>
+<p>From version 2.0.0, you can provide custom input/monitor components for various user inputs with the plugin system.</p>
+
+<div class="main_mediaLayout">
+	<div class="codeBlock">
+		<pre><code class="js">Tweakpane.registerPlugin({
+  type: 'input',
+  plugin: {
+    ...
+  },
+});</code></pre>
+		<div class="codeBlock_title">
+			.js
+		</div>
+	</div>
+</div>
+
+<p>See the <a href="https://github.com/cocopon/tweakpane-plugin-template">template repository</a> for details.</p>
+{% endblock %}
+
+
+{% block pluginScripts %}
+<script src="https://cdn.jsdelivr.net/npm/tweakpane-plugin-interval@0.2.2/dist/tweakpane-plugin-interval.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tweakpane-plugin-camerakit@0.1.1/dist/tweakpane-plugin-camerakit.min.js"></script>
+{% endblock %}
