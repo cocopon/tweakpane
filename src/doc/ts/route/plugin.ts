@@ -38,6 +38,47 @@ export function initPlugin() {
 				consolePane.refresh();
 			});
 		},
+
+		camerakit: (container) => {
+			const params = {
+				flen: 55,
+				fnum: 1.8,
+				iso: 100,
+			};
+			const pane = new Tweakpane({
+				container: container,
+			});
+			pane.addInput(params, 'flen', {
+				plugin: 'camerakit',
+				view: 'ring',
+				series: 0,
+			} as any);
+			pane.addInput(params, 'fnum', {
+				plugin: 'camerakit',
+				view: 'ring',
+				series: 1,
+				unit: {
+					ticks: 10,
+					pixels: 40,
+					value: 0.2,
+				},
+				wide: true,
+				min: 1.4,
+				step: 0.02,
+			} as any);
+			pane.addInput(params, 'flen', {
+				plugin: 'camerakit',
+				view: 'ring',
+				series: 2,
+			} as any);
+			pane.addInput(params, 'iso', {
+				plugin: 'camerakit',
+				view: 'wheel',
+				amount: 10,
+				min: 100,
+				step: 100,
+			} as any);
+		},
 	};
 	Object.keys(markerToFnMap).forEach((marker) => {
 		const initFn = markerToFnMap[marker];

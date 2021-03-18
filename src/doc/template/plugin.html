@@ -70,9 +70,53 @@ pane.addInput(PARAMS, 'size2', {
 		</div>
 	</div>
 </div>
+
+
+<h3>Camerakit</h3>
+<p>
+	<a href="https://github.com/cocopon/tweakpane-plugin-camerakit">tweakpane-plugin-camerakit</a>
+	by <a href="https://github.com/cocopon">cocopon</a>
+</p>
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock">
+				<pre><code class="js">const PARAMS = {
+  flen: 55,
+  fnum: 1.8,
+  iso: 100,
+};
+
+// ...
+
+pane.addInput(PARAMS, 'fnum', {
+  // Use a ring view of Camerakit
+  plugin: 'camerakit',
+  view: 'ring',
+  // Appearance of the ring
+  series: 1,
+  // Configuration of the scale unit
+  unit: {ticks: 10, pixels: 40, value: 0.2},
+  // Hide a text input and widen the ring
+  wide: true,
+  // Number constraints
+  min: 1.4,
+  step: 0.02,
+});
+
+// ...
+				</code></pre>
+			</div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-camerakit></div>
+		</div>
+	</div>
+</div>
 {% endblock %}
 
 
 {% block pluginScripts %}
 <script src="https://cdn.jsdelivr.net/npm/tweakpane-plugin-interval@0.2.2/dist/tweakpane-plugin-interval.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tweakpane-plugin-camerakit@0.1.1/dist/tweakpane-plugin-camerakit.min.js"></script>
 {% endblock %}
