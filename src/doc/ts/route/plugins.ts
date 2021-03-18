@@ -2,7 +2,7 @@ import Tweakpane from 'tweakpane';
 
 import {selectContainer} from '../util';
 
-export function initPlugin() {
+export function initPlugins() {
 	const markerToFnMap: {
 		[key: string]: (container: HTMLElement) => void;
 	} = {

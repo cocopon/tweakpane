@@ -3,7 +3,7 @@ import {initIndex} from './route/index';
 import {initInput} from './route/input';
 import {initMisc} from './route/misc';
 import {initMonitor} from './route/monitor';
-import {initPlugin} from './route/plugin';
+import {initPlugins} from './route/plugins';
 import {initQuickTour} from './route/quick-tour';
 import {initTheming} from './route/theming';
 import {initUiComponents} from './route/ui-components';
@@ -43,7 +43,7 @@ function setUpSpMenu() {
 	router.add(/^(\/tweakpane)?\/misc\.html$/, initMisc);
 	router.add(/^(\/tweakpane)?\/monitor\.html$/, initMonitor);
 	router.add(/^(\/tweakpane)?\/theming\.html$/, initTheming);
-	router.add(/^(\/tweakpane)?\/plugin\.html$/, initPlugin);
+	router.add(/^(\/tweakpane)?\/plugins\.html$/, initPlugins);
 	router.add(/^(\/tweakpane)?\/quick-tour\.html$/, initQuickTour);
 	router.add(/^(\/tweakpane)?\/ui-components\.html$/, initUiComponents);
 	router.route(location.pathname);

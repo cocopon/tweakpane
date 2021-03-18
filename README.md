@@ -34,10 +34,10 @@ See the [official page][documents] for details.
   - Button
   - Separator
 - [Theming](https://cocopon.github.io/tweakpane/theming.html)
+- [Plugins](https://cocopon.github.io/tweakpane/plugins.html)
 - [Misc](https://cocopon.github.io/tweakpane/misc.html)
   - JSON import / export
   - TypeScript type definitions
-- [Plugin](https://cocopon.github.io/tweakpane/plugin.html)
 
 
 ## Development
