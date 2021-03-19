@@ -1,3 +1,5 @@
+import {Formatter} from '../plugin/common/converter/formatter';
+
 interface BaseParams {
 	index?: number;
 }
@@ -37,6 +39,7 @@ export interface BooleanInputParams extends BaseInputParams {
 type NumberInputType = 'color' | 'color.rgb' | 'color.rgba';
 
 export interface NumberInputParams extends BaseInputParams {
+	format?: Formatter<number>;
 	input?: NumberInputType;
 	max?: number;
 	min?: number;

@@ -14,7 +14,6 @@ import {
 	parseNumber,
 } from '../../common/converter/number';
 import {numberFromUnknown} from '../../common/converter/number';
-import {Value} from '../../common/model/value';
 import {equalsPrimitive, writePrimitive} from '../../common/primitive';
 import {InputBindingPlugin} from '../../input-binding';
 import {
@@ -81,40 +80,6 @@ function createConstraint(params: InputParams): Constraint<number> {
 	return new CompositeConstraint(constraints);
 }
 
-function createController(doc: Document, value: Value<number>) {
-	const c = value.constraint;
-
-	if (c && findConstraint(c, ListConstraint)) {
-		return new ListController(doc, {
-			listItems: findListItems(c) ?? [],
-			stringifyValue: numberToString,
-			value: value,
-		});
-	}
-
-	if (c && findConstraint(c, RangeConstraint)) {
-		return new SliderTextController(doc, {
-			baseStep: getBaseStep(c),
-			draggingScale: getSuitableDraggingScale(value.constraint, value.rawValue),
-			formatter: createNumberFormatter(
-				getSuitableDecimalDigits(value.constraint, value.rawValue),
-			),
-			parser: parseNumber,
-			value: value,
-		});
-	}
-
-	return new NumberTextController(doc, {
-		baseStep: getBaseStep(c),
-		draggingScale: getSuitableDraggingScale(value.constraint, value.rawValue),
-		formatter: createNumberFormatter(
-			getSuitableDecimalDigits(value.constraint, value.rawValue),
-		),
-		parser: parseNumber,
-		value: value,
-	});
-}
-
 /**
  * @hidden
  */
@@ -128,6 +93,42 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 		writer: (_args) => writePrimitive,
 	},
 	controller: (args) => {
-		return createController(args.document, args.value);
+		const value = args.value;
+		const c = value.constraint;
+
+		if (c && findConstraint(c, ListConstraint)) {
+			return new ListController(args.document, {
+				listItems: findListItems(c) ?? [],
+				stringifyValue: numberToString,
+				value: value,
+			});
+		}
+
+		const formatter =
+			('format' in args.params ? args.params.format : undefined) ??
+			createNumberFormatter(
+				getSuitableDecimalDigits(value.constraint, value.rawValue),
+			);
+
+		if (c && findConstraint(c, RangeConstraint)) {
+			return new SliderTextController(args.document, {
+				baseStep: getBaseStep(c),
+				draggingScale: getSuitableDraggingScale(
+					value.constraint,
+					value.rawValue,
+				),
+				formatter: formatter,
+				parser: parseNumber,
+				value: value,
+			});
+		}
+
+		return new NumberTextController(args.document, {
+			baseStep: getBaseStep(c),
+			draggingScale: getSuitableDraggingScale(value.constraint, value.rawValue),
+			formatter: formatter,
+			parser: parseNumber,
+			value: value,
+		});
 	},
 };
