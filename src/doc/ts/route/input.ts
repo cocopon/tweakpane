@@ -146,6 +146,16 @@ export function initInput() {
 				});
 			updateLog();
 		},
+		numberformatter: (container) => {
+			const PARAMS = {value: 0};
+			const pane = new Tweakpane({
+				container: container,
+			});
+			pane.addInput(PARAMS, 'value', {
+				format: (v) => v.toFixed(6),
+				label: 'k',
+			});
+		},
 		stringtext: (container) => {
 			const PARAMS = {value: 'hello, world'};
 			const pane = new Tweakpane({

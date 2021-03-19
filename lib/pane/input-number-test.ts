@@ -90,4 +90,19 @@ describe(Tweakpane.name, () => {
 
 		assert.isNotNull(findConstraint(c, StepConstraint));
 	});
+
+	it('should use specified formatter', () => {
+		const pane = createPane();
+		const obj = {foo: 123};
+		const bapi = pane.addInput(obj, 'foo', {
+			format: (v) => `foo ${v} bar`,
+		});
+
+		const c = bapi.controller.controller;
+		if (!(c instanceof NumberTextController)) {
+			throw new Error('unexpected controller');
+		}
+
+		assert.strictEqual(c.view.inputElement.value, 'foo 123 bar');
+	});
 });

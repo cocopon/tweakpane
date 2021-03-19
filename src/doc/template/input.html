@@ -20,7 +20,7 @@
 
 {% block content %}
 <h2 id="number">Number</h2>
-<p>By default, Tweakpane provides a text field component for number parameters.</p>
+<p>Tweakpane provides a text input for number parameters by default.</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
@@ -40,13 +40,13 @@ pane.addInput(PARAMS, 'speed');</code></pre></div>
 
 
 <h3 id="number_range">Range</h3>
-<p>You can specify a range of parameters by <code>min</code> and <code>max</code> options. If you specify at least one of them, slider component will be created.</p>
+<p>You can specify a range of number by <code>min</code> and <code>max</code>. If you specify at least one of them, slider control will be created.</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
 			<div class="codeBlock"><pre><code class="js">const PARAMS = {
-  speed: 0.5,
+  speed: 50,
 };
 
 const pane = new Tweakpane();
@@ -63,7 +63,7 @@ pane.addInput(PARAMS, 'speed', {
 
 
 <h3 id="number_step">Step</h3>
-<p><code>step</code> option constraints step of changes. You can also use this option with <code>min</code> and <code>max</code> option.</p>
+<p><code>step</code> constraints step of changes.</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
@@ -91,7 +91,7 @@ pane.addInput(PARAMS, 'count', {
 
 
 <h3 id="number_list">Number list</h3>
-<p>If you want to choose a value from presets, use <code>options</code> option.</p>
+<p>If you want to choose a value from presets, use <code>options</code>.</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
@@ -117,8 +117,30 @@ pane.addInput(PARAMS, 'quality', {
 </div>
 
 
+<h3 id="number_formatter">Formatter</h3>
+<p>You can use a custom number formatter with <code>format</code>.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  k: 0,
+};
+
+const pane = new Tweakpane();
+pane.addInput(PARAMS, 'k', {
+  <strong>format</strong>: (v) => v.toFixed(6),
+});</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-numberformatter></div>
+		</div>
+	</div>
+</div>
+
+
 <h2 id="string">String</h2>
-<p>For string parameters, text field component will be provided by default.</p>
+<p>For string parameters, text input will be provided by default.</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
@@ -138,7 +160,7 @@ pane.addInput(PARAMS, 'message');</code></pre></div>
 
 
 <h3>String list</h3>
-<p>Same as for number properties, <code>options</code> option provides a list component.</p>
+<p>Same as for number properties, <code>options</code> provides a list component.</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
