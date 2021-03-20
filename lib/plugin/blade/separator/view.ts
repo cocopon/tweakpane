@@ -1,7 +1,7 @@
 import {ClassName} from '../../common/view/class-name';
 import {View} from '../../common/view/view';
 
-const className = ClassName('spt');
+const className = ClassName('spr');
 
 /**
  * @hidden

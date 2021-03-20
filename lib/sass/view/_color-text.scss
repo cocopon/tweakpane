@@ -11,26 +11,26 @@
 		@extend %resetUserAgent;
 
 		border-radius: $inner-border-radius;
-		color: var(--label-foreground-color);
+		color: var(--lbl-fg);
 		cursor: pointer;
 		height: var(--unit-size);
 		line-height: var(--unit-size);
 		padding: 0 18px 0 4px;
 
 		&:hover {
-			background-color: var(--input-background-color-hover);
+			background-color: var(--in-bg-h);
 		}
 		&:focus {
-			background-color: var(--input-background-color-focus);
+			background-color: var(--in-bg-f);
 		}
 		&:active {
-			background-color: var(--input-background-color-active);
+			background-color: var(--in-bg-a);
 		}
 	}
 	&_mm {
 		@extend %list_arrow;
 
-		color: var(--label-foreground-color);
+		color: var(--lbl-fg);
 	}
 	&_w {
 		@extend %texts;

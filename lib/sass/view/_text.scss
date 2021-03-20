@@ -39,7 +39,7 @@
 		width: $knob-bounds-width;
 
 		&::before {
-			background-color: var(--input-foreground-color);
+			background-color: var(--in-fg);
 			border-radius: 2px 0 0 2px;
 			bottom: 0;
 			content: '';
@@ -91,12 +91,12 @@
 	}
 	&_gb {
 		fill: none;
-		stroke: var(--input-foreground-color);
+		stroke: var(--in-fg);
 		stroke-dasharray: 2px 2px;
 	}
 	&_gh {
 		fill: none;
-		stroke: var(--input-foreground-color);
+		stroke: var(--in-fg);
 	}
 
 	.#{$prefix}-ttv {

@@ -25,7 +25,6 @@ export type ThemeProperty =
 	| 'input-background-color-focus'
 	| 'input-background-color-hover'
 	| 'input-foreground-color'
-	| 'input-guide-color'
 	| 'monitor-background-color'
 	| 'monitor-foreground-color'
 	| 'label-foreground-color'
@@ -56,7 +55,6 @@ const GROUPS: ThemePaneGroup[] = [
 		name: 'Input',
 		props: [
 			'input-foreground-color',
-			'input-guide-color',
 			'input-background-color',
 			'input-background-color:state',
 		],

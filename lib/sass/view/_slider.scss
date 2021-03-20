@@ -8,7 +8,7 @@
 		position: relative;
 
 		&::before {
-			background-color: var(--input-background-color);
+			background-color: var(--in-bg);
 			border-radius: 1px;
 			bottom: 0;
 			content: '';
@@ -28,7 +28,7 @@
 		top: 0;
 
 		&::before {
-			background-color: var(--input-foreground-color);
+			background-color: var(--in-fg);
 			border-radius: 1px;
 			bottom: 0;
 			content: '';
@@ -42,7 +42,7 @@
 			top: 0;
 		}
 		&::after {
-			background-color: var(--button-background-color);
+			background-color: var(--btn-bg);
 			border-radius: $inner-border-radius;
 			bottom: 0;
 			content: '';
@@ -57,13 +57,13 @@
 		}
 	}
 	&_t:hover &_k::after {
-		background-color: var(--button-background-color-hover);
+		background-color: var(--btn-bg-h);
 	}
 	&_t:focus &_k::after {
-		background-color: var(--button-background-color-focus);
+		background-color: var(--btn-bg-f);
 	}
 	&_t:active &_k::after {
-		background-color: var(--button-background-color-active);
+		background-color: var(--btn-bg-a);
 	}
 }
 

@@ -12,7 +12,7 @@
 		top: 0;
 	}
 	&_w {
-		background-color: var(--input-background-color);
+		background-color: var(--in-bg);
 		border-radius: $inner-border-radius;
 		cursor: pointer;
 		display: block;
@@ -34,19 +34,19 @@
 
 			path {
 				fill: none;
-				stroke: var(--input-foreground-color);
+				stroke: var(--in-fg);
 				stroke-width: 2;
 			}
 		}
 	}
 	&_i:hover + &_w {
-		background-color: var(--input-background-color-hover);
+		background-color: var(--in-bg-h);
 	}
 	&_i:focus + &_w {
-		background-color: var(--input-background-color-focus);
+		background-color: var(--in-bg-f);
 	}
 	&_i:active + &_w {
-		background-color: var(--input-background-color-active);
+		background-color: var(--in-bg-a);
 	}
 	&_i:checked + &_w svg {
 		opacity: 1;

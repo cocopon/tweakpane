@@ -9,7 +9,7 @@
 
 		polyline {
 			fill: none;
-			stroke: var(--monitor-foreground-color);
+			stroke: var(--mo-fg);
 			stroke-linejoin: round;
 		}
 	}
@@ -27,10 +27,10 @@
 	}
 
 	.#{$prefix}-ttv {
-		background-color: var(--monitor-foreground-color);
+		background-color: var(--mo-fg);
 
 		&::before {
-			border-top-color: var(--monitor-foreground-color);
+			border-top-color: var(--mo-fg);
 		}
 	}
 }

@@ -1,15 +1,15 @@
 %folder_title {
 	@extend %resetUserAgent;
 
-	background-color: var(--folder-background-color);
-	color: var(--folder-foreground-color);
+	background-color: var(--cnt-bg);
+	color: var(--cnt-fg);
 	cursor: pointer;
 	display: block;
 	height: calc(var(--unit-size) + 4px);
 	line-height: calc(var(--unit-size) + 4px);
 	overflow: hidden;
 	padding-left: 4px + 8px;
-	padding-right: calc(4px * 2 + var(--unit-size) + 4px);
+	padding-right: calc(2px * 2 + var(--unit-size) + 4px);
 	position: relative;
 	text-align: left;
 	text-overflow: ellipsis;
@@ -21,13 +21,13 @@
 		$folder-transition-duration;
 
 	&:hover {
-		background-color: var(--folder-background-color-hover);
+		background-color: var(--cnt-bg-h);
 	}
 	&:focus {
-		background-color: var(--folder-background-color-focus);
+		background-color: var(--cnt-bg-f);
 	}
 	&:active {
-		background-color: var(--folder-background-color-active);
+		background-color: var(--cnt-bg-a);
 	}
 }
 
@@ -36,18 +36,18 @@
 
 	background: linear-gradient(
 		to left,
-		var(--folder-foreground-color),
-		var(--folder-foreground-color) 2px,
+		var(--cnt-fg),
+		var(--cnt-fg) 2px,
 		transparent 2px,
 		transparent 4px,
-		var(--folder-foreground-color) 4px
+		var(--cnt-fg) 4px
 	);
 	border-radius: 2px;
 	bottom: 0;
 	content: '';
 	display: block;
 	height: $size;
-	right: calc(4px + (var(--unit-size) + 4px - #{$size}) / 2);
+	right: calc(2px + (var(--unit-size) + 4px - #{$size}) / 2);
 	margin: auto;
 	opacity: 0.5;
 	position: absolute;
@@ -86,7 +86,7 @@
 	& > .#{$prefix}-fldv:not(.#{$prefix}-v-hidden) + .#{$prefix}-fldv {
 		margin-top: 0;
 	}
-	& > .#{$prefix}-sptv:not(.#{$prefix}-v-hidden) + .#{$prefix}-sptv {
+	& > .#{$prefix}-sprv:not(.#{$prefix}-v-hidden) + .#{$prefix}-sprv {
 		margin-top: 0;
 	}
 }

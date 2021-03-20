@@ -1,9 +1,9 @@
 %button {
 	@extend %resetUserAgent;
 
-	background-color: var(--button-background-color);
+	background-color: var(--btn-bg);
 	border-radius: $inner-border-radius;
-	color: var(--button-foreground-color);
+	color: var(--btn-fg);
 	cursor: pointer;
 	display: block;
 	font-weight: bold;
@@ -14,12 +14,12 @@
 	white-space: nowrap;
 
 	&:hover {
-		background-color: var(--button-background-color-hover);
+		background-color: var(--btn-bg-h);
 	}
 	&:focus {
-		background-color: var(--button-background-color-focus);
+		background-color: var(--btn-bg-f);
 	}
 	&:active {
-		background-color: var(--button-background-color-active);
+		background-color: var(--btn-bg-a);
 	}
 }

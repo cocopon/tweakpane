@@ -26,13 +26,14 @@
 		width: 100%;
 	}
 	&_ax {
-		stroke: var(--input-guide-color);
+		opacity: 0.1;
+		stroke: var(--in-fg);
 	}
 	&_l {
-		stroke: var(--input-foreground-color);
+		stroke: var(--in-fg);
 		stroke-dasharray: 2px 2px;
 	}
 	&_m {
-		fill: var(--input-foreground-color);
+		fill: var(--in-fg);
 	}
 }
