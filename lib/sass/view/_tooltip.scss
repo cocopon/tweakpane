@@ -1,7 +1,7 @@
 .#{$prefix}-ttv {
-	background-color: var(--input-foreground-color);
+	background-color: var(--in-fg);
 	border-radius: $inner-border-radius;
-	color: var(--base-background-color);
+	color: var(--bs-bg);
 	padding: 2px 4px;
 	pointer-events: none;
 	position: absolute;
@@ -10,8 +10,7 @@
 	&::before {
 		$size: 4px;
 
-		border-color: var(--input-foreground-color) transparent transparent
-			transparent;
+		border-color: var(--in-fg) transparent transparent transparent;
 		border-style: solid;
 		border-width: $size / 2;
 		box-sizing: border-box;

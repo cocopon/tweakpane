@@ -1,10 +1,10 @@
 %input {
 	@extend %resetUserAgent;
 
-	background-color: var(--input-background-color);
+	background-color: var(--in-bg);
 	border-radius: $inner-border-radius;
 	box-sizing: border-box;
-	color: var(--input-foreground-color);
+	color: var(--in-fg);
 	font-family: inherit;
 	height: var(--unit-size);
 	line-height: var(--unit-size);
@@ -12,12 +12,12 @@
 	width: 100%;
 
 	&:hover {
-		background-color: var(--input-background-color-hover);
+		background-color: var(--in-bg-h);
 	}
 	&:focus {
-		background-color: var(--input-background-color-focus);
+		background-color: var(--in-bg-f);
 	}
 	&:active {
-		background-color: var(--input-background-color-active);
+		background-color: var(--in-bg-a);
 	}
 }

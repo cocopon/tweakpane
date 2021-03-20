@@ -14,16 +14,16 @@
 	&_c {
 		@extend %folder_container;
 
-		border-left: var(--folder-background-color) solid 4px;
+		border-left: var(--cnt-bg) solid 4px;
 	}
 	&_t:hover + &_c {
-		border-left-color: var(--folder-background-color-hover);
+		border-left-color: var(--cnt-bg-h);
 	}
 	&_t:focus + &_c {
-		border-left-color: var(--folder-background-color-focus);
+		border-left-color: var(--cnt-bg-f);
 	}
 	&_t:active + &_c {
-		border-left-color: var(--folder-background-color-active);
+		border-left-color: var(--cnt-bg-a);
 	}
 	&#{&}-expanded > &_c {
 		@extend %folder_container-expanded;

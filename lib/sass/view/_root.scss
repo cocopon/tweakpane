@@ -1,5 +1,5 @@
-@mixin themeVariable($name, $value) {
-	--#{$name}: var(--#{$prefix}-#{$name}, #{$value});
+@mixin themeVariable($out-name, $in-name, $value) {
+	--#{$out-name}: var(--#{$prefix}-#{$in-name}, #{$value});
 }
 
 %themeVariables {
@@ -13,65 +13,137 @@
 
 	@include themeVariable(
 		'font-family',
+		'font-family',
 		('Roboto Mono', 'Source Code Pro', Menlo, Courier, monospace)
 	);
-	@include themeVariable('unit-size', 20px);
-	@include themeVariable('value-width', 160px);
+	@include themeVariable('unit-size', 'unit-size', 20px);
+	@include themeVariable('value-width', 'value-width', 160px);
 
-	@include themeVariable('base-background-color', $bg-color);
-	@include themeVariable('base-shadow-color', rgba(black, 0.2));
+	// Base
+	@include themeVariable('bs-bg', 'base-background-color', $bg-color);
+	@include themeVariable('bs-sh', 'base-shadow-color', rgba(black, 0.2));
 
-	@include themeVariable('button-background-color', $color-light);
+	// Button
+	@include themeVariable('btn-bg', 'button-background-color', $color-light);
 	@include themeVariable(
+		'btn-bg-a',
 		'button-background-color-active',
 		lighten($color-light, 15%)
 	);
 	@include themeVariable(
+		'btn-bg-f',
 		'button-background-color-focus',
 		lighten($color-light, 10%)
 	);
 	@include themeVariable(
+		'btn-bg-h',
 		'button-background-color-hover',
 		lighten($color-light, 5%)
 	);
-	@include themeVariable('button-foreground-color', $bg-color);
+	@include themeVariable('btn-fg', 'button-foreground-color', $bg-color);
 
-	@include themeVariable('folder-background-color', rgba($fg-color, 0.1));
+	// Container
 	@include themeVariable(
+		'cnt-bg',
+		'folder-background-color',
+		rgba($fg-color, 0.1)
+	);
+	@include themeVariable(
+		'cnt-bg-a',
 		'folder-background-color-active',
 		rgba($fg-color, 0.25)
 	);
-	@include themeVariable('folder-background-color-focus', rgba($fg-color, 0.2));
 	@include themeVariable(
+		'cnt-bg-f',
+		'folder-background-color-focus',
+		rgba($fg-color, 0.2)
+	);
+	@include themeVariable(
+		'cnt-bg-h',
 		'folder-background-color-hover',
 		rgba($fg-color, 0.15)
 	);
-	@include themeVariable('folder-foreground-color', $fg-color);
+	@include themeVariable('cnt-fg', 'folder-foreground-color', $fg-color);
 
-	@include themeVariable('input-background-color', rgba($fg-color, 0.1));
+	// Input
 	@include themeVariable(
+		'in-bg',
+		'input-background-color',
+		rgba($fg-color, 0.1)
+	);
+	@include themeVariable(
+		'in-bg-a',
 		'input-background-color-active',
 		rgba($fg-color, 0.25)
 	);
-	@include themeVariable('input-background-color-focus', rgba($fg-color, 0.2));
-	@include themeVariable('input-background-color-hover', rgba($fg-color, 0.15));
-	@include themeVariable('input-foreground-color', $fg-color);
-	@include themeVariable('input-guide-color', rgba($color-exdark, 0.2));
+	@include themeVariable(
+		'in-bg-f',
+		'input-background-color-focus',
+		rgba($fg-color, 0.2)
+	);
+	@include themeVariable(
+		'in-bg-h',
+		'input-background-color-hover',
+		rgba($fg-color, 0.15)
+	);
+	@include themeVariable('in-fg', 'input-foreground-color', $fg-color);
+	@include themeVariable(
+		'in-guide',
+		'input-guide-color',
+		rgba($color-exdark, 0.2)
+	);
 
-	@include themeVariable('label-foreground-color', rgba($fg-color, 0.7));
+	// Label
+	@include themeVariable(
+		'lbl-fg',
+		'label-foreground-color',
+		rgba($fg-color, 0.7)
+	);
 
-	@include themeVariable('monitor-background-color', rgba($color-exdark, 0.2));
-	@include themeVariable('monitor-foreground-color', rgba($fg-color, 0.7));
+	// Monitor
+	@include themeVariable(
+		'mo-bg',
+		'monitor-background-color',
+		rgba($color-exdark, 0.2)
+	);
+	@include themeVariable(
+		'mo-fg',
+		'monitor-foreground-color',
+		rgba($fg-color, 0.7)
+	);
 
-	@include themeVariable('separator-color', rgba($color-exdark, 0.2));
+	// Separator
+	@include themeVariable('spr-fg', 'separator-color', rgba($color-exdark, 0.2));
+
+	// TODO: Remove outdated variables
+	--button-background-color: var(--btn-bg);
+	--button-background-color-active: var(--btn-bg-a);
+	--button-background-color-focus: var(--btn-bg-f);
+	--button-background-color-hover: var(--btn-bg-h);
+	--button-foreground-color: var(--btn-fg);
+	--folder-background-color: var(--cnt-bg);
+	--folder-background-color-active: var(--cnt-bg-a);
+	--folder-background-color-focus: var(--cnt-bg-f);
+	--folder-background-color-hover: var(--cnt-bg-h);
+	--folder-foreground-color: var(--cnt-fg);
+	--input-background-color: var(--in-bg);
+	--input-background-color-active: var(--in-bg-a);
+	--input-background-color-focus: var(--in-bg-f);
+	--input-background-color-hover: var(--in-bg-h);
+	--input-foreground-color: var(--in-fg);
+	--input-guide-color: var(--in-guide);
+	--label-foregound-color: var(--lbl-fg);
+	--monitor-background-color: var(--mo-bg);
+	--monitor-foreground-color: var(--mo-fg);
+	--separator-color: var(--spr-fg);
 }
 
 .#{$prefix}-rotv {
 	@extend %themeVariables;
 
-	background-color: var(--base-background-color);
+	background-color: var(--bs-bg);
 	border-radius: $outer-border-radius;
-	box-shadow: 0 2px 4px var(--base-shadow-color);
+	box-shadow: 0 2px 4px var(--bs-sh);
 	font-family: var(--font-family);
 	font-size: 11px;
 	font-weight: 500;
@@ -85,7 +157,7 @@
 		border-bottom-right-radius: $outer-border-radius;
 		border-top-left-radius: $outer-border-radius;
 		border-top-right-radius: $outer-border-radius;
-		padding-left: calc(4px * 2 + var(--unit-size) + 4px);
+		padding-left: calc(2px * 2 + var(--unit-size) + 4px);
 		text-align: center;
 	}
 	&#{&}-expanded &_t {
