@@ -26,7 +26,8 @@
 		width: 100%;
 	}
 	&_ax {
-		stroke: var(--in-guide);
+		opacity: 0.1;
+		stroke: var(--in-fg);
 	}
 	&_l {
 		stroke: var(--in-fg);

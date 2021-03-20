@@ -87,11 +87,6 @@
 		rgba($fg-color, 0.15)
 	);
 	@include themeVariable('in-fg', 'input-foreground-color', $fg-color);
-	@include themeVariable(
-		'in-guide',
-		'input-guide-color',
-		rgba($color-exdark, 0.2)
-	);
 
 	// Label
 	@include themeVariable(
@@ -131,7 +126,6 @@
 	--input-background-color-focus: var(--in-bg-f);
 	--input-background-color-hover: var(--in-bg-h);
 	--input-foreground-color: var(--in-fg);
-	--input-guide-color: var(--in-guide);
 	--label-foregound-color: var(--lbl-fg);
 	--monitor-background-color: var(--mo-bg);
 	--monitor-foreground-color: var(--mo-fg);
