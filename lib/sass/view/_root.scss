@@ -94,8 +94,6 @@
 	}
 	&_m {
 		@extend %folder_mark;
-
-		transition: none;
 	}
 	&#{&}-expanded &_m {
 		@extend %folder_mark-expanded;
