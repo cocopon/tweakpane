@@ -8,7 +8,8 @@
 	height: calc(var(--unit-size) + 4px);
 	line-height: calc(var(--unit-size) + 4px);
 	overflow: hidden;
-	padding-left: (4px + 24px);
+	padding-left: 4px + 8px;
+	padding-right: calc(4px * 2 + var(--unit-size) + 4px);
 	position: relative;
 	text-align: left;
 	text-overflow: ellipsis;
@@ -31,6 +32,8 @@
 }
 
 %folder_mark {
+	$size: 6px;
+
 	background: linear-gradient(
 		to left,
 		var(--folder-foreground-color),
@@ -43,15 +46,15 @@
 	bottom: 0;
 	content: '';
 	display: block;
-	height: 6px;
-	left: (4px + (24px - 6px) / 2);
+	height: $size;
+	right: calc(4px + (var(--unit-size) + 4px - #{$size}) / 2);
 	margin: auto;
 	opacity: 0.5;
 	position: absolute;
 	top: 0;
 	transform: rotate(90deg);
 	transition: transform $folder-transition-duration ease-in-out;
-	width: 6px;
+	width: $size;
 }
 
 %folder_mark-expanded {

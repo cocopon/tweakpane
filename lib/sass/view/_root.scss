@@ -85,7 +85,7 @@
 		border-bottom-right-radius: $outer-border-radius;
 		border-top-left-radius: $outer-border-radius;
 		border-top-right-radius: $outer-border-radius;
-		padding-right: (4px + 24px);
+		padding-left: calc(4px * 2 + var(--unit-size) + 4px);
 		text-align: center;
 	}
 	&#{&}-expanded &_t {
@@ -94,8 +94,6 @@
 	}
 	&_m {
 		@extend %folder_mark;
-
-		transition: none;
 	}
 	&#{&}-expanded &_m {
 		@extend %folder_mark-expanded;
