@@ -1,7 +1,7 @@
 import {Formatter} from '../../../common/converter/formatter';
-import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
+import {BufferedValue} from '../../../common/model/buffered-value';
 import {ClassName} from '../../../common/view/class-name';
-import {ValueView} from '../../../common/view/value';
+import {View} from '../../../common/view/view';
 
 interface Config<T> {
 	formatter: Formatter<T>;
@@ -13,7 +13,7 @@ const className = ClassName('sgl');
 /**
  * @hidden
  */
-export class SingleLogView<T> implements ValueView<Buffer<T>> {
+export class SingleLogView<T> implements View {
 	public readonly element: HTMLElement;
 	public readonly value: BufferedValue<T>;
 	private formatter_: Formatter<T>;

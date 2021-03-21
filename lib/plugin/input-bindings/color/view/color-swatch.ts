@@ -1,6 +1,6 @@
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
-import {ValueView} from '../../../common/view/value';
+import {View} from '../../../common/view/view';
 import {colorToHexRgbaString} from '../converter/color-string';
 import {Color} from '../model/color';
 import {ColorPickerView} from './color-picker';
@@ -15,7 +15,7 @@ const className = ClassName('clsw');
 /**
  * @hidden
  */
-export class ColorSwatchView implements ValueView<Color> {
+export class ColorSwatchView implements View {
 	public readonly element: HTMLElement;
 	public readonly value: Value<Color>;
 	private pickerView_: ColorPickerView;

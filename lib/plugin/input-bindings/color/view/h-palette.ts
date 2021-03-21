@@ -1,7 +1,7 @@
 import {Value} from '../../../common/model/value';
 import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
-import {ValueView} from '../../../common/view/value';
+import {View} from '../../../common/view/view';
 import {colorToFunctionalRgbString} from '../converter/color-string';
 import {Color} from '../model/color';
 
@@ -14,7 +14,7 @@ interface Config {
 /**
  * @hidden
  */
-export class HPaletteView implements ValueView<Color> {
+export class HPaletteView implements View {
 	public readonly element: HTMLElement;
 	public readonly value: Value<Color>;
 	private markerElem_: HTMLDivElement;

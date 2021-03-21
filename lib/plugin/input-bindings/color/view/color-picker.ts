@@ -1,10 +1,8 @@
 import {forceCast} from '../../../../misc/type-util';
 import {Foldable} from '../../../common/model/foldable';
-import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
-import {ValueView} from '../../../common/view/value';
+import {View} from '../../../common/view/view';
 import {TextView} from '../../common/view/text';
-import {Color} from '../model/color';
 import {PickedColor} from '../model/picked-color';
 import {APaletteView} from './a-palette';
 import {ColorTextView} from './color-text';
@@ -29,7 +27,7 @@ interface Config {
 /**
  * @hidden
  */
-export class ColorPickerView implements ValueView<Color> {
+export class ColorPickerView implements View {
 	public readonly element: HTMLElement;
 	public readonly foldable: Foldable;
 	public readonly pickedColor: PickedColor;
@@ -114,10 +112,6 @@ export class ColorPickerView implements ValueView<Color> {
 			);
 		}
 		return forceCast(elems);
-	}
-
-	get value(): Value<Color> {
-		return this.pickedColor.value;
 	}
 
 	public update(): void {

@@ -1,9 +1,7 @@
 import {createSvgIconElement} from '../../../common/dom-util';
-import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
-import {ValueView} from '../../../common/view/value';
+import {View} from '../../../common/view/view';
 import {NumberTextView} from '../../number/view/number-text';
-import {Color} from '../model/color';
 import {PickedColor} from '../model/picked-color';
 
 interface Config {
@@ -35,7 +33,7 @@ function createModeSelectElement(doc: Document): HTMLSelectElement {
 /**
  * @hidden
  */
-export class ColorTextView implements ValueView<Color> {
+export class ColorTextView implements View {
 	public readonly element: HTMLElement;
 	public readonly pickedColor: PickedColor;
 	private textViews_: [NumberTextView, NumberTextView, NumberTextView];
@@ -86,10 +84,6 @@ export class ColorTextView implements ValueView<Color> {
 	set textViews(textViews: [NumberTextView, NumberTextView, NumberTextView]) {
 		this.textViews_ = textViews;
 		this.applyTextViews_();
-	}
-
-	get value(): Value<Color> {
-		return this.pickedColor.value;
 	}
 
 	public update(): void {

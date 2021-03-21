@@ -1,7 +1,7 @@
 import {Formatter} from '../../../common/converter/formatter';
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
-import {ValueView} from '../../../common/view/value';
+import {View} from '../../../common/view/view';
 
 export interface Config<T> {
 	formatter: Formatter<T>;
@@ -15,7 +15,7 @@ const className = ClassName('txt');
 /**
  * @hidden
  */
-export class TextView<T> implements ValueView<T> {
+export class TextView<T> implements View {
 	public readonly inputElement: HTMLInputElement;
 	public readonly value: Value<T>;
 	public readonly element: HTMLElement;

@@ -1,14 +1,12 @@
 import {createSvgIconElement} from '../../../common/dom-util';
-import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
-import {ValueView} from '../../../common/view/value';
+import {View} from '../../../common/view/view';
 import {PointNdTextView} from '../../common/view/point-nd-text';
-import {Point2d} from '../model/point-2d';
 import {Point2dPadView} from './point-2d-pad';
 
 interface Config {
 	padView: Point2dPadView;
-	textView: PointNdTextView<Point2d>;
+	textView: PointNdTextView;
 }
 
 const className = ClassName('p2dpadtxt');
@@ -16,11 +14,11 @@ const className = ClassName('p2dpadtxt');
 /**
  * @hidden
  */
-export class Point2dPadTextView implements ValueView<Point2d> {
+export class Point2dPadTextView implements View {
 	public readonly element: HTMLElement;
 	private padButtonElem_: HTMLButtonElement;
 	private padView_: Point2dPadView;
-	private textView_: PointNdTextView<Point2d>;
+	private textView_: PointNdTextView;
 
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
@@ -50,16 +48,11 @@ export class Point2dPadTextView implements ValueView<Point2d> {
 		this.element.appendChild(textElem);
 	}
 
-	get value(): Value<Point2d> {
-		return this.textView_.value;
-	}
-
 	get padButtonElement(): HTMLButtonElement {
 		return this.padButtonElem_;
 	}
 
 	public update(): void {
 		this.padView_.update();
-		this.textView_.update();
 	}
 }

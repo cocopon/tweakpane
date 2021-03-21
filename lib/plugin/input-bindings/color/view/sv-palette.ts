@@ -2,7 +2,7 @@ import {getCanvasContext} from '../../../common/dom-util';
 import {Value} from '../../../common/model/value';
 import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
-import {ValueView} from '../../../common/view/value';
+import {View} from '../../../common/view/view';
 import {Color} from '../model/color';
 import {hsvToRgb} from '../model/color-model';
 
@@ -17,7 +17,7 @@ const CANVAS_RESOL = 64;
 /**
  * @hidden
  */
-export class SvPaletteView implements ValueView<Color> {
+export class SvPaletteView implements View {
 	public readonly element: HTMLElement;
 	public readonly value: Value<Color>;
 	public readonly canvasElement: HTMLCanvasElement;

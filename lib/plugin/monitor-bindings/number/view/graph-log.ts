@@ -1,9 +1,9 @@
 import {Formatter} from '../../../common/converter/formatter';
 import {forceReflow, SVG_NS} from '../../../common/dom-util';
-import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
+import {BufferedValue} from '../../../common/model/buffered-value';
 import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
-import {ValueView} from '../../../common/view/value';
+import {View} from '../../../common/view/view';
 import {GraphCursor} from '../model/graph-cursor';
 
 interface Config {
@@ -20,7 +20,7 @@ const className = ClassName('grl');
 /**
  * @hidden
  */
-export class GraphLogView implements ValueView<Buffer<number>> {
+export class GraphLogView implements View {
 	public readonly element: HTMLElement;
 	public readonly value: BufferedValue<number>;
 	private cursor_: GraphCursor;

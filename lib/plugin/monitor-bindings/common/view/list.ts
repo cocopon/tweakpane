@@ -2,7 +2,7 @@ import {ListItem} from '../../../common/constraint/list';
 import {createSvgIconElement} from '../../../common/dom-util';
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
-import {ValueView} from '../../../common/view/value';
+import {View} from '../../../common/view/view';
 
 interface Config<T> {
 	options: ListItem<T>[];
@@ -15,7 +15,7 @@ const className = ClassName('lst');
 /**
  * @hidden
  */
-export class ListView<T> implements ValueView<T> {
+export class ListView<T> implements View {
 	public readonly selectElement: HTMLSelectElement;
 	public readonly element: HTMLElement;
 	public readonly value: Value<T>;
