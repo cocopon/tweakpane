@@ -27,7 +27,6 @@ export class FolderController implements BladeController {
 	public readonly bladeRack: BladeRack;
 	public readonly folder: Folder;
 	public readonly view: FolderView;
-	private doc_: Document;
 
 	constructor(doc: Document, config: Config) {
 		this.onContainerTransitionEnd_ = this.onContainerTransitionEnd_.bind(this);
@@ -47,8 +46,7 @@ export class FolderController implements BladeController {
 		rack.emitter.on('remove', this.onRackRemove_);
 		this.bladeRack = rack;
 
-		this.doc_ = doc;
-		this.view = new FolderView(this.doc_, {
+		this.view = new FolderView(doc, {
 			folder: this.folder,
 			hidesTitle: config.hidesTitle,
 			viewName: config.viewName,
@@ -62,7 +60,7 @@ export class FolderController implements BladeController {
 	}
 
 	get document(): Document {
-		return this.doc_;
+		return this.view.element.ownerDocument;
 	}
 
 	private onFolderBeforeChange_(ev: FolderEvents['beforechange']): void {
