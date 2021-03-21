@@ -1,13 +1,13 @@
 import {forceCast} from '../misc/type-util';
 import {ButtonController} from '../plugin/blade/button/controller/button';
 import {LabeledController} from '../plugin/blade/labeled/controller';
-import {ComponentApi} from './component-api';
+import {BladeApi} from './blade-api';
 
 interface ButtonApiEventHandlers {
 	click: () => void;
 }
 
-export class ButtonApi implements ComponentApi {
+export class ButtonApi implements BladeApi {
 	/**
 	 * @hidden
 	 */

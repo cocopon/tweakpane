@@ -7,8 +7,8 @@ import {FolderEvents} from '../plugin/blade/folder/model/folder';
 import {LabeledController} from '../plugin/blade/labeled/controller';
 import {SeparatorController} from '../plugin/blade/separator/controller';
 import {Emitter} from '../plugin/common/model/emitter';
+import {BladeApi} from './blade-api';
 import {ButtonApi} from './button';
-import {ComponentApi} from './component-api';
 import {InputBindingApi} from './input-binding';
 import {createInputBindingController} from './input-binding-controllers';
 import {MonitorBindingApi} from './monitor-binding';
@@ -36,7 +36,7 @@ export interface FolderApiEvents<Ex> {
 	};
 }
 
-export class FolderApi implements ComponentApi {
+export class FolderApi implements BladeApi {
 	/**
 	 * @hidden
 	 */
