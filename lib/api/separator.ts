@@ -1,7 +1,7 @@
 import {SeparatorController} from '../plugin/blade/separator/controller';
-import {ComponentApi} from './component-api';
+import {BladeApi} from './blade-api';
 
-export class SeparatorApi implements ComponentApi {
+export class SeparatorApi implements BladeApi {
 	/**
 	 * @hidden
 	 */

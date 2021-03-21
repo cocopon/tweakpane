@@ -1,7 +1,7 @@
 /**
  * @hidden
  */
-export interface ComponentApi {
+export interface BladeApi {
 	hidden: boolean;
 	dispose(): void;
 }

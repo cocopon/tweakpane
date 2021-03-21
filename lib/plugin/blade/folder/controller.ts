@@ -27,14 +27,13 @@ export class FolderController implements BladeController {
 	public readonly bladeRack: BladeRack;
 	public readonly folder: Folder;
 	public readonly view: FolderView;
-	private doc_: Document;
 
 	constructor(doc: Document, config: Config) {
 		this.onContainerTransitionEnd_ = this.onContainerTransitionEnd_.bind(this);
 		this.onFolderBeforeChange_ = this.onFolderBeforeChange_.bind(this);
 		this.onTitleClick_ = this.onTitleClick_.bind(this);
 		this.onRackAdd_ = this.onRackAdd_.bind(this);
-		this.onRackItemLayout_ = this.onRackItemLayout_.bind(this);
+		this.onRackLayout_ = this.onRackLayout_.bind(this);
 		this.onRackRemove_ = this.onRackRemove_.bind(this);
 
 		this.blade = config.blade;
@@ -43,12 +42,11 @@ export class FolderController implements BladeController {
 
 		const rack = new BladeRack();
 		rack.emitter.on('add', this.onRackAdd_);
-		rack.emitter.on('itemlayout', this.onRackItemLayout_);
+		rack.emitter.on('layout', this.onRackLayout_);
 		rack.emitter.on('remove', this.onRackRemove_);
 		this.bladeRack = rack;
 
-		this.doc_ = doc;
-		this.view = new FolderView(this.doc_, {
+		this.view = new FolderView(doc, {
 			folder: this.folder,
 			hidesTitle: config.hidesTitle,
 			viewName: config.viewName,
@@ -62,7 +60,7 @@ export class FolderController implements BladeController {
 	}
 
 	get document(): Document {
-		return this.doc_;
+		return this.view.element.ownerDocument;
 	}
 
 	private onFolderBeforeChange_(ev: FolderEvents['beforechange']): void {
@@ -90,6 +88,9 @@ export class FolderController implements BladeController {
 	}
 
 	private onRackAdd_(ev: BladeRackEvents['add']) {
+		if (!ev.isRoot) {
+			return;
+		}
 		insertElementAt(
 			this.view.containerElement,
 			ev.bladeController.view.element,
@@ -98,11 +99,14 @@ export class FolderController implements BladeController {
 		this.applyRackChange_();
 	}
 
-	private onRackRemove_(_: BladeRackEvents['remove']) {
+	private onRackRemove_(ev: BladeRackEvents['remove']) {
+		if (!ev.isRoot) {
+			return;
+		}
 		this.applyRackChange_();
 	}
 
-	private onRackItemLayout_(_: BladeRackEvents['itemlayout']) {
+	private onRackLayout_(_: BladeRackEvents['layout']) {
 		this.applyRackChange_();
 	}
 

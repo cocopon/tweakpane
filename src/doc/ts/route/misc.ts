@@ -81,12 +81,15 @@ export function initMisc() {
 			});
 			pane.addInput(PARAMS, 'boolean');
 			pane.addInput(PARAMS, 'color');
-			pane.addInput(PARAMS, 'number', {
+			const f = pane.addFolder({
+				title: 'Folder',
+			});
+			f.addInput(PARAMS, 'number', {
 				max: 100,
 				min: 0,
 			});
-			pane.addInput(PARAMS, 'point2d');
-			pane.addInput(PARAMS, 'string');
+			f.addInput(PARAMS, 'point2d');
+			f.addInput(PARAMS, 'string');
 			pane.on('change', (ev) => {
 				const v =
 					typeof ev.value === 'number'

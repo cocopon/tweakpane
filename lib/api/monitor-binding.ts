@@ -2,7 +2,7 @@ import {forceCast} from '../misc/type-util';
 import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
 import {MonitorBindingEvents} from '../plugin/common/binding/monitor';
 import {Emitter} from '../plugin/common/model/emitter';
-import {ComponentApi} from './component-api';
+import {BladeApi} from './blade-api';
 import {TpUpdateEvent} from './tp-event';
 
 export interface MonitorBindingApiEvents<T> {
@@ -14,7 +14,7 @@ export interface MonitorBindingApiEvents<T> {
 /**
  * The API for the monitor binding between the parameter and the pane.
  */
-export class MonitorBindingApi<T> implements ComponentApi {
+export class MonitorBindingApi<T> implements BladeApi {
 	/**
 	 * @hidden
 	 */

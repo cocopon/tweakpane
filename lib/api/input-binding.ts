@@ -2,7 +2,7 @@ import {forceCast} from '../misc/type-util';
 import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
 import {InputBindingEvents} from '../plugin/common/binding/input';
 import {Emitter} from '../plugin/common/model/emitter';
-import {ComponentApi} from './component-api';
+import {BladeApi} from './blade-api';
 import {TpChangeEvent} from './tp-event';
 
 export interface InputBindingApiEvents<Ex> {
@@ -16,7 +16,7 @@ export interface InputBindingApiEvents<Ex> {
  * @template In The internal type.
  * @template Ex The external type (= parameter object).
  */
-export class InputBindingApi<In, Ex> implements ComponentApi {
+export class InputBindingApi<In, Ex> implements BladeApi {
 	/**
 	 * @hidden
 	 */

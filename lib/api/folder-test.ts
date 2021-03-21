@@ -17,7 +17,8 @@ import {SeparatorApi} from './separator';
 import {TpChangeEvent} from './tp-event';
 
 function createApi(): FolderApi {
-	const c = new FolderController(TestUtil.createWindow().document, {
+	const doc = TestUtil.createWindow().document;
+	const c = new FolderController(doc, {
 		blade: new Blade(),
 		title: 'Folder',
 	});
@@ -247,5 +248,27 @@ describe(FolderApi.name, () => {
 
 		const bapi = api.addInput(PARAMS, 'foo');
 		bapi.controller.binding.value.rawValue = 2;
+	});
+
+	it('should have right target', (done) => {
+		const api = createApi();
+		api.on('fold', (ev) => {
+			assert.strictEqual(ev.target, api);
+			done();
+		});
+		api.controller.folder.expanded = !api.controller.folder.expanded;
+	});
+
+	it('should have right target (nested)', (done) => {
+		const api = createApi();
+		api.addButton({title: ''});
+		const subapi = api.addFolder({title: ''});
+
+		api.on('fold', (ev) => {
+			assert.strictEqual(ev.target, subapi);
+			done();
+		});
+
+		subapi.controller.folder.expanded = !subapi.controller.folder.expanded;
 	});
 });
