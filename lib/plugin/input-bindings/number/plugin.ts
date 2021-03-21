@@ -80,6 +80,24 @@ function createConstraint(params: InputParams): Constraint<number> {
 	return new CompositeConstraint(constraints);
 }
 
+function findRange(
+	constraint: Constraint<number>,
+): [number | undefined, number | undefined] {
+	const c = constraint ? findConstraint(constraint, RangeConstraint) : null;
+	if (!c) {
+		return [undefined, undefined];
+	}
+
+	return [c.minValue, c.maxValue];
+}
+
+function estimateSuitableRange(
+	constraint: Constraint<number>,
+): [number, number] {
+	const [min, max] = findRange(constraint);
+	return [min ?? 0, max ?? 100];
+}
+
 /**
  * @hidden
  */
@@ -111,6 +129,7 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 			);
 
 		if (c && findConstraint(c, RangeConstraint)) {
+			const [min, max] = estimateSuitableRange(c);
 			return new SliderTextController(args.document, {
 				baseStep: getBaseStep(c),
 				draggingScale: getSuitableDraggingScale(
@@ -118,6 +137,8 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 					value.rawValue,
 				),
 				formatter: formatter,
+				maxValue: max,
+				minValue: min,
 				parser: parseNumber,
 				value: value,
 			});

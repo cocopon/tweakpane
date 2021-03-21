@@ -10,6 +10,8 @@ interface Config {
 	baseStep: number;
 	draggingScale: number;
 	formatter: Formatter<number>;
+	maxValue: number;
+	minValue: number;
 	parser: Parser<number>;
 	value: Value<number>;
 }
@@ -28,6 +30,8 @@ export class SliderTextController implements ValueController<number> {
 
 		this.sliderIc_ = new SliderController(doc, {
 			baseStep: config.baseStep,
+			maxValue: config.maxValue,
+			minValue: config.minValue,
 			value: config.value,
 		});
 		this.textIc_ = new NumberTextController(doc, {
