@@ -57,7 +57,7 @@ function createAxisController<PointNd>(
 export class PointNdTextController<PointNd>
 	implements ValueController<PointNd> {
 	public readonly value: Value<PointNd>;
-	public readonly view: PointNdTextView<PointNd>;
+	public readonly view: PointNdTextView;
 	private readonly acs_: NumberTextController[];
 
 	constructor(doc: Document, config: Config<PointNd>) {
@@ -83,7 +83,6 @@ export class PointNdTextController<PointNd>
 
 		this.view = new PointNdTextView(doc, {
 			textViews: this.acs_.map((ac) => ac.view),
-			value: this.value,
 		});
 	}
 }

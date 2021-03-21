@@ -1,10 +1,8 @@
-import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 import {NumberTextView} from '../../number/view/number-text';
 
-interface Config<PointNd> {
-	value: Value<PointNd>;
+interface Config {
 	textViews: NumberTextView[];
 }
 
@@ -13,12 +11,11 @@ const className = ClassName('p2dtxt');
 /**
  * @hidden
  */
-export class PointNdTextView<PointNd> implements View {
+export class PointNdTextView implements View {
 	public readonly element: HTMLElement;
 	public readonly textViews: NumberTextView[];
-	public readonly value: Value<PointNd>;
 
-	constructor(doc: Document, config: Config<PointNd>) {
+	constructor(doc: Document, config: Config) {
 		this.textViews = config.textViews;
 
 		this.element = doc.createElement('div');
@@ -30,11 +27,5 @@ export class PointNdTextView<PointNd> implements View {
 			axisElem.appendChild(v.element);
 			this.element.appendChild(axisElem);
 		});
-
-		this.value = config.value;
-	}
-
-	public update(): void {
-		// Each text view will be connected by ValueSync, so nothing to do here
 	}
 }

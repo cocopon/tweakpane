@@ -1,4 +1,3 @@
-import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 import {TextView} from '../../common/view/text';
@@ -35,10 +34,6 @@ export class ColorSwatchTextView implements View {
 		this.textView = config.textView;
 		textElem.appendChild(this.textView.element);
 		this.element.appendChild(textElem);
-	}
-
-	get value(): Value<Color> {
-		return this.textView.value;
 	}
 
 	public update(): void {

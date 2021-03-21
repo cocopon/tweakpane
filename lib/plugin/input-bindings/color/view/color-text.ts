@@ -1,9 +1,7 @@
 import {createSvgIconElement} from '../../../common/dom-util';
-import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 import {NumberTextView} from '../../number/view/number-text';
-import {Color} from '../model/color';
 import {PickedColor} from '../model/picked-color';
 
 interface Config {
@@ -86,10 +84,6 @@ export class ColorTextView implements View {
 	set textViews(textViews: [NumberTextView, NumberTextView, NumberTextView]) {
 		this.textViews_ = textViews;
 		this.applyTextViews_();
-	}
-
-	get value(): Value<Color> {
-		return this.pickedColor.value;
 	}
 
 	public update(): void {

@@ -1,4 +1,3 @@
-import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 import {TextView} from '../../common/view/text';
@@ -34,10 +33,6 @@ export class SliderTextView implements View {
 		this.textView_ = config.textView;
 		textElem.appendChild(this.textView_.element);
 		this.element.appendChild(textElem);
-	}
-
-	get value(): Value<number> {
-		return this.sliderView_.value;
 	}
 
 	public update(): void {
