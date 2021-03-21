@@ -28,6 +28,7 @@ function getPlugins(css, shouldMinify) {
 		Replace({
 			__css__: css,
 			'3.14.16': Package.version,
+			preventAssignment: true,
 		}),
 	];
 	if (shouldMinify) {
