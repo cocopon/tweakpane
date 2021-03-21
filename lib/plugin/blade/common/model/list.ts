@@ -10,6 +10,7 @@ export interface ListEvents<T> {
 		sender: List<T>;
 	};
 	remove: {
+		item: T;
 		sender: List<T>;
 	};
 }
@@ -48,6 +49,7 @@ export class List<T> {
 
 		this.items_.splice(index, 1);
 		this.emitter.emit('remove', {
+			item: item,
 			sender: this,
 		});
 	}
