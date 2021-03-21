@@ -90,6 +90,9 @@ export class FolderController implements BladeController {
 	}
 
 	private onRackAdd_(ev: BladeRackEvents['add']) {
+		if (!ev.isRoot) {
+			return;
+		}
 		insertElementAt(
 			this.view.containerElement,
 			ev.bladeController.view.element,
@@ -98,7 +101,10 @@ export class FolderController implements BladeController {
 		this.applyRackChange_();
 	}
 
-	private onRackRemove_(_: BladeRackEvents['remove']) {
+	private onRackRemove_(ev: BladeRackEvents['remove']) {
+		if (!ev.isRoot) {
+			return;
+		}
 		this.applyRackChange_();
 	}
 

@@ -3,10 +3,20 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../misc/test-util';
 import {ButtonController} from '../button/controller/button';
+import {BladeController} from '../common/controller/blade';
 import {Blade} from '../common/model/blade';
 import {LabeledController} from '../labeled/controller';
 import {FolderController} from './controller';
 import {FolderEvents} from './model/folder';
+
+function createSomeBladeController(doc: Document): BladeController {
+	return new LabeledController(doc, {
+		blade: new Blade(),
+		valueController: new ButtonController(doc, {
+			title: 'Foobar',
+		}),
+	});
+}
 
 describe(FolderController.name, () => {
 	it('should toggle expanded by clicking title', (done) => {
@@ -35,16 +45,29 @@ describe(FolderController.name, () => {
 			title: 'Push',
 			blade: new Blade(),
 		});
-		const cc = new LabeledController(doc, {
-			blade: new Blade(),
-			valueController: new ButtonController(doc, {
-				title: 'Foobar',
-			}),
-		});
-		c.bladeRack.add(cc);
+		const bc = createSomeBladeController(doc);
+		c.bladeRack.add(bc);
 
 		assert.strictEqual(c.bladeRack.items.length, 1);
-		cc.blade.dispose();
+		bc.blade.dispose();
 		assert.strictEqual(c.bladeRack.items.length, 0);
+	});
+
+	it('should add view element to subfolder', () => {
+		const doc = TestUtil.createWindow().document;
+		const c = new FolderController(doc, {
+			title: 'Folder',
+			blade: new Blade(),
+		});
+
+		const sc = new FolderController(doc, {
+			title: 'Subfolder',
+			blade: new Blade(),
+		});
+		c.bladeRack.add(sc);
+
+		const bc = createSomeBladeController(doc);
+		sc.bladeRack.add(bc);
+		assert.isTrue(sc.view.element.contains(bc.view.element));
 	});
 });
