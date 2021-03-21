@@ -34,7 +34,7 @@ export class FolderController implements BladeController {
 		this.onFolderBeforeChange_ = this.onFolderBeforeChange_.bind(this);
 		this.onTitleClick_ = this.onTitleClick_.bind(this);
 		this.onRackAdd_ = this.onRackAdd_.bind(this);
-		this.onRackItemLayout_ = this.onRackItemLayout_.bind(this);
+		this.onRackLayout_ = this.onRackLayout_.bind(this);
 		this.onRackRemove_ = this.onRackRemove_.bind(this);
 
 		this.blade = config.blade;
@@ -43,7 +43,7 @@ export class FolderController implements BladeController {
 
 		const rack = new BladeRack();
 		rack.emitter.on('add', this.onRackAdd_);
-		rack.emitter.on('itemlayout', this.onRackItemLayout_);
+		rack.emitter.on('layout', this.onRackLayout_);
 		rack.emitter.on('remove', this.onRackRemove_);
 		this.bladeRack = rack;
 
@@ -102,7 +102,7 @@ export class FolderController implements BladeController {
 		this.applyRackChange_();
 	}
 
-	private onRackItemLayout_(_: BladeRackEvents['itemlayout']) {
+	private onRackLayout_(_: BladeRackEvents['layout']) {
 		this.applyRackChange_();
 	}
 

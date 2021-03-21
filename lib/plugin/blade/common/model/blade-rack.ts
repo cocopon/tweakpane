@@ -26,15 +26,15 @@ export interface BladeRackEvents {
 		sender: BladeRack;
 	};
 
+	folderfold: {
+		folderController: FolderController;
+		sender: BladeRack;
+	};
 	inputchange: {
 		bindingController: InputBindingController<unknown>;
 		sender: BladeRack;
 	};
-	itemfold: {
-		folderController: FolderController;
-		sender: BladeRack;
-	};
-	itemlayout: {
+	layout: {
 		sender: BladeRack;
 	};
 	monitorupdate: {
@@ -90,17 +90,19 @@ export class BladeRack {
 	private bcList_: List<BladeController>;
 
 	constructor() {
+		this.onListAdd_ = this.onListAdd_.bind(this);
+		this.onListRemove_ = this.onListRemove_.bind(this);
+
+		this.onItemDispose_ = this.onItemDispose_.bind(this);
+		this.onItemLayout_ = this.onItemLayout_.bind(this);
 		this.onItemFolderFold_ = this.onItemFolderFold_.bind(this);
-		this.onListItemLayout_ = this.onListItemLayout_.bind(this);
+		this.onItemInputChange_ = this.onItemInputChange_.bind(this);
+		this.onItemMonitorUpdate_ = this.onItemMonitorUpdate_.bind(this);
+
 		this.onSubitemLayout_ = this.onSubitemLayout_.bind(this);
 		this.onSubitemFolderFold_ = this.onSubitemFolderFold_.bind(this);
 		this.onSubitemInputChange_ = this.onSubitemInputChange_.bind(this);
 		this.onSubitemMonitorUpdate_ = this.onSubitemMonitorUpdate_.bind(this);
-		this.onItemInputChange_ = this.onItemInputChange_.bind(this);
-		this.onListAdd_ = this.onListAdd_.bind(this);
-		this.onListItemDispose_ = this.onListItemDispose_.bind(this);
-		this.onListRemove_ = this.onListRemove_.bind(this);
-		this.onItemMonitorUpdate_ = this.onItemMonitorUpdate_.bind(this);
 
 		this.bcList_ = new List();
 		this.emitter = new Emitter();
@@ -139,8 +141,9 @@ export class BladeRack {
 			index: ev.index,
 			sender: this,
 		});
-		bc.blade.emitter.on('dispose', this.onListItemDispose_);
-		bc.blade.emitter.on('change', this.onListItemLayout_);
+
+		bc.blade.emitter.on('dispose', this.onItemDispose_);
+		bc.blade.emitter.on('change', this.onItemLayout_);
 
 		if (bc instanceof InputBindingController) {
 			bc.binding.emitter.on('change', this.onItemInputChange_);
@@ -150,8 +153,8 @@ export class BladeRack {
 			bc.folder.emitter.on('change', this.onItemFolderFold_);
 
 			const emitter = bc.bladeRack.emitter;
-			emitter.on('itemfold', this.onSubitemFolderFold_);
-			emitter.on('itemlayout', this.onSubitemLayout_);
+			emitter.on('folderfold', this.onSubitemFolderFold_);
+			emitter.on('layout', this.onSubitemLayout_);
 			emitter.on('inputchange', this.onSubitemInputChange_);
 			emitter.on('monitorupdate', this.onSubitemMonitorUpdate_);
 		}
@@ -163,15 +166,15 @@ export class BladeRack {
 		});
 	}
 
-	private onListItemLayout_(ev: BladeEvents['change']) {
+	private onItemLayout_(ev: BladeEvents['change']) {
 		if (ev.propertyName === 'hidden' || ev.propertyName === 'positions') {
-			this.emitter.emit('itemlayout', {
+			this.emitter.emit('layout', {
 				sender: this,
 			});
 		}
 	}
 
-	private onListItemDispose_(_: BladeEvents['dispose']): void {
+	private onItemDispose_(_: BladeEvents['dispose']): void {
 		const disposedUcs = this.bcList_.items.filter((bc) => {
 			return bc.blade.disposed;
 		});
@@ -219,15 +222,15 @@ export class BladeRack {
 
 		const fc = findFolderController(this.find(FolderController), ev.sender);
 		if (fc) {
-			this.emitter.emit('itemfold', {
+			this.emitter.emit('folderfold', {
 				folderController: fc,
 				sender: this,
 			});
 		}
 	}
 
-	private onSubitemLayout_(_: BladeRackEvents['itemlayout']) {
-		this.emitter.emit('itemlayout', {
+	private onSubitemLayout_(_: BladeRackEvents['layout']) {
+		this.emitter.emit('layout', {
 			sender: this,
 		});
 	}
@@ -246,8 +249,8 @@ export class BladeRack {
 		});
 	}
 
-	private onSubitemFolderFold_(ev: BladeRackEvents['itemfold']) {
-		this.emitter.emit('itemfold', {
+	private onSubitemFolderFold_(ev: BladeRackEvents['folderfold']) {
+		this.emitter.emit('folderfold', {
 			folderController: ev.folderController,
 			sender: this,
 		});

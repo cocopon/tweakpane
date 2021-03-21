@@ -49,7 +49,7 @@ export class FolderApi implements ComponentApi {
 	constructor(controller: FolderController) {
 		this.onFolderChange_ = this.onFolderChange_.bind(this);
 		this.onRackInputChange_ = this.onRackInputChange_.bind(this);
-		this.onRackItemFold_ = this.onRackItemFold_.bind(this);
+		this.onRackFolderFold_ = this.onRackFolderFold_.bind(this);
 		this.onRackMonitorUpdate_ = this.onRackMonitorUpdate_.bind(this);
 
 		this.controller = controller;
@@ -61,7 +61,7 @@ export class FolderApi implements ComponentApi {
 		const rack = this.controller.bladeRack;
 		rack.emitter.on('inputchange', this.onRackInputChange_);
 		rack.emitter.on('monitorupdate', this.onRackMonitorUpdate_);
-		rack.emitter.on('itemfold', this.onRackItemFold_);
+		rack.emitter.on('folderfold', this.onRackFolderFold_);
 	}
 
 	get expanded(): boolean {
@@ -183,7 +183,7 @@ export class FolderApi implements ComponentApi {
 		});
 	}
 
-	private onRackItemFold_(ev: BladeRackEvents['itemfold']) {
+	private onRackFolderFold_(ev: BladeRackEvents['folderfold']) {
 		const fapi = new FolderApi(ev.folderController);
 		this.emitter_.emit('fold', {
 			event: new TpFoldEvent(fapi, ev.folderController.folder.expanded),
