@@ -1,7 +1,7 @@
 import {createSvgIconElement} from '../../common/dom-util';
 import {Value} from '../../common/model/value';
 import {ClassName} from '../../common/view/class-name';
-import {ValueView} from '../../common/view/value';
+import {View} from '../../common/view/view';
 
 interface Config {
 	value: Value<boolean>;
@@ -12,7 +12,7 @@ const className = ClassName('ckb');
 /**
  * @hidden
  */
-export class CheckboxView implements ValueView<boolean> {
+export class CheckboxView implements View {
 	public readonly element: HTMLElement;
 	public readonly inputElement: HTMLInputElement;
 	public readonly value: Value<boolean>;

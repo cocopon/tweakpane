@@ -1,7 +1,7 @@
 import {createSvgIconElement} from '../../../common/dom-util';
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
-import {ValueView} from '../../../common/view/value';
+import {View} from '../../../common/view/view';
 import {PointNdTextView} from '../../common/view/point-nd-text';
 import {Point2d} from '../model/point-2d';
 import {Point2dPadView} from './point-2d-pad';
@@ -16,7 +16,7 @@ const className = ClassName('p2dpadtxt');
 /**
  * @hidden
  */
-export class Point2dPadTextView implements ValueView<Point2d> {
+export class Point2dPadTextView implements View {
 	public readonly element: HTMLElement;
 	private padButtonElem_: HTMLButtonElement;
 	private padView_: Point2dPadView;

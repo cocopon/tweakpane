@@ -1,6 +1,6 @@
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
-import {ValueView} from '../../../common/view/value';
+import {View} from '../../../common/view/view';
 import {TextView} from '../../common/view/text';
 import {SliderView} from './slider';
 
@@ -14,7 +14,7 @@ const className = ClassName('sldtxt');
 /**
  * @hidden
  */
-export class SliderTextView implements ValueView<number> {
+export class SliderTextView implements View {
 	public readonly element: HTMLElement;
 	private sliderView_: SliderView;
 	private textView_: TextView<number>;

@@ -1,7 +1,7 @@
 import {Value} from '../../../common/model/value';
 import {constrainRange, mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
-import {ValueView} from '../../../common/view/value';
+import {View} from '../../../common/view/view';
 
 interface Config {
 	maxValue: number;
@@ -14,7 +14,7 @@ const className = ClassName('sld');
 /**
  * @hidden
  */
-export class SliderView implements ValueView<number> {
+export class SliderView implements View {
 	public readonly element: HTMLElement;
 	public readonly knobElement: HTMLDivElement;
 	public readonly trackElement: HTMLDivElement;

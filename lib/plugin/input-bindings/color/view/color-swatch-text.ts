@@ -1,6 +1,6 @@
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
-import {ValueView} from '../../../common/view/value';
+import {View} from '../../../common/view/view';
 import {TextView} from '../../common/view/text';
 import {Color} from '../model/color';
 import {ColorSwatchView} from './color-swatch';
@@ -15,7 +15,7 @@ const className = ClassName('clswtxt');
 /**
  * @hidden
  */
-export class ColorSwatchTextView implements ValueView<Color> {
+export class ColorSwatchTextView implements View {
 	public readonly element: HTMLElement;
 	public readonly textView: TextView<Color>;
 	private readonly swatchView_: ColorSwatchView;

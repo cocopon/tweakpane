@@ -1,6 +1,6 @@
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
-import {ValueView} from '../../../common/view/value';
+import {View} from '../../../common/view/view';
 import {NumberTextView} from '../../number/view/number-text';
 
 interface Config<PointNd> {
@@ -13,7 +13,7 @@ const className = ClassName('p2dtxt');
 /**
  * @hidden
  */
-export class PointNdTextView<PointNd> implements ValueView<PointNd> {
+export class PointNdTextView<PointNd> implements View {
 	public readonly element: HTMLElement;
 	public readonly textViews: NumberTextView[];
 	public readonly value: Value<PointNd>;

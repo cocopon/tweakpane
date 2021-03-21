@@ -3,7 +3,7 @@ import {Foldable} from '../../../common/model/foldable';
 import {Value} from '../../../common/model/value';
 import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
-import {ValueView} from '../../../common/view/value';
+import {View} from '../../../common/view/view';
 import {Point2d} from '../model/point-2d';
 
 interface Config {
@@ -18,7 +18,7 @@ const className = ClassName('p2dpad');
 /**
  * @hidden
  */
-export class Point2dPadView implements ValueView<Point2d> {
+export class Point2dPadView implements View {
 	public readonly element: HTMLElement;
 	public readonly foldable: Foldable;
 	public readonly padElement: HTMLDivElement;

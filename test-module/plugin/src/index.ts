@@ -8,14 +8,14 @@ import {
 	writePrimitive,
 } from 'tweakpane/lib/plugin/common/primitive';
 import {ClassName} from 'tweakpane/lib/plugin/common/view/class-name';
-import {ValueView} from 'tweakpane/lib/plugin/common/view/value';
+import {View} from 'tweakpane/lib/plugin/common/view/view';
 import {InputBindingPlugin} from 'tweakpane/lib/plugin/input-binding';
 
 interface ViewConfig {
 	value: Value<string>;
 }
 
-class TestView implements ValueView<string> {
+class TestView implements View {
 	public readonly element: HTMLElement;
 	public readonly value: Value<string>;
 	private valueElem_: HTMLElement;
