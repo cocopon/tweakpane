@@ -7,12 +7,11 @@ import {
 	PointerHandler,
 	PointerHandlerEvent,
 } from '../../../common/view/pointer-handler';
-import {SliderView} from '../view/slider';
+import {SliderProps, SliderView} from '../view/slider';
 
 interface Config {
 	baseStep: number;
-	maxValue: number;
-	minValue: number;
+	props: SliderProps;
 	value: Value<number>;
 }
 
@@ -22,8 +21,7 @@ interface Config {
 export class SliderController implements ValueController<number> {
 	public readonly value: Value<number>;
 	public readonly view: SliderView;
-	private maxValue_: number;
-	private minValue_: number;
+	private props_: SliderProps;
 	private ptHandler_: PointerHandler;
 	private baseStep_: number;
 
@@ -34,12 +32,10 @@ export class SliderController implements ValueController<number> {
 		this.value = config.value;
 		this.baseStep_ = config.baseStep;
 
-		this.minValue_ = config.minValue;
-		this.maxValue_ = config.maxValue;
+		this.props_ = config.props;
 
 		this.view = new SliderView(doc, {
-			maxValue: this.maxValue_,
-			minValue: this.minValue_,
+			props: this.props_,
 			value: this.value,
 		});
 
@@ -60,8 +56,8 @@ export class SliderController implements ValueController<number> {
 			d.point.x,
 			0,
 			d.bounds.width,
-			this.minValue_,
-			this.maxValue_,
+			this.props_.get('minValue'),
+			this.props_.get('maxValue'),
 		);
 	}
 
