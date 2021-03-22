@@ -4,7 +4,7 @@ import {describe, it} from 'mocha';
 import {TestUtil} from '../../../../misc/test-util';
 import {View} from '../../../common/view/view';
 import {Blade} from '../model/blade';
-import {setUpBladeView} from './blade';
+import {BladeController, setUpBladeController} from './blade';
 
 class TestView implements View {
 	public readonly element: HTMLElement;
@@ -16,17 +16,22 @@ class TestView implements View {
 	onDispose() {}
 }
 
-function create(doc: Document): [Blade, View] {
-	const m = new Blade();
-	const v = new TestView(doc);
-	setUpBladeView(v, m);
-	return [m, v];
+class TestController implements BladeController {
+	public readonly blade: Blade;
+	public readonly view: TestView;
+
+	constructor(doc: Document) {
+		this.blade = new Blade();
+		this.view = new TestView(doc);
+		setUpBladeController(this);
+	}
 }
 
 describe('BladeController', () => {
 	it('should apply hidden', () => {
 		const doc = TestUtil.createWindow().document;
-		const [m, v] = create(doc);
+		const c = new TestController(doc);
+		const [m, v] = [c.blade, c.view];
 		assert.isNotTrue(v.element.classList.contains('tp-v-hidden'));
 		m.hidden = true;
 		assert.isTrue(v.element.classList.contains('tp-v-hidden'));
@@ -36,7 +41,8 @@ describe('BladeController', () => {
 
 	it('should apply view position', () => {
 		const doc = TestUtil.createWindow().document;
-		const [m, v] = create(doc);
+		const c = new TestController(doc);
+		const [m, v] = [c.blade, c.view];
 		assert.isNotTrue(v.element.classList.contains('tp-v-first'));
 		assert.isNotTrue(v.element.classList.contains('tp-v-last'));
 		m.positions = ['first'];
@@ -51,7 +57,8 @@ describe('BladeController', () => {
 
 	it('should apply disposed', () => {
 		const doc = TestUtil.createWindow().document;
-		const [m, v] = create(doc);
+		const c = new TestController(doc);
+		const [m, v] = [c.blade, c.view];
 
 		const parentElem = doc.createElement('div');
 		parentElem.appendChild(v.element);

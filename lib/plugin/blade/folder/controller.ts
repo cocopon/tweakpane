@@ -1,6 +1,9 @@
 import {isEmpty} from '../../../misc/type-util';
 import {forceReflow, insertElementAt} from '../../common/dom-util';
-import {BladeController, setUpBladeView} from '../common/controller/blade';
+import {
+	BladeController,
+	setUpBladeController,
+} from '../common/controller/blade';
 import {
 	computeExpandedFolderHeight,
 	updateAllItemsPositions,
@@ -56,7 +59,7 @@ export class FolderController implements BladeController {
 			'transitionend',
 			this.onContainerTransitionEnd_,
 		);
-		setUpBladeView(this.view, this.blade);
+		setUpBladeController(this);
 	}
 
 	get document(): Document {
