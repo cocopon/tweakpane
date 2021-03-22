@@ -2,7 +2,7 @@ import {InputBinding} from '../../../common/binding/input';
 import {ValueController} from '../../../common/controller/value';
 import {LabeledView} from '../../labeled/view';
 import {Blade} from '../model/blade';
-import {BladeController, setUpBladeView} from './blade';
+import {BladeController, setUpBladeController} from './blade';
 
 interface Config<In> {
 	binding: InputBinding<In>;
@@ -28,7 +28,14 @@ export class InputBindingController<In> implements BladeController {
 			label: config.label,
 		});
 		this.view.valueElement.appendChild(this.controller.view.element);
+
 		this.blade = config.blade;
-		setUpBladeView(this.view, this.blade);
+		setUpBladeController(this);
+	}
+
+	public onDispose() {
+		if (this.controller.onDispose) {
+			this.controller.onDispose();
+		}
 	}
 }

@@ -2,7 +2,6 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../misc/test-util';
-import {Blade, BladeEvents} from './blade/common/model/blade';
 import {BindingTarget} from './common/binding/target';
 import {ValueController} from './common/controller/value';
 import {stringFromUnknown} from './common/converter/string';
@@ -21,20 +20,19 @@ class TestView implements View {
 
 class TestController implements ValueController<string> {
 	public readonly view: View;
+	public disposed = false;
 
-	constructor(
-		doc: Document,
-		public readonly value: Value<string>,
-		blade: Blade,
-		onDispose: (ev: BladeEvents['dispose']) => void,
-	) {
+	constructor(doc: Document, public readonly value: Value<string>) {
 		this.view = new TestView(doc);
-		blade.emitter.on('dispose', onDispose);
+	}
+
+	onDispose() {
+		this.disposed = true;
 	}
 }
 
 describe(createController.name, () => {
-	it('should be able to handle disposing from plugin', (done) => {
+	it('should be able to handle disposing from plugin', () => {
 		const plugin: InputBindingPlugin<string, string> = {
 			id: 'test',
 			accept: (ex) => (typeof ex === 'string' ? ex : null),
@@ -44,23 +42,21 @@ describe(createController.name, () => {
 				writer: (_) => writePrimitive,
 			},
 			controller: (args) => {
-				return new TestController(
-					args.document,
-					args.value,
-					args.blade,
-					(ev: BladeEvents['dispose']) => {
-						assert.isTrue(ev.sender.disposed);
-						done();
-					},
-				);
+				return new TestController(args.document, args.value);
 			},
 		};
 
-		const c = createController(plugin, {
+		const bc = createController(plugin, {
 			document: TestUtil.createWindow().document,
 			params: {},
 			target: new BindingTarget({foo: 'bar'}, 'foo'),
 		});
-		c?.blade.dispose();
+		assert.isFalse(
+			bc?.controller instanceof TestController && bc.controller.disposed,
+		);
+		bc?.blade.dispose();
+		assert.isTrue(
+			bc?.controller instanceof TestController && bc.controller.disposed,
+		);
 	});
 });

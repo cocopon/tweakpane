@@ -3,7 +3,7 @@ import {ValueController} from '../../../common/controller/value';
 import {Buffer} from '../../../common/model/buffered-value';
 import {LabeledView} from '../../labeled/view';
 import {Blade} from '../model/blade';
-import {BladeController, setUpBladeView} from './blade';
+import {BladeController, setUpBladeController} from './blade';
 
 interface Config<T> {
 	binding: MonitorBinding<T>;
@@ -34,6 +34,12 @@ export class MonitorBindingController<T> implements BladeController {
 		this.blade.emitter.on('dispose', () => {
 			this.binding.dispose();
 		});
-		setUpBladeView(this.view, this.blade);
+		setUpBladeController(this);
+	}
+
+	public onDispose() {
+		if (this.controller.onDispose) {
+			this.controller.onDispose();
+		}
 	}
 }

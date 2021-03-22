@@ -1,4 +1,7 @@
-import {BladeController, setUpBladeView} from '../common/controller/blade';
+import {
+	BladeController,
+	setUpBladeController,
+} from '../common/controller/blade';
 import {Blade} from '../common/model/blade';
 import {SeparatorView} from './view';
 
@@ -16,6 +19,6 @@ export class SeparatorController implements BladeController {
 	constructor(doc: Document, config: Config) {
 		this.blade = config.blade;
 		this.view = new SeparatorView(doc);
-		setUpBladeView(this.view, this.blade);
+		setUpBladeController(this);
 	}
 }

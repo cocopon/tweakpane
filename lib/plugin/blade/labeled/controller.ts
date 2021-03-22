@@ -1,5 +1,8 @@
 import {Controller} from '../../common/controller/controller';
-import {BladeController, setUpBladeView} from '../common/controller/blade';
+import {
+	BladeController,
+	setUpBladeController,
+} from '../common/controller/blade';
 import {Blade} from '../common/model/blade';
 import {LabeledView} from './view';
 
@@ -24,6 +27,6 @@ export class LabeledController<C extends Controller>
 		});
 		this.view.valueElement.appendChild(this.valueController.view.element);
 
-		setUpBladeView(this.view, this.blade);
+		setUpBladeController(this);
 	}
 }

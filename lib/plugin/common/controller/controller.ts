@@ -8,4 +8,6 @@ export interface Controller {
 	 * The view to control.
 	 */
 	readonly view: View;
+
+	onDispose?(): void;
 }
