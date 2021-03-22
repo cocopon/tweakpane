@@ -20,6 +20,7 @@ interface BindingArguments<T> {
 }
 
 interface ControllerArguments<T> {
+	blade: Blade;
 	document: Document;
 	params: MonitorParams;
 	value: BufferedValue<T>;
@@ -122,14 +123,16 @@ export function createController<T>(
 		value: initializeBuffer<T>(bufferSize),
 	});
 
+	const blade = new Blade();
 	return new MonitorBindingController(args.document, {
 		binding: binding,
 		controller: plugin.controller({
+			blade: blade,
 			document: args.document,
 			params: args.params,
 			value: binding.value,
 		}),
 		label: args.params.label || args.target.key,
-		blade: new Blade(),
+		blade: blade,
 	});
 }
