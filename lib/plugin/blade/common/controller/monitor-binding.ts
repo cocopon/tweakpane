@@ -41,5 +41,8 @@ export class MonitorBindingController<T> implements BladeController {
 		if (this.controller.onDispose) {
 			this.controller.onDispose();
 		}
+		if (this.controller.view.onDispose) {
+			this.controller.view.onDispose();
+		}
 	}
 }

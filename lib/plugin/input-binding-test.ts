@@ -12,14 +12,19 @@ import {createController, InputBindingPlugin} from './input-binding';
 
 class TestView implements View {
 	public readonly element: HTMLElement;
+	public disposed = false;
 
 	constructor(doc: Document) {
 		this.element = doc.createElement('div');
 	}
+
+	onDispose() {
+		this.disposed = true;
+	}
 }
 
 class TestController implements ValueController<string> {
-	public readonly view: View;
+	public readonly view: TestView;
 	public disposed = false;
 
 	constructor(doc: Document, public readonly value: Value<string>) {
@@ -51,12 +56,11 @@ describe(createController.name, () => {
 			params: {},
 			target: new BindingTarget({foo: 'bar'}, 'foo'),
 		});
-		assert.isFalse(
-			bc?.controller instanceof TestController && bc.controller.disposed,
-		);
+		const c = bc?.controller as TestController;
+		assert.isFalse(c.disposed);
+		assert.isFalse(c.view.disposed);
 		bc?.blade.dispose();
-		assert.isTrue(
-			bc?.controller instanceof TestController && bc.controller.disposed,
-		);
+		assert.isTrue(c.disposed);
+		assert.isTrue(c.view.disposed);
 	});
 });
