@@ -16,6 +16,7 @@ interface BindingArguments<Ex> {
 }
 
 interface ControllerArguments<In, Ex> {
+	blade: Blade;
 	document: Document;
 	initialValue: Ex;
 	params: InputParams;
@@ -136,7 +137,9 @@ export function createController<In, Ex>(
 		value: value,
 		writer: plugin.binding.writer(valueArgs),
 	});
+	const blade = new Blade();
 	const controller = plugin.controller({
+		blade: blade,
 		document: args.document,
 		initialValue: initialValue,
 		params: args.params,
@@ -145,8 +148,8 @@ export function createController<In, Ex>(
 
 	return new InputBindingController(args.document, {
 		binding: binding,
+		blade: blade,
 		controller: controller,
 		label: args.params.label || args.target.key,
-		blade: new Blade(),
 	});
 }
