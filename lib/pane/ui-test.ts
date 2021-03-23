@@ -189,4 +189,32 @@ describe(Tweakpane.name, () => {
 		const bapi = pane.addInput(PARAMS, 'foo');
 		bapi.controller.binding.value.rawValue = 2;
 	});
+
+	it('should dispose items', () => {
+		const PARAMS = {foo: 1};
+		const pane = createApi();
+		const i = pane.addInput(PARAMS, 'foo');
+		const m = pane.addMonitor(PARAMS, 'foo');
+
+		pane.dispose();
+		assert.isTrue(pane.controller.blade.disposed);
+		assert.isTrue(i.controller.blade.disposed);
+		assert.isTrue(m.controller.blade.disposed);
+	});
+
+	it('should dispose items (nested)', () => {
+		const PARAMS = {foo: 1};
+		const pane = createApi();
+		const f = pane.addFolder({title: ''});
+		const i = f.addInput(PARAMS, 'foo');
+		const m = f.addMonitor(PARAMS, 'foo');
+
+		assert.isFalse(pane.controller.blade.disposed);
+		assert.isFalse(i.controller.blade.disposed);
+		assert.isFalse(m.controller.blade.disposed);
+		pane.dispose();
+		assert.isTrue(pane.controller.blade.disposed);
+		assert.isTrue(i.controller.blade.disposed);
+		assert.isTrue(m.controller.blade.disposed);
+	});
 });

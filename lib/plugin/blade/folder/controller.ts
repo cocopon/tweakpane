@@ -66,6 +66,13 @@ export class FolderController implements BladeController {
 		return this.view.element.ownerDocument;
 	}
 
+	public onDispose() {
+		for (let i = this.bladeRack.items.length - 1; i >= 0; i--) {
+			const bc = this.bladeRack.items[i];
+			bc.blade.dispose();
+		}
+	}
+
 	private onFolderBeforeChange_(ev: FolderEvents['beforechange']): void {
 		if (ev.propertyName !== 'expanded') {
 			return;
