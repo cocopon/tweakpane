@@ -70,4 +70,45 @@ describe(FolderController.name, () => {
 		sc.bladeRack.add(bc);
 		assert.isTrue(sc.view.element.contains(bc.view.element));
 	});
+
+	it('should dispose sub controllers', () => {
+		const doc = TestUtil.createWindow().document;
+		const c = new FolderController(doc, {
+			title: '',
+			blade: new Blade(),
+		});
+
+		const bcs = [
+			createSomeBladeController(doc),
+			createSomeBladeController(doc),
+			createSomeBladeController(doc),
+		];
+		bcs.forEach((bc) => {
+			c.bladeRack.add(bc);
+		});
+		c.blade.dispose();
+
+		bcs.forEach((bc) => {
+			assert.isTrue(bc.blade.disposed);
+		});
+	});
+
+	it('should dispose nested controllers', () => {
+		const doc = TestUtil.createWindow().document;
+		const c = new FolderController(doc, {
+			title: '',
+			blade: new Blade(),
+		});
+		const sc = new FolderController(doc, {
+			title: '',
+			blade: new Blade(),
+		});
+		c.bladeRack.add(sc);
+		const bc = createSomeBladeController(doc);
+		sc.bladeRack.add(bc);
+
+		c.blade.dispose();
+
+		assert.isTrue(bc.blade.disposed);
+	});
 });
