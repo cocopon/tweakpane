@@ -1,33 +1,58 @@
+import {Formatter} from '../../../common/converter/formatter';
 import {SVG_NS} from '../../../common/dom-util';
 import {Value, ValueEvents} from '../../../common/model/value';
+import {ValueMap} from '../../../common/model/value-map';
 import {constrainRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
-import {Config, TextView} from '../../common/view/text';
+import {View} from '../../../common/view/view';
+
+export type NumberTextProps = ValueMap<{
+	draggingScale: number;
+	formatter: Formatter<number>;
+}>;
+
+interface NumberConfig {
+	dragging: Value<number | null>;
+	props: NumberTextProps;
+	value: Value<number>;
+
+	arrayPosition?: 'fst' | 'mid' | 'lst';
+}
 
 const className = ClassName('txt');
 
-interface NumberConfig extends Config<number> {
-	dragging: Value<number | null>;
-	draggingScale: number;
-}
-
-export class NumberTextView extends TextView<number> {
+export class NumberTextView implements View {
+	public readonly inputElement: HTMLInputElement;
 	public readonly knobElement: HTMLElement;
+	public readonly element: HTMLElement;
+	public readonly value: Value<number>;
+	private readonly props_: NumberTextProps;
 	private readonly dragging_: Value<number | null>;
-	private readonly draggingScale_: number;
 	private readonly guideBodyElem_: SVGPathElement;
 	private readonly guideHeadElem_: SVGPathElement;
 	private readonly tooltipElem_: HTMLElement;
 
 	constructor(doc: Document, config: NumberConfig) {
-		super(doc, config);
+		this.onChange_ = this.onChange_.bind(this);
 
-		this.element.classList.add(className(undefined, 'num'));
+		this.props_ = config.props;
+		this.props_.emitter.on('change', this.onChange_);
+
+		this.element = doc.createElement('div');
+		this.element.classList.add(className(), className(undefined, 'num'));
+		if (config.arrayPosition) {
+			this.element.classList.add(className(undefined, config.arrayPosition));
+		}
+
+		const inputElem = doc.createElement('input');
+		inputElem.classList.add(className('i'));
+		inputElem.type = 'text';
+		this.element.appendChild(inputElem);
+		this.inputElement = inputElem;
 
 		this.onDraggingChange_ = this.onDraggingChange_.bind(this);
 
 		this.dragging_ = config.dragging;
-		this.draggingScale_ = config.draggingScale;
 		this.dragging_.emitter.on('change', this.onDraggingChange_);
 
 		this.element.classList.add(className());
@@ -56,6 +81,11 @@ export class NumberTextView extends TextView<number> {
 		tooltipElem.classList.add(ClassName('tt')());
 		this.knobElement.appendChild(tooltipElem);
 		this.tooltipElem_ = tooltipElem;
+
+		config.value.emitter.on('change', this.onChange_);
+		this.value = config.value;
+
+		this.update();
 	}
 
 	private onDraggingChange_(ev: ValueEvents<number | null>['change']) {
@@ -66,7 +96,7 @@ export class NumberTextView extends TextView<number> {
 
 		this.element.classList.add(className(undefined, 'drg'));
 
-		const x = ev.rawValue / this.draggingScale_;
+		const x = ev.rawValue / this.props_.get('draggingScale');
 		const aox = x + (x > 0 ? -1 : x < 0 ? +1 : 0);
 		const adx = constrainRange(-aox, -4, +4);
 		this.guideHeadElem_.setAttributeNS(
@@ -81,5 +111,14 @@ export class NumberTextView extends TextView<number> {
 		const formatter = this.props_.get('formatter');
 		this.tooltipElem_.textContent = formatter(this.value.rawValue);
 		this.tooltipElem_.style.left = `${x}px`;
+	}
+
+	public update(): void {
+		const formatter = this.props_.get('formatter');
+		this.inputElement.value = formatter(this.value.rawValue);
+	}
+
+	private onChange_(): void {
+		this.update();
 	}
 }

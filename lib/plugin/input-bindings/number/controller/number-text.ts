@@ -49,8 +49,8 @@ export class NumberTextController implements ValueController<number> {
 		this.view = new NumberTextView(doc, {
 			arrayPosition: config.arrayPosition,
 			dragging: this.dragging_,
-			draggingScale: this.draggingScale_,
 			props: new ValueMap({
+				draggingScale: this.draggingScale_,
 				formatter: config.formatter,
 			}),
 			value: this.value,

@@ -1,11 +1,11 @@
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
-import {TextView} from '../../common/view/text';
+import {NumberTextView} from './number-text';
 import {SliderView} from './slider';
 
 interface Config {
 	sliderView: SliderView;
-	textView: TextView<number>;
+	textView: NumberTextView;
 }
 
 const className = ClassName('sldtxt');
@@ -16,7 +16,7 @@ const className = ClassName('sldtxt');
 export class SliderTextView implements View {
 	public readonly element: HTMLElement;
 	private sliderView_: SliderView;
-	private textView_: TextView<number>;
+	private textView_: NumberTextView;
 
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');

@@ -2,7 +2,7 @@ import {forceCast} from '../../../../misc/type-util';
 import {Foldable} from '../../../common/model/foldable';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
-import {TextView} from '../../common/view/text';
+import {NumberTextView} from '../../number/view/number-text';
 import {PickedColor} from '../model/picked-color';
 import {APaletteView} from './a-palette';
 import {ColorTextView} from './color-text';
@@ -14,7 +14,7 @@ const className = ClassName('clp');
 interface Config {
 	alphaViews: {
 		palette: APaletteView;
-		text: TextView<number>;
+		text: NumberTextView;
 	} | null;
 	foldable: Foldable;
 	hPaletteView: HPaletteView;
@@ -33,7 +33,7 @@ export class ColorPickerView implements View {
 	public readonly pickedColor: PickedColor;
 	private alphaViews_: {
 		palette: APaletteView;
-		text: TextView<number>;
+		text: NumberTextView;
 	} | null = null;
 	private hPaletteView_: HPaletteView;
 	private svPaletteView_: SvPaletteView;
