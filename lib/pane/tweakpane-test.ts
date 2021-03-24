@@ -10,6 +10,7 @@ import {
 import {ValueMap} from '../plugin/common/model/value-map';
 import {equalsPrimitive, writePrimitive} from '../plugin/common/primitive';
 import {TpError} from '../plugin/common/tp-error';
+import {defaultViewProps} from '../plugin/common/view/view';
 import {TextController} from '../plugin/input-bindings/common/controller/text';
 
 describe(Tweakpane.name, () => {
@@ -103,6 +104,7 @@ describe(Tweakpane.name, () => {
 							formatter: formatString,
 						}),
 						value: args.value,
+						viewProps: defaultViewProps(),
 					});
 				},
 			},

@@ -4,7 +4,12 @@ import {Value, ValueEvents} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
 import {constrainRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
-import {View} from '../../../common/view/view';
+import {
+	bindDisabled,
+	bindViewProps,
+	View,
+	ViewProps,
+} from '../../../common/view/view';
 
 export type NumberTextProps = ValueMap<{
 	draggingScale: number;
@@ -15,6 +20,7 @@ interface NumberConfig {
 	dragging: Value<number | null>;
 	props: NumberTextProps;
 	value: Value<number>;
+	viewProps: ViewProps;
 
 	arrayPosition?: 'fst' | 'mid' | 'lst';
 }
@@ -43,10 +49,12 @@ export class NumberTextView implements View {
 		if (config.arrayPosition) {
 			this.element.classList.add(className(undefined, config.arrayPosition));
 		}
+		bindViewProps(config.viewProps, this.element);
 
 		const inputElem = doc.createElement('input');
 		inputElem.classList.add(className('i'));
 		inputElem.type = 'text';
+		bindDisabled(config.viewProps, inputElem);
 		this.element.appendChild(inputElem);
 		this.inputElement = inputElem;
 

@@ -1,4 +1,5 @@
 import {Controller} from '../../common/controller/controller';
+import {ViewProps} from '../../common/view/view';
 import {
 	BladeController,
 	setUpBladeController,
@@ -24,9 +25,14 @@ export class LabeledController<C extends Controller>
 
 		this.view = new LabeledView(doc, {
 			label: config.label,
+			viewProps: this.viewProps,
 		});
 		this.view.valueElement.appendChild(this.valueController.view.element);
 
 		setUpBladeController(this);
+	}
+
+	get viewProps(): ViewProps {
+		return this.valueController.viewProps;
 	}
 }

@@ -15,11 +15,11 @@ export class SeparatorApi implements BladeApi {
 	}
 
 	get hidden(): boolean {
-		return this.controller.blade.hidden;
+		return this.controller.viewProps.get('hidden');
 	}
 
 	set hidden(hidden: boolean) {
-		this.controller.blade.hidden = hidden;
+		this.controller.viewProps.set('hidden', hidden);
 	}
 
 	public dispose(): void {

@@ -20,12 +20,20 @@ export class ButtonApi implements BladeApi {
 		this.controller = buttonController;
 	}
 
+	get disabled(): boolean {
+		return this.controller.viewProps.get('disabled');
+	}
+
+	set disabled(disabled: boolean) {
+		this.controller.viewProps.set('disabled', disabled);
+	}
+
 	get hidden(): boolean {
-		return this.controller.blade.hidden;
+		return this.controller.viewProps.get('hidden');
 	}
 
 	set hidden(hidden: boolean) {
-		this.controller.blade.hidden = hidden;
+		this.controller.viewProps.set('hidden', hidden);
 	}
 
 	public dispose(): void {

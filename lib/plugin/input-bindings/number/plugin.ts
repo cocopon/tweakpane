@@ -120,6 +120,7 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 				listItems: findListItems(c) ?? [],
 				stringifyValue: numberToString,
 				value: value,
+				viewProps: args.viewProps,
 			});
 		}
 
@@ -144,6 +145,7 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 					minValue: min,
 				}),
 				value: value,
+				viewProps: args.viewProps,
 			});
 		}
 
@@ -153,6 +155,7 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 			formatter: formatter,
 			parser: parseNumber,
 			value: value,
+			viewProps: args.viewProps,
 		});
 	},
 };

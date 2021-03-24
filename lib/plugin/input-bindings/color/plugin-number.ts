@@ -61,6 +61,7 @@ export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
 			parser: CompositeColorParser,
 			supportsAlpha: supportsAlpha,
 			value: args.value,
+			viewProps: args.viewProps,
 		});
 	},
 };

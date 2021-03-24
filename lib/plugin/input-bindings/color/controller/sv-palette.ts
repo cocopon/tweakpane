@@ -12,12 +12,14 @@ import {
 	PointerHandler,
 	PointerHandlerEvents,
 } from '../../../common/view/pointer-handler';
+import {ViewProps} from '../../../common/view/view';
 import {Color} from '../model/color';
 import {getBaseStepForColor} from '../util';
 import {SvPaletteView} from '../view/sv-palette';
 
 interface Config {
 	value: Value<Color>;
+	viewProps: ViewProps;
 }
 
 /**
@@ -26,6 +28,7 @@ interface Config {
 export class SvPaletteController implements ValueController<Color> {
 	public readonly value: Value<Color>;
 	public readonly view: SvPaletteView;
+	public readonly viewProps: ViewProps;
 	private ptHandler_: PointerHandler;
 
 	constructor(doc: Document, config: Config) {
@@ -35,6 +38,7 @@ export class SvPaletteController implements ValueController<Color> {
 		this.onPointerUp_ = this.onPointerUp_.bind(this);
 
 		this.value = config.value;
+		this.viewProps = config.viewProps;
 
 		this.view = new SvPaletteView(doc, {
 			value: this.value,

@@ -8,7 +8,7 @@ import {BladePosition} from './blade-positions';
  */
 export interface BladeEvents {
 	change: {
-		propertyName: 'hidden' | 'positions';
+		propertyName: 'positions';
 		sender: Blade;
 	};
 	dispose: {
@@ -17,36 +17,13 @@ export interface BladeEvents {
 }
 
 export class Blade {
-	public readonly emitter: Emitter<BladeEvents>;
-	private disposable_: Disposable;
-	private positions_: BladePosition[];
-	private hidden_: boolean;
+	public readonly emitter: Emitter<BladeEvents> = new Emitter();
+	private disposable_ = new Disposable();
+	private positions_: BladePosition[] = [];
 
 	constructor() {
 		this.onDispose_ = this.onDispose_.bind(this);
-
-		this.emitter = new Emitter();
-		this.positions_ = [];
-		this.hidden_ = false;
-
-		this.disposable_ = new Disposable();
 		this.disposable_.emitter.on('dispose', this.onDispose_);
-	}
-
-	get hidden(): boolean {
-		return this.hidden_;
-	}
-
-	set hidden(hidden: boolean) {
-		if (this.hidden_ === hidden) {
-			return;
-		}
-
-		this.hidden_ = hidden;
-		this.emitter.emit('change', {
-			propertyName: 'hidden',
-			sender: this,
-		});
 	}
 
 	get positions(): BladePosition[] {

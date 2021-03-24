@@ -4,6 +4,7 @@ import {describe} from 'mocha';
 import {TestUtil} from '../../../../misc/test-util';
 import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
+import {defaultViewProps} from '../../../common/view/view';
 import {TextView} from './text';
 
 describe(TextView.name, () => {
@@ -16,6 +17,7 @@ describe(TextView.name, () => {
 		const view = new TextView(doc, {
 			props: props,
 			value: v,
+			viewProps: defaultViewProps(),
 		});
 
 		assert.strictEqual(view.inputElement.value, 'hellofooworld');
@@ -30,6 +32,7 @@ describe(TextView.name, () => {
 		const view = new TextView(doc, {
 			props: props,
 			value: v,
+			viewProps: defaultViewProps(),
 		});
 
 		v.rawValue = 'bar';
@@ -46,10 +49,11 @@ describe(TextView.name, () => {
 		const view = new TextView(doc, {
 			props: props,
 			value: v,
+			viewProps: defaultViewProps(),
 		});
 
+		assert.strictEqual(view.inputElement.value, 'hellofooworld');
 		props.set('formatter', (v: string) => v.toUpperCase());
-
 		assert.strictEqual(view.inputElement.value, 'FOO');
 	});
 });

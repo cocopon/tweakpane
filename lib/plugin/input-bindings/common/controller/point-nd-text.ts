@@ -4,6 +4,7 @@ import {Formatter} from '../../../common/converter/formatter';
 import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
 import {connectValues} from '../../../common/model/value-sync';
+import {ViewProps} from '../../../common/view/view';
 import {NumberTextController} from '../../number/controller/number-text';
 import {PointNdConstraint} from '../constraint/point-nd';
 import {PointNdAssembly} from '../model/point-nd';
@@ -20,6 +21,7 @@ interface Config<PointNd> {
 	axes: Axis[];
 	parser: Parser<number>;
 	value: Value<PointNd>;
+	viewProps: ViewProps;
 }
 
 function findAxisConstraint<PointNd>(
@@ -48,6 +50,7 @@ function createAxisController<PointNd>(
 		value: new Value(0, {
 			constraint: findAxisConstraint(config, index),
 		}),
+		viewProps: config.viewProps,
 	});
 }
 
@@ -58,10 +61,12 @@ export class PointNdTextController<PointNd>
 	implements ValueController<PointNd> {
 	public readonly value: Value<PointNd>;
 	public readonly view: PointNdTextView;
+	public readonly viewProps: ViewProps;
 	private readonly acs_: NumberTextController[];
 
 	constructor(doc: Document, config: Config<PointNd>) {
 		this.value = config.value;
+		this.viewProps = config.viewProps;
 
 		this.acs_ = config.axes.map((_, index) =>
 			createAxisController(doc, config, index),

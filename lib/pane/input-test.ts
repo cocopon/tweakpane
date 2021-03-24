@@ -156,4 +156,26 @@ describe(Tweakpane.name, () => {
 		});
 		bapi.controller.binding.value.rawValue = 2;
 	});
+
+	it('should apply disabled of input binding params', () => {
+		const PARAMS = {foo: 1};
+		const pane = createPane();
+		const bapi = pane.addInput(PARAMS, 'foo', {
+			disabled: true,
+		});
+		assert.isTrue(bapi.disabled);
+		assert.isTrue(bapi.controller.viewProps.get('disabled'));
+	});
+
+	it('should apply disabled of input binding', () => {
+		const PARAMS = {foo: 1};
+		const pane = createPane();
+		const bapi = pane.addInput(PARAMS, 'foo');
+
+		assert.isFalse(bapi.disabled);
+		assert.isFalse(bapi.controller.viewProps.get('disabled'));
+		bapi.disabled = true;
+		assert.isTrue(bapi.disabled);
+		assert.isTrue(bapi.controller.viewProps.get('disabled'));
+	});
 });

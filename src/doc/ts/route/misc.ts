@@ -263,6 +263,34 @@ export function initMisc() {
 					f.hidden = !f.hidden;
 				});
 		},
+
+		disabled: (container) => {
+			const PARAMS = {
+				param: 1,
+			};
+			const pane = new Tweakpane({
+				container: container,
+			});
+
+			pane.addSeparator();
+			const i = pane.addInput(PARAMS, 'param', {
+				disabled: true,
+			});
+			const btn = pane.addButton({
+				disabled: true,
+				title: 'Button',
+			});
+			pane
+				.addButton({
+					index: 0,
+					label: 'disabled',
+					title: 'Toggle',
+				})
+				.on('click', () => {
+					i.disabled = !i.disabled;
+					btn.disabled = !btn.disabled;
+				});
+		},
 	};
 	Object.keys(markerToFnMap).forEach((marker) => {
 		const initFn = markerToFnMap[marker];

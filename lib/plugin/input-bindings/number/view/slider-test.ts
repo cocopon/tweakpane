@@ -4,6 +4,7 @@ import {describe} from 'mocha';
 import {TestUtil} from '../../../../misc/test-util';
 import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
+import {defaultViewProps} from '../../../common/view/view';
 import {SliderView} from './slider';
 
 describe(SliderView.name, () => {
@@ -17,6 +18,7 @@ describe(SliderView.name, () => {
 		const view = new SliderView(doc, {
 			props: props,
 			value: v,
+			viewProps: defaultViewProps(),
 		});
 
 		assert.strictEqual(view.knobElement.style.width, '50%');
@@ -32,6 +34,7 @@ describe(SliderView.name, () => {
 		const view = new SliderView(doc, {
 			props: props,
 			value: v,
+			viewProps: defaultViewProps(),
 		});
 
 		v.rawValue = 0;
@@ -49,6 +52,7 @@ describe(SliderView.name, () => {
 		const view = new SliderView(doc, {
 			props: props,
 			value: v,
+			viewProps: defaultViewProps(),
 		});
 
 		props.set('maxValue', 100);

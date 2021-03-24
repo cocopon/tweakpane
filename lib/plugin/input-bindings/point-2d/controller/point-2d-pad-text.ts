@@ -3,6 +3,7 @@ import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
 import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
+import {ViewProps} from '../../../common/view/view';
 import {PointNdTextController} from '../../common/controller/point-nd-text';
 import {Point2d, Point2dAssembly} from '../model/point-2d';
 import {Point2dPadTextView} from '../view/point-2d-pad-text';
@@ -20,6 +21,7 @@ interface Config {
 	maxValue: number;
 	parser: Parser<number>;
 	value: Value<Point2d>;
+	viewProps: ViewProps;
 }
 
 /**
@@ -28,6 +30,7 @@ interface Config {
 export class Point2dPadTextController implements ValueController<Point2d> {
 	public readonly value: Value<Point2d>;
 	public readonly view: Point2dPadTextView;
+	public readonly viewProps: ViewProps;
 	private readonly padIc_: Point2dPadController;
 	private readonly textIc_: PointNdTextController<Point2d>;
 
@@ -36,12 +39,14 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 		this.onPadButtonClick_ = this.onPadButtonClick_.bind(this);
 
 		this.value = config.value;
+		this.viewProps = config.viewProps;
 
 		this.padIc_ = new Point2dPadController(doc, {
 			baseSteps: [config.axes[0].baseStep, config.axes[1].baseStep],
 			invertsY: config.invertsY,
 			maxValue: config.maxValue,
 			value: this.value,
+			viewProps: this.viewProps,
 		});
 
 		this.textIc_ = new PointNdTextController(doc, {
@@ -49,6 +54,7 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 			axes: config.axes,
 			parser: config.parser,
 			value: this.value,
+			viewProps: this.viewProps,
 		});
 
 		this.view = new Point2dPadTextView(doc, {

@@ -9,6 +9,7 @@ import {LabeledController} from '../plugin/blade/labeled/controller';
 import {SeparatorController} from '../plugin/blade/separator/controller';
 import {Emitter} from '../plugin/common/model/emitter';
 import {TpError} from '../plugin/common/tp-error';
+import {defaultViewProps} from '../plugin/common/view/view';
 import {BladeApi} from './blade-api';
 import {ButtonApi} from './button';
 import {InputBindingApi} from './input-binding';
@@ -80,11 +81,11 @@ export class FolderApi implements BladeApi {
 	}
 
 	get hidden(): boolean {
-		return this.controller.blade.hidden;
+		return this.controller.viewProps.get('hidden');
 	}
 
 	set hidden(hidden: boolean) {
-		this.controller.blade.hidden = hidden;
+		this.controller.viewProps.set('hidden', hidden);
 	}
 
 	public dispose(): void {
@@ -131,6 +132,7 @@ export class FolderApi implements BladeApi {
 		const bc = new FolderController(this.controller.document, {
 			...params,
 			blade: new Blade(),
+			viewProps: defaultViewProps(),
 		});
 		this.controller.bladeRack.add(bc, params.index);
 
@@ -144,7 +146,12 @@ export class FolderApi implements BladeApi {
 		const bc = new LabeledController(doc, {
 			blade: new Blade(),
 			label: params.label,
-			valueController: new ButtonController(doc, params),
+			valueController: new ButtonController(doc, {
+				...params,
+				viewProps: defaultViewProps({
+					disabled: params.disabled,
+				}),
+			}),
 		});
 		this.controller.bladeRack.add(bc, params.index);
 
@@ -157,6 +164,7 @@ export class FolderApi implements BladeApi {
 		const params = opt_params || {};
 		const bc = new SeparatorController(this.controller.document, {
 			blade: new Blade(),
+			viewProps: defaultViewProps(),
 		});
 		this.controller.bladeRack.add(bc, params.index);
 

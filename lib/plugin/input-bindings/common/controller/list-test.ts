@@ -5,6 +5,7 @@ import {TestUtil} from '../../../../misc/test-util';
 import {ListConstraint} from '../../../common/constraint/list';
 import {numberToString} from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
+import {defaultViewProps} from '../../../common/view/view';
 import {findListItems} from '../../../util';
 import {ListController} from './list';
 
@@ -22,6 +23,7 @@ describe(ListController.name, () => {
 			listItems: findListItems(value.constraint) ?? [],
 			stringifyValue: numberToString,
 			value: value,
+			viewProps: defaultViewProps(),
 		});
 
 		assert.strictEqual(c.value, value);
@@ -41,6 +43,7 @@ describe(ListController.name, () => {
 			listItems: findListItems(value.constraint) ?? [],
 			stringifyValue: numberToString,
 			value: value,
+			viewProps: defaultViewProps(),
 		});
 
 		c.view.selectElement.value = '34';
