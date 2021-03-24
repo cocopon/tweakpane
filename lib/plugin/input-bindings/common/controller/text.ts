@@ -1,15 +1,14 @@
 import {forceCast, isEmpty} from '../../../../misc/type-util';
 import {ValueController} from '../../../common/controller/value';
-import {Formatter} from '../../../common/converter/formatter';
 import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
-import {TextView} from '../view/text';
+import {TextProps, TextView} from '../view/text';
 
 /**
  * @hidden
  */
 export interface Config<T> {
-	formatter: Formatter<T>;
+	props: TextProps<T>;
 	parser: Parser<T>;
 	value: Value<T>;
 }
@@ -29,7 +28,7 @@ export class TextController<T> implements ValueController<T> {
 		this.value = config.value;
 
 		this.view = new TextView(doc, {
-			formatter: config.formatter,
+			props: config.props,
 			value: this.value,
 		});
 		this.view.inputElement.addEventListener('change', this.onInputChange_);

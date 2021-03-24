@@ -14,6 +14,7 @@ import {
 	parseNumber,
 } from '../../common/converter/number';
 import {numberFromUnknown} from '../../common/converter/number';
+import {ValueMap} from '../../common/model/value-map';
 import {equalsPrimitive, writePrimitive} from '../../common/primitive';
 import {InputBindingPlugin} from '../../input-binding';
 import {
@@ -137,9 +138,11 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 					value.rawValue,
 				),
 				formatter: formatter,
-				maxValue: max,
-				minValue: min,
 				parser: parseNumber,
+				sliderProps: new ValueMap({
+					maxValue: max,
+					minValue: min,
+				}),
 				value: value,
 			});
 		}

@@ -3,6 +3,7 @@ import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
 import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
+import {ValueMap} from '../../../common/model/value-map';
 import {getStepForKey, getVerticalStepKeys} from '../../../common/ui';
 import {
 	PointerHandler,
@@ -47,9 +48,11 @@ export class NumberTextController implements ValueController<number> {
 		this.dragging_ = new Value<number | null>(null);
 		this.view = new NumberTextView(doc, {
 			arrayPosition: config.arrayPosition,
-			formatter: config.formatter,
 			dragging: this.dragging_,
-			draggingScale: this.draggingScale_,
+			props: new ValueMap({
+				draggingScale: this.draggingScale_,
+				formatter: config.formatter,
+			}),
 			value: this.value,
 		});
 		this.view.inputElement.addEventListener('change', this.onInputChange_);

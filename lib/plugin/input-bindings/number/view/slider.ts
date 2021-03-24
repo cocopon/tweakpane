@@ -1,11 +1,16 @@
 import {Value} from '../../../common/model/value';
+import {ValueMap} from '../../../common/model/value-map';
 import {constrainRange, mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 
-interface Config {
+export type SliderProps = ValueMap<{
 	maxValue: number;
 	minValue: number;
+}>;
+
+interface Config {
+	props: SliderProps;
 	value: Value<number>;
 }
 
@@ -19,14 +24,13 @@ export class SliderView implements View {
 	public readonly knobElement: HTMLDivElement;
 	public readonly trackElement: HTMLDivElement;
 	public readonly value: Value<number>;
-	private maxValue_: number;
-	private minValue_: number;
+	private props_: SliderProps;
 
 	constructor(doc: Document, config: Config) {
-		this.onValueChange_ = this.onValueChange_.bind(this);
+		this.onChange_ = this.onChange_.bind(this);
 
-		this.minValue_ = config.minValue;
-		this.maxValue_ = config.maxValue;
+		this.props_ = config.props;
+		this.props_.emitter.on('change', this.onChange_);
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
@@ -42,7 +46,7 @@ export class SliderView implements View {
 		this.trackElement.appendChild(knobElem);
 		this.knobElement = knobElem;
 
-		config.value.emitter.on('change', this.onValueChange_);
+		config.value.emitter.on('change', this.onChange_);
 		this.value = config.value;
 
 		this.update();
@@ -50,14 +54,20 @@ export class SliderView implements View {
 
 	public update(): void {
 		const p = constrainRange(
-			mapRange(this.value.rawValue, this.minValue_, this.maxValue_, 0, 100),
+			mapRange(
+				this.value.rawValue,
+				this.props_.get('minValue'),
+				this.props_.get('maxValue'),
+				0,
+				100,
+			),
 			0,
 			100,
 		);
 		this.knobElement.style.width = `${p}%`;
 	}
 
-	private onValueChange_(): void {
+	private onChange_(): void {
 		this.update();
 	}
 }
