@@ -78,7 +78,8 @@ export class NumberTextView extends TextView<number> {
 		);
 		this.guideBodyElem_.setAttributeNS(null, 'd', `M 0,4 L${x},4`);
 
-		this.tooltipElem_.textContent = this.formatter(this.value.rawValue);
+		const formatter = this.props_.get('formatter');
+		this.tooltipElem_.textContent = formatter(this.value.rawValue);
 		this.tooltipElem_.style.left = `${x}px`;
 	}
 }

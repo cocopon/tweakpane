@@ -7,6 +7,7 @@ import {
 	parseNumber,
 } from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
+import {ValueMap} from '../../../common/model/value-map';
 import {TextController} from './text';
 
 describe(TextController.name, () => {
@@ -14,8 +15,10 @@ describe(TextController.name, () => {
 		const value = new Value(0);
 		const doc = TestUtil.createWindow().document;
 		const c = new TextController(doc, {
-			formatter: createNumberFormatter(2),
 			parser: parseNumber,
+			props: new ValueMap({
+				formatter: createNumberFormatter(2),
+			}),
 			value: value,
 		});
 
@@ -27,8 +30,10 @@ describe(TextController.name, () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new TextController(doc, {
-			formatter: createNumberFormatter(2),
 			parser: parseNumber,
+			props: new ValueMap({
+				formatter: createNumberFormatter(2),
+			}),
 			value: value,
 		});
 

@@ -7,6 +7,7 @@ import {
 	formatString,
 	stringFromUnknown,
 } from '../plugin/common/converter/string';
+import {ValueMap} from '../plugin/common/model/value-map';
 import {equalsPrimitive, writePrimitive} from '../plugin/common/primitive';
 import {TpError} from '../plugin/common/tp-error';
 import {TextController} from '../plugin/input-bindings/common/controller/text';
@@ -97,8 +98,10 @@ describe(Tweakpane.name, () => {
 				},
 				controller: (args) => {
 					return new TextController(args.document, {
-						formatter: formatString,
 						parser: (v) => v,
+						props: new ValueMap({
+							formatter: formatString,
+						}),
 						value: args.value,
 					});
 				},

@@ -10,6 +10,7 @@ import {
 } from '../../../common/converter/number';
 import {numberFromUnknown} from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
+import {ValueMap} from '../../../common/model/value-map';
 import {TextController} from '../../../input-bindings/common/controller/text';
 import {Blade} from '../model/blade';
 import {InputBindingController} from './input-binding';
@@ -28,8 +29,10 @@ describe(InputBindingController.name, () => {
 			writer: (v) => v,
 		});
 		const controller = new TextController(doc, {
-			formatter: createNumberFormatter(0),
 			parser: parseNumber,
+			props: new ValueMap({
+				formatter: createNumberFormatter(0),
+			}),
 			value: value,
 		});
 		const bc = new InputBindingController(doc, {

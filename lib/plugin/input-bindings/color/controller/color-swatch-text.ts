@@ -2,6 +2,7 @@ import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
 import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
+import {ValueMap} from '../../../common/model/value-map';
 import {TextController} from '../../common/controller/text';
 import {Color} from '../model/color';
 import {ColorSwatchTextView} from '../view/color-swatch-text';
@@ -32,8 +33,10 @@ export class ColorSwatchTextController implements ValueController<Color> {
 		});
 
 		this.textIc_ = new TextController(doc, {
-			formatter: config.formatter,
 			parser: config.parser,
+			props: new ValueMap({
+				formatter: config.formatter,
+			}),
 			value: this.value,
 		});
 

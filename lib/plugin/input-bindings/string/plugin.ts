@@ -7,6 +7,7 @@ import {Constraint} from '../../common/constraint/constraint';
 import {ListConstraint} from '../../common/constraint/list';
 import {formatString, stringFromUnknown} from '../../common/converter/string';
 import {Value} from '../../common/model/value';
+import {ValueMap} from '../../common/model/value-map';
 import {equalsPrimitive, writePrimitive} from '../../common/primitive';
 import {InputBindingPlugin} from '../../input-binding';
 import {createListConstraint, findListItems} from '../../util';
@@ -36,8 +37,10 @@ function createController(doc: Document, value: Value<string>) {
 	}
 
 	return new TextController(doc, {
-		formatter: formatString,
 		parser: (v) => v,
+		props: new ValueMap({
+			formatter: formatString,
+		}),
 		value: value,
 	});
 }
