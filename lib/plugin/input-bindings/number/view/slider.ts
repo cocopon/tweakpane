@@ -2,7 +2,8 @@ import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
 import {constrainRange, mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
-import {bindViewProps, View, ViewProps} from '../../../common/view/view';
+import {bindViewProps} from '../../../common/view/reactive';
+import {View, ViewProps} from '../../../common/view/view';
 
 export type SliderProps = ValueMap<{
 	maxValue: number;

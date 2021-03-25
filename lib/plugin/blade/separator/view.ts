@@ -1,5 +1,6 @@
 import {ClassName} from '../../common/view/class-name';
-import {bindViewProps, View, ViewProps} from '../../common/view/view';
+import {bindViewProps} from '../../common/view/reactive';
+import {View, ViewProps} from '../../common/view/view';
 
 const className = ClassName('spr');
 
