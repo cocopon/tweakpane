@@ -7,6 +7,7 @@ import {
 	numberFromUnknown,
 } from '../../common/converter/number';
 import {Buffer, BufferedValue} from '../../common/model/buffered-value';
+import {defaultViewProps} from '../../common/view/view';
 import {MonitorBindingPlugin} from '../../monitor-binding';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogMonitorController} from '../common/controller/single-log';
@@ -30,6 +31,7 @@ function createTextMonitor({
 		return new SingleLogMonitorController(document, {
 			formatter: createFormatter(),
 			value: value,
+			viewProps: defaultViewProps(),
 		});
 	}
 
@@ -37,6 +39,7 @@ function createTextMonitor({
 		formatter: createFormatter(),
 		lineCount: params.lineCount ?? Constants.monitor.defaultLineCount,
 		value: value,
+		viewProps: defaultViewProps(),
 	});
 }
 
@@ -55,6 +58,7 @@ function createGraphMonitor({
 		maxValue: ('max' in params ? params.max : null) ?? 100,
 		minValue: ('min' in params ? params.min : null) ?? 0,
 		value: value,
+		viewProps: defaultViewProps(),
 	});
 }
 

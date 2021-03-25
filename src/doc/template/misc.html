@@ -176,7 +176,7 @@ pane.<strong>refresh</strong>();
 </div>
 
 
-<h3>Component visibility</h3>
+<h3>Visibility</h3>
 <p>Toggle <code>hidden</code> property to show/hide components.</p>
 
 <div class="main_mediaLayout">
@@ -186,7 +186,8 @@ pane.<strong>refresh</strong>();
 const f = pane.addFolder({
   title: 'Advanced',
 });
-// f.addInput(PARAMS, ...);
+
+// ...
 
 btn.on('click', () => {
   f.<strong>hidden</strong> = !f.<strong>hidden</strong>;
@@ -195,6 +196,32 @@ btn.on('click', () => {
 		</div>
 		<div class="demo_resultLayout">
 			<div class="paneContainer" data-pane-hidden></div>
+		</div>
+	</div>
+</div>
+
+
+<h3>Disabled</h3>
+<p>Use <code>disabled</code> property to disable a view temporarily.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
+const i = pane.addInput(PARAMS, 'param', {
+  <strong>disabled</strong>: true,
+  title: 'Advanced',
+});
+
+// ...
+
+btn.on('click', () => {
+  i.<strong>disabled</strong> = !i.<strong>disabled</strong>;
+});
+</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-disabled></div>
 		</div>
 	</div>
 </div>

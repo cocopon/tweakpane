@@ -6,7 +6,7 @@ import {BindingTarget} from './common/binding/target';
 import {ValueController} from './common/controller/value';
 import {stringFromUnknown} from './common/converter/string';
 import {Buffer, BufferedValue} from './common/model/buffered-value';
-import {View} from './common/view/view';
+import {defaultViewProps, View, ViewProps} from './common/view/view';
 import {createController, MonitorBindingPlugin} from './monitor-binding';
 
 class TestView implements View {
@@ -24,6 +24,7 @@ class TestView implements View {
 
 class TestController implements ValueController<Buffer<string>> {
 	public readonly view: TestView;
+	public readonly viewProps: ViewProps = defaultViewProps();
 	public disposed = false;
 
 	constructor(doc: Document, public readonly value: BufferedValue<string>) {

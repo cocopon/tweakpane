@@ -8,7 +8,11 @@ import {
 	writePrimitive,
 } from 'tweakpane/lib/plugin/common/primitive';
 import {ClassName} from 'tweakpane/lib/plugin/common/view/class-name';
-import {View} from 'tweakpane/lib/plugin/common/view/view';
+import {
+	defaultViewProps,
+	View,
+	ViewProps,
+} from 'tweakpane/lib/plugin/common/view/view';
 import {InputBindingPlugin} from 'tweakpane/lib/plugin/input-binding';
 
 interface ViewConfig {
@@ -41,9 +45,17 @@ class TestView implements View {
 class TestController implements ValueController<string> {
 	public readonly value: Value<string>;
 	public readonly view: TestView;
+	public readonly viewProps: ViewProps;
 
-	constructor(doc: Document, config: {value: Value<string>}) {
+	constructor(
+		doc: Document,
+		config: {
+			value: Value<string>;
+			viewProps: ViewProps;
+		},
+	) {
 		this.value = config.value;
+		this.viewProps = config.viewProps;
 
 		this.view = new TestView(doc, {
 			value: config.value,
@@ -70,6 +82,7 @@ class TestController implements ValueController<string> {
 			controller(args) {
 				return new TestController(args.document, {
 					value: args.value,
+					viewProps: defaultViewProps(),
 				});
 			},
 		} as InputBindingPlugin<string, string>,

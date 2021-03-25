@@ -193,7 +193,10 @@
 		@extend %folder_container-expanded;
 	}
 
-	// BladeView.hidden
+	&.#{$prefix}-v-disabled,
+	.#{$prefix}-v-disabled {
+		pointer-events: none;
+	}
 	&.#{$prefix}-v-hidden,
 	.#{$prefix}-v-hidden {
 		display: none;

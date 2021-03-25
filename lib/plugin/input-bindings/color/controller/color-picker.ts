@@ -8,6 +8,7 @@ import {findNextTarget, supportsTouch} from '../../../common/dom-util';
 import {Foldable} from '../../../common/model/foldable';
 import {Value} from '../../../common/model/value';
 import {connectValues} from '../../../common/model/value-sync';
+import {ViewProps} from '../../../common/view/view';
 import {NumberTextController} from '../../number/controller/number-text';
 import {PickedColor} from '..//model/picked-color';
 import {Color} from '../model/color';
@@ -20,6 +21,7 @@ import {SvPaletteController} from './sv-palette';
 interface Config {
 	pickedColor: PickedColor;
 	supportsAlpha: boolean;
+	viewProps: ViewProps;
 }
 
 /**
@@ -29,6 +31,7 @@ export class ColorPickerController implements ValueController<Color> {
 	public readonly foldable: Foldable;
 	public readonly pickedColor: PickedColor;
 	public readonly view: ColorPickerView;
+	public readonly viewProps: ViewProps;
 	public triggerElement: HTMLElement | null = null;
 	private alphaIcs_: {
 		palette: APaletteController;
@@ -43,18 +46,23 @@ export class ColorPickerController implements ValueController<Color> {
 		this.onKeyDown_ = this.onKeyDown_.bind(this);
 
 		this.pickedColor = config.pickedColor;
+		this.viewProps = config.viewProps;
+
 		this.foldable = new Foldable();
 
 		this.hPaletteIc_ = new HPaletteController(doc, {
 			value: this.pickedColor.value,
+			viewProps: this.viewProps,
 		});
 		this.svPaletteIc_ = new SvPaletteController(doc, {
 			value: this.pickedColor.value,
+			viewProps: this.viewProps,
 		});
 		this.alphaIcs_ = config.supportsAlpha
 			? {
 					palette: new APaletteController(doc, {
 						value: this.pickedColor.value,
+						viewProps: this.viewProps,
 					}),
 					text: new NumberTextController(doc, {
 						draggingScale: 0.01,
@@ -64,6 +72,7 @@ export class ColorPickerController implements ValueController<Color> {
 						value: new Value(0, {
 							constraint: new RangeConstraint({min: 0, max: 1}),
 						}),
+						viewProps: this.viewProps,
 					}),
 			  }
 			: null;
@@ -84,6 +93,7 @@ export class ColorPickerController implements ValueController<Color> {
 		this.tc_ = new ColorTextController(doc, {
 			parser: parseNumber,
 			pickedColor: this.pickedColor,
+			viewProps: this.viewProps,
 		});
 
 		this.view = new ColorPickerView(doc, {

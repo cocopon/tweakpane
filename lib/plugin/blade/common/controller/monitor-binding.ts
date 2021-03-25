@@ -1,6 +1,7 @@
 import {MonitorBinding} from '../../../common/binding/monitor';
 import {ValueController} from '../../../common/controller/value';
 import {Buffer} from '../../../common/model/buffered-value';
+import {ViewProps} from '../../../common/view/view';
 import {LabeledView} from '../../labeled/view';
 import {Blade} from '../model/blade';
 import {BladeController, setUpBladeController} from './blade';
@@ -27,6 +28,7 @@ export class MonitorBindingController<T> implements BladeController {
 
 		this.view = new LabeledView(doc, {
 			label: config.label,
+			viewProps: this.viewProps,
 		});
 		this.view.valueElement.appendChild(this.controller.view.element);
 
@@ -35,6 +37,10 @@ export class MonitorBindingController<T> implements BladeController {
 			this.binding.dispose();
 		});
 		setUpBladeController(this);
+	}
+
+	get viewProps(): ViewProps {
+		return this.controller.viewProps;
 	}
 
 	public onDispose() {

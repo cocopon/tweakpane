@@ -22,4 +22,7 @@
 	&:active {
 		background-color: var(--btn-bg-a);
 	}
+	&:disabled {
+		opacity: 0.5;
+	}
 }

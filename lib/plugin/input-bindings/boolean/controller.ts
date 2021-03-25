@@ -1,6 +1,7 @@
 import {forceCast} from '../../../misc/type-util';
 import {ValueController} from '../../common/controller/value';
 import {Value} from '../../common/model/value';
+import {ViewProps} from '../../common/view/view';
 import {CheckboxView} from './view';
 
 /**
@@ -8,6 +9,7 @@ import {CheckboxView} from './view';
  */
 export interface Config {
 	value: Value<boolean>;
+	viewProps: ViewProps;
 }
 
 /**
@@ -16,14 +18,17 @@ export interface Config {
 export class CheckboxController implements ValueController<boolean> {
 	public readonly value: Value<boolean>;
 	public readonly view: CheckboxView;
+	public readonly viewProps: ViewProps;
 
 	constructor(doc: Document, config: Config) {
 		this.onInputChange_ = this.onInputChange_.bind(this);
 
 		this.value = config.value;
+		this.viewProps = config.viewProps;
 
 		this.view = new CheckboxView(doc, {
 			value: this.value,
+			viewProps: this.viewProps,
 		});
 		this.view.inputElement.addEventListener('change', this.onInputChange_);
 	}

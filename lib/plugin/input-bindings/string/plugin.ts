@@ -6,7 +6,6 @@ import {
 import {Constraint} from '../../common/constraint/constraint';
 import {ListConstraint} from '../../common/constraint/list';
 import {formatString, stringFromUnknown} from '../../common/converter/string';
-import {Value} from '../../common/model/value';
 import {ValueMap} from '../../common/model/value-map';
 import {equalsPrimitive, writePrimitive} from '../../common/primitive';
 import {InputBindingPlugin} from '../../input-binding';
@@ -25,26 +24,6 @@ function createConstraint(params: InputParams): Constraint<string> {
 	return new CompositeConstraint(constraints);
 }
 
-function createController(doc: Document, value: Value<string>) {
-	const c = value.constraint;
-
-	if (c && findConstraint(c, ListConstraint)) {
-		return new ListController(doc, {
-			listItems: findListItems(c) ?? [],
-			stringifyValue: (v) => v,
-			value: value,
-		});
-	}
-
-	return new TextController(doc, {
-		parser: (v) => v,
-		props: new ValueMap({
-			formatter: formatString,
-		}),
-		value: value,
-	});
-}
-
 /**
  * @hidden
  */
@@ -58,6 +37,26 @@ export const StringInputPlugin: InputBindingPlugin<string, string> = {
 		writer: (_args) => writePrimitive,
 	},
 	controller: (params) => {
-		return createController(params.document, params.value);
+		const doc = params.document;
+		const value = params.value;
+		const c = value.constraint;
+
+		if (c && findConstraint(c, ListConstraint)) {
+			return new ListController(doc, {
+				listItems: findListItems(c) ?? [],
+				stringifyValue: (v) => v,
+				value: value,
+				viewProps: params.viewProps,
+			});
+		}
+
+		return new TextController(doc, {
+			parser: (v) => v,
+			props: new ValueMap({
+				formatter: formatString,
+			}),
+			value: value,
+			viewProps: params.viewProps,
+		});
 	},
 };

@@ -7,7 +7,7 @@ import {ValueController} from './common/controller/value';
 import {stringFromUnknown} from './common/converter/string';
 import {Value} from './common/model/value';
 import {writePrimitive} from './common/primitive';
-import {View} from './common/view/view';
+import {defaultViewProps, View} from './common/view/view';
 import {createController, InputBindingPlugin} from './input-binding';
 
 class TestView implements View {
@@ -25,6 +25,7 @@ class TestView implements View {
 
 class TestController implements ValueController<string> {
 	public readonly view: TestView;
+	public readonly viewProps = defaultViewProps();
 	public disposed = false;
 
 	constructor(doc: Document, public readonly value: Value<string>) {

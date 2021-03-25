@@ -52,6 +52,7 @@ export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
 			parser: CompositeColorParser,
 			supportsAlpha: hasAlphaComponent(notation),
 			value: args.value,
+			viewProps: args.viewProps,
 		});
 	},
 };

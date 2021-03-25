@@ -8,7 +8,6 @@ import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../common/converter/number';
-import {Value} from '../../common/model/value';
 import {TpError} from '../../common/tp-error';
 import {InputBindingPlugin} from '../../input-binding';
 import {
@@ -68,24 +67,6 @@ function createAxis(
 	};
 }
 
-function createController(document: Document, value: Value<Point3d>) {
-	const c = value.constraint;
-	if (!(c instanceof PointNdConstraint)) {
-		throw TpError.shouldNeverHappen();
-	}
-
-	return new PointNdTextController(document, {
-		assembly: Point3dAssembly,
-		axes: [
-			createAxis(value.rawValue.x, c.components[0]),
-			createAxis(value.rawValue.y, c.components[1]),
-			createAxis(value.rawValue.z, c.components[2]),
-		],
-		parser: parseNumber,
-		value: value,
-	});
-}
-
 /**
  * @hidden
  */
@@ -99,6 +80,22 @@ export const Point3dInputPlugin: InputBindingPlugin<Point3d, Point3dObject> = {
 		writer: (_args) => writePoint3d,
 	},
 	controller: (args) => {
-		return createController(args.document, args.value);
+		const value = args.value;
+		const c = value.constraint;
+		if (!(c instanceof PointNdConstraint)) {
+			throw TpError.shouldNeverHappen();
+		}
+
+		return new PointNdTextController(args.document, {
+			assembly: Point3dAssembly,
+			axes: [
+				createAxis(value.rawValue.x, c.components[0]),
+				createAxis(value.rawValue.y, c.components[1]),
+				createAxis(value.rawValue.z, c.components[2]),
+			],
+			parser: parseNumber,
+			value: value,
+			viewProps: args.viewProps,
+		});
 	},
 };

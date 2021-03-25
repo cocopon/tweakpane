@@ -7,6 +7,7 @@ import {BindingTarget} from './common/binding/target';
 import {Constraint} from './common/constraint/constraint';
 import {ValueController} from './common/controller/value';
 import {Value} from './common/model/value';
+import {defaultViewProps, ViewProps} from './common/view/view';
 import {BasePlugin} from './plugin';
 
 interface BindingArguments<Ex> {
@@ -20,6 +21,7 @@ interface ControllerArguments<In, Ex> {
 	initialValue: Ex;
 	params: InputParams;
 	value: Value<In>;
+	viewProps: ViewProps;
 }
 
 /**
@@ -141,6 +143,9 @@ export function createController<In, Ex>(
 		initialValue: initialValue,
 		params: args.params,
 		value: binding.value,
+		viewProps: defaultViewProps({
+			disabled: args.params.disabled,
+		}),
 	});
 
 	const blade = new Blade();
