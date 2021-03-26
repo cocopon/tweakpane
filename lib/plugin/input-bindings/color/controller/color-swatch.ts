@@ -38,6 +38,7 @@ export class ColorSwatchController implements ValueController<Color> {
 		this.view = new ColorSwatchView(doc, {
 			pickerView: this.pickerIc_.view,
 			value: this.value,
+			viewProps: this.viewProps,
 		});
 		this.view.buttonElement.addEventListener('blur', this.onButtonBlur_);
 		this.view.buttonElement.addEventListener('click', this.onButtonClick_);

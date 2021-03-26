@@ -35,9 +35,4 @@ export class ColorSwatchTextView implements View {
 		textElem.appendChild(this.textView.element);
 		this.element.appendChild(textElem);
 	}
-
-	public update(): void {
-		this.swatchView_.update();
-		this.textView.update();
-	}
 }

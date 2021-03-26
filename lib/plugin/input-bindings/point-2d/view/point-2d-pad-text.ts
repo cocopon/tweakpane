@@ -1,5 +1,7 @@
 import {createSvgIconElement} from '../../../common/dom-util';
+import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
+import {bindDisabled, bindViewProps} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {PointNdTextView} from '../../common/view/point-nd-text';
 import {Point2dPadView} from './point-2d-pad';
@@ -7,6 +9,7 @@ import {Point2dPadView} from './point-2d-pad';
 interface Config {
 	padView: Point2dPadView;
 	textView: PointNdTextView;
+	viewProps: ViewProps;
 }
 
 const className = ClassName('p2dpadtxt');
@@ -23,6 +26,7 @@ export class Point2dPadTextView implements View {
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
+		bindViewProps(config.viewProps, this.element);
 
 		const padWrapperElem = doc.createElement('div');
 		padWrapperElem.classList.add(className('w'));
@@ -31,6 +35,7 @@ export class Point2dPadTextView implements View {
 		const buttonElem = doc.createElement('button');
 		buttonElem.classList.add(className('b'));
 		buttonElem.appendChild(createSvgIconElement(doc, 'p2dpad'));
+		bindDisabled(config.viewProps, buttonElem);
 		padWrapperElem.appendChild(buttonElem);
 		this.padButtonElem_ = buttonElem;
 
