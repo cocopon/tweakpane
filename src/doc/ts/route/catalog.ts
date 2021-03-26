@@ -3,6 +3,8 @@ import Tweakpane from 'tweakpane';
 import {selectContainer, wave} from '../util';
 
 export function initCatalog() {
+	const disabled = location.search.includes('disabled');
+
 	const markerToFnMap: {
 		[key: string]: (container: HTMLElement) => void;
 	} = {
@@ -15,14 +17,17 @@ export function initCatalog() {
 				title: 'Number',
 			});
 			pane.addInput(params, 'number', {
+				disabled: disabled,
 				label: 'text',
 			});
 			pane.addInput(params, 'number', {
+				disabled: disabled,
 				label: 'slider',
 				min: -100,
 				max: 100,
 			});
 			pane.addInput(params, 'number', {
+				disabled: disabled,
 				label: 'list',
 				options: {
 					option: 0,
@@ -38,9 +43,11 @@ export function initCatalog() {
 				title: 'String',
 			});
 			pane.addInput(params, 'string', {
+				disabled: disabled,
 				label: 'text',
 			});
 			pane.addInput(params, 'string', {
+				disabled: disabled,
 				label: 'list',
 				options: {
 					option: 'text',
@@ -56,6 +63,7 @@ export function initCatalog() {
 				title: 'Boolean',
 			});
 			pane.addInput(params, 'bool', {
+				disabled: disabled,
 				label: 'checkbox',
 			});
 		},
@@ -68,6 +76,7 @@ export function initCatalog() {
 				title: 'Color',
 			});
 			pane.addInput(params, 'color', {
+				disabled: disabled,
 				label: 'picker',
 			});
 		},
@@ -82,12 +91,15 @@ export function initCatalog() {
 				title: 'Point',
 			});
 			pane.addInput(params, 'p2d', {
+				disabled: disabled,
 				label: 'picker',
 			});
 			pane.addInput(params, 'p3d', {
+				disabled: disabled,
 				label: 'text',
 			});
 			pane.addInput(params, 'p4d', {
+				disabled: disabled,
 				label: 'text',
 			});
 		},
@@ -106,13 +118,16 @@ export function initCatalog() {
 				title: 'Number',
 			});
 			pane.addMonitor(params, 'number', {
+				disabled: disabled,
 				label: 'text',
 			});
 			pane.addMonitor(params, 'number', {
 				bufferSize: 10,
+				disabled: disabled,
 				label: 'multiline',
 			});
 			pane.addMonitor(params, 'number', {
+				disabled: disabled,
 				label: 'graph',
 				max: +1,
 				min: -1,
@@ -132,11 +147,13 @@ export function initCatalog() {
 				title: 'String',
 			});
 			pane.addMonitor(params, 'string', {
+				disabled: disabled,
 				interval: 1000,
 				label: 'text',
 			});
 			pane.addMonitor(params, 'string', {
 				bufferSize: 10,
+				disabled: disabled,
 				interval: 1000,
 				label: 'multiline',
 			});
@@ -154,11 +171,13 @@ export function initCatalog() {
 				title: 'Boolean',
 			});
 			pane.addMonitor(params, 'bool', {
+				disabled: disabled,
 				interval: 1000,
 				label: 'text',
 			});
 			pane.addMonitor(params, 'bool', {
 				bufferSize: 10,
+				disabled: disabled,
 				interval: 1000,
 				label: 'multiline',
 			});
@@ -168,15 +187,15 @@ export function initCatalog() {
 				container: container,
 				title: 'Folder',
 			});
-			pane.addInput({param: 0}, 'param');
+			pane.addInput({param: 0}, 'param', {disabled: disabled});
 			const f = pane.addFolder({
 				title: 'Folder',
 			});
-			f.addInput({param: 0}, 'param');
+			f.addInput({param: 0}, 'param', {disabled: disabled});
 			const sf = f.addFolder({
 				title: 'Subfolder',
 			});
-			sf.addInput({param: 0}, 'param');
+			sf.addInput({param: 0}, 'param', {disabled: disabled});
 		},
 		button: (container) => {
 			const pane = new Tweakpane({
@@ -184,9 +203,11 @@ export function initCatalog() {
 				title: 'Button',
 			});
 			pane.addButton({
+				disabled: disabled,
 				title: 'Button',
 			});
 			pane.addButton({
+				disabled: disabled,
 				label: 'label',
 				title: 'Button',
 			});
@@ -196,9 +217,9 @@ export function initCatalog() {
 				container: container,
 				title: 'Separator',
 			});
-			pane.addInput({param: 0}, 'param');
+			pane.addInput({param: 0}, 'param', {disabled: disabled});
 			pane.addSeparator();
-			pane.addInput({param: 0}, 'param');
+			pane.addInput({param: 0}, 'param', {disabled: disabled});
 		},
 	};
 	Object.keys(markerToFnMap).forEach((marker) => {
