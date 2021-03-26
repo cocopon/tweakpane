@@ -7,7 +7,7 @@ import {
 	parseNumber,
 } from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
-import {defaultViewProps} from '../../../common/view/view';
+import {createViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from './number-text';
 
 describe(NumberTextController.name, () => {
@@ -20,7 +20,7 @@ describe(NumberTextController.name, () => {
 			formatter: createNumberFormatter(0),
 			parser: parseNumber,
 			value: new Value(123),
-			viewProps: defaultViewProps(),
+			viewProps: createViewProps(),
 		});
 
 		c.view.inputElement.dispatchEvent(

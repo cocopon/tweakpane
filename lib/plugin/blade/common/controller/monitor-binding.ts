@@ -1,7 +1,7 @@
 import {MonitorBinding} from '../../../common/binding/monitor';
 import {ValueController} from '../../../common/controller/value';
 import {Buffer} from '../../../common/model/buffered-value';
-import {ViewProps} from '../../../common/view/view';
+import {ViewProps} from '../../../common/model/view-props';
 import {LabeledView} from '../../labeled/view';
 import {Blade} from '../model/blade';
 import {BladeController, setUpBladeController} from './blade';

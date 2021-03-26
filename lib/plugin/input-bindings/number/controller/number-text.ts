@@ -4,12 +4,12 @@ import {Formatter} from '../../../common/converter/formatter';
 import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
+import {ViewProps} from '../../../common/model/view-props';
 import {getStepForKey, getVerticalStepKeys} from '../../../common/ui';
 import {
 	PointerHandler,
 	PointerHandlerEvent,
 } from '../../../common/view/pointer-handler';
-import {ViewProps} from '../../../common/view/view';
 import {NumberTextView} from '../view/number-text';
 
 interface Config {

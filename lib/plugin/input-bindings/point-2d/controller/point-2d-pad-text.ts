@@ -3,7 +3,7 @@ import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
 import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
-import {ViewProps} from '../../../common/view/view';
+import {ViewProps} from '../../../common/model/view-props';
 import {PointNdTextController} from '../../common/controller/point-nd-text';
 import {Point2d, Point2dAssembly} from '../model/point-2d';
 import {Point2dPadTextView} from '../view/point-2d-pad-text';

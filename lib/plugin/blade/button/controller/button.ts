@@ -1,5 +1,5 @@
 import {Controller} from '../../../common/controller/controller';
-import {ViewProps} from '../../../common/view/view';
+import {ViewProps} from '../../../common/model/view-props';
 import {Button} from '../model/button';
 import {ButtonView} from '../view';
 

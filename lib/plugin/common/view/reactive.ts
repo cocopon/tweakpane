@@ -1,6 +1,6 @@
 import {SingleValueEvents} from '../model/value-map';
+import {ViewProps} from '../model/view-props';
 import {ClassName} from './class-name';
-import {ViewProps} from './view';
 
 function compose<A, B, C>(
 	h1: (input: A) => B,

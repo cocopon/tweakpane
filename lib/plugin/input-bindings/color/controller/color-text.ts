@@ -5,7 +5,7 @@ import {createNumberFormatter} from '../../../common/converter/number';
 import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
 import {connectValues} from '../../../common/model/value-sync';
-import {ViewProps} from '../../../common/view/view';
+import {ViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from '../../number/controller/number-text';
 import {Color} from '../model/color';
 import {

@@ -4,7 +4,7 @@ import {describe, it} from 'mocha';
 import {TestUtil} from '../../../../misc/test-util';
 import {parseNumber} from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
-import {defaultViewProps} from '../../../common/view/view';
+import {createViewProps} from '../../../common/model/view-props';
 import {Color, RgbaColorObject} from '../model/color';
 import {PickedColor} from '../model/picked-color';
 import {ColorTextController} from './color-text';
@@ -75,7 +75,7 @@ describe(ColorTextController.name, () => {
 				const c = new ColorTextController(doc, {
 					parser: parseNumber,
 					pickedColor: new PickedColor(value),
-					viewProps: defaultViewProps(),
+					viewProps: createViewProps(),
 				});
 
 				const inputElem = c.view.textViews[testCase.params.index].inputElement;
@@ -138,7 +138,7 @@ describe(ColorTextController.name, () => {
 				const c = new ColorTextController(doc, {
 					parser: parseNumber,
 					pickedColor: new PickedColor(value),
-					viewProps: defaultViewProps(),
+					viewProps: createViewProps(),
 				});
 
 				const inputElem = c.view.textViews[testCase.params.index].inputElement;

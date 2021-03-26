@@ -7,7 +7,7 @@ import {
 	parseNumber,
 } from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
-import {defaultViewProps} from '../../../common/view/view';
+import {createViewProps} from '../../../common/model/view-props';
 import {Point2d, Point2dAssembly} from '../../point-2d/model/point-2d';
 import {PointNdTextController} from './point-nd-text';
 
@@ -31,7 +31,7 @@ describe(PointNdTextController.name, () => {
 			],
 			parser: parseNumber,
 			value: new Value(new Point2d(12, 34)),
-			viewProps: defaultViewProps(),
+			viewProps: createViewProps(),
 		});
 
 		c.view.textViews[0].inputElement.value = '3.14';

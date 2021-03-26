@@ -2,7 +2,8 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
-import {defaultViewProps, View} from '../../../common/view/view';
+import {createViewProps} from '../../../common/model/view-props';
+import {View} from '../../../common/view/view';
 import {Blade} from '../model/blade';
 import {BladeController, setUpBladeController} from './blade';
 
@@ -19,7 +20,7 @@ class TestView implements View {
 class TestController implements BladeController {
 	public readonly blade: Blade;
 	public readonly view: TestView;
-	public readonly viewProps = defaultViewProps();
+	public readonly viewProps = createViewProps();
 
 	constructor(doc: Document) {
 		this.blade = new Blade();

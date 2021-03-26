@@ -2,12 +2,12 @@ import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
 import {supportsTouch} from '../../../common/dom-util';
 import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
+import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
 import {
 	PointerHandler,
 	PointerHandlerEvent,
 } from '../../../common/view/pointer-handler';
-import {ViewProps} from '../../../common/view/view';
 import {GraphCursor} from '../model/graph-cursor';
 import {GraphLogView} from '../view/graph-log';
 

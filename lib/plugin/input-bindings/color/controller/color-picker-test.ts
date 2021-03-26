@@ -3,7 +3,7 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
 import {Value} from '../../../common/model/value';
-import {defaultViewProps} from '../../../common/view/view';
+import {createViewProps} from '../../../common/model/view-props';
 import {Color} from '../model/color';
 import {PickedColor} from '../model/picked-color';
 import {ColorPickerController} from './color-picker';
@@ -16,7 +16,7 @@ describe(ColorPickerController.name, () => {
 		const c = new ColorPickerController(doc, {
 			pickedColor: pc,
 			supportsAlpha: false,
-			viewProps: defaultViewProps(),
+			viewProps: createViewProps(),
 		});
 
 		assert.strictEqual(c.textController.view.modeSelectElement.value, 'hsv');
@@ -29,7 +29,7 @@ describe(ColorPickerController.name, () => {
 		const c = new ColorPickerController(doc, {
 			pickedColor: pc,
 			supportsAlpha: false,
-			viewProps: defaultViewProps(),
+			viewProps: createViewProps(),
 		});
 
 		// Change color mode to HSL

@@ -8,8 +8,8 @@ import {FolderEvents} from '../plugin/blade/folder/model/folder';
 import {LabeledController} from '../plugin/blade/labeled/controller';
 import {SeparatorController} from '../plugin/blade/separator/controller';
 import {Emitter} from '../plugin/common/model/emitter';
+import {createViewProps} from '../plugin/common/model/view-props';
 import {TpError} from '../plugin/common/tp-error';
-import {defaultViewProps} from '../plugin/common/view/view';
 import {BladeApi} from './blade-api';
 import {ButtonApi} from './button';
 import {InputBindingApi} from './input-binding';
@@ -132,7 +132,7 @@ export class FolderApi implements BladeApi {
 		const bc = new FolderController(this.controller.document, {
 			...params,
 			blade: new Blade(),
-			viewProps: defaultViewProps(),
+			viewProps: createViewProps(),
 		});
 		this.controller.bladeRack.add(bc, params.index);
 
@@ -148,7 +148,7 @@ export class FolderApi implements BladeApi {
 			label: params.label,
 			valueController: new ButtonController(doc, {
 				...params,
-				viewProps: defaultViewProps({
+				viewProps: createViewProps({
 					disabled: params.disabled,
 				}),
 			}),
@@ -164,7 +164,7 @@ export class FolderApi implements BladeApi {
 		const params = opt_params || {};
 		const bc = new SeparatorController(this.controller.document, {
 			blade: new Blade(),
-			viewProps: defaultViewProps(),
+			viewProps: createViewProps(),
 		});
 		this.controller.bladeRack.add(bc, params.index);
 

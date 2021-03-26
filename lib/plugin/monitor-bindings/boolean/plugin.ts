@@ -3,7 +3,7 @@ import {
 	BooleanFormatter,
 	boolFromUnknown,
 } from '../../common/converter/boolean';
-import {defaultViewProps} from '../../common/view/view';
+import {createViewProps} from '../../common/model/view-props';
 import {MonitorBindingPlugin} from '../../monitor-binding';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogMonitorController} from '../common/controller/single-log';
@@ -22,7 +22,7 @@ export const BooleanMonitorPlugin: MonitorBindingPlugin<boolean> = {
 			return new SingleLogMonitorController(args.document, {
 				formatter: BooleanFormatter,
 				value: args.value,
-				viewProps: defaultViewProps(),
+				viewProps: createViewProps(),
 			});
 		}
 
@@ -30,7 +30,7 @@ export const BooleanMonitorPlugin: MonitorBindingPlugin<boolean> = {
 			formatter: BooleanFormatter,
 			lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,
 			value: args.value,
-			viewProps: defaultViewProps(),
+			viewProps: createViewProps(),
 		});
 	},
 };

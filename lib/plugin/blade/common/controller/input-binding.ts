@@ -1,6 +1,6 @@
 import {InputBinding} from '../../../common/binding/input';
 import {ValueController} from '../../../common/controller/value';
-import {ViewProps} from '../../../common/view/view';
+import {ViewProps} from '../../../common/model/view-props';
 import {LabeledView} from '../../labeled/view';
 import {Blade} from '../model/blade';
 import {BladeController, setUpBladeController} from './blade';

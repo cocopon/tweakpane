@@ -12,8 +12,8 @@ import {
 } from '../plugin/common/converter/number';
 import {numberFromUnknown} from '../plugin/common/converter/number';
 import {Value} from '../plugin/common/model/value';
+import {createViewProps} from '../plugin/common/model/view-props';
 import {writePrimitive} from '../plugin/common/primitive';
-import {defaultViewProps} from '../plugin/common/view/view';
 import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
 import {InputBindingApi} from './input-binding';
 import {TpChangeEvent} from './tp-event';
@@ -27,7 +27,7 @@ function createApi(target: BindingTarget) {
 		formatter: createNumberFormatter(0),
 		parser: parseNumber,
 		value: value,
-		viewProps: defaultViewProps(),
+		viewProps: createViewProps(),
 	});
 	const bc = new InputBindingController(doc, {
 		binding: new InputBinding({

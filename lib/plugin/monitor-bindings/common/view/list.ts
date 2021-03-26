@@ -1,9 +1,10 @@
 import {ListItem} from '../../../common/constraint/list';
 import {createSvgIconElement} from '../../../common/dom-util';
 import {Value} from '../../../common/model/value';
+import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
 import {bindViewProps} from '../../../common/view/reactive';
-import {View, ViewProps} from '../../../common/view/view';
+import {View} from '../../../common/view/view';
 
 interface Config<T> {
 	options: ListItem<T>[];

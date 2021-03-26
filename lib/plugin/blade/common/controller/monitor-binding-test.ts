@@ -8,7 +8,7 @@ import {ManualTicker} from '../../../common/binding/ticker/manual';
 import {createNumberFormatter} from '../../../common/converter/number';
 import {numberFromUnknown} from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
-import {defaultViewProps} from '../../../common/view/view';
+import {createViewProps} from '../../../common/model/view-props';
 import {SingleLogMonitorController} from '../../../monitor-bindings/common/controller/single-log';
 import {Blade} from '../model/blade';
 import {MonitorBindingController} from './monitor-binding';
@@ -29,7 +29,7 @@ describe(MonitorBindingController.name, () => {
 		const controller = new SingleLogMonitorController(doc, {
 			formatter: createNumberFormatter(0),
 			value: value,
-			viewProps: defaultViewProps(),
+			viewProps: createViewProps(),
 		});
 		const bc = new MonitorBindingController(doc, {
 			binding: binding,

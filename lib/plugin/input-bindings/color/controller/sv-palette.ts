@@ -1,5 +1,6 @@
 import {ValueController} from '../../../common/controller/value';
 import {Value} from '../../../common/model/value';
+import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
 import {
 	getHorizontalStepKeys,
@@ -12,7 +13,6 @@ import {
 	PointerHandler,
 	PointerHandlerEvents,
 } from '../../../common/view/pointer-handler';
-import {ViewProps} from '../../../common/view/view';
 import {Color} from '../model/color';
 import {getBaseStepForColor} from '../util';
 import {SvPaletteView} from '../view/sv-palette';

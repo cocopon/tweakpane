@@ -11,8 +11,8 @@ import {boolFromUnknown} from '../../../common/converter/boolean';
 import {stringFromUnknown} from '../../../common/converter/string';
 import {Buffer} from '../../../common/model/buffered-value';
 import {Value} from '../../../common/model/value';
+import {createViewProps} from '../../../common/model/view-props';
 import {writePrimitive} from '../../../common/primitive';
-import {defaultViewProps} from '../../../common/view/view';
 import {CheckboxController} from '../../../input-bindings/boolean/controller';
 import {SingleLogMonitorController} from '../../../monitor-bindings/common/controller/single-log';
 import {FolderController} from '../../folder/controller';
@@ -35,7 +35,7 @@ function createInputBindingController(
 		binding: b,
 		controller: new CheckboxController(doc, {
 			value: b.value,
-			viewProps: defaultViewProps(),
+			viewProps: createViewProps(),
 		}),
 		label: '',
 	});
@@ -56,7 +56,7 @@ function createMonitorBindingController(
 		controller: new SingleLogMonitorController(doc, {
 			formatter: (v) => String(v),
 			value: b.value,
-			viewProps: defaultViewProps(),
+			viewProps: createViewProps(),
 		}),
 		label: '',
 	});
@@ -66,7 +66,7 @@ function createFolderController(doc: Document): FolderController {
 	return new FolderController(doc, {
 		blade: new Blade(),
 		title: 'folder',
-		viewProps: defaultViewProps(),
+		viewProps: createViewProps(),
 	});
 }
 

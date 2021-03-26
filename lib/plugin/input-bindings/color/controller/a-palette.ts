@@ -1,12 +1,12 @@
 import {ValueController} from '../../../common/controller/value';
 import {Value} from '../../../common/model/value';
+import {ViewProps} from '../../../common/model/view-props';
 import {getHorizontalStepKeys, getStepForKey} from '../../../common/ui';
 import {
 	PointerData,
 	PointerHandler,
 	PointerHandlerEvents,
 } from '../../../common/view/pointer-handler';
-import {ViewProps} from '../../../common/view/view';
 import {Color} from '../model/color';
 import {getBaseStepForColor} from '../util';
 import {APaletteView} from '../view/a-palette';

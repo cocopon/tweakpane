@@ -5,7 +5,7 @@ import {TestUtil} from '../misc/test-util';
 import {ButtonController} from '../plugin/blade/button/controller/button';
 import {Blade} from '../plugin/blade/common/model/blade';
 import {LabeledController} from '../plugin/blade/labeled/controller';
-import {defaultViewProps} from '../plugin/common/view/view';
+import {createViewProps} from '../plugin/common/model/view-props';
 import {ButtonApi} from './button';
 
 function createApi(doc: Document): ButtonApi {
@@ -13,7 +13,7 @@ function createApi(doc: Document): ButtonApi {
 		blade: new Blade(),
 		valueController: new ButtonController(doc, {
 			title: 'Button',
-			viewProps: defaultViewProps(),
+			viewProps: createViewProps(),
 		}),
 	});
 	return new ButtonApi(c);

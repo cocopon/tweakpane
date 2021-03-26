@@ -2,7 +2,7 @@ import {forceCast} from '../../../../misc/type-util';
 import {ListItem} from '../../../common/constraint/list';
 import {ValueController} from '../../../common/controller/value';
 import {Value} from '../../../common/model/value';
-import {ViewProps} from '../../../common/view/view';
+import {ViewProps} from '../../../common/model/view-props';
 import {ListView} from '../../../monitor-bindings/common/view/list';
 
 interface Config<T> {

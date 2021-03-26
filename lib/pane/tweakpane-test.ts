@@ -8,9 +8,9 @@ import {
 	stringFromUnknown,
 } from '../plugin/common/converter/string';
 import {ValueMap} from '../plugin/common/model/value-map';
+import {createViewProps} from '../plugin/common/model/view-props';
 import {equalsPrimitive, writePrimitive} from '../plugin/common/primitive';
 import {TpError} from '../plugin/common/tp-error';
-import {defaultViewProps} from '../plugin/common/view/view';
 import {TextController} from '../plugin/input-bindings/common/controller/text';
 
 describe(Tweakpane.name, () => {
@@ -104,7 +104,7 @@ describe(Tweakpane.name, () => {
 							formatter: formatString,
 						}),
 						value: args.value,
-						viewProps: defaultViewProps(),
+						viewProps: createViewProps(),
 					});
 				},
 			},

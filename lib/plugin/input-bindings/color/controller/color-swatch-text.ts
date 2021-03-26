@@ -3,7 +3,7 @@ import {Formatter} from '../../../common/converter/formatter';
 import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/view/view';
+import {ViewProps} from '../../../common/model/view-props';
 import {TextController} from '../../common/controller/text';
 import {Color} from '../model/color';
 import {ColorSwatchTextView} from '../view/color-swatch-text';

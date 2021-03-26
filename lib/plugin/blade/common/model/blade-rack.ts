@@ -5,8 +5,8 @@ import {
 	MonitorBindingEvents,
 } from '../../../common/binding/monitor';
 import {Emitter} from '../../../common/model/emitter';
+import {ViewPropsEvents} from '../../../common/model/view-props';
 import {TpError} from '../../../common/tp-error';
-import {ViewPropsEvents} from '../../../common/view/view';
 import {FolderController} from '../../folder/controller';
 import {Folder, FolderEvents} from '../../folder/model/folder';
 import {BladeController} from '../controller/blade';
