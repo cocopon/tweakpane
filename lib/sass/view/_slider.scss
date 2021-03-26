@@ -1,4 +1,8 @@
 .#{$prefix}-sldv {
+	&.#{$prefix}-v-disabled {
+		opacity: 0.5;
+	}
+
 	&_t {
 		box-sizing: border-box;
 		cursor: pointer;

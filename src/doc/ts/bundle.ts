@@ -1,3 +1,4 @@
+import {initCatalog} from './route/catalog';
 import {initGettingStarted} from './route/getting-started';
 import {initIndex} from './route/index';
 import {initInput} from './route/input';
@@ -39,6 +40,7 @@ function setUpSpMenu() {
 	const router = new SimpleRouter();
 	router.add(/^(\/tweakpane)?\/getting-started\.html$/, initGettingStarted);
 	router.add(/^(\/tweakpane)?\/$/, initIndex);
+	router.add(/^(\/tweakpane)?\/catalog\.html$/, initCatalog);
 	router.add(/^(\/tweakpane)?\/input\.html$/, initInput);
 	router.add(/^(\/tweakpane)?\/misc\.html$/, initMisc);
 	router.add(/^(\/tweakpane)?\/monitor\.html$/, initMonitor);

@@ -3,6 +3,10 @@
 
 	border-radius: $inner-border-radius;
 
+	&.#{$prefix}-v-disabled {
+		opacity: 0.5;
+	}
+
 	&_sw {
 		@extend %input;
 	}

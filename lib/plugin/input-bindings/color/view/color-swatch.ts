@@ -1,5 +1,7 @@
 import {Value} from '../../../common/model/value';
+import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
+import {bindViewProps} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {colorToHexRgbaString} from '../converter/color-string';
 import {Color} from '../model/color';
@@ -8,6 +10,7 @@ import {ColorPickerView} from './color-picker';
 interface Config {
 	pickerView: ColorPickerView;
 	value: Value<Color>;
+	viewProps: ViewProps;
 }
 
 const className = ClassName('clsw');
@@ -30,6 +33,7 @@ export class ColorSwatchView implements View {
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
+		bindViewProps(config.viewProps, this.element);
 
 		const swatchElem = doc.createElement('div');
 		swatchElem.classList.add(className('sw'));

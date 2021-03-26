@@ -60,6 +60,7 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 		this.view = new Point2dPadTextView(doc, {
 			padView: this.padIc_.view,
 			textView: this.textIc_.view,
+			viewProps: this.viewProps,
 		});
 		this.view.padButtonElement.addEventListener('blur', this.onPadButtonBlur_);
 		this.view.padButtonElement.addEventListener(
