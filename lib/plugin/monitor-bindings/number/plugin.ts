@@ -6,8 +6,7 @@ import {
 	createNumberFormatter,
 	numberFromUnknown,
 } from '../../common/converter/number';
-import {Buffer, BufferedValue} from '../../common/model/buffered-value';
-import {defaultViewProps} from '../../common/view/view';
+import {Buffer} from '../../common/model/buffered-value';
 import {MonitorBindingPlugin} from '../../monitor-binding';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogMonitorController} from '../common/controller/single-log';
@@ -18,47 +17,35 @@ function createFormatter(): Formatter<number> {
 	return createNumberFormatter(2);
 }
 
-function createTextMonitor({
-	document,
-	params,
-	value,
-}: {
-	document: Document;
-	params: MonitorParams;
-	value: BufferedValue<number>;
-}): ValueController<Buffer<number>> {
-	if (value.rawValue.length === 1) {
-		return new SingleLogMonitorController(document, {
+function createTextMonitor(
+	args: Parameters<MonitorBindingPlugin<number>['controller']>[0],
+) {
+	if (args.value.rawValue.length === 1) {
+		return new SingleLogMonitorController(args.document, {
 			formatter: createFormatter(),
-			value: value,
-			viewProps: defaultViewProps(),
+			value: args.value,
+			viewProps: args.viewProps,
 		});
 	}
 
-	return new MultiLogController(document, {
+	return new MultiLogController(args.document, {
 		formatter: createFormatter(),
-		lineCount: params.lineCount ?? Constants.monitor.defaultLineCount,
-		value: value,
-		viewProps: defaultViewProps(),
+		lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,
+		value: args.value,
+		viewProps: args.viewProps,
 	});
 }
 
-function createGraphMonitor({
-	document,
-	params,
-	value,
-}: {
-	document: Document;
-	params: MonitorParams;
-	value: BufferedValue<number>;
-}): ValueController<Buffer<number>> {
-	return new GraphLogController(document, {
+function createGraphMonitor(
+	args: Parameters<MonitorBindingPlugin<number>['controller']>[0],
+): ValueController<Buffer<number>> {
+	return new GraphLogController(args.document, {
 		formatter: createFormatter(),
-		lineCount: params.lineCount ?? Constants.monitor.defaultLineCount,
-		maxValue: ('max' in params ? params.max : null) ?? 100,
-		minValue: ('min' in params ? params.min : null) ?? 0,
-		value: value,
-		viewProps: defaultViewProps(),
+		lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,
+		maxValue: ('max' in args.params ? args.params.max : null) ?? 100,
+		minValue: ('min' in args.params ? args.params.min : null) ?? 0,
+		value: args.value,
+		viewProps: args.viewProps,
 	});
 }
 

@@ -3,16 +3,13 @@ import Tweakpane from 'tweakpane';
 import {ValueController} from 'tweakpane/lib/plugin/common/controller/value';
 import {stringFromUnknown} from 'tweakpane/lib/plugin/common/converter/string';
 import {Value} from 'tweakpane/lib/plugin/common/model/value';
+import {ViewProps} from 'tweakpane/lib/plugin/common/model/view-props';
 import {
 	equalsPrimitive,
 	writePrimitive,
 } from 'tweakpane/lib/plugin/common/primitive';
 import {ClassName} from 'tweakpane/lib/plugin/common/view/class-name';
-import {
-	defaultViewProps,
-	View,
-	ViewProps,
-} from 'tweakpane/lib/plugin/common/view/view';
+import {View} from 'tweakpane/lib/plugin/common/view/view';
 import {InputBindingPlugin} from 'tweakpane/lib/plugin/input-binding';
 
 interface ViewConfig {
@@ -82,7 +79,7 @@ class TestController implements ValueController<string> {
 			controller(args) {
 				return new TestController(args.document, {
 					value: args.value,
-					viewProps: defaultViewProps(),
+					viewProps: args.viewProps,
 				});
 			},
 		} as InputBindingPlugin<string, string>,

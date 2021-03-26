@@ -4,13 +4,13 @@ import {describe, it} from 'mocha';
 import {TestUtil} from '../misc/test-util';
 import {Blade} from '../plugin/blade/common/model/blade';
 import {SeparatorController} from '../plugin/blade/separator/controller';
-import {defaultViewProps} from '../plugin/common/view/view';
+import {createViewProps} from '../plugin/common/model/view-props';
 import {SeparatorApi} from './separator';
 
 function createApi(doc: Document): SeparatorApi {
 	const c = new SeparatorController(doc, {
 		blade: new Blade(),
-		viewProps: defaultViewProps(),
+		viewProps: createViewProps(),
 	});
 	return new SeparatorApi(c);
 }

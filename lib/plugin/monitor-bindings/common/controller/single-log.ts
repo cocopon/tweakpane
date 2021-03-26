@@ -1,7 +1,7 @@
 import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
 import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
-import {ViewProps} from '../../../common/view/view';
+import {ViewProps} from '../../../common/model/view-props';
 import {SingleLogView} from '../view/single-log';
 
 interface Config<T> {
@@ -26,6 +26,7 @@ export class SingleLogMonitorController<T>
 		this.view = new SingleLogView(doc, {
 			formatter: config.formatter,
 			value: this.value,
+			viewProps: this.viewProps,
 		});
 	}
 }

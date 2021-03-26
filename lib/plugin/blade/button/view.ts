@@ -1,10 +1,7 @@
+import {ViewProps} from '../../common/model/view-props';
 import {ClassName} from '../../common/view/class-name';
-import {
-	bindDisabled,
-	bindViewProps,
-	View,
-	ViewProps,
-} from '../../common/view/view';
+import {bindDisabled, bindViewProps} from '../../common/view/reactive';
+import {View} from '../../common/view/view';
 import {Button} from './model/button';
 
 interface Config {

@@ -7,7 +7,7 @@ import {BindingTarget} from './common/binding/target';
 import {Constraint} from './common/constraint/constraint';
 import {ValueController} from './common/controller/value';
 import {Value} from './common/model/value';
-import {defaultViewProps, ViewProps} from './common/view/view';
+import {createViewProps, ViewProps} from './common/model/view-props';
 import {BasePlugin} from './plugin';
 
 interface BindingArguments<Ex> {
@@ -143,7 +143,7 @@ export function createController<In, Ex>(
 		initialValue: initialValue,
 		params: args.params,
 		value: binding.value,
-		viewProps: defaultViewProps({
+		viewProps: createViewProps({
 			disabled: args.params.disabled,
 		}),
 	});

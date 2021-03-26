@@ -1,6 +1,6 @@
 import {isEmpty} from '../../../misc/type-util';
 import {forceReflow, insertElementAt} from '../../common/dom-util';
-import {ViewProps} from '../../common/view/view';
+import {ViewProps} from '../../common/model/view-props';
 import {
 	BladeController,
 	setUpBladeController,

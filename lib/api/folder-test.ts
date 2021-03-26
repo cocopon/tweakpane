@@ -8,7 +8,7 @@ import {Blade} from '../plugin/blade/common/model/blade';
 import {FolderController} from '../plugin/blade/folder/controller';
 import {LabeledController} from '../plugin/blade/labeled/controller';
 import {SeparatorController} from '../plugin/blade/separator/controller';
-import {defaultViewProps} from '../plugin/common/view/view';
+import {createViewProps} from '../plugin/common/model/view-props';
 import {Color} from '../plugin/input-bindings/color/model/color';
 import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
 import {SingleLogMonitorController} from '../plugin/monitor-bindings/common/controller/single-log';
@@ -22,7 +22,7 @@ function createApi(): FolderApi {
 	const c = new FolderController(doc, {
 		blade: new Blade(),
 		title: 'Folder',
-		viewProps: defaultViewProps(),
+		viewProps: createViewProps(),
 	});
 	return new FolderApi(c);
 }

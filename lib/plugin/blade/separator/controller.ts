@@ -1,4 +1,4 @@
-import {ViewProps} from '../../common/view/view';
+import {ViewProps} from '../../common/model/view-props';
 import {
 	BladeController,
 	setUpBladeController,

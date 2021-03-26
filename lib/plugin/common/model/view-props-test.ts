@@ -1,9 +1,9 @@
 import {assert} from 'chai';
 import {describe, it as context, it} from 'mocha';
 
-import {defaultViewProps} from './view';
+import {createViewProps} from './view-props';
 
-describe(defaultViewProps.name, () => {
+describe(createViewProps.name, () => {
 	[
 		{
 			params: undefined,
@@ -36,7 +36,7 @@ describe(defaultViewProps.name, () => {
 	].forEach(({params, expected}) => {
 		context(`when ${JSON.stringify(params)}`, () => {
 			it('should set initial value', () => {
-				const p = defaultViewProps(params);
+				const p = createViewProps(params);
 				assert.strictEqual(p.get('disabled'), expected.disabled);
 				assert.strictEqual(p.get('hidden'), expected.hidden);
 			});

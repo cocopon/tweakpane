@@ -11,7 +11,7 @@ import {createNumberFormatter} from '../plugin/common/converter/number';
 import {numberFromUnknown} from '../plugin/common/converter/number';
 import {Buffer} from '../plugin/common/model/buffered-value';
 import {Value} from '../plugin/common/model/value';
-import {defaultViewProps} from '../plugin/common/view/view';
+import {createViewProps} from '../plugin/common/model/view-props';
 import {SingleLogMonitorController} from '../plugin/monitor-bindings/common/controller/single-log';
 import {MonitorBindingApi} from './monitor-binding';
 import {TpUpdateEvent} from './tp-event';
@@ -22,7 +22,7 @@ function createApi(target: BindingTarget) {
 	const mc = new SingleLogMonitorController(doc, {
 		formatter: createNumberFormatter(0),
 		value: value,
-		viewProps: defaultViewProps(),
+		viewProps: createViewProps(),
 	});
 	const bc = new MonitorBindingController(doc, {
 		binding: new MonitorBinding({

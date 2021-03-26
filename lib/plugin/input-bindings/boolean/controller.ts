@@ -1,7 +1,7 @@
 import {forceCast} from '../../../misc/type-util';
 import {ValueController} from '../../common/controller/value';
 import {Value} from '../../common/model/value';
-import {ViewProps} from '../../common/view/view';
+import {ViewProps} from '../../common/model/view-props';
 import {CheckboxView} from './view';
 
 /**

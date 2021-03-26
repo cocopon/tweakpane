@@ -16,4 +16,5 @@ export interface TickerEvents {
 export interface Ticker {
 	readonly disposable: Disposable;
 	readonly emitter: Emitter<TickerEvents>;
+	disabled: boolean;
 }
