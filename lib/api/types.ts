@@ -83,6 +83,7 @@ export type InputParams =
 
 export interface BaseMonitorParams extends BaseParams, LabelableParams {
 	bufferSize?: number;
+	disabled?: boolean;
 	interval?: number;
 	view?: string;
 }

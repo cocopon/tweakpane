@@ -26,6 +26,7 @@ export class SingleLogMonitorController<T>
 		this.view = new SingleLogView(doc, {
 			formatter: config.formatter,
 			value: this.value,
+			viewProps: this.viewProps,
 		});
 	}
 }

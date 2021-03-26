@@ -27,6 +27,7 @@ export class MultiLogController<T> implements ValueController<Buffer<T>> {
 			formatter: config.formatter,
 			lineCount: config.lineCount,
 			value: this.value,
+			viewProps: this.viewProps,
 		});
 	}
 }

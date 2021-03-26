@@ -11,6 +11,7 @@ import {Ticker} from './common/binding/ticker/ticker';
 import {ValueController} from './common/controller/value';
 import {BufferedValue, initializeBuffer} from './common/model/buffered-value';
 import {Buffer} from './common/model/buffered-value';
+import {createViewProps, ViewProps} from './common/model/view-props';
 import {BasePlugin} from './plugin';
 
 interface BindingArguments<T> {
@@ -23,6 +24,7 @@ interface ControllerArguments<T> {
 	document: Document;
 	params: MonitorParams;
 	value: BufferedValue<T>;
+	viewProps: ViewProps;
 }
 
 /**
@@ -129,6 +131,9 @@ export function createController<T>(
 			document: args.document,
 			params: args.params,
 			value: binding.value,
+			viewProps: createViewProps({
+				disabled: args.params.disabled,
+			}),
 		}),
 		label: args.params.label || args.target.key,
 		blade: blade,

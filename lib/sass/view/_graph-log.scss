@@ -25,6 +25,9 @@
 			transition: none;
 		}
 	}
+	&.#{$prefix}-v-disabled &_g {
+		opacity: 0.5;
+	}
 
 	.#{$prefix}-ttv {
 		background-color: var(--mo-fg);

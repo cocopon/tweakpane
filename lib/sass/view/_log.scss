@@ -4,6 +4,9 @@
 
 		padding: 0 4px;
 	}
+	&.#{$prefix}-v-disabled &_i {
+		opacity: 0.5;
+	}
 }
 
 .#{$prefix}-mllv {
@@ -16,5 +19,8 @@
 		padding: 0 4px;
 		resize: none;
 		white-space: pre;
+	}
+	&.#{$prefix}-v-disabled &_i {
+		opacity: 0.5;
 	}
 }

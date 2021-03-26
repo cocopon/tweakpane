@@ -1,12 +1,15 @@
 import {Formatter} from '../../../common/converter/formatter';
 import {BufferedValue} from '../../../common/model/buffered-value';
+import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
+import {bindViewProps} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 
 interface Config<T> {
 	formatter: Formatter<T>;
 	lineCount: number;
 	value: BufferedValue<T>;
+	viewProps: ViewProps;
 }
 
 const className = ClassName('mll');
@@ -27,6 +30,7 @@ export class MultiLogView<T> implements View {
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
+		bindViewProps(config.viewProps, this.element);
 
 		const textareaElem = doc.createElement('textarea');
 		textareaElem.classList.add(className('i'));

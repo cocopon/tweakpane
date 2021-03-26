@@ -1,6 +1,5 @@
 import {Constants} from '../../../misc/constants';
 import {formatString, stringFromUnknown} from '../../common/converter/string';
-import {createViewProps} from '../../common/model/view-props';
 import {MonitorBindingPlugin} from '../../monitor-binding';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogMonitorController} from '../common/controller/single-log';
@@ -24,14 +23,14 @@ export const StringMonitorPlugin: MonitorBindingPlugin<string> = {
 				formatter: formatString,
 				lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,
 				value: value,
-				viewProps: createViewProps(),
+				viewProps: args.viewProps,
 			});
 		}
 
 		return new SingleLogMonitorController(args.document, {
 			formatter: formatString,
 			value: value,
-			viewProps: createViewProps(),
+			viewProps: args.viewProps,
 		});
 	},
 };

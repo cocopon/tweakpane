@@ -47,6 +47,7 @@ export class GraphLogController implements ValueController<Buffer<number>> {
 			maxValue: config.maxValue,
 			minValue: config.minValue,
 			value: this.value,
+			viewProps: this.viewProps,
 		});
 
 		if (!supportsTouch(doc)) {

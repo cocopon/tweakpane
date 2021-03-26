@@ -32,11 +32,13 @@ function updateModifier(
 	};
 }
 
-function updateDisabled(
-	elem: HTMLButtonElement | HTMLInputElement | HTMLSelectElement,
-) {
+interface Disableable {
+	disabled: boolean;
+}
+
+function updateDisabled(target: Disableable) {
 	return (value: boolean) => {
-		elem.disabled = value;
+		target.disabled = value;
 	};
 }
 
@@ -52,12 +54,9 @@ export function bindViewProps(viewProps: ViewProps, elem: HTMLElement) {
 	updateModifier(elem, 'hidden')(viewProps.get('hidden'));
 }
 
-export function bindDisabled(
-	viewProps: ViewProps,
-	elem: HTMLButtonElement | HTMLInputElement | HTMLSelectElement,
-) {
+export function bindDisabled(viewProps: ViewProps, target: Disableable) {
 	viewProps
 		.valueEmitter('disabled')
-		.on('change', compose(extractValue, updateDisabled(elem)));
-	updateDisabled(elem)(viewProps.get('disabled'));
+		.on('change', compose(extractValue, updateDisabled(target)));
+	updateDisabled(target)(viewProps.get('disabled'));
 }
