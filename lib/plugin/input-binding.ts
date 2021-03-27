@@ -9,6 +9,7 @@ import {ValueController} from './common/controller/value';
 import {Value} from './common/model/value';
 import {createViewProps, ViewProps} from './common/model/view-props';
 import {BasePlugin} from './plugin';
+import {polyfillViewProps} from './util';
 
 interface BindingArguments<Ex> {
 	initialValue: Ex;
@@ -147,6 +148,7 @@ export function createController<In, Ex>(
 			disabled: args.params.disabled,
 		}),
 	});
+	polyfillViewProps(controller, plugin.id);
 
 	const blade = new Blade();
 	return new InputBindingController(args.document, {

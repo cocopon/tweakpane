@@ -110,7 +110,7 @@
 	// Separator
 	@include themeVariable('spr-fg', 'separator-color', rgba($color-exdark, 0.2));
 
-	// TODO: Remove outdated variables
+	// TODO: Remove outdated variables in the next major update
 	--button-background-color: var(--btn-bg);
 	--button-background-color-active: var(--btn-bg-a);
 	--button-background-color-focus: var(--btn-bg-f);
