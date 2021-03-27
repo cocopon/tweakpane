@@ -25,7 +25,7 @@ describe(NumberTextController.name, () => {
 
 		c.view.inputElement.dispatchEvent(
 			TestUtil.createKeyboardEvent(win, 'keydown', {
-				keyCode: 38,
+				key: 'ArrowUp',
 				shiftKey: true,
 			}),
 		);

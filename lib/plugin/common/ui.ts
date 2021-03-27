@@ -25,9 +25,9 @@ export function getStepForKey(baseStep: number, keys: StepKeys): number {
 export function getVerticalStepKeys(ev: KeyboardEvent): StepKeys {
 	return {
 		altKey: ev.altKey,
-		downKey: ev.keyCode === 40,
+		downKey: ev.key === 'ArrowDown',
 		shiftKey: ev.shiftKey,
-		upKey: ev.keyCode === 38,
+		upKey: ev.key === 'ArrowUp',
 	};
 }
 
@@ -37,22 +37,22 @@ export function getVerticalStepKeys(ev: KeyboardEvent): StepKeys {
 export function getHorizontalStepKeys(ev: KeyboardEvent): StepKeys {
 	return {
 		altKey: ev.altKey,
-		downKey: ev.keyCode === 37,
+		downKey: ev.key === 'ArrowLeft',
 		shiftKey: ev.shiftKey,
-		upKey: ev.keyCode === 39,
+		upKey: ev.key === 'ArrowRight',
 	};
 }
 
 /**
  * @hidden
  */
-export function isVerticalArrowKey(keyCode: number): boolean {
-	return keyCode === 38 || keyCode === 40;
+export function isVerticalArrowKey(key: string): boolean {
+	return key === 'ArrowUp' || key === 'ArrowDown';
 }
 
 /**
  * @hidden
  */
-export function isArrowKey(keyCode: number): boolean {
-	return isVerticalArrowKey(keyCode) || keyCode === 37 || keyCode === 39;
+export function isArrowKey(key: string): boolean {
+	return isVerticalArrowKey(key) || key === 'ArrowLeft' || key === 'ArrowRight';
 }

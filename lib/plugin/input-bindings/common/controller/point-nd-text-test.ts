@@ -42,7 +42,7 @@ describe(PointNdTextController.name, () => {
 
 		c.view.textViews[1].inputElement.dispatchEvent(
 			TestUtil.createKeyboardEvent(win, 'keydown', {
-				keyCode: 38,
+				key: 'ArrowUp',
 				shiftKey: true,
 			}),
 		);

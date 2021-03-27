@@ -144,7 +144,7 @@ export class ColorPickerController implements ValueController<Color> {
 	}
 
 	private onKeyDown_(ev: KeyboardEvent): void {
-		if (ev.keyCode === 27) {
+		if (ev.key === 'Escape') {
 			this.foldable.expanded = false;
 		}
 	}

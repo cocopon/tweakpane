@@ -5,33 +5,13 @@ import {TestUtil} from '../../../../misc/test-util';
 import {parseNumber} from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
 import {createViewProps} from '../../../common/model/view-props';
-import {Color, RgbaColorObject} from '../model/color';
+import {Color} from '../model/color';
+import {ColorComponents3} from '../model/color-model';
 import {PickedColor} from '../model/picked-color';
 import {ColorTextController} from './color-text';
 
-interface ChangeTestCase {
-	expected: RgbaColorObject;
-	params: {
-		components: [number, number, number];
-		index: number;
-		value: string;
-	};
-}
-
-interface KeydownTestCase {
-	expected: RgbaColorObject;
-	params: {
-		components: [number, number, number];
-		index: number;
-		keys: {
-			code: number;
-			shift: boolean;
-		};
-	};
-}
-
 describe(ColorTextController.name, () => {
-	([
+	[
 		{
 			expected: {r: 123, g: 0, b: 0, a: 1},
 			params: {
@@ -56,12 +36,14 @@ describe(ColorTextController.name, () => {
 				value: '0',
 			},
 		},
-	] as ChangeTestCase[]).forEach((testCase) => {
+	].forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should change component values to ${JSON.stringify(
 				testCase.expected,
 			)}`, (done) => {
-				const value = new Value(new Color(testCase.params.components, 'rgb'));
+				const value = new Value(
+					new Color(testCase.params.components as ColorComponents3, 'rgb'),
+				);
 				value.emitter.on('change', () => {
 					assert.deepStrictEqual(
 						value.rawValue.toRgbaObject(),
@@ -85,14 +67,14 @@ describe(ColorTextController.name, () => {
 		});
 	});
 
-	([
+	[
 		{
 			expected: {r: 1, g: 0, b: 0, a: 1},
 			params: {
 				components: [0, 0, 0],
 				index: 0,
 				keys: {
-					code: 38,
+					key: 'ArrowUp',
 					shift: false,
 				},
 			},
@@ -103,7 +85,7 @@ describe(ColorTextController.name, () => {
 				components: [0, 100, 0],
 				index: 1,
 				keys: {
-					code: 40,
+					key: 'ArrowDown',
 					shift: false,
 				},
 			},
@@ -114,17 +96,19 @@ describe(ColorTextController.name, () => {
 				components: [0, 0, 200],
 				index: 2,
 				keys: {
-					code: 38,
+					key: 'ArrowUp',
 					shift: true,
 				},
 			},
 		},
-	] as KeydownTestCase[]).forEach((testCase) => {
+	].forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should change component values to ${JSON.stringify(
 				testCase.expected,
 			)}`, (done) => {
-				const value = new Value(new Color(testCase.params.components, 'rgb'));
+				const value = new Value(
+					new Color(testCase.params.components as ColorComponents3, 'rgb'),
+				);
 				value.emitter.on('change', () => {
 					assert.deepStrictEqual(
 						value.rawValue.toRgbaObject(),
@@ -144,7 +128,7 @@ describe(ColorTextController.name, () => {
 				const inputElem = c.view.textViews[testCase.params.index].inputElement;
 				inputElem.dispatchEvent(
 					TestUtil.createKeyboardEvent(win, 'keydown', {
-						keyCode: testCase.params.keys.code,
+						key: testCase.params.keys.key,
 						shiftKey: !!testCase.params.keys.shift,
 					}),
 				);
