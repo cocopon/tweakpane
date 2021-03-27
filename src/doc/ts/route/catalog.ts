@@ -1,9 +1,37 @@
+import {toCss} from 'ts/panepaint';
+import {createTheme, ThemeId} from 'ts/themes';
 import Tweakpane from 'tweakpane';
 
 import {selectContainer, wave} from '../util';
 
+function createThemePane(container: HTMLElement): Tweakpane {
+	const pane = new Tweakpane({
+		container: container,
+		title: 'Theme',
+	});
+	pane.addInput({text: 0}, 'text');
+	pane.addInput({slider: 0}, 'slider', {
+		min: -1,
+		max: 1,
+	});
+	pane.addButton({title: 'Button'});
+	return pane;
+}
+
 export function initCatalog() {
 	const disabled = location.search.includes('disabled');
+
+	if (location.search.includes('readme')) {
+		// Preparing for readme images
+		document.documentElement.classList.add('readme');
+	}
+
+	(['jetblack', 'iceberg', 'light'] as ThemeId[]).forEach((id: ThemeId) => {
+		const theme = createTheme(id);
+		const elem = document.createElement('style');
+		elem.textContent = toCss(`*[data-pane-${id}theme]`, theme);
+		document.head.appendChild(elem);
+	});
 
 	const markerToFnMap: {
 		[key: string]: (container: HTMLElement) => void;
@@ -69,7 +97,7 @@ export function initCatalog() {
 		},
 		colorinput: (container) => {
 			const params = {
-				color: '#f00',
+				color: '#ff00007f',
 			};
 			const pane = new Tweakpane({
 				container: container,
@@ -92,15 +120,15 @@ export function initCatalog() {
 			});
 			pane.addInput(params, 'p2d', {
 				disabled: disabled,
-				label: 'picker',
+				label: '2d-picker',
 			});
 			pane.addInput(params, 'p3d', {
 				disabled: disabled,
-				label: 'text',
+				label: '3d-text',
 			});
 			pane.addInput(params, 'p4d', {
 				disabled: disabled,
-				label: 'text',
+				label: '4d-text',
 			});
 		},
 		numbermonitor: (container) => {
@@ -204,11 +232,11 @@ export function initCatalog() {
 			});
 			pane.addButton({
 				disabled: disabled,
+				label: 'label',
 				title: 'Button',
 			});
 			pane.addButton({
 				disabled: disabled,
-				label: 'label',
 				title: 'Button',
 			});
 		},
@@ -220,6 +248,15 @@ export function initCatalog() {
 			pane.addInput({param: 0}, 'param', {disabled: disabled});
 			pane.addSeparator();
 			pane.addInput({param: 0}, 'param', {disabled: disabled});
+		},
+		icebergtheme: (container) => {
+			createThemePane(container);
+		},
+		jetblacktheme: (container) => {
+			createThemePane(container);
+		},
+		lighttheme: (container) => {
+			createThemePane(container);
 		},
 	};
 	Object.keys(markerToFnMap).forEach((marker) => {

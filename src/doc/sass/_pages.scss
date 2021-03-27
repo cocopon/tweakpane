@@ -40,3 +40,16 @@
 		}
 	}
 }
+
+:root.catalog.readme {
+	.main_menuLayout {
+		display: none;
+	}
+	.main_wrapLayout {
+		max-width: 1088px;
+	}
+	.paneCatalog {
+		border-radius: 0;
+		padding: 64px;
+	}
+}
