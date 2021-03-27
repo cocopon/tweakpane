@@ -2,7 +2,7 @@ import {Formatter} from '../../../common/converter/formatter';
 import {BufferedValue} from '../../../common/model/buffered-value';
 import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
-import {bindViewProps} from '../../../common/view/reactive';
+import {bindClassModifier, bindDisabled} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 
 interface Config<T> {
@@ -29,12 +29,13 @@ export class SingleLogView<T> implements View {
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
-		bindViewProps(config.viewProps, this.element);
+		bindClassModifier(config.viewProps, this.element);
 
 		const inputElem = doc.createElement('input');
 		inputElem.classList.add(className('i'));
 		inputElem.readOnly = true;
 		inputElem.type = 'text';
+		bindDisabled(config.viewProps, inputElem);
 		this.element.appendChild(inputElem);
 		this.inputElem_ = inputElem;
 

@@ -42,6 +42,7 @@ export class SvPaletteController implements ValueController<Color> {
 
 		this.view = new SvPaletteView(doc, {
 			value: this.value,
+			viewProps: this.viewProps,
 		});
 
 		this.ptHandler_ = new PointerHandler(this.view.element);

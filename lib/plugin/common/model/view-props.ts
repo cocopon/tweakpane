@@ -1,6 +1,6 @@
 import {ValueMap, ValueMapEvents} from './value-map';
 
-interface ViewPropsObject extends Record<string, unknown> {
+export interface ViewPropsObject extends Record<string, unknown> {
 	disabled: boolean;
 	hidden: boolean;
 }

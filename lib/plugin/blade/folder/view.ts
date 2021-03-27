@@ -1,6 +1,6 @@
 import {ViewProps} from '../../common/model/view-props';
 import {ClassName} from '../../common/view/class-name';
-import {bindDisabled, bindViewProps} from '../../common/view/reactive';
+import {bindClassModifier, bindDisabled} from '../../common/view/reactive';
 import {View} from '../../common/view/view';
 import {Folder} from './model/folder';
 
@@ -31,7 +31,7 @@ export class FolderView implements View {
 		this.className_ = ClassName(config.viewName || 'fld');
 		this.element = doc.createElement('div');
 		this.element.classList.add(this.className_());
-		bindViewProps(config.viewProps, this.element);
+		bindClassModifier(config.viewProps, this.element);
 
 		const titleElem = doc.createElement('button');
 		titleElem.classList.add(this.className_('t'));

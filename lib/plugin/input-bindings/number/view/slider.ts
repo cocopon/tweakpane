@@ -3,7 +3,7 @@ import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {constrainRange, mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
-import {bindViewProps} from '../../../common/view/reactive';
+import {bindClassModifier, bindTabIndex} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 
 export type SliderProps = ValueMap<{
@@ -37,11 +37,11 @@ export class SliderView implements View {
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
-		bindViewProps(config.viewProps, this.element);
+		bindClassModifier(config.viewProps, this.element);
 
 		const trackElem = doc.createElement('div');
 		trackElem.classList.add(className('t'));
-		trackElem.tabIndex = 0;
+		bindTabIndex(config.viewProps, trackElem);
 		this.element.appendChild(trackElem);
 		this.trackElement = trackElem;
 

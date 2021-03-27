@@ -1,7 +1,7 @@
 import {createSvgIconElement} from '../../../common/dom-util';
 import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
-import {bindDisabled, bindViewProps} from '../../../common/view/reactive';
+import {bindClassModifier, bindDisabled} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {PointNdTextView} from '../../common/view/point-nd-text';
 import {Point2dPadView} from './point-2d-pad';
@@ -26,7 +26,7 @@ export class Point2dPadTextView implements View {
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
-		bindViewProps(config.viewProps, this.element);
+		bindClassModifier(config.viewProps, this.element);
 
 		const padWrapperElem = doc.createElement('div');
 		padWrapperElem.classList.add(className('w'));
