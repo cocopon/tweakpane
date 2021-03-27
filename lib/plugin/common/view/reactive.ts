@@ -42,6 +42,12 @@ function updateDisabled(target: Disableable) {
 	};
 }
 
+function updateTabIndex(target: HTMLOrSVGElement) {
+	return (disabled: boolean) => {
+		target.tabIndex = disabled ? -1 : 0;
+	};
+}
+
 export function bindViewProps(viewProps: ViewProps, elem: HTMLElement) {
 	viewProps
 		.valueEmitter('disabled')
@@ -59,4 +65,11 @@ export function bindDisabled(viewProps: ViewProps, target: Disableable) {
 		.valueEmitter('disabled')
 		.on('change', compose(extractValue, updateDisabled(target)));
 	updateDisabled(target)(viewProps.get('disabled'));
+}
+
+export function bindTabIndex(viewProps: ViewProps, elem: HTMLOrSVGElement) {
+	viewProps
+		.valueEmitter('disabled')
+		.on('change', compose(extractValue, updateTabIndex(elem)));
+	updateTabIndex(elem)(viewProps.get('disabled'));
 }

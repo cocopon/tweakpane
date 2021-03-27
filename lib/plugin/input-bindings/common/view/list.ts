@@ -3,7 +3,7 @@ import {createSvgIconElement} from '../../../common/dom-util';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
-import {bindViewProps} from '../../../common/view/reactive';
+import {bindDisabled, bindViewProps} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 
 interface Config<T> {
@@ -22,18 +22,16 @@ export class ListView<T> implements View {
 	public readonly selectElement: HTMLSelectElement;
 	public readonly element: HTMLElement;
 	private readonly value_: Value<T>;
-	private readonly viewProps_: ViewProps;
 	private stringifyValue_: (value: T) => string;
 
 	constructor(doc: Document, config: Config<T>) {
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
 		this.stringifyValue_ = config.stringifyValue;
-		this.viewProps_ = config.viewProps;
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
-		bindViewProps(this.viewProps_, this.element);
+		bindViewProps(config.viewProps, this.element);
 
 		const selectElem = doc.createElement('select');
 		selectElem.classList.add(className('s'));
@@ -44,6 +42,7 @@ export class ListView<T> implements View {
 			optionElem.value = this.stringifyValue_(item.value);
 			selectElem.appendChild(optionElem);
 		});
+		bindDisabled(config.viewProps, selectElem);
 		this.element.appendChild(selectElem);
 		this.selectElement = selectElem;
 

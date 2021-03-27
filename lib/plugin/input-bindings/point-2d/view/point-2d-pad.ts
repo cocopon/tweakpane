@@ -1,16 +1,19 @@
 import {SVG_NS} from '../../../common/dom-util';
 import {Foldable} from '../../../common/model/foldable';
 import {Value} from '../../../common/model/value';
+import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
+import {bindTabIndex} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {Point2d} from '../model/point-2d';
 
 interface Config {
 	foldable: Foldable;
 	invertsY: boolean;
-	value: Value<Point2d>;
 	maxValue: number;
+	value: Value<Point2d>;
+	viewProps: ViewProps;
 }
 
 const className = ClassName('p2dpad');
@@ -43,8 +46,8 @@ export class Point2dPadView implements View {
 		this.element.classList.add(className());
 
 		const padElem = doc.createElement('div');
-		padElem.tabIndex = 0;
 		padElem.classList.add(className('p'));
+		bindTabIndex(config.viewProps, padElem);
 		this.element.appendChild(padElem);
 		this.padElement = padElem;
 

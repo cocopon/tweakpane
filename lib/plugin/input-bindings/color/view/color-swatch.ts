@@ -1,7 +1,7 @@
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
-import {bindViewProps} from '../../../common/view/reactive';
+import {bindDisabled, bindViewProps} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {colorToHexRgbaString} from '../converter/color-string';
 import {Color} from '../model/color';
@@ -42,6 +42,7 @@ export class ColorSwatchView implements View {
 
 		const buttonElem = doc.createElement('button');
 		buttonElem.classList.add(className('b'));
+		bindDisabled(config.viewProps, buttonElem);
 		this.element.appendChild(buttonElem);
 		this.buttonElement = buttonElem;
 

@@ -61,6 +61,7 @@ export class Point2dPadController implements ValueController<Point2d> {
 			invertsY: this.invertsY_,
 			maxValue: this.maxValue_,
 			value: this.value,
+			viewProps: this.viewProps,
 		});
 
 		this.ptHandler_ = new PointerHandler(this.view.padElement);

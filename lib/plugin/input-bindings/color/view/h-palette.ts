@@ -1,6 +1,8 @@
 import {Value} from '../../../common/model/value';
+import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
+import {bindTabIndex} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {colorToFunctionalRgbString} from '../converter/color-string';
 import {Color} from '../model/color';
@@ -9,6 +11,7 @@ const className = ClassName('hpl');
 
 interface Config {
 	value: Value<Color>;
+	viewProps: ViewProps;
 }
 
 /**
@@ -27,7 +30,7 @@ export class HPaletteView implements View {
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
-		this.element.tabIndex = 0;
+		bindTabIndex(config.viewProps, this.element);
 
 		const colorElem = doc.createElement('div');
 		colorElem.classList.add(className('c'));
