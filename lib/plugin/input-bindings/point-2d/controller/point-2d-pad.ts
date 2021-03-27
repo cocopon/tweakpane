@@ -108,7 +108,7 @@ export class Point2dPadController implements ValueController<Point2d> {
 	}
 
 	private onPadKeyDown_(ev: KeyboardEvent): void {
-		if (isArrowKey(ev.keyCode)) {
+		if (isArrowKey(ev.key)) {
 			ev.preventDefault();
 		}
 
@@ -141,7 +141,7 @@ export class Point2dPadController implements ValueController<Point2d> {
 	}
 
 	private onKeyDown_(ev: KeyboardEvent): void {
-		if (ev.keyCode === 27) {
+		if (ev.key === 'Escape') {
 			this.foldable.expanded = false;
 		}
 	}

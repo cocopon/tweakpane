@@ -79,7 +79,7 @@ export class SvPaletteController implements ValueController<Color> {
 	}
 
 	private onKeyDown_(ev: KeyboardEvent): void {
-		if (isArrowKey(ev.keyCode)) {
+		if (isArrowKey(ev.key)) {
 			ev.preventDefault();
 		}
 
