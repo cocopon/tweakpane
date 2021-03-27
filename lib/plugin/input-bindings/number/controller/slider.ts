@@ -1,5 +1,6 @@
 import {ValueController} from '../../../common/controller/value';
 import {Value} from '../../../common/model/value';
+import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
 import {getHorizontalStepKeys, getStepForKey} from '../../../common/ui';
 import {
@@ -13,6 +14,7 @@ interface Config {
 	baseStep: number;
 	props: SliderProps;
 	value: Value<number>;
+	viewProps: ViewProps;
 }
 
 /**
@@ -21,6 +23,7 @@ interface Config {
 export class SliderController implements ValueController<number> {
 	public readonly value: Value<number>;
 	public readonly view: SliderView;
+	public readonly viewProps: ViewProps;
 	private props_: SliderProps;
 	private ptHandler_: PointerHandler;
 	private baseStep_: number;
@@ -29,14 +32,16 @@ export class SliderController implements ValueController<number> {
 		this.onKeyDown_ = this.onKeyDown_.bind(this);
 		this.onPoint_ = this.onPoint_.bind(this);
 
-		this.value = config.value;
 		this.baseStep_ = config.baseStep;
+		this.value = config.value;
+		this.viewProps = config.viewProps;
 
 		this.props_ = config.props;
 
 		this.view = new SliderView(doc, {
 			props: this.props_,
 			value: this.value,
+			viewProps: this.viewProps,
 		});
 
 		this.ptHandler_ = new PointerHandler(this.view.trackElement);

@@ -20,4 +20,7 @@
 	&:active {
 		background-color: var(--in-bg-a);
 	}
+	&:disabled {
+		opacity: 0.5;
+	}
 }

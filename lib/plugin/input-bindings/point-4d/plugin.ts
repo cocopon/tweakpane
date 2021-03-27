@@ -8,7 +8,6 @@ import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../common/converter/number';
-import {Value} from '../../common/model/value';
 import {TpError} from '../../common/tp-error';
 import {InputBindingPlugin} from '../../input-binding';
 import {
@@ -69,22 +68,6 @@ function createAxis(
 	};
 }
 
-function createController(document: Document, value: Value<Point4d>) {
-	const c = value.constraint;
-	if (!(c instanceof PointNdConstraint)) {
-		throw TpError.shouldNeverHappen();
-	}
-
-	return new PointNdTextController(document, {
-		assembly: Point4dAssembly,
-		axes: value.rawValue
-			.getComponents()
-			.map((comp, index) => createAxis(comp, c.components[index])),
-		parser: parseNumber,
-		value: value,
-	});
-}
-
 /**
  * @hidden
  */
@@ -98,6 +81,20 @@ export const Point4dInputPlugin: InputBindingPlugin<Point4d, Point4dObject> = {
 		writer: (_args) => writePoint4d,
 	},
 	controller: (args) => {
-		return createController(args.document, args.value);
+		const value = args.value;
+		const c = value.constraint;
+		if (!(c instanceof PointNdConstraint)) {
+			throw TpError.shouldNeverHappen();
+		}
+
+		return new PointNdTextController(args.document, {
+			assembly: Point4dAssembly,
+			axes: value.rawValue
+				.getComponents()
+				.map((comp, index) => createAxis(comp, c.components[index])),
+			parser: parseNumber,
+			value: value,
+			viewProps: args.viewProps,
+		});
 	},
 };

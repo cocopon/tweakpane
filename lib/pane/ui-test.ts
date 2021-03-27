@@ -19,26 +19,6 @@ function createApi(title?: string): Tweakpane {
 }
 
 describe(Tweakpane.name, () => {
-	it('should add button', () => {
-		const pane = createApi();
-		const b = pane.addButton({
-			title: 'push',
-		});
-		assert.strictEqual(b.controller.valueController.button.title, 'push');
-	});
-
-	it('should add button with label', () => {
-		const pane = createApi();
-		const b = pane.addButton({
-			label: 'foobarlabel',
-			title: 'push',
-		});
-		assert.strictEqual(b.controller.valueController.button.title, 'push');
-		assert.isTrue(
-			b.controller.view.element.innerHTML.indexOf('foobarlabel') >= 0,
-		);
-	});
-
 	it('should add folder', () => {
 		const pane = createApi();
 		const f = pane.addFolder({

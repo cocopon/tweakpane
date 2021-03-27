@@ -1,6 +1,8 @@
 import {MonitorBinding} from '../../../common/binding/monitor';
 import {ValueController} from '../../../common/controller/value';
 import {Buffer} from '../../../common/model/buffered-value';
+import {ViewProps} from '../../../common/model/view-props';
+import {bindDisabled} from '../../../common/view/reactive';
 import {LabeledView} from '../../labeled/view';
 import {Blade} from '../model/blade';
 import {BladeController, setUpBladeController} from './blade';
@@ -24,20 +26,25 @@ export class MonitorBindingController<T> implements BladeController {
 	constructor(doc: Document, config: Config<T>) {
 		this.binding = config.binding;
 		this.controller = config.controller;
+		bindDisabled(this.viewProps, this.binding.ticker);
 
 		this.view = new LabeledView(doc, {
 			label: config.label,
+			viewProps: this.viewProps,
 		});
 		this.view.valueElement.appendChild(this.controller.view.element);
 
 		this.blade = config.blade;
-		this.blade.emitter.on('dispose', () => {
-			this.binding.dispose();
-		});
 		setUpBladeController(this);
 	}
 
+	get viewProps(): ViewProps {
+		return this.controller.viewProps;
+	}
+
 	public onDispose() {
+		this.binding.dispose();
+
 		if (this.controller.onDispose) {
 			this.controller.onDispose();
 		}

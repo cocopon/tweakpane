@@ -8,6 +8,7 @@ import {
 } from '../../../common/converter/number';
 import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
+import {createViewProps} from '../../../common/model/view-props';
 import {TextController} from './text';
 
 describe(TextController.name, () => {
@@ -20,6 +21,7 @@ describe(TextController.name, () => {
 				formatter: createNumberFormatter(2),
 			}),
 			value: value,
+			viewProps: createViewProps(),
 		});
 
 		assert.strictEqual(c.value, value);
@@ -35,6 +37,7 @@ describe(TextController.name, () => {
 				formatter: createNumberFormatter(2),
 			}),
 			value: value,
+			viewProps: createViewProps(),
 		});
 
 		c.view.inputElement.value = '3.14';

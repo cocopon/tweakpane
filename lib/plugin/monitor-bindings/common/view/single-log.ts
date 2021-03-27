@@ -1,11 +1,14 @@
 import {Formatter} from '../../../common/converter/formatter';
 import {BufferedValue} from '../../../common/model/buffered-value';
+import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
+import {bindViewProps} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 
 interface Config<T> {
 	formatter: Formatter<T>;
 	value: BufferedValue<T>;
+	viewProps: ViewProps;
 }
 
 const className = ClassName('sgl');
@@ -26,6 +29,7 @@ export class SingleLogView<T> implements View {
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
+		bindViewProps(config.viewProps, this.element);
 
 		const inputElem = doc.createElement('input');
 		inputElem.classList.add(className('i'));

@@ -1,7 +1,9 @@
 import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
+import {ViewProps} from '../../../common/model/view-props';
 import {constrainRange, mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
+import {bindViewProps} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 
 export type SliderProps = ValueMap<{
@@ -12,6 +14,7 @@ export type SliderProps = ValueMap<{
 interface Config {
 	props: SliderProps;
 	value: Value<number>;
+	viewProps: ViewProps;
 }
 
 const className = ClassName('sld');
@@ -34,6 +37,7 @@ export class SliderView implements View {
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
+		bindViewProps(config.viewProps, this.element);
 
 		const trackElem = doc.createElement('div');
 		trackElem.classList.add(className('t'));

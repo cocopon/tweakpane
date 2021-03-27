@@ -11,7 +11,9 @@ import {Ticker} from './common/binding/ticker/ticker';
 import {ValueController} from './common/controller/value';
 import {BufferedValue, initializeBuffer} from './common/model/buffered-value';
 import {Buffer} from './common/model/buffered-value';
+import {createViewProps, ViewProps} from './common/model/view-props';
 import {BasePlugin} from './plugin';
+import {polyfillViewProps} from './util';
 
 interface BindingArguments<T> {
 	initialValue: T;
@@ -23,6 +25,7 @@ interface ControllerArguments<T> {
 	document: Document;
 	params: MonitorParams;
 	value: BufferedValue<T>;
+	viewProps: ViewProps;
 }
 
 /**
@@ -122,14 +125,20 @@ export function createController<T>(
 		value: initializeBuffer<T>(bufferSize),
 	});
 
+	const controller = plugin.controller({
+		document: args.document,
+		params: args.params,
+		value: binding.value,
+		viewProps: createViewProps({
+			disabled: args.params.disabled,
+		}),
+	});
+	polyfillViewProps(controller, plugin.id);
+
 	const blade = new Blade();
 	return new MonitorBindingController(args.document, {
 		binding: binding,
-		controller: plugin.controller({
-			document: args.document,
-			params: args.params,
-			value: binding.value,
-		}),
+		controller: controller,
 		label: args.params.label || args.target.key,
 		blade: blade,
 	});

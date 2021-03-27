@@ -15,14 +15,7 @@ export function setUpBladeController(c: BladeController) {
 	const blade = c.blade;
 
 	blade.emitter.on('change', (ev: BladeEvents['change']) => {
-		if (ev.propertyName === 'hidden') {
-			const hiddenClass = className(undefined, 'hidden');
-			if (blade.hidden) {
-				elem.classList.add(hiddenClass);
-			} else {
-				elem.classList.remove(hiddenClass);
-			}
-		} else if (ev.propertyName === 'positions') {
+		if (ev.propertyName === 'positions') {
 			getAllBladePositions().forEach((pos) => {
 				elem.classList.remove(className(undefined, pos));
 			});

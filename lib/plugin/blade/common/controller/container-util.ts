@@ -7,7 +7,9 @@ import {BladePosition} from '../model/blade-positions';
 import {BladeRack} from '../model/blade-rack';
 
 export function updateAllItemsPositions(bladeRack: BladeRack): void {
-	const visibleItems = bladeRack.items.filter((bc) => !bc.blade.hidden);
+	const visibleItems = bladeRack.items.filter(
+		(bc) => !bc.viewProps.get('hidden'),
+	);
 	const firstVisibleItem = visibleItems[0];
 	const lastVisibleItem = visibleItems[visibleItems.length - 1];
 

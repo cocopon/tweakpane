@@ -8,9 +8,10 @@ import {Ticker, TickerEvents} from './ticker';
 export class IntervalTicker implements Ticker {
 	public readonly disposable: Disposable;
 	public readonly emitter: Emitter<TickerEvents>;
-	// private active_ = true;
+	private readonly interval_: number;
+	private disabled_ = false;
 	private doc_: Document;
-	private id_: number | null = null;
+	private timerId_: number | null = null;
 
 	constructor(doc: Document, interval: number) {
 		this.onTick_ = this.onTick_.bind(this);
@@ -19,15 +20,9 @@ export class IntervalTicker implements Ticker {
 
 		this.doc_ = doc;
 		this.emitter = new Emitter();
+		this.interval_ = interval;
 
-		if (interval <= 0) {
-			this.id_ = null;
-		} else {
-			const win = this.doc_.defaultView;
-			if (win) {
-				this.id_ = win.setInterval(this.onTick_, interval);
-			}
-		}
+		this.setTimer_();
 
 		// TODO: Stop on blur?
 		// const win = document.defaultView;
@@ -38,20 +33,52 @@ export class IntervalTicker implements Ticker {
 
 		this.disposable = new Disposable();
 		this.disposable.emitter.on('dispose', () => {
-			if (this.id_ !== null) {
-				const win = this.doc_.defaultView;
-				if (win) {
-					win.clearInterval(this.id_);
-				}
-			}
-			this.id_ = null;
+			this.clearTimer_();
 		});
 	}
 
+	get disabled() {
+		return this.disabled_;
+	}
+
+	set disabled(inactive: boolean) {
+		this.disabled_ = inactive;
+		if (this.disabled_) {
+			this.clearTimer_();
+		} else {
+			this.setTimer_();
+		}
+	}
+
+	private clearTimer_() {
+		if (this.timerId_ === null) {
+			return;
+		}
+
+		const win = this.doc_.defaultView;
+		if (win) {
+			win.clearInterval(this.timerId_);
+		}
+		this.timerId_ = null;
+	}
+
+	private setTimer_() {
+		this.clearTimer_();
+
+		if (this.interval_ <= 0) {
+			return;
+		}
+
+		const win = this.doc_.defaultView;
+		if (win) {
+			this.timerId_ = win.setInterval(this.onTick_, this.interval_);
+		}
+	}
+
 	private onTick_(): void {
-		// if (!this.active_) {
-		// 	return;
-		// }
+		if (this.disabled_) {
+			return;
+		}
 
 		this.emitter.emit('tick', {
 			sender: this,
@@ -59,10 +86,10 @@ export class IntervalTicker implements Ticker {
 	}
 
 	// private onWindowBlur_(): void {
-	// 	this.active_ = false;
+	// 	this.inactive = true;
 	// }
 
 	// private onWindowFocus_(): void {
-	// 	this.active_ = true;
+	// 	this.inactive = false;
 	// }
 }

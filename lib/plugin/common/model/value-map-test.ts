@@ -48,4 +48,18 @@ describe(ValueMap.name, () => {
 			m.set('foo', 'bar');
 		});
 	});
+
+	it('should return signle value emitter', (done) => {
+		const m = new ValueMap({
+			foo: 'bar',
+			baz: 'qux',
+		});
+
+		m.valueEmitter('baz').on('change', (ev) => {
+			assert.strictEqual(ev.value, 'changed');
+			assert.strictEqual(m.get('baz'), 'changed');
+			done();
+		});
+		m.set('baz', 'changed');
+	});
 });

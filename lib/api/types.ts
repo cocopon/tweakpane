@@ -28,6 +28,7 @@ export interface Point2dYParams extends PointDimensionParams {
 }
 
 export interface BaseInputParams extends BaseParams, LabelableParams {
+	disabled?: boolean;
 	presetKey?: string;
 	view?: string;
 }
@@ -82,6 +83,7 @@ export type InputParams =
 
 export interface BaseMonitorParams extends BaseParams, LabelableParams {
 	bufferSize?: number;
+	disabled?: boolean;
 	interval?: number;
 	view?: string;
 }
@@ -108,11 +110,14 @@ export type MonitorParams =
 
 export interface ButtonParams extends BaseParams, LabelableParams {
 	title: string;
+
+	disabled?: boolean;
 }
 
 export interface FolderParams extends BaseParams {
-	expanded?: boolean;
 	title: string;
+
+	expanded?: boolean;
 }
 
 export type SeparatorParams = BaseParams;

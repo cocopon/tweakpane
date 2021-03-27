@@ -3,6 +3,7 @@ import Tweakpane from 'tweakpane';
 import {ValueController} from 'tweakpane/lib/plugin/common/controller/value';
 import {stringFromUnknown} from 'tweakpane/lib/plugin/common/converter/string';
 import {Value} from 'tweakpane/lib/plugin/common/model/value';
+import {ViewProps} from 'tweakpane/lib/plugin/common/model/view-props';
 import {
 	equalsPrimitive,
 	writePrimitive,
@@ -41,9 +42,17 @@ class TestView implements View {
 class TestController implements ValueController<string> {
 	public readonly value: Value<string>;
 	public readonly view: TestView;
+	public readonly viewProps: ViewProps;
 
-	constructor(doc: Document, config: {value: Value<string>}) {
+	constructor(
+		doc: Document,
+		config: {
+			value: Value<string>;
+			viewProps: ViewProps;
+		},
+	) {
 		this.value = config.value;
+		this.viewProps = config.viewProps;
 
 		this.view = new TestView(doc, {
 			value: config.value,
@@ -70,6 +79,7 @@ class TestController implements ValueController<string> {
 			controller(args) {
 				return new TestController(args.document, {
 					value: args.value,
+					viewProps: args.viewProps,
 				});
 			},
 		} as InputBindingPlugin<string, string>,

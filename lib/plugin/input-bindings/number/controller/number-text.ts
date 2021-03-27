@@ -4,6 +4,7 @@ import {Formatter} from '../../../common/converter/formatter';
 import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
+import {ViewProps} from '../../../common/model/view-props';
 import {getStepForKey, getVerticalStepKeys} from '../../../common/ui';
 import {
 	PointerHandler,
@@ -17,6 +18,7 @@ interface Config {
 	formatter: Formatter<number>;
 	parser: Parser<number>;
 	value: Value<number>;
+	viewProps: ViewProps;
 
 	arrayPosition?: 'fst' | 'mid' | 'lst';
 }
@@ -27,6 +29,7 @@ interface Config {
 export class NumberTextController implements ValueController<number> {
 	public readonly value: Value<number>;
 	public readonly view: NumberTextView;
+	public readonly viewProps: ViewProps;
 	private baseStep_: number;
 	private parser_: Parser<number>;
 	private originRawValue_ = 0;
@@ -40,10 +43,11 @@ export class NumberTextController implements ValueController<number> {
 		this.onPointerMove_ = this.onPointerMove_.bind(this);
 		this.onPointerUp_ = this.onPointerUp_.bind(this);
 
-		this.parser_ = config.parser;
-		this.value = config.value;
 		this.baseStep_ = config.baseStep;
 		this.draggingScale_ = config.draggingScale;
+		this.parser_ = config.parser;
+		this.value = config.value;
+		this.viewProps = config.viewProps;
 
 		this.dragging_ = new Value<number | null>(null);
 		this.view = new NumberTextView(doc, {
@@ -54,6 +58,7 @@ export class NumberTextController implements ValueController<number> {
 				formatter: config.formatter,
 			}),
 			value: this.value,
+			viewProps: this.viewProps,
 		});
 		this.view.inputElement.addEventListener('change', this.onInputChange_);
 		this.view.inputElement.addEventListener('keydown', this.onInputKeyDown_);

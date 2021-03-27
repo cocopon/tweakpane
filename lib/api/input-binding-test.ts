@@ -12,6 +12,7 @@ import {
 } from '../plugin/common/converter/number';
 import {numberFromUnknown} from '../plugin/common/converter/number';
 import {Value} from '../plugin/common/model/value';
+import {createViewProps} from '../plugin/common/model/view-props';
 import {writePrimitive} from '../plugin/common/primitive';
 import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
 import {InputBindingApi} from './input-binding';
@@ -26,6 +27,7 @@ function createApi(target: BindingTarget) {
 		formatter: createNumberFormatter(0),
 		parser: parseNumber,
 		value: value,
+		viewProps: createViewProps(),
 	});
 	const bc = new InputBindingController(doc, {
 		binding: new InputBinding({
@@ -81,7 +83,7 @@ describe(InputBindingApi.name, () => {
 		assert.strictEqual(api.controller.binding.value.rawValue, 123);
 	});
 
-	it('should hide', () => {
+	it('should be hidden', () => {
 		const PARAMS = {
 			foo: 0,
 		};
@@ -91,6 +93,19 @@ describe(InputBindingApi.name, () => {
 		api.hidden = true;
 		assert.isTrue(
 			api.controller.view.element.classList.contains('tp-v-hidden'),
+		);
+	});
+
+	it('should be disabled', () => {
+		const PARAMS = {
+			foo: 0,
+		};
+		const api = createApi(new BindingTarget(PARAMS, 'foo'));
+		assert.strictEqual(api.disabled, false);
+
+		api.disabled = true;
+		assert.isTrue(
+			api.controller.view.element.classList.contains('tp-v-disabled'),
 		);
 	});
 });

@@ -1,5 +1,6 @@
 import {InputBinding} from '../../../common/binding/input';
 import {ValueController} from '../../../common/controller/value';
+import {ViewProps} from '../../../common/model/view-props';
 import {LabeledView} from '../../labeled/view';
 import {Blade} from '../model/blade';
 import {BladeController, setUpBladeController} from './blade';
@@ -26,11 +27,16 @@ export class InputBindingController<In> implements BladeController {
 
 		this.view = new LabeledView(doc, {
 			label: config.label,
+			viewProps: this.viewProps,
 		});
 		this.view.valueElement.appendChild(this.controller.view.element);
 
 		this.blade = config.blade;
 		setUpBladeController(this);
+	}
+
+	get viewProps(): ViewProps {
+		return this.controller.viewProps;
 	}
 
 	public onDispose() {

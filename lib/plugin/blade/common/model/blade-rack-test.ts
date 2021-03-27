@@ -11,6 +11,7 @@ import {boolFromUnknown} from '../../../common/converter/boolean';
 import {stringFromUnknown} from '../../../common/converter/string';
 import {Buffer} from '../../../common/model/buffered-value';
 import {Value} from '../../../common/model/value';
+import {createViewProps} from '../../../common/model/view-props';
 import {writePrimitive} from '../../../common/primitive';
 import {CheckboxController} from '../../../input-bindings/boolean/controller';
 import {SingleLogMonitorController} from '../../../monitor-bindings/common/controller/single-log';
@@ -34,6 +35,7 @@ function createInputBindingController(
 		binding: b,
 		controller: new CheckboxController(doc, {
 			value: b.value,
+			viewProps: createViewProps(),
 		}),
 		label: '',
 	});
@@ -54,6 +56,7 @@ function createMonitorBindingController(
 		controller: new SingleLogMonitorController(doc, {
 			formatter: (v) => String(v),
 			value: b.value,
+			viewProps: createViewProps(),
 		}),
 		label: '',
 	});
@@ -63,6 +66,7 @@ function createFolderController(doc: Document): FolderController {
 	return new FolderController(doc, {
 		blade: new Blade(),
 		title: 'folder',
+		viewProps: createViewProps(),
 	});
 }
 
@@ -167,7 +171,7 @@ describe(BladeRack.name, () => {
 			done();
 		});
 
-		bc.blade.hidden = !bc.blade.hidden;
+		bc.viewProps.set('hidden', !bc.viewProps.get('hidden'));
 	});
 
 	it('should handle folder fold', (done) => {
@@ -242,7 +246,7 @@ describe(BladeRack.name, () => {
 		rack.emitter.on('layout', () => {
 			count += 1;
 		});
-		bc.blade.hidden = !bc.blade.hidden;
+		bc.viewProps.set('hidden', !bc.viewProps.get('hidden'));
 
 		assert.isTrue(count > 0);
 	});

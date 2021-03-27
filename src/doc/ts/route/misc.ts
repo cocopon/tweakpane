@@ -1,6 +1,6 @@
 import Tweakpane from 'tweakpane';
 
-import {selectContainer} from '../util';
+import {selectContainer, wave} from '../util';
 
 export function initMisc() {
 	const IMEX_PARAMS = {
@@ -261,6 +261,45 @@ export function initMisc() {
 				})
 				.on('click', () => {
 					f.hidden = !f.hidden;
+				});
+		},
+
+		disabled: (container) => {
+			let wavet = 0;
+			const PARAMS = {
+				input: 1,
+				monitor: 0,
+			};
+			setInterval(() => {
+				PARAMS.monitor = wave(wavet);
+				wavet += 1;
+			}, 200);
+
+			const pane = new Tweakpane({
+				container: container,
+			});
+
+			pane.addSeparator();
+			const i = pane.addInput(PARAMS, 'input', {
+				disabled: true,
+			});
+			const m = pane.addMonitor(PARAMS, 'monitor', {
+				disabled: true,
+			});
+			const btn = pane.addButton({
+				disabled: true,
+				title: 'Button',
+			});
+			pane
+				.addButton({
+					index: 0,
+					label: 'disabled',
+					title: 'Toggle',
+				})
+				.on('click', () => {
+					i.disabled = !i.disabled;
+					m.disabled = !m.disabled;
+					btn.disabled = !btn.disabled;
 				});
 		},
 	};

@@ -5,6 +5,7 @@ import {createNumberFormatter} from '../../../common/converter/number';
 import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
 import {connectValues} from '../../../common/model/value-sync';
+import {ViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from '../../number/controller/number-text';
 import {Color} from '../model/color';
 import {
@@ -19,6 +20,7 @@ import {ColorTextView} from '../view/color-text';
 interface Config {
 	parser: Parser<number>;
 	pickedColor: PickedColor;
+	viewProps: ViewProps;
 }
 
 const FORMATTER = createNumberFormatter(0);
@@ -46,6 +48,7 @@ function createComponentController(
 	config: {
 		colorMode: ColorMode;
 		parser: Parser<number>;
+		viewProps: ViewProps;
 	},
 	index: number,
 ): NumberTextController {
@@ -58,6 +61,7 @@ function createComponentController(
 		value: new Value(0, {
 			constraint: MODE_TO_CONSTRAINT_MAP[config.colorMode](index),
 		}),
+		viewProps: config.viewProps,
 	});
 }
 
@@ -67,6 +71,7 @@ function createComponentController(
 export class ColorTextController implements ValueController<Color> {
 	public readonly pickedColor: PickedColor;
 	public readonly view: ColorTextView;
+	public readonly viewProps: ViewProps;
 	private parser_: Parser<number>;
 	private ccs_: [
 		NumberTextController,
@@ -79,6 +84,7 @@ export class ColorTextController implements ValueController<Color> {
 
 		this.parser_ = config.parser;
 		this.pickedColor = config.pickedColor;
+		this.viewProps = config.viewProps;
 
 		this.ccs_ = this.createComponentControllers_(doc);
 
@@ -102,6 +108,7 @@ export class ColorTextController implements ValueController<Color> {
 		const cc = {
 			colorMode: this.pickedColor.mode,
 			parser: this.parser_,
+			viewProps: this.viewProps,
 		};
 		const ccs: [
 			NumberTextController,

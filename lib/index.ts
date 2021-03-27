@@ -5,6 +5,7 @@ import {TweakpaneConfig} from './pane/tweakpane-config';
 import {Blade} from './plugin/blade/common/model/blade';
 import {RootController} from './plugin/blade/folder/root';
 import {getWindowDocument} from './plugin/common/dom-util';
+import {createViewProps} from './plugin/common/model/view-props';
 import {TpError} from './plugin/common/tp-error';
 import {ClassName} from './plugin/common/view/class-name';
 import {InputBindingPlugin} from './plugin/input-binding';
@@ -65,6 +66,7 @@ export default class Tweakpane extends RootApi {
 			expanded: config.expanded,
 			blade: new Blade(),
 			title: config.title,
+			viewProps: createViewProps(),
 		});
 		super(rootController);
 

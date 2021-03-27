@@ -2,6 +2,7 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
+import {createViewProps} from '../../../common/model/view-props';
 import {View} from '../../../common/view/view';
 import {Blade} from '../model/blade';
 import {BladeController, setUpBladeController} from './blade';
@@ -19,6 +20,7 @@ class TestView implements View {
 class TestController implements BladeController {
 	public readonly blade: Blade;
 	public readonly view: TestView;
+	public readonly viewProps = createViewProps();
 
 	constructor(doc: Document) {
 		this.blade = new Blade();
@@ -27,18 +29,7 @@ class TestController implements BladeController {
 	}
 }
 
-describe('BladeController', () => {
-	it('should apply hidden', () => {
-		const doc = TestUtil.createWindow().document;
-		const c = new TestController(doc);
-		const [m, v] = [c.blade, c.view];
-		assert.isNotTrue(v.element.classList.contains('tp-v-hidden'));
-		m.hidden = true;
-		assert.isTrue(v.element.classList.contains('tp-v-hidden'));
-		m.hidden = false;
-		assert.isNotTrue(v.element.classList.contains('tp-v-hidden'));
-	});
-
+describe(setUpBladeController.name, () => {
 	it('should apply view position', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TestController(doc);

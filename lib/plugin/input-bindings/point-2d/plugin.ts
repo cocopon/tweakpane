@@ -11,7 +11,6 @@ import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../common/converter/number';
-import {Value} from '../../common/model/value';
 import {TpError} from '../../common/tp-error';
 import {InputBindingPlugin} from '../../input-binding';
 import {
@@ -103,28 +102,6 @@ function createAxis(
 	};
 }
 
-function createController(
-	document: Document,
-	value: Value<Point2d>,
-	invertsY: boolean,
-) {
-	const c = value.constraint;
-	if (!(c instanceof PointNdConstraint)) {
-		throw TpError.shouldNeverHappen();
-	}
-
-	return new Point2dPadTextController(document, {
-		axes: [
-			createAxis(value.rawValue.x, c.components[0]),
-			createAxis(value.rawValue.y, c.components[1]),
-		],
-		invertsY: invertsY,
-		maxValue: getSuitableMaxValue(value.rawValue, value.constraint),
-		parser: parseNumber,
-		value: value,
-	});
-}
-
 function shouldInvertY(params: InputParams): boolean {
 	if (!('y' in params)) {
 		return false;
@@ -151,10 +128,23 @@ export const Point2dInputPlugin: InputBindingPlugin<Point2d, Point2dObject> = {
 		writer: (_args) => writePoint2d,
 	},
 	controller: (args) => {
-		return createController(
-			args.document,
-			args.value,
-			shouldInvertY(args.params),
-		);
+		const doc = args.document;
+		const value = args.value;
+		const c = value.constraint;
+		if (!(c instanceof PointNdConstraint)) {
+			throw TpError.shouldNeverHappen();
+		}
+
+		return new Point2dPadTextController(doc, {
+			axes: [
+				createAxis(value.rawValue.x, c.components[0]),
+				createAxis(value.rawValue.y, c.components[1]),
+			],
+			invertsY: shouldInvertY(args.params),
+			maxValue: getSuitableMaxValue(value.rawValue, value.constraint),
+			parser: parseNumber,
+			value: value,
+			viewProps: args.viewProps,
+		});
 	},
 };

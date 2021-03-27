@@ -2,6 +2,7 @@ import {forceCast, isEmpty} from '../../../../misc/type-util';
 import {ValueController} from '../../../common/controller/value';
 import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
+import {ViewProps} from '../../../common/model/view-props';
 import {TextProps, TextView} from '../view/text';
 
 /**
@@ -11,6 +12,7 @@ export interface Config<T> {
 	props: TextProps<T>;
 	parser: Parser<T>;
 	value: Value<T>;
+	viewProps: ViewProps;
 }
 
 /**
@@ -19,6 +21,7 @@ export interface Config<T> {
 export class TextController<T> implements ValueController<T> {
 	public readonly value: Value<T>;
 	public readonly view: TextView<T>;
+	public readonly viewProps: ViewProps;
 	private parser_: Parser<T>;
 
 	constructor(doc: Document, config: Config<T>) {
@@ -26,10 +29,12 @@ export class TextController<T> implements ValueController<T> {
 
 		this.parser_ = config.parser;
 		this.value = config.value;
+		this.viewProps = config.viewProps;
 
 		this.view = new TextView(doc, {
 			props: config.props,
 			value: this.value,
+			viewProps: this.viewProps,
 		});
 		this.view.inputElement.addEventListener('change', this.onInputChange_);
 	}

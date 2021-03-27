@@ -17,6 +17,9 @@
 		padding-left: 4px;
 		padding-right: 16px;
 	}
+	&.#{$prefix}-v-disabled &_l {
+		opacity: 0.5;
+	}
 	&_v {
 		align-self: flex-start;
 		flex-grow: 0;

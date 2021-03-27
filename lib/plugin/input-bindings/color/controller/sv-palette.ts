@@ -1,5 +1,6 @@
 import {ValueController} from '../../../common/controller/value';
 import {Value} from '../../../common/model/value';
+import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
 import {
 	getHorizontalStepKeys,
@@ -18,6 +19,7 @@ import {SvPaletteView} from '../view/sv-palette';
 
 interface Config {
 	value: Value<Color>;
+	viewProps: ViewProps;
 }
 
 /**
@@ -26,6 +28,7 @@ interface Config {
 export class SvPaletteController implements ValueController<Color> {
 	public readonly value: Value<Color>;
 	public readonly view: SvPaletteView;
+	public readonly viewProps: ViewProps;
 	private ptHandler_: PointerHandler;
 
 	constructor(doc: Document, config: Config) {
@@ -35,6 +38,7 @@ export class SvPaletteController implements ValueController<Color> {
 		this.onPointerUp_ = this.onPointerUp_.bind(this);
 
 		this.value = config.value;
+		this.viewProps = config.viewProps;
 
 		this.view = new SvPaletteView(doc, {
 			value: this.value,

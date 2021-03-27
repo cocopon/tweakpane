@@ -2,6 +2,7 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../misc/test-util';
+import {createViewProps} from '../../common/model/view-props';
 import {ButtonController} from '../button/controller/button';
 import {BladeController} from '../common/controller/blade';
 import {Blade} from '../common/model/blade';
@@ -14,6 +15,7 @@ function createSomeBladeController(doc: Document): BladeController {
 		blade: new Blade(),
 		valueController: new ButtonController(doc, {
 			title: 'Foobar',
+			viewProps: createViewProps(),
 		}),
 	});
 }
@@ -24,6 +26,7 @@ describe(FolderController.name, () => {
 		const c = new FolderController(doc, {
 			title: 'Push',
 			blade: new Blade(),
+			viewProps: createViewProps(),
 		});
 
 		assert.strictEqual(c.folder.expanded, true);
@@ -44,6 +47,7 @@ describe(FolderController.name, () => {
 		const c = new FolderController(doc, {
 			title: 'Push',
 			blade: new Blade(),
+			viewProps: createViewProps(),
 		});
 		const bc = createSomeBladeController(doc);
 		c.bladeRack.add(bc);
@@ -58,11 +62,13 @@ describe(FolderController.name, () => {
 		const c = new FolderController(doc, {
 			title: 'Folder',
 			blade: new Blade(),
+			viewProps: createViewProps(),
 		});
 
 		const sc = new FolderController(doc, {
 			title: 'Subfolder',
 			blade: new Blade(),
+			viewProps: createViewProps(),
 		});
 		c.bladeRack.add(sc);
 
@@ -76,6 +82,7 @@ describe(FolderController.name, () => {
 		const c = new FolderController(doc, {
 			title: '',
 			blade: new Blade(),
+			viewProps: createViewProps(),
 		});
 
 		const bcs = [
@@ -98,10 +105,12 @@ describe(FolderController.name, () => {
 		const c = new FolderController(doc, {
 			title: '',
 			blade: new Blade(),
+			viewProps: createViewProps(),
 		});
 		const sc = new FolderController(doc, {
 			title: '',
 			blade: new Blade(),
+			viewProps: createViewProps(),
 		});
 		c.bladeRack.add(sc);
 		const bc = createSomeBladeController(doc);

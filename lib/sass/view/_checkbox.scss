@@ -51,4 +51,7 @@
 	&_i:checked + &_w svg {
 		opacity: 1;
 	}
+	&.#{$prefix}-v-disabled &_w {
+		opacity: 0.5;
+	}
 }

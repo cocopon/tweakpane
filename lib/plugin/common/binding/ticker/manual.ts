@@ -8,6 +8,7 @@ import {Ticker, TickerEvents} from './ticker';
 export class ManualTicker implements Ticker {
 	public readonly disposable: Disposable;
 	public readonly emitter: Emitter<TickerEvents>;
+	public disabled = false;
 
 	constructor() {
 		this.disposable = new Disposable();
@@ -15,6 +16,10 @@ export class ManualTicker implements Ticker {
 	}
 
 	public tick(): void {
+		if (this.disabled) {
+			return;
+		}
+
 		this.emitter.emit('tick', {
 			sender: this,
 		});

@@ -7,7 +7,6 @@ import {Constraint} from '../../common/constraint/constraint';
 import {ListConstraint} from '../../common/constraint/list';
 import {boolToString} from '../../common/converter/boolean';
 import {boolFromUnknown} from '../../common/converter/boolean';
-import {Value} from '../../common/model/value';
 import {equalsPrimitive, writePrimitive} from '../../common/primitive';
 import {InputBindingPlugin} from '../../input-binding';
 import {createListConstraint, findListItems} from '../../util';
@@ -25,22 +24,6 @@ function createConstraint(params: InputParams): Constraint<boolean> {
 	return new CompositeConstraint(constraints);
 }
 
-function createController(doc: Document, value: Value<boolean>) {
-	const c = value.constraint;
-
-	if (c && findConstraint(c, ListConstraint)) {
-		return new ListController(doc, {
-			listItems: findListItems(c) ?? [],
-			stringifyValue: boolToString,
-			value: value,
-		});
-	}
-
-	return new CheckboxController(doc, {
-		value: value,
-	});
-}
-
 /**
  * @hidden
  */
@@ -54,6 +37,22 @@ export const BooleanInputPlugin: InputBindingPlugin<boolean, boolean> = {
 		writer: (_args) => writePrimitive,
 	},
 	controller: (args) => {
-		return createController(args.document, args.value);
+		const doc = args.document;
+		const value = args.value;
+		const c = value.constraint;
+
+		if (c && findConstraint(c, ListConstraint)) {
+			return new ListController(doc, {
+				listItems: findListItems(c) ?? [],
+				stringifyValue: boolToString,
+				value: value,
+				viewProps: args.viewProps,
+			});
+		}
+
+		return new CheckboxController(doc, {
+			value: value,
+			viewProps: args.viewProps,
+		});
 	},
 };

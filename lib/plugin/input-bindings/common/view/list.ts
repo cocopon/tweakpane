@@ -1,13 +1,16 @@
 import {ListItem} from '../../../common/constraint/list';
 import {createSvgIconElement} from '../../../common/dom-util';
 import {Value} from '../../../common/model/value';
+import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
+import {bindViewProps} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 
 interface Config<T> {
 	options: ListItem<T>[];
 	stringifyValue: (value: T) => string;
 	value: Value<T>;
+	viewProps: ViewProps;
 }
 
 const className = ClassName('lst');
@@ -18,16 +21,19 @@ const className = ClassName('lst');
 export class ListView<T> implements View {
 	public readonly selectElement: HTMLSelectElement;
 	public readonly element: HTMLElement;
-	public readonly value: Value<T>;
+	private readonly value_: Value<T>;
+	private readonly viewProps_: ViewProps;
 	private stringifyValue_: (value: T) => string;
 
 	constructor(doc: Document, config: Config<T>) {
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
+		this.stringifyValue_ = config.stringifyValue;
+		this.viewProps_ = config.viewProps;
+
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
-
-		this.stringifyValue_ = config.stringifyValue;
+		bindViewProps(this.viewProps_, this.element);
 
 		const selectElem = doc.createElement('select');
 		selectElem.classList.add(className('s'));
@@ -47,13 +53,13 @@ export class ListView<T> implements View {
 		this.element.appendChild(markElem);
 
 		config.value.emitter.on('change', this.onValueChange_);
-		this.value = config.value;
+		this.value_ = config.value;
 
 		this.update();
 	}
 
 	public update(): void {
-		this.selectElement.value = this.stringifyValue_(this.value.rawValue);
+		this.selectElement.value = this.stringifyValue_(this.value_.rawValue);
 	}
 
 	private onValueChange_(): void {

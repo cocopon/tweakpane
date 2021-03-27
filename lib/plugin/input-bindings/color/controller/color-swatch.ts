@@ -1,6 +1,7 @@
 import {forceCast} from '../../../../misc/type-util';
 import {ValueController} from '../../../common/controller/value';
 import {Value} from '../../../common/model/value';
+import {ViewProps} from '../../../common/model/view-props';
 import {Color} from '../model/color';
 import {PickedColor} from '../model/picked-color';
 import {ColorSwatchView} from '../view/color-swatch';
@@ -9,6 +10,7 @@ import {ColorPickerController} from './color-picker';
 interface Config {
 	supportsAlpha: boolean;
 	value: Value<Color>;
+	viewProps: ViewProps;
 }
 
 /**
@@ -17,6 +19,7 @@ interface Config {
 export class ColorSwatchController implements ValueController<Color> {
 	public readonly value: Value<Color>;
 	public readonly view: ColorSwatchView;
+	public readonly viewProps: ViewProps;
 	private pickerIc_: ColorPickerController;
 
 	constructor(doc: Document, config: Config) {
@@ -24,15 +27,18 @@ export class ColorSwatchController implements ValueController<Color> {
 		this.onButtonClick_ = this.onButtonClick_.bind(this);
 
 		this.value = config.value;
+		this.viewProps = config.viewProps;
 
 		this.pickerIc_ = new ColorPickerController(doc, {
 			pickedColor: new PickedColor(this.value),
 			supportsAlpha: config.supportsAlpha,
+			viewProps: this.viewProps,
 		});
 
 		this.view = new ColorSwatchView(doc, {
 			pickerView: this.pickerIc_.view,
 			value: this.value,
+			viewProps: this.viewProps,
 		});
 		this.view.buttonElement.addEventListener('blur', this.onButtonBlur_);
 		this.view.buttonElement.addEventListener('click', this.onButtonClick_);

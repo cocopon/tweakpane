@@ -1,9 +1,12 @@
+import {ViewProps} from '../../common/model/view-props';
 import {ClassName} from '../../common/view/class-name';
+import {bindDisabled, bindViewProps} from '../../common/view/reactive';
 import {View} from '../../common/view/view';
 import {Folder} from './model/folder';
 
 export interface Config {
 	folder: Folder;
+	viewProps: ViewProps;
 
 	hidesTitle?: boolean;
 	viewName?: string;
@@ -16,8 +19,8 @@ export class FolderView implements View {
 	public readonly containerElement: HTMLDivElement;
 	public readonly titleElement: HTMLButtonElement;
 	public readonly element: HTMLElement;
-	private folder_: Folder;
-	private className_: ReturnType<typeof ClassName>;
+	private readonly folder_: Folder;
+	private readonly className_: ReturnType<typeof ClassName>;
 
 	constructor(doc: Document, config: Config) {
 		this.onFolderChange_ = this.onFolderChange_.bind(this);
@@ -28,6 +31,7 @@ export class FolderView implements View {
 		this.className_ = ClassName(config.viewName || 'fld');
 		this.element = doc.createElement('div');
 		this.element.classList.add(this.className_());
+		bindViewProps(config.viewProps, this.element);
 
 		const titleElem = doc.createElement('button');
 		titleElem.classList.add(this.className_('t'));
@@ -35,6 +39,7 @@ export class FolderView implements View {
 		if (config.hidesTitle) {
 			titleElem.style.display = 'none';
 		}
+		bindDisabled(config.viewProps, titleElem);
 		this.element.appendChild(titleElem);
 		this.titleElement = titleElem;
 

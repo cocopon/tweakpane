@@ -1,10 +1,13 @@
 import {createSvgIconElement} from '../../common/dom-util';
 import {Value} from '../../common/model/value';
+import {ViewProps} from '../../common/model/view-props';
 import {ClassName} from '../../common/view/class-name';
+import {bindDisabled, bindViewProps} from '../../common/view/reactive';
 import {View} from '../../common/view/view';
 
 interface Config {
 	value: Value<boolean>;
+	viewProps: ViewProps;
 }
 
 const className = ClassName('ckb');
@@ -22,6 +25,7 @@ export class CheckboxView implements View {
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
+		bindViewProps(config.viewProps, this.element);
 
 		const labelElem = doc.createElement('label');
 		labelElem.classList.add(className('l'));
@@ -32,6 +36,7 @@ export class CheckboxView implements View {
 		inputElem.type = 'checkbox';
 		labelElem.appendChild(inputElem);
 		this.inputElement = inputElem;
+		bindDisabled(config.viewProps, this.inputElement);
 
 		const wrapperElem = doc.createElement('div');
 		wrapperElem.classList.add(className('w'));

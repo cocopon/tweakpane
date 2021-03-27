@@ -5,6 +5,7 @@ import {
 	MonitorBindingEvents,
 } from '../../../common/binding/monitor';
 import {Emitter} from '../../../common/model/emitter';
+import {ViewPropsEvents} from '../../../common/model/view-props';
 import {TpError} from '../../../common/tp-error';
 import {FolderController} from '../../folder/controller';
 import {Folder, FolderEvents} from '../../folder/model/folder';
@@ -101,6 +102,7 @@ export class BladeRack {
 		this.onItemFolderFold_ = this.onItemFolderFold_.bind(this);
 		this.onItemInputChange_ = this.onItemInputChange_.bind(this);
 		this.onItemMonitorUpdate_ = this.onItemMonitorUpdate_.bind(this);
+		this.onItemViewPropsChange_ = this.onItemViewPropsChange_.bind(this);
 
 		this.onSubitemLayout_ = this.onSubitemLayout_.bind(this);
 		this.onSubitemFolderFold_ = this.onSubitemFolderFold_.bind(this);
@@ -147,6 +149,7 @@ export class BladeRack {
 
 		const bc = ev.item;
 		bc.blade.emitter.on('dispose', this.onItemDispose_);
+		bc.viewProps.emitter.on('change', this.onItemViewPropsChange_);
 		bc.blade.emitter.on('change', this.onItemLayout_);
 
 		if (bc instanceof InputBindingController) {
@@ -192,11 +195,17 @@ export class BladeRack {
 	}
 
 	private onItemLayout_(ev: BladeEvents['change']) {
-		if (ev.propertyName === 'hidden' || ev.propertyName === 'positions') {
+		if (ev.propertyName === 'positions') {
 			this.emitter.emit('layout', {
 				sender: this,
 			});
 		}
+	}
+
+	private onItemViewPropsChange_(_ev: ViewPropsEvents['change']) {
+		this.emitter.emit('layout', {
+			sender: this,
+		});
 	}
 
 	private onItemDispose_(_: BladeEvents['dispose']): void {

@@ -2,6 +2,7 @@ import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
 import {supportsTouch} from '../../../common/dom-util';
 import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
+import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
 import {
 	PointerHandler,
@@ -16,6 +17,7 @@ interface Config {
 	maxValue: number;
 	minValue: number;
 	value: BufferedValue<number>;
+	viewProps: ViewProps;
 }
 
 /**
@@ -24,6 +26,7 @@ interface Config {
 export class GraphLogController implements ValueController<Buffer<number>> {
 	public readonly value: BufferedValue<number>;
 	public readonly view: GraphLogView;
+	public readonly viewProps: ViewProps;
 	private cursor_: GraphCursor;
 
 	constructor(doc: Document, config: Config) {
@@ -34,6 +37,7 @@ export class GraphLogController implements ValueController<Buffer<number>> {
 		this.onGraphPointerUp_ = this.onGraphPointerUp_.bind(this);
 
 		this.value = config.value;
+		this.viewProps = config.viewProps;
 		this.cursor_ = new GraphCursor();
 
 		this.view = new GraphLogView(doc, {
@@ -43,6 +47,7 @@ export class GraphLogController implements ValueController<Buffer<number>> {
 			maxValue: config.maxValue,
 			minValue: config.minValue,
 			value: this.value,
+			viewProps: this.viewProps,
 		});
 
 		if (!supportsTouch(doc)) {

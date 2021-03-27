@@ -21,6 +21,7 @@ export const BooleanMonitorPlugin: MonitorBindingPlugin<boolean> = {
 			return new SingleLogMonitorController(args.document, {
 				formatter: BooleanFormatter,
 				value: args.value,
+				viewProps: args.viewProps,
 			});
 		}
 
@@ -28,6 +29,7 @@ export const BooleanMonitorPlugin: MonitorBindingPlugin<boolean> = {
 			formatter: BooleanFormatter,
 			lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,
 			value: args.value,
+			viewProps: args.viewProps,
 		});
 	},
 };

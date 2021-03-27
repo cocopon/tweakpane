@@ -1,7 +1,13 @@
+import {ViewProps} from '../../common/model/view-props';
 import {ClassName} from '../../common/view/class-name';
+import {bindViewProps} from '../../common/view/reactive';
 import {View} from '../../common/view/view';
 
 const className = ClassName('spr');
+
+interface Config {
+	viewProps: ViewProps;
+}
 
 /**
  * @hidden
@@ -9,9 +15,10 @@ const className = ClassName('spr');
 export class SeparatorView implements View {
 	public readonly element: HTMLElement;
 
-	constructor(doc: Document) {
+	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
+		bindViewProps(config.viewProps, this.element);
 
 		const hrElem = doc.createElement('hr');
 		hrElem.classList.add(className('r'));

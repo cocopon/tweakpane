@@ -23,12 +23,14 @@ export const StringMonitorPlugin: MonitorBindingPlugin<string> = {
 				formatter: formatString,
 				lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,
 				value: value,
+				viewProps: args.viewProps,
 			});
 		}
 
 		return new SingleLogMonitorController(args.document, {
 			formatter: formatString,
 			value: value,
+			viewProps: args.viewProps,
 		});
 	},
 };

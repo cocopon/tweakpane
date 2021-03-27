@@ -2,6 +2,7 @@ import {ValueController} from '../../../common/controller/value';
 import {findNextTarget, supportsTouch} from '../../../common/dom-util';
 import {Foldable} from '../../../common/model/foldable';
 import {Value} from '../../../common/model/value';
+import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
 import {
 	getHorizontalStepKeys,
@@ -22,6 +23,7 @@ interface Config {
 	invertsY: boolean;
 	maxValue: number;
 	value: Value<Point2d>;
+	viewProps: ViewProps;
 }
 
 /**
@@ -31,6 +33,7 @@ export class Point2dPadController implements ValueController<Point2d> {
 	public readonly foldable: Foldable;
 	public readonly value: Value<Point2d>;
 	public readonly view: Point2dPadView;
+	public readonly viewProps: ViewProps;
 	public triggerElement: HTMLElement | null = null;
 	private readonly baseSteps_: [number, number];
 	private readonly ptHandler_: PointerHandler;
@@ -45,8 +48,9 @@ export class Point2dPadController implements ValueController<Point2d> {
 		this.onPointerMove_ = this.onPointerMove_.bind(this);
 		this.onPointerUp_ = this.onPointerUp_.bind(this);
 
-		this.value = config.value;
 		this.foldable = new Foldable();
+		this.value = config.value;
+		this.viewProps = config.viewProps;
 
 		this.baseSteps_ = config.baseSteps;
 		this.maxValue_ = config.maxValue;

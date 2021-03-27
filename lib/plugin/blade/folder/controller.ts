@@ -1,5 +1,6 @@
 import {isEmpty} from '../../../misc/type-util';
 import {forceReflow, insertElementAt} from '../../common/dom-util';
+import {ViewProps} from '../../common/model/view-props';
 import {
 	BladeController,
 	setUpBladeController,
@@ -17,6 +18,7 @@ interface Config {
 	expanded?: boolean;
 	title: string;
 	blade: Blade;
+	viewProps: ViewProps;
 
 	hidesTitle?: boolean;
 	viewName?: string;
@@ -30,6 +32,7 @@ export class FolderController implements BladeController {
 	public readonly bladeRack: BladeRack;
 	public readonly folder: Folder;
 	public readonly view: FolderView;
+	public readonly viewProps: ViewProps;
 
 	constructor(doc: Document, config: Config) {
 		this.onContainerTransitionEnd_ = this.onContainerTransitionEnd_.bind(this);
@@ -40,6 +43,8 @@ export class FolderController implements BladeController {
 		this.onRackRemove_ = this.onRackRemove_.bind(this);
 
 		this.blade = config.blade;
+		this.viewProps = config.viewProps;
+
 		this.folder = new Folder(config.title, config.expanded ?? true);
 		this.folder.emitter.on('beforechange', this.onFolderBeforeChange_);
 
@@ -53,6 +58,7 @@ export class FolderController implements BladeController {
 			folder: this.folder,
 			hidesTitle: config.hidesTitle,
 			viewName: config.viewName,
+			viewProps: this.viewProps,
 		});
 		this.view.titleElement.addEventListener('click', this.onTitleClick_);
 		this.view.containerElement.addEventListener(
