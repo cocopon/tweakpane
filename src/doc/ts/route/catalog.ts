@@ -69,7 +69,7 @@ export function initCatalog() {
 		},
 		colorinput: (container) => {
 			const params = {
-				color: '#f00',
+				color: '#ff00007f',
 			};
 			const pane = new Tweakpane({
 				container: container,
@@ -92,15 +92,15 @@ export function initCatalog() {
 			});
 			pane.addInput(params, 'p2d', {
 				disabled: disabled,
-				label: 'picker',
+				label: '2d-picker',
 			});
 			pane.addInput(params, 'p3d', {
 				disabled: disabled,
-				label: 'text',
+				label: '3d-text',
 			});
 			pane.addInput(params, 'p4d', {
 				disabled: disabled,
-				label: 'text',
+				label: '4d-text',
 			});
 		},
 		numbermonitor: (container) => {
@@ -204,11 +204,11 @@ export function initCatalog() {
 			});
 			pane.addButton({
 				disabled: disabled,
+				label: 'label',
 				title: 'Button',
 			});
 			pane.addButton({
 				disabled: disabled,
-				label: 'label',
 				title: 'Button',
 			});
 		},
