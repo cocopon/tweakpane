@@ -18,26 +18,35 @@ value changes, inspired by [dat.GUI][].
 ## Features
 See the [official page][documents] for details.
 
-- [Inputs](https://cocopon.github.io/tweakpane/input.html)
-  - Number (text / slider / list)
-  - String (text / list)
-  - Boolean (checkbox / list)
-  - Color (picker)
-  - Point2D (picker)
-  - Point3D (text)
-- [Monitors](https://cocopon.github.io/tweakpane/monitor.html)
-  - Number (text / graph)
-  - String (text)
-  - Boolean (text)
-- [UI components](https://cocopon.github.io/tweakpane/ui-components.html)
-  - Folder
-  - Button
-  - Separator
-- [Theming](https://cocopon.github.io/tweakpane/theming.html)
-- [Plugins](https://cocopon.github.io/tweakpane/plugins.html)
-- [Misc](https://cocopon.github.io/tweakpane/misc.html)
-  - JSON import / export
-  - TypeScript type definitions
+
+### [Inputs](https://cocopon.github.io/tweakpane/input.html)
+Number, String, Boolean, Color, Point 2D/3D/4D
+
+![Inputs](https://user-images.githubusercontent.com/602961/112736412-b422a300-8f95-11eb-8405-3959c42bf8f0.png)
+
+
+### [Monitors](https://cocopon.github.io/tweakpane/monitor.html)
+Number, String, Boolean
+
+![localhost_8080_catalog html (4)](https://user-images.githubusercontent.com/602961/112736425-d5838f00-8f95-11eb-8044-46d528a06147.png)
+
+
+### [UI components](https://cocopon.github.io/tweakpane/ui-components.html)
+Folder, Button, Separator
+
+![UI components](https://user-images.githubusercontent.com/602961/112736426-d6b4bc00-8f95-11eb-92fd-baa3d68e2e1d.png)
+
+
+### [Theming](https://cocopon.github.io/tweakpane/theming.html)
+![Theming](https://user-images.githubusercontent.com/602961/112737272-90169000-8f9c-11eb-89e6-455acb8217e2.png)
+
+
+### [Plugins](https://cocopon.github.io/tweakpane/plugins.html)
+
+
+### [Misc](https://cocopon.github.io/tweakpane/misc.html)
+- JSON import / export
+- TypeScript type definitions
 
 
 ## Development

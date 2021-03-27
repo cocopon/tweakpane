@@ -1,4 +1,4 @@
-.catalog {
+.paneCatalog {
 	background-color: var(--bg-color-secondary);
 	border-radius: 6px;
 	display: grid;
@@ -6,4 +6,8 @@
 	grid-template-columns: repeat(auto-fit, 256px);
 	justify-content: center;
 	padding: 32px;
+
+	&#{&}-theming {
+		background-color: hsl(230, 7%, 57%);
+	}
 }
