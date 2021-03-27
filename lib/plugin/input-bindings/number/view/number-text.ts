@@ -5,7 +5,7 @@ import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {constrainRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
-import {bindDisabled, bindViewProps} from '../../../common/view/reactive';
+import {bindClassModifier, bindDisabled} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 
 export type NumberTextProps = ValueMap<{
@@ -46,7 +46,7 @@ export class NumberTextView implements View {
 		if (config.arrayPosition) {
 			this.element.classList.add(className(undefined, config.arrayPosition));
 		}
-		bindViewProps(config.viewProps, this.element);
+		bindClassModifier(config.viewProps, this.element);
 
 		const inputElem = doc.createElement('input');
 		inputElem.classList.add(className('i'));

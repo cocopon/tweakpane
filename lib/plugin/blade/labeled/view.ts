@@ -1,6 +1,6 @@
 import {ViewProps} from '../../common/model/view-props';
 import {ClassName} from '../../common/view/class-name';
-import {bindViewProps} from '../../common/view/reactive';
+import {bindClassModifier} from '../../common/view/reactive';
 import {View} from '../../common/view/view';
 
 interface Config {
@@ -39,7 +39,7 @@ export class LabeledView implements View {
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
-		bindViewProps(config.viewProps, this.element);
+		bindClassModifier(config.viewProps, this.element);
 
 		if (this.label !== undefined) {
 			const labelElem = doc.createElement('div');

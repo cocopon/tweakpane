@@ -1,5 +1,5 @@
 import {SingleValueEvents} from '../model/value-map';
-import {ViewProps} from '../model/view-props';
+import {ViewProps, ViewPropsObject} from '../model/view-props';
 import {ClassName} from './class-name';
 
 function compose<A, B, C>(
@@ -23,7 +23,7 @@ function applyClass(elem: HTMLElement, className: string, active: boolean) {
 
 const className = ClassName('');
 
-function updateModifier(
+function valueToModifier(
 	elem: HTMLElement,
 	modifier: string,
 ): (value: boolean) => void {
@@ -32,44 +32,32 @@ function updateModifier(
 	};
 }
 
+function bindViewProps<Key extends keyof ViewPropsObject>(
+	viewProps: ViewProps,
+	key: Key,
+	applyValue: (value: ViewPropsObject[Key]) => void,
+) {
+	viewProps.valueEmitter(key).on('change', compose(extractValue, applyValue));
+	applyValue(viewProps.get(key));
+}
+
+export function bindClassModifier(viewProps: ViewProps, elem: HTMLElement) {
+	bindViewProps(viewProps, 'disabled', valueToModifier(elem, 'disabled'));
+	bindViewProps(viewProps, 'hidden', valueToModifier(elem, 'hidden'));
+}
+
 interface Disableable {
 	disabled: boolean;
 }
 
-function updateDisabled(target: Disableable) {
-	return (value: boolean) => {
-		target.disabled = value;
-	};
-}
-
-function updateTabIndex(target: HTMLOrSVGElement) {
-	return (disabled: boolean) => {
-		target.tabIndex = disabled ? -1 : 0;
-	};
-}
-
-export function bindViewProps(viewProps: ViewProps, elem: HTMLElement) {
-	viewProps
-		.valueEmitter('disabled')
-		.on('change', compose(extractValue, updateModifier(elem, 'disabled')));
-	updateModifier(elem, 'disabled')(viewProps.get('disabled'));
-
-	viewProps
-		.valueEmitter('hidden')
-		.on('change', compose(extractValue, updateModifier(elem, 'hidden')));
-	updateModifier(elem, 'hidden')(viewProps.get('hidden'));
-}
-
 export function bindDisabled(viewProps: ViewProps, target: Disableable) {
-	viewProps
-		.valueEmitter('disabled')
-		.on('change', compose(extractValue, updateDisabled(target)));
-	updateDisabled(target)(viewProps.get('disabled'));
+	bindViewProps(viewProps, 'disabled', (disabled: boolean) => {
+		target.disabled = disabled;
+	});
 }
 
 export function bindTabIndex(viewProps: ViewProps, elem: HTMLOrSVGElement) {
-	viewProps
-		.valueEmitter('disabled')
-		.on('change', compose(extractValue, updateTabIndex(elem)));
-	updateTabIndex(elem)(viewProps.get('disabled'));
+	bindViewProps(viewProps, 'disabled', (disabled: boolean) => {
+		elem.tabIndex = disabled ? -1 : 0;
+	});
 }
