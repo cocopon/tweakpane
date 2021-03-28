@@ -9,8 +9,8 @@ import {BindingTarget} from '../../../common/binding/target';
 import {ManualTicker} from '../../../common/binding/ticker/manual';
 import {boolFromUnknown} from '../../../common/converter/boolean';
 import {stringFromUnknown} from '../../../common/converter/string';
+import {BoundValue} from '../../../common/model/bound-value';
 import {Buffer} from '../../../common/model/buffered-value';
-import {Value} from '../../../common/model/value';
 import {createViewProps} from '../../../common/model/view-props';
 import {writePrimitive} from '../../../common/primitive';
 import {CheckboxController} from '../../../input-bindings/boolean/controller';
@@ -27,7 +27,7 @@ function createInputBindingController(
 	const b = new InputBinding({
 		reader: boolFromUnknown,
 		target: new BindingTarget({foo: false}, 'foo'),
-		value: new Value(false),
+		value: new BoundValue(false),
 		writer: writePrimitive,
 	});
 	return new InputBindingController(doc, {
@@ -48,7 +48,7 @@ function createMonitorBindingController(
 		reader: stringFromUnknown,
 		target: new BindingTarget({foo: false}, 'foo'),
 		ticker: new ManualTicker(),
-		value: new Value<Buffer<string>>([]),
+		value: new BoundValue<Buffer<string>>([]),
 	});
 	return new MonitorBindingController(doc, {
 		blade: new Blade(),

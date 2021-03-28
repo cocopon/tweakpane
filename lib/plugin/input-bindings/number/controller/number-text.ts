@@ -2,6 +2,7 @@ import {forceCast, isEmpty} from '../../../../misc/type-util';
 import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
 import {Parser} from '../../../common/converter/parser';
+import {BoundValue} from '../../../common/model/bound-value';
 import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
@@ -49,7 +50,7 @@ export class NumberTextController implements ValueController<number> {
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 
-		this.dragging_ = new Value<number | null>(null);
+		this.dragging_ = new BoundValue<number | null>(null);
 		this.view = new NumberTextView(doc, {
 			arrayPosition: config.arrayPosition,
 			dragging: this.dragging_,

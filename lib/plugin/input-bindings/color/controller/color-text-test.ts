@@ -3,7 +3,7 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
 import {parseNumber} from '../../../common/converter/number';
-import {Value} from '../../../common/model/value';
+import {BoundValue} from '../../../common/model/bound-value';
 import {createViewProps} from '../../../common/model/view-props';
 import {Color} from '../model/color';
 import {ColorComponents3} from '../model/color-model';
@@ -41,7 +41,7 @@ describe(ColorTextController.name, () => {
 			it(`should change component values to ${JSON.stringify(
 				testCase.expected,
 			)}`, (done) => {
-				const value = new Value(
+				const value = new BoundValue(
 					new Color(testCase.params.components as ColorComponents3, 'rgb'),
 				);
 				value.emitter.on('change', () => {
@@ -106,7 +106,7 @@ describe(ColorTextController.name, () => {
 			it(`should change component values to ${JSON.stringify(
 				testCase.expected,
 			)}`, (done) => {
-				const value = new Value(
+				const value = new BoundValue(
 					new Color(testCase.params.components as ColorComponents3, 'rgb'),
 				);
 				value.emitter.on('change', () => {

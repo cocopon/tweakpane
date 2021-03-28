@@ -36,17 +36,17 @@ export const StringInputPlugin: InputBindingPlugin<string, string> = {
 		equals: equalsPrimitive,
 		writer: (_args) => writePrimitive,
 	},
-	controller: (params) => {
-		const doc = params.document;
-		const value = params.value;
-		const c = value.constraint;
+	controller: (args) => {
+		const doc = args.document;
+		const value = args.value;
+		const c = args.constraint;
 
 		if (c && findConstraint(c, ListConstraint)) {
 			return new ListController(doc, {
 				listItems: findListItems(c) ?? [],
 				stringifyValue: (v) => v,
 				value: value,
-				viewProps: params.viewProps,
+				viewProps: args.viewProps,
 			});
 		}
 
@@ -56,7 +56,7 @@ export const StringInputPlugin: InputBindingPlugin<string, string> = {
 				formatter: formatString,
 			}),
 			value: value,
-			viewProps: params.viewProps,
+			viewProps: args.viewProps,
 		});
 	},
 };

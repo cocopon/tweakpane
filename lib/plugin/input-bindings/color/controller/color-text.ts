@@ -3,6 +3,7 @@ import {RangeConstraint} from '../../../common/constraint/range';
 import {ValueController} from '../../../common/controller/value';
 import {createNumberFormatter} from '../../../common/converter/number';
 import {Parser} from '../../../common/converter/parser';
+import {BoundValue} from '../../../common/model/bound-value';
 import {Value} from '../../../common/model/value';
 import {connectValues} from '../../../common/model/value-sync';
 import {ViewProps} from '../../../common/model/view-props';
@@ -58,7 +59,7 @@ function createComponentController(
 		draggingScale: 1,
 		formatter: FORMATTER,
 		parser: config.parser,
-		value: new Value(0, {
+		value: new BoundValue(0, {
 			constraint: MODE_TO_CONSTRAINT_MAP[config.colorMode](index),
 		}),
 		viewProps: config.viewProps,

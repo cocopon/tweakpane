@@ -95,6 +95,7 @@ function createAxis(
 ) {
 	return {
 		baseStep: getBaseStep(constraint),
+		constraint: constraint,
 		draggingScale: getSuitableDraggingScale(constraint, initialValue),
 		formatter: createNumberFormatter(
 			getSuitableDecimalDigits(constraint, initialValue),
@@ -130,7 +131,7 @@ export const Point2dInputPlugin: InputBindingPlugin<Point2d, Point2dObject> = {
 	controller: (args) => {
 		const doc = args.document;
 		const value = args.value;
-		const c = value.constraint;
+		const c = args.constraint;
 		if (!(c instanceof PointNdConstraint)) {
 			throw TpError.shouldNeverHappen();
 		}
@@ -141,7 +142,7 @@ export const Point2dInputPlugin: InputBindingPlugin<Point2d, Point2dObject> = {
 				createAxis(value.rawValue.y, c.components[1]),
 			],
 			invertsY: shouldInvertY(args.params),
-			maxValue: getSuitableMaxValue(value.rawValue, value.constraint),
+			maxValue: getSuitableMaxValue(value.rawValue, c),
 			parser: parseNumber,
 			value: value,
 			viewProps: args.viewProps,

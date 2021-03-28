@@ -1,38 +1,6 @@
 import {Emitter} from './emitter';
-
-export interface SingleValueEvents<T> {
-	change: {
-		sender: SingleValue<T>;
-		value: T;
-	};
-}
-
-// TODO: Integrate it with `./value`
-class SingleValue<T> {
-	public readonly emitter: Emitter<SingleValueEvents<T>>;
-	private value_: T;
-
-	constructor(initialValue: T) {
-		this.emitter = new Emitter();
-		this.value_ = initialValue;
-	}
-
-	get value(): T {
-		return this.value_;
-	}
-
-	set value(value: T) {
-		if (this.value_ === value) {
-			return;
-		}
-
-		this.value_ = value;
-		this.emitter.emit('change', {
-			sender: this,
-			value: this.value_,
-		});
-	}
-}
+import {PrimitiveValue} from './primitive-value';
+import {Value, ValueEvents} from './value';
 
 export interface ValueMapEvents<O extends Record<string, unknown>> {
 	change: {
@@ -43,13 +11,13 @@ export interface ValueMapEvents<O extends Record<string, unknown>> {
 
 export class ValueMap<O extends Record<string, unknown>> {
 	public readonly emitter: Emitter<ValueMapEvents<O>>;
-	private valMap_: {[Key in keyof O]: SingleValue<O[Key]>};
+	private valMap_: {[Key in keyof O]: Value<O[Key]>};
 
 	constructor(initialValue: O) {
 		this.emitter = new Emitter();
 
 		const keys: (keyof O)[] = Object.keys(initialValue);
-		const props = keys.map((key) => new SingleValue(initialValue[key]));
+		const props = keys.map((key) => new PrimitiveValue(initialValue[key]));
 		props.forEach((prop, index) => {
 			prop.emitter.on('change', () => {
 				this.emitter.emit('change', {
@@ -64,20 +32,20 @@ export class ValueMap<O extends Record<string, unknown>> {
 			return Object.assign(o, {
 				[key]: props[index],
 			});
-		}, {} as {[Key in keyof O]: SingleValue<O[Key]>});
+		}, {} as {[Key in keyof O]: Value<O[Key]>});
 	}
 
 	public get<Key extends keyof O>(key: Key): O[Key] {
-		return this.valMap_[key].value;
+		return this.valMap_[key].rawValue;
 	}
 
 	public set<Key extends keyof O>(key: Key, value: O[Key]): void {
-		this.valMap_[key].value = value;
+		this.valMap_[key].rawValue = value;
 	}
 
 	public valueEmitter<Key extends keyof O>(
 		key: Key,
-	): Emitter<SingleValueEvents<O[Key]>> {
+	): Emitter<ValueEvents<O[Key]>> {
 		return this.valMap_[key].emitter;
 	}
 }

@@ -1,4 +1,4 @@
-import {SingleValueEvents} from '../model/value-map';
+import {ValueEvents} from '../model/value';
 import {ViewProps, ViewPropsObject} from '../model/view-props';
 import {ClassName} from './class-name';
 
@@ -9,8 +9,8 @@ function compose<A, B, C>(
 	return (input) => h2(h1(input));
 }
 
-function extractValue<T>(ev: SingleValueEvents<T>['change']): T {
-	return ev.value;
+function extractValue<T>(ev: ValueEvents<T>['change']): T {
+	return ev.rawValue;
 }
 
 function applyClass(elem: HTMLElement, className: string, active: boolean) {

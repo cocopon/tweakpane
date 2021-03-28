@@ -61,6 +61,7 @@ function createAxis(
 ) {
 	return {
 		baseStep: getBaseStep(constraint),
+		constraint: constraint,
 		draggingScale: getSuitableDraggingScale(constraint, initialValue),
 		formatter: createNumberFormatter(
 			getSuitableDecimalDigits(constraint, initialValue),
@@ -82,7 +83,7 @@ export const Point4dInputPlugin: InputBindingPlugin<Point4d, Point4dObject> = {
 	},
 	controller: (args) => {
 		const value = args.value;
-		const c = value.constraint;
+		const c = args.constraint;
 		if (!(c instanceof PointNdConstraint)) {
 			throw TpError.shouldNeverHappen();
 		}

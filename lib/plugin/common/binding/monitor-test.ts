@@ -2,8 +2,8 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {numberFromUnknown} from '../converter/number';
+import {BoundValue} from '../model/bound-value';
 import {Buffer} from '../model/buffered-value';
-import {Value} from '../model/value';
 import {MonitorBinding} from './monitor';
 import {BindingTarget} from './target';
 import {ManualTicker} from './ticker/manual';
@@ -14,7 +14,7 @@ describe(MonitorBinding.name, () => {
 			foo: 123,
 		};
 		const target = new BindingTarget(obj, 'foo');
-		const value = new Value([0] as Buffer<number>);
+		const value = new BoundValue([0] as Buffer<number>);
 		const ticker = new ManualTicker();
 		const b = new MonitorBinding({
 			reader: numberFromUnknown,
@@ -31,7 +31,7 @@ describe(MonitorBinding.name, () => {
 			foo: 123,
 		};
 		const target = new BindingTarget(obj, 'foo');
-		const value = new Value([0] as Buffer<number>);
+		const value = new BoundValue([0] as Buffer<number>);
 		const ticker = new ManualTicker();
 		new MonitorBinding({
 			reader: numberFromUnknown,
@@ -63,7 +63,7 @@ describe(MonitorBinding.name, () => {
 			foo: 123,
 		};
 		const target = new BindingTarget(obj, 'foo');
-		const value = new Value([0] as Buffer<number>);
+		const value = new BoundValue([0] as Buffer<number>);
 		const ticker = new ManualTicker();
 		new MonitorBinding({
 			reader: numberFromUnknown,

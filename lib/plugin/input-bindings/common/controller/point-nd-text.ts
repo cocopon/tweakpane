@@ -2,16 +2,17 @@ import {Constraint} from '../../../common/constraint/constraint';
 import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
 import {Parser} from '../../../common/converter/parser';
+import {BoundValue} from '../../../common/model/bound-value';
 import {Value} from '../../../common/model/value';
 import {connectValues} from '../../../common/model/value-sync';
 import {ViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from '../../number/controller/number-text';
-import {PointNdConstraint} from '../constraint/point-nd';
 import {PointNdAssembly} from '../model/point-nd';
 import {PointNdTextView} from '../view/point-nd-text';
 
 interface Axis {
 	baseStep: number;
+	constraint: Constraint<number> | undefined;
 	draggingScale: number;
 	formatter: Formatter<number>;
 }
@@ -22,17 +23,6 @@ interface Config<PointNd> {
 	parser: Parser<number>;
 	value: Value<PointNd>;
 	viewProps: ViewProps;
-}
-
-function findAxisConstraint<PointNd>(
-	config: Config<PointNd>,
-	index: number,
-): Constraint<number> | undefined {
-	const pc = config.value.constraint;
-	if (!(pc instanceof PointNdConstraint)) {
-		return undefined;
-	}
-	return pc.components[index];
 }
 
 function createAxisController<PointNd>(
@@ -47,8 +37,8 @@ function createAxisController<PointNd>(
 		formatter: config.axes[index].formatter,
 		draggingScale: config.axes[index].draggingScale,
 		parser: config.parser,
-		value: new Value(0, {
-			constraint: findAxisConstraint(config, index),
+		value: new BoundValue(0, {
+			constraint: config.axes[index].constraint,
 		}),
 		viewProps: config.viewProps,
 	});

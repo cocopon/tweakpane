@@ -1,4 +1,5 @@
 import {forceCast} from '../../../../misc/type-util';
+import {Constraint} from '../../../common/constraint/constraint';
 import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
 import {Parser} from '../../../common/converter/parser';
@@ -11,6 +12,7 @@ import {Point2dPadController} from './point-2d-pad';
 
 interface Axis {
 	baseStep: number;
+	constraint: Constraint<number> | undefined;
 	draggingScale: number;
 	formatter: Formatter<number>;
 }

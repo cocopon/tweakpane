@@ -9,8 +9,8 @@ import {BindingTarget} from '../plugin/common/binding/target';
 import {ManualTicker} from '../plugin/common/binding/ticker/manual';
 import {createNumberFormatter} from '../plugin/common/converter/number';
 import {numberFromUnknown} from '../plugin/common/converter/number';
+import {BoundValue} from '../plugin/common/model/bound-value';
 import {Buffer} from '../plugin/common/model/buffered-value';
-import {Value} from '../plugin/common/model/value';
 import {createViewProps} from '../plugin/common/model/view-props';
 import {SingleLogMonitorController} from '../plugin/monitor-bindings/common/controller/single-log';
 import {MonitorBindingApi} from './monitor-binding';
@@ -18,7 +18,7 @@ import {TpUpdateEvent} from './tp-event';
 
 function createApi(target: BindingTarget) {
 	const doc = TestUtil.createWindow().document;
-	const value = new Value([0] as Buffer<number>);
+	const value = new BoundValue([0] as Buffer<number>);
 	const mc = new SingleLogMonitorController(doc, {
 		formatter: createNumberFormatter(0),
 		value: value,

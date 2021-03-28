@@ -6,6 +6,7 @@ import {InputBinding} from './common/binding/input';
 import {BindingTarget} from './common/binding/target';
 import {Constraint} from './common/constraint/constraint';
 import {ValueController} from './common/controller/value';
+import {BoundValue} from './common/model/bound-value';
 import {Value} from './common/model/value';
 import {createViewProps, ViewProps} from './common/model/view-props';
 import {BasePlugin} from './plugin';
@@ -18,6 +19,7 @@ interface BindingArguments<Ex> {
 }
 
 interface ControllerArguments<In, Ex> {
+	constraint: Constraint<In> | undefined;
 	document: Document;
 	initialValue: Ex;
 	params: InputParams;
@@ -129,7 +131,7 @@ export function createController<In, Ex>(
 	const constraint = plugin.binding.constraint
 		? plugin.binding.constraint(valueArgs)
 		: undefined;
-	const value = new Value(reader(initialValue), {
+	const value = new BoundValue(reader(initialValue), {
 		constraint: constraint,
 		equals: plugin.binding.equals,
 	});
@@ -140,6 +142,7 @@ export function createController<In, Ex>(
 		writer: plugin.binding.writer(valueArgs),
 	});
 	const controller = plugin.controller({
+		constraint: constraint,
 		document: args.document,
 		initialValue: initialValue,
 		params: args.params,
