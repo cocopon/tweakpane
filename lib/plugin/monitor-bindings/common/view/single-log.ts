@@ -42,10 +42,10 @@ export class SingleLogView<T> implements View {
 		config.value.emitter.on('change', this.onValueUpdate_);
 		this.value = config.value;
 
-		this.update();
+		this.update_();
 	}
 
-	public update(): void {
+	private update_(): void {
 		const values = this.value.rawValue;
 		const lastValue = values[values.length - 1];
 		this.inputElem_.value =
@@ -53,6 +53,6 @@ export class SingleLogView<T> implements View {
 	}
 
 	private onValueUpdate_(): void {
-		this.update();
+		this.update_();
 	}
 }

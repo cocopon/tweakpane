@@ -67,14 +67,14 @@ export class GraphLogView implements View {
 		config.value.emitter.on('change', this.onValueUpdate_);
 		this.value = config.value;
 
-		this.update();
+		this.update_();
 	}
 
 	get graphElement(): Element {
 		return this.svgElem_;
 	}
 
-	public update(): void {
+	private update_(): void {
 		const bounds = this.svgElem_.getBoundingClientRect();
 
 		// Graph
@@ -115,10 +115,10 @@ export class GraphLogView implements View {
 	}
 
 	private onValueUpdate_(): void {
-		this.update();
+		this.update_();
 	}
 
 	private onCursorChange_(): void {
-		this.update();
+		this.update_();
 	}
 }

@@ -56,8 +56,4 @@ export class Point2dPadTextView implements View {
 	get padButtonElement(): HTMLButtonElement {
 		return this.padButtonElem_;
 	}
-
-	public update(): void {
-		this.padView_.update();
-	}
 }

@@ -88,14 +88,14 @@ export class Point2dPadView implements View {
 		config.value.emitter.on('change', this.onValueChange_);
 		this.value = config.value;
 
-		this.update();
+		this.update_();
 	}
 
 	get allFocusableElements(): HTMLElement[] {
 		return [this.padElement];
 	}
 
-	public update(): void {
+	private update_(): void {
 		if (this.foldable.expanded) {
 			this.element.classList.add(className(undefined, 'expanded'));
 		} else {
@@ -114,10 +114,10 @@ export class Point2dPadView implements View {
 	}
 
 	private onValueChange_(): void {
-		this.update();
+		this.update_();
 	}
 
 	private onFoldableChange_(): void {
-		this.update();
+		this.update_();
 	}
 }

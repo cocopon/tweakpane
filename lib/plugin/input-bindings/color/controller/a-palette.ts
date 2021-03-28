@@ -57,7 +57,6 @@ export class APaletteController implements ValueController<Color> {
 		const c = this.value.rawValue;
 		const [h, s, v] = c.getComponents('hsv');
 		this.value.rawValue = new Color([h, s, v, alpha], 'hsv');
-		this.view.update();
 	}
 
 	private onPointerDown_(ev: PointerHandlerEvents['down']): void {

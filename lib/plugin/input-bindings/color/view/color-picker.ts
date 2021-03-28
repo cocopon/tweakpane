@@ -96,7 +96,7 @@ export class ColorPickerView implements View {
 			this.element.appendChild(aElem);
 		}
 
-		this.update();
+		this.update_();
 	}
 
 	get allFocusableElements(): HTMLElement[] {
@@ -114,7 +114,7 @@ export class ColorPickerView implements View {
 		return forceCast(elems);
 	}
 
-	public update(): void {
+	private update_(): void {
 		if (this.foldable.expanded) {
 			this.element.classList.add(className(undefined, 'expanded'));
 		} else {
@@ -123,10 +123,10 @@ export class ColorPickerView implements View {
 	}
 
 	private onValueChange_(): void {
-		this.update();
+		this.update_();
 	}
 
 	private onFoldableChange_(): void {
-		this.update();
+		this.update_();
 	}
 }

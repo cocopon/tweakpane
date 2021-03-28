@@ -36,6 +36,5 @@ export class CheckboxController implements ValueController<boolean> {
 	private onInputChange_(e: Event): void {
 		const inputElem: HTMLInputElement = forceCast(e.currentTarget);
 		this.value.rawValue = inputElem.checked;
-		this.view.update();
 	}
 }

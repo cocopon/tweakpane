@@ -58,7 +58,6 @@ export class HPaletteController implements ValueController<Color> {
 		const c = this.value.rawValue;
 		const [, s, v, a] = c.getComponents('hsv');
 		this.value.rawValue = new Color([hue, s, v, a], 'hsv');
-		this.view.update();
 	}
 
 	private onPointerDown_(ev: PointerHandlerEvents['down']): void {

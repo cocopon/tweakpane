@@ -47,6 +47,5 @@ export class TextController<T> implements ValueController<T> {
 		if (!isEmpty(parsedValue)) {
 			this.value.rawValue = parsedValue;
 		}
-		this.view.update();
 	}
 }

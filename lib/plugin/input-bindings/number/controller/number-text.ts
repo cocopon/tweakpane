@@ -77,14 +77,12 @@ export class NumberTextController implements ValueController<number> {
 		if (!isEmpty(parsedValue)) {
 			this.value.rawValue = parsedValue;
 		}
-		this.view.update();
 	}
 
 	private onInputKeyDown_(e: KeyboardEvent): void {
 		const step = getStepForKey(this.baseStep_, getVerticalStepKeys(e));
 		if (step !== 0) {
 			this.value.rawValue += step;
-			this.view.update();
 		}
 	}
 

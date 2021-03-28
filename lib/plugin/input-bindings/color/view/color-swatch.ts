@@ -52,15 +52,15 @@ export class ColorSwatchView implements View {
 		pickerElem.appendChild(this.pickerView_.element);
 		this.element.appendChild(pickerElem);
 
-		this.update();
+		this.update_();
 	}
 
-	public update(): void {
+	private update_(): void {
 		const value = this.value.rawValue;
 		this.swatchElem_.style.backgroundColor = colorToHexRgbaString(value);
 	}
 
 	private onValueChange_(): void {
-		this.update();
+		this.update_();
 	}
 }

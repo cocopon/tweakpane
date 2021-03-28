@@ -46,7 +46,5 @@ export class ListController<T> implements ValueController<T> {
 
 		const itemIndex = Number(optElem.dataset.index);
 		this.value.rawValue = this.listItems_[itemIndex].value;
-
-		this.view.update();
 	}
 }

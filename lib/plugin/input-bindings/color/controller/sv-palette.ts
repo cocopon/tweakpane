@@ -63,7 +63,6 @@ export class SvPaletteController implements ValueController<Color> {
 
 		const [h, , , a] = this.value.rawValue.getComponents('hsv');
 		this.value.rawValue = new Color([h, saturation, value, a], 'hsv');
-		this.view.update();
 	}
 
 	private onPointerDown_(ev: PointerHandlerEvents['down']): void {

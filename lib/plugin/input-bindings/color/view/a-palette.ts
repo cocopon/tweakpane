@@ -53,10 +53,10 @@ export class APaletteView implements View {
 		this.markerElem_.appendChild(previewElem);
 		this.previewElem_ = previewElem;
 
-		this.update();
+		this.update_();
 	}
 
-	public update(): void {
+	private update_(): void {
 		const c = this.value.rawValue;
 		const rgbaComps = c.getComponents('rgb');
 		const leftColor = new Color(
@@ -82,6 +82,6 @@ export class APaletteView implements View {
 	}
 
 	private onValueChange_(): void {
-		this.update();
+		this.update_();
 	}
 }

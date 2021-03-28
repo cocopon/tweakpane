@@ -12,30 +12,21 @@ import {ClassName} from 'tweakpane/lib/plugin/common/view/class-name';
 import {View} from 'tweakpane/lib/plugin/common/view/view';
 import {InputBindingPlugin} from 'tweakpane/lib/plugin/input-binding';
 
-interface ViewConfig {
-	value: Value<string>;
-}
-
 class TestView implements View {
 	public readonly element: HTMLElement;
-	public readonly value: Value<string>;
-	private valueElem_: HTMLElement;
 
-	constructor(doc: Document, config: ViewConfig) {
-		this.value = config.value;
-
+	constructor(
+		doc: Document,
+		config: {
+			value: Value<string>;
+		},
+	) {
 		this.element = doc.createElement('div');
-
-		const className = ClassName('tst');
-		this.valueElem_ = doc.createElement('button');
-		this.valueElem_.classList.add(className('v'));
-		this.element.appendChild(this.valueElem_);
-
-		this.update();
-	}
-
-	public update(): void {
-		this.valueElem_.textContent = this.value.rawValue;
+		this.element.classList.add(ClassName('tst')());
+		config.value.emitter.on('change', (ev) => {
+			this.element.textContent = ev.rawValue;
+		});
+		this.element.textContent = config.value.rawValue;
 	}
 }
 
@@ -55,7 +46,7 @@ class TestController implements ValueController<string> {
 		this.viewProps = config.viewProps;
 
 		this.view = new TestView(doc, {
-			value: config.value,
+			value: this.value,
 		});
 	}
 }

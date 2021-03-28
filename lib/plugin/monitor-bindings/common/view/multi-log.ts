@@ -43,10 +43,10 @@ export class MultiLogView<T> implements View {
 		config.value.emitter.on('change', this.onValueUpdate_);
 		this.value = config.value;
 
-		this.update();
+		this.update_();
 	}
 
-	public update(): void {
+	private update_(): void {
 		const elem = this.textareaElem_;
 		const shouldScroll =
 			elem.scrollTop === elem.scrollHeight - elem.clientHeight;
@@ -65,6 +65,6 @@ export class MultiLogView<T> implements View {
 	}
 
 	private onValueUpdate_(): void {
-		this.update();
+		this.update_();
 	}
 }
