@@ -56,7 +56,7 @@ describe(ValueMap.name, () => {
 		});
 
 		m.valueEmitter('baz').on('change', (ev) => {
-			assert.strictEqual(ev.value, 'changed');
+			assert.strictEqual(ev.rawValue, 'changed');
 			assert.strictEqual(m.get('baz'), 'changed');
 			done();
 		});

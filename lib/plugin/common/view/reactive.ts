@@ -10,7 +10,7 @@ function compose<A, B, C>(
 }
 
 function extractValue<T>(ev: SingleValueEvents<T>['change']): T {
-	return ev.value;
+	return ev.rawValue;
 }
 
 function applyClass(elem: HTMLElement, className: string, active: boolean) {

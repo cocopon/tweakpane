@@ -3,7 +3,7 @@ import {Emitter} from './emitter';
 export interface SingleValueEvents<T> {
 	change: {
 		sender: SingleValue<T>;
-		value: T;
+		rawValue: T;
 	};
 }
 
@@ -17,11 +17,11 @@ class SingleValue<T> {
 		this.value_ = initialValue;
 	}
 
-	get value(): T {
+	get rawValue(): T {
 		return this.value_;
 	}
 
-	set value(value: T) {
+	set rawValue(value: T) {
 		if (this.value_ === value) {
 			return;
 		}
@@ -29,7 +29,7 @@ class SingleValue<T> {
 		this.value_ = value;
 		this.emitter.emit('change', {
 			sender: this,
-			value: this.value_,
+			rawValue: this.value_,
 		});
 	}
 }
@@ -68,11 +68,11 @@ export class ValueMap<O extends Record<string, unknown>> {
 	}
 
 	public get<Key extends keyof O>(key: Key): O[Key] {
-		return this.valMap_[key].value;
+		return this.valMap_[key].rawValue;
 	}
 
 	public set<Key extends keyof O>(key: Key, value: O[Key]): void {
-		this.valMap_[key].value = value;
+		this.valMap_[key].rawValue = value;
 	}
 
 	public valueEmitter<Key extends keyof O>(
