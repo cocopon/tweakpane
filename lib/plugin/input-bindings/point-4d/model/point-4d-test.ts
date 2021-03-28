@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
 import {Point4d} from './point-4d';

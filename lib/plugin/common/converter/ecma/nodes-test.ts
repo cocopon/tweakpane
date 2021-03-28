@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {
@@ -47,7 +47,7 @@ describe(NumberLiteralNode.name, () => {
 
 describe(BinaryOperationNode.name, () => {
 	it('should throw error for unexpected operator', () => {
-		assert.throw(() => {
+		assert.throws(() => {
 			new BinaryOperationNode(
 				'@',
 				new NumberLiteralNode('1'),
@@ -67,7 +67,7 @@ describe(BinaryOperationNode.name, () => {
 
 describe(UnaryOperationNode.name, () => {
 	it('should throw error for unexpected operator', () => {
-		assert.throw(() => {
+		assert.throws(() => {
 			new UnaryOperationNode('@', new NumberLiteralNode('1')).evaluate();
 		});
 	});

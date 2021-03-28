@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import Tweakpane from '..';
@@ -75,7 +75,10 @@ describe(Tweakpane.name, () => {
 		new Tweakpane({
 			document: doc,
 		});
-		assert.isNotNull(doc.querySelector('style[data-tp-style=default]'));
+		assert.notStrictEqual(
+			doc.querySelector('style[data-tp-style=default]'),
+			null,
+		);
 	});
 
 	it('should embed plugin style', () => {

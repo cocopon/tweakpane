@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
 import {deepEqualsArray} from './type-util';

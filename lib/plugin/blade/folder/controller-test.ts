@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../misc/test-util';
@@ -74,7 +74,7 @@ describe(FolderController.name, () => {
 
 		const bc = createSomeBladeController(doc);
 		sc.bladeRack.add(bc);
-		assert.isTrue(sc.view.element.contains(bc.view.element));
+		assert.strictEqual(sc.view.element.contains(bc.view.element), true);
 	});
 
 	it('should dispose sub controllers', () => {
@@ -96,7 +96,7 @@ describe(FolderController.name, () => {
 		c.blade.dispose();
 
 		bcs.forEach((bc) => {
-			assert.isTrue(bc.blade.disposed);
+			assert.strictEqual(bc.blade.disposed, true);
 		});
 	});
 
@@ -118,6 +118,6 @@ describe(FolderController.name, () => {
 
 		c.blade.dispose();
 
-		assert.isTrue(bc.blade.disposed);
+		assert.strictEqual(bc.blade.disposed, true);
 	});
 });

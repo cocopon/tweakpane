@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../misc/test-util';
@@ -12,7 +12,7 @@ describe('DomUtil', () => {
 		parent.appendChild(child);
 
 		removeElement(child);
-		assert.isNull(child.parentElement);
+		assert.strictEqual(child.parentElement, null);
 	});
 	it('should get index of child element', () => {
 		const w = TestUtil.createWindow();

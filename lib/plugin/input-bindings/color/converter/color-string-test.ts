@@ -1,6 +1,7 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
+import {TestUtil} from '../../../../misc/test-util';
 import {Color} from '../model/color';
 import {
 	ColorComponents3,
@@ -163,7 +164,7 @@ describe('StringColorParser', () => {
 					throw new Error('should not be called');
 				}
 				expected.components.forEach((c, index) => {
-					assert.closeTo(actualComps[index], c, DELTA);
+					assert.ok(TestUtil.closeTo(actualComps[index], c, DELTA));
 				});
 			});
 		});

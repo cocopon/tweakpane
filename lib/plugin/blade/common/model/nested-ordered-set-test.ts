@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {NestedOrderedSet} from './nested-ordered-set';
@@ -31,12 +31,12 @@ describe(NestedOrderedSet.name, () => {
 		const i0 = new Item('foo');
 		s.add(i0);
 		assert.strictEqual(s.items[0], i0);
-		assert.isTrue(s.allItems().includes(i0));
+		assert.strictEqual(s.allItems().includes(i0), true);
 
 		const i1 = new Item('bar');
 		s.add(i1);
 		assert.strictEqual(s.items[1], i1);
-		assert.isTrue(s.allItems().includes(i1));
+		assert.strictEqual(s.allItems().includes(i1), true);
 	});
 
 	it('should insert item', () => {
@@ -47,7 +47,7 @@ describe(NestedOrderedSet.name, () => {
 		s.add(i, 0);
 
 		assert.strictEqual(s.items[0], i);
-		assert.isTrue(s.allItems().includes(i));
+		assert.strictEqual(s.allItems().includes(i), true);
 	});
 
 	it('should not add duplicated item', () => {
@@ -81,9 +81,9 @@ describe(NestedOrderedSet.name, () => {
 		const i = new Item('foo');
 		s.add(i);
 
-		assert.isTrue(s.allItems().includes(i));
+		assert.strictEqual(s.allItems().includes(i), true);
 		s.remove(i);
-		assert.isFalse(s.allItems().includes(i));
+		assert.strictEqual(s.allItems().includes(i), false);
 	});
 
 	it('should not remove unrelated item', () => {

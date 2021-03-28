@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {TpUpdateEvent} from '../api/tp-event';
@@ -53,7 +53,7 @@ describe(Tweakpane.name, () => {
 						});
 						throw new Error('should not be called');
 					} catch (e) {
-						assert.instanceOf(e, TpError);
+						assert.strictEqual(e instanceof TpError, true);
 						assert.strictEqual(e.type, testCase.errorType);
 					}
 				});
@@ -92,7 +92,7 @@ describe(Tweakpane.name, () => {
 					interval: 0,
 				});
 				bapi.on('update', (ev) => {
-					assert.instanceOf(ev, TpUpdateEvent);
+					assert.strictEqual(ev instanceof TpUpdateEvent, true);
 					assert.strictEqual(ev.value, expected);
 					bapi.dispose();
 					done();
@@ -109,7 +109,7 @@ describe(Tweakpane.name, () => {
 					interval: 0,
 				});
 				pane.on('update', (ev) => {
-					assert.instanceOf(ev, TpUpdateEvent);
+					assert.strictEqual(ev instanceof TpUpdateEvent, true);
 					assert.strictEqual(ev.value, expected);
 					bapi.dispose();
 					done();

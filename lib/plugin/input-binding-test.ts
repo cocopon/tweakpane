@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../misc/test-util';
@@ -59,10 +59,10 @@ describe(createController.name, () => {
 			target: new BindingTarget({foo: 'bar'}, 'foo'),
 		});
 		const c = bc?.controller as TestController;
-		assert.isFalse(c.disposed);
-		assert.isFalse(c.view.disposed);
+		assert.strictEqual(c.disposed, false);
+		assert.strictEqual(c.view.disposed, false);
 		bc?.blade.dispose();
-		assert.isTrue(c.disposed);
-		assert.isTrue(c.view.disposed);
+		assert.strictEqual(c.disposed, true);
+		assert.strictEqual(c.view.disposed, true);
 	});
 });

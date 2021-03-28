@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../misc/test-util';
@@ -57,8 +57,9 @@ describe(FolderApi.name, () => {
 		assert.strictEqual(api.hidden, false);
 
 		api.hidden = true;
-		assert.isTrue(
+		assert.strictEqual(
 			api.controller.view.element.classList.contains('tp-v-hidden'),
+			true,
 		);
 	});
 
@@ -73,10 +74,10 @@ describe(FolderApi.name, () => {
 	it('should add separator', () => {
 		const api = createApi();
 		const s = api.addSeparator();
-		assert.instanceOf(s, SeparatorApi);
+		assert.strictEqual(s instanceof SeparatorApi, true);
 
 		const cs = api.controller.bladeRack.items;
-		assert.instanceOf(cs[cs.length - 1], SeparatorController);
+		assert.strictEqual(cs[cs.length - 1] instanceof SeparatorController, true);
 	});
 
 	it('should dispose separator', () => {
@@ -95,7 +96,10 @@ describe(FolderApi.name, () => {
 		};
 		const api = createApi();
 		const bapi = api.addInput(PARAMS, 'foo');
-		assert.instanceOf(bapi.controller.controller, NumberTextController);
+		assert.strictEqual(
+			bapi.controller.controller instanceof NumberTextController,
+			true,
+		);
 	});
 
 	it('should add monitor', () => {
@@ -106,7 +110,10 @@ describe(FolderApi.name, () => {
 		const bapi = api.addMonitor(PARAMS, 'foo', {
 			interval: 0,
 		});
-		assert.instanceOf(bapi.controller.controller, SingleLogMonitorController);
+		assert.strictEqual(
+			bapi.controller.controller instanceof SingleLogMonitorController,
+			true,
+		);
 	});
 
 	it('should listen fold event', (done) => {
@@ -160,7 +167,7 @@ describe(FolderApi.name, () => {
 				testCase.insert(api, 1);
 
 				const cs = api.controller.bladeRack.items;
-				assert.instanceOf(cs[1], testCase.expected);
+				assert.strictEqual(cs[1] instanceof testCase.expected, true);
 			});
 		});
 	});
@@ -209,7 +216,7 @@ describe(FolderApi.name, () => {
 				const bapi = api.addInput(obj, 'foo');
 
 				bapi.on('change', (ev) => {
-					assert.instanceOf(ev, TpChangeEvent);
+					assert.strictEqual(ev instanceof TpChangeEvent, true);
 					assert.strictEqual(ev.target, bapi);
 					assert.strictEqual(ev.presetKey, 'foo');
 					assert.strictEqual(ev.value, expected);
@@ -224,7 +231,7 @@ describe(FolderApi.name, () => {
 				const bapi = api.addInput(obj, 'foo');
 
 				api.on('change', (ev) => {
-					assert.instanceOf(ev, TpChangeEvent);
+					assert.strictEqual(ev instanceof TpChangeEvent, true);
 					assert.strictEqual(ev.presetKey, 'foo');
 					assert.strictEqual(ev.value, expected);
 

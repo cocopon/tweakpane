@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {ManualTicker} from './manual';
@@ -6,7 +6,7 @@ import {ManualTicker} from './manual';
 describe(ManualTicker.name, () => {
 	it('should be enabled by default', () => {
 		const t = new ManualTicker();
-		assert.isFalse(t.disabled);
+		assert.strictEqual(t.disabled, false);
 	});
 
 	it('should fire tick event', () => {

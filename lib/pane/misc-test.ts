@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {InputBindingApi} from '../api/input-binding';
@@ -22,7 +22,7 @@ describe(Tweakpane.name, () => {
 		const bapi = pane.addInput(obj, 'foo');
 
 		pane.on('change', (ev) => {
-			assert.instanceOf(ev, TpChangeEvent);
+			assert.strictEqual(ev instanceof TpChangeEvent, true);
 			assert.strictEqual(ev.presetKey, 'foo');
 			assert.strictEqual(ev.value, 2);
 
@@ -47,7 +47,7 @@ describe(Tweakpane.name, () => {
 		const bapi = fapi.addInput(obj, 'foo');
 
 		pane.on('change', (ev) => {
-			assert.instanceOf(ev, TpChangeEvent);
+			assert.strictEqual(ev instanceof TpChangeEvent, true);
 			assert.strictEqual(ev.presetKey, 'foo');
 			assert.strictEqual(ev.value, 2);
 
@@ -155,7 +155,7 @@ describe(Tweakpane.name, () => {
 
 	it('should get element', () => {
 		const pane = createPane();
-		assert.exists(pane.element);
+		assert.ok(pane.element);
 	});
 
 	it('should hide', () => {
@@ -163,8 +163,9 @@ describe(Tweakpane.name, () => {
 		assert.strictEqual(pane.hidden, false);
 
 		pane.hidden = true;
-		assert.isTrue(
+		assert.strictEqual(
 			pane.controller.view.element.classList.contains('tp-v-hidden'),
+			true,
 		);
 	});
 });

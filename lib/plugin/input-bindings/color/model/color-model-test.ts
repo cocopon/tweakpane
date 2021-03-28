@@ -1,6 +1,7 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
+import {TestUtil} from '../../../../misc/test-util';
 import {convertColorMode} from './color-model';
 
 const DELTA = 2;
@@ -57,15 +58,15 @@ describe('ColorModel', () => {
 		context(`when ${JSON.stringify(rgb)}`, () => {
 			it(`it should convert to ${JSON.stringify(hsl)}`, () => {
 				const actual = convertColorMode([rgb.r, rgb.g, rgb.b], 'rgb', 'hsl');
-				assert.closeTo(actual[0], hsl.h, DELTA, 'h');
-				assert.closeTo(actual[1], hsl.s, DELTA, 's');
-				assert.closeTo(actual[2], hsl.l, DELTA, 'l');
+				assert.ok(TestUtil.closeTo(actual[0], hsl.h, DELTA), 'h');
+				assert.ok(TestUtil.closeTo(actual[1], hsl.s, DELTA), 's');
+				assert.ok(TestUtil.closeTo(actual[2], hsl.l, DELTA), 'l');
 			});
 			it(`it should convert to ${JSON.stringify(hsv)}`, () => {
 				const actual = convertColorMode([rgb.r, rgb.g, rgb.b], 'rgb', 'hsv');
-				assert.closeTo(actual[0], hsv.h, DELTA, 'h');
-				assert.closeTo(actual[1], hsv.s, DELTA, 's');
-				assert.closeTo(actual[2], hsv.v, DELTA, 'v');
+				assert.ok(TestUtil.closeTo(actual[0], hsv.h, DELTA), 'h');
+				assert.ok(TestUtil.closeTo(actual[1], hsv.s, DELTA), 's');
+				assert.ok(TestUtil.closeTo(actual[2], hsv.v, DELTA), 'v');
 			});
 		});
 	});
@@ -73,9 +74,9 @@ describe('ColorModel', () => {
 		context(`when ${JSON.stringify(hsl)}`, () => {
 			it(`it should convert to ${JSON.stringify(rgb)}`, () => {
 				const actual = convertColorMode([hsl.h, hsl.s, hsl.l], 'hsl', 'rgb');
-				assert.closeTo(actual[0], rgb.r, DELTA, 'r');
-				assert.closeTo(actual[1], rgb.g, DELTA, 'g');
-				assert.closeTo(actual[2], rgb.b, DELTA, 'b');
+				assert.ok(TestUtil.closeTo(actual[0], rgb.r, DELTA), 'r');
+				assert.ok(TestUtil.closeTo(actual[1], rgb.g, DELTA), 'g');
+				assert.ok(TestUtil.closeTo(actual[2], rgb.b, DELTA), 'b');
 			});
 		});
 	});
@@ -83,9 +84,9 @@ describe('ColorModel', () => {
 		context(`when ${JSON.stringify(hsv)}`, () => {
 			it(`it should convert to ${JSON.stringify(rgb)}`, () => {
 				const actual = convertColorMode([hsv.h, hsv.s, hsv.v], 'hsv', 'rgb');
-				assert.closeTo(actual[0], rgb.r, DELTA, 'r');
-				assert.closeTo(actual[1], rgb.g, DELTA, 'g');
-				assert.closeTo(actual[2], rgb.b, DELTA, 'b');
+				assert.ok(TestUtil.closeTo(actual[0], rgb.r, DELTA), 'r');
+				assert.ok(TestUtil.closeTo(actual[1], rgb.g, DELTA), 'g');
+				assert.ok(TestUtil.closeTo(actual[2], rgb.b, DELTA), 'b');
 			});
 		});
 	});
@@ -93,9 +94,9 @@ describe('ColorModel', () => {
 		context(`when ${JSON.stringify(hsl)}`, () => {
 			it(`it should convert to ${JSON.stringify(hsv)}`, () => {
 				const actual = convertColorMode([hsl.h, hsl.s, hsl.l], 'hsl', 'hsv');
-				assert.closeTo(actual[0], hsv.h, DELTA, 'h');
-				assert.closeTo(actual[1], hsv.s, DELTA, 's');
-				assert.closeTo(actual[2], hsv.v, DELTA, 'v');
+				assert.ok(TestUtil.closeTo(actual[0], hsv.h, DELTA), 'h');
+				assert.ok(TestUtil.closeTo(actual[1], hsv.s, DELTA), 's');
+				assert.ok(TestUtil.closeTo(actual[2], hsv.v, DELTA), 'v');
 			});
 		});
 	});
@@ -103,9 +104,9 @@ describe('ColorModel', () => {
 		context(`when ${JSON.stringify(hsv)}`, () => {
 			it(`it should convert to ${JSON.stringify(hsl)}`, () => {
 				const actual = convertColorMode([hsv.h, hsv.s, hsv.v], 'hsv', 'hsl');
-				assert.closeTo(actual[0], hsl.h, DELTA, 'h');
-				assert.closeTo(actual[1], hsl.s, DELTA, 's');
-				assert.closeTo(actual[2], hsl.l, DELTA, 'l');
+				assert.ok(TestUtil.closeTo(actual[0], hsl.h, DELTA), 'h');
+				assert.ok(TestUtil.closeTo(actual[1], hsl.s, DELTA), 's');
+				assert.ok(TestUtil.closeTo(actual[2], hsl.l, DELTA), 'l');
 			});
 		});
 	});
@@ -120,9 +121,9 @@ describe('ColorModel', () => {
 		context(`when ${JSON.stringify(hsl)}`, () => {
 			it(`it should convert to ${JSON.stringify(hsv)}`, () => {
 				const actual = convertColorMode([hsl.h, hsl.s, hsl.l], 'hsl', 'hsv');
-				assert.closeTo(actual[0], hsv.h, DELTA, 'h');
-				assert.closeTo(actual[1], hsv.s, DELTA, 's');
-				assert.closeTo(actual[2], hsv.v, DELTA, 'v');
+				assert.ok(TestUtil.closeTo(actual[0], hsv.h, DELTA), 'h');
+				assert.ok(TestUtil.closeTo(actual[1], hsv.s, DELTA), 's');
+				assert.ok(TestUtil.closeTo(actual[2], hsv.v, DELTA), 'v');
 			});
 		});
 	});
@@ -130,9 +131,9 @@ describe('ColorModel', () => {
 		context(`when ${JSON.stringify(hsv)}`, () => {
 			it(`it should convert to ${JSON.stringify(hsl)}`, () => {
 				const actual = convertColorMode([hsv.h, hsv.s, hsv.v], 'hsv', 'hsl');
-				assert.closeTo(actual[0], hsl.h, DELTA, 'h');
-				assert.closeTo(actual[1], hsl.s, DELTA, 's');
-				assert.closeTo(actual[2], hsl.l, DELTA, 'l');
+				assert.ok(TestUtil.closeTo(actual[0], hsl.h, DELTA), 'h');
+				assert.ok(TestUtil.closeTo(actual[1], hsl.s, DELTA), 's');
+				assert.ok(TestUtil.closeTo(actual[2], hsl.l, DELTA), 'l');
 			});
 		});
 	});

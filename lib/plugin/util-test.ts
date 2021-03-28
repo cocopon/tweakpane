@@ -1,6 +1,7 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
+import {TestUtil} from '../misc/test-util';
 import {StepConstraint} from './common/constraint/step';
 import {getSuitableDraggingScale} from './util';
 
@@ -46,10 +47,12 @@ describe(getSuitableDraggingScale.name, () => {
 	].forEach(({params, expected}) => {
 		context(`when ${JSON.stringify(params)}`, () => {
 			it('should estimate suitable scale', () => {
-				assert.closeTo(
-					getSuitableDraggingScale(params.constraint, params.rawValue),
-					expected,
-					DELTA,
+				assert.ok(
+					TestUtil.closeTo(
+						getSuitableDraggingScale(params.constraint, params.rawValue),
+						expected,
+						DELTA,
+					),
 				);
 			});
 		});

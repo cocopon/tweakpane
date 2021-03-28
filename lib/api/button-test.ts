@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../misc/test-util';
@@ -32,11 +32,12 @@ describe(ButtonApi.name, () => {
 	it('should be hidden', () => {
 		const doc = TestUtil.createWindow().document;
 		const api = createApi(doc);
-		assert.isFalse(api.hidden);
+		assert.strictEqual(api.hidden, false);
 
 		api.hidden = true;
-		assert.isTrue(
+		assert.strictEqual(
 			api.controller.view.element.classList.contains('tp-v-hidden'),
+			true,
 		);
 	});
 
@@ -45,13 +46,16 @@ describe(ButtonApi.name, () => {
 		const api = createApi(doc);
 		const c = api.controller.valueController as ButtonController;
 
-		assert.isFalse(api.disabled);
-		assert.isFalse(c.view.buttonElement.disabled);
+		assert.strictEqual(api.disabled, false);
+		assert.strictEqual(c.view.buttonElement.disabled, false);
 
 		api.disabled = true;
 
-		assert.isTrue(c.view.element.classList.contains('tp-v-disabled'));
-		assert.isTrue(c.view.buttonElement.disabled);
+		assert.strictEqual(
+			c.view.element.classList.contains('tp-v-disabled'),
+			true,
+		);
+		assert.strictEqual(c.view.buttonElement.disabled, true);
 	});
 
 	it('should have chainable event handling', () => {

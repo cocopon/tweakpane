@@ -1,6 +1,7 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
+import {TestUtil} from '../../misc/test-util';
 import {
 	constrainRange,
 	getDecimalDigits,
@@ -46,7 +47,13 @@ describe('NumberUtil', () => {
 	] as MapTestCase[]).forEach((testCase) => {
 		context(`when ${JSON.stringify(testCase.args)}`, () => {
 			it(`should map to ${testCase.expected}`, () => {
-				assert.closeTo(mapRange(...testCase.args), testCase.expected, DELTA);
+				assert.ok(
+					TestUtil.closeTo(
+						mapRange(...testCase.args),
+						testCase.expected,
+						DELTA,
+					),
+				);
 			});
 		});
 	});

@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {CompositeConstraint, findConstraint} from './composite';
@@ -40,7 +40,7 @@ describe(CompositeConstraint.name, () => {
 	it('should find constraint itself', () => {
 		const c = new RangeConstraint({});
 		assert.strictEqual(findConstraint(c, RangeConstraint), c);
-		assert.isNull(findConstraint(c, StepConstraint));
+		assert.strictEqual(findConstraint(c, StepConstraint), null);
 	});
 
 	it('should find sub constraint', () => {
@@ -49,6 +49,6 @@ describe(CompositeConstraint.name, () => {
 		const c = new CompositeConstraint([rc, sc]);
 		assert.strictEqual(findConstraint(c, RangeConstraint), rc);
 		assert.strictEqual(findConstraint(c, StepConstraint), sc);
-		assert.isNull(findConstraint(c, ListConstraint));
+		assert.strictEqual(findConstraint(c, ListConstraint), null);
 	});
 });

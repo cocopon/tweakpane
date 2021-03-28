@@ -24,4 +24,8 @@ export const TestUtil = {
 	): Event => {
 		return new (win as any).KeyboardEvent(type, options);
 	},
+
+	closeTo: (actual: number, expected: number, delta: number): boolean => {
+		return Math.abs(actual - expected) < delta;
+	},
 };
