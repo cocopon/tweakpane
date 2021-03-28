@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {Point2d} from '../../input-bindings/point-2d/model/point-2d';

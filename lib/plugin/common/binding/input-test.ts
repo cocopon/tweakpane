@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {numberFromUnknown} from '../converter/number';
@@ -59,6 +59,6 @@ describe(InputBinding.name, () => {
 			writer: (v) => v,
 		});
 
-		assert.isUndefined(obj.foo);
+		assert.strictEqual(obj.foo, undefined);
 	});
 });

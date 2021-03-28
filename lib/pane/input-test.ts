@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
 import {InputBindingApi} from '../api/input-binding';
@@ -52,7 +52,7 @@ describe(Tweakpane.name, () => {
 						pane.addInput(testCase.obj, testCase.key);
 						throw new Error('should not be called');
 					} catch (e) {
-						assert.instanceOf(e, TpError);
+						assert.strictEqual(e instanceof TpError, true);
 						assert.strictEqual(e.type, testCase.errorType);
 					}
 				});
@@ -104,7 +104,7 @@ describe(Tweakpane.name, () => {
 				const bapi = pane.addInput(obj, 'foo');
 
 				bapi.on('change', (ev) => {
-					assert.instanceOf(ev, TpChangeEvent);
+					assert.strictEqual(ev instanceof TpChangeEvent, true);
 					assert.strictEqual(ev.target, bapi);
 					assert.strictEqual(ev.presetKey, 'foo');
 					assert.strictEqual(ev.value, expected);
@@ -119,7 +119,7 @@ describe(Tweakpane.name, () => {
 				const bapi = pane.addInput(obj, 'foo');
 
 				pane.on('change', (ev) => {
-					assert.instanceOf(ev, TpChangeEvent);
+					assert.strictEqual(ev instanceof TpChangeEvent, true);
 					assert.strictEqual(ev.presetKey, 'foo');
 					assert.strictEqual(ev.value, expected);
 
@@ -163,8 +163,8 @@ describe(Tweakpane.name, () => {
 		const bapi = pane.addInput(PARAMS, 'foo', {
 			disabled: true,
 		});
-		assert.isTrue(bapi.disabled);
-		assert.isTrue(bapi.controller.viewProps.get('disabled'));
+		assert.strictEqual(bapi.disabled, true);
+		assert.strictEqual(bapi.controller.viewProps.get('disabled'), true);
 	});
 
 	it('should apply disabled of input binding', () => {
@@ -172,10 +172,10 @@ describe(Tweakpane.name, () => {
 		const pane = createPane();
 		const bapi = pane.addInput(PARAMS, 'foo');
 
-		assert.isFalse(bapi.disabled);
-		assert.isFalse(bapi.controller.viewProps.get('disabled'));
+		assert.strictEqual(bapi.disabled, false);
+		assert.strictEqual(bapi.controller.viewProps.get('disabled'), false);
 		bapi.disabled = true;
-		assert.isTrue(bapi.disabled);
-		assert.isTrue(bapi.controller.viewProps.get('disabled'));
+		assert.strictEqual(bapi.disabled, true);
+		assert.strictEqual(bapi.controller.viewProps.get('disabled'), true);
 	});
 });

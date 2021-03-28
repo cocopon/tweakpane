@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe, it as context, it} from 'mocha';
 
 import {createViewProps} from './view-props';

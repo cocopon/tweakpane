@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
@@ -36,7 +36,7 @@ describe(IntervalTicker.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const t = new IntervalTicker(doc, 0);
 
-		assert.isFalse(t.disabled);
+		assert.strictEqual(t.disabled, false);
 	});
 
 	it('should not tick if disabled', (done) => {

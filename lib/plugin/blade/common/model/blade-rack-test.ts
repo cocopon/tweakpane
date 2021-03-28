@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
@@ -155,9 +155,9 @@ describe(BladeRack.name, () => {
 		const bc = createInputBindingController(doc);
 		rack.add(bc);
 
-		assert.isTrue(rack.items.includes(bc));
+		assert.strictEqual(rack.items.includes(bc), true);
 		bc.blade.dispose();
-		assert.isFalse(rack.items.includes(bc));
+		assert.strictEqual(rack.items.includes(bc), false);
 	});
 
 	it('should handle layout', (done) => {
@@ -248,6 +248,6 @@ describe(BladeRack.name, () => {
 		});
 		bc.viewProps.set('hidden', !bc.viewProps.get('hidden'));
 
-		assert.isTrue(count > 0);
+		assert.strictEqual(count > 0, true);
 	});
 });

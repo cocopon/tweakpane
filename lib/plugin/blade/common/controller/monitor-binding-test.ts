@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
@@ -46,8 +46,8 @@ describe(MonitorBindingController.name, () => {
 
 	it('should disable ticker', () => {
 		const bc = create();
-		assert.isFalse(bc.binding.ticker.disabled);
+		assert.strictEqual(bc.binding.ticker.disabled, false);
 		bc.viewProps.set('disabled', true);
-		assert.isTrue(bc.binding.ticker.disabled);
+		assert.strictEqual(bc.binding.ticker.disabled, true);
 	});
 });

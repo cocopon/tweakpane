@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import Tweakpane from '../index';
@@ -26,7 +26,7 @@ describe(Tweakpane.name, () => {
 			disabled: true,
 			title: 'push',
 		});
-		assert.isTrue(b.controller.viewProps.get('disabled'));
+		assert.strictEqual(b.controller.viewProps.get('disabled'), true);
 	});
 
 	it('should add button with label', () => {
@@ -36,8 +36,9 @@ describe(Tweakpane.name, () => {
 			title: 'push',
 		});
 		assert.strictEqual(b.controller.valueController.button.title, 'push');
-		assert.isTrue(
+		assert.strictEqual(
 			b.controller.view.element.innerHTML.indexOf('foobarlabel') >= 0,
+			true,
 		);
 	});
 });

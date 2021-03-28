@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../misc/test-util';
@@ -50,7 +50,7 @@ describe(InputBindingApi.name, () => {
 		};
 		const api = createApi(new BindingTarget(PARAMS, 'foo'));
 		api.on('change', (ev) => {
-			assert.instanceOf(ev, TpChangeEvent);
+			assert.strictEqual(ev instanceof TpChangeEvent, true);
 			assert.strictEqual(ev.target, api);
 			assert.strictEqual(ev.presetKey, 'foo');
 			assert.strictEqual(ev.value, 123);
@@ -91,8 +91,9 @@ describe(InputBindingApi.name, () => {
 		assert.strictEqual(api.hidden, false);
 
 		api.hidden = true;
-		assert.isTrue(
+		assert.strictEqual(
 			api.controller.view.element.classList.contains('tp-v-hidden'),
+			true,
 		);
 	});
 
@@ -104,8 +105,9 @@ describe(InputBindingApi.name, () => {
 		assert.strictEqual(api.disabled, false);
 
 		api.disabled = true;
-		assert.isTrue(
+		assert.strictEqual(
 			api.controller.view.element.classList.contains('tp-v-disabled'),
+			true,
 		);
 	});
 });

@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
@@ -34,16 +34,16 @@ describe(setUpBladeController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TestController(doc);
 		const [m, v] = [c.blade, c.view];
-		assert.isNotTrue(v.element.classList.contains('tp-v-first'));
-		assert.isNotTrue(v.element.classList.contains('tp-v-last'));
+		assert.strictEqual(v.element.classList.contains('tp-v-first'), false);
+		assert.strictEqual(v.element.classList.contains('tp-v-last'), false);
 		m.positions = ['first'];
-		assert.isTrue(v.element.classList.contains('tp-v-first'));
+		assert.strictEqual(v.element.classList.contains('tp-v-first'), true);
 		m.positions = ['last'];
-		assert.isNotTrue(v.element.classList.contains('tp-v-first'));
-		assert.isTrue(v.element.classList.contains('tp-v-last'));
+		assert.strictEqual(v.element.classList.contains('tp-v-first'), false);
+		assert.strictEqual(v.element.classList.contains('tp-v-last'), true);
 		m.positions = ['first', 'last'];
-		assert.isTrue(v.element.classList.contains('tp-v-first'));
-		assert.isTrue(v.element.classList.contains('tp-v-last'));
+		assert.strictEqual(v.element.classList.contains('tp-v-first'), true);
+		assert.strictEqual(v.element.classList.contains('tp-v-last'), true);
 	});
 
 	it('should apply disposed', () => {
@@ -54,8 +54,8 @@ describe(setUpBladeController.name, () => {
 		const parentElem = doc.createElement('div');
 		parentElem.appendChild(v.element);
 
-		assert.isNotNull(v.element.parentNode);
+		assert.notStrictEqual(v.element.parentNode, null);
 		m.dispose();
-		assert.isNull(v.element.parentNode);
+		assert.strictEqual(v.element.parentNode, null);
 	});
 });

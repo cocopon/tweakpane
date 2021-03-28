@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
 import {TpFoldEvent} from '../api/tp-event';
@@ -58,7 +58,7 @@ describe(Tweakpane.name, () => {
 		pane.addSeparator();
 
 		const cs = pane.controller.bladeRack.items;
-		assert.instanceOf(cs[cs.length - 1], SeparatorController);
+		assert.strictEqual(cs[cs.length - 1] instanceof SeparatorController, true);
 	});
 
 	it('should dispose separator', () => {
@@ -75,7 +75,7 @@ describe(Tweakpane.name, () => {
 		const pane = createApi('pane');
 
 		pane.on('fold', (ev) => {
-			assert.instanceOf(ev, TpFoldEvent);
+			assert.strictEqual(ev instanceof TpFoldEvent, true);
 			assert.strictEqual(ev.expanded, false);
 			done();
 		});
@@ -94,7 +94,7 @@ describe(Tweakpane.name, () => {
 		});
 
 		pane.on('fold', (ev) => {
-			assert.instanceOf(ev, TpFoldEvent);
+			assert.strictEqual(ev instanceof TpFoldEvent, true);
 			assert.strictEqual(ev.expanded, false);
 			done();
 		});
@@ -153,7 +153,7 @@ describe(Tweakpane.name, () => {
 				testCase.insert(pane, 1);
 
 				const cs = pane.controller.bladeRack.items;
-				assert.instanceOf(cs[1], testCase.expected);
+				assert.strictEqual(cs[1] instanceof testCase.expected, true);
 			});
 		});
 	});
@@ -177,9 +177,9 @@ describe(Tweakpane.name, () => {
 		const m = pane.addMonitor(PARAMS, 'foo');
 
 		pane.dispose();
-		assert.isTrue(pane.controller.blade.disposed);
-		assert.isTrue(i.controller.blade.disposed);
-		assert.isTrue(m.controller.blade.disposed);
+		assert.strictEqual(pane.controller.blade.disposed, true);
+		assert.strictEqual(i.controller.blade.disposed, true);
+		assert.strictEqual(m.controller.blade.disposed, true);
 	});
 
 	it('should dispose items (nested)', () => {
@@ -189,12 +189,12 @@ describe(Tweakpane.name, () => {
 		const i = f.addInput(PARAMS, 'foo');
 		const m = f.addMonitor(PARAMS, 'foo');
 
-		assert.isFalse(pane.controller.blade.disposed);
-		assert.isFalse(i.controller.blade.disposed);
-		assert.isFalse(m.controller.blade.disposed);
+		assert.strictEqual(pane.controller.blade.disposed, false);
+		assert.strictEqual(i.controller.blade.disposed, false);
+		assert.strictEqual(m.controller.blade.disposed, false);
 		pane.dispose();
-		assert.isTrue(pane.controller.blade.disposed);
-		assert.isTrue(i.controller.blade.disposed);
-		assert.isTrue(m.controller.blade.disposed);
+		assert.strictEqual(pane.controller.blade.disposed, true);
+		assert.strictEqual(i.controller.blade.disposed, true);
+		assert.strictEqual(m.controller.blade.disposed, true);
 	});
 });

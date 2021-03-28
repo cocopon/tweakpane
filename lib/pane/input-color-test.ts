@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
 import Tweakpane from '..';
@@ -67,7 +67,10 @@ describe(Tweakpane.name, () => {
 				const pane = createPane(TestUtil.createWindow());
 				const obj = {foo: testCase.value};
 				const bapi = pane.addInput(obj, 'foo', testCase.params);
-				assert.instanceOf(bapi.controller.controller, testCase.expectedClass);
+				assert.strictEqual(
+					bapi.controller.controller instanceof testCase.expectedClass,
+					true,
+				);
 			});
 		});
 	});
