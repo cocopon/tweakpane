@@ -24,7 +24,7 @@ describe(ManualTicker.name, () => {
 	it('should not fire tick event from disabled ticker', () => {
 		const t = new ManualTicker();
 		t.emitter.on('tick', () => {
-			throw new Error('should not be called');
+			assert.fail('should not be called');
 		});
 
 		t.disabled = true;

@@ -31,7 +31,7 @@ describe(Tweakpane.name, () => {
 
 				const ic = bapi.controller.controller;
 				if (!(ic instanceof PointNdTextController)) {
-					throw new Error('unexpected controller class');
+					assert.fail('unexpected controller class');
 				}
 				assert.strictEqual(ic.view.textViews.length, 4);
 			});
@@ -49,11 +49,11 @@ describe(Tweakpane.name, () => {
 
 		const c = (bapi.controller.binding.value as BoundValue<unknown>).constraint;
 		if (!(c instanceof PointNdConstraint)) {
-			throw new Error('Unexpected constraint');
+			assert.fail('Unexpected constraint');
 		}
 		const wc = c.components[3];
 		if (!wc) {
-			throw new Error('Unexpected constraint');
+			assert.fail('Unexpected constraint');
 		}
 		const sc = findConstraint(wc, StepConstraint);
 		assert.strictEqual(sc && sc.step, 1);
@@ -71,11 +71,11 @@ describe(Tweakpane.name, () => {
 
 		const c = (bapi.controller.binding.value as BoundValue<unknown>).constraint;
 		if (!(c instanceof PointNdConstraint)) {
-			throw new Error('Unexpected constraint');
+			assert.fail('Unexpected constraint');
 		}
 		const wc = c.components[3];
 		if (!wc) {
-			throw new Error('Unexpected constraint');
+			assert.fail('Unexpected constraint');
 		}
 		const rc = findConstraint(wc, RangeConstraint);
 		assert.strictEqual(rc && rc.minValue, -123);

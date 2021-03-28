@@ -13,9 +13,9 @@ const input = pane.addInput(params, 'foo', {
 });
 const elem = input.controller.view.element.querySelector('.tp-tstv');
 if (!elem) {
-	throw new Error('custom view not found');
+	assert.fail('custom view not found');
 }
 
 if (elem.textContent !== params.foo) {
-	throw new Error('invalid display value');
+	assert.fail('invalid display value');
 }

@@ -10,11 +10,11 @@ describe(IntervalTicker.name, () => {
 
 		const t0 = new IntervalTicker(doc, 0);
 		t0.emitter.on('tick', () => {
-			throw new Error('should not be called');
+			assert.fail('should not be called');
 		});
 		const tn = new IntervalTicker(doc, -100);
 		tn.emitter.on('tick', () => {
-			throw new Error('should not be called');
+			assert.fail('should not be called');
 		});
 
 		setTimeout(() => {
@@ -44,7 +44,7 @@ describe(IntervalTicker.name, () => {
 		const t = new IntervalTicker(doc, 1);
 		t.disabled = true;
 		t.emitter.on('tick', () => {
-			throw new Error('should not called');
+			assert.fail('should not called');
 		});
 
 		setTimeout(done, 10);

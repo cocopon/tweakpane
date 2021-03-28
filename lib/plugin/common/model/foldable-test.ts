@@ -28,7 +28,7 @@ describe(Foldable.name, () => {
 		f.expanded = true;
 
 		f.emitter.on('change', () => {
-			throw new Error('should not be called');
+			assert.fail('should not be called');
 		});
 		f.expanded = true;
 	});

@@ -16,7 +16,7 @@ describe(point2dFromUnknown.name, () => {
 			it(`should parse as ${JSON.stringify(testCase.expected)}`, () => {
 				const actual = point2dFromUnknown(testCase.input);
 				if (!actual) {
-					throw new Error('cannot parse');
+					assert.fail('cannot parse');
 				}
 				assert.deepStrictEqual(actual.toObject(), testCase.expected);
 			});

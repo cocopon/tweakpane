@@ -27,7 +27,7 @@ describe(Tweakpane.name, () => {
 			assert.strictEqual(ev.value, 2);
 
 			if (!(ev.target instanceof InputBindingApi)) {
-				throw new Error('unexpected target');
+				assert.fail('unexpected target');
 			}
 			assert.strictEqual(ev.target.controller, bapi.controller);
 
@@ -52,7 +52,7 @@ describe(Tweakpane.name, () => {
 			assert.strictEqual(ev.value, 2);
 
 			if (!(ev.target instanceof InputBindingApi)) {
-				throw new Error('unexpected target');
+				assert.fail('unexpected target');
 			}
 			assert.strictEqual(ev.target.controller, bapi.controller);
 

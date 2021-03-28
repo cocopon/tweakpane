@@ -23,7 +23,7 @@ describe(GraphCursor.name, () => {
 		const c = new GraphCursor();
 		c.index = 123;
 		c.emitter.on('change', () => {
-			throw new Error();
+			assert.fail();
 		});
 		c.index = 123;
 	});

@@ -18,7 +18,7 @@ describe(PickedColor.name, () => {
 	it('should not emit change event', () => {
 		const pc = new PickedColor(new BoundValue(new Color([0, 0, 0], 'rgb')));
 		pc.emitter.on('change', () => {
-			throw new Error('should not be called');
+			assert.fail('should not be called');
 		});
 		pc.mode = 'rgb';
 	});

@@ -49,11 +49,11 @@ describe(Tweakpane.name, () => {
 
 		const c = (bapi.controller.binding.value as BoundValue<unknown>).constraint;
 		if (!(c instanceof PointNdConstraint)) {
-			throw new Error('Unexpected constraint');
+			assert.fail('Unexpected constraint');
 		}
 		const xc = c.components[0];
 		if (!xc) {
-			throw new Error('Unexpected constraint');
+			assert.fail('Unexpected constraint');
 		}
 		const sc = findConstraint(xc, StepConstraint);
 		assert.strictEqual(sc && sc.step, 1);
@@ -71,11 +71,11 @@ describe(Tweakpane.name, () => {
 
 		const c = (bapi.controller.binding.value as BoundValue<unknown>).constraint;
 		if (!(c instanceof PointNdConstraint)) {
-			throw new Error('Unexpected constraint');
+			assert.fail('Unexpected constraint');
 		}
 		const yc = c.components[1];
 		if (!yc) {
-			throw new Error('Unexpected constraint');
+			assert.fail('Unexpected constraint');
 		}
 		const rc = findConstraint(yc, RangeConstraint);
 		assert.strictEqual(rc && rc.minValue, -123);
@@ -90,7 +90,7 @@ describe(Tweakpane.name, () => {
 
 		const v = bapi.controller.binding.value;
 		if (!(v.rawValue instanceof Point2d)) {
-			throw new Error('Unexpected value type');
+			assert.fail('Unexpected value type');
 		}
 
 		v.rawValue = new Point2d(56, 78);

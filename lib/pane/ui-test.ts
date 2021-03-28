@@ -82,7 +82,7 @@ describe(Tweakpane.name, () => {
 
 		const f = pane.controller.folder;
 		if (!f) {
-			throw new Error('Root folder not found');
+			assert.fail('Root folder not found');
 		}
 		f.expanded = false;
 	});

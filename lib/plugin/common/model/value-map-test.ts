@@ -41,7 +41,7 @@ describe(ValueMap.name, () => {
 		});
 
 		m.emitter.on('change', () => {
-			throw new Error('should not be called');
+			assert.fail('should not be called');
 		});
 
 		assert.doesNotThrow(() => {
