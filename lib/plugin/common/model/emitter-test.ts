@@ -48,7 +48,7 @@ describe(Emitter.name, () => {
 		}>();
 
 		const handler = () => {
-			throw new Error('should not be called');
+			assert.fail('should not be called');
 		};
 
 		e.on('change', handler);

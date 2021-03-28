@@ -82,11 +82,11 @@ describe(Tweakpane.name, () => {
 
 		const iv = bapi.controller.controller.value;
 		if (!(iv instanceof BoundValue)) {
-			throw new Error('Input value is empty');
+			assert.fail('Input value is empty');
 		}
 		const c: Constraint<unknown> | null = forceCast(iv.constraint);
 		if (!c) {
-			throw new Error('Constraint is empty');
+			assert.fail('Constraint is empty');
 		}
 
 		assert.notStrictEqual(findConstraint(c, StepConstraint), null);
@@ -101,7 +101,7 @@ describe(Tweakpane.name, () => {
 
 		const c = bapi.controller.controller;
 		if (!(c instanceof NumberTextController)) {
-			throw new Error('unexpected controller');
+			assert.fail('unexpected controller');
 		}
 
 		assert.strictEqual(c.view.inputElement.value, 'foo 123 bar');

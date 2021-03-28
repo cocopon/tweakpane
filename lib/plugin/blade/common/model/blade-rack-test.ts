@@ -211,7 +211,7 @@ describe(BladeRack.name, () => {
 		rack.add(bc);
 
 		rack.emitter.on('inputchange', () => {
-			throw new Error('should not be called');
+			assert.fail('should not be called');
 		});
 
 		bc.blade.dispose();
@@ -227,7 +227,7 @@ describe(BladeRack.name, () => {
 		fc.bladeRack.add(bc);
 
 		rack.emitter.on('inputchange', () => {
-			throw new Error('should not be called');
+			assert.fail('should not be called');
 		});
 
 		fc.blade.dispose();

@@ -152,7 +152,7 @@ describe(NestedOrderedSet.name, () => {
 		s.add(i0);
 
 		s.emitter.on('add', () => {
-			throw new Error('should not be called');
+			assert.fail('should not be called');
 		});
 
 		s.remove(i0);

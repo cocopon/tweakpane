@@ -51,7 +51,7 @@ describe(Tweakpane.name, () => {
 						pane.addMonitor(testCase.obj, testCase.key, {
 							interval: 0,
 						});
-						throw new Error('should not be called');
+						assert.fail('should not be called');
 					} catch (e) {
 						assert.strictEqual(e instanceof TpError, true);
 						assert.strictEqual(e.type, testCase.errorType);

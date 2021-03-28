@@ -50,7 +50,7 @@ describe(Tweakpane.name, () => {
 
 					try {
 						pane.addInput(testCase.obj, testCase.key);
-						throw new Error('should not be called');
+						assert.fail('should not be called');
 					} catch (e) {
 						assert.strictEqual(e instanceof TpError, true);
 						assert.strictEqual(e.type, testCase.errorType);
@@ -124,7 +124,7 @@ describe(Tweakpane.name, () => {
 					assert.strictEqual(ev.value, expected);
 
 					if (!(ev.target instanceof InputBindingApi)) {
-						throw new Error('unexpected target');
+						assert.fail('unexpected target');
 					}
 					assert.strictEqual(ev.target.controller, bapi.controller);
 

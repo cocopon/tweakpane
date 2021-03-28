@@ -236,7 +236,7 @@ describe(FolderApi.name, () => {
 					assert.strictEqual(ev.value, expected);
 
 					if (!(ev.target instanceof InputBindingApi)) {
-						throw new Error('unexpected target');
+						assert.fail('unexpected target');
 					}
 					assert.strictEqual(ev.target.controller, bapi.controller);
 

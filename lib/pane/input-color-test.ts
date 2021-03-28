@@ -101,7 +101,7 @@ describe(Tweakpane.name, () => {
 
 				const view = bapi.controller.controller.view;
 				if (!(view instanceof ColorSwatchTextView)) {
-					throw new Error('Unexpected view');
+					assert.fail('Unexpected view');
 				}
 
 				const inputElem = view.textView.inputElement;
@@ -170,7 +170,7 @@ describe(Tweakpane.name, () => {
 
 			const view = bapi.controller.controller.view;
 			if (!(view instanceof ColorSwatchTextView)) {
-				throw new Error('Unexpected view');
+				assert.fail('Unexpected view');
 			}
 			const inputElem = view.textView.inputElement;
 

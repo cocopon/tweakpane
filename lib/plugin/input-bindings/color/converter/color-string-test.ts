@@ -161,7 +161,7 @@ describe('StringColorParser', () => {
 
 				const actualComps = c?.getComponents();
 				if (!actualComps) {
-					throw new Error('should not be called');
+					assert.fail('should not be called');
 				}
 				expected.components.forEach((c, index) => {
 					assert.ok(TestUtil.closeTo(actualComps[index], c, DELTA));
@@ -380,7 +380,7 @@ describe('StringColorParser', () => {
 				} else if (comps.length === 4) {
 					assert.strictEqual(colorToFunctionalRgbaString(c), testCase.rgb);
 				} else {
-					throw new Error('should not be called');
+					assert.fail('should not be called');
 				}
 			});
 		});
