@@ -41,10 +41,10 @@ export class HPaletteView implements View {
 		this.element.appendChild(markerElem);
 		this.markerElem_ = markerElem;
 
-		this.update();
+		this.update_();
 	}
 
-	public update(): void {
+	private update_(): void {
 		const c = this.value.rawValue;
 		const [h] = c.getComponents('hsv');
 		this.markerElem_.style.backgroundColor = colorToFunctionalRgbString(
@@ -55,6 +55,6 @@ export class HPaletteView implements View {
 	}
 
 	private onValueChange_(): void {
-		this.update();
+		this.update_();
 	}
 }

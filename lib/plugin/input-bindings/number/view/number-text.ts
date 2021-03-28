@@ -90,7 +90,7 @@ export class NumberTextView implements View {
 		config.value.emitter.on('change', this.onChange_);
 		this.value = config.value;
 
-		this.update();
+		this.update_();
 	}
 
 	private onDraggingChange_(ev: ValueEvents<number | null>['change']) {
@@ -118,12 +118,12 @@ export class NumberTextView implements View {
 		this.tooltipElem_.style.left = `${x}px`;
 	}
 
-	public update(): void {
+	private update_(): void {
 		const formatter = this.props_.get('formatter');
 		this.inputElement.value = formatter(this.value.rawValue);
 	}
 
 	private onChange_(): void {
-		this.update();
+		this.update_();
 	}
 }

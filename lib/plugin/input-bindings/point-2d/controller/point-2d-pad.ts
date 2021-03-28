@@ -92,7 +92,6 @@ export class Point2dPadController implements ValueController<Point2d> {
 			+max,
 		);
 		this.value.rawValue = new Point2d(px, py);
-		this.view.update();
 	}
 
 	private onPointerDown_(ev: PointerHandlerEvents['down']): void {

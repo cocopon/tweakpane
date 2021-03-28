@@ -48,10 +48,10 @@ export class SvPaletteView implements View {
 		this.element.appendChild(markerElem);
 		this.markerElem_ = markerElem;
 
-		this.update();
+		this.update_();
 	}
 
-	public update(): void {
+	private update_(): void {
 		const ctx = getCanvasContext(this.canvasElement);
 		if (!ctx) {
 			return;
@@ -85,6 +85,6 @@ export class SvPaletteView implements View {
 	}
 
 	private onValueChange_(): void {
-		this.update();
+		this.update_();
 	}
 }

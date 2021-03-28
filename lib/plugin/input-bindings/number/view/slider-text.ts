@@ -34,9 +34,4 @@ export class SliderTextView implements View {
 		textElem.appendChild(this.textView_.element);
 		this.element.appendChild(textElem);
 	}
-
-	public update(): void {
-		this.sliderView_.update();
-		this.textView_.update();
-	}
 }

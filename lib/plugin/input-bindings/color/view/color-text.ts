@@ -70,7 +70,7 @@ export class ColorTextView implements View {
 		this.pickedColor = config.pickedColor;
 		this.pickedColor.emitter.on('change', this.onValueChange_);
 
-		this.update();
+		this.update_();
 	}
 
 	get modeSelectElement(): HTMLSelectElement {
@@ -86,7 +86,7 @@ export class ColorTextView implements View {
 		this.applyTextViews_();
 	}
 
-	public update(): void {
+	private update_(): void {
 		this.modeElem_.value = this.pickedColor.mode;
 	}
 
@@ -105,6 +105,6 @@ export class ColorTextView implements View {
 	}
 
 	private onValueChange_(): void {
-		this.update();
+		this.update_();
 	}
 }

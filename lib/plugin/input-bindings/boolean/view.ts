@@ -48,14 +48,14 @@ export class CheckboxView implements View {
 		config.value.emitter.on('change', this.onValueChange_);
 		this.value = config.value;
 
-		this.update();
+		this.update_();
 	}
 
-	public update(): void {
+	private update_(): void {
 		this.inputElement.checked = this.value.rawValue;
 	}
 
 	private onValueChange_(): void {
-		this.update();
+		this.update_();
 	}
 }

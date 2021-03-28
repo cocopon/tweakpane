@@ -53,10 +53,10 @@ export class SliderView implements View {
 		config.value.emitter.on('change', this.onChange_);
 		this.value = config.value;
 
-		this.update();
+		this.update_();
 	}
 
-	public update(): void {
+	private update_(): void {
 		const p = constrainRange(
 			mapRange(
 				this.value.rawValue,
@@ -72,6 +72,6 @@ export class SliderView implements View {
 	}
 
 	private onChange_(): void {
-		this.update();
+		this.update_();
 	}
 }
