@@ -1,15 +1,16 @@
 import {isEmpty} from '../../../misc/type-util';
-import {forceReflow, insertElementAt} from '../../common/dom-util';
+import {
+	disableTransitionTemporarily,
+	forceReflow,
+	insertElementAt,
+} from '../../common/dom-util';
 import {ViewProps} from '../../common/model/view-props';
 import {
 	BladeController,
 	setUpBladeController,
 } from '../common/controller/blade';
-import {
-	computeExpandedFolderHeight,
-	updateAllItemsPositions,
-} from '../common/controller/container-util';
 import {Blade} from '../common/model/blade';
+import {BladePosition} from '../common/model/blade-positions';
 import {BladeRack, BladeRackEvents} from '../common/model/blade-rack';
 import {Folder, FolderEvents} from './model/folder';
 import {FolderView} from './view';
@@ -22,6 +23,31 @@ interface Config {
 
 	hidesTitle?: boolean;
 	viewName?: string;
+}
+
+function computeExpandedFolderHeight(
+	folder: Folder,
+	containerElement: HTMLElement,
+): number {
+	let height = 0;
+
+	disableTransitionTemporarily(containerElement, () => {
+		// Expand folder temporarily
+		folder.expandedHeight = null;
+		folder.temporaryExpanded = true;
+
+		forceReflow(containerElement);
+
+		// Compute height
+		height = containerElement.clientHeight;
+
+		// Restore expanded
+		folder.temporaryExpanded = null;
+
+		forceReflow(containerElement);
+	});
+
+	return height;
 }
 
 /**
@@ -100,7 +126,22 @@ export class FolderController implements BladeController {
 	}
 
 	private applyRackChange_(): void {
-		updateAllItemsPositions(this.bladeRack);
+		const visibleItems = this.bladeRack.items.filter(
+			(bc) => !bc.viewProps.get('hidden'),
+		);
+		const firstVisibleItem = visibleItems[0];
+		const lastVisibleItem = visibleItems[visibleItems.length - 1];
+
+		this.bladeRack.items.forEach((bc) => {
+			const ps: BladePosition[] = [];
+			if (bc === firstVisibleItem) {
+				ps.push('first');
+			}
+			if (bc === lastVisibleItem) {
+				ps.push('last');
+			}
+			bc.blade.positions = ps;
+		});
 	}
 
 	private onRackAdd_(ev: BladeRackEvents['add']) {
