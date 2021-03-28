@@ -6,7 +6,7 @@ import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../../common/converter/number';
-import {Value} from '../../../common/model/value';
+import {BoundValue} from '../../../common/model/bound-value';
 import {createViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from './number-text';
 
@@ -19,7 +19,7 @@ describe(NumberTextController.name, () => {
 			draggingScale: 1,
 			formatter: createNumberFormatter(0),
 			parser: parseNumber,
-			value: new Value(123),
+			value: new BoundValue(123),
 			viewProps: createViewProps(),
 		});
 

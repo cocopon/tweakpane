@@ -4,14 +4,14 @@ import {describe, it} from 'mocha';
 import {TestUtil} from '../../../../misc/test-util';
 import {ListConstraint} from '../../../common/constraint/list';
 import {numberToString} from '../../../common/converter/number';
-import {Value} from '../../../common/model/value';
+import {BoundValue} from '../../../common/model/bound-value';
 import {createViewProps} from '../../../common/model/view-props';
 import {findListItems} from '../../../util';
 import {ListController} from './list';
 
 describe(ListController.name, () => {
 	it('should get value', () => {
-		const value = new Value(0, {
+		const value = new BoundValue(0, {
 			constraint: new ListConstraint([
 				{text: 'foo', value: 12},
 				{text: 'bar', value: 34},
@@ -30,7 +30,7 @@ describe(ListController.name, () => {
 	});
 
 	it('should apply input to value', () => {
-		const value = new Value(0, {
+		const value = new BoundValue(0, {
 			constraint: new ListConstraint([
 				{text: 'foo', value: 12},
 				{text: 'bar', value: 34},

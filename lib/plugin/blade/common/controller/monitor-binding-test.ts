@@ -7,7 +7,7 @@ import {BindingTarget} from '../../../common/binding/target';
 import {ManualTicker} from '../../../common/binding/ticker/manual';
 import {createNumberFormatter} from '../../../common/converter/number';
 import {numberFromUnknown} from '../../../common/converter/number';
-import {Value} from '../../../common/model/value';
+import {BoundValue} from '../../../common/model/bound-value';
 import {createViewProps} from '../../../common/model/view-props';
 import {SingleLogMonitorController} from '../../../monitor-bindings/common/controller/single-log';
 import {Blade} from '../model/blade';
@@ -18,7 +18,7 @@ function create(): MonitorBindingController<number> {
 		foo: 123,
 	};
 	const doc = TestUtil.createWindow().document;
-	const value = new Value(Array(10).fill(undefined));
+	const value = new BoundValue(Array(10).fill(undefined));
 	const binding = new MonitorBinding({
 		reader: numberFromUnknown,
 		target: new BindingTarget(obj, 'foo'),

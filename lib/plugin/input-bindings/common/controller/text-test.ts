@@ -6,14 +6,14 @@ import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../../common/converter/number';
-import {Value} from '../../../common/model/value';
+import {BoundValue} from '../../../common/model/bound-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TextController} from './text';
 
 describe(TextController.name, () => {
 	it('should get value', () => {
-		const value = new Value(0);
+		const value = new BoundValue(0);
 		const doc = TestUtil.createWindow().document;
 		const c = new TextController(doc, {
 			parser: parseNumber,
@@ -28,7 +28,7 @@ describe(TextController.name, () => {
 	});
 
 	it('should apply input to value', () => {
-		const value = new Value(0);
+		const value = new BoundValue(0);
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new TextController(doc, {

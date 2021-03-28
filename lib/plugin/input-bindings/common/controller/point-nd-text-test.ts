@@ -6,7 +6,7 @@ import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../../common/converter/number';
-import {Value} from '../../../common/model/value';
+import {BoundValue} from '../../../common/model/bound-value';
 import {createViewProps} from '../../../common/model/view-props';
 import {Point2d, Point2dAssembly} from '../../point-2d/model/point-2d';
 import {PointNdTextController} from './point-nd-text';
@@ -20,17 +20,19 @@ describe(PointNdTextController.name, () => {
 			axes: [
 				{
 					baseStep: 1,
+					constraint: undefined,
 					formatter: createNumberFormatter(0),
 					draggingScale: 1,
 				},
 				{
 					baseStep: 1,
+					constraint: undefined,
 					formatter: createNumberFormatter(0),
 					draggingScale: 1,
 				},
 			],
 			parser: parseNumber,
-			value: new Value(new Point2d(12, 34)),
+			value: new BoundValue(new Point2d(12, 34)),
 			viewProps: createViewProps(),
 		});
 

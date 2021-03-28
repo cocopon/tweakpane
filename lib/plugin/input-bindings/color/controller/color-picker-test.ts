@@ -2,7 +2,7 @@ import {assert} from 'chai';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
-import {Value} from '../../../common/model/value';
+import {BoundValue} from '../../../common/model/bound-value';
 import {createViewProps} from '../../../common/model/view-props';
 import {Color} from '../model/color';
 import {PickedColor} from '../model/picked-color';
@@ -12,7 +12,7 @@ describe(ColorPickerController.name, () => {
 	it('should set initial color mode', () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
-		const pc = new PickedColor(new Value(new Color([0, 0, 0], 'hsv')));
+		const pc = new PickedColor(new BoundValue(new Color([0, 0, 0], 'hsv')));
 		const c = new ColorPickerController(doc, {
 			pickedColor: pc,
 			supportsAlpha: false,
@@ -25,7 +25,7 @@ describe(ColorPickerController.name, () => {
 	it('should change hue of black in HSL', () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
-		const pc = new PickedColor(new Value(new Color([0, 0, 0], 'rgb')));
+		const pc = new PickedColor(new BoundValue(new Color([0, 0, 0], 'rgb')));
 		const c = new ColorPickerController(doc, {
 			pickedColor: pc,
 			supportsAlpha: false,

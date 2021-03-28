@@ -5,6 +5,7 @@ import {
 	parseNumber,
 } from '../../../common/converter/number';
 import {findNextTarget, supportsTouch} from '../../../common/dom-util';
+import {BoundValue} from '../../../common/model/bound-value';
 import {Foldable} from '../../../common/model/foldable';
 import {Value} from '../../../common/model/value';
 import {connectValues} from '../../../common/model/value-sync';
@@ -69,7 +70,7 @@ export class ColorPickerController implements ValueController<Color> {
 						formatter: createNumberFormatter(2),
 						parser: parseNumber,
 						baseStep: 0.1,
-						value: new Value(0, {
+						value: new BoundValue(0, {
 							constraint: new RangeConstraint({min: 0, max: 1}),
 						}),
 						viewProps: this.viewProps,

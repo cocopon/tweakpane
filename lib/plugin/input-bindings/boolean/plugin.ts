@@ -39,7 +39,7 @@ export const BooleanInputPlugin: InputBindingPlugin<boolean, boolean> = {
 	controller: (args) => {
 		const doc = args.document;
 		const value = args.value;
-		const c = value.constraint;
+		const c = args.constraint;
 
 		if (c && findConstraint(c, ListConstraint)) {
 			return new ListController(doc, {

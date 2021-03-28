@@ -2,7 +2,7 @@ import {assert} from 'chai';
 import {describe} from 'mocha';
 
 import {TestUtil} from '../../../../misc/test-util';
-import {Value} from '../../../common/model/value';
+import {BoundValue} from '../../../common/model/bound-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TextView} from './text';
@@ -13,7 +13,7 @@ describe(TextView.name, () => {
 		const props = new ValueMap({
 			formatter: (v: string) => `hello${v}world`,
 		});
-		const v = new Value('foo');
+		const v = new BoundValue('foo');
 		const view = new TextView(doc, {
 			props: props,
 			value: v,
@@ -28,7 +28,7 @@ describe(TextView.name, () => {
 		const props = new ValueMap({
 			formatter: (v: string) => `hello${v}world`,
 		});
-		const v = new Value('foo');
+		const v = new BoundValue('foo');
 		const view = new TextView(doc, {
 			props: props,
 			value: v,
@@ -45,7 +45,7 @@ describe(TextView.name, () => {
 		const props = new ValueMap({
 			formatter: (v: string) => `hello${v}world`,
 		});
-		const v = new Value('foo');
+		const v = new BoundValue('foo');
 		const view = new TextView(doc, {
 			props: props,
 			value: v,

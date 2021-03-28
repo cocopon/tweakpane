@@ -7,7 +7,7 @@ import {forceCast} from '../misc/type-util';
 import {findConstraint} from '../plugin/common/constraint/composite';
 import {Constraint} from '../plugin/common/constraint/constraint';
 import {StepConstraint} from '../plugin/common/constraint/step';
-import {Value} from '../plugin/common/model/value';
+import {BoundValue} from '../plugin/common/model/bound-value';
 import {ListController} from '../plugin/input-bindings/common/controller/list';
 import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
 import {SliderTextController} from '../plugin/input-bindings/number/controller/slider-text';
@@ -78,9 +78,7 @@ describe(Tweakpane.name, () => {
 		});
 
 		const iv = bapi.controller.controller.value;
-		assert.instanceOf(iv, Value);
-
-		if (!(iv instanceof Value)) {
+		if (!(iv instanceof BoundValue)) {
 			throw new Error('Input value is empty');
 		}
 		const c: Constraint<unknown> | null = forceCast(iv.constraint);

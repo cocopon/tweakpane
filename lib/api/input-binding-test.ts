@@ -11,7 +11,7 @@ import {
 	parseNumber,
 } from '../plugin/common/converter/number';
 import {numberFromUnknown} from '../plugin/common/converter/number';
-import {Value} from '../plugin/common/model/value';
+import {BoundValue} from '../plugin/common/model/bound-value';
 import {createViewProps} from '../plugin/common/model/view-props';
 import {writePrimitive} from '../plugin/common/primitive';
 import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
@@ -20,7 +20,7 @@ import {TpChangeEvent} from './tp-event';
 
 function createApi(target: BindingTarget) {
 	const doc = TestUtil.createWindow().document;
-	const value = new Value(0);
+	const value = new BoundValue(0);
 	const ic = new NumberTextController(doc, {
 		baseStep: 1,
 		draggingScale: 1,

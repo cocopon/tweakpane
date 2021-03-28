@@ -113,7 +113,7 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 	},
 	controller: (args) => {
 		const value = args.value;
-		const c = value.constraint;
+		const c = args.constraint;
 
 		if (c && findConstraint(c, ListConstraint)) {
 			return new ListController(args.document, {
@@ -126,18 +126,13 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 
 		const formatter =
 			('format' in args.params ? args.params.format : undefined) ??
-			createNumberFormatter(
-				getSuitableDecimalDigits(value.constraint, value.rawValue),
-			);
+			createNumberFormatter(getSuitableDecimalDigits(c, value.rawValue));
 
 		if (c && findConstraint(c, RangeConstraint)) {
 			const [min, max] = estimateSuitableRange(c);
 			return new SliderTextController(args.document, {
 				baseStep: getBaseStep(c),
-				draggingScale: getSuitableDraggingScale(
-					value.constraint,
-					value.rawValue,
-				),
+				draggingScale: getSuitableDraggingScale(c, value.rawValue),
 				formatter: formatter,
 				parser: parseNumber,
 				sliderProps: new ValueMap({
@@ -151,7 +146,7 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 
 		return new NumberTextController(args.document, {
 			baseStep: getBaseStep(c),
-			draggingScale: getSuitableDraggingScale(value.constraint, value.rawValue),
+			draggingScale: getSuitableDraggingScale(c, value.rawValue),
 			formatter: formatter,
 			parser: parseNumber,
 			value: value,
