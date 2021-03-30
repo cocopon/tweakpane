@@ -11,6 +11,7 @@ import {Emitter} from '../plugin/common/model/emitter';
 import {createViewProps} from '../plugin/common/model/view-props';
 import {TpError} from '../plugin/common/tp-error';
 import {BladeApi} from './blade-api';
+import {createBladeApi} from './blade-apis';
 import {ButtonApi} from './button';
 import {InputBindingApi} from './input-binding';
 import {createInputBindingController} from './input-binding-controllers';
@@ -19,6 +20,7 @@ import {createMonitorBindingController} from './monitor-binding-controllers';
 import {SeparatorApi} from './separator';
 import {TpChangeEvent, TpFoldEvent, TpUpdateEvent} from './tp-event';
 import {
+	BladeParams,
 	ButtonParams,
 	FolderParams,
 	InputParams,
@@ -169,6 +171,14 @@ export class FolderApi implements BladeApi {
 		this.controller.bladeRack.add(bc, params.index);
 
 		const api = new SeparatorApi(bc);
+		this.apiSet_.add(api);
+		return api;
+	}
+
+	public addBlade_v3_(opt_params?: BladeParams): BladeApi {
+		const params = opt_params ?? {};
+		const api = createBladeApi(this.controller.document, params);
+		this.controller.bladeRack.add(api.controller);
 		this.apiSet_.add(api);
 		return api;
 	}

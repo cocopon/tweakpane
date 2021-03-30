@@ -1,8 +1,8 @@
-import {ViewProps} from '../../common/model/view-props';
-import {ClassName} from '../../common/view/class-name';
-import {bindClassModifier, bindDisabled} from '../../common/view/reactive';
-import {View} from '../../common/view/view';
-import {Button} from './model/button';
+import {ViewProps} from '../../../common/model/view-props';
+import {ClassName} from '../../../common/view/class-name';
+import {bindClassModifier, bindDisabled} from '../../../common/view/reactive';
+import {View} from '../../../common/view/view';
+import {Button} from '../model/button';
 
 interface Config {
 	button: Button;

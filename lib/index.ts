@@ -2,6 +2,8 @@ import {getAllPlugins} from './api/plugins';
 import {RootApi} from './api/root';
 import {Semver} from './misc/semver';
 import {TweakpaneConfig} from './pane/tweakpane-config';
+import {BladePlugin} from './plugin/blade';
+import {ButtonBladePlugin} from './plugin/blade/button/plugin';
 import {Blade} from './plugin/blade/common/model/blade';
 import {RootController} from './plugin/blade/folder/root';
 import {getWindowDocument} from './plugin/common/dom-util';
@@ -132,5 +134,12 @@ function registerDefaultPlugins() {
 			});
 		},
 	);
+
+	[ButtonBladePlugin].forEach((p: BladePlugin<any>) => {
+		RootApi.registerPlugin({
+			type: 'blade',
+			plugin: p,
+		});
+	});
 }
 registerDefaultPlugins();

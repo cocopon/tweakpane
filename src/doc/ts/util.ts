@@ -3,7 +3,7 @@ export function selectContainer(marker: string, console = false): HTMLElement {
 	const selector = `*[data-pane-${postfix}]`;
 	const elem = document.querySelector(selector);
 	if (!elem) {
-		assert.fail(`container not found: ${selector}`);
+		throw Error(`container not found: ${selector}`);
 	}
 	return elem as HTMLElement;
 }

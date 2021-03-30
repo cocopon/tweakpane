@@ -121,3 +121,7 @@ export interface FolderParams extends BaseParams {
 }
 
 export type SeparatorParams = BaseParams;
+
+export interface BladeParams extends BaseParams, Record<string, unknown> {
+	disabled?: boolean;
+}
