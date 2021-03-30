@@ -1,11 +1,9 @@
 import {forceCast} from '../misc/type-util';
-import {ButtonController} from '../plugin/blade/button/controller/button';
 import {Blade} from '../plugin/blade/common/model/blade';
 import {BladeRackEvents} from '../plugin/blade/common/model/blade-rack';
 import {NestedOrderedSet} from '../plugin/blade/common/model/nested-ordered-set';
 import {FolderController} from '../plugin/blade/folder/controller';
 import {FolderEvents} from '../plugin/blade/folder/model/folder';
-import {LabeledController} from '../plugin/blade/labeled/controller';
 import {SeparatorController} from '../plugin/blade/separator/controller';
 import {Emitter} from '../plugin/common/model/emitter';
 import {createViewProps} from '../plugin/common/model/view-props';
@@ -144,22 +142,10 @@ export class FolderApi implements BladeApi {
 	}
 
 	public addButton(params: ButtonParams): ButtonApi {
-		const doc = this.controller.document;
-		const bc = new LabeledController(doc, {
-			blade: new Blade(),
-			label: params.label,
-			valueController: new ButtonController(doc, {
-				...params,
-				viewProps: createViewProps({
-					disabled: params.disabled,
-				}),
-			}),
-		});
-		this.controller.bladeRack.add(bc, params.index);
-
-		const api = new ButtonApi(bc);
-		this.apiSet_.add(api);
-		return api;
+		return this.addBlade_v3_({
+			...params,
+			view: 'button',
+		}) as ButtonApi;
 	}
 
 	public addSeparator(opt_params?: SeparatorParams): SeparatorApi {
@@ -178,7 +164,7 @@ export class FolderApi implements BladeApi {
 	public addBlade_v3_(opt_params?: BladeParams): BladeApi {
 		const params = opt_params ?? {};
 		const api = createBladeApi(this.controller.document, params);
-		this.controller.bladeRack.add(api.controller);
+		this.controller.bladeRack.add(api.controller, params.index);
 		this.apiSet_.add(api);
 		return api;
 	}
