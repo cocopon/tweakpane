@@ -4,7 +4,6 @@ import {BladeRackEvents} from '../plugin/blade/common/model/blade-rack';
 import {NestedOrderedSet} from '../plugin/blade/common/model/nested-ordered-set';
 import {FolderController} from '../plugin/blade/folder/controller';
 import {FolderEvents} from '../plugin/blade/folder/model/folder';
-import {SeparatorController} from '../plugin/blade/separator/controller';
 import {Emitter} from '../plugin/common/model/emitter';
 import {createViewProps} from '../plugin/common/model/view-props';
 import {TpError} from '../plugin/common/tp-error';
@@ -150,17 +149,15 @@ export class FolderApi implements BladeApi {
 
 	public addSeparator(opt_params?: SeparatorParams): SeparatorApi {
 		const params = opt_params || {};
-		const bc = new SeparatorController(this.controller.document, {
-			blade: new Blade(),
-			viewProps: createViewProps(),
+		return this.addBlade_v3_({
+			...params,
+			view: 'separator',
 		});
-		this.controller.bladeRack.add(bc, params.index);
-
-		const api = new SeparatorApi(bc);
-		this.apiSet_.add(api);
-		return api;
 	}
 
+	/**
+	 * @hidden
+	 */
 	public addBlade_v3_(opt_params?: BladeParams): BladeApi {
 		const params = opt_params ?? {};
 		const api = createBladeApi(this.controller.document, params);
