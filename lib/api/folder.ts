@@ -1,11 +1,9 @@
 import {forceCast} from '../misc/type-util';
-import {Blade} from '../plugin/blade/common/model/blade';
 import {BladeRackEvents} from '../plugin/blade/common/model/blade-rack';
 import {NestedOrderedSet} from '../plugin/blade/common/model/nested-ordered-set';
 import {FolderController} from '../plugin/blade/folder/controller';
 import {FolderEvents} from '../plugin/blade/folder/model/folder';
 import {Emitter} from '../plugin/common/model/emitter';
-import {createViewProps} from '../plugin/common/model/view-props';
 import {TpError} from '../plugin/common/tp-error';
 import {BladeApi} from './blade-api';
 import {createBladeApi} from './blade-apis';
@@ -128,16 +126,10 @@ export class FolderApi implements BladeApi {
 	}
 
 	public addFolder(params: FolderParams): FolderApi {
-		const bc = new FolderController(this.controller.document, {
+		return this.addBlade_v3_({
 			...params,
-			blade: new Blade(),
-			viewProps: createViewProps(),
-		});
-		this.controller.bladeRack.add(bc, params.index);
-
-		const api = new FolderApi(bc);
-		this.apiSet_.add(api);
-		return api;
+			view: 'folder',
+		}) as FolderApi;
 	}
 
 	public addButton(params: ButtonParams): ButtonApi {
