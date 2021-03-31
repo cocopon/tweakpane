@@ -4,6 +4,7 @@ import {BladeRackEvents} from '../plugin/blade/common/model/blade-rack';
 import {NestedOrderedSet} from '../plugin/blade/common/model/nested-ordered-set';
 import {FolderController} from '../plugin/blade/folder/controller';
 import {FolderEvents} from '../plugin/blade/folder/model/folder';
+import {SeparatorApi} from '../plugin/blade/separator/api/separator';
 import {Emitter} from '../plugin/common/model/emitter';
 import {TpError} from '../plugin/common/tp-error';
 import {BladeApi} from './blade-api';
@@ -12,7 +13,6 @@ import {InputBindingApi} from './input-binding';
 import {createInputBindingController} from './input-binding-controllers';
 import {MonitorBindingApi} from './monitor-binding';
 import {createMonitorBindingController} from './monitor-binding-controllers';
-import {SeparatorApi} from './separator';
 import {TpChangeEvent, TpFoldEvent, TpUpdateEvent} from './tp-event';
 import {
 	BladeParams,

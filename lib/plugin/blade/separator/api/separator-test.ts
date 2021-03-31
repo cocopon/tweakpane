@@ -1,10 +1,10 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {TestUtil} from '../misc/test-util';
-import {Blade} from '../plugin/blade/common/model/blade';
-import {SeparatorController} from '../plugin/blade/separator/controller';
-import {createViewProps} from '../plugin/common/model/view-props';
+import {TestUtil} from '../../../../misc/test-util';
+import {createViewProps} from '../../../common/model/view-props';
+import {Blade} from '../../common/model/blade';
+import {SeparatorController} from '../controller';
 import {SeparatorApi} from './separator';
 
 function createApi(doc: Document): SeparatorApi {
@@ -16,10 +16,15 @@ function createApi(doc: Document): SeparatorApi {
 }
 
 describe(SeparatorApi.name, () => {
-	it('should hide', () => {
+	it('should have initial state', () => {
 		const doc = TestUtil.createWindow().document;
 		const api = createApi(doc);
 		assert.strictEqual(api.hidden, false);
+	});
+
+	it('should update properties', () => {
+		const doc = TestUtil.createWindow().document;
+		const api = createApi(doc);
 
 		api.hidden = true;
 		assert.strictEqual(

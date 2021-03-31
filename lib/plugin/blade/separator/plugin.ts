@@ -1,7 +1,7 @@
-import {SeparatorApi} from '../../../api/separator';
 import {BladeParams} from '../../../api/types';
 import {BladePlugin} from '../../blade';
 import {findStringParam} from '../../common/params';
+import {SeparatorApi} from './api/separator';
 import {SeparatorController} from './controller';
 
 export interface SeparatorBladeParams extends BladeParams {
@@ -21,7 +21,7 @@ function createParams(
 }
 
 export const SeparatorBladePlugin: BladePlugin<SeparatorBladeParams> = {
-	id: 'button',
+	id: 'separator',
 	accept(params) {
 		const p = createParams(params);
 		return p ? {params: p} : null;

@@ -2,11 +2,13 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../misc/test-util';
+import {ButtonApi} from '../plugin/blade/button/api/button';
 import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
 import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
 import {Blade} from '../plugin/blade/common/model/blade';
 import {FolderController} from '../plugin/blade/folder/controller';
 import {LabeledController} from '../plugin/blade/labeled/controller';
+import {SeparatorApi} from '../plugin/blade/separator/api/separator';
 import {SeparatorController} from '../plugin/blade/separator/controller';
 import {createViewProps} from '../plugin/common/model/view-props';
 import {Color} from '../plugin/input-bindings/color/model/color';
@@ -14,7 +16,6 @@ import {NumberTextController} from '../plugin/input-bindings/number/controller/n
 import {SingleLogMonitorController} from '../plugin/monitor-bindings/common/controller/single-log';
 import {FolderApi} from './folder';
 import {InputBindingApi} from './input-binding';
-import {SeparatorApi} from './separator';
 import {TpChangeEvent} from './tp-event';
 
 function createApi(): FolderApi {
@@ -64,11 +65,11 @@ describe(FolderApi.name, () => {
 	});
 
 	it('should add button', () => {
-		const api = createApi();
-		const b = api.addButton({
-			title: 'push',
+		const pane = createApi();
+		const api = pane.addButton({
+			title: '',
 		});
-		assert.strictEqual(b.controller_.valueController.button.title, 'push');
+		assert.strictEqual(api instanceof ButtonApi, true);
 	});
 
 	it('should add separator', () => {
