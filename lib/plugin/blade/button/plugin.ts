@@ -5,7 +5,7 @@ import {findBooleanParam, findStringParam} from '../../common/params';
 import {LabeledController} from '../labeled/controller';
 import {ButtonController} from './controller/button';
 
-export interface ButtonParams extends BladeParams {
+export interface ButtonBladeParams extends BladeParams {
 	title: string;
 
 	disabled?: boolean;
@@ -13,7 +13,9 @@ export interface ButtonParams extends BladeParams {
 	view: 'button';
 }
 
-function createParams(params: Record<string, unknown>): ButtonParams | null {
+function createParams(
+	params: Record<string, unknown>,
+): ButtonBladeParams | null {
 	if (findStringParam(params, 'view') !== 'button') {
 		return null;
 	}
@@ -30,7 +32,7 @@ function createParams(params: Record<string, unknown>): ButtonParams | null {
 	};
 }
 
-export const ButtonBladePlugin: BladePlugin<ButtonParams> = {
+export const ButtonBladePlugin: BladePlugin<ButtonBladeParams> = {
 	id: 'button',
 	accept(params) {
 		const p = createParams(params);

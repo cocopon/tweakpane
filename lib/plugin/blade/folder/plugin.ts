@@ -4,14 +4,16 @@ import {BladePlugin} from '../../blade';
 import {findBooleanParam, findStringParam} from '../../common/params';
 import {FolderController} from './controller';
 
-export interface FolderParams extends BladeParams {
+export interface FolderBladeParams extends BladeParams {
 	title: string;
 	view: 'folder';
 
 	expanded?: boolean;
 }
 
-function createParams(params: Record<string, unknown>): FolderParams | null {
+function createParams(
+	params: Record<string, unknown>,
+): FolderBladeParams | null {
 	const title = findStringParam(params, 'title');
 	if (title === undefined || findStringParam(params, 'view') !== 'folder') {
 		return null;
@@ -24,7 +26,7 @@ function createParams(params: Record<string, unknown>): FolderParams | null {
 	};
 }
 
-export const FolderBladePlugin: BladePlugin<FolderParams> = {
+export const FolderBladePlugin: BladePlugin<FolderBladeParams> = {
 	id: 'button',
 	accept(params) {
 		const p = createParams(params);
