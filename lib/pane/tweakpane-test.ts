@@ -11,6 +11,7 @@ import {ValueMap} from '../plugin/common/model/value-map';
 import {createViewProps} from '../plugin/common/model/view-props';
 import {equalsPrimitive, writePrimitive} from '../plugin/common/primitive';
 import {TpError} from '../plugin/common/tp-error';
+import {InputBindingPlugin} from '../plugin/input-binding';
 import {TextController} from '../plugin/input-bindings/common/controller/text';
 
 describe(Tweakpane.name, () => {
@@ -83,7 +84,7 @@ describe(Tweakpane.name, () => {
 
 	it('should embed plugin style', () => {
 		const css = '.tp-tstv{color:white;}';
-		Tweakpane.registerPlugin<string, string>({
+		Tweakpane.registerPlugin({
 			type: 'input',
 			plugin: {
 				id: 'test',
@@ -110,7 +111,7 @@ describe(Tweakpane.name, () => {
 						viewProps: createViewProps(),
 					});
 				},
-			},
+			} as InputBindingPlugin<string, string>,
 		});
 		const doc = TestUtil.createWindow().document;
 		new Tweakpane({

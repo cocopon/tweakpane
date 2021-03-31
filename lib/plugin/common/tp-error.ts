@@ -4,6 +4,7 @@ interface ErrorContext {
 	alreadydisposed: undefined;
 	invalidparams: {name: string};
 	nomatchingcontroller: {key: string};
+	nomatchingview: {params: Record<string, unknown>};
 	notbindable: undefined;
 	propertynotfound: {name: string};
 	shouldneverhappen: undefined;
@@ -23,6 +24,8 @@ const CREATE_MESSAGE_MAP: {[key in ErrorType]: CreateMessage<key>} = {
 	invalidparams: (context) => `Invalid parameters for '${context.name}'`,
 	nomatchingcontroller: (context) =>
 		`No matching controller for '${context.key}'`,
+	nomatchingview: (context) =>
+		`No matching view for '${JSON.stringify(context.params)}'`,
 	notbindable: () => `Value is not bindable`,
 	propertynotfound: (context) => `Property '${context.name}' not found`,
 	shouldneverhappen: () => 'This error should never happen',

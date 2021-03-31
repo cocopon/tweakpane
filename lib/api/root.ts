@@ -1,3 +1,4 @@
+import {BladePlugin} from '../plugin/blade';
 import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
 import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
 import {RootController} from '../plugin/blade/folder/root';
@@ -7,14 +8,18 @@ import {FolderApi} from './folder';
 import {Plugins} from './plugins';
 import {exportPresetJson, importPresetJson, PresetObject} from './preset';
 
-type PluginRegistration<In, Ex> =
+type PluginRegistration =
+	| {
+			type: 'blade';
+			plugin: BladePlugin<any>;
+	  }
 	| {
 			type: 'input';
-			plugin: InputBindingPlugin<In, Ex>;
+			plugin: InputBindingPlugin<any, any>;
 	  }
 	| {
 			type: 'monitor';
-			plugin: MonitorBindingPlugin<Ex>;
+			plugin: MonitorBindingPlugin<any>;
 	  };
 
 /**
@@ -29,12 +34,12 @@ type PluginRegistration<In, Ex> =
 export class RootApi extends FolderApi {
 	/**
 	 * Registers a plugin.
-	 * @template In The type of the internal value.
-	 * @template Ex The type of the external value.
 	 * @param r The configuration of the plugin.
 	 */
-	public static registerPlugin<In, Ex>(r: PluginRegistration<In, Ex>): void {
-		if (r.type === 'input') {
+	public static registerPlugin(r: PluginRegistration): void {
+		if (r.type === 'blade') {
+			Plugins.blades.unshift(r.plugin);
+		} else if (r.type === 'input') {
 			Plugins.inputs.unshift(r.plugin);
 		} else if (r.type === 'monitor') {
 			Plugins.monitors.unshift(r.plugin);
