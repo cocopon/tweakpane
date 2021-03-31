@@ -8,9 +8,7 @@ export interface SeparatorParams extends BladeParams {
 	view: 'separator';
 }
 
-function createSeparatorParams(
-	params: Record<string, unknown>,
-): SeparatorParams | null {
+function createParams(params: Record<string, unknown>): SeparatorParams | null {
 	if (findStringParam(params, 'view') !== 'separator') {
 		return null;
 	}
@@ -23,7 +21,7 @@ function createSeparatorParams(
 export const SeparatorBladePlugin: BladePlugin<SeparatorParams> = {
 	id: 'button',
 	accept(params) {
-		const p = createSeparatorParams(params);
+		const p = createParams(params);
 		return p ? {params: p} : null;
 	},
 	api(args) {

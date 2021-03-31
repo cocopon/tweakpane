@@ -27,6 +27,12 @@ export const findStringParam = createParamFinder<string>(
 	(value): value is string => typeof value === 'string',
 );
 
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const findFunctionParam = createParamFinder<Function>(
+	// eslint-disable-next-line @typescript-eslint/ban-types
+	(value): value is Function => typeof value === 'function',
+);
+
 function isObject(value: unknown): value is Record<string, unknown> {
 	if (value === null) {
 		return false;

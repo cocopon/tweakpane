@@ -1,6 +1,10 @@
 import {toCss} from 'ts/panepaint';
 import {createTheme, ThemeId} from 'ts/themes';
 import Tweakpane from 'tweakpane';
+import {ButtonParams} from 'tweakpane/plugin/blade/button/plugin';
+import {FolderParams} from 'tweakpane/plugin/blade/folder/plugin';
+import {SeparatorParams} from 'tweakpane/plugin/blade/separator/plugin';
+import {TextParams} from 'tweakpane/plugin/blade/text/plugin';
 
 import {selectContainer, wave} from '../util';
 
@@ -257,6 +261,40 @@ export function initCatalog() {
 		},
 		lighttheme: (container) => {
 			createThemePane(container);
+		},
+		blades: (container) => {
+			const pane = new Tweakpane({
+				container: container,
+				title: 'Blades',
+			});
+
+			[
+				{
+					disabled: disabled,
+					label: 'label',
+					title: 'Button',
+					view: 'button',
+				} as ButtonParams,
+				{
+					disabled: disabled,
+					view: 'separator',
+				} as SeparatorParams,
+				{
+					disabled: disabled,
+					expanded: false,
+					title: 'Folder',
+					view: 'folder',
+				} as FolderParams,
+				{
+					disabled: disabled,
+					label: 'label',
+					parse: (v: string) => v,
+					value: 'text',
+					view: 'text',
+				} as TextParams<string>,
+			].forEach((params) => {
+				pane.addBlade_v3_(params);
+			});
 		},
 	};
 	Object.keys(markerToFnMap).forEach((marker) => {

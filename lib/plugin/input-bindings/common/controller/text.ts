@@ -19,6 +19,7 @@ export interface Config<T> {
  * @hidden
  */
 export class TextController<T> implements ValueController<T> {
+	public readonly props: TextProps<T>;
 	public readonly value: Value<T>;
 	public readonly view: TextView<T>;
 	public readonly viewProps: ViewProps;
@@ -28,6 +29,7 @@ export class TextController<T> implements ValueController<T> {
 		this.onInputChange_ = this.onInputChange_.bind(this);
 
 		this.parser_ = config.parser;
+		this.props = config.props;
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 

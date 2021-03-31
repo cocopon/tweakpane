@@ -8,6 +8,7 @@ import {Blade} from './plugin/blade/common/model/blade';
 import {FolderBladePlugin} from './plugin/blade/folder/plugin';
 import {RootController} from './plugin/blade/folder/root';
 import {SeparatorBladePlugin} from './plugin/blade/separator/plugin';
+import {TextBladePlugin} from './plugin/blade/text/plugin';
 import {getWindowDocument} from './plugin/common/dom-util';
 import {createViewProps} from './plugin/common/model/view-props';
 import {TpError} from './plugin/common/tp-error';
@@ -137,13 +138,16 @@ function registerDefaultPlugins() {
 		},
 	);
 
-	[ButtonBladePlugin, FolderBladePlugin, SeparatorBladePlugin].forEach(
-		(p: BladePlugin<any>) => {
-			RootApi.registerPlugin({
-				type: 'blade',
-				plugin: p,
-			});
-		},
-	);
+	[
+		ButtonBladePlugin,
+		FolderBladePlugin,
+		SeparatorBladePlugin,
+		TextBladePlugin,
+	].forEach((p: BladePlugin<any>) => {
+		RootApi.registerPlugin({
+			type: 'blade',
+			plugin: p,
+		});
+	});
 }
 registerDefaultPlugins();

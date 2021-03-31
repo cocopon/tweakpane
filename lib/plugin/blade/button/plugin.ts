@@ -13,9 +13,7 @@ export interface ButtonParams extends BladeParams {
 	view: 'button';
 }
 
-function createButtonParams(
-	params: Record<string, unknown>,
-): ButtonParams | null {
+function createParams(params: Record<string, unknown>): ButtonParams | null {
 	if (findStringParam(params, 'view') !== 'button') {
 		return null;
 	}
@@ -35,7 +33,7 @@ function createButtonParams(
 export const ButtonBladePlugin: BladePlugin<ButtonParams> = {
 	id: 'button',
 	accept(params) {
-		const p = createButtonParams(params);
+		const p = createParams(params);
 		return p ? {params: p} : null;
 	},
 	api(args) {
