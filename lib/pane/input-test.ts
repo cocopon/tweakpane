@@ -1,12 +1,12 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
+import {InputBindingApi} from '../blade/common/api/input-binding';
+import {TpChangeEvent} from '../blade/common/api/tp-event';
+import {TpError} from '../common/tp-error';
 import Tweakpane from '../index';
+import {Color} from '../input-bindings/color/model/color';
 import {TestUtil} from '../misc/test-util';
-import {InputBindingApi} from '../plugin/blade/common/api/input-binding';
-import {TpChangeEvent} from '../plugin/blade/common/api/tp-event';
-import {TpError} from '../plugin/common/tp-error';
-import {Color} from '../plugin/input-bindings/color/model/color';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({

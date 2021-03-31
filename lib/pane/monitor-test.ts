@@ -1,11 +1,11 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import Tweakpane from '../index';
+import Tweakpane from '..';
+import {TpUpdateEvent} from '../blade/common/api/tp-event';
+import {ManualTicker} from '../common/binding/ticker/manual';
+import {TpError} from '../common/tp-error';
 import {TestUtil} from '../misc/test-util';
-import {TpUpdateEvent} from '../plugin/blade/common/api/tp-event';
-import {ManualTicker} from '../plugin/common/binding/ticker/manual';
-import {TpError} from '../plugin/common/tp-error';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({

@@ -1,14 +1,14 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
+import {findConstraint} from '../common/constraint/composite';
+import {RangeConstraint} from '../common/constraint/range';
+import {StepConstraint} from '../common/constraint/step';
+import {BoundValue} from '../common/model/bound-value';
 import Tweakpane from '../index';
+import {PointNdConstraint} from '../input-bindings/common/constraint/point-nd';
+import {PointNdTextController} from '../input-bindings/common/controller/point-nd-text';
 import {TestUtil} from '../misc/test-util';
-import {findConstraint} from '../plugin/common/constraint/composite';
-import {RangeConstraint} from '../plugin/common/constraint/range';
-import {StepConstraint} from '../plugin/common/constraint/step';
-import {BoundValue} from '../plugin/common/model/bound-value';
-import {PointNdConstraint} from '../plugin/input-bindings/common/constraint/point-nd';
-import {PointNdTextController} from '../plugin/input-bindings/common/controller/point-nd-text';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({

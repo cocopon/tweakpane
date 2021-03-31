@@ -1,14 +1,14 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
+import {InputBindingController} from '../blade/common/controller/input-binding';
+import {MonitorBindingController} from '../blade/common/controller/monitor-binding';
+import {FolderController} from '../blade/folder/controller/folder';
+import {LabeledController} from '../blade/labeled/controller';
+import {SeparatorController} from '../blade/separator/controller';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
-import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
-import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
-import {FolderController} from '../plugin/blade/folder/controller/folder';
-import {LabeledController} from '../plugin/blade/labeled/controller';
-import {SeparatorController} from '../plugin/blade/separator/controller';
 
 function createApi(title?: string): Tweakpane {
 	return new Tweakpane({

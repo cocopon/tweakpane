@@ -3,8 +3,8 @@ import Tweakpane from 'tweakpane';
 import {
 	colorFromString,
 	colorToFunctionalRgbaString,
-} from '../../../../lib/plugin/input-bindings/color/converter/color-string';
-import {Color} from '../../../../lib/plugin/input-bindings/color/model/color';
+} from '../../../../lib/input-bindings/color/converter/color-string';
+import {Color} from '../../../../lib/input-bindings/color/model/color';
 import {Sketch} from '../sketch';
 import {Environment} from '../sketch';
 import {selectContainer} from '../util';

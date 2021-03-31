@@ -4,7 +4,7 @@ import Tweakpane from 'tweakpane';
 import {
 	TpChangeEvent,
 	TpUpdateEvent,
-} from 'tweakpane/lib/plugin/blade/common/api/tp-event';
+} from 'tweakpane/lib/blade/common/api/tp-event';
 
 interface V2dObj {
 	x: number;

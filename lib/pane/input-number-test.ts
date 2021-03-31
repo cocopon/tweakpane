@@ -1,16 +1,16 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
+import {findConstraint} from '../common/constraint/composite';
+import {Constraint} from '../common/constraint/constraint';
+import {StepConstraint} from '../common/constraint/step';
+import {BoundValue} from '../common/model/bound-value';
 import Tweakpane from '../index';
+import {ListController} from '../input-bindings/common/controller/list';
+import {NumberTextController} from '../input-bindings/number/controller/number-text';
+import {SliderTextController} from '../input-bindings/number/controller/slider-text';
 import {TestUtil} from '../misc/test-util';
 import {forceCast} from '../misc/type-util';
-import {findConstraint} from '../plugin/common/constraint/composite';
-import {Constraint} from '../plugin/common/constraint/constraint';
-import {StepConstraint} from '../plugin/common/constraint/step';
-import {BoundValue} from '../plugin/common/model/bound-value';
-import {ListController} from '../plugin/input-bindings/common/controller/list';
-import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
-import {SliderTextController} from '../plugin/input-bindings/number/controller/slider-text';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({

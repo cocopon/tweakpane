@@ -1,10 +1,10 @@
 import {toCss} from 'ts/panepaint';
 import {createTheme, ThemeId} from 'ts/themes';
 import Tweakpane from 'tweakpane';
-import {ButtonBladeParams} from 'tweakpane/plugin/blade/button/plugin';
-import {FolderBladeParams} from 'tweakpane/plugin/blade/folder/plugin';
-import {SeparatorBladeParams} from 'tweakpane/plugin/blade/separator/plugin';
-import {TextBladeParams} from 'tweakpane/plugin/blade/text/plugin';
+import {ButtonBladeParams} from 'tweakpane/blade/button/plugin';
+import {FolderBladeParams} from 'tweakpane/blade/folder/plugin';
+import {SeparatorBladeParams} from 'tweakpane/blade/separator/plugin';
+import {TextBladeParams} from 'tweakpane/blade/text/plugin';
 
 import {selectContainer, wave} from '../util';
 

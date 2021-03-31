@@ -1,4 +1,4 @@
-import {SVG_NS} from '../../../lib/plugin/common/dom-util';
+import {SVG_NS} from '../../../lib/common/dom-util';
 
 function map(
 	v: number,

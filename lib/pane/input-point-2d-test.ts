@@ -1,15 +1,15 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
+import {findConstraint} from '../common/constraint/composite';
+import {RangeConstraint} from '../common/constraint/range';
+import {StepConstraint} from '../common/constraint/step';
+import {BoundValue} from '../common/model/bound-value';
 import Tweakpane from '../index';
+import {PointNdConstraint} from '../input-bindings/common/constraint/point-nd';
+import {Point2dPadTextController} from '../input-bindings/point-2d/controller/point-2d-pad-text';
+import {Point2d} from '../input-bindings/point-2d/model/point-2d';
 import {TestUtil} from '../misc/test-util';
-import {findConstraint} from '../plugin/common/constraint/composite';
-import {RangeConstraint} from '../plugin/common/constraint/range';
-import {StepConstraint} from '../plugin/common/constraint/step';
-import {BoundValue} from '../plugin/common/model/bound-value';
-import {PointNdConstraint} from '../plugin/input-bindings/common/constraint/point-nd';
-import {Point2dPadTextController} from '../plugin/input-bindings/point-2d/controller/point-2d-pad-text';
-import {Point2d} from '../plugin/input-bindings/point-2d/model/point-2d';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({

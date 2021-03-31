@@ -2,17 +2,14 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import Tweakpane from '..';
+import {formatString, stringFromUnknown} from '../common/converter/string';
+import {ValueMap} from '../common/model/value-map';
+import {createViewProps} from '../common/model/view-props';
+import {equalsPrimitive, writePrimitive} from '../common/primitive';
+import {TpError} from '../common/tp-error';
+import {TextController} from '../input-bindings/common/controller/text';
+import {InputBindingPlugin} from '../input-bindings/plugin';
 import {TestUtil} from '../misc/test-util';
-import {
-	formatString,
-	stringFromUnknown,
-} from '../plugin/common/converter/string';
-import {ValueMap} from '../plugin/common/model/value-map';
-import {createViewProps} from '../plugin/common/model/view-props';
-import {equalsPrimitive, writePrimitive} from '../plugin/common/primitive';
-import {TpError} from '../plugin/common/tp-error';
-import {TextController} from '../plugin/input-bindings/common/controller/text';
-import {InputBindingPlugin} from '../plugin/input-bindings/plugin';
 
 describe(Tweakpane.name, () => {
 	it('should dispose with default container', () => {
