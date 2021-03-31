@@ -7,7 +7,7 @@ import {Constraint} from '../../common/constraint/constraint';
 import {ListConstraint} from '../../common/constraint/list';
 import {formatString, stringFromUnknown} from '../../common/converter/string';
 import {ValueMap} from '../../common/model/value-map';
-import {equalsPrimitive, writePrimitive} from '../../common/primitive';
+import {writePrimitive} from '../../common/primitive';
 import {createListConstraint, findListItems} from '../../common/util';
 import {ListController} from '../common/controller/list';
 import {TextController} from '../common/controller/text';
@@ -33,7 +33,6 @@ export const StringInputPlugin: InputBindingPlugin<string, string> = {
 	binding: {
 		reader: (_args) => stringFromUnknown,
 		constraint: (args) => createConstraint(args.params),
-		equals: equalsPrimitive,
 		writer: (_args) => writePrimitive,
 	},
 	controller: (args) => {

@@ -4,7 +4,7 @@ import {ValueController} from 'tweakpane/lib/common/controller/value';
 import {stringFromUnknown} from 'tweakpane/lib/common/converter/string';
 import {Value} from 'tweakpane/lib/common/model/value';
 import {ViewProps} from 'tweakpane/lib/common/model/view-props';
-import {equalsPrimitive, writePrimitive} from 'tweakpane/lib/common/primitive';
+import {writePrimitive} from 'tweakpane/lib/common/primitive';
 import {ClassName} from 'tweakpane/lib/common/view/class-name';
 import {View} from 'tweakpane/lib/common/view/view';
 import {InputBindingPlugin} from 'tweakpane/lib/input-binding/plugin';
@@ -61,7 +61,6 @@ class TestController implements ValueController<string> {
 			},
 			binding: {
 				reader: () => stringFromUnknown,
-				equals: equalsPrimitive,
 				writer: () => writePrimitive,
 			},
 			controller(args) {
