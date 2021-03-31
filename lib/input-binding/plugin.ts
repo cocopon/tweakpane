@@ -75,7 +75,7 @@ export interface InputBindingPlugin<In, Ex> extends BasePlugin {
 		 * Compares the equality of two internal values.
 		 * Use `===` for primitive values, or a custom comparator for complex objects.
 		 */
-		equals: {
+		equals?: {
 			/**
 			 * @param v1 The value.
 			 * @param v2 The another value.

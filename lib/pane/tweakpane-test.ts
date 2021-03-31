@@ -5,7 +5,7 @@ import Tweakpane from '..';
 import {formatString, stringFromUnknown} from '../common/converter/string';
 import {ValueMap} from '../common/model/value-map';
 import {createViewProps} from '../common/model/view-props';
-import {equalsPrimitive, writePrimitive} from '../common/primitive';
+import {writePrimitive} from '../common/primitive';
 import {TpError} from '../common/tp-error';
 import {TextController} from '../input-binding/common/controller/text';
 import {InputBindingPlugin} from '../input-binding/plugin';
@@ -95,7 +95,6 @@ describe(Tweakpane.name, () => {
 				},
 				binding: {
 					reader: () => stringFromUnknown,
-					equals: equalsPrimitive,
 					writer: () => writePrimitive,
 				},
 				controller: (args) => {
