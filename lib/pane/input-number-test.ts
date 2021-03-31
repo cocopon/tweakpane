@@ -1,16 +1,16 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
+import {findConstraint} from '../common/constraint/composite';
+import {Constraint} from '../common/constraint/constraint';
+import {StepConstraint} from '../common/constraint/step';
+import {BoundValue} from '../common/model/bound-value';
 import Tweakpane from '../index';
+import {ListController} from '../input-binding/common/controller/list';
+import {NumberTextController} from '../input-binding/number/controller/number-text';
+import {SliderTextController} from '../input-binding/number/controller/slider-text';
 import {TestUtil} from '../misc/test-util';
 import {forceCast} from '../misc/type-util';
-import {findConstraint} from '../plugin/common/constraint/composite';
-import {Constraint} from '../plugin/common/constraint/constraint';
-import {StepConstraint} from '../plugin/common/constraint/step';
-import {BoundValue} from '../plugin/common/model/bound-value';
-import {ListController} from '../plugin/input-bindings/common/controller/list';
-import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
-import {SliderTextController} from '../plugin/input-bindings/number/controller/slider-text';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({
@@ -66,7 +66,7 @@ describe(Tweakpane.name, () => {
 				const obj = {foo: testCase.value};
 				const bapi = pane.addInput(obj, 'foo', testCase.params);
 				assert.strictEqual(
-					bapi.controller.controller instanceof testCase.expectedClass,
+					bapi.controller_.controller instanceof testCase.expectedClass,
 					true,
 				);
 			});
@@ -80,7 +80,7 @@ describe(Tweakpane.name, () => {
 			step: 1,
 		});
 
-		const iv = bapi.controller.controller.value;
+		const iv = bapi.controller_.controller.value;
 		if (!(iv instanceof BoundValue)) {
 			assert.fail('Input value is empty');
 		}
@@ -99,7 +99,7 @@ describe(Tweakpane.name, () => {
 			format: (v) => `foo ${v} bar`,
 		});
 
-		const c = bapi.controller.controller;
+		const c = bapi.controller_.controller;
 		if (!(c instanceof NumberTextController)) {
 			assert.fail('unexpected controller');
 		}

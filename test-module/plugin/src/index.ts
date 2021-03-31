@@ -1,16 +1,13 @@
 import Tweakpane from 'tweakpane';
 // Import individual classes
-import {ValueController} from 'tweakpane/lib/plugin/common/controller/value';
-import {stringFromUnknown} from 'tweakpane/lib/plugin/common/converter/string';
-import {Value} from 'tweakpane/lib/plugin/common/model/value';
-import {ViewProps} from 'tweakpane/lib/plugin/common/model/view-props';
-import {
-	equalsPrimitive,
-	writePrimitive,
-} from 'tweakpane/lib/plugin/common/primitive';
-import {ClassName} from 'tweakpane/lib/plugin/common/view/class-name';
-import {View} from 'tweakpane/lib/plugin/common/view/view';
-import {InputBindingPlugin} from 'tweakpane/lib/plugin/input-binding';
+import {ValueController} from 'tweakpane/lib/common/controller/value';
+import {stringFromUnknown} from 'tweakpane/lib/common/converter/string';
+import {Value} from 'tweakpane/lib/common/model/value';
+import {ViewProps} from 'tweakpane/lib/common/model/view-props';
+import {equalsPrimitive, writePrimitive} from 'tweakpane/lib/common/primitive';
+import {ClassName} from 'tweakpane/lib/common/view/class-name';
+import {View} from 'tweakpane/lib/common/view/view';
+import {InputBindingPlugin} from 'tweakpane/lib/input-binding/plugin';
 
 class TestView implements View {
 	public readonly element: HTMLElement;

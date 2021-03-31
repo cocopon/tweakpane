@@ -2,13 +2,13 @@ import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
 import Tweakpane from '..';
-import {InputParams} from '../api/types';
+import {InputParams} from '../blade/common/api/types';
+import {ValueController} from '../common/controller/value';
+import {ColorSwatchTextController} from '../input-binding/color/controller/color-swatch-text';
+import {Color} from '../input-binding/color/model/color';
+import {ColorSwatchTextView} from '../input-binding/color/view/color-swatch-text';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
-import {ValueController} from '../plugin/common/controller/value';
-import {ColorSwatchTextController} from '../plugin/input-bindings/color/controller/color-swatch-text';
-import {Color} from '../plugin/input-bindings/color/model/color';
-import {ColorSwatchTextView} from '../plugin/input-bindings/color/view/color-swatch-text';
 
 function createPane(win: Window): Tweakpane {
 	return new Tweakpane({
@@ -68,7 +68,7 @@ describe(Tweakpane.name, () => {
 				const obj = {foo: testCase.value};
 				const bapi = pane.addInput(obj, 'foo', testCase.params);
 				assert.strictEqual(
-					bapi.controller.controller instanceof testCase.expectedClass,
+					bapi.controller_.controller instanceof testCase.expectedClass,
 					true,
 				);
 			});
@@ -99,7 +99,7 @@ describe(Tweakpane.name, () => {
 				const obj = {foo: testCase.params.input};
 				const bapi = pane.addInput(obj, 'foo');
 
-				const view = bapi.controller.controller.view;
+				const view = bapi.controller_.controller.view;
 				if (!(view instanceof ColorSwatchTextView)) {
 					assert.fail('Unexpected view');
 				}
@@ -168,7 +168,7 @@ describe(Tweakpane.name, () => {
 			const obj = {foo: params.input};
 			const bapi = pane.addInput(obj, 'foo');
 
-			const view = bapi.controller.controller.view;
+			const view = bapi.controller_.controller.view;
 			if (!(view instanceof ColorSwatchTextView)) {
 				assert.fail('Unexpected view');
 			}

@@ -1,15 +1,15 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
+import {findConstraint} from '../common/constraint/composite';
+import {RangeConstraint} from '../common/constraint/range';
+import {StepConstraint} from '../common/constraint/step';
+import {BoundValue} from '../common/model/bound-value';
 import Tweakpane from '../index';
+import {PointNdConstraint} from '../input-binding/common/constraint/point-nd';
+import {Point2dPadTextController} from '../input-binding/point-2d/controller/point-2d-pad-text';
+import {Point2d} from '../input-binding/point-2d/model/point-2d';
 import {TestUtil} from '../misc/test-util';
-import {findConstraint} from '../plugin/common/constraint/composite';
-import {RangeConstraint} from '../plugin/common/constraint/range';
-import {StepConstraint} from '../plugin/common/constraint/step';
-import {BoundValue} from '../plugin/common/model/bound-value';
-import {PointNdConstraint} from '../plugin/input-bindings/common/constraint/point-nd';
-import {Point2dPadTextController} from '../plugin/input-bindings/point-2d/controller/point-2d-pad-text';
-import {Point2d} from '../plugin/input-bindings/point-2d/model/point-2d';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({
@@ -31,7 +31,7 @@ describe(Tweakpane.name, () => {
 				const obj = {foo: testCase.value};
 				const bapi = pane.addInput(obj, 'foo', testCase.params);
 				assert.strictEqual(
-					bapi.controller.controller instanceof testCase.expectedClass,
+					bapi.controller_.controller instanceof testCase.expectedClass,
 					true,
 				);
 			});
@@ -47,7 +47,8 @@ describe(Tweakpane.name, () => {
 			},
 		});
 
-		const c = (bapi.controller.binding.value as BoundValue<unknown>).constraint;
+		const c = (bapi.controller_.binding.value as BoundValue<unknown>)
+			.constraint;
 		if (!(c instanceof PointNdConstraint)) {
 			assert.fail('Unexpected constraint');
 		}
@@ -69,7 +70,8 @@ describe(Tweakpane.name, () => {
 			},
 		});
 
-		const c = (bapi.controller.binding.value as BoundValue<unknown>).constraint;
+		const c = (bapi.controller_.binding.value as BoundValue<unknown>)
+			.constraint;
 		if (!(c instanceof PointNdConstraint)) {
 			assert.fail('Unexpected constraint');
 		}
@@ -88,7 +90,7 @@ describe(Tweakpane.name, () => {
 		const obj = {p: p};
 		const bapi = pane.addInput(obj, 'p');
 
-		const v = bapi.controller.binding.value;
+		const v = bapi.controller_.binding.value;
 		if (!(v.rawValue instanceof Point2d)) {
 			assert.fail('Unexpected value type');
 		}

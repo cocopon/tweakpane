@@ -1,0 +1,28 @@
+import {BladeApi} from '../../common/api/blade';
+import {SeparatorController} from '../controller';
+
+export class SeparatorApi implements BladeApi {
+	/**
+	 * @hidden
+	 */
+	public readonly controller_: SeparatorController;
+
+	/**
+	 * @hidden
+	 */
+	constructor(controller: SeparatorController) {
+		this.controller_ = controller;
+	}
+
+	get hidden(): boolean {
+		return this.controller_.viewProps.get('hidden');
+	}
+
+	set hidden(hidden: boolean) {
+		this.controller_.viewProps.set('hidden', hidden);
+	}
+
+	public dispose(): void {
+		this.controller_.blade.dispose();
+	}
+}

@@ -17,7 +17,7 @@ describe(Tweakpane.name, () => {
 			done();
 		});
 
-		const folder = pane.controller.folder;
+		const folder = pane.controller_.folder;
 		if (folder) {
 			folder.expanded = false;
 		}

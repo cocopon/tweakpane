@@ -11,11 +11,11 @@ const pane = new Tweakpane({
 const input = pane.addInput(params, 'foo', {
 	view: 'test',
 });
-const elem = input.controller.view.element.querySelector('.tp-tstv');
+const elem = input.controller_.view.element.querySelector('.tp-tstv');
 if (!elem) {
-	assert.fail('custom view not found');
+	throw new Error('custom view not found');
 }
 
 if (elem.textContent !== params.foo) {
-	assert.fail('invalid display value');
+	throw new Error('invalid display value');
 }

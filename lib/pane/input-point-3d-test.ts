@@ -1,14 +1,14 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
+import {findConstraint} from '../common/constraint/composite';
+import {RangeConstraint} from '../common/constraint/range';
+import {StepConstraint} from '../common/constraint/step';
+import {BoundValue} from '../common/model/bound-value';
 import Tweakpane from '../index';
+import {PointNdConstraint} from '../input-binding/common/constraint/point-nd';
+import {PointNdTextController} from '../input-binding/common/controller/point-nd-text';
 import {TestUtil} from '../misc/test-util';
-import {findConstraint} from '../plugin/common/constraint/composite';
-import {RangeConstraint} from '../plugin/common/constraint/range';
-import {StepConstraint} from '../plugin/common/constraint/step';
-import {BoundValue} from '../plugin/common/model/bound-value';
-import {PointNdConstraint} from '../plugin/input-bindings/common/constraint/point-nd';
-import {PointNdTextController} from '../plugin/input-bindings/common/controller/point-nd-text';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({
@@ -29,7 +29,7 @@ describe(Tweakpane.name, () => {
 				const obj = {foo: testCase.value};
 				const bapi = pane.addInput(obj, 'foo', testCase.params);
 
-				const ic = bapi.controller.controller;
+				const ic = bapi.controller_.controller;
 				if (!(ic instanceof PointNdTextController)) {
 					assert.fail('unexpected controller class');
 				}
@@ -47,7 +47,8 @@ describe(Tweakpane.name, () => {
 			},
 		});
 
-		const c = (bapi.controller.binding.value as BoundValue<unknown>).constraint;
+		const c = (bapi.controller_.binding.value as BoundValue<unknown>)
+			.constraint;
 		if (!(c instanceof PointNdConstraint)) {
 			assert.fail('Unexpected constraint');
 		}
@@ -69,7 +70,8 @@ describe(Tweakpane.name, () => {
 			},
 		});
 
-		const c = (bapi.controller.binding.value as BoundValue<unknown>).constraint;
+		const c = (bapi.controller_.binding.value as BoundValue<unknown>)
+			.constraint;
 		if (!(c instanceof PointNdConstraint)) {
 			assert.fail('Unexpected constraint');
 		}

@@ -1,32 +1,30 @@
-import {getAllPlugins} from './api/plugins';
-import {RootApi} from './api/root';
+import {getAllPlugins} from './blade/common/api/plugins';
+import {registerPlugin} from './blade/common/api/util';
+import {Blade} from './blade/common/model/blade';
+import {RootController} from './blade/folder/root';
+import {BladePlugin} from './blade/plugin';
+import {RootApi} from './blade/root/api/root';
+import {TextBladePlugin} from './blade/text/plugin';
+import {getWindowDocument} from './common/dom-util';
+import {createViewProps} from './common/model/view-props';
+import {TpError} from './common/tp-error';
+import {ClassName} from './common/view/class-name';
+import {BooleanInputPlugin} from './input-binding/boolean/plugin';
+import {NumberColorInputPlugin} from './input-binding/color/plugin-number';
+import {ObjectColorInputPlugin} from './input-binding/color/plugin-object';
+import {StringColorInputPlugin} from './input-binding/color/plugin-string';
+import {NumberInputPlugin} from './input-binding/number/plugin';
+import {InputBindingPlugin} from './input-binding/plugin';
+import {Point2dInputPlugin} from './input-binding/point-2d/plugin';
+import {Point3dInputPlugin} from './input-binding/point-3d/plugin';
+import {Point4dInputPlugin} from './input-binding/point-4d/plugin';
+import {StringInputPlugin} from './input-binding/string/plugin';
 import {Semver} from './misc/semver';
+import {BooleanMonitorPlugin} from './monitor-binding/boolean/plugin';
+import {NumberMonitorPlugin} from './monitor-binding/number/plugin';
+import {MonitorBindingPlugin} from './monitor-binding/plugin';
+import {StringMonitorPlugin} from './monitor-binding/string/plugin';
 import {TweakpaneConfig} from './pane/tweakpane-config';
-import {BladePlugin} from './plugin/blade';
-import {ButtonBladePlugin} from './plugin/blade/button/plugin';
-import {Blade} from './plugin/blade/common/model/blade';
-import {FolderBladePlugin} from './plugin/blade/folder/plugin';
-import {RootController} from './plugin/blade/folder/root';
-import {SeparatorBladePlugin} from './plugin/blade/separator/plugin';
-import {TextBladePlugin} from './plugin/blade/text/plugin';
-import {getWindowDocument} from './plugin/common/dom-util';
-import {createViewProps} from './plugin/common/model/view-props';
-import {TpError} from './plugin/common/tp-error';
-import {ClassName} from './plugin/common/view/class-name';
-import {InputBindingPlugin} from './plugin/input-binding';
-import {BooleanInputPlugin} from './plugin/input-bindings/boolean/plugin';
-import {NumberColorInputPlugin} from './plugin/input-bindings/color/plugin-number';
-import {ObjectColorInputPlugin} from './plugin/input-bindings/color/plugin-object';
-import {StringColorInputPlugin} from './plugin/input-bindings/color/plugin-string';
-import {NumberInputPlugin} from './plugin/input-bindings/number/plugin';
-import {Point2dInputPlugin} from './plugin/input-bindings/point-2d/plugin';
-import {Point3dInputPlugin} from './plugin/input-bindings/point-3d/plugin';
-import {Point4dInputPlugin} from './plugin/input-bindings/point-4d/plugin';
-import {StringInputPlugin} from './plugin/input-bindings/string/plugin';
-import {MonitorBindingPlugin} from './plugin/monitor-binding';
-import {BooleanMonitorPlugin} from './plugin/monitor-bindings/boolean/plugin';
-import {NumberMonitorPlugin} from './plugin/monitor-bindings/number/plugin';
-import {StringMonitorPlugin} from './plugin/monitor-bindings/string/plugin';
 
 function createDefaultWrapperElement(doc: Document): HTMLElement {
 	const elem = doc.createElement('div');
@@ -123,7 +121,7 @@ function registerDefaultPlugins() {
 		NumberColorInputPlugin,
 		BooleanInputPlugin,
 	].forEach((p: InputBindingPlugin<any, any>) => {
-		RootApi.registerPlugin({
+		registerPlugin({
 			type: 'input',
 			plugin: p,
 		});
@@ -131,20 +129,15 @@ function registerDefaultPlugins() {
 
 	[BooleanMonitorPlugin, StringMonitorPlugin, NumberMonitorPlugin].forEach(
 		(p: MonitorBindingPlugin<any>) => {
-			RootApi.registerPlugin({
+			registerPlugin({
 				type: 'monitor',
 				plugin: p,
 			});
 		},
 	);
 
-	[
-		ButtonBladePlugin,
-		FolderBladePlugin,
-		SeparatorBladePlugin,
-		TextBladePlugin,
-	].forEach((p: BladePlugin<any>) => {
-		RootApi.registerPlugin({
+	[TextBladePlugin].forEach((p: BladePlugin<any>) => {
+		registerPlugin({
 			type: 'blade',
 			plugin: p,
 		});

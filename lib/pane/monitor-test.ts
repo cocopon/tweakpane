@@ -1,11 +1,11 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {TpUpdateEvent} from '../api/tp-event';
-import Tweakpane from '../index';
+import Tweakpane from '..';
+import {TpUpdateEvent} from '../blade/common/api/tp-event';
+import {ManualTicker} from '../common/binding/ticker/manual';
+import {TpError} from '../common/tp-error';
 import {TestUtil} from '../misc/test-util';
-import {ManualTicker} from '../plugin/common/binding/ticker/manual';
-import {TpError} from '../plugin/common/tp-error';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({
@@ -99,7 +99,7 @@ describe(Tweakpane.name, () => {
 				});
 
 				obj.foo = params.newInternalValue;
-				(bapi.controller.binding.ticker as ManualTicker).tick();
+				(bapi.controller_.binding.ticker as ManualTicker).tick();
 			});
 
 			it('should pass event for update event (global)', (done) => {
@@ -116,7 +116,7 @@ describe(Tweakpane.name, () => {
 				});
 
 				obj.foo = params.newInternalValue;
-				(bapi.controller.binding.ticker as ManualTicker).tick();
+				(bapi.controller_.binding.ticker as ManualTicker).tick();
 			});
 		});
 	});
@@ -129,7 +129,7 @@ describe(Tweakpane.name, () => {
 		});
 		bapi.dispose();
 		assert.strictEqual(
-			pane.controller.view.element.querySelector('.tp-lblv'),
+			pane.controller_.view.element.querySelector('.tp-lblv'),
 			null,
 		);
 	});
@@ -147,6 +147,6 @@ describe(Tweakpane.name, () => {
 		});
 
 		PARAMS.foo = 2;
-		(bapi.controller.binding.ticker as ManualTicker).tick();
+		(bapi.controller_.binding.ticker as ManualTicker).tick();
 	});
 });

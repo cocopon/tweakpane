@@ -2,17 +2,14 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import Tweakpane from '..';
+import {formatString, stringFromUnknown} from '../common/converter/string';
+import {ValueMap} from '../common/model/value-map';
+import {createViewProps} from '../common/model/view-props';
+import {equalsPrimitive, writePrimitive} from '../common/primitive';
+import {TpError} from '../common/tp-error';
+import {TextController} from '../input-binding/common/controller/text';
+import {InputBindingPlugin} from '../input-binding/plugin';
 import {TestUtil} from '../misc/test-util';
-import {
-	formatString,
-	stringFromUnknown,
-} from '../plugin/common/converter/string';
-import {ValueMap} from '../plugin/common/model/value-map';
-import {createViewProps} from '../plugin/common/model/view-props';
-import {equalsPrimitive, writePrimitive} from '../plugin/common/primitive';
-import {TpError} from '../plugin/common/tp-error';
-import {InputBindingPlugin} from '../plugin/input-binding';
-import {TextController} from '../plugin/input-bindings/common/controller/text';
 
 describe(Tweakpane.name, () => {
 	it('should dispose with default container', () => {
@@ -58,7 +55,7 @@ describe(Tweakpane.name, () => {
 			document: doc,
 			title: 'Title',
 		});
-		assert.strictEqual(c.controller.folder?.expanded, true);
+		assert.strictEqual(c.controller_.folder?.expanded, true);
 	});
 
 	it('should shrink by default with `expanded: false` option', () => {
@@ -68,7 +65,7 @@ describe(Tweakpane.name, () => {
 			expanded: false,
 			title: 'Title',
 		});
-		assert.strictEqual(c.controller.folder?.expanded, false);
+		assert.strictEqual(c.controller_.folder?.expanded, false);
 	});
 
 	it('should embed default style', () => {

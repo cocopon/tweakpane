@@ -1,13 +1,13 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
+import {MonitorBinding} from '../common/binding/monitor';
+import {IntervalTicker} from '../common/binding/ticker/interval';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
-import {MonitorBinding} from '../plugin/common/binding/monitor';
-import {IntervalTicker} from '../plugin/common/binding/ticker/interval';
-import {MultiLogController} from '../plugin/monitor-bindings/common/controller/multi-log';
-import {SingleLogMonitorController} from '../plugin/monitor-bindings/common/controller/single-log';
-import {GraphLogController} from '../plugin/monitor-bindings/number/controller/graph-log';
+import {MultiLogController} from '../monitor-binding/common/controller/multi-log';
+import {SingleLogMonitorController} from '../monitor-binding/common/controller/single-log';
+import {GraphLogController} from '../monitor-binding/number/controller/graph-log';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({
@@ -43,11 +43,11 @@ describe(Tweakpane.name, () => {
 				const obj = {foo: testCase.value};
 				const bapi = pane.addMonitor(obj, 'foo', testCase.params);
 				assert.strictEqual(
-					bapi.controller.controller instanceof testCase.expectedClass,
+					bapi.controller_.controller instanceof testCase.expectedClass,
 					true,
 				);
 
-				const b = bapi.controller.binding;
+				const b = bapi.controller_.binding;
 				if (b instanceof MonitorBinding) {
 					const t = b.ticker;
 					if (t instanceof IntervalTicker) {
@@ -66,7 +66,7 @@ describe(Tweakpane.name, () => {
 			interval: 0,
 		});
 
-		const v = bapi.controller.binding.value;
+		const v = bapi.controller_.binding.value;
 		assert.deepStrictEqual(v.rawValue, [
 			123,
 			undefined,

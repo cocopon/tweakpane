@@ -2,9 +2,9 @@ import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
 import Tweakpane from '../index';
+import {ListController} from '../input-binding/common/controller/list';
+import {TextController} from '../input-binding/common/controller/text';
 import {TestUtil} from '../misc/test-util';
-import {ListController} from '../plugin/input-bindings/common/controller/list';
-import {TextController} from '../plugin/input-bindings/common/controller/text';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({
@@ -50,7 +50,7 @@ describe(Tweakpane.name, () => {
 				const obj = {foo: testCase.value};
 				const bapi = pane.addInput(obj, 'foo', testCase.params);
 				assert.strictEqual(
-					bapi.controller.controller instanceof testCase.expectedClass,
+					bapi.controller_.controller instanceof testCase.expectedClass,
 					true,
 				);
 			});
