@@ -5,6 +5,7 @@ import {TpFoldEvent} from '../api/tp-event';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
+import {ButtonApi} from '../plugin/blade/button/api/button';
 import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
 import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
 import {FolderController} from '../plugin/blade/folder/controller';
@@ -69,6 +70,14 @@ describe(Tweakpane.name, () => {
 		assert.strictEqual(cs.length, 1);
 		s.dispose();
 		assert.strictEqual(cs.length, 0);
+	});
+
+	it('should create button', () => {
+		const pane = createApi();
+		const api = pane.addButton({
+			title: '',
+		});
+		assert.strictEqual(api instanceof ButtonApi, true);
 	});
 
 	it('should handle root folder events', (done) => {

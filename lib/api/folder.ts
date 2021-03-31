@@ -1,4 +1,5 @@
 import {forceCast} from '../misc/type-util';
+import {ButtonApi} from '../plugin/blade/button/api/button';
 import {BladeRackEvents} from '../plugin/blade/common/model/blade-rack';
 import {NestedOrderedSet} from '../plugin/blade/common/model/nested-ordered-set';
 import {FolderController} from '../plugin/blade/folder/controller';
@@ -7,7 +8,6 @@ import {Emitter} from '../plugin/common/model/emitter';
 import {TpError} from '../plugin/common/tp-error';
 import {BladeApi} from './blade-api';
 import {createBladeApi} from './blade-apis';
-import {ButtonApi} from './button';
 import {InputBindingApi} from './input-binding';
 import {createInputBindingController} from './input-binding-controllers';
 import {MonitorBindingApi} from './monitor-binding';

@@ -1,10 +1,10 @@
 import {toCss} from 'ts/panepaint';
 import {createTheme, ThemeId} from 'ts/themes';
 import Tweakpane from 'tweakpane';
-import {ButtonParams} from 'tweakpane/plugin/blade/button/plugin';
-import {FolderParams} from 'tweakpane/plugin/blade/folder/plugin';
-import {SeparatorParams} from 'tweakpane/plugin/blade/separator/plugin';
-import {TextParams} from 'tweakpane/plugin/blade/text/plugin';
+import {ButtonBladeParams} from 'tweakpane/plugin/blade/button/plugin';
+import {FolderBladeParams} from 'tweakpane/plugin/blade/folder/plugin';
+import {SeparatorBladeParams} from 'tweakpane/plugin/blade/separator/plugin';
+import {TextBladeParams} from 'tweakpane/plugin/blade/text/plugin';
 
 import {selectContainer, wave} from '../util';
 
@@ -274,24 +274,24 @@ export function initCatalog() {
 					label: 'label',
 					title: 'Button',
 					view: 'button',
-				} as ButtonParams,
+				} as ButtonBladeParams,
 				{
 					disabled: disabled,
 					view: 'separator',
-				} as SeparatorParams,
+				} as SeparatorBladeParams,
 				{
 					disabled: disabled,
 					expanded: false,
 					title: 'Folder',
 					view: 'folder',
-				} as FolderParams,
+				} as FolderBladeParams,
 				{
 					disabled: disabled,
 					label: 'label',
 					parse: (v: string) => v,
 					value: 'text',
 					view: 'text',
-				} as TextParams<string>,
+				} as TextBladeParams<string>,
 			].forEach((params) => {
 				pane.addBlade_v3_(params);
 			});

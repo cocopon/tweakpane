@@ -1,7 +1,7 @@
-import {forceCast} from '../misc/type-util';
-import {ButtonController} from '../plugin/blade/button/controller/button';
-import {LabeledController} from '../plugin/blade/labeled/controller';
-import {BladeApi} from './blade-api';
+import {BladeApi} from '../../../../api/blade-api';
+import {forceCast} from '../../../../misc/type-util';
+import {LabeledController} from '../../labeled/controller';
+import {ButtonController} from '../controller/button';
 
 interface ButtonApiEventHandlers {
 	click: () => void;

@@ -1,8 +1,8 @@
-import {ButtonApi} from '../../../api/button';
 import {BladeParams} from '../../../api/types';
 import {BladePlugin} from '../../blade';
 import {findBooleanParam, findStringParam} from '../../common/params';
 import {LabeledController} from '../labeled/controller';
+import {ButtonApi} from './api/button';
 import {ButtonController} from './controller/button';
 
 export interface ButtonBladeParams extends BladeParams {

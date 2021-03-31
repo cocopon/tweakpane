@@ -14,7 +14,7 @@ import {TextController} from '../../input-bindings/common/controller/text';
 import {LabeledController} from '../labeled/controller';
 import {TextBladeApi} from './api/text';
 
-export interface TextParams<T> extends BladeParams {
+export interface TextBladeParams<T> extends BladeParams {
 	parse: Parser<T>;
 	value: T;
 	view: 'text';
@@ -25,22 +25,26 @@ export interface TextParams<T> extends BladeParams {
 
 function createParams<T>(
 	params: Record<string, unknown>,
-): TextParams<T> | null {
+): TextBladeParams<T> | null {
 	if (findStringParam(params, 'view') !== 'text') {
 		return null;
 	}
-
+	const parser = findFunctionParam(params, 'parse');
+	const value = params['value'];
+	if (!parser || !value) {
+		return null;
+	}
 	return {
 		disabled: findBooleanParam(params, 'disabled'),
 		format: forceCast(findFunctionParam(params, 'format')),
 		label: findStringParam(params, 'label'),
-		parse: forceCast(findFunctionParam(params, 'parse')),
-		value: forceCast(params['value']),
+		parse: forceCast(parser),
+		value: forceCast(value),
 		view: 'text',
 	};
 }
 
-export const TextBladePlugin = (function<T>(): BladePlugin<TextParams<T>> {
+export const TextBladePlugin = (function<T>(): BladePlugin<TextBladeParams<T>> {
 	return {
 		id: 'text',
 		accept(params) {
