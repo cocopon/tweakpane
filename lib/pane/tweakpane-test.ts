@@ -7,8 +7,8 @@ import {ValueMap} from '../common/model/value-map';
 import {createViewProps} from '../common/model/view-props';
 import {equalsPrimitive, writePrimitive} from '../common/primitive';
 import {TpError} from '../common/tp-error';
-import {TextController} from '../input-bindings/common/controller/text';
-import {InputBindingPlugin} from '../input-bindings/plugin';
+import {TextController} from '../input-binding/common/controller/text';
+import {InputBindingPlugin} from '../input-binding/plugin';
 import {TestUtil} from '../misc/test-util';
 
 describe(Tweakpane.name, () => {

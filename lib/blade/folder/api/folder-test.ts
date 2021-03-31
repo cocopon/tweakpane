@@ -3,11 +3,11 @@ import {describe, it} from 'mocha';
 
 import {Value} from '../../../common/model/value';
 import {createViewProps} from '../../../common/model/view-props';
-import {Color} from '../../../input-bindings/color/model/color';
-import {NumberTextController} from '../../../input-bindings/number/controller/number-text';
+import {Color} from '../../../input-binding/color/model/color';
+import {NumberTextController} from '../../../input-binding/number/controller/number-text';
 import {TestUtil} from '../../../misc/test-util';
 import {forceCast} from '../../../misc/type-util';
-import {SingleLogMonitorController} from '../../../monitor-bindings/common/controller/single-log';
+import {SingleLogMonitorController} from '../../../monitor-binding/common/controller/single-log';
 import {ButtonApi} from '../../button/api/button';
 import {InputBindingApi} from '../../common/api/input-binding';
 import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event';

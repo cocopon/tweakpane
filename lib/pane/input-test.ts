@@ -5,7 +5,7 @@ import {InputBindingApi} from '../blade/common/api/input-binding';
 import {TpChangeEvent} from '../blade/common/api/tp-event';
 import {TpError} from '../common/tp-error';
 import Tweakpane from '../index';
-import {Color} from '../input-bindings/color/model/color';
+import {Color} from '../input-binding/color/model/color';
 import {TestUtil} from '../misc/test-util';
 
 function createPane(): Tweakpane {

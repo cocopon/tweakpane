@@ -7,7 +7,7 @@ import {ViewProps} from 'tweakpane/lib/common/model/view-props';
 import {equalsPrimitive, writePrimitive} from 'tweakpane/lib/common/primitive';
 import {ClassName} from 'tweakpane/lib/common/view/class-name';
 import {View} from 'tweakpane/lib/common/view/view';
-import {InputBindingPlugin} from 'tweakpane/lib/input-bindings/plugin';
+import {InputBindingPlugin} from 'tweakpane/lib/input-binding/plugin';
 
 class TestView implements View {
 	public readonly element: HTMLElement;

@@ -7,7 +7,7 @@ import {
 	findFunctionParam,
 	findStringParam,
 } from '../../common/params';
-import {TextController} from '../../input-bindings/common/controller/text';
+import {TextController} from '../../input-binding/common/controller/text';
 import {forceCast} from '../../misc/type-util';
 import {BladeParams} from '../common/api/types';
 import {LabeledController} from '../labeled/controller';

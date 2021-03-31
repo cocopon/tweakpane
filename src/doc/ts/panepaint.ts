@@ -3,8 +3,8 @@ import Tweakpane from 'tweakpane';
 import {
 	colorFromString,
 	colorToFunctionalRgbaString,
-} from '../../../lib/input-bindings/color/converter/color-string';
-import {Color} from '../../../lib/input-bindings/color/model/color';
+} from '../../../lib/input-binding/color/converter/color-string';
+import {Color} from '../../../lib/input-binding/color/model/color';
 import {createTheme, ThemeId} from './themes';
 
 export type ThemeProperty =

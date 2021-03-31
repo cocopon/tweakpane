@@ -1,6 +1,6 @@
 import {Formatter} from '../../../common/converter/formatter';
 import {Emitter} from '../../../common/model/emitter';
-import {TextController} from '../../../input-bindings/common/controller/text';
+import {TextController} from '../../../input-binding/common/controller/text';
 import {BladeApi} from '../../common/api/blade';
 import {TpChangeEvent} from '../../common/api/tp-event';
 import {ApiChangeEvents} from '../../common/api/types';

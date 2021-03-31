@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {Point2d} from '../../input-bindings/point-2d/model/point-2d';
+import {Point2d} from '../../input-binding/point-2d/model/point-2d';
 import {Constraint} from '../constraint/constraint';
 import {BoundValue} from './bound-value';
 import {connectValues} from './value-sync';

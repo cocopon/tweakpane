@@ -11,7 +11,7 @@ import {
 import {BoundValue} from '../../../common/model/bound-value';
 import {createViewProps} from '../../../common/model/view-props';
 import {writePrimitive} from '../../../common/primitive';
-import {NumberTextController} from '../../../input-bindings/number/controller/number-text';
+import {NumberTextController} from '../../../input-binding/number/controller/number-text';
 import {TestUtil} from '../../../misc/test-util';
 import {InputBindingController} from '../controller/input-binding';
 import {Blade} from '../model/blade';

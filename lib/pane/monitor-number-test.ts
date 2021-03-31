@@ -5,9 +5,9 @@ import {MonitorBinding} from '../common/binding/monitor';
 import {IntervalTicker} from '../common/binding/ticker/interval';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
-import {MultiLogController} from '../monitor-bindings/common/controller/multi-log';
-import {SingleLogMonitorController} from '../monitor-bindings/common/controller/single-log';
-import {GraphLogController} from '../monitor-bindings/number/controller/graph-log';
+import {MultiLogController} from '../monitor-binding/common/controller/multi-log';
+import {SingleLogMonitorController} from '../monitor-binding/common/controller/single-log';
+import {GraphLogController} from '../monitor-binding/number/controller/graph-log';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({

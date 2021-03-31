@@ -1,7 +1,7 @@
 import {BindingTarget} from '../../../common/binding/target';
 import {TpError} from '../../../common/tp-error';
-import {InputBindingPlugin} from '../../../input-bindings/plugin';
-import {MonitorBindingPlugin} from '../../../monitor-bindings/plugin';
+import {InputBindingPlugin} from '../../../input-binding/plugin';
+import {MonitorBindingPlugin} from '../../../monitor-binding/plugin';
 import {BladePlugin} from '../../plugin';
 import {Plugins} from './plugins';
 

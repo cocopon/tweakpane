@@ -6,9 +6,9 @@ import {RangeConstraint} from '../common/constraint/range';
 import {StepConstraint} from '../common/constraint/step';
 import {BoundValue} from '../common/model/bound-value';
 import Tweakpane from '../index';
-import {PointNdConstraint} from '../input-bindings/common/constraint/point-nd';
-import {Point2dPadTextController} from '../input-bindings/point-2d/controller/point-2d-pad-text';
-import {Point2d} from '../input-bindings/point-2d/model/point-2d';
+import {PointNdConstraint} from '../input-binding/common/constraint/point-nd';
+import {Point2dPadTextController} from '../input-binding/point-2d/controller/point-2d-pad-text';
+import {Point2d} from '../input-binding/point-2d/model/point-2d';
 import {TestUtil} from '../misc/test-util';
 
 function createPane(): Tweakpane {

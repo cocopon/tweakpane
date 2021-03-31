@@ -6,9 +6,9 @@ import {Constraint} from '../common/constraint/constraint';
 import {StepConstraint} from '../common/constraint/step';
 import {BoundValue} from '../common/model/bound-value';
 import Tweakpane from '../index';
-import {ListController} from '../input-bindings/common/controller/list';
-import {NumberTextController} from '../input-bindings/number/controller/number-text';
-import {SliderTextController} from '../input-bindings/number/controller/slider-text';
+import {ListController} from '../input-binding/common/controller/list';
+import {NumberTextController} from '../input-binding/number/controller/number-text';
+import {SliderTextController} from '../input-binding/number/controller/slider-text';
 import {TestUtil} from '../misc/test-util';
 import {forceCast} from '../misc/type-util';
 

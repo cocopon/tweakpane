@@ -9,7 +9,7 @@ import {numberFromUnknown} from '../../../common/converter/number';
 import {BoundValue} from '../../../common/model/bound-value';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
-import {SingleLogMonitorController} from '../../../monitor-bindings/common/controller/single-log';
+import {SingleLogMonitorController} from '../../../monitor-binding/common/controller/single-log';
 import {Blade} from '../model/blade';
 import {MonitorBindingController} from './monitor-binding';
 

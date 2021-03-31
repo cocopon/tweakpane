@@ -1,5 +1,5 @@
-import {InputBindingPlugin} from '../../../input-bindings/plugin';
-import {MonitorBindingPlugin} from '../../../monitor-bindings/plugin';
+import {InputBindingPlugin} from '../../../input-binding/plugin';
+import {MonitorBindingPlugin} from '../../../monitor-binding/plugin';
 import {BasePlugin} from '../../../plugin';
 import {BladePlugin} from '../../plugin';
 

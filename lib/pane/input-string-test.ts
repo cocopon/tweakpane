@@ -2,8 +2,8 @@ import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
 import Tweakpane from '../index';
-import {ListController} from '../input-bindings/common/controller/list';
-import {TextController} from '../input-bindings/common/controller/text';
+import {ListController} from '../input-binding/common/controller/list';
+import {TextController} from '../input-binding/common/controller/text';
 import {TestUtil} from '../misc/test-util';
 
 function createPane(): Tweakpane {

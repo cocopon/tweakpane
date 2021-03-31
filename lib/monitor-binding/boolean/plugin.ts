@@ -3,9 +3,9 @@ import {
 	boolFromUnknown,
 } from '../../common/converter/boolean';
 import {Constants} from '../../misc/constants';
-import {MonitorBindingPlugin} from '../../monitor-bindings/plugin';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogMonitorController} from '../common/controller/single-log';
+import {MonitorBindingPlugin} from '../plugin';
 
 /**
  * @hidden

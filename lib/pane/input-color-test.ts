@@ -4,9 +4,9 @@ import {describe as context, describe, it} from 'mocha';
 import Tweakpane from '..';
 import {InputParams} from '../blade/common/api/types';
 import {ValueController} from '../common/controller/value';
-import {ColorSwatchTextController} from '../input-bindings/color/controller/color-swatch-text';
-import {Color} from '../input-bindings/color/model/color';
-import {ColorSwatchTextView} from '../input-bindings/color/view/color-swatch-text';
+import {ColorSwatchTextController} from '../input-binding/color/controller/color-swatch-text';
+import {Color} from '../input-binding/color/model/color';
+import {ColorSwatchTextView} from '../input-binding/color/view/color-swatch-text';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
 
