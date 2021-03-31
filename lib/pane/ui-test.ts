@@ -1,13 +1,12 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
-import {TpFoldEvent} from '../api/tp-event';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
 import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
 import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
-import {FolderController} from '../plugin/blade/folder/controller';
+import {FolderController} from '../plugin/blade/folder/controller/folder';
 import {LabeledController} from '../plugin/blade/labeled/controller';
 import {SeparatorController} from '../plugin/blade/separator/controller';
 
@@ -19,70 +18,6 @@ function createApi(title?: string): Tweakpane {
 }
 
 describe(Tweakpane.name, () => {
-	it('should add folder', () => {
-		const pane = createApi();
-		const f = pane.addFolder({
-			title: 'folder',
-		});
-		assert.strictEqual(f.controller_.folder.title, 'folder');
-		assert.strictEqual(f.controller_.folder.expanded, true);
-	});
-
-	it('should add collapsed folder', () => {
-		const pane = createApi();
-		const f = pane.addFolder({
-			expanded: false,
-			title: 'folder',
-		});
-		assert.strictEqual(f.controller_.folder.expanded, false);
-	});
-
-	it('should toggle expanded when clicking title element', () => {
-		const c = new Tweakpane({
-			document: TestUtil.createWindow().document,
-			title: 'Tweakpane',
-		});
-
-		if (c.controller_.view.titleElement) {
-			c.controller_.view.titleElement.click();
-		}
-
-		assert.strictEqual(
-			c.controller_.folder && c.controller_.folder.expanded,
-			false,
-		);
-	});
-
-	it('should handle root folder events', (done) => {
-		const pane = createApi('pane');
-
-		pane.on('fold', (ev) => {
-			assert.strictEqual(ev instanceof TpFoldEvent, true);
-			assert.strictEqual(ev.expanded, false);
-			done();
-		});
-
-		const f = pane.controller_.folder;
-		if (!f) {
-			assert.fail('Root folder not found');
-		}
-		f.expanded = false;
-	});
-
-	it('should handle folder events', (done) => {
-		const pane = createApi();
-		const f = pane.addFolder({
-			title: 'folder',
-		});
-
-		pane.on('fold', (ev) => {
-			assert.strictEqual(ev instanceof TpFoldEvent, true);
-			assert.strictEqual(ev.expanded, false);
-			done();
-		});
-		f.expanded = false;
-	});
-
 	([
 		{
 			insert: (api, index) => {
@@ -138,45 +73,5 @@ describe(Tweakpane.name, () => {
 				assert.strictEqual(cs[1] instanceof testCase.expected, true);
 			});
 		});
-	});
-
-	it('should bind `this` within handler to pane', (done) => {
-		const PARAMS = {foo: 1};
-		const pane = createApi();
-		pane.on('change', function(this: any) {
-			assert.strictEqual(this, pane);
-			done();
-		});
-
-		const bapi = pane.addInput(PARAMS, 'foo');
-		bapi.controller_.binding.value.rawValue = 2;
-	});
-
-	it('should dispose items', () => {
-		const PARAMS = {foo: 1};
-		const pane = createApi();
-		const i = pane.addInput(PARAMS, 'foo');
-		const m = pane.addMonitor(PARAMS, 'foo');
-
-		pane.dispose();
-		assert.strictEqual(pane.controller_.blade.disposed, true);
-		assert.strictEqual(i.controller_.blade.disposed, true);
-		assert.strictEqual(m.controller_.blade.disposed, true);
-	});
-
-	it('should dispose items (nested)', () => {
-		const PARAMS = {foo: 1};
-		const pane = createApi();
-		const f = pane.addFolder({title: ''});
-		const i = f.addInput(PARAMS, 'foo');
-		const m = f.addMonitor(PARAMS, 'foo');
-
-		assert.strictEqual(pane.controller_.blade.disposed, false);
-		assert.strictEqual(i.controller_.blade.disposed, false);
-		assert.strictEqual(m.controller_.blade.disposed, false);
-		pane.dispose();
-		assert.strictEqual(pane.controller_.blade.disposed, true);
-		assert.strictEqual(i.controller_.blade.disposed, true);
-		assert.strictEqual(m.controller_.blade.disposed, true);
 	});
 });

@@ -1,28 +1,23 @@
-import {forceCast} from '../misc/type-util';
-import {ButtonApi} from '../plugin/blade/button/api/button';
-import {BladeRackEvents} from '../plugin/blade/common/model/blade-rack';
-import {NestedOrderedSet} from '../plugin/blade/common/model/nested-ordered-set';
-import {FolderController} from '../plugin/blade/folder/controller';
-import {FolderEvents} from '../plugin/blade/folder/model/folder';
-import {SeparatorApi} from '../plugin/blade/separator/api/separator';
-import {Emitter} from '../plugin/common/model/emitter';
-import {TpError} from '../plugin/common/tp-error';
-import {BladeApi} from './blade-api';
-import {createBladeApi} from './blade-apis';
-import {InputBindingApi} from './input-binding';
-import {createInputBindingController} from './input-binding-controllers';
-import {MonitorBindingApi} from './monitor-binding';
-import {createMonitorBindingController} from './monitor-binding-controllers';
-import {TpChangeEvent, TpFoldEvent, TpUpdateEvent} from './tp-event';
+import {BladeApi} from '../../../../api/blade-api';
+import {createBladeApi} from '../../../../api/blade-apis';
+import {InputBindingApi} from '../../../../api/input-binding';
+import {createInputBindingController} from '../../../../api/input-binding-controllers';
+import {MonitorBindingApi} from '../../../../api/monitor-binding';
+import {createMonitorBindingController} from '../../../../api/monitor-binding-controllers';
 import {
-	BladeParams,
-	ButtonParams,
-	FolderParams,
-	InputParams,
-	MonitorParams,
-	SeparatorParams,
-} from './types';
-import {createBindingTarget} from './util';
+	TpChangeEvent,
+	TpFoldEvent,
+	TpUpdateEvent,
+} from '../../../../api/tp-event';
+import {BladeParams, InputParams, MonitorParams} from '../../../../api/types';
+import {createBindingTarget} from '../../../../api/util';
+import {forceCast} from '../../../../misc/type-util';
+import {Emitter} from '../../../common/model/emitter';
+import {TpError} from '../../../common/tp-error';
+import {BladeRackEvents} from '../../common/model/blade-rack';
+import {NestedOrderedSet} from '../../common/model/nested-ordered-set';
+import {FolderController} from '../controller/folder';
+import {FolderEvents} from '../model/folder';
 
 export interface FolderApiEvents<Ex> {
 	change: {
@@ -123,28 +118,6 @@ export class FolderApi implements BladeApi {
 		const api = new MonitorBindingApi(bc);
 		this.apiSet_.add(api);
 		return forceCast(api);
-	}
-
-	public addFolder(params: FolderParams): FolderApi {
-		return this.addBlade_v3_({
-			...params,
-			view: 'folder',
-		}) as FolderApi;
-	}
-
-	public addButton(params: ButtonParams): ButtonApi {
-		return this.addBlade_v3_({
-			...params,
-			view: 'button',
-		}) as ButtonApi;
-	}
-
-	public addSeparator(opt_params?: SeparatorParams): SeparatorApi {
-		const params = opt_params || {};
-		return this.addBlade_v3_({
-			...params,
-			view: 'separator',
-		});
 	}
 
 	/**

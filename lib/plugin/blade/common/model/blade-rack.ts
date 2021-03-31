@@ -7,7 +7,7 @@ import {
 import {Emitter} from '../../../common/model/emitter';
 import {ViewPropsEvents} from '../../../common/model/view-props';
 import {TpError} from '../../../common/tp-error';
-import {FolderController} from '../../folder/controller';
+import {FolderController} from '../../folder/controller/folder';
 import {Folder, FolderEvents} from '../../folder/model/folder';
 import {BladeController} from '../controller/blade';
 import {InputBindingController} from '../controller/input-binding';

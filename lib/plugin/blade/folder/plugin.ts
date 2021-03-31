@@ -1,8 +1,8 @@
-import {FolderApi} from '../../../api/folder';
 import {BladeParams} from '../../../api/types';
 import {BladePlugin} from '../../blade';
 import {findBooleanParam, findStringParam} from '../../common/params';
-import {FolderController} from './controller';
+import {FolderApi} from './api/folder';
+import {FolderController} from './controller/folder';
 
 export interface FolderBladeParams extends BladeParams {
 	title: string;

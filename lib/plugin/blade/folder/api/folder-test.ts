@@ -1,22 +1,16 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {TestUtil} from '../misc/test-util';
-import {ButtonApi} from '../plugin/blade/button/api/button';
-import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
-import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
-import {Blade} from '../plugin/blade/common/model/blade';
-import {FolderController} from '../plugin/blade/folder/controller';
-import {LabeledController} from '../plugin/blade/labeled/controller';
-import {SeparatorApi} from '../plugin/blade/separator/api/separator';
-import {SeparatorController} from '../plugin/blade/separator/controller';
-import {createViewProps} from '../plugin/common/model/view-props';
-import {Color} from '../plugin/input-bindings/color/model/color';
-import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
-import {SingleLogMonitorController} from '../plugin/monitor-bindings/common/controller/single-log';
+import {InputBindingApi} from '../../../../api/input-binding';
+import {TpChangeEvent, TpFoldEvent} from '../../../../api/tp-event';
+import {TestUtil} from '../../../../misc/test-util';
+import {createViewProps} from '../../../common/model/view-props';
+import {Color} from '../../../input-bindings/color/model/color';
+import {NumberTextController} from '../../../input-bindings/number/controller/number-text';
+import {SingleLogMonitorController} from '../../../monitor-bindings/common/controller/single-log';
+import {Blade} from '../../common/model/blade';
+import {FolderController} from '../controller/folder';
 import {FolderApi} from './folder';
-import {InputBindingApi} from './input-binding';
-import {TpChangeEvent} from './tp-event';
 
 function createApi(): FolderApi {
 	const doc = TestUtil.createWindow().document;
@@ -29,33 +23,17 @@ function createApi(): FolderApi {
 }
 
 describe(FolderApi.name, () => {
-	it('should get expanded', () => {
+	it('should have initial state', () => {
 		const api = createApi();
-
-		api.controller_.folder.expanded = false;
-		assert.strictEqual(api.expanded, false);
-		api.controller_.folder.expanded = true;
-		assert.strictEqual(api.expanded, true);
+		assert.strictEqual(api.controller_.folder.expanded, true);
+		assert.strictEqual(api.hidden, false);
 	});
 
-	it('should set expanded', () => {
+	it('should update properties', () => {
 		const api = createApi();
 
-		api.expanded = false;
-		assert.strictEqual(api.controller_.folder.expanded, false);
 		api.expanded = true;
 		assert.strictEqual(api.controller_.folder.expanded, true);
-	});
-
-	it('should dispose', () => {
-		const api = createApi();
-		api.dispose();
-		assert.strictEqual(api.controller_.blade.disposed, true);
-	});
-
-	it('should hide', () => {
-		const api = createApi();
-		assert.strictEqual(api.hidden, false);
 
 		api.hidden = true;
 		assert.strictEqual(
@@ -64,31 +42,17 @@ describe(FolderApi.name, () => {
 		);
 	});
 
-	it('should add button', () => {
-		const pane = createApi();
-		const api = pane.addButton({
-			title: '',
-		});
-		assert.strictEqual(api instanceof ButtonApi, true);
+	it('should dispose', () => {
+		const api = createApi();
+		api.dispose();
+		assert.strictEqual(api.controller_.blade.disposed, true);
 	});
 
-	it('should add separator', () => {
+	it('should toggle expanded when clicking title element', () => {
 		const api = createApi();
-		const s = api.addSeparator();
-		assert.strictEqual(s instanceof SeparatorApi, true);
 
-		const cs = api.controller_.bladeRack.items;
-		assert.strictEqual(cs[cs.length - 1] instanceof SeparatorController, true);
-	});
-
-	it('should dispose separator', () => {
-		const api = createApi();
-		const cs = api.controller_.bladeRack.items;
-
-		const s = api.addSeparator();
-		assert.strictEqual(cs.length, 1);
-		s.dispose();
-		assert.strictEqual(cs.length, 0);
+		api.controller_.view.titleElement.click();
+		assert.strictEqual(api.controller_.folder.expanded, false);
 	});
 
 	it('should add input', () => {
@@ -117,60 +81,38 @@ describe(FolderApi.name, () => {
 		);
 	});
 
-	it('should listen fold event', (done) => {
+	it('should handle fold event', (done) => {
 		const api = createApi();
-		api.on('fold', () => {
+		api.on('fold', (ev) => {
+			assert.strictEqual(ev instanceof TpFoldEvent, true);
+			assert.strictEqual(ev.expanded, false);
 			done();
 		});
 		api.controller_.folder.expanded = false;
 	});
 
-	[
-		{
-			insert: (api: FolderApi, index: number) => {
-				api.addInput({foo: 1}, 'foo', {index: index});
-			},
-			expected: InputBindingController,
-		},
-		{
-			insert: (api: FolderApi, index: number) => {
-				api.addMonitor({foo: 1}, 'foo', {
-					index: index,
-					interval: 0,
-				});
-			},
-			expected: MonitorBindingController,
-		},
-		{
-			insert: (api: FolderApi, index: number) => {
-				api.addButton({index: index, title: 'button'});
-			},
-			expected: LabeledController,
-		},
-		{
-			insert: (api: FolderApi, index: number) => {
-				api.addSeparator({
-					index: index,
-				});
-			},
-			expected: SeparatorController,
-		},
-	].forEach((testCase) => {
-		context(`when ${testCase.expected.name}`, () => {
-			it('should insert input/monitor into specified position', () => {
-				const params = {
-					bar: 2,
-					foo: 1,
-				};
-				const api = createApi();
-				api.addInput(params, 'foo');
-				api.addInput(params, 'bar');
-				testCase.insert(api, 1);
-
-				const cs = api.controller_.bladeRack.items;
-				assert.strictEqual(cs[1] instanceof testCase.expected, true);
-			});
+	it('should bind `this` within handler to pane', (done) => {
+		const PARAMS = {foo: 1};
+		const pane = createApi();
+		pane.on('change', function(this: any) {
+			assert.strictEqual(this, pane);
+			done();
 		});
+
+		const bapi = pane.addInput(PARAMS, 'foo');
+		bapi.controller_.binding.value.rawValue = 2;
+	});
+
+	it('should dispose items', () => {
+		const PARAMS = {foo: 1};
+		const api = createApi();
+		const i = api.addInput(PARAMS, 'foo');
+		const m = api.addMonitor(PARAMS, 'foo');
+
+		api.dispose();
+		assert.strictEqual(api.controller_.blade.disposed, true);
+		assert.strictEqual(i.controller_.blade.disposed, true);
+		assert.strictEqual(m.controller_.blade.disposed, true);
 	});
 
 	[
@@ -267,18 +209,5 @@ describe(FolderApi.name, () => {
 			done();
 		});
 		api.controller_.folder.expanded = !api.controller_.folder.expanded;
-	});
-
-	it('should have right target (nested)', (done) => {
-		const api = createApi();
-		api.addButton({title: ''});
-		const subapi = api.addFolder({title: ''});
-
-		api.on('fold', (ev) => {
-			assert.strictEqual(ev.target, subapi);
-			done();
-		});
-
-		subapi.controller_.folder.expanded = !subapi.controller_.folder.expanded;
 	});
 });

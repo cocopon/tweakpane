@@ -1,19 +1,19 @@
-import {isEmpty} from '../../../misc/type-util';
+import {isEmpty} from '../../../../misc/type-util';
 import {
 	disableTransitionTemporarily,
 	forceReflow,
 	insertElementAt,
-} from '../../common/dom-util';
-import {ViewProps} from '../../common/model/view-props';
+} from '../../../common/dom-util';
+import {ViewProps} from '../../../common/model/view-props';
 import {
 	BladeController,
 	setUpBladeController,
-} from '../common/controller/blade';
-import {Blade} from '../common/model/blade';
-import {BladePosition} from '../common/model/blade-positions';
-import {BladeRack, BladeRackEvents} from '../common/model/blade-rack';
-import {Folder, FolderEvents} from './model/folder';
-import {FolderView} from './view';
+} from '../../common/controller/blade';
+import {Blade} from '../../common/model/blade';
+import {BladePosition} from '../../common/model/blade-positions';
+import {BladeRack, BladeRackEvents} from '../../common/model/blade-rack';
+import {Folder, FolderEvents} from '../model/folder';
+import {FolderView} from '../view';
 
 interface Config {
 	expanded?: boolean;

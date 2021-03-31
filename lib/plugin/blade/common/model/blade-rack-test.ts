@@ -15,7 +15,7 @@ import {createViewProps} from '../../../common/model/view-props';
 import {writePrimitive} from '../../../common/primitive';
 import {CheckboxController} from '../../../input-bindings/boolean/controller';
 import {SingleLogMonitorController} from '../../../monitor-bindings/common/controller/single-log';
-import {FolderController} from '../../folder/controller';
+import {FolderController} from '../../folder/controller/folder';
 import {InputBindingController} from '../controller/input-binding';
 import {MonitorBindingController} from '../controller/monitor-binding';
 import {Blade} from './blade';

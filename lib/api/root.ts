@@ -1,12 +1,18 @@
 import {BladePlugin} from '../plugin/blade';
+import {ButtonApi} from '../plugin/blade/button/api/button';
+import {ButtonBladePlugin} from '../plugin/blade/button/plugin';
 import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
 import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
+import {FolderApi} from '../plugin/blade/folder/api/folder';
+import {FolderBladePlugin} from '../plugin/blade/folder/plugin';
 import {RootController} from '../plugin/blade/folder/root';
+import {SeparatorApi} from '../plugin/blade/separator/api/separator';
+import {SeparatorBladePlugin} from '../plugin/blade/separator/plugin';
 import {InputBindingPlugin} from '../plugin/input-binding';
 import {MonitorBindingPlugin} from '../plugin/monitor-binding';
-import {FolderApi} from './folder';
 import {Plugins} from './plugins';
 import {exportPresetJson, importPresetJson, PresetObject} from './preset';
+import {ButtonParams, FolderParams, SeparatorParams} from './types';
 
 type PluginRegistration =
 	| {
@@ -57,6 +63,28 @@ export class RootApi extends FolderApi {
 		return this.controller_.view.element;
 	}
 
+	public addFolder(params: FolderParams): FolderApi {
+		return this.addBlade_v3_({
+			...params,
+			view: 'folder',
+		}) as FolderApi;
+	}
+
+	public addButton(params: ButtonParams): ButtonApi {
+		return this.addBlade_v3_({
+			...params,
+			view: 'button',
+		}) as ButtonApi;
+	}
+
+	public addSeparator(opt_params?: SeparatorParams): SeparatorApi {
+		const params = opt_params || {};
+		return this.addBlade_v3_({
+			...params,
+			view: 'separator',
+		});
+	}
+
 	/**
 	 * Imports a preset of all inputs.
 	 * @param preset The preset object to import.
@@ -99,3 +127,15 @@ export class RootApi extends FolderApi {
 		});
 	}
 }
+
+function registerDefaultPlugins() {
+	[ButtonBladePlugin, FolderBladePlugin, SeparatorBladePlugin].forEach(
+		(p: BladePlugin<any>) => {
+			RootApi.registerPlugin({
+				type: 'blade',
+				plugin: p,
+			});
+		},
+	);
+}
+registerDefaultPlugins();

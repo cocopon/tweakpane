@@ -1,14 +1,14 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {TestUtil} from '../../../misc/test-util';
-import {createViewProps} from '../../common/model/view-props';
-import {ButtonController} from '../button/controller/button';
-import {BladeController} from '../common/controller/blade';
-import {Blade} from '../common/model/blade';
-import {LabeledController} from '../labeled/controller';
-import {FolderController} from './controller';
-import {FolderEvents} from './model/folder';
+import {TestUtil} from '../../../../misc/test-util';
+import {createViewProps} from '../../../common/model/view-props';
+import {ButtonController} from '../../button/controller/button';
+import {BladeController} from '../../common/controller/blade';
+import {Blade} from '../../common/model/blade';
+import {LabeledController} from '../../labeled/controller';
+import {FolderEvents} from '../model/folder';
+import {FolderController} from './folder';
 
 function createSomeBladeController(doc: Document): BladeController {
 	return new LabeledController(doc, {
