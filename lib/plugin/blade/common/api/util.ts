@@ -1,8 +1,8 @@
-import {BladePlugin} from '../../../blade';
 import {BindingTarget} from '../../../common/binding/target';
 import {TpError} from '../../../common/tp-error';
-import {InputBindingPlugin} from '../../../input-binding';
-import {MonitorBindingPlugin} from '../../../monitor-binding';
+import {InputBindingPlugin} from '../../../input-bindings/plugin';
+import {MonitorBindingPlugin} from '../../../monitor-bindings/plugin';
+import {BladePlugin} from '../../plugin';
 import {Plugins} from './plugins';
 
 export function createBindingTarget(

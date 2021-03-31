@@ -1,8 +1,8 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {TestUtil} from '../misc/test-util';
-import {StepConstraint} from './common/constraint/step';
+import {TestUtil} from '../../misc/test-util';
+import {StepConstraint} from './constraint/step';
 import {getSuitableDraggingScale} from './util';
 
 const DELTA = 1e-5;

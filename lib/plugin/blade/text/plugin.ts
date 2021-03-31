@@ -1,5 +1,4 @@
 import {forceCast} from '../../../misc/type-util';
-import {BladePlugin} from '../../blade';
 import {Formatter} from '../../common/converter/formatter';
 import {Parser} from '../../common/converter/parser';
 import {PrimitiveValue} from '../../common/model/primitive-value';
@@ -12,6 +11,7 @@ import {
 import {TextController} from '../../input-bindings/common/controller/text';
 import {BladeParams} from '../common/api/types';
 import {LabeledController} from '../labeled/controller';
+import {BladePlugin} from '../plugin';
 import {TextBladeApi} from './api/text';
 
 export interface TextBladeParams<T> extends BladeParams {

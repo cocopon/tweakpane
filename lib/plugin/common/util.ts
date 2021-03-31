@@ -2,14 +2,14 @@ import {
 	InputParams,
 	InputParamsOption,
 	InputParamsOptionDictionary,
-} from './blade/common/api/types';
-import {findConstraint} from './common/constraint/composite';
-import {Constraint} from './common/constraint/constraint';
-import {ListConstraint, ListItem} from './common/constraint/list';
-import {StepConstraint} from './common/constraint/step';
-import {ValueController} from './common/controller/value';
-import {createViewProps} from './common/model/view-props';
-import {getDecimalDigits} from './common/number-util';
+} from '../blade/common/api/types';
+import {findConstraint} from './constraint/composite';
+import {Constraint} from './constraint/constraint';
+import {ListConstraint, ListItem} from './constraint/list';
+import {StepConstraint} from './constraint/step';
+import {ValueController} from './controller/value';
+import {createViewProps} from './model/view-props';
+import {getDecimalDigits} from './number-util';
 
 function normalizeInputParamsOptions<T>(
 	options: InputParamsOption<unknown>[] | InputParamsOptionDictionary<unknown>,

@@ -7,7 +7,7 @@ import {
 	numberFromUnknown,
 } from '../../common/converter/number';
 import {Buffer} from '../../common/model/buffered-value';
-import {MonitorBindingPlugin} from '../../monitor-binding';
+import {MonitorBindingPlugin} from '../../monitor-bindings/plugin';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogMonitorController} from '../common/controller/single-log';
 import {GraphLogController} from './controller/graph-log';

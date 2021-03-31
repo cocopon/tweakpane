@@ -1,7 +1,7 @@
-import {BladePlugin} from '../../../blade';
-import {InputBindingPlugin} from '../../../input-binding';
-import {MonitorBindingPlugin} from '../../../monitor-binding';
+import {InputBindingPlugin} from '../../../input-bindings/plugin';
+import {MonitorBindingPlugin} from '../../../monitor-bindings/plugin';
 import {BasePlugin} from '../../../plugin';
+import {BladePlugin} from '../../plugin';
 
 export const Plugins: {
 	blades: BladePlugin<any>[];

@@ -8,10 +8,10 @@ import {ListConstraint} from '../../common/constraint/list';
 import {formatString, stringFromUnknown} from '../../common/converter/string';
 import {ValueMap} from '../../common/model/value-map';
 import {equalsPrimitive, writePrimitive} from '../../common/primitive';
-import {InputBindingPlugin} from '../../input-binding';
-import {createListConstraint, findListItems} from '../../util';
+import {createListConstraint, findListItems} from '../../common/util';
 import {ListController} from '../common/controller/list';
 import {TextController} from '../common/controller/text';
+import {InputBindingPlugin} from '../plugin';
 
 function createConstraint(params: InputParams): Constraint<string> {
 	const constraints: Constraint<string>[] = [];

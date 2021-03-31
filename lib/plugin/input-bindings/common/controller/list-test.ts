@@ -6,7 +6,7 @@ import {ListConstraint} from '../../../common/constraint/list';
 import {numberToString} from '../../../common/converter/number';
 import {BoundValue} from '../../../common/model/bound-value';
 import {createViewProps} from '../../../common/model/view-props';
-import {findListItems} from '../../../util';
+import {findListItems} from '../../../common/util';
 import {ListController} from './list';
 
 describe(ListController.name, () => {

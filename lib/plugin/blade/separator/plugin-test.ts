@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
 import {TestUtil} from '../../../misc/test-util';
-import {createApi} from '../../blade';
+import {createApi} from '../plugin';
 import {SeparatorApi} from './api/separator';
 import {SeparatorBladePlugin} from './plugin';
 

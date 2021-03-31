@@ -11,8 +11,8 @@ import {ValueMap} from '../plugin/common/model/value-map';
 import {createViewProps} from '../plugin/common/model/view-props';
 import {equalsPrimitive, writePrimitive} from '../plugin/common/primitive';
 import {TpError} from '../plugin/common/tp-error';
-import {InputBindingPlugin} from '../plugin/input-binding';
 import {TextController} from '../plugin/input-bindings/common/controller/text';
+import {InputBindingPlugin} from '../plugin/input-bindings/plugin';
 
 describe(Tweakpane.name, () => {
 	it('should dispose with default container', () => {

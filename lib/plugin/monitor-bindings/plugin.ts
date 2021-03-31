@@ -1,19 +1,19 @@
-import {Constants} from '../misc/constants';
-import {MonitorParams} from './blade/common/api/types';
-import {MonitorBindingController} from './blade/common/controller/monitor-binding';
-import {Blade} from './blade/common/model/blade';
-import {BindingReader} from './common/binding/binding';
-import {MonitorBinding} from './common/binding/monitor';
-import {BindingTarget} from './common/binding/target';
-import {IntervalTicker} from './common/binding/ticker/interval';
-import {ManualTicker} from './common/binding/ticker/manual';
-import {Ticker} from './common/binding/ticker/ticker';
-import {ValueController} from './common/controller/value';
-import {BufferedValue, initializeBuffer} from './common/model/buffered-value';
-import {Buffer} from './common/model/buffered-value';
-import {createViewProps, ViewProps} from './common/model/view-props';
-import {BasePlugin} from './plugin';
-import {polyfillViewProps} from './util';
+import {Constants} from '../../misc/constants';
+import {MonitorParams} from '../blade/common/api/types';
+import {MonitorBindingController} from '../blade/common/controller/monitor-binding';
+import {Blade} from '../blade/common/model/blade';
+import {BindingReader} from '../common/binding/binding';
+import {MonitorBinding} from '../common/binding/monitor';
+import {BindingTarget} from '../common/binding/target';
+import {IntervalTicker} from '../common/binding/ticker/interval';
+import {ManualTicker} from '../common/binding/ticker/manual';
+import {Ticker} from '../common/binding/ticker/ticker';
+import {ValueController} from '../common/controller/value';
+import {Buffer} from '../common/model/buffered-value';
+import {BufferedValue, initializeBuffer} from '../common/model/buffered-value';
+import {createViewProps, ViewProps} from '../common/model/view-props';
+import {polyfillViewProps} from '../common/util';
+import {BasePlugin} from '../plugin';
 
 interface BindingArguments<T> {
 	initialValue: T;

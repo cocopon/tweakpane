@@ -1,4 +1,4 @@
-import {InputBindingPlugin} from '../../input-binding';
+import {InputBindingPlugin} from '../plugin';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
 import {colorFromObject} from './converter/color-number';
 import {

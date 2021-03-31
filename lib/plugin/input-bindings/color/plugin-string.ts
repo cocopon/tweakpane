@@ -1,5 +1,5 @@
 import {TpError} from '../../common/tp-error';
-import {InputBindingPlugin} from '../../input-binding';
+import {InputBindingPlugin} from '../plugin';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
 import {
 	colorFromString,

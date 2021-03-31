@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../misc/test-util';
-import {createApi} from '../../blade';
+import {createApi} from '../plugin';
 import {TextBladeApi} from './api/text';
 import {TextBladeParams, TextBladePlugin} from './plugin';
 

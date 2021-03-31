@@ -9,14 +9,14 @@ import {
 	parseNumber,
 } from '../../common/converter/number';
 import {TpError} from '../../common/tp-error';
-import {InputBindingPlugin} from '../../input-binding';
 import {
 	getBaseStep,
 	getSuitableDecimalDigits,
 	getSuitableDraggingScale,
-} from '../../util';
+} from '../../common/util';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {PointNdTextController} from '../common/controller/point-nd-text';
+import {InputBindingPlugin} from '../plugin';
 import {point4dFromUnknown, writePoint4d} from './converter/point-4d';
 import {Point4d, Point4dAssembly, Point4dObject} from './model/point-4d';
 

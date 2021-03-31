@@ -16,15 +16,15 @@ import {
 import {numberFromUnknown} from '../../common/converter/number';
 import {ValueMap} from '../../common/model/value-map';
 import {equalsPrimitive, writePrimitive} from '../../common/primitive';
-import {InputBindingPlugin} from '../../input-binding';
 import {
 	createListConstraint,
 	findListItems,
 	getBaseStep,
 	getSuitableDecimalDigits,
 	getSuitableDraggingScale,
-} from '../../util';
+} from '../../common/util';
 import {ListController} from '../common/controller/list';
+import {InputBindingPlugin} from '../plugin';
 import {NumberTextController} from './controller/number-text';
 import {SliderTextController} from './controller/slider-text';
 

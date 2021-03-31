@@ -1,4 +1,3 @@
-import {BladePlugin} from '../../../blade';
 import {ButtonBladePlugin} from '../../button/plugin';
 import {PluginRegistration, registerPlugin} from '../../common/api/util';
 import {InputBindingController} from '../../common/controller/input-binding';
@@ -6,6 +5,7 @@ import {MonitorBindingController} from '../../common/controller/monitor-binding'
 import {FolderApi} from '../../folder/api/folder';
 import {FolderBladePlugin} from '../../folder/plugin';
 import {RootController} from '../../folder/root';
+import {BladePlugin} from '../../plugin';
 import {SeparatorBladePlugin} from '../../separator/plugin';
 import {exportPresetJson, importPresetJson, PresetObject} from './preset';
 

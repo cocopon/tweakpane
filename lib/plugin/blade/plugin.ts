@@ -1,8 +1,8 @@
-import {BladeApi} from './blade/common/api/blade';
-import {BladeParams} from './blade/common/api/types';
-import {Blade} from './blade/common/model/blade';
-import {createViewProps, ViewProps} from './common/model/view-props';
-import {BasePlugin} from './plugin';
+import {createViewProps, ViewProps} from '../common/model/view-props';
+import {BasePlugin} from '../plugin';
+import {BladeApi} from './common/api/blade';
+import {BladeParams} from './common/api/types';
+import {Blade} from './common/model/blade';
 
 interface Acceptance<P extends BladeParams> {
 	params: P;

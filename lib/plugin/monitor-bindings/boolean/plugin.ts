@@ -3,7 +3,7 @@ import {
 	BooleanFormatter,
 	boolFromUnknown,
 } from '../../common/converter/boolean';
-import {MonitorBindingPlugin} from '../../monitor-binding';
+import {MonitorBindingPlugin} from '../../monitor-bindings/plugin';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogMonitorController} from '../common/controller/single-log';
 

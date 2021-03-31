@@ -10,7 +10,7 @@ import {
 } from 'tweakpane/lib/plugin/common/primitive';
 import {ClassName} from 'tweakpane/lib/plugin/common/view/class-name';
 import {View} from 'tweakpane/lib/plugin/common/view/view';
-import {InputBindingPlugin} from 'tweakpane/lib/plugin/input-binding';
+import {InputBindingPlugin} from 'tweakpane/lib/plugin/input-bindings/plugin';
 
 class TestView implements View {
 	public readonly element: HTMLElement;

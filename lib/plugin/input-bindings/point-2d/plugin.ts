@@ -12,13 +12,13 @@ import {
 	parseNumber,
 } from '../../common/converter/number';
 import {TpError} from '../../common/tp-error';
-import {InputBindingPlugin} from '../../input-binding';
 import {
 	getBaseStep,
 	getSuitableDecimalDigits,
 	getSuitableDraggingScale,
-} from '../../util';
+} from '../../common/util';
 import {PointNdConstraint} from '../common/constraint/point-nd';
+import {InputBindingPlugin} from '../plugin';
 import {Point2dPadTextController} from './controller/point-2d-pad-text';
 import {point2dFromUnknown, writePoint2d} from './converter/point-2d';
 import {Point2d, Point2dAssembly, Point2dObject} from './model/point-2d';

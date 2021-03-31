@@ -8,9 +8,9 @@ import {ListConstraint} from '../../common/constraint/list';
 import {boolToString} from '../../common/converter/boolean';
 import {boolFromUnknown} from '../../common/converter/boolean';
 import {equalsPrimitive, writePrimitive} from '../../common/primitive';
-import {InputBindingPlugin} from '../../input-binding';
-import {createListConstraint, findListItems} from '../../util';
+import {createListConstraint, findListItems} from '../../common/util';
 import {ListController} from '../common/controller/list';
+import {InputBindingPlugin} from '../plugin';
 import {CheckboxController} from './controller';
 
 function createConstraint(params: InputParams): Constraint<boolean> {

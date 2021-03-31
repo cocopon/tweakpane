@@ -1,5 +1,5 @@
-import {createApi} from '../../../blade';
 import {TpError} from '../../../common/tp-error';
+import {createApi} from '../../plugin';
 import {BladeApi} from './blade';
 import {Plugins} from './plugins';
 
