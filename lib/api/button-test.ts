@@ -26,7 +26,7 @@ describe(ButtonApi.name, () => {
 		api.on('click', () => {
 			done();
 		});
-		api.controller.valueController.button.click();
+		api.controller_.valueController.button.click();
 	});
 
 	it('should be hidden', () => {
@@ -36,7 +36,7 @@ describe(ButtonApi.name, () => {
 
 		api.hidden = true;
 		assert.strictEqual(
-			api.controller.view.element.classList.contains('tp-v-hidden'),
+			api.controller_.view.element.classList.contains('tp-v-hidden'),
 			true,
 		);
 	});
@@ -44,7 +44,7 @@ describe(ButtonApi.name, () => {
 	it('should be disabled', () => {
 		const doc = TestUtil.createWindow().document;
 		const api = createApi(doc);
-		const c = api.controller.valueController as ButtonController;
+		const c = api.controller_.valueController as ButtonController;
 
 		assert.strictEqual(api.disabled, false);
 		assert.strictEqual(c.view.buttonElement.disabled, false);
@@ -72,6 +72,6 @@ describe(ButtonApi.name, () => {
 			assert.strictEqual(this, api);
 			done();
 		});
-		api.controller.valueController.button.click();
+		api.controller_.valueController.button.click();
 	});
 });

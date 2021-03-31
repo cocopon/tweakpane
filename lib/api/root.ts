@@ -54,7 +54,7 @@ export class RootApi extends FolderApi {
 	}
 
 	get element(): HTMLElement {
-		return this.controller.view.element;
+		return this.controller_.view.element;
 	}
 
 	/**
@@ -62,7 +62,7 @@ export class RootApi extends FolderApi {
 	 * @param preset The preset object to import.
 	 */
 	public importPreset(preset: PresetObject): void {
-		const targets = this.controller.bladeRack
+		const targets = this.controller_.bladeRack
 			.find(InputBindingController)
 			.map((ibc) => {
 				return ibc.binding.target;
@@ -76,7 +76,7 @@ export class RootApi extends FolderApi {
 	 * @return An exported preset object.
 	 */
 	public exportPreset(): PresetObject {
-		const targets = this.controller.bladeRack
+		const targets = this.controller_.bladeRack
 			.find(InputBindingController)
 			.map((ibc) => {
 				return ibc.binding.target;
@@ -89,12 +89,12 @@ export class RootApi extends FolderApi {
 	 */
 	public refresh(): void {
 		// Force-read all input bindings
-		this.controller.bladeRack.find(InputBindingController).forEach((ibc) => {
+		this.controller_.bladeRack.find(InputBindingController).forEach((ibc) => {
 			ibc.binding.read();
 		});
 
 		// Force-read all monitor bindings
-		this.controller.bladeRack.find(MonitorBindingController).forEach((mbc) => {
+		this.controller_.bladeRack.find(MonitorBindingController).forEach((mbc) => {
 			mbc.binding.read();
 		});
 	}

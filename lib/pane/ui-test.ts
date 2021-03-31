@@ -24,8 +24,8 @@ describe(Tweakpane.name, () => {
 		const f = pane.addFolder({
 			title: 'folder',
 		});
-		assert.strictEqual(f.controller.folder.title, 'folder');
-		assert.strictEqual(f.controller.folder.expanded, true);
+		assert.strictEqual(f.controller_.folder.title, 'folder');
+		assert.strictEqual(f.controller_.folder.expanded, true);
 	});
 
 	it('should add collapsed folder', () => {
@@ -34,7 +34,7 @@ describe(Tweakpane.name, () => {
 			expanded: false,
 			title: 'folder',
 		});
-		assert.strictEqual(f.controller.folder.expanded, false);
+		assert.strictEqual(f.controller_.folder.expanded, false);
 	});
 
 	it('should toggle expanded when clicking title element', () => {
@@ -43,12 +43,12 @@ describe(Tweakpane.name, () => {
 			title: 'Tweakpane',
 		});
 
-		if (c.controller.view.titleElement) {
-			c.controller.view.titleElement.click();
+		if (c.controller_.view.titleElement) {
+			c.controller_.view.titleElement.click();
 		}
 
 		assert.strictEqual(
-			c.controller.folder && c.controller.folder.expanded,
+			c.controller_.folder && c.controller_.folder.expanded,
 			false,
 		);
 	});
@@ -57,13 +57,13 @@ describe(Tweakpane.name, () => {
 		const pane = createApi();
 		pane.addSeparator();
 
-		const cs = pane.controller.bladeRack.items;
+		const cs = pane.controller_.bladeRack.items;
 		assert.strictEqual(cs[cs.length - 1] instanceof SeparatorController, true);
 	});
 
 	it('should dispose separator', () => {
 		const pane = createApi();
-		const cs = pane.controller.bladeRack.items;
+		const cs = pane.controller_.bladeRack.items;
 
 		const s = pane.addSeparator();
 		assert.strictEqual(cs.length, 1);
@@ -80,7 +80,7 @@ describe(Tweakpane.name, () => {
 			done();
 		});
 
-		const f = pane.controller.folder;
+		const f = pane.controller_.folder;
 		if (!f) {
 			assert.fail('Root folder not found');
 		}
@@ -152,7 +152,7 @@ describe(Tweakpane.name, () => {
 				pane.addInput(params, 'bar');
 				testCase.insert(pane, 1);
 
-				const cs = pane.controller.bladeRack.items;
+				const cs = pane.controller_.bladeRack.items;
 				assert.strictEqual(cs[1] instanceof testCase.expected, true);
 			});
 		});
@@ -167,7 +167,7 @@ describe(Tweakpane.name, () => {
 		});
 
 		const bapi = pane.addInput(PARAMS, 'foo');
-		bapi.controller.binding.value.rawValue = 2;
+		bapi.controller_.binding.value.rawValue = 2;
 	});
 
 	it('should dispose items', () => {
@@ -177,9 +177,9 @@ describe(Tweakpane.name, () => {
 		const m = pane.addMonitor(PARAMS, 'foo');
 
 		pane.dispose();
-		assert.strictEqual(pane.controller.blade.disposed, true);
-		assert.strictEqual(i.controller.blade.disposed, true);
-		assert.strictEqual(m.controller.blade.disposed, true);
+		assert.strictEqual(pane.controller_.blade.disposed, true);
+		assert.strictEqual(i.controller_.blade.disposed, true);
+		assert.strictEqual(m.controller_.blade.disposed, true);
 	});
 
 	it('should dispose items (nested)', () => {
@@ -189,12 +189,12 @@ describe(Tweakpane.name, () => {
 		const i = f.addInput(PARAMS, 'foo');
 		const m = f.addMonitor(PARAMS, 'foo');
 
-		assert.strictEqual(pane.controller.blade.disposed, false);
-		assert.strictEqual(i.controller.blade.disposed, false);
-		assert.strictEqual(m.controller.blade.disposed, false);
+		assert.strictEqual(pane.controller_.blade.disposed, false);
+		assert.strictEqual(i.controller_.blade.disposed, false);
+		assert.strictEqual(m.controller_.blade.disposed, false);
 		pane.dispose();
-		assert.strictEqual(pane.controller.blade.disposed, true);
-		assert.strictEqual(i.controller.blade.disposed, true);
-		assert.strictEqual(m.controller.blade.disposed, true);
+		assert.strictEqual(pane.controller_.blade.disposed, true);
+		assert.strictEqual(i.controller_.blade.disposed, true);
+		assert.strictEqual(m.controller_.blade.disposed, true);
 	});
 });

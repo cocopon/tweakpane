@@ -58,7 +58,7 @@ describe(Tweakpane.name, () => {
 			document: doc,
 			title: 'Title',
 		});
-		assert.strictEqual(c.controller.folder?.expanded, true);
+		assert.strictEqual(c.controller_.folder?.expanded, true);
 	});
 
 	it('should shrink by default with `expanded: false` option', () => {
@@ -68,7 +68,7 @@ describe(Tweakpane.name, () => {
 			expanded: false,
 			title: 'Title',
 		});
-		assert.strictEqual(c.controller.folder?.expanded, false);
+		assert.strictEqual(c.controller_.folder?.expanded, false);
 	});
 
 	it('should embed default style', () => {

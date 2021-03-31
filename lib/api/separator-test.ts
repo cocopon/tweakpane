@@ -23,7 +23,7 @@ describe(SeparatorApi.name, () => {
 
 		api.hidden = true;
 		assert.strictEqual(
-			api.controller.view.element.classList.contains('tp-v-hidden'),
+			api.controller_.view.element.classList.contains('tp-v-hidden'),
 			true,
 		);
 	});

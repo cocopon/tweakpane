@@ -5,24 +5,24 @@ export class SeparatorApi implements BladeApi {
 	/**
 	 * @hidden
 	 */
-	public readonly controller: SeparatorController;
+	public readonly controller_: SeparatorController;
 
 	/**
 	 * @hidden
 	 */
 	constructor(controller: SeparatorController) {
-		this.controller = controller;
+		this.controller_ = controller;
 	}
 
 	get hidden(): boolean {
-		return this.controller.viewProps.get('hidden');
+		return this.controller_.viewProps.get('hidden');
 	}
 
 	set hidden(hidden: boolean) {
-		this.controller.viewProps.set('hidden', hidden);
+		this.controller_.viewProps.set('hidden', hidden);
 	}
 
 	public dispose(): void {
-		this.controller.blade.dispose();
+		this.controller_.blade.dispose();
 	}
 }

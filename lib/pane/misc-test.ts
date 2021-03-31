@@ -29,12 +29,12 @@ describe(Tweakpane.name, () => {
 			if (!(ev.target instanceof InputBindingApi)) {
 				assert.fail('unexpected target');
 			}
-			assert.strictEqual(ev.target.controller, bapi.controller);
+			assert.strictEqual(ev.target.controller_, bapi.controller_);
 
 			done();
 		});
 
-		const value: Value<number> = forceCast(bapi.controller.binding.value);
+		const value: Value<number> = forceCast(bapi.controller_.binding.value);
 		value.rawValue += 1;
 	});
 
@@ -54,12 +54,12 @@ describe(Tweakpane.name, () => {
 			if (!(ev.target instanceof InputBindingApi)) {
 				assert.fail('unexpected target');
 			}
-			assert.strictEqual(ev.target.controller, bapi.controller);
+			assert.strictEqual(ev.target.controller_, bapi.controller_);
 
 			done();
 		});
 
-		const value: Value<number> = forceCast(bapi.controller.binding.value);
+		const value: Value<number> = forceCast(bapi.controller_.binding.value);
 		value.rawValue += 1;
 	});
 
@@ -85,14 +85,14 @@ describe(Tweakpane.name, () => {
 
 		pane.refresh();
 
-		assert.strictEqual(i1.controller.binding.value.rawValue, 2);
-		assert.strictEqual(i2.controller.binding.value.rawValue, 'changed');
-		assert.strictEqual(m1.controller.binding.value.rawValue[0], 456);
+		assert.strictEqual(i1.controller_.binding.value.rawValue, 2);
+		assert.strictEqual(i2.controller_.binding.value.rawValue, 'changed');
+		assert.strictEqual(m1.controller_.binding.value.rawValue[0], 456);
 	});
 
 	it('should get expanded', () => {
 		const pane = createPane();
-		const folder = pane.controller.folder;
+		const folder = pane.controller_.folder;
 
 		if (folder) {
 			folder.expanded = false;
@@ -106,7 +106,7 @@ describe(Tweakpane.name, () => {
 
 	it('should set expanded', () => {
 		const pane = createPane();
-		const folder = pane.controller.folder;
+		const folder = pane.controller_.folder;
 
 		pane.expanded = false;
 		assert.strictEqual(folder && folder.expanded, false);
@@ -164,7 +164,7 @@ describe(Tweakpane.name, () => {
 
 		pane.hidden = true;
 		assert.strictEqual(
-			pane.controller.view.element.classList.contains('tp-v-hidden'),
+			pane.controller_.view.element.classList.contains('tp-v-hidden'),
 			true,
 		);
 	});

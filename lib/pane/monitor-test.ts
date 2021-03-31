@@ -99,7 +99,7 @@ describe(Tweakpane.name, () => {
 				});
 
 				obj.foo = params.newInternalValue;
-				(bapi.controller.binding.ticker as ManualTicker).tick();
+				(bapi.controller_.binding.ticker as ManualTicker).tick();
 			});
 
 			it('should pass event for update event (global)', (done) => {
@@ -116,7 +116,7 @@ describe(Tweakpane.name, () => {
 				});
 
 				obj.foo = params.newInternalValue;
-				(bapi.controller.binding.ticker as ManualTicker).tick();
+				(bapi.controller_.binding.ticker as ManualTicker).tick();
 			});
 		});
 	});
@@ -129,7 +129,7 @@ describe(Tweakpane.name, () => {
 		});
 		bapi.dispose();
 		assert.strictEqual(
-			pane.controller.view.element.querySelector('.tp-lblv'),
+			pane.controller_.view.element.querySelector('.tp-lblv'),
 			null,
 		);
 	});
@@ -147,6 +147,6 @@ describe(Tweakpane.name, () => {
 		});
 
 		PARAMS.foo = 2;
-		(bapi.controller.binding.ticker as ManualTicker).tick();
+		(bapi.controller_.binding.ticker as ManualTicker).tick();
 	});
 });

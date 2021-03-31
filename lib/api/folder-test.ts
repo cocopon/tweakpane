@@ -31,9 +31,9 @@ describe(FolderApi.name, () => {
 	it('should get expanded', () => {
 		const api = createApi();
 
-		api.controller.folder.expanded = false;
+		api.controller_.folder.expanded = false;
 		assert.strictEqual(api.expanded, false);
-		api.controller.folder.expanded = true;
+		api.controller_.folder.expanded = true;
 		assert.strictEqual(api.expanded, true);
 	});
 
@@ -41,15 +41,15 @@ describe(FolderApi.name, () => {
 		const api = createApi();
 
 		api.expanded = false;
-		assert.strictEqual(api.controller.folder.expanded, false);
+		assert.strictEqual(api.controller_.folder.expanded, false);
 		api.expanded = true;
-		assert.strictEqual(api.controller.folder.expanded, true);
+		assert.strictEqual(api.controller_.folder.expanded, true);
 	});
 
 	it('should dispose', () => {
 		const api = createApi();
 		api.dispose();
-		assert.strictEqual(api.controller.blade.disposed, true);
+		assert.strictEqual(api.controller_.blade.disposed, true);
 	});
 
 	it('should hide', () => {
@@ -58,7 +58,7 @@ describe(FolderApi.name, () => {
 
 		api.hidden = true;
 		assert.strictEqual(
-			api.controller.view.element.classList.contains('tp-v-hidden'),
+			api.controller_.view.element.classList.contains('tp-v-hidden'),
 			true,
 		);
 	});
@@ -68,7 +68,7 @@ describe(FolderApi.name, () => {
 		const b = api.addButton({
 			title: 'push',
 		});
-		assert.strictEqual(b.controller.valueController.button.title, 'push');
+		assert.strictEqual(b.controller_.valueController.button.title, 'push');
 	});
 
 	it('should add separator', () => {
@@ -76,13 +76,13 @@ describe(FolderApi.name, () => {
 		const s = api.addSeparator();
 		assert.strictEqual(s instanceof SeparatorApi, true);
 
-		const cs = api.controller.bladeRack.items;
+		const cs = api.controller_.bladeRack.items;
 		assert.strictEqual(cs[cs.length - 1] instanceof SeparatorController, true);
 	});
 
 	it('should dispose separator', () => {
 		const api = createApi();
-		const cs = api.controller.bladeRack.items;
+		const cs = api.controller_.bladeRack.items;
 
 		const s = api.addSeparator();
 		assert.strictEqual(cs.length, 1);
@@ -97,7 +97,7 @@ describe(FolderApi.name, () => {
 		const api = createApi();
 		const bapi = api.addInput(PARAMS, 'foo');
 		assert.strictEqual(
-			bapi.controller.controller instanceof NumberTextController,
+			bapi.controller_.controller instanceof NumberTextController,
 			true,
 		);
 	});
@@ -111,7 +111,7 @@ describe(FolderApi.name, () => {
 			interval: 0,
 		});
 		assert.strictEqual(
-			bapi.controller.controller instanceof SingleLogMonitorController,
+			bapi.controller_.controller instanceof SingleLogMonitorController,
 			true,
 		);
 	});
@@ -121,7 +121,7 @@ describe(FolderApi.name, () => {
 		api.on('fold', () => {
 			done();
 		});
-		api.controller.folder.expanded = false;
+		api.controller_.folder.expanded = false;
 	});
 
 	[
@@ -166,7 +166,7 @@ describe(FolderApi.name, () => {
 				api.addInput(params, 'bar');
 				testCase.insert(api, 1);
 
-				const cs = api.controller.bladeRack.items;
+				const cs = api.controller_.bladeRack.items;
 				assert.strictEqual(cs[1] instanceof testCase.expected, true);
 			});
 		});
@@ -222,7 +222,7 @@ describe(FolderApi.name, () => {
 					assert.strictEqual(ev.value, expected);
 					done();
 				});
-				bapi.controller.binding.value.rawValue = params.newInternalValue;
+				bapi.controller_.binding.value.rawValue = params.newInternalValue;
 			});
 
 			it('should pass event for change event (global)', (done) => {
@@ -238,11 +238,11 @@ describe(FolderApi.name, () => {
 					if (!(ev.target instanceof InputBindingApi)) {
 						assert.fail('unexpected target');
 					}
-					assert.strictEqual(ev.target.controller, bapi.controller);
+					assert.strictEqual(ev.target.controller_, bapi.controller_);
 
 					done();
 				});
-				bapi.controller.binding.value.rawValue = params.newInternalValue;
+				bapi.controller_.binding.value.rawValue = params.newInternalValue;
 			});
 		});
 	});
@@ -256,7 +256,7 @@ describe(FolderApi.name, () => {
 		});
 
 		const bapi = api.addInput(PARAMS, 'foo');
-		bapi.controller.binding.value.rawValue = 2;
+		bapi.controller_.binding.value.rawValue = 2;
 	});
 
 	it('should have right target', (done) => {
@@ -265,7 +265,7 @@ describe(FolderApi.name, () => {
 			assert.strictEqual(ev.target, api);
 			done();
 		});
-		api.controller.folder.expanded = !api.controller.folder.expanded;
+		api.controller_.folder.expanded = !api.controller_.folder.expanded;
 	});
 
 	it('should have right target (nested)', (done) => {
@@ -278,6 +278,6 @@ describe(FolderApi.name, () => {
 			done();
 		});
 
-		subapi.controller.folder.expanded = !subapi.controller.folder.expanded;
+		subapi.controller_.folder.expanded = !subapi.controller_.folder.expanded;
 	});
 });

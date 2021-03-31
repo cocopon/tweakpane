@@ -56,7 +56,7 @@ describe(InputBindingApi.name, () => {
 			assert.strictEqual(ev.value, 123);
 			done();
 		});
-		api.controller.controller.value.rawValue = 123;
+		api.controller_.controller.value.rawValue = 123;
 	});
 
 	it('should apply presetKey to event object', (done) => {
@@ -68,7 +68,7 @@ describe(InputBindingApi.name, () => {
 			assert.strictEqual(ev.presetKey, 'renamed');
 			done();
 		});
-		api.controller.controller.value.rawValue = 123;
+		api.controller_.controller.value.rawValue = 123;
 	});
 
 	it('should refresh bound value', () => {
@@ -80,7 +80,7 @@ describe(InputBindingApi.name, () => {
 		PARAMS.foo = 123;
 		api.refresh();
 
-		assert.strictEqual(api.controller.binding.value.rawValue, 123);
+		assert.strictEqual(api.controller_.binding.value.rawValue, 123);
 	});
 
 	it('should be hidden', () => {
@@ -92,7 +92,7 @@ describe(InputBindingApi.name, () => {
 
 		api.hidden = true;
 		assert.strictEqual(
-			api.controller.view.element.classList.contains('tp-v-hidden'),
+			api.controller_.view.element.classList.contains('tp-v-hidden'),
 			true,
 		);
 	});
@@ -106,7 +106,7 @@ describe(InputBindingApi.name, () => {
 
 		api.disabled = true;
 		assert.strictEqual(
-			api.controller.view.element.classList.contains('tp-v-disabled'),
+			api.controller_.view.element.classList.contains('tp-v-disabled'),
 			true,
 		);
 	});

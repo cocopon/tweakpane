@@ -110,7 +110,7 @@ describe(Tweakpane.name, () => {
 					assert.strictEqual(ev.value, expected);
 					done();
 				});
-				bapi.controller.binding.value.rawValue = params.newInternalValue;
+				bapi.controller_.binding.value.rawValue = params.newInternalValue;
 			});
 
 			it('should pass right argument for change event (global)', (done) => {
@@ -126,11 +126,11 @@ describe(Tweakpane.name, () => {
 					if (!(ev.target instanceof InputBindingApi)) {
 						assert.fail('unexpected target');
 					}
-					assert.strictEqual(ev.target.controller, bapi.controller);
+					assert.strictEqual(ev.target.controller_, bapi.controller_);
 
 					done();
 				});
-				bapi.controller.binding.value.rawValue = params.newInternalValue;
+				bapi.controller_.binding.value.rawValue = params.newInternalValue;
 			});
 		});
 	});
@@ -141,7 +141,7 @@ describe(Tweakpane.name, () => {
 		const bapi = pane.addInput(PARAMS, 'foo');
 		bapi.dispose();
 		assert.strictEqual(
-			pane.controller.view.element.querySelector('.tp-lblv'),
+			pane.controller_.view.element.querySelector('.tp-lblv'),
 			null,
 		);
 	});
@@ -154,7 +154,7 @@ describe(Tweakpane.name, () => {
 			assert.strictEqual(this, bapi);
 			done();
 		});
-		bapi.controller.binding.value.rawValue = 2;
+		bapi.controller_.binding.value.rawValue = 2;
 	});
 
 	it('should apply disabled of input binding params', () => {
@@ -164,7 +164,7 @@ describe(Tweakpane.name, () => {
 			disabled: true,
 		});
 		assert.strictEqual(bapi.disabled, true);
-		assert.strictEqual(bapi.controller.viewProps.get('disabled'), true);
+		assert.strictEqual(bapi.controller_.viewProps.get('disabled'), true);
 	});
 
 	it('should apply disabled of input binding', () => {
@@ -173,9 +173,9 @@ describe(Tweakpane.name, () => {
 		const bapi = pane.addInput(PARAMS, 'foo');
 
 		assert.strictEqual(bapi.disabled, false);
-		assert.strictEqual(bapi.controller.viewProps.get('disabled'), false);
+		assert.strictEqual(bapi.controller_.viewProps.get('disabled'), false);
 		bapi.disabled = true;
 		assert.strictEqual(bapi.disabled, true);
-		assert.strictEqual(bapi.controller.viewProps.get('disabled'), true);
+		assert.strictEqual(bapi.controller_.viewProps.get('disabled'), true);
 	});
 });

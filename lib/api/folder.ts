@@ -40,7 +40,7 @@ export class FolderApi implements BladeApi {
 	/**
 	 * @hidden
 	 */
-	public readonly controller: FolderController;
+	public readonly controller_: FolderController;
 	private readonly emitter_: Emitter<FolderApiEvents<unknown>>;
 	private apiSet_: NestedOrderedSet<BladeApi>;
 
@@ -53,7 +53,7 @@ export class FolderApi implements BladeApi {
 		this.onRackFolderFold_ = this.onRackFolderFold_.bind(this);
 		this.onRackMonitorUpdate_ = this.onRackMonitorUpdate_.bind(this);
 
-		this.controller = controller;
+		this.controller_ = controller;
 
 		this.emitter_ = new Emitter();
 
@@ -61,32 +61,32 @@ export class FolderApi implements BladeApi {
 			api instanceof FolderApi ? api.apiSet_ : null,
 		);
 
-		this.controller.folder.emitter.on('change', this.onFolderChange_);
+		this.controller_.folder.emitter.on('change', this.onFolderChange_);
 
-		const rack = this.controller.bladeRack;
+		const rack = this.controller_.bladeRack;
 		rack.emitter.on('inputchange', this.onRackInputChange_);
 		rack.emitter.on('monitorupdate', this.onRackMonitorUpdate_);
 		rack.emitter.on('folderfold', this.onRackFolderFold_);
 	}
 
 	get expanded(): boolean {
-		return this.controller.folder.expanded;
+		return this.controller_.folder.expanded;
 	}
 
 	set expanded(expanded: boolean) {
-		this.controller.folder.expanded = expanded;
+		this.controller_.folder.expanded = expanded;
 	}
 
 	get hidden(): boolean {
-		return this.controller.viewProps.get('hidden');
+		return this.controller_.viewProps.get('hidden');
 	}
 
 	set hidden(hidden: boolean) {
-		this.controller.viewProps.set('hidden', hidden);
+		this.controller_.viewProps.set('hidden', hidden);
 	}
 
 	public dispose(): void {
-		this.controller.blade.dispose();
+		this.controller_.blade.dispose();
 	}
 
 	public addInput<O extends Record<string, any>, Key extends string>(
@@ -96,11 +96,11 @@ export class FolderApi implements BladeApi {
 	): InputBindingApi<unknown, O[Key]> {
 		const params = opt_params || {};
 		const bc = createInputBindingController(
-			this.controller.document,
+			this.controller_.document,
 			createBindingTarget(object, key, params.presetKey),
 			params,
 		);
-		this.controller.bladeRack.add(bc, params.index);
+		this.controller_.bladeRack.add(bc, params.index);
 
 		const api = new InputBindingApi(bc);
 		this.apiSet_.add(api);
@@ -114,11 +114,11 @@ export class FolderApi implements BladeApi {
 	): MonitorBindingApi<O[Key]> {
 		const params = opt_params || {};
 		const bc = createMonitorBindingController(
-			this.controller.document,
+			this.controller_.document,
 			createBindingTarget(object, key),
 			params,
 		);
-		this.controller.bladeRack.add(bc, params.index);
+		this.controller_.bladeRack.add(bc, params.index);
 
 		const api = new MonitorBindingApi(bc);
 		this.apiSet_.add(api);
@@ -152,8 +152,8 @@ export class FolderApi implements BladeApi {
 	 */
 	public addBlade_v3_(opt_params?: BladeParams): BladeApi {
 		const params = opt_params ?? {};
-		const api = createBladeApi(this.controller.document, params);
-		this.controller.bladeRack.add(api.controller, params.index);
+		const api = createBladeApi(this.controller_.document, params);
+		this.controller_.bladeRack.add(api.controller_, params.index);
 		this.apiSet_.add(api);
 		return api;
 	}
@@ -177,7 +177,7 @@ export class FolderApi implements BladeApi {
 	private onRackInputChange_(ev: BladeRackEvents['inputchange']) {
 		const api = this.apiSet_.find((api) =>
 			api instanceof InputBindingApi
-				? api.controller === ev.bindingController
+				? api.controller_ === ev.bindingController
 				: false,
 		);
 		/* istanbul ignore next */
@@ -198,7 +198,7 @@ export class FolderApi implements BladeApi {
 	private onRackMonitorUpdate_(ev: BladeRackEvents['monitorupdate']) {
 		const api = this.apiSet_.find((api) =>
 			api instanceof MonitorBindingApi
-				? api.controller === ev.bindingController
+				? api.controller_ === ev.bindingController
 				: false,
 		);
 		/* istanbul ignore next */
@@ -218,7 +218,9 @@ export class FolderApi implements BladeApi {
 
 	private onRackFolderFold_(ev: BladeRackEvents['folderfold']) {
 		const api = this.apiSet_.find((api) =>
-			api instanceof FolderApi ? api.controller === ev.folderController : false,
+			api instanceof FolderApi
+				? api.controller_ === ev.folderController
+				: false,
 		);
 		/* istanbul ignore next */
 		if (!api) {

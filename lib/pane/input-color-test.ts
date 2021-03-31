@@ -68,7 +68,7 @@ describe(Tweakpane.name, () => {
 				const obj = {foo: testCase.value};
 				const bapi = pane.addInput(obj, 'foo', testCase.params);
 				assert.strictEqual(
-					bapi.controller.controller instanceof testCase.expectedClass,
+					bapi.controller_.controller instanceof testCase.expectedClass,
 					true,
 				);
 			});
@@ -99,7 +99,7 @@ describe(Tweakpane.name, () => {
 				const obj = {foo: testCase.params.input};
 				const bapi = pane.addInput(obj, 'foo');
 
-				const view = bapi.controller.controller.view;
+				const view = bapi.controller_.controller.view;
 				if (!(view instanceof ColorSwatchTextView)) {
 					assert.fail('Unexpected view');
 				}
@@ -168,7 +168,7 @@ describe(Tweakpane.name, () => {
 			const obj = {foo: params.input};
 			const bapi = pane.addInput(obj, 'foo');
 
-			const view = bapi.controller.controller.view;
+			const view = bapi.controller_.controller.view;
 			if (!(view instanceof ColorSwatchTextView)) {
 				assert.fail('Unexpected view');
 			}

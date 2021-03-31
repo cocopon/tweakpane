@@ -18,7 +18,7 @@ export class MonitorBindingApi<T> implements BladeApi {
 	/**
 	 * @hidden
 	 */
-	public readonly controller: MonitorBindingController<T>;
+	public readonly controller_: MonitorBindingController<T>;
 	private readonly emitter_: Emitter<MonitorBindingApiEvents<T>>;
 
 	/**
@@ -29,28 +29,28 @@ export class MonitorBindingApi<T> implements BladeApi {
 
 		this.emitter_ = new Emitter();
 
-		this.controller = bindingController;
-		this.controller.binding.emitter.on('update', this.onBindingUpdate_);
+		this.controller_ = bindingController;
+		this.controller_.binding.emitter.on('update', this.onBindingUpdate_);
 	}
 
 	get disabled(): boolean {
-		return this.controller.viewProps.get('disabled');
+		return this.controller_.viewProps.get('disabled');
 	}
 
 	set disabled(disabled: boolean) {
-		this.controller.viewProps.set('disabled', disabled);
+		this.controller_.viewProps.set('disabled', disabled);
 	}
 
 	get hidden(): boolean {
-		return this.controller.viewProps.get('hidden');
+		return this.controller_.viewProps.get('hidden');
 	}
 
 	set hidden(hidden: boolean) {
-		this.controller.viewProps.set('hidden', hidden);
+		this.controller_.viewProps.set('hidden', hidden);
 	}
 
 	public dispose(): void {
-		this.controller.blade.dispose();
+		this.controller_.blade.dispose();
 	}
 
 	public on<EventName extends keyof MonitorBindingApiEvents<T>>(
@@ -65,7 +65,7 @@ export class MonitorBindingApi<T> implements BladeApi {
 	}
 
 	public refresh(): void {
-		this.controller.binding.read();
+		this.controller_.binding.read();
 	}
 
 	private onBindingUpdate_(ev: MonitorBindingEvents<T>['update']) {
@@ -74,7 +74,7 @@ export class MonitorBindingApi<T> implements BladeApi {
 			event: new TpUpdateEvent(
 				this,
 				forceCast(value),
-				this.controller.binding.target.presetKey,
+				this.controller_.binding.target.presetKey,
 			),
 		});
 	}

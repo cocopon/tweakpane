@@ -8,7 +8,7 @@ const Package = require('../../package.json');
 
 // Check version
 if (Tweakpane.version.toString() !== Package.version) {
-	assert.fail('invalid version');
+	throw new Error('invalid version');
 }
 
 const PARAMS = {

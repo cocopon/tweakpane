@@ -43,11 +43,11 @@ describe(Tweakpane.name, () => {
 				const obj = {foo: testCase.value};
 				const bapi = pane.addMonitor(obj, 'foo', testCase.params);
 				assert.strictEqual(
-					bapi.controller.controller instanceof testCase.expectedClass,
+					bapi.controller_.controller instanceof testCase.expectedClass,
 					true,
 				);
 
-				const b = bapi.controller.binding;
+				const b = bapi.controller_.binding;
 				if (b instanceof MonitorBinding) {
 					const t = b.ticker;
 					if (t instanceof IntervalTicker) {
@@ -66,7 +66,7 @@ describe(Tweakpane.name, () => {
 			interval: 0,
 		});
 
-		const v = bapi.controller.binding.value;
+		const v = bapi.controller_.binding.value;
 		assert.deepStrictEqual(v.rawValue, [
 			123,
 			undefined,

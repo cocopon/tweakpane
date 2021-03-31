@@ -29,7 +29,7 @@ describe(Tweakpane.name, () => {
 				const obj = {foo: testCase.value};
 				const bapi = pane.addInput(obj, 'foo', testCase.params);
 
-				const ic = bapi.controller.controller;
+				const ic = bapi.controller_.controller;
 				if (!(ic instanceof PointNdTextController)) {
 					assert.fail('unexpected controller class');
 				}
@@ -47,7 +47,8 @@ describe(Tweakpane.name, () => {
 			},
 		});
 
-		const c = (bapi.controller.binding.value as BoundValue<unknown>).constraint;
+		const c = (bapi.controller_.binding.value as BoundValue<unknown>)
+			.constraint;
 		if (!(c instanceof PointNdConstraint)) {
 			assert.fail('Unexpected constraint');
 		}
@@ -69,7 +70,8 @@ describe(Tweakpane.name, () => {
 			},
 		});
 
-		const c = (bapi.controller.binding.value as BoundValue<unknown>).constraint;
+		const c = (bapi.controller_.binding.value as BoundValue<unknown>)
+			.constraint;
 		if (!(c instanceof PointNdConstraint)) {
 			assert.fail('Unexpected constraint');
 		}

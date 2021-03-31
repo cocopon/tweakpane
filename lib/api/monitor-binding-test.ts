@@ -52,7 +52,7 @@ describe(MonitorBindingApi.name, () => {
 
 		PARAMS.foo = 123;
 
-		const ticker = api.controller.binding.ticker;
+		const ticker = api.controller_.binding.ticker;
 		if (ticker instanceof ManualTicker) {
 			ticker.tick();
 		}
@@ -67,7 +67,7 @@ describe(MonitorBindingApi.name, () => {
 		PARAMS.foo = 123;
 		api.refresh();
 
-		assert.strictEqual(api.controller.binding.value.rawValue[0], 123);
+		assert.strictEqual(api.controller_.binding.value.rawValue[0], 123);
 	});
 
 	it('should hide', () => {
@@ -79,7 +79,7 @@ describe(MonitorBindingApi.name, () => {
 
 		api.hidden = true;
 		assert.strictEqual(
-			api.controller.view.element.classList.contains('tp-v-hidden'),
+			api.controller_.view.element.classList.contains('tp-v-hidden'),
 			true,
 		);
 	});

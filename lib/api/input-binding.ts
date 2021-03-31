@@ -20,7 +20,7 @@ export class InputBindingApi<In, Ex> implements BladeApi {
 	/**
 	 * @hidden
 	 */
-	public readonly controller: InputBindingController<In>;
+	public readonly controller_: InputBindingController<In>;
 	private readonly emitter_: Emitter<InputBindingApiEvents<Ex>>;
 
 	/**
@@ -31,28 +31,28 @@ export class InputBindingApi<In, Ex> implements BladeApi {
 
 		this.emitter_ = new Emitter();
 
-		this.controller = bindingController;
-		this.controller.binding.emitter.on('change', this.onBindingChange_);
+		this.controller_ = bindingController;
+		this.controller_.binding.emitter.on('change', this.onBindingChange_);
 	}
 
 	get disabled(): boolean {
-		return this.controller.viewProps.get('disabled');
+		return this.controller_.viewProps.get('disabled');
 	}
 
 	set disabled(disabled: boolean) {
-		this.controller.viewProps.set('disabled', disabled);
+		this.controller_.viewProps.set('disabled', disabled);
 	}
 
 	get hidden(): boolean {
-		return this.controller.viewProps.get('hidden');
+		return this.controller_.viewProps.get('hidden');
 	}
 
 	set hidden(hidden: boolean) {
-		this.controller.viewProps.set('hidden', hidden);
+		this.controller_.viewProps.set('hidden', hidden);
 	}
 
 	public dispose(): void {
-		this.controller.blade.dispose();
+		this.controller_.blade.dispose();
 	}
 
 	public on<EventName extends keyof InputBindingApiEvents<Ex>>(
@@ -67,7 +67,7 @@ export class InputBindingApi<In, Ex> implements BladeApi {
 	}
 
 	public refresh(): void {
-		this.controller.binding.read();
+		this.controller_.binding.read();
 	}
 
 	private onBindingChange_(ev: InputBindingEvents<In>['change']) {
@@ -76,7 +76,7 @@ export class InputBindingApi<In, Ex> implements BladeApi {
 			event: new TpChangeEvent(
 				this,
 				forceCast(value),
-				this.controller.binding.target.presetKey,
+				this.controller_.binding.target.presetKey,
 			),
 		});
 	}

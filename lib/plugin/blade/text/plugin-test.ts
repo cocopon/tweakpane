@@ -24,7 +24,7 @@ describe(TextBladePlugin.id, () => {
 		assert.strictEqual(api.formatter, formatter);
 		assert.strictEqual(api.value, 'hello');
 		assert.strictEqual(
-			api.controller.view.element.querySelector('.tp-lblv_l')?.textContent,
+			api.controller_.view.element.querySelector('.tp-lblv_l')?.textContent,
 			'hello',
 		);
 	});
@@ -40,7 +40,7 @@ describe(TextBladePlugin.id, () => {
 			} as TextParams<string>,
 		}) as TextBladeApi<string>;
 		api.dispose();
-		assert.strictEqual(api.controller.blade.disposed, true);
+		assert.strictEqual(api.controller_.blade.disposed, true);
 	});
 
 	it('should update properties', () => {
@@ -63,7 +63,7 @@ describe(TextBladePlugin.id, () => {
 		api.hidden = true;
 		assert.strictEqual(api.hidden, true);
 
-		const inputElem = api.controller.valueController.view.inputElement;
+		const inputElem = api.controller_.valueController.view.inputElement;
 		const formatter = (v: string) => `${v}, world`;
 		assert.strictEqual(inputElem.value, 'hello');
 		api.formatter = formatter;

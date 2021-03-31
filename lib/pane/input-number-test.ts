@@ -66,7 +66,7 @@ describe(Tweakpane.name, () => {
 				const obj = {foo: testCase.value};
 				const bapi = pane.addInput(obj, 'foo', testCase.params);
 				assert.strictEqual(
-					bapi.controller.controller instanceof testCase.expectedClass,
+					bapi.controller_.controller instanceof testCase.expectedClass,
 					true,
 				);
 			});
@@ -80,7 +80,7 @@ describe(Tweakpane.name, () => {
 			step: 1,
 		});
 
-		const iv = bapi.controller.controller.value;
+		const iv = bapi.controller_.controller.value;
 		if (!(iv instanceof BoundValue)) {
 			assert.fail('Input value is empty');
 		}
@@ -99,7 +99,7 @@ describe(Tweakpane.name, () => {
 			format: (v) => `foo ${v} bar`,
 		});
 
-		const c = bapi.controller.controller;
+		const c = bapi.controller_.controller;
 		if (!(c instanceof NumberTextController)) {
 			assert.fail('unexpected controller');
 		}

@@ -12,9 +12,9 @@ export class TextBladeApi<T> implements BladeApi {
 	private readonly emitter_: Emitter<TextApiEvents<T>> = new Emitter();
 
 	constructor(
-		public readonly controller: LabeledController<TextController<T>>,
+		public readonly controller_: LabeledController<TextController<T>>,
 	) {
-		this.controller.valueController.value.emitter.on('change', (ev) => {
+		this.controller_.valueController.value.emitter.on('change', (ev) => {
 			this.emitter_.emit('change', {
 				event: new TpChangeEvent(this, ev.rawValue),
 			});
@@ -22,39 +22,39 @@ export class TextBladeApi<T> implements BladeApi {
 	}
 
 	get disabled(): boolean {
-		return this.controller.viewProps.get('disabled');
+		return this.controller_.viewProps.get('disabled');
 	}
 
 	set disabled(disabled: boolean) {
-		this.controller.viewProps.set('disabled', disabled);
+		this.controller_.viewProps.set('disabled', disabled);
 	}
 
 	get hidden(): boolean {
-		return this.controller.viewProps.get('hidden');
+		return this.controller_.viewProps.get('hidden');
 	}
 
 	set hidden(hidden: boolean) {
-		this.controller.viewProps.set('hidden', hidden);
+		this.controller_.viewProps.set('hidden', hidden);
 	}
 
 	get formatter(): Formatter<T> {
-		return this.controller.valueController.props.get('formatter');
+		return this.controller_.valueController.props.get('formatter');
 	}
 
 	set formatter(formatter: Formatter<T>) {
-		this.controller.valueController.props.set('formatter', formatter);
+		this.controller_.valueController.props.set('formatter', formatter);
 	}
 
 	get value(): T {
-		return this.controller.valueController.value.rawValue;
+		return this.controller_.valueController.value.rawValue;
 	}
 
 	set value(value: T) {
-		this.controller.valueController.value.rawValue = value;
+		this.controller_.valueController.value.rawValue = value;
 	}
 
 	public dispose(): void {
-		this.controller.blade.dispose();
+		this.controller_.blade.dispose();
 	}
 
 	public on<EventName extends keyof TextApiEvents<T>>(

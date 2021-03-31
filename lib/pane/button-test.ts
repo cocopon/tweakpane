@@ -17,7 +17,7 @@ describe(Tweakpane.name, () => {
 		const b = pane.addButton({
 			title: 'push',
 		});
-		assert.strictEqual(b.controller.valueController.button.title, 'push');
+		assert.strictEqual(b.controller_.valueController.button.title, 'push');
 	});
 
 	it('should add disabled button', () => {
@@ -26,7 +26,7 @@ describe(Tweakpane.name, () => {
 			disabled: true,
 			title: 'push',
 		});
-		assert.strictEqual(b.controller.viewProps.get('disabled'), true);
+		assert.strictEqual(b.controller_.viewProps.get('disabled'), true);
 	});
 
 	it('should add button with label', () => {
@@ -35,9 +35,9 @@ describe(Tweakpane.name, () => {
 			label: 'foobarlabel',
 			title: 'push',
 		});
-		assert.strictEqual(b.controller.valueController.button.title, 'push');
+		assert.strictEqual(b.controller_.valueController.button.title, 'push');
 		assert.strictEqual(
-			b.controller.view.element.innerHTML.indexOf('foobarlabel') >= 0,
+			b.controller_.view.element.innerHTML.indexOf('foobarlabel') >= 0,
 			true,
 		);
 	});
