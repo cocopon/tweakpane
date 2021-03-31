@@ -4,13 +4,13 @@ import {BladePlugin} from '../../blade';
 import {findStringParam} from '../../common/params';
 import {SeparatorController} from './controller';
 
-export interface SeparatorParams extends BladeParams {
+export interface SeparatorBladeParams extends BladeParams {
 	view: 'separator';
 }
 
-function createSeparatorParams(
+function createParams(
 	params: Record<string, unknown>,
-): SeparatorParams | null {
+): SeparatorBladeParams | null {
 	if (findStringParam(params, 'view') !== 'separator') {
 		return null;
 	}
@@ -20,10 +20,10 @@ function createSeparatorParams(
 	};
 }
 
-export const SeparatorBladePlugin: BladePlugin<SeparatorParams> = {
+export const SeparatorBladePlugin: BladePlugin<SeparatorBladeParams> = {
 	id: 'button',
 	accept(params) {
-		const p = createSeparatorParams(params);
+		const p = createParams(params);
 		return p ? {params: p} : null;
 	},
 	api(args) {

@@ -1,4 +1,5 @@
 import {Formatter} from '../plugin/common/converter/formatter';
+import {TpChangeEvent} from './tp-event';
 
 interface BaseParams {
 	index?: number;
@@ -124,4 +125,13 @@ export type SeparatorParams = BaseParams;
 
 export interface BladeParams extends BaseParams, Record<string, unknown> {
 	disabled?: boolean;
+}
+
+/**
+ * @hidden
+ */
+export interface ApiChangeEvents<T> {
+	change: {
+		event: TpChangeEvent<T>;
+	};
 }
