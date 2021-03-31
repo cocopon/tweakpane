@@ -1,9 +1,9 @@
-import {BladeApi} from '../../../../api/blade-api';
-import {TpChangeEvent} from '../../../../api/tp-event';
-import {ApiChangeEvents} from '../../../../api/types';
 import {Formatter} from '../../../common/converter/formatter';
 import {Emitter} from '../../../common/model/emitter';
 import {TextController} from '../../../input-bindings/common/controller/text';
+import {BladeApi} from '../../common/api/blade';
+import {TpChangeEvent} from '../../common/api/tp-event';
+import {ApiChangeEvents} from '../../common/api/types';
 import {LabeledController} from '../../labeled/controller';
 
 export type TextApiEvents<T> = ApiChangeEvents<T>;

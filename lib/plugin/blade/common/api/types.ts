@@ -1,4 +1,4 @@
-import {Formatter} from '../plugin/common/converter/formatter';
+import {Formatter} from '../../../common/converter/formatter';
 import {TpChangeEvent} from './tp-event';
 
 interface BaseParams {

@@ -1,7 +1,10 @@
 import {JSDOM} from 'jsdom';
 // Import default module
 import Tweakpane from 'tweakpane';
-import {TpChangeEvent, TpUpdateEvent} from 'tweakpane/lib/api/tp-event';
+import {
+	TpChangeEvent,
+	TpUpdateEvent,
+} from 'tweakpane/lib/plugin/blade/common/api/tp-event';
 
 interface V2dObj {
 	x: number;

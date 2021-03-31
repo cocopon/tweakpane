@@ -1,8 +1,8 @@
-import {forceCast} from '../misc/type-util';
-import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
-import {InputBindingEvents} from '../plugin/common/binding/input';
-import {Emitter} from '../plugin/common/model/emitter';
-import {BladeApi} from './blade-api';
+import {forceCast} from '../../../../misc/type-util';
+import {InputBindingEvents} from '../../../common/binding/input';
+import {Emitter} from '../../../common/model/emitter';
+import {InputBindingController} from '../controller/input-binding';
+import {BladeApi} from './blade';
 import {TpChangeEvent} from './tp-event';
 
 export interface InputBindingApiEvents<Ex> {

@@ -2,7 +2,7 @@ import {
 	InputParams,
 	InputParamsOption,
 	InputParamsOptionDictionary,
-} from '../api/types';
+} from './blade/common/api/types';
 import {findConstraint} from './common/constraint/composite';
 import {Constraint} from './common/constraint/constraint';
 import {ListConstraint, ListItem} from './common/constraint/list';

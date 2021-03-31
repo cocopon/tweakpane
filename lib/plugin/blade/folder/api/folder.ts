@@ -1,21 +1,30 @@
-import {BladeApi} from '../../../../api/blade-api';
-import {createBladeApi} from '../../../../api/blade-apis';
-import {InputBindingApi} from '../../../../api/input-binding';
-import {createInputBindingController} from '../../../../api/input-binding-controllers';
-import {MonitorBindingApi} from '../../../../api/monitor-binding';
-import {createMonitorBindingController} from '../../../../api/monitor-binding-controllers';
+import {forceCast} from '../../../../misc/type-util';
+import {Emitter} from '../../../common/model/emitter';
+import {TpError} from '../../../common/tp-error';
+import {ButtonApi} from '../../button/api/button';
+import {BladeApi} from '../../common/api/blade';
+import {createBladeApi} from '../../common/api/blade-apis';
+import {InputBindingApi} from '../../common/api/input-binding';
+import {createInputBindingController} from '../../common/api/input-binding-controllers';
+import {MonitorBindingApi} from '../../common/api/monitor-binding';
+import {createMonitorBindingController} from '../../common/api/monitor-binding-controllers';
 import {
 	TpChangeEvent,
 	TpFoldEvent,
 	TpUpdateEvent,
-} from '../../../../api/tp-event';
-import {BladeParams, InputParams, MonitorParams} from '../../../../api/types';
-import {createBindingTarget} from '../../../../api/util';
-import {forceCast} from '../../../../misc/type-util';
-import {Emitter} from '../../../common/model/emitter';
-import {TpError} from '../../../common/tp-error';
+} from '../../common/api/tp-event';
+import {
+	BladeParams,
+	ButtonParams,
+	FolderParams,
+	InputParams,
+	MonitorParams,
+	SeparatorParams,
+} from '../../common/api/types';
+import {createBindingTarget} from '../../common/api/util';
 import {BladeRackEvents} from '../../common/model/blade-rack';
 import {NestedOrderedSet} from '../../common/model/nested-ordered-set';
+import {SeparatorApi} from '../../separator/api/separator';
 import {FolderController} from '../controller/folder';
 import {FolderEvents} from '../model/folder';
 
@@ -118,6 +127,28 @@ export class FolderApi implements BladeApi {
 		const api = new MonitorBindingApi(bc);
 		this.apiSet_.add(api);
 		return forceCast(api);
+	}
+
+	public addFolder(params: FolderParams): FolderApi {
+		return this.addBlade_v3_({
+			...params,
+			view: 'folder',
+		}) as FolderApi;
+	}
+
+	public addButton(params: ButtonParams): ButtonApi {
+		return this.addBlade_v3_({
+			...params,
+			view: 'button',
+		}) as ButtonApi;
+	}
+
+	public addSeparator(opt_params?: SeparatorParams): SeparatorApi {
+		const params = opt_params || {};
+		return this.addBlade_v3_({
+			...params,
+			view: 'separator',
+		});
 	}
 
 	/**

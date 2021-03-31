@@ -1,20 +1,20 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {TestUtil} from '../misc/test-util';
-import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
-import {Blade} from '../plugin/blade/common/model/blade';
-import {InputBinding} from '../plugin/common/binding/input';
-import {BindingTarget} from '../plugin/common/binding/target';
+import {TestUtil} from '../../../../misc/test-util';
+import {InputBinding} from '../../../common/binding/input';
+import {BindingTarget} from '../../../common/binding/target';
 import {
 	createNumberFormatter,
+	numberFromUnknown,
 	parseNumber,
-} from '../plugin/common/converter/number';
-import {numberFromUnknown} from '../plugin/common/converter/number';
-import {BoundValue} from '../plugin/common/model/bound-value';
-import {createViewProps} from '../plugin/common/model/view-props';
-import {writePrimitive} from '../plugin/common/primitive';
-import {NumberTextController} from '../plugin/input-bindings/number/controller/number-text';
+} from '../../../common/converter/number';
+import {BoundValue} from '../../../common/model/bound-value';
+import {createViewProps} from '../../../common/model/view-props';
+import {writePrimitive} from '../../../common/primitive';
+import {NumberTextController} from '../../../input-bindings/number/controller/number-text';
+import {InputBindingController} from '../controller/input-binding';
+import {Blade} from '../model/blade';
 import {InputBindingApi} from './input-binding';
 import {TpChangeEvent} from './tp-event';
 

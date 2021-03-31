@@ -1,5 +1,5 @@
-import {MonitorParams} from '../../../api/types';
 import {Constants} from '../../../misc/constants';
+import {MonitorParams} from '../../blade/common/api/types';
 import {ValueController} from '../../common/controller/value';
 import {Formatter} from '../../common/converter/formatter';
 import {

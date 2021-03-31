@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {BindingTarget} from '../plugin/common/binding/target';
+import {BindingTarget} from '../../../common/binding/target';
 import {exportPresetJson, importPresetJson} from './preset';
 
 describe('Preset', () => {

@@ -1,4 +1,3 @@
-import {BladeParams} from '../../../api/types';
 import {forceCast} from '../../../misc/type-util';
 import {BladePlugin} from '../../blade';
 import {Formatter} from '../../common/converter/formatter';
@@ -11,6 +10,7 @@ import {
 	findStringParam,
 } from '../../common/params';
 import {TextController} from '../../input-bindings/common/controller/text';
+import {BladeParams} from '../common/api/types';
 import {LabeledController} from '../labeled/controller';
 import {TextBladeApi} from './api/text';
 

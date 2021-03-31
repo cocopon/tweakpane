@@ -1,5 +1,5 @@
-import {BladeApi} from '../api/blade-api';
-import {BladeParams} from '../api/types';
+import {BladeApi} from './blade/common/api/blade';
+import {BladeParams} from './blade/common/api/types';
 import {Blade} from './blade/common/model/blade';
 import {createViewProps, ViewProps} from './common/model/view-props';
 import {BasePlugin} from './plugin';

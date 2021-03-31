@@ -1,10 +1,11 @@
-import {getAllPlugins} from './api/plugins';
-import {RootApi} from './api/root';
 import {Semver} from './misc/semver';
 import {TweakpaneConfig} from './pane/tweakpane-config';
 import {BladePlugin} from './plugin/blade';
+import {getAllPlugins} from './plugin/blade/common/api/plugins';
+import {registerPlugin} from './plugin/blade/common/api/util';
 import {Blade} from './plugin/blade/common/model/blade';
 import {RootController} from './plugin/blade/folder/root';
+import {RootApi} from './plugin/blade/root/api/root';
 import {TextBladePlugin} from './plugin/blade/text/plugin';
 import {getWindowDocument} from './plugin/common/dom-util';
 import {createViewProps} from './plugin/common/model/view-props';
@@ -120,7 +121,7 @@ function registerDefaultPlugins() {
 		NumberColorInputPlugin,
 		BooleanInputPlugin,
 	].forEach((p: InputBindingPlugin<any, any>) => {
-		RootApi.registerPlugin({
+		registerPlugin({
 			type: 'input',
 			plugin: p,
 		});
@@ -128,7 +129,7 @@ function registerDefaultPlugins() {
 
 	[BooleanMonitorPlugin, StringMonitorPlugin, NumberMonitorPlugin].forEach(
 		(p: MonitorBindingPlugin<any>) => {
-			RootApi.registerPlugin({
+			registerPlugin({
 				type: 'monitor',
 				plugin: p,
 			});
@@ -136,7 +137,7 @@ function registerDefaultPlugins() {
 	);
 
 	[TextBladePlugin].forEach((p: BladePlugin<any>) => {
-		RootApi.registerPlugin({
+		registerPlugin({
 			type: 'blade',
 			plugin: p,
 		});

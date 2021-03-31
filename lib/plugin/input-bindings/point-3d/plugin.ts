@@ -1,5 +1,5 @@
-import {InputParams, PointDimensionParams} from '../../../api/types';
 import {isEmpty} from '../../../misc/type-util';
+import {InputParams, PointDimensionParams} from '../../blade/common/api/types';
 import {CompositeConstraint} from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
 import {RangeConstraint} from '../../common/constraint/range';

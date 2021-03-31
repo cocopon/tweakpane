@@ -1,6 +1,6 @@
-import {BladeParams} from '../../../api/types';
 import {BladePlugin} from '../../blade';
 import {findStringParam} from '../../common/params';
+import {BladeParams} from '../common/api/types';
 import {SeparatorApi} from './api/separator';
 import {SeparatorController} from './controller';
 

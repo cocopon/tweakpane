@@ -1,10 +1,10 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
-import {InputBindingApi} from '../api/input-binding';
-import {TpChangeEvent} from '../api/tp-event';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
+import {InputBindingApi} from '../plugin/blade/common/api/input-binding';
+import {TpChangeEvent} from '../plugin/blade/common/api/tp-event';
 import {TpError} from '../plugin/common/tp-error';
 import {Color} from '../plugin/input-bindings/color/model/color';
 

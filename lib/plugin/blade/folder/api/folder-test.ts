@@ -1,14 +1,22 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {InputBindingApi} from '../../../../api/input-binding';
-import {TpChangeEvent, TpFoldEvent} from '../../../../api/tp-event';
 import {TestUtil} from '../../../../misc/test-util';
+import {forceCast} from '../../../../misc/type-util';
+import {Value} from '../../../common/model/value';
 import {createViewProps} from '../../../common/model/view-props';
 import {Color} from '../../../input-bindings/color/model/color';
 import {NumberTextController} from '../../../input-bindings/number/controller/number-text';
 import {SingleLogMonitorController} from '../../../monitor-bindings/common/controller/single-log';
+import {ButtonApi} from '../../button/api/button';
+import {InputBindingApi} from '../../common/api/input-binding';
+import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event';
+import {InputBindingController} from '../../common/controller/input-binding';
+import {MonitorBindingController} from '../../common/controller/monitor-binding';
 import {Blade} from '../../common/model/blade';
+import {LabeledController} from '../../labeled/controller';
+import {SeparatorApi} from '../../separator/api/separator';
+import {SeparatorController} from '../../separator/controller';
 import {FolderController} from '../controller/folder';
 import {FolderApi} from './folder';
 
@@ -81,6 +89,51 @@ describe(FolderApi.name, () => {
 		);
 	});
 
+	it('should add button', () => {
+		const api = createApi();
+		const bapi = api.addButton({
+			title: '',
+		});
+		assert.strictEqual(bapi instanceof ButtonApi, true);
+	});
+
+	it('should add separator', () => {
+		const api = createApi();
+		const s = api.addSeparator();
+		assert.strictEqual(s instanceof SeparatorApi, true);
+
+		const cs = api.controller_.bladeRack.items;
+		assert.strictEqual(cs[cs.length - 1] instanceof SeparatorController, true);
+	});
+
+	it('should dispose separator', () => {
+		const api = createApi();
+		const cs = api.controller_.bladeRack.items;
+
+		const s = api.addSeparator();
+		assert.strictEqual(cs.length, 1);
+		s.dispose();
+		assert.strictEqual(cs.length, 0);
+	});
+
+	it('should add folder', () => {
+		const pane = createApi();
+		const f = pane.addFolder({
+			title: 'folder',
+		});
+		assert.strictEqual(f.controller_.folder.title, 'folder');
+		assert.strictEqual(f.controller_.folder.expanded, true);
+	});
+
+	it('should add collapsed folder', () => {
+		const pane = createApi();
+		const f = pane.addFolder({
+			expanded: false,
+			title: 'folder',
+		});
+		assert.strictEqual(f.controller_.folder.expanded, false);
+	});
+
 	it('should handle fold event', (done) => {
 		const api = createApi();
 		api.on('fold', (ev) => {
@@ -89,6 +142,67 @@ describe(FolderApi.name, () => {
 			done();
 		});
 		api.controller_.folder.expanded = false;
+	});
+
+	it('should handle fold events (nested)', (done) => {
+		const api = createApi();
+		const f = api.addFolder({
+			title: 'folder',
+		});
+
+		api.on('fold', (ev) => {
+			assert.strictEqual(ev instanceof TpFoldEvent, true);
+			assert.strictEqual(ev.expanded, false);
+			done();
+		});
+		f.expanded = false;
+	});
+
+	it('should handle global input events', (done) => {
+		const api = createApi();
+		const obj = {foo: 1};
+		const bapi = api.addInput(obj, 'foo');
+
+		api.on('change', (ev) => {
+			assert.strictEqual(ev instanceof TpChangeEvent, true);
+			assert.strictEqual(ev.presetKey, 'foo');
+			assert.strictEqual(ev.value, 2);
+
+			if (!(ev.target instanceof InputBindingApi)) {
+				assert.fail('unexpected target');
+			}
+			assert.strictEqual(ev.target.controller_, bapi.controller_);
+
+			done();
+		});
+
+		const value: Value<number> = forceCast(bapi.controller_.binding.value);
+		value.rawValue += 1;
+	});
+
+	it('should handle global input events (nested)', (done) => {
+		const api = createApi();
+		const obj = {foo: 1};
+		const fapi = api.addFolder({
+			title: 'foo',
+		});
+		const bapi = fapi.addInput(obj, 'foo');
+
+		api.on('change', (ev) => {
+			assert.strictEqual(ev instanceof TpChangeEvent, true);
+			assert.strictEqual(ev.presetKey, 'foo');
+			assert.strictEqual(ev.value, 2);
+
+			if (!(ev.target instanceof InputBindingApi)) {
+				assert.fail('unexpected target');
+			}
+			assert.strictEqual(ev.target.controller_, bapi.controller_);
+
+			done();
+		});
+
+		const value: Value<number> = forceCast(bapi.controller_.binding.value);
+		value.rawValue += 1;
 	});
 
 	it('should bind `this` within handler to pane', (done) => {
@@ -113,6 +227,56 @@ describe(FolderApi.name, () => {
 		assert.strictEqual(api.controller_.blade.disposed, true);
 		assert.strictEqual(i.controller_.blade.disposed, true);
 		assert.strictEqual(m.controller_.blade.disposed, true);
+	});
+
+	it('should dispose items (nested)', () => {
+		const PARAMS = {foo: 1};
+		const api = createApi();
+		const f = api.addFolder({title: ''});
+		const i = f.addInput(PARAMS, 'foo');
+		const m = f.addMonitor(PARAMS, 'foo');
+
+		assert.strictEqual(api.controller_.blade.disposed, false);
+		assert.strictEqual(i.controller_.blade.disposed, false);
+		assert.strictEqual(m.controller_.blade.disposed, false);
+		api.dispose();
+		assert.strictEqual(api.controller_.blade.disposed, true);
+		assert.strictEqual(i.controller_.blade.disposed, true);
+		assert.strictEqual(m.controller_.blade.disposed, true);
+	});
+
+	it('should bind `this` within handler to folder', (done) => {
+		const PARAMS = {foo: 1};
+		const api = createApi();
+		api.on('change', function(this: any) {
+			assert.strictEqual(this, api);
+			done();
+		});
+
+		const bapi = api.addInput(PARAMS, 'foo');
+		bapi.controller_.binding.value.rawValue = 2;
+	});
+
+	it('should have right target', (done) => {
+		const api = createApi();
+		api.on('fold', (ev) => {
+			assert.strictEqual(ev.target, api);
+			done();
+		});
+		api.controller_.folder.expanded = !api.controller_.folder.expanded;
+	});
+
+	it('should have right target (nested)', (done) => {
+		const api = createApi();
+		api.addButton({title: ''});
+		const subapi = api.addFolder({title: ''});
+
+		api.on('fold', (ev) => {
+			assert.strictEqual(ev.target, subapi);
+			done();
+		});
+
+		subapi.controller_.folder.expanded = !subapi.controller_.folder.expanded;
 	});
 
 	[
@@ -190,24 +354,51 @@ describe(FolderApi.name, () => {
 		});
 	});
 
-	it('should bind `this` within handler to folder', (done) => {
-		const PARAMS = {foo: 1};
-		const api = createApi();
-		api.on('change', function(this: any) {
-			assert.strictEqual(this, api);
-			done();
-		});
+	[
+		{
+			insert: (api: FolderApi, index: number) => {
+				api.addInput({foo: 1}, 'foo', {index: index});
+			},
+			expected: InputBindingController,
+		},
+		{
+			insert: (api: FolderApi, index: number) => {
+				api.addMonitor({foo: 1}, 'foo', {
+					index: index,
+					interval: 0,
+				});
+			},
+			expected: MonitorBindingController,
+		},
+		{
+			insert: (api: FolderApi, index: number) => {
+				api.addButton({index: index, title: 'button'});
+			},
+			expected: LabeledController,
+		},
+		{
+			insert: (api: FolderApi, index: number) => {
+				api.addSeparator({
+					index: index,
+				});
+			},
+			expected: SeparatorController,
+		},
+	].forEach((testCase) => {
+		context(`when ${testCase.expected.name}`, () => {
+			it('should insert input/monitor into specified position', () => {
+				const params = {
+					bar: 2,
+					foo: 1,
+				};
+				const api = createApi();
+				api.addInput(params, 'foo');
+				api.addInput(params, 'bar');
+				testCase.insert(api, 1);
 
-		const bapi = api.addInput(PARAMS, 'foo');
-		bapi.controller_.binding.value.rawValue = 2;
-	});
-
-	it('should have right target', (done) => {
-		const api = createApi();
-		api.on('fold', (ev) => {
-			assert.strictEqual(ev.target, api);
-			done();
+				const cs = api.controller_.bladeRack.items;
+				assert.strictEqual(cs[1] instanceof testCase.expected, true);
+			});
 		});
-		api.controller_.folder.expanded = !api.controller_.folder.expanded;
 	});
 });

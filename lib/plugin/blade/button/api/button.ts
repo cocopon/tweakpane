@@ -1,5 +1,5 @@
-import {BladeApi} from '../../../../api/blade-api';
 import {forceCast} from '../../../../misc/type-util';
+import {BladeApi} from '../../common/api/blade';
 import {LabeledController} from '../../labeled/controller';
 import {ButtonController} from '../controller/button';
 

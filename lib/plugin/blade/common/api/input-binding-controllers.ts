@@ -1,8 +1,8 @@
-import {isEmpty} from '../misc/type-util';
-import {InputBindingController} from '../plugin/blade/common/controller/input-binding';
-import {BindingTarget} from '../plugin/common/binding/target';
-import {TpError} from '../plugin/common/tp-error';
-import {createController} from '../plugin/input-binding';
+import {isEmpty} from '../../../../misc/type-util';
+import {BindingTarget} from '../../../common/binding/target';
+import {TpError} from '../../../common/tp-error';
+import {createController} from '../../../input-binding';
+import {InputBindingController} from '../controller/input-binding';
 import {Plugins} from './plugins';
 import {InputParams} from './types';
 

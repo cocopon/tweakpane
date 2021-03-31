@@ -1,6 +1,6 @@
-import {BladeParams} from '../../../api/types';
 import {BladePlugin} from '../../blade';
 import {findBooleanParam, findStringParam} from '../../common/params';
+import {BladeParams} from '../common/api/types';
 import {FolderApi} from './api/folder';
 import {FolderController} from './controller/folder';
 

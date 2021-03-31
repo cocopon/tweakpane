@@ -1,4 +1,4 @@
-import {BladeApi} from '../../../../api/blade-api';
+import {BladeApi} from '../../common/api/blade';
 import {SeparatorController} from '../controller';
 
 export class SeparatorApi implements BladeApi {

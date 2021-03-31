@@ -1,6 +1,6 @@
-import {createApi} from '../plugin/blade';
-import {TpError} from '../plugin/common/tp-error';
-import {BladeApi} from './blade-api';
+import {createApi} from '../../../blade';
+import {TpError} from '../../../common/tp-error';
+import {BladeApi} from './blade';
 import {Plugins} from './plugins';
 
 export function createBladeApi(

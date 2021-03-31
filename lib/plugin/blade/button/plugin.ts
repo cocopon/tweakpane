@@ -1,6 +1,6 @@
-import {BladeParams} from '../../../api/types';
 import {BladePlugin} from '../../blade';
 import {findBooleanParam, findStringParam} from '../../common/params';
+import {BladeParams} from '../common/api/types';
 import {LabeledController} from '../labeled/controller';
 import {ButtonApi} from './api/button';
 import {ButtonController} from './controller/button';

@@ -1,7 +1,7 @@
-import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
-import {BindingTarget} from '../plugin/common/binding/target';
-import {TpError} from '../plugin/common/tp-error';
-import {createController} from '../plugin/monitor-binding';
+import {BindingTarget} from '../../../common/binding/target';
+import {TpError} from '../../../common/tp-error';
+import {createController} from '../../../monitor-binding';
+import {MonitorBindingController} from '../controller/monitor-binding';
 import {Plugins} from './plugins';
 import {MonitorParams} from './types';
 

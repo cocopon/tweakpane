@@ -1,4 +1,4 @@
-import {BladeController} from '../plugin/blade/common/controller/blade';
+import {BladeController} from '../controller/blade';
 
 /**
  * @hidden

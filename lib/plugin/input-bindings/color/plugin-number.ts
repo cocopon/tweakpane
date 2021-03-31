@@ -1,4 +1,4 @@
-import {InputParams} from '../../../api/types';
+import {InputParams} from '../../blade/common/api/types';
 import {InputBindingPlugin} from '../../input-binding';
 import {ColorSwatchTextController} from './controller/color-swatch-text';
 import {

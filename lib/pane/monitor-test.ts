@@ -1,9 +1,9 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {TpUpdateEvent} from '../api/tp-event';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
+import {TpUpdateEvent} from '../plugin/blade/common/api/tp-event';
 import {ManualTicker} from '../plugin/common/binding/ticker/manual';
 import {TpError} from '../plugin/common/tp-error';
 

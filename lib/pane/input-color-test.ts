@@ -2,9 +2,9 @@ import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
 import Tweakpane from '..';
-import {InputParams} from '../api/types';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
+import {InputParams} from '../plugin/blade/common/api/types';
 import {ValueController} from '../plugin/common/controller/value';
 import {ColorSwatchTextController} from '../plugin/input-bindings/color/controller/color-swatch-text';
 import {Color} from '../plugin/input-bindings/color/model/color';

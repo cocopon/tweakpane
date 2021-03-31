@@ -1,8 +1,8 @@
-import {forceCast} from '../misc/type-util';
-import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
-import {MonitorBindingEvents} from '../plugin/common/binding/monitor';
-import {Emitter} from '../plugin/common/model/emitter';
-import {BladeApi} from './blade-api';
+import {forceCast} from '../../../../misc/type-util';
+import {MonitorBindingEvents} from '../../../common/binding/monitor';
+import {Emitter} from '../../../common/model/emitter';
+import {MonitorBindingController} from '../controller/monitor-binding';
+import {BladeApi} from './blade';
 import {TpUpdateEvent} from './tp-event';
 
 export interface MonitorBindingApiEvents<T> {

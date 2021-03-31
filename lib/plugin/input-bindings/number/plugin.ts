@@ -1,5 +1,5 @@
-import {InputParams} from '../../../api/types';
 import {isEmpty} from '../../../misc/type-util';
+import {InputParams} from '../../blade/common/api/types';
 import {
 	CompositeConstraint,
 	findConstraint,

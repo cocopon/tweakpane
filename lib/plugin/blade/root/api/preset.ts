@@ -1,4 +1,4 @@
-import {BindingTarget} from '../plugin/common/binding/target';
+import {BindingTarget} from '../../../common/binding/target';
 
 export interface PresetObject {
 	[key: string]: unknown;

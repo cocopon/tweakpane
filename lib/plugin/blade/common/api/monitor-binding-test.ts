@@ -1,18 +1,20 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {TestUtil} from '../misc/test-util';
-import {MonitorBindingController} from '../plugin/blade/common/controller/monitor-binding';
-import {Blade} from '../plugin/blade/common/model/blade';
-import {MonitorBinding} from '../plugin/common/binding/monitor';
-import {BindingTarget} from '../plugin/common/binding/target';
-import {ManualTicker} from '../plugin/common/binding/ticker/manual';
-import {createNumberFormatter} from '../plugin/common/converter/number';
-import {numberFromUnknown} from '../plugin/common/converter/number';
-import {BoundValue} from '../plugin/common/model/bound-value';
-import {Buffer} from '../plugin/common/model/buffered-value';
-import {createViewProps} from '../plugin/common/model/view-props';
-import {SingleLogMonitorController} from '../plugin/monitor-bindings/common/controller/single-log';
+import {TestUtil} from '../../../../misc/test-util';
+import {MonitorBinding} from '../../../common/binding/monitor';
+import {BindingTarget} from '../../../common/binding/target';
+import {ManualTicker} from '../../../common/binding/ticker/manual';
+import {
+	createNumberFormatter,
+	numberFromUnknown,
+} from '../../../common/converter/number';
+import {BoundValue} from '../../../common/model/bound-value';
+import {Buffer} from '../../../common/model/buffered-value';
+import {createViewProps} from '../../../common/model/view-props';
+import {SingleLogMonitorController} from '../../../monitor-bindings/common/controller/single-log';
+import {MonitorBindingController} from '../controller/monitor-binding';
+import {Blade} from '../model/blade';
 import {MonitorBindingApi} from './monitor-binding';
 import {TpUpdateEvent} from './tp-event';
 

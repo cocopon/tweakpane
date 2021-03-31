@@ -1,5 +1,5 @@
-import {MonitorParams} from '../api/types';
 import {Constants} from '../misc/constants';
+import {MonitorParams} from './blade/common/api/types';
 import {MonitorBindingController} from './blade/common/controller/monitor-binding';
 import {Blade} from './blade/common/model/blade';
 import {BindingReader} from './common/binding/binding';
