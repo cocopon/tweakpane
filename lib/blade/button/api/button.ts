@@ -36,6 +36,14 @@ export class ButtonApi implements BladeApi {
 		this.controller_.viewProps.set('hidden', hidden);
 	}
 
+	get title(): string {
+		return this.controller_.valueController.props.get('title');
+	}
+
+	set title(title: string) {
+		this.controller_.valueController.props.set('title', title);
+	}
+
 	public dispose(): void {
 		this.controller_.blade.dispose();
 	}
@@ -44,7 +52,7 @@ export class ButtonApi implements BladeApi {
 		eventName: EventName,
 		handler: ButtonApiEventHandlers[EventName],
 	): ButtonApi {
-		const emitter = this.controller_.valueController.button.emitter;
+		const emitter = this.controller_.valueController.emitter;
 		// TODO: Type-safe
 		emitter.on(eventName, forceCast(handler.bind(this)));
 		return this;

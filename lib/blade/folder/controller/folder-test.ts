@@ -1,6 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
+import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {ButtonController} from '../../button/controller/button';
@@ -14,7 +15,9 @@ function createSomeBladeController(doc: Document): BladeController {
 	return new LabeledController(doc, {
 		blade: new Blade(),
 		valueController: new ButtonController(doc, {
-			title: 'Foobar',
+			props: new ValueMap({
+				title: 'Foobar',
+			}),
 			viewProps: createViewProps(),
 		}),
 	});

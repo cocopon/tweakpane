@@ -1,10 +1,19 @@
 import {Controller} from '../../../common/controller/controller';
+import {Emitter} from '../../../common/model/emitter';
 import {ViewProps} from '../../../common/model/view-props';
-import {Button} from '../model/button';
-import {ButtonView} from '../view/button';
+import {ButtonProps, ButtonView} from '../view/button';
+
+/**
+ * @hidden
+ */
+export interface ButtonEvents {
+	click: {
+		sender: ButtonController;
+	};
+}
 
 interface Config {
-	title: string;
+	props: ButtonProps;
 	viewProps: ViewProps;
 }
 
@@ -12,24 +21,31 @@ interface Config {
  * @hidden
  */
 export class ButtonController implements Controller {
-	public readonly button: Button;
+	public readonly emitter: Emitter<ButtonEvents> = new Emitter();
+	public readonly props: ButtonProps;
 	public readonly view: ButtonView;
 	public readonly viewProps: ViewProps;
 
 	constructor(doc: Document, config: Config) {
 		this.onButtonClick_ = this.onButtonClick_.bind(this);
 
-		this.button = new Button(config.title);
+		this.props = config.props;
 		this.viewProps = config.viewProps;
 
 		this.view = new ButtonView(doc, {
-			button: this.button,
+			props: this.props,
 			viewProps: this.viewProps,
 		});
 		this.view.buttonElement.addEventListener('click', this.onButtonClick_);
 	}
 
-	private onButtonClick_() {
-		this.button.click();
+	public click(): void {
+		this.emitter.emit('click', {
+			sender: this,
+		});
+	}
+
+	private onButtonClick_(): void {
+		this.click();
 	}
 }
