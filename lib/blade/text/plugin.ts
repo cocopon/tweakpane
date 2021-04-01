@@ -62,8 +62,10 @@ export const TextBladePlugin = (function<T>(): BladePlugin<TextBladeParams<T>> {
 			});
 			const c = new LabeledController(args.document, {
 				blade: args.blade,
+				props: new ValueMap({
+					label: args.params.label,
+				}),
 				valueController: ic,
-				label: args.params.label,
 			});
 			return new TextBladeApi(c);
 		},

@@ -13,6 +13,7 @@ import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TextController} from '../../../input-binding/common/controller/text';
 import {TestUtil} from '../../../misc/test-util';
+import {LabeledPropsObject} from '../../labeled/view';
 import {Blade} from '../model/blade';
 import {InputBindingController} from './input-binding';
 
@@ -39,12 +40,13 @@ describe(InputBindingController.name, () => {
 		});
 		const bc = new InputBindingController(doc, {
 			binding: binding,
-			controller: controller,
-			label: 'foo',
 			blade: new Blade(),
+			props: new ValueMap({
+				label: 'foo',
+			} as LabeledPropsObject),
+			valueController: controller,
 		});
 		assert.strictEqual(bc.binding, binding);
-		assert.strictEqual(bc.controller, controller);
-		assert.strictEqual(bc.view.label, 'foo');
+		assert.strictEqual(bc.valueController, controller);
 	});
 });

@@ -1,4 +1,7 @@
-import {createSvgIconElement} from '../../../common/dom-util';
+import {
+	createSvgIconElement,
+	removeChildElements,
+} from '../../../common/dom-util';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 import {NumberTextView} from '../../number/view/number-text';
@@ -91,9 +94,7 @@ export class ColorTextView implements View {
 	}
 
 	private applyTextViews_() {
-		while (this.textsElem_.children.length > 0) {
-			this.textsElem_.removeChild(this.textsElem_.children[0]);
-		}
+		removeChildElements(this.textsElem_);
 
 		const doc = this.element.ownerDocument;
 		this.textViews_.forEach((v) => {

@@ -9,6 +9,7 @@ import {boolFromUnknown} from '../../../common/converter/boolean';
 import {stringFromUnknown} from '../../../common/converter/string';
 import {BoundValue} from '../../../common/model/bound-value';
 import {Buffer} from '../../../common/model/buffered-value';
+import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {writePrimitive} from '../../../common/primitive';
 import {CheckboxController} from '../../../input-binding/boolean/controller';
@@ -16,6 +17,7 @@ import {TestUtil} from '../../../misc/test-util';
 import {forceCast} from '../../../misc/type-util';
 import {SingleLogMonitorController} from '../../../monitor-binding/common/controller/single-log';
 import {FolderController} from '../../folder/controller/folder';
+import {LabeledPropsObject} from '../../labeled/view';
 import {InputBindingController} from '../controller/input-binding';
 import {MonitorBindingController} from '../controller/monitor-binding';
 import {Blade} from './blade';
@@ -33,11 +35,13 @@ function createInputBindingController(
 	return new InputBindingController(doc, {
 		blade: new Blade(),
 		binding: b,
-		controller: new CheckboxController(doc, {
+		props: new ValueMap({
+			label: '',
+		} as LabeledPropsObject),
+		valueController: new CheckboxController(doc, {
 			value: b.value,
 			viewProps: createViewProps(),
 		}),
-		label: '',
 	});
 }
 
@@ -53,12 +57,14 @@ function createMonitorBindingController(
 	return new MonitorBindingController(doc, {
 		blade: new Blade(),
 		binding: b,
-		controller: new SingleLogMonitorController(doc, {
+		props: new ValueMap({
+			label: '',
+		} as LabeledPropsObject),
+		valueController: new SingleLogMonitorController(doc, {
 			formatter: (v) => String(v),
 			value: b.value,
 			viewProps: createViewProps(),
 		}),
-		label: '',
 	});
 }
 

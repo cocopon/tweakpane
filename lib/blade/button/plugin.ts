@@ -1,3 +1,4 @@
+import {ValueMap} from '../../common/model/value-map';
 import {findBooleanParam, findStringParam} from '../../common/params';
 import {BladeParams} from '../common/api/types';
 import {LabeledController} from '../labeled/controller';
@@ -41,11 +42,15 @@ export const ButtonBladePlugin: BladePlugin<ButtonBladeParams> = {
 	api(args) {
 		const c = new LabeledController(args.document, {
 			blade: args.blade,
+			props: new ValueMap({
+				label: args.params.label,
+			}),
 			valueController: new ButtonController(args.document, {
-				title: args.params.title,
+				props: new ValueMap({
+					title: args.params.title,
+				}),
 				viewProps: args.viewProps,
 			}),
-			label: args.params.label,
 		});
 		return new ButtonApi(c);
 	},

@@ -1,20 +1,27 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
+import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {ButtonController} from '../../button/controller/button';
 import {BladeController} from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
 import {LabeledController} from '../../labeled/controller';
+import {LabeledPropsObject} from '../../labeled/view';
 import {FolderEvents} from '../model/folder';
 import {FolderController} from './folder';
 
 function createSomeBladeController(doc: Document): BladeController {
 	return new LabeledController(doc, {
 		blade: new Blade(),
+		props: new ValueMap({
+			label: undefined,
+		} as LabeledPropsObject),
 		valueController: new ButtonController(doc, {
-			title: 'Foobar',
+			props: new ValueMap({
+				title: 'Foobar',
+			}),
 			viewProps: createViewProps(),
 		}),
 	});

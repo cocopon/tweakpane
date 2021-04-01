@@ -1,18 +1,25 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
+import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {Blade} from '../../common/model/blade';
 import {LabeledController} from '../../labeled/controller';
+import {LabeledPropsObject} from '../../labeled/view';
 import {ButtonController} from '../controller/button';
 import {ButtonApi} from './button';
 
 function createApi(doc: Document): ButtonApi {
 	const c = new LabeledController(doc, {
 		blade: new Blade(),
+		props: new ValueMap({
+			label: undefined,
+		} as LabeledPropsObject),
 		valueController: new ButtonController(doc, {
-			title: 'Button',
+			props: new ValueMap({
+				title: 'Button',
+			}),
 			viewProps: createViewProps(),
 		}),
 	});
@@ -28,6 +35,8 @@ describe(ButtonApi.name, () => {
 		assert.strictEqual(api.hidden, false);
 		assert.strictEqual(api.disabled, false);
 		assert.strictEqual(c.view.buttonElement.disabled, false);
+		assert.strictEqual(api.title, 'Button');
+		assert.strictEqual(c.view.buttonElement.textContent, 'Button');
 	});
 
 	it('should update properties', () => {
@@ -47,6 +56,14 @@ describe(ButtonApi.name, () => {
 			true,
 		);
 		assert.strictEqual(c.view.buttonElement.disabled, true);
+
+		api.title = 'changed';
+		assert.strictEqual(api.title, 'changed');
+		assert.strictEqual(c.view.buttonElement.textContent, 'changed');
+
+		api.label = 'updated';
+		assert.strictEqual(api.label, 'updated');
+		assert.strictEqual(api.controller_.props.get('label'), 'updated');
 	});
 
 	it('should listen click event', (done) => {
@@ -55,7 +72,7 @@ describe(ButtonApi.name, () => {
 		api.on('click', () => {
 			done();
 		});
-		api.controller_.valueController.button.click();
+		api.controller_.valueController.click();
 	});
 
 	it('should have chainable event handling', () => {
@@ -72,7 +89,7 @@ describe(ButtonApi.name, () => {
 			assert.strictEqual(this, api);
 			done();
 		});
-		api.controller_.valueController.button.click();
+		api.controller_.valueController.click();
 	});
 
 	it('should dispose', () => {

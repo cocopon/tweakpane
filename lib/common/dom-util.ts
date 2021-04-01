@@ -74,6 +74,18 @@ export function removeElement(element: Element): void {
 	}
 }
 
+export function removeChildElements(element: Element): void {
+	while (element.children.length > 0) {
+		element.removeChild(element.children[0]);
+	}
+}
+
+export function removeChildNodes(element: Element): void {
+	while (element.childNodes.length > 0) {
+		element.removeChild(element.childNodes[0]);
+	}
+}
+
 export function indexOfChildElement(element: Element): number {
 	const parentElem = element.parentElement;
 	if (!parentElem) {

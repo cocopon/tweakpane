@@ -20,6 +20,9 @@
 	&.#{$prefix}-v-disabled &_l {
 		opacity: 0.5;
 	}
+	&#{&}-nol &_l {
+		display: none;
+	}
 	&_v {
 		align-self: flex-start;
 		flex-grow: 0;

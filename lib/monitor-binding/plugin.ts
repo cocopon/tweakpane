@@ -1,6 +1,7 @@
 import {MonitorParams} from '../blade/common/api/types';
 import {MonitorBindingController} from '../blade/common/controller/monitor-binding';
 import {Blade} from '../blade/common/model/blade';
+import {LabeledPropsObject} from '../blade/labeled/view';
 import {BindingReader} from '../common/binding/binding';
 import {MonitorBinding} from '../common/binding/monitor';
 import {BindingTarget} from '../common/binding/target';
@@ -10,6 +11,7 @@ import {Ticker} from '../common/binding/ticker/ticker';
 import {ValueController} from '../common/controller/value';
 import {Buffer} from '../common/model/buffered-value';
 import {BufferedValue, initializeBuffer} from '../common/model/buffered-value';
+import {ValueMap} from '../common/model/value-map';
 import {createViewProps, ViewProps} from '../common/model/view-props';
 import {polyfillViewProps} from '../common/util';
 import {Constants} from '../misc/constants';
@@ -138,8 +140,10 @@ export function createController<T>(
 	const blade = new Blade();
 	return new MonitorBindingController(args.document, {
 		binding: binding,
-		controller: controller,
-		label: args.params.label || args.target.key,
 		blade: blade,
+		props: new ValueMap({
+			label: args.params.label || args.target.key,
+		} as LabeledPropsObject),
+		valueController: controller,
 	});
 }

@@ -58,7 +58,7 @@ describe(createController.name, () => {
 			params: {},
 			target: new BindingTarget({foo: 'bar'}, 'foo'),
 		});
-		const c = bc?.controller as TestController;
+		const c = bc?.valueController as TestController;
 		assert.strictEqual(c.disposed, false);
 		assert.strictEqual(c.view.disposed, false);
 		bc?.blade.dispose();

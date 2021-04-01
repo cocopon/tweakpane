@@ -1,10 +1,19 @@
+import {removeChildNodes} from '../../common/dom-util';
+import {ValueMap} from '../../common/model/value-map';
 import {ViewProps} from '../../common/model/view-props';
 import {ClassName} from '../../common/view/class-name';
-import {bindClassModifier} from '../../common/view/reactive';
+import {bindClassModifier, bindValueMap} from '../../common/view/reactive';
 import {View} from '../../common/view/view';
+import {isEmpty} from '../../misc/type-util';
+
+export type LabeledPropsObject = {
+	label: string | undefined;
+};
+
+export type LabeledProps = ValueMap<LabeledPropsObject>;
 
 interface Config {
-	label?: string;
+	props: LabeledProps;
 	viewProps: ViewProps;
 }
 
@@ -31,24 +40,27 @@ function createLabelNode(doc: Document, label: string): DocumentFragment {
  */
 export class LabeledView implements View {
 	public readonly element: HTMLElement;
-	public readonly label?: string;
+	public readonly labelElement: HTMLElement;
 	public readonly valueElement: HTMLElement;
 
 	constructor(doc: Document, config: Config) {
-		this.label = config.label;
-
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
 		bindClassModifier(config.viewProps, this.element);
 
-		if (this.label !== undefined) {
-			const labelElem = doc.createElement('div');
-			labelElem.classList.add(className('l'));
-			labelElem.appendChild(createLabelNode(doc, this.label));
-			this.element.appendChild(labelElem);
-		} else {
-			this.element.classList.add(className(undefined, 'nol'));
-		}
+		const labelElem = doc.createElement('div');
+		labelElem.classList.add(className('l'));
+		bindValueMap(config.props, 'label', (value: string | undefined) => {
+			if (isEmpty(value)) {
+				this.element.classList.add(className(undefined, 'nol'));
+			} else {
+				this.element.classList.remove(className(undefined, 'nol'));
+				removeChildNodes(labelElem);
+				labelElem.appendChild(createLabelNode(doc, value));
+			}
+		});
+		this.element.appendChild(labelElem);
+		this.labelElement = labelElem;
 
 		const valueElem = doc.createElement('div');
 		valueElem.classList.add(className('v'));

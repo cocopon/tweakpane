@@ -10,9 +10,11 @@ import {
 } from '../../../common/converter/number';
 import {BoundValue} from '../../../common/model/bound-value';
 import {Buffer} from '../../../common/model/buffered-value';
+import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {SingleLogMonitorController} from '../../../monitor-binding/common/controller/single-log';
+import {LabeledPropsObject} from '../../labeled/view';
 import {MonitorBindingController} from '../controller/monitor-binding';
 import {Blade} from '../model/blade';
 import {MonitorBindingApi} from './monitor-binding';
@@ -34,8 +36,10 @@ function createApi(target: BindingTarget) {
 			value: value,
 		}),
 		blade: new Blade(),
-		controller: mc,
-		label: 'label',
+		props: new ValueMap({
+			label: 'label',
+		} as LabeledPropsObject),
+		valueController: mc,
 	});
 	return new MonitorBindingApi(bc);
 }

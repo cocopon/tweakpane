@@ -1,5 +1,6 @@
 import {ValueEvents} from '../model/value';
-import {ViewProps, ViewPropsObject} from '../model/view-props';
+import {ValueMap} from '../model/value-map';
+import {ViewProps} from '../model/view-props';
 import {ClassName} from './class-name';
 
 function compose<A, B, C>(
@@ -32,18 +33,17 @@ function valueToModifier(
 	};
 }
 
-function bindViewProps<Key extends keyof ViewPropsObject>(
-	viewProps: ViewProps,
-	key: Key,
-	applyValue: (value: ViewPropsObject[Key]) => void,
-) {
-	viewProps.valueEmitter(key).on('change', compose(extractValue, applyValue));
-	applyValue(viewProps.get(key));
+export function bindValueMap<
+	O extends Record<string, unknown>,
+	Key extends keyof O
+>(valueMap: ValueMap<O>, key: Key, applyValue: (value: O[Key]) => void) {
+	valueMap.valueEmitter(key).on('change', compose(extractValue, applyValue));
+	applyValue(valueMap.get(key));
 }
 
 export function bindClassModifier(viewProps: ViewProps, elem: HTMLElement) {
-	bindViewProps(viewProps, 'disabled', valueToModifier(elem, 'disabled'));
-	bindViewProps(viewProps, 'hidden', valueToModifier(elem, 'hidden'));
+	bindValueMap(viewProps, 'disabled', valueToModifier(elem, 'disabled'));
+	bindValueMap(viewProps, 'hidden', valueToModifier(elem, 'hidden'));
 }
 
 interface Disableable {
@@ -51,13 +51,24 @@ interface Disableable {
 }
 
 export function bindDisabled(viewProps: ViewProps, target: Disableable) {
-	bindViewProps(viewProps, 'disabled', (disabled: boolean) => {
+	bindValueMap(viewProps, 'disabled', (disabled: boolean) => {
 		target.disabled = disabled;
 	});
 }
 
 export function bindTabIndex(viewProps: ViewProps, elem: HTMLOrSVGElement) {
-	bindViewProps(viewProps, 'disabled', (disabled: boolean) => {
+	bindValueMap(viewProps, 'disabled', (disabled: boolean) => {
 		elem.tabIndex = disabled ? -1 : 0;
+	});
+}
+
+export function bindTextContent<
+	Key extends string,
+	O extends {
+		[key in Key]: string;
+	}
+>(valueMap: ValueMap<O>, key: Key, elem: HTMLElement) {
+	bindValueMap(valueMap, key, (text: string) => {
+		elem.textContent = text;
 	});
 }

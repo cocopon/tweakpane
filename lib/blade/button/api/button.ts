@@ -1,5 +1,5 @@
 import {forceCast} from '../../../misc/type-util';
-import {BladeApi} from '../../common/api/blade';
+import {BladeApi, LabelableApi} from '../../common/api/blade';
 import {LabeledController} from '../../labeled/controller';
 import {ButtonController} from '../controller/button';
 
@@ -7,7 +7,7 @@ interface ButtonApiEventHandlers {
 	click: () => void;
 }
 
-export class ButtonApi implements BladeApi {
+export class ButtonApi implements BladeApi, LabelableApi {
 	/**
 	 * @hidden
 	 */
@@ -36,6 +36,22 @@ export class ButtonApi implements BladeApi {
 		this.controller_.viewProps.set('hidden', hidden);
 	}
 
+	get label(): string | undefined {
+		return this.controller_.props.get('label');
+	}
+
+	set label(label: string | undefined) {
+		this.controller_.props.set('label', label);
+	}
+
+	get title(): string {
+		return this.controller_.valueController.props.get('title');
+	}
+
+	set title(title: string) {
+		this.controller_.valueController.props.set('title', title);
+	}
+
 	public dispose(): void {
 		this.controller_.blade.dispose();
 	}
@@ -44,7 +60,7 @@ export class ButtonApi implements BladeApi {
 		eventName: EventName,
 		handler: ButtonApiEventHandlers[EventName],
 	): ButtonApi {
-		const emitter = this.controller_.valueController.button.emitter;
+		const emitter = this.controller_.valueController.emitter;
 		// TODO: Type-safe
 		emitter.on(eventName, forceCast(handler.bind(this)));
 		return this;
