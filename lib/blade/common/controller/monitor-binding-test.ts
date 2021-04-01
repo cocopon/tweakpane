@@ -7,9 +7,11 @@ import {ManualTicker} from '../../../common/binding/ticker/manual';
 import {createNumberFormatter} from '../../../common/converter/number';
 import {numberFromUnknown} from '../../../common/converter/number';
 import {BoundValue} from '../../../common/model/bound-value';
+import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {SingleLogMonitorController} from '../../../monitor-binding/common/controller/single-log';
+import {LabeledPropsObject} from '../../labeled/view';
 import {Blade} from '../model/blade';
 import {MonitorBindingController} from './monitor-binding';
 
@@ -32,18 +34,15 @@ function create(): MonitorBindingController<number> {
 	});
 	return new MonitorBindingController(doc, {
 		binding: binding,
-		controller: controller,
-		label: 'foo',
 		blade: new Blade(),
+		props: new ValueMap({
+			label: 'foo',
+		} as LabeledPropsObject),
+		valueController: controller,
 	});
 }
 
 describe(MonitorBindingController.name, () => {
-	it('should get properties', () => {
-		const bc = create();
-		assert.strictEqual(bc.view.label, 'foo');
-	});
-
 	it('should disable ticker', () => {
 		const bc = create();
 		assert.strictEqual(bc.binding.ticker.disabled, false);

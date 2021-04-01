@@ -33,13 +33,12 @@ function valueToModifier(
 	};
 }
 
-function bindValueMap<O extends Record<string, unknown>, Key extends keyof O>(
-	viewProps: ValueMap<O>,
-	key: Key,
-	applyValue: (value: O[Key]) => void,
-) {
-	viewProps.valueEmitter(key).on('change', compose(extractValue, applyValue));
-	applyValue(viewProps.get(key));
+export function bindValueMap<
+	O extends Record<string, unknown>,
+	Key extends keyof O
+>(valueMap: ValueMap<O>, key: Key, applyValue: (value: O[Key]) => void) {
+	valueMap.valueEmitter(key).on('change', compose(extractValue, applyValue));
+	applyValue(valueMap.get(key));
 }
 
 export function bindClassModifier(viewProps: ViewProps, elem: HTMLElement) {

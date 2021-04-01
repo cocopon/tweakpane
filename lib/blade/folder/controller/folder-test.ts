@@ -8,12 +8,16 @@ import {ButtonController} from '../../button/controller/button';
 import {BladeController} from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
 import {LabeledController} from '../../labeled/controller';
+import {LabeledPropsObject} from '../../labeled/view';
 import {FolderEvents} from '../model/folder';
 import {FolderController} from './folder';
 
 function createSomeBladeController(doc: Document): BladeController {
 	return new LabeledController(doc, {
 		blade: new Blade(),
+		props: new ValueMap({
+			label: undefined,
+		} as LabeledPropsObject),
 		valueController: new ButtonController(doc, {
 			props: new ValueMap({
 				title: 'Foobar',

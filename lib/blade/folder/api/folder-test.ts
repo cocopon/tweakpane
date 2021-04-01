@@ -70,7 +70,7 @@ describe(FolderApi.name, () => {
 		const api = createApi();
 		const bapi = api.addInput(PARAMS, 'foo');
 		assert.strictEqual(
-			bapi.controller_.controller instanceof NumberTextController,
+			bapi.controller_.valueController instanceof NumberTextController,
 			true,
 		);
 	});
@@ -84,7 +84,7 @@ describe(FolderApi.name, () => {
 			interval: 0,
 		});
 		assert.strictEqual(
-			bapi.controller_.controller instanceof SingleLogMonitorController,
+			bapi.controller_.valueController instanceof SingleLogMonitorController,
 			true,
 		);
 	});

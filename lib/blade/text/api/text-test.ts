@@ -8,6 +8,7 @@ import {TextController} from '../../../input-binding/common/controller/text';
 import {TestUtil} from '../../../misc/test-util';
 import {Blade} from '../../common/model/blade';
 import {LabeledController} from '../../labeled/controller';
+import {LabeledPropsObject} from '../../labeled/view';
 import {TextBladeApi} from './text';
 
 describe(TextBladeApi.name, () => {
@@ -15,6 +16,9 @@ describe(TextBladeApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabeledController(doc, {
 			blade: new Blade(),
+			props: new ValueMap({
+				label: undefined,
+			} as LabeledPropsObject),
 			valueController: new TextController(doc, {
 				parser: (v: string) => v,
 				props: new ValueMap({
@@ -34,6 +38,9 @@ describe(TextBladeApi.name, () => {
 		const formatter = (v: string) => v;
 		const c = new LabeledController(doc, {
 			blade: new Blade(),
+			props: new ValueMap({
+				label: undefined,
+			} as LabeledPropsObject),
 			valueController: new TextController(doc, {
 				parser: (v: string) => v,
 				props: new ValueMap({
@@ -54,6 +61,9 @@ describe(TextBladeApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabeledController(doc, {
 			blade: new Blade(),
+			props: new ValueMap({
+				label: undefined,
+			} as LabeledPropsObject),
 			valueController: new TextController(doc, {
 				parser: (v: string) => v,
 				props: new ValueMap({
@@ -85,6 +95,9 @@ describe(TextBladeApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabeledController(doc, {
 			blade: new Blade(),
+			props: new ValueMap({
+				label: undefined,
+			} as LabeledPropsObject),
 			valueController: new TextController(doc, {
 				parser: (v: string) => v,
 				props: new ValueMap({

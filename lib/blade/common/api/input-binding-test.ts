@@ -9,10 +9,12 @@ import {
 	parseNumber,
 } from '../../../common/converter/number';
 import {BoundValue} from '../../../common/model/bound-value';
+import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {writePrimitive} from '../../../common/primitive';
 import {NumberTextController} from '../../../input-binding/number/controller/number-text';
 import {TestUtil} from '../../../misc/test-util';
+import {LabeledPropsObject} from '../../labeled/view';
 import {InputBindingController} from '../controller/input-binding';
 import {Blade} from '../model/blade';
 import {InputBindingApi} from './input-binding';
@@ -37,8 +39,10 @@ function createApi(target: BindingTarget) {
 			writer: writePrimitive,
 		}),
 		blade: new Blade(),
-		controller: ic,
-		label: 'label',
+		props: new ValueMap({
+			label: 'label',
+		} as LabeledPropsObject),
+		valueController: ic,
 	});
 	return new InputBindingApi(bc);
 }
@@ -56,7 +60,7 @@ describe(InputBindingApi.name, () => {
 			assert.strictEqual(ev.value, 123);
 			done();
 		});
-		api.controller_.controller.value.rawValue = 123;
+		api.controller_.valueController.value.rawValue = 123;
 	});
 
 	it('should apply presetKey to event object', (done) => {
@@ -68,7 +72,7 @@ describe(InputBindingApi.name, () => {
 			assert.strictEqual(ev.presetKey, 'renamed');
 			done();
 		});
-		api.controller_.controller.value.rawValue = 123;
+		api.controller_.valueController.value.rawValue = 123;
 	});
 
 	it('should refresh bound value', () => {

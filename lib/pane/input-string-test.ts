@@ -50,7 +50,7 @@ describe(Tweakpane.name, () => {
 				const obj = {foo: testCase.value};
 				const bapi = pane.addInput(obj, 'foo', testCase.params);
 				assert.strictEqual(
-					bapi.controller_.controller instanceof testCase.expectedClass,
+					bapi.controller_.valueController instanceof testCase.expectedClass,
 					true,
 				);
 			});

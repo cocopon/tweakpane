@@ -6,12 +6,16 @@ import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {Blade} from '../../common/model/blade';
 import {LabeledController} from '../../labeled/controller';
+import {LabeledPropsObject} from '../../labeled/view';
 import {ButtonController} from '../controller/button';
 import {ButtonApi} from './button';
 
 function createApi(doc: Document): ButtonApi {
 	const c = new LabeledController(doc, {
 		blade: new Blade(),
+		props: new ValueMap({
+			label: undefined,
+		} as LabeledPropsObject),
 		valueController: new ButtonController(doc, {
 			props: new ValueMap({
 				title: 'Button',

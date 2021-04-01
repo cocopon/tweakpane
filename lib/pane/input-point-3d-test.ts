@@ -29,7 +29,7 @@ describe(Tweakpane.name, () => {
 				const obj = {foo: testCase.value};
 				const bapi = pane.addInput(obj, 'foo', testCase.params);
 
-				const ic = bapi.controller_.controller;
+				const ic = bapi.controller_.valueController;
 				if (!(ic instanceof PointNdTextController)) {
 					assert.fail('unexpected controller class');
 				}
