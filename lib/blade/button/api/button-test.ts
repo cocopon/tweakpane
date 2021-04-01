@@ -60,6 +60,10 @@ describe(ButtonApi.name, () => {
 		api.title = 'changed';
 		assert.strictEqual(api.title, 'changed');
 		assert.strictEqual(c.view.buttonElement.textContent, 'changed');
+
+		api.label = 'updated';
+		assert.strictEqual(api.label, 'updated');
+		assert.strictEqual(api.controller_.props.get('label'), 'updated');
 	});
 
 	it('should listen click event', (done) => {

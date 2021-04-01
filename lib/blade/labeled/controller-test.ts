@@ -62,6 +62,6 @@ describe(LabeledController.name, () => {
 		});
 
 		c.props.set('label', 'world');
-		assert.strictEqual(c.view.element.innerHTML.includes('world'), true);
+		assert.strictEqual(c.view.labelElement.textContent, 'world');
 	});
 });

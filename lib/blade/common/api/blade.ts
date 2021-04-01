@@ -8,3 +8,10 @@ export interface BladeApi {
 	hidden: boolean;
 	dispose(): void;
 }
+
+/**
+ * @hidden
+ */
+export interface LabelableApi {
+	label: string | undefined;
+}
