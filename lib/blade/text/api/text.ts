@@ -1,14 +1,14 @@
 import {Formatter} from '../../../common/converter/formatter';
 import {Emitter} from '../../../common/model/emitter';
 import {TextController} from '../../../input-binding/common/controller/text';
-import {BladeApi} from '../../common/api/blade';
+import {BladeApi, LabelableApi} from '../../common/api/blade';
 import {TpChangeEvent} from '../../common/api/tp-event';
 import {ApiChangeEvents} from '../../common/api/types';
 import {LabeledController} from '../../labeled/controller';
 
 export type TextApiEvents<T> = ApiChangeEvents<T>;
 
-export class TextBladeApi<T> implements BladeApi {
+export class TextBladeApi<T> implements BladeApi, LabelableApi {
 	private readonly emitter_: Emitter<TextApiEvents<T>> = new Emitter();
 
 	constructor(
@@ -35,6 +35,14 @@ export class TextBladeApi<T> implements BladeApi {
 
 	set hidden(hidden: boolean) {
 		this.controller_.viewProps.set('hidden', hidden);
+	}
+
+	get label(): string | undefined {
+		return this.controller_.props.get('label');
+	}
+
+	set label(label: string | undefined) {
+		this.controller_.props.set('label', label);
 	}
 
 	get formatter(): Formatter<T> {

@@ -39,7 +39,7 @@ describe(TextBladeApi.name, () => {
 		const c = new LabeledController(doc, {
 			blade: new Blade(),
 			props: new ValueMap({
-				label: undefined,
+				label: 'foobar',
 			} as LabeledPropsObject),
 			valueController: new TextController(doc, {
 				parser: (v: string) => v,
@@ -54,6 +54,7 @@ describe(TextBladeApi.name, () => {
 		assert.strictEqual(api.disabled, false);
 		assert.strictEqual(api.hidden, false);
 		assert.strictEqual(api.formatter, formatter);
+		assert.strictEqual(api.label, 'foobar');
 		assert.strictEqual(api.value, 'hello');
 	});
 
@@ -89,6 +90,9 @@ describe(TextBladeApi.name, () => {
 
 		api.value = 'changed';
 		assert.strictEqual(api.value, 'changed');
+
+		api.label = 'buzqux';
+		assert.strictEqual(api.label, 'buzqux');
 	});
 
 	it('should handle event', (done) => {
