@@ -15,26 +15,26 @@ $slider-track-width: 4px;
 		margin-right: $slider-knob-size / 2;
 	}
 	&_h {
-		margin-top: 4px;
+		margin-top: var(--bld-s);
 	}
 	&_rgb {
 		display: flex;
-		margin-top: 4px;
+		margin-top: var(--bld-s);
 		width: 100%;
 	}
 	&_a {
 		display: flex;
-		margin-top: 4px;
-		padding-top: 8px;
+		margin-top: var(--cnt-p);
+		padding-top: calc(var(--cnt-p) + 4px);
 		position: relative;
 
 		&:before {
 			background-color: var(--spr-fg);
 			content: '';
-			height: 4px;
-			left: -4px;
+			height: $separator-width;
+			left: calc(-1 * var(--cnt-p));
 			position: absolute;
-			right: -4px;
+			right: calc(-1 * var(--cnt-p));
 			top: 0;
 		}
 	}
@@ -58,7 +58,7 @@ $slider-track-width: 4px;
 	&_c {
 		cursor: crosshair;
 		display: block;
-		height: 80px;
+		height: calc(var(--bld-h) * 4);
 		width: 100%;
 	}
 	&_m {
@@ -80,7 +80,7 @@ $slider-track-width: 4px;
 
 .#{$prefix}-hplv {
 	cursor: pointer;
-	height: var(--unit-size);
+	height: var(--bld-h);
 	outline: none;
 	position: relative;
 
@@ -119,7 +119,7 @@ $slider-track-width: 4px;
 
 .#{$prefix}-aplv {
 	cursor: pointer;
-	height: var(--unit-size);
+	height: var(--bld-h);
 	outline: none;
 	position: relative;
 	width: 100%;

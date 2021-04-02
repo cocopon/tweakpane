@@ -5,11 +5,11 @@
 	color: var(--cnt-fg);
 	cursor: pointer;
 	display: block;
-	height: calc(var(--unit-size) + 4px);
-	line-height: calc(var(--unit-size) + 4px);
+	height: calc(var(--bld-h) + 4px);
+	line-height: calc(var(--bld-h) + 4px);
 	overflow: hidden;
-	padding-left: 4px + 8px;
-	padding-right: calc(2px * 2 + var(--unit-size) + 4px);
+	padding-left: calc(var(--cnt-p) + 8px);
+	padding-right: calc(2px * 2 + var(--bld-h) + var(--cnt-p));
 	position: relative;
 	text-align: left;
 	text-overflow: ellipsis;
@@ -47,7 +47,7 @@
 	content: '';
 	display: block;
 	height: $size;
-	right: calc(2px + (var(--unit-size) + 4px - #{$size}) / 2);
+	right: calc(var(--cnt-p) + (var(--bld-h) + 4px - #{$size}) / 2 - 2px);
 	margin: auto;
 	opacity: 0.5;
 	position: absolute;
@@ -74,26 +74,42 @@
 		padding $folder-transition-duration ease-in-out;
 
 	& > .#{$prefix}-fldv.#{$prefix}-v-first {
-		margin-top: -4px;
+		margin-top: calc(-1 * var(--cnt-p));
 	}
 	& > .#{$prefix}-fldv.#{$prefix}-v-last {
-		margin-bottom: -4px;
+		margin-bottom: calc(-1 * var(--cnt-p));
+	}
+	& > .#{$prefix}-fldv.#{$prefix}-v-last .#{$prefix}-fldv_c {
+		border-bottom-left-radius: 0;
+	}
+	& > .#{$prefix}-fldv.#{$prefix}-v-last .#{$prefix}-fldv_t {
+		border-bottom-left-radius: 0;
 	}
 
+	// Spacing between two blades
 	& > *:not(.#{$prefix}-v-first) {
-		margin-top: 4px;
+		margin-top: var(--bld-s);
 	}
-	& > .#{$prefix}-fldv:not(.#{$prefix}-v-hidden) + .#{$prefix}-fldv {
-		margin-top: 0;
+	// Top spacing of folder and separator
+	& > .#{$prefix}-fldv:not(.#{$prefix}-v-first),
+	& > .#{$prefix}-sprv:not(.#{$prefix}-v-first) {
+		margin-top: var(--cnt-p);
 	}
+	// Bottom spacing of some blades
+	& > .#{$prefix}-fldv + *:not(.#{$prefix}-v-hidden),
+	& > .#{$prefix}-sprv + *:not(.#{$prefix}-v-hidden) {
+		margin-top: var(--cnt-p);
+	}
+	// Spacing between two folders and separators
+	& > .#{$prefix}-fldv:not(.#{$prefix}-v-hidden) + .#{$prefix}-fldv,
 	& > .#{$prefix}-sprv:not(.#{$prefix}-v-hidden) + .#{$prefix}-sprv {
 		margin-top: 0;
 	}
 }
 %folder_container-expanded {
 	opacity: 1;
-	padding-bottom: 4px;
-	padding-top: 4px;
+	padding-bottom: var(--cnt-p);
+	padding-top: var(--cnt-p);
 	transform: none;
 
 	// Clip subviews without `overflow: hidden` for popup elements (e.g. color picker)

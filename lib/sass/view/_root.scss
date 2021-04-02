@@ -16,8 +16,11 @@
 		'font-family',
 		('Roboto Mono', 'Source Code Pro', Menlo, Courier, monospace)
 	);
-	@include themeVariable('unit-size', 'unit-size', 20px);
-	@include themeVariable('value-width', 'value-width', 160px);
+	// TODO: Rename
+	@include themeVariable('cnt-p', 'container-padding-v3', 4px);
+	@include themeVariable('bld-h', 'blade-height-v3', 20px);
+	@include themeVariable('bld-s', 'blade-spacing-v3', 4px);
+	@include themeVariable('value-width', 'value-width-v3', 160px);
 
 	// Base
 	@include themeVariable('bs-bg', 'base-background-color', $bg-color);
@@ -130,6 +133,7 @@
 	--monitor-background-color: var(--mo-bg);
 	--monitor-foreground-color: var(--mo-fg);
 	--separator-color: var(--spr-fg);
+	--unit-size: var(--bld-h);
 }
 
 .#{$prefix}-rotv {
@@ -151,7 +155,7 @@
 		border-bottom-right-radius: $outer-border-radius;
 		border-top-left-radius: $outer-border-radius;
 		border-top-right-radius: $outer-border-radius;
-		padding-left: calc(2px * 2 + var(--unit-size) + 4px);
+		padding-left: calc(2px * 2 + var(--bld-h) + var(--cnt-p));
 		text-align: center;
 	}
 	&#{&}-expanded &_t {
@@ -168,21 +172,26 @@
 		@extend %folder_container;
 
 		// Bottom of the last folder
-		& > .#{$prefix}-fldv:last-child {
+		& > .#{$prefix}-fldv.#{$prefix}-v-last {
 			& > .#{$prefix}-fldv_c {
 				border-bottom-left-radius: $outer-border-radius;
 				border-bottom-right-radius: $outer-border-radius;
 			}
 		}
 		// Bottom of the last folder title when collapsed
-		& > .#{$prefix}-fldv:last-child:not(.#{$prefix}-fldv-expanded) {
+		& > .#{$prefix}-fldv.#{$prefix}-v-last:not(.#{$prefix}-fldv-expanded) {
 			& > .#{$prefix}-fldv_t {
 				border-bottom-left-radius: $outer-border-radius;
 				border-bottom-right-radius: $outer-border-radius;
 			}
 		}
+		& > .#{$prefix}-fldv.#{$prefix}-v-last .#{$prefix}-fldv_c > .#{$prefix}-fldv.#{$prefix}-v-last:not(.#{$prefix}-fldv-expanded) {
+			& > .#{$prefix}-fldv_t {
+				border-bottom-right-radius: $outer-border-radius;
+			}
+		}
 		// Top of the first folder
-		& > .#{$prefix}-fldv:first-child {
+		& > .#{$prefix}-fldv.#{$prefix}-v-first {
 			& > .#{$prefix}-fldv_t {
 				border-top-left-radius: $outer-border-radius;
 				border-top-right-radius: $outer-border-radius;

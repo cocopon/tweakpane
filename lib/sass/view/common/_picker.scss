@@ -4,7 +4,7 @@
 	box-shadow: 0 2px 4px var(--bs-sh);
 	display: none;
 	max-width: 160px + 2 * 4px;
-	padding: 4px;
+	padding: var(--cnt-p);
 	position: relative;
 	visibility: hidden;
 	z-index: $z-index-picker;
