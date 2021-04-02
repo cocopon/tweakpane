@@ -17,7 +17,9 @@
 		('Roboto Mono', 'Source Code Pro', Menlo, Courier, monospace)
 	);
 	// TODO: Rename
+	@include themeVariable('bs-br', 'base-border-radius-v3', 6px);
 	@include themeVariable('cnt-p', 'container-padding-v3', 4px);
+	@include themeVariable('elm-br', 'element-border-radius-v3', 2px);
 	@include themeVariable('bld-h', 'blade-height-v3', 20px);
 	@include themeVariable('bld-s', 'blade-spacing-v3', 4px);
 	@include themeVariable('value-width', 'value-width-v3', 160px);
@@ -140,7 +142,7 @@
 	@extend %themeVariables;
 
 	background-color: var(--bs-bg);
-	border-radius: $outer-border-radius;
+	border-radius: var(--bs-br);
 	box-shadow: 0 2px 4px var(--bs-sh);
 	font-family: var(--font-family);
 	font-size: 11px;
@@ -151,10 +153,10 @@
 	&_t {
 		@extend %folder_title;
 
-		border-bottom-left-radius: $outer-border-radius;
-		border-bottom-right-radius: $outer-border-radius;
-		border-top-left-radius: $outer-border-radius;
-		border-top-right-radius: $outer-border-radius;
+		border-bottom-left-radius: var(--bs-br);
+		border-bottom-right-radius: var(--bs-br);
+		border-top-left-radius: var(--bs-br);
+		border-top-right-radius: var(--bs-br);
 		padding-left: calc(2px * 2 + var(--bld-h) + var(--cnt-p));
 		text-align: center;
 	}
@@ -174,27 +176,27 @@
 		// Bottom of the last folder
 		& > .#{$prefix}-fldv.#{$prefix}-v-last {
 			& > .#{$prefix}-fldv_c {
-				border-bottom-left-radius: $outer-border-radius;
-				border-bottom-right-radius: $outer-border-radius;
+				border-bottom-left-radius: var(--bs-br);
+				border-bottom-right-radius: var(--bs-br);
 			}
 		}
 		// Bottom of the last folder title when collapsed
 		& > .#{$prefix}-fldv.#{$prefix}-v-last:not(.#{$prefix}-fldv-expanded) {
 			& > .#{$prefix}-fldv_t {
-				border-bottom-left-radius: $outer-border-radius;
-				border-bottom-right-radius: $outer-border-radius;
+				border-bottom-left-radius: var(--bs-br);
+				border-bottom-right-radius: var(--bs-br);
 			}
 		}
 		& > .#{$prefix}-fldv.#{$prefix}-v-last .#{$prefix}-fldv_c > .#{$prefix}-fldv.#{$prefix}-v-last:not(.#{$prefix}-fldv-expanded) {
 			& > .#{$prefix}-fldv_t {
-				border-bottom-right-radius: $outer-border-radius;
+				border-bottom-right-radius: var(--bs-br);
 			}
 		}
 		// Top of the first folder
 		& > .#{$prefix}-fldv.#{$prefix}-v-first {
 			& > .#{$prefix}-fldv_t {
-				border-top-left-radius: $outer-border-radius;
-				border-top-right-radius: $outer-border-radius;
+				border-top-left-radius: var(--bs-br);
+				border-top-right-radius: var(--bs-br);
 			}
 		}
 	}

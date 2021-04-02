@@ -10,7 +10,7 @@
 	&_ms {
 		@extend %resetUserAgent;
 
-		border-radius: $inner-border-radius;
+		border-radius: var(--elm-br);
 		color: var(--lbl-fg);
 		cursor: pointer;
 		height: var(--bld-h);

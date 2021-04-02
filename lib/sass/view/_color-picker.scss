@@ -50,7 +50,7 @@ $slider-track-width: 4px;
 }
 
 .#{$prefix}-svpv {
-	border-radius: $inner-border-radius;
+	border-radius: var(--elm-br);
 	outline: none;
 	overflow: hidden;
 	position: relative;
@@ -99,7 +99,7 @@ $slider-track-width: 4px;
 		width: 100%;
 	}
 	&_m {
-		border-radius: $inner-border-radius;
+		border-radius: var(--elm-br);
 		border: $marker-border-color solid 2px;
 		box-shadow: 0 0 2px rgba(black, 0.1);
 		box-sizing: border-box;
@@ -147,7 +147,7 @@ $slider-track-width: 4px;
 	&_m {
 		@include checkerboard($slider-knob-size);
 
-		border-radius: $inner-border-radius;
+		border-radius: var(--elm-br);
 		box-shadow: 0 0 2px rgba(black, 0.1);
 		height: $slider-knob-size;
 		left: 50%;
@@ -160,7 +160,7 @@ $slider-track-width: 4px;
 		width: $slider-knob-size;
 	}
 	&_p {
-		border-radius: $inner-border-radius;
+		border-radius: var(--elm-br);
 		border: $marker-border-color solid 2px;
 		box-sizing: border-box;
 		bottom: 0;

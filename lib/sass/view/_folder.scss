@@ -34,13 +34,13 @@
 		margin-left: 4px;
 	}
 	&_c > & > &_t {
-		border-top-left-radius: $inner-border-radius;
-		border-bottom-left-radius: $inner-border-radius;
+		border-top-left-radius: var(--elm-br);
+		border-bottom-left-radius: var(--elm-br);
 	}
 	&_c > &#{&}-expanded > &_t {
 		border-bottom-left-radius: 0;
 	}
 	&_c & > &_c {
-		border-bottom-left-radius: $inner-border-radius;
+		border-bottom-left-radius: var(--elm-br);
 	}
 }

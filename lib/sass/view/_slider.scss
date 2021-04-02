@@ -47,7 +47,7 @@
 		}
 		&::after {
 			background-color: var(--btn-bg);
-			border-radius: $inner-border-radius;
+			border-radius: var(--elm-br);
 			bottom: 0;
 			content: '';
 			display: block;

@@ -1,7 +1,7 @@
 .#{$prefix}-clswv {
 	@include checkerboard(10px);
 
-	border-radius: $inner-border-radius;
+	border-radius: var(--elm-br);
 
 	&.#{$prefix}-v-disabled {
 		opacity: 0.5;
@@ -27,7 +27,7 @@
 
 		&:focus::after {
 			border: rgba(white, 0.75) solid 2px;
-			border-radius: $inner-border-radius;
+			border-radius: var(--elm-br);
 			bottom: 0;
 			content: '';
 			display: block;
