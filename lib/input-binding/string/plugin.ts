@@ -42,7 +42,9 @@ export const StringInputPlugin: InputBindingPlugin<string, string> = {
 
 		if (c && findConstraint(c, ListConstraint)) {
 			return new ListController(doc, {
-				listItems: findListItems(c) ?? [],
+				props: new ValueMap({
+					options: findListItems(c) ?? [],
+				}),
 				stringifyValue: (v) => v,
 				value: value,
 				viewProps: args.viewProps,

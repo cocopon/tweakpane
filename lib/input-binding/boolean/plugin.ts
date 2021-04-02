@@ -7,6 +7,7 @@ import {Constraint} from '../../common/constraint/constraint';
 import {ListConstraint} from '../../common/constraint/list';
 import {boolToString} from '../../common/converter/boolean';
 import {boolFromUnknown} from '../../common/converter/boolean';
+import {ValueMap} from '../../common/model/value-map';
 import {writePrimitive} from '../../common/primitive';
 import {createListConstraint, findListItems} from '../../common/util';
 import {ListController} from '../common/controller/list';
@@ -42,7 +43,9 @@ export const BooleanInputPlugin: InputBindingPlugin<boolean, boolean> = {
 
 		if (c && findConstraint(c, ListConstraint)) {
 			return new ListController(doc, {
-				listItems: findListItems(c) ?? [],
+				props: new ValueMap({
+					options: findListItems(c) ?? [],
+				}),
 				stringifyValue: boolToString,
 				value: value,
 				viewProps: args.viewProps,

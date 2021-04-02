@@ -4,6 +4,7 @@ import {describe, it} from 'mocha';
 import {ListConstraint} from '../../../common/constraint/list';
 import {numberToString} from '../../../common/converter/number';
 import {BoundValue} from '../../../common/model/bound-value';
+import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {findListItems} from '../../../common/util';
 import {TestUtil} from '../../../misc/test-util';
@@ -20,7 +21,9 @@ describe(ListController.name, () => {
 		});
 		const doc = TestUtil.createWindow().document;
 		const c = new ListController(doc, {
-			listItems: findListItems(value.constraint) ?? [],
+			props: new ValueMap({
+				options: findListItems(value.constraint) ?? [],
+			}),
 			stringifyValue: numberToString,
 			value: value,
 			viewProps: createViewProps(),
@@ -40,7 +43,9 @@ describe(ListController.name, () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new ListController(doc, {
-			listItems: findListItems(value.constraint) ?? [],
+			props: new ValueMap({
+				options: findListItems(value.constraint) ?? [],
+			}),
 			stringifyValue: numberToString,
 			value: value,
 			viewProps: createViewProps(),
@@ -50,5 +55,39 @@ describe(ListController.name, () => {
 		c.view.selectElement.dispatchEvent(TestUtil.createEvent(win, 'change'));
 
 		assert.strictEqual(c.value.rawValue, 34);
+	});
+
+	it('should update properties', () => {
+		const value = new BoundValue(0, {
+			constraint: new ListConstraint([
+				{text: 'foo', value: 12},
+				{text: 'bar', value: 34},
+				{text: 'baz', value: 56},
+			]),
+		});
+		const doc = TestUtil.createWindow().document;
+		const c = new ListController(doc, {
+			props: new ValueMap({
+				options: findListItems(value.constraint) ?? [],
+			}),
+			stringifyValue: numberToString,
+			value: value,
+			viewProps: createViewProps(),
+		});
+
+		c.props.set('options', [
+			{text: 'hello', value: 11},
+			{text: 'world', value: 22},
+		]);
+		assert.strictEqual(c.view.selectElement.children[0].textContent, 'hello');
+		assert.strictEqual(
+			c.view.selectElement.children[0].getAttribute('value'),
+			'11',
+		);
+		assert.strictEqual(c.view.selectElement.children[1].textContent, 'world');
+		assert.strictEqual(
+			c.view.selectElement.children[1].getAttribute('value'),
+			'22',
+		);
 	});
 });

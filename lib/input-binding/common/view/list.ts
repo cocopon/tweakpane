@@ -1,14 +1,27 @@
 import {ListItem} from '../../../common/constraint/list';
-import {createSvgIconElement} from '../../../common/dom-util';
+import {Formatter} from '../../../common/converter/formatter';
+import {
+	createSvgIconElement,
+	removeChildElements,
+} from '../../../common/dom-util';
 import {Value} from '../../../common/model/value';
+import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
-import {bindClassModifier, bindDisabled} from '../../../common/view/reactive';
+import {
+	bindClassModifier,
+	bindDisabled,
+	bindValueMap,
+} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 
-interface Config<T> {
+export type ListProps<T> = ValueMap<{
 	options: ListItem<T>[];
-	stringifyValue: (value: T) => string;
+}>;
+
+interface Config<T> {
+	props: ListProps<T>;
+	stringifyValue: Formatter<T>;
 	value: Value<T>;
 	viewProps: ViewProps;
 }
@@ -21,12 +34,14 @@ const className = ClassName('lst');
 export class ListView<T> implements View {
 	public readonly selectElement: HTMLSelectElement;
 	public readonly element: HTMLElement;
+	private readonly stringifyValue_: Formatter<T>;
 	private readonly value_: Value<T>;
-	private stringifyValue_: (value: T) => string;
+	private props_: ListProps<T>;
 
 	constructor(doc: Document, config: Config<T>) {
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
+		this.props_ = config.props;
 		this.stringifyValue_ = config.stringifyValue;
 
 		this.element = doc.createElement('div');
@@ -35,12 +50,16 @@ export class ListView<T> implements View {
 
 		const selectElem = doc.createElement('select');
 		selectElem.classList.add(className('s'));
-		config.options.forEach((item, index) => {
-			const optionElem = doc.createElement('option');
-			optionElem.dataset.index = String(index);
-			optionElem.textContent = item.text;
-			optionElem.value = this.stringifyValue_(item.value);
-			selectElem.appendChild(optionElem);
+		bindValueMap(this.props_, 'options', (opts) => {
+			removeChildElements(selectElem);
+
+			opts.forEach((item, index) => {
+				const optionElem = doc.createElement('option');
+				optionElem.dataset.index = String(index);
+				optionElem.textContent = item.text;
+				optionElem.value = this.stringifyValue_(item.value);
+				selectElem.appendChild(optionElem);
+			});
 		});
 		bindDisabled(config.viewProps, selectElem);
 		this.element.appendChild(selectElem);

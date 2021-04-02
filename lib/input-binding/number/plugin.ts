@@ -116,7 +116,9 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 
 		if (c && findConstraint(c, ListConstraint)) {
 			return new ListController(args.document, {
-				listItems: findListItems(c) ?? [],
+				props: new ValueMap({
+					options: findListItems(c) ?? [],
+				}),
 				stringifyValue: numberToString,
 				value: value,
 				viewProps: args.viewProps,
