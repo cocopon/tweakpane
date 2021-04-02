@@ -187,7 +187,10 @@
 				border-bottom-right-radius: var(--bs-br);
 			}
 		}
-		& > .#{$prefix}-fldv.#{$prefix}-v-last .#{$prefix}-fldv_c > .#{$prefix}-fldv.#{$prefix}-v-last:not(.#{$prefix}-fldv-expanded) {
+		&
+			> .#{$prefix}-fldv.#{$prefix}-v-last
+			.#{$prefix}-fldv_c
+			> .#{$prefix}-fldv.#{$prefix}-v-last:not(.#{$prefix}-fldv-expanded) {
 			& > .#{$prefix}-fldv_t {
 				border-bottom-right-radius: var(--bs-br);
 			}
