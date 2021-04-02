@@ -5,9 +5,9 @@
 	&_b {
 		@extend %button;
 
-		height: var(--unit-size);
+		height: var(--bld-h);
 		position: relative;
-		width: var(--unit-size);
+		width: var(--bld-h);
 
 		svg {
 			display: block;
@@ -29,10 +29,10 @@
 		}
 	}
 	&_p {
-		left: -4px;
+		left: calc(-1 * var(--cnt-p));
 		position: absolute;
-		right: -4px;
-		top: var(--unit-size);
+		right: calc(-1 * var(--cnt-p));
+		top: var(--bld-h);
 	}
 	&_t {
 		margin-left: 4px;

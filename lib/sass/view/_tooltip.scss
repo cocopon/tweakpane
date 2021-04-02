@@ -1,6 +1,6 @@
 .#{$prefix}-ttv {
 	background-color: var(--in-fg);
-	border-radius: $inner-border-radius;
+	border-radius: var(--elm-br);
 	color: var(--bs-bg);
 	padding: 2px 4px;
 	pointer-events: none;

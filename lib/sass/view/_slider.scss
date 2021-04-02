@@ -6,7 +6,7 @@
 	&_t {
 		box-sizing: border-box;
 		cursor: pointer;
-		height: var(--unit-size);
+		height: var(--bld-h);
 		margin: 0 ($slider-knob-size / 2);
 		outline: none;
 		position: relative;
@@ -47,7 +47,7 @@
 		}
 		&::after {
 			background-color: var(--btn-bg);
-			border-radius: $inner-border-radius;
+			border-radius: var(--elm-br);
 			bottom: 0;
 			content: '';
 			display: block;

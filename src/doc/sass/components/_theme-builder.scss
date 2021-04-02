@@ -22,7 +22,7 @@
 			box-shadow: 0 0 0 transparent;
 
 			@include nonwide() {
-				--tp-value-width: 60vw;
+				--tp-value-width-v3: 60vw;
 			}
 		}
 	}
@@ -39,10 +39,10 @@
 			position: relative;
 		}
 		.tp-clswtxtv {
-			height: calc(var(--unit-size) + 168px) !important;
+			height: calc(var(--bld-h) + 168px) !important;
 		}
 		.tp-p2dpadtxtv {
-			height: calc(var(--unit-size) + 144px) !important;
+			height: calc(var(--bld-h) + 144px) !important;
 		}
 		.tp-clpv,
 		.tp-p2dpadv {

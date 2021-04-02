@@ -13,12 +13,12 @@
 	}
 	&_w {
 		background-color: var(--in-bg);
-		border-radius: $inner-border-radius;
+		border-radius: var(--elm-br);
 		cursor: pointer;
 		display: block;
-		height: var(--unit-size);
+		height: var(--bld-h);
 		position: relative;
-		width: var(--unit-size);
+		width: var(--bld-h);
 
 		svg {
 			bottom: 0;
