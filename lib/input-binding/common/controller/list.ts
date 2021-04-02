@@ -1,13 +1,11 @@
-import {ListItem} from '../../../common/constraint/list';
 import {ValueController} from '../../../common/controller/value';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {forceCast} from '../../../misc/type-util';
-import {ListView} from '../view/list';
+import {ListProps, ListView} from '../view/list';
 
 interface Config<T> {
-	listItems: ListItem<T>[];
-	stringifyValue: (value: T) => string;
+	props: ListProps<T>;
 	value: Value<T>;
 	viewProps: ViewProps;
 }
@@ -18,19 +16,18 @@ interface Config<T> {
 export class ListController<T> implements ValueController<T> {
 	public readonly value: Value<T>;
 	public readonly view: ListView<T>;
+	public readonly props: ListProps<T>;
 	public readonly viewProps: ViewProps;
-	private listItems_: ListItem<T>[];
 
 	constructor(doc: Document, config: Config<T>) {
 		this.onSelectChange_ = this.onSelectChange_.bind(this);
 
+		this.props = config.props;
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 
-		this.listItems_ = config.listItems;
 		this.view = new ListView(doc, {
-			options: this.listItems_,
-			stringifyValue: config.stringifyValue,
+			props: this.props,
 			value: this.value,
 			viewProps: this.viewProps,
 		});
@@ -45,6 +42,6 @@ export class ListController<T> implements ValueController<T> {
 		}
 
 		const itemIndex = Number(optElem.dataset.index);
-		this.value.rawValue = this.listItems_[itemIndex].value;
+		this.value.rawValue = this.props.get('options')[itemIndex].value;
 	}
 }

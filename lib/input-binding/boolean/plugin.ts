@@ -5,8 +5,8 @@ import {
 } from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
 import {ListConstraint} from '../../common/constraint/list';
-import {boolToString} from '../../common/converter/boolean';
 import {boolFromUnknown} from '../../common/converter/boolean';
+import {ValueMap} from '../../common/model/value-map';
 import {writePrimitive} from '../../common/primitive';
 import {createListConstraint, findListItems} from '../../common/util';
 import {ListController} from '../common/controller/list';
@@ -16,7 +16,7 @@ import {CheckboxController} from './controller';
 function createConstraint(params: InputParams): Constraint<boolean> {
 	const constraints: Constraint<boolean>[] = [];
 
-	const lc = createListConstraint(params, boolFromUnknown);
+	const lc = createListConstraint<boolean>(params);
 	if (lc) {
 		constraints.push(lc);
 	}
@@ -42,8 +42,9 @@ export const BooleanInputPlugin: InputBindingPlugin<boolean, boolean> = {
 
 		if (c && findConstraint(c, ListConstraint)) {
 			return new ListController(doc, {
-				listItems: findListItems(c) ?? [],
-				stringifyValue: boolToString,
+				props: new ValueMap({
+					options: findListItems(c) ?? [],
+				}),
 				value: value,
 				viewProps: args.viewProps,
 			});

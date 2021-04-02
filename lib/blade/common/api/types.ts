@@ -9,14 +9,8 @@ interface LabelableParams {
 	label?: string;
 }
 
-export interface InputParamsOption<T> {
-	text: string;
-	value: T;
-}
-
-export interface InputParamsOptionDictionary<T> {
-	[key: string]: T;
-}
+export type ArrayStyleListOptions<T> = {text: string; value: T}[];
+export type ObjectStyleListOptions<T> = {[text: string]: T};
 
 export interface PointDimensionParams {
 	max?: number;
@@ -35,7 +29,7 @@ export interface BaseInputParams extends BaseParams, LabelableParams {
 }
 
 export interface BooleanInputParams extends BaseInputParams {
-	options?: InputParamsOption<unknown>[] | InputParamsOptionDictionary<unknown>;
+	options?: ArrayStyleListOptions<boolean> | ObjectStyleListOptions<boolean>;
 }
 
 type NumberInputType = 'color' | 'color.rgb' | 'color.rgba';
@@ -45,7 +39,7 @@ export interface NumberInputParams extends BaseInputParams {
 	input?: NumberInputType;
 	max?: number;
 	min?: number;
-	options?: InputParamsOption<unknown>[] | InputParamsOptionDictionary<unknown>;
+	options?: ArrayStyleListOptions<number> | ObjectStyleListOptions<number>;
 	step?: number;
 }
 
@@ -71,7 +65,7 @@ export type StringInputType = 'string';
 
 export interface StringInputParams extends BaseInputParams {
 	input?: StringInputType;
-	options?: InputParamsOption<unknown>[] | InputParamsOptionDictionary<unknown>;
+	options?: ArrayStyleListOptions<string> | ObjectStyleListOptions<string>;
 }
 
 export type InputParams =

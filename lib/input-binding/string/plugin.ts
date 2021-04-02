@@ -16,7 +16,7 @@ import {InputBindingPlugin} from '../plugin';
 function createConstraint(params: InputParams): Constraint<string> {
 	const constraints: Constraint<string>[] = [];
 
-	const lc = createListConstraint(params, stringFromUnknown);
+	const lc = createListConstraint<string>(params);
 	if (lc) {
 		constraints.push(lc);
 	}
@@ -42,8 +42,9 @@ export const StringInputPlugin: InputBindingPlugin<string, string> = {
 
 		if (c && findConstraint(c, ListConstraint)) {
 			return new ListController(doc, {
-				listItems: findListItems(c) ?? [],
-				stringifyValue: (v) => v,
+				props: new ValueMap({
+					options: findListItems(c) ?? [],
+				}),
 				value: value,
 				viewProps: args.viewProps,
 			});
