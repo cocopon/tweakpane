@@ -3,6 +3,7 @@ import {createTheme, ThemeId} from 'ts/themes';
 import Tweakpane from 'tweakpane';
 import {ButtonBladeParams} from 'tweakpane/blade/button/plugin';
 import {FolderBladeParams} from 'tweakpane/blade/folder/plugin';
+import {ListBladeParams} from 'tweakpane/blade/list/plugin';
 import {SeparatorBladeParams} from 'tweakpane/blade/separator/plugin';
 import {TextBladeParams} from 'tweakpane/blade/text/plugin';
 
@@ -292,6 +293,13 @@ export function initCatalog() {
 					value: 'text',
 					view: 'text',
 				} as TextBladeParams<string>,
+				{
+					disabled: disabled,
+					label: 'label',
+					options: {option: 0},
+					value: 0,
+					view: 'list',
+				} as ListBladeParams<number>,
 			].forEach((params) => {
 				pane.addBlade_v3_(params);
 			});

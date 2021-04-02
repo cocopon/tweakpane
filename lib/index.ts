@@ -2,6 +2,7 @@ import {getAllPlugins} from './blade/common/api/plugins';
 import {registerPlugin} from './blade/common/api/util';
 import {Blade} from './blade/common/model/blade';
 import {RootController} from './blade/folder/root';
+import {ListBladePlugin} from './blade/list/plugin';
 import {BladePlugin} from './blade/plugin';
 import {RootApi} from './blade/root/api/root';
 import {TextBladePlugin} from './blade/text/plugin';
@@ -136,7 +137,7 @@ function registerDefaultPlugins() {
 		},
 	);
 
-	[TextBladePlugin].forEach((p: BladePlugin<any>) => {
+	[ListBladePlugin, TextBladePlugin].forEach((p: BladePlugin<any>) => {
 		registerPlugin({
 			type: 'blade',
 			plugin: p,

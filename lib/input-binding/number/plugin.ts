@@ -9,7 +9,6 @@ import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
 import {
 	createNumberFormatter,
-	numberToString,
 	parseNumber,
 } from '../../common/converter/number';
 import {numberFromUnknown} from '../../common/converter/number';
@@ -73,7 +72,7 @@ function createConstraint(params: InputParams): Constraint<number> {
 	if (rc) {
 		constraints.push(rc);
 	}
-	const lc = createListConstraint(params, numberFromUnknown);
+	const lc = createListConstraint<number>(params);
 	if (lc) {
 		constraints.push(lc);
 	}
@@ -119,7 +118,6 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 				props: new ValueMap({
 					options: findListItems(c) ?? [],
 				}),
-				stringifyValue: numberToString,
 				value: value,
 				viewProps: args.viewProps,
 			});

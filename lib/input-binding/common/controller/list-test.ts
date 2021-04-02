@@ -2,7 +2,6 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {ListConstraint} from '../../../common/constraint/list';
-import {numberToString} from '../../../common/converter/number';
 import {BoundValue} from '../../../common/model/bound-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
@@ -24,7 +23,6 @@ describe(ListController.name, () => {
 			props: new ValueMap({
 				options: findListItems(value.constraint) ?? [],
 			}),
-			stringifyValue: numberToString,
 			value: value,
 			viewProps: createViewProps(),
 		});
@@ -46,7 +44,6 @@ describe(ListController.name, () => {
 			props: new ValueMap({
 				options: findListItems(value.constraint) ?? [],
 			}),
-			stringifyValue: numberToString,
 			value: value,
 			viewProps: createViewProps(),
 		});
@@ -70,7 +67,6 @@ describe(ListController.name, () => {
 			props: new ValueMap({
 				options: findListItems(value.constraint) ?? [],
 			}),
-			stringifyValue: numberToString,
 			value: value,
 			viewProps: createViewProps(),
 		});

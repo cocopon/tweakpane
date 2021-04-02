@@ -5,7 +5,6 @@ import {forceCast} from '../../../misc/type-util';
 import {ListProps, ListView} from '../view/list';
 
 interface Config<T> {
-	stringifyValue: (value: T) => string;
 	props: ListProps<T>;
 	value: Value<T>;
 	viewProps: ViewProps;
@@ -29,7 +28,6 @@ export class ListController<T> implements ValueController<T> {
 
 		this.view = new ListView(doc, {
 			props: this.props,
-			stringifyValue: config.stringifyValue,
 			value: this.value,
 			viewProps: this.viewProps,
 		});

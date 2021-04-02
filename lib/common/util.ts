@@ -1,8 +1,9 @@
 import {
+	ArrayStyleListOptions,
 	InputParams,
-	InputParamsOption,
-	InputParamsOptionDictionary,
+	ObjectStyleListOptions,
 } from '../blade/common/api/types';
+import {forceCast} from '../misc/type-util';
 import {findConstraint} from './constraint/composite';
 import {Constraint} from './constraint/constraint';
 import {ListConstraint, ListItem} from './constraint/list';
@@ -11,43 +12,32 @@ import {ValueController} from './controller/value';
 import {createViewProps} from './model/view-props';
 import {getDecimalDigits} from './number-util';
 
-function normalizeInputParamsOptions<T>(
-	options: InputParamsOption<unknown>[] | InputParamsOptionDictionary<unknown>,
-	convert: (value: unknown) => T,
-): InputParamsOption<T>[] {
+export function normalizeListOptions<T>(
+	options: ArrayStyleListOptions<T> | ObjectStyleListOptions<T>,
+): ListItem<T>[] {
 	if (Array.isArray(options)) {
-		return options.map((item) => {
-			return {
-				text: item.text,
-				value: convert(item.value),
-			};
-		});
+		return options;
 	}
 
-	const textToValueMap = options;
-	const texts = Object.keys(textToValueMap);
-	return texts.reduce((result, text) => {
-		return result.concat({
-			text: text,
-			value: convert(textToValueMap[text]),
-		});
-	}, [] as InputParamsOption<T>[]);
+	const items: ListItem<T>[] = [];
+	Object.keys(options).forEach((text) => {
+		items.push({text: text, value: options[text]});
+	});
+	return items;
 }
 
 /**
  * Tries to create a list constraint.
  * @template T The type of the raw value.
  * @param params The input parameters object.
- * @param convert The converter that converts unknown value into T.
  * @return A constraint or null if not found.
  */
 export function createListConstraint<T>(
 	params: InputParams,
-	convert: (value: unknown) => T,
 ): ListConstraint<T> | null {
 	if ('options' in params && params.options !== undefined) {
 		return new ListConstraint(
-			normalizeInputParamsOptions(params.options, convert),
+			normalizeListOptions<T>(forceCast(params.options)),
 		);
 	}
 	return null;

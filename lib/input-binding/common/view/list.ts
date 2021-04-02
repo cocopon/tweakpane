@@ -1,5 +1,4 @@
 import {ListItem} from '../../../common/constraint/list';
-import {Formatter} from '../../../common/converter/formatter';
 import {
 	createSvgIconElement,
 	removeChildElements,
@@ -21,7 +20,6 @@ export type ListProps<T> = ValueMap<{
 
 interface Config<T> {
 	props: ListProps<T>;
-	stringifyValue: Formatter<T>;
 	value: Value<T>;
 	viewProps: ViewProps;
 }
@@ -34,7 +32,6 @@ const className = ClassName('lst');
 export class ListView<T> implements View {
 	public readonly selectElement: HTMLSelectElement;
 	public readonly element: HTMLElement;
-	private readonly stringifyValue_: Formatter<T>;
 	private readonly value_: Value<T>;
 	private props_: ListProps<T>;
 
@@ -42,7 +39,6 @@ export class ListView<T> implements View {
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
 		this.props_ = config.props;
-		this.stringifyValue_ = config.stringifyValue;
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
@@ -57,7 +53,7 @@ export class ListView<T> implements View {
 				const optionElem = doc.createElement('option');
 				optionElem.dataset.index = String(index);
 				optionElem.textContent = item.text;
-				optionElem.value = this.stringifyValue_(item.value);
+				optionElem.value = String(item.value);
 				selectElem.appendChild(optionElem);
 			});
 		});
@@ -77,7 +73,7 @@ export class ListView<T> implements View {
 	}
 
 	private update_(): void {
-		this.selectElement.value = this.stringifyValue_(this.value_.rawValue);
+		this.selectElement.value = String(this.value_.rawValue);
 	}
 
 	private onValueChange_(): void {
