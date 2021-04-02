@@ -6,7 +6,8 @@ export type ThemeId =
 	| 'jetblack'
 	| 'light'
 	| 'retro'
-	| 'translucent';
+	| 'translucent'
+	| 'vivid';
 
 const ID_TO_THEME_MAP: {[id in ThemeId]: () => Theme} = {
 	default: () => ({
@@ -109,17 +110,17 @@ const ID_TO_THEME_MAP: {[id in ThemeId]: () => Theme} = {
 		'button-background-color-focus': 'hsla(40, 3%, 60%, 1)',
 		'button-background-color-hover': 'hsla(40, 3%, 65%, 1)',
 		'button-foreground-color': 'hsla(40, 3%, 20%, 1)',
-		'folder-background-color': 'hsla(40, 3%, 40%, 1)',
-		'folder-background-color-active': 'hsla(34, 3%, 55%, 1)',
-		'folder-background-color-focus': 'hsla(43, 3%, 50%, 1)',
-		'folder-background-color-hover': 'hsla(43, 3%, 45%, 1)',
-		'folder-foreground-color': 'hsla(40, 3%, 70%, 1)',
+		'folder-background-color': 'hsla(40, 3%, 70%, 1)',
+		'folder-background-color-active': 'hsla(40, 3%, 55%, 1)',
+		'folder-background-color-focus': 'hsla(40, 3%, 60%, 1)',
+		'folder-background-color-hover': 'hsla(40, 3%, 65%, 1)',
+		'folder-foreground-color': 'hsla(40, 3%, 20%, 1)',
 		'input-background-color': 'hsla(120, 3%, 20%, 1)',
 		'input-background-color-active': 'hsla(120, 3%, 35%, 1)',
 		'input-background-color-focus': 'hsla(120, 3%, 30%, 1)',
 		'input-background-color-hover': 'hsla(120, 3%, 25%, 1)',
 		'input-foreground-color': 'hsla(120, 40%, 60%, 1)',
-		'monitor-background-color': 'hsla(120, 3%, 20%, 0.8)',
+		'monitor-background-color': 'hsla(120, 3%, 20%, 1)',
 		'monitor-foreground-color': 'hsla(120, 40%, 60%, 0.8)',
 		'label-foreground-color': 'hsla(40, 3%, 50%, 1)',
 		'separator-color': 'hsla(40, 3%, 40%, 1)',
@@ -146,6 +147,29 @@ const ID_TO_THEME_MAP: {[id in ThemeId]: () => Theme} = {
 		'monitor-foreground-color': 'hsla(0, 0%, 100%, 0.3)',
 		'label-foreground-color': 'hsla(0, 0%, 100%, 0.5)',
 		'separator-color': 'hsla(0, 0%, 0%, 0.2)',
+	}),
+	vivid: () => ({
+		'base-background-color': 'hsla(0, 80%, 40%, 1)',
+		'base-shadow-color': 'hsla(0, 0%, 0%, 0.2)',
+		'button-background-color': 'hsla(0, 0%, 100%, 1)',
+		'button-background-color-active': 'hsla(0, 0%, 85%, 1)',
+		'button-background-color-focus': 'hsla(0, 0%, 90%, 1)',
+		'button-background-color-hover': 'hsla(0, 0%, 95%, 1)',
+		'button-foreground-color': 'hsla(230, 20%, 11%, 1)',
+		'folder-background-color': 'hsla(0, 0%, 0%, 0.2)',
+		'folder-background-color-active': 'hsla(0, 0%, 0%, 0.35)',
+		'folder-background-color-focus': 'hsla(0, 0%, 0%, 0.3)',
+		'folder-background-color-hover': 'hsla(0, 0%, 0%, 0.25)',
+		'folder-foreground-color': 'hsla(0, 0%, 100%, 0.9)',
+		'input-background-color': 'hsla(0, 0%, 0%, 0.5)',
+		'input-background-color-active': 'hsla(0, 0%, 0%, 0.65)',
+		'input-background-color-focus': 'hsla(0, 0%, 0%, 0.60)',
+		'input-background-color-hover': 'hsla(0, 0%, 0%, 0.55)',
+		'input-foreground-color': 'hsla(0, 0%, 100%, 0.9)',
+		'monitor-background-color': 'hsla(0, 0%, 0%, 0.5)',
+		'monitor-foreground-color': 'hsla(0, 0%, 100%, 0.5)',
+		'label-foreground-color': 'hsla(0, 0%, 100%, 0.9)',
+		'separator-color': 'hsla(0, 0%, 0%, 0.5)',
 	}),
 };
 
