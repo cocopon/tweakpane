@@ -1,16 +1,13 @@
-import {ValueController} from '../../../common/controller/value';
-import {Formatter} from '../../../common/converter/formatter';
-import {Parser} from '../../../common/converter/parser';
-import {BoundValue} from '../../../common/model/bound-value';
-import {Value} from '../../../common/model/value';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {getStepForKey, getVerticalStepKeys} from '../../../common/ui';
-import {
-	PointerHandler,
-	PointerHandlerEvent,
-} from '../../../common/view/pointer-handler';
 import {forceCast, isEmpty} from '../../../misc/type-util';
+import {ValueController} from '../../controller/value';
+import {Formatter} from '../../converter/formatter';
+import {Parser} from '../../converter/parser';
+import {BoundValue} from '../../model/bound-value';
+import {Value} from '../../model/value';
+import {ValueMap} from '../../model/value-map';
+import {ViewProps} from '../../model/view-props';
+import {getStepForKey, getVerticalStepKeys} from '../../ui';
+import {PointerHandler, PointerHandlerEvent} from '../../view/pointer-handler';
 import {NumberTextView} from '../view/number-text';
 
 interface Config {

@@ -10,7 +10,7 @@ import {Foldable} from '../../../common/model/foldable';
 import {Value} from '../../../common/model/value';
 import {connectValues} from '../../../common/model/value-sync';
 import {ViewProps} from '../../../common/model/view-props';
-import {NumberTextController} from '../../number/controller/number-text';
+import {NumberTextController} from '../../../common/number/controller/number-text';
 import {Color} from '../model/color';
 import {PickedColor} from '../model/picked-color';
 import {ColorPickerView} from '../view/color-picker';

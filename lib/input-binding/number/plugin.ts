@@ -14,6 +14,8 @@ import {
 } from '../../common/converter/number';
 import {numberFromUnknown} from '../../common/converter/number';
 import {ValueMap} from '../../common/model/value-map';
+import {NumberTextController} from '../../common/number/controller/number-text';
+import {SliderTextController} from '../../common/number/controller/slider-text';
 import {writePrimitive} from '../../common/primitive';
 import {
 	createListConstraint,
@@ -24,8 +26,6 @@ import {
 } from '../../common/util';
 import {isEmpty} from '../../misc/type-util';
 import {InputBindingPlugin} from '../plugin';
-import {NumberTextController} from './controller/number-text';
-import {SliderTextController} from './controller/slider-text';
 
 /**
  * Tries to create a step constraint.

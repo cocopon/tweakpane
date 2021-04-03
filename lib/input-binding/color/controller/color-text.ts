@@ -7,7 +7,7 @@ import {BoundValue} from '../../../common/model/bound-value';
 import {Value} from '../../../common/model/value';
 import {connectValues} from '../../../common/model/value-sync';
 import {ViewProps} from '../../../common/model/view-props';
-import {NumberTextController} from '../../number/controller/number-text';
+import {NumberTextController} from '../../../common/number/controller/number-text';
 import {Color} from '../model/color';
 import {
 	appendAlphaComponent,

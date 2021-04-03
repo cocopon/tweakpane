@@ -1,13 +1,10 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {
-	createNumberFormatter,
-	parseNumber,
-} from '../../../common/converter/number';
-import {BoundValue} from '../../../common/model/bound-value';
-import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
+import {createNumberFormatter, parseNumber} from '../../converter/number';
+import {BoundValue} from '../../model/bound-value';
+import {createViewProps} from '../../model/view-props';
 import {NumberTextController} from './number-text';
 
 describe(NumberTextController.name, () => {

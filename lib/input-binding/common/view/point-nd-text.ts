@@ -1,6 +1,6 @@
+import {NumberTextView} from '../../../common/number/view/number-text';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
-import {NumberTextView} from '../../number/view/number-text';
 
 interface Config {
 	textViews: NumberTextView[];

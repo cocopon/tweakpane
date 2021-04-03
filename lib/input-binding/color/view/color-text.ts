@@ -2,9 +2,9 @@ import {
 	createSvgIconElement,
 	removeChildElements,
 } from '../../../common/dom-util';
+import {NumberTextView} from '../../../common/number/view/number-text';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
-import {NumberTextView} from '../../number/view/number-text';
 import {PickedColor} from '../model/picked-color';
 
 interface Config {
