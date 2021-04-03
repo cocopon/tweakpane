@@ -125,6 +125,7 @@ export function createPane(container: HTMLElement, theme: Theme): any {
 				Light: 'light',
 				Retro: 'retro',
 				Translucent: 'translucent',
+				Vivid: 'vivid',
 			},
 		})
 		.on('change', (ev) => {
