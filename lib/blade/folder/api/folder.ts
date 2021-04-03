@@ -4,6 +4,12 @@ import {forceCast} from '../../../misc/type-util';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
 import {createBladeApi} from '../../common/api/blade-apis';
+import {
+	addButtonAsBlade,
+	addFolderAsBlade,
+	addSeparatorAsBlade,
+	BladeContainerApi,
+} from '../../common/api/blade-container';
 import {InputBindingApi} from '../../common/api/input-binding';
 import {createInputBindingController} from '../../common/api/input-binding-controllers';
 import {MonitorBindingApi} from '../../common/api/monitor-binding';
@@ -28,24 +34,24 @@ import {SeparatorApi} from '../../separator/api/separator';
 import {FolderController} from '../controller/folder';
 import {FolderEvents} from '../model/folder';
 
-export interface FolderApiEvents<Ex> {
+interface FolderApiEvents {
 	change: {
-		event: TpChangeEvent<Ex>;
+		event: TpChangeEvent<unknown>;
 	};
 	fold: {
 		event: TpFoldEvent;
 	};
 	update: {
-		event: TpUpdateEvent<Ex>;
+		event: TpUpdateEvent<unknown>;
 	};
 }
 
-export class FolderApi implements BladeApi {
+export class FolderApi implements BladeContainerApi {
 	/**
 	 * @hidden
 	 */
 	public readonly controller_: FolderController;
-	private readonly emitter_: Emitter<FolderApiEvents<unknown>>;
+	private readonly emitter_: Emitter<FolderApiEvents>;
 	private apiSet_: NestedOrderedSet<BladeApi>;
 
 	/**
@@ -130,25 +136,15 @@ export class FolderApi implements BladeApi {
 	}
 
 	public addFolder(params: FolderParams): FolderApi {
-		return this.addBlade_v3_({
-			...params,
-			view: 'folder',
-		}) as FolderApi;
+		return addFolderAsBlade(this, params);
 	}
 
 	public addButton(params: ButtonParams): ButtonApi {
-		return this.addBlade_v3_({
-			...params,
-			view: 'button',
-		}) as ButtonApi;
+		return addButtonAsBlade(this, params);
 	}
 
 	public addSeparator(opt_params?: SeparatorParams): SeparatorApi {
-		const params = opt_params || {};
-		return this.addBlade_v3_({
-			...params,
-			view: 'separator',
-		});
+		return addSeparatorAsBlade(this, opt_params);
 	}
 
 	/**
@@ -167,9 +163,9 @@ export class FolderApi implements BladeApi {
 	 * @param eventName The event name to listen.
 	 * @return The API object itself.
 	 */
-	public on<EventName extends keyof FolderApiEvents<unknown>>(
+	public on<EventName extends keyof FolderApiEvents>(
 		eventName: EventName,
-		handler: (ev: FolderApiEvents<unknown>[EventName]['event']) => void,
+		handler: (ev: FolderApiEvents[EventName]['event']) => void,
 	): FolderApi {
 		const bh = handler.bind(this);
 		this.emitter_.on(eventName, (ev) => {
