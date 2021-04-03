@@ -2,10 +2,10 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {ListItem} from '../../../common/constraint/list';
+import {ListController} from '../../../common/controller/list';
 import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
-import {ListController} from '../../../input-binding/common/controller/list';
 import {TestUtil} from '../../../misc/test-util';
 import {Blade} from '../../common/model/blade';
 import {LabeledController} from '../../labeled/controller';

@@ -7,6 +7,7 @@ import {Constraint} from '../../common/constraint/constraint';
 import {ListConstraint} from '../../common/constraint/list';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
+import {ListController} from '../../common/controller/list';
 import {
 	createNumberFormatter,
 	parseNumber,
@@ -22,7 +23,6 @@ import {
 	getSuitableDraggingScale,
 } from '../../common/util';
 import {isEmpty} from '../../misc/type-util';
-import {ListController} from '../common/controller/list';
 import {InputBindingPlugin} from '../plugin';
 import {NumberTextController} from './controller/number-text';
 import {SliderTextController} from './controller/slider-text';

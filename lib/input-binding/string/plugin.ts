@@ -5,12 +5,12 @@ import {
 } from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
 import {ListConstraint} from '../../common/constraint/list';
+import {ListController} from '../../common/controller/list';
+import {TextController} from '../../common/controller/text';
 import {formatString, stringFromUnknown} from '../../common/converter/string';
 import {ValueMap} from '../../common/model/value-map';
 import {writePrimitive} from '../../common/primitive';
 import {createListConstraint, findListItems} from '../../common/util';
-import {ListController} from '../common/controller/list';
-import {TextController} from '../common/controller/text';
 import {InputBindingPlugin} from '../plugin';
 
 function createConstraint(params: InputParams): Constraint<string> {

@@ -1,10 +1,10 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
+import {TextController} from '../../../common/controller/text';
 import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
-import {TextController} from '../../../input-binding/common/controller/text';
 import {TestUtil} from '../../../misc/test-util';
 import {Blade} from '../../common/model/blade';
 import {LabeledController} from '../../labeled/controller';

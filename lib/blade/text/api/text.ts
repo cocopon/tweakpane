@@ -1,15 +1,13 @@
+import {TextController} from '../../../common/controller/text';
 import {Formatter} from '../../../common/converter/formatter';
 import {Emitter} from '../../../common/model/emitter';
-import {TextController} from '../../../input-binding/common/controller/text';
 import {BladeApi, LabelableApi} from '../../common/api/blade';
 import {TpChangeEvent} from '../../common/api/tp-event';
 import {ApiChangeEvents} from '../../common/api/types';
 import {LabeledController} from '../../labeled/controller';
 
-export type TextApiEvents<T> = ApiChangeEvents<T>;
-
 export class TextBladeApi<T> implements BladeApi, LabelableApi {
-	private readonly emitter_: Emitter<TextApiEvents<T>> = new Emitter();
+	private readonly emitter_: Emitter<ApiChangeEvents<T>> = new Emitter();
 
 	constructor(
 		public readonly controller_: LabeledController<TextController<T>>,
@@ -65,9 +63,9 @@ export class TextBladeApi<T> implements BladeApi, LabelableApi {
 		this.controller_.blade.dispose();
 	}
 
-	public on<EventName extends keyof TextApiEvents<T>>(
+	public on<EventName extends keyof ApiChangeEvents<T>>(
 		eventName: EventName,
-		handler: (ev: TextApiEvents<T>[EventName]['event']) => void,
+		handler: (ev: ApiChangeEvents<T>[EventName]['event']) => void,
 	): this {
 		const bh = handler.bind(this);
 		this.emitter_.on(eventName, (ev) => {

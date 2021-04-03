@@ -1,3 +1,4 @@
+import {ListController} from '../../common/controller/list';
 import {PrimitiveValue} from '../../common/model/primitive-value';
 import {ValueMap} from '../../common/model/value-map';
 import {
@@ -6,7 +7,6 @@ import {
 	findStringParam,
 } from '../../common/params';
 import {normalizeListOptions} from '../../common/util';
-import {ListController} from '../../input-binding/common/controller/list';
 import {forceCast, isEmpty} from '../../misc/type-util';
 import {
 	ArrayStyleListOptions,

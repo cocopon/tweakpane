@@ -1,3 +1,4 @@
+import {TextController} from '../../common/controller/text';
 import {Formatter} from '../../common/converter/formatter';
 import {Parser} from '../../common/converter/parser';
 import {PrimitiveValue} from '../../common/model/primitive-value';
@@ -7,7 +8,6 @@ import {
 	findFunctionParam,
 	findStringParam,
 } from '../../common/params';
-import {TextController} from '../../input-binding/common/controller/text';
 import {forceCast} from '../../misc/type-util';
 import {BladeParams} from '../common/api/types';
 import {LabeledController} from '../labeled/controller';

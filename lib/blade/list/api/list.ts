@@ -1,6 +1,6 @@
 import {ListItem} from '../../../common/constraint/list';
+import {ListController} from '../../../common/controller/list';
 import {Emitter} from '../../../common/model/emitter';
-import {ListController} from '../../../input-binding/common/controller/list';
 import {BladeApi, LabelableApi} from '../../common/api/blade';
 import {TpChangeEvent} from '../../common/api/tp-event';
 import {ApiChangeEvents} from '../../common/api/types';

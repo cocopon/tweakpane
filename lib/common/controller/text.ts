@@ -1,9 +1,9 @@
-import {ValueController} from '../../../common/controller/value';
-import {Parser} from '../../../common/converter/parser';
-import {Value} from '../../../common/model/value';
-import {ViewProps} from '../../../common/model/view-props';
-import {forceCast, isEmpty} from '../../../misc/type-util';
-import {TextProps, TextView} from '../view/text';
+import {TextProps, TextView} from '../../input-binding/common/view/text';
+import {forceCast, isEmpty} from '../../misc/type-util';
+import {Parser} from '../converter/parser';
+import {Value} from '../model/value';
+import {ViewProps} from '../model/view-props';
+import {ValueController} from './value';
 
 /**
  * @hidden
