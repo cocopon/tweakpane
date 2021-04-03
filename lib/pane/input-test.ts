@@ -5,8 +5,17 @@ import {InputBindingApi} from '../blade/common/api/input-binding';
 import {TpChangeEvent} from '../blade/common/api/tp-event';
 import {TpError} from '../common/tp-error';
 import Tweakpane from '../index';
+import {CheckboxController} from '../input-binding/boolean/controller';
+import {ColorSwatchTextController} from '../input-binding/color/controller/color-swatch-text';
 import {Color} from '../input-binding/color/model/color';
+import {ListController} from '../input-binding/common/controller/list';
+import {PointNdTextController} from '../input-binding/common/controller/point-nd-text';
+import {TextController} from '../input-binding/common/controller/text';
+import {NumberTextController} from '../input-binding/number/controller/number-text';
+import {SliderTextController} from '../input-binding/number/controller/slider-text';
+import {Point2dPadTextController} from '../input-binding/point-2d/controller/point-2d-pad-text';
 import {TestUtil} from '../misc/test-util';
+import {forceCast} from '../misc/type-util';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({
@@ -177,5 +186,182 @@ describe(Tweakpane.name, () => {
 		bapi.disabled = true;
 		assert.strictEqual(bapi.disabled, true);
 		assert.strictEqual(bapi.controller_.viewProps.get('disabled'), true);
+	});
+
+	[
+		// Number
+		{
+			args: {
+				value: 3.14,
+				params: {},
+			},
+			expectedClass: NumberTextController,
+		},
+		{
+			args: {
+				value: 3.14,
+				params: {min: 0},
+			},
+			expectedClass: SliderTextController,
+		},
+		{
+			args: {
+				value: 3.14,
+				params: {max: 100},
+			},
+			expectedClass: SliderTextController,
+		},
+		{
+			args: {
+				value: 3.14,
+				params: {options: {bar: 1, foo: 0}},
+			},
+			expectedClass: ListController,
+		},
+		{
+			args: {
+				value: 3.14,
+				params: {
+					options: [
+						{text: 'foo', value: 0},
+						{text: 'bar', value: 1},
+					],
+				},
+			},
+			expectedClass: ListController,
+		},
+		// String
+		{
+			args: {
+				value: 'foobar',
+				params: {},
+			},
+			expectedClass: TextController,
+		},
+		{
+			args: {
+				value: 'foobar',
+				params: {
+					options: {baz: 'qux', foo: 'bar'},
+				},
+			},
+			expectedClass: ListController,
+		},
+		{
+			args: {
+				value: '#112233',
+				params: {input: 'string'},
+			},
+			expectedClass: TextController,
+		},
+		{
+			args: {
+				value: 'rgb(0, 100, 200)',
+				params: {input: 'string'},
+			},
+			expectedClass: TextController,
+		},
+		// Boolean
+		{
+			args: {
+				value: false,
+				params: {},
+			},
+			expectedClass: CheckboxController,
+		},
+		{
+			args: {
+				value: true,
+				params: {
+					options: {off: false, on: true},
+				},
+			},
+			expectedClass: ListController,
+		},
+		// Color
+		{
+			args: {
+				value: '#00ff00',
+				params: {},
+			},
+			expectedClass: ColorSwatchTextController,
+		},
+		{
+			args: {
+				value: 0x112233,
+				params: {
+					input: 'color',
+				},
+			},
+			expectedClass: ColorSwatchTextController,
+		},
+		{
+			args: {
+				value: 0x112233,
+				params: {
+					input: 'color.rgb',
+				},
+			},
+			expectedClass: ColorSwatchTextController,
+		},
+		{
+			args: {
+				value: 0x11223344,
+				params: {
+					input: 'color.rgba',
+				},
+			},
+			expectedClass: ColorSwatchTextController,
+		},
+		{
+			args: {
+				value: {r: 0, g: 127, b: 255},
+				params: {},
+			},
+			expectedClass: ColorSwatchTextController,
+		},
+		{
+			args: {
+				value: {r: 0, g: 127, b: 255, a: 0.5},
+				params: {},
+			},
+			expectedClass: ColorSwatchTextController,
+		},
+		// Point2d
+		{
+			args: {
+				value: {x: 12, y: 34},
+				params: {},
+			},
+			expectedClass: Point2dPadTextController,
+		},
+		// Point3d
+		{
+			args: {
+				value: {x: 12, y: 34, z: 56},
+				params: {},
+			},
+			expectedClass: PointNdTextController,
+		},
+		// Point4d
+		{
+			args: {
+				value: {x: 12, y: 34, z: 56, w: 78},
+				params: {},
+			},
+			expectedClass: PointNdTextController,
+		},
+	].forEach(({args, expectedClass}) => {
+		context(`when params = ${JSON.stringify(args.params)}`, () => {
+			it(`should return controller: ${expectedClass.name}`, () => {
+				const pane = createPane();
+				const obj = {foo: args.value};
+				const bapi = pane.addInput(obj, 'foo', forceCast(args.params));
+				assert.strictEqual(
+					bapi.controller_.valueController instanceof expectedClass,
+					true,
+				);
+			});
+		});
 	});
 });
