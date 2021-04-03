@@ -3,9 +3,13 @@ import {describe, it} from 'mocha';
 
 import Tweakpane from '..';
 import {TpUpdateEvent} from '../blade/common/api/tp-event';
+import {IntervalTicker} from '../common/binding/ticker/interval';
 import {ManualTicker} from '../common/binding/ticker/manual';
 import {TpError} from '../common/tp-error';
 import {TestUtil} from '../misc/test-util';
+import {MultiLogController} from '../monitor-binding/common/controller/multi-log';
+import {SingleLogMonitorController} from '../monitor-binding/common/controller/single-log';
+import {GraphLogController} from '../monitor-binding/number/controller/graph-log';
 
 function createPane(): Tweakpane {
 	return new Tweakpane({
@@ -148,5 +152,101 @@ describe(Tweakpane.name, () => {
 
 		PARAMS.foo = 2;
 		(bapi.controller_.binding.ticker as ManualTicker).tick();
+	});
+
+	it('should have right initial buffer', () => {
+		const pane = createPane();
+		const obj = {foo: 123};
+		const bapi = pane.addMonitor(obj, 'foo', {
+			bufferSize: 5,
+			interval: 0,
+		});
+
+		const v = bapi.controller_.binding.value;
+		assert.deepStrictEqual(v.rawValue, [
+			123,
+			undefined,
+			undefined,
+			undefined,
+			undefined,
+		]);
+	});
+
+	[
+		// Number
+		{
+			args: {
+				value: 123,
+				params: {},
+			},
+			expectedClass: SingleLogMonitorController,
+		},
+		{
+			args: {
+				value: 123,
+				params: {
+					bufferSize: 10,
+				},
+			},
+			expectedClass: MultiLogController,
+		},
+		{
+			args: {
+				value: 123,
+				params: {
+					view: 'graph',
+				},
+			},
+			expectedClass: GraphLogController,
+		},
+		// String
+		{
+			args: {
+				value: 'foobar',
+				params: {},
+			},
+			expectedClass: SingleLogMonitorController,
+		},
+		{
+			args: {
+				value: 'foobar',
+				params: {
+					bufferSize: 10,
+				},
+			},
+			expectedClass: MultiLogController,
+		},
+		// Boolean
+		{
+			args: {
+				value: true,
+				params: {},
+			},
+			expectedClass: SingleLogMonitorController,
+		},
+		{
+			args: {
+				value: true,
+				params: {
+					bufferSize: 10,
+				},
+			},
+			expectedClass: MultiLogController,
+		},
+	].forEach((testCase) => {
+		context(`when ${JSON.stringify(testCase.args)}`, () => {
+			it(`should return controller: ${testCase.expectedClass.name}`, () => {
+				const pane = createPane();
+				const obj = {foo: testCase.args.value};
+				const bapi = pane.addMonitor(obj, 'foo', testCase.args.params);
+				assert.strictEqual(
+					bapi.controller_.valueController instanceof testCase.expectedClass,
+					true,
+				);
+
+				const b = bapi.controller_.binding;
+				(b.ticker as IntervalTicker).disposable.dispose();
+			});
+		});
 	});
 });

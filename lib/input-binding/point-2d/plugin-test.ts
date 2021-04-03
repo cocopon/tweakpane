@@ -1,10 +1,16 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
+import {BindingTarget} from '../../common/binding/target';
+import {findConstraint} from '../../common/constraint/composite';
 import {RangeConstraint} from '../../common/constraint/range';
+import {StepConstraint} from '../../common/constraint/step';
+import {BoundValue} from '../../common/model/bound-value';
+import {TestUtil} from '../../misc/test-util';
 import {PointNdConstraint} from '../common/constraint/point-nd';
+import {createController} from '../plugin';
 import {Point2d, Point2dAssembly} from './model/point-2d';
-import {getSuitableMaxValue} from './plugin';
+import {getSuitableMaxValue, Point2dInputPlugin} from './plugin';
 
 describe(getSuitableMaxValue.name, () => {
 	[
@@ -52,5 +58,68 @@ describe(getSuitableMaxValue.name, () => {
 				assert.strictEqual(mv, testCase.expected);
 			});
 		});
+	});
+});
+
+describe(Point2dInputPlugin.id, () => {
+	it('should create appropriate step constraint', () => {
+		const doc = TestUtil.createWindow().document;
+		const c = createController(Point2dInputPlugin, {
+			document: doc,
+			params: {
+				x: {step: 1},
+			},
+			target: new BindingTarget({foo: {x: 12, y: 34}}, 'foo'),
+		});
+
+		const constraint = (c?.binding.value as BoundValue<unknown>)
+			.constraint as PointNdConstraint<Point2d>;
+		const xc = constraint.components[0];
+		if (!xc) {
+			assert.fail('Unexpected constraint');
+		}
+		const sc = findConstraint(xc, StepConstraint);
+		assert.strictEqual(sc && sc.step, 1);
+	});
+
+	it('should create appropriate range constraint', () => {
+		const doc = TestUtil.createWindow().document;
+		const c = createController(Point2dInputPlugin, {
+			document: doc,
+			params: {
+				y: {max: 456, min: -123},
+			},
+			target: new BindingTarget({foo: {x: 12, y: 34}}, 'foo'),
+		});
+
+		const constraint = (c?.binding.value as BoundValue<unknown>)
+			.constraint as PointNdConstraint<Point2d>;
+		const yc = constraint.components[1];
+		if (!yc) {
+			assert.fail('Unexpected constraint');
+		}
+		const rc = findConstraint(yc, RangeConstraint);
+		assert.strictEqual(rc && rc.minValue, -123);
+		assert.strictEqual(rc && rc.maxValue, 456);
+	});
+
+	it('should not break original object', () => {
+		const doc = TestUtil.createWindow().document;
+		const p = {x: 12, y: 34, hello: 'world'};
+		const obj = {p: p};
+		const c = createController(Point2dInputPlugin, {
+			document: doc,
+			params: {
+				y: {max: 456, min: -123},
+			},
+			target: new BindingTarget(obj, 'p'),
+		});
+
+		const v = c?.binding.value as BoundValue<Point2d>;
+		v.rawValue = new Point2d(56, 78);
+		assert.strictEqual(p, obj.p);
+		assert.strictEqual(p.x, 56);
+		assert.strictEqual(p.y, 78);
+		assert.strictEqual(p.hello, 'world');
 	});
 });
