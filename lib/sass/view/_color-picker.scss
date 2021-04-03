@@ -25,7 +25,7 @@ $slider-track-width: 4px;
 	&_a {
 		display: flex;
 		margin-top: var(--cnt-p);
-		padding-top: calc(var(--cnt-p) + 4px);
+		padding-top: calc(var(--cnt-p) + #{$separator-width});
 		position: relative;
 
 		&:before {
