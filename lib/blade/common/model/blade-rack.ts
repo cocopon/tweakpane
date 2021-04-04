@@ -26,6 +26,7 @@ export interface BladeRackEvents {
 		sender: BladeRack;
 	};
 	remove: {
+		bladeController: BladeController;
 		isRoot: boolean;
 		sender: BladeRack;
 	};
@@ -118,12 +119,16 @@ export class BladeRack {
 		this.bcList_.emitter.on('remove', this.onListRemove_);
 	}
 
-	get items(): BladeController[] {
+	get children(): BladeController[] {
 		return this.bcList_.items;
 	}
 
 	public add(bc: BladeController, opt_index?: number): void {
 		this.bcList_.add(bc, opt_index);
+	}
+
+	public remove(bc: BladeController): void {
+		this.bcList_.remove(bc);
 	}
 
 	public find<B extends BladeController>(controllerClass: Class<B>): B[] {
@@ -170,6 +175,7 @@ export class BladeRack {
 	private onListRemove_(ev: NestedOrderedSetEvents<BladeController>['remove']) {
 		const isRoot = ev.target === ev.root;
 		this.emitter.emit('remove', {
+			bladeController: ev.item,
 			isRoot: isRoot,
 			sender: this,
 		});

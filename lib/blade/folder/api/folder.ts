@@ -59,6 +59,7 @@ export class FolderApi implements BladeContainerApi {
 	 */
 	constructor(controller: FolderController) {
 		this.onFolderChange_ = this.onFolderChange_.bind(this);
+		this.onRackRemove_ = this.onRackRemove_.bind(this);
 		this.onRackInputChange_ = this.onRackInputChange_.bind(this);
 		this.onRackFolderFold_ = this.onRackFolderFold_.bind(this);
 		this.onRackMonitorUpdate_ = this.onRackMonitorUpdate_.bind(this);
@@ -74,6 +75,7 @@ export class FolderApi implements BladeContainerApi {
 		this.controller_.folder.emitter.on('change', this.onFolderChange_);
 
 		const rack = this.controller_.bladeRack;
+		rack.emitter.on('remove', this.onRackRemove_);
 		rack.emitter.on('inputchange', this.onRackInputChange_);
 		rack.emitter.on('monitorupdate', this.onRackMonitorUpdate_);
 		rack.emitter.on('folderfold', this.onRackFolderFold_);
@@ -101,6 +103,17 @@ export class FolderApi implements BladeContainerApi {
 
 	set hidden(hidden: boolean) {
 		this.controller_.viewProps.set('hidden', hidden);
+	}
+
+	get children(): BladeApi[] {
+		return this.controller_.bladeRack.children.map((bc) => {
+			const api = this.apiSet_.find((api) => api.controller_ === bc);
+			/* istanbul ignore next */
+			if (api === null) {
+				throw TpError.shouldNeverHappen();
+			}
+			return api;
+		});
 	}
 
 	public dispose(): void {
@@ -155,6 +168,10 @@ export class FolderApi implements BladeContainerApi {
 		return addSeparatorAsBlade(this, opt_params);
 	}
 
+	public remove(api: BladeApi): void {
+		this.controller_.bladeRack.remove(api.controller_);
+	}
+
 	/**
 	 * @hidden
 	 */
@@ -180,6 +197,15 @@ export class FolderApi implements BladeContainerApi {
 			bh(ev.event);
 		});
 		return this;
+	}
+
+	private onRackRemove_(ev: BladeRackEvents['remove']) {
+		const api = this.apiSet_.find(
+			(api) => api.controller_ === ev.bladeController,
+		);
+		if (api) {
+			this.apiSet_.remove(api);
+		}
 	}
 
 	private onRackInputChange_(ev: BladeRackEvents['inputchange']) {

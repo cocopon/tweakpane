@@ -155,15 +155,15 @@ describe(BladeRack.name, () => {
 		(bc.binding.ticker as ManualTicker).tick();
 	});
 
-	it('should remove disposed view element', () => {
+	it('should remove disposed blade', () => {
 		const rack = new BladeRack();
 		const doc = TestUtil.createWindow().document;
 		const bc = createInputBindingController(doc);
 		rack.add(bc);
 
-		assert.strictEqual(rack.items.includes(bc), true);
+		assert.strictEqual(rack.children.includes(bc), true);
 		bc.blade.dispose();
-		assert.strictEqual(rack.items.includes(bc), false);
+		assert.strictEqual(rack.children.includes(bc), false);
 	});
 
 	it('should handle layout', (done) => {

@@ -10,6 +10,7 @@ import {forceCast} from '../../../misc/type-util';
 import {SingleLogMonitorController} from '../../../monitor-binding/common/controller/single-log';
 import {ButtonApi} from '../../button/api/button';
 import {InputBindingApi} from '../../common/api/input-binding';
+import {assertUpdates} from '../../common/api/test-util';
 import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event';
 import {InputBindingController} from '../../common/controller/input-binding';
 import {MonitorBindingController} from '../../common/controller/monitor-binding';
@@ -43,11 +44,7 @@ describe(FolderApi.name, () => {
 		api.expanded = true;
 		assert.strictEqual(api.controller_.folder.expanded, true);
 
-		api.hidden = true;
-		assert.strictEqual(
-			api.controller_.view.element.classList.contains('tp-v-hidden'),
-			true,
-		);
+		assertUpdates(api);
 	});
 
 	it('should dispose', () => {
@@ -101,14 +98,11 @@ describe(FolderApi.name, () => {
 		const api = createApi();
 		const s = api.addSeparator();
 		assert.strictEqual(s instanceof SeparatorApi, true);
-
-		const cs = api.controller_.bladeRack.items;
-		assert.strictEqual(cs[cs.length - 1] instanceof SeparatorController, true);
 	});
 
 	it('should dispose separator', () => {
 		const api = createApi();
-		const cs = api.controller_.bladeRack.items;
+		const cs = api.controller_.bladeRack.children;
 
 		const s = api.addSeparator();
 		assert.strictEqual(cs.length, 1);
@@ -396,9 +390,52 @@ describe(FolderApi.name, () => {
 				api.addInput(params, 'bar');
 				testCase.insert(api, 1);
 
-				const cs = api.controller_.bladeRack.items;
+				const cs = api.controller_.bladeRack.children;
 				assert.strictEqual(cs[1] instanceof testCase.expected, true);
 			});
 		});
+	});
+
+	it('should get children', () => {
+		const api = createApi();
+		const items = [
+			api.addInput({foo: 0}, 'foo'),
+			api.addInput({bar: 1}, 'bar'),
+			api.addInput({baz: 2}, 'baz'),
+		];
+
+		assert.strictEqual(api.children.length, 3);
+		assert.strictEqual(api.children[0], items[0]);
+		assert.strictEqual(api.children[1], items[1]);
+		assert.strictEqual(api.children[2], items[2]);
+	});
+
+	it('should remove child', () => {
+		const api = createApi();
+		const items = [
+			api.addInput({foo: 0}, 'foo'),
+			api.addInput({bar: 1}, 'bar'),
+			api.addInput({baz: 2}, 'baz'),
+		];
+
+		api.remove(items[1]);
+		assert.strictEqual(api.children.length, 2);
+		assert.strictEqual(api.children[0], items[0]);
+		assert.strictEqual(api.children[1], items[2]);
+	});
+
+	it('should not handle removed child events', () => {
+		const api = createApi();
+
+		let count = 0;
+		api.on('change', () => {
+			count += 1;
+		});
+
+		const item = api.addInput({foo: 0}, 'foo');
+		(item.controller_.binding.value as Value<number>).rawValue += 1;
+		api.remove(item);
+		(item.controller_.binding.value as Value<number>).rawValue += 1;
+		assert.strictEqual(count, 1);
 	});
 });
