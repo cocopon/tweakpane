@@ -51,11 +51,11 @@ export class SliderTextController implements ValueController<number> {
 		});
 	}
 
-	public sliderController(): SliderController {
+	public get sliderController(): SliderController {
 		return this.sliderC_;
 	}
 
-	public textController(): NumberTextController {
+	public get textController(): NumberTextController {
 		return this.textC_;
 	}
 }

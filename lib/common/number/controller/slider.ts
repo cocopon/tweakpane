@@ -1,7 +1,7 @@
 import {ValueController} from '../../controller/value';
 import {Value} from '../../model/value';
 import {ViewProps} from '../../model/view-props';
-import {mapRange} from '../../number-util';
+import {constrainRange, mapRange} from '../../number-util';
 import {getHorizontalStepKeys, getStepForKey} from '../../ui';
 import {
 	PointerData,
@@ -24,7 +24,7 @@ export class SliderController implements ValueController<number> {
 	public readonly value: Value<number>;
 	public readonly view: SliderView;
 	public readonly viewProps: ViewProps;
-	private props_: SliderProps;
+	public readonly props: SliderProps;
 	private ptHandler_: PointerHandler;
 	private baseStep_: number;
 
@@ -36,10 +36,10 @@ export class SliderController implements ValueController<number> {
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 
-		this.props_ = config.props;
+		this.props = config.props;
 
 		this.view = new SliderView(doc, {
-			props: this.props_,
+			props: this.props,
 			value: this.value,
 			viewProps: this.viewProps,
 		});
@@ -58,11 +58,11 @@ export class SliderController implements ValueController<number> {
 		}
 
 		this.value.rawValue = mapRange(
-			d.point.x,
+			constrainRange(d.point.x, 0, d.bounds.width),
 			0,
 			d.bounds.width,
-			this.props_.get('minValue'),
-			this.props_.get('maxValue'),
+			this.props.get('minValue'),
+			this.props.get('maxValue'),
 		);
 	}
 

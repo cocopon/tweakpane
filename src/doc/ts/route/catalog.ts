@@ -5,6 +5,7 @@ import {ButtonBladeParams} from 'tweakpane/blade/button/plugin';
 import {FolderBladeParams} from 'tweakpane/blade/folder/plugin';
 import {ListBladeParams} from 'tweakpane/blade/list/plugin';
 import {SeparatorBladeParams} from 'tweakpane/blade/separator/plugin';
+import {SliderBladeParams} from 'tweakpane/blade/slider/plugin';
 import {TextBladeParams} from 'tweakpane/blade/text/plugin';
 
 import {selectContainer, wave} from '../util';
@@ -300,6 +301,14 @@ export function initCatalog() {
 					value: 0,
 					view: 'list',
 				} as ListBladeParams<number>,
+				{
+					disabled: disabled,
+					label: 'label',
+					max: 100,
+					min: 0,
+					value: 50,
+					view: 'slider',
+				} as SliderBladeParams,
 			].forEach((params) => {
 				pane.addBlade_v3_(params);
 			});
