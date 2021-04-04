@@ -6,6 +6,11 @@ import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
+import {
+	assertDisposes,
+	assertInitialState,
+	assertUpdates,
+} from '../../common/api/test-util';
 import {Blade} from '../../common/model/blade';
 import {LabeledController} from '../../labeled/controller';
 import {LabeledPropsObject} from '../../labeled/view';
@@ -29,8 +34,8 @@ describe(TextBladeApi.name, () => {
 			}),
 		});
 		const api = new TextBladeApi(c);
-		api.dispose();
-		assert.strictEqual(api.controller_.blade.disposed, true);
+
+		assertDisposes(api);
 	});
 
 	it('should have initial state', () => {
@@ -51,8 +56,9 @@ describe(TextBladeApi.name, () => {
 			}),
 		});
 		const api = new TextBladeApi(c);
+
+		assertInitialState(api);
 		assert.strictEqual(api.disabled, false);
-		assert.strictEqual(api.hidden, false);
 		assert.strictEqual(api.formatter, formatter);
 		assert.strictEqual(api.label, 'foobar');
 		assert.strictEqual(api.value, 'hello');
@@ -76,11 +82,10 @@ describe(TextBladeApi.name, () => {
 		});
 		const api = new TextBladeApi(c);
 
+		assertUpdates(api);
+
 		api.disabled = true;
 		assert.strictEqual(api.disabled, true);
-
-		api.hidden = true;
-		assert.strictEqual(api.hidden, true);
 
 		const inputElem = api.controller_.valueController.view.inputElement;
 		const formatter = (v: string) => `${v}, world`;

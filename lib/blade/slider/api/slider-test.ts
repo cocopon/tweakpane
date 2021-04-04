@@ -7,6 +7,11 @@ import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {SliderTextController} from '../../../common/number/controller/slider-text';
 import {TestUtil} from '../../../misc/test-util';
+import {
+	assertDisposes,
+	assertInitialState,
+	assertUpdates,
+} from '../../common/api/test-util';
 import {Blade} from '../../common/model/blade';
 import {LabeledController} from '../../labeled/controller';
 import {LabeledPropsObject} from '../../labeled/view';
@@ -36,8 +41,7 @@ describe(SliderBladeApi.name, () => {
 			}),
 		});
 		const api = new SliderBladeApi(c);
-		api.dispose();
-		assert.strictEqual(api.controller_.blade.disposed, true);
+		assertDisposes(api);
 	});
 
 	it('should have initial state', () => {
@@ -64,8 +68,9 @@ describe(SliderBladeApi.name, () => {
 		});
 		const api = new SliderBladeApi(c);
 
+		assertInitialState(api);
+
 		assert.strictEqual(api.disabled, false);
-		assert.strictEqual(api.hidden, false);
 		assert.strictEqual(api.maxValue, 100);
 		assert.strictEqual(api.minValue, -100);
 		assert.strictEqual(api.label, 'foobar');
@@ -96,11 +101,10 @@ describe(SliderBladeApi.name, () => {
 		});
 		const api = new SliderBladeApi(c);
 
+		assertUpdates(api);
+
 		api.disabled = true;
 		assert.strictEqual(api.disabled, true);
-
-		api.hidden = true;
-		assert.strictEqual(api.hidden, true);
 
 		api.label = 'buzqux';
 		assert.strictEqual(api.label, 'buzqux');

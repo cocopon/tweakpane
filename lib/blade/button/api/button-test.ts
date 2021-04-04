@@ -4,6 +4,11 @@ import {describe, it} from 'mocha';
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
+import {
+	assertDisposes,
+	assertInitialState,
+	assertUpdates,
+} from '../../common/api/test-util';
 import {Blade} from '../../common/model/blade';
 import {LabeledController} from '../../labeled/controller';
 import {LabeledPropsObject} from '../../labeled/view';
@@ -30,10 +35,11 @@ describe(ButtonApi.name, () => {
 	it('should have initial state', () => {
 		const doc = TestUtil.createWindow().document;
 		const api = createApi(doc);
-		const c = api.controller_.valueController as ButtonController;
 
-		assert.strictEqual(api.hidden, false);
+		assertInitialState(api);
 		assert.strictEqual(api.disabled, false);
+
+		const c = api.controller_.valueController as ButtonController;
 		assert.strictEqual(c.view.buttonElement.disabled, false);
 		assert.strictEqual(api.title, 'Button');
 		assert.strictEqual(c.view.buttonElement.textContent, 'Button');
@@ -44,11 +50,7 @@ describe(ButtonApi.name, () => {
 		const api = createApi(doc);
 		const c = api.controller_.valueController as ButtonController;
 
-		api.hidden = true;
-		assert.strictEqual(
-			api.controller_.view.element.classList.contains('tp-v-hidden'),
-			true,
-		);
+		assertUpdates(api);
 
 		api.disabled = true;
 		assert.strictEqual(
@@ -95,7 +97,6 @@ describe(ButtonApi.name, () => {
 	it('should dispose', () => {
 		const doc = TestUtil.createWindow().document;
 		const api = createApi(doc);
-		api.dispose();
-		assert.strictEqual(api.controller_.blade.disposed, true);
+		assertDisposes(api);
 	});
 });
