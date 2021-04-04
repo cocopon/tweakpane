@@ -4,7 +4,6 @@ import {PrimitiveValue} from '../../common/model/primitive-value';
 import {ValueMap} from '../../common/model/value-map';
 import {SliderTextController} from '../../common/number/controller/slider-text';
 import {
-	findBooleanParam,
 	findFunctionParam,
 	findNumberParam,
 	findStringParam,
@@ -26,34 +25,28 @@ export interface SliderBladeParams extends BladeParams {
 	value?: number;
 }
 
-function createParams(
-	params: Record<string, unknown>,
-): SliderBladeParams | null {
-	if (findStringParam(params, 'view') !== 'slider') {
-		return null;
-	}
-	const max = findNumberParam(params, 'max');
-	const min = findNumberParam(params, 'min');
-	if (max === undefined || min === undefined) {
-		return null;
-	}
-
-	return {
-		disabled: findBooleanParam(params, 'disabled'),
-		format: forceCast(findFunctionParam(params, 'format')),
-		label: findStringParam(params, 'label'),
-		max: max,
-		min: min,
-		value: findNumberParam(params, 'value'),
-		view: 'slider',
-	};
-}
-
 export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 	id: 'slider',
 	accept(params) {
-		const p = createParams(params);
-		return p ? {params: p} : null;
+		if (findStringParam(params, 'view') !== 'slider') {
+			return null;
+		}
+		const max = findNumberParam(params, 'max');
+		const min = findNumberParam(params, 'min');
+		if (max === undefined || min === undefined) {
+			return null;
+		}
+
+		return {
+			params: {
+				format: forceCast(findFunctionParam(params, 'format')),
+				label: findStringParam(params, 'label'),
+				max: max,
+				min: min,
+				value: findNumberParam(params, 'value'),
+				view: 'slider',
+			},
+		};
 	},
 	api(args) {
 		const v = args.params.value ?? 0;

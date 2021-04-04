@@ -39,7 +39,6 @@ describe(SliderBladePlugin.id, () => {
 		const api = createApi(SliderBladePlugin, {
 			document: doc,
 			params: {
-				disabled: true,
 				format: formatter,
 				label: 'hello',
 				max: 100,
@@ -49,7 +48,6 @@ describe(SliderBladePlugin.id, () => {
 			} as SliderBladeParams,
 		}) as SliderBladeApi;
 
-		assert.strictEqual(api.disabled, true);
 		assert.strictEqual(api.maxValue, 100);
 		assert.strictEqual(api.minValue, -100);
 		assert.strictEqual(api.value, 50);

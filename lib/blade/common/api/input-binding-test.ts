@@ -18,6 +18,7 @@ import {LabeledPropsObject} from '../../labeled/view';
 import {InputBindingController} from '../controller/input-binding';
 import {Blade} from '../model/blade';
 import {InputBindingApi} from './input-binding';
+import {assertInitialState, assertUpdates} from './test-util';
 import {TpChangeEvent} from './tp-event';
 
 function createApi(target: BindingTarget) {
@@ -89,31 +90,19 @@ describe(InputBindingApi.name, () => {
 		assert.strictEqual(api.controller_.binding.value.rawValue, 123);
 	});
 
-	it('should be hidden', () => {
+	it('should have initial state', () => {
 		const PARAMS = {
 			foo: 0,
 		};
 		const api = createApi(new BindingTarget(PARAMS, 'foo'));
-		assert.strictEqual(api.hidden, false);
-
-		api.hidden = true;
-		assert.strictEqual(
-			api.controller_.view.element.classList.contains('tp-v-hidden'),
-			true,
-		);
+		assertInitialState(api);
 	});
 
-	it('should be disabled', () => {
+	it('should update properties', () => {
 		const PARAMS = {
 			foo: 0,
 		};
 		const api = createApi(new BindingTarget(PARAMS, 'foo'));
-		assert.strictEqual(api.disabled, false);
-
-		api.disabled = true;
-		assert.strictEqual(
-			api.controller_.view.element.classList.contains('tp-v-disabled'),
-			true,
-		);
+		assertUpdates(api);
 	});
 });

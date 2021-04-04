@@ -5,6 +5,7 @@ import {BladeController} from '../controller/blade';
  */
 export interface BladeApi {
 	readonly controller_: BladeController;
+	disabled: boolean;
 	hidden: boolean;
 	dispose(): void;
 }

@@ -69,8 +69,6 @@ describe(SliderBladeApi.name, () => {
 		const api = new SliderBladeApi(c);
 
 		assertInitialState(api);
-
-		assert.strictEqual(api.disabled, false);
 		assert.strictEqual(api.maxValue, 100);
 		assert.strictEqual(api.minValue, -100);
 		assert.strictEqual(api.label, 'foobar');
@@ -102,9 +100,6 @@ describe(SliderBladeApi.name, () => {
 		const api = new SliderBladeApi(c);
 
 		assertUpdates(api);
-
-		api.disabled = true;
-		assert.strictEqual(api.disabled, true);
 
 		api.label = 'buzqux';
 		assert.strictEqual(api.label, 'buzqux');

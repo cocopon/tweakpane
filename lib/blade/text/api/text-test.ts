@@ -58,7 +58,6 @@ describe(TextBladeApi.name, () => {
 		const api = new TextBladeApi(c);
 
 		assertInitialState(api);
-		assert.strictEqual(api.disabled, false);
 		assert.strictEqual(api.formatter, formatter);
 		assert.strictEqual(api.label, 'foobar');
 		assert.strictEqual(api.value, 'hello');
@@ -83,9 +82,6 @@ describe(TextBladeApi.name, () => {
 		const api = new TextBladeApi(c);
 
 		assertUpdates(api);
-
-		api.disabled = true;
-		assert.strictEqual(api.disabled, true);
 
 		const inputElem = api.controller_.valueController.view.inputElement;
 		const formatter = (v: string) => `${v}, world`;

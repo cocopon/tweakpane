@@ -36,19 +36,18 @@ describe(TextBladePlugin.id, () => {
 	it('should apply initial params', () => {
 		const doc = TestUtil.createWindow().document;
 		const formatter = (v: string) => `${v}, world`;
+		const params = {
+			format: formatter,
+			label: 'hello',
+			parse: (v: string) => v,
+			value: 'hello',
+			view: 'text',
+		} as TextBladeParams<string>;
+
 		const api = createApi(TextBladePlugin, {
 			document: doc,
-			params: {
-				disabled: true,
-				format: formatter,
-				label: 'hello',
-				parse: (v: string) => v,
-				value: 'hello',
-				view: 'text',
-			} as TextBladeParams<string>,
+			params: params,
 		}) as TextBladeApi<string>;
-
-		assert.strictEqual(api.disabled, true);
 		assert.strictEqual(api.formatter, formatter);
 		assert.strictEqual(api.value, 'hello');
 		assert.strictEqual(

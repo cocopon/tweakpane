@@ -58,7 +58,6 @@ describe(ListBladeApi.name, () => {
 		const api = new ListBladeApi(c);
 
 		assertInitialState(api);
-		assert.strictEqual(api.disabled, false);
 		assert.strictEqual(api.label, undefined);
 		assert.strictEqual(api.value, 0);
 		assert.deepStrictEqual(api.options[0], {text: 'foo', value: 123});
@@ -86,9 +85,6 @@ describe(ListBladeApi.name, () => {
 		const api = new ListBladeApi(c);
 
 		assertUpdates(api);
-
-		api.disabled = true;
-		assert.strictEqual(api.disabled, true);
 
 		api.value = 789;
 		assert.strictEqual(api.value, 789);

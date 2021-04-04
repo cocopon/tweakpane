@@ -11,26 +11,21 @@ export interface FolderBladeParams extends BladeParams {
 	expanded?: boolean;
 }
 
-function createParams(
-	params: Record<string, unknown>,
-): FolderBladeParams | null {
-	const title = findStringParam(params, 'title');
-	if (title === undefined || findStringParam(params, 'view') !== 'folder') {
-		return null;
-	}
-
-	return {
-		expanded: findBooleanParam(params, 'expanded'),
-		title: title,
-		view: 'folder',
-	};
-}
-
 export const FolderBladePlugin: BladePlugin<FolderBladeParams> = {
 	id: 'button',
 	accept(params) {
-		const p = createParams(params);
-		return p ? {params: p} : null;
+		const title = findStringParam(params, 'title');
+		if (title === undefined || findStringParam(params, 'view') !== 'folder') {
+			return null;
+		}
+
+		return {
+			params: {
+				expanded: findBooleanParam(params, 'expanded'),
+				title: title,
+				view: 'folder',
+			},
+		};
 	},
 	api(args) {
 		const c = new FolderController(args.document, {

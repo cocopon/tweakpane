@@ -37,7 +37,6 @@ describe(ButtonApi.name, () => {
 		const api = createApi(doc);
 
 		assertInitialState(api);
-		assert.strictEqual(api.disabled, false);
 
 		const c = api.controller_.valueController as ButtonController;
 		assert.strictEqual(c.view.buttonElement.disabled, false);
@@ -51,12 +50,6 @@ describe(ButtonApi.name, () => {
 		const c = api.controller_.valueController as ButtonController;
 
 		assertUpdates(api);
-
-		api.disabled = true;
-		assert.strictEqual(
-			c.view.element.classList.contains('tp-v-disabled'),
-			true,
-		);
 		assert.strictEqual(c.view.buttonElement.disabled, true);
 
 		api.title = 'changed';

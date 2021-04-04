@@ -1,11 +1,13 @@
 import {createViewProps, ViewProps} from '../common/model/view-props';
+import {findBooleanParam} from '../common/params';
+import {forceCast} from '../misc/type-util';
 import {BasePlugin} from '../plugin';
 import {BladeApi} from './common/api/blade';
 import {BladeParams} from './common/api/types';
 import {Blade} from './common/model/blade';
 
 interface Acceptance<P extends BladeParams> {
-	params: P;
+	params: Omit<P, 'disabled' | 'hidden'>;
 }
 
 interface ApiArguments<P extends BladeParams> {
@@ -36,12 +38,19 @@ export function createApi<P extends BladeParams>(
 		return null;
 	}
 
+	const disabled = findBooleanParam(args.params, 'disabled');
+	const hidden = findBooleanParam(args.params, 'hidden');
 	return plugin.api({
 		blade: new Blade(),
 		document: args.document,
-		params: ac.params,
+		params: forceCast({
+			...ac.params,
+			disabled: disabled,
+			hidden: hidden,
+		}),
 		viewProps: createViewProps({
-			disabled: ac.params.disabled,
+			disabled: disabled,
+			hidden: hidden,
 		}),
 	});
 }

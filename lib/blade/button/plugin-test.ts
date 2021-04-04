@@ -30,14 +30,12 @@ describe(ButtonBladePlugin.id, () => {
 		const api = createApi(ButtonBladePlugin, {
 			document: doc,
 			params: {
-				disabled: true,
 				label: 'initiallabel',
 				title: 'Title',
 				view: 'button',
 			},
 		}) as ButtonApi;
 
-		assert.strictEqual(api.disabled, true);
 		assert.strictEqual(
 			api.controller_.view.element.innerHTML.includes('initiallabel'),
 			true,
