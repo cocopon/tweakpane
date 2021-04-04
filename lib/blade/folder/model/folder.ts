@@ -26,20 +26,18 @@ export interface FolderEvents {
  */
 export class Folder {
 	public readonly emitter: Emitter<FolderEvents>;
-	public readonly title: string;
 	private expandedHeight_: number | null;
 	private expanded_: boolean;
 	private shouldFixHeight_: boolean;
 	// For computing expanded height
 	private temporaryExpanded_: boolean | null;
 
-	constructor(title: string, expanded: boolean) {
+	constructor(expanded: boolean) {
 		this.emitter = new Emitter();
 		this.expanded_ = expanded;
 		this.expandedHeight_ = null;
 		this.temporaryExpanded_ = null;
 		this.shouldFixHeight_ = false;
-		this.title = title;
 	}
 
 	get expanded(): boolean {

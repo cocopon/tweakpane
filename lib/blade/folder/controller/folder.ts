@@ -14,15 +14,14 @@ import {Blade} from '../../common/model/blade';
 import {BladePosition} from '../../common/model/blade-positions';
 import {BladeRack, BladeRackEvents} from '../../common/model/blade-rack';
 import {Folder, FolderEvents} from '../model/folder';
-import {FolderView} from '../view';
+import {FolderProps, FolderView} from '../view';
 
 interface Config {
 	expanded?: boolean;
-	title: string;
 	blade: Blade;
+	props: FolderProps;
 	viewProps: ViewProps;
 
-	hidesTitle?: boolean;
 	viewName?: string;
 }
 
@@ -58,6 +57,7 @@ export class FolderController implements BladeController {
 	public readonly blade: Blade;
 	public readonly bladeRack: BladeRack;
 	public readonly folder: Folder;
+	public readonly props: FolderProps;
 	public readonly view: FolderView;
 	public readonly viewProps: ViewProps;
 
@@ -70,9 +70,10 @@ export class FolderController implements BladeController {
 		this.onRackRemove_ = this.onRackRemove_.bind(this);
 
 		this.blade = config.blade;
+		this.props = config.props;
 		this.viewProps = config.viewProps;
 
-		this.folder = new Folder(config.title, config.expanded ?? true);
+		this.folder = new Folder(config.expanded ?? true);
 		this.folder.emitter.on('beforechange', this.onFolderBeforeChange_);
 
 		const rack = new BladeRack();
@@ -83,11 +84,11 @@ export class FolderController implements BladeController {
 
 		this.view = new FolderView(doc, {
 			folder: this.folder,
-			hidesTitle: config.hidesTitle,
+			props: this.props,
 			viewName: config.viewName,
 			viewProps: this.viewProps,
 		});
-		this.view.titleElement.addEventListener('click', this.onTitleClick_);
+		this.view.buttonElement.addEventListener('click', this.onTitleClick_);
 		this.view.containerElement.addEventListener(
 			'transitionend',
 			this.onContainerTransitionEnd_,

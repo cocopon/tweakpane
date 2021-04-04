@@ -2,6 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {Value} from '../../../common/model/value';
+import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from '../../../common/number/controller/number-text';
 import {Color} from '../../../input-binding/color/model/color';
@@ -25,7 +26,9 @@ function createApi(): FolderApi {
 	const doc = TestUtil.createWindow().document;
 	const c = new FolderController(doc, {
 		blade: new Blade(),
-		title: 'Folder',
+		props: new ValueMap({
+			title: 'Folder' as string | undefined,
+		}),
 		viewProps: createViewProps(),
 	});
 	return new FolderApi(c);
@@ -34,17 +37,25 @@ function createApi(): FolderApi {
 describe(FolderApi.name, () => {
 	it('should have initial state', () => {
 		const api = createApi();
+		assert.strictEqual(api.expanded, true);
 		assert.strictEqual(api.controller_.folder.expanded, true);
 		assert.strictEqual(api.hidden, false);
+		assert.strictEqual(api.title, 'Folder');
 	});
 
 	it('should update properties', () => {
 		const api = createApi();
 
+		assertUpdates(api);
+
 		api.expanded = true;
 		assert.strictEqual(api.controller_.folder.expanded, true);
 
-		assertUpdates(api);
+		api.title = 'changed';
+		assert.strictEqual(
+			api.controller_.view.titleElement.textContent,
+			'changed',
+		);
 	});
 
 	it('should dispose', () => {
@@ -56,7 +67,7 @@ describe(FolderApi.name, () => {
 	it('should toggle expanded when clicking title element', () => {
 		const api = createApi();
 
-		api.controller_.view.titleElement.click();
+		api.controller_.view.buttonElement.click();
 		assert.strictEqual(api.controller_.folder.expanded, false);
 	});
 
@@ -115,7 +126,7 @@ describe(FolderApi.name, () => {
 		const f = pane.addFolder({
 			title: 'folder',
 		});
-		assert.strictEqual(f.controller_.folder.title, 'folder');
+		assert.strictEqual(f.controller_.props.get('title'), 'folder');
 		assert.strictEqual(f.controller_.folder.expanded, true);
 	});
 

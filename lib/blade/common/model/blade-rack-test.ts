@@ -71,7 +71,9 @@ function createMonitorBindingController(
 function createFolderController(doc: Document): FolderController {
 	return new FolderController(doc, {
 		blade: new Blade(),
-		title: 'folder',
+		props: new ValueMap({
+			title: 'folder' as string | undefined,
+		}),
 		viewProps: createViewProps(),
 	});
 }

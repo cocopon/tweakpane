@@ -89,6 +89,14 @@ export class FolderApi implements BladeContainerApi {
 		this.controller_.folder.expanded = expanded;
 	}
 
+	get title(): string | undefined {
+		return this.controller_.props.get('title');
+	}
+
+	set title(title: string | undefined) {
+		this.controller_.props.set('title', title);
+	}
+
 	get disabled(): boolean {
 		return this.controller_.viewProps.get('disabled');
 	}

@@ -1,14 +1,17 @@
 .#{$prefix}-fldv {
-	&_t {
+	&_b {
 		@extend %folder_title;
 	}
-	&#{&}-expanded &_t {
+	&#{&}-not &_b {
+		display: none;
+	}
+	&#{&}-expanded &_b {
 		transition: border-radius 0s;
 	}
 	&_m {
 		@extend %folder_mark;
 	}
-	&#{&}-expanded > &_t > &_m {
+	&#{&}-expanded > &_b > &_m {
 		@extend %folder_mark-expanded;
 	}
 	&_c {
@@ -16,13 +19,13 @@
 
 		border-left: var(--cnt-bg) solid 4px;
 	}
-	&_t:hover + &_c {
+	&_b:hover + &_c {
 		border-left-color: var(--cnt-bg-h);
 	}
-	&_t:focus + &_c {
+	&_b:focus + &_c {
 		border-left-color: var(--cnt-bg-f);
 	}
-	&_t:active + &_c {
+	&_b:active + &_c {
 		border-left-color: var(--cnt-bg-a);
 	}
 	&#{&}-expanded > &_c {
@@ -33,11 +36,11 @@
 	&_c > & {
 		margin-left: 4px;
 	}
-	&_c > & > &_t {
+	&_c > & > &_b {
 		border-top-left-radius: var(--elm-br);
 		border-bottom-left-radius: var(--elm-br);
 	}
-	&_c > &#{&}-expanded > &_t {
+	&_c > &#{&}-expanded > &_b {
 		border-bottom-left-radius: 0;
 	}
 	&_c & > &_c {

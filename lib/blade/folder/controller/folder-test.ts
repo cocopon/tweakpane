@@ -31,8 +31,10 @@ describe(FolderController.name, () => {
 	it('should toggle expanded by clicking title', (done) => {
 		const doc = TestUtil.createWindow().document;
 		const c = new FolderController(doc, {
-			title: 'Push',
 			blade: new Blade(),
+			props: new ValueMap({
+				title: '' as string | undefined,
+			}),
 			viewProps: createViewProps(),
 		});
 
@@ -46,14 +48,16 @@ describe(FolderController.name, () => {
 			done();
 		});
 
-		c.view.titleElement.click();
+		c.view.buttonElement.click();
 	});
 
 	it('should remove disposed blade view element', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new FolderController(doc, {
-			title: '',
 			blade: new Blade(),
+			props: new ValueMap({
+				title: '' as string | undefined,
+			}),
 			viewProps: createViewProps(),
 		});
 		const bc = createSomeBladeController(doc);
@@ -67,8 +71,10 @@ describe(FolderController.name, () => {
 	it('should remove removed blade view element', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new FolderController(doc, {
-			title: '',
 			blade: new Blade(),
+			props: new ValueMap({
+				title: '' as string | undefined,
+			}),
 			viewProps: createViewProps(),
 		});
 		const bc = createSomeBladeController(doc);
@@ -82,14 +88,18 @@ describe(FolderController.name, () => {
 	it('should add view element to subfolder', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new FolderController(doc, {
-			title: 'Folder',
 			blade: new Blade(),
+			props: new ValueMap({
+				title: 'Folder' as string | undefined,
+			}),
 			viewProps: createViewProps(),
 		});
 
 		const sc = new FolderController(doc, {
-			title: 'Subfolder',
 			blade: new Blade(),
+			props: new ValueMap({
+				title: '' as string | undefined,
+			}),
 			viewProps: createViewProps(),
 		});
 		c.bladeRack.add(sc);
@@ -102,8 +112,10 @@ describe(FolderController.name, () => {
 	it('should dispose sub controllers', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new FolderController(doc, {
-			title: '',
 			blade: new Blade(),
+			props: new ValueMap({
+				title: '' as string | undefined,
+			}),
 			viewProps: createViewProps(),
 		});
 
@@ -125,13 +137,17 @@ describe(FolderController.name, () => {
 	it('should dispose nested controllers', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new FolderController(doc, {
-			title: '',
 			blade: new Blade(),
+			props: new ValueMap({
+				title: '' as string | undefined,
+			}),
 			viewProps: createViewProps(),
 		});
 		const sc = new FolderController(doc, {
-			title: '',
 			blade: new Blade(),
+			props: new ValueMap({
+				title: '' as string | undefined,
+			}),
 			viewProps: createViewProps(),
 		});
 		c.bladeRack.add(sc);
