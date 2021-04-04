@@ -150,7 +150,7 @@
 	line-height: 1;
 	text-align: left;
 
-	&_t {
+	&_b {
 		@extend %folder_title;
 
 		border-bottom-left-radius: var(--bs-br);
@@ -160,9 +160,12 @@
 		padding-left: calc(2px * 2 + var(--bld-h) + var(--cnt-p));
 		text-align: center;
 	}
-	&#{&}-expanded &_t {
+	&#{&}-expanded &_b {
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
+	}
+	&#{&}-not &_b {
+		display: none;
 	}
 	&_m {
 		@extend %folder_mark;
@@ -182,7 +185,7 @@
 		}
 		// Bottom of the last folder title when collapsed
 		& > .#{$prefix}-fldv.#{$prefix}-v-last:not(.#{$prefix}-fldv-expanded) {
-			& > .#{$prefix}-fldv_t {
+			& > .#{$prefix}-fldv_b {
 				border-bottom-left-radius: var(--bs-br);
 				border-bottom-right-radius: var(--bs-br);
 			}
@@ -191,13 +194,13 @@
 			> .#{$prefix}-fldv.#{$prefix}-v-last
 			.#{$prefix}-fldv_c
 			> .#{$prefix}-fldv.#{$prefix}-v-last:not(.#{$prefix}-fldv-expanded) {
-			& > .#{$prefix}-fldv_t {
+			& > .#{$prefix}-fldv_b {
 				border-bottom-right-radius: var(--bs-br);
 			}
 		}
 		// Top of the first folder
 		& > .#{$prefix}-fldv.#{$prefix}-v-first {
-			& > .#{$prefix}-fldv_t {
+			& > .#{$prefix}-fldv_b {
 				border-top-left-radius: var(--bs-br);
 				border-top-right-radius: var(--bs-br);
 			}

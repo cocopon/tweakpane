@@ -8,6 +8,7 @@ import {RootApi} from './blade/root/api/root';
 import {SliderBladePlugin} from './blade/slider/plugin';
 import {TextBladePlugin} from './blade/text/plugin';
 import {getWindowDocument} from './common/dom-util';
+import {ValueMap} from './common/model/value-map';
 import {createViewProps} from './common/model/view-props';
 import {TpError} from './common/tp-error';
 import {ClassName} from './common/view/class-name';
@@ -70,7 +71,9 @@ export default class Tweakpane extends RootApi {
 		const rootController = new RootController(doc, {
 			expanded: config.expanded,
 			blade: new Blade(),
-			title: config.title,
+			props: new ValueMap({
+				title: config.title,
+			}),
 			viewProps: createViewProps(),
 		});
 		super(rootController);

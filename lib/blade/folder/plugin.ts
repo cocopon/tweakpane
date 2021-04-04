@@ -1,3 +1,4 @@
+import {ValueMap} from '../../common/model/value-map';
 import {findBooleanParam, findStringParam} from '../../common/params';
 import {BladeParams} from '../common/api/types';
 import {BladePlugin} from '../plugin';
@@ -31,7 +32,9 @@ export const FolderBladePlugin: BladePlugin<FolderBladeParams> = {
 		const c = new FolderController(args.document, {
 			blade: args.blade,
 			expanded: args.params.expanded,
-			title: args.params.title,
+			props: new ValueMap({
+				title: args.params.title as string | undefined,
+			}),
 			viewProps: args.viewProps,
 		});
 		return new FolderApi(c);

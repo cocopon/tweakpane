@@ -65,10 +65,10 @@ export function bindTabIndex(viewProps: ViewProps, elem: HTMLOrSVGElement) {
 export function bindTextContent<
 	Key extends string,
 	O extends {
-		[key in Key]: string;
+		[key in Key]: string | undefined;
 	}
 >(valueMap: ValueMap<O>, key: Key, elem: HTMLElement) {
-	bindValueMap(valueMap, key, (text: string) => {
-		elem.textContent = text;
+	bindValueMap(valueMap, key, (text: string | undefined) => {
+		elem.textContent = text ?? '';
 	});
 }
