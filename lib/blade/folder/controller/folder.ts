@@ -2,6 +2,7 @@ import {
 	disableTransitionTemporarily,
 	forceReflow,
 	insertElementAt,
+	removeElement,
 } from '../../../common/dom-util';
 import {ViewProps} from '../../../common/model/view-props';
 import {isEmpty} from '../../../misc/type-util';
@@ -99,8 +100,8 @@ export class FolderController implements BladeController {
 	}
 
 	public onDispose() {
-		for (let i = this.bladeRack.items.length - 1; i >= 0; i--) {
-			const bc = this.bladeRack.items[i];
+		for (let i = this.bladeRack.children.length - 1; i >= 0; i--) {
+			const bc = this.bladeRack.children[i];
 			bc.blade.dispose();
 		}
 	}
@@ -126,13 +127,13 @@ export class FolderController implements BladeController {
 	}
 
 	private applyRackChange_(): void {
-		const visibleItems = this.bladeRack.items.filter(
+		const visibleItems = this.bladeRack.children.filter(
 			(bc) => !bc.viewProps.get('hidden'),
 		);
 		const firstVisibleItem = visibleItems[0];
 		const lastVisibleItem = visibleItems[visibleItems.length - 1];
 
-		this.bladeRack.items.forEach((bc) => {
+		this.bladeRack.children.forEach((bc) => {
 			const ps: BladePosition[] = [];
 			if (bc === firstVisibleItem) {
 				ps.push('first');
@@ -160,6 +161,7 @@ export class FolderController implements BladeController {
 		if (!ev.isRoot) {
 			return;
 		}
+		removeElement(ev.bladeController.view.element);
 		this.applyRackChange_();
 	}
 

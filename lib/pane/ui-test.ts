@@ -69,7 +69,7 @@ describe(Tweakpane.name, () => {
 				pane.addInput(params, 'bar');
 				testCase.insert(pane, 1);
 
-				const cs = pane.controller_.bladeRack.items;
+				const cs = pane.controller_.bladeRack.children;
 				assert.strictEqual(cs[1] instanceof testCase.expected, true);
 			});
 		});

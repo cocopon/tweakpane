@@ -49,19 +49,34 @@ describe(FolderController.name, () => {
 		c.view.titleElement.click();
 	});
 
-	it('should remove list item after disposing child view', () => {
+	it('should remove disposed blade view element', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new FolderController(doc, {
-			title: 'Push',
+			title: '',
 			blade: new Blade(),
 			viewProps: createViewProps(),
 		});
 		const bc = createSomeBladeController(doc);
 		c.bladeRack.add(bc);
 
-		assert.strictEqual(c.bladeRack.items.length, 1);
+		assert.strictEqual(c.view.element.contains(bc.view.element), true);
 		bc.blade.dispose();
-		assert.strictEqual(c.bladeRack.items.length, 0);
+		assert.strictEqual(c.view.element.contains(bc.view.element), false);
+	});
+
+	it('should remove removed blade view element', () => {
+		const doc = TestUtil.createWindow().document;
+		const c = new FolderController(doc, {
+			title: '',
+			blade: new Blade(),
+			viewProps: createViewProps(),
+		});
+		const bc = createSomeBladeController(doc);
+		c.bladeRack.add(bc);
+
+		assert.strictEqual(c.view.element.contains(bc.view.element), true);
+		c.bladeRack.remove(bc);
+		assert.strictEqual(c.view.element.contains(bc.view.element), false);
 	});
 
 	it('should add view element to subfolder', () => {
