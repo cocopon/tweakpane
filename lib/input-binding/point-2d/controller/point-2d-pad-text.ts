@@ -1,9 +1,9 @@
 import {Constraint} from '../../../common/constraint/constraint';
 import {ValueController} from '../../../common/controller/value';
-import {Formatter} from '../../../common/converter/formatter';
 import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
+import {NumberTextProps} from '../../../common/number/view/number-text';
 import {forceCast} from '../../../misc/type-util';
 import {PointNdTextController} from '../../common/controller/point-nd-text';
 import {Point2d, Point2dAssembly} from '../model/point-2d';
@@ -13,8 +13,7 @@ import {Point2dPadController} from './point-2d-pad';
 interface Axis {
 	baseStep: number;
 	constraint: Constraint<number> | undefined;
-	draggingScale: number;
-	formatter: Formatter<number>;
+	textProps: NumberTextProps;
 }
 
 interface Config {

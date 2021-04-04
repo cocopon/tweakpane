@@ -7,6 +7,7 @@ import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../common/converter/number';
+import {ValueMap} from '../../common/model/value-map';
 import {TpError} from '../../common/tp-error';
 import {
 	getBaseStep,
@@ -62,10 +63,12 @@ function createAxis(
 	return {
 		baseStep: getBaseStep(constraint),
 		constraint: constraint,
-		draggingScale: getSuitableDraggingScale(constraint, initialValue),
-		formatter: createNumberFormatter(
-			getSuitableDecimalDigits(constraint, initialValue),
-		),
+		textProps: new ValueMap({
+			draggingScale: getSuitableDraggingScale(constraint, initialValue),
+			formatter: createNumberFormatter(
+				getSuitableDecimalDigits(constraint, initialValue),
+			),
+		}),
 	};
 }
 

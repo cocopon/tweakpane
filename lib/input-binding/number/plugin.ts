@@ -131,12 +131,14 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 			const [min, max] = estimateSuitableRange(c);
 			return new SliderTextController(args.document, {
 				baseStep: getBaseStep(c),
-				draggingScale: getSuitableDraggingScale(c, value.rawValue),
-				formatter: formatter,
 				parser: parseNumber,
 				sliderProps: new ValueMap({
 					maxValue: max,
 					minValue: min,
+				}),
+				textProps: new ValueMap({
+					draggingScale: getSuitableDraggingScale(c, value.rawValue),
+					formatter: formatter,
 				}),
 				value: value,
 				viewProps: args.viewProps,
@@ -145,9 +147,11 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 
 		return new NumberTextController(args.document, {
 			baseStep: getBaseStep(c),
-			draggingScale: getSuitableDraggingScale(c, value.rawValue),
-			formatter: formatter,
 			parser: parseNumber,
+			props: new ValueMap({
+				draggingScale: getSuitableDraggingScale(c, value.rawValue),
+				formatter: formatter,
+			}),
 			value: value,
 			viewProps: args.viewProps,
 		});

@@ -1,20 +1,19 @@
 import {Constraint} from '../../../common/constraint/constraint';
 import {ValueController} from '../../../common/controller/value';
-import {Formatter} from '../../../common/converter/formatter';
 import {Parser} from '../../../common/converter/parser';
 import {BoundValue} from '../../../common/model/bound-value';
 import {Value} from '../../../common/model/value';
 import {connectValues} from '../../../common/model/value-sync';
 import {ViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from '../../../common/number/controller/number-text';
+import {NumberTextProps} from '../../../common/number/view/number-text';
 import {PointNdAssembly} from '../model/point-nd';
 import {PointNdTextView} from '../view/point-nd-text';
 
 interface Axis {
 	baseStep: number;
 	constraint: Constraint<number> | undefined;
-	draggingScale: number;
-	formatter: Formatter<number>;
+	textProps: NumberTextProps;
 }
 
 interface Config<PointNd> {
@@ -34,9 +33,8 @@ function createAxisController<PointNd>(
 		arrayPosition:
 			index === 0 ? 'fst' : index === config.axes.length - 1 ? 'lst' : 'mid',
 		baseStep: config.axes[index].baseStep,
-		formatter: config.axes[index].formatter,
-		draggingScale: config.axes[index].draggingScale,
 		parser: config.parser,
+		props: config.axes[index].textProps,
 		value: new BoundValue(0, {
 			constraint: config.axes[index].constraint,
 		}),

@@ -5,6 +5,7 @@ import {createNumberFormatter} from '../../../common/converter/number';
 import {Parser} from '../../../common/converter/parser';
 import {BoundValue} from '../../../common/model/bound-value';
 import {Value} from '../../../common/model/value';
+import {ValueMap} from '../../../common/model/value-map';
 import {connectValues} from '../../../common/model/value-sync';
 import {ViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from '../../../common/number/controller/number-text';
@@ -56,9 +57,11 @@ function createComponentController(
 	return new NumberTextController(doc, {
 		arrayPosition: index === 0 ? 'fst' : index === 3 - 1 ? 'lst' : 'mid',
 		baseStep: getBaseStepForColor(false),
-		draggingScale: 1,
-		formatter: FORMATTER,
 		parser: config.parser,
+		props: new ValueMap({
+			draggingScale: 1,
+			formatter: FORMATTER,
+		}),
 		value: new BoundValue(0, {
 			constraint: MODE_TO_CONSTRAINT_MAP[config.colorMode](index),
 		}),

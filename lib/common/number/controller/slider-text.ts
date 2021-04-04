@@ -1,8 +1,8 @@
 import {ValueController} from '../../controller/value';
-import {Formatter} from '../../converter/formatter';
 import {Parser} from '../../converter/parser';
 import {Value} from '../../model/value';
 import {ViewProps} from '../../model/view-props';
+import {NumberTextProps} from '../view/number-text';
 import {SliderProps} from '../view/slider';
 import {SliderTextView} from '../view/slider-text';
 import {NumberTextController} from './number-text';
@@ -10,10 +10,9 @@ import {SliderController} from './slider';
 
 interface Config {
 	baseStep: number;
-	draggingScale: number;
-	formatter: Formatter<number>;
 	parser: Parser<number>;
 	sliderProps: SliderProps;
+	textProps: NumberTextProps;
 	value: Value<number>;
 	viewProps: ViewProps;
 }
@@ -40,9 +39,8 @@ export class SliderTextController implements ValueController<number> {
 		});
 		this.textC_ = new NumberTextController(doc, {
 			baseStep: config.baseStep,
-			draggingScale: config.draggingScale,
-			formatter: config.formatter,
 			parser: config.parser,
+			props: config.textProps,
 			value: config.value,
 			viewProps: config.viewProps,
 		});
