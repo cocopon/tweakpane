@@ -3,16 +3,16 @@ import {describe as context, describe, it} from 'mocha';
 
 import {InputBindingApi} from '../blade/common/api/input-binding';
 import {TpChangeEvent} from '../blade/common/api/tp-event';
+import {ListController} from '../common/controller/list';
+import {TextController} from '../common/controller/text';
+import {NumberTextController} from '../common/number/controller/number-text';
+import {SliderTextController} from '../common/number/controller/slider-text';
 import {TpError} from '../common/tp-error';
 import Tweakpane from '../index';
 import {CheckboxController} from '../input-binding/boolean/controller';
 import {ColorSwatchTextController} from '../input-binding/color/controller/color-swatch-text';
 import {Color} from '../input-binding/color/model/color';
-import {ListController} from '../input-binding/common/controller/list';
 import {PointNdTextController} from '../input-binding/common/controller/point-nd-text';
-import {TextController} from '../input-binding/common/controller/text';
-import {NumberTextController} from '../input-binding/number/controller/number-text';
-import {SliderTextController} from '../input-binding/number/controller/slider-text';
 import {Point2dPadTextController} from '../input-binding/point-2d/controller/point-2d-pad-text';
 import {TestUtil} from '../misc/test-util';
 import {forceCast} from '../misc/type-util';
@@ -164,28 +164,6 @@ describe(Tweakpane.name, () => {
 			done();
 		});
 		bapi.controller_.binding.value.rawValue = 2;
-	});
-
-	it('should apply disabled of input binding params', () => {
-		const PARAMS = {foo: 1};
-		const pane = createPane();
-		const bapi = pane.addInput(PARAMS, 'foo', {
-			disabled: true,
-		});
-		assert.strictEqual(bapi.disabled, true);
-		assert.strictEqual(bapi.controller_.viewProps.get('disabled'), true);
-	});
-
-	it('should apply disabled of input binding', () => {
-		const PARAMS = {foo: 1};
-		const pane = createPane();
-		const bapi = pane.addInput(PARAMS, 'foo');
-
-		assert.strictEqual(bapi.disabled, false);
-		assert.strictEqual(bapi.controller_.viewProps.get('disabled'), false);
-		bapi.disabled = true;
-		assert.strictEqual(bapi.disabled, true);
-		assert.strictEqual(bapi.controller_.viewProps.get('disabled'), true);
 	});
 
 	[

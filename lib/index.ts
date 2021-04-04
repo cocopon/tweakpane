@@ -5,6 +5,7 @@ import {RootController} from './blade/folder/root';
 import {ListBladePlugin} from './blade/list/plugin';
 import {BladePlugin} from './blade/plugin';
 import {RootApi} from './blade/root/api/root';
+import {SliderBladePlugin} from './blade/slider/plugin';
 import {TextBladePlugin} from './blade/text/plugin';
 import {getWindowDocument} from './common/dom-util';
 import {createViewProps} from './common/model/view-props';
@@ -137,11 +138,13 @@ function registerDefaultPlugins() {
 		},
 	);
 
-	[ListBladePlugin, TextBladePlugin].forEach((p: BladePlugin<any>) => {
-		registerPlugin({
-			type: 'blade',
-			plugin: p,
-		});
-	});
+	[SliderBladePlugin, ListBladePlugin, TextBladePlugin].forEach(
+		(p: BladePlugin<any>) => {
+			registerPlugin({
+				type: 'blade',
+				plugin: p,
+			});
+		},
+	);
 }
 registerDefaultPlugins();

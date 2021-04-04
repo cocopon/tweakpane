@@ -7,12 +7,15 @@ import {Constraint} from '../../common/constraint/constraint';
 import {ListConstraint} from '../../common/constraint/list';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
+import {ListController} from '../../common/controller/list';
 import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../common/converter/number';
 import {numberFromUnknown} from '../../common/converter/number';
 import {ValueMap} from '../../common/model/value-map';
+import {NumberTextController} from '../../common/number/controller/number-text';
+import {SliderTextController} from '../../common/number/controller/slider-text';
 import {writePrimitive} from '../../common/primitive';
 import {
 	createListConstraint,
@@ -22,10 +25,7 @@ import {
 	getSuitableDraggingScale,
 } from '../../common/util';
 import {isEmpty} from '../../misc/type-util';
-import {ListController} from '../common/controller/list';
 import {InputBindingPlugin} from '../plugin';
-import {NumberTextController} from './controller/number-text';
-import {SliderTextController} from './controller/slider-text';
 
 /**
  * Tries to create a step constraint.
@@ -131,12 +131,14 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 			const [min, max] = estimateSuitableRange(c);
 			return new SliderTextController(args.document, {
 				baseStep: getBaseStep(c),
-				draggingScale: getSuitableDraggingScale(c, value.rawValue),
-				formatter: formatter,
 				parser: parseNumber,
 				sliderProps: new ValueMap({
 					maxValue: max,
 					minValue: min,
+				}),
+				textProps: new ValueMap({
+					draggingScale: getSuitableDraggingScale(c, value.rawValue),
+					formatter: formatter,
 				}),
 				value: value,
 				viewProps: args.viewProps,
@@ -145,9 +147,11 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 
 		return new NumberTextController(args.document, {
 			baseStep: getBaseStep(c),
-			draggingScale: getSuitableDraggingScale(c, value.rawValue),
-			formatter: formatter,
 			parser: parseNumber,
+			props: new ValueMap({
+				draggingScale: getSuitableDraggingScale(c, value.rawValue),
+				formatter: formatter,
+			}),
 			value: value,
 			viewProps: args.viewProps,
 		});

@@ -3,6 +3,7 @@ import {describe, it} from 'mocha';
 
 import {InputBinding} from '../../../common/binding/input';
 import {BindingTarget} from '../../../common/binding/target';
+import {TextController} from '../../../common/controller/text';
 import {
 	createNumberFormatter,
 	parseNumber,
@@ -11,7 +12,6 @@ import {numberFromUnknown} from '../../../common/converter/number';
 import {BoundValue} from '../../../common/model/bound-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
-import {TextController} from '../../../input-binding/common/controller/text';
 import {TestUtil} from '../../../misc/test-util';
 import {LabeledPropsObject} from '../../labeled/view';
 import {Blade} from '../model/blade';

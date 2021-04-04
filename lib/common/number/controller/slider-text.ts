@@ -1,8 +1,8 @@
-import {ValueController} from '../../../common/controller/value';
-import {Formatter} from '../../../common/converter/formatter';
-import {Parser} from '../../../common/converter/parser';
-import {Value} from '../../../common/model/value';
-import {ViewProps} from '../../../common/model/view-props';
+import {ValueController} from '../../controller/value';
+import {Parser} from '../../converter/parser';
+import {Value} from '../../model/value';
+import {ViewProps} from '../../model/view-props';
+import {NumberTextProps} from '../view/number-text';
 import {SliderProps} from '../view/slider';
 import {SliderTextView} from '../view/slider-text';
 import {NumberTextController} from './number-text';
@@ -10,10 +10,9 @@ import {SliderController} from './slider';
 
 interface Config {
 	baseStep: number;
-	draggingScale: number;
-	formatter: Formatter<number>;
 	parser: Parser<number>;
 	sliderProps: SliderProps;
+	textProps: NumberTextProps;
 	value: Value<number>;
 	viewProps: ViewProps;
 }
@@ -25,31 +24,38 @@ export class SliderTextController implements ValueController<number> {
 	public readonly value: Value<number>;
 	public readonly view: SliderTextView;
 	public readonly viewProps: ViewProps;
-	private sliderIc_: SliderController;
-	private textIc_: NumberTextController;
+	private sliderC_: SliderController;
+	private textC_: NumberTextController;
 
 	constructor(doc: Document, config: Config) {
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 
-		this.sliderIc_ = new SliderController(doc, {
+		this.sliderC_ = new SliderController(doc, {
 			baseStep: config.baseStep,
 			props: config.sliderProps,
 			value: config.value,
 			viewProps: this.viewProps,
 		});
-		this.textIc_ = new NumberTextController(doc, {
+		this.textC_ = new NumberTextController(doc, {
 			baseStep: config.baseStep,
-			draggingScale: config.draggingScale,
-			formatter: config.formatter,
 			parser: config.parser,
+			props: config.textProps,
 			value: config.value,
 			viewProps: config.viewProps,
 		});
 
 		this.view = new SliderTextView(doc, {
-			sliderView: this.sliderIc_.view,
-			textView: this.textIc_.view,
+			sliderView: this.sliderC_.view,
+			textView: this.textC_.view,
 		});
+	}
+
+	public get sliderController(): SliderController {
+		return this.sliderC_;
+	}
+
+	public get textController(): NumberTextController {
+		return this.textC_;
 	}
 }

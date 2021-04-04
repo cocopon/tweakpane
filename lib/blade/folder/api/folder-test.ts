@@ -3,8 +3,8 @@ import {describe, it} from 'mocha';
 
 import {Value} from '../../../common/model/value';
 import {createViewProps} from '../../../common/model/view-props';
+import {NumberTextController} from '../../../common/number/controller/number-text';
 import {Color} from '../../../input-binding/color/model/color';
-import {NumberTextController} from '../../../input-binding/number/controller/number-text';
 import {TestUtil} from '../../../misc/test-util';
 import {forceCast} from '../../../misc/type-util';
 import {SingleLogMonitorController} from '../../../monitor-binding/common/controller/single-log';

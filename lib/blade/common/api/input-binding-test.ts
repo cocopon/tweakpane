@@ -11,13 +11,14 @@ import {
 import {BoundValue} from '../../../common/model/bound-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
+import {NumberTextController} from '../../../common/number/controller/number-text';
 import {writePrimitive} from '../../../common/primitive';
-import {NumberTextController} from '../../../input-binding/number/controller/number-text';
 import {TestUtil} from '../../../misc/test-util';
 import {LabeledPropsObject} from '../../labeled/view';
 import {InputBindingController} from '../controller/input-binding';
 import {Blade} from '../model/blade';
 import {InputBindingApi} from './input-binding';
+import {assertInitialState, assertUpdates} from './test-util';
 import {TpChangeEvent} from './tp-event';
 
 function createApi(target: BindingTarget) {
@@ -25,9 +26,11 @@ function createApi(target: BindingTarget) {
 	const value = new BoundValue(0);
 	const ic = new NumberTextController(doc, {
 		baseStep: 1,
-		draggingScale: 1,
-		formatter: createNumberFormatter(0),
 		parser: parseNumber,
+		props: new ValueMap({
+			draggingScale: 1,
+			formatter: createNumberFormatter(0),
+		}),
 		value: value,
 		viewProps: createViewProps(),
 	});
@@ -87,31 +90,19 @@ describe(InputBindingApi.name, () => {
 		assert.strictEqual(api.controller_.binding.value.rawValue, 123);
 	});
 
-	it('should be hidden', () => {
+	it('should have initial state', () => {
 		const PARAMS = {
 			foo: 0,
 		};
 		const api = createApi(new BindingTarget(PARAMS, 'foo'));
-		assert.strictEqual(api.hidden, false);
-
-		api.hidden = true;
-		assert.strictEqual(
-			api.controller_.view.element.classList.contains('tp-v-hidden'),
-			true,
-		);
+		assertInitialState(api);
 	});
 
-	it('should be disabled', () => {
+	it('should update properties', () => {
 		const PARAMS = {
 			foo: 0,
 		};
 		const api = createApi(new BindingTarget(PARAMS, 'foo'));
-		assert.strictEqual(api.disabled, false);
-
-		api.disabled = true;
-		assert.strictEqual(
-			api.controller_.view.element.classList.contains('tp-v-disabled'),
-			true,
-		);
+		assertUpdates(api);
 	});
 });

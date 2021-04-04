@@ -8,9 +8,10 @@ import {findNextTarget, supportsTouch} from '../../../common/dom-util';
 import {BoundValue} from '../../../common/model/bound-value';
 import {Foldable} from '../../../common/model/foldable';
 import {Value} from '../../../common/model/value';
+import {ValueMap} from '../../../common/model/value-map';
 import {connectValues} from '../../../common/model/value-sync';
 import {ViewProps} from '../../../common/model/view-props';
-import {NumberTextController} from '../../number/controller/number-text';
+import {NumberTextController} from '../../../common/number/controller/number-text';
 import {Color} from '../model/color';
 import {PickedColor} from '../model/picked-color';
 import {ColorPickerView} from '../view/color-picker';
@@ -66,10 +67,12 @@ export class ColorPickerController implements ValueController<Color> {
 						viewProps: this.viewProps,
 					}),
 					text: new NumberTextController(doc, {
-						draggingScale: 0.01,
-						formatter: createNumberFormatter(2),
 						parser: parseNumber,
 						baseStep: 0.1,
+						props: new ValueMap({
+							draggingScale: 0.01,
+							formatter: createNumberFormatter(2),
+						}),
 						value: new BoundValue(0, {
 							constraint: new RangeConstraint({min: 0, max: 1}),
 						}),

@@ -6,10 +6,10 @@ import {findConstraint} from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
 import {StepConstraint} from '../../common/constraint/step';
 import {BoundValue} from '../../common/model/bound-value';
+import {NumberTextController} from '../../common/number/controller/number-text';
 import {TestUtil} from '../../misc/test-util';
 import {forceCast} from '../../misc/type-util';
 import {createController} from '../plugin';
-import {NumberTextController} from './controller/number-text';
 import {NumberInputPlugin} from './plugin';
 
 describe(NumberInputPlugin.id, () => {

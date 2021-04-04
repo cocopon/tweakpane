@@ -1,12 +1,12 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {ListConstraint} from '../../../common/constraint/list';
-import {BoundValue} from '../../../common/model/bound-value';
-import {ValueMap} from '../../../common/model/value-map';
-import {createViewProps} from '../../../common/model/view-props';
-import {findListItems} from '../../../common/util';
-import {TestUtil} from '../../../misc/test-util';
+import {TestUtil} from '../../misc/test-util';
+import {ListConstraint} from '../constraint/list';
+import {BoundValue} from '../model/bound-value';
+import {ValueMap} from '../model/value-map';
+import {createViewProps} from '../model/view-props';
+import {findListItems} from '../util';
 import {ListController} from './list';
 
 describe(ListController.name, () => {

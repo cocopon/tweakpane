@@ -2,11 +2,16 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {ListItem} from '../../../common/constraint/list';
+import {ListController} from '../../../common/controller/list';
 import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
-import {ListController} from '../../../input-binding/common/controller/list';
 import {TestUtil} from '../../../misc/test-util';
+import {
+	assertDisposes,
+	assertInitialState,
+	assertUpdates,
+} from '../../common/api/test-util';
 import {Blade} from '../../common/model/blade';
 import {LabeledController} from '../../labeled/controller';
 import {LabeledPropsObject} from '../../labeled/view';
@@ -29,8 +34,7 @@ describe(ListBladeApi.name, () => {
 			}),
 		});
 		const api = new ListBladeApi(c);
-		api.dispose();
-		assert.strictEqual(api.controller_.blade.disposed, true);
+		assertDisposes(api);
 	});
 
 	it('should have initial state', () => {
@@ -52,8 +56,8 @@ describe(ListBladeApi.name, () => {
 			}),
 		});
 		const api = new ListBladeApi(c);
-		assert.strictEqual(api.disabled, false);
-		assert.strictEqual(api.hidden, false);
+
+		assertInitialState(api);
 		assert.strictEqual(api.label, undefined);
 		assert.strictEqual(api.value, 0);
 		assert.deepStrictEqual(api.options[0], {text: 'foo', value: 123});
@@ -80,11 +84,7 @@ describe(ListBladeApi.name, () => {
 		});
 		const api = new ListBladeApi(c);
 
-		api.disabled = true;
-		assert.strictEqual(api.disabled, true);
-
-		api.hidden = true;
-		assert.strictEqual(api.hidden, true);
+		assertUpdates(api);
 
 		api.value = 789;
 		assert.strictEqual(api.value, 789);

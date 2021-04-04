@@ -1,23 +1,17 @@
-import {ValueController} from '../../../common/controller/value';
-import {Formatter} from '../../../common/converter/formatter';
-import {Parser} from '../../../common/converter/parser';
-import {BoundValue} from '../../../common/model/bound-value';
-import {Value} from '../../../common/model/value';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {getStepForKey, getVerticalStepKeys} from '../../../common/ui';
-import {
-	PointerHandler,
-	PointerHandlerEvent,
-} from '../../../common/view/pointer-handler';
 import {forceCast, isEmpty} from '../../../misc/type-util';
-import {NumberTextView} from '../view/number-text';
+import {ValueController} from '../../controller/value';
+import {Parser} from '../../converter/parser';
+import {BoundValue} from '../../model/bound-value';
+import {Value} from '../../model/value';
+import {ViewProps} from '../../model/view-props';
+import {getStepForKey, getVerticalStepKeys} from '../../ui';
+import {PointerHandler, PointerHandlerEvent} from '../../view/pointer-handler';
+import {NumberTextProps, NumberTextView} from '../view/number-text';
 
 interface Config {
 	baseStep: number;
-	draggingScale: number;
-	formatter: Formatter<number>;
 	parser: Parser<number>;
+	props: NumberTextProps;
 	value: Value<number>;
 	viewProps: ViewProps;
 
@@ -28,6 +22,7 @@ interface Config {
  * @hidden
  */
 export class NumberTextController implements ValueController<number> {
+	public readonly props: NumberTextProps;
 	public readonly value: Value<number>;
 	public readonly view: NumberTextView;
 	public readonly viewProps: ViewProps;
@@ -35,7 +30,6 @@ export class NumberTextController implements ValueController<number> {
 	private parser_: Parser<number>;
 	private originRawValue_ = 0;
 	private dragging_: Value<number | null>;
-	private draggingScale_: number;
 
 	constructor(doc: Document, config: Config) {
 		this.onInputChange_ = this.onInputChange_.bind(this);
@@ -45,8 +39,8 @@ export class NumberTextController implements ValueController<number> {
 		this.onPointerUp_ = this.onPointerUp_.bind(this);
 
 		this.baseStep_ = config.baseStep;
-		this.draggingScale_ = config.draggingScale;
 		this.parser_ = config.parser;
+		this.props = config.props;
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 
@@ -54,10 +48,7 @@ export class NumberTextController implements ValueController<number> {
 		this.view = new NumberTextView(doc, {
 			arrayPosition: config.arrayPosition,
 			dragging: this.dragging_,
-			props: new ValueMap({
-				draggingScale: this.draggingScale_,
-				formatter: config.formatter,
-			}),
+			props: this.props,
 			value: this.value,
 			viewProps: this.viewProps,
 		});
@@ -98,7 +89,8 @@ export class NumberTextController implements ValueController<number> {
 		}
 
 		const dx = ev.data.point.x - ev.data.bounds.width / 2;
-		this.value.rawValue = this.originRawValue_ + dx * this.draggingScale_;
+		this.value.rawValue =
+			this.originRawValue_ + dx * this.props.get('draggingScale');
 		this.dragging_.rawValue = this.value.rawValue - this.originRawValue_;
 	}
 

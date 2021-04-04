@@ -1,13 +1,11 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {
-	createNumberFormatter,
-	parseNumber,
-} from '../../../common/converter/number';
-import {BoundValue} from '../../../common/model/bound-value';
-import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
+import {createNumberFormatter, parseNumber} from '../../converter/number';
+import {BoundValue} from '../../model/bound-value';
+import {ValueMap} from '../../model/value-map';
+import {createViewProps} from '../../model/view-props';
 import {NumberTextController} from './number-text';
 
 describe(NumberTextController.name, () => {
@@ -16,9 +14,11 @@ describe(NumberTextController.name, () => {
 		const doc = win.document;
 		const c = new NumberTextController(doc, {
 			baseStep: 1,
-			draggingScale: 1,
-			formatter: createNumberFormatter(0),
 			parser: parseNumber,
+			props: new ValueMap({
+				draggingScale: 1,
+				formatter: createNumberFormatter(0),
+			}),
 			value: new BoundValue(123),
 			viewProps: createViewProps(),
 		});
