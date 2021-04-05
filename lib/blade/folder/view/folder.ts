@@ -1,15 +1,15 @@
-import {ValueMap} from '../../common/model/value-map';
-import {ViewProps} from '../../common/model/view-props';
-import {ClassName} from '../../common/view/class-name';
+import {ValueMap} from '../../../common/model/value-map';
+import {ViewProps} from '../../../common/model/view-props';
+import {ClassName} from '../../../common/view/class-name';
 import {
 	bindClassModifier,
 	bindDisabled,
 	bindTextContent,
 	bindValueMap,
-} from '../../common/view/reactive';
-import {View} from '../../common/view/view';
-import {isEmpty} from '../../misc/type-util';
-import {Folder} from './model/folder';
+} from '../../../common/view/reactive';
+import {View} from '../../../common/view/view';
+import {isEmpty} from '../../../misc/type-util';
+import {Folder} from '../model/folder';
 
 export type FolderProps = ValueMap<{
 	title: string | undefined;

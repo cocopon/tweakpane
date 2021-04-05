@@ -16,9 +16,9 @@ import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event';
 import {InputBindingController} from '../../common/controller/input-binding';
 import {MonitorBindingController} from '../../common/controller/monitor-binding';
 import {Blade} from '../../common/model/blade';
-import {LabeledController} from '../../labeled/controller';
+import {LabeledController} from '../../labeled/controller/labeled';
 import {SeparatorApi} from '../../separator/api/separator';
-import {SeparatorController} from '../../separator/controller';
+import {SeparatorController} from '../../separator/controller/separator';
 import {FolderController} from '../controller/folder';
 import {FolderApi} from './folder';
 

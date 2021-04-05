@@ -14,7 +14,7 @@ import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {SingleLogMonitorController} from '../../../monitor-binding/common/controller/single-log';
-import {LabeledPropsObject} from '../../labeled/view';
+import {LabeledPropsObject} from '../../labeled/view/labeled';
 import {MonitorBindingController} from '../controller/monitor-binding';
 import {Blade} from '../model/blade';
 import {MonitorBindingApi} from './monitor-binding';

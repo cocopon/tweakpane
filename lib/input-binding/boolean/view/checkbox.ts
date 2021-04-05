@@ -1,9 +1,9 @@
-import {createSvgIconElement} from '../../common/dom-util';
-import {Value} from '../../common/model/value';
-import {ViewProps} from '../../common/model/view-props';
-import {ClassName} from '../../common/view/class-name';
-import {bindClassModifier, bindDisabled} from '../../common/view/reactive';
-import {View} from '../../common/view/view';
+import {createSvgIconElement} from '../../../common/dom-util';
+import {Value} from '../../../common/model/value';
+import {ViewProps} from '../../../common/model/view-props';
+import {ClassName} from '../../../common/view/class-name';
+import {bindClassModifier, bindDisabled} from '../../../common/view/reactive';
+import {View} from '../../../common/view/view';
 
 interface Config {
 	value: Value<boolean>;

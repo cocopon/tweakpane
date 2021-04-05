@@ -4,9 +4,9 @@ import {InputBindingController} from '../../common/controller/input-binding';
 import {MonitorBindingController} from '../../common/controller/monitor-binding';
 import {FolderApi} from '../../folder/api/folder';
 import {FolderBladePlugin} from '../../folder/plugin';
-import {RootController} from '../../folder/root';
 import {BladePlugin} from '../../plugin';
 import {SeparatorBladePlugin} from '../../separator/plugin';
+import {RootController} from '../controller/root';
 import {exportPresetJson, importPresetJson, PresetObject} from './preset';
 
 /**

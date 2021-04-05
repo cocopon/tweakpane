@@ -1,8 +1,8 @@
-import {ValueController} from '../../common/controller/value';
-import {Value} from '../../common/model/value';
-import {ViewProps} from '../../common/model/view-props';
-import {forceCast} from '../../misc/type-util';
-import {CheckboxView} from './view';
+import {ValueController} from '../../../common/controller/value';
+import {Value} from '../../../common/model/value';
+import {ViewProps} from '../../../common/model/view-props';
+import {forceCast} from '../../../misc/type-util';
+import {CheckboxView} from '../view/checkbox';
 
 /**
  * @hidden

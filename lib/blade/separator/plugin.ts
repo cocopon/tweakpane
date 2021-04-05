@@ -2,7 +2,7 @@ import {findStringParam} from '../../common/params';
 import {BladeParams} from '../common/api/types';
 import {BladePlugin} from '../plugin';
 import {SeparatorApi} from './api/separator';
-import {SeparatorController} from './controller';
+import {SeparatorController} from './controller/separator';
 
 export interface SeparatorBladeParams extends BladeParams {
 	view: 'separator';

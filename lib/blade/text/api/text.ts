@@ -4,7 +4,7 @@ import {Emitter} from '../../../common/model/emitter';
 import {BladeApi, LabelableApi} from '../../common/api/blade';
 import {TpChangeEvent} from '../../common/api/tp-event';
 import {ApiChangeEvents} from '../../common/api/types';
-import {LabeledController} from '../../labeled/controller';
+import {LabeledController} from '../../labeled/controller/labeled';
 
 export class TextBladeApi<T> implements BladeApi, LabelableApi {
 	private readonly emitter_: Emitter<ApiChangeEvents<T>> = new Emitter();

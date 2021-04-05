@@ -3,7 +3,7 @@ import {describe, it} from 'mocha';
 
 import {BindingTarget} from '../../../common/binding/target';
 import {Color} from '../model/color';
-import {writeRgbaColorObject, writeRgbColorObject} from './color';
+import {writeRgbaColorObject, writeRgbColorObject} from './writer';
 
 describe('writer/color', () => {
 	it('should write RGBA color object value without destruction', () => {

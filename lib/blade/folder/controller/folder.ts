@@ -14,7 +14,7 @@ import {Blade} from '../../common/model/blade';
 import {BladePosition} from '../../common/model/blade-positions';
 import {BladeRack, BladeRackEvents} from '../../common/model/blade-rack';
 import {Folder, FolderEvents} from '../model/folder';
-import {FolderProps, FolderView} from '../view';
+import {FolderProps, FolderView} from '../view/folder';
 
 interface Config {
 	expanded?: boolean;

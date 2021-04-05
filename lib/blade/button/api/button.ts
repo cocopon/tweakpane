@@ -1,6 +1,6 @@
 import {forceCast} from '../../../misc/type-util';
 import {BladeApi, LabelableApi} from '../../common/api/blade';
-import {LabeledController} from '../../labeled/controller';
+import {LabeledController} from '../../labeled/controller/labeled';
 import {ButtonController} from '../controller/button';
 
 interface ButtonApiEventHandlers {

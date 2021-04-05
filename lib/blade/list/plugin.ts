@@ -9,7 +9,7 @@ import {
 	BladeParams,
 	ObjectStyleListOptions,
 } from '../common/api/types';
-import {LabeledController} from '../labeled/controller';
+import {LabeledController} from '../labeled/controller/labeled';
 import {BladePlugin} from '../plugin';
 import {ListBladeApi} from './api/list';
 

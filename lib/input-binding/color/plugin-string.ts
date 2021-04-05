@@ -8,8 +8,8 @@ import {
 	getColorStringifier,
 	hasAlphaComponent,
 } from './converter/color-string';
+import {createColorStringWriter} from './converter/writer';
 import {Color} from './model/color';
-import {createColorStringWriter} from './writer/color';
 
 /**
  * @hidden

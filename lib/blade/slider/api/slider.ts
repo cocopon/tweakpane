@@ -3,7 +3,7 @@ import {SliderTextController} from '../../../common/number/controller/slider-tex
 import {BladeApi, LabelableApi} from '../../common/api/blade';
 import {TpChangeEvent} from '../../common/api/tp-event';
 import {ApiChangeEvents} from '../../common/api/types';
-import {LabeledController} from '../../labeled/controller';
+import {LabeledController} from '../../labeled/controller/labeled';
 
 export class SliderBladeApi implements BladeApi, LabelableApi {
 	private readonly emitter_: Emitter<ApiChangeEvents<number>> = new Emitter();

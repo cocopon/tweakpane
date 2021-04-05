@@ -6,7 +6,7 @@ import {ValueMap} from '../../common/model/value-map';
 import {findFunctionParam, findStringParam} from '../../common/params';
 import {forceCast} from '../../misc/type-util';
 import {BladeParams} from '../common/api/types';
-import {LabeledController} from '../labeled/controller';
+import {LabeledController} from '../labeled/controller/labeled';
 import {BladePlugin} from '../plugin';
 import {TextBladeApi} from './api/text';
 

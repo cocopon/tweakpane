@@ -10,8 +10,8 @@ import {
 	assertUpdates,
 } from '../../common/api/test-util';
 import {Blade} from '../../common/model/blade';
-import {LabeledController} from '../../labeled/controller';
-import {LabeledPropsObject} from '../../labeled/view';
+import {LabeledController} from '../../labeled/controller/labeled';
+import {LabeledPropsObject} from '../../labeled/view/labeled';
 import {ButtonController} from '../controller/button';
 import {ButtonApi} from './button';
 

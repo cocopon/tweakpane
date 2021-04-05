@@ -5,7 +5,7 @@ import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {Blade} from '../../common/model/blade';
-import {RootController} from '../../folder/root';
+import {RootController} from '../controller/root';
 import {RootApi} from './root';
 
 function createApi(): RootApi {

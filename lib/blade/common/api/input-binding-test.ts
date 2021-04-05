@@ -14,7 +14,7 @@ import {createViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from '../../../common/number/controller/number-text';
 import {writePrimitive} from '../../../common/primitive';
 import {TestUtil} from '../../../misc/test-util';
-import {LabeledPropsObject} from '../../labeled/view';
+import {LabeledPropsObject} from '../../labeled/view/labeled';
 import {InputBindingController} from '../controller/input-binding';
 import {Blade} from '../model/blade';
 import {InputBindingApi} from './input-binding';

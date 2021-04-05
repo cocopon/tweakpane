@@ -6,8 +6,8 @@ import {
 	colorToHexRgbString,
 	CompositeColorParser,
 } from './converter/color-string';
+import {createColorObjectWriter} from './converter/writer';
 import {Color, RgbaColorObject, RgbColorObject} from './model/color';
-import {createColorObjectWriter} from './writer/color';
 
 function shouldSupportAlpha(
 	initialValue: RgbColorObject | RgbaColorObject,
