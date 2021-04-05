@@ -75,13 +75,13 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 		const elem = this.view.element;
 		const nextTarget: HTMLElement | null = forceCast(e.relatedTarget);
 		if (!nextTarget || !elem.contains(nextTarget)) {
-			this.padIc_.foldable.expanded = false;
+			this.padIc_.expanded.rawValue = false;
 		}
 	}
 
 	private onPadButtonClick_(): void {
-		this.padIc_.foldable.expanded = !this.padIc_.foldable.expanded;
-		if (this.padIc_.foldable.expanded) {
+		this.padIc_.expanded.rawValue = !this.padIc_.expanded.rawValue;
+		if (this.padIc_.expanded.rawValue) {
 			this.padIc_.view.allFocusableElements[0].focus();
 		}
 	}

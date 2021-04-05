@@ -1,6 +1,6 @@
 import {ValueController} from '../../../common/controller/value';
 import {findNextTarget, supportsTouch} from '../../../common/dom-util';
-import {Foldable} from '../../../common/model/foldable';
+import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
@@ -30,7 +30,7 @@ interface Config {
  * @hidden
  */
 export class Point2dPadController implements ValueController<Point2d> {
-	public readonly foldable: Foldable;
+	public readonly expanded: PrimitiveValue<boolean>;
 	public readonly value: Value<Point2d>;
 	public readonly view: Point2dPadView;
 	public readonly viewProps: ViewProps;
@@ -48,7 +48,7 @@ export class Point2dPadController implements ValueController<Point2d> {
 		this.onPointerMove_ = this.onPointerMove_.bind(this);
 		this.onPointerUp_ = this.onPointerUp_.bind(this);
 
-		this.foldable = new Foldable();
+		this.expanded = new PrimitiveValue(false as boolean);
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 
@@ -57,7 +57,7 @@ export class Point2dPadController implements ValueController<Point2d> {
 		this.invertsY_ = config.invertsY;
 
 		this.view = new Point2dPadView(doc, {
-			foldable: this.foldable,
+			expanded: this.expanded,
 			invertsY: this.invertsY_,
 			maxValue: this.maxValue_,
 			value: this.value,
@@ -136,12 +136,12 @@ export class Point2dPadController implements ValueController<Point2d> {
 			return;
 		}
 
-		this.foldable.expanded = false;
+		this.expanded.rawValue = false;
 	}
 
 	private onKeyDown_(ev: KeyboardEvent): void {
 		if (ev.key === 'Escape') {
-			this.foldable.expanded = false;
+			this.expanded.rawValue = false;
 		}
 	}
 }
