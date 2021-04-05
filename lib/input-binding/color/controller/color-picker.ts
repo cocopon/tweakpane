@@ -6,7 +6,7 @@ import {
 } from '../../../common/converter/number';
 import {findNextTarget, supportsTouch} from '../../../common/dom-util';
 import {BoundValue} from '../../../common/model/bound-value';
-import {Foldable} from '../../../common/model/foldable';
+import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
 import {connectValues} from '../../../common/model/value-sync';
@@ -30,7 +30,7 @@ interface Config {
  * @hidden
  */
 export class ColorPickerController implements ValueController<Color> {
-	public readonly foldable: Foldable;
+	public readonly expanded: PrimitiveValue<boolean>;
 	public readonly pickedColor: PickedColor;
 	public readonly view: ColorPickerView;
 	public readonly viewProps: ViewProps;
@@ -50,7 +50,7 @@ export class ColorPickerController implements ValueController<Color> {
 		this.pickedColor = config.pickedColor;
 		this.viewProps = config.viewProps;
 
-		this.foldable = new Foldable();
+		this.expanded = new PrimitiveValue(false as boolean);
 
 		this.hPaletteIc_ = new HPaletteController(doc, {
 			value: this.pickedColor.value,
@@ -107,7 +107,7 @@ export class ColorPickerController implements ValueController<Color> {
 						text: this.alphaIcs_.text.view,
 				  }
 				: null,
-			foldable: this.foldable,
+			expanded: this.expanded,
 			hPaletteView: this.hPaletteIc_.view,
 			pickedColor: this.pickedColor,
 			supportsAlpha: config.supportsAlpha,
@@ -144,12 +144,12 @@ export class ColorPickerController implements ValueController<Color> {
 			return;
 		}
 
-		this.foldable.expanded = false;
+		this.expanded.rawValue = false;
 	}
 
 	private onKeyDown_(ev: KeyboardEvent): void {
 		if (ev.key === 'Escape') {
-			this.foldable.expanded = false;
+			this.expanded.rawValue = false;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-import {Foldable} from '../../../common/model/foldable';
+import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {NumberTextView} from '../../../common/number/view/number-text';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
@@ -16,7 +16,7 @@ interface Config {
 		palette: APaletteView;
 		text: NumberTextView;
 	} | null;
-	foldable: Foldable;
+	expanded: PrimitiveValue<boolean>;
 	hPaletteView: HPaletteView;
 	pickedColor: PickedColor;
 	supportsAlpha: boolean;
@@ -29,8 +29,8 @@ interface Config {
  */
 export class ColorPickerView implements View {
 	public readonly element: HTMLElement;
-	public readonly foldable: Foldable;
 	public readonly pickedColor: PickedColor;
+	private readonly expanded_: PrimitiveValue<boolean>;
 	private alphaViews_: {
 		palette: APaletteView;
 		text: NumberTextView;
@@ -46,8 +46,8 @@ export class ColorPickerView implements View {
 		this.pickedColor = config.pickedColor;
 		this.pickedColor.value.emitter.on('change', this.onValueChange_);
 
-		this.foldable = config.foldable;
-		this.foldable.emitter.on('change', this.onFoldableChange_);
+		this.expanded_ = config.expanded;
+		this.expanded_.emitter.on('change', this.onFoldableChange_);
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
@@ -115,7 +115,7 @@ export class ColorPickerView implements View {
 	}
 
 	private update_(): void {
-		if (this.foldable.expanded) {
+		if (this.expanded_.rawValue) {
 			this.element.classList.add(className(undefined, 'expanded'));
 		} else {
 			this.element.classList.remove(className(undefined, 'expanded'));

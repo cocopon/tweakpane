@@ -49,13 +49,13 @@ export class ColorSwatchController implements ValueController<Color> {
 		const elem = this.view.element;
 		const nextTarget: HTMLElement | null = forceCast(e.relatedTarget);
 		if (!nextTarget || !elem.contains(nextTarget)) {
-			this.pickerIc_.foldable.expanded = false;
+			this.pickerIc_.expanded.rawValue = false;
 		}
 	}
 
 	private onButtonClick_() {
-		this.pickerIc_.foldable.expanded = !this.pickerIc_.foldable.expanded;
-		if (this.pickerIc_.foldable.expanded) {
+		this.pickerIc_.expanded.rawValue = !this.pickerIc_.expanded.rawValue;
+		if (this.pickerIc_.expanded.rawValue) {
 			this.pickerIc_.view.allFocusableElements[0].focus();
 		}
 	}
