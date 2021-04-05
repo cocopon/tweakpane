@@ -9,7 +9,7 @@ import {NumberTextController} from '../common/number/controller/number-text';
 import {SliderTextController} from '../common/number/controller/slider-text';
 import {TpError} from '../common/tp-error';
 import Tweakpane from '../index';
-import {CheckboxController} from '../input-binding/boolean/controller';
+import {CheckboxController} from '../input-binding/boolean/controller/checkbox';
 import {ColorSwatchTextController} from '../input-binding/color/controller/color-swatch-text';
 import {Color} from '../input-binding/color/model/color';
 import {PointNdTextController} from '../input-binding/common/controller/point-nd-text';

@@ -1,10 +1,10 @@
-import {removeChildNodes} from '../../common/dom-util';
-import {ValueMap} from '../../common/model/value-map';
-import {ViewProps} from '../../common/model/view-props';
-import {ClassName} from '../../common/view/class-name';
-import {bindClassModifier, bindValueMap} from '../../common/view/reactive';
-import {View} from '../../common/view/view';
-import {isEmpty} from '../../misc/type-util';
+import {removeChildNodes} from '../../../common/dom-util';
+import {ValueMap} from '../../../common/model/value-map';
+import {ViewProps} from '../../../common/model/view-props';
+import {ClassName} from '../../../common/view/class-name';
+import {bindClassModifier, bindValueMap} from '../../../common/view/reactive';
+import {View} from '../../../common/view/view';
+import {isEmpty} from '../../../misc/type-util';
 
 export type LabeledPropsObject = {
 	label: string | undefined;

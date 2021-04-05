@@ -7,8 +7,8 @@ import {TestUtil} from '../../../misc/test-util';
 import {ButtonController} from '../../button/controller/button';
 import {BladeController} from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
-import {LabeledController} from '../../labeled/controller';
-import {LabeledPropsObject} from '../../labeled/view';
+import {LabeledController} from '../../labeled/controller/labeled';
+import {LabeledPropsObject} from '../../labeled/view/labeled';
 import {FolderEvents} from '../model/folder';
 import {FolderController} from './folder';
 

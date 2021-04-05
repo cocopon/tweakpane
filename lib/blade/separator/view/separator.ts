@@ -1,7 +1,7 @@
-import {ViewProps} from '../../common/model/view-props';
-import {ClassName} from '../../common/view/class-name';
-import {bindClassModifier} from '../../common/view/reactive';
-import {View} from '../../common/view/view';
+import {ViewProps} from '../../../common/model/view-props';
+import {ClassName} from '../../../common/view/class-name';
+import {bindClassModifier} from '../../../common/view/reactive';
+import {View} from '../../../common/view/view';
 
 const className = ClassName('spr');
 

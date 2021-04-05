@@ -11,7 +11,7 @@ import {ValueMap} from '../../common/model/value-map';
 import {writePrimitive} from '../../common/primitive';
 import {createListConstraint, findListItems} from '../../common/util';
 import {InputBindingPlugin} from '../plugin';
-import {CheckboxController} from './controller';
+import {CheckboxController} from './controller/checkbox';
 
 function createConstraint(params: InputParams): Constraint<boolean> {
 	const constraints: Constraint<boolean>[] = [];

@@ -13,7 +13,7 @@ import {BoundValue} from '../../../common/model/bound-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
-import {LabeledPropsObject} from '../../labeled/view';
+import {LabeledPropsObject} from '../../labeled/view/labeled';
 import {Blade} from '../model/blade';
 import {InputBindingController} from './input-binding';
 

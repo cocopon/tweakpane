@@ -11,7 +11,7 @@ import {
 import {getSuitableDraggingScale} from '../../common/util';
 import {forceCast} from '../../misc/type-util';
 import {BladeParams} from '../common/api/types';
-import {LabeledController} from '../labeled/controller';
+import {LabeledController} from '../labeled/controller/labeled';
 import {BladePlugin} from '../plugin';
 import {SliderBladeApi} from './api/slider';
 

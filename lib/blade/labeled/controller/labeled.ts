@@ -1,11 +1,11 @@
-import {Controller} from '../../common/controller/controller';
-import {ViewProps} from '../../common/model/view-props';
+import {Controller} from '../../../common/controller/controller';
+import {ViewProps} from '../../../common/model/view-props';
 import {
 	BladeController,
 	setUpBladeController,
-} from '../common/controller/blade';
-import {Blade} from '../common/model/blade';
-import {LabeledProps, LabeledView} from './view';
+} from '../../common/controller/blade';
+import {Blade} from '../../common/model/blade';
+import {LabeledProps, LabeledView} from '../view/labeled';
 
 interface Config<C> {
 	blade: Blade;

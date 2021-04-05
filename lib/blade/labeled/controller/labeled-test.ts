@@ -1,14 +1,14 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {Controller} from '../../common/controller/controller';
-import {ValueMap} from '../../common/model/value-map';
-import {createViewProps, ViewProps} from '../../common/model/view-props';
-import {View} from '../../common/view/view';
-import {TestUtil} from '../../misc/test-util';
-import {Blade} from '../common/model/blade';
-import {LabeledController} from './controller';
-import {LabeledPropsObject} from './view';
+import {Controller} from '../../../common/controller/controller';
+import {ValueMap} from '../../../common/model/value-map';
+import {createViewProps, ViewProps} from '../../../common/model/view-props';
+import {View} from '../../../common/view/view';
+import {TestUtil} from '../../../misc/test-util';
+import {Blade} from '../../common/model/blade';
+import {LabeledPropsObject} from '../view/labeled';
+import {LabeledController} from './labeled';
 
 class TestView implements View {
 	public readonly element: HTMLElement;

@@ -1,7 +1,7 @@
 import {InputBinding} from '../../../common/binding/input';
 import {ValueController} from '../../../common/controller/value';
-import {LabeledController} from '../../labeled/controller';
-import {LabeledProps} from '../../labeled/view';
+import {LabeledController} from '../../labeled/controller/labeled';
+import {LabeledProps} from '../../labeled/view/labeled';
 import {Blade} from '../model/blade';
 
 interface Config<In> {

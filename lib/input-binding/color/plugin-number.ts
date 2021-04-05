@@ -10,8 +10,8 @@ import {
 	colorToHexRgbString,
 	CompositeColorParser,
 } from './converter/color-string';
+import {createColorNumberWriter} from './converter/writer';
 import {Color} from './model/color';
-import {createColorNumberWriter} from './writer/color';
 
 function shouldSupportAlpha(inputParams: InputParams): boolean {
 	return 'input' in inputParams && inputParams.input === 'color.rgba';

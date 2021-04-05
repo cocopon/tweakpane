@@ -2,8 +2,8 @@ import {MonitorBinding} from '../../../common/binding/monitor';
 import {ValueController} from '../../../common/controller/value';
 import {Buffer} from '../../../common/model/buffered-value';
 import {bindDisabled} from '../../../common/view/reactive';
-import {LabeledController} from '../../labeled/controller';
-import {LabeledProps} from '../../labeled/view';
+import {LabeledController} from '../../labeled/controller/labeled';
+import {LabeledProps} from '../../labeled/view/labeled';
 import {Blade} from '../model/blade';
 
 interface Config<T> {

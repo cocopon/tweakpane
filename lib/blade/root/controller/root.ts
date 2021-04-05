@@ -1,7 +1,7 @@
-import {ViewProps} from '../../common/model/view-props';
-import {Blade} from '../common/model/blade';
-import {FolderController} from './controller/folder';
-import {FolderProps} from './view';
+import {ViewProps} from '../../../common/model/view-props';
+import {Blade} from '../../common/model/blade';
+import {FolderController} from '../../folder/controller/folder';
+import {FolderProps} from '../../folder/view/folder';
 
 interface Config {
 	blade: Blade;
