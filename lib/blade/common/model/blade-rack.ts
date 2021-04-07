@@ -127,10 +127,15 @@ export class BladeRack {
 	}
 
 	public add(bc: BladeController<View>, opt_index?: number): void {
+		if (bc.parent) {
+			bc.parent.remove(bc);
+		}
+		bc['parent_'] = this;
 		this.bcSet_.add(bc, opt_index);
 	}
 
 	public remove(bc: BladeController<View>): void {
+		bc['parent_'] = null;
 		this.bcSet_.remove(bc);
 	}
 

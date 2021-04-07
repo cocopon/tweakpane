@@ -15,11 +15,12 @@ import {assertUpdates} from '../../common/api/test-util';
 import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event';
 import {Blade} from '../../common/model/blade';
 import {SeparatorApi} from '../../separator/api/separator';
+import {SeparatorController} from '../../separator/controller/separator';
 import {FolderController} from '../controller/folder';
 import {FolderApi} from './folder';
 
-function createApi(): FolderApi {
-	const doc = TestUtil.createWindow().document;
+function createApi(opt_doc?: Document): FolderApi {
+	const doc = opt_doc ?? TestUtil.createWindow().document;
 	const c = new FolderController(doc, {
 		blade: new Blade(),
 		props: new ValueMap({
@@ -452,5 +453,46 @@ describe(FolderApi.name, () => {
 		api.remove(item);
 		(item.controller_.binding.value as Value<number>).rawValue += 1;
 		assert.strictEqual(count, 1);
+	});
+
+	function createSomeBlade(doc: Document) {
+		const c = new SeparatorController(doc, {
+			blade: new Blade(),
+			viewProps: createViewProps(),
+		});
+		return new SeparatorApi(c);
+	}
+
+	it('should add child', () => {
+		const doc = TestUtil.createWindow().document;
+		const api = createApi(doc);
+		const b = createSomeBlade(doc);
+		api.add(b);
+		assert.strictEqual(api.children[0], b);
+	});
+
+	it('should move to the last when re-adding child', () => {
+		const doc = TestUtil.createWindow().document;
+		const api = createApi(doc);
+		const b = createSomeBlade(doc);
+		api.add(b);
+		api.add(createSomeBlade(doc));
+		api.add(b);
+
+		assert.strictEqual(api.children.length, 2);
+		assert.notStrictEqual(api.children[0], b);
+		assert.strictEqual(api.children[1], b);
+	});
+
+	it('should be removed from previous parent', () => {
+		const doc = TestUtil.createWindow().document;
+		const api1 = createApi(doc);
+		const b = createSomeBlade(doc);
+		api1.add(b);
+		const api2 = createApi(doc);
+		api2.add(b);
+
+		assert.strictEqual(api1.children.length, 0);
+		assert.strictEqual(api2.children[0], b);
 	});
 });
