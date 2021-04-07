@@ -6,33 +6,19 @@ import {TpChangeEvent} from '../../common/api/tp-event';
 import {ApiChangeEvents} from '../../common/api/types';
 import {LabeledController} from '../../labeled/controller/labeled';
 
-export class ListBladeApi<T> implements BladeApi, LabelableApi {
+export class ListBladeApi<T>
+	extends BladeApi<LabeledController<ListController<T>>>
+	implements LabelableApi {
 	private readonly emitter_: Emitter<ApiChangeEvents<T>> = new Emitter();
 
-	constructor(
-		public readonly controller_: LabeledController<ListController<T>>,
-	) {
+	constructor(controller: LabeledController<ListController<T>>) {
+		super(controller);
+
 		this.controller_.valueController.value.emitter.on('change', (ev) => {
 			this.emitter_.emit('change', {
 				event: new TpChangeEvent(this, ev.rawValue),
 			});
 		});
-	}
-
-	get disabled(): boolean {
-		return this.controller_.viewProps.get('disabled');
-	}
-
-	set disabled(disabled: boolean) {
-		this.controller_.viewProps.set('disabled', disabled);
-	}
-
-	get hidden(): boolean {
-		return this.controller_.viewProps.get('hidden');
-	}
-
-	set hidden(hidden: boolean) {
-		this.controller_.viewProps.set('hidden', hidden);
 	}
 
 	get label(): string | undefined {
@@ -57,10 +43,6 @@ export class ListBladeApi<T> implements BladeApi, LabelableApi {
 
 	set value(value: T) {
 		this.controller_.valueController.value.rawValue = value;
-	}
-
-	public dispose(): void {
-		this.controller_.blade.dispose();
 	}
 
 	public on<EventName extends keyof ApiChangeEvents<T>>(

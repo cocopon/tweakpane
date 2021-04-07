@@ -14,43 +14,22 @@ export interface MonitorBindingApiEvents<T> {
 /**
  * The API for the monitor binding between the parameter and the pane.
  */
-export class MonitorBindingApi<T> implements BladeApi {
-	/**
-	 * @hidden
-	 */
-	public readonly controller_: MonitorBindingController<T>;
+export class MonitorBindingApi<T> extends BladeApi<
+	MonitorBindingController<T>
+> {
 	private readonly emitter_: Emitter<MonitorBindingApiEvents<T>>;
 
 	/**
 	 * @hidden
 	 */
-	constructor(bindingController: MonitorBindingController<T>) {
+	constructor(controller: MonitorBindingController<T>) {
+		super(controller);
+
 		this.onBindingUpdate_ = this.onBindingUpdate_.bind(this);
 
 		this.emitter_ = new Emitter();
 
-		this.controller_ = bindingController;
 		this.controller_.binding.emitter.on('update', this.onBindingUpdate_);
-	}
-
-	get disabled(): boolean {
-		return this.controller_.viewProps.get('disabled');
-	}
-
-	set disabled(disabled: boolean) {
-		this.controller_.viewProps.set('disabled', disabled);
-	}
-
-	get hidden(): boolean {
-		return this.controller_.viewProps.get('hidden');
-	}
-
-	set hidden(hidden: boolean) {
-		this.controller_.viewProps.set('hidden', hidden);
-	}
-
-	public dispose(): void {
-		this.controller_.blade.dispose();
 	}
 
 	public on<EventName extends keyof MonitorBindingApiEvents<T>>(

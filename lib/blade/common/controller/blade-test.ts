@@ -5,7 +5,7 @@ import {createViewProps} from '../../../common/model/view-props';
 import {View} from '../../../common/view/view';
 import {TestUtil} from '../../../misc/test-util';
 import {Blade} from '../model/blade';
-import {BladeController, setUpBladeController} from './blade';
+import {BladeController} from './blade';
 
 class TestView implements View {
 	public readonly element: HTMLElement;
@@ -17,19 +17,17 @@ class TestView implements View {
 	onDispose() {}
 }
 
-class TestController implements BladeController {
-	public readonly blade: Blade;
-	public readonly view: TestView;
-	public readonly viewProps = createViewProps();
-
+class TestController extends BladeController<TestView> {
 	constructor(doc: Document) {
-		this.blade = new Blade();
-		this.view = new TestView(doc);
-		setUpBladeController(this);
+		super({
+			blade: new Blade(),
+			view: new TestView(doc),
+			viewProps: createViewProps(),
+		});
 	}
 }
 
-describe(setUpBladeController.name, () => {
+describe(BladeController.name, () => {
 	it('should apply view position', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TestController(doc);

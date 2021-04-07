@@ -1,5 +1,6 @@
 import {Emitter} from '../../../common/model/emitter';
 import {TpError} from '../../../common/tp-error';
+import {View} from '../../../common/view/view';
 import {forceCast} from '../../../misc/type-util';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
@@ -28,6 +29,7 @@ import {
 	SeparatorParams,
 } from '../../common/api/types';
 import {createBindingTarget} from '../../common/api/util';
+import {BladeController} from '../../common/controller/blade';
 import {BladeRackEvents} from '../../common/model/blade-rack';
 import {NestedOrderedSet} from '../../common/model/nested-ordered-set';
 import {SeparatorApi} from '../../separator/api/separator';
@@ -46,25 +48,22 @@ interface FolderApiEvents {
 	};
 }
 
-export class FolderApi implements BladeContainerApi {
-	/**
-	 * @hidden
-	 */
-	public readonly controller_: FolderController;
+export class FolderApi extends BladeApi<FolderController>
+	implements BladeContainerApi<FolderController> {
 	private readonly emitter_: Emitter<FolderApiEvents>;
-	private apiSet_: NestedOrderedSet<BladeApi>;
+	private apiSet_: NestedOrderedSet<BladeApi<BladeController<View>>>;
 
 	/**
 	 * @hidden
 	 */
 	constructor(controller: FolderController) {
+		super(controller);
+
 		this.onFolderChange_ = this.onFolderChange_.bind(this);
 		this.onRackRemove_ = this.onRackRemove_.bind(this);
 		this.onRackInputChange_ = this.onRackInputChange_.bind(this);
 		this.onRackFolderFold_ = this.onRackFolderFold_.bind(this);
 		this.onRackMonitorUpdate_ = this.onRackMonitorUpdate_.bind(this);
-
-		this.controller_ = controller;
 
 		this.emitter_ = new Emitter();
 
@@ -97,23 +96,7 @@ export class FolderApi implements BladeContainerApi {
 		this.controller_.props.set('title', title);
 	}
 
-	get disabled(): boolean {
-		return this.controller_.viewProps.get('disabled');
-	}
-
-	set disabled(disabled: boolean) {
-		this.controller_.viewProps.set('disabled', disabled);
-	}
-
-	get hidden(): boolean {
-		return this.controller_.viewProps.get('hidden');
-	}
-
-	set hidden(hidden: boolean) {
-		this.controller_.viewProps.set('hidden', hidden);
-	}
-
-	get children(): BladeApi[] {
+	get children(): BladeApi<BladeController<View>>[] {
 		return this.controller_.bladeRack.children.map((bc) => {
 			const api = this.apiSet_.find((api) => api.controller_ === bc);
 			/* istanbul ignore next */
@@ -122,10 +105,6 @@ export class FolderApi implements BladeContainerApi {
 			}
 			return api;
 		});
-	}
-
-	public dispose(): void {
-		this.controller_.blade.dispose();
 	}
 
 	public addInput<O extends Record<string, any>, Key extends string>(
@@ -139,11 +118,8 @@ export class FolderApi implements BladeContainerApi {
 			createBindingTarget(object, key, params.presetKey),
 			params,
 		);
-		this.controller_.bladeRack.add(bc, params.index);
-
 		const api = new InputBindingApi(bc);
-		this.apiSet_.add(api);
-		return api;
+		return this.add(api, params.index);
 	}
 
 	public addMonitor<O extends Record<string, any>, Key extends string>(
@@ -157,11 +133,8 @@ export class FolderApi implements BladeContainerApi {
 			createBindingTarget(object, key),
 			params,
 		);
-		this.controller_.bladeRack.add(bc, params.index);
-
 		const api = new MonitorBindingApi(bc);
-		this.apiSet_.add(api);
-		return forceCast(api);
+		return forceCast(this.add(api, params.index));
 	}
 
 	public addFolder(params: FolderParams): FolderApi {
@@ -176,19 +149,28 @@ export class FolderApi implements BladeContainerApi {
 		return addSeparatorAsBlade(this, opt_params);
 	}
 
-	public remove(api: BladeApi): void {
+	public add<A extends BladeApi<BladeController<View>>>(
+		api: A,
+		opt_index?: number,
+	): A {
+		this.controller_.bladeRack.add(api.controller_, opt_index);
+		this.apiSet_.add(api);
+		return api;
+	}
+
+	public remove(api: BladeApi<BladeController<View>>): void {
 		this.controller_.bladeRack.remove(api.controller_);
 	}
 
 	/**
 	 * @hidden
 	 */
-	public addBlade_v3_(opt_params?: BladeParams): BladeApi {
+	public addBlade_v3_(
+		opt_params?: BladeParams,
+	): BladeApi<BladeController<View>> {
 		const params = opt_params ?? {};
 		const api = createBladeApi(this.controller_.document, params);
-		this.controller_.bladeRack.add(api.controller_, params.index);
-		this.apiSet_.add(api);
-		return api;
+		return this.add(api, params.index);
 	}
 
 	/**

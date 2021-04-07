@@ -1,9 +1,11 @@
 import {createViewProps, ViewProps} from '../common/model/view-props';
 import {findBooleanParam} from '../common/params';
+import {View} from '../common/view/view';
 import {forceCast} from '../misc/type-util';
 import {BasePlugin} from '../plugin';
 import {BladeApi} from './common/api/blade';
 import {BladeParams} from './common/api/types';
+import {BladeController} from './common/controller/blade';
 import {Blade} from './common/model/blade';
 
 interface Acceptance<P extends BladeParams> {
@@ -22,7 +24,7 @@ export interface BladePlugin<P extends BladeParams> extends BasePlugin {
 		(params: Record<string, unknown>): Acceptance<P> | null;
 	};
 	api: {
-		(args: ApiArguments<P>): BladeApi;
+		(args: ApiArguments<P>): BladeApi<BladeController<View>>;
 	};
 }
 
@@ -32,7 +34,7 @@ export function createApi<P extends BladeParams>(
 		document: Document;
 		params: Record<string, unknown>;
 	},
-): BladeApi | null {
+): BladeApi<BladeController<View>> | null {
 	const ac = plugin.accept(args.params);
 	if (!ac) {
 		return null;

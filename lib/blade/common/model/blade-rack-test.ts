@@ -79,6 +79,32 @@ function createFolderController(doc: Document): FolderController {
 }
 
 describe(BladeRack.name, () => {
+	it('should be empty by default', () => {
+		const rack = new BladeRack();
+		assert.strictEqual(rack.children.length, 0);
+	});
+
+	it('should add blade', () => {
+		const rack = new BladeRack();
+		const doc = TestUtil.createWindow().document;
+		const bc = createInputBindingController(doc);
+		rack.add(bc);
+
+		assert.strictEqual(rack.children[0], bc);
+		assert.strictEqual(bc.parent, rack);
+	});
+
+	it('should remove blade', () => {
+		const rack = new BladeRack();
+		const doc = TestUtil.createWindow().document;
+		const bc = createInputBindingController(doc);
+		rack.add(bc);
+		rack.remove(bc);
+
+		assert.strictEqual(rack.children.length, 0);
+		assert.strictEqual(bc.parent, null);
+	});
+
 	it('should handle input change', (done) => {
 		const rack = new BladeRack();
 		const doc = TestUtil.createWindow().document;
@@ -257,5 +283,31 @@ describe(BladeRack.name, () => {
 		bc.viewProps.set('hidden', !bc.viewProps.get('hidden'));
 
 		assert.strictEqual(count > 0, true);
+	});
+
+	it('should move to the last when re-adding child', () => {
+		const rack = new BladeRack();
+		const doc = TestUtil.createWindow().document;
+		const bc = createInputBindingController(doc);
+		rack.add(bc);
+		rack.add(createFolderController(doc));
+		rack.add(bc);
+
+		assert.strictEqual(rack.children.length, 2);
+		assert.notStrictEqual(rack.children[0], bc);
+		assert.strictEqual(rack.children[1], bc);
+	});
+
+	it('should be removed from previous parent', () => {
+		const rack1 = new BladeRack();
+		const doc = TestUtil.createWindow().document;
+		const bc = createInputBindingController(doc);
+		rack1.add(bc);
+		const rack2 = new BladeRack();
+		rack2.add(bc);
+
+		assert.strictEqual(rack1.children.length, 0);
+		assert.strictEqual(rack2.children[0], bc);
+		assert.strictEqual(bc.parent, rack2);
 	});
 });
