@@ -7,19 +7,8 @@ interface ButtonApiEventHandlers {
 	click: () => void;
 }
 
-export class ButtonApi implements BladeApi, LabelableApi {
-	/**
-	 * @hidden
-	 */
-	public readonly controller_: LabeledController<ButtonController>;
-
-	/**
-	 * @hidden
-	 */
-	constructor(buttonController: LabeledController<ButtonController>) {
-		this.controller_ = buttonController;
-	}
-
+export class ButtonApi extends BladeApi<LabeledController<ButtonController>>
+	implements LabelableApi {
 	get disabled(): boolean {
 		return this.controller_.viewProps.get('disabled');
 	}
@@ -50,10 +39,6 @@ export class ButtonApi implements BladeApi, LabelableApi {
 
 	set title(title: string) {
 		this.controller_.valueController.props.set('title', title);
-	}
-
-	public dispose(): void {
-		this.controller_.blade.dispose();
 	}
 
 	public on<EventName extends keyof ButtonApiEventHandlers>(

@@ -16,43 +16,22 @@ export interface InputBindingApiEvents<Ex> {
  * @template In The internal type.
  * @template Ex The external type (= parameter object).
  */
-export class InputBindingApi<In, Ex> implements BladeApi {
-	/**
-	 * @hidden
-	 */
-	public readonly controller_: InputBindingController<In>;
+export class InputBindingApi<In, Ex> extends BladeApi<
+	InputBindingController<In>
+> {
 	private readonly emitter_: Emitter<InputBindingApiEvents<Ex>>;
 
 	/**
 	 * @hidden
 	 */
-	constructor(bindingController: InputBindingController<In>) {
+	constructor(controller: InputBindingController<In>) {
+		super(controller);
+
 		this.onBindingChange_ = this.onBindingChange_.bind(this);
 
 		this.emitter_ = new Emitter();
 
-		this.controller_ = bindingController;
 		this.controller_.binding.emitter.on('change', this.onBindingChange_);
-	}
-
-	get disabled(): boolean {
-		return this.controller_.viewProps.get('disabled');
-	}
-
-	set disabled(disabled: boolean) {
-		this.controller_.viewProps.set('disabled', disabled);
-	}
-
-	get hidden(): boolean {
-		return this.controller_.viewProps.get('hidden');
-	}
-
-	set hidden(hidden: boolean) {
-		this.controller_.viewProps.set('hidden', hidden);
-	}
-
-	public dispose(): void {
-		this.controller_.blade.dispose();
 	}
 
 	public on<EventName extends keyof InputBindingApiEvents<Ex>>(
