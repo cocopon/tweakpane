@@ -1,5 +1,6 @@
 import {Emitter} from '../../../common/model/emitter';
 import {TpError} from '../../../common/tp-error';
+import {View} from '../../../common/view/view';
 import {forceCast} from '../../../misc/type-util';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
@@ -50,7 +51,7 @@ interface FolderApiEvents {
 export class FolderApi extends BladeApi<FolderController>
 	implements BladeContainerApi<FolderController> {
 	private readonly emitter_: Emitter<FolderApiEvents>;
-	private apiSet_: NestedOrderedSet<BladeApi<BladeController>>;
+	private apiSet_: NestedOrderedSet<BladeApi<BladeController<View>>>;
 
 	/**
 	 * @hidden
@@ -95,7 +96,7 @@ export class FolderApi extends BladeApi<FolderController>
 		this.controller_.props.set('title', title);
 	}
 
-	get children(): BladeApi<BladeController>[] {
+	get children(): BladeApi<BladeController<View>>[] {
 		return this.controller_.bladeRack.children.map((bc) => {
 			const api = this.apiSet_.find((api) => api.controller_ === bc);
 			/* istanbul ignore next */
@@ -148,7 +149,7 @@ export class FolderApi extends BladeApi<FolderController>
 		return addSeparatorAsBlade(this, opt_params);
 	}
 
-	public add<A extends BladeApi<BladeController>>(
+	public add<A extends BladeApi<BladeController<View>>>(
 		api: A,
 		opt_index?: number,
 	): A {
@@ -157,14 +158,16 @@ export class FolderApi extends BladeApi<FolderController>
 		return api;
 	}
 
-	public remove(api: BladeApi<BladeController>): void {
+	public remove(api: BladeApi<BladeController<View>>): void {
 		this.controller_.bladeRack.remove(api.controller_);
 	}
 
 	/**
 	 * @hidden
 	 */
-	public addBlade_v3_(opt_params?: BladeParams): BladeApi<BladeController> {
+	public addBlade_v3_(
+		opt_params?: BladeParams,
+	): BladeApi<BladeController<View>> {
 		const params = opt_params ?? {};
 		const api = createBladeApi(this.controller_.document, params);
 		return this.add(api, params.index);

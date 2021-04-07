@@ -6,6 +6,7 @@ import {
 import {Emitter} from '../../../common/model/emitter';
 import {ViewPropsEvents} from '../../../common/model/view-props';
 import {TpError} from '../../../common/tp-error';
+import {View} from '../../../common/view/view';
 import {Class, forceCast} from '../../../misc/type-util';
 import {FolderController} from '../../folder/controller/folder';
 import {Folder, FolderEvents} from '../../folder/model/folder';
@@ -20,13 +21,13 @@ import {NestedOrderedSet, NestedOrderedSetEvents} from './nested-ordered-set';
  */
 export interface BladeRackEvents {
 	add: {
-		bladeController: BladeController;
+		bladeController: BladeController<View>;
 		index: number;
 		isRoot: boolean;
 		sender: BladeRack;
 	};
 	remove: {
-		bladeController: BladeController;
+		bladeController: BladeController<View>;
 		isRoot: boolean;
 		sender: BladeRack;
 	};
@@ -92,7 +93,7 @@ function findFolderController(
  */
 export class BladeRack {
 	public readonly emitter: Emitter<BladeRackEvents>;
-	private bcSet_: NestedOrderedSet<BladeController>;
+	private bcSet_: NestedOrderedSet<BladeController<View>>;
 
 	constructor() {
 		this.onSetAdd_ = this.onSetAdd_.bind(this);
@@ -121,19 +122,19 @@ export class BladeRack {
 		this.bcSet_.emitter.on('remove', this.onSetRemove_);
 	}
 
-	get children(): BladeController[] {
+	get children(): BladeController<View>[] {
 		return this.bcSet_.items;
 	}
 
-	public add(bc: BladeController, opt_index?: number): void {
+	public add(bc: BladeController<View>, opt_index?: number): void {
 		this.bcSet_.add(bc, opt_index);
 	}
 
-	public remove(bc: BladeController): void {
+	public remove(bc: BladeController<View>): void {
 		this.bcSet_.remove(bc);
 	}
 
-	public find<B extends BladeController>(controllerClass: Class<B>): B[] {
+	public find<B extends BladeController<View>>(controllerClass: Class<B>): B[] {
 		return forceCast(
 			this.bcSet_.allItems().filter((bc) => {
 				return bc instanceof controllerClass;
@@ -141,7 +142,7 @@ export class BladeRack {
 		);
 	}
 
-	private onSetAdd_(ev: NestedOrderedSetEvents<BladeController>['add']) {
+	private onSetAdd_(ev: NestedOrderedSetEvents<BladeController<View>>['add']) {
 		const isRoot = ev.target === ev.root;
 		this.emitter.emit('add', {
 			bladeController: ev.item,
@@ -174,7 +175,9 @@ export class BladeRack {
 		}
 	}
 
-	private onSetRemove_(ev: NestedOrderedSetEvents<BladeController>['remove']) {
+	private onSetRemove_(
+		ev: NestedOrderedSetEvents<BladeController<View>>['remove'],
+	) {
 		const isRoot = ev.target === ev.root;
 		this.emitter.emit('remove', {
 			bladeController: ev.item,

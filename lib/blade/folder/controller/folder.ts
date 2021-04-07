@@ -6,10 +6,7 @@ import {
 } from '../../../common/dom-util';
 import {ViewProps} from '../../../common/model/view-props';
 import {isEmpty} from '../../../misc/type-util';
-import {
-	BladeController,
-	setUpBladeController,
-} from '../../common/controller/blade';
+import {BladeController} from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
 import {BladePosition} from '../../common/model/blade-positions';
 import {BladeRack, BladeRackEvents} from '../../common/model/blade-rack';
@@ -53,15 +50,23 @@ function computeExpandedFolderHeight(
 /**
  * @hidden
  */
-export class FolderController implements BladeController {
-	public readonly blade: Blade;
+export class FolderController extends BladeController<FolderView> {
 	public readonly bladeRack: BladeRack;
 	public readonly folder: Folder;
 	public readonly props: FolderProps;
-	public readonly view: FolderView;
-	public readonly viewProps: ViewProps;
 
 	constructor(doc: Document, config: Config) {
+		const folder = new Folder(config.expanded ?? true);
+		super({
+			...config,
+			view: new FolderView(doc, {
+				folder: folder,
+				props: config.props,
+				viewName: config.viewName,
+				viewProps: config.viewProps,
+			}),
+		});
+
 		this.onContainerTransitionEnd_ = this.onContainerTransitionEnd_.bind(this);
 		this.onFolderBeforeChange_ = this.onFolderBeforeChange_.bind(this);
 		this.onTitleClick_ = this.onTitleClick_.bind(this);
@@ -69,11 +74,9 @@ export class FolderController implements BladeController {
 		this.onRackLayout_ = this.onRackLayout_.bind(this);
 		this.onRackRemove_ = this.onRackRemove_.bind(this);
 
-		this.blade = config.blade;
 		this.props = config.props;
-		this.viewProps = config.viewProps;
 
-		this.folder = new Folder(config.expanded ?? true);
+		this.folder = folder;
 		this.folder.emitter.on('beforechange', this.onFolderBeforeChange_);
 
 		const rack = new BladeRack();
@@ -82,18 +85,11 @@ export class FolderController implements BladeController {
 		rack.emitter.on('remove', this.onRackRemove_);
 		this.bladeRack = rack;
 
-		this.view = new FolderView(doc, {
-			folder: this.folder,
-			props: this.props,
-			viewName: config.viewName,
-			viewProps: this.viewProps,
-		});
 		this.view.buttonElement.addEventListener('click', this.onTitleClick_);
 		this.view.containerElement.addEventListener(
 			'transitionend',
 			this.onContainerTransitionEnd_,
 		);
-		setUpBladeController(this);
 	}
 
 	get document(): Document {
