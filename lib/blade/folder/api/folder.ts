@@ -117,11 +117,8 @@ export class FolderApi extends BladeApi<FolderController>
 			createBindingTarget(object, key, params.presetKey),
 			params,
 		);
-		this.controller_.bladeRack.add(bc, params.index);
-
 		const api = new InputBindingApi(bc);
-		this.apiSet_.add(api);
-		return api;
+		return this.add(api, params.index);
 	}
 
 	public addMonitor<O extends Record<string, any>, Key extends string>(
@@ -135,11 +132,8 @@ export class FolderApi extends BladeApi<FolderController>
 			createBindingTarget(object, key),
 			params,
 		);
-		this.controller_.bladeRack.add(bc, params.index);
-
 		const api = new MonitorBindingApi(bc);
-		this.apiSet_.add(api);
-		return forceCast(api);
+		return forceCast(this.add(api, params.index));
 	}
 
 	public addFolder(params: FolderParams): FolderApi {
@@ -154,8 +148,13 @@ export class FolderApi extends BladeApi<FolderController>
 		return addSeparatorAsBlade(this, opt_params);
 	}
 
-	public add(_api: BladeApi<BladeController>): void {
-		// TODO: Implement
+	public add<A extends BladeApi<BladeController>>(
+		api: A,
+		opt_index?: number,
+	): A {
+		this.controller_.bladeRack.add(api.controller_, opt_index);
+		this.apiSet_.add(api);
+		return api;
 	}
 
 	public remove(api: BladeApi<BladeController>): void {
@@ -168,9 +167,7 @@ export class FolderApi extends BladeApi<FolderController>
 	public addBlade_v3_(opt_params?: BladeParams): BladeApi<BladeController> {
 		const params = opt_params ?? {};
 		const api = createBladeApi(this.controller_.document, params);
-		this.controller_.bladeRack.add(api.controller_, params.index);
-		this.apiSet_.add(api);
-		return api;
+		return this.add(api, params.index);
 	}
 
 	/**

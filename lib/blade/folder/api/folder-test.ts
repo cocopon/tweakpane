@@ -13,12 +13,8 @@ import {ButtonApi} from '../../button/api/button';
 import {InputBindingApi} from '../../common/api/input-binding';
 import {assertUpdates} from '../../common/api/test-util';
 import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event';
-import {InputBindingController} from '../../common/controller/input-binding';
-import {MonitorBindingController} from '../../common/controller/monitor-binding';
 import {Blade} from '../../common/model/blade';
-import {LabeledController} from '../../labeled/controller/labeled';
 import {SeparatorApi} from '../../separator/api/separator';
-import {SeparatorController} from '../../separator/controller/separator';
 import {FolderController} from '../controller/folder';
 import {FolderApi} from './folder';
 
@@ -361,36 +357,45 @@ describe(FolderApi.name, () => {
 
 	[
 		{
+			type: 'input',
 			insert: (api: FolderApi, index: number) => {
-				api.addInput({foo: 1}, 'foo', {index: index});
+				return api.addInput({foo: 1}, 'foo', {index: index});
 			},
-			expected: InputBindingController,
 		},
 		{
+			type: 'monitor',
 			insert: (api: FolderApi, index: number) => {
-				api.addMonitor({foo: 1}, 'foo', {
+				return api.addMonitor({foo: 1}, 'foo', {
 					index: index,
 					interval: 0,
 				});
 			},
-			expected: MonitorBindingController,
 		},
 		{
+			type: 'button',
 			insert: (api: FolderApi, index: number) => {
-				api.addButton({index: index, title: 'button'});
+				return api.addButton({index: index, title: 'button'});
 			},
-			expected: LabeledController,
 		},
 		{
+			type: 'separator',
 			insert: (api: FolderApi, index: number) => {
-				api.addSeparator({
+				return api.addSeparator({
 					index: index,
 				});
 			},
-			expected: SeparatorController,
+		},
+		{
+			type: 'folder',
+			insert: (api: FolderApi, index: number) => {
+				return api.addFolder({
+					index: index,
+					title: '',
+				});
+			},
 		},
 	].forEach((testCase) => {
-		context(`when ${testCase.expected.name}`, () => {
+		context(`when ${testCase.type}`, () => {
 			it('should insert input/monitor into specified position', () => {
 				const params = {
 					bar: 2,
@@ -399,10 +404,9 @@ describe(FolderApi.name, () => {
 				const api = createApi();
 				api.addInput(params, 'foo');
 				api.addInput(params, 'bar');
-				testCase.insert(api, 1);
+				const inserted = testCase.insert(api, 1);
 
-				const cs = api.controller_.bladeRack.children;
-				assert.strictEqual(cs[1] instanceof testCase.expected, true);
+				assert.strictEqual(api.children[1], inserted);
 			});
 		});
 	});
