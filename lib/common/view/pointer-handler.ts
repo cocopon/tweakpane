@@ -59,8 +59,7 @@ export interface PointerHandlerEvents {
  */
 export class PointerHandler {
 	public readonly emitter: Emitter<PointerHandlerEvents>;
-	public readonly element: HTMLElement;
-	private pressed_: boolean;
+	private readonly elem_: HTMLElement;
 
 	constructor(element: HTMLElement) {
 		this.onDocumentMouseMove_ = this.onDocumentMouseMove_.bind(this);
@@ -70,24 +69,21 @@ export class PointerHandler {
 		this.onTouchMove_ = this.onTouchMove_.bind(this);
 		this.onTouchStart_ = this.onTouchStart_.bind(this);
 
-		this.element = element;
+		this.elem_ = element;
 		this.emitter = new Emitter();
-		this.pressed_ = false;
 
-		const doc = this.element.ownerDocument;
+		const doc = this.elem_.ownerDocument;
 		if (supportsTouch(doc)) {
 			element.addEventListener('touchstart', this.onTouchStart_);
 			element.addEventListener('touchmove', this.onTouchMove_);
 			element.addEventListener('touchend', this.onTouchEnd_);
 		} else {
 			element.addEventListener('mousedown', this.onMouseDown_);
-			doc.addEventListener('mousemove', this.onDocumentMouseMove_);
-			doc.addEventListener('mouseup', this.onDocumentMouseUp_);
 		}
 	}
 
 	private computePosition_(offset?: {x: number; y: number}): PointerData {
-		const rect = this.element.getBoundingClientRect();
+		const rect = this.elem_.getBoundingClientRect();
 		return {
 			bounds: {
 				width: rect.width,
@@ -108,33 +104,30 @@ export class PointerHandler {
 
 		(e.currentTarget as HTMLElement | null)?.focus();
 
-		this.pressed_ = true;
+		const doc = this.elem_.ownerDocument;
+		doc.addEventListener('mousemove', this.onDocumentMouseMove_);
+		doc.addEventListener('mouseup', this.onDocumentMouseUp_);
 
 		this.emitter.emit('down', {
-			data: this.computePosition_(computeOffset(e, this.element)),
+			data: this.computePosition_(computeOffset(e, this.elem_)),
 			sender: this,
 		});
 	}
 
 	private onDocumentMouseMove_(e: MouseEvent): void {
-		if (!this.pressed_) {
-			return;
-		}
-
 		this.emitter.emit('move', {
-			data: this.computePosition_(computeOffset(e, this.element)),
+			data: this.computePosition_(computeOffset(e, this.elem_)),
 			sender: this,
 		});
 	}
 
 	private onDocumentMouseUp_(e: MouseEvent): void {
-		if (!this.pressed_) {
-			return;
-		}
-		this.pressed_ = false;
+		const doc = this.elem_.ownerDocument;
+		doc.removeEventListener('mousemove', this.onDocumentMouseMove_);
+		doc.removeEventListener('mouseup', this.onDocumentMouseUp_);
 
 		this.emitter.emit('up', {
-			data: this.computePosition_(computeOffset(e, this.element)),
+			data: this.computePosition_(computeOffset(e, this.elem_)),
 			sender: this,
 		});
 	}
@@ -144,7 +137,7 @@ export class PointerHandler {
 		e.preventDefault();
 
 		const touch = e.targetTouches.item(0);
-		const rect = this.element.getBoundingClientRect();
+		const rect = this.elem_.getBoundingClientRect();
 		this.emitter.emit('down', {
 			data: this.computePosition_(
 				touch
@@ -160,7 +153,7 @@ export class PointerHandler {
 
 	private onTouchMove_(e: TouchEvent) {
 		const touch = e.targetTouches.item(0);
-		const rect = this.element.getBoundingClientRect();
+		const rect = this.elem_.getBoundingClientRect();
 		this.emitter.emit('move', {
 			data: this.computePosition_(
 				touch
@@ -176,7 +169,7 @@ export class PointerHandler {
 
 	private onTouchEnd_(e: TouchEvent) {
 		const touch = e.targetTouches.item(0);
-		const rect = this.element.getBoundingClientRect();
+		const rect = this.elem_.getBoundingClientRect();
 		this.emitter.emit('up', {
 			data: this.computePosition_(
 				touch
