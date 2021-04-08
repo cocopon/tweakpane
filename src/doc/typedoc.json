@@ -1,10 +1,9 @@
 {
 	"exclude": [
-		"**/lib/misc/**/*.ts",
-		"**/lib/plugin/**/*.ts",
 		"**/lib/**/*.d.ts",
 		"**/lib/**/*-test.ts"
 	],
+	"excludePrivate": true,
 	"tsconfig": "lib/tsconfig.json",
 	"out": "docs/api",
 	"readme": "none"
