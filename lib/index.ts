@@ -58,6 +58,9 @@ function embedDefaultStyleIfNeeded(doc: Document) {
 	});
 }
 
+/**
+ * The Tweakpane interface.
+ */
 export default class Tweakpane extends RootApi {
 	public static readonly version = new Semver('3.14.16');
 	private doc_: Document | null;

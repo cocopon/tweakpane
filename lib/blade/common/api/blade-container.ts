@@ -15,22 +15,38 @@ import {
 	SeparatorParams,
 } from './types';
 
-/**
- * @hidden
- */
 export interface BladeContainerApi<C extends BladeController<View>>
 	extends BladeApi<C> {
+	/**
+	 * Children of the container.
+	 */
+	readonly children: BladeApi<BladeController<View>>[];
+
 	addButton(params: ButtonParams): ButtonApi;
 	addFolder(params: FolderParams): FolderApi;
 	addSeparator(opt_params?: SeparatorParams): SeparatorApi;
 	add(api: BladeApi<BladeController<View>>): void;
 	remove(api: BladeApi<BladeController<View>>): void;
 
+	/**
+	 * Creates a new input binding and add it to the container.
+	 * @param object The binding target.
+	 * @param key The key of the target property.
+	 * @param opt_params The options of a binding.
+	 * @return The API object.
+	 */
 	addInput<O extends Record<string, any>, Key extends string>(
 		object: O,
 		key: Key,
 		opt_params?: InputParams,
 	): InputBindingApi<unknown, O[Key]>;
+	/**
+	 * Creates a new monitor binding and add it to the container.
+	 * @param object The binding target.
+	 * @param key The key of the target property.
+	 * @param opt_params The options of a binding.
+	 * @return The API object.
+	 */
 	addMonitor<O extends Record<string, any>, Key extends string>(
 		object: O,
 		key: Key,
@@ -38,6 +54,9 @@ export interface BladeContainerApi<C extends BladeController<View>>
 	): MonitorBindingApi<O[Key]>;
 
 	// TODO: Rename
+	/**
+	 * @hidden
+	 */
 	addBlade_v3_(opt_params?: BladeParams): BladeApi<BladeController<View>>;
 }
 

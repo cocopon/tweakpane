@@ -9,15 +9,6 @@ import {SeparatorBladePlugin} from '../../separator/plugin';
 import {RootController} from '../controller/root';
 import {exportPresetJson, importPresetJson, PresetObject} from './preset';
 
-/**
- * The Tweakpane interface.
- *
- * ```
- * new Tweakpane(options: TweakpaneConfig): RootApi
- * ```
- *
- * See [[`TweakpaneConfig`]] interface for available options.
- */
 export class RootApi extends FolderApi {
 	/**
 	 * @hidden

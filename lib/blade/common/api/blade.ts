@@ -1,10 +1,10 @@
 import {View} from '../../../common/view/view';
 import {BladeController} from '../controller/blade';
 
-/**
- * @hidden
- */
 export class BladeApi<C extends BladeController<View>> {
+	/**
+	 * @hidden
+	 */
 	public readonly controller_: C;
 
 	constructor(controller: C) {
