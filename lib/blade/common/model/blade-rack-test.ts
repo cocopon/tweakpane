@@ -194,18 +194,20 @@ describe(BladeRack.name, () => {
 		assert.strictEqual(rack.children.includes(bc), false);
 	});
 
-	it('should handle layout', (done) => {
+	it('should handle layout', () => {
 		const rack = new BladeRack();
 		const doc = TestUtil.createWindow().document;
 		const bc = createInputBindingController(doc);
 		rack.add(bc);
 
+		let count = 0;
 		rack.emitter.on('layout', (ev) => {
 			assert.strictEqual(ev.sender, rack);
-			done();
+			count += 1;
 		});
 
 		bc.viewProps.set('hidden', !bc.viewProps.get('hidden'));
+		assert.strictEqual(count > 0, true);
 	});
 
 	it('should not handle removed input event', () => {

@@ -13,6 +13,7 @@ import {BladeController} from '../controller/blade';
 import {InputBindingController} from '../controller/input-binding';
 import {MonitorBindingController} from '../controller/monitor-binding';
 import {BladeEvents} from './blade';
+import {BladePosition} from './blade-positions';
 import {NestedOrderedSet, NestedOrderedSetEvents} from './nested-ordered-set';
 
 /**
@@ -128,6 +129,8 @@ export class BladeRack {
 	}
 
 	private onSetAdd_(ev: NestedOrderedSetEvents<BladeController<View>>['add']) {
+		this.updatePositions_();
+
 		const isRoot = ev.target === ev.root;
 		this.emitter.emit('add', {
 			bladeController: ev.item,
@@ -160,6 +163,8 @@ export class BladeRack {
 	private onSetRemove_(
 		ev: NestedOrderedSetEvents<BladeController<View>>['remove'],
 	) {
+		this.updatePositions_();
+
 		const isRoot = ev.target === ev.root;
 		this.emitter.emit('remove', {
 			bladeController: ev.item,
@@ -184,8 +189,28 @@ export class BladeRack {
 		}
 	}
 
+	private updatePositions_(): void {
+		const visibleItems = this.bcSet_.items.filter(
+			(bc) => !bc.viewProps.get('hidden'),
+		);
+		const firstVisibleItem = visibleItems[0];
+		const lastVisibleItem = visibleItems[visibleItems.length - 1];
+
+		this.bcSet_.items.forEach((bc) => {
+			const ps: BladePosition[] = [];
+			if (bc === firstVisibleItem) {
+				ps.push('first');
+			}
+			if (bc === lastVisibleItem) {
+				ps.push('last');
+			}
+			bc.blade.positions = ps;
+		});
+	}
+
 	private onChildLayout_(ev: BladeEvents['change']) {
 		if (ev.propertyName === 'positions') {
+			this.updatePositions_();
 			this.emitter.emit('layout', {
 				sender: this,
 			});
@@ -193,6 +218,7 @@ export class BladeRack {
 	}
 
 	private onChildViewPropsChange_(_ev: ViewPropsEvents['change']) {
+		this.updatePositions_();
 		this.emitter.emit('layout', {
 			sender: this,
 		});
@@ -242,6 +268,7 @@ export class BladeRack {
 	}
 
 	private onDescendantLayout_(_: BladeRackEvents['layout']) {
+		this.updatePositions_();
 		this.emitter.emit('layout', {
 			sender: this,
 		});

@@ -8,7 +8,6 @@ import {ViewProps} from '../../../common/model/view-props';
 import {isEmpty} from '../../../misc/type-util';
 import {BladeController} from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
-import {BladePosition} from '../../common/model/blade-positions';
 import {BladeRack, BladeRackEvents} from '../../common/model/blade-rack';
 import {Folder, FolderEvents} from '../model/folder';
 import {FolderProps, FolderView} from '../view/folder';
@@ -71,7 +70,6 @@ export class FolderController extends BladeController<FolderView> {
 		this.onFolderBeforeChange_ = this.onFolderBeforeChange_.bind(this);
 		this.onTitleClick_ = this.onTitleClick_.bind(this);
 		this.onRackAdd_ = this.onRackAdd_.bind(this);
-		this.onRackLayout_ = this.onRackLayout_.bind(this);
 		this.onRackRemove_ = this.onRackRemove_.bind(this);
 
 		this.props = config.props;
@@ -81,7 +79,6 @@ export class FolderController extends BladeController<FolderView> {
 
 		const rack = new BladeRack();
 		rack.emitter.on('add', this.onRackAdd_);
-		rack.emitter.on('layout', this.onRackLayout_);
 		rack.emitter.on('remove', this.onRackRemove_);
 		this.bladeRack = rack;
 
@@ -123,25 +120,6 @@ export class FolderController extends BladeController<FolderView> {
 		this.folder.expanded = !this.folder.expanded;
 	}
 
-	private applyRackChange_(): void {
-		const visibleItems = this.bladeRack.children.filter(
-			(bc) => !bc.viewProps.get('hidden'),
-		);
-		const firstVisibleItem = visibleItems[0];
-		const lastVisibleItem = visibleItems[visibleItems.length - 1];
-
-		this.bladeRack.children.forEach((bc) => {
-			const ps: BladePosition[] = [];
-			if (bc === firstVisibleItem) {
-				ps.push('first');
-			}
-			if (bc === lastVisibleItem) {
-				ps.push('last');
-			}
-			bc.blade.positions = ps;
-		});
-	}
-
 	private onRackAdd_(ev: BladeRackEvents['add']) {
 		if (!ev.isRoot) {
 			return;
@@ -151,7 +129,6 @@ export class FolderController extends BladeController<FolderView> {
 			ev.bladeController.view.element,
 			ev.index,
 		);
-		this.applyRackChange_();
 	}
 
 	private onRackRemove_(ev: BladeRackEvents['remove']) {
@@ -159,11 +136,6 @@ export class FolderController extends BladeController<FolderView> {
 			return;
 		}
 		removeElement(ev.bladeController.view.element);
-		this.applyRackChange_();
-	}
-
-	private onRackLayout_(_: BladeRackEvents['layout']) {
-		this.applyRackChange_();
 	}
 
 	private onContainerTransitionEnd_(ev: TransitionEvent): void {
