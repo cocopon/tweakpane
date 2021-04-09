@@ -62,7 +62,6 @@ export class FolderApi extends BladeApi<FolderController>
 		this.onFolderChange_ = this.onFolderChange_.bind(this);
 		this.onRackRemove_ = this.onRackRemove_.bind(this);
 		this.onRackInputChange_ = this.onRackInputChange_.bind(this);
-		this.onRackFolderFold_ = this.onRackFolderFold_.bind(this);
 		this.onRackMonitorUpdate_ = this.onRackMonitorUpdate_.bind(this);
 
 		this.emitter_ = new Emitter();
@@ -77,7 +76,6 @@ export class FolderApi extends BladeApi<FolderController>
 		rack.emitter.on('remove', this.onRackRemove_);
 		rack.emitter.on('inputchange', this.onRackInputChange_);
 		rack.emitter.on('monitorupdate', this.onRackMonitorUpdate_);
-		rack.emitter.on('folderfold', this.onRackFolderFold_);
 	}
 
 	get expanded(): boolean {
@@ -237,22 +235,6 @@ export class FolderApi extends BladeApi<FolderController>
 				forceCast(binding.target.read()),
 				binding.target.presetKey,
 			),
-		});
-	}
-
-	private onRackFolderFold_(ev: BladeRackEvents['folderfold']) {
-		const api = this.apiSet_.find((api) =>
-			api instanceof FolderApi
-				? api.controller_ === ev.folderController
-				: false,
-		);
-		/* istanbul ignore next */
-		if (!api) {
-			throw TpError.shouldNeverHappen();
-		}
-
-		this.emitter_.emit('fold', {
-			event: new TpFoldEvent(api, ev.folderController.folder.expanded),
 		});
 	}
 

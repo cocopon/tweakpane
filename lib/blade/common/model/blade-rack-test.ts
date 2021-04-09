@@ -208,36 +208,6 @@ describe(BladeRack.name, () => {
 		bc.viewProps.set('hidden', !bc.viewProps.get('hidden'));
 	});
 
-	it('should handle folder fold', (done) => {
-		const rack = new BladeRack();
-		const doc = TestUtil.createWindow().document;
-		const fc = createFolderController(doc);
-		rack.add(fc);
-
-		rack.emitter.on('folderfold', (ev) => {
-			assert.strictEqual(ev.folderController, fc);
-			done();
-		});
-
-		fc.folder.expanded = !fc.folder.expanded;
-	});
-
-	it('should handle folder fold (nested)', (done) => {
-		const rack = new BladeRack();
-		const doc = TestUtil.createWindow().document;
-		const fc = createFolderController(doc);
-		rack.add(fc);
-		const sfc = createFolderController(doc);
-		fc.bladeRack.add(sfc);
-
-		rack.emitter.on('folderfold', (ev) => {
-			assert.strictEqual(ev.folderController, sfc);
-			done();
-		});
-
-		sfc.folder.expanded = !sfc.folder.expanded;
-	});
-
 	it('should not handle removed input event', () => {
 		const rack = new BladeRack();
 		const doc = TestUtil.createWindow().document;

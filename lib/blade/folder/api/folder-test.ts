@@ -146,20 +146,6 @@ describe(FolderApi.name, () => {
 		api.controller_.folder.expanded = false;
 	});
 
-	it('should handle fold events (nested)', (done) => {
-		const api = createApi();
-		const f = api.addFolder({
-			title: 'folder',
-		});
-
-		api.on('fold', (ev) => {
-			assert.strictEqual(ev instanceof TpFoldEvent, true);
-			assert.strictEqual(ev.expanded, false);
-			done();
-		});
-		f.expanded = false;
-	});
-
 	it('should handle global input events', (done) => {
 		const api = createApi();
 		const obj = {foo: 1};
@@ -266,19 +252,6 @@ describe(FolderApi.name, () => {
 			done();
 		});
 		api.controller_.folder.expanded = !api.controller_.folder.expanded;
-	});
-
-	it('should have right target (nested)', (done) => {
-		const api = createApi();
-		api.addButton({title: ''});
-		const subapi = api.addFolder({title: ''});
-
-		api.on('fold', (ev) => {
-			assert.strictEqual(ev.target, subapi);
-			done();
-		});
-
-		subapi.controller_.folder.expanded = !subapi.controller_.folder.expanded;
 	});
 
 	[
