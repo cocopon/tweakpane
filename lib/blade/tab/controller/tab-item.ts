@@ -1,29 +1,29 @@
 import {Controller} from '../../../common/controller/controller';
 import {Emitter} from '../../../common/model/emitter';
 import {ViewProps} from '../../../common/model/view-props';
-import {ButtonProps, ButtonView} from '../view/button';
+import {TabItemProps, TabItemView} from '../view/tab-item';
 
 /**
  * @hidden
  */
-export interface ButtonEvents {
+export interface TabItemEvents {
 	click: {
-		sender: ButtonController;
+		sender: TabItemController;
 	};
 }
 
 interface Config {
-	props: ButtonProps;
+	props: TabItemProps;
 	viewProps: ViewProps;
 }
 
 /**
  * @hidden
  */
-export class ButtonController implements Controller {
-	public readonly emitter: Emitter<ButtonEvents> = new Emitter();
-	public readonly props: ButtonProps;
-	public readonly view: ButtonView;
+export class TabItemController implements Controller {
+	public readonly emitter: Emitter<TabItemEvents> = new Emitter();
+	public readonly props: TabItemProps;
+	public readonly view: TabItemView;
 	public readonly viewProps: ViewProps;
 
 	constructor(doc: Document, config: Config) {
@@ -32,9 +32,9 @@ export class ButtonController implements Controller {
 		this.props = config.props;
 		this.viewProps = config.viewProps;
 
-		this.view = new ButtonView(doc, {
-			props: this.props,
-			viewProps: this.viewProps,
+		this.view = new TabItemView(doc, {
+			props: config.props,
+			viewProps: config.viewProps,
 		});
 		this.view.buttonElement.addEventListener('click', this.onClick_);
 	}

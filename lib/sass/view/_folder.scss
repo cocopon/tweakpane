@@ -13,7 +13,8 @@
 	}
 	&_c {
 		@extend %folder_container;
-		@extend %folder_rack;
+		@extend %bladeRack-children;
+		@extend %bladeRack-subcontainers;
 
 		border-left: var(--cnt-bg) solid 4px;
 	}
@@ -28,20 +29,5 @@
 	}
 	&#{&}-expanded > &_c {
 		@extend %folder_container-expanded;
-	}
-
-	// Subfolder
-	&_c > & {
-		margin-left: 4px;
-	}
-	&_c > & > &_b {
-		border-top-left-radius: var(--elm-br);
-		border-bottom-left-radius: var(--elm-br);
-	}
-	&_c > &#{&}-expanded > &_b {
-		border-bottom-left-radius: 0;
-	}
-	&_c & > &_c {
-		border-bottom-left-radius: var(--elm-br);
 	}
 }

@@ -18,6 +18,8 @@ import {
 import {FolderController} from '../../folder/controller/folder';
 import {InputBindingController} from '../../input-binding/controller/input-binding';
 import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
+import {TabController} from '../../tab/controller/tab';
+import {BladeRackController} from '../controller/blade-rack';
 
 /**
  * @hidden
@@ -74,6 +76,26 @@ function findMonitorBindingController<In>(
 	return null;
 }
 
+function findSubRack(bc: BladeController<View>): BladeRack | null {
+	if (bc instanceof BladeRackController) {
+		return bc.rack;
+	}
+	if (bc instanceof FolderController) {
+		return bc.rackController.rack;
+	}
+	if (bc instanceof TabController) {
+		return bc.rackController.rack;
+	}
+	return null;
+}
+
+function findSubBladeControllerSet(
+	bc: BladeController<View>,
+): NestedOrderedSet<BladeController<View>> | null {
+	const rack = findSubRack(bc);
+	return rack ? rack['bcSet_'] : null;
+}
+
 /**
  * @hidden
  */
@@ -97,14 +119,12 @@ export class BladeRack {
 			this,
 		);
 
+		this.emitter = new Emitter();
+
 		this.blade_ = blade ?? null;
 		this.blade_?.emitter.on('change', this.onBladeChange_);
 
-		this.bcSet_ = new NestedOrderedSet((bc) =>
-			bc instanceof FolderController ? bc.rackController.rack.bcSet_ : null,
-		);
-		this.emitter = new Emitter();
-
+		this.bcSet_ = new NestedOrderedSet(findSubBladeControllerSet);
 		this.bcSet_.emitter.on('add', this.onSetAdd_);
 		this.bcSet_.emitter.on('remove', this.onSetRemove_);
 	}
@@ -158,11 +178,14 @@ export class BladeRack {
 			bc.binding.emitter.on('change', this.onChildInputChange_);
 		} else if (bc instanceof MonitorBindingController) {
 			bc.binding.emitter.on('update', this.onChildMonitorUpdate_);
-		} else if (bc instanceof FolderController) {
-			const emitter = bc.rackController.rack.emitter;
-			emitter.on('layout', this.onDescendantLayout_);
-			emitter.on('inputchange', this.onDescendantInputChange_);
-			emitter.on('monitorupdate', this.onDescendaantMonitorUpdate_);
+		} else {
+			const rack = findSubRack(bc);
+			if (rack) {
+				const emitter = rack.emitter;
+				emitter.on('layout', this.onDescendantLayout_);
+				emitter.on('inputchange', this.onDescendantInputChange_);
+				emitter.on('monitorupdate', this.onDescendaantMonitorUpdate_);
+			}
 		}
 	}
 
@@ -187,11 +210,14 @@ export class BladeRack {
 			bc.binding.emitter.off('change', this.onChildInputChange_);
 		} else if (bc instanceof MonitorBindingController) {
 			bc.binding.emitter.off('update', this.onChildMonitorUpdate_);
-		} else if (bc instanceof FolderController) {
-			const emitter = bc.rackController.rack.emitter;
-			emitter.off('layout', this.onDescendantLayout_);
-			emitter.off('inputchange', this.onDescendantInputChange_);
-			emitter.off('monitorupdate', this.onDescendaantMonitorUpdate_);
+		} else {
+			const rack = findSubRack(bc);
+			if (rack) {
+				const emitter = rack.emitter;
+				emitter.off('layout', this.onDescendantLayout_);
+				emitter.off('inputchange', this.onDescendantInputChange_);
+				emitter.off('monitorupdate', this.onDescendaantMonitorUpdate_);
+			}
 		}
 	}
 

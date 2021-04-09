@@ -1,0 +1,78 @@
+.#{$prefix}-tabv {
+	&_i {
+		align-items: flex-end;
+		display: flex;
+		overflow: hidden;
+	}
+	&_c {
+		border-left: var(--cnt-bg) solid 4px;
+		padding-bottom: var(--cnt-p);
+		padding-top: var(--cnt-p);
+
+		.#{$prefix}-brkv {
+			@extend %bladeRack-children;
+			@extend %bladeRack-subcontainers;
+		}
+	}
+}
+.#{$prefix}-tbiv {
+	flex: 1;
+	min-width: 0;
+	position: relative;
+
+	& + & {
+		margin-left: 2px;
+
+		&::before {
+			background-color: var(--cnt-bg);
+			bottom: 0;
+			content: '';
+			height: 2px;
+			left: -2px;
+			position: absolute;
+			width: 2px;
+		}
+	}
+
+	&_b {
+		@extend %resetUserAgent;
+
+		background-color: var(--cnt-bg);
+		border-top-left-radius: var(--elm-br);
+		border-top-right-radius: var(--elm-br);
+		display: block;
+		padding-left: calc(var(--cnt-p) + 4px);
+		padding-right: calc(var(--cnt-p) + 4px);
+		width: 100%;
+
+		&:hover {
+			background-color: var(--cnt-bg-h);
+		}
+		&:focus {
+			background-color: var(--cnt-bg-f);
+		}
+		&:active {
+			background-color: var(--cnt-bg-a);
+		}
+		&:disabled {
+			opacity: 0.5;
+		}
+	}
+	&:first-child &_b {
+		border-top-left-radius: 0;
+	}
+	&:last-child &_b {
+		border-top-right-radius: 0;
+	}
+	&_t {
+		color: var(--cnt-fg);
+		height: calc(var(--bld-h) + 4px);
+		line-height: calc(var(--bld-h) + 4px);
+		opacity: 0.5;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	&#{&}-sel &_t {
+		opacity: 1;
+	}
+}

@@ -62,7 +62,7 @@ export class FolderController extends BladeController<FolderView> {
 		super({
 			...config,
 			view: new FolderView(doc, {
-				container: rc.view.element,
+				containerElement: rc.view.element,
 				folder: folder,
 				props: config.props,
 				viewName: config.root ? 'rot' : undefined,

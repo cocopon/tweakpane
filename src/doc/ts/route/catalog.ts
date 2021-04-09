@@ -6,6 +6,7 @@ import {FolderBladeParams} from 'tweakpane/blade/folder/plugin';
 import {ListBladeParams} from 'tweakpane/blade/list/plugin';
 import {SeparatorBladeParams} from 'tweakpane/blade/separator/plugin';
 import {SliderBladeParams} from 'tweakpane/blade/slider/plugin';
+import {TabBladeParams} from 'tweakpane/blade/tab/plugin';
 import {TextBladeParams} from 'tweakpane/blade/text/plugin';
 
 import {selectContainer, wave} from '../util';
@@ -309,6 +310,11 @@ export function initCatalog() {
 					value: 50,
 					view: 'slider',
 				} as SliderBladeParams,
+				{
+					disabled: disabled,
+					pages: [{title: 'Tab'}, {title: 'Tab'}],
+					view: 'tab',
+				} as TabBladeParams,
 			].forEach((params) => {
 				pane.addBlade_v3_(params);
 			});

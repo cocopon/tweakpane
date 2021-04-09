@@ -16,7 +16,7 @@ export type FolderProps = ValueMap<{
 }>;
 
 export interface Config {
-	container: HTMLElement;
+	containerElement: HTMLElement;
 	folder: Folder;
 	props: FolderProps;
 	viewProps: ViewProps;
@@ -69,7 +69,7 @@ export class FolderView implements View {
 		markElem.classList.add(this.className_('m'));
 		this.buttonElement.appendChild(markElem);
 
-		const containerElem = config.container;
+		const containerElem = config.containerElement;
 		containerElem.classList.add(this.className_('c'));
 		this.element.appendChild(containerElem);
 		this.containerElement = containerElem;

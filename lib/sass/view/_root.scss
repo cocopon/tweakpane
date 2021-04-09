@@ -175,27 +175,26 @@
 	}
 	&_c {
 		@extend %folder_container;
-		@extend %folder_rack;
+		@extend %bladeRack-children;
 
-		& > .#{$prefix}-fldv.#{$prefix}-v-lst {
-			// Bottom of the last folder
-			& > .#{$prefix}-fldv_c {
-				border-bottom-left-radius: var(--bs-br);
-				border-bottom-right-radius: var(--bs-br);
-			}
+		// Bottom of the last container
+		& > .#{$prefix}-fldv.#{$prefix}-v-lst > .#{$prefix}-fldv_c,
+		& > .#{$prefix}-tabv.#{$prefix}-v-lst > .#{$prefix}-tabv_c {
+			border-bottom-left-radius: var(--bs-br);
+			border-bottom-right-radius: var(--bs-br);
 		}
 		// Bottom of the last folder title when collapsed
-		& > .#{$prefix}-fldv.#{$prefix}-v-lst:not(.#{$prefix}-fldv-expanded) {
-			& > .#{$prefix}-fldv_b {
-				border-bottom-left-radius: var(--bs-br);
-				border-bottom-right-radius: var(--bs-br);
-			}
+		&
+			> .#{$prefix}-fldv.#{$prefix}-v-lst:not(.#{$prefix}-fldv-expanded)
+			> .#{$prefix}-fldv_b {
+			border-bottom-left-radius: var(--bs-br);
+			border-bottom-right-radius: var(--bs-br);
 		}
 		// Bottom of the last subfolder title when collapsed
-		& .#{$prefix}-fldv.#{$prefix}-v-vlst:not(.#{$prefix}-fldv-expanded) {
-			& > .#{$prefix}-fldv_b {
-				border-bottom-right-radius: var(--bs-br);
-			}
+		&
+			.#{$prefix}-fldv.#{$prefix}-v-vlst:not(.#{$prefix}-fldv-expanded)
+			> .#{$prefix}-fldv_b {
+			border-bottom-right-radius: var(--bs-br);
 		}
 	}
 	&#{&}-expanded &_c {
@@ -207,6 +206,15 @@
 			margin-top: calc(-1 * var(--cnt-p));
 
 			& > .#{$prefix}-fldv_b {
+				border-top-left-radius: var(--bs-br);
+				border-top-right-radius: var(--bs-br);
+			}
+		}
+		// First tab without pane title
+		& > .#{$prefix}-tabv.#{$prefix}-v-fst {
+			margin-top: calc(-1 * var(--cnt-p));
+
+			& > .#{$prefix}-tabv_i {
 				border-top-left-radius: var(--bs-br);
 				border-top-right-radius: var(--bs-br);
 			}

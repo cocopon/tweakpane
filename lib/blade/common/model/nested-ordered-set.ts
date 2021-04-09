@@ -9,6 +9,7 @@ export interface NestedOrderedSetEvents<T> {
 		target: NestedOrderedSet<T>;
 	};
 	remove: {
+		index: number;
 		item: T;
 		root: NestedOrderedSet<T>;
 		target: NestedOrderedSet<T>;
@@ -94,6 +95,7 @@ export class NestedOrderedSet<T> {
 		}
 
 		this.emitter.emit('remove', {
+			index: index,
 			item: item,
 			root: this,
 			target: this,
@@ -113,6 +115,7 @@ export class NestedOrderedSet<T> {
 	private onSubListRemove_(ev: NestedOrderedSetEvents<T>['remove']) {
 		this.cache_.delete(ev.item);
 		this.emitter.emit('remove', {
+			index: ev.index,
 			item: ev.item,
 			root: this,
 			target: ev.target,

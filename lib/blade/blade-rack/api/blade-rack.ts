@@ -33,15 +33,43 @@ import {FolderApi} from '../../folder/api/folder';
 import {InputBindingApi} from '../../input-binding/api/input-binding';
 import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
 import {SeparatorApi} from '../../separator/api/separator';
+import {TabApi} from '../../tab/api/tab';
 import {BladeRackController} from '../controller/blade-rack';
 
-interface BladeRackApiEvents {
+export interface BladeRackApiEvents {
 	change: {
 		event: TpChangeEvent<unknown>;
 	};
 	update: {
 		event: TpUpdateEvent<unknown>;
 	};
+}
+
+export function findSubBladeApiSet(
+	api: BladeApi<BladeController<View>>,
+): NestedOrderedSet<BladeApi<BladeController<View>>> | null {
+	if (api instanceof BladeRackApi) {
+		return api['apiSet_'];
+	}
+	if (api instanceof FolderApi) {
+		return api['rackApi_']['apiSet_'];
+	}
+	if (api instanceof TabApi) {
+		return api['rackApi_']['apiSet_'];
+	}
+	return null;
+}
+
+function getApiByController(
+	apiSet: NestedOrderedSet<BladeApi<BladeController<View>>>,
+	controller: BladeController<View>,
+): BladeApi<BladeController<View>> {
+	const api = apiSet.find((api) => api.controller_ === controller);
+	/* istanbul ignore next */
+	if (!api) {
+		throw TpError.shouldNeverHappen();
+	}
+	return api;
 }
 
 /**
@@ -64,27 +92,22 @@ export class BladeRackApi extends BladeApi<BladeRackController>
 		this.onRackMonitorUpdate_ = this.onRackMonitorUpdate_.bind(this);
 
 		this.emitter_ = new Emitter();
-
-		this.apiSet_ = new NestedOrderedSet((api) =>
-			api instanceof FolderApi ? api['rackApi_']['apiSet_'] : null,
-		);
+		this.apiSet_ = new NestedOrderedSet(findSubBladeApiSet);
 
 		const rack = this.controller_.rack;
 		rack.emitter.on('add', this.onRackAdd_);
 		rack.emitter.on('remove', this.onRackRemove_);
 		rack.emitter.on('inputchange', this.onRackInputChange_);
 		rack.emitter.on('monitorupdate', this.onRackMonitorUpdate_);
+		rack.children.forEach((bc) => {
+			this.setUpApi_(bc);
+		});
 	}
 
 	get children(): BladeApi<BladeController<View>>[] {
-		return this.controller_.rack.children.map((bc) => {
-			const api = this.apiSet_.find((api) => api.controller_ === bc);
-			/* istanbul ignore next */
-			if (api === null) {
-				throw TpError.shouldNeverHappen();
-			}
-			return api;
-		});
+		return this.controller_.rack.children.map((bc) =>
+			getApiByController(this.apiSet_, bc),
+		);
 	}
 
 	public addInput<O extends Record<string, any>, Key extends string>(
@@ -168,36 +191,27 @@ export class BladeRackApi extends BladeApi<BladeRackController>
 		return this;
 	}
 
-	private onRackAdd_(ev: BladeRackEvents['add']) {
-		const api = this.apiSet_.find(
-			(api) => api.controller_ === ev.bladeController,
-		);
+	private setUpApi_(bc: BladeController<View>) {
+		const api = this.apiSet_.find((api) => api.controller_ === bc);
 		if (!api) {
 			// Auto-fill missing API
-			this.apiSet_.add(createBladeApi(ev.bladeController));
+			this.apiSet_.add(createBladeApi(bc));
 		}
 	}
 
+	private onRackAdd_(ev: BladeRackEvents['add']) {
+		this.setUpApi_(ev.bladeController);
+	}
+
 	private onRackRemove_(ev: BladeRackEvents['remove']) {
-		const api = this.apiSet_.find(
-			(api) => api.controller_ === ev.bladeController,
-		);
-		if (api) {
+		if (ev.isRoot) {
+			const api = getApiByController(this.apiSet_, ev.bladeController);
 			this.apiSet_.remove(api);
 		}
 	}
 
 	private onRackInputChange_(ev: BladeRackEvents['inputchange']) {
-		const api = this.apiSet_.find((api) =>
-			api instanceof InputBindingApi
-				? api.controller_ === ev.bindingController
-				: false,
-		);
-		/* istanbul ignore next */
-		if (!api) {
-			throw TpError.shouldNeverHappen();
-		}
-
+		const api = getApiByController(this.apiSet_, ev.bindingController);
 		const binding = ev.bindingController.binding;
 		this.emitter_.emit('change', {
 			event: new TpChangeEvent(
@@ -209,16 +223,7 @@ export class BladeRackApi extends BladeApi<BladeRackController>
 	}
 
 	private onRackMonitorUpdate_(ev: BladeRackEvents['monitorupdate']) {
-		const api = this.apiSet_.find((api) =>
-			api instanceof MonitorBindingApi
-				? api.controller_ === ev.bindingController
-				: false,
-		);
-		/* istanbul ignore next */
-		if (!api) {
-			throw TpError.shouldNeverHappen();
-		}
-
+		const api = getApiByController(this.apiSet_, ev.bindingController);
 		const binding = ev.bindingController.binding;
 		this.emitter_.emit('update', {
 			event: new TpUpdateEvent(

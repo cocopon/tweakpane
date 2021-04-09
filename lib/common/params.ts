@@ -43,3 +43,23 @@ function isObject(value: unknown): value is Record<string, unknown> {
 export const findObjectParam = createParamFinder<Record<string, unknown>>(
 	isObject,
 );
+
+function createArrayParamFinder<T>(
+	test: (value: unknown) => value is T,
+): PropertyFinder<T[]> {
+	return createParamFinder<T[]>((value): value is T[] => {
+		if (!Array.isArray(value)) {
+			return false;
+		}
+		for (let i = 0; i < value.length; i++) {
+			if (!test(value[i])) {
+				return false;
+			}
+		}
+		return true;
+	});
+}
+
+export const findObjectArrayParam = createArrayParamFinder<
+	Record<string, unknown>
+>(isObject);

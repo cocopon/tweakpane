@@ -24,7 +24,7 @@ export interface BladeContainerApi {
 	addButton(params: ButtonParams): ButtonApi;
 	addFolder(params: FolderParams): FolderApi;
 	addSeparator(opt_params?: SeparatorParams): SeparatorApi;
-	add(api: BladeApi<BladeController<View>>): void;
+	add(api: BladeApi<BladeController<View>>, opt_index?: number): void;
 	remove(api: BladeApi<BladeController<View>>): void;
 
 	/**
