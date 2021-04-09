@@ -55,6 +55,14 @@ h6 {
 	color: var(--heading-color);
 	font-weight: 500;
 	letter-spacing: 0.01em;
+
+	a {
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
 }
 code {
 	font-family: $font-family-mono;
