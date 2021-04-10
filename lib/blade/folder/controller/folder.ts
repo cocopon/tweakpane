@@ -55,9 +55,14 @@ export class FolderController extends BladeController<FolderView> {
 
 	constructor(doc: Document, config: Config) {
 		const folder = new Folder(config.expanded ?? true);
+		const rc = new BladeRackController(doc, {
+			blade: config.blade,
+			viewProps: config.viewProps,
+		});
 		super({
 			...config,
 			view: new FolderView(doc, {
+				container: rc.view.element,
 				folder: folder,
 				props: config.props,
 				viewName: config.viewName,
@@ -74,11 +79,7 @@ export class FolderController extends BladeController<FolderView> {
 		this.folder = folder;
 		this.folder.emitter.on('beforechange', this.onFolderBeforeChange_);
 
-		this.rc_ = new BladeRackController(doc, {
-			blade: this.blade,
-			viewProps: this.viewProps,
-		});
-		this.view.containerElement.appendChild(this.rc_.view.element);
+		this.rc_ = rc;
 
 		this.view.buttonElement.addEventListener('click', this.onTitleClick_);
 		this.view.containerElement.addEventListener(

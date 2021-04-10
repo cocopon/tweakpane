@@ -175,11 +175,6 @@
 	}
 	&_c {
 		@extend %folder_container;
-	}
-	&#{&}-expanded &_c {
-		@extend %folder_container-expanded;
-	}
-	&_c > .#{$prefix}-brkv {
 		@extend %folder_rack;
 
 		& > .#{$prefix}-fldv.#{$prefix}-v-last {
@@ -213,6 +208,9 @@
 		}
 		// TODO: Bottom right radius of the last subfolder of the last folder
 		// (maybe need to add `verylast` position)
+	}
+	&#{&}-expanded &_c {
+		@extend %folder_container-expanded;
 	}
 
 	&.#{$prefix}-v-disabled,
