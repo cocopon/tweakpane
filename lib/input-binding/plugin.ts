@@ -1,7 +1,7 @@
 import {InputParams} from '../blade/common/api/types';
 import {InputBindingController} from '../blade/common/controller/input-binding';
 import {Blade} from '../blade/common/model/blade';
-import {LabeledPropsObject} from '../blade/labeled/view/labeled';
+import {LabelPropsObject} from '../blade/label/view/label';
 import {BindingReader, BindingWriter} from '../common/binding/binding';
 import {InputBinding} from '../common/binding/input';
 import {BindingTarget} from '../common/binding/target';
@@ -161,7 +161,7 @@ export function createController<In, Ex>(
 		blade: blade,
 		props: new ValueMap({
 			label: args.params.label || args.target.key,
-		} as LabeledPropsObject),
+		} as LabelPropsObject),
 		valueController: controller,
 	});
 }

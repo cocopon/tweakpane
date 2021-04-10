@@ -30,8 +30,8 @@ import {
 } from '../../common/api/types';
 import {createBindingTarget} from '../../common/api/util';
 import {BladeController} from '../../common/controller/blade';
-import {BladeRackEvents} from '../../common/model/blade-rack';
 import {NestedOrderedSet} from '../../common/model/nested-ordered-set';
+import {BladeRackEvents} from '../../rack/model/blade-rack';
 import {SeparatorApi} from '../../separator/api/separator';
 import {FolderController} from '../controller/folder';
 import {FolderEvents} from '../model/folder';
@@ -62,7 +62,6 @@ export class FolderApi extends BladeApi<FolderController>
 		this.onFolderChange_ = this.onFolderChange_.bind(this);
 		this.onRackRemove_ = this.onRackRemove_.bind(this);
 		this.onRackInputChange_ = this.onRackInputChange_.bind(this);
-		this.onRackFolderFold_ = this.onRackFolderFold_.bind(this);
 		this.onRackMonitorUpdate_ = this.onRackMonitorUpdate_.bind(this);
 
 		this.emitter_ = new Emitter();
@@ -73,11 +72,10 @@ export class FolderApi extends BladeApi<FolderController>
 
 		this.controller_.folder.emitter.on('change', this.onFolderChange_);
 
-		const rack = this.controller_.bladeRack;
+		const rack = this.controller_.rack;
 		rack.emitter.on('remove', this.onRackRemove_);
 		rack.emitter.on('inputchange', this.onRackInputChange_);
 		rack.emitter.on('monitorupdate', this.onRackMonitorUpdate_);
-		rack.emitter.on('folderfold', this.onRackFolderFold_);
 	}
 
 	get expanded(): boolean {
@@ -97,7 +95,7 @@ export class FolderApi extends BladeApi<FolderController>
 	}
 
 	get children(): BladeApi<BladeController<View>>[] {
-		return this.controller_.bladeRack.children.map((bc) => {
+		return this.controller_.rack.children.map((bc) => {
 			const api = this.apiSet_.find((api) => api.controller_ === bc);
 			/* istanbul ignore next */
 			if (api === null) {
@@ -153,13 +151,13 @@ export class FolderApi extends BladeApi<FolderController>
 		api: A,
 		opt_index?: number,
 	): A {
-		this.controller_.bladeRack.add(api.controller_, opt_index);
+		this.controller_.rack.add(api.controller_, opt_index);
 		this.apiSet_.add(api);
 		return api;
 	}
 
 	public remove(api: BladeApi<BladeController<View>>): void {
-		this.controller_.bladeRack.remove(api.controller_);
+		this.controller_.rack.remove(api.controller_);
 	}
 
 	/**
@@ -237,22 +235,6 @@ export class FolderApi extends BladeApi<FolderController>
 				forceCast(binding.target.read()),
 				binding.target.presetKey,
 			),
-		});
-	}
-
-	private onRackFolderFold_(ev: BladeRackEvents['folderfold']) {
-		const api = this.apiSet_.find((api) =>
-			api instanceof FolderApi
-				? api.controller_ === ev.folderController
-				: false,
-		);
-		/* istanbul ignore next */
-		if (!api) {
-			throw TpError.shouldNeverHappen();
-		}
-
-		this.emitter_.emit('fold', {
-			event: new TpFoldEvent(api, ev.folderController.folder.expanded),
 		});
 	}
 

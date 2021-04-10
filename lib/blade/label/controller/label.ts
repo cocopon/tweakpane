@@ -1,25 +1,30 @@
 import {Controller} from '../../../common/controller/controller';
+import {View} from '../../../common/view/view';
 import {BladeController} from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
-import {LabeledProps, LabeledView} from '../view/labeled';
+import {LabelProps, LabelView} from '../view/label';
 
 interface Config<C> {
 	blade: Blade;
-	props: LabeledProps;
+	props: LabelProps;
 	valueController: C;
 }
 
-export class LabeledController<C extends Controller> extends BladeController<
-	LabeledView
-> {
-	public readonly props: LabeledProps;
+interface LabelableController extends Controller {
+	view: View;
+}
+
+export class LabelController<
+	C extends LabelableController
+> extends BladeController<LabelView> {
+	public readonly props: LabelProps;
 	public readonly valueController: C;
 
 	constructor(doc: Document, config: Config<C>) {
 		const viewProps = config.valueController.viewProps;
 		super({
 			...config,
-			view: new LabeledView(doc, {
+			view: new LabelView(doc, {
 				props: config.props,
 				viewProps: viewProps,
 			}),

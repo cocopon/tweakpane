@@ -16,11 +16,11 @@ import {CheckboxController} from '../../../input-binding/boolean/controller/chec
 import {TestUtil} from '../../../misc/test-util';
 import {forceCast} from '../../../misc/type-util';
 import {SingleLogMonitorController} from '../../../monitor-binding/common/controller/single-log';
+import {InputBindingController} from '../../common/controller/input-binding';
+import {MonitorBindingController} from '../../common/controller/monitor-binding';
+import {Blade} from '../../common/model/blade';
 import {FolderController} from '../../folder/controller/folder';
-import {LabeledPropsObject} from '../../labeled/view/labeled';
-import {InputBindingController} from '../controller/input-binding';
-import {MonitorBindingController} from '../controller/monitor-binding';
-import {Blade} from './blade';
+import {LabelPropsObject} from '../../label/view/label';
 import {BladeRack} from './blade-rack';
 
 function createInputBindingController(
@@ -37,7 +37,7 @@ function createInputBindingController(
 		binding: b,
 		props: new ValueMap({
 			label: '',
-		} as LabeledPropsObject),
+		} as LabelPropsObject),
 		valueController: new CheckboxController(doc, {
 			value: b.value,
 			viewProps: createViewProps(),
@@ -59,7 +59,7 @@ function createMonitorBindingController(
 		binding: b,
 		props: new ValueMap({
 			label: '',
-		} as LabeledPropsObject),
+		} as LabelPropsObject),
 		valueController: new SingleLogMonitorController(doc, {
 			formatter: (v) => String(v),
 			value: b.value,
@@ -125,7 +125,7 @@ describe(BladeRack.name, () => {
 		const fc = createFolderController(doc);
 		rack.add(fc);
 		const bc = createInputBindingController(doc);
-		fc.bladeRack.add(bc);
+		fc.rack.add(bc);
 
 		rack.emitter.on('inputchange', (ev) => {
 			assert.strictEqual(ev.bindingController, forceCast(bc));
@@ -141,9 +141,9 @@ describe(BladeRack.name, () => {
 		const fc = createFolderController(doc);
 		rack.add(fc);
 		const sfc = createFolderController(doc);
-		fc.bladeRack.add(sfc);
+		fc.rack.add(sfc);
 		const bc = createInputBindingController(doc);
-		sfc.bladeRack.add(bc);
+		sfc.rack.add(bc);
 
 		rack.emitter.on('inputchange', (ev) => {
 			assert.strictEqual(ev.bindingController, forceCast(bc));
@@ -173,7 +173,7 @@ describe(BladeRack.name, () => {
 		const fc = createFolderController(doc);
 		rack.add(fc);
 		const bc = createMonitorBindingController(doc);
-		fc.bladeRack.add(bc);
+		fc.rack.add(bc);
 
 		rack.emitter.on('monitorupdate', (ev) => {
 			assert.strictEqual(ev.bindingController, forceCast(bc));
@@ -194,48 +194,20 @@ describe(BladeRack.name, () => {
 		assert.strictEqual(rack.children.includes(bc), false);
 	});
 
-	it('should handle layout', (done) => {
+	it('should handle layout', () => {
 		const rack = new BladeRack();
 		const doc = TestUtil.createWindow().document;
 		const bc = createInputBindingController(doc);
 		rack.add(bc);
 
+		let count = 0;
 		rack.emitter.on('layout', (ev) => {
 			assert.strictEqual(ev.sender, rack);
-			done();
+			count += 1;
 		});
 
 		bc.viewProps.set('hidden', !bc.viewProps.get('hidden'));
-	});
-
-	it('should handle folder fold', (done) => {
-		const rack = new BladeRack();
-		const doc = TestUtil.createWindow().document;
-		const fc = createFolderController(doc);
-		rack.add(fc);
-
-		rack.emitter.on('folderfold', (ev) => {
-			assert.strictEqual(ev.folderController, fc);
-			done();
-		});
-
-		fc.folder.expanded = !fc.folder.expanded;
-	});
-
-	it('should handle folder fold (nested)', (done) => {
-		const rack = new BladeRack();
-		const doc = TestUtil.createWindow().document;
-		const fc = createFolderController(doc);
-		rack.add(fc);
-		const sfc = createFolderController(doc);
-		fc.bladeRack.add(sfc);
-
-		rack.emitter.on('folderfold', (ev) => {
-			assert.strictEqual(ev.folderController, sfc);
-			done();
-		});
-
-		sfc.folder.expanded = !sfc.folder.expanded;
+		assert.strictEqual(count > 0, true);
 	});
 
 	it('should not handle removed input event', () => {
@@ -258,7 +230,7 @@ describe(BladeRack.name, () => {
 		const fc = createFolderController(doc);
 		rack.add(fc);
 		const bc = createInputBindingController(doc);
-		fc.bladeRack.add(bc);
+		fc.rack.add(bc);
 
 		rack.emitter.on('inputchange', () => {
 			assert.fail('should not be called');
@@ -274,7 +246,7 @@ describe(BladeRack.name, () => {
 		const fc = createFolderController(doc);
 		rack.add(fc);
 		const bc = createInputBindingController(doc);
-		fc.bladeRack.add(bc);
+		fc.rack.add(bc);
 
 		let count = 0;
 		rack.emitter.on('layout', () => {

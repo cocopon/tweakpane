@@ -11,7 +11,7 @@ import {
 import {getSuitableDraggingScale} from '../../common/util';
 import {forceCast} from '../../misc/type-util';
 import {BladeParams} from '../common/api/types';
-import {LabeledController} from '../labeled/controller/labeled';
+import {LabelController} from '../label/controller/label';
 import {BladePlugin} from '../plugin';
 import {SliderBladeApi} from './api/slider';
 
@@ -64,7 +64,7 @@ export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 			value: new PrimitiveValue(v),
 			viewProps: args.viewProps,
 		});
-		const c = new LabeledController(args.document, {
+		const c = new LabelController(args.document, {
 			blade: args.blade,
 			props: new ValueMap({
 				label: args.params.label,

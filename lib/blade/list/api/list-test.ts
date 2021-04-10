@@ -13,18 +13,18 @@ import {
 	assertUpdates,
 } from '../../common/api/test-util';
 import {Blade} from '../../common/model/blade';
-import {LabeledController} from '../../labeled/controller/labeled';
-import {LabeledPropsObject} from '../../labeled/view/labeled';
+import {LabelController} from '../../label/controller/label';
+import {LabelPropsObject} from '../../label/view/label';
 import {ListBladeApi} from './list';
 
 describe(ListBladeApi.name, () => {
 	it('should dispose', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = new LabeledController(doc, {
+		const c = new LabelController(doc, {
 			blade: new Blade(),
 			props: new ValueMap({
 				label: undefined,
-			} as LabeledPropsObject),
+			} as LabelPropsObject),
 			valueController: new ListController(doc, {
 				props: new ValueMap({
 					options: [] as ListItem<number>[],
@@ -39,11 +39,11 @@ describe(ListBladeApi.name, () => {
 
 	it('should have initial state', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = new LabeledController(doc, {
+		const c = new LabelController(doc, {
 			blade: new Blade(),
 			props: new ValueMap({
 				label: undefined,
-			} as LabeledPropsObject),
+			} as LabelPropsObject),
 			valueController: new ListController(doc, {
 				props: new ValueMap({
 					options: [
@@ -66,11 +66,11 @@ describe(ListBladeApi.name, () => {
 
 	it('should update properties', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = new LabeledController(doc, {
+		const c = new LabelController(doc, {
 			blade: new Blade(),
 			props: new ValueMap({
 				label: undefined,
-			} as LabeledPropsObject),
+			} as LabelPropsObject),
 			valueController: new ListController(doc, {
 				props: new ValueMap({
 					options: [
@@ -102,11 +102,11 @@ describe(ListBladeApi.name, () => {
 
 	it('should handle event', (done) => {
 		const doc = TestUtil.createWindow().document;
-		const c = new LabeledController(doc, {
+		const c = new LabelController(doc, {
 			blade: new Blade(),
 			props: new ValueMap({
 				label: undefined,
-			} as LabeledPropsObject),
+			} as LabelPropsObject),
 			valueController: new ListController(doc, {
 				props: new ValueMap({
 					options: [

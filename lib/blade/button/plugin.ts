@@ -1,7 +1,7 @@
 import {ValueMap} from '../../common/model/value-map';
 import {findStringParam} from '../../common/params';
 import {BladeParams} from '../common/api/types';
-import {LabeledController} from '../labeled/controller/labeled';
+import {LabelController} from '../label/controller/label';
 import {BladePlugin} from '../plugin';
 import {ButtonApi} from './api/button';
 import {ButtonController} from './controller/button';
@@ -33,7 +33,7 @@ export const ButtonBladePlugin: BladePlugin<ButtonBladeParams> = {
 		};
 	},
 	api(args) {
-		const c = new LabeledController(args.document, {
+		const c = new LabelController(args.document, {
 			blade: args.blade,
 			props: new ValueMap({
 				label: args.params.label,

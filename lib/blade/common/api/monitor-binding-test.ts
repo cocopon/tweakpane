@@ -14,7 +14,7 @@ import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {SingleLogMonitorController} from '../../../monitor-binding/common/controller/single-log';
-import {LabeledPropsObject} from '../../labeled/view/labeled';
+import {LabelPropsObject} from '../../label/view/label';
 import {MonitorBindingController} from '../controller/monitor-binding';
 import {Blade} from '../model/blade';
 import {MonitorBindingApi} from './monitor-binding';
@@ -38,7 +38,7 @@ function createApi(target: BindingTarget) {
 		blade: new Blade(),
 		props: new ValueMap({
 			label: 'label',
-		} as LabeledPropsObject),
+		} as LabelPropsObject),
 		valueController: mc,
 	});
 	return new MonitorBindingApi(bc);

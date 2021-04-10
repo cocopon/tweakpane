@@ -1,13 +1,13 @@
 import {forceCast} from '../../../misc/type-util';
 import {BladeApi, LabelableApi} from '../../common/api/blade';
-import {LabeledController} from '../../labeled/controller/labeled';
+import {LabelController} from '../../label/controller/label';
 import {ButtonController} from '../controller/button';
 
 interface ButtonApiEventHandlers {
 	click: () => void;
 }
 
-export class ButtonApi extends BladeApi<LabeledController<ButtonController>>
+export class ButtonApi extends BladeApi<LabelController<ButtonController>>
 	implements LabelableApi {
 	get disabled(): boolean {
 		return this.controller_.viewProps.get('disabled');

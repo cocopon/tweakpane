@@ -7,8 +7,8 @@ import {createViewProps, ViewProps} from '../../../common/model/view-props';
 import {View} from '../../../common/view/view';
 import {TestUtil} from '../../../misc/test-util';
 import {Blade} from '../../common/model/blade';
-import {LabeledPropsObject} from '../view/labeled';
-import {LabeledController} from './labeled';
+import {LabelPropsObject} from '../view/label';
+import {LabelController} from './label';
 
 class TestView implements View {
 	public readonly element: HTMLElement;
@@ -33,14 +33,14 @@ class TestController implements Controller {
 	}
 }
 
-describe(LabeledController.name, () => {
+describe(LabelController.name, () => {
 	it('should have initial state', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = new LabeledController(doc, {
+		const c = new LabelController(doc, {
 			blade: new Blade(),
 			props: new ValueMap({
 				label: 'hello',
-			} as LabeledPropsObject),
+			} as LabelPropsObject),
 			valueController: new TestController(doc, {
 				viewProps: createViewProps(),
 			}),
@@ -51,11 +51,11 @@ describe(LabeledController.name, () => {
 
 	it('should update properties', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = new LabeledController(doc, {
+		const c = new LabelController(doc, {
 			blade: new Blade(),
 			props: new ValueMap({
 				label: 'hello',
-			} as LabeledPropsObject),
+			} as LabelPropsObject),
 			valueController: new TestController(doc, {
 				viewProps: createViewProps(),
 			}),

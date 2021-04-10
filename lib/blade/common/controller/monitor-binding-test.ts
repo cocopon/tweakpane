@@ -11,7 +11,7 @@ import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {SingleLogMonitorController} from '../../../monitor-binding/common/controller/single-log';
-import {LabeledPropsObject} from '../../labeled/view/labeled';
+import {LabelPropsObject} from '../../label/view/label';
 import {Blade} from '../model/blade';
 import {MonitorBindingController} from './monitor-binding';
 
@@ -37,7 +37,7 @@ function create(): MonitorBindingController<number> {
 		blade: new Blade(),
 		props: new ValueMap({
 			label: 'foo',
-		} as LabeledPropsObject),
+		} as LabelPropsObject),
 		valueController: controller,
 	});
 }

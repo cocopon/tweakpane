@@ -4,7 +4,7 @@ import {describe as context, describe, it} from 'mocha';
 import {InputBindingController} from '../blade/common/controller/input-binding';
 import {MonitorBindingController} from '../blade/common/controller/monitor-binding';
 import {FolderController} from '../blade/folder/controller/folder';
-import {LabeledController} from '../blade/labeled/controller/labeled';
+import {LabelController} from '../blade/label/controller/label';
 import {SeparatorController} from '../blade/separator/controller/separator';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
@@ -38,7 +38,7 @@ describe(Tweakpane.name, () => {
 			insert: (api, index) => {
 				api.addButton({index: index, title: 'button'});
 			},
-			expected: LabeledController,
+			expected: LabelController,
 		},
 		{
 			insert: (api, index) => {
@@ -69,7 +69,7 @@ describe(Tweakpane.name, () => {
 				pane.addInput(params, 'bar');
 				testCase.insert(pane, 1);
 
-				const cs = pane.controller_.bladeRack.children;
+				const cs = pane.controller_.rack.children;
 				assert.strictEqual(cs[1] instanceof testCase.expected, true);
 			});
 		});

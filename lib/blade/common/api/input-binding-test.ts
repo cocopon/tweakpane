@@ -14,7 +14,7 @@ import {createViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from '../../../common/number/controller/number-text';
 import {writePrimitive} from '../../../common/primitive';
 import {TestUtil} from '../../../misc/test-util';
-import {LabeledPropsObject} from '../../labeled/view/labeled';
+import {LabelPropsObject} from '../../label/view/label';
 import {InputBindingController} from '../controller/input-binding';
 import {Blade} from '../model/blade';
 import {InputBindingApi} from './input-binding';
@@ -44,7 +44,7 @@ function createApi(target: BindingTarget) {
 		blade: new Blade(),
 		props: new ValueMap({
 			label: 'label',
-		} as LabeledPropsObject),
+		} as LabelPropsObject),
 		valueController: ic,
 	});
 	return new InputBindingApi(bc);

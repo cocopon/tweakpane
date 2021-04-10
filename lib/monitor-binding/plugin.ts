@@ -1,7 +1,7 @@
 import {MonitorParams} from '../blade/common/api/types';
 import {MonitorBindingController} from '../blade/common/controller/monitor-binding';
 import {Blade} from '../blade/common/model/blade';
-import {LabeledPropsObject} from '../blade/labeled/view/labeled';
+import {LabelPropsObject} from '../blade/label/view/label';
 import {BindingReader} from '../common/binding/binding';
 import {MonitorBinding} from '../common/binding/monitor';
 import {BindingTarget} from '../common/binding/target';
@@ -143,7 +143,7 @@ export function createController<T>(
 		blade: blade,
 		props: new ValueMap({
 			label: args.params.label || args.target.key,
-		} as LabeledPropsObject),
+		} as LabelPropsObject),
 		valueController: controller,
 	});
 }

@@ -8,13 +8,16 @@ import {ViewPropsEvents} from '../../../common/model/view-props';
 import {TpError} from '../../../common/tp-error';
 import {View} from '../../../common/view/view';
 import {Class, forceCast} from '../../../misc/type-util';
+import {BladeController} from '../../common/controller/blade';
+import {InputBindingController} from '../../common/controller/input-binding';
+import {MonitorBindingController} from '../../common/controller/monitor-binding';
+import {BladeEvents} from '../../common/model/blade';
+import {BladePosition} from '../../common/model/blade-positions';
+import {
+	NestedOrderedSet,
+	NestedOrderedSetEvents,
+} from '../../common/model/nested-ordered-set';
 import {FolderController} from '../../folder/controller/folder';
-import {Folder, FolderEvents} from '../../folder/model/folder';
-import {BladeController} from '../controller/blade';
-import {InputBindingController} from '../controller/input-binding';
-import {MonitorBindingController} from '../controller/monitor-binding';
-import {BladeEvents} from './blade';
-import {NestedOrderedSet, NestedOrderedSetEvents} from './nested-ordered-set';
 
 /**
  * @hidden
@@ -32,10 +35,6 @@ export interface BladeRackEvents {
 		sender: BladeRack;
 	};
 
-	folderfold: {
-		folderController: FolderController;
-		sender: BladeRack;
-	};
 	inputchange: {
 		bindingController: InputBindingController<unknown>;
 		sender: BladeRack;
@@ -75,19 +74,6 @@ function findMonitorBindingController<In>(
 	return null;
 }
 
-function findFolderController(
-	bcs: FolderController[],
-	f: Folder,
-): FolderController | null {
-	for (let i = 0; i < bcs.length; i++) {
-		const bc = bcs[i];
-		if (bc instanceof FolderController && bc.folder === f) {
-			return bc;
-		}
-	}
-	return null;
-}
-
 /**
  * @hidden
  */
@@ -101,20 +87,18 @@ export class BladeRack {
 
 		this.onChildDispose_ = this.onChildDispose_.bind(this);
 		this.onChildLayout_ = this.onChildLayout_.bind(this);
-		this.onChildFolderFold_ = this.onChildFolderFold_.bind(this);
 		this.onChildInputChange_ = this.onChildInputChange_.bind(this);
 		this.onChildMonitorUpdate_ = this.onChildMonitorUpdate_.bind(this);
 		this.onChildViewPropsChange_ = this.onChildViewPropsChange_.bind(this);
 
 		this.onDescendantLayout_ = this.onDescendantLayout_.bind(this);
-		this.onDescendantFolderFold_ = this.onDescendantFolderFold_.bind(this);
 		this.onDescendantInputChange_ = this.onDescendantInputChange_.bind(this);
 		this.onDescendaantMonitorUpdate_ = this.onDescendaantMonitorUpdate_.bind(
 			this,
 		);
 
 		this.bcSet_ = new NestedOrderedSet((bc) =>
-			bc instanceof FolderController ? bc.bladeRack.bcSet_ : null,
+			bc instanceof FolderController ? bc.rack.bcSet_ : null,
 		);
 		this.emitter = new Emitter();
 
@@ -148,6 +132,8 @@ export class BladeRack {
 	}
 
 	private onSetAdd_(ev: NestedOrderedSetEvents<BladeController<View>>['add']) {
+		this.updatePositions_();
+
 		const isRoot = ev.target === ev.root;
 		this.emitter.emit('add', {
 			bladeController: ev.item,
@@ -170,10 +156,7 @@ export class BladeRack {
 		} else if (bc instanceof MonitorBindingController) {
 			bc.binding.emitter.on('update', this.onChildMonitorUpdate_);
 		} else if (bc instanceof FolderController) {
-			bc.folder.emitter.on('change', this.onChildFolderFold_);
-
-			const emitter = bc.bladeRack.emitter;
-			emitter.on('folderfold', this.onDescendantFolderFold_);
+			const emitter = bc.rack.emitter;
 			emitter.on('layout', this.onDescendantLayout_);
 			emitter.on('inputchange', this.onDescendantInputChange_);
 			emitter.on('monitorupdate', this.onDescendaantMonitorUpdate_);
@@ -183,6 +166,8 @@ export class BladeRack {
 	private onSetRemove_(
 		ev: NestedOrderedSetEvents<BladeController<View>>['remove'],
 	) {
+		this.updatePositions_();
+
 		const isRoot = ev.target === ev.root;
 		this.emitter.emit('remove', {
 			bladeController: ev.item,
@@ -200,18 +185,35 @@ export class BladeRack {
 		} else if (bc instanceof MonitorBindingController) {
 			bc.binding.emitter.off('update', this.onChildMonitorUpdate_);
 		} else if (bc instanceof FolderController) {
-			bc.folder.emitter.off('change', this.onChildFolderFold_);
-
-			const emitter = bc.bladeRack.emitter;
-			emitter.off('folderfold', this.onDescendantFolderFold_);
+			const emitter = bc.rack.emitter;
 			emitter.off('layout', this.onDescendantLayout_);
 			emitter.off('inputchange', this.onDescendantInputChange_);
 			emitter.off('monitorupdate', this.onDescendaantMonitorUpdate_);
 		}
 	}
 
+	private updatePositions_(): void {
+		const visibleItems = this.bcSet_.items.filter(
+			(bc) => !bc.viewProps.get('hidden'),
+		);
+		const firstVisibleItem = visibleItems[0];
+		const lastVisibleItem = visibleItems[visibleItems.length - 1];
+
+		this.bcSet_.items.forEach((bc) => {
+			const ps: BladePosition[] = [];
+			if (bc === firstVisibleItem) {
+				ps.push('first');
+			}
+			if (bc === lastVisibleItem) {
+				ps.push('last');
+			}
+			bc.blade.positions = ps;
+		});
+	}
+
 	private onChildLayout_(ev: BladeEvents['change']) {
 		if (ev.propertyName === 'positions') {
+			this.updatePositions_();
 			this.emitter.emit('layout', {
 				sender: this,
 			});
@@ -219,6 +221,7 @@ export class BladeRack {
 	}
 
 	private onChildViewPropsChange_(_ev: ViewPropsEvents['change']) {
+		this.updatePositions_();
 		this.emitter.emit('layout', {
 			sender: this,
 		});
@@ -267,21 +270,8 @@ export class BladeRack {
 		});
 	}
 
-	private onChildFolderFold_(ev: FolderEvents['change']) {
-		if (ev.propertyName !== 'expanded') {
-			return;
-		}
-
-		const fc = findFolderController(this.find(FolderController), ev.sender);
-		if (fc) {
-			this.emitter.emit('folderfold', {
-				folderController: fc,
-				sender: this,
-			});
-		}
-	}
-
 	private onDescendantLayout_(_: BladeRackEvents['layout']) {
+		this.updatePositions_();
 		this.emitter.emit('layout', {
 			sender: this,
 		});
@@ -297,13 +287,6 @@ export class BladeRack {
 	private onDescendaantMonitorUpdate_(ev: BladeRackEvents['monitorupdate']) {
 		this.emitter.emit('monitorupdate', {
 			bindingController: ev.bindingController,
-			sender: this,
-		});
-	}
-
-	private onDescendantFolderFold_(ev: BladeRackEvents['folderfold']) {
-		this.emitter.emit('folderfold', {
-			folderController: ev.folderController,
 			sender: this,
 		});
 	}
