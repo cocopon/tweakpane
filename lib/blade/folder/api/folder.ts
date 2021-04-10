@@ -49,7 +49,7 @@ interface FolderApiEvents {
 }
 
 export class FolderApi extends BladeApi<FolderController>
-	implements BladeContainerApi<FolderController> {
+	implements BladeContainerApi {
 	private readonly emitter_: Emitter<FolderApiEvents>;
 	private apiSet_: NestedOrderedSet<BladeApi<BladeController<View>>>;
 

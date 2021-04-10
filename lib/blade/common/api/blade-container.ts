@@ -15,8 +15,7 @@ import {
 	SeparatorParams,
 } from './types';
 
-export interface BladeContainerApi<C extends BladeController<View>>
-	extends BladeApi<C> {
+export interface BladeContainerApi {
 	/**
 	 * Children of the container.
 	 */
@@ -61,7 +60,7 @@ export interface BladeContainerApi<C extends BladeController<View>>
 }
 
 export function addButtonAsBlade(
-	api: BladeContainerApi<BladeController<View>>,
+	api: BladeContainerApi,
 	params: ButtonParams,
 ): ButtonApi {
 	return api.addBlade_v3_({
@@ -71,7 +70,7 @@ export function addButtonAsBlade(
 }
 
 export function addFolderAsBlade(
-	api: BladeContainerApi<BladeController<View>>,
+	api: BladeContainerApi,
 	params: FolderParams,
 ): FolderApi {
 	return api.addBlade_v3_({
@@ -81,7 +80,7 @@ export function addFolderAsBlade(
 }
 
 export function addSeparatorAsBlade(
-	api: BladeContainerApi<BladeController<View>>,
+	api: BladeContainerApi,
 	opt_params?: SeparatorParams,
 ): SeparatorApi {
 	const params = opt_params || {};
