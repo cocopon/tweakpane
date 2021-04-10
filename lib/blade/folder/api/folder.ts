@@ -2,6 +2,7 @@ import {Emitter} from '../../../common/model/emitter';
 import {TpError} from '../../../common/tp-error';
 import {View} from '../../../common/view/view';
 import {forceCast} from '../../../misc/type-util';
+import {BladeRackEvents} from '../../blade-rack/model/blade-rack';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
 import {createBladeApi} from '../../common/api/blade-apis';
@@ -31,7 +32,6 @@ import {
 import {createBindingTarget} from '../../common/api/util';
 import {BladeController} from '../../common/controller/blade';
 import {NestedOrderedSet} from '../../common/model/nested-ordered-set';
-import {BladeRackEvents} from '../../rack/model/blade-rack';
 import {SeparatorApi} from '../../separator/api/separator';
 import {FolderController} from '../controller/folder';
 import {FolderEvents} from '../model/folder';

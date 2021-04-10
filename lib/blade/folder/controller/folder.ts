@@ -6,8 +6,8 @@ import {ViewProps} from '../../../common/model/view-props';
 import {isEmpty} from '../../../misc/type-util';
 import {BladeController} from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
-import {BladeRackController} from '../../rack/controller/blade-rack';
-import {BladeRack} from '../../rack/model/blade-rack';
+import {BladeRackController} from '../../blade-rack/controller/blade-rack';
+import {BladeRack} from '../../blade-rack/model/blade-rack';
 import {Folder, FolderEvents} from '../model/folder';
 import {FolderProps, FolderView} from '../view/folder';
 
