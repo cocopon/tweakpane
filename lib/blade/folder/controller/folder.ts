@@ -1,14 +1,13 @@
 import {
 	disableTransitionTemporarily,
 	forceReflow,
-	insertElementAt,
-	removeElement,
 } from '../../../common/dom-util';
 import {ViewProps} from '../../../common/model/view-props';
 import {isEmpty} from '../../../misc/type-util';
 import {BladeController} from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
-import {BladeRack, BladeRackEvents} from '../../common/model/blade-rack';
+import {BladeRackController} from '../../rack/controller/blade-rack';
+import {BladeRack} from '../../rack/model/blade-rack';
 import {Folder, FolderEvents} from '../model/folder';
 import {FolderProps, FolderView} from '../view/folder';
 
@@ -50,9 +49,9 @@ function computeExpandedFolderHeight(
  * @hidden
  */
 export class FolderController extends BladeController<FolderView> {
-	public readonly bladeRack: BladeRack;
 	public readonly folder: Folder;
 	public readonly props: FolderProps;
+	private readonly rc_: BladeRackController;
 
 	constructor(doc: Document, config: Config) {
 		const folder = new Folder(config.expanded ?? true);
@@ -69,18 +68,17 @@ export class FolderController extends BladeController<FolderView> {
 		this.onContainerTransitionEnd_ = this.onContainerTransitionEnd_.bind(this);
 		this.onFolderBeforeChange_ = this.onFolderBeforeChange_.bind(this);
 		this.onTitleClick_ = this.onTitleClick_.bind(this);
-		this.onRackAdd_ = this.onRackAdd_.bind(this);
-		this.onRackRemove_ = this.onRackRemove_.bind(this);
 
 		this.props = config.props;
 
 		this.folder = folder;
 		this.folder.emitter.on('beforechange', this.onFolderBeforeChange_);
 
-		const rack = new BladeRack();
-		rack.emitter.on('add', this.onRackAdd_);
-		rack.emitter.on('remove', this.onRackRemove_);
-		this.bladeRack = rack;
+		this.rc_ = new BladeRackController(doc, {
+			blade: this.blade,
+			viewProps: this.viewProps,
+		});
+		this.view.containerElement.appendChild(this.rc_.view.element);
 
 		this.view.buttonElement.addEventListener('click', this.onTitleClick_);
 		this.view.containerElement.addEventListener(
@@ -93,11 +91,12 @@ export class FolderController extends BladeController<FolderView> {
 		return this.view.element.ownerDocument;
 	}
 
+	get rack(): BladeRack {
+		return this.rc_.rack;
+	}
+
 	public onDispose() {
-		for (let i = this.bladeRack.children.length - 1; i >= 0; i--) {
-			const bc = this.bladeRack.children[i];
-			bc.blade.dispose();
-		}
+		this.rc_.onDispose();
 	}
 
 	private onFolderBeforeChange_(ev: FolderEvents['beforechange']): void {
@@ -118,24 +117,6 @@ export class FolderController extends BladeController<FolderView> {
 
 	private onTitleClick_() {
 		this.folder.expanded = !this.folder.expanded;
-	}
-
-	private onRackAdd_(ev: BladeRackEvents['add']) {
-		if (!ev.isRoot) {
-			return;
-		}
-		insertElementAt(
-			this.view.containerElement,
-			ev.bladeController.view.element,
-			ev.index,
-		);
-	}
-
-	private onRackRemove_(ev: BladeRackEvents['remove']) {
-		if (!ev.isRoot) {
-			return;
-		}
-		removeElement(ev.bladeController.view.element);
 	}
 
 	private onContainerTransitionEnd_(ev: TransitionEvent): void {

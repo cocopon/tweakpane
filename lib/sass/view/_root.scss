@@ -175,9 +175,15 @@
 	}
 	&_c {
 		@extend %folder_container;
+	}
+	&#{&}-expanded &_c {
+		@extend %folder_container-expanded;
+	}
+	&_c > .#{$prefix}-brkv {
+		@extend %folder_rack;
 
-		// Bottom of the last folder
 		& > .#{$prefix}-fldv.#{$prefix}-v-last {
+			// Bottom of the last folder
 			& > .#{$prefix}-fldv_c {
 				border-bottom-left-radius: var(--bs-br);
 				border-bottom-right-radius: var(--bs-br);
@@ -205,9 +211,8 @@
 				border-top-right-radius: var(--bs-br);
 			}
 		}
-	}
-	&#{&}-expanded &_c {
-		@extend %folder_container-expanded;
+		// TODO: Bottom right radius of the last subfolder of the last folder
+		// (maybe need to add `verylast` position)
 	}
 
 	&.#{$prefix}-v-disabled,

@@ -75,7 +75,22 @@
 	transition: height $folder-transition-duration ease-in-out,
 		opacity $folder-transition-duration linear,
 		padding $folder-transition-duration ease-in-out;
+}
+%folder_container-expanded {
+	opacity: 1;
+	padding-bottom: var(--cnt-p);
+	padding-top: var(--cnt-p);
+	transform: none;
 
+	// Clip subviews without `overflow: hidden` for popup elements (e.g. color picker)
+	overflow: visible;
+
+	// Delay opacity transition to avoid overflow contents
+	transition: height $folder-transition-duration ease-in-out,
+		opacity $folder-transition-duration linear $folder-transition-duration,
+		padding $folder-transition-duration ease-in-out;
+}
+%folder_rack {
 	& > .#{$prefix}-fldv.#{$prefix}-v-first {
 		margin-top: calc(-1 * var(--cnt-p));
 	}
@@ -108,18 +123,4 @@
 	& > .#{$prefix}-sprv:not(.#{$prefix}-v-hidden) + .#{$prefix}-sprv {
 		margin-top: 0;
 	}
-}
-%folder_container-expanded {
-	opacity: 1;
-	padding-bottom: var(--cnt-p);
-	padding-top: var(--cnt-p);
-	transform: none;
-
-	// Clip subviews without `overflow: hidden` for popup elements (e.g. color picker)
-	overflow: visible;
-
-	// Delay opacity transition to avoid overflow contents
-	transition: height $folder-transition-duration ease-in-out,
-		opacity $folder-transition-duration linear $folder-transition-duration,
-		padding $folder-transition-duration ease-in-out;
 }

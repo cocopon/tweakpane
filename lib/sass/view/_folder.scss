@@ -5,9 +5,6 @@
 	&#{&}-not &_b {
 		display: none;
 	}
-	&#{&}-expanded &_b {
-		transition: border-radius 0s;
-	}
 	&_m {
 		@extend %folder_mark;
 	}
@@ -31,16 +28,19 @@
 	&#{&}-expanded > &_c {
 		@extend %folder_container-expanded;
 	}
+	&_c > .#{$prefix}-brkv {
+		@extend %folder_rack;
+	}
 
 	// Subfolder
-	&_c > & {
+	&_c > .#{$prefix}-brkv > & {
 		margin-left: 4px;
 	}
-	&_c > & > &_b {
+	&_c > .#{$prefix}-brkv > & > &_b {
 		border-top-left-radius: var(--elm-br);
 		border-bottom-left-radius: var(--elm-br);
 	}
-	&_c > &#{&}-expanded > &_b {
+	&_c > .#{$prefix}-brkv > &#{&}-expanded > &_b {
 		border-bottom-left-radius: 0;
 	}
 	&_c & > &_c {

@@ -110,7 +110,7 @@ describe(FolderApi.name, () => {
 
 	it('should dispose separator', () => {
 		const api = createApi();
-		const cs = api.controller_.bladeRack.children;
+		const cs = api.controller_.rack.children;
 
 		const s = api.addSeparator();
 		assert.strictEqual(cs.length, 1);
