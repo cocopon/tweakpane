@@ -8,17 +8,17 @@ import {TestUtil} from '../../../misc/test-util';
 import {ButtonController} from '../../button/controller/button';
 import {BladeController} from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
-import {LabeledController} from '../../labeled/controller/labeled';
-import {LabeledPropsObject} from '../../labeled/view/labeled';
+import {LabelController} from '../../label/controller/label';
+import {LabelPropsObject} from '../../label/view/label';
 import {FolderEvents} from '../model/folder';
 import {FolderController} from './folder';
 
 function createSomeBladeController(doc: Document): BladeController<View> {
-	return new LabeledController(doc, {
+	return new LabelController(doc, {
 		blade: new Blade(),
 		props: new ValueMap({
 			label: undefined,
-		} as LabeledPropsObject),
+		} as LabelPropsObject),
 		valueController: new ButtonController(doc, {
 			props: new ValueMap({
 				title: 'Foobar',

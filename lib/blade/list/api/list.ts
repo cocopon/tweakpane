@@ -4,14 +4,14 @@ import {Emitter} from '../../../common/model/emitter';
 import {BladeApi, LabelableApi} from '../../common/api/blade';
 import {TpChangeEvent} from '../../common/api/tp-event';
 import {ApiChangeEvents} from '../../common/api/types';
-import {LabeledController} from '../../labeled/controller/labeled';
+import {LabelController} from '../../label/controller/label';
 
 export class ListBladeApi<T>
-	extends BladeApi<LabeledController<ListController<T>>>
+	extends BladeApi<LabelController<ListController<T>>>
 	implements LabelableApi {
 	private readonly emitter_: Emitter<ApiChangeEvents<T>> = new Emitter();
 
-	constructor(controller: LabeledController<ListController<T>>) {
+	constructor(controller: LabelController<ListController<T>>) {
 		super(controller);
 
 		this.controller_.valueController.value.emitter.on('change', (ev) => {

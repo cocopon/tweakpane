@@ -9,7 +9,7 @@ import {
 	BladeParams,
 	ObjectStyleListOptions,
 } from '../common/api/types';
-import {LabeledController} from '../labeled/controller/labeled';
+import {LabelController} from '../label/controller/label';
 import {BladePlugin} from '../plugin';
 import {ListBladeApi} from './api/list';
 
@@ -51,7 +51,7 @@ export const ListBladePlugin = (function<T>(): BladePlugin<ListBladeParams<T>> {
 				value: new PrimitiveValue(args.params.value),
 				viewProps: args.viewProps,
 			});
-			const c = new LabeledController(args.document, {
+			const c = new LabelController(args.document, {
 				blade: args.blade,
 				props: new ValueMap({
 					label: args.params.label,

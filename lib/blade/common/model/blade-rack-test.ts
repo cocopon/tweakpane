@@ -17,7 +17,7 @@ import {TestUtil} from '../../../misc/test-util';
 import {forceCast} from '../../../misc/type-util';
 import {SingleLogMonitorController} from '../../../monitor-binding/common/controller/single-log';
 import {FolderController} from '../../folder/controller/folder';
-import {LabeledPropsObject} from '../../labeled/view/labeled';
+import {LabelPropsObject} from '../../label/view/label';
 import {InputBindingController} from '../controller/input-binding';
 import {MonitorBindingController} from '../controller/monitor-binding';
 import {Blade} from './blade';
@@ -37,7 +37,7 @@ function createInputBindingController(
 		binding: b,
 		props: new ValueMap({
 			label: '',
-		} as LabeledPropsObject),
+		} as LabelPropsObject),
 		valueController: new CheckboxController(doc, {
 			value: b.value,
 			viewProps: createViewProps(),
@@ -59,7 +59,7 @@ function createMonitorBindingController(
 		binding: b,
 		props: new ValueMap({
 			label: '',
-		} as LabeledPropsObject),
+		} as LabelPropsObject),
 		valueController: new SingleLogMonitorController(doc, {
 			formatter: (v) => String(v),
 			value: b.value,

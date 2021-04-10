@@ -6,14 +6,14 @@ import {bindClassModifier, bindValueMap} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {isEmpty} from '../../../misc/type-util';
 
-export type LabeledPropsObject = {
+export type LabelPropsObject = {
 	label: string | undefined;
 };
 
-export type LabeledProps = ValueMap<LabeledPropsObject>;
+export type LabelProps = ValueMap<LabelPropsObject>;
 
 interface Config {
-	props: LabeledProps;
+	props: LabelProps;
 	viewProps: ViewProps;
 }
 
@@ -38,7 +38,7 @@ function createLabelNode(doc: Document, label: string): DocumentFragment {
 /**
  * @hidden
  */
-export class LabeledView implements View {
+export class LabelView implements View {
 	public readonly element: HTMLElement;
 	public readonly labelElement: HTMLElement;
 	public readonly valueElement: HTMLElement;

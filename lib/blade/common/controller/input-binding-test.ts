@@ -13,7 +13,7 @@ import {BoundValue} from '../../../common/model/bound-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
-import {LabeledPropsObject} from '../../labeled/view/labeled';
+import {LabelPropsObject} from '../../label/view/label';
 import {Blade} from '../model/blade';
 import {InputBindingController} from './input-binding';
 
@@ -43,7 +43,7 @@ describe(InputBindingController.name, () => {
 			blade: new Blade(),
 			props: new ValueMap({
 				label: 'foo',
-			} as LabeledPropsObject),
+			} as LabelPropsObject),
 			valueController: controller,
 		});
 		assert.strictEqual(bc.binding, binding);

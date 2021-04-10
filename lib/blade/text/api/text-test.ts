@@ -12,18 +12,18 @@ import {
 	assertUpdates,
 } from '../../common/api/test-util';
 import {Blade} from '../../common/model/blade';
-import {LabeledController} from '../../labeled/controller/labeled';
-import {LabeledPropsObject} from '../../labeled/view/labeled';
+import {LabelController} from '../../label/controller/label';
+import {LabelPropsObject} from '../../label/view/label';
 import {TextBladeApi} from './text';
 
 describe(TextBladeApi.name, () => {
 	it('should dispose', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = new LabeledController(doc, {
+		const c = new LabelController(doc, {
 			blade: new Blade(),
 			props: new ValueMap({
 				label: undefined,
-			} as LabeledPropsObject),
+			} as LabelPropsObject),
 			valueController: new TextController(doc, {
 				parser: (v: string) => v,
 				props: new ValueMap({
@@ -41,11 +41,11 @@ describe(TextBladeApi.name, () => {
 	it('should have initial state', () => {
 		const doc = TestUtil.createWindow().document;
 		const formatter = (v: string) => v;
-		const c = new LabeledController(doc, {
+		const c = new LabelController(doc, {
 			blade: new Blade(),
 			props: new ValueMap({
 				label: 'foobar',
-			} as LabeledPropsObject),
+			} as LabelPropsObject),
 			valueController: new TextController(doc, {
 				parser: (v: string) => v,
 				props: new ValueMap({
@@ -65,11 +65,11 @@ describe(TextBladeApi.name, () => {
 
 	it('should update properties', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = new LabeledController(doc, {
+		const c = new LabelController(doc, {
 			blade: new Blade(),
 			props: new ValueMap({
 				label: undefined,
-			} as LabeledPropsObject),
+			} as LabelPropsObject),
 			valueController: new TextController(doc, {
 				parser: (v: string) => v,
 				props: new ValueMap({
@@ -98,11 +98,11 @@ describe(TextBladeApi.name, () => {
 
 	it('should handle event', (done) => {
 		const doc = TestUtil.createWindow().document;
-		const c = new LabeledController(doc, {
+		const c = new LabelController(doc, {
 			blade: new Blade(),
 			props: new ValueMap({
 				label: undefined,
-			} as LabeledPropsObject),
+			} as LabelPropsObject),
 			valueController: new TextController(doc, {
 				parser: (v: string) => v,
 				props: new ValueMap({

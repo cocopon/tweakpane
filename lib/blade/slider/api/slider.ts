@@ -3,14 +3,14 @@ import {SliderTextController} from '../../../common/number/controller/slider-tex
 import {BladeApi, LabelableApi} from '../../common/api/blade';
 import {TpChangeEvent} from '../../common/api/tp-event';
 import {ApiChangeEvents} from '../../common/api/types';
-import {LabeledController} from '../../labeled/controller/labeled';
+import {LabelController} from '../../label/controller/label';
 
 export class SliderBladeApi
-	extends BladeApi<LabeledController<SliderTextController>>
+	extends BladeApi<LabelController<SliderTextController>>
 	implements LabelableApi {
 	private readonly emitter_: Emitter<ApiChangeEvents<number>> = new Emitter();
 
-	constructor(controller: LabeledController<SliderTextController>) {
+	constructor(controller: LabelController<SliderTextController>) {
 		super(controller);
 
 		this.controller_.valueController.value.emitter.on('change', (ev) => {
