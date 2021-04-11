@@ -191,10 +191,8 @@
 				border-bottom-right-radius: var(--bs-br);
 			}
 		}
-		&
-			> .#{$prefix}-fldv.#{$prefix}-v-lst
-			.#{$prefix}-fldv_c
-			> .#{$prefix}-fldv.#{$prefix}-v-lst:not(.#{$prefix}-fldv-expanded) {
+		// Bottom of the last subfolder title when collapsed
+		& .#{$prefix}-fldv.#{$prefix}-v-vlst:not(.#{$prefix}-fldv-expanded) {
 			& > .#{$prefix}-fldv_b {
 				border-bottom-right-radius: var(--bs-br);
 			}
@@ -206,8 +204,6 @@
 				border-top-right-radius: var(--bs-br);
 			}
 		}
-		// TODO: Bottom right radius of the last subfolder of the last folder
-		// (maybe need to add `verylast` position)
 	}
 	&#{&}-expanded &_c {
 		@extend %folder_container-expanded;
