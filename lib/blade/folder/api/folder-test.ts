@@ -10,10 +10,10 @@ import {TestUtil} from '../../../misc/test-util';
 import {forceCast} from '../../../misc/type-util';
 import {SingleLogMonitorController} from '../../../monitor-binding/common/controller/single-log';
 import {ButtonApi} from '../../button/api/button';
-import {InputBindingApi} from '../../common/api/input-binding';
 import {assertUpdates} from '../../common/api/test-util';
 import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event';
 import {Blade} from '../../common/model/blade';
+import {InputBindingApi} from '../../input-binding/api/input-binding';
 import {SeparatorApi} from '../../separator/api/separator';
 import {SeparatorController} from '../../separator/controller/separator';
 import {FolderController} from '../controller/folder';
@@ -110,7 +110,7 @@ describe(FolderApi.name, () => {
 
 	it('should dispose separator', () => {
 		const api = createApi();
-		const cs = api.controller_.rack.children;
+		const cs = api.controller_.rackController.rack.children;
 
 		const s = api.addSeparator();
 		assert.strictEqual(cs.length, 1);

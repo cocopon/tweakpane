@@ -1,9 +1,9 @@
 import {InputBindingEvents} from '../../../common/binding/input';
 import {Emitter} from '../../../common/model/emitter';
 import {forceCast} from '../../../misc/type-util';
-import {InputBindingController} from '../controller/input-binding';
-import {BladeApi} from './blade';
-import {TpChangeEvent} from './tp-event';
+import {BladeApi} from '../../common/api/blade';
+import {TpChangeEvent} from '../../common/api/tp-event';
+import {InputBindingController} from '../../input-binding/controller/input-binding';
 
 export interface InputBindingApiEvents<Ex> {
 	change: {

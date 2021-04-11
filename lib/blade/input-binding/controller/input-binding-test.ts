@@ -13,8 +13,8 @@ import {BoundValue} from '../../../common/model/bound-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
+import {Blade} from '../../common/model/blade';
 import {LabelPropsObject} from '../../label/view/label';
-import {Blade} from '../model/blade';
 import {InputBindingController} from './input-binding';
 
 describe(InputBindingController.name, () => {

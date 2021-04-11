@@ -1,9 +1,9 @@
 import {ButtonBladePlugin} from '../../button/plugin';
 import {PluginRegistration, registerPlugin} from '../../common/api/util';
-import {InputBindingController} from '../../common/controller/input-binding';
-import {MonitorBindingController} from '../../common/controller/monitor-binding';
 import {FolderApi} from '../../folder/api/folder';
 import {FolderBladePlugin} from '../../folder/plugin';
+import {InputBindingController} from '../../input-binding/controller/input-binding';
+import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
 import {BladePlugin} from '../../plugin';
 import {SeparatorBladePlugin} from '../../separator/plugin';
 import {RootController} from '../controller/root';
@@ -34,7 +34,7 @@ export class RootApi extends FolderApi {
 	 * @param preset The preset object to import.
 	 */
 	public importPreset(preset: PresetObject): void {
-		const targets = this.controller_.rack
+		const targets = this.controller_.rackController.rack
 			.find(InputBindingController)
 			.map((ibc) => {
 				return ibc.binding.target;
@@ -48,7 +48,7 @@ export class RootApi extends FolderApi {
 	 * @return An exported preset object.
 	 */
 	public exportPreset(): PresetObject {
-		const targets = this.controller_.rack
+		const targets = this.controller_.rackController.rack
 			.find(InputBindingController)
 			.map((ibc) => {
 				return ibc.binding.target;
@@ -61,14 +61,18 @@ export class RootApi extends FolderApi {
 	 */
 	public refresh(): void {
 		// Force-read all input bindings
-		this.controller_.rack.find(InputBindingController).forEach((ibc) => {
-			ibc.binding.read();
-		});
+		this.controller_.rackController.rack
+			.find(InputBindingController)
+			.forEach((ibc) => {
+				ibc.binding.read();
+			});
 
 		// Force-read all monitor bindings
-		this.controller_.rack.find(MonitorBindingController).forEach((mbc) => {
-			mbc.binding.read();
-		});
+		this.controller_.rackController.rack
+			.find(MonitorBindingController)
+			.forEach((mbc) => {
+				mbc.binding.read();
+			});
 	}
 }
 

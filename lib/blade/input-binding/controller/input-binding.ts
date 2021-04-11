@@ -1,8 +1,8 @@
 import {InputBinding} from '../../../common/binding/input';
 import {ValueController} from '../../../common/controller/value';
+import {Blade} from '../../common/model/blade';
 import {LabelController} from '../../label/controller/label';
 import {LabelProps} from '../../label/view/label';
-import {Blade} from '../model/blade';
 
 interface Config<In> {
 	binding: InputBinding<In>;

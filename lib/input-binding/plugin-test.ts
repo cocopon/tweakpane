@@ -9,7 +9,7 @@ import {createViewProps} from '../common/model/view-props';
 import {writePrimitive} from '../common/primitive';
 import {View} from '../common/view/view';
 import {TestUtil} from '../misc/test-util';
-import {createController, InputBindingPlugin} from './plugin';
+import {createInputBindingController, InputBindingPlugin} from './plugin';
 
 class TestView implements View {
 	public readonly element: HTMLElement;
@@ -38,7 +38,7 @@ class TestController implements ValueController<string> {
 	}
 }
 
-describe(createController.name, () => {
+describe(createInputBindingController.name, () => {
 	it('should be able to handle disposing from plugin', () => {
 		const plugin: InputBindingPlugin<string, string> = {
 			id: 'test',
@@ -53,7 +53,7 @@ describe(createController.name, () => {
 			},
 		};
 
-		const bc = createController(plugin, {
+		const bc = createInputBindingController(plugin, {
 			document: TestUtil.createWindow().document,
 			params: {},
 			target: new BindingTarget({foo: 'bar'}, 'foo'),

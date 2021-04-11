@@ -62,7 +62,7 @@ describe(FolderController.name, () => {
 			viewProps: createViewProps(),
 		});
 		const bc = createSomeBladeController(doc);
-		c.rack.add(bc);
+		c.rackController.rack.add(bc);
 
 		assert.strictEqual(c.view.element.contains(bc.view.element), true);
 		bc.blade.dispose();
@@ -79,10 +79,10 @@ describe(FolderController.name, () => {
 			viewProps: createViewProps(),
 		});
 		const bc = createSomeBladeController(doc);
-		c.rack.add(bc);
+		c.rackController.rack.add(bc);
 
 		assert.strictEqual(c.view.element.contains(bc.view.element), true);
-		c.rack.remove(bc);
+		c.rackController.rack.remove(bc);
 		assert.strictEqual(c.view.element.contains(bc.view.element), false);
 	});
 
@@ -103,10 +103,10 @@ describe(FolderController.name, () => {
 			}),
 			viewProps: createViewProps(),
 		});
-		c.rack.add(sc);
+		c.rackController.rack.add(sc);
 
 		const bc = createSomeBladeController(doc);
-		sc.rack.add(bc);
+		sc.rackController.rack.add(bc);
 		assert.strictEqual(sc.view.element.contains(bc.view.element), true);
 	});
 
@@ -126,7 +126,7 @@ describe(FolderController.name, () => {
 			createSomeBladeController(doc),
 		];
 		bcs.forEach((bc) => {
-			c.rack.add(bc);
+			c.rackController.rack.add(bc);
 		});
 		c.blade.dispose();
 
@@ -151,9 +151,9 @@ describe(FolderController.name, () => {
 			}),
 			viewProps: createViewProps(),
 		});
-		c.rack.add(sc);
+		c.rackController.rack.add(sc);
 		const bc = createSomeBladeController(doc);
-		sc.rack.add(bc);
+		sc.rackController.rack.add(bc);
 
 		c.blade.dispose();
 

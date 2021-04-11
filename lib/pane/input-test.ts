@@ -1,8 +1,8 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
-import {InputBindingApi} from '../blade/common/api/input-binding';
 import {TpChangeEvent} from '../blade/common/api/tp-event';
+import {InputBindingApi} from '../blade/input-binding/api/input-binding';
 import {ListController} from '../common/controller/list';
 import {TextController} from '../common/controller/text';
 import {NumberTextController} from '../common/number/controller/number-text';

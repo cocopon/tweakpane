@@ -9,8 +9,6 @@ import {TpError} from '../../../common/tp-error';
 import {View} from '../../../common/view/view';
 import {Class, forceCast} from '../../../misc/type-util';
 import {BladeController} from '../../common/controller/blade';
-import {InputBindingController} from '../../common/controller/input-binding';
-import {MonitorBindingController} from '../../common/controller/monitor-binding';
 import {BladeEvents} from '../../common/model/blade';
 import {BladePosition} from '../../common/model/blade-positions';
 import {
@@ -18,6 +16,8 @@ import {
 	NestedOrderedSetEvents,
 } from '../../common/model/nested-ordered-set';
 import {FolderController} from '../../folder/controller/folder';
+import {InputBindingController} from '../../input-binding/controller/input-binding';
+import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
 
 /**
  * @hidden
@@ -98,7 +98,7 @@ export class BladeRack {
 		);
 
 		this.bcSet_ = new NestedOrderedSet((bc) =>
-			bc instanceof FolderController ? bc.rack.bcSet_ : null,
+			bc instanceof FolderController ? bc.rackController.rack.bcSet_ : null,
 		);
 		this.emitter = new Emitter();
 
@@ -156,7 +156,7 @@ export class BladeRack {
 		} else if (bc instanceof MonitorBindingController) {
 			bc.binding.emitter.on('update', this.onChildMonitorUpdate_);
 		} else if (bc instanceof FolderController) {
-			const emitter = bc.rack.emitter;
+			const emitter = bc.rackController.rack.emitter;
 			emitter.on('layout', this.onDescendantLayout_);
 			emitter.on('inputchange', this.onDescendantInputChange_);
 			emitter.on('monitorupdate', this.onDescendaantMonitorUpdate_);
@@ -185,7 +185,7 @@ export class BladeRack {
 		} else if (bc instanceof MonitorBindingController) {
 			bc.binding.emitter.off('update', this.onChildMonitorUpdate_);
 		} else if (bc instanceof FolderController) {
-			const emitter = bc.rack.emitter;
+			const emitter = bc.rackController.rack.emitter;
 			emitter.off('layout', this.onDescendantLayout_);
 			emitter.off('inputchange', this.onDescendantInputChange_);
 			emitter.off('monitorupdate', this.onDescendaantMonitorUpdate_);

@@ -1,10 +1,10 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
-import {InputBindingController} from '../blade/common/controller/input-binding';
-import {MonitorBindingController} from '../blade/common/controller/monitor-binding';
 import {FolderController} from '../blade/folder/controller/folder';
+import {InputBindingController} from '../blade/input-binding/controller/input-binding';
 import {LabelController} from '../blade/label/controller/label';
+import {MonitorBindingController} from '../blade/monitor-binding/controller/monitor-binding';
 import {SeparatorController} from '../blade/separator/controller/separator';
 import Tweakpane from '../index';
 import {TestUtil} from '../misc/test-util';
@@ -69,7 +69,7 @@ describe(Tweakpane.name, () => {
 				pane.addInput(params, 'bar');
 				testCase.insert(pane, 1);
 
-				const cs = pane.controller_.rack.children;
+				const cs = pane.controller_.rackController.rack.children;
 				assert.strictEqual(cs[1] instanceof testCase.expected, true);
 			});
 		});
