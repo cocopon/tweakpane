@@ -5,7 +5,7 @@ import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 import {BladeRack} from '../../blade-rack/model/blade-rack';
 import {Blade, BladeEvents} from '../model/blade';
-import {getAllBladePositions} from '../model/blade-positions';
+import {BladePosition, getAllBladePositions} from '../model/blade-positions';
 
 interface Config<V extends View> {
 	blade: Blade;
@@ -14,6 +14,12 @@ interface Config<V extends View> {
 }
 
 const className = ClassName('');
+const POS_TO_CLASS_NAME_MAP: {[pos in BladePosition]: string} = {
+	veryfirst: 'vfst',
+	first: 'fst',
+	last: 'lst',
+	verylast: 'vlst',
+};
 
 export class BladeController<V extends View> implements Controller {
 	public readonly blade: Blade;
@@ -30,10 +36,12 @@ export class BladeController<V extends View> implements Controller {
 		this.blade.emitter.on('change', (ev: BladeEvents['change']) => {
 			if (ev.propertyName === 'positions') {
 				getAllBladePositions().forEach((pos) => {
-					elem.classList.remove(className(undefined, pos));
+					elem.classList.remove(
+						className(undefined, POS_TO_CLASS_NAME_MAP[pos]),
+					);
 				});
 				this.blade.positions.forEach((pos) => {
-					elem.classList.add(className(undefined, pos));
+					elem.classList.add(className(undefined, POS_TO_CLASS_NAME_MAP[pos]));
 				});
 			}
 		});
