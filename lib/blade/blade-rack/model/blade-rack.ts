@@ -9,7 +9,7 @@ import {TpError} from '../../../common/tp-error';
 import {View} from '../../../common/view/view';
 import {Class, forceCast} from '../../../misc/type-util';
 import {BladeController} from '../../common/controller/blade';
-import {BladeEvents} from '../../common/model/blade';
+import {Blade, BladeEvents} from '../../common/model/blade';
 import {BladePosition} from '../../common/model/blade-positions';
 import {
 	NestedOrderedSet,
@@ -79,23 +79,26 @@ function findMonitorBindingController<In>(
  */
 export class BladeRack {
 	public readonly emitter: Emitter<BladeRackEvents>;
+	private readonly blade_: Blade | null;
 	private bcSet_: NestedOrderedSet<BladeController<View>>;
 
-	constructor() {
+	constructor(blade?: Blade) {
+		this.onBladeChange_ = this.onBladeChange_.bind(this);
 		this.onSetAdd_ = this.onSetAdd_.bind(this);
 		this.onSetRemove_ = this.onSetRemove_.bind(this);
-
 		this.onChildDispose_ = this.onChildDispose_.bind(this);
 		this.onChildLayout_ = this.onChildLayout_.bind(this);
 		this.onChildInputChange_ = this.onChildInputChange_.bind(this);
 		this.onChildMonitorUpdate_ = this.onChildMonitorUpdate_.bind(this);
 		this.onChildViewPropsChange_ = this.onChildViewPropsChange_.bind(this);
-
 		this.onDescendantLayout_ = this.onDescendantLayout_.bind(this);
 		this.onDescendantInputChange_ = this.onDescendantInputChange_.bind(this);
 		this.onDescendaantMonitorUpdate_ = this.onDescendaantMonitorUpdate_.bind(
 			this,
 		);
+
+		this.blade_ = blade ?? null;
+		this.blade_?.emitter.on('change', this.onBladeChange_);
 
 		this.bcSet_ = new NestedOrderedSet((bc) =>
 			bc instanceof FolderController ? bc.rackController.rack.bcSet_ : null,
@@ -203,9 +206,17 @@ export class BladeRack {
 			const ps: BladePosition[] = [];
 			if (bc === firstVisibleItem) {
 				ps.push('first');
+
+				if (!this.blade_ || this.blade_.positions.includes('veryfirst')) {
+					ps.push('veryfirst');
+				}
 			}
 			if (bc === lastVisibleItem) {
 				ps.push('last');
+
+				if (!this.blade_ || this.blade_.positions.includes('verylast')) {
+					ps.push('verylast');
+				}
 			}
 			bc.blade.positions = ps;
 		});
@@ -289,5 +300,11 @@ export class BladeRack {
 			bindingController: ev.bindingController,
 			sender: this,
 		});
+	}
+
+	private onBladeChange_(ev: BladeEvents['change']): void {
+		if (ev.propertyName === 'positions') {
+			this.updatePositions_();
+		}
 	}
 }

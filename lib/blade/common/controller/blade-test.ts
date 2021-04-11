@@ -32,16 +32,16 @@ describe(BladeController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TestController(doc);
 		const [m, v] = [c.blade, c.view];
-		assert.strictEqual(v.element.classList.contains('tp-v-first'), false);
-		assert.strictEqual(v.element.classList.contains('tp-v-last'), false);
+		assert.strictEqual(v.element.classList.contains('tp-v-fst'), false);
+		assert.strictEqual(v.element.classList.contains('tp-v-lst'), false);
 		m.positions = ['first'];
-		assert.strictEqual(v.element.classList.contains('tp-v-first'), true);
+		assert.strictEqual(v.element.classList.contains('tp-v-fst'), true);
 		m.positions = ['last'];
-		assert.strictEqual(v.element.classList.contains('tp-v-first'), false);
-		assert.strictEqual(v.element.classList.contains('tp-v-last'), true);
+		assert.strictEqual(v.element.classList.contains('tp-v-fst'), false);
+		assert.strictEqual(v.element.classList.contains('tp-v-lst'), true);
 		m.positions = ['first', 'last'];
-		assert.strictEqual(v.element.classList.contains('tp-v-first'), true);
-		assert.strictEqual(v.element.classList.contains('tp-v-last'), true);
+		assert.strictEqual(v.element.classList.contains('tp-v-fst'), true);
+		assert.strictEqual(v.element.classList.contains('tp-v-lst'), true);
 	});
 
 	it('should apply disposed', () => {

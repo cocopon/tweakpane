@@ -177,7 +177,7 @@
 		@extend %folder_container;
 		@extend %folder_rack;
 
-		& > .#{$prefix}-fldv.#{$prefix}-v-last {
+		& > .#{$prefix}-fldv.#{$prefix}-v-lst {
 			// Bottom of the last folder
 			& > .#{$prefix}-fldv_c {
 				border-bottom-left-radius: var(--bs-br);
@@ -185,32 +185,32 @@
 			}
 		}
 		// Bottom of the last folder title when collapsed
-		& > .#{$prefix}-fldv.#{$prefix}-v-last:not(.#{$prefix}-fldv-expanded) {
+		& > .#{$prefix}-fldv.#{$prefix}-v-lst:not(.#{$prefix}-fldv-expanded) {
 			& > .#{$prefix}-fldv_b {
 				border-bottom-left-radius: var(--bs-br);
 				border-bottom-right-radius: var(--bs-br);
 			}
 		}
-		&
-			> .#{$prefix}-fldv.#{$prefix}-v-last
-			.#{$prefix}-fldv_c
-			> .#{$prefix}-fldv.#{$prefix}-v-last:not(.#{$prefix}-fldv-expanded) {
+		// Bottom of the last subfolder title when collapsed
+		& .#{$prefix}-fldv.#{$prefix}-v-vlst:not(.#{$prefix}-fldv-expanded) {
 			& > .#{$prefix}-fldv_b {
 				border-bottom-right-radius: var(--bs-br);
 			}
 		}
-		// Top of the first folder
-		& > .#{$prefix}-fldv.#{$prefix}-v-first {
+	}
+	&#{&}-expanded &_c {
+		@extend %folder_container-expanded;
+	}
+	&#{&}-not &_c {
+		// First folder without pane title
+		& > .#{$prefix}-fldv.#{$prefix}-v-fst {
+			margin-top: calc(-1 * var(--cnt-p));
+
 			& > .#{$prefix}-fldv_b {
 				border-top-left-radius: var(--bs-br);
 				border-top-right-radius: var(--bs-br);
 			}
 		}
-		// TODO: Bottom right radius of the last subfolder of the last folder
-		// (maybe need to add `verylast` position)
-	}
-	&#{&}-expanded &_c {
-		@extend %folder_container-expanded;
 	}
 
 	&.#{$prefix}-v-disabled,

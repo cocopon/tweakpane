@@ -91,26 +91,23 @@
 		padding $folder-transition-duration ease-in-out;
 }
 %folder_rack {
-	& > .#{$prefix}-fldv.#{$prefix}-v-first {
-		margin-top: calc(-1 * var(--cnt-p));
-	}
-	& > .#{$prefix}-fldv.#{$prefix}-v-last {
+	& > .#{$prefix}-fldv.#{$prefix}-v-lst {
 		margin-bottom: calc(-1 * var(--cnt-p));
 	}
-	& > .#{$prefix}-fldv.#{$prefix}-v-last .#{$prefix}-fldv_c {
+	& > .#{$prefix}-fldv.#{$prefix}-v-lst .#{$prefix}-fldv_c {
 		border-bottom-left-radius: 0;
 	}
-	& > .#{$prefix}-fldv.#{$prefix}-v-last .#{$prefix}-fldv_b {
+	& > .#{$prefix}-fldv.#{$prefix}-v-lst .#{$prefix}-fldv_b {
 		border-bottom-left-radius: 0;
 	}
 
 	// Spacing between two blades
-	& > *:not(.#{$prefix}-v-first) {
+	& > *:not(.#{$prefix}-v-fst) {
 		margin-top: var(--bld-s);
 	}
 	// Top spacing of folder and separator
-	& > .#{$prefix}-fldv:not(.#{$prefix}-v-first),
-	& > .#{$prefix}-sprv:not(.#{$prefix}-v-first) {
+	& > .#{$prefix}-fldv:not(.#{$prefix}-v-fst),
+	& > .#{$prefix}-sprv:not(.#{$prefix}-v-fst) {
 		margin-top: var(--cnt-p);
 	}
 	// Bottom spacing of some blades

@@ -18,9 +18,8 @@ export class RootController extends FolderController {
 			expanded: config.expanded,
 			blade: config.blade,
 			props: config.props,
+			root: true,
 			viewProps: config.viewProps,
-
-			viewName: 'rot',
 		});
 	}
 }
