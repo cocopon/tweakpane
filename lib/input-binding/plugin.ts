@@ -110,7 +110,7 @@ export interface InputBindingPlugin<In, Ex> extends BasePlugin {
 	};
 }
 
-export function createController<In, Ex>(
+export function createInputBindingController<In, Ex>(
 	plugin: InputBindingPlugin<In, Ex>,
 	args: {
 		document: Document;

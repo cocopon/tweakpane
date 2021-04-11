@@ -3,7 +3,7 @@ import {describe as context, describe, it} from 'mocha';
 
 import {BindingTarget} from '../../common/binding/target';
 import {TestUtil} from '../../misc/test-util';
-import {createController} from '../plugin';
+import {createInputBindingController} from '../plugin';
 import {StringColorInputPlugin} from './plugin-string';
 import {ColorSwatchTextView} from './view/color-swatch-text';
 
@@ -29,7 +29,7 @@ describe(StringColorInputPlugin.id, () => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should have right input value ${testCase.expected.inputValue}`, () => {
 				const doc = TestUtil.createWindow().document;
-				const c = createController(StringColorInputPlugin, {
+				const c = createInputBindingController(StringColorInputPlugin, {
 					document: doc,
 					params: {},
 					target: new BindingTarget({foo: testCase.params.input}, 'foo'),
@@ -98,7 +98,7 @@ describe(StringColorInputPlugin.id, () => {
 			const win = TestUtil.createWindow();
 			const doc = win.document;
 			const obj = {foo: params.input};
-			const c = createController(StringColorInputPlugin, {
+			const c = createInputBindingController(StringColorInputPlugin, {
 				document: doc,
 				params: {},
 				target: new BindingTarget(obj, 'foo'),

@@ -95,7 +95,7 @@ function createTicker(
 		  );
 }
 
-export function createController<T>(
+export function createMonitorBindingController<T>(
 	plugin: MonitorBindingPlugin<T>,
 	args: {
 		document: Document;

@@ -9,14 +9,14 @@ import {BoundValue} from '../../common/model/bound-value';
 import {TestUtil} from '../../misc/test-util';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {PointNdTextController} from '../common/controller/point-nd-text';
-import {createController} from '../plugin';
+import {createInputBindingController} from '../plugin';
 import {Point4d} from './model/point-4d';
 import {Point4dInputPlugin} from './plugin';
 
 describe(Point4dInputPlugin.id, () => {
 	it('should have right number of text views', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = createController(Point4dInputPlugin, {
+		const c = createInputBindingController(Point4dInputPlugin, {
 			document: doc,
 			params: {},
 			target: new BindingTarget({foo: {x: 12, y: 34, z: 56, w: 78}}, 'foo'),
@@ -28,7 +28,7 @@ describe(Point4dInputPlugin.id, () => {
 
 	it('should create appropriate step constraint', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = createController(Point4dInputPlugin, {
+		const c = createInputBindingController(Point4dInputPlugin, {
 			document: doc,
 			params: {w: {step: 1}},
 			target: new BindingTarget({foo: {x: 12, y: 34, z: 56, w: 78}}, 'foo'),
@@ -49,7 +49,7 @@ describe(Point4dInputPlugin.id, () => {
 
 	it('should create appropriate range constraint', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = createController(Point4dInputPlugin, {
+		const c = createInputBindingController(Point4dInputPlugin, {
 			document: doc,
 			params: {w: {max: 456, min: -123}},
 			target: new BindingTarget({foo: {x: 12, y: 34, z: 56, w: 78}}, 'foo'),

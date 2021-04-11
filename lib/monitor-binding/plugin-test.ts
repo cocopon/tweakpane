@@ -8,7 +8,7 @@ import {Buffer, BufferedValue} from '../common/model/buffered-value';
 import {createViewProps, ViewProps} from '../common/model/view-props';
 import {View} from '../common/view/view';
 import {TestUtil} from '../misc/test-util';
-import {createController, MonitorBindingPlugin} from './plugin';
+import {createMonitorBindingController, MonitorBindingPlugin} from './plugin';
 
 class TestView implements View {
 	public readonly element: HTMLElement;
@@ -37,7 +37,7 @@ class TestController implements ValueController<Buffer<string>> {
 	}
 }
 
-describe(createController.name, () => {
+describe(createMonitorBindingController.name, () => {
 	it('should be able to handle disposing from plugin', () => {
 		const plugin: MonitorBindingPlugin<string> = {
 			id: 'test',
@@ -50,7 +50,7 @@ describe(createController.name, () => {
 			},
 		};
 
-		const bc = createController(plugin, {
+		const bc = createMonitorBindingController(plugin, {
 			document: TestUtil.createWindow().document,
 			params: {},
 			target: new BindingTarget({foo: 'bar'}, 'foo'),

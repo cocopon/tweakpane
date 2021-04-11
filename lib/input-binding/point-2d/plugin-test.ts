@@ -8,7 +8,7 @@ import {StepConstraint} from '../../common/constraint/step';
 import {BoundValue} from '../../common/model/bound-value';
 import {TestUtil} from '../../misc/test-util';
 import {PointNdConstraint} from '../common/constraint/point-nd';
-import {createController} from '../plugin';
+import {createInputBindingController} from '../plugin';
 import {Point2d, Point2dAssembly} from './model/point-2d';
 import {getSuitableMaxValue, Point2dInputPlugin} from './plugin';
 
@@ -64,7 +64,7 @@ describe(getSuitableMaxValue.name, () => {
 describe(Point2dInputPlugin.id, () => {
 	it('should create appropriate step constraint', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = createController(Point2dInputPlugin, {
+		const c = createInputBindingController(Point2dInputPlugin, {
 			document: doc,
 			params: {
 				x: {step: 1},
@@ -84,7 +84,7 @@ describe(Point2dInputPlugin.id, () => {
 
 	it('should create appropriate range constraint', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = createController(Point2dInputPlugin, {
+		const c = createInputBindingController(Point2dInputPlugin, {
 			document: doc,
 			params: {
 				y: {max: 456, min: -123},
@@ -107,7 +107,7 @@ describe(Point2dInputPlugin.id, () => {
 		const doc = TestUtil.createWindow().document;
 		const p = {x: 12, y: 34, hello: 'world'};
 		const obj = {p: p};
-		const c = createController(Point2dInputPlugin, {
+		const c = createInputBindingController(Point2dInputPlugin, {
 			document: doc,
 			params: {
 				y: {max: 456, min: -123},

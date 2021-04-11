@@ -5,15 +5,17 @@ import {forceCast} from '../../../misc/type-util';
 import {BladeRackEvents} from '../../blade-rack/model/blade-rack';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
-import {createBladeApi} from '../../common/api/blade-apis';
 import {
 	addButtonAsBlade,
 	addFolderAsBlade,
 	addSeparatorAsBlade,
 	BladeContainerApi,
 } from '../../common/api/blade-container';
-import {createInputBindingController} from '../../common/api/input-binding-controllers';
-import {createMonitorBindingController} from '../../common/api/monitor-binding-controllers';
+import {
+	createBlade,
+	createInput,
+	createMonitor,
+} from '../../common/api/plugins';
 import {TpChangeEvent, TpUpdateEvent} from '../../common/api/tp-event';
 import {
 	BladeParams,
@@ -89,7 +91,7 @@ export class BladeRackApi extends BladeApi<BladeRackController>
 	): InputBindingApi<unknown, O[Key]> {
 		const params = opt_params || {};
 		const doc = this.controller_.view.element.ownerDocument;
-		const bc = createInputBindingController(
+		const bc = createInput(
 			doc,
 			createBindingTarget(object, key, params.presetKey),
 			params,
@@ -105,11 +107,7 @@ export class BladeRackApi extends BladeApi<BladeRackController>
 	): MonitorBindingApi<O[Key]> {
 		const params = opt_params || {};
 		const doc = this.controller_.view.element.ownerDocument;
-		const bc = createMonitorBindingController(
-			doc,
-			createBindingTarget(object, key),
-			params,
-		);
+		const bc = createMonitor(doc, createBindingTarget(object, key), params);
 		const api = new MonitorBindingApi(bc);
 		return forceCast(this.add(api, params.index));
 	}
@@ -144,7 +142,7 @@ export class BladeRackApi extends BladeApi<BladeRackController>
 	): BladeApi<BladeController<View>> {
 		const params = opt_params ?? {};
 		const doc = this.controller_.view.element.ownerDocument;
-		const api = createBladeApi(doc, params);
+		const api = createBlade(doc, params);
 		return this.add(api, params.index);
 	}
 

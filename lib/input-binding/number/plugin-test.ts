@@ -9,13 +9,13 @@ import {BoundValue} from '../../common/model/bound-value';
 import {NumberTextController} from '../../common/number/controller/number-text';
 import {TestUtil} from '../../misc/test-util';
 import {forceCast} from '../../misc/type-util';
-import {createController} from '../plugin';
+import {createInputBindingController} from '../plugin';
 import {NumberInputPlugin} from './plugin';
 
 describe(NumberInputPlugin.id, () => {
 	it('should return appropriate step constraint', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = createController(NumberInputPlugin, {
+		const c = createInputBindingController(NumberInputPlugin, {
 			document: doc,
 			params: {
 				step: 1,
@@ -37,7 +37,7 @@ describe(NumberInputPlugin.id, () => {
 
 	it('should use specified formatter', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = createController(NumberInputPlugin, {
+		const c = createInputBindingController(NumberInputPlugin, {
 			document: doc,
 			params: {
 				format: (v) => `foo ${v} bar`,
