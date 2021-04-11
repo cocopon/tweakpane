@@ -1,9 +1,9 @@
 import {ButtonBladePlugin} from '../../button/plugin';
 import {PluginRegistration, registerPlugin} from '../../common/api/util';
-import {InputBindingController} from '../../common/controller/input-binding';
-import {MonitorBindingController} from '../../common/controller/monitor-binding';
 import {FolderApi} from '../../folder/api/folder';
 import {FolderBladePlugin} from '../../folder/plugin';
+import {InputBindingController} from '../../input-binding/controller/input-binding';
+import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
 import {BladePlugin} from '../../plugin';
 import {SeparatorBladePlugin} from '../../separator/plugin';
 import {RootController} from '../controller/root';

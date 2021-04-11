@@ -2,7 +2,7 @@ import {BindingTarget} from '../../../common/binding/target';
 import {TpError} from '../../../common/tp-error';
 import {createController} from '../../../input-binding/plugin';
 import {isEmpty} from '../../../misc/type-util';
-import {InputBindingController} from '../controller/input-binding';
+import {InputBindingController} from '../../input-binding/controller/input-binding';
 import {Plugins} from './plugins';
 import {InputParams} from './types';
 

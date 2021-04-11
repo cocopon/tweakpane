@@ -9,8 +9,6 @@ import {TpError} from '../../../common/tp-error';
 import {View} from '../../../common/view/view';
 import {Class, forceCast} from '../../../misc/type-util';
 import {BladeController} from '../../common/controller/blade';
-import {InputBindingController} from '../../common/controller/input-binding';
-import {MonitorBindingController} from '../../common/controller/monitor-binding';
 import {BladeEvents} from '../../common/model/blade';
 import {BladePosition} from '../../common/model/blade-positions';
 import {
@@ -18,6 +16,8 @@ import {
 	NestedOrderedSetEvents,
 } from '../../common/model/nested-ordered-set';
 import {FolderController} from '../../folder/controller/folder';
+import {InputBindingController} from '../../input-binding/controller/input-binding';
+import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
 
 /**
  * @hidden

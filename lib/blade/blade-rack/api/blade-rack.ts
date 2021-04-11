@@ -12,9 +12,7 @@ import {
 	addSeparatorAsBlade,
 	BladeContainerApi,
 } from '../../common/api/blade-container';
-import {InputBindingApi} from '../../common/api/input-binding';
 import {createInputBindingController} from '../../common/api/input-binding-controllers';
-import {MonitorBindingApi} from '../../common/api/monitor-binding';
 import {createMonitorBindingController} from '../../common/api/monitor-binding-controllers';
 import {TpChangeEvent, TpUpdateEvent} from '../../common/api/tp-event';
 import {
@@ -29,6 +27,8 @@ import {createBindingTarget} from '../../common/api/util';
 import {BladeController} from '../../common/controller/blade';
 import {NestedOrderedSet} from '../../common/model/nested-ordered-set';
 import {FolderApi} from '../../folder/api/folder';
+import {InputBindingApi} from '../../input-binding/api/input-binding';
+import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
 import {SeparatorApi} from '../../separator/api/separator';
 import {BladeRackController} from '../controller/blade-rack';
 

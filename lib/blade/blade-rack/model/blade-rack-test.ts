@@ -16,11 +16,11 @@ import {CheckboxController} from '../../../input-binding/boolean/controller/chec
 import {TestUtil} from '../../../misc/test-util';
 import {forceCast} from '../../../misc/type-util';
 import {SingleLogMonitorController} from '../../../monitor-binding/common/controller/single-log';
-import {InputBindingController} from '../../common/controller/input-binding';
-import {MonitorBindingController} from '../../common/controller/monitor-binding';
 import {Blade} from '../../common/model/blade';
 import {FolderController} from '../../folder/controller/folder';
+import {InputBindingController} from '../../input-binding/controller/input-binding';
 import {LabelPropsObject} from '../../label/view/label';
+import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
 import {BladeRack} from './blade-rack';
 
 function createInputBindingController(

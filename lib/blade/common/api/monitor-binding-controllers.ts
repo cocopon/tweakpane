@@ -1,7 +1,7 @@
 import {BindingTarget} from '../../../common/binding/target';
 import {TpError} from '../../../common/tp-error';
 import {createController} from '../../../monitor-binding/plugin';
-import {MonitorBindingController} from '../controller/monitor-binding';
+import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
 import {Plugins} from './plugins';
 import {MonitorParams} from './types';
 

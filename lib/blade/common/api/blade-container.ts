@@ -1,11 +1,11 @@
 import {View} from '../../../common/view/view';
 import {ButtonApi} from '../../button/api/button';
 import {FolderApi} from '../../folder/api/folder';
+import {InputBindingApi} from '../../input-binding/api/input-binding';
+import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
 import {SeparatorApi} from '../../separator/api/separator';
 import {BladeController} from '../controller/blade';
 import {BladeApi} from './blade';
-import {InputBindingApi} from './input-binding';
-import {MonitorBindingApi} from './monitor-binding';
 import {
 	BladeParams,
 	ButtonParams,

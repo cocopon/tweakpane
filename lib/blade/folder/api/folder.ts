@@ -4,8 +4,6 @@ import {BladeRackApi} from '../../blade-rack/api/blade-rack';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
 import {BladeContainerApi} from '../../common/api/blade-container';
-import {InputBindingApi} from '../../common/api/input-binding';
-import {MonitorBindingApi} from '../../common/api/monitor-binding';
 import {
 	TpChangeEvent,
 	TpFoldEvent,
@@ -20,6 +18,8 @@ import {
 	SeparatorParams,
 } from '../../common/api/types';
 import {BladeController} from '../../common/controller/blade';
+import {InputBindingApi} from '../../input-binding/api/input-binding';
+import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
 import {SeparatorApi} from '../../separator/api/separator';
 import {FolderController} from '../controller/folder';
 import {FolderEvents} from '../model/folder';

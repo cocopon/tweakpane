@@ -14,11 +14,11 @@ import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {SingleLogMonitorController} from '../../../monitor-binding/common/controller/single-log';
+import {TpUpdateEvent} from '../../common/api/tp-event';
+import {Blade} from '../../common/model/blade';
 import {LabelPropsObject} from '../../label/view/label';
 import {MonitorBindingController} from '../controller/monitor-binding';
-import {Blade} from '../model/blade';
 import {MonitorBindingApi} from './monitor-binding';
-import {TpUpdateEvent} from './tp-event';
 
 function createApi(target: BindingTarget) {
 	const doc = TestUtil.createWindow().document;
