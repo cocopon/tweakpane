@@ -125,7 +125,7 @@ describe(BladeRack.name, () => {
 		const fc = createFolderController(doc);
 		rack.add(fc);
 		const bc = createInputBindingController(doc);
-		fc.rack.add(bc);
+		fc.rackController.rack.add(bc);
 
 		rack.emitter.on('inputchange', (ev) => {
 			assert.strictEqual(ev.bindingController, forceCast(bc));
@@ -141,9 +141,9 @@ describe(BladeRack.name, () => {
 		const fc = createFolderController(doc);
 		rack.add(fc);
 		const sfc = createFolderController(doc);
-		fc.rack.add(sfc);
+		fc.rackController.rack.add(sfc);
 		const bc = createInputBindingController(doc);
-		sfc.rack.add(bc);
+		sfc.rackController.rack.add(bc);
 
 		rack.emitter.on('inputchange', (ev) => {
 			assert.strictEqual(ev.bindingController, forceCast(bc));
@@ -173,7 +173,7 @@ describe(BladeRack.name, () => {
 		const fc = createFolderController(doc);
 		rack.add(fc);
 		const bc = createMonitorBindingController(doc);
-		fc.rack.add(bc);
+		fc.rackController.rack.add(bc);
 
 		rack.emitter.on('monitorupdate', (ev) => {
 			assert.strictEqual(ev.bindingController, forceCast(bc));
@@ -230,7 +230,7 @@ describe(BladeRack.name, () => {
 		const fc = createFolderController(doc);
 		rack.add(fc);
 		const bc = createInputBindingController(doc);
-		fc.rack.add(bc);
+		fc.rackController.rack.add(bc);
 
 		rack.emitter.on('inputchange', () => {
 			assert.fail('should not be called');
@@ -246,7 +246,7 @@ describe(BladeRack.name, () => {
 		const fc = createFolderController(doc);
 		rack.add(fc);
 		const bc = createInputBindingController(doc);
-		fc.rack.add(bc);
+		fc.rackController.rack.add(bc);
 
 		let count = 0;
 		rack.emitter.on('layout', () => {

@@ -4,10 +4,9 @@ import {
 } from '../../../common/dom-util';
 import {ViewProps} from '../../../common/model/view-props';
 import {isEmpty} from '../../../misc/type-util';
+import {BladeRackController} from '../../blade-rack/controller/blade-rack';
 import {BladeController} from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
-import {BladeRackController} from '../../blade-rack/controller/blade-rack';
-import {BladeRack} from '../../blade-rack/model/blade-rack';
 import {Folder, FolderEvents} from '../model/folder';
 import {FolderProps, FolderView} from '../view/folder';
 
@@ -92,8 +91,8 @@ export class FolderController extends BladeController<FolderView> {
 		return this.view.element.ownerDocument;
 	}
 
-	get rack(): BladeRack {
-		return this.rc_.rack;
+	get rackController(): BladeRackController {
+		return this.rc_;
 	}
 
 	public onDispose() {

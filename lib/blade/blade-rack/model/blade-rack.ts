@@ -98,7 +98,7 @@ export class BladeRack {
 		);
 
 		this.bcSet_ = new NestedOrderedSet((bc) =>
-			bc instanceof FolderController ? bc.rack.bcSet_ : null,
+			bc instanceof FolderController ? bc.rackController.rack.bcSet_ : null,
 		);
 		this.emitter = new Emitter();
 
@@ -156,7 +156,7 @@ export class BladeRack {
 		} else if (bc instanceof MonitorBindingController) {
 			bc.binding.emitter.on('update', this.onChildMonitorUpdate_);
 		} else if (bc instanceof FolderController) {
-			const emitter = bc.rack.emitter;
+			const emitter = bc.rackController.rack.emitter;
 			emitter.on('layout', this.onDescendantLayout_);
 			emitter.on('inputchange', this.onDescendantInputChange_);
 			emitter.on('monitorupdate', this.onDescendaantMonitorUpdate_);
@@ -185,7 +185,7 @@ export class BladeRack {
 		} else if (bc instanceof MonitorBindingController) {
 			bc.binding.emitter.off('update', this.onChildMonitorUpdate_);
 		} else if (bc instanceof FolderController) {
-			const emitter = bc.rack.emitter;
+			const emitter = bc.rackController.rack.emitter;
 			emitter.off('layout', this.onDescendantLayout_);
 			emitter.off('inputchange', this.onDescendantInputChange_);
 			emitter.off('monitorupdate', this.onDescendaantMonitorUpdate_);
