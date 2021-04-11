@@ -8,6 +8,8 @@ import {BladeRack, BladeRackEvents} from '../model/blade-rack';
 interface Config {
 	blade: Blade;
 	viewProps: ViewProps;
+
+	root?: boolean;
 }
 
 /**
@@ -28,7 +30,7 @@ export class BladeRackController extends BladeController<PlainView> {
 		this.onRackAdd_ = this.onRackAdd_.bind(this);
 		this.onRackRemove_ = this.onRackRemove_.bind(this);
 
-		const rack = new BladeRack();
+		const rack = new BladeRack(config.root ? undefined : this.blade);
 		rack.emitter.on('add', this.onRackAdd_);
 		rack.emitter.on('remove', this.onRackRemove_);
 		this.rack = rack;

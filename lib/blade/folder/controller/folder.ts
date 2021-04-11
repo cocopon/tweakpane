@@ -16,7 +16,7 @@ interface Config {
 	props: FolderProps;
 	viewProps: ViewProps;
 
-	viewName?: string;
+	root?: boolean;
 }
 
 function computeExpandedFolderHeight(
@@ -56,6 +56,7 @@ export class FolderController extends BladeController<FolderView> {
 		const folder = new Folder(config.expanded ?? true);
 		const rc = new BladeRackController(doc, {
 			blade: config.blade,
+			root: config.root,
 			viewProps: config.viewProps,
 		});
 		super({
@@ -64,7 +65,7 @@ export class FolderController extends BladeController<FolderView> {
 				container: rc.view.element,
 				folder: folder,
 				props: config.props,
-				viewName: config.viewName,
+				viewName: config.root ? 'rot' : undefined,
 				viewProps: config.viewProps,
 			}),
 		});

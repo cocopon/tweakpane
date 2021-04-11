@@ -282,4 +282,47 @@ describe(BladeRack.name, () => {
 		assert.strictEqual(rack2.children[0], bc);
 		assert.strictEqual(bc.parent, rack2);
 	});
+
+	it('should update positions', () => {
+		const rack = new BladeRack();
+		const doc = TestUtil.createWindow().document;
+
+		const f1 = createFolderController(doc);
+		rack.add(f1);
+		f1.rackController.rack.add(createInputBindingController(doc));
+		f1.rackController.rack.add(createInputBindingController(doc));
+
+		const f2 = createFolderController(doc);
+		rack.add(f2);
+		f2.rackController.rack.add(createInputBindingController(doc));
+		f2.rackController.rack.add(createInputBindingController(doc));
+
+		const f3 = createFolderController(doc);
+		rack.add(f3);
+		f3.rackController.rack.add(createInputBindingController(doc));
+		f3.rackController.rack.add(createInputBindingController(doc));
+
+		const sf3 = createFolderController(doc);
+		f3.rackController.rack.add(sf3);
+		sf3.rackController.rack.add(createInputBindingController(doc));
+
+		function folderChildPos(f: FolderController, index: number) {
+			return f.rackController.rack.children[index].blade.positions;
+		}
+
+		assert.deepStrictEqual(f1.blade.positions, ['first', 'veryfirst']);
+		assert.deepStrictEqual(folderChildPos(f1, 0), ['first', 'veryfirst']);
+		assert.deepStrictEqual(folderChildPos(f1, 1), ['last']);
+		assert.deepStrictEqual(f2.blade.positions, []);
+		assert.deepStrictEqual(folderChildPos(f2, 0), ['first']);
+		assert.deepStrictEqual(folderChildPos(f2, 1), ['last']);
+		assert.deepStrictEqual(f3.blade.positions, ['last', 'verylast']);
+		assert.deepStrictEqual(folderChildPos(f3, 0), ['first']);
+		assert.deepStrictEqual(sf3.blade.positions, ['last', 'verylast']);
+		assert.deepStrictEqual(folderChildPos(sf3, 0), [
+			'first',
+			'last',
+			'verylast',
+		]);
+	});
 });
