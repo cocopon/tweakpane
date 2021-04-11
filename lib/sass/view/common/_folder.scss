@@ -91,9 +91,6 @@
 		padding $folder-transition-duration ease-in-out;
 }
 %folder_rack {
-	& > .#{$prefix}-fldv.#{$prefix}-v-fst {
-		margin-top: calc(-1 * var(--cnt-p));
-	}
 	& > .#{$prefix}-fldv.#{$prefix}-v-lst {
 		margin-bottom: calc(-1 * var(--cnt-p));
 	}

@@ -197,16 +197,20 @@
 				border-bottom-right-radius: var(--bs-br);
 			}
 		}
-		// Top of the first folder
+	}
+	&#{&}-expanded &_c {
+		@extend %folder_container-expanded;
+	}
+	&#{&}-not &_c {
+		// First folder without pane title
 		& > .#{$prefix}-fldv.#{$prefix}-v-fst {
+			margin-top: calc(-1 * var(--cnt-p));
+
 			& > .#{$prefix}-fldv_b {
 				border-top-left-radius: var(--bs-br);
 				border-top-right-radius: var(--bs-br);
 			}
 		}
-	}
-	&#{&}-expanded &_c {
-		@extend %folder_container-expanded;
 	}
 
 	&.#{$prefix}-v-disabled,
