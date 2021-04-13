@@ -3,6 +3,11 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../misc/test-util';
 import {createApi} from '../plugin';
+import {
+	createEmptyBladeController,
+	createEmptyLabelableController,
+	createLabelController,
+} from '../test-util';
 import {ListBladeApi} from './api/list';
 import {ListBladeParams, ListBladePlugin} from './plugin';
 
@@ -54,6 +59,19 @@ describe(ListBladePlugin.id, () => {
 				});
 				assert.notStrictEqual(api, null);
 			});
+		});
+	});
+
+	[
+		(doc: Document) => createEmptyBladeController(doc),
+		(doc: Document) =>
+			createLabelController(doc, createEmptyLabelableController(doc)),
+	].forEach((createController) => {
+		it('should not create API', () => {
+			const doc = TestUtil.createWindow().document;
+			const c = createController(doc);
+			const api = ListBladePlugin.api(c);
+			assert.strictEqual(api, null);
 		});
 	});
 

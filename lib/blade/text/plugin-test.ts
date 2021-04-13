@@ -3,6 +3,11 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../misc/test-util';
 import {createApi} from '../plugin';
+import {
+	createEmptyBladeController,
+	createEmptyLabelableController,
+	createLabelController,
+} from '../test-util';
 import {TextBladeApi} from './api/text';
 import {TextBladeParams, TextBladePlugin} from './plugin';
 
@@ -30,6 +35,19 @@ describe(TextBladePlugin.id, () => {
 				});
 				assert.strictEqual(api, null);
 			});
+		});
+	});
+
+	[
+		(doc: Document) => createEmptyBladeController(doc),
+		(doc: Document) =>
+			createLabelController(doc, createEmptyLabelableController(doc)),
+	].forEach((createController) => {
+		it('should not create API', () => {
+			const doc = TestUtil.createWindow().document;
+			const c = createController(doc);
+			const api = TextBladePlugin.api(c);
+			assert.strictEqual(api, null);
 		});
 	});
 
