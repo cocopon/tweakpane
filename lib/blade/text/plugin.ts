@@ -41,7 +41,7 @@ export const TextBladePlugin = (function<T>(): BladePlugin<TextBladeParams<T>> {
 				},
 			};
 		},
-		api(args) {
+		controller(args) {
 			const ic = new TextController(args.document, {
 				parser: args.params.parse,
 				props: new ValueMap({
@@ -50,14 +50,22 @@ export const TextBladePlugin = (function<T>(): BladePlugin<TextBladeParams<T>> {
 				value: new PrimitiveValue(args.params.value),
 				viewProps: args.viewProps,
 			});
-			const c = new LabelController(args.document, {
+			return new LabelController(args.document, {
 				blade: args.blade,
 				props: new ValueMap({
 					label: args.params.label,
 				}),
 				valueController: ic,
 			});
-			return new TextBladeApi(c);
+		},
+		api(controller) {
+			if (!(controller instanceof LabelController)) {
+				return null;
+			}
+			if (!(controller.valueController instanceof TextController)) {
+				return null;
+			}
+			return new TextBladeApi(controller);
 		},
 	};
 })();

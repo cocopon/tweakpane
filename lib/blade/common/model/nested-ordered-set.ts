@@ -47,8 +47,12 @@ export class NestedOrderedSet<T> {
 		return null;
 	}
 
+	public includes(item: T): boolean {
+		return this.cache_.has(item);
+	}
+
 	public add(item: T, opt_index?: number): void {
-		if (this.cache_.has(item)) {
+		if (this.includes(item)) {
 			throw TpError.shouldNeverHappen();
 		}
 

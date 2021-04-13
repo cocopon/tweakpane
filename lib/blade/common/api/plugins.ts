@@ -11,9 +11,11 @@ import {
 	MonitorBindingPlugin,
 } from '../../../monitor-binding/plugin';
 import {BasePlugin} from '../../../plugin';
+import {InputBindingApi} from '../../input-binding/api/input-binding';
 import {InputBindingController} from '../../input-binding/controller/input-binding';
+import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
 import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
-import {BladePlugin, createApi} from '../../plugin';
+import {BladePlugin, createBladeController} from '../../plugin';
 import {BladeController} from '../controller/blade';
 import {BladeApi} from './blade';
 import {InputParams, MonitorParams} from './types';
@@ -106,23 +108,44 @@ export function createMonitor(
 export function createBlade(
 	document: Document,
 	params: Record<string, unknown>,
-): BladeApi<BladeController<View>> {
-	const api = Plugins.blades.reduce(
-		(result: BladeApi<BladeController<View>> | null, plugin) =>
+): BladeController<View> {
+	const bc = Plugins.blades.reduce(
+		(result: BladeController<View> | null, plugin) =>
 			result ||
-			createApi(plugin, {
+			createBladeController(plugin, {
 				document: document,
 				params: params,
 			}),
 		null,
 	);
-	if (!api) {
+	if (!bc) {
 		throw new TpError({
 			type: 'nomatchingview',
 			context: {
 				params: params,
 			},
 		});
+	}
+	return bc;
+}
+
+export function createBladeApi(
+	bc: BladeController<View>,
+): BladeApi<BladeController<View>> {
+	if (bc instanceof InputBindingController) {
+		return new InputBindingApi(bc);
+	}
+	if (bc instanceof MonitorBindingController) {
+		return new MonitorBindingApi(bc);
+	}
+
+	const api = Plugins.blades.reduce(
+		(result: BladeApi<BladeController<View>> | null, plugin) =>
+			result || plugin.api(bc),
+		null,
+	);
+	if (!api) {
+		throw TpError.shouldNeverHappen();
 	}
 	return api;
 }

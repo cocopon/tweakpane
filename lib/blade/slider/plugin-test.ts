@@ -2,7 +2,14 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../misc/test-util';
-import {createApi} from '../plugin';
+import {forceCast} from '../../misc/type-util';
+import {createBladeApi} from '../common/api/plugins';
+import {createBladeController} from '../plugin';
+import {
+	createEmptyBladeController,
+	createEmptyLabelableController,
+	createLabelController,
+} from '../test-util';
 import {SliderBladeApi} from './api/slider';
 import {SliderBladeParams, SliderBladePlugin} from './plugin';
 
@@ -24,7 +31,7 @@ describe(SliderBladePlugin.id, () => {
 		context(`when ${JSON.stringify(params)}`, () => {
 			it('should not create API', () => {
 				const doc = TestUtil.createWindow().document;
-				const api = createApi(SliderBladePlugin, {
+				const api = createBladeController(SliderBladePlugin, {
 					document: doc,
 					params: params,
 				});
@@ -33,10 +40,23 @@ describe(SliderBladePlugin.id, () => {
 		});
 	});
 
+	[
+		(doc: Document) => createEmptyBladeController(doc),
+		(doc: Document) =>
+			createLabelController(doc, createEmptyLabelableController(doc)),
+	].forEach((createController) => {
+		it('should not create API', () => {
+			const doc = TestUtil.createWindow().document;
+			const c = createController(doc);
+			const api = SliderBladePlugin.api(c);
+			assert.strictEqual(api, null);
+		});
+	});
+
 	it('should apply initial params', () => {
 		const doc = TestUtil.createWindow().document;
 		const formatter = (v: number) => `${v}px`;
-		const api = createApi(SliderBladePlugin, {
+		const bc = createBladeController(SliderBladePlugin, {
 			document: doc,
 			params: {
 				format: formatter,
@@ -46,7 +66,8 @@ describe(SliderBladePlugin.id, () => {
 				value: 50,
 				view: 'slider',
 			} as SliderBladeParams,
-		}) as SliderBladeApi;
+		});
+		const api = createBladeApi(forceCast(bc)) as SliderBladeApi;
 
 		assert.strictEqual(api.maxValue, 100);
 		assert.strictEqual(api.minValue, -100);

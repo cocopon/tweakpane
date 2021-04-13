@@ -28,8 +28,8 @@ export const FolderBladePlugin: BladePlugin<FolderBladeParams> = {
 			},
 		};
 	},
-	api(args) {
-		const c = new FolderController(args.document, {
+	controller(args) {
+		return new FolderController(args.document, {
 			blade: args.blade,
 			expanded: args.params.expanded,
 			props: new ValueMap({
@@ -37,6 +37,11 @@ export const FolderBladePlugin: BladePlugin<FolderBladeParams> = {
 			}),
 			viewProps: args.viewProps,
 		});
-		return new FolderApi(c);
+	},
+	api(controller) {
+		if (!(controller instanceof FolderController)) {
+			return null;
+		}
+		return new FolderApi(controller);
 	},
 };

@@ -2,7 +2,14 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../misc/test-util';
-import {createApi} from '../plugin';
+import {forceCast} from '../../misc/type-util';
+import {createBladeApi} from '../common/api/plugins';
+import {createBladeController} from '../plugin';
+import {
+	createEmptyBladeController,
+	createEmptyLabelableController,
+	createLabelController,
+} from '../test-util';
 import {ListBladeApi} from './api/list';
 import {ListBladeParams, ListBladePlugin} from './plugin';
 
@@ -29,7 +36,7 @@ describe(ListBladePlugin.id, () => {
 		context(`when ${JSON.stringify(params)}`, () => {
 			it('should not create API', () => {
 				const doc = TestUtil.createWindow().document;
-				const api = createApi(ListBladePlugin, {
+				const api = createBladeController(ListBladePlugin, {
 					document: doc,
 					params: params,
 				});
@@ -48,7 +55,7 @@ describe(ListBladePlugin.id, () => {
 		context(`when ${JSON.stringify(params)}`, () => {
 			it('should create API', () => {
 				const doc = TestUtil.createWindow().document;
-				const api = createApi(ListBladePlugin, {
+				const api = createBladeController(ListBladePlugin, {
 					document: doc,
 					params: params,
 				});
@@ -57,9 +64,22 @@ describe(ListBladePlugin.id, () => {
 		});
 	});
 
+	[
+		(doc: Document) => createEmptyBladeController(doc),
+		(doc: Document) =>
+			createLabelController(doc, createEmptyLabelableController(doc)),
+	].forEach((createController) => {
+		it('should not create API', () => {
+			const doc = TestUtil.createWindow().document;
+			const c = createController(doc);
+			const api = ListBladePlugin.api(c);
+			assert.strictEqual(api, null);
+		});
+	});
+
 	it('should apply initial params', () => {
 		const doc = TestUtil.createWindow().document;
-		const api = createApi(ListBladePlugin, {
+		const bc = createBladeController(ListBladePlugin, {
 			document: doc,
 			params: {
 				label: 'hello',
@@ -70,7 +90,8 @@ describe(ListBladePlugin.id, () => {
 				value: 123,
 				view: 'list',
 			} as ListBladeParams<number>,
-		}) as ListBladeApi<number>;
+		});
+		const api = createBladeApi(forceCast(bc)) as ListBladeApi<number>;
 
 		assert.strictEqual(api.value, 123);
 		assert.deepStrictEqual(api.options[0], {text: 'foo', value: 1});

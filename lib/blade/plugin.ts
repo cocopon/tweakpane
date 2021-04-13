@@ -23,18 +23,21 @@ export interface BladePlugin<P extends BladeParams> extends BasePlugin {
 	accept: {
 		(params: Record<string, unknown>): Acceptance<P> | null;
 	};
+	controller: {
+		(args: ApiArguments<P>): BladeController<View>;
+	};
 	api: {
-		(args: ApiArguments<P>): BladeApi<BladeController<View>>;
+		(controller: BladeController<View>): BladeApi<BladeController<View>> | null;
 	};
 }
 
-export function createApi<P extends BladeParams>(
+export function createBladeController<P extends BladeParams>(
 	plugin: BladePlugin<P>,
 	args: {
 		document: Document;
 		params: Record<string, unknown>;
 	},
-): BladeApi<BladeController<View>> | null {
+): BladeController<View> | null {
 	const ac = plugin.accept(args.params);
 	if (!ac) {
 		return null;
@@ -42,7 +45,7 @@ export function createApi<P extends BladeParams>(
 
 	const disabled = findBooleanParam(args.params, 'disabled');
 	const hidden = findBooleanParam(args.params, 'hidden');
-	return plugin.api({
+	return plugin.controller({
 		blade: new Blade(),
 		document: args.document,
 		params: forceCast({

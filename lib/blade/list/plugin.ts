@@ -43,7 +43,7 @@ export const ListBladePlugin = (function<T>(): BladePlugin<ListBladeParams<T>> {
 				},
 			};
 		},
-		api(args) {
+		controller(args) {
 			const ic = new ListController(args.document, {
 				props: new ValueMap({
 					options: normalizeListOptions<T>(args.params.options),
@@ -51,14 +51,22 @@ export const ListBladePlugin = (function<T>(): BladePlugin<ListBladeParams<T>> {
 				value: new PrimitiveValue(args.params.value),
 				viewProps: args.viewProps,
 			});
-			const c = new LabelController(args.document, {
+			return new LabelController(args.document, {
 				blade: args.blade,
 				props: new ValueMap({
 					label: args.params.label,
 				}),
 				valueController: ic,
 			});
-			return new ListBladeApi(c);
+		},
+		api(controller) {
+			if (!(controller instanceof LabelController)) {
+				return null;
+			}
+			if (!(controller.valueController instanceof ListController)) {
+				return null;
+			}
+			return new ListBladeApi(controller);
 		},
 	};
 })();

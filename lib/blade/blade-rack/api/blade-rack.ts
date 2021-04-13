@@ -13,6 +13,7 @@ import {
 } from '../../common/api/blade-container';
 import {
 	createBlade,
+	createBladeApi,
 	createInput,
 	createMonitor,
 } from '../../common/api/plugins';
@@ -57,6 +58,7 @@ export class BladeRackApi extends BladeApi<BladeRackController>
 	constructor(controller: BladeRackController) {
 		super(controller);
 
+		this.onRackAdd_ = this.onRackAdd_.bind(this);
 		this.onRackRemove_ = this.onRackRemove_.bind(this);
 		this.onRackInputChange_ = this.onRackInputChange_.bind(this);
 		this.onRackMonitorUpdate_ = this.onRackMonitorUpdate_.bind(this);
@@ -68,6 +70,7 @@ export class BladeRackApi extends BladeApi<BladeRackController>
 		);
 
 		const rack = this.controller_.rack;
+		rack.emitter.on('add', this.onRackAdd_);
 		rack.emitter.on('remove', this.onRackRemove_);
 		rack.emitter.on('inputchange', this.onRackInputChange_);
 		rack.emitter.on('monitorupdate', this.onRackMonitorUpdate_);
@@ -129,7 +132,14 @@ export class BladeRackApi extends BladeApi<BladeRackController>
 		opt_index?: number,
 	): A {
 		this.controller_.rack.add(api.controller_, opt_index);
+
+		// Replace generated API with specified one
+		const gapi = this.apiSet_.find((a) => a.controller_ === api.controller_);
+		if (gapi) {
+			this.apiSet_.remove(gapi);
+		}
 		this.apiSet_.add(api);
+
 		return api;
 	}
 
@@ -142,7 +152,8 @@ export class BladeRackApi extends BladeApi<BladeRackController>
 	): BladeApi<BladeController<View>> {
 		const params = opt_params ?? {};
 		const doc = this.controller_.view.element.ownerDocument;
-		const api = createBlade(doc, params);
+		const bc = createBlade(doc, params);
+		const api = createBladeApi(bc);
 		return this.add(api, params.index);
 	}
 
@@ -155,6 +166,16 @@ export class BladeRackApi extends BladeApi<BladeRackController>
 			bh(ev.event);
 		});
 		return this;
+	}
+
+	private onRackAdd_(ev: BladeRackEvents['add']) {
+		const api = this.apiSet_.find(
+			(api) => api.controller_ === ev.bladeController,
+		);
+		if (!api) {
+			// Auto-fill missing API
+			this.apiSet_.add(createBladeApi(ev.bladeController));
+		}
 	}
 
 	private onRackRemove_(ev: BladeRackEvents['remove']) {
