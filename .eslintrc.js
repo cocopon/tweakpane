@@ -13,6 +13,7 @@ module.exports = {
 	root: true,
 	rules: {
 		camelcase: 'off',
+		'no-console': ['warn', {allow: ['warn', 'error']}],
 		'no-unused-vars': 'off',
 		'sort-imports': 'off',
 

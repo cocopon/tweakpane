@@ -6,6 +6,7 @@ import {BladePlugin} from './blade/plugin';
 import {RootApi} from './blade/root/api/root';
 import {RootController} from './blade/root/controller/root';
 import {SliderBladePlugin} from './blade/slider/plugin';
+import {TabBladePlugin} from './blade/tab/plugin';
 import {TextBladePlugin} from './blade/text/plugin';
 import {getWindowDocument} from './common/dom-util';
 import {ValueMap} from './common/model/value-map';
@@ -144,7 +145,7 @@ function registerDefaultPlugins() {
 		},
 	);
 
-	[SliderBladePlugin, ListBladePlugin, TextBladePlugin].forEach(
+	[SliderBladePlugin, ListBladePlugin, TabBladePlugin, TextBladePlugin].forEach(
 		(p: BladePlugin<any>) => {
 			registerPlugin({
 				type: 'blade',

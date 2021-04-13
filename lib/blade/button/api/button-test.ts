@@ -62,12 +62,15 @@ describe(ButtonApi.name, () => {
 	});
 
 	it('should listen click event', (done) => {
-		const doc = TestUtil.createWindow().document;
+		const win = TestUtil.createWindow();
+		const doc = win.document;
 		const api = createApi(doc);
 		api.on('click', () => {
 			done();
 		});
-		api.controller_.valueController.click();
+		api.controller_.valueController.view.buttonElement.dispatchEvent(
+			TestUtil.createEvent(win, 'click'),
+		);
 	});
 
 	it('should have chainable event handling', () => {
@@ -78,13 +81,16 @@ describe(ButtonApi.name, () => {
 	});
 
 	it('should bind `this` within handler to API', (done) => {
-		const doc = TestUtil.createWindow().document;
+		const win = TestUtil.createWindow();
+		const doc = win.document;
 		const api = createApi(doc);
 		api.on('click', function(this: any) {
 			assert.strictEqual(this, api);
 			done();
 		});
-		api.controller_.valueController.click();
+		api.controller_.valueController.view.buttonElement.dispatchEvent(
+			TestUtil.createEvent(win, 'click'),
+		);
 	});
 
 	it('should dispose', () => {
