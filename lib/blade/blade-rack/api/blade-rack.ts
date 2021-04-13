@@ -13,6 +13,7 @@ import {
 } from '../../common/api/blade-container';
 import {
 	createBlade,
+	createBladeApi,
 	createInput,
 	createMonitor,
 } from '../../common/api/plugins';
@@ -142,7 +143,8 @@ export class BladeRackApi extends BladeApi<BladeRackController>
 	): BladeApi<BladeController<View>> {
 		const params = opt_params ?? {};
 		const doc = this.controller_.view.element.ownerDocument;
-		const api = createBlade(doc, params);
+		const bc = createBlade(doc, params);
+		const api = createBladeApi(bc);
 		return this.add(api, params.index);
 	}
 

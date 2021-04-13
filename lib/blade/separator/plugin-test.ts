@@ -2,7 +2,9 @@ import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
 import {TestUtil} from '../../misc/test-util';
-import {createApi} from '../plugin';
+import {forceCast} from '../../misc/type-util';
+import {createBladeApi} from '../common/api/plugins';
+import {createBladeController} from '../plugin';
 import {createEmptyBladeController} from '../test-util';
 import {SeparatorApi} from './api/separator';
 import {SeparatorBladePlugin} from './plugin';
@@ -12,7 +14,7 @@ describe(SeparatorBladePlugin.id, () => {
 		context(`when ${JSON.stringify(params)}`, () => {
 			it('should not create API', () => {
 				const doc = TestUtil.createWindow().document;
-				const api = createApi(SeparatorBladePlugin, {
+				const api = createBladeController(SeparatorBladePlugin, {
 					document: doc,
 					params: params,
 				});
@@ -23,12 +25,13 @@ describe(SeparatorBladePlugin.id, () => {
 
 	it('should be created', () => {
 		const doc = TestUtil.createWindow().document;
-		const api = createApi(SeparatorBladePlugin, {
+		const bc = createBladeController(SeparatorBladePlugin, {
 			document: doc,
 			params: {
 				view: 'separator',
 			},
-		}) as SeparatorApi;
+		});
+		const api = createBladeApi(forceCast(bc)) as SeparatorApi;
 		assert.notStrictEqual(api, null);
 	});
 

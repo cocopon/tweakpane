@@ -2,7 +2,9 @@ import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
 import {TestUtil} from '../../misc/test-util';
-import {createApi} from '../plugin';
+import {forceCast} from '../../misc/type-util';
+import {createBladeApi} from '../common/api/plugins';
+import {createBladeController} from '../plugin';
 import {
 	createEmptyBladeController,
 	createEmptyLabelableController,
@@ -21,7 +23,7 @@ describe(ButtonBladePlugin.id, () => {
 		context(`when ${JSON.stringify(params)}`, () => {
 			it('should not create API', () => {
 				const doc = TestUtil.createWindow().document;
-				const api = createApi(ButtonBladePlugin, {
+				const api = createBladeController(ButtonBladePlugin, {
 					document: doc,
 					params: params,
 				});
@@ -45,14 +47,15 @@ describe(ButtonBladePlugin.id, () => {
 
 	it('should apply initial params', () => {
 		const doc = TestUtil.createWindow().document;
-		const api = createApi(ButtonBladePlugin, {
+		const bc = createBladeController(ButtonBladePlugin, {
 			document: doc,
 			params: {
 				label: 'initiallabel',
 				title: 'Title',
 				view: 'button',
 			},
-		}) as ButtonApi;
+		});
+		const api = createBladeApi(forceCast(bc)) as ButtonApi;
 
 		assert.strictEqual(
 			api.controller_.view.element.innerHTML.includes('initiallabel'),

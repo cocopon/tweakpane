@@ -2,7 +2,9 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../misc/test-util';
-import {createApi} from '../plugin';
+import {forceCast} from '../../misc/type-util';
+import {createBladeApi} from '../common/api/plugins';
+import {createBladeController} from '../plugin';
 import {
 	createEmptyBladeController,
 	createEmptyLabelableController,
@@ -29,7 +31,7 @@ describe(TextBladePlugin.id, () => {
 		context(`when ${JSON.stringify(params)}`, () => {
 			it('should not create API', () => {
 				const doc = TestUtil.createWindow().document;
-				const api = createApi(TextBladePlugin, {
+				const api = createBladeController(TextBladePlugin, {
 					document: doc,
 					params: params,
 				});
@@ -62,10 +64,11 @@ describe(TextBladePlugin.id, () => {
 			view: 'text',
 		} as TextBladeParams<string>;
 
-		const api = createApi(TextBladePlugin, {
+		const bc = createBladeController(TextBladePlugin, {
 			document: doc,
 			params: params,
-		}) as TextBladeApi<string>;
+		});
+		const api = createBladeApi(forceCast(bc)) as TextBladeApi<string>;
 		assert.strictEqual(api.formatter, formatter);
 		assert.strictEqual(api.value, 'hello');
 		assert.strictEqual(
