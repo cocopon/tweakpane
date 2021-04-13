@@ -48,7 +48,7 @@ export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 			},
 		};
 	},
-	api(args) {
+	controller(args) {
 		const v = args.params.value ?? 0;
 		const vc = new SliderTextController(args.document, {
 			baseStep: 1,
@@ -64,13 +64,21 @@ export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 			value: new PrimitiveValue(v),
 			viewProps: args.viewProps,
 		});
-		const c = new LabelController(args.document, {
+		return new LabelController(args.document, {
 			blade: args.blade,
 			props: new ValueMap({
 				label: args.params.label,
 			}),
 			valueController: vc,
 		});
-		return new SliderBladeApi(c);
+	},
+	api(controller) {
+		if (!(controller instanceof LabelController)) {
+			return null;
+		}
+		if (!(controller.valueController instanceof SliderTextController)) {
+			return null;
+		}
+		return new SliderBladeApi(controller);
 	},
 };

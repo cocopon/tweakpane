@@ -1,5 +1,6 @@
 import {createViewProps, ViewProps} from '../common/model/view-props';
 import {findBooleanParam} from '../common/params';
+import {TpError} from '../common/tp-error';
 import {View} from '../common/view/view';
 import {forceCast} from '../misc/type-util';
 import {BasePlugin} from '../plugin';
@@ -23,8 +24,11 @@ export interface BladePlugin<P extends BladeParams> extends BasePlugin {
 	accept: {
 		(params: Record<string, unknown>): Acceptance<P> | null;
 	};
+	controller: {
+		(args: ApiArguments<P>): BladeController<View>;
+	};
 	api: {
-		(args: ApiArguments<P>): BladeApi<BladeController<View>>;
+		(controller: BladeController<View>): BladeApi<BladeController<View>> | null;
 	};
 }
 
@@ -42,7 +46,7 @@ export function createApi<P extends BladeParams>(
 
 	const disabled = findBooleanParam(args.params, 'disabled');
 	const hidden = findBooleanParam(args.params, 'hidden');
-	return plugin.api({
+	const bc = plugin.controller({
 		blade: new Blade(),
 		document: args.document,
 		params: forceCast({
@@ -55,4 +59,9 @@ export function createApi<P extends BladeParams>(
 			hidden: hidden,
 		}),
 	});
+	const api = plugin.api(bc);
+	if (!api) {
+		throw TpError.shouldNeverHappen();
+	}
+	return api;
 }

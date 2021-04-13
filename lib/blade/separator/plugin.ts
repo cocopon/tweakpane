@@ -21,11 +21,16 @@ export const SeparatorBladePlugin: BladePlugin<SeparatorBladeParams> = {
 			},
 		};
 	},
-	api(args) {
-		const c = new SeparatorController(args.document, {
+	controller(args) {
+		return new SeparatorController(args.document, {
 			blade: args.blade,
 			viewProps: args.viewProps,
 		});
-		return new SeparatorApi(c);
+	},
+	api(controller) {
+		if (!(controller instanceof SeparatorController)) {
+			return null;
+		}
+		return new SeparatorApi(controller);
 	},
 };

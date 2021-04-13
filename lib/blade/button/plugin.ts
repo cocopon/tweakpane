@@ -32,8 +32,8 @@ export const ButtonBladePlugin: BladePlugin<ButtonBladeParams> = {
 			},
 		};
 	},
-	api(args) {
-		const c = new LabelController(args.document, {
+	controller(args) {
+		return new LabelController(args.document, {
 			blade: args.blade,
 			props: new ValueMap({
 				label: args.params.label,
@@ -45,6 +45,14 @@ export const ButtonBladePlugin: BladePlugin<ButtonBladeParams> = {
 				viewProps: args.viewProps,
 			}),
 		});
-		return new ButtonApi(c);
+	},
+	api(controller) {
+		if (!(controller instanceof LabelController)) {
+			return null;
+		}
+		if (!(controller.valueController instanceof ButtonController)) {
+			return null;
+		}
+		return new ButtonApi(controller);
 	},
 };
