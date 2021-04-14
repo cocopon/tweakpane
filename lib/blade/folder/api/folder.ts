@@ -16,12 +16,14 @@ import {
 	InputParams,
 	MonitorParams,
 	SeparatorParams,
+	TabParams,
 } from '../../common/api/types';
 import {BladeController} from '../../common/controller/blade';
 import {InputBindingApi} from '../../input-binding/api/input-binding';
 import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
 import {RackApi} from '../../rack/api/rack';
 import {SeparatorApi} from '../../separator/api/separator';
+import {TabApi} from '../../tab/api/tab';
 import {FolderController} from '../controller/folder';
 import {FolderEvents} from '../model/folder';
 
@@ -111,6 +113,10 @@ export class FolderApi extends RackLikeApi<FolderController>
 
 	public addSeparator(opt_params?: SeparatorParams): SeparatorApi {
 		return this.rackApi_.addSeparator(opt_params);
+	}
+
+	public addTab(params: TabParams): TabApi {
+		return this.rackApi_.addTab(params);
 	}
 
 	public add<A extends BladeApi<BladeController<View>>>(

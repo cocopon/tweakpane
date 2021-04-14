@@ -4,6 +4,7 @@ import {FolderApi} from '../../folder/api/folder';
 import {InputBindingApi} from '../../input-binding/api/input-binding';
 import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
 import {SeparatorApi} from '../../separator/api/separator';
+import {TabApi} from '../../tab/api/tab';
 import {BladeController} from '../controller/blade';
 import {BladeApi} from './blade';
 import {
@@ -13,6 +14,7 @@ import {
 	InputParams,
 	MonitorParams,
 	SeparatorParams,
+	TabParams,
 } from './types';
 
 export interface BladeRackApi {
@@ -24,6 +26,7 @@ export interface BladeRackApi {
 	addButton(params: ButtonParams): ButtonApi;
 	addFolder(params: FolderParams): FolderApi;
 	addSeparator(opt_params?: SeparatorParams): SeparatorApi;
+	addTab(params: TabParams): TabApi;
 	add(api: BladeApi<BladeController<View>>, opt_index?: number): void;
 	remove(api: BladeApi<BladeController<View>>): void;
 
@@ -88,4 +91,11 @@ export function addSeparatorAsBlade(
 		...params,
 		view: 'separator',
 	});
+}
+
+export function addTabAsBlade(api: BladeRackApi, params: TabParams): TabApi {
+	return api.addBlade_v3_({
+		...params,
+		view: 'tab',
+	}) as TabApi;
 }

@@ -43,6 +43,15 @@ export function testBladeContainer(createApi: () => BladeRackApi) {
 		assert.strictEqual(api.children[0], bapi2);
 	});
 
+	it('should implement addTab()', () => {
+		const api = createApi();
+		const bapi1 = api.addTab({pages: [{title: 'foo'}]});
+		assert.strictEqual(api.children[api.children.length - 1], bapi1);
+
+		const bapi2 = api.addTab({index: 0, pages: [{title: 'bar'}]});
+		assert.strictEqual(api.children[0], bapi2);
+	});
+
 	it('should implement addInput()', () => {
 		const api = createApi();
 		const bapi1 = api.addInput({foo: 1}, 'foo');
