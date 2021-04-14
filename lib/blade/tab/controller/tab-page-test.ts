@@ -38,4 +38,22 @@ describe(TabPageController.name, () => {
 		assert.strictEqual(c.itemController.props.get('selected'), true);
 		assert.strictEqual(c.contentController.viewProps.get('hidden'), false);
 	});
+
+	it('should be selected by clicking', () => {
+		const win = TestUtil.createWindow();
+		const doc = win.document;
+		const c = new TabPageController(doc, {
+			itemProps: new ValueMap({
+				selected: false as boolean,
+				title: 'foo',
+			}),
+			props: new ValueMap({
+				selected: false as boolean,
+			}),
+		});
+
+		const ev = TestUtil.createEvent(win, 'click');
+		c.itemController.view.buttonElement.dispatchEvent(ev);
+		assert.strictEqual(c.props.get('selected'), true);
+	});
 });

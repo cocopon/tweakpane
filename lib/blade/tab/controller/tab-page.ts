@@ -21,10 +21,14 @@ export class TabPageController {
 	private readonly cc_: RackController;
 
 	constructor(doc: Document, config: Config) {
+		this.onItemClick_ = this.onItemClick_.bind(this);
+
 		this.ic_ = new TabItemController(doc, {
 			props: config.itemProps,
 			viewProps: createViewProps(),
 		});
+		this.ic_.emitter.on('click', this.onItemClick_);
+
 		this.cc_ = new RackController(doc, {
 			blade: new Blade(),
 			viewProps: createViewProps(),
@@ -43,5 +47,9 @@ export class TabPageController {
 
 	get contentController(): RackController {
 		return this.cc_;
+	}
+
+	private onItemClick_(): void {
+		this.props.set('selected', true);
 	}
 }

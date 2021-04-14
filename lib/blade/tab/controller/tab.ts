@@ -1,6 +1,6 @@
 import {insertElementAt, removeElement} from '../../../common/dom-util';
 import {PrimitiveValue} from '../../../common/model/primitive-value';
-import {Value} from '../../../common/model/value';
+import {Value, ValueEvents} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {RackLikeController} from '../../common/controller/rack-like';
 import {Blade} from '../../common/model/blade';
@@ -10,7 +10,6 @@ import {
 } from '../../common/model/nested-ordered-set';
 import {RackController} from '../../rack/controller/rack';
 import {TabView} from '../view/tab';
-import {TabItemEvents} from './tab-item';
 import {TabPageController} from './tab-page';
 
 interface Config {
@@ -26,35 +25,35 @@ export interface TabPageParams {
 
 export class TabController extends RackLikeController<TabView> {
 	private readonly pageSet_: NestedOrderedSet<TabPageController>;
-	private readonly sel_: Value<number>;
+	private readonly empty_: Value<boolean>;
 
 	constructor(doc: Document, config: Config) {
 		const cr = new RackController(doc, {
 			blade: config.blade,
 			viewProps: config.viewProps,
 		});
+		const empty = new PrimitiveValue(true as boolean);
 		super({
 			blade: config.blade,
 			rackController: cr,
 			view: new TabView(doc, {
 				contentsElement: cr.view.element,
+				empty: empty,
 				viewProps: config.viewProps,
 			}),
 			viewProps: config.viewProps,
 		});
 
-		this.onItemClick_ = this.onItemClick_.bind(this);
 		this.onPageAdd_ = this.onPageAdd_.bind(this);
 		this.onPageRemove_ = this.onPageRemove_.bind(this);
-		this.onSelectionChange_ = this.onSelectionChange_.bind(this);
+		this.onPageSelectedChange_ = this.onPageSelectedChange_.bind(this);
 
 		this.pageSet_ = new NestedOrderedSet(() => null);
 		this.pageSet_.emitter.on('add', this.onPageAdd_);
 		this.pageSet_.emitter.on('remove', this.onPageRemove_);
 
-		this.sel_ = new PrimitiveValue(0);
-		this.sel_.emitter.on('change', this.onSelectionChange_);
-		this.applySelection_();
+		this.empty_ = empty;
+		this.applyPages_();
 	}
 
 	get pageSet(): NestedOrderedSet<TabPageController> {
@@ -69,28 +68,24 @@ export class TabController extends RackLikeController<TabView> {
 		this.pageSet_.remove(this.pageSet_.items[index]);
 	}
 
-	private onItemClick_(ev: TabItemEvents['click']) {
-		const index = this.pageSet_.items.findIndex(
-			(pc) => pc.itemController === ev.sender,
-		);
-		if (index < 0) {
-			return;
-		}
-		this.sel_.rawValue = index;
+	private applyPages_(): void {
+		this.keepSelection_();
+		this.empty_.rawValue = this.pageSet_.items.length === 0;
 	}
 
 	private onPageAdd_(
 		ev: NestedOrderedSetEvents<TabPageController>['add'],
 	): void {
 		const pc = ev.item;
-		pc.itemController.emitter.on('click', this.onItemClick_);
 		insertElementAt(
 			this.view.itemsElement,
 			pc.itemController.view.element,
 			ev.index,
 		);
 		this.rackController.rack.add(pc.contentController, ev.index);
-		this.applySelection_();
+
+		pc.props.value('selected').emitter.on('change', this.onPageSelectedChange_);
+		this.applyPages_();
 	}
 
 	private onPageRemove_(
@@ -99,15 +94,42 @@ export class TabController extends RackLikeController<TabView> {
 		const pc = ev.item;
 		removeElement(pc.itemController.view.element);
 		this.rackController.rack.remove(pc.contentController);
+
+		pc.props
+			.value('selected')
+			.emitter.off('change', this.onPageSelectedChange_);
+		this.applyPages_();
 	}
 
-	private applySelection_() {
-		this.pageSet_.items.forEach((pc, index) => {
-			pc.props.set('selected', index === this.sel_.rawValue);
-		});
+	private keepSelection_(): void {
+		if (this.pageSet_.items.length === 0) {
+			return;
+		}
+
+		const firstSelIndex = this.pageSet_.items.findIndex((pc) =>
+			pc.props.get('selected'),
+		);
+		if (firstSelIndex < 0) {
+			this.pageSet_.items.forEach((pc, i) => {
+				pc.props.set('selected', i === 0);
+			});
+		} else {
+			this.pageSet_.items.forEach((pc, i) => {
+				pc.props.set('selected', i === firstSelIndex);
+			});
+		}
 	}
 
-	private onSelectionChange_() {
-		this.applySelection_();
+	private onPageSelectedChange_(ev: ValueEvents<boolean>['change']): void {
+		if (ev.rawValue) {
+			const index = this.pageSet_.items.findIndex(
+				(pc) => pc.props.value('selected') === ev.sender,
+			);
+			this.pageSet_.items.forEach((pc, i) => {
+				pc.props.set('selected', i === index);
+			});
+		} else {
+			this.keepSelection_();
+		}
 	}
 }

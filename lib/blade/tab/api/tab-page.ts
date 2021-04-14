@@ -35,6 +35,14 @@ export class TabPageApi implements BladeRackApi {
 		this.controller_.itemController.props.set('title', title);
 	}
 
+	get selected(): boolean {
+		return this.controller_.props.get('selected');
+	}
+
+	set selected(selected: boolean) {
+		this.controller_.props.set('selected', selected);
+	}
+
 	get children(): BladeApi<BladeController<View>>[] {
 		return this.rackApi_.children;
 	}

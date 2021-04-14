@@ -1,4 +1,4 @@
-import {ValueEvents} from '../model/value';
+import {Value, ValueEvents} from '../model/value';
 import {ValueMap} from '../model/value-map';
 import {ViewProps} from '../model/view-props';
 import {ClassName} from './class-name';
@@ -22,23 +22,33 @@ function applyClass(elem: HTMLElement, className: string, active: boolean) {
 	}
 }
 
-const className = ClassName('');
+export function valueToClassName(
+	elem: HTMLElement,
+	className: string,
+): (value: boolean) => void {
+	return (value) => {
+		applyClass(elem, className, value);
+	};
+}
 
+const className = ClassName('');
 function valueToModifier(
 	elem: HTMLElement,
 	modifier: string,
 ): (value: boolean) => void {
-	return (value) => {
-		applyClass(elem, className(undefined, modifier), value);
-	};
+	return valueToClassName(elem, className(undefined, modifier));
+}
+
+export function bindValue<T>(value: Value<T>, applyValue: (value: T) => void) {
+	value.emitter.on('change', compose(extractValue, applyValue));
+	applyValue(value.rawValue);
 }
 
 export function bindValueMap<
 	O extends Record<string, unknown>,
 	Key extends keyof O
 >(valueMap: ValueMap<O>, key: Key, applyValue: (value: O[Key]) => void) {
-	valueMap.valueEmitter(key).on('change', compose(extractValue, applyValue));
-	applyValue(valueMap.get(key));
+	bindValue(valueMap.value(key), applyValue);
 }
 
 export function bindClassModifier(viewProps: ViewProps, elem: HTMLElement) {
