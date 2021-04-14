@@ -1,5 +1,4 @@
 import {View} from '../../../common/view/view';
-import {BladeRackApi} from '../../blade-rack/api/blade-rack';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
 import {BladeContainerApi} from '../../common/api/blade-container';
@@ -15,14 +14,15 @@ import {BladeController} from '../../common/controller/blade';
 import {FolderApi} from '../../folder/api/folder';
 import {InputBindingApi} from '../../input-binding/api/input-binding';
 import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
+import {RackApi} from '../../rack/api/rack';
 import {SeparatorApi} from '../../separator/api/separator';
 import {TabPageController} from '../controller/tab-page';
 
 export class TabPageApi implements BladeContainerApi {
 	public readonly controller_: TabPageController;
-	private readonly rackApi_: BladeRackApi;
+	private readonly rackApi_: RackApi;
 
-	constructor(controller: TabPageController, contentRackApi: BladeRackApi) {
+	constructor(controller: TabPageController, contentRackApi: RackApi) {
 		this.controller_ = controller;
 		this.rackApi_ = contentRackApi;
 	}

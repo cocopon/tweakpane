@@ -15,7 +15,7 @@ interface Config {
 /**
  * @hidden
  */
-export class BladeRackController extends BladeController<PlainView> {
+export class RackController extends BladeController<PlainView> {
 	public readonly rack: BladeRack;
 
 	constructor(doc: Document, config: Config) {

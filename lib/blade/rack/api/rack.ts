@@ -2,7 +2,6 @@ import {Emitter} from '../../../common/model/emitter';
 import {TpError} from '../../../common/tp-error';
 import {View} from '../../../common/view/view';
 import {forceCast} from '../../../misc/type-util';
-import {BladeRackEvents} from '../../blade-rack/model/blade-rack';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
 import {
@@ -34,7 +33,8 @@ import {InputBindingApi} from '../../input-binding/api/input-binding';
 import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
 import {SeparatorApi} from '../../separator/api/separator';
 import {TabApi} from '../../tab/api/tab';
-import {BladeRackController} from '../controller/blade-rack';
+import {RackController} from '../controller/rack';
+import {BladeRackEvents} from '../model/blade-rack';
 
 export interface BladeRackApiEvents {
 	change: {
@@ -48,7 +48,7 @@ export interface BladeRackApiEvents {
 export function findSubBladeApiSet(
 	api: BladeApi<BladeController<View>>,
 ): NestedOrderedSet<BladeApi<BladeController<View>>> | null {
-	if (api instanceof BladeRackApi) {
+	if (api instanceof RackApi) {
 		return api['apiSet_'];
 	}
 	if (api instanceof FolderApi) {
@@ -75,7 +75,7 @@ function getApiByController(
 /**
  * @hidden
  */
-export class BladeRackApi extends BladeApi<BladeRackController>
+export class RackApi extends BladeApi<RackController>
 	implements BladeContainerApi {
 	private readonly emitter_: Emitter<BladeRackApiEvents>;
 	private apiSet_: NestedOrderedSet<BladeApi<BladeController<View>>>;
@@ -83,7 +83,7 @@ export class BladeRackApi extends BladeApi<BladeRackController>
 	/**
 	 * @hidden
 	 */
-	constructor(controller: BladeRackController) {
+	constructor(controller: RackController) {
 		super(controller);
 
 		this.onRackAdd_ = this.onRackAdd_.bind(this);

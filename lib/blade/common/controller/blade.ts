@@ -3,7 +3,7 @@ import {disposeElement} from '../../../common/disposing-util';
 import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
-import {BladeRack} from '../../blade-rack/model/blade-rack';
+import {BladeRack} from '../../rack/model/blade-rack';
 import {Blade, BladeEvents} from '../model/blade';
 import {BladePosition, getAllBladePositions} from '../model/blade-positions';
 

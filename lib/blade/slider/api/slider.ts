@@ -5,8 +5,7 @@ import {TpChangeEvent} from '../../common/api/tp-event';
 import {ApiChangeEvents} from '../../common/api/types';
 import {LabelController} from '../../label/controller/label';
 
-export class SliderBladeApi
-	extends BladeApi<LabelController<SliderTextController>>
+export class SliderApi extends BladeApi<LabelController<SliderTextController>>
 	implements LabelableApi {
 	private readonly emitter_: Emitter<ApiChangeEvents<number>> = new Emitter();
 

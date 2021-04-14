@@ -2,13 +2,13 @@ import {insertElementAt, removeElement} from '../../../common/dom-util';
 import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
-import {BladeRackController} from '../../blade-rack/controller/blade-rack';
 import {BladeController} from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
 import {
 	NestedOrderedSet,
 	NestedOrderedSetEvents,
 } from '../../common/model/nested-ordered-set';
+import {RackController} from '../../rack/controller/rack';
 import {TabView} from '../view/tab';
 import {TabItemEvents} from './tab-item';
 import {TabPageController} from './tab-page';
@@ -25,12 +25,12 @@ export interface TabPageParams {
 }
 
 export class TabController extends BladeController<TabView> {
-	private readonly contentsRc_: BladeRackController;
+	private readonly contentsRc_: RackController;
 	private readonly pageSet_: NestedOrderedSet<TabPageController>;
 	private readonly sel_: Value<number>;
 
 	constructor(doc: Document, config: Config) {
-		const cr = new BladeRackController(doc, {
+		const cr = new RackController(doc, {
 			blade: config.blade,
 			viewProps: config.viewProps,
 		});
@@ -63,7 +63,7 @@ export class TabController extends BladeController<TabView> {
 		return this.pageSet_;
 	}
 
-	get rackController(): BladeRackController {
+	get rackController(): RackController {
 		return this.contentsRc_;
 	}
 

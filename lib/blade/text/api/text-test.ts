@@ -14,9 +14,9 @@ import {
 import {Blade} from '../../common/model/blade';
 import {LabelController} from '../../label/controller/label';
 import {LabelPropsObject} from '../../label/view/label';
-import {TextBladeApi} from './text';
+import {TextApi} from './text';
 
-describe(TextBladeApi.name, () => {
+describe(TextApi.name, () => {
 	it('should dispose', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
@@ -33,7 +33,7 @@ describe(TextBladeApi.name, () => {
 				viewProps: createViewProps(),
 			}),
 		});
-		const api = new TextBladeApi(c);
+		const api = new TextApi(c);
 
 		assertDisposes(api);
 	});
@@ -55,7 +55,7 @@ describe(TextBladeApi.name, () => {
 				viewProps: createViewProps(),
 			}),
 		});
-		const api = new TextBladeApi(c);
+		const api = new TextApi(c);
 
 		assertInitialState(api);
 		assert.strictEqual(api.formatter, formatter);
@@ -79,7 +79,7 @@ describe(TextBladeApi.name, () => {
 				viewProps: createViewProps(),
 			}),
 		});
-		const api = new TextBladeApi(c);
+		const api = new TextApi(c);
 
 		assertUpdates(api);
 
@@ -112,7 +112,7 @@ describe(TextBladeApi.name, () => {
 				viewProps: createViewProps(),
 			}),
 		});
-		const api = new TextBladeApi(c);
+		const api = new TextApi(c);
 
 		api.on('change', (ev) => {
 			assert.strictEqual(ev.presetKey, undefined);

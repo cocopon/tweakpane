@@ -11,7 +11,7 @@ import {
 } from '../common/api/types';
 import {LabelController} from '../label/controller/label';
 import {BladePlugin} from '../plugin';
-import {ListBladeApi} from './api/list';
+import {ListApi} from './api/list';
 
 export interface ListBladeParams<T> extends BladeParams {
 	options: ArrayStyleListOptions<T> | ObjectStyleListOptions<T>;
@@ -66,7 +66,7 @@ export const ListBladePlugin = (function<T>(): BladePlugin<ListBladeParams<T>> {
 			if (!(controller.valueController instanceof ListController)) {
 				return null;
 			}
-			return new ListBladeApi(controller);
+			return new ListApi(controller);
 		},
 	};
 })();

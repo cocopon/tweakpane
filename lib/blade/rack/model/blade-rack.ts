@@ -19,7 +19,7 @@ import {FolderController} from '../../folder/controller/folder';
 import {InputBindingController} from '../../input-binding/controller/input-binding';
 import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
 import {TabController} from '../../tab/controller/tab';
-import {BladeRackController} from '../controller/blade-rack';
+import {RackController} from '../controller/rack';
 
 /**
  * @hidden
@@ -77,7 +77,7 @@ function findMonitorBindingController<In>(
 }
 
 function findSubRack(bc: BladeController<View>): BladeRack | null {
-	if (bc instanceof BladeRackController) {
+	if (bc instanceof RackController) {
 		return bc.rack;
 	}
 	if (bc instanceof FolderController) {

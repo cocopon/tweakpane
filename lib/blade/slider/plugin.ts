@@ -13,7 +13,7 @@ import {forceCast} from '../../misc/type-util';
 import {BladeParams} from '../common/api/types';
 import {LabelController} from '../label/controller/label';
 import {BladePlugin} from '../plugin';
-import {SliderBladeApi} from './api/slider';
+import {SliderApi} from './api/slider';
 
 export interface SliderBladeParams extends BladeParams {
 	max: number;
@@ -79,6 +79,6 @@ export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 		if (!(controller.valueController instanceof SliderTextController)) {
 			return null;
 		}
-		return new SliderBladeApi(controller);
+		return new SliderApi(controller);
 	},
 };

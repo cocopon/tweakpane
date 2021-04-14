@@ -1,8 +1,8 @@
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {bindValueMap} from '../../../common/view/reactive';
-import {BladeRackController} from '../../blade-rack/controller/blade-rack';
 import {Blade} from '../../common/model/blade';
+import {RackController} from '../../rack/controller/rack';
 import {TabItemProps} from '../view/tab-item';
 import {TabItemController} from './tab-item';
 
@@ -18,14 +18,14 @@ interface Config {
 export class TabPageController {
 	public readonly props: TabPageProps;
 	private readonly ic_: TabItemController;
-	private readonly cc_: BladeRackController;
+	private readonly cc_: RackController;
 
 	constructor(doc: Document, config: Config) {
 		this.ic_ = new TabItemController(doc, {
 			props: config.itemProps,
 			viewProps: createViewProps(),
 		});
-		this.cc_ = new BladeRackController(doc, {
+		this.cc_ = new RackController(doc, {
 			blade: new Blade(),
 			viewProps: createViewProps(),
 		});
@@ -41,7 +41,7 @@ export class TabPageController {
 		return this.ic_;
 	}
 
-	get contentController(): BladeRackController {
+	get contentController(): RackController {
 		return this.cc_;
 	}
 }

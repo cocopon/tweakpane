@@ -1,10 +1,10 @@
 import {Emitter} from '../../../common/model/emitter';
 import {ValueMap} from '../../../common/model/value-map';
 import {TpError} from '../../../common/tp-error';
-import {BladeRackApi} from '../../blade-rack/api/blade-rack';
 import {BladeApi} from '../../common/api/blade';
 import {TpChangeEvent, TpUpdateEvent} from '../../common/api/tp-event';
 import {NestedOrderedSetEvents} from '../../common/model/nested-ordered-set';
+import {RackApi} from '../../rack/api/rack';
 import {TabController, TabPageParams} from '../controller/tab';
 import {TabPageController} from '../controller/tab-page';
 import {TabPageApi} from './tab-page';
@@ -21,7 +21,7 @@ interface TabApiEvents {
 export class TabApi extends BladeApi<TabController> {
 	private readonly emitter_: Emitter<TabApiEvents>;
 	private readonly pageApiMap_: Map<TabPageController, TabPageApi>;
-	private readonly rackApi_: BladeRackApi;
+	private readonly rackApi_: RackApi;
 
 	/**
 	 * @hidden
@@ -35,7 +35,7 @@ export class TabApi extends BladeApi<TabController> {
 		this.emitter_ = new Emitter();
 		this.pageApiMap_ = new Map();
 
-		this.rackApi_ = new BladeRackApi(this.controller_.rackController);
+		this.rackApi_ = new RackApi(this.controller_.rackController);
 		this.rackApi_.on('change', (ev) => {
 			this.emitter_.emit('change', {
 				event: ev,
@@ -105,7 +105,7 @@ export class TabApi extends BladeApi<TabController> {
 	private setUpPageApi_(pc: TabPageController) {
 		const rackApi = this.rackApi_['apiSet_'].find(
 			(api) => api.controller_ === pc.contentController,
-		) as BladeRackApi | null;
+		) as RackApi | null;
 		if (!rackApi) {
 			throw TpError.shouldNeverHappen();
 		}

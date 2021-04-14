@@ -1,6 +1,5 @@
 import {Emitter} from '../../../common/model/emitter';
 import {View} from '../../../common/view/view';
-import {BladeRackApi} from '../../blade-rack/api/blade-rack';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
 import {BladeContainerApi} from '../../common/api/blade-container';
@@ -20,6 +19,7 @@ import {
 import {BladeController} from '../../common/controller/blade';
 import {InputBindingApi} from '../../input-binding/api/input-binding';
 import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
+import {RackApi} from '../../rack/api/rack';
 import {SeparatorApi} from '../../separator/api/separator';
 import {FolderController} from '../controller/folder';
 import {FolderEvents} from '../model/folder';
@@ -39,7 +39,7 @@ interface FolderApiEvents {
 export class FolderApi extends BladeApi<FolderController>
 	implements BladeContainerApi {
 	private readonly emitter_: Emitter<FolderApiEvents>;
-	private readonly rackApi_: BladeRackApi;
+	private readonly rackApi_: RackApi;
 
 	/**
 	 * @hidden
@@ -53,7 +53,7 @@ export class FolderApi extends BladeApi<FolderController>
 
 		this.controller_.folder.emitter.on('change', this.onFolderChange_);
 
-		this.rackApi_ = new BladeRackApi(controller.rackController);
+		this.rackApi_ = new RackApi(controller.rackController);
 		this.rackApi_.on('change', (ev) => {
 			this.emitter_.emit('change', {
 				event: ev,

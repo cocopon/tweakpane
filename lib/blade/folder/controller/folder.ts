@@ -4,9 +4,9 @@ import {
 } from '../../../common/dom-util';
 import {ViewProps} from '../../../common/model/view-props';
 import {isEmpty} from '../../../misc/type-util';
-import {BladeRackController} from '../../blade-rack/controller/blade-rack';
 import {BladeController} from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
+import {RackController} from '../../rack/controller/rack';
 import {Folder, FolderEvents} from '../model/folder';
 import {FolderProps, FolderView} from '../view/folder';
 
@@ -50,11 +50,11 @@ function computeExpandedFolderHeight(
 export class FolderController extends BladeController<FolderView> {
 	public readonly folder: Folder;
 	public readonly props: FolderProps;
-	private readonly rc_: BladeRackController;
+	private readonly rc_: RackController;
 
 	constructor(doc: Document, config: Config) {
 		const folder = new Folder(config.expanded ?? true);
-		const rc = new BladeRackController(doc, {
+		const rc = new RackController(doc, {
 			blade: config.blade,
 			root: config.root,
 			viewProps: config.viewProps,
@@ -92,7 +92,7 @@ export class FolderController extends BladeController<FolderView> {
 		return this.view.element.ownerDocument;
 	}
 
-	get rackController(): BladeRackController {
+	get rackController(): RackController {
 		return this.rc_;
 	}
 
