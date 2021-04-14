@@ -22,7 +22,7 @@
 // number-text
 .#{$prefix}-txtv {
 	$knob-bounds-width: 12px;
-	$knob-visual-width: 4px;
+	$knob-visual-width: 2px;
 
 	&#{&}-num &_i {
 		text-align: right;
@@ -33,17 +33,16 @@
 	&_k {
 		cursor: pointer;
 		height: 100%;
-		left: -(($knob-bounds-width - $knob-visual-width) / 2);
+		left: 2px - (($knob-bounds-width - $knob-visual-width) / 2);
 		position: absolute;
 		top: 0;
 		width: $knob-bounds-width;
 
 		&::before {
 			background-color: var(--in-fg);
-			border-radius: 2px 0 0 2px;
 			bottom: 0;
 			content: '';
-			height: var(--bld-h);
+			height: calc(var(--bld-h) - 4px);
 			left: 50%;
 			margin-bottom: auto;
 			margin-left: -($knob-visual-width / 2);
@@ -51,27 +50,19 @@
 			opacity: 0.1;
 			position: absolute;
 			top: 0;
-			transition: height 0.1s;
+			transition: border-radius 0.1s, height 0.1s, transform 0.1s, width 0.1s;
 			width: $knob-visual-width;
 		}
-	}
-	&#{&}-mid &_k::before,
-	&#{&}-lst &_k::before {
-		border-bottom-left-radius: 0;
-		border-top-left-radius: 0;
 	}
 	&_k:hover::before,
 	&#{&}-drg &_k::before {
 		opacity: 1;
 	}
 	&#{&}-drg &_k::before {
-		border-radius: 2px;
+		border-radius: 50%;
 		height: 4px;
-	}
-	&#{&}-drg#{&}-mid &_k::before,
-	&#{&}-drg#{&}-list &_k::before {
-		border-bottom-left-radius: 2px;
-		border-top-left-radius: 2px;
+		transform: translateX(($knob-visual-width - 4px) / 2);
+		width: 4px;
 	}
 	&_g {
 		bottom: 0;
