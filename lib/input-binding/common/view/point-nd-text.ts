@@ -6,7 +6,7 @@ interface Config {
 	textViews: NumberTextView[];
 }
 
-const className = ClassName('p2dtxt');
+const className = ClassName('pndtxt');
 
 /**
  * @hidden
