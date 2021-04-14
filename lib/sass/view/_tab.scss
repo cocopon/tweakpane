@@ -8,6 +8,20 @@
 		display: flex;
 		overflow: hidden;
 	}
+	&#{&}-nop &_i {
+		height: calc(var(--bld-h) + 4px);
+		position: relative;
+
+		&::before {
+			background-color: var(--cnt-bg);
+			bottom: 0;
+			content: '';
+			height: 2px;
+			left: 0;
+			position: absolute;
+			right: 0;
+		}
+	}
 	&_c {
 		border-left: var(--cnt-bg) solid 4px;
 		padding-bottom: var(--cnt-p);

@@ -1,5 +1,6 @@
 import {insertElementAt, removeElement} from '../../../common/dom-util';
-import {ValueEvents} from '../../../common/model/value';
+import {PrimitiveValue} from '../../../common/model/primitive-value';
+import {Value, ValueEvents} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {RackLikeController} from '../../common/controller/rack-like';
 import {Blade} from '../../common/model/blade';
@@ -24,17 +25,20 @@ export interface TabPageParams {
 
 export class TabController extends RackLikeController<TabView> {
 	private readonly pageSet_: NestedOrderedSet<TabPageController>;
+	private readonly empty_: Value<boolean>;
 
 	constructor(doc: Document, config: Config) {
 		const cr = new RackController(doc, {
 			blade: config.blade,
 			viewProps: config.viewProps,
 		});
+		const empty = new PrimitiveValue(true as boolean);
 		super({
 			blade: config.blade,
 			rackController: cr,
 			view: new TabView(doc, {
 				contentsElement: cr.view.element,
+				empty: empty,
 				viewProps: config.viewProps,
 			}),
 			viewProps: config.viewProps,
@@ -48,7 +52,8 @@ export class TabController extends RackLikeController<TabView> {
 		this.pageSet_.emitter.on('add', this.onPageAdd_);
 		this.pageSet_.emitter.on('remove', this.onPageRemove_);
 
-		this.keepSelection_();
+		this.empty_ = empty;
+		this.applyPages_();
 	}
 
 	get pageSet(): NestedOrderedSet<TabPageController> {
@@ -63,6 +68,11 @@ export class TabController extends RackLikeController<TabView> {
 		this.pageSet_.remove(this.pageSet_.items[index]);
 	}
 
+	private applyPages_(): void {
+		this.keepSelection_();
+		this.empty_.rawValue = this.pageSet_.items.length === 0;
+	}
+
 	private onPageAdd_(
 		ev: NestedOrderedSetEvents<TabPageController>['add'],
 	): void {
@@ -75,7 +85,7 @@ export class TabController extends RackLikeController<TabView> {
 		this.rackController.rack.add(pc.contentController, ev.index);
 
 		pc.props.value('selected').emitter.on('change', this.onPageSelectedChange_);
-		this.keepSelection_();
+		this.applyPages_();
 	}
 
 	private onPageRemove_(
@@ -88,7 +98,7 @@ export class TabController extends RackLikeController<TabView> {
 		pc.props
 			.value('selected')
 			.emitter.off('change', this.onPageSelectedChange_);
-		this.keepSelection_();
+		this.applyPages_();
 	}
 
 	private keepSelection_(): void {
