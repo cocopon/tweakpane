@@ -9,16 +9,15 @@ import {TpError} from '../../../common/tp-error';
 import {View} from '../../../common/view/view';
 import {Class, forceCast} from '../../../misc/type-util';
 import {BladeController} from '../../common/controller/blade';
+import {RackLikeController} from '../../common/controller/rack-like';
 import {Blade, BladeEvents} from '../../common/model/blade';
 import {BladePosition} from '../../common/model/blade-positions';
 import {
 	NestedOrderedSet,
 	NestedOrderedSetEvents,
 } from '../../common/model/nested-ordered-set';
-import {FolderController} from '../../folder/controller/folder';
 import {InputBindingController} from '../../input-binding/controller/input-binding';
 import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
-import {TabController} from '../../tab/controller/tab';
 import {RackController} from '../controller/rack';
 
 /**
@@ -80,10 +79,7 @@ function findSubRack(bc: BladeController<View>): BladeRack | null {
 	if (bc instanceof RackController) {
 		return bc.rack;
 	}
-	if (bc instanceof FolderController) {
-		return bc.rackController.rack;
-	}
-	if (bc instanceof TabController) {
+	if (bc instanceof RackLikeController) {
 		return bc.rackController.rack;
 	}
 	return null;
