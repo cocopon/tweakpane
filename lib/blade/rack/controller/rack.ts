@@ -3,7 +3,7 @@ import {ViewProps} from '../../../common/model/view-props';
 import {PlainView} from '../../../common/view/plain';
 import {BladeController} from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
-import {BladeRack, BladeRackEvents} from '../model/blade-rack';
+import {BladeRack, BladeRackEvents} from '../../common/model/blade-rack';
 
 interface Config {
 	blade: Blade;

@@ -18,7 +18,7 @@ import {
 } from '../../common/model/nested-ordered-set';
 import {InputBindingController} from '../../input-binding/controller/input-binding';
 import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
-import {RackController} from '../controller/rack';
+import {RackController} from '../../rack/controller/rack';
 
 /**
  * @hidden
