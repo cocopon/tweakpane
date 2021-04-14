@@ -27,6 +27,7 @@ describe(TabPageApi.name, () => {
 
 	it('should have initial state', () => {
 		const api = createApi();
+		assert.strictEqual(api.selected, false);
 		assert.strictEqual(api.title, 'foo');
 	});
 
@@ -39,5 +40,8 @@ describe(TabPageApi.name, () => {
 			api.controller_.itemController.view.element.innerHTML.includes('changed'),
 			true,
 		);
+
+		api.selected = true;
+		assert.strictEqual(api.selected, true);
 	});
 });

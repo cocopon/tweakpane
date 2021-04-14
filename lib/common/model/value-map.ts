@@ -1,6 +1,6 @@
 import {Emitter} from './emitter';
 import {PrimitiveValue} from './primitive-value';
-import {Value, ValueEvents} from './value';
+import {Value} from './value';
 
 export interface ValueMapEvents<O extends Record<string, unknown>> {
 	change: {
@@ -43,9 +43,7 @@ export class ValueMap<O extends Record<string, unknown>> {
 		this.valMap_[key].rawValue = value;
 	}
 
-	public valueEmitter<Key extends keyof O>(
-		key: Key,
-	): Emitter<ValueEvents<O[Key]>> {
-		return this.valMap_[key].emitter;
+	public value<Key extends keyof O>(key: Key): Value<O[Key]> {
+		return this.valMap_[key];
 	}
 }

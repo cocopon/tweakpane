@@ -34,6 +34,29 @@ describe(TabController.name, () => {
 		assert.strictEqual(c.pageSet.items[1].props.get('selected'), false);
 	});
 
+	it('should select first page by default', () => {
+		const win = TestUtil.createWindow();
+		const doc = win.document;
+		const c = new TabController(doc, {
+			blade: new Blade(),
+			viewProps: createViewProps(),
+		});
+		const pcs = [
+			createTabPage(doc, 'foo'),
+			createTabPage(doc, 'bar'),
+			createTabPage(doc, 'baz'),
+		];
+		c.add(pcs[0]);
+		assert.strictEqual(c.pageSet.items[0].props.get('selected'), true);
+
+		c.add(pcs[1]);
+		c.add(pcs[2]);
+		assert.deepStrictEqual(
+			c.pageSet.items.map((i) => i.props.get('selected')),
+			[true, false, false],
+		);
+	});
+
 	it('should change selection', () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
@@ -41,14 +64,29 @@ describe(TabController.name, () => {
 			blade: new Blade(),
 			viewProps: createViewProps(),
 		});
-		c.add(createTabPage(doc, 'foo'));
-		const pc = createTabPage(doc, 'bar');
-		c.add(pc);
-		c.add(createTabPage(doc, 'baz'));
-		const ev = TestUtil.createEvent(win, 'click');
-		pc.itemController.view.buttonElement.dispatchEvent(ev);
-		assert.strictEqual(c.pageSet.items[0].props.get('selected'), false);
-		assert.strictEqual(c.pageSet.items[1].props.get('selected'), true);
-		assert.strictEqual(c.pageSet.items[2].props.get('selected'), false);
+		const pcs = [
+			createTabPage(doc, 'foo'),
+			createTabPage(doc, 'bar'),
+			createTabPage(doc, 'baz'),
+		];
+		c.add(pcs[0]);
+		c.add(pcs[1]);
+		c.add(pcs[2]);
+
+		pcs[1].props.set('selected', true);
+		assert.deepStrictEqual(
+			c.pageSet.items.map((i) => i.props.get('selected')),
+			[false, true, false],
+		);
+		pcs[0].props.set('selected', true);
+		assert.deepStrictEqual(
+			c.pageSet.items.map((i) => i.props.get('selected')),
+			[true, false, false],
+		);
+		pcs[2].props.set('selected', true);
+		assert.deepStrictEqual(
+			c.pageSet.items.map((i) => i.props.get('selected')),
+			[false, false, true],
+		);
 	});
 });
