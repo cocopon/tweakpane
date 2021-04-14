@@ -2,7 +2,7 @@ import {Emitter} from '../../../common/model/emitter';
 import {View} from '../../../common/view/view';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
-import {BladeContainerApi} from '../../common/api/blade-container';
+import {BladeRackApi} from '../../common/api/blade-rack';
 import {
 	TpChangeEvent,
 	TpFoldEvent,
@@ -37,7 +37,7 @@ interface FolderApiEvents {
 }
 
 export class FolderApi extends BladeApi<FolderController>
-	implements BladeContainerApi {
+	implements BladeRackApi {
 	private readonly emitter_: Emitter<FolderApiEvents>;
 	private readonly rackApi_: RackApi;
 

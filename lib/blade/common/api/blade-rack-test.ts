@@ -2,9 +2,9 @@ import * as assert from 'assert';
 import {it} from 'mocha';
 
 import {parseNumber} from '../../../common/converter/number';
-import {BladeContainerApi} from './blade-container';
+import {BladeRackApi} from './blade-rack';
 
-export function testBladeContainer(createApi: () => BladeContainerApi) {
+export function testBladeContainer(createApi: () => BladeRackApi) {
 	it('should implement children', () => {
 		const api = createApi();
 		const bapis = [api.addSeparator(), api.addSeparator(), api.addSeparator()];

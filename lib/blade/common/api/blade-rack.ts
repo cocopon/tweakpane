@@ -15,7 +15,7 @@ import {
 	SeparatorParams,
 } from './types';
 
-export interface BladeContainerApi {
+export interface BladeRackApi {
 	/**
 	 * Children of the container.
 	 */
@@ -60,7 +60,7 @@ export interface BladeContainerApi {
 }
 
 export function addButtonAsBlade(
-	api: BladeContainerApi,
+	api: BladeRackApi,
 	params: ButtonParams,
 ): ButtonApi {
 	return api.addBlade_v3_({
@@ -70,7 +70,7 @@ export function addButtonAsBlade(
 }
 
 export function addFolderAsBlade(
-	api: BladeContainerApi,
+	api: BladeRackApi,
 	params: FolderParams,
 ): FolderApi {
 	return api.addBlade_v3_({
@@ -80,7 +80,7 @@ export function addFolderAsBlade(
 }
 
 export function addSeparatorAsBlade(
-	api: BladeContainerApi,
+	api: BladeRackApi,
 	opt_params?: SeparatorParams,
 ): SeparatorApi {
 	const params = opt_params || {};

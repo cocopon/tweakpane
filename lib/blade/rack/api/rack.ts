@@ -8,8 +8,8 @@ import {
 	addButtonAsBlade,
 	addFolderAsBlade,
 	addSeparatorAsBlade,
-	BladeContainerApi,
-} from '../../common/api/blade-container';
+	BladeRackApi,
+} from '../../common/api/blade-rack';
 import {
 	createBlade,
 	createBladeApi,
@@ -75,8 +75,7 @@ function getApiByController(
 /**
  * @hidden
  */
-export class RackApi extends BladeApi<RackController>
-	implements BladeContainerApi {
+export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 	private readonly emitter_: Emitter<BladeRackApiEvents>;
 	private apiSet_: NestedOrderedSet<BladeApi<BladeController<View>>>;
 
