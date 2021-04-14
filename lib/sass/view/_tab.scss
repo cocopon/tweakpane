@@ -1,4 +1,8 @@
 .#{$prefix}-tabv {
+	&.#{$prefix}-v-disabled {
+		opacity: 0.5;
+	}
+
 	&_i {
 		align-items: flex-end;
 		display: flex;
