@@ -16,6 +16,7 @@ import {
 	createInput,
 	createMonitor,
 } from '../../common/api/plugins';
+import {RackLikeApi} from '../../common/api/rack-like-api';
 import {TpChangeEvent, TpUpdateEvent} from '../../common/api/tp-event';
 import {
 	BladeParams,
@@ -33,7 +34,6 @@ import {FolderApi} from '../../folder/api/folder';
 import {InputBindingApi} from '../../input-binding/api/input-binding';
 import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
 import {SeparatorApi} from '../../separator/api/separator';
-import {TabApi} from '../../tab/api/tab';
 import {RackController} from '../controller/rack';
 
 export interface BladeRackApiEvents {
@@ -51,10 +51,7 @@ export function findSubBladeApiSet(
 	if (api instanceof RackApi) {
 		return api['apiSet_'];
 	}
-	if (api instanceof FolderApi) {
-		return api['rackApi_']['apiSet_'];
-	}
-	if (api instanceof TabApi) {
+	if (api instanceof RackLikeApi) {
 		return api['rackApi_']['apiSet_'];
 	}
 	return null;

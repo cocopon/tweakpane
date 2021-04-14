@@ -3,6 +3,7 @@ import {View} from '../../../common/view/view';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
 import {BladeRackApi} from '../../common/api/blade-rack';
+import {RackLikeApi} from '../../common/api/rack-like-api';
 import {
 	TpChangeEvent,
 	TpFoldEvent,
@@ -36,16 +37,15 @@ interface FolderApiEvents {
 	};
 }
 
-export class FolderApi extends BladeApi<FolderController>
+export class FolderApi extends RackLikeApi<FolderController>
 	implements BladeRackApi {
 	private readonly emitter_: Emitter<FolderApiEvents>;
-	private readonly rackApi_: RackApi;
 
 	/**
 	 * @hidden
 	 */
 	constructor(controller: FolderController) {
-		super(controller);
+		super(controller, new RackApi(controller.rackController));
 
 		this.onFolderChange_ = this.onFolderChange_.bind(this);
 
@@ -53,7 +53,6 @@ export class FolderApi extends BladeApi<FolderController>
 
 		this.controller_.folder.emitter.on('change', this.onFolderChange_);
 
-		this.rackApi_ = new RackApi(controller.rackController);
 		this.rackApi_.on('change', (ev) => {
 			this.emitter_.emit('change', {
 				event: ev,
