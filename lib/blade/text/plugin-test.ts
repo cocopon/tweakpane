@@ -10,7 +10,7 @@ import {
 	createEmptyLabelableController,
 	createLabelController,
 } from '../test-util';
-import {TextBladeApi} from './api/text';
+import {TextApi} from './api/text';
 import {TextBladeParams, TextBladePlugin} from './plugin';
 
 describe(TextBladePlugin.id, () => {
@@ -68,7 +68,7 @@ describe(TextBladePlugin.id, () => {
 			document: doc,
 			params: params,
 		});
-		const api = createBladeApi(forceCast(bc)) as TextBladeApi<string>;
+		const api = createBladeApi(forceCast(bc)) as TextApi<string>;
 		assert.strictEqual(api.formatter, formatter);
 		assert.strictEqual(api.value, 'hello');
 		assert.strictEqual(

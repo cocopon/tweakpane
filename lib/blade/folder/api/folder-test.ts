@@ -7,7 +7,7 @@ import {createViewProps} from '../../../common/model/view-props';
 import {Color} from '../../../input-binding/color/model/color';
 import {TestUtil} from '../../../misc/test-util';
 import {forceCast} from '../../../misc/type-util';
-import {testBladeContainer} from '../../common/api/blade-container-test';
+import {testBladeContainer} from '../../common/api/blade-rack-test';
 import {assertUpdates} from '../../common/api/test-util';
 import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event';
 import {Blade} from '../../common/model/blade';

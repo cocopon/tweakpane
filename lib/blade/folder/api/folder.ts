@@ -1,9 +1,9 @@
 import {Emitter} from '../../../common/model/emitter';
 import {View} from '../../../common/view/view';
-import {BladeRackApi} from '../../blade-rack/api/blade-rack';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
-import {BladeContainerApi} from '../../common/api/blade-container';
+import {BladeRackApi} from '../../common/api/blade-rack';
+import {RackLikeApi} from '../../common/api/rack-like-api';
 import {
 	TpChangeEvent,
 	TpFoldEvent,
@@ -20,6 +20,7 @@ import {
 import {BladeController} from '../../common/controller/blade';
 import {InputBindingApi} from '../../input-binding/api/input-binding';
 import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
+import {RackApi} from '../../rack/api/rack';
 import {SeparatorApi} from '../../separator/api/separator';
 import {FolderController} from '../controller/folder';
 import {FolderEvents} from '../model/folder';
@@ -36,16 +37,15 @@ interface FolderApiEvents {
 	};
 }
 
-export class FolderApi extends BladeApi<FolderController>
-	implements BladeContainerApi {
+export class FolderApi extends RackLikeApi<FolderController>
+	implements BladeRackApi {
 	private readonly emitter_: Emitter<FolderApiEvents>;
-	private readonly rackApi_: BladeRackApi;
 
 	/**
 	 * @hidden
 	 */
 	constructor(controller: FolderController) {
-		super(controller);
+		super(controller, new RackApi(controller.rackController));
 
 		this.onFolderChange_ = this.onFolderChange_.bind(this);
 
@@ -53,7 +53,6 @@ export class FolderApi extends BladeApi<FolderController>
 
 		this.controller_.folder.emitter.on('change', this.onFolderChange_);
 
-		this.rackApi_ = new BladeRackApi(controller.rackController);
 		this.rackApi_.on('change', (ev) => {
 			this.emitter_.emit('change', {
 				event: ev,

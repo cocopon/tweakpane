@@ -8,7 +8,7 @@ import {forceCast} from '../../misc/type-util';
 import {BladeParams} from '../common/api/types';
 import {LabelController} from '../label/controller/label';
 import {BladePlugin} from '../plugin';
-import {TextBladeApi} from './api/text';
+import {TextApi} from './api/text';
 
 export interface TextBladeParams<T> extends BladeParams {
 	parse: Parser<T>;
@@ -65,7 +65,7 @@ export const TextBladePlugin = (function<T>(): BladePlugin<TextBladeParams<T>> {
 			if (!(controller.valueController instanceof TextController)) {
 				return null;
 			}
-			return new TextBladeApi(controller);
+			return new TextApi(controller);
 		},
 	};
 })();

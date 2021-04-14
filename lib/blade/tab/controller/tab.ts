@@ -2,13 +2,13 @@ import {insertElementAt, removeElement} from '../../../common/dom-util';
 import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
-import {BladeRackController} from '../../blade-rack/controller/blade-rack';
-import {BladeController} from '../../common/controller/blade';
+import {RackLikeController} from '../../common/controller/rack-like';
 import {Blade} from '../../common/model/blade';
 import {
 	NestedOrderedSet,
 	NestedOrderedSetEvents,
 } from '../../common/model/nested-ordered-set';
+import {RackController} from '../../rack/controller/rack';
 import {TabView} from '../view/tab';
 import {TabItemEvents} from './tab-item';
 import {TabPageController} from './tab-page';
@@ -24,18 +24,18 @@ export interface TabPageParams {
 	index?: number;
 }
 
-export class TabController extends BladeController<TabView> {
-	private readonly contentsRc_: BladeRackController;
+export class TabController extends RackLikeController<TabView> {
 	private readonly pageSet_: NestedOrderedSet<TabPageController>;
 	private readonly sel_: Value<number>;
 
 	constructor(doc: Document, config: Config) {
-		const cr = new BladeRackController(doc, {
+		const cr = new RackController(doc, {
 			blade: config.blade,
 			viewProps: config.viewProps,
 		});
 		super({
 			blade: config.blade,
+			rackController: cr,
 			view: new TabView(doc, {
 				contentsElement: cr.view.element,
 				viewProps: config.viewProps,
@@ -52,8 +52,6 @@ export class TabController extends BladeController<TabView> {
 		this.pageSet_.emitter.on('add', this.onPageAdd_);
 		this.pageSet_.emitter.on('remove', this.onPageRemove_);
 
-		this.contentsRc_ = cr;
-
 		this.sel_ = new PrimitiveValue(0);
 		this.sel_.emitter.on('change', this.onSelectionChange_);
 		this.applySelection_();
@@ -61,10 +59,6 @@ export class TabController extends BladeController<TabView> {
 
 	get pageSet(): NestedOrderedSet<TabPageController> {
 		return this.pageSet_;
-	}
-
-	get rackController(): BladeRackController {
-		return this.contentsRc_;
 	}
 
 	public add(pc: TabPageController, opt_index?: number): void {
@@ -95,7 +89,7 @@ export class TabController extends BladeController<TabView> {
 			pc.itemController.view.element,
 			ev.index,
 		);
-		this.contentsRc_.rack.add(pc.contentController, ev.index);
+		this.rackController.rack.add(pc.contentController, ev.index);
 		this.applySelection_();
 	}
 
@@ -104,7 +98,7 @@ export class TabController extends BladeController<TabView> {
 	): void {
 		const pc = ev.item;
 		removeElement(pc.itemController.view.element);
-		this.contentsRc_.rack.remove(pc.contentController);
+		this.rackController.rack.remove(pc.contentController);
 	}
 
 	private applySelection_() {

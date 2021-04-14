@@ -4,9 +4,9 @@ import {
 } from '../../../common/dom-util';
 import {ViewProps} from '../../../common/model/view-props';
 import {isEmpty} from '../../../misc/type-util';
-import {BladeRackController} from '../../blade-rack/controller/blade-rack';
-import {BladeController} from '../../common/controller/blade';
+import {RackLikeController} from '../../common/controller/rack-like';
 import {Blade} from '../../common/model/blade';
+import {RackController} from '../../rack/controller/rack';
 import {Folder, FolderEvents} from '../model/folder';
 import {FolderProps, FolderView} from '../view/folder';
 
@@ -47,20 +47,21 @@ function computeExpandedFolderHeight(
 /**
  * @hidden
  */
-export class FolderController extends BladeController<FolderView> {
+export class FolderController extends RackLikeController<FolderView> {
 	public readonly folder: Folder;
 	public readonly props: FolderProps;
-	private readonly rc_: BladeRackController;
+	private readonly rc_: RackController;
 
 	constructor(doc: Document, config: Config) {
 		const folder = new Folder(config.expanded ?? true);
-		const rc = new BladeRackController(doc, {
+		const rc = new RackController(doc, {
 			blade: config.blade,
 			root: config.root,
 			viewProps: config.viewProps,
 		});
 		super({
 			...config,
+			rackController: rc,
 			view: new FolderView(doc, {
 				containerElement: rc.view.element,
 				folder: folder,
@@ -90,10 +91,6 @@ export class FolderController extends BladeController<FolderView> {
 
 	get document(): Document {
 		return this.view.element.ownerDocument;
-	}
-
-	get rackController(): BladeRackController {
-		return this.rc_;
 	}
 
 	public onDispose() {

@@ -3,7 +3,7 @@ import {ViewProps} from '../../../common/model/view-props';
 import {PlainView} from '../../../common/view/plain';
 import {BladeController} from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
-import {BladeRack, BladeRackEvents} from '../model/blade-rack';
+import {BladeRack, BladeRackEvents} from '../../common/model/blade-rack';
 
 interface Config {
 	blade: Blade;
@@ -15,7 +15,7 @@ interface Config {
 /**
  * @hidden
  */
-export class BladeRackController extends BladeController<PlainView> {
+export class RackController extends BladeController<PlainView> {
 	public readonly rack: BladeRack;
 
 	constructor(doc: Document, config: Config) {
@@ -30,7 +30,7 @@ export class BladeRackController extends BladeController<PlainView> {
 		this.onRackAdd_ = this.onRackAdd_.bind(this);
 		this.onRackRemove_ = this.onRackRemove_.bind(this);
 
-		const rack = new BladeRack(config.root ? undefined : this.blade);
+		const rack = new BladeRack(config.root ? undefined : config.blade);
 		rack.emitter.on('add', this.onRackAdd_);
 		rack.emitter.on('remove', this.onRackRemove_);
 		this.rack = rack;

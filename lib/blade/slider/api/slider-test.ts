@@ -15,9 +15,9 @@ import {
 import {Blade} from '../../common/model/blade';
 import {LabelController} from '../../label/controller/label';
 import {LabelPropsObject} from '../../label/view/label';
-import {SliderBladeApi} from './slider';
+import {SliderApi} from './slider';
 
-describe(SliderBladeApi.name, () => {
+describe(SliderApi.name, () => {
 	it('should dispose', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
@@ -40,7 +40,7 @@ describe(SliderBladeApi.name, () => {
 				viewProps: createViewProps(),
 			}),
 		});
-		const api = new SliderBladeApi(c);
+		const api = new SliderApi(c);
 		assertDisposes(api);
 	});
 
@@ -66,7 +66,7 @@ describe(SliderBladeApi.name, () => {
 				viewProps: createViewProps(),
 			}),
 		});
-		const api = new SliderBladeApi(c);
+		const api = new SliderApi(c);
 
 		assertInitialState(api);
 		assert.strictEqual(api.maxValue, 100);
@@ -97,7 +97,7 @@ describe(SliderBladeApi.name, () => {
 				viewProps: createViewProps(),
 			}),
 		});
-		const api = new SliderBladeApi(c);
+		const api = new SliderApi(c);
 
 		assertUpdates(api);
 
@@ -135,7 +135,7 @@ describe(SliderBladeApi.name, () => {
 				viewProps: createViewProps(),
 			}),
 		});
-		const api = new SliderBladeApi(c);
+		const api = new SliderApi(c);
 
 		api.on('change', (ev) => {
 			assert.strictEqual(ev.presetKey, undefined);

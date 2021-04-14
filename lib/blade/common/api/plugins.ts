@@ -11,13 +11,13 @@ import {
 	MonitorBindingPlugin,
 } from '../../../monitor-binding/plugin';
 import {BasePlugin} from '../../../plugin';
-import {BladeRackApi} from '../../blade-rack/api/blade-rack';
-import {BladeRackController} from '../../blade-rack/controller/blade-rack';
 import {InputBindingApi} from '../../input-binding/api/input-binding';
 import {InputBindingController} from '../../input-binding/controller/input-binding';
 import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
 import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
 import {BladePlugin, createBladeController} from '../../plugin';
+import {RackApi} from '../../rack/api/rack';
+import {RackController} from '../../rack/controller/rack';
 import {BladeController} from '../controller/blade';
 import {BladeApi} from './blade';
 import {InputParams, MonitorParams} from './types';
@@ -140,8 +140,8 @@ export function createBladeApi(
 	if (bc instanceof MonitorBindingController) {
 		return new MonitorBindingApi(bc);
 	}
-	if (bc instanceof BladeRackController) {
-		return new BladeRackApi(bc);
+	if (bc instanceof RackController) {
+		return new RackApi(bc);
 	}
 
 	const api = Plugins.blades.reduce(

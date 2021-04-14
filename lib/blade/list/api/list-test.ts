@@ -15,9 +15,9 @@ import {
 import {Blade} from '../../common/model/blade';
 import {LabelController} from '../../label/controller/label';
 import {LabelPropsObject} from '../../label/view/label';
-import {ListBladeApi} from './list';
+import {ListApi} from './list';
 
-describe(ListBladeApi.name, () => {
+describe(ListApi.name, () => {
 	it('should dispose', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
@@ -33,7 +33,7 @@ describe(ListBladeApi.name, () => {
 				viewProps: createViewProps(),
 			}),
 		});
-		const api = new ListBladeApi(c);
+		const api = new ListApi(c);
 		assertDisposes(api);
 	});
 
@@ -55,7 +55,7 @@ describe(ListBladeApi.name, () => {
 				viewProps: createViewProps(),
 			}),
 		});
-		const api = new ListBladeApi(c);
+		const api = new ListApi(c);
 
 		assertInitialState(api);
 		assert.strictEqual(api.label, undefined);
@@ -82,7 +82,7 @@ describe(ListBladeApi.name, () => {
 				viewProps: createViewProps(),
 			}),
 		});
-		const api = new ListBladeApi(c);
+		const api = new ListApi(c);
 
 		assertUpdates(api);
 
@@ -118,7 +118,7 @@ describe(ListBladeApi.name, () => {
 				viewProps: createViewProps(),
 			}),
 		});
-		const api = new ListBladeApi(c);
+		const api = new ListApi(c);
 
 		api.on('change', (ev) => {
 			assert.strictEqual(ev.presetKey, undefined);

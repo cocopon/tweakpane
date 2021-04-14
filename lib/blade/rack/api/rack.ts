@@ -2,21 +2,21 @@ import {Emitter} from '../../../common/model/emitter';
 import {TpError} from '../../../common/tp-error';
 import {View} from '../../../common/view/view';
 import {forceCast} from '../../../misc/type-util';
-import {BladeRackEvents} from '../../blade-rack/model/blade-rack';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
 import {
 	addButtonAsBlade,
 	addFolderAsBlade,
 	addSeparatorAsBlade,
-	BladeContainerApi,
-} from '../../common/api/blade-container';
+	BladeRackApi,
+} from '../../common/api/blade-rack';
 import {
 	createBlade,
 	createBladeApi,
 	createInput,
 	createMonitor,
 } from '../../common/api/plugins';
+import {RackLikeApi} from '../../common/api/rack-like-api';
 import {TpChangeEvent, TpUpdateEvent} from '../../common/api/tp-event';
 import {
 	BladeParams,
@@ -28,13 +28,13 @@ import {
 } from '../../common/api/types';
 import {createBindingTarget} from '../../common/api/util';
 import {BladeController} from '../../common/controller/blade';
+import {BladeRackEvents} from '../../common/model/blade-rack';
 import {NestedOrderedSet} from '../../common/model/nested-ordered-set';
 import {FolderApi} from '../../folder/api/folder';
 import {InputBindingApi} from '../../input-binding/api/input-binding';
 import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
 import {SeparatorApi} from '../../separator/api/separator';
-import {TabApi} from '../../tab/api/tab';
-import {BladeRackController} from '../controller/blade-rack';
+import {RackController} from '../controller/rack';
 
 export interface BladeRackApiEvents {
 	change: {
@@ -48,13 +48,10 @@ export interface BladeRackApiEvents {
 export function findSubBladeApiSet(
 	api: BladeApi<BladeController<View>>,
 ): NestedOrderedSet<BladeApi<BladeController<View>>> | null {
-	if (api instanceof BladeRackApi) {
+	if (api instanceof RackApi) {
 		return api['apiSet_'];
 	}
-	if (api instanceof FolderApi) {
-		return api['rackApi_']['apiSet_'];
-	}
-	if (api instanceof TabApi) {
+	if (api instanceof RackLikeApi) {
 		return api['rackApi_']['apiSet_'];
 	}
 	return null;
@@ -75,15 +72,14 @@ function getApiByController(
 /**
  * @hidden
  */
-export class BladeRackApi extends BladeApi<BladeRackController>
-	implements BladeContainerApi {
+export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 	private readonly emitter_: Emitter<BladeRackApiEvents>;
 	private apiSet_: NestedOrderedSet<BladeApi<BladeController<View>>>;
 
 	/**
 	 * @hidden
 	 */
-	constructor(controller: BladeRackController) {
+	constructor(controller: RackController) {
 		super(controller);
 
 		this.onRackAdd_ = this.onRackAdd_.bind(this);

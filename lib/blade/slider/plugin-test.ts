@@ -10,7 +10,7 @@ import {
 	createEmptyLabelableController,
 	createLabelController,
 } from '../test-util';
-import {SliderBladeApi} from './api/slider';
+import {SliderApi} from './api/slider';
 import {SliderBladeParams, SliderBladePlugin} from './plugin';
 
 describe(SliderBladePlugin.id, () => {
@@ -67,7 +67,7 @@ describe(SliderBladePlugin.id, () => {
 				view: 'slider',
 			} as SliderBladeParams,
 		});
-		const api = createBladeApi(forceCast(bc)) as SliderBladeApi;
+		const api = createBladeApi(forceCast(bc)) as SliderApi;
 
 		assert.strictEqual(api.maxValue, 100);
 		assert.strictEqual(api.minValue, -100);

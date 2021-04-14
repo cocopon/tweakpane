@@ -6,8 +6,7 @@ import {TpChangeEvent} from '../../common/api/tp-event';
 import {ApiChangeEvents} from '../../common/api/types';
 import {LabelController} from '../../label/controller/label';
 
-export class ListBladeApi<T>
-	extends BladeApi<LabelController<ListController<T>>>
+export class ListApi<T> extends BladeApi<LabelController<ListController<T>>>
 	implements LabelableApi {
 	private readonly emitter_: Emitter<ApiChangeEvents<T>> = new Emitter();
 

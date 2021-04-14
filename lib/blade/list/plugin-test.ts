@@ -10,7 +10,7 @@ import {
 	createEmptyLabelableController,
 	createLabelController,
 } from '../test-util';
-import {ListBladeApi} from './api/list';
+import {ListApi} from './api/list';
 import {ListBladeParams, ListBladePlugin} from './plugin';
 
 describe(ListBladePlugin.id, () => {
@@ -91,7 +91,7 @@ describe(ListBladePlugin.id, () => {
 				view: 'list',
 			} as ListBladeParams<number>,
 		});
-		const api = createBladeApi(forceCast(bc)) as ListBladeApi<number>;
+		const api = createBladeApi(forceCast(bc)) as ListApi<number>;
 
 		assert.strictEqual(api.value, 123);
 		assert.deepStrictEqual(api.options[0], {text: 'foo', value: 1});

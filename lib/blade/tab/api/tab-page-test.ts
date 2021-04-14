@@ -3,8 +3,8 @@ import {describe} from 'mocha';
 
 import {ValueMap} from '../../../common/model/value-map';
 import {TestUtil} from '../../../misc/test-util';
-import {BladeRackApi} from '../../blade-rack/api/blade-rack';
-import {testBladeContainer} from '../../common/api/blade-container-test';
+import {testBladeContainer} from '../../common/api/blade-rack-test';
+import {RackApi} from '../../rack/api/rack';
 import {TabPageController} from '../controller/tab-page';
 import {TabPageApi} from './tab-page';
 
@@ -19,7 +19,7 @@ function createApi() {
 			selected: false as boolean,
 		}),
 	});
-	return new TabPageApi(c, new BladeRackApi(c.contentController));
+	return new TabPageApi(c, new RackApi(c.contentController));
 }
 
 describe(TabPageApi.name, () => {
