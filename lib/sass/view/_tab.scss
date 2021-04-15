@@ -56,8 +56,6 @@
 		@extend %resetUserAgent;
 
 		background-color: var(--cnt-bg);
-		border-top-left-radius: var(--elm-br);
-		border-top-right-radius: var(--elm-br);
 		display: block;
 		padding-left: calc(var(--cnt-p) + 4px);
 		padding-right: calc(var(--cnt-p) + 4px);
@@ -75,12 +73,6 @@
 		&:disabled {
 			opacity: 0.5;
 		}
-	}
-	&:first-child &_b {
-		border-top-left-radius: 0;
-	}
-	&:last-child &_b {
-		border-top-right-radius: 0;
 	}
 	&_t {
 		color: var(--cnt-fg);
