@@ -9,6 +9,7 @@ import {
 } from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {isEmpty} from '../../../misc/type-util';
+import {bladeContainerClassName} from '../../common/view/blade-container';
 import {Folder} from '../model/folder';
 
 export type FolderProps = ValueMap<{
@@ -43,7 +44,7 @@ export class FolderView implements View {
 
 		this.className_ = ClassName(config.viewName || 'fld');
 		this.element = doc.createElement('div');
-		this.element.classList.add(this.className_());
+		this.element.classList.add(this.className_(), bladeContainerClassName());
 		bindClassModifier(config.viewProps, this.element);
 
 		const buttonElem = doc.createElement('button');
