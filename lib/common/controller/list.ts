@@ -1,7 +1,7 @@
-import {ListProps, ListView} from '../../input-binding/common/view/list';
 import {forceCast} from '../../misc/type-util';
 import {Value} from '../model/value';
 import {ViewProps} from '../model/view-props';
+import {ListProps, ListView} from '../view/list';
 import {ValueController} from './value';
 
 interface Config<T> {

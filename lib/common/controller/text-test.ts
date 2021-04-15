@@ -42,4 +42,22 @@ describe(TextController.name, () => {
 
 		assert.strictEqual(c.value.rawValue, 3.14);
 	});
+
+	it('should revert value for invalid input', () => {
+		const win = TestUtil.createWindow();
+		const doc = win.document;
+		const c = new TextController(doc, {
+			parser: parseNumber,
+			props: new ValueMap({
+				formatter: createNumberFormatter(0),
+			}),
+			value: new BoundValue(123),
+			viewProps: createViewProps(),
+		});
+
+		const inputElem = c.view.inputElement;
+		inputElem.value = 'foobar';
+		inputElem.dispatchEvent(TestUtil.createEvent(win, 'change'));
+		assert.strictEqual(inputElem.value, '123');
+	});
 });

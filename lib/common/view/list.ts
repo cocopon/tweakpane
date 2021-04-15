@@ -1,18 +1,11 @@
-import {ListItem} from '../../../common/constraint/list';
-import {
-	createSvgIconElement,
-	removeChildElements,
-} from '../../../common/dom-util';
-import {Value} from '../../../common/model/value';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {ClassName} from '../../../common/view/class-name';
-import {
-	bindClassModifier,
-	bindDisabled,
-	bindValueMap,
-} from '../../../common/view/reactive';
-import {View} from '../../../common/view/view';
+import {ListItem} from '../constraint/list';
+import {createSvgIconElement, removeChildElements} from '../dom-util';
+import {Value} from '../model/value';
+import {ValueMap} from '../model/value-map';
+import {ViewProps} from '../model/view-props';
+import {ClassName} from './class-name';
+import {bindClassModifier, bindDisabled, bindValueMap} from './reactive';
+import {View} from './view';
 
 export type ListProps<T> = ValueMap<{
 	options: ListItem<T>[];

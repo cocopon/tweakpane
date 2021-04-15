@@ -1,10 +1,10 @@
-import {Formatter} from '../../../common/converter/formatter';
-import {Value} from '../../../common/model/value';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {ClassName} from '../../../common/view/class-name';
-import {bindClassModifier, bindDisabled} from '../../../common/view/reactive';
-import {View} from '../../../common/view/view';
+import {Formatter} from '../converter/formatter';
+import {Value} from '../model/value';
+import {ValueMap} from '../model/value-map';
+import {ViewProps} from '../model/view-props';
+import {ClassName} from './class-name';
+import {bindClassModifier, bindDisabled} from './reactive';
+import {View} from './view';
 
 export type TextProps<T> = ValueMap<{
 	formatter: Formatter<T>;
@@ -47,15 +47,15 @@ export class TextView<T> implements View {
 		config.value.emitter.on('change', this.onChange_);
 		this.value_ = config.value;
 
-		this.update_();
+		this.refresh();
 	}
 
-	private update_(): void {
+	public refresh(): void {
 		const formatter = this.props_.get('formatter');
 		this.inputElement.value = formatter(this.value_.rawValue);
 	}
 
 	private onChange_(): void {
-		this.update_();
+		this.refresh();
 	}
 }

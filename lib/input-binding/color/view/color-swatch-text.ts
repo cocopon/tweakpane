@@ -1,6 +1,6 @@
 import {ClassName} from '../../../common/view/class-name';
+import {TextView} from '../../../common/view/text';
 import {View} from '../../../common/view/view';
-import {TextView} from '../../common/view/text';
 import {Color} from '../model/color';
 import {ColorSwatchView} from './color-swatch';
 

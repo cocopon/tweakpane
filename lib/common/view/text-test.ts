@@ -1,10 +1,10 @@
 import * as assert from 'assert';
 import {describe} from 'mocha';
 
-import {BoundValue} from '../../../common/model/bound-value';
-import {ValueMap} from '../../../common/model/value-map';
-import {createViewProps} from '../../../common/model/view-props';
-import {TestUtil} from '../../../misc/test-util';
+import {TestUtil} from '../../misc/test-util';
+import {BoundValue} from '../model/bound-value';
+import {ValueMap} from '../model/value-map';
+import {createViewProps} from '../model/view-props';
 import {TextView} from './text';
 
 describe(TextView.name, () => {
