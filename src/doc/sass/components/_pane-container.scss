@@ -27,19 +27,19 @@
 		--tp-button-foreground-color: #{unquote(
 				'hsla(var(--guide-color-comps), 0.4)'
 			)};
-		--tp-folder-background-color: #{unquote(
+		--tp-container-background-color: #{unquote(
 				'hsla(var(--guide-color-comps), 0.05)'
 			)};
-		--tp-folder-background-color-active: #{unquote(
+		--tp-container-background-color-active: #{unquote(
 				'hsla(var(--guide-color-comps), 0.05)'
 			)};
-		--tp-folder-background-color-focus: #{unquote(
+		--tp-container-background-color-focus: #{unquote(
 				'hsla(var(--guide-color-comps), 0.05)'
 			)};
-		--tp-folder-background-color-hover: #{unquote(
+		--tp-container-background-color-hover: #{unquote(
 				'hsla(var(--guide-color-comps), 0.05)'
 			)};
-		--tp-folder-foreground-color: #{unquote(
+		--tp-container-foreground-color: #{unquote(
 				'hsla(var(--guide-color-comps), 0.4)'
 			)};
 		--tp-input-background-color: #{unquote(
@@ -66,7 +66,9 @@
 		--tp-label-foreground-color: #{unquote(
 				'hsla(var(--guide-color-comps), 0.4)'
 			)};
-		--tp-separator-color: #{unquote('hsla(var(--guide-color-comps), 0.1)')};
+		--tp-groove-foreground-color: #{unquote(
+				'hsla(var(--guide-color-comps), 0.1)'
+			)};
 
 		.tp-rotv {
 			border: #{unquote('hsla(var(--guide-color-comps), 0.1) dashed 1px')};

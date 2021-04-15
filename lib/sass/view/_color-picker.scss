@@ -29,7 +29,7 @@ $slider-track-width: 4px;
 		position: relative;
 
 		&:before {
-			background-color: var(--spr-fg);
+			background-color: var(--grv-fg);
 			content: '';
 			height: $separator-width;
 			left: calc(-1 * var(--cnt-h-p));
