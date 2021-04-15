@@ -69,6 +69,7 @@ export class NumberTextController implements ValueController<number> {
 		if (!isEmpty(parsedValue)) {
 			this.value.rawValue = parsedValue;
 		}
+		this.view.refresh();
 	}
 
 	private onInputKeyDown_(e: KeyboardEvent): void {
