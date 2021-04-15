@@ -15,20 +15,20 @@ export type ThemeProperty =
 	| 'button-background-color-focus'
 	| 'button-background-color-hover'
 	| 'button-foreground-color'
-	| 'folder-background-color'
-	| 'folder-background-color-active'
-	| 'folder-background-color-focus'
-	| 'folder-background-color-hover'
-	| 'folder-foreground-color'
+	| 'container-background-color'
+	| 'container-background-color-active'
+	| 'container-background-color-focus'
+	| 'container-background-color-hover'
+	| 'container-foreground-color'
+	| 'groove-color'
 	| 'input-background-color'
 	| 'input-background-color-active'
 	| 'input-background-color-focus'
 	| 'input-background-color-hover'
 	| 'input-foreground-color'
-	| 'monitor-background-color'
-	| 'monitor-foreground-color'
 	| 'label-foreground-color'
-	| 'separator-color';
+	| 'monitor-background-color'
+	| 'monitor-foreground-color';
 
 export type Theme = {
 	[property in ThemeProperty]: string;
@@ -84,21 +84,21 @@ const GROUPS: ThemePaneGroup[] = [
 		},
 	},
 	{
-		name: 'Folder',
+		name: 'Container',
 		props: [
-			'folder-foreground-color',
-			'folder-background-color',
-			'folder-background-color:state',
+			'container-foreground-color',
+			'container-background-color',
+			'container-background-color:state',
 		],
 		label: (prop: string): string => {
-			const m = prop.match(/^folder-(.+)-color(-.+)?$/);
+			const m = prop.match(/^container-(.+)-color(-.+)?$/);
 			return (m && `${m[1]}${m[2] || ''}`) || prop;
 		},
 	},
 	{
 		name: 'Misc',
 		expanded: true,
-		props: ['label-foreground-color', 'separator-color'],
+		props: ['label-foreground-color', 'groove-color'],
 		label: (prop: string): string => {
 			const m = prop.match(/^(.+)-color(-.+)?$/);
 			return (m && `${m[1]}${m[2] || ''}`) || prop;
