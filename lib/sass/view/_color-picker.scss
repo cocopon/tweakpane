@@ -24,17 +24,17 @@ $slider-track-width: 4px;
 	}
 	&_a {
 		display: flex;
-		margin-top: var(--cnt-p);
-		padding-top: calc(var(--cnt-p) + #{$separator-width});
+		margin-top: var(--cnt-v-p);
+		padding-top: calc(var(--cnt-v-p) + #{$separator-width});
 		position: relative;
 
 		&:before {
 			background-color: var(--spr-fg);
 			content: '';
 			height: $separator-width;
-			left: calc(-1 * var(--cnt-p));
+			left: calc(-1 * var(--cnt-h-p));
 			position: absolute;
-			right: calc(-1 * var(--cnt-p));
+			right: calc(-1 * var(--cnt-h-p));
 			top: 0;
 		}
 	}

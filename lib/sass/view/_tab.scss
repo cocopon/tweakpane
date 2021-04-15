@@ -24,8 +24,8 @@
 	}
 	&_c {
 		border-left: var(--cnt-bg) solid 4px;
-		padding-bottom: var(--cnt-p);
-		padding-top: var(--cnt-p);
+		padding-bottom: var(--cnt-v-p);
+		padding-top: var(--cnt-v-p);
 
 		.#{$prefix}-brkv {
 			@extend %bladeRack-children;
@@ -57,8 +57,8 @@
 
 		background-color: var(--cnt-bg);
 		display: block;
-		padding-left: calc(var(--cnt-p) + 4px);
-		padding-right: calc(var(--cnt-p) + 4px);
+		padding-left: calc(var(--cnt-h-p) + 4px);
+		padding-right: calc(var(--cnt-h-p) + 4px);
 		width: 100%;
 
 		&:hover {

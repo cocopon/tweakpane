@@ -2,8 +2,8 @@
 	align-items: center;
 	display: flex;
 	line-height: 1.3;
-	padding-left: var(--cnt-p);
-	padding-right: var(--cnt-p);
+	padding-left: var(--cnt-h-p);
+	padding-right: var(--cnt-h-p);
 
 	&#{&}-nol {
 		display: block;

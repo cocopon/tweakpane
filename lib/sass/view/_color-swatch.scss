@@ -38,9 +38,9 @@
 		}
 	}
 	&_p {
-		left: calc(-1 * var(--cnt-p));
+		left: calc(-1 * var(--cnt-h-p));
 		position: absolute;
-		right: calc(-1 * var(--cnt-p));
+		right: calc(-1 * var(--cnt-h-p));
 		top: var(--bld-h);
 	}
 }

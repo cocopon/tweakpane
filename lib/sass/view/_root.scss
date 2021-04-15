@@ -18,7 +18,8 @@
 	);
 	// TODO: Rename
 	@include themeVariable('bs-br', 'base-border-radius-v3', 6px);
-	@include themeVariable('cnt-p', 'container-padding-v3', 4px);
+	@include themeVariable('cnt-h-p', 'container-horizontal-padding-v3', 4px);
+	@include themeVariable('cnt-v-p', 'container-vertical-padding-v3', 4px);
 	@include themeVariable('elm-br', 'element-border-radius-v3', 2px);
 	@include themeVariable('bld-h', 'blade-height-v3', 20px);
 	@include themeVariable('bld-s', 'blade-spacing-v3', 4px);
@@ -157,7 +158,7 @@
 		border-bottom-right-radius: var(--bs-br);
 		border-top-left-radius: var(--bs-br);
 		border-top-right-radius: var(--bs-br);
-		padding-left: calc(2px * 2 + var(--bld-h) + var(--cnt-p));
+		padding-left: calc(2px * 2 + var(--bld-h) + var(--cnt-h-p));
 		text-align: center;
 	}
 	&#{&}-expanded &_b {
@@ -203,7 +204,7 @@
 	&#{&}-not &_c {
 		// First folder without pane title
 		& > .#{$prefix}-fldv.#{$prefix}-v-fst {
-			margin-top: calc(-1 * var(--cnt-p));
+			margin-top: calc(-1 * var(--cnt-v-p));
 
 			& > .#{$prefix}-fldv_b {
 				border-top-left-radius: var(--bs-br);
@@ -212,7 +213,7 @@
 		}
 		// First tab without pane title
 		& > .#{$prefix}-tabv.#{$prefix}-v-fst {
-			margin-top: calc(-1 * var(--cnt-p));
+			margin-top: calc(-1 * var(--cnt-v-p));
 
 			& > .#{$prefix}-tabv_i {
 				border-top-left-radius: var(--bs-br);

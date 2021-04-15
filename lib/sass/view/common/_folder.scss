@@ -8,8 +8,8 @@
 	height: calc(var(--bld-h) + 4px);
 	line-height: calc(var(--bld-h) + 4px);
 	overflow: hidden;
-	padding-left: calc(var(--cnt-p) + 8px);
-	padding-right: calc(2px * 2 + var(--bld-h) + var(--cnt-p));
+	padding-left: calc(var(--cnt-h-p) + 8px);
+	padding-right: calc(2px * 2 + var(--bld-h) + var(--cnt-h-p));
 	position: relative;
 	text-align: left;
 	text-overflow: ellipsis;
@@ -50,7 +50,7 @@
 	content: '';
 	display: block;
 	height: $size;
-	right: calc(var(--cnt-p) + (var(--bld-h) + 4px - #{$size}) / 2 - 2px);
+	right: calc(var(--cnt-h-p) + (var(--bld-h) + 4px - #{$size}) / 2 - 2px);
 	margin: auto;
 	opacity: 0.5;
 	position: absolute;
@@ -78,8 +78,8 @@
 }
 %folder_container-expanded {
 	opacity: 1;
-	padding-bottom: var(--cnt-p);
-	padding-top: var(--cnt-p);
+	padding-bottom: var(--cnt-v-p);
+	padding-top: var(--cnt-v-p);
 	transform: none;
 
 	// Clip subviews without `overflow: hidden` for popup elements (e.g. color picker)
