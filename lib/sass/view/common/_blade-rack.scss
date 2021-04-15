@@ -1,7 +1,6 @@
 %bladeRack-children {
-	& > .#{$prefix}-fldv.#{$prefix}-v-lst,
-	& > .#{$prefix}-tabv.#{$prefix}-v-lst {
-		margin-bottom: calc(-1 * var(--cnt-p));
+	& > .#{$prefix}-cntv.#{$prefix}-v-lst {
+		margin-bottom: calc(-1 * var(--cnt-v-p));
 	}
 	& > .#{$prefix}-fldv.#{$prefix}-v-lst .#{$prefix}-fldv_c {
 		border-bottom-left-radius: 0;
@@ -16,27 +15,24 @@
 	}
 	// Top spacing of folder and separator
 	& > .#{$prefix}-sprv:not(.#{$prefix}-v-fst),
-	& > .#{$prefix}-fldv:not(.#{$prefix}-v-fst),
-	& > .#{$prefix}-tabv:not(.#{$prefix}-v-fst) {
-		margin-top: var(--cnt-p);
+	& > .#{$prefix}-cntv:not(.#{$prefix}-v-fst) {
+		margin-top: var(--cnt-v-p);
 	}
 	// Bottom spacing of separator and containers
 	& > .#{$prefix}-sprv + *:not(.#{$prefix}-v-hidden),
-	& > .#{$prefix}-fldv + *:not(.#{$prefix}-v-hidden),
-	& > .#{$prefix}-tabv + *:not(.#{$prefix}-v-hidden) {
-		margin-top: var(--cnt-p);
+	& > .#{$prefix}-cntv + *:not(.#{$prefix}-v-hidden) {
+		margin-top: var(--cnt-v-p);
 	}
-	// Spacing between two folders and separators
+	// Spacing between two containers and separators
 	& > .#{$prefix}-sprv:not(.#{$prefix}-v-hidden) + .#{$prefix}-sprv,
-	& > .#{$prefix}-fldv:not(.#{$prefix}-v-hidden) + .#{$prefix}-fldv {
+	& > .#{$prefix}-cntv:not(.#{$prefix}-v-hidden) + .#{$prefix}-cntv {
 		margin-top: 0;
 	}
 }
 
 %bladeRack-subcontainers {
 	// Left spacing of subcontainers
-	& > .#{$prefix}-fldv,
-	& > .#{$prefix}-tabv {
+	& > .#{$prefix}-cntv {
 		margin-left: 4px;
 	}
 	// Left border radius of subfolder

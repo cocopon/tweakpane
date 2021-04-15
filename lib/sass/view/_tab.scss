@@ -24,8 +24,8 @@
 	}
 	&_c {
 		border-left: var(--cnt-bg) solid 4px;
-		padding-bottom: var(--cnt-p);
-		padding-top: var(--cnt-p);
+		padding-bottom: var(--cnt-v-p);
+		padding-top: var(--cnt-v-p);
 
 		.#{$prefix}-brkv {
 			@extend %bladeRack-children;
@@ -56,11 +56,9 @@
 		@extend %resetUserAgent;
 
 		background-color: var(--cnt-bg);
-		border-top-left-radius: var(--elm-br);
-		border-top-right-radius: var(--elm-br);
 		display: block;
-		padding-left: calc(var(--cnt-p) + 4px);
-		padding-right: calc(var(--cnt-p) + 4px);
+		padding-left: calc(var(--cnt-h-p) + 4px);
+		padding-right: calc(var(--cnt-h-p) + 4px);
 		width: 100%;
 
 		&:hover {
@@ -75,12 +73,6 @@
 		&:disabled {
 			opacity: 0.5;
 		}
-	}
-	&:first-child &_b {
-		border-top-left-radius: 0;
-	}
-	&:last-child &_b {
-		border-top-right-radius: 0;
 	}
 	&_t {
 		color: var(--cnt-fg);
