@@ -101,33 +101,33 @@ export function initIndex() {
 					titleElem.textContent = ev.value;
 				}
 			});
-			pane.addSeparator();
-			pane.addInput(ENV, 'spacing', {
+			const tab = pane.addTab({
+				pages: [{title: 'Layout'}, {title: 'Presets'}],
+			});
+			const p0 = tab.pages[0];
+			p0.addInput(ENV, 'spacing', {
 				max: 48,
 				min: 24,
 			});
-			pane.addInput(ENV, 'range', {
+			p0.addInput(ENV, 'range', {
 				max: 1,
 				min: 0,
 			});
-			pane.addInput(ENV, 'maxSize', {
+			p0.addInput(ENV, 'maxSize', {
 				max: 128,
 				min: 5,
 			});
-			pane.addInput(ENV, 'freq', {
+			p0.addInput(ENV, 'freq', {
 				x: {max: 64, min: 0},
 				y: {max: 32, min: 0},
 			});
-			pane.addInput(ENV, 'amp', {
+			p0.addInput(ENV, 'amp', {
 				x: {max: 0.3, min: 0},
 				y: {max: 1, min: 0},
 			});
 
-			const pf = pane.addFolder({
-				expanded: false,
-				title: 'Preset',
-			});
-			pf.addInput(HIDDEN_PARAMS, 'presetId', {
+			const p1 = tab.pages[1];
+			p1.addInput(HIDDEN_PARAMS, 'presetId', {
 				label: 'preset',
 				options: {
 					'Import...': '',
@@ -143,8 +143,9 @@ export function initIndex() {
 					pane.importPreset(preset as any);
 				}
 			});
-			pf.addMonitor(HIDDEN_PARAMS, 'presetJson', {
+			p1.addMonitor(HIDDEN_PARAMS, 'presetJson', {
 				label: 'data',
+				lineCount: 4,
 				multiline: true,
 			});
 

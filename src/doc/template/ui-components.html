@@ -93,6 +93,31 @@ btn.<strong>on</strong>('click', () =&gt; {
 </div>
 
 
+<h2 id="tab">Tab</h2>
+<p><code>addTab()</code> adds a tab component. You can access an each page by <code>pages[]</code> and add components into it.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
+
+const tab = pane.<strong>addTab</strong>({
+  pages: [
+    {title: 'Parameters'},
+    {title: 'Advanced'},
+  ],
+});
+
+tab.<strong>pages[0]</strong>.addInput(...);
+</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-tab></div>
+		</div>
+	</div>
+</div>
+
+
 <h2 id="separator">Separator</h2>
 <p><code>addSeparator()</code> is for adding a separator between components.</p>
 

@@ -1,5 +1,4 @@
 import {Formatter} from '../../../common/converter/formatter';
-import {TabBladeParams} from '../../tab/plugin';
 import {TpChangeEvent} from './tp-event';
 
 interface BaseParams {
@@ -123,7 +122,11 @@ export interface BladeParams extends BaseParams, Record<string, unknown> {
 	hidden?: boolean;
 }
 
-export type TabParams = Omit<TabBladeParams, 'view'>;
+export interface TabParams extends BaseParams {
+	pages: {
+		title: string;
+	}[];
+}
 
 /**
  * @hidden
