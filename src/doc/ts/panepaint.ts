@@ -20,7 +20,7 @@ export type ThemeProperty =
 	| 'container-background-color-focus'
 	| 'container-background-color-hover'
 	| 'container-foreground-color'
-	| 'groove-color'
+	| 'groove-foreground-color'
 	| 'input-background-color'
 	| 'input-background-color-active'
 	| 'input-background-color-focus'
@@ -98,7 +98,7 @@ const GROUPS: ThemePaneGroup[] = [
 	{
 		name: 'Misc',
 		expanded: true,
-		props: ['label-foreground-color', 'groove-color'],
+		props: ['label-foreground-color', 'groove-foreground-color'],
 		label: (prop: string): string => {
 			const m = prop.match(/^(.+)-color(-.+)?$/);
 			return (m && `${m[1]}${m[2] || ''}`) || prop;

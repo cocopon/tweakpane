@@ -130,7 +130,7 @@
 	// Groove
 	@include themeVariablePolyfill(
 		'grv-fg',
-		'groove-color',
+		'groove-foreground-color',
 		'separator-color',
 		rgba($color-exdark, 0.2)
 	);
