@@ -9,6 +9,7 @@ import {
 	InputParams,
 	MonitorParams,
 	SeparatorParams,
+	TabParams,
 } from '../../common/api/types';
 import {BladeController} from '../../common/controller/blade';
 import {FolderApi} from '../../folder/api/folder';
@@ -17,6 +18,7 @@ import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
 import {RackApi} from '../../rack/api/rack';
 import {SeparatorApi} from '../../separator/api/separator';
 import {TabPageController} from '../controller/tab-page';
+import {TabApi} from './tab';
 
 export class TabPageApi implements BladeRackApi {
 	public readonly controller_: TabPageController;
@@ -57,6 +59,10 @@ export class TabPageApi implements BladeRackApi {
 
 	public addSeparator(opt_params?: SeparatorParams): SeparatorApi {
 		return this.rackApi_.addSeparator(opt_params);
+	}
+
+	public addTab(params: TabParams): TabApi {
+		return this.rackApi_.addTab(params);
 	}
 
 	public add(api: BladeApi<BladeController<View>>, opt_index?: number): void {

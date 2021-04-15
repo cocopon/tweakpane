@@ -122,6 +122,12 @@ export interface BladeParams extends BaseParams, Record<string, unknown> {
 	hidden?: boolean;
 }
 
+export interface TabParams extends BaseParams {
+	pages: {
+		title: string;
+	}[];
+}
+
 /**
  * @hidden
  */

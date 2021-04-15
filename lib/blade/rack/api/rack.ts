@@ -8,6 +8,7 @@ import {
 	addButtonAsBlade,
 	addFolderAsBlade,
 	addSeparatorAsBlade,
+	addTabAsBlade,
 	BladeRackApi,
 } from '../../common/api/blade-rack';
 import {
@@ -25,6 +26,7 @@ import {
 	InputParams,
 	MonitorParams,
 	SeparatorParams,
+	TabParams,
 } from '../../common/api/types';
 import {createBindingTarget} from '../../common/api/util';
 import {BladeController} from '../../common/controller/blade';
@@ -34,6 +36,7 @@ import {FolderApi} from '../../folder/api/folder';
 import {InputBindingApi} from '../../input-binding/api/input-binding';
 import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
 import {SeparatorApi} from '../../separator/api/separator';
+import {TabApi} from '../../tab/api/tab';
 import {RackController} from '../controller/rack';
 
 export interface BladeRackApiEvents {
@@ -144,6 +147,10 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 
 	public addSeparator(opt_params?: SeparatorParams): SeparatorApi {
 		return addSeparatorAsBlade(this, opt_params);
+	}
+
+	public addTab(params: TabParams): TabApi {
+		return addTabAsBlade(this, params);
 	}
 
 	public add<A extends BladeApi<BladeController<View>>>(

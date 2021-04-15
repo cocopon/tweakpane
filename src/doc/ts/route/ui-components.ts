@@ -9,24 +9,32 @@ export function initUiComponents() {
 		header: (container) => {
 			const pane = new Tweakpane({
 				container: container,
+				title: 'Root title',
 			});
 			const f = pane.addFolder({
 				title: 'Folder',
 			});
+			f.addInput({label: 0}, 'label');
+			f.addSeparator();
 			f.addButton({
 				title: 'Button',
 			});
-			f.addSeparator();
-			f.addButton({
+			const tab = pane.addTab({
+				pages: [{title: 'Tab'}, {title: 'Tab'}],
+			});
+			tab.pages[0].addInput({label: 0}, 'label');
+			tab.pages[0].addButton({
 				label: 'label',
 				title: 'Button',
 			});
-			const sf = f.addFolder({
+			const sf = tab.pages[0].addFolder({
 				title: 'Subfolder',
 			});
 			sf.addButton({
 				title: 'Button',
 			});
+			tab.pages[1].addInput({label: 0}, 'label');
+			tab.pages[1].addInput({label: 0}, 'label');
 		},
 
 		folder: (container) => {
@@ -100,6 +108,24 @@ export function initUiComponents() {
 					PARAMS.count = String(parseInt(PARAMS.count, 10) + 1);
 					consolePane.refresh();
 				});
+		},
+
+		tab: (container) => {
+			const pane = new Tweakpane({
+				container: container,
+			});
+			const tab = pane.addTab({
+				pages: [{title: 'Parameters'}, {title: 'Advanced'}],
+			});
+			tab.pages[0].addInput({seed: 50}, 'seed');
+			tab.pages[0].addInput({freq: 0.5}, 'freq', {
+				min: 0,
+				max: 1,
+			});
+			tab.pages[1].addButton({
+				label: 'danger!',
+				title: 'Reset',
+			});
 		},
 
 		separator: (container) => {
