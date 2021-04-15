@@ -1,5 +1,10 @@
-@mixin themeVariable($out-name, $in-name, $value) {
-	--#{$out-name}: var(--#{$prefix}-#{$in-name}, #{$value});
+@mixin themeVariable($in-name, $ex-name, $value) {
+	--#{$in-name}: var(--#{$prefix}-#{$ex-name}, #{$value});
+}
+// TODO: Remove polyfill in the next major version
+@mixin themeVariablePolyfill($in-name, $ex-name, $deprecated-ex-name, $value) {
+	// prettier-ignore
+	--#{$in-name}: var(--#{$prefix}-#{$ex-name}, var(--#{$prefix}-#{$deprecated-ex-name}, #{$value}));
 }
 
 %themeVariables {
@@ -49,27 +54,36 @@
 	@include themeVariable('btn-fg', 'button-foreground-color', $bg-color);
 
 	// Container
-	@include themeVariable(
+	@include themeVariablePolyfill(
 		'cnt-bg',
+		'container-background-color',
 		'folder-background-color',
 		rgba($fg-color, 0.1)
 	);
-	@include themeVariable(
+	@include themeVariablePolyfill(
 		'cnt-bg-a',
+		'container-background-color-active',
 		'folder-background-color-active',
 		rgba($fg-color, 0.25)
 	);
-	@include themeVariable(
+	@include themeVariablePolyfill(
 		'cnt-bg-f',
+		'container-background-color-focus',
 		'folder-background-color-focus',
 		rgba($fg-color, 0.2)
 	);
-	@include themeVariable(
+	@include themeVariablePolyfill(
 		'cnt-bg-h',
+		'container-background-color-hover',
 		'folder-background-color-hover',
 		rgba($fg-color, 0.15)
 	);
-	@include themeVariable('cnt-fg', 'folder-foreground-color', $fg-color);
+	@include themeVariablePolyfill(
+		'cnt-fg',
+		'container-foreground-color',
+		'folder-foreground-color',
+		$fg-color
+	);
 
 	// Input
 	@include themeVariable(
@@ -113,8 +127,13 @@
 		rgba($fg-color, 0.7)
 	);
 
-	// Separator
-	@include themeVariable('spr-fg', 'separator-color', rgba($color-exdark, 0.2));
+	// Groove
+	@include themeVariablePolyfill(
+		'grv-fg',
+		'groove-color',
+		'separator-color',
+		rgba($color-exdark, 0.2)
+	);
 
 	// TODO: Remove outdated variables in the next major update
 	--button-background-color: var(--btn-bg);
@@ -135,7 +154,7 @@
 	--label-foregound-color: var(--lbl-fg);
 	--monitor-background-color: var(--mo-bg);
 	--monitor-foreground-color: var(--mo-fg);
-	--separator-color: var(--spr-fg);
+	--separator-color: var(--grv-fg);
 	--unit-size: var(--bld-h);
 }
 
