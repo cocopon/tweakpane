@@ -1,10 +1,10 @@
-import {Formatter} from '../../../common/converter/formatter';
-import {Value} from '../../../common/model/value';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {ClassName} from '../../../common/view/class-name';
-import {bindClassModifier, bindDisabled} from '../../../common/view/reactive';
-import {View} from '../../../common/view/view';
+import {Formatter} from '../converter/formatter';
+import {Value} from '../model/value';
+import {ValueMap} from '../model/value-map';
+import {ViewProps} from '../model/view-props';
+import {ClassName} from './class-name';
+import {bindClassModifier, bindDisabled} from './reactive';
+import {View} from './view';
 
 export type TextProps<T> = ValueMap<{
 	formatter: Formatter<T>;

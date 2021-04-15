@@ -1,8 +1,8 @@
-import {TextProps, TextView} from '../../input-binding/common/view/text';
 import {forceCast, isEmpty} from '../../misc/type-util';
 import {Parser} from '../converter/parser';
 import {Value} from '../model/value';
 import {ViewProps} from '../model/view-props';
+import {TextProps, TextView} from '../view/text';
 import {ValueController} from './value';
 
 /**
