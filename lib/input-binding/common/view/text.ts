@@ -47,15 +47,15 @@ export class TextView<T> implements View {
 		config.value.emitter.on('change', this.onChange_);
 		this.value_ = config.value;
 
-		this.update_();
+		this.refresh();
 	}
 
-	private update_(): void {
+	public refresh(): void {
 		const formatter = this.props_.get('formatter');
 		this.inputElement.value = formatter(this.value_.rawValue);
 	}
 
 	private onChange_(): void {
-		this.update_();
+		this.refresh();
 	}
 }
