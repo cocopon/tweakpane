@@ -1,4 +1,3 @@
-import {ViewProps} from '../../../common/model/view-props';
 import {View} from '../../../common/view/view';
 import {RackController} from '../../rack/controller/rack';
 import {Blade} from '../model/blade';
@@ -8,7 +7,6 @@ interface Config<V extends View> {
 	blade: Blade;
 	rackController: RackController;
 	view: V;
-	viewProps: ViewProps;
 }
 
 export class RackLikeController<V extends View> extends BladeController<V> {
@@ -18,7 +16,7 @@ export class RackLikeController<V extends View> extends BladeController<V> {
 		super({
 			blade: config.blade,
 			view: config.view,
-			viewProps: config.viewProps,
+			viewProps: config.rackController.viewProps,
 		});
 		this.rackController = config.rackController;
 	}

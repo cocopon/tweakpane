@@ -2,6 +2,7 @@ import {Controller} from '../../../common/controller/controller';
 import {disposeElement} from '../../../common/disposing-util';
 import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
+import {bindDisposed} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {Blade, BladeEvents} from '../model/blade';
 import {BladePosition, getAllBladePositions} from '../model/blade-positions';
@@ -45,19 +46,20 @@ export class BladeController<V extends View> implements Controller {
 				});
 			}
 		});
-		this.blade.emitter.on('dispose', () => {
+
+		bindDisposed(this.viewProps, () => {
+			// TODO: Remove in the next major version
 			if (this.view.onDispose) {
+				console.warn(
+					"View.onDispose is deprecated. Use ViewProps.value('disposed').emitter instead.",
+				);
 				this.view.onDispose();
 			}
 			disposeElement(elem);
-
-			this.onDispose();
 		});
 	}
 
 	get parent(): BladeRack | null {
 		return this.parent_;
 	}
-
-	public onDispose() {}
 }

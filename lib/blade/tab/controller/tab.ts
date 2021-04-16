@@ -41,7 +41,6 @@ export class TabController extends RackLikeController<TabView> {
 				empty: empty,
 				viewProps: config.viewProps,
 			}),
-			viewProps: config.viewProps,
 		});
 
 		this.onPageAdd_ = this.onPageAdd_.bind(this);

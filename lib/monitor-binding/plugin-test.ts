@@ -5,7 +5,8 @@ import {BindingTarget} from '../common/binding/target';
 import {ValueController} from '../common/controller/value';
 import {stringFromUnknown} from '../common/converter/string';
 import {Buffer, BufferedValue} from '../common/model/buffered-value';
-import {createViewProps, ViewProps} from '../common/model/view-props';
+import {ViewProps} from '../common/model/view-props';
+import {bindDisposed} from '../common/view/reactive';
 import {View} from '../common/view/view';
 import {TestUtil} from '../misc/test-util';
 import {createMonitorBindingController, MonitorBindingPlugin} from './plugin';
@@ -24,16 +25,24 @@ class TestView implements View {
 }
 
 class TestController implements ValueController<Buffer<string>> {
+	public readonly value: BufferedValue<string>;
 	public readonly view: TestView;
-	public readonly viewProps: ViewProps = createViewProps();
+	public readonly viewProps: ViewProps;
 	public disposed = false;
 
-	constructor(doc: Document, public readonly value: BufferedValue<string>) {
+	constructor(
+		doc: Document,
+		config: {
+			value: BufferedValue<string>;
+			viewProps: ViewProps;
+		},
+	) {
+		this.value = config.value;
 		this.view = new TestView(doc);
-	}
-
-	onDispose() {
-		this.disposed = true;
+		this.viewProps = config.viewProps;
+		bindDisposed(this.viewProps, () => {
+			this.disposed = true;
+		});
 	}
 }
 
@@ -46,7 +55,10 @@ describe(createMonitorBindingController.name, () => {
 				reader: (_) => stringFromUnknown,
 			},
 			controller: (args) => {
-				return new TestController(args.document, args.value);
+				return new TestController(args.document, {
+					value: args.value,
+					viewProps: args.viewProps,
+				});
 			},
 		};
 
@@ -58,7 +70,7 @@ describe(createMonitorBindingController.name, () => {
 		const c = bc?.valueController as TestController;
 		assert.strictEqual(c.disposed, false);
 		assert.strictEqual(c.view.disposed, false);
-		bc?.blade.dispose();
+		bc?.viewProps.set('disposed', true);
 		assert.strictEqual(c.disposed, true);
 		assert.strictEqual(c.view.disposed, true);
 	});

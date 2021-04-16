@@ -1,4 +1,5 @@
 import {Controller} from '../../../common/controller/controller';
+import {bindDisposed} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {BladeController} from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
@@ -35,15 +36,22 @@ export class LabelController<
 		this.valueController = config.valueController;
 
 		this.view.valueElement.appendChild(this.valueController.view.element);
-	}
 
-	public onDispose() {
-		const vc = this.valueController;
-		if (vc.onDispose) {
-			vc.onDispose();
-		}
-		if (vc.view.onDispose) {
-			vc.view.onDispose();
-		}
+		// TODO: Remove in the next major version
+		bindDisposed(this.viewProps, () => {
+			const vc = this.valueController;
+			if (vc.onDispose) {
+				console.warn(
+					"Controller.onDispose is deprecated. Use ViewProps.value('disposed').emitter instead.",
+				);
+				vc.onDispose();
+			}
+			if (vc.view.onDispose) {
+				console.warn(
+					"View.onDispose is deprecated. Use ViewProps.value('disposed').emitter instead.",
+				);
+				vc.view.onDispose();
+			}
+		});
 	}
 }

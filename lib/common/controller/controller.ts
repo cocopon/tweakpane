@@ -6,6 +6,7 @@ import {ViewProps} from '../model/view-props';
 export interface Controller {
 	readonly viewProps: ViewProps;
 
-	// TODO: Refactor
+	// TODO: Remove in the next major version
+	/** @deprecated Use ViewProps.value('disposed').emitter instead. */
 	onDispose?(): void;
 }

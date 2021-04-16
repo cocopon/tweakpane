@@ -65,7 +65,7 @@ describe(FolderController.name, () => {
 		c.rackController.rack.add(bc);
 
 		assert.strictEqual(c.view.element.contains(bc.view.element), true);
-		bc.blade.dispose();
+		bc.viewProps.set('disposed', true);
 		assert.strictEqual(c.view.element.contains(bc.view.element), false);
 	});
 
@@ -128,10 +128,10 @@ describe(FolderController.name, () => {
 		bcs.forEach((bc) => {
 			c.rackController.rack.add(bc);
 		});
-		c.blade.dispose();
+		c.viewProps.set('disposed', true);
 
 		bcs.forEach((bc) => {
-			assert.strictEqual(bc.blade.disposed, true);
+			assert.strictEqual(bc.viewProps.get('disposed'), true);
 		});
 	});
 
@@ -155,8 +155,8 @@ describe(FolderController.name, () => {
 		const bc = createSomeBladeController(doc);
 		sc.rackController.rack.add(bc);
 
-		c.blade.dispose();
+		c.viewProps.set('disposed', true);
 
-		assert.strictEqual(bc.blade.disposed, true);
+		assert.strictEqual(bc.viewProps.get('disposed'), true);
 	});
 });

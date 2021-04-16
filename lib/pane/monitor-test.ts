@@ -245,7 +245,7 @@ describe(Tweakpane.name, () => {
 				);
 
 				const b = bapi.controller_.binding;
-				(b.ticker as IntervalTicker).disposable.dispose();
+				(b.ticker as IntervalTicker).dispose();
 			});
 		});
 	});

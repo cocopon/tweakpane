@@ -7,5 +7,7 @@ export interface View {
 	 */
 	readonly element: HTMLElement;
 
+	// TODO: Remove in the next major version
+	/** @deprecated Use ViewProps.value('disposed').emitter instead. */
 	onDispose?(): void;
 }
