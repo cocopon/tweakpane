@@ -27,7 +27,7 @@ describe(IntervalTicker.name, () => {
 		const t = new IntervalTicker(doc, 1);
 
 		t.emitter.on('tick', () => {
-			t.disposable.dispose();
+			t.dispose();
 			done();
 		});
 	});

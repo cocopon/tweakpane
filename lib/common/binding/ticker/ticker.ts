@@ -1,4 +1,3 @@
-import {Disposable} from '../../model/disposable';
 import {Emitter} from '../../model/emitter';
 
 /**
@@ -14,7 +13,8 @@ export interface TickerEvents {
  * @hidden
  */
 export interface Ticker {
-	readonly disposable: Disposable;
 	readonly emitter: Emitter<TickerEvents>;
 	disabled: boolean;
+
+	dispose(): void;
 }
