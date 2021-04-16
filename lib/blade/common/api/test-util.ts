@@ -7,12 +7,12 @@ import {BladeApi} from './blade';
 export function assertInitialState(api: BladeApi<BladeController<View>>) {
 	assert.strictEqual(api.disabled, false);
 	assert.strictEqual(api.hidden, false);
-	assert.strictEqual(api.controller_.blade.disposed, false);
+	assert.strictEqual(api.controller_.viewProps.get('disposed'), false);
 }
 
 export function assertDisposes(api: BladeApi<BladeController<View>>) {
 	api.dispose();
-	assert.strictEqual(api.controller_.blade.disposed, true);
+	assert.strictEqual(api.controller_.viewProps.get('disposed'), true);
 }
 
 export function assertUpdates(api: BladeApi<BladeController<View>>) {

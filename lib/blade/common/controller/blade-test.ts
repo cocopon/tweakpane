@@ -47,13 +47,13 @@ describe(BladeController.name, () => {
 	it('should apply disposed', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TestController(doc);
-		const [m, v] = [c.blade, c.view];
+		const v = c.view;
 
 		const parentElem = doc.createElement('div');
 		parentElem.appendChild(v.element);
 
 		assert.notStrictEqual(v.element.parentNode, null);
-		m.dispose();
+		c.viewProps.set('disposed', true);
 		assert.strictEqual(v.element.parentNode, null);
 	});
 });

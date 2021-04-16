@@ -2,6 +2,7 @@ import {ValueMap, ValueMapEvents} from './value-map';
 
 export interface ViewPropsObject extends Record<string, unknown> {
 	disabled: boolean;
+	disposed: boolean;
 	hidden: boolean;
 }
 
@@ -14,6 +15,7 @@ export function createViewProps(
 	const initialValue: Partial<ViewPropsObject> = opt_initialValue ?? {};
 	return new ValueMap({
 		disabled: initialValue.disabled ?? false,
+		disposed: false as boolean,
 		hidden: initialValue.hidden ?? false,
 	});
 }

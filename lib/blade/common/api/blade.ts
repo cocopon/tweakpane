@@ -28,7 +28,7 @@ export class BladeApi<C extends BladeController<View>> {
 	}
 
 	public dispose(): void {
-		this.controller_.blade.dispose();
+		this.controller_.viewProps.set('disposed', true);
 	}
 }
 

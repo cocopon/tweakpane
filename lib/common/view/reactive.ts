@@ -82,3 +82,11 @@ export function bindTextContent<
 		elem.textContent = text ?? '';
 	});
 }
+
+export function bindDisposed(viewProps: ViewProps, callback: () => void): void {
+	viewProps.value('disposed').emitter.on('change', (disposed) => {
+		if (disposed) {
+			callback();
+		}
+	});
+}

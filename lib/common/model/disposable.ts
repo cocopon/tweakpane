@@ -9,6 +9,7 @@ export interface DisposableEvents {
 	};
 }
 
+// TODO: Remove in the next major version
 /**
  * @hidden
  */

@@ -50,7 +50,6 @@ function computeExpandedFolderHeight(
 export class FolderController extends RackLikeController<FolderView> {
 	public readonly folder: Folder;
 	public readonly props: FolderProps;
-	private readonly rc_: RackController;
 
 	constructor(doc: Document, config: Config) {
 		const folder = new Folder(config.expanded ?? true);
@@ -80,8 +79,6 @@ export class FolderController extends RackLikeController<FolderView> {
 		this.folder = folder;
 		this.folder.emitter.on('beforechange', this.onFolderBeforeChange_);
 
-		this.rc_ = rc;
-
 		this.view.buttonElement.addEventListener('click', this.onTitleClick_);
 		this.view.containerElement.addEventListener(
 			'transitionend',
@@ -91,10 +88,6 @@ export class FolderController extends RackLikeController<FolderView> {
 
 	get document(): Document {
 		return this.view.element.ownerDocument;
-	}
-
-	public onDispose() {
-		this.rc_.onDispose();
 	}
 
 	private onFolderBeforeChange_(ev: FolderEvents['beforechange']): void {

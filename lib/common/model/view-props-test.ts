@@ -9,6 +9,7 @@ describe(createViewProps.name, () => {
 			params: undefined,
 			expected: {
 				disabled: false,
+				disposed: false,
 				hidden: false,
 			},
 		},
@@ -16,6 +17,7 @@ describe(createViewProps.name, () => {
 			params: {},
 			expected: {
 				disabled: false,
+				disposed: false,
 				hidden: false,
 			},
 		},
@@ -23,6 +25,7 @@ describe(createViewProps.name, () => {
 			params: {disabled: true},
 			expected: {
 				disabled: true,
+				disposed: false,
 				hidden: false,
 			},
 		},
@@ -30,6 +33,7 @@ describe(createViewProps.name, () => {
 			params: {hidden: true},
 			expected: {
 				disabled: false,
+				disposed: false,
 				hidden: true,
 			},
 		},
@@ -38,6 +42,7 @@ describe(createViewProps.name, () => {
 			it('should set initial value', () => {
 				const p = createViewProps(params);
 				assert.strictEqual(p.get('disabled'), expected.disabled);
+				assert.strictEqual(p.get('disposed'), expected.disposed);
 				assert.strictEqual(p.get('hidden'), expected.hidden);
 			});
 		});

@@ -56,7 +56,7 @@ describe(FolderApi.name, () => {
 	it('should dispose', () => {
 		const api = createApi();
 		api.dispose();
-		assert.strictEqual(api.controller_.blade.disposed, true);
+		assert.strictEqual(api.controller_.viewProps.get('disposed'), true);
 	});
 
 	it('should toggle expanded when clicking title element', () => {
@@ -170,9 +170,9 @@ describe(FolderApi.name, () => {
 		const m = api.addMonitor(PARAMS, 'foo');
 
 		api.dispose();
-		assert.strictEqual(api.controller_.blade.disposed, true);
-		assert.strictEqual(i.controller_.blade.disposed, true);
-		assert.strictEqual(m.controller_.blade.disposed, true);
+		assert.strictEqual(api.controller_.viewProps.get('disposed'), true);
+		assert.strictEqual(i.controller_.viewProps.get('disposed'), true);
+		assert.strictEqual(m.controller_.viewProps.get('disposed'), true);
 	});
 
 	it('should dispose items (nested)', () => {
@@ -182,13 +182,13 @@ describe(FolderApi.name, () => {
 		const i = f.addInput(PARAMS, 'foo');
 		const m = f.addMonitor(PARAMS, 'foo');
 
-		assert.strictEqual(api.controller_.blade.disposed, false);
-		assert.strictEqual(i.controller_.blade.disposed, false);
-		assert.strictEqual(m.controller_.blade.disposed, false);
+		assert.strictEqual(api.controller_.viewProps.get('disposed'), false);
+		assert.strictEqual(i.controller_.viewProps.get('disposed'), false);
+		assert.strictEqual(m.controller_.viewProps.get('disposed'), false);
 		api.dispose();
-		assert.strictEqual(api.controller_.blade.disposed, true);
-		assert.strictEqual(i.controller_.blade.disposed, true);
-		assert.strictEqual(m.controller_.blade.disposed, true);
+		assert.strictEqual(api.controller_.viewProps.get('disposed'), true);
+		assert.strictEqual(i.controller_.viewProps.get('disposed'), true);
+		assert.strictEqual(m.controller_.viewProps.get('disposed'), true);
 	});
 
 	it('should bind `this` within handler to folder', (done) => {

@@ -48,6 +48,7 @@ export class ValueMap<O extends Record<string, unknown>> {
 	}
 
 	// TODO: Remove in the next major version
+	/** @deprecated Use ValueMap.value.emitter instead. */
 	public valueEmitter<Key extends keyof O>(
 		key: Key,
 	): Emitter<ValueEvents<O[Key]>> {

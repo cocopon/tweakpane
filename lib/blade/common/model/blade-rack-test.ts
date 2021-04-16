@@ -190,7 +190,7 @@ describe(BladeRack.name, () => {
 		rack.add(bc);
 
 		assert.strictEqual(rack.children.includes(bc), true);
-		bc.blade.dispose();
+		bc.viewProps.set('disposed', true);
 		assert.strictEqual(rack.children.includes(bc), false);
 	});
 
@@ -220,7 +220,7 @@ describe(BladeRack.name, () => {
 			assert.fail('should not be called');
 		});
 
-		bc.blade.dispose();
+		bc.viewProps.set('disposed', true);
 		bc.binding.value.rawValue = !bc.binding.value.rawValue;
 	});
 
@@ -236,7 +236,7 @@ describe(BladeRack.name, () => {
 			assert.fail('should not be called');
 		});
 
-		fc.blade.dispose();
+		fc.viewProps.set('disposed', true);
 		bc.binding.value.rawValue = !bc.binding.value.rawValue;
 	});
 

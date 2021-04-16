@@ -6,6 +6,7 @@ import {
 import {Emitter} from '../../../common/model/emitter';
 import {ViewPropsEvents} from '../../../common/model/view-props';
 import {TpError} from '../../../common/tp-error';
+import {bindDisposed} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {Class, forceCast} from '../../../misc/type-util';
 import {BladeController} from '../../common/controller/blade';
@@ -166,9 +167,9 @@ export class BladeRack {
 		}
 
 		const bc = ev.item;
-		bc.blade.emitter.on('dispose', this.onChildDispose_);
 		bc.viewProps.emitter.on('change', this.onChildViewPropsChange_);
 		bc.blade.emitter.on('change', this.onChildLayout_);
+		bindDisposed(bc.viewProps, this.onChildDispose_);
 
 		if (bc instanceof InputBindingController) {
 			bc.binding.emitter.on('change', this.onChildInputChange_);
@@ -260,9 +261,9 @@ export class BladeRack {
 		});
 	}
 
-	private onChildDispose_(_: BladeEvents['dispose']): void {
+	private onChildDispose_(): void {
 		const disposedUcs = this.bcSet_.items.filter((bc) => {
-			return bc.blade.disposed;
+			return bc.viewProps.get('disposed');
 		});
 		disposedUcs.forEach((bc) => {
 			this.bcSet_.remove(bc);
