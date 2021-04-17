@@ -1,4 +1,5 @@
 import Tweakpane from 'tweakpane';
+import {mapRange} from 'tweakpane/common/number-util';
 
 import {
 	colorFromString,
@@ -17,8 +18,8 @@ export function initIndex() {
 			x: 12.57,
 			y: 6.28,
 		},
-		maxSize: 64,
-		range: 0.8,
+		maxSize: 5,
+		range: 0,
 		spacing: 24,
 		speed: 0.02,
 		title: 'Tweakpane',
@@ -161,6 +162,20 @@ export function initIndex() {
 					sketch.resize();
 				}, 200);
 			});
+
+			let t = -0.2;
+			const timerId = setInterval(() => {
+				t = Math.min(t + 0.02, 1);
+				if (t >= 1) {
+					clearInterval(timerId);
+				}
+
+				const tz = Math.max(t, 0);
+				const et = tz < 0.5 ? 2 * tz * tz : 1 - 2 * (1 - tz) * (1 - tz);
+				ENV.range = mapRange(et, 0, 1, 0, 0.8);
+				ENV.maxSize = mapRange(et, 0, 1, 5, 64);
+				pane.refresh();
+			}, 1000 / 30);
 		},
 	};
 	Object.keys(markerToFnMap).forEach((marker) => {
