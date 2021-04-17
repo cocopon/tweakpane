@@ -222,7 +222,6 @@ export function initCatalog() {
 				container: container,
 				title: 'Folder',
 			});
-			pane.addInput({param: 0}, 'param', {disabled: disabled});
 			const f = pane.addFolder({
 				title: 'Folder',
 			});
@@ -231,6 +230,20 @@ export function initCatalog() {
 				title: 'Subfolder',
 			});
 			sf.addInput({param: 0}, 'param', {disabled: disabled});
+		},
+		tab: (container) => {
+			const pane = new Tweakpane({
+				container: container,
+				title: 'Tab',
+			});
+			const t = pane.addTab({
+				pages: [{title: 'Page'}, {title: 'Page'}],
+			});
+			t.pages[0].addInput({param: 0}, 'param', {disabled: disabled});
+			const st = t.pages[0].addTab({
+				pages: [{title: 'Page'}, {title: 'Page'}],
+			});
+			st.pages[0].addInput({param: 0}, 'param', {disabled: disabled});
 		},
 		button: (container) => {
 			const pane = new Tweakpane({
