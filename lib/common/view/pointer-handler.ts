@@ -44,7 +44,9 @@ function computeOffset(
  * An event for PointerHandler.
  */
 export interface PointerHandlerEvent {
+	altKey: boolean;
 	data: PointerData;
+	shiftKey: boolean;
 	sender: PointerHandler;
 }
 
@@ -98,47 +100,54 @@ export class PointerHandler {
 		};
 	}
 
-	private onMouseDown_(e: MouseEvent): void {
+	private onMouseDown_(ev: MouseEvent): void {
 		// Prevent native text selection
-		e.preventDefault();
+		ev.preventDefault();
 
-		(e.currentTarget as HTMLElement | null)?.focus();
+		(ev.currentTarget as HTMLElement | null)?.focus();
 
 		const doc = this.elem_.ownerDocument;
 		doc.addEventListener('mousemove', this.onDocumentMouseMove_);
 		doc.addEventListener('mouseup', this.onDocumentMouseUp_);
 
 		this.emitter.emit('down', {
-			data: this.computePosition_(computeOffset(e, this.elem_)),
+			altKey: ev.altKey,
+			data: this.computePosition_(computeOffset(ev, this.elem_)),
 			sender: this,
+			shiftKey: ev.shiftKey,
 		});
 	}
 
-	private onDocumentMouseMove_(e: MouseEvent): void {
+	private onDocumentMouseMove_(ev: MouseEvent): void {
 		this.emitter.emit('move', {
-			data: this.computePosition_(computeOffset(e, this.elem_)),
+			altKey: ev.altKey,
+			data: this.computePosition_(computeOffset(ev, this.elem_)),
 			sender: this,
+			shiftKey: ev.shiftKey,
 		});
 	}
 
-	private onDocumentMouseUp_(e: MouseEvent): void {
+	private onDocumentMouseUp_(ev: MouseEvent): void {
 		const doc = this.elem_.ownerDocument;
 		doc.removeEventListener('mousemove', this.onDocumentMouseMove_);
 		doc.removeEventListener('mouseup', this.onDocumentMouseUp_);
 
 		this.emitter.emit('up', {
-			data: this.computePosition_(computeOffset(e, this.elem_)),
+			altKey: ev.altKey,
+			data: this.computePosition_(computeOffset(ev, this.elem_)),
 			sender: this,
+			shiftKey: ev.shiftKey,
 		});
 	}
 
-	private onTouchStart_(e: TouchEvent) {
+	private onTouchStart_(ev: TouchEvent) {
 		// Prevent native page scroll
-		e.preventDefault();
+		ev.preventDefault();
 
-		const touch = e.targetTouches.item(0);
+		const touch = ev.targetTouches.item(0);
 		const rect = this.elem_.getBoundingClientRect();
 		this.emitter.emit('down', {
+			altKey: ev.altKey,
 			data: this.computePosition_(
 				touch
 					? {
@@ -148,13 +157,15 @@ export class PointerHandler {
 					: undefined,
 			),
 			sender: this,
+			shiftKey: ev.shiftKey,
 		});
 	}
 
-	private onTouchMove_(e: TouchEvent) {
-		const touch = e.targetTouches.item(0);
+	private onTouchMove_(ev: TouchEvent) {
+		const touch = ev.targetTouches.item(0);
 		const rect = this.elem_.getBoundingClientRect();
 		this.emitter.emit('move', {
+			altKey: ev.altKey,
 			data: this.computePosition_(
 				touch
 					? {
@@ -164,13 +175,15 @@ export class PointerHandler {
 					: undefined,
 			),
 			sender: this,
+			shiftKey: ev.shiftKey,
 		});
 	}
 
-	private onTouchEnd_(e: TouchEvent) {
-		const touch = e.targetTouches.item(0);
+	private onTouchEnd_(ev: TouchEvent) {
+		const touch = ev.targetTouches.item(0);
 		const rect = this.elem_.getBoundingClientRect();
 		this.emitter.emit('up', {
+			altKey: ev.altKey,
 			data: this.computePosition_(
 				touch
 					? {
@@ -180,6 +193,7 @@ export class PointerHandler {
 					: undefined,
 			),
 			sender: this,
+			shiftKey: ev.shiftKey,
 		});
 	}
 }
