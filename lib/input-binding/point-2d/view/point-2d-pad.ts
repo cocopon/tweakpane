@@ -28,9 +28,9 @@ export class Point2dPadView implements View {
 	private readonly expanded_: PrimitiveValue<boolean>;
 	private readonly invertsY_: boolean;
 	private readonly maxValue_: number;
-	private svgElem_: Element;
-	private lineElem_: Element;
-	private markerElem_: Element;
+	private readonly svgElem_: Element;
+	private readonly lineElem_: Element;
+	private readonly markerElem_: HTMLElement;
 
 	constructor(doc: Document, config: Config) {
 		this.onFoldableChange_ = this.onFoldableChange_.bind(this);
@@ -79,10 +79,9 @@ export class Point2dPadView implements View {
 		this.svgElem_.appendChild(lineElem);
 		this.lineElem_ = lineElem;
 
-		const markerElem = doc.createElementNS(SVG_NS, 'circle');
+		const markerElem = doc.createElement('div');
 		markerElem.classList.add(className('m'));
-		markerElem.setAttributeNS(null, 'r', '2px');
-		this.svgElem_.appendChild(markerElem);
+		this.padElement.appendChild(markerElem);
 		this.markerElem_ = markerElem;
 
 		config.value.emitter.on('change', this.onValueChange_);
@@ -109,8 +108,8 @@ export class Point2dPadView implements View {
 		const ipy = this.invertsY_ ? 100 - py : py;
 		this.lineElem_.setAttributeNS(null, 'x2', `${px}%`);
 		this.lineElem_.setAttributeNS(null, 'y2', `${ipy}%`);
-		this.markerElem_.setAttributeNS(null, 'cx', `${px}%`);
-		this.markerElem_.setAttributeNS(null, 'cy', `${ipy}%`);
+		this.markerElem_.style.left = `${px}%`;
+		this.markerElem_.style.top = `${ipy}%`;
 	}
 
 	private onValueChange_(): void {
