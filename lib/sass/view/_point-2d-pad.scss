@@ -28,10 +28,12 @@
 	&_ax {
 		opacity: 0.1;
 		stroke: var(--in-fg);
+		stroke-dasharray: 1;
 	}
 	&_l {
+		opacity: 0.5;
 		stroke: var(--in-fg);
-		stroke-dasharray: 2px 2px;
+		stroke-dasharray: 1;
 	}
 	&_m {
 		fill: var(--in-fg);
