@@ -60,6 +60,7 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 		});
 		padC.view.allFocusableElements.forEach((elem) => {
 			elem.addEventListener('blur', this.onPopupChildBlur_);
+			elem.addEventListener('keydown', this.onPopupChildKeydown_);
 		});
 		this.popC_.view.element.appendChild(padC.view.element);
 		this.padC_ = padC;
