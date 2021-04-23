@@ -1,16 +1,16 @@
-%picker {
+.#{$prefix}-popv {
 	background-color: var(--bs-bg);
 	border-radius: 6px;
 	box-shadow: 0 2px 4px var(--bs-sh);
 	display: none;
 	max-width: 160px + 2 * 4px;
 	padding: var(--cnt-v-p) var(--cnt-h-p);
-	position: relative;
+	position: absolute;
 	visibility: hidden;
 	z-index: $z-index-picker;
-}
 
-%picker-expanded {
-	display: block;
-	visibility: visible;
+	&#{&}-v {
+		display: block;
+		visibility: visible;
+	}
 }

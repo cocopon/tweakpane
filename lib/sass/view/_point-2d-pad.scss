@@ -1,11 +1,5 @@
 .#{$prefix}-p2dpadv {
-	@extend %picker;
-
-	padding-left: calc(var(--cnt-h-p) + 4px + var(--bld-h));
-
-	&#{&}-expanded {
-		@extend %picker-expanded;
-	}
+	padding-left: calc(var(--bld-h) + 4px);
 
 	// Pad
 	&_p {

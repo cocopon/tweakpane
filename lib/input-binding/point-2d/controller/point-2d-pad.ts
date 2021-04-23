@@ -1,6 +1,4 @@
 import {ValueController} from '../../../common/controller/value';
-import {findNextTarget, supportsTouch} from '../../../common/dom-util';
-import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
@@ -30,25 +28,20 @@ interface Config {
  * @hidden
  */
 export class Point2dPadController implements ValueController<Point2d> {
-	public readonly expanded: PrimitiveValue<boolean>;
 	public readonly value: Value<Point2d>;
 	public readonly view: Point2dPadView;
 	public readonly viewProps: ViewProps;
-	public triggerElement: HTMLElement | null = null;
 	private readonly baseSteps_: [number, number];
 	private readonly ptHandler_: PointerHandler;
 	private readonly invertsY_: boolean;
 	private readonly maxValue_: number;
 
 	constructor(doc: Document, config: Config) {
-		this.onFocusableElementBlur_ = this.onFocusableElementBlur_.bind(this);
-		this.onKeyDown_ = this.onKeyDown_.bind(this);
 		this.onPadKeyDown_ = this.onPadKeyDown_.bind(this);
 		this.onPointerDown_ = this.onPointerDown_.bind(this);
 		this.onPointerMove_ = this.onPointerMove_.bind(this);
 		this.onPointerUp_ = this.onPointerUp_.bind(this);
 
-		this.expanded = new PrimitiveValue(false as boolean);
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 
@@ -57,7 +50,6 @@ export class Point2dPadController implements ValueController<Point2d> {
 		this.invertsY_ = config.invertsY;
 
 		this.view = new Point2dPadView(doc, {
-			expanded: this.expanded,
 			invertsY: this.invertsY_,
 			maxValue: this.maxValue_,
 			value: this.value,
@@ -70,11 +62,6 @@ export class Point2dPadController implements ValueController<Point2d> {
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
 
 		this.view.padElement.addEventListener('keydown', this.onPadKeyDown_);
-
-		this.view.element.addEventListener('keydown', this.onKeyDown_);
-		this.view.allFocusableElements.forEach((elem) => {
-			elem.addEventListener('blur', this.onFocusableElementBlur_);
-		});
 	}
 
 	private handlePointerEvent_(d: PointerData): void {
@@ -118,30 +105,5 @@ export class Point2dPadController implements ValueController<Point2d> {
 				getStepForKey(this.baseSteps_[1], getVerticalStepKeys(ev)) *
 					(this.invertsY_ ? 1 : -1),
 		);
-	}
-
-	private onFocusableElementBlur_(ev: FocusEvent): void {
-		const elem = this.view.element;
-		const nextTarget = findNextTarget(ev);
-		if (nextTarget && elem.contains(nextTarget)) {
-			// Next target is in the picker
-			return;
-		}
-		if (
-			nextTarget &&
-			nextTarget === this.triggerElement &&
-			!supportsTouch(elem.ownerDocument)
-		) {
-			// Next target is the trigger button
-			return;
-		}
-
-		this.expanded.rawValue = false;
-	}
-
-	private onKeyDown_(ev: KeyboardEvent): void {
-		if (ev.key === 'Escape') {
-			this.expanded.rawValue = false;
-		}
 	}
 }

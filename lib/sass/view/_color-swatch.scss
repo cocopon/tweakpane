@@ -37,9 +37,9 @@
 			top: 0;
 		}
 	}
-	&_p {
+
+	.#{$prefix}-popv {
 		left: calc(-1 * var(--cnt-h-p));
-		position: absolute;
 		right: calc(-1 * var(--cnt-h-p));
 		top: var(--bld-h);
 	}
