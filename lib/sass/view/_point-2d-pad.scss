@@ -1,5 +1,5 @@
 .#{$prefix}-p2dpadv {
-	padding-left: calc(var(--cnt-h-p) + var(--bld-h));
+	padding-left: calc(var(--bld-h) + 4px);
 
 	// Pad
 	&_p {
