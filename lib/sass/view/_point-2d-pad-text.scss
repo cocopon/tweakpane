@@ -28,13 +28,14 @@
 			}
 		}
 	}
-	&_p {
+	&_t {
+		flex: 1;
+		margin-left: 4px;
+	}
+
+	.#{$prefix}-popv {
 		left: calc(-1 * var(--cnt-h-p));
-		position: absolute;
 		right: calc(-1 * var(--cnt-h-p));
 		top: var(--bld-h);
-	}
-	&_t {
-		margin-left: 4px;
 	}
 }

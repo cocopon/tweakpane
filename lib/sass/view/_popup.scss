@@ -1,0 +1,9 @@
+.#{$prefix}-popv {
+	@extend %picker;
+
+	position: absolute;
+
+	&#{&}-v {
+		@extend %picker-expanded;
+	}
+}

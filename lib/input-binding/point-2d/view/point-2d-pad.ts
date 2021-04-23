@@ -1,5 +1,4 @@
 import {SVG_NS} from '../../../common/dom-util';
-import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
@@ -9,7 +8,6 @@ import {View} from '../../../common/view/view';
 import {Point2d} from '../model/point-2d';
 
 interface Config {
-	expanded: PrimitiveValue<boolean>;
 	invertsY: boolean;
 	maxValue: number;
 	value: Value<Point2d>;
@@ -25,7 +23,6 @@ export class Point2dPadView implements View {
 	public readonly element: HTMLElement;
 	public readonly padElement: HTMLDivElement;
 	public readonly value: Value<Point2d>;
-	private readonly expanded_: PrimitiveValue<boolean>;
 	private readonly invertsY_: boolean;
 	private readonly maxValue_: number;
 	private readonly svgElem_: Element;
@@ -35,9 +32,6 @@ export class Point2dPadView implements View {
 	constructor(doc: Document, config: Config) {
 		this.onFoldableChange_ = this.onFoldableChange_.bind(this);
 		this.onValueChange_ = this.onValueChange_.bind(this);
-
-		this.expanded_ = config.expanded;
-		this.expanded_.emitter.on('change', this.onFoldableChange_);
 
 		this.invertsY_ = config.invertsY;
 		this.maxValue_ = config.maxValue;
@@ -95,12 +89,6 @@ export class Point2dPadView implements View {
 	}
 
 	private update_(): void {
-		if (this.expanded_.rawValue) {
-			this.element.classList.add(className(undefined, 'expanded'));
-		} else {
-			this.element.classList.remove(className(undefined, 'expanded'));
-		}
-
 		const [x, y] = this.value.rawValue.getComponents();
 		const max = this.maxValue_;
 		const px = mapRange(x, -max, +max, 0, 100);

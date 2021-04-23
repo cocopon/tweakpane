@@ -1,6 +1,8 @@
 import {Constraint} from '../../../common/constraint/constraint';
+import {PopupController} from '../../../common/controller/popup';
 import {ValueController} from '../../../common/controller/value';
 import {Parser} from '../../../common/converter/parser';
+import {findNextTarget, supportsTouch} from '../../../common/dom-util';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {NumberTextProps} from '../../../common/number/view/number-text';
@@ -32,23 +34,35 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 	public readonly value: Value<Point2d>;
 	public readonly view: Point2dPadTextView;
 	public readonly viewProps: ViewProps;
-	private readonly padIc_: Point2dPadController;
+	private readonly popC_: PopupController;
+	private readonly padC_: Point2dPadController;
 	private readonly textIc_: PointNdTextController<Point2d>;
 
 	constructor(doc: Document, config: Config) {
+		this.onPopupChildBlur_ = this.onPopupChildBlur_.bind(this);
+		this.onPopupChildKeydown_ = this.onPopupChildKeydown_.bind(this);
 		this.onPadButtonBlur_ = this.onPadButtonBlur_.bind(this);
 		this.onPadButtonClick_ = this.onPadButtonClick_.bind(this);
 
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 
-		this.padIc_ = new Point2dPadController(doc, {
+		this.popC_ = new PopupController(doc, {
+			viewProps: this.viewProps,
+		});
+
+		const padC = new Point2dPadController(doc, {
 			baseSteps: [config.axes[0].baseStep, config.axes[1].baseStep],
 			invertsY: config.invertsY,
 			maxValue: config.maxValue,
 			value: this.value,
 			viewProps: this.viewProps,
 		});
+		padC.view.allFocusableElements.forEach((elem) => {
+			elem.addEventListener('blur', this.onPopupChildBlur_);
+		});
+		this.popC_.view.element.appendChild(padC.view.element);
+		this.padC_ = padC;
 
 		this.textIc_ = new PointNdTextController(doc, {
 			assembly: Point2dAssembly,
@@ -59,30 +73,54 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 		});
 
 		this.view = new Point2dPadTextView(doc, {
-			padView: this.padIc_.view,
-			textView: this.textIc_.view,
 			viewProps: this.viewProps,
 		});
+		this.view.element.appendChild(this.popC_.view.element);
+		this.view.textElement.appendChild(this.textIc_.view.element);
 		this.view.padButtonElement.addEventListener('blur', this.onPadButtonBlur_);
 		this.view.padButtonElement.addEventListener(
 			'click',
 			this.onPadButtonClick_,
 		);
-		this.padIc_.triggerElement = this.view.padButtonElement;
 	}
 
 	private onPadButtonBlur_(e: FocusEvent) {
 		const elem = this.view.element;
 		const nextTarget: HTMLElement | null = forceCast(e.relatedTarget);
 		if (!nextTarget || !elem.contains(nextTarget)) {
-			this.padIc_.expanded.rawValue = false;
+			this.popC_.shows.rawValue = false;
 		}
 	}
 
 	private onPadButtonClick_(): void {
-		this.padIc_.expanded.rawValue = !this.padIc_.expanded.rawValue;
-		if (this.padIc_.expanded.rawValue) {
-			this.padIc_.view.allFocusableElements[0].focus();
+		this.popC_.shows.rawValue = !this.popC_.shows.rawValue;
+		if (this.popC_.shows.rawValue) {
+			this.padC_.view.allFocusableElements[0].focus();
+		}
+	}
+
+	private onPopupChildBlur_(ev: FocusEvent): void {
+		const elem = this.popC_.view.element;
+		const nextTarget = findNextTarget(ev);
+		if (nextTarget && elem.contains(nextTarget)) {
+			// Next target is in the popup
+			return;
+		}
+		if (
+			nextTarget &&
+			nextTarget === this.view.padButtonElement &&
+			!supportsTouch(elem.ownerDocument)
+		) {
+			// Next target is the trigger button
+			return;
+		}
+
+		this.popC_.shows.rawValue = false;
+	}
+
+	private onPopupChildKeydown_(ev: KeyboardEvent): void {
+		if (ev.key === 'Escape') {
+			this.popC_.shows.rawValue = false;
 		}
 	}
 }
