@@ -5,10 +5,8 @@ import {bindClassModifier, bindDisabled} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {colorToHexRgbaString} from '../converter/color-string';
 import {Color} from '../model/color';
-import {ColorPickerView} from './color-picker';
 
 interface Config {
-	pickerView: ColorPickerView;
 	value: Value<Color>;
 	viewProps: ViewProps;
 }
@@ -21,7 +19,6 @@ const className = ClassName('clsw');
 export class ColorSwatchView implements View {
 	public readonly element: HTMLElement;
 	public readonly value: Value<Color>;
-	private pickerView_: ColorPickerView;
 	public readonly buttonElement: HTMLButtonElement;
 	private swatchElem_: HTMLDivElement;
 
@@ -45,12 +42,6 @@ export class ColorSwatchView implements View {
 		bindDisabled(config.viewProps, buttonElem);
 		this.element.appendChild(buttonElem);
 		this.buttonElement = buttonElem;
-
-		const pickerElem = doc.createElement('div');
-		pickerElem.classList.add(className('p'));
-		this.pickerView_ = config.pickerView;
-		pickerElem.appendChild(this.pickerView_.element);
-		this.element.appendChild(pickerElem);
 
 		this.update_();
 	}

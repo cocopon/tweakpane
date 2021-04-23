@@ -4,9 +4,7 @@ import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../../common/converter/number';
-import {findNextTarget, supportsTouch} from '../../../common/dom-util';
 import {BoundValue} from '../../../common/model/bound-value';
-import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
 import {connectValues} from '../../../common/model/value-sync';
@@ -30,27 +28,20 @@ interface Config {
  * @hidden
  */
 export class ColorPickerController implements ValueController<Color> {
-	public readonly expanded: PrimitiveValue<boolean>;
 	public readonly pickedColor: PickedColor;
 	public readonly view: ColorPickerView;
 	public readonly viewProps: ViewProps;
-	public triggerElement: HTMLElement | null = null;
 	private alphaIcs_: {
 		palette: APaletteController;
 		text: NumberTextController;
 	} | null;
 	private hPaletteIc_: HPaletteController;
 	private svPaletteIc_: SvPaletteController;
-	private tc_: ColorTextController;
+	private textC_: ColorTextController;
 
 	constructor(doc: Document, config: Config) {
-		this.onFocusableElementBlur_ = this.onFocusableElementBlur_.bind(this);
-		this.onKeyDown_ = this.onKeyDown_.bind(this);
-
 		this.pickedColor = config.pickedColor;
 		this.viewProps = config.viewProps;
-
-		this.expanded = new PrimitiveValue(false as boolean);
 
 		this.hPaletteIc_ = new HPaletteController(doc, {
 			value: this.pickedColor.value,
@@ -94,7 +85,7 @@ export class ColorPickerController implements ValueController<Color> {
 				},
 			});
 		}
-		this.tc_ = new ColorTextController(doc, {
+		this.textC_ = new ColorTextController(doc, {
 			parser: parseNumber,
 			pickedColor: this.pickedColor,
 			viewProps: this.viewProps,
@@ -107,16 +98,10 @@ export class ColorPickerController implements ValueController<Color> {
 						text: this.alphaIcs_.text.view,
 				  }
 				: null,
-			expanded: this.expanded,
 			hPaletteView: this.hPaletteIc_.view,
-			pickedColor: this.pickedColor,
 			supportsAlpha: config.supportsAlpha,
 			svPaletteView: this.svPaletteIc_.view,
-			textView: this.tc_.view,
-		});
-		this.view.element.addEventListener('keydown', this.onKeyDown_);
-		this.view.allFocusableElements.forEach((elem) => {
-			elem.addEventListener('blur', this.onFocusableElementBlur_);
+			textView: this.textC_.view,
 		});
 	}
 
@@ -125,31 +110,6 @@ export class ColorPickerController implements ValueController<Color> {
 	}
 
 	get textController(): ColorTextController {
-		return this.tc_;
-	}
-
-	private onFocusableElementBlur_(ev: FocusEvent): void {
-		const elem = this.view.element;
-		const nextTarget = findNextTarget(ev);
-		if (nextTarget && elem.contains(nextTarget)) {
-			// Next target is in the picker
-			return;
-		}
-		if (
-			nextTarget &&
-			nextTarget === this.triggerElement &&
-			!supportsTouch(elem.ownerDocument)
-		) {
-			// Next target is the trigger button
-			return;
-		}
-
-		this.expanded.rawValue = false;
-	}
-
-	private onKeyDown_(ev: KeyboardEvent): void {
-		if (ev.key === 'Escape') {
-			this.expanded.rawValue = false;
-		}
+		return this.textC_;
 	}
 }

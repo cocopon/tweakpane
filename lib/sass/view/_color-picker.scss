@@ -3,12 +3,6 @@ $marker-border-color-focus: white;
 $slider-track-width: 4px;
 
 .#{$prefix}-clpv {
-	@extend %picker;
-
-	&#{&}-expanded {
-		@extend %picker-expanded;
-	}
-
 	&_h,
 	&_ap {
 		margin-left: $slider-knob-size / 2;

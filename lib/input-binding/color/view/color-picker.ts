@@ -1,9 +1,6 @@
-import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {NumberTextView} from '../../../common/number/view/number-text';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
-import {forceCast} from '../../../misc/type-util';
-import {PickedColor} from '../model/picked-color';
 import {APaletteView} from './a-palette';
 import {ColorTextView} from './color-text';
 import {HPaletteView} from './h-palette';
@@ -16,9 +13,7 @@ interface Config {
 		palette: APaletteView;
 		text: NumberTextView;
 	} | null;
-	expanded: PrimitiveValue<boolean>;
 	hPaletteView: HPaletteView;
-	pickedColor: PickedColor;
 	supportsAlpha: boolean;
 	svPaletteView: SvPaletteView;
 	textView: ColorTextView;
@@ -29,8 +24,6 @@ interface Config {
  */
 export class ColorPickerView implements View {
 	public readonly element: HTMLElement;
-	public readonly pickedColor: PickedColor;
-	private readonly expanded_: PrimitiveValue<boolean>;
 	private alphaViews_: {
 		palette: APaletteView;
 		text: NumberTextView;
@@ -40,15 +33,6 @@ export class ColorPickerView implements View {
 	private textView_: ColorTextView;
 
 	constructor(doc: Document, config: Config) {
-		this.onFoldableChange_ = this.onFoldableChange_.bind(this);
-		this.onValueChange_ = this.onValueChange_.bind(this);
-
-		this.pickedColor = config.pickedColor;
-		this.pickedColor.value.emitter.on('change', this.onValueChange_);
-
-		this.expanded_ = config.expanded;
-		this.expanded_.emitter.on('change', this.onFoldableChange_);
-
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
 
@@ -95,14 +79,13 @@ export class ColorPickerView implements View {
 
 			this.element.appendChild(aElem);
 		}
-
-		this.update_();
 	}
 
 	get allFocusableElements(): HTMLElement[] {
 		const elems = [
 			this.svPaletteView_.element,
 			this.hPaletteView_.element,
+			this.textView_.modeSelectElement,
 			...this.textView_.textViews.map((v) => v.inputElement),
 		];
 		if (this.alphaViews_) {
@@ -111,22 +94,6 @@ export class ColorPickerView implements View {
 				this.alphaViews_.text.inputElement,
 			);
 		}
-		return forceCast(elems);
-	}
-
-	private update_(): void {
-		if (this.expanded_.rawValue) {
-			this.element.classList.add(className(undefined, 'expanded'));
-		} else {
-			this.element.classList.remove(className(undefined, 'expanded'));
-		}
-	}
-
-	private onValueChange_(): void {
-		this.update_();
-	}
-
-	private onFoldableChange_(): void {
-		this.update_();
+		return elems;
 	}
 }
