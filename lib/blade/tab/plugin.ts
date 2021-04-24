@@ -21,10 +21,10 @@ export const TabBladePlugin: BladePlugin<TabBladeParams> = {
 			pages: p.required.array(p.required.object({title: p.required.string})),
 			view: p.required.literal('tab'),
 		});
-		if (result && result.pages.length === 0) {
+		if (!result || result.pages.length === 0) {
 			return null;
 		}
-		return result ? {params: result} : null;
+		return {params: result};
 	},
 	controller(args) {
 		const c = new TabController(args.document, {
