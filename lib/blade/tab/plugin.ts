@@ -1,6 +1,5 @@
 import {ValueMap} from '../../common/model/value-map';
-import {findObjectArrayParam, findStringParam} from '../../common/params';
-import {isEmpty} from '../../misc/type-util';
+import {ParamsParsers, parseParams} from '../../common/params';
 import {BladeParams} from '../common/api/types';
 import {BladePlugin} from '../plugin';
 import {TabApi} from './api/tab';
@@ -17,31 +16,15 @@ export interface TabBladeParams extends BladeParams {
 export const TabBladePlugin: BladePlugin<TabBladeParams> = {
 	id: 'tab',
 	accept(params) {
-		const pageObjs = findObjectArrayParam(params, 'pages');
-		if (findStringParam(params, 'view') !== 'tab' || !pageObjs) {
+		const p = ParamsParsers;
+		const result = parseParams<TabBladeParams>(params, {
+			pages: p.required.array(p.required.object({title: p.required.string})),
+			view: p.required.literal('tab'),
+		});
+		if (result && result.pages.length === 0) {
 			return null;
 		}
-
-		const pages = [];
-		for (let i = 0; i < pageObjs.length; i++) {
-			const title = findStringParam(pageObjs[i], 'title');
-			if (isEmpty(title)) {
-				return null;
-			}
-			pages.push({
-				title: title,
-			});
-		}
-		if (pages.length === 0) {
-			return null;
-		}
-
-		return {
-			params: {
-				pages: pages,
-				view: 'tab',
-			},
-		};
+		return result ? {params: result} : null;
 	},
 	controller(args) {
 		const c = new TabController(args.document, {

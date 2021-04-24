@@ -1,5 +1,5 @@
 import {ValueMap} from '../../common/model/value-map';
-import {findBooleanParam, findStringParam} from '../../common/params';
+import {ParamsParsers, parseParams} from '../../common/params';
 import {BladeParams} from '../common/api/types';
 import {BladePlugin} from '../plugin';
 import {FolderApi} from './api/folder';
@@ -15,18 +15,14 @@ export interface FolderBladeParams extends BladeParams {
 export const FolderBladePlugin: BladePlugin<FolderBladeParams> = {
 	id: 'button',
 	accept(params) {
-		const title = findStringParam(params, 'title');
-		if (title === undefined || findStringParam(params, 'view') !== 'folder') {
-			return null;
-		}
+		const p = ParamsParsers;
+		const result = parseParams<FolderBladeParams>(params, {
+			title: p.required.string,
+			view: p.required.literal('folder'),
 
-		return {
-			params: {
-				expanded: findBooleanParam(params, 'expanded'),
-				title: title,
-				view: 'folder',
-			},
-		};
+			expanded: p.optional.boolean,
+		});
+		return result ? {params: result} : null;
 	},
 	controller(args) {
 		return new FolderController(args.document, {

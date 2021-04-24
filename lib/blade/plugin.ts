@@ -1,5 +1,5 @@
 import {createViewProps, ViewProps} from '../common/model/view-props';
-import {findBooleanParam} from '../common/params';
+import {ParamsParsers} from '../common/params';
 import {View} from '../common/view/view';
 import {forceCast} from '../misc/type-util';
 import {BasePlugin} from '../plugin';
@@ -43,8 +43,9 @@ export function createBladeController<P extends BladeParams>(
 		return null;
 	}
 
-	const disabled = findBooleanParam(args.params, 'disabled');
-	const hidden = findBooleanParam(args.params, 'hidden');
+	const disabled = ParamsParsers.optional.boolean(args.params['disabled'])
+		.value;
+	const hidden = ParamsParsers.optional.boolean(args.params['hidden']).value;
 	return plugin.controller({
 		blade: new Blade(),
 		document: args.document,

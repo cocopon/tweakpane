@@ -1,4 +1,4 @@
-import {findStringParam} from '../../common/params';
+import {ParamsParsers, parseParams} from '../../common/params';
 import {BladeParams} from '../common/api/types';
 import {BladePlugin} from '../plugin';
 import {SeparatorApi} from './api/separator';
@@ -11,15 +11,11 @@ export interface SeparatorBladeParams extends BladeParams {
 export const SeparatorBladePlugin: BladePlugin<SeparatorBladeParams> = {
 	id: 'separator',
 	accept(params) {
-		if (findStringParam(params, 'view') !== 'separator') {
-			return null;
-		}
-
-		return {
-			params: {
-				view: 'separator',
-			},
-		};
+		const p = ParamsParsers;
+		const result = parseParams<SeparatorBladeParams>(params, {
+			view: p.required.literal('separator'),
+		});
+		return result ? {params: result} : null;
 	},
 	controller(args) {
 		return new SeparatorController(args.document, {
