@@ -10,7 +10,6 @@ type ParamsParsingResult<T> =
 			value: undefined;
 	  };
 export type ParamsParser<T> = (value: unknown) => ParamsParsingResult<T>;
-export type ParamsParserBuilder<T> = (optional?: boolean) => ParamsParser<T>;
 
 function parseObject<O extends Record<string, unknown>>(
 	value: Record<string, unknown>,
@@ -58,6 +57,8 @@ function isObject(value: unknown): value is Record<string, unknown> {
 	}
 	return typeof value === 'object';
 }
+
+type ParamsParserBuilder<T> = (optional?: boolean) => ParamsParser<T>;
 
 function createParamsParserBuilder<T>(
 	parse: (value: unknown) => T | undefined,
