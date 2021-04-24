@@ -19,7 +19,7 @@ export const TabBladePlugin: BladePlugin<TabBladeParams> = {
 		const p = ParamsParsers;
 		const result = parseParams<TabBladeParams>(params, {
 			pages: p.required.array(p.required.object({title: p.required.string})),
-			view: p.required.literal('tab'),
+			view: p.required.constant('tab'),
 		});
 		if (!result || result.pages.length === 0) {
 			return null;

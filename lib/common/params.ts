@@ -112,7 +112,7 @@ function createParamsParserBuilders(optional: boolean) {
 			typeof v === 'function' ? v : undefined,
 		)(optional),
 
-		literal: <T>(value: T) =>
+		constant: <T>(value: T) =>
 			createParamsParserBuilder<T>((v) => (v === value ? value : undefined))(
 				optional,
 			),

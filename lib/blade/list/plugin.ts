@@ -51,7 +51,7 @@ export const ListBladePlugin = (function<T>(): BladePlugin<ListBladeParams<T>> {
 			const result = parseParams<ListBladeParams<T>>(params, {
 				options: p.required.custom<ListBladeParamsOptions<T>>(parseOptions),
 				value: p.required.raw as ParamsParser<T>,
-				view: p.required.literal('list'),
+				view: p.required.constant('list'),
 
 				label: p.optional.string,
 			});

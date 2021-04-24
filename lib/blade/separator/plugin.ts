@@ -13,7 +13,7 @@ export const SeparatorBladePlugin: BladePlugin<SeparatorBladeParams> = {
 	accept(params) {
 		const p = ParamsParsers;
 		const result = parseParams<SeparatorBladeParams>(params, {
-			view: p.required.literal('separator'),
+			view: p.required.constant('separator'),
 		});
 		return result ? {params: result} : null;
 	},

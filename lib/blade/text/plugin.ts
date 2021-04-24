@@ -26,7 +26,7 @@ export const TextBladePlugin = (function<T>(): BladePlugin<TextBladeParams<T>> {
 			const result = parseParams<TextBladeParams<T>>(params, {
 				parse: p.required.function as ParamsParser<Parser<T>>,
 				value: p.required.raw as ParamsParser<T>,
-				view: p.required.literal('text'),
+				view: p.required.constant('text'),
 
 				format: p.optional.function as ParamsParser<Formatter<T>>,
 				label: p.optional.string,
