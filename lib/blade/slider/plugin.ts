@@ -3,13 +3,8 @@ import {numberToString, parseNumber} from '../../common/converter/number';
 import {PrimitiveValue} from '../../common/model/primitive-value';
 import {ValueMap} from '../../common/model/value-map';
 import {SliderTextController} from '../../common/number/controller/slider-text';
-import {
-	findFunctionParam,
-	findNumberParam,
-	findStringParam,
-} from '../../common/params';
+import {ParamsParser, ParamsParsers, parseParams} from '../../common/params';
 import {getSuitableDraggingScale} from '../../common/util';
-import {forceCast} from '../../misc/type-util';
 import {BladeParams} from '../common/api/types';
 import {LabelController} from '../label/controller/label';
 import {BladePlugin} from '../plugin';
@@ -28,25 +23,17 @@ export interface SliderBladeParams extends BladeParams {
 export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 	id: 'slider',
 	accept(params) {
-		if (findStringParam(params, 'view') !== 'slider') {
-			return null;
-		}
-		const max = findNumberParam(params, 'max');
-		const min = findNumberParam(params, 'min');
-		if (max === undefined || min === undefined) {
-			return null;
-		}
+		const p = ParamsParsers;
+		const result = parseParams<SliderBladeParams>(params, {
+			max: p.required.number,
+			min: p.required.number,
+			view: p.required.literal('slider'),
 
-		return {
-			params: {
-				format: forceCast(findFunctionParam(params, 'format')),
-				label: findStringParam(params, 'label'),
-				max: max,
-				min: min,
-				value: findNumberParam(params, 'value'),
-				view: 'slider',
-			},
-		};
+			format: p.optional.function as ParamsParser<Formatter<number>>,
+			label: p.optional.string,
+			value: p.optional.number,
+		});
+		return result ? {params: result} : null;
 	},
 	controller(args) {
 		const v = args.params.value ?? 0;

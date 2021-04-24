@@ -1,5 +1,5 @@
 import {ValueMap} from '../../common/model/value-map';
-import {findStringParam} from '../../common/params';
+import {ParamsParsers, parseParams} from '../../common/params';
 import {BladeParams} from '../common/api/types';
 import {LabelController} from '../label/controller/label';
 import {BladePlugin} from '../plugin';
@@ -16,21 +16,14 @@ export interface ButtonBladeParams extends BladeParams {
 export const ButtonBladePlugin: BladePlugin<ButtonBladeParams> = {
 	id: 'button',
 	accept(params) {
-		if (findStringParam(params, 'view') !== 'button') {
-			return null;
-		}
+		const p = ParamsParsers;
+		const result = parseParams<ButtonBladeParams>(params, {
+			title: p.required.string,
+			view: p.required.literal('button'),
 
-		const title = findStringParam(params, 'title');
-		if (title === undefined) {
-			return null;
-		}
-		return {
-			params: {
-				label: findStringParam(params, 'label'),
-				title: title,
-				view: 'button',
-			},
-		};
+			label: p.optional.string,
+		});
+		return result ? {params: result} : null;
 	},
 	controller(args) {
 		return new LabelController(args.document, {

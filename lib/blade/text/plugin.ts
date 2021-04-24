@@ -3,8 +3,7 @@ import {Formatter} from '../../common/converter/formatter';
 import {Parser} from '../../common/converter/parser';
 import {PrimitiveValue} from '../../common/model/primitive-value';
 import {ValueMap} from '../../common/model/value-map';
-import {findFunctionParam, findStringParam} from '../../common/params';
-import {forceCast} from '../../misc/type-util';
+import {ParamsParser, ParamsParsers, parseParams} from '../../common/params';
 import {BladeParams} from '../common/api/types';
 import {LabelController} from '../label/controller/label';
 import {BladePlugin} from '../plugin';
@@ -23,23 +22,16 @@ export const TextBladePlugin = (function<T>(): BladePlugin<TextBladeParams<T>> {
 	return {
 		id: 'text',
 		accept(params) {
-			if (findStringParam(params, 'view') !== 'text') {
-				return null;
-			}
-			const parser = findFunctionParam(params, 'parse');
-			const value = params['value'];
-			if (!parser || !value) {
-				return null;
-			}
-			return {
-				params: {
-					format: forceCast(findFunctionParam(params, 'format')),
-					label: findStringParam(params, 'label'),
-					parse: forceCast(parser),
-					value: forceCast(value),
-					view: 'text',
-				},
-			};
+			const p = ParamsParsers;
+			const result = parseParams<TextBladeParams<T>>(params, {
+				parse: p.required.function as ParamsParser<Parser<T>>,
+				value: p.required.raw as ParamsParser<T>,
+				view: p.required.literal('text'),
+
+				format: p.optional.function as ParamsParser<Formatter<T>>,
+				label: p.optional.string,
+			});
+			return result ? {params: result} : null;
 		},
 		controller(args) {
 			const ic = new TextController(args.document, {

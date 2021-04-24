@@ -1,9 +1,8 @@
 import {ListController} from '../../common/controller/list';
 import {PrimitiveValue} from '../../common/model/primitive-value';
 import {ValueMap} from '../../common/model/value-map';
-import {findObjectParam, findStringParam} from '../../common/params';
+import {ParamsParser, ParamsParsers, parseParams} from '../../common/params';
 import {normalizeListOptions} from '../../common/util';
-import {forceCast, isEmpty} from '../../misc/type-util';
 import {
 	ArrayStyleListOptions,
 	BladeParams,
@@ -13,35 +12,50 @@ import {LabelController} from '../label/controller/label';
 import {BladePlugin} from '../plugin';
 import {ListApi} from './api/list';
 
+type ListBladeParamsOptions<T> =
+	| ArrayStyleListOptions<T>
+	| ObjectStyleListOptions<T>;
+
 export interface ListBladeParams<T> extends BladeParams {
-	options: ArrayStyleListOptions<T> | ObjectStyleListOptions<T>;
+	options: ListBladeParamsOptions<T>;
 	value: T;
 	view: 'list';
 
 	label?: string;
 }
 
+function parseOptions<T>(
+	value: unknown,
+): ListBladeParamsOptions<T> | undefined {
+	const p = ParamsParsers;
+	if (Array.isArray(value)) {
+		return p.required.array(
+			p.required.object({
+				text: p.required.string,
+				value: p.required.raw as ParamsParser<T>,
+			}),
+		)(value).value;
+	}
+	if (typeof value === 'object') {
+		return (p.required.raw as ParamsParser<ObjectStyleListOptions<T>>)(value)
+			.value;
+	}
+	return undefined;
+}
+
 export const ListBladePlugin = (function<T>(): BladePlugin<ListBladeParams<T>> {
 	return {
 		id: 'list',
 		accept(params) {
-			if (findStringParam(params, 'view') !== 'list') {
-				return null;
-			}
-			const value = params['value'];
-			const options = findObjectParam(params, 'options');
-			if (isEmpty(value) || !options) {
-				return null;
-			}
+			const p = ParamsParsers;
+			const result = parseParams<ListBladeParams<T>>(params, {
+				options: p.required.custom<ListBladeParamsOptions<T>>(parseOptions),
+				value: p.required.raw as ParamsParser<T>,
+				view: p.required.literal('list'),
 
-			return {
-				params: {
-					label: findStringParam(params, 'label'),
-					options: forceCast(options),
-					value: forceCast(value),
-					view: 'list',
-				},
-			};
+				label: p.optional.string,
+			});
+			return result ? {params: result} : null;
 		},
 		controller(args) {
 			const ic = new ListController(args.document, {
