@@ -18,7 +18,7 @@ export const FolderBladePlugin: BladePlugin<FolderBladeParams> = {
 		const p = ParamsParsers;
 		const result = parseParams<FolderBladeParams>(params, {
 			title: p.required.string,
-			view: p.required.literal('folder'),
+			view: p.required.constant('folder'),
 
 			expanded: p.optional.boolean,
 		});

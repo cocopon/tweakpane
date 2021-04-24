@@ -27,7 +27,7 @@ export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 		const result = parseParams<SliderBladeParams>(params, {
 			max: p.required.number,
 			min: p.required.number,
-			view: p.required.literal('slider'),
+			view: p.required.constant('slider'),
 
 			format: p.optional.function as ParamsParser<Formatter<number>>,
 			label: p.optional.string,

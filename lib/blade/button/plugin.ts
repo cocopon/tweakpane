@@ -19,7 +19,7 @@ export const ButtonBladePlugin: BladePlugin<ButtonBladeParams> = {
 		const p = ParamsParsers;
 		const result = parseParams<ButtonBladeParams>(params, {
 			title: p.required.string,
-			view: p.required.literal('button'),
+			view: p.required.constant('button'),
 
 			label: p.optional.string,
 		});
