@@ -1,6 +1,6 @@
 import {InputParams} from '../../blade/common/api/types';
 import {InputBindingPlugin} from '../plugin';
-import {ColorSwatchTextController} from './controller/color-swatch-text';
+import {ColorController} from './controller/color-swatch-text';
 import {
 	colorFromRgbaNumber,
 	colorFromRgbNumber,
@@ -56,7 +56,7 @@ export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
 		const formatter = supportsAlpha
 			? colorToHexRgbaString
 			: colorToHexRgbString;
-		return new ColorSwatchTextController(args.document, {
+		return new ColorController(args.document, {
 			formatter: formatter,
 			parser: CompositeColorParser,
 			pickerLayout:

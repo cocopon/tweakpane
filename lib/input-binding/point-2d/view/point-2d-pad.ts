@@ -21,7 +21,7 @@ const className = ClassName('p2dpad');
 /**
  * @hidden
  */
-export class Point2dPadView implements View {
+export class Point2dPickerView implements View {
 	public readonly element: HTMLElement;
 	public readonly padElement: HTMLDivElement;
 	public readonly value: Value<Point2d>;

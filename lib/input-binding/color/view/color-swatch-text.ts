@@ -11,7 +11,7 @@ const className = ClassName('clswtxt');
 /**
  * @hidden
  */
-export class ColorSwatchTextView implements View {
+export class ColorView implements View {
 	public readonly element: HTMLElement;
 	public readonly swatchElement: HTMLElement;
 	public readonly textElement: HTMLElement;

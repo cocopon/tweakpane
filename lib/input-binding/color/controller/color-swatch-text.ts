@@ -11,7 +11,7 @@ import {ViewProps} from '../../../common/model/view-props';
 import {forceCast} from '../../../misc/type-util';
 import {Color} from '../model/color';
 import {PickedColor} from '../model/picked-color';
-import {ColorSwatchTextView} from '../view/color-swatch-text';
+import {ColorView} from '../view/color-swatch-text';
 import {ColorPickerController} from './color-picker';
 import {ColorSwatchController} from './color-swatch';
 
@@ -27,9 +27,9 @@ interface Config {
 /**
  * @hidden
  */
-export class ColorSwatchTextController implements ValueController<Color> {
+export class ColorController implements ValueController<Color> {
 	public readonly value: Value<Color>;
-	public readonly view: ColorSwatchTextView;
+	public readonly view: ColorView;
 	public readonly viewProps: ViewProps;
 	private swatchC_: ColorSwatchController;
 	private textC_: TextController<Color>;
@@ -64,7 +64,7 @@ export class ColorSwatchTextController implements ValueController<Color> {
 			viewProps: this.viewProps,
 		});
 
-		this.view = new ColorSwatchTextView(doc, {
+		this.view = new ColorView(doc, {
 			pickerLayout: config.pickerLayout,
 		});
 		this.view.swatchElement.appendChild(this.swatchC_.view.element);

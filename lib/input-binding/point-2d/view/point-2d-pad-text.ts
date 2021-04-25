@@ -15,7 +15,7 @@ const className = ClassName('p2dpadtxt');
 /**
  * @hidden
  */
-export class Point2dPadTextView implements View {
+export class Point2dView implements View {
 	public readonly element: HTMLElement;
 	public readonly buttonElement: HTMLButtonElement | null;
 	public readonly textElement: HTMLElement;

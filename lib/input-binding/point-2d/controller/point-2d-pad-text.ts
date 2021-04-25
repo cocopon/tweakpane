@@ -10,8 +10,8 @@ import {NumberTextProps} from '../../../common/number/view/number-text';
 import {forceCast} from '../../../misc/type-util';
 import {PointNdTextController} from '../../common/controller/point-nd-text';
 import {Point2d, Point2dAssembly} from '../model/point-2d';
-import {Point2dPadTextView} from '../view/point-2d-pad-text';
-import {Point2dPadController} from './point-2d-pad';
+import {Point2dView} from '../view/point-2d-pad-text';
+import {Point2dPickerController} from './point-2d-pad';
 
 interface Axis {
 	baseStep: number;
@@ -32,12 +32,12 @@ interface Config {
 /**
  * @hidden
  */
-export class Point2dPadTextController implements ValueController<Point2d> {
+export class Point2dController implements ValueController<Point2d> {
 	public readonly value: Value<Point2d>;
-	public readonly view: Point2dPadTextView;
+	public readonly view: Point2dView;
 	public readonly viewProps: ViewProps;
 	private readonly popC_: PopupController;
-	private readonly pickerC_: Point2dPadController;
+	private readonly pickerC_: Point2dPickerController;
 	private readonly textIc_: PointNdTextController<Point2d>;
 
 	constructor(doc: Document, config: Config) {
@@ -53,7 +53,7 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 			viewProps: this.viewProps,
 		});
 
-		const padC = new Point2dPadController(doc, {
+		const padC = new Point2dPickerController(doc, {
 			baseSteps: [config.axes[0].baseStep, config.axes[1].baseStep],
 			invertsY: config.invertsY,
 			layout: config.pickerLayout,
@@ -75,7 +75,7 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 			viewProps: this.viewProps,
 		});
 
-		this.view = new Point2dPadTextView(doc, {
+		this.view = new Point2dView(doc, {
 			pickerLayout: config.pickerLayout,
 			viewProps: this.viewProps,
 		});

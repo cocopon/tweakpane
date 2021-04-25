@@ -10,10 +10,10 @@ import {SliderTextController} from '../common/number/controller/slider-text';
 import {TpError} from '../common/tp-error';
 import Tweakpane from '../index';
 import {CheckboxController} from '../input-binding/boolean/controller/checkbox';
-import {ColorSwatchTextController} from '../input-binding/color/controller/color-swatch-text';
+import {ColorController} from '../input-binding/color/controller/color-swatch-text';
 import {Color} from '../input-binding/color/model/color';
 import {PointNdTextController} from '../input-binding/common/controller/point-nd-text';
-import {Point2dPadTextController} from '../input-binding/point-2d/controller/point-2d-pad-text';
+import {Point2dController} from '../input-binding/point-2d/controller/point-2d-pad-text';
 import {TestUtil} from '../misc/test-util';
 import {forceCast} from '../misc/type-util';
 
@@ -262,7 +262,7 @@ describe(Tweakpane.name, () => {
 				value: '#00ff00',
 				params: {},
 			},
-			expectedClass: ColorSwatchTextController,
+			expectedClass: ColorController,
 		},
 		{
 			args: {
@@ -271,7 +271,7 @@ describe(Tweakpane.name, () => {
 					input: 'color',
 				},
 			},
-			expectedClass: ColorSwatchTextController,
+			expectedClass: ColorController,
 		},
 		{
 			args: {
@@ -280,7 +280,7 @@ describe(Tweakpane.name, () => {
 					input: 'color.rgb',
 				},
 			},
-			expectedClass: ColorSwatchTextController,
+			expectedClass: ColorController,
 		},
 		{
 			args: {
@@ -289,21 +289,21 @@ describe(Tweakpane.name, () => {
 					input: 'color.rgba',
 				},
 			},
-			expectedClass: ColorSwatchTextController,
+			expectedClass: ColorController,
 		},
 		{
 			args: {
 				value: {r: 0, g: 127, b: 255},
 				params: {},
 			},
-			expectedClass: ColorSwatchTextController,
+			expectedClass: ColorController,
 		},
 		{
 			args: {
 				value: {r: 0, g: 127, b: 255, a: 0.5},
 				params: {},
 			},
-			expectedClass: ColorSwatchTextController,
+			expectedClass: ColorController,
 		},
 		// Point2d
 		{
@@ -311,7 +311,7 @@ describe(Tweakpane.name, () => {
 				value: {x: 12, y: 34},
 				params: {},
 			},
-			expectedClass: Point2dPadTextController,
+			expectedClass: Point2dController,
 		},
 		// Point3d
 		{
