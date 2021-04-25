@@ -37,12 +37,6 @@
 			top: 0;
 		}
 	}
-
-	.#{$prefix}-popv {
-		left: calc(-1 * var(--cnt-h-p));
-		right: calc(-1 * var(--cnt-h-p));
-		top: var(--bld-h);
-	}
 }
 
 // colorswatch-text
@@ -58,5 +52,11 @@
 	&_t {
 		flex: 1;
 		margin-left: 4px;
+	}
+
+	.#{$prefix}-popv {
+		left: calc(-1 * var(--cnt-h-p));
+		right: calc(-1 * var(--cnt-h-p));
+		top: var(--bld-h);
 	}
 }

@@ -47,6 +47,7 @@ type ColorInputType = 'color' | 'color.rgb' | 'color.rgba';
 
 export interface ColorInputParams extends BaseInputParams {
 	input?: ColorInputType;
+	picker?: PickerLayout;
 }
 
 export interface Point2dInputParams extends BaseInputParams {
