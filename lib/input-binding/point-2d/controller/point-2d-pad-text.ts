@@ -1,3 +1,4 @@
+import {PickerLayout} from '../../../blade/common/api/types';
 import {Constraint} from '../../../common/constraint/constraint';
 import {PopupController} from '../../../common/controller/popup';
 import {ValueController} from '../../../common/controller/value';
@@ -23,6 +24,7 @@ interface Config {
 	invertsY: boolean;
 	maxValue: number;
 	parser: Parser<number>;
+	pickerLayout: PickerLayout;
 	value: Value<Point2d>;
 	viewProps: ViewProps;
 }
@@ -35,7 +37,7 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 	public readonly view: Point2dPadTextView;
 	public readonly viewProps: ViewProps;
 	private readonly popC_: PopupController;
-	private readonly padC_: Point2dPadController;
+	private readonly pickerC_: Point2dPadController;
 	private readonly textIc_: PointNdTextController<Point2d>;
 
 	constructor(doc: Document, config: Config) {
@@ -54,6 +56,7 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 		const padC = new Point2dPadController(doc, {
 			baseSteps: [config.axes[0].baseStep, config.axes[1].baseStep],
 			invertsY: config.invertsY,
+			layout: config.pickerLayout,
 			maxValue: config.maxValue,
 			value: this.value,
 			viewProps: this.viewProps,
@@ -62,8 +65,7 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 			elem.addEventListener('blur', this.onPopupChildBlur_);
 			elem.addEventListener('keydown', this.onPopupChildKeydown_);
 		});
-		this.popC_.view.element.appendChild(padC.view.element);
-		this.padC_ = padC;
+		this.pickerC_ = padC;
 
 		this.textIc_ = new PointNdTextController(doc, {
 			assembly: Point2dAssembly,
@@ -74,15 +76,19 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 		});
 
 		this.view = new Point2dPadTextView(doc, {
+			pickerLayout: config.pickerLayout,
 			viewProps: this.viewProps,
 		});
 		this.view.element.appendChild(this.popC_.view.element);
 		this.view.textElement.appendChild(this.textIc_.view.element);
-		this.view.padButtonElement.addEventListener('blur', this.onPadButtonBlur_);
-		this.view.padButtonElement.addEventListener(
-			'click',
-			this.onPadButtonClick_,
-		);
+		this.view.buttonElement?.addEventListener('blur', this.onPadButtonBlur_);
+		this.view.buttonElement?.addEventListener('click', this.onPadButtonClick_);
+
+		if (config.pickerLayout === 'inline') {
+			this.view.pickerElement?.appendChild(this.pickerC_.view.element);
+		} else {
+			this.popC_.view.element.appendChild(this.pickerC_.view.element);
+		}
 	}
 
 	private onPadButtonBlur_(e: FocusEvent) {
@@ -96,7 +102,7 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 	private onPadButtonClick_(): void {
 		this.popC_.shows.rawValue = !this.popC_.shows.rawValue;
 		if (this.popC_.shows.rawValue) {
-			this.padC_.view.allFocusableElements[0].focus();
+			this.pickerC_.view.allFocusableElements[0].focus();
 		}
 	}
 
@@ -109,7 +115,7 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 		}
 		if (
 			nextTarget &&
-			nextTarget === this.view.padButtonElement &&
+			nextTarget === this.view.buttonElement &&
 			!supportsTouch(elem.ownerDocument)
 		) {
 			// Next target is the trigger button

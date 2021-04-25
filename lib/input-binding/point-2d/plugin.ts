@@ -147,6 +147,8 @@ export const Point2dInputPlugin: InputBindingPlugin<Point2d, Point2dObject> = {
 			invertsY: shouldInvertY(args.params),
 			maxValue: getSuitableMaxValue(value.rawValue, c),
 			parser: parseNumber,
+			pickerLayout:
+				('picker' in args.params ? args.params.picker : undefined) ?? 'popup',
 			value: value,
 			viewProps: args.viewProps,
 		});

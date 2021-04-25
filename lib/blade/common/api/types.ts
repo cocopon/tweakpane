@@ -28,6 +28,8 @@ export interface BaseInputParams extends BaseParams, LabelableParams {
 	view?: string;
 }
 
+export type PickerLayout = 'inline' | 'popup';
+
 export interface BooleanInputParams extends BaseInputParams {
 	options?: ArrayStyleListOptions<boolean> | ObjectStyleListOptions<boolean>;
 }
@@ -48,6 +50,7 @@ export interface ColorInputParams extends BaseInputParams {
 }
 
 export interface Point2dInputParams extends BaseInputParams {
+	picker?: PickerLayout;
 	x?: PointDimensionParams;
 	y?: Point2dYParams;
 }

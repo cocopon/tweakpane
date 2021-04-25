@@ -1,11 +1,14 @@
 .#{$prefix}-p2dpadtxtv {
-	display: flex;
 	position: relative;
 
+	&_h {
+		display: flex;
+	}
 	&_b {
 		@extend %button;
 
 		height: var(--bld-h);
+		margin-right: 4px;
 		position: relative;
 		width: var(--bld-h);
 
@@ -30,7 +33,9 @@
 	}
 	&_t {
 		flex: 1;
-		margin-left: 4px;
+	}
+	&_p {
+		margin-top: var(--bld-s);
 	}
 
 	.#{$prefix}-popv {

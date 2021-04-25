@@ -1,3 +1,4 @@
+import {PickerLayout} from '../../../blade/common/api/types';
 import {SVG_NS} from '../../../common/dom-util';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
@@ -9,6 +10,7 @@ import {Point2d} from '../model/point-2d';
 
 interface Config {
 	invertsY: boolean;
+	layout: PickerLayout;
 	maxValue: number;
 	value: Value<Point2d>;
 	viewProps: ViewProps;
@@ -38,6 +40,9 @@ export class Point2dPadView implements View {
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
+		if (config.layout === 'popup') {
+			this.element.classList.add(className(undefined, 'p'));
+		}
 
 		const padElem = doc.createElement('div');
 		padElem.classList.add(className('p'));

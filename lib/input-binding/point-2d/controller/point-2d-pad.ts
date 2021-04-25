@@ -1,3 +1,4 @@
+import {PickerLayout} from '../../../blade/common/api/types';
 import {ValueController} from '../../../common/controller/value';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
@@ -19,6 +20,7 @@ import {Point2dPadView} from '../view/point-2d-pad';
 interface Config {
 	baseSteps: [number, number];
 	invertsY: boolean;
+	layout: PickerLayout;
 	maxValue: number;
 	value: Value<Point2d>;
 	viewProps: ViewProps;
@@ -51,6 +53,7 @@ export class Point2dPadController implements ValueController<Point2d> {
 
 		this.view = new Point2dPadView(doc, {
 			invertsY: this.invertsY_,
+			layout: config.layout,
 			maxValue: this.maxValue_,
 			value: this.value,
 			viewProps: this.viewProps,

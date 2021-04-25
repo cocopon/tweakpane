@@ -38,19 +38,6 @@
 		.tp-rotv {
 			position: relative;
 		}
-		.tp-clswtxtv {
-			height: calc(var(--bld-h) + 168px) !important;
-		}
-		.tp-p2dpadtxtv {
-			height: calc(var(--bld-h) + 144px) !important;
-		}
-		.tp-clswtxtv,
-		.tp-p2dpadtxtv {
-			.tp-popv {
-				display: block !important;
-				visibility: visible !important;
-			}
-		}
 	}
 	&_bgImage {
 		background-color: black;

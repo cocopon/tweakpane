@@ -296,7 +296,7 @@ pane.addInput(PARAMS, 'hex', {
 
 
 <h3 id="point2d">Point 2D</h3>
-<p>For object parameters that have number properties <code>x</code> and <code>y</code>, text fields with a X-Y pad will be provided.</p>
+<p>For object parameters that have number properties <code>x</code> and <code>y</code>, text fields and a picker will be provided.</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
@@ -314,7 +314,7 @@ pane.addInput(PARAMS, 'offset');</code></pre></div>
 	</div>
 </div>
 
-<p>As with a numeric input, you can constrain each dimension by <code>step</code>, <code>min</code> and <code>max</code> parameters.</p>
+<p>Each dimension can be constrained with <code>step</code>, <code>min</code> and <code>max</code> parameters just like a numeric input.</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
@@ -335,7 +335,7 @@ pane.addInput(PARAMS, 'offset', {
 	</div>
 </div>
 
-<p>If you want to invert Y-axis, add <code>inverted</code> to Y parameters.</p>
+<p><code>inverted: true</code> inverts Y-axis.</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
@@ -351,6 +351,26 @@ pane.addInput(PARAMS, 'offset', {
 		</div>
 		<div class="demo_resultLayout">
 			<div class="paneContainer" data-pane-point2dinvertedy></div>
+		</div>
+	</div>
+</div>
+
+<p><code>picker</code> can change the layout of the picker.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  offset: {x: 50, y: 50},
+};
+
+const pane = new Tweakpane();
+pane.addInput(PARAMS, 'offset', {
+  <strong>picker: 'inline'</strong>,
+});</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-point2dinline></div>
 		</div>
 	</div>
 </div>

@@ -289,6 +289,16 @@ export function initInput() {
 				y: {inverted: true},
 			});
 		},
+		point2dinline: (container) => {
+			const PARAMS = {value: {x: 50, y: 25}};
+			const pane = new Tweakpane({
+				container: container,
+			});
+			pane.addInput(PARAMS, 'value', {
+				label: 'offset',
+				picker: 'inline',
+			});
+		},
 		point3d: (container) => {
 			const PARAMS = {
 				camera: {x: 0, y: 20, z: -10},
