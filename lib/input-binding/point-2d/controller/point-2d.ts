@@ -38,7 +38,7 @@ export class Point2dController implements ValueController<Point2d> {
 	public readonly viewProps: ViewProps;
 	private readonly popC_: PopupController;
 	private readonly pickerC_: Point2dPickerController;
-	private readonly textIc_: PointNdTextController<Point2d>;
+	private readonly textC_: PointNdTextController<Point2d>;
 
 	constructor(doc: Document, config: Config) {
 		this.onPopupChildBlur_ = this.onPopupChildBlur_.bind(this);
@@ -67,7 +67,7 @@ export class Point2dController implements ValueController<Point2d> {
 		});
 		this.pickerC_ = padC;
 
-		this.textIc_ = new PointNdTextController(doc, {
+		this.textC_ = new PointNdTextController(doc, {
 			assembly: Point2dAssembly,
 			axes: config.axes,
 			parser: config.parser,
@@ -80,7 +80,7 @@ export class Point2dController implements ValueController<Point2d> {
 			viewProps: this.viewProps,
 		});
 		this.view.element.appendChild(this.popC_.view.element);
-		this.view.textElement.appendChild(this.textIc_.view.element);
+		this.view.textElement.appendChild(this.textC_.view.element);
 		this.view.buttonElement?.addEventListener('blur', this.onPadButtonBlur_);
 		this.view.buttonElement?.addEventListener('click', this.onPadButtonClick_);
 
