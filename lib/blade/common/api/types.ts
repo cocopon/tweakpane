@@ -32,15 +32,19 @@ export interface BooleanInputParams extends BaseInputParams {
 	options?: ArrayStyleListOptions<boolean> | ObjectStyleListOptions<boolean>;
 }
 
-type NumberInputType = 'color' | 'color.rgb' | 'color.rgba';
-
 export interface NumberInputParams extends BaseInputParams {
 	format?: Formatter<number>;
-	input?: NumberInputType;
 	max?: number;
 	min?: number;
 	options?: ArrayStyleListOptions<number> | ObjectStyleListOptions<number>;
 	step?: number;
+}
+
+// TODO: Use `view` instead
+type ColorInputType = 'color' | 'color.rgb' | 'color.rgba';
+
+export interface ColorInputParams extends BaseInputParams {
+	input?: ColorInputType;
 }
 
 export interface Point2dInputParams extends BaseInputParams {
@@ -61,6 +65,7 @@ export interface Point4dInputParams extends BaseInputParams {
 	w?: PointDimensionParams;
 }
 
+// TODO: Use `view` instead
 export type StringInputType = 'string';
 
 export interface StringInputParams extends BaseInputParams {
@@ -70,6 +75,7 @@ export interface StringInputParams extends BaseInputParams {
 
 export type InputParams =
 	| BooleanInputParams
+	| ColorInputParams
 	| NumberInputParams
 	| Point2dInputParams
 	| Point3dInputParams
