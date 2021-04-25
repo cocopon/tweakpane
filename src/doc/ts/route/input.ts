@@ -259,6 +259,17 @@ export function initInput() {
 				input: 'string',
 			});
 		},
+		colorinline: (container) => {
+			const PARAMS = {
+				key: '#22aaeeff',
+			};
+			const pane = new Tweakpane({
+				container: container,
+			});
+			pane.addInput(PARAMS, 'key', {
+				picker: 'inline',
+			});
+		},
 		point2d: (container) => {
 			const PARAMS = {value: {x: 50, y: 25}};
 			const pane = new Tweakpane({

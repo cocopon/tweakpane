@@ -59,6 +59,8 @@ export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
 		return new ColorSwatchTextController(args.document, {
 			formatter: formatter,
 			parser: CompositeColorParser,
+			pickerLayout:
+				('picker' in args.params ? args.params.picker : undefined) ?? 'popup',
 			supportsAlpha: supportsAlpha,
 			value: args.value,
 			viewProps: args.viewProps,

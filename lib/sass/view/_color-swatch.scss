@@ -41,9 +41,11 @@
 
 // colorswatch-text
 .#{$prefix}-clswtxtv {
-	display: flex;
 	position: relative;
 
+	&_h {
+		display: flex;
+	}
 	&_s {
 		flex-grow: 0;
 		flex-shrink: 0;
@@ -52,6 +54,9 @@
 	&_t {
 		flex: 1;
 		margin-left: 4px;
+	}
+	&_p {
+		margin-top: var(--bld-s);
 	}
 
 	.#{$prefix}-popv {

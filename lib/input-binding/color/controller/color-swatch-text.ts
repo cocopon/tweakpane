@@ -1,3 +1,4 @@
+import {PickerLayout} from '../../../blade/common/api/types';
 import {PopupController} from '../../../common/controller/popup';
 import {TextController} from '../../../common/controller/text';
 import {ValueController} from '../../../common/controller/value';
@@ -17,6 +18,7 @@ import {ColorSwatchController} from './color-swatch';
 interface Config {
 	formatter: Formatter<Color>;
 	parser: Parser<Color>;
+	pickerLayout: PickerLayout;
 	supportsAlpha: boolean;
 	value: Value<Color>;
 	viewProps: ViewProps;
@@ -30,7 +32,7 @@ export class ColorSwatchTextController implements ValueController<Color> {
 	public readonly view: ColorSwatchTextView;
 	public readonly viewProps: ViewProps;
 	private swatchC_: ColorSwatchController;
-	private textIc_: TextController<Color>;
+	private textC_: TextController<Color>;
 	private pickerC_: ColorPickerController;
 	private popC_: PopupController;
 
@@ -47,11 +49,13 @@ export class ColorSwatchTextController implements ValueController<Color> {
 			value: this.value,
 			viewProps: this.viewProps,
 		});
-		const buttonElem = this.swatchC_.view.buttonElement;
-		buttonElem.addEventListener('blur', this.onButtonBlur_);
-		buttonElem.addEventListener('click', this.onButtonClick_);
+		if (config.pickerLayout === 'popup') {
+			const buttonElem = this.swatchC_.view.buttonElement;
+			buttonElem.addEventListener('blur', this.onButtonBlur_);
+			buttonElem.addEventListener('click', this.onButtonClick_);
+		}
 
-		this.textIc_ = new TextController(doc, {
+		this.textC_ = new TextController(doc, {
 			parser: config.parser,
 			props: new ValueMap({
 				formatter: config.formatter,
@@ -61,9 +65,10 @@ export class ColorSwatchTextController implements ValueController<Color> {
 		});
 
 		this.view = new ColorSwatchTextView(doc, {
-			swatchView: this.swatchC_.view,
-			textView: this.textIc_.view,
+			pickerLayout: config.pickerLayout,
 		});
+		this.view.swatchElement.appendChild(this.swatchC_.view.element);
+		this.view.textElement.appendChild(this.textC_.view.element);
 
 		this.popC_ = new PopupController(doc, {
 			viewProps: this.viewProps,
@@ -79,8 +84,16 @@ export class ColorSwatchTextController implements ValueController<Color> {
 			elem.addEventListener('blur', this.onPopupChildBlur_);
 			elem.addEventListener('keydown', this.onPopupChildKeydown_);
 		});
-		this.popC_.view.element.appendChild(pickerC.view.element);
+		if (config.pickerLayout === 'popup') {
+			this.popC_.view.element.appendChild(pickerC.view.element);
+		} else {
+			this.view.pickerElement?.appendChild(pickerC.view.element);
+		}
 		this.pickerC_ = pickerC;
+	}
+
+	get textController(): TextController<Color> {
+		return this.textC_;
 	}
 
 	private onButtonBlur_(e: FocusEvent) {

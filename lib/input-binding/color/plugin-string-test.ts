@@ -4,8 +4,8 @@ import {describe as context, describe, it} from 'mocha';
 import {BindingTarget} from '../../common/binding/target';
 import {TestUtil} from '../../misc/test-util';
 import {createInputBindingController} from '../plugin';
+import {ColorSwatchTextController} from './controller/color-swatch-text';
 import {StringColorInputPlugin} from './plugin-string';
-import {ColorSwatchTextView} from './view/color-swatch-text';
 
 describe(StringColorInputPlugin.id, () => {
 	[
@@ -35,8 +35,8 @@ describe(StringColorInputPlugin.id, () => {
 					target: new BindingTarget({foo: testCase.params.input}, 'foo'),
 				});
 
-				const view = c?.valueController.view as ColorSwatchTextView;
-				const inputElem = view.textView.inputElement;
+				const vc = c?.valueController as ColorSwatchTextController;
+				const inputElem = vc.textController.view.inputElement;
 				assert.strictEqual(inputElem.value, testCase.expected.inputValue);
 			});
 		});
@@ -104,8 +104,8 @@ describe(StringColorInputPlugin.id, () => {
 				target: new BindingTarget(obj, 'foo'),
 			});
 
-			const view = c?.valueController.view as ColorSwatchTextView;
-			const inputElem = view.textView.inputElement;
+			const vc = c?.valueController as ColorSwatchTextController;
+			const inputElem = vc.textController.view.inputElement;
 
 			it(`should have initial input value ${expected.initialInputText}`, () => {
 				assert.strictEqual(inputElem.value, expected.initialInputText);

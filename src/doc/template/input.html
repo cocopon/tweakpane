@@ -291,6 +291,26 @@ pane.addInput(PARAMS, 'hex', {
 	</div>
 </div>
 
+<p><code>picker</code> can change the layout of the picker.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  key: '#22aaeeff',
+};
+
+const pane = new Tweakpane();
+pane.addInput(PARAMS, 'key', {
+  <strong>picker: 'inline'</strong>,
+});</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-colorinline></div>
+		</div>
+	</div>
+</div>
+
 
 <h2 id="point">Point</h2>
 
