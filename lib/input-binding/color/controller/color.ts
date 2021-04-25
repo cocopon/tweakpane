@@ -11,7 +11,7 @@ import {ViewProps} from '../../../common/model/view-props';
 import {forceCast} from '../../../misc/type-util';
 import {Color} from '../model/color';
 import {PickedColor} from '../model/picked-color';
-import {ColorView} from '../view/color-swatch-text';
+import {ColorView} from '../view/color';
 import {ColorPickerController} from './color-picker';
 import {ColorSwatchController} from './color-swatch';
 

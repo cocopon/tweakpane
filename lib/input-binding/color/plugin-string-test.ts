@@ -4,7 +4,7 @@ import {describe as context, describe, it} from 'mocha';
 import {BindingTarget} from '../../common/binding/target';
 import {TestUtil} from '../../misc/test-util';
 import {createInputBindingController} from '../plugin';
-import {ColorController} from './controller/color-swatch-text';
+import {ColorController} from './controller/color';
 import {StringColorInputPlugin} from './plugin-string';
 
 describe(StringColorInputPlugin.id, () => {

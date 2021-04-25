@@ -10,10 +10,10 @@ import {SliderTextController} from '../common/number/controller/slider-text';
 import {TpError} from '../common/tp-error';
 import Tweakpane from '../index';
 import {CheckboxController} from '../input-binding/boolean/controller/checkbox';
-import {ColorController} from '../input-binding/color/controller/color-swatch-text';
+import {ColorController} from '../input-binding/color/controller/color';
 import {Color} from '../input-binding/color/model/color';
 import {PointNdTextController} from '../input-binding/common/controller/point-nd-text';
-import {Point2dController} from '../input-binding/point-2d/controller/point-2d-pad-text';
+import {Point2dController} from '../input-binding/point-2d/controller/point-2d';
 import {TestUtil} from '../misc/test-util';
 import {forceCast} from '../misc/type-util';
 

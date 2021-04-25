@@ -15,7 +15,7 @@ import {
 	PointerHandlerEvents,
 } from '../../../common/view/pointer-handler';
 import {Point2d} from '../model/point-2d';
-import {Point2dPickerView} from '../view/point-2d-pad';
+import {Point2dPickerView} from '../view/point-2d-picker';
 
 interface Config {
 	baseSteps: [number, number];

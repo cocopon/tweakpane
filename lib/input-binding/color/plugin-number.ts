@@ -1,6 +1,6 @@
 import {InputParams} from '../../blade/common/api/types';
 import {InputBindingPlugin} from '../plugin';
-import {ColorController} from './controller/color-swatch-text';
+import {ColorController} from './controller/color';
 import {
 	colorFromRgbaNumber,
 	colorFromRgbNumber,

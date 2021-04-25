@@ -10,8 +10,8 @@ import {NumberTextProps} from '../../../common/number/view/number-text';
 import {forceCast} from '../../../misc/type-util';
 import {PointNdTextController} from '../../common/controller/point-nd-text';
 import {Point2d, Point2dAssembly} from '../model/point-2d';
-import {Point2dView} from '../view/point-2d-pad-text';
-import {Point2dPickerController} from './point-2d-pad';
+import {Point2dView} from '../view/point-2d';
+import {Point2dPickerController} from './point-2d-picker';
 
 interface Axis {
 	baseStep: number;

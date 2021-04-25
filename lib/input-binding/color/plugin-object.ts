@@ -1,5 +1,5 @@
 import {InputBindingPlugin} from '../plugin';
-import {ColorController} from './controller/color-swatch-text';
+import {ColorController} from './controller/color';
 import {colorFromObject} from './converter/color-number';
 import {
 	colorToHexRgbaString,

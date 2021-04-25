@@ -1,6 +1,6 @@
 import {TpError} from '../../common/tp-error';
 import {InputBindingPlugin} from '../plugin';
-import {ColorController} from './controller/color-swatch-text';
+import {ColorController} from './controller/color';
 import {
 	colorFromString,
 	CompositeColorParser,
