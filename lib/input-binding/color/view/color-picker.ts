@@ -6,7 +6,7 @@ import {ColorTextView} from './color-text';
 import {HPaletteView} from './h-palette';
 import {SvPaletteView} from './sv-palette';
 
-const className = ClassName('clp');
+const className = ClassName('colp');
 
 interface Config {
 	alphaViews: {

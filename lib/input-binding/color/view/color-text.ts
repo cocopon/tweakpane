@@ -12,7 +12,7 @@ interface Config {
 	textViews: [NumberTextView, NumberTextView, NumberTextView];
 }
 
-const className = ClassName('cltxt');
+const className = ClassName('coltxt');
 
 function createModeSelectElement(doc: Document): HTMLSelectElement {
 	const selectElem = doc.createElement('select');

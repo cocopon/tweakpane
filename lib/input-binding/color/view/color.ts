@@ -9,7 +9,7 @@ interface Config {
 	pickerLayout: PickerLayout;
 }
 
-const className = ClassName('clswtxt');
+const className = ClassName('col');
 
 /**
  * @hidden

@@ -11,7 +11,7 @@ interface Config {
 	viewProps: ViewProps;
 }
 
-const className = ClassName('clsw');
+const className = ClassName('colsw');
 
 /**
  * @hidden
