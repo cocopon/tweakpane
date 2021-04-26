@@ -5,8 +5,10 @@ import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
 import {Parser} from '../../../common/converter/parser';
 import {findNextTarget, supportsTouch} from '../../../common/dom-util';
+import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
+import {connectValues} from '../../../common/model/value-sync';
 import {ViewProps} from '../../../common/model/view-props';
 import {forceCast} from '../../../misc/type-util';
 import {Color} from '../model/color';
@@ -16,6 +18,7 @@ import {ColorPickerController} from './color-picker';
 import {ColorSwatchController} from './color-swatch';
 
 interface Config {
+	expanded: boolean;
 	formatter: Formatter<Color>;
 	parser: Parser<Color>;
 	pickerLayout: PickerLayout;
@@ -31,10 +34,11 @@ export class ColorController implements ValueController<Color> {
 	public readonly value: Value<Color>;
 	public readonly view: ColorView;
 	public readonly viewProps: ViewProps;
-	private swatchC_: ColorSwatchController;
-	private textC_: TextController<Color>;
-	private pickerC_: ColorPickerController;
-	private popC_: PopupController;
+	private readonly swatchC_: ColorSwatchController;
+	private readonly textC_: TextController<Color>;
+	private readonly pickerC_: ColorPickerController;
+	private readonly popC_: PopupController | null;
+	private readonly expanded_: Value<boolean>;
 
 	constructor(doc: Document, config: Config) {
 		this.onButtonBlur_ = this.onButtonBlur_.bind(this);
@@ -45,15 +49,15 @@ export class ColorController implements ValueController<Color> {
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 
+		this.expanded_ = new PrimitiveValue(config.expanded);
+
 		this.swatchC_ = new ColorSwatchController(doc, {
 			value: this.value,
 			viewProps: this.viewProps,
 		});
-		if (config.pickerLayout === 'popup') {
-			const buttonElem = this.swatchC_.view.buttonElement;
-			buttonElem.addEventListener('blur', this.onButtonBlur_);
-			buttonElem.addEventListener('click', this.onButtonClick_);
-		}
+		const buttonElem = this.swatchC_.view.buttonElement;
+		buttonElem.addEventListener('blur', this.onButtonBlur_);
+		buttonElem.addEventListener('click', this.onButtonClick_);
 
 		this.textC_ = new TextController(doc, {
 			parser: config.parser,
@@ -65,15 +69,27 @@ export class ColorController implements ValueController<Color> {
 		});
 
 		this.view = new ColorView(doc, {
+			expanded: this.expanded_,
 			pickerLayout: config.pickerLayout,
 		});
 		this.view.swatchElement.appendChild(this.swatchC_.view.element);
 		this.view.textElement.appendChild(this.textC_.view.element);
 
-		this.popC_ = new PopupController(doc, {
-			viewProps: this.viewProps,
-		});
-		this.view.element.appendChild(this.popC_.view.element);
+		this.popC_ =
+			config.pickerLayout === 'popup'
+				? new PopupController(doc, {
+						viewProps: this.viewProps,
+				  })
+				: null;
+		if (this.popC_) {
+			this.view.element.appendChild(this.popC_.view.element);
+			connectValues({
+				primary: this.expanded_,
+				secondary: this.popC_.shows,
+				forward: (p) => p.rawValue,
+				backward: (_, s) => s.rawValue,
+			});
+		}
 
 		const pickerC = new ColorPickerController(doc, {
 			pickedColor: new PickedColor(this.value),
@@ -85,7 +101,7 @@ export class ColorController implements ValueController<Color> {
 			elem.addEventListener('keydown', this.onPopupChildKeydown_);
 		});
 		if (config.pickerLayout === 'popup') {
-			this.popC_.view.element.appendChild(pickerC.view.element);
+			this.popC_?.view.element.appendChild(pickerC.view.element);
 		} else {
 			this.view.pickerElement?.appendChild(pickerC.view.element);
 		}
@@ -97,6 +113,10 @@ export class ColorController implements ValueController<Color> {
 	}
 
 	private onButtonBlur_(e: FocusEvent) {
+		if (!this.popC_) {
+			return;
+		}
+
 		const elem = this.view.element;
 		const nextTarget: HTMLElement | null = forceCast(e.relatedTarget);
 		if (!nextTarget || !elem.contains(nextTarget)) {
@@ -105,13 +125,17 @@ export class ColorController implements ValueController<Color> {
 	}
 
 	private onButtonClick_() {
-		this.popC_.shows.rawValue = !this.popC_.shows.rawValue;
-		if (this.popC_.shows.rawValue) {
+		this.expanded_.rawValue = !this.expanded_.rawValue;
+		if (this.expanded_.rawValue) {
 			this.pickerC_.view.allFocusableElements[0].focus();
 		}
 	}
 
 	private onPopupChildBlur_(ev: FocusEvent): void {
+		if (!this.popC_) {
+			return;
+		}
+
 		const elem = this.popC_.view.element;
 		const nextTarget = findNextTarget(ev);
 		if (nextTarget && elem.contains(nextTarget)) {
@@ -131,6 +155,10 @@ export class ColorController implements ValueController<Color> {
 	}
 
 	private onPopupChildKeydown_(ev: KeyboardEvent): void {
+		if (!this.popC_) {
+			return;
+		}
+
 		if (ev.key === 'Escape') {
 			this.popC_.shows.rawValue = false;
 		}

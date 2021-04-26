@@ -267,6 +267,7 @@ export function initInput() {
 				container: container,
 			});
 			pane.addInput(PARAMS, 'key', {
+				expanded: true,
 				picker: 'inline',
 			});
 		},

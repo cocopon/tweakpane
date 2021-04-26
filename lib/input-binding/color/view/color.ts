@@ -1,8 +1,11 @@
 import {PickerLayout} from '../../../blade/common/api/types';
+import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
+import {bindValue, valueToClassName} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 
 interface Config {
+	expanded: Value<boolean>;
 	pickerLayout: PickerLayout;
 }
 
@@ -20,6 +23,10 @@ export class ColorView implements View {
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
+		bindValue(
+			config.expanded,
+			valueToClassName(this.element, className(undefined, 'expanded')),
+		);
 
 		const headElem = doc.createElement('div');
 		headElem.classList.add(className('h'));

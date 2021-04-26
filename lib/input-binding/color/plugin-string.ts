@@ -47,11 +47,14 @@ export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
 		}
 
 		const stringifier = getColorStringifier(notation);
+		const expanded =
+			'expanded' in args.params ? args.params.expanded : undefined;
+		const picker = 'picker' in args.params ? args.params.picker : undefined;
 		return new ColorController(args.document, {
+			expanded: expanded ?? false,
 			formatter: stringifier,
 			parser: CompositeColorParser,
-			pickerLayout:
-				('picker' in args.params ? args.params.picker : undefined) ?? 'popup',
+			pickerLayout: picker ?? 'popup',
 			supportsAlpha: hasAlphaComponent(notation),
 			value: args.value,
 			viewProps: args.viewProps,

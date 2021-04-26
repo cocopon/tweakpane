@@ -46,6 +46,7 @@ export interface NumberInputParams extends BaseInputParams {
 type ColorInputType = 'color' | 'color.rgb' | 'color.rgba';
 
 export interface ColorInputParams extends BaseInputParams {
+	expanded?: boolean;
 	input?: ColorInputType;
 	picker?: PickerLayout;
 }

@@ -53,14 +53,17 @@ export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
 	},
 	controller: (args) => {
 		const supportsAlpha = shouldSupportAlpha(args.params);
+		const expanded =
+			'expanded' in args.params ? args.params.expanded : undefined;
+		const picker = 'picker' in args.params ? args.params.picker : undefined;
 		const formatter = supportsAlpha
 			? colorToHexRgbaString
 			: colorToHexRgbString;
 		return new ColorController(args.document, {
+			expanded: expanded ?? false,
 			formatter: formatter,
 			parser: CompositeColorParser,
-			pickerLayout:
-				('picker' in args.params ? args.params.picker : undefined) ?? 'popup',
+			pickerLayout: picker ?? 'popup',
 			supportsAlpha: supportsAlpha,
 			value: args.value,
 			viewProps: args.viewProps,

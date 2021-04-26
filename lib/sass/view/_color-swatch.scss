@@ -56,7 +56,11 @@
 		margin-left: 4px;
 	}
 	&_p {
+		display: none;
 		margin-top: var(--bld-s);
+	}
+	&#{&}-expanded &_p {
+		display: block;
 	}
 
 	.#{$prefix}-popv {

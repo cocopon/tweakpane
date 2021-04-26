@@ -65,12 +65,8 @@ export class Point2dController implements ValueController<Point2d> {
 			connectValues({
 				primary: this.expanded_,
 				secondary: this.popC_.shows,
-				forward: (p) => {
-					return p.rawValue;
-				},
-				backward: (_, s) => {
-					return s.rawValue;
-				},
+				forward: (p) => p.rawValue,
+				backward: (_, s) => s.rawValue,
 			});
 		}
 
