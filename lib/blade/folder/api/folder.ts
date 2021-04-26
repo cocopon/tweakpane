@@ -1,4 +1,5 @@
 import {Emitter} from '../../../common/model/emitter';
+import {ValueEvents} from '../../../common/model/value';
 import {View} from '../../../common/view/view';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
@@ -19,7 +20,6 @@ import {
 	TabParams,
 } from '../../common/api/types';
 import {BladeController} from '../../common/controller/blade';
-import {FoldableEvents} from '../../common/model/foldable';
 import {InputBindingApi} from '../../input-binding/api/input-binding';
 import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
 import {RackApi} from '../../rack/api/rack';
@@ -49,11 +49,15 @@ export class FolderApi extends RackLikeApi<FolderController>
 	constructor(controller: FolderController) {
 		super(controller, new RackApi(controller.rackController));
 
-		this.onFolderChange_ = this.onFolderChange_.bind(this);
-
 		this.emitter_ = new Emitter();
 
-		this.controller_.foldable.emitter.on('change', this.onFolderChange_);
+		this.controller_.foldable
+			.value('expanded')
+			.emitter.on('change', (ev: ValueEvents<boolean>['change']) => {
+				this.emitter_.emit('fold', {
+					event: new TpFoldEvent(this, ev.sender.rawValue),
+				});
+			});
 
 		this.rackApi_.on('change', (ev) => {
 			this.emitter_.emit('change', {
@@ -68,11 +72,11 @@ export class FolderApi extends RackLikeApi<FolderController>
 	}
 
 	get expanded(): boolean {
-		return this.controller_.foldable.expanded;
+		return this.controller_.foldable.get('expanded');
 	}
 
 	set expanded(expanded: boolean) {
-		this.controller_.foldable.expanded = expanded;
+		this.controller_.foldable.set('expanded', expanded);
 	}
 
 	get title(): string | undefined {
@@ -150,15 +154,5 @@ export class FolderApi extends RackLikeApi<FolderController>
 			bh(ev.event);
 		});
 		return this;
-	}
-
-	private onFolderChange_(ev: FoldableEvents['change']) {
-		if (ev.propertyName !== 'expanded') {
-			return;
-		}
-
-		this.emitter_.emit('fold', {
-			event: new TpFoldEvent(this, ev.sender.expanded),
-		});
 	}
 }

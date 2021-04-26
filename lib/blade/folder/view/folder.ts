@@ -9,7 +9,11 @@ import {
 } from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {isEmpty} from '../../../misc/type-util';
-import {Foldable} from '../../common/model/foldable';
+import {
+	Foldable,
+	getFoldableStyleExpanded,
+	getFoldableStyleHeight,
+} from '../../common/model/foldable';
 import {bladeContainerClassName} from '../../common/view/blade-container';
 
 export type FolderProps = ValueMap<{
@@ -79,14 +83,14 @@ export class FolderView implements View {
 	}
 
 	private applyModel_() {
-		const expanded = this.folder_.styleExpanded;
+		const expanded = getFoldableStyleExpanded(this.folder_);
 		const expandedClass = this.className_(undefined, 'expanded');
 		if (expanded) {
 			this.element.classList.add(expandedClass);
 		} else {
 			this.element.classList.remove(expandedClass);
 		}
-		this.containerElement.style.height = this.folder_.styleHeight;
+		this.containerElement.style.height = getFoldableStyleHeight(this.folder_);
 	}
 
 	private onFolderChange_() {

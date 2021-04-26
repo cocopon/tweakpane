@@ -8,7 +8,6 @@ import {TestUtil} from '../../../misc/test-util';
 import {ButtonController} from '../../button/controller/button';
 import {BladeController} from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
-import {FoldableEvents} from '../../common/model/foldable';
 import {LabelController} from '../../label/controller/label';
 import {LabelPropsObject} from '../../label/view/label';
 import {FolderController} from './folder';
@@ -39,13 +38,10 @@ describe(FolderController.name, () => {
 			viewProps: createViewProps(),
 		});
 
-		assert.strictEqual(c.foldable.expanded, true);
+		assert.strictEqual(c.foldable.get('expanded'), true);
 
-		c.foldable.emitter.on('change', (ev: FoldableEvents['change']) => {
-			if (ev.propertyName !== 'expanded') {
-				return;
-			}
-			assert.strictEqual(c.foldable.expanded, false);
+		c.foldable.value('expanded').emitter.on('change', () => {
+			assert.strictEqual(c.foldable.get('expanded'), false);
 			done();
 		});
 

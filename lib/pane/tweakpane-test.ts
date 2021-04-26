@@ -55,7 +55,7 @@ describe(Tweakpane.name, () => {
 			document: doc,
 			title: 'Title',
 		});
-		assert.strictEqual(c.controller_.foldable?.expanded, true);
+		assert.strictEqual(c.controller_.foldable?.get('expanded'), true);
 	});
 
 	it('should shrink by default with `expanded: false` option', () => {
@@ -65,7 +65,7 @@ describe(Tweakpane.name, () => {
 			expanded: false,
 			title: 'Title',
 		});
-		assert.strictEqual(c.controller_.foldable?.expanded, false);
+		assert.strictEqual(c.controller_.foldable?.get('expanded'), false);
 	});
 
 	it('should embed default style', () => {

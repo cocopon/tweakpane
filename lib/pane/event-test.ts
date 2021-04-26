@@ -19,7 +19,7 @@ describe(Tweakpane.name, () => {
 
 		const folder = pane.controller_.foldable;
 		if (folder) {
-			folder.expanded = false;
+			folder.set('expanded', false);
 		}
 	});
 });
