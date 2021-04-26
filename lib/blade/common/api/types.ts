@@ -51,6 +51,7 @@ export interface ColorInputParams extends BaseInputParams {
 }
 
 export interface Point2dInputParams extends BaseInputParams {
+	expanded?: boolean;
 	picker?: PickerLayout;
 	x?: PointDimensionParams;
 	y?: Point2dYParams;

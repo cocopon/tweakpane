@@ -1,8 +1,5 @@
 .#{$prefix}-p2dpadv {
-	// Popup
-	&#{&}-p {
-		padding-left: calc(var(--bld-h) + 4px);
-	}
+	padding-left: calc(var(--bld-h) + 4px);
 
 	// Pad
 	&_p {

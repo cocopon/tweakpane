@@ -306,6 +306,7 @@ export function initInput() {
 				container: container,
 			});
 			pane.addInput(PARAMS, 'value', {
+				expanded: true,
 				label: 'offset',
 				picker: 'inline',
 			});

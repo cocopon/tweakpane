@@ -1,11 +1,18 @@
 import {PickerLayout} from '../../../blade/common/api/types';
 import {createSvgIconElement} from '../../../common/dom-util';
+import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
-import {bindClassModifier, bindDisabled} from '../../../common/view/reactive';
+import {
+	bindClassModifier,
+	bindDisabled,
+	bindValue,
+	valueToClassName,
+} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 
 interface Config {
+	expanded: Value<boolean>;
 	pickerLayout: PickerLayout;
 	viewProps: ViewProps;
 }
@@ -17,7 +24,7 @@ const className = ClassName('p2dpadtxt');
  */
 export class Point2dView implements View {
 	public readonly element: HTMLElement;
-	public readonly buttonElement: HTMLButtonElement | null;
+	public readonly buttonElement: HTMLButtonElement;
 	public readonly textElement: HTMLElement;
 	public readonly pickerElement: HTMLElement | null;
 
@@ -25,21 +32,21 @@ export class Point2dView implements View {
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
 		bindClassModifier(config.viewProps, this.element);
+		bindValue(
+			config.expanded,
+			valueToClassName(this.element, className(undefined, 'expanded')),
+		);
 
 		const headElem = doc.createElement('div');
 		headElem.classList.add(className('h'));
 		this.element.appendChild(headElem);
 
-		if (config.pickerLayout === 'popup') {
-			const buttonElem = doc.createElement('button');
-			buttonElem.classList.add(className('b'));
-			buttonElem.appendChild(createSvgIconElement(doc, 'p2dpad'));
-			bindDisabled(config.viewProps, buttonElem);
-			headElem.appendChild(buttonElem);
-			this.buttonElement = buttonElem;
-		} else {
-			this.buttonElement = null;
-		}
+		const buttonElem = doc.createElement('button');
+		buttonElem.classList.add(className('b'));
+		buttonElem.appendChild(createSvgIconElement(doc, 'p2dpad'));
+		bindDisabled(config.viewProps, buttonElem);
+		headElem.appendChild(buttonElem);
+		this.buttonElement = buttonElem;
 
 		const textElem = doc.createElement('div');
 		textElem.classList.add(className('t'));
