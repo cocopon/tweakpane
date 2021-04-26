@@ -56,11 +56,15 @@
 		margin-left: 4px;
 	}
 	&_p {
-		display: none;
-		margin-top: var(--bld-s);
+		height: 0;
+		margin-top: 0;
+		opacity: 0;
+		overflow: hidden;
+		transition: height $folder-transition-duration ease-in-out, opacity $folder-transition-duration linear, margin $folder-transition-duration ease-in-out;
 	}
 	&#{&}-expanded &_p {
-		display: block;
+		margin-top: var(--bld-s);
+		opacity: 1;
 	}
 
 	.#{$prefix}-popv {
