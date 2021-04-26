@@ -4,6 +4,9 @@ import {Emitter} from './emitter';
  * @hidden
  */
 export interface ValueEvents<In> {
+	beforechange: {
+		sender: Value<In>;
+	};
 	change: {
 		sender: Value<In>;
 		rawValue: In;

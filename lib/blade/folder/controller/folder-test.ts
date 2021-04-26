@@ -10,7 +10,6 @@ import {BladeController} from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
 import {LabelController} from '../../label/controller/label';
 import {LabelPropsObject} from '../../label/view/label';
-import {FolderEvents} from '../model/folder';
 import {FolderController} from './folder';
 
 function createSomeBladeController(doc: Document): BladeController<View> {
@@ -39,13 +38,10 @@ describe(FolderController.name, () => {
 			viewProps: createViewProps(),
 		});
 
-		assert.strictEqual(c.folder.expanded, true);
+		assert.strictEqual(c.foldable.get('expanded'), true);
 
-		c.folder.emitter.on('change', (ev: FolderEvents['change']) => {
-			if (ev.propertyName !== 'expanded') {
-				return;
-			}
-			assert.strictEqual(c.folder.expanded, false);
+		c.foldable.value('expanded').emitter.on('change', () => {
+			assert.strictEqual(c.foldable.get('expanded'), false);
 			done();
 		});
 
