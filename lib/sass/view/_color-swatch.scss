@@ -1,4 +1,4 @@
-.#{$prefix}-clswv {
+.#{$prefix}-colswv {
 	@include checkerboard(10px);
 
 	border-radius: var(--elm-br);
@@ -36,36 +36,5 @@
 			right: 0;
 			top: 0;
 		}
-	}
-}
-
-// colorswatch-text
-.#{$prefix}-clswtxtv {
-	position: relative;
-
-	&_h {
-		display: flex;
-	}
-	&_s {
-		flex-grow: 0;
-		flex-shrink: 0;
-		width: var(--bld-h);
-	}
-	&_t {
-		flex: 1;
-		margin-left: 4px;
-	}
-	&_p {
-		display: none;
-		margin-top: var(--bld-s);
-	}
-	&#{&}-expanded &_p {
-		display: block;
-	}
-
-	.#{$prefix}-popv {
-		left: calc(-1 * var(--cnt-h-p));
-		right: calc(-1 * var(--cnt-h-p));
-		top: var(--bld-h);
 	}
 }

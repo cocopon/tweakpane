@@ -1,12 +1,14 @@
-.#{$prefix}-cltxtv {
+.#{$prefix}-coltxtv {
 	display: flex;
 	width: 100%;
 
+	// Mode selector wrapper
 	&_m {
 		@extend %list;
 
 		margin-right: 4px;
 	}
+	// Mode selector
 	&_ms {
 		@extend %resetUserAgent;
 
@@ -27,16 +29,19 @@
 			background-color: var(--in-bg-a);
 		}
 	}
+	// Mode selector mark
 	&_mm {
 		@extend %list_arrow;
 
 		color: var(--lbl-fg);
 	}
+	// Text components wrapper
 	&_w {
 		@extend %texts;
 
 		flex: 1;
 	}
+	// Text component
 	&_c {
 		@extend %texts_item;
 	}

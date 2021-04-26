@@ -1,9 +1,11 @@
-.#{$prefix}-p2dpadtxtv {
+.#{$prefix}-p2dv {
 	position: relative;
 
+	// Head
 	&_h {
 		display: flex;
 	}
+	// Button
 	&_b {
 		@extend %button;
 
@@ -31,17 +33,26 @@
 			}
 		}
 	}
+	// Text
 	&_t {
 		flex: 1;
 	}
+	// Inline ppicker
 	&_p {
-		display: none;
-		margin-top: var(--bld-s);
+		height: 0;
+		margin-top: 0;
+		opacity: 0;
+		overflow: hidden;
+		transition: height $folder-transition-duration ease-in-out,
+			opacity $folder-transition-duration linear,
+			margin $folder-transition-duration ease-in-out;
 	}
 	&#{&}-expanded &_p {
-		display: block;
+		margin-top: var(--bld-s);
+		opacity: 1;
 	}
 
+	// Popup
 	.#{$prefix}-popv {
 		left: calc(-1 * var(--cnt-h-p));
 		right: calc(-1 * var(--cnt-h-p));

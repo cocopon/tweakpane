@@ -16,7 +16,7 @@ interface Config {
 	viewProps: ViewProps;
 }
 
-const className = ClassName('p2dpad');
+const className = ClassName('p2dp');
 
 /**
  * @hidden

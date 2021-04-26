@@ -1,11 +1,15 @@
 import {PickerLayout} from '../../../blade/common/api/types';
+import {
+	bindFoldable,
+	createFoldable,
+	Foldable,
+} from '../../../blade/common/model/foldable';
 import {PopupController} from '../../../common/controller/popup';
 import {TextController} from '../../../common/controller/text';
 import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
 import {Parser} from '../../../common/converter/parser';
 import {findNextTarget, supportsTouch} from '../../../common/dom-util';
-import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
 import {connectValues} from '../../../common/model/value-sync';
@@ -38,7 +42,7 @@ export class ColorController implements ValueController<Color> {
 	private readonly textC_: TextController<Color>;
 	private readonly pickerC_: ColorPickerController;
 	private readonly popC_: PopupController | null;
-	private readonly expanded_: Value<boolean>;
+	private readonly foldable_: Foldable;
 
 	constructor(doc: Document, config: Config) {
 		this.onButtonBlur_ = this.onButtonBlur_.bind(this);
@@ -49,7 +53,7 @@ export class ColorController implements ValueController<Color> {
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 
-		this.expanded_ = new PrimitiveValue(config.expanded);
+		this.foldable_ = createFoldable(config.expanded);
 
 		this.swatchC_ = new ColorSwatchController(doc, {
 			value: this.value,
@@ -69,7 +73,7 @@ export class ColorController implements ValueController<Color> {
 		});
 
 		this.view = new ColorView(doc, {
-			expanded: this.expanded_,
+			expanded: this.foldable_.value('expanded'),
 			pickerLayout: config.pickerLayout,
 		});
 		this.view.swatchElement.appendChild(this.swatchC_.view.element);
@@ -81,15 +85,6 @@ export class ColorController implements ValueController<Color> {
 						viewProps: this.viewProps,
 				  })
 				: null;
-		if (this.popC_) {
-			this.view.element.appendChild(this.popC_.view.element);
-			connectValues({
-				primary: this.expanded_,
-				secondary: this.popC_.shows,
-				forward: (p) => p.rawValue,
-				backward: (_, s) => s.rawValue,
-			});
-		}
 
 		const pickerC = new ColorPickerController(doc, {
 			pickedColor: new PickedColor(this.value),
@@ -100,12 +95,23 @@ export class ColorController implements ValueController<Color> {
 			elem.addEventListener('blur', this.onPopupChildBlur_);
 			elem.addEventListener('keydown', this.onPopupChildKeydown_);
 		});
-		if (config.pickerLayout === 'popup') {
-			this.popC_?.view.element.appendChild(pickerC.view.element);
-		} else {
-			this.view.pickerElement?.appendChild(pickerC.view.element);
-		}
 		this.pickerC_ = pickerC;
+
+		if (this.popC_) {
+			this.view.element.appendChild(this.popC_.view.element);
+			this.popC_.view.element.appendChild(pickerC.view.element);
+
+			connectValues({
+				primary: this.foldable_.value('expanded'),
+				secondary: this.popC_.shows,
+				forward: (p) => p.rawValue,
+				backward: (_, s) => s.rawValue,
+			});
+		} else if (this.view.pickerElement) {
+			this.view.pickerElement.appendChild(this.pickerC_.view.element);
+
+			bindFoldable(this.foldable_, this.view.pickerElement);
+		}
 	}
 
 	get textController(): TextController<Color> {
@@ -125,8 +131,8 @@ export class ColorController implements ValueController<Color> {
 	}
 
 	private onButtonClick_() {
-		this.expanded_.rawValue = !this.expanded_.rawValue;
-		if (this.expanded_.rawValue) {
+		this.foldable_.set('expanded', !this.foldable_.get('expanded'));
+		if (this.foldable_.get('expanded')) {
 			this.pickerC_.view.allFocusableElements[0].focus();
 		}
 	}
