@@ -37,7 +37,7 @@ export class FolderController extends RackLikeController<FolderView> {
 			rackController: rc,
 			view: new FolderView(doc, {
 				containerElement: rc.view.element,
-				folder: foldable,
+				foldable: foldable,
 				props: config.props,
 				viewName: config.root ? 'rot' : undefined,
 				viewProps: config.viewProps,

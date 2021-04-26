@@ -67,7 +67,11 @@ export function getFoldableStyleHeight(foldable: Foldable): string {
 	return 'auto';
 }
 
-export function bindFoldable(foldable: Foldable, elem: HTMLElement) {
+function applyHeight(foldable: Foldable, elem: HTMLElement): void {
+	elem.style.height = getFoldableStyleHeight(foldable);
+}
+
+export function bindFoldable(foldable: Foldable, elem: HTMLElement): void {
 	foldable.value('expanded').emitter.on('beforechange', () => {
 		if (isEmpty(foldable.get('expandedHeight'))) {
 			foldable.set(
@@ -79,6 +83,11 @@ export function bindFoldable(foldable: Foldable, elem: HTMLElement) {
 		foldable.set('shouldFixHeight', true);
 		forceReflow(elem);
 	});
+
+	foldable.emitter.on('change', () => {
+		applyHeight(foldable, elem);
+	});
+	applyHeight(foldable, elem);
 
 	elem.addEventListener('transitionend', (ev) => {
 		if (ev.propertyName !== 'height') {

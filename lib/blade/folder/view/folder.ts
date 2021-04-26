@@ -9,11 +9,7 @@ import {
 } from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {isEmpty} from '../../../misc/type-util';
-import {
-	Foldable,
-	getFoldableStyleExpanded,
-	getFoldableStyleHeight,
-} from '../../common/model/foldable';
+import {Foldable, getFoldableStyleExpanded} from '../../common/model/foldable';
 import {bladeContainerClassName} from '../../common/view/blade-container';
 
 export type FolderProps = ValueMap<{
@@ -22,7 +18,7 @@ export type FolderProps = ValueMap<{
 
 export interface Config {
 	containerElement: HTMLElement;
-	folder: Foldable;
+	foldable: Foldable;
 	props: FolderProps;
 	viewProps: ViewProps;
 
@@ -37,19 +33,19 @@ export class FolderView implements View {
 	public readonly containerElement: HTMLElement;
 	public readonly titleElement: HTMLElement;
 	public readonly element: HTMLElement;
-	private readonly folder_: Foldable;
+	private readonly foldable_: Foldable;
 	private readonly className_: ReturnType<typeof ClassName>;
 
 	constructor(doc: Document, config: Config) {
-		this.onFolderChange_ = this.onFolderChange_.bind(this);
-
-		this.folder_ = config.folder;
-		this.folder_.emitter.on('change', this.onFolderChange_);
+		this.onFoldableExpandedChange_ = this.onFoldableExpandedChange_.bind(this);
 
 		this.className_ = ClassName(config.viewName || 'fld');
 		this.element = doc.createElement('div');
 		this.element.classList.add(this.className_(), bladeContainerClassName());
 		bindClassModifier(config.viewProps, this.element);
+
+		this.foldable_ = config.foldable;
+		bindValueMap(this.foldable_, 'expanded', this.onFoldableExpandedChange_);
 
 		const buttonElem = doc.createElement('button');
 		buttonElem.classList.add(this.className_('b'));
@@ -78,22 +74,15 @@ export class FolderView implements View {
 		containerElem.classList.add(this.className_('c'));
 		this.element.appendChild(containerElem);
 		this.containerElement = containerElem;
-
-		this.applyModel_();
 	}
 
-	private applyModel_() {
-		const expanded = getFoldableStyleExpanded(this.folder_);
+	private onFoldableExpandedChange_(): void {
+		const expanded = getFoldableStyleExpanded(this.foldable_);
 		const expandedClass = this.className_(undefined, 'expanded');
 		if (expanded) {
 			this.element.classList.add(expandedClass);
 		} else {
 			this.element.classList.remove(expandedClass);
 		}
-		this.containerElement.style.height = getFoldableStyleHeight(this.folder_);
-	}
-
-	private onFolderChange_() {
-		this.applyModel_();
 	}
 }
