@@ -161,12 +161,14 @@ export class ColorController implements ValueController<Color> {
 	}
 
 	private onPopupChildKeydown_(ev: KeyboardEvent): void {
-		if (!this.popC_) {
-			return;
-		}
-
-		if (ev.key === 'Escape') {
-			this.popC_.shows.rawValue = false;
+		if (this.popC_) {
+			if (ev.key === 'Escape') {
+				this.popC_.shows.rawValue = false;
+			}
+		} else if (this.view.pickerElement) {
+			if (ev.key === 'Escape') {
+				this.swatchC_.view.buttonElement.focus();
+			}
 		}
 	}
 }
