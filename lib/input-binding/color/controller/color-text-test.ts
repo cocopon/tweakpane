@@ -2,12 +2,11 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {parseNumber} from '../../../common/converter/number';
-import {BoundValue} from '../../../common/model/bound-value';
+import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {Color} from '../model/color';
 import {ColorComponents3} from '../model/color-model';
-import {PickedColor} from '../model/picked-color';
 import {ColorTextController} from './color-text';
 
 describe(ColorTextController.name, () => {
@@ -41,7 +40,7 @@ describe(ColorTextController.name, () => {
 			it(`should change component values to ${JSON.stringify(
 				testCase.expected,
 			)}`, (done) => {
-				const value = new BoundValue(
+				const value = new PrimitiveValue(
 					new Color(testCase.params.components as ColorComponents3, 'rgb'),
 				);
 				value.emitter.on('change', () => {
@@ -56,7 +55,7 @@ describe(ColorTextController.name, () => {
 				const doc = win.document;
 				const c = new ColorTextController(doc, {
 					parser: parseNumber,
-					pickedColor: new PickedColor(value),
+					value: value,
 					viewProps: createViewProps(),
 				});
 
@@ -106,7 +105,7 @@ describe(ColorTextController.name, () => {
 			it(`should change component values to ${JSON.stringify(
 				testCase.expected,
 			)}`, (done) => {
-				const value = new BoundValue(
+				const value = new PrimitiveValue(
 					new Color(testCase.params.components as ColorComponents3, 'rgb'),
 				);
 				value.emitter.on('change', () => {
@@ -121,7 +120,7 @@ describe(ColorTextController.name, () => {
 				const doc = win.document;
 				const c = new ColorTextController(doc, {
 					parser: parseNumber,
-					pickedColor: new PickedColor(value),
+					value: value,
 					viewProps: createViewProps(),
 				});
 
