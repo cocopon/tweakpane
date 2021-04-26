@@ -19,13 +19,13 @@ import {
 	TabParams,
 } from '../../common/api/types';
 import {BladeController} from '../../common/controller/blade';
+import {FoldableEvents} from '../../common/model/foldable';
 import {InputBindingApi} from '../../input-binding/api/input-binding';
 import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
 import {RackApi} from '../../rack/api/rack';
 import {SeparatorApi} from '../../separator/api/separator';
 import {TabApi} from '../../tab/api/tab';
 import {FolderController} from '../controller/folder';
-import {FolderEvents} from '../model/folder';
 
 interface FolderApiEvents {
 	change: {
@@ -152,7 +152,7 @@ export class FolderApi extends RackLikeApi<FolderController>
 		return this;
 	}
 
-	private onFolderChange_(ev: FolderEvents['change']) {
+	private onFolderChange_(ev: FoldableEvents['change']) {
 		if (ev.propertyName !== 'expanded') {
 			return;
 		}

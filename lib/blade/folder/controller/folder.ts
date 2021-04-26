@@ -6,8 +6,8 @@ import {ViewProps} from '../../../common/model/view-props';
 import {isEmpty} from '../../../misc/type-util';
 import {RackLikeController} from '../../common/controller/rack-like';
 import {Blade} from '../../common/model/blade';
+import {Foldable, FoldableEvents} from '../../common/model/foldable';
 import {RackController} from '../../rack/controller/rack';
-import {Folder, FolderEvents} from '../model/folder';
 import {FolderProps, FolderView} from '../view/folder';
 
 interface Config {
@@ -20,7 +20,7 @@ interface Config {
 }
 
 function computeExpandedFolderHeight(
-	folder: Folder,
+	folder: Foldable,
 	containerElement: HTMLElement,
 ): number {
 	let height = 0;
@@ -48,11 +48,11 @@ function computeExpandedFolderHeight(
  * @hidden
  */
 export class FolderController extends RackLikeController<FolderView> {
-	public readonly folder: Folder;
+	public readonly folder: Foldable;
 	public readonly props: FolderProps;
 
 	constructor(doc: Document, config: Config) {
-		const folder = new Folder(config.expanded ?? true);
+		const folder = new Foldable(config.expanded ?? true);
 		const rc = new RackController(doc, {
 			blade: config.blade,
 			root: config.root,
@@ -90,7 +90,7 @@ export class FolderController extends RackLikeController<FolderView> {
 		return this.view.element.ownerDocument;
 	}
 
-	private onFolderBeforeChange_(ev: FolderEvents['beforechange']): void {
+	private onFolderBeforeChange_(ev: FoldableEvents['beforechange']): void {
 		if (ev.propertyName !== 'expanded') {
 			return;
 		}

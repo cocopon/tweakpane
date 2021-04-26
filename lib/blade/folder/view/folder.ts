@@ -9,8 +9,8 @@ import {
 } from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {isEmpty} from '../../../misc/type-util';
+import {Foldable} from '../../common/model/foldable';
 import {bladeContainerClassName} from '../../common/view/blade-container';
-import {Folder} from '../model/folder';
 
 export type FolderProps = ValueMap<{
 	title: string | undefined;
@@ -18,7 +18,7 @@ export type FolderProps = ValueMap<{
 
 export interface Config {
 	containerElement: HTMLElement;
-	folder: Folder;
+	folder: Foldable;
 	props: FolderProps;
 	viewProps: ViewProps;
 
@@ -33,7 +33,7 @@ export class FolderView implements View {
 	public readonly containerElement: HTMLElement;
 	public readonly titleElement: HTMLElement;
 	public readonly element: HTMLElement;
-	private readonly folder_: Folder;
+	private readonly folder_: Foldable;
 	private readonly className_: ReturnType<typeof ClassName>;
 
 	constructor(doc: Document, config: Config) {

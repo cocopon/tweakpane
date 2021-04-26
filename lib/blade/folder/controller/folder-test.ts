@@ -8,9 +8,9 @@ import {TestUtil} from '../../../misc/test-util';
 import {ButtonController} from '../../button/controller/button';
 import {BladeController} from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
+import {FoldableEvents} from '../../common/model/foldable';
 import {LabelController} from '../../label/controller/label';
 import {LabelPropsObject} from '../../label/view/label';
-import {FolderEvents} from '../model/folder';
 import {FolderController} from './folder';
 
 function createSomeBladeController(doc: Document): BladeController<View> {
@@ -41,7 +41,7 @@ describe(FolderController.name, () => {
 
 		assert.strictEqual(c.folder.expanded, true);
 
-		c.folder.emitter.on('change', (ev: FolderEvents['change']) => {
+		c.folder.emitter.on('change', (ev: FoldableEvents['change']) => {
 			if (ev.propertyName !== 'expanded') {
 				return;
 			}

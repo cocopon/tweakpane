@@ -10,22 +10,22 @@ type ChangeEventPropertyName =
 /**
  * @hidden
  */
-export interface FolderEvents {
+export interface FoldableEvents {
 	beforechange: {
 		propertyName: ChangeEventPropertyName;
-		sender: Folder;
+		sender: Foldable;
 	};
 	change: {
 		propertyName: ChangeEventPropertyName;
-		sender: Folder;
+		sender: Foldable;
 	};
 }
 
 /**
  * @hidden
  */
-export class Folder {
-	public readonly emitter: Emitter<FolderEvents>;
+export class Foldable {
+	public readonly emitter: Emitter<FoldableEvents>;
 	private expandedHeight_: number | null;
 	private expanded_: boolean;
 	private shouldFixHeight_: boolean;
