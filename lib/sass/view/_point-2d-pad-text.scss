@@ -39,7 +39,9 @@
 		margin-top: 0;
 		opacity: 0;
 		overflow: hidden;
-		transition: height $folder-transition-duration ease-in-out, opacity $folder-transition-duration linear, margin $folder-transition-duration ease-in-out;
+		transition: height $folder-transition-duration ease-in-out,
+			opacity $folder-transition-duration linear,
+			margin $folder-transition-duration ease-in-out;
 	}
 	&#{&}-expanded &_p {
 		margin-top: var(--bld-s);
