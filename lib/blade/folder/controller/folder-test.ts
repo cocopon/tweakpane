@@ -39,13 +39,13 @@ describe(FolderController.name, () => {
 			viewProps: createViewProps(),
 		});
 
-		assert.strictEqual(c.folder.expanded, true);
+		assert.strictEqual(c.foldable.expanded, true);
 
-		c.folder.emitter.on('change', (ev: FoldableEvents['change']) => {
+		c.foldable.emitter.on('change', (ev: FoldableEvents['change']) => {
 			if (ev.propertyName !== 'expanded') {
 				return;
 			}
-			assert.strictEqual(c.folder.expanded, false);
+			assert.strictEqual(c.foldable.expanded, false);
 			done();
 		});
 

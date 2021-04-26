@@ -53,7 +53,7 @@ export class FolderApi extends RackLikeApi<FolderController>
 
 		this.emitter_ = new Emitter();
 
-		this.controller_.folder.emitter.on('change', this.onFolderChange_);
+		this.controller_.foldable.emitter.on('change', this.onFolderChange_);
 
 		this.rackApi_.on('change', (ev) => {
 			this.emitter_.emit('change', {
@@ -68,11 +68,11 @@ export class FolderApi extends RackLikeApi<FolderController>
 	}
 
 	get expanded(): boolean {
-		return this.controller_.folder.expanded;
+		return this.controller_.foldable.expanded;
 	}
 
 	set expanded(expanded: boolean) {
-		this.controller_.folder.expanded = expanded;
+		this.controller_.foldable.expanded = expanded;
 	}
 
 	get title(): string | undefined {

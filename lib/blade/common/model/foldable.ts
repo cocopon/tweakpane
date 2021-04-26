@@ -1,3 +1,7 @@
+import {
+	disableTransitionTemporarily,
+	forceReflow,
+} from '../../../common/dom-util';
 import {Emitter} from '../../../common/model/emitter';
 import {isEmpty} from '../../../misc/type-util';
 
@@ -147,4 +151,53 @@ export class Foldable {
 
 		return 'auto';
 	}
+}
+
+function computeExpandedFolderHeight(
+	folder: Foldable,
+	containerElement: HTMLElement,
+): number {
+	let height = 0;
+
+	disableTransitionTemporarily(containerElement, () => {
+		// Expand folder temporarily
+		folder.expandedHeight = null;
+		folder.temporaryExpanded = true;
+
+		forceReflow(containerElement);
+
+		// Compute height
+		height = containerElement.clientHeight;
+
+		// Restore expanded
+		folder.temporaryExpanded = null;
+
+		forceReflow(containerElement);
+	});
+
+	return height;
+}
+
+export function bindFoldable(foldable: Foldable, elem: HTMLElement) {
+	foldable.emitter.on('beforechange', (ev) => {
+		if (ev.propertyName !== 'expanded') {
+			return;
+		}
+
+		if (isEmpty(foldable.expandedHeight)) {
+			foldable.expandedHeight = computeExpandedFolderHeight(foldable, elem);
+		}
+
+		foldable.shouldFixHeight = true;
+		forceReflow(elem);
+	});
+
+	elem.addEventListener('transitionend', (ev) => {
+		if (ev.propertyName !== 'height') {
+			return;
+		}
+
+		foldable.shouldFixHeight = false;
+		foldable.expandedHeight = null;
+	});
 }

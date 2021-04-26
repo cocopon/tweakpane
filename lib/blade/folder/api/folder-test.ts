@@ -33,7 +33,7 @@ describe(FolderApi.name, () => {
 	it('should have initial state', () => {
 		const api = createApi();
 		assert.strictEqual(api.expanded, true);
-		assert.strictEqual(api.controller_.folder.expanded, true);
+		assert.strictEqual(api.controller_.foldable.expanded, true);
 		assert.strictEqual(api.hidden, false);
 		assert.strictEqual(api.title, 'Folder');
 	});
@@ -44,7 +44,7 @@ describe(FolderApi.name, () => {
 		assertUpdates(api);
 
 		api.expanded = true;
-		assert.strictEqual(api.controller_.folder.expanded, true);
+		assert.strictEqual(api.controller_.foldable.expanded, true);
 
 		api.title = 'changed';
 		assert.strictEqual(
@@ -63,7 +63,7 @@ describe(FolderApi.name, () => {
 		const api = createApi();
 
 		api.controller_.view.buttonElement.click();
-		assert.strictEqual(api.controller_.folder.expanded, false);
+		assert.strictEqual(api.controller_.foldable.expanded, false);
 	});
 
 	it('should dispose separator', () => {
@@ -82,7 +82,7 @@ describe(FolderApi.name, () => {
 			title: 'folder',
 		});
 		assert.strictEqual(f.controller_.props.get('title'), 'folder');
-		assert.strictEqual(f.controller_.folder.expanded, true);
+		assert.strictEqual(f.controller_.foldable.expanded, true);
 	});
 
 	it('should add collapsed folder', () => {
@@ -91,7 +91,7 @@ describe(FolderApi.name, () => {
 			expanded: false,
 			title: 'folder',
 		});
-		assert.strictEqual(f.controller_.folder.expanded, false);
+		assert.strictEqual(f.controller_.foldable.expanded, false);
 	});
 
 	it('should handle fold event', (done) => {
@@ -101,7 +101,7 @@ describe(FolderApi.name, () => {
 			assert.strictEqual(ev.expanded, false);
 			done();
 		});
-		api.controller_.folder.expanded = false;
+		api.controller_.foldable.expanded = false;
 	});
 
 	it('should handle global input events', (done) => {
@@ -209,7 +209,7 @@ describe(FolderApi.name, () => {
 			assert.strictEqual(ev.target, api);
 			done();
 		});
-		api.controller_.folder.expanded = !api.controller_.folder.expanded;
+		api.controller_.foldable.expanded = !api.controller_.foldable.expanded;
 	});
 
 	[
