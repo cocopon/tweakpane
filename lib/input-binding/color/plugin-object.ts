@@ -1,5 +1,5 @@
 import {InputBindingPlugin} from '../plugin';
-import {ColorSwatchTextController} from './controller/color-swatch-text';
+import {ColorController} from './controller/color';
 import {colorFromObject} from './converter/color-number';
 import {
 	colorToHexRgbaString,
@@ -32,12 +32,17 @@ export const ObjectColorInputPlugin: InputBindingPlugin<
 	},
 	controller: (args) => {
 		const supportsAlpha = Color.isRgbaColorObject(args.initialValue);
+		const expanded =
+			'expanded' in args.params ? args.params.expanded : undefined;
+		const picker = 'picker' in args.params ? args.params.picker : undefined;
 		const formatter = supportsAlpha
 			? colorToHexRgbaString
 			: colorToHexRgbString;
-		return new ColorSwatchTextController(args.document, {
+		return new ColorController(args.document, {
+			expanded: expanded ?? false,
 			formatter: formatter,
 			parser: CompositeColorParser,
+			pickerLayout: picker ?? 'popup',
 			supportsAlpha: supportsAlpha,
 			value: args.value,
 			viewProps: args.viewProps,

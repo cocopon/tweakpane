@@ -1,6 +1,6 @@
 import {TpError} from '../../common/tp-error';
 import {InputBindingPlugin} from '../plugin';
-import {ColorSwatchTextController} from './controller/color-swatch-text';
+import {ColorController} from './controller/color';
 import {
 	colorFromString,
 	CompositeColorParser,
@@ -47,9 +47,14 @@ export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
 		}
 
 		const stringifier = getColorStringifier(notation);
-		return new ColorSwatchTextController(args.document, {
+		const expanded =
+			'expanded' in args.params ? args.params.expanded : undefined;
+		const picker = 'picker' in args.params ? args.params.picker : undefined;
+		return new ColorController(args.document, {
+			expanded: expanded ?? false,
 			formatter: stringifier,
 			parser: CompositeColorParser,
+			pickerLayout: picker ?? 'popup',
 			supportsAlpha: hasAlphaComponent(notation),
 			value: args.value,
 			viewProps: args.viewProps,

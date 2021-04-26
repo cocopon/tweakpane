@@ -112,7 +112,9 @@ export function initCatalog() {
 			});
 			pane.addInput(params, 'color', {
 				disabled: disabled,
+				expanded: true,
 				label: 'picker',
+				picker: 'inline',
 			});
 		},
 		pointinput: (container) => {
@@ -127,7 +129,9 @@ export function initCatalog() {
 			});
 			pane.addInput(params, 'p2d', {
 				disabled: disabled,
+				expanded: true,
 				label: '2d-picker',
+				picker: 'inline',
 			});
 			pane.addInput(params, 'p3d', {
 				disabled: disabled,

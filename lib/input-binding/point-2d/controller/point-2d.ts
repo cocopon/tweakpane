@@ -1,16 +1,19 @@
+import {PickerLayout} from '../../../blade/common/api/types';
 import {Constraint} from '../../../common/constraint/constraint';
 import {PopupController} from '../../../common/controller/popup';
 import {ValueController} from '../../../common/controller/value';
 import {Parser} from '../../../common/converter/parser';
 import {findNextTarget, supportsTouch} from '../../../common/dom-util';
+import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {Value} from '../../../common/model/value';
+import {connectValues} from '../../../common/model/value-sync';
 import {ViewProps} from '../../../common/model/view-props';
 import {NumberTextProps} from '../../../common/number/view/number-text';
 import {forceCast} from '../../../misc/type-util';
 import {PointNdTextController} from '../../common/controller/point-nd-text';
 import {Point2d, Point2dAssembly} from '../model/point-2d';
-import {Point2dPadTextView} from '../view/point-2d-pad-text';
-import {Point2dPadController} from './point-2d-pad';
+import {Point2dView} from '../view/point-2d';
+import {Point2dPickerController} from './point-2d-picker';
 
 interface Axis {
 	baseStep: number;
@@ -20,9 +23,11 @@ interface Axis {
 
 interface Config {
 	axes: [Axis, Axis];
+	expanded: boolean;
 	invertsY: boolean;
 	maxValue: number;
 	parser: Parser<number>;
+	pickerLayout: PickerLayout;
 	value: Value<Point2d>;
 	viewProps: ViewProps;
 }
@@ -30,13 +35,14 @@ interface Config {
 /**
  * @hidden
  */
-export class Point2dPadTextController implements ValueController<Point2d> {
+export class Point2dController implements ValueController<Point2d> {
 	public readonly value: Value<Point2d>;
-	public readonly view: Point2dPadTextView;
+	public readonly view: Point2dView;
 	public readonly viewProps: ViewProps;
-	private readonly popC_: PopupController;
-	private readonly padC_: Point2dPadController;
-	private readonly textIc_: PointNdTextController<Point2d>;
+	private readonly popC_: PopupController | null;
+	private readonly pickerC_: Point2dPickerController;
+	private readonly textC_: PointNdTextController<Point2d>;
+	private readonly expanded_: Value<boolean>;
 
 	constructor(doc: Document, config: Config) {
 		this.onPopupChildBlur_ = this.onPopupChildBlur_.bind(this);
@@ -47,13 +53,27 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 
-		this.popC_ = new PopupController(doc, {
-			viewProps: this.viewProps,
-		});
+		this.expanded_ = new PrimitiveValue(config.expanded);
 
-		const padC = new Point2dPadController(doc, {
+		this.popC_ =
+			config.pickerLayout === 'popup'
+				? new PopupController(doc, {
+						viewProps: this.viewProps,
+				  })
+				: null;
+		if (this.popC_) {
+			connectValues({
+				primary: this.expanded_,
+				secondary: this.popC_.shows,
+				forward: (p) => p.rawValue,
+				backward: (_, s) => s.rawValue,
+			});
+		}
+
+		const padC = new Point2dPickerController(doc, {
 			baseSteps: [config.axes[0].baseStep, config.axes[1].baseStep],
 			invertsY: config.invertsY,
+			layout: config.pickerLayout,
 			maxValue: config.maxValue,
 			value: this.value,
 			viewProps: this.viewProps,
@@ -62,10 +82,9 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 			elem.addEventListener('blur', this.onPopupChildBlur_);
 			elem.addEventListener('keydown', this.onPopupChildKeydown_);
 		});
-		this.popC_.view.element.appendChild(padC.view.element);
-		this.padC_ = padC;
+		this.pickerC_ = padC;
 
-		this.textIc_ = new PointNdTextController(doc, {
+		this.textC_ = new PointNdTextController(doc, {
 			assembly: Point2dAssembly,
 			axes: config.axes,
 			parser: config.parser,
@@ -73,19 +92,30 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 			viewProps: this.viewProps,
 		});
 
-		this.view = new Point2dPadTextView(doc, {
+		this.view = new Point2dView(doc, {
+			expanded: this.expanded_,
+			pickerLayout: config.pickerLayout,
 			viewProps: this.viewProps,
 		});
-		this.view.element.appendChild(this.popC_.view.element);
-		this.view.textElement.appendChild(this.textIc_.view.element);
-		this.view.padButtonElement.addEventListener('blur', this.onPadButtonBlur_);
-		this.view.padButtonElement.addEventListener(
-			'click',
-			this.onPadButtonClick_,
-		);
+		if (this.popC_) {
+			this.view.element.appendChild(this.popC_.view.element);
+		}
+		this.view.textElement.appendChild(this.textC_.view.element);
+		this.view.buttonElement?.addEventListener('blur', this.onPadButtonBlur_);
+		this.view.buttonElement?.addEventListener('click', this.onPadButtonClick_);
+
+		if (config.pickerLayout === 'inline') {
+			this.view.pickerElement?.appendChild(this.pickerC_.view.element);
+		} else {
+			this.popC_?.view.element.appendChild(this.pickerC_.view.element);
+		}
 	}
 
 	private onPadButtonBlur_(e: FocusEvent) {
+		if (!this.popC_) {
+			return;
+		}
+
 		const elem = this.view.element;
 		const nextTarget: HTMLElement | null = forceCast(e.relatedTarget);
 		if (!nextTarget || !elem.contains(nextTarget)) {
@@ -94,13 +124,14 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 	}
 
 	private onPadButtonClick_(): void {
-		this.popC_.shows.rawValue = !this.popC_.shows.rawValue;
-		if (this.popC_.shows.rawValue) {
-			this.padC_.view.allFocusableElements[0].focus();
-		}
+		this.expanded_.rawValue = !this.expanded_.rawValue;
 	}
 
 	private onPopupChildBlur_(ev: FocusEvent): void {
+		if (!this.popC_) {
+			return;
+		}
+
 		const elem = this.popC_.view.element;
 		const nextTarget = findNextTarget(ev);
 		if (nextTarget && elem.contains(nextTarget)) {
@@ -109,7 +140,7 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 		}
 		if (
 			nextTarget &&
-			nextTarget === this.view.padButtonElement &&
+			nextTarget === this.view.buttonElement &&
 			!supportsTouch(elem.ownerDocument)
 		) {
 			// Next target is the trigger button
@@ -120,6 +151,10 @@ export class Point2dPadTextController implements ValueController<Point2d> {
 	}
 
 	private onPopupChildKeydown_(ev: KeyboardEvent): void {
+		if (!this.popC_) {
+			return;
+		}
+
 		if (ev.key === 'Escape') {
 			this.popC_.shows.rawValue = false;
 		}

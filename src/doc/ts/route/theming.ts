@@ -72,12 +72,18 @@ function createPreviewPane(containerElem: HTMLElement) {
 		.addFolder({
 			title: 'folder',
 		})
-		.addInput(PARAMS, 'color');
+		.addInput(PARAMS, 'color', {
+			expanded: true,
+			picker: 'inline',
+		});
 	pane
 		.addFolder({
 			title: 'folder',
 		})
-		.addInput(PARAMS, 'point2d');
+		.addInput(PARAMS, 'point2d', {
+			expanded: true,
+			picker: 'inline',
+		});
 	return pane;
 }
 

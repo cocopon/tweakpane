@@ -1,6 +1,6 @@
 import {InputParams} from '../../blade/common/api/types';
 import {InputBindingPlugin} from '../plugin';
-import {ColorSwatchTextController} from './controller/color-swatch-text';
+import {ColorController} from './controller/color';
 import {
 	colorFromRgbaNumber,
 	colorFromRgbNumber,
@@ -53,12 +53,17 @@ export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
 	},
 	controller: (args) => {
 		const supportsAlpha = shouldSupportAlpha(args.params);
+		const expanded =
+			'expanded' in args.params ? args.params.expanded : undefined;
+		const picker = 'picker' in args.params ? args.params.picker : undefined;
 		const formatter = supportsAlpha
 			? colorToHexRgbaString
 			: colorToHexRgbString;
-		return new ColorSwatchTextController(args.document, {
+		return new ColorController(args.document, {
+			expanded: expanded ?? false,
 			formatter: formatter,
 			parser: CompositeColorParser,
+			pickerLayout: picker ?? 'popup',
 			supportsAlpha: supportsAlpha,
 			value: args.value,
 			viewProps: args.viewProps,

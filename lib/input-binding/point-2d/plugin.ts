@@ -20,7 +20,7 @@ import {
 import {isEmpty} from '../../misc/type-util';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {InputBindingPlugin} from '../plugin';
-import {Point2dPadTextController} from './controller/point-2d-pad-text';
+import {Point2dController} from './controller/point-2d';
 import {point2dFromUnknown, writePoint2d} from './converter/point-2d';
 import {Point2d, Point2dAssembly, Point2dObject} from './model/point-2d';
 
@@ -139,14 +139,19 @@ export const Point2dInputPlugin: InputBindingPlugin<Point2d, Point2dObject> = {
 			throw TpError.shouldNeverHappen();
 		}
 
-		return new Point2dPadTextController(doc, {
+		const expanded =
+			'expanded' in args.params ? args.params.expanded : undefined;
+		const picker = 'picker' in args.params ? args.params.picker : undefined;
+		return new Point2dController(doc, {
 			axes: [
 				createAxis(value.rawValue.x, c.components[0]),
 				createAxis(value.rawValue.y, c.components[1]),
 			],
+			expanded: expanded ?? false,
 			invertsY: shouldInvertY(args.params),
 			maxValue: getSuitableMaxValue(value.rawValue, c),
 			parser: parseNumber,
+			pickerLayout: picker ?? 'popup',
 			value: value,
 			viewProps: args.viewProps,
 		});

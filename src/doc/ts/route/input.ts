@@ -259,6 +259,18 @@ export function initInput() {
 				input: 'string',
 			});
 		},
+		colorinline: (container) => {
+			const PARAMS = {
+				key: '#22aaeeff',
+			};
+			const pane = new Tweakpane({
+				container: container,
+			});
+			pane.addInput(PARAMS, 'key', {
+				expanded: true,
+				picker: 'inline',
+			});
+		},
 		point2d: (container) => {
 			const PARAMS = {value: {x: 50, y: 25}};
 			const pane = new Tweakpane({
@@ -287,6 +299,17 @@ export function initInput() {
 			pane.addInput(PARAMS, 'value', {
 				label: 'offset',
 				y: {inverted: true},
+			});
+		},
+		point2dinline: (container) => {
+			const PARAMS = {value: {x: 50, y: 25}};
+			const pane = new Tweakpane({
+				container: container,
+			});
+			pane.addInput(PARAMS, 'value', {
+				expanded: true,
+				label: 'offset',
+				picker: 'inline',
 			});
 		},
 		point3d: (container) => {

@@ -1,3 +1,4 @@
+import {PickerLayout} from '../../../blade/common/api/types';
 import {ValueController} from '../../../common/controller/value';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
@@ -14,11 +15,12 @@ import {
 	PointerHandlerEvents,
 } from '../../../common/view/pointer-handler';
 import {Point2d} from '../model/point-2d';
-import {Point2dPadView} from '../view/point-2d-pad';
+import {Point2dPickerView} from '../view/point-2d-picker';
 
 interface Config {
 	baseSteps: [number, number];
 	invertsY: boolean;
+	layout: PickerLayout;
 	maxValue: number;
 	value: Value<Point2d>;
 	viewProps: ViewProps;
@@ -27,9 +29,9 @@ interface Config {
 /**
  * @hidden
  */
-export class Point2dPadController implements ValueController<Point2d> {
+export class Point2dPickerController implements ValueController<Point2d> {
 	public readonly value: Value<Point2d>;
-	public readonly view: Point2dPadView;
+	public readonly view: Point2dPickerView;
 	public readonly viewProps: ViewProps;
 	private readonly baseSteps_: [number, number];
 	private readonly ptHandler_: PointerHandler;
@@ -49,8 +51,9 @@ export class Point2dPadController implements ValueController<Point2d> {
 		this.maxValue_ = config.maxValue;
 		this.invertsY_ = config.invertsY;
 
-		this.view = new Point2dPadView(doc, {
+		this.view = new Point2dPickerView(doc, {
 			invertsY: this.invertsY_,
+			layout: config.layout,
 			maxValue: this.maxValue_,
 			value: this.value,
 			viewProps: this.viewProps,

@@ -35,19 +35,19 @@ export class ColorPickerController implements ValueController<Color> {
 		palette: APaletteController;
 		text: NumberTextController;
 	} | null;
-	private hPaletteIc_: HPaletteController;
-	private svPaletteIc_: SvPaletteController;
+	private hPaletteC_: HPaletteController;
+	private svPaletteC_: SvPaletteController;
 	private textC_: ColorTextController;
 
 	constructor(doc: Document, config: Config) {
 		this.pickedColor = config.pickedColor;
 		this.viewProps = config.viewProps;
 
-		this.hPaletteIc_ = new HPaletteController(doc, {
+		this.hPaletteC_ = new HPaletteController(doc, {
 			value: this.pickedColor.value,
 			viewProps: this.viewProps,
 		});
-		this.svPaletteIc_ = new SvPaletteController(doc, {
+		this.svPaletteC_ = new SvPaletteController(doc, {
 			value: this.pickedColor.value,
 			viewProps: this.viewProps,
 		});
@@ -98,9 +98,9 @@ export class ColorPickerController implements ValueController<Color> {
 						text: this.alphaIcs_.text.view,
 				  }
 				: null,
-			hPaletteView: this.hPaletteIc_.view,
+			hPaletteView: this.hPaletteC_.view,
 			supportsAlpha: config.supportsAlpha,
-			svPaletteView: this.svPaletteIc_.view,
+			svPaletteView: this.svPaletteC_.view,
 			textView: this.textC_.view,
 		});
 	}
