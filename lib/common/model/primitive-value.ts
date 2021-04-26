@@ -19,7 +19,12 @@ export class PrimitiveValue<T> implements Value<T> {
 			return;
 		}
 
+		this.emitter.emit('beforechange', {
+			sender: this,
+		});
+
 		this.value_ = value;
+
 		this.emitter.emit('change', {
 			sender: this,
 			rawValue: this.value_,

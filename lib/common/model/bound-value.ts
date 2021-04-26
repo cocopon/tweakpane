@@ -34,12 +34,19 @@ export class BoundValue<T> implements Value<T> {
 			: rawValue;
 
 		const changed = !this.equals_(this.rawValue_, constrainedValue);
-		if (changed) {
-			this.rawValue_ = constrainedValue;
-			this.emitter.emit('change', {
-				rawValue: constrainedValue,
-				sender: this,
-			});
+		if (!changed) {
+			return;
 		}
+
+		this.emitter.emit('beforechange', {
+			sender: this,
+		});
+
+		this.rawValue_ = constrainedValue;
+
+		this.emitter.emit('change', {
+			rawValue: constrainedValue,
+			sender: this,
+		});
 	}
 }
