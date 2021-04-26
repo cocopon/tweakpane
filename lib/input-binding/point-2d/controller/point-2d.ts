@@ -128,6 +128,9 @@ export class Point2dController implements ValueController<Point2d> {
 
 	private onPadButtonClick_(): void {
 		this.foldable_.set('expanded', !this.foldable_.get('expanded'));
+		if (this.foldable_.get('expanded')) {
+			this.pickerC_.view.allFocusableElements[0].focus();
+		}
 	}
 
 	private onPopupChildBlur_(ev: FocusEvent): void {
