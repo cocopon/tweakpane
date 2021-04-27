@@ -16,7 +16,7 @@ import {writePrimitive} from '../../../common/primitive';
 import {TestUtil} from '../../../misc/test-util';
 import {assertInitialState, assertUpdates} from '../../common/api/test-util';
 import {TpChangeEvent} from '../../common/api/tp-event';
-import {Blade} from '../../common/model/blade';
+import {createBlade} from '../../common/model/blade';
 import {LabelPropsObject} from '../../label/view/label';
 import {InputBindingController} from '../controller/input-binding';
 import {InputBindingApi} from './input-binding';
@@ -41,7 +41,7 @@ function createApi(target: BindingTarget) {
 			value: value,
 			writer: writePrimitive,
 		}),
-		blade: new Blade(),
+		blade: createBlade(),
 		props: ValueMap.fromObject({
 			label: 'label',
 		} as LabelPropsObject),

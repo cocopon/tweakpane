@@ -20,7 +20,7 @@ import {FolderController} from '../../folder/controller/folder';
 import {InputBindingController} from '../../input-binding/controller/input-binding';
 import {LabelPropsObject} from '../../label/view/label';
 import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
-import {Blade} from './blade';
+import {createBlade} from './blade';
 import {BladeRack} from './blade-rack';
 
 function createInputBindingController(
@@ -33,7 +33,7 @@ function createInputBindingController(
 		writer: writePrimitive,
 	});
 	return new InputBindingController(doc, {
-		blade: new Blade(),
+		blade: createBlade(),
 		binding: b,
 		props: ValueMap.fromObject({
 			label: '',
@@ -55,7 +55,7 @@ function createMonitorBindingController(
 		value: new PrimitiveValue<Buffer<string>>([]),
 	});
 	return new MonitorBindingController(doc, {
-		blade: new Blade(),
+		blade: createBlade(),
 		binding: b,
 		props: ValueMap.fromObject({
 			label: '',
@@ -70,7 +70,7 @@ function createMonitorBindingController(
 
 function createFolderController(doc: Document): FolderController {
 	return new FolderController(doc, {
-		blade: new Blade(),
+		blade: createBlade(),
 		props: ValueMap.fromObject({
 			title: 'folder' as string | undefined,
 		}),
@@ -307,18 +307,18 @@ describe(BladeRack.name, () => {
 		sf3.rackController.rack.add(createInputBindingController(doc));
 
 		function folderChildPos(f: FolderController, index: number) {
-			return f.rackController.rack.children[index].blade.positions;
+			return f.rackController.rack.children[index].blade.get('positions');
 		}
 
-		assert.deepStrictEqual(f1.blade.positions, ['first', 'veryfirst']);
+		assert.deepStrictEqual(f1.blade.get('positions'), ['first', 'veryfirst']);
 		assert.deepStrictEqual(folderChildPos(f1, 0), ['first', 'veryfirst']);
 		assert.deepStrictEqual(folderChildPos(f1, 1), ['last']);
-		assert.deepStrictEqual(f2.blade.positions, []);
+		assert.deepStrictEqual(f2.blade.get('positions'), []);
 		assert.deepStrictEqual(folderChildPos(f2, 0), ['first']);
 		assert.deepStrictEqual(folderChildPos(f2, 1), ['last']);
-		assert.deepStrictEqual(f3.blade.positions, ['last', 'verylast']);
+		assert.deepStrictEqual(f3.blade.get('positions'), ['last', 'verylast']);
 		assert.deepStrictEqual(folderChildPos(f3, 0), ['first']);
-		assert.deepStrictEqual(sf3.blade.positions, ['last', 'verylast']);
+		assert.deepStrictEqual(sf3.blade.get('positions'), ['last', 'verylast']);
 		assert.deepStrictEqual(folderChildPos(sf3, 0), [
 			'first',
 			'last',

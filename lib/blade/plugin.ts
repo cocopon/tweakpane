@@ -6,7 +6,7 @@ import {BasePlugin} from '../plugin';
 import {BladeApi} from './common/api/blade';
 import {BladeParams} from './common/api/types';
 import {BladeController} from './common/controller/blade';
-import {Blade} from './common/model/blade';
+import {Blade, createBlade} from './common/model/blade';
 
 interface Acceptance<P extends BladeParams> {
 	params: Omit<P, 'disabled' | 'hidden'>;
@@ -47,7 +47,7 @@ export function createBladeController<P extends BladeParams>(
 		.value;
 	const hidden = ParamsParsers.optional.boolean(args.params['hidden']).value;
 	return plugin.controller({
-		blade: new Blade(),
+		blade: createBlade(),
 		document: args.document,
 		params: forceCast({
 			...ac.params,

@@ -1,5 +1,5 @@
 import {InputParams} from '../blade/common/api/types';
-import {Blade} from '../blade/common/model/blade';
+import {createBlade} from '../blade/common/model/blade';
 import {InputBindingController} from '../blade/input-binding/controller/input-binding';
 import {LabelPropsObject} from '../blade/label/view/label';
 import {BindingReader, BindingWriter} from '../common/binding/binding';
@@ -155,10 +155,9 @@ export function createInputBindingController<In, Ex>(
 	});
 	polyfillViewProps(controller, plugin.id);
 
-	const blade = new Blade();
 	return new InputBindingController(args.document, {
 		binding: binding,
-		blade: blade,
+		blade: createBlade(),
 		props: ValueMap.fromObject({
 			label: args.params.label || args.target.key,
 		} as LabelPropsObject),

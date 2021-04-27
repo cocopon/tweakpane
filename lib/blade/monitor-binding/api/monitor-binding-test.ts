@@ -15,7 +15,7 @@ import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {SingleLogMonitorController} from '../../../monitor-binding/common/controller/single-log';
 import {TpUpdateEvent} from '../../common/api/tp-event';
-import {Blade} from '../../common/model/blade';
+import {createBlade} from '../../common/model/blade';
 import {LabelPropsObject} from '../../label/view/label';
 import {MonitorBindingController} from '../controller/monitor-binding';
 import {MonitorBindingApi} from './monitor-binding';
@@ -35,7 +35,7 @@ function createApi(target: BindingTarget) {
 			ticker: new ManualTicker(),
 			value: value,
 		}),
-		blade: new Blade(),
+		blade: createBlade(),
 		props: ValueMap.fromObject({
 			label: 'label',
 		} as LabelPropsObject),

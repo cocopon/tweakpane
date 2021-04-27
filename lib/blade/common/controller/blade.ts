@@ -4,7 +4,7 @@ import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
 import {bindDisposed} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
-import {Blade, BladeEvents} from '../model/blade';
+import {Blade} from '../model/blade';
 import {BladePosition, getAllBladePositions} from '../model/blade-positions';
 import {BladeRack} from '../model/blade-rack';
 
@@ -34,17 +34,13 @@ export class BladeController<V extends View> implements Controller {
 		this.viewProps = config.viewProps;
 
 		const elem = this.view.element;
-		this.blade.emitter.on('change', (ev: BladeEvents['change']) => {
-			if (ev.propertyName === 'positions') {
-				getAllBladePositions().forEach((pos) => {
-					elem.classList.remove(
-						className(undefined, POS_TO_CLASS_NAME_MAP[pos]),
-					);
-				});
-				this.blade.positions.forEach((pos) => {
-					elem.classList.add(className(undefined, POS_TO_CLASS_NAME_MAP[pos]));
-				});
-			}
+		this.blade.value('positions').emitter.on('change', () => {
+			getAllBladePositions().forEach((pos) => {
+				elem.classList.remove(className(undefined, POS_TO_CLASS_NAME_MAP[pos]));
+			});
+			this.blade.get('positions').forEach((pos) => {
+				elem.classList.add(className(undefined, POS_TO_CLASS_NAME_MAP[pos]));
+			});
 		});
 
 		bindDisposed(this.viewProps, () => {

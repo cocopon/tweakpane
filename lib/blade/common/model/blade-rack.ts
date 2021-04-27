@@ -11,7 +11,7 @@ import {View} from '../../../common/view/view';
 import {Class, forceCast} from '../../../misc/type-util';
 import {BladeController} from '../../common/controller/blade';
 import {RackLikeController} from '../../common/controller/rack-like';
-import {Blade, BladeEvents} from '../../common/model/blade';
+import {Blade} from '../../common/model/blade';
 import {BladePosition} from '../../common/model/blade-positions';
 import {
 	NestedOrderedSet,
@@ -102,11 +102,11 @@ export class BladeRack {
 	private bcSet_: NestedOrderedSet<BladeController<View>>;
 
 	constructor(blade?: Blade) {
-		this.onBladeChange_ = this.onBladeChange_.bind(this);
+		this.onBladePositionsChange_ = this.onBladePositionsChange_.bind(this);
 		this.onSetAdd_ = this.onSetAdd_.bind(this);
 		this.onSetRemove_ = this.onSetRemove_.bind(this);
 		this.onChildDispose_ = this.onChildDispose_.bind(this);
-		this.onChildLayout_ = this.onChildLayout_.bind(this);
+		this.onChildPositionsChange_ = this.onChildPositionsChange_.bind(this);
 		this.onChildInputChange_ = this.onChildInputChange_.bind(this);
 		this.onChildMonitorUpdate_ = this.onChildMonitorUpdate_.bind(this);
 		this.onChildViewPropsChange_ = this.onChildViewPropsChange_.bind(this);
@@ -119,7 +119,9 @@ export class BladeRack {
 		this.emitter = new Emitter();
 
 		this.blade_ = blade ?? null;
-		this.blade_?.emitter.on('change', this.onBladeChange_);
+		this.blade_
+			?.value('positions')
+			.emitter.on('change', this.onBladePositionsChange_);
 
 		this.bcSet_ = new NestedOrderedSet(findSubBladeControllerSet);
 		this.bcSet_.emitter.on('add', this.onSetAdd_);
@@ -168,7 +170,9 @@ export class BladeRack {
 
 		const bc = ev.item;
 		bc.viewProps.emitter.on('change', this.onChildViewPropsChange_);
-		bc.blade.emitter.on('change', this.onChildLayout_);
+		bc.blade
+			.value('positions')
+			.emitter.on('change', this.onChildPositionsChange_);
 		bindDisposed(bc.viewProps, this.onChildDispose_);
 
 		if (bc instanceof InputBindingController) {
@@ -230,28 +234,29 @@ export class BladeRack {
 			if (bc === firstVisibleItem) {
 				ps.push('first');
 
-				if (!this.blade_ || this.blade_.positions.includes('veryfirst')) {
+				if (
+					!this.blade_ ||
+					this.blade_.get('positions').includes('veryfirst')
+				) {
 					ps.push('veryfirst');
 				}
 			}
 			if (bc === lastVisibleItem) {
 				ps.push('last');
 
-				if (!this.blade_ || this.blade_.positions.includes('verylast')) {
+				if (!this.blade_ || this.blade_.get('positions').includes('verylast')) {
 					ps.push('verylast');
 				}
 			}
-			bc.blade.positions = ps;
+			bc.blade.set('positions', ps);
 		});
 	}
 
-	private onChildLayout_(ev: BladeEvents['change']) {
-		if (ev.propertyName === 'positions') {
-			this.updatePositions_();
-			this.emitter.emit('layout', {
-				sender: this,
-			});
-		}
+	private onChildPositionsChange_() {
+		this.updatePositions_();
+		this.emitter.emit('layout', {
+			sender: this,
+		});
 	}
 
 	private onChildViewPropsChange_(_ev: ViewPropsEvents['change']) {
@@ -325,9 +330,7 @@ export class BladeRack {
 		});
 	}
 
-	private onBladeChange_(ev: BladeEvents['change']): void {
-		if (ev.propertyName === 'positions') {
-			this.updatePositions_();
-		}
+	private onBladePositionsChange_(): void {
+		this.updatePositions_();
 	}
 }

@@ -11,7 +11,7 @@ import {
 	assertInitialState,
 	assertUpdates,
 } from '../../common/api/test-util';
-import {Blade} from '../../common/model/blade';
+import {createBlade} from '../../common/model/blade';
 import {LabelController} from '../../label/controller/label';
 import {LabelPropsObject} from '../../label/view/label';
 import {TextApi} from './text';
@@ -20,7 +20,7 @@ describe(TextApi.name, () => {
 	it('should dispose', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
-			blade: new Blade(),
+			blade: createBlade(),
 			props: ValueMap.fromObject({
 				label: undefined,
 			} as LabelPropsObject),
@@ -42,7 +42,7 @@ describe(TextApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const formatter = (v: string) => v;
 		const c = new LabelController(doc, {
-			blade: new Blade(),
+			blade: createBlade(),
 			props: ValueMap.fromObject({
 				label: 'foobar',
 			} as LabelPropsObject),
@@ -66,7 +66,7 @@ describe(TextApi.name, () => {
 	it('should update properties', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
-			blade: new Blade(),
+			blade: createBlade(),
 			props: ValueMap.fromObject({
 				label: undefined,
 			} as LabelPropsObject),
@@ -99,7 +99,7 @@ describe(TextApi.name, () => {
 	it('should handle event', (done) => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
-			blade: new Blade(),
+			blade: createBlade(),
 			props: ValueMap.fromObject({
 				label: undefined,
 			} as LabelPropsObject),

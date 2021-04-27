@@ -7,14 +7,14 @@ import {View} from '../../../common/view/view';
 import {TestUtil} from '../../../misc/test-util';
 import {ButtonController} from '../../button/controller/button';
 import {BladeController} from '../../common/controller/blade';
-import {Blade} from '../../common/model/blade';
+import {createBlade} from '../../common/model/blade';
 import {LabelController} from '../../label/controller/label';
 import {LabelPropsObject} from '../../label/view/label';
 import {FolderController} from './folder';
 
 function createSomeBladeController(doc: Document): BladeController<View> {
 	return new LabelController(doc, {
-		blade: new Blade(),
+		blade: createBlade(),
 		props: ValueMap.fromObject({
 			label: undefined,
 		} as LabelPropsObject),
@@ -31,7 +31,7 @@ describe(FolderController.name, () => {
 	it('should toggle expanded by clicking title', (done) => {
 		const doc = TestUtil.createWindow().document;
 		const c = new FolderController(doc, {
-			blade: new Blade(),
+			blade: createBlade(),
 			props: ValueMap.fromObject({
 				title: '' as string | undefined,
 			}),
@@ -51,7 +51,7 @@ describe(FolderController.name, () => {
 	it('should remove disposed blade view element', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new FolderController(doc, {
-			blade: new Blade(),
+			blade: createBlade(),
 			props: ValueMap.fromObject({
 				title: '' as string | undefined,
 			}),
@@ -68,7 +68,7 @@ describe(FolderController.name, () => {
 	it('should remove removed blade view element', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new FolderController(doc, {
-			blade: new Blade(),
+			blade: createBlade(),
 			props: ValueMap.fromObject({
 				title: '' as string | undefined,
 			}),
@@ -85,7 +85,7 @@ describe(FolderController.name, () => {
 	it('should add view element to subfolder', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new FolderController(doc, {
-			blade: new Blade(),
+			blade: createBlade(),
 			props: ValueMap.fromObject({
 				title: 'Folder' as string | undefined,
 			}),
@@ -93,7 +93,7 @@ describe(FolderController.name, () => {
 		});
 
 		const sc = new FolderController(doc, {
-			blade: new Blade(),
+			blade: createBlade(),
 			props: ValueMap.fromObject({
 				title: '' as string | undefined,
 			}),
@@ -109,7 +109,7 @@ describe(FolderController.name, () => {
 	it('should dispose sub controllers', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new FolderController(doc, {
-			blade: new Blade(),
+			blade: createBlade(),
 			props: ValueMap.fromObject({
 				title: '' as string | undefined,
 			}),
@@ -134,14 +134,14 @@ describe(FolderController.name, () => {
 	it('should dispose nested controllers', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new FolderController(doc, {
-			blade: new Blade(),
+			blade: createBlade(),
 			props: ValueMap.fromObject({
 				title: '' as string | undefined,
 			}),
 			viewProps: createViewProps(),
 		});
 		const sc = new FolderController(doc, {
-			blade: new Blade(),
+			blade: createBlade(),
 			props: ValueMap.fromObject({
 				title: '' as string | undefined,
 			}),

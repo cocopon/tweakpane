@@ -13,7 +13,7 @@ import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
-import {Blade} from '../../common/model/blade';
+import {createBlade} from '../../common/model/blade';
 import {LabelPropsObject} from '../../label/view/label';
 import {InputBindingController} from './input-binding';
 
@@ -40,7 +40,7 @@ describe(InputBindingController.name, () => {
 		});
 		const bc = new InputBindingController(doc, {
 			binding: binding,
-			blade: new Blade(),
+			blade: createBlade(),
 			props: ValueMap.fromObject({
 				label: 'foo',
 			} as LabelPropsObject),
