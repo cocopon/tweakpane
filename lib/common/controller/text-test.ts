@@ -3,14 +3,14 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../misc/test-util';
 import {createNumberFormatter, parseNumber} from '../converter/number';
-import {PrimitiveValue} from '../model/primitive-value';
 import {ValueMap} from '../model/value-map';
+import {createValue} from '../model/values';
 import {createViewProps} from '../model/view-props';
 import {TextController} from './text';
 
 describe(TextController.name, () => {
 	it('should get value', () => {
-		const value = new PrimitiveValue(0);
+		const value = createValue(0);
 		const doc = TestUtil.createWindow().document;
 		const c = new TextController(doc, {
 			parser: parseNumber,
@@ -25,7 +25,7 @@ describe(TextController.name, () => {
 	});
 
 	it('should apply input to value', () => {
-		const value = new PrimitiveValue(0);
+		const value = createValue(0);
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new TextController(doc, {
@@ -51,7 +51,7 @@ describe(TextController.name, () => {
 			props: ValueMap.fromObject({
 				formatter: createNumberFormatter(0),
 			}),
-			value: new PrimitiveValue(123),
+			value: createValue(123),
 			viewProps: createViewProps(),
 		});
 

@@ -3,25 +3,26 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../misc/test-util';
 import {ListConstraint} from '../constraint/list';
-import {BoundValue} from '../model/bound-value';
 import {ValueMap} from '../model/value-map';
+import {createValue} from '../model/values';
 import {createViewProps} from '../model/view-props';
 import {findListItems} from '../util';
 import {ListController} from './list';
 
 describe(ListController.name, () => {
 	it('should get value', () => {
-		const value = new BoundValue(0, {
-			constraint: new ListConstraint([
-				{text: 'foo', value: 12},
-				{text: 'bar', value: 34},
-				{text: 'baz', value: 56},
-			]),
+		const constraint = new ListConstraint([
+			{text: 'foo', value: 12},
+			{text: 'bar', value: 34},
+			{text: 'baz', value: 56},
+		]);
+		const value = createValue(0, {
+			constraint: constraint,
 		});
 		const doc = TestUtil.createWindow().document;
 		const c = new ListController(doc, {
 			props: ValueMap.fromObject({
-				options: findListItems(value.constraint) ?? [],
+				options: findListItems(constraint) ?? [],
 			}),
 			value: value,
 			viewProps: createViewProps(),
@@ -31,18 +32,19 @@ describe(ListController.name, () => {
 	});
 
 	it('should apply input to value', () => {
-		const value = new BoundValue(0, {
-			constraint: new ListConstraint([
-				{text: 'foo', value: 12},
-				{text: 'bar', value: 34},
-				{text: 'baz', value: 56},
-			]),
+		const constraint = new ListConstraint([
+			{text: 'foo', value: 12},
+			{text: 'bar', value: 34},
+			{text: 'baz', value: 56},
+		]);
+		const value = createValue(0, {
+			constraint: constraint,
 		});
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new ListController(doc, {
 			props: ValueMap.fromObject({
-				options: findListItems(value.constraint) ?? [],
+				options: findListItems(constraint) ?? [],
 			}),
 			value: value,
 			viewProps: createViewProps(),
@@ -55,17 +57,18 @@ describe(ListController.name, () => {
 	});
 
 	it('should update properties', () => {
-		const value = new BoundValue(0, {
-			constraint: new ListConstraint([
-				{text: 'foo', value: 12},
-				{text: 'bar', value: 34},
-				{text: 'baz', value: 56},
-			]),
+		const constraint = new ListConstraint([
+			{text: 'foo', value: 12},
+			{text: 'bar', value: 34},
+			{text: 'baz', value: 56},
+		]);
+		const value = createValue(0, {
+			constraint: constraint,
 		});
 		const doc = TestUtil.createWindow().document;
 		const c = new ListController(doc, {
 			props: ValueMap.fromObject({
-				options: findListItems(value.constraint) ?? [],
+				options: findListItems(constraint) ?? [],
 			}),
 			value: value,
 			viewProps: createViewProps(),

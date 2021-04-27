@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {PrimitiveValue} from '../../../common/model/primitive-value';
+import {createValue} from '../../../common/model/values';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {Color} from '../model/color';
@@ -9,7 +9,7 @@ import {ColorPickerController} from './color-picker';
 
 describe(ColorPickerController.name, () => {
 	it('should set initial color mode', () => {
-		const value = new PrimitiveValue(new Color([0, 0, 0], 'hsv'));
+		const value = createValue(new Color([0, 0, 0], 'hsv'));
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new ColorPickerController(doc, {
@@ -22,7 +22,7 @@ describe(ColorPickerController.name, () => {
 	});
 
 	it('should change hue of black in HSL', () => {
-		const value = new PrimitiveValue(new Color([0, 0, 0], 'rgb'));
+		const value = createValue(new Color([0, 0, 0], 'rgb'));
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new ColorPickerController(doc, {

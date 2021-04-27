@@ -2,8 +2,8 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {numberToString, parseNumber} from '../../../common/converter/number';
-import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {ValueMap} from '../../../common/model/value-map';
+import {createValue} from '../../../common/model/values';
 import {createViewProps} from '../../../common/model/view-props';
 import {SliderTextController} from '../../../common/number/controller/slider-text';
 import {TestUtil} from '../../../misc/test-util';
@@ -36,7 +36,7 @@ describe(SliderApi.name, () => {
 					draggingScale: 1,
 					formatter: numberToString,
 				}),
-				value: new PrimitiveValue(0),
+				value: createValue(0),
 				viewProps: createViewProps(),
 			}),
 		});
@@ -62,7 +62,7 @@ describe(SliderApi.name, () => {
 					draggingScale: 1,
 					formatter: numberToString,
 				}),
-				value: new PrimitiveValue(123),
+				value: createValue(123),
 				viewProps: createViewProps(),
 			}),
 		});
@@ -93,7 +93,7 @@ describe(SliderApi.name, () => {
 					draggingScale: 1,
 					formatter: numberToString,
 				}),
-				value: new PrimitiveValue(123),
+				value: createValue(123),
 				viewProps: createViewProps(),
 			}),
 		});
@@ -131,7 +131,7 @@ describe(SliderApi.name, () => {
 					draggingScale: 1,
 					formatter: numberToString,
 				}),
-				value: new PrimitiveValue(0),
+				value: createValue(0),
 				viewProps: createViewProps(),
 			}),
 		});

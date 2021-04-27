@@ -1,6 +1,6 @@
 import {Emitter} from './emitter';
-import {PrimitiveValue} from './primitive-value';
 import {Value, ValueEvents} from './value';
+import {createValue} from './values';
 
 export interface ValueMapEvents<O extends Record<string, unknown>> {
 	change: {
@@ -34,7 +34,7 @@ export class ValueMap<O extends Record<string, unknown>> {
 		const valMap = keys.reduce((o, key) => {
 			key;
 			return Object.assign(o, {
-				[key]: new PrimitiveValue(initialValue[key]),
+				[key]: createValue(initialValue[key]),
 			});
 		}, {} as {[Key in keyof O]: Value<O[Key]>});
 		return new ValueMap(valMap);

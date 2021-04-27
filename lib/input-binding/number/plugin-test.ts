@@ -8,7 +8,6 @@ import {StepConstraint} from '../../common/constraint/step';
 import {BoundValue} from '../../common/model/bound-value';
 import {NumberTextController} from '../../common/number/controller/number-text';
 import {TestUtil} from '../../misc/test-util';
-import {forceCast} from '../../misc/type-util';
 import {createInputBindingController} from '../plugin';
 import {NumberInputPlugin} from './plugin';
 
@@ -23,16 +22,11 @@ describe(NumberInputPlugin.id, () => {
 			target: new BindingTarget({foo: 1}, 'foo'),
 		});
 
-		const v = c?.valueController.value;
-		if (!(v instanceof BoundValue)) {
-			assert.fail('Input value is empty');
-		}
-		const constraint: Constraint<unknown> | null = forceCast(v.constraint);
-		if (!constraint) {
-			assert.fail('Constraint is empty');
-		}
-
-		assert.notStrictEqual(findConstraint(constraint, StepConstraint), null);
+		const v = c?.valueController.value as BoundValue<number>;
+		assert.strictEqual(
+			findConstraint(v.constraint as Constraint<number>, StepConstraint)?.step,
+			1,
+		);
 	});
 
 	it('should use specified formatter', () => {

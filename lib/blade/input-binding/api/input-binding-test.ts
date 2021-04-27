@@ -8,8 +8,8 @@ import {
 	numberFromUnknown,
 	parseNumber,
 } from '../../../common/converter/number';
-import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {ValueMap} from '../../../common/model/value-map';
+import {createValue} from '../../../common/model/values';
 import {createViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from '../../../common/number/controller/number-text';
 import {writePrimitive} from '../../../common/primitive';
@@ -23,7 +23,7 @@ import {InputBindingApi} from './input-binding';
 
 function createApi(target: BindingTarget) {
 	const doc = TestUtil.createWindow().document;
-	const value = new PrimitiveValue(0);
+	const value = createValue(0);
 	const ic = new NumberTextController(doc, {
 		baseStep: 1,
 		parser: parseNumber,

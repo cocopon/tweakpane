@@ -3,11 +3,10 @@ import {RangeConstraint} from '../../../common/constraint/range';
 import {ValueController} from '../../../common/controller/value';
 import {createNumberFormatter} from '../../../common/converter/number';
 import {Parser} from '../../../common/converter/parser';
-import {BoundValue} from '../../../common/model/bound-value';
-import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
 import {connectValues} from '../../../common/model/value-sync';
+import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from '../../../common/number/controller/number-text';
 import {Color} from '../model/color';
@@ -62,7 +61,7 @@ function createComponentController(
 			draggingScale: 1,
 			formatter: FORMATTER,
 		}),
-		value: new BoundValue(0, {
+		value: createValue(0, {
 			constraint: MODE_TO_CONSTRAINT_MAP[config.colorMode](index),
 		}),
 		viewProps: config.viewProps,
@@ -91,7 +90,7 @@ export class ColorTextController implements ValueController<Color> {
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 
-		this.colorMode = new PrimitiveValue(this.value.rawValue.mode);
+		this.colorMode = createValue(this.value.rawValue.mode);
 		this.ccs_ = this.createComponentControllers_(doc);
 
 		this.view = new ColorTextView(doc, {

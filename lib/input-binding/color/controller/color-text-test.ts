@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {parseNumber} from '../../../common/converter/number';
-import {PrimitiveValue} from '../../../common/model/primitive-value';
+import {createValue} from '../../../common/model/values';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {Color} from '../model/color';
@@ -40,7 +40,7 @@ describe(ColorTextController.name, () => {
 			it(`should change component values to ${JSON.stringify(
 				testCase.expected,
 			)}`, (done) => {
-				const value = new PrimitiveValue(
+				const value = createValue(
 					new Color(testCase.params.components as ColorComponents3, 'rgb'),
 				);
 				value.emitter.on('change', () => {
@@ -105,7 +105,7 @@ describe(ColorTextController.name, () => {
 			it(`should change component values to ${JSON.stringify(
 				testCase.expected,
 			)}`, (done) => {
-				const value = new PrimitiveValue(
+				const value = createValue(
 					new Color(testCase.params.components as ColorComponents3, 'rgb'),
 				);
 				value.emitter.on('change', () => {

@@ -2,8 +2,8 @@ import * as assert from 'assert';
 import {describe} from 'mocha';
 
 import {TestUtil} from '../../misc/test-util';
-import {PrimitiveValue} from '../model/primitive-value';
 import {ValueMap} from '../model/value-map';
+import {createValue} from '../model/values';
 import {createViewProps} from '../model/view-props';
 import {TextView} from './text';
 
@@ -13,7 +13,7 @@ describe(TextView.name, () => {
 		const props = ValueMap.fromObject({
 			formatter: (v: string) => `hello${v}world`,
 		});
-		const v = new PrimitiveValue('foo');
+		const v = createValue('foo');
 		const view = new TextView(doc, {
 			props: props,
 			value: v,
@@ -28,7 +28,7 @@ describe(TextView.name, () => {
 		const props = ValueMap.fromObject({
 			formatter: (v: string) => `hello${v}world`,
 		});
-		const v = new PrimitiveValue('foo');
+		const v = createValue('foo');
 		const view = new TextView(doc, {
 			props: props,
 			value: v,
@@ -45,7 +45,7 @@ describe(TextView.name, () => {
 		const props = ValueMap.fromObject({
 			formatter: (v: string) => `hello${v}world`,
 		});
-		const v = new PrimitiveValue('foo');
+		const v = createValue('foo');
 		const view = new TextView(doc, {
 			props: props,
 			value: v,

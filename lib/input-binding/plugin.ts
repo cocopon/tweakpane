@@ -7,9 +7,9 @@ import {InputBinding} from '../common/binding/input';
 import {BindingTarget} from '../common/binding/target';
 import {Constraint} from '../common/constraint/constraint';
 import {ValueController} from '../common/controller/value';
-import {BoundValue} from '../common/model/bound-value';
 import {Value} from '../common/model/value';
 import {ValueMap} from '../common/model/value-map';
+import {createValue} from '../common/model/values';
 import {createViewProps, ViewProps} from '../common/model/view-props';
 import {polyfillViewProps} from '../common/util';
 import {BasePlugin} from '../plugin';
@@ -133,7 +133,7 @@ export function createInputBindingController<In, Ex>(
 	const constraint = plugin.binding.constraint
 		? plugin.binding.constraint(valueArgs)
 		: undefined;
-	const value = new BoundValue(reader(initialValue), {
+	const value = createValue(reader(initialValue), {
 		constraint: constraint,
 		equals: plugin.binding.equals,
 	});

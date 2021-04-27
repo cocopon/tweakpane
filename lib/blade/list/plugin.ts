@@ -1,6 +1,6 @@
 import {ListController} from '../../common/controller/list';
-import {PrimitiveValue} from '../../common/model/primitive-value';
 import {ValueMap} from '../../common/model/value-map';
+import {createValue} from '../../common/model/values';
 import {ParamsParser, ParamsParsers, parseParams} from '../../common/params';
 import {normalizeListOptions} from '../../common/util';
 import {
@@ -62,7 +62,7 @@ export const ListBladePlugin = (function<T>(): BladePlugin<ListBladeParams<T>> {
 				props: ValueMap.fromObject({
 					options: normalizeListOptions<T>(args.params.options),
 				}),
-				value: new PrimitiveValue(args.params.value),
+				value: createValue(args.params.value),
 				viewProps: args.viewProps,
 			});
 			return new LabelController(args.document, {

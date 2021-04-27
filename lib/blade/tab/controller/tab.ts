@@ -1,6 +1,6 @@
 import {insertElementAt, removeElement} from '../../../common/dom-util';
-import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {Value, ValueEvents} from '../../../common/model/value';
+import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
 import {RackLikeController} from '../../common/controller/rack-like';
 import {Blade} from '../../common/model/blade';
@@ -32,7 +32,7 @@ export class TabController extends RackLikeController<TabView> {
 			blade: config.blade,
 			viewProps: config.viewProps,
 		});
-		const empty = new PrimitiveValue(true as boolean);
+		const empty = createValue(true as boolean);
 		super({
 			blade: config.blade,
 			rackController: cr,

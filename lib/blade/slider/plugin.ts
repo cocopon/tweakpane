@@ -1,7 +1,7 @@
 import {Formatter} from '../../common/converter/formatter';
 import {numberToString, parseNumber} from '../../common/converter/number';
-import {PrimitiveValue} from '../../common/model/primitive-value';
 import {ValueMap} from '../../common/model/value-map';
+import {createValue} from '../../common/model/values';
 import {SliderTextController} from '../../common/number/controller/slider-text';
 import {ParamsParser, ParamsParsers, parseParams} from '../../common/params';
 import {getSuitableDraggingScale} from '../../common/util';
@@ -48,7 +48,7 @@ export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 				draggingScale: getSuitableDraggingScale(undefined, v),
 				formatter: args.params.format ?? numberToString,
 			}),
-			value: new PrimitiveValue(v),
+			value: createValue(v),
 			viewProps: args.viewProps,
 		});
 		return new LabelController(args.document, {

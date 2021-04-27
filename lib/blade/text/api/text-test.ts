@@ -2,8 +2,8 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {TextController} from '../../../common/controller/text';
-import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {ValueMap} from '../../../common/model/value-map';
+import {createValue} from '../../../common/model/values';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {
@@ -29,7 +29,7 @@ describe(TextApi.name, () => {
 				props: ValueMap.fromObject({
 					formatter: (v: string) => v,
 				}),
-				value: new PrimitiveValue(''),
+				value: createValue(''),
 				viewProps: createViewProps(),
 			}),
 		});
@@ -51,7 +51,7 @@ describe(TextApi.name, () => {
 				props: ValueMap.fromObject({
 					formatter: formatter,
 				}),
-				value: new PrimitiveValue('hello'),
+				value: createValue('hello'),
 				viewProps: createViewProps(),
 			}),
 		});
@@ -75,7 +75,7 @@ describe(TextApi.name, () => {
 				props: ValueMap.fromObject({
 					formatter: (v: string) => v,
 				}),
-				value: new PrimitiveValue('hello'),
+				value: createValue('hello'),
 				viewProps: createViewProps(),
 			}),
 		});
@@ -108,7 +108,7 @@ describe(TextApi.name, () => {
 				props: ValueMap.fromObject({
 					formatter: (v: string) => v,
 				}),
-				value: new PrimitiveValue(''),
+				value: createValue(''),
 				viewProps: createViewProps(),
 			}),
 		});

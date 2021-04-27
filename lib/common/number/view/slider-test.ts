@@ -4,7 +4,7 @@ import {describe} from 'mocha';
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
-import {PrimitiveValue} from '../../model/primitive-value';
+import {createValue} from '../../model/values';
 import {SliderView} from './slider';
 
 describe(SliderView.name, () => {
@@ -14,7 +14,7 @@ describe(SliderView.name, () => {
 			maxValue: 200,
 			minValue: 0,
 		});
-		const v = new PrimitiveValue(100);
+		const v = createValue(100);
 		const view = new SliderView(doc, {
 			props: props,
 			value: v,
@@ -30,7 +30,7 @@ describe(SliderView.name, () => {
 			maxValue: 200,
 			minValue: 0,
 		});
-		const v = new PrimitiveValue(100);
+		const v = createValue(100);
 		const view = new SliderView(doc, {
 			props: props,
 			value: v,
@@ -48,7 +48,7 @@ describe(SliderView.name, () => {
 			maxValue: 200,
 			minValue: 0,
 		});
-		const v = new PrimitiveValue(100);
+		const v = createValue(100);
 		const view = new SliderView(doc, {
 			props: props,
 			value: v,

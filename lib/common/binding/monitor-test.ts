@@ -3,7 +3,7 @@ import {describe, it} from 'mocha';
 
 import {numberFromUnknown} from '../converter/number';
 import {Buffer} from '../model/buffered-value';
-import {PrimitiveValue} from '../model/primitive-value';
+import {createValue} from '../model/values';
 import {MonitorBinding} from './monitor';
 import {BindingTarget} from './target';
 import {ManualTicker} from './ticker/manual';
@@ -14,7 +14,7 @@ describe(MonitorBinding.name, () => {
 			foo: 123,
 		};
 		const target = new BindingTarget(obj, 'foo');
-		const value = new PrimitiveValue<Buffer<number>>([0]);
+		const value = createValue<Buffer<number>>([0]);
 		const ticker = new ManualTicker();
 		const b = new MonitorBinding({
 			reader: numberFromUnknown,
@@ -31,7 +31,7 @@ describe(MonitorBinding.name, () => {
 			foo: 123,
 		};
 		const target = new BindingTarget(obj, 'foo');
-		const value = new PrimitiveValue<Buffer<number>>([0]);
+		const value = createValue<Buffer<number>>([0]);
 		const ticker = new ManualTicker();
 		new MonitorBinding({
 			reader: numberFromUnknown,
@@ -63,7 +63,7 @@ describe(MonitorBinding.name, () => {
 			foo: 123,
 		};
 		const target = new BindingTarget(obj, 'foo');
-		const value = new PrimitiveValue<Buffer<number>>([0]);
+		const value = createValue<Buffer<number>>([0]);
 		const ticker = new ManualTicker();
 		new MonitorBinding({
 			reader: numberFromUnknown,

@@ -4,10 +4,10 @@ import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../../common/converter/number';
-import {BoundValue} from '../../../common/model/bound-value';
 import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
 import {connectValues} from '../../../common/model/value-sync';
+import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from '../../../common/number/controller/number-text';
 import {Color} from '../model/color';
@@ -63,7 +63,7 @@ export class ColorPickerController implements ValueController<Color> {
 							draggingScale: 0.01,
 							formatter: createNumberFormatter(2),
 						}),
-						value: new BoundValue(0, {
+						value: createValue(0, {
 							constraint: new RangeConstraint({min: 0, max: 1}),
 						}),
 						viewProps: this.viewProps,

@@ -3,8 +3,8 @@ import {describe, it} from 'mocha';
 
 import {ListItem} from '../../../common/constraint/list';
 import {ListController} from '../../../common/controller/list';
-import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {ValueMap} from '../../../common/model/value-map';
+import {createValue} from '../../../common/model/values';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {
@@ -29,7 +29,7 @@ describe(ListApi.name, () => {
 				props: ValueMap.fromObject({
 					options: [] as ListItem<number>[],
 				}),
-				value: new PrimitiveValue(0),
+				value: createValue(0),
 				viewProps: createViewProps(),
 			}),
 		});
@@ -51,7 +51,7 @@ describe(ListApi.name, () => {
 						{text: 'bar', value: 456},
 					],
 				}),
-				value: new PrimitiveValue(0),
+				value: createValue(0),
 				viewProps: createViewProps(),
 			}),
 		});
@@ -78,7 +78,7 @@ describe(ListApi.name, () => {
 						{text: 'bar', value: 456},
 					],
 				}),
-				value: new PrimitiveValue(0),
+				value: createValue(0),
 				viewProps: createViewProps(),
 			}),
 		});
@@ -114,7 +114,7 @@ describe(ListApi.name, () => {
 						{text: 'bar', value: 456},
 					],
 				}),
-				value: new PrimitiveValue(0),
+				value: createValue(0),
 				viewProps: createViewProps(),
 			}),
 		});

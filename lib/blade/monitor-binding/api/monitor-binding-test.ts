@@ -9,8 +9,8 @@ import {
 	numberFromUnknown,
 } from '../../../common/converter/number';
 import {Buffer} from '../../../common/model/buffered-value';
-import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {ValueMap} from '../../../common/model/value-map';
+import {createValue} from '../../../common/model/values';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {SingleLogMonitorController} from '../../../monitor-binding/common/controller/single-log';
@@ -22,7 +22,7 @@ import {MonitorBindingApi} from './monitor-binding';
 
 function createApi(target: BindingTarget) {
 	const doc = TestUtil.createWindow().document;
-	const value = new PrimitiveValue<Buffer<number>>([0]);
+	const value = createValue<Buffer<number>>([0]);
 	const mc = new SingleLogMonitorController(doc, {
 		formatter: createNumberFormatter(0),
 		value: value,

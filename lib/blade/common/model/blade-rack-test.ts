@@ -8,8 +8,8 @@ import {ManualTicker} from '../../../common/binding/ticker/manual';
 import {boolFromUnknown} from '../../../common/converter/boolean';
 import {stringFromUnknown} from '../../../common/converter/string';
 import {Buffer} from '../../../common/model/buffered-value';
-import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {ValueMap} from '../../../common/model/value-map';
+import {createValue} from '../../../common/model/values';
 import {createViewProps} from '../../../common/model/view-props';
 import {writePrimitive} from '../../../common/primitive';
 import {CheckboxController} from '../../../input-binding/boolean/controller/checkbox';
@@ -29,7 +29,7 @@ function createInputBindingController(
 	const b = new InputBinding({
 		reader: boolFromUnknown,
 		target: new BindingTarget({foo: false}, 'foo'),
-		value: new PrimitiveValue(false),
+		value: createValue(false),
 		writer: writePrimitive,
 	});
 	return new InputBindingController(doc, {
@@ -52,7 +52,7 @@ function createMonitorBindingController(
 		reader: stringFromUnknown,
 		target: new BindingTarget({foo: false}, 'foo'),
 		ticker: new ManualTicker(),
-		value: new PrimitiveValue<Buffer<string>>([]),
+		value: createValue<Buffer<string>>([]),
 	});
 	return new MonitorBindingController(doc, {
 		blade: createBlade(),

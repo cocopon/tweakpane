@@ -1,8 +1,8 @@
 import {forceCast, isEmpty} from '../../../misc/type-util';
 import {ValueController} from '../../controller/value';
 import {Parser} from '../../converter/parser';
-import {PrimitiveValue} from '../../model/primitive-value';
 import {Value} from '../../model/value';
+import {createValue} from '../../model/values';
 import {ViewProps} from '../../model/view-props';
 import {getStepForKey, getVerticalStepKeys} from '../../ui';
 import {PointerHandler, PointerHandlerEvent} from '../../view/pointer-handler';
@@ -44,7 +44,7 @@ export class NumberTextController implements ValueController<number> {
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 
-		this.dragging_ = new PrimitiveValue<number | null>(null);
+		this.dragging_ = createValue<number | null>(null);
 		this.view = new NumberTextView(doc, {
 			arrayPosition: config.arrayPosition,
 			dragging: this.dragging_,
