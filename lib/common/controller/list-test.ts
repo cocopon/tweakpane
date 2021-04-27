@@ -20,7 +20,7 @@ describe(ListController.name, () => {
 		});
 		const doc = TestUtil.createWindow().document;
 		const c = new ListController(doc, {
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				options: findListItems(value.constraint) ?? [],
 			}),
 			value: value,
@@ -41,7 +41,7 @@ describe(ListController.name, () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new ListController(doc, {
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				options: findListItems(value.constraint) ?? [],
 			}),
 			value: value,
@@ -64,7 +64,7 @@ describe(ListController.name, () => {
 		});
 		const doc = TestUtil.createWindow().document;
 		const c = new ListController(doc, {
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				options: findListItems(value.constraint) ?? [],
 			}),
 			value: value,

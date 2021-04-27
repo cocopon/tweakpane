@@ -27,7 +27,7 @@ function createApi(target: BindingTarget) {
 	const ic = new NumberTextController(doc, {
 		baseStep: 1,
 		parser: parseNumber,
-		props: new ValueMap({
+		props: ValueMap.fromObject({
 			draggingScale: 1,
 			formatter: createNumberFormatter(0),
 		}),
@@ -42,7 +42,7 @@ function createApi(target: BindingTarget) {
 			writer: writePrimitive,
 		}),
 		blade: new Blade(),
-		props: new ValueMap({
+		props: ValueMap.fromObject({
 			label: 'label',
 		} as LabelPropsObject),
 		valueController: ic,

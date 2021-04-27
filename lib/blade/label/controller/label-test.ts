@@ -38,7 +38,7 @@ describe(LabelController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
 			blade: new Blade(),
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				label: 'hello',
 			} as LabelPropsObject),
 			valueController: new TestController(doc, {
@@ -53,7 +53,7 @@ describe(LabelController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
 			blade: new Blade(),
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				label: 'hello',
 			} as LabelPropsObject),
 			valueController: new TestController(doc, {

@@ -64,7 +64,7 @@ export class ColorController implements ValueController<Color> {
 
 		this.textC_ = new TextController(doc, {
 			parser: config.parser,
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				formatter: config.formatter,
 			}),
 			value: this.value,

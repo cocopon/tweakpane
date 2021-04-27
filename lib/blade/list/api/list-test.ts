@@ -22,11 +22,11 @@ describe(ListApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
 			blade: new Blade(),
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				label: undefined,
 			} as LabelPropsObject),
 			valueController: new ListController(doc, {
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					options: [] as ListItem<number>[],
 				}),
 				value: new PrimitiveValue(0),
@@ -41,11 +41,11 @@ describe(ListApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
 			blade: new Blade(),
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				label: undefined,
 			} as LabelPropsObject),
 			valueController: new ListController(doc, {
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					options: [
 						{text: 'foo', value: 123},
 						{text: 'bar', value: 456},
@@ -68,11 +68,11 @@ describe(ListApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
 			blade: new Blade(),
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				label: undefined,
 			} as LabelPropsObject),
 			valueController: new ListController(doc, {
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					options: [
 						{text: 'foo', value: 123},
 						{text: 'bar', value: 456},
@@ -104,11 +104,11 @@ describe(ListApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
 			blade: new Blade(),
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				label: undefined,
 			} as LabelPropsObject),
 			valueController: new ListController(doc, {
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					options: [
 						{text: 'foo', value: 123},
 						{text: 'bar', value: 456},

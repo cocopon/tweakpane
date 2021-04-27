@@ -59,7 +59,7 @@ export class ColorPickerController implements ValueController<Color> {
 					text: new NumberTextController(doc, {
 						parser: parseNumber,
 						baseStep: 0.1,
-						props: new ValueMap({
+						props: ValueMap.fromObject({
 							draggingScale: 0.01,
 							formatter: createNumberFormatter(2),
 						}),

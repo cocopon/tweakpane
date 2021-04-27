@@ -22,7 +22,7 @@ describe(PointNdTextController.name, () => {
 				{
 					baseStep: 1,
 					constraint: undefined,
-					textProps: new ValueMap({
+					textProps: ValueMap.fromObject({
 						formatter: createNumberFormatter(0),
 						draggingScale: 1,
 					}),
@@ -30,7 +30,7 @@ describe(PointNdTextController.name, () => {
 				{
 					baseStep: 1,
 					constraint: undefined,
-					textProps: new ValueMap({
+					textProps: ValueMap.fromObject({
 						formatter: createNumberFormatter(0),
 						draggingScale: 1,
 					}),

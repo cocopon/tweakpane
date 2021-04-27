@@ -35,7 +35,7 @@ function createInputBindingController(
 	return new InputBindingController(doc, {
 		blade: new Blade(),
 		binding: b,
-		props: new ValueMap({
+		props: ValueMap.fromObject({
 			label: '',
 		} as LabelPropsObject),
 		valueController: new CheckboxController(doc, {
@@ -57,7 +57,7 @@ function createMonitorBindingController(
 	return new MonitorBindingController(doc, {
 		blade: new Blade(),
 		binding: b,
-		props: new ValueMap({
+		props: ValueMap.fromObject({
 			label: '',
 		} as LabelPropsObject),
 		valueController: new SingleLogMonitorController(doc, {
@@ -71,7 +71,7 @@ function createMonitorBindingController(
 function createFolderController(doc: Document): FolderController {
 	return new FolderController(doc, {
 		blade: new Blade(),
-		props: new ValueMap({
+		props: ValueMap.fromObject({
 			title: 'folder' as string | undefined,
 		}),
 		viewProps: createViewProps(),

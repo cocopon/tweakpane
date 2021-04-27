@@ -25,7 +25,7 @@ export function createEmptyLabelableController(doc: Document) {
 export function createLabelController(doc: Document, vc: LabelableController) {
 	return new LabelController(doc, {
 		blade: new Blade(),
-		props: new ValueMap({label: '' as string | undefined}),
+		props: ValueMap.fromObject({label: '' as string | undefined}),
 		valueController: vc,
 	});
 }

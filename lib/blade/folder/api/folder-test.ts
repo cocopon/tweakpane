@@ -19,7 +19,7 @@ function createApi(opt_doc?: Document): FolderApi {
 	const doc = opt_doc ?? TestUtil.createWindow().document;
 	const c = new FolderController(doc, {
 		blade: new Blade(),
-		props: new ValueMap({
+		props: ValueMap.fromObject({
 			title: 'Folder' as string | undefined,
 		}),
 		viewProps: createViewProps(),

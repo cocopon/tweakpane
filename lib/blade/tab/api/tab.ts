@@ -67,11 +67,11 @@ export class TabApi extends RackLikeApi<TabController> {
 	public addPage(params: TabPageParams): TabPageApi {
 		const doc = this.controller_.view.element.ownerDocument;
 		const pc = new TabPageController(doc, {
-			itemProps: new ValueMap({
+			itemProps: ValueMap.fromObject({
 				selected: false as boolean,
 				title: params.title,
 			}),
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				selected: false as boolean,
 			}),
 		});

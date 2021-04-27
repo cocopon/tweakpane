@@ -36,7 +36,7 @@ export const TextBladePlugin = (function<T>(): BladePlugin<TextBladeParams<T>> {
 		controller(args) {
 			const ic = new TextController(args.document, {
 				parser: args.params.parse,
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					formatter: args.params.format ?? ((v: T) => String(v)),
 				}),
 				value: new PrimitiveValue(args.params.value),
@@ -44,7 +44,7 @@ export const TextBladePlugin = (function<T>(): BladePlugin<TextBladeParams<T>> {
 			});
 			return new LabelController(args.document, {
 				blade: args.blade,
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					label: args.params.label,
 				}),
 				valueController: ic,

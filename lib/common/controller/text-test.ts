@@ -14,7 +14,7 @@ describe(TextController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TextController(doc, {
 			parser: parseNumber,
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				formatter: createNumberFormatter(2),
 			}),
 			value: value,
@@ -30,7 +30,7 @@ describe(TextController.name, () => {
 		const doc = win.document;
 		const c = new TextController(doc, {
 			parser: parseNumber,
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				formatter: createNumberFormatter(2),
 			}),
 			value: value,
@@ -48,7 +48,7 @@ describe(TextController.name, () => {
 		const doc = win.document;
 		const c = new TextController(doc, {
 			parser: parseNumber,
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				formatter: createNumberFormatter(0),
 			}),
 			value: new PrimitiveValue(123),

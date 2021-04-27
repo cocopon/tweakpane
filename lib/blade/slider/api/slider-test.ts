@@ -22,17 +22,17 @@ describe(SliderApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
 			blade: new Blade(),
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				label: undefined,
 			} as LabelPropsObject),
 			valueController: new SliderTextController(doc, {
 				baseStep: 1,
 				parser: parseNumber,
-				sliderProps: new ValueMap({
+				sliderProps: ValueMap.fromObject({
 					maxValue: 100,
 					minValue: 0,
 				}),
-				textProps: new ValueMap({
+				textProps: ValueMap.fromObject({
 					draggingScale: 1,
 					formatter: numberToString,
 				}),
@@ -48,17 +48,17 @@ describe(SliderApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
 			blade: new Blade(),
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				label: 'foobar',
 			} as LabelPropsObject),
 			valueController: new SliderTextController(doc, {
 				baseStep: 1,
 				parser: parseNumber,
-				sliderProps: new ValueMap({
+				sliderProps: ValueMap.fromObject({
 					maxValue: 100,
 					minValue: -100,
 				}),
-				textProps: new ValueMap({
+				textProps: ValueMap.fromObject({
 					draggingScale: 1,
 					formatter: numberToString,
 				}),
@@ -79,17 +79,17 @@ describe(SliderApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
 			blade: new Blade(),
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				label: 'foobar',
 			} as LabelPropsObject),
 			valueController: new SliderTextController(doc, {
 				baseStep: 1,
 				parser: parseNumber,
-				sliderProps: new ValueMap({
+				sliderProps: ValueMap.fromObject({
 					maxValue: 100,
 					minValue: -100,
 				}),
-				textProps: new ValueMap({
+				textProps: ValueMap.fromObject({
 					draggingScale: 1,
 					formatter: numberToString,
 				}),
@@ -117,17 +117,17 @@ describe(SliderApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
 			blade: new Blade(),
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				label: undefined,
 			} as LabelPropsObject),
 			valueController: new SliderTextController(doc, {
 				baseStep: 1,
 				parser: parseNumber,
-				sliderProps: new ValueMap({
+				sliderProps: ValueMap.fromObject({
 					maxValue: 100,
 					minValue: 0,
 				}),
-				textProps: new ValueMap({
+				textProps: ValueMap.fromObject({
 					draggingScale: 1,
 					formatter: numberToString,
 				}),

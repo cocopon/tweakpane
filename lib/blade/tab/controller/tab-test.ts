@@ -10,11 +10,11 @@ import {TabPageController} from './tab-page';
 
 function createTabPage(doc: Document, title: string) {
 	return new TabPageController(doc, {
-		itemProps: new ValueMap({
+		itemProps: ValueMap.fromObject({
 			selected: false as boolean,
 			title: title,
 		}),
-		props: new ValueMap({
+		props: ValueMap.fromObject({
 			selected: false as boolean,
 		}),
 	});

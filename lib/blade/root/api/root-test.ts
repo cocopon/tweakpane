@@ -11,7 +11,7 @@ import {RootApi} from './root';
 function createApi(): RootApi {
 	const c = new RootController(TestUtil.createWindow().document, {
 		blade: new Blade(),
-		props: new ValueMap({
+		props: ValueMap.fromObject({
 			title: undefined as string | undefined,
 		}),
 		viewProps: createViewProps(),

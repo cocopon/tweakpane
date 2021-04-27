@@ -159,7 +159,7 @@ export function createInputBindingController<In, Ex>(
 	return new InputBindingController(args.document, {
 		binding: binding,
 		blade: blade,
-		props: new ValueMap({
+		props: ValueMap.fromObject({
 			label: args.params.label || args.target.key,
 		} as LabelPropsObject),
 		valueController: controller,

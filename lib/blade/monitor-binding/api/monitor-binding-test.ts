@@ -36,7 +36,7 @@ function createApi(target: BindingTarget) {
 			value: value,
 		}),
 		blade: new Blade(),
-		props: new ValueMap({
+		props: ValueMap.fromObject({
 			label: 'label',
 		} as LabelPropsObject),
 		valueController: mc,

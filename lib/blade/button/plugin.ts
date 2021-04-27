@@ -28,11 +28,11 @@ export const ButtonBladePlugin: BladePlugin<ButtonBladeParams> = {
 	controller(args) {
 		return new LabelController(args.document, {
 			blade: args.blade,
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				label: args.params.label,
 			}),
 			valueController: new ButtonController(args.document, {
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					title: args.params.title,
 				}),
 				viewProps: args.viewProps,

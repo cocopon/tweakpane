@@ -5,7 +5,7 @@ import {ValueMap} from './value-map';
 
 describe(ValueMap.name, () => {
 	it('should get initial value', () => {
-		const m = new ValueMap({
+		const m = ValueMap.fromObject({
 			foo: 'bar',
 			baz: 'qux',
 		});
@@ -14,7 +14,7 @@ describe(ValueMap.name, () => {
 	});
 
 	it('should set value', () => {
-		const m = new ValueMap({
+		const m = ValueMap.fromObject({
 			foo: 'bar',
 		});
 		m.set('foo', 'baz');
@@ -22,7 +22,7 @@ describe(ValueMap.name, () => {
 	});
 
 	it('should fire change event', (done) => {
-		const m = new ValueMap({
+		const m = ValueMap.fromObject({
 			foo: 'bar',
 			baz: 'qux',
 		});
@@ -36,7 +36,7 @@ describe(ValueMap.name, () => {
 	});
 
 	it('should not fire change event when setting the same value', () => {
-		const m = new ValueMap({
+		const m = ValueMap.fromObject({
 			foo: 'bar',
 		});
 
@@ -50,7 +50,7 @@ describe(ValueMap.name, () => {
 	});
 
 	it('should return signle value emitter', (done) => {
-		const m = new ValueMap({
+		const m = ValueMap.fromObject({
 			foo: 'bar',
 			baz: 'qux',
 		});

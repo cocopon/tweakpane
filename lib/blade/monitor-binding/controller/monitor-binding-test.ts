@@ -35,7 +35,7 @@ function create(): MonitorBindingController<number> {
 	return new MonitorBindingController(doc, {
 		binding: binding,
 		blade: new Blade(),
-		props: new ValueMap({
+		props: ValueMap.fromObject({
 			label: 'foo',
 		} as LabelPropsObject),
 		valueController: controller,

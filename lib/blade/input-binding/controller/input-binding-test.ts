@@ -32,7 +32,7 @@ describe(InputBindingController.name, () => {
 		});
 		const controller = new TextController(doc, {
 			parser: parseNumber,
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				formatter: createNumberFormatter(0),
 			}),
 			value: value,
@@ -41,7 +41,7 @@ describe(InputBindingController.name, () => {
 		const bc = new InputBindingController(doc, {
 			binding: binding,
 			blade: new Blade(),
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				label: 'foo',
 			} as LabelPropsObject),
 			valueController: controller,

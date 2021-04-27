@@ -40,11 +40,11 @@ export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 		const vc = new SliderTextController(args.document, {
 			baseStep: 1,
 			parser: parseNumber,
-			sliderProps: new ValueMap({
+			sliderProps: ValueMap.fromObject({
 				maxValue: args.params.max,
 				minValue: args.params.min,
 			}),
-			textProps: new ValueMap({
+			textProps: ValueMap.fromObject({
 				draggingScale: getSuitableDraggingScale(undefined, v),
 				formatter: args.params.format ?? numberToString,
 			}),
@@ -53,7 +53,7 @@ export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 		});
 		return new LabelController(args.document, {
 			blade: args.blade,
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				label: args.params.label,
 			}),
 			valueController: vc,

@@ -62,7 +62,7 @@ function createAxis(
 	return {
 		baseStep: getBaseStep(constraint),
 		constraint: constraint,
-		textProps: new ValueMap({
+		textProps: ValueMap.fromObject({
 			draggingScale: getSuitableDraggingScale(constraint, initialValue),
 			formatter: createNumberFormatter(
 				getSuitableDecimalDigits(constraint, initialValue),

@@ -59,7 +59,7 @@ export const ListBladePlugin = (function<T>(): BladePlugin<ListBladeParams<T>> {
 		},
 		controller(args) {
 			const ic = new ListController(args.document, {
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					options: normalizeListOptions<T>(args.params.options),
 				}),
 				value: new PrimitiveValue(args.params.value),
@@ -67,7 +67,7 @@ export const ListBladePlugin = (function<T>(): BladePlugin<ListBladeParams<T>> {
 			});
 			return new LabelController(args.document, {
 				blade: args.blade,
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					label: args.params.label,
 				}),
 				valueController: ic,

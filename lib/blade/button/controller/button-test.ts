@@ -10,7 +10,7 @@ describe(ButtonController.name, () => {
 	it('should emit click event', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new ButtonController(doc, {
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				title: 'Push',
 			}),
 			viewProps: createViewProps(),

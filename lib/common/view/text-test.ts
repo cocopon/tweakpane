@@ -10,7 +10,7 @@ import {TextView} from './text';
 describe(TextView.name, () => {
 	it('should apply initial value', () => {
 		const doc = TestUtil.createWindow().document;
-		const props = new ValueMap({
+		const props = ValueMap.fromObject({
 			formatter: (v: string) => `hello${v}world`,
 		});
 		const v = new PrimitiveValue('foo');
@@ -25,7 +25,7 @@ describe(TextView.name, () => {
 
 	it('should apply value change', () => {
 		const doc = TestUtil.createWindow().document;
-		const props = new ValueMap({
+		const props = ValueMap.fromObject({
 			formatter: (v: string) => `hello${v}world`,
 		});
 		const v = new PrimitiveValue('foo');
@@ -42,7 +42,7 @@ describe(TextView.name, () => {
 
 	it('should apply props change', () => {
 		const doc = TestUtil.createWindow().document;
-		const props = new ValueMap({
+		const props = ValueMap.fromObject({
 			formatter: (v: string) => `hello${v}world`,
 		});
 		const v = new PrimitiveValue('foo');

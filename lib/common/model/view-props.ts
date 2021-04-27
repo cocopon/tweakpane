@@ -13,7 +13,7 @@ export function createViewProps(
 	opt_initialValue?: Partial<ViewPropsObject>,
 ): ViewProps {
 	const initialValue: Partial<ViewPropsObject> = opt_initialValue ?? {};
-	return new ValueMap({
+	return ValueMap.fromObject({
 		disabled: initialValue.disabled ?? false,
 		disposed: false as boolean,
 		hidden: initialValue.hidden ?? false,

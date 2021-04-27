@@ -10,7 +10,7 @@ import {SliderView} from './slider';
 describe(SliderView.name, () => {
 	it('should apply initial value', () => {
 		const doc = TestUtil.createWindow().document;
-		const props = new ValueMap({
+		const props = ValueMap.fromObject({
 			maxValue: 200,
 			minValue: 0,
 		});
@@ -26,7 +26,7 @@ describe(SliderView.name, () => {
 
 	it('should apply value change', () => {
 		const doc = TestUtil.createWindow().document;
-		const props = new ValueMap({
+		const props = ValueMap.fromObject({
 			maxValue: 200,
 			minValue: 0,
 		});
@@ -44,7 +44,7 @@ describe(SliderView.name, () => {
 
 	it('should apply props change', () => {
 		const doc = TestUtil.createWindow().document;
-		const props = new ValueMap({
+		const props = ValueMap.fromObject({
 			maxValue: 200,
 			minValue: 0,
 		});

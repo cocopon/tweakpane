@@ -58,7 +58,7 @@ function createComponentController(
 		arrayPosition: index === 0 ? 'fst' : index === 3 - 1 ? 'lst' : 'mid',
 		baseStep: getBaseStepForColor(false),
 		parser: config.parser,
-		props: new ValueMap({
+		props: ValueMap.fromObject({
 			draggingScale: 1,
 			formatter: FORMATTER,
 		}),

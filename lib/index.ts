@@ -75,7 +75,7 @@ export default class Tweakpane extends RootApi {
 		const rootController = new RootController(doc, {
 			expanded: config.expanded,
 			blade: new Blade(),
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				title: config.title,
 			}),
 			viewProps: createViewProps(),
