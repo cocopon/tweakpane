@@ -205,7 +205,7 @@ const NOTATION_TO_PARSER_MAP: {
  * @hidden
  */
 export function getColorNotation(text: string): StringColorNotation | null {
-	const notations: StringColorNotation[] = Object.keys(
+	const notations = Object.keys(
 		NOTATION_TO_PARSER_MAP,
 	) as StringColorNotation[];
 	return notations.reduce((result: StringColorNotation | null, notation) => {

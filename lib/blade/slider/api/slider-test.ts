@@ -22,9 +22,9 @@ describe(SliderApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
 			blade: createBlade(),
-			props: ValueMap.fromObject({
+			props: ValueMap.fromObject<LabelPropsObject>({
 				label: undefined,
-			} as LabelPropsObject),
+			}),
 			valueController: new SliderTextController(doc, {
 				baseStep: 1,
 				parser: parseNumber,
@@ -48,9 +48,9 @@ describe(SliderApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
 			blade: createBlade(),
-			props: ValueMap.fromObject({
+			props: ValueMap.fromObject<LabelPropsObject>({
 				label: 'foobar',
-			} as LabelPropsObject),
+			}),
 			valueController: new SliderTextController(doc, {
 				baseStep: 1,
 				parser: parseNumber,
@@ -79,9 +79,9 @@ describe(SliderApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
 			blade: createBlade(),
-			props: ValueMap.fromObject({
+			props: ValueMap.fromObject<LabelPropsObject>({
 				label: 'foobar',
-			} as LabelPropsObject),
+			}),
 			valueController: new SliderTextController(doc, {
 				baseStep: 1,
 				parser: parseNumber,
@@ -117,9 +117,9 @@ describe(SliderApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
 			blade: createBlade(),
-			props: ValueMap.fromObject({
+			props: ValueMap.fromObject<LabelPropsObject>({
 				label: undefined,
-			} as LabelPropsObject),
+			}),
 			valueController: new SliderTextController(doc, {
 				baseStep: 1,
 				parser: parseNumber,

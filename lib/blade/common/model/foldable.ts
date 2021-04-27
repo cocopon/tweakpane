@@ -5,23 +5,25 @@ import {
 import {ValueMap} from '../../../common/model/value-map';
 import {isEmpty} from '../../../misc/type-util';
 
-/**
- * @hidden
- */
-export type Foldable = ValueMap<{
+type FoldableObject = {
 	expanded: boolean;
 	expandedHeight: number | null;
 	shouldFixHeight: boolean;
 	// For computing expanded height
 	temporaryExpanded: boolean | null;
-}>;
+};
+
+/**
+ * @hidden
+ */
+export type Foldable = ValueMap<FoldableObject>;
 
 export function createFoldable(expanded: boolean): Foldable {
-	return ValueMap.fromObject({
+	return ValueMap.fromObject<FoldableObject>({
 		expanded: expanded,
-		expandedHeight: null as number | null,
-		shouldFixHeight: false as boolean,
-		temporaryExpanded: null as boolean | null,
+		expandedHeight: null,
+		shouldFixHeight: false,
+		temporaryExpanded: null,
 	});
 }
 

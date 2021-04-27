@@ -41,9 +41,9 @@ describe(InputBindingController.name, () => {
 		const bc = new InputBindingController(doc, {
 			binding: binding,
 			blade: createBlade(),
-			props: ValueMap.fromObject({
+			props: ValueMap.fromObject<LabelPropsObject>({
 				label: 'foo',
-			} as LabelPropsObject),
+			}),
 			valueController: controller,
 		});
 		assert.strictEqual(bc.binding, binding);

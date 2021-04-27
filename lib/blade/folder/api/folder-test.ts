@@ -13,14 +13,15 @@ import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event';
 import {createBlade} from '../../common/model/blade';
 import {InputBindingApi} from '../../input-binding/api/input-binding';
 import {FolderController} from '../controller/folder';
+import {FolderPropsObject} from '../view/folder';
 import {FolderApi} from './folder';
 
 function createApi(opt_doc?: Document): FolderApi {
 	const doc = opt_doc ?? TestUtil.createWindow().document;
 	const c = new FolderController(doc, {
 		blade: createBlade(),
-		props: ValueMap.fromObject({
-			title: 'Folder' as string | undefined,
+		props: ValueMap.fromObject<FolderPropsObject>({
+			title: 'Folder',
 		}),
 		viewProps: createViewProps(),
 	});

@@ -3,18 +3,19 @@ import {describe, it} from 'mocha';
 
 import {ValueMap} from '../../../common/model/value-map';
 import {TestUtil} from '../../../misc/test-util';
-import {TabPageController} from './tab-page';
+import {TabItemPropsObject} from '../view/tab-item';
+import {TabPageController, TabPagePropsObject} from './tab-page';
 
 describe(TabPageController.name, () => {
 	it('should apply initial props', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TabPageController(doc, {
-			itemProps: ValueMap.fromObject({
-				selected: false as boolean,
+			itemProps: ValueMap.fromObject<TabItemPropsObject>({
+				selected: false,
 				title: 'foo',
 			}),
-			props: ValueMap.fromObject({
-				selected: false as boolean,
+			props: ValueMap.fromObject<TabPagePropsObject>({
+				selected: false,
 			}),
 		});
 		assert.strictEqual(c.itemController.props.get('selected'), false);
@@ -25,12 +26,12 @@ describe(TabPageController.name, () => {
 	it('should apply props change', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TabPageController(doc, {
-			itemProps: ValueMap.fromObject({
-				selected: false as boolean,
+			itemProps: ValueMap.fromObject<TabItemPropsObject>({
+				selected: false,
 				title: 'foo',
 			}),
-			props: ValueMap.fromObject({
-				selected: false as boolean,
+			props: ValueMap.fromObject<TabPagePropsObject>({
+				selected: false,
 			}),
 		});
 
@@ -43,12 +44,12 @@ describe(TabPageController.name, () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new TabPageController(doc, {
-			itemProps: ValueMap.fromObject({
-				selected: false as boolean,
+			itemProps: ValueMap.fromObject<TabItemPropsObject>({
+				selected: false,
 				title: 'foo',
 			}),
-			props: ValueMap.fromObject({
-				selected: false as boolean,
+			props: ValueMap.fromObject<TabPagePropsObject>({
+				selected: false,
 			}),
 		});
 

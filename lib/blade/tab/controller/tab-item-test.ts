@@ -4,14 +4,15 @@ import {describe, it} from 'mocha';
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
+import {TabItemPropsObject} from '../view/tab-item';
 import {TabItemController} from './tab-item';
 
 describe(TabItemController.name, () => {
 	it('should apply initial props', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TabItemController(doc, {
-			props: ValueMap.fromObject({
-				selected: false as boolean,
+			props: ValueMap.fromObject<TabItemPropsObject>({
+				selected: false,
 				title: 'hello',
 			}),
 			viewProps: createViewProps(),
@@ -22,8 +23,8 @@ describe(TabItemController.name, () => {
 	it('should update props', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TabItemController(doc, {
-			props: ValueMap.fromObject({
-				selected: false as boolean,
+			props: ValueMap.fromObject<TabItemPropsObject>({
+				selected: false,
 				title: 'hello',
 			}),
 			viewProps: createViewProps(),
@@ -37,8 +38,8 @@ describe(TabItemController.name, () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new TabItemController(doc, {
-			props: ValueMap.fromObject({
-				selected: false as boolean,
+			props: ValueMap.fromObject<TabItemPropsObject>({
+				selected: false,
 				title: 'hello',
 			}),
 			viewProps: createViewProps(),

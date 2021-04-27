@@ -6,7 +6,8 @@ import {TpChangeEvent, TpUpdateEvent} from '../../common/api/tp-event';
 import {NestedOrderedSetEvents} from '../../common/model/nested-ordered-set';
 import {RackApi} from '../../rack/api/rack';
 import {TabController, TabPageParams} from '../controller/tab';
-import {TabPageController} from '../controller/tab-page';
+import {TabPageController, TabPagePropsObject} from '../controller/tab-page';
+import {TabItemPropsObject} from '../view/tab-item';
 import {TabPageApi} from './tab-page';
 
 interface TabApiEvents {
@@ -67,12 +68,12 @@ export class TabApi extends RackLikeApi<TabController> {
 	public addPage(params: TabPageParams): TabPageApi {
 		const doc = this.controller_.view.element.ownerDocument;
 		const pc = new TabPageController(doc, {
-			itemProps: ValueMap.fromObject({
-				selected: false as boolean,
+			itemProps: ValueMap.fromObject<TabItemPropsObject>({
+				selected: false,
 				title: params.title,
 			}),
-			props: ValueMap.fromObject({
-				selected: false as boolean,
+			props: ValueMap.fromObject<TabPagePropsObject>({
+				selected: false,
 			}),
 		});
 		this.controller_.add(pc, params.index);

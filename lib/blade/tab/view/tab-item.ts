@@ -9,10 +9,12 @@ import {
 } from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 
-export type TabItemProps = ValueMap<{
+export type TabItemPropsObject = {
 	selected: boolean;
 	title: string;
-}>;
+};
+
+export type TabItemProps = ValueMap<TabItemPropsObject>;
 
 interface Config {
 	props: TabItemProps;

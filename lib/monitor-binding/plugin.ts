@@ -140,9 +140,9 @@ export function createMonitorBindingController<T>(
 	return new MonitorBindingController(args.document, {
 		binding: binding,
 		blade: createBlade(),
-		props: ValueMap.fromObject({
+		props: ValueMap.fromObject<LabelPropsObject>({
 			label: args.params.label || args.target.key,
-		} as LabelPropsObject),
+		}),
 		valueController: controller,
 	});
 }

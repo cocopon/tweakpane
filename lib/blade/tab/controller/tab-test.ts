@@ -6,16 +6,17 @@ import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {createBlade} from '../../common/model/blade';
 import {TabController} from '../controller/tab';
-import {TabPageController} from './tab-page';
+import {TabItemPropsObject} from '../view/tab-item';
+import {TabPageController, TabPagePropsObject} from './tab-page';
 
 function createTabPage(doc: Document, title: string) {
 	return new TabPageController(doc, {
-		itemProps: ValueMap.fromObject({
-			selected: false as boolean,
+		itemProps: ValueMap.fromObject<TabItemPropsObject>({
+			selected: false,
 			title: title,
 		}),
-		props: ValueMap.fromObject({
-			selected: false as boolean,
+		props: ValueMap.fromObject<TabPagePropsObject>({
+			selected: false,
 		}),
 	});
 }

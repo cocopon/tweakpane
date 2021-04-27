@@ -17,6 +17,7 @@ import {TestUtil} from '../../../misc/test-util';
 import {forceCast} from '../../../misc/type-util';
 import {SingleLogMonitorController} from '../../../monitor-binding/common/controller/single-log';
 import {FolderController} from '../../folder/controller/folder';
+import {FolderPropsObject} from '../../folder/view/folder';
 import {InputBindingController} from '../../input-binding/controller/input-binding';
 import {LabelPropsObject} from '../../label/view/label';
 import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
@@ -35,9 +36,9 @@ function createInputBindingController(
 	return new InputBindingController(doc, {
 		blade: createBlade(),
 		binding: b,
-		props: ValueMap.fromObject({
+		props: ValueMap.fromObject<LabelPropsObject>({
 			label: '',
-		} as LabelPropsObject),
+		}),
 		valueController: new CheckboxController(doc, {
 			value: b.value,
 			viewProps: createViewProps(),
@@ -57,9 +58,9 @@ function createMonitorBindingController(
 	return new MonitorBindingController(doc, {
 		blade: createBlade(),
 		binding: b,
-		props: ValueMap.fromObject({
+		props: ValueMap.fromObject<LabelPropsObject>({
 			label: '',
-		} as LabelPropsObject),
+		}),
 		valueController: new SingleLogMonitorController(doc, {
 			formatter: (v) => String(v),
 			value: b.value,
@@ -71,8 +72,8 @@ function createMonitorBindingController(
 function createFolderController(doc: Document): FolderController {
 	return new FolderController(doc, {
 		blade: createBlade(),
-		props: ValueMap.fromObject({
-			title: 'folder' as string | undefined,
+		props: ValueMap.fromObject<FolderPropsObject>({
+			title: 'folder',
 		}),
 		viewProps: createViewProps(),
 	});

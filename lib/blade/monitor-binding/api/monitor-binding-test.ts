@@ -36,9 +36,9 @@ function createApi(target: BindingTarget) {
 			value: value,
 		}),
 		blade: createBlade(),
-		props: ValueMap.fromObject({
+		props: ValueMap.fromObject<LabelPropsObject>({
 			label: 'label',
-		} as LabelPropsObject),
+		}),
 		valueController: mc,
 	});
 	return new MonitorBindingApi(bc);
