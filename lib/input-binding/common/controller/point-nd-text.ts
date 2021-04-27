@@ -1,9 +1,9 @@
 import {Constraint} from '../../../common/constraint/constraint';
 import {ValueController} from '../../../common/controller/value';
 import {Parser} from '../../../common/converter/parser';
-import {BoundValue} from '../../../common/model/bound-value';
 import {Value} from '../../../common/model/value';
 import {connectValues} from '../../../common/model/value-sync';
+import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from '../../../common/number/controller/number-text';
 import {NumberTextProps} from '../../../common/number/view/number-text';
@@ -35,7 +35,7 @@ function createAxisController<PointNd>(
 		baseStep: config.axes[index].baseStep,
 		parser: config.parser,
 		props: config.axes[index].textProps,
-		value: new BoundValue(0, {
+		value: createValue(0, {
 			constraint: config.axes[index].constraint,
 		}),
 		viewProps: config.viewProps,

@@ -2,8 +2,8 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {TextController} from '../../../common/controller/text';
-import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {ValueMap} from '../../../common/model/value-map';
+import {createValue} from '../../../common/model/values';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {
@@ -11,7 +11,7 @@ import {
 	assertInitialState,
 	assertUpdates,
 } from '../../common/api/test-util';
-import {Blade} from '../../common/model/blade';
+import {createBlade} from '../../common/model/blade';
 import {LabelController} from '../../label/controller/label';
 import {LabelPropsObject} from '../../label/view/label';
 import {TextApi} from './text';
@@ -20,16 +20,16 @@ describe(TextApi.name, () => {
 	it('should dispose', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
-			blade: new Blade(),
-			props: new ValueMap({
+			blade: createBlade(),
+			props: ValueMap.fromObject({
 				label: undefined,
 			} as LabelPropsObject),
 			valueController: new TextController(doc, {
 				parser: (v: string) => v,
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					formatter: (v: string) => v,
 				}),
-				value: new PrimitiveValue(''),
+				value: createValue(''),
 				viewProps: createViewProps(),
 			}),
 		});
@@ -42,16 +42,16 @@ describe(TextApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const formatter = (v: string) => v;
 		const c = new LabelController(doc, {
-			blade: new Blade(),
-			props: new ValueMap({
+			blade: createBlade(),
+			props: ValueMap.fromObject({
 				label: 'foobar',
 			} as LabelPropsObject),
 			valueController: new TextController(doc, {
 				parser: (v: string) => v,
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					formatter: formatter,
 				}),
-				value: new PrimitiveValue('hello'),
+				value: createValue('hello'),
 				viewProps: createViewProps(),
 			}),
 		});
@@ -66,16 +66,16 @@ describe(TextApi.name, () => {
 	it('should update properties', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
-			blade: new Blade(),
-			props: new ValueMap({
+			blade: createBlade(),
+			props: ValueMap.fromObject({
 				label: undefined,
 			} as LabelPropsObject),
 			valueController: new TextController(doc, {
 				parser: (v: string) => v,
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					formatter: (v: string) => v,
 				}),
-				value: new PrimitiveValue('hello'),
+				value: createValue('hello'),
 				viewProps: createViewProps(),
 			}),
 		});
@@ -99,16 +99,16 @@ describe(TextApi.name, () => {
 	it('should handle event', (done) => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
-			blade: new Blade(),
-			props: new ValueMap({
+			blade: createBlade(),
+			props: ValueMap.fromObject({
 				label: undefined,
 			} as LabelPropsObject),
 			valueController: new TextController(doc, {
 				parser: (v: string) => v,
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					formatter: (v: string) => v,
 				}),
-				value: new PrimitiveValue(''),
+				value: createValue(''),
 				viewProps: createViewProps(),
 			}),
 		});

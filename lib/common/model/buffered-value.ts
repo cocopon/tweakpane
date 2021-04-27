@@ -1,6 +1,6 @@
 import {forceCast} from '../../misc/type-util';
-import {BoundValue} from './bound-value';
 import {Value} from './value';
+import {createValue} from './values';
 
 /**
  * @hidden
@@ -24,7 +24,7 @@ function fillBuffer<T>(buffer: Buffer<T>, bufferSize: number) {
 export function initializeBuffer<T>(bufferSize: number): BufferedValue<T> {
 	const buffer: Buffer<T> = [];
 	fillBuffer(buffer, bufferSize);
-	return new BoundValue(buffer);
+	return createValue(buffer);
 }
 
 function createTrimmedBuffer<T>(buffer: Buffer<T>): T[] {

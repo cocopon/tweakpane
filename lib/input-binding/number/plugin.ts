@@ -115,7 +115,7 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 
 		if (c && findConstraint(c, ListConstraint)) {
 			return new ListController(args.document, {
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					options: findListItems(c) ?? [],
 				}),
 				value: value,
@@ -132,11 +132,11 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 			return new SliderTextController(args.document, {
 				baseStep: getBaseStep(c),
 				parser: parseNumber,
-				sliderProps: new ValueMap({
+				sliderProps: ValueMap.fromObject({
 					maxValue: max,
 					minValue: min,
 				}),
-				textProps: new ValueMap({
+				textProps: ValueMap.fromObject({
 					draggingScale: getSuitableDraggingScale(c, value.rawValue),
 					formatter: formatter,
 				}),
@@ -148,7 +148,7 @@ export const NumberInputPlugin: InputBindingPlugin<number, number> = {
 		return new NumberTextController(args.document, {
 			baseStep: getBaseStep(c),
 			parser: parseNumber,
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				draggingScale: getSuitableDraggingScale(c, value.rawValue),
 				formatter: formatter,
 			}),

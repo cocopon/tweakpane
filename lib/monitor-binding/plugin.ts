@@ -1,5 +1,5 @@
 import {MonitorParams} from '../blade/common/api/types';
-import {Blade} from '../blade/common/model/blade';
+import {createBlade} from '../blade/common/model/blade';
 import {LabelPropsObject} from '../blade/label/view/label';
 import {MonitorBindingController} from '../blade/monitor-binding/controller/monitor-binding';
 import {BindingReader} from '../common/binding/binding';
@@ -137,11 +137,10 @@ export function createMonitorBindingController<T>(
 	});
 	polyfillViewProps(controller, plugin.id);
 
-	const blade = new Blade();
 	return new MonitorBindingController(args.document, {
 		binding: binding,
-		blade: blade,
-		props: new ValueMap({
+		blade: createBlade(),
+		props: ValueMap.fromObject({
 			label: args.params.label || args.target.key,
 		} as LabelPropsObject),
 		valueController: controller,

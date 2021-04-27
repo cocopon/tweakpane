@@ -42,7 +42,7 @@ export const StringInputPlugin: InputBindingPlugin<string, string> = {
 
 		if (c && findConstraint(c, ListConstraint)) {
 			return new ListController(doc, {
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					options: findListItems(c) ?? [],
 				}),
 				value: value,
@@ -52,7 +52,7 @@ export const StringInputPlugin: InputBindingPlugin<string, string> = {
 
 		return new TextController(doc, {
 			parser: (v) => v,
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				formatter: formatString,
 			}),
 			value: value,

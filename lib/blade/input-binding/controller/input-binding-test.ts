@@ -9,11 +9,11 @@ import {
 	parseNumber,
 } from '../../../common/converter/number';
 import {numberFromUnknown} from '../../../common/converter/number';
-import {BoundValue} from '../../../common/model/bound-value';
 import {ValueMap} from '../../../common/model/value-map';
+import {createValue} from '../../../common/model/values';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
-import {Blade} from '../../common/model/blade';
+import {createBlade} from '../../common/model/blade';
 import {LabelPropsObject} from '../../label/view/label';
 import {InputBindingController} from './input-binding';
 
@@ -23,7 +23,7 @@ describe(InputBindingController.name, () => {
 			foo: 123,
 		};
 		const doc = TestUtil.createWindow().document;
-		const value = new BoundValue(0);
+		const value = createValue(0);
 		const binding = new InputBinding({
 			reader: numberFromUnknown,
 			target: new BindingTarget(obj, 'foo'),
@@ -32,7 +32,7 @@ describe(InputBindingController.name, () => {
 		});
 		const controller = new TextController(doc, {
 			parser: parseNumber,
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				formatter: createNumberFormatter(0),
 			}),
 			value: value,
@@ -40,8 +40,8 @@ describe(InputBindingController.name, () => {
 		});
 		const bc = new InputBindingController(doc, {
 			binding: binding,
-			blade: new Blade(),
-			props: new ValueMap({
+			blade: createBlade(),
+			props: ValueMap.fromObject({
 				label: 'foo',
 			} as LabelPropsObject),
 			valueController: controller,

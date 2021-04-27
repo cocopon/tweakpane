@@ -28,7 +28,7 @@ export const FolderBladePlugin: BladePlugin<FolderBladeParams> = {
 		return new FolderController(args.document, {
 			blade: args.blade,
 			expanded: args.params.expanded,
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				title: args.params.title as string | undefined,
 			}),
 			viewProps: args.viewProps,

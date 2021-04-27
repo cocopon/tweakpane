@@ -3,13 +3,13 @@ import {describe, it} from 'mocha';
 
 import {Point2d} from '../../input-binding/point-2d/model/point-2d';
 import {Constraint} from '../constraint/constraint';
-import {BoundValue} from './bound-value';
 import {connectValues} from './value-sync';
+import {createValue} from './values';
 
 describe(connectValues.name, () => {
 	it('should set initial value', () => {
-		const pv = new BoundValue(new Point2d(1, 2));
-		const sv = new BoundValue(0);
+		const pv = createValue(new Point2d(1, 2));
+		const sv = createValue(0);
 		connectValues({
 			primary: pv,
 			secondary: sv,
@@ -34,11 +34,11 @@ describe(connectValues.name, () => {
 			}
 		}
 
-		const pv = new BoundValue(new Point2d(1, 2), {
+		const pv = createValue(new Point2d(1, 2), {
 			constraint: new TestConstraint(),
 		});
 
-		const sv = new BoundValue(0);
+		const sv = createValue(0);
 		connectValues({
 			primary: pv,
 			secondary: sv,

@@ -2,8 +2,8 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {numberToString, parseNumber} from '../../../common/converter/number';
-import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {ValueMap} from '../../../common/model/value-map';
+import {createValue} from '../../../common/model/values';
 import {createViewProps} from '../../../common/model/view-props';
 import {SliderTextController} from '../../../common/number/controller/slider-text';
 import {TestUtil} from '../../../misc/test-util';
@@ -12,7 +12,7 @@ import {
 	assertInitialState,
 	assertUpdates,
 } from '../../common/api/test-util';
-import {Blade} from '../../common/model/blade';
+import {createBlade} from '../../common/model/blade';
 import {LabelController} from '../../label/controller/label';
 import {LabelPropsObject} from '../../label/view/label';
 import {SliderApi} from './slider';
@@ -21,22 +21,22 @@ describe(SliderApi.name, () => {
 	it('should dispose', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
-			blade: new Blade(),
-			props: new ValueMap({
+			blade: createBlade(),
+			props: ValueMap.fromObject({
 				label: undefined,
 			} as LabelPropsObject),
 			valueController: new SliderTextController(doc, {
 				baseStep: 1,
 				parser: parseNumber,
-				sliderProps: new ValueMap({
+				sliderProps: ValueMap.fromObject({
 					maxValue: 100,
 					minValue: 0,
 				}),
-				textProps: new ValueMap({
+				textProps: ValueMap.fromObject({
 					draggingScale: 1,
 					formatter: numberToString,
 				}),
-				value: new PrimitiveValue(0),
+				value: createValue(0),
 				viewProps: createViewProps(),
 			}),
 		});
@@ -47,22 +47,22 @@ describe(SliderApi.name, () => {
 	it('should have initial state', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
-			blade: new Blade(),
-			props: new ValueMap({
+			blade: createBlade(),
+			props: ValueMap.fromObject({
 				label: 'foobar',
 			} as LabelPropsObject),
 			valueController: new SliderTextController(doc, {
 				baseStep: 1,
 				parser: parseNumber,
-				sliderProps: new ValueMap({
+				sliderProps: ValueMap.fromObject({
 					maxValue: 100,
 					minValue: -100,
 				}),
-				textProps: new ValueMap({
+				textProps: ValueMap.fromObject({
 					draggingScale: 1,
 					formatter: numberToString,
 				}),
-				value: new PrimitiveValue(123),
+				value: createValue(123),
 				viewProps: createViewProps(),
 			}),
 		});
@@ -78,22 +78,22 @@ describe(SliderApi.name, () => {
 	it('should update properties', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
-			blade: new Blade(),
-			props: new ValueMap({
+			blade: createBlade(),
+			props: ValueMap.fromObject({
 				label: 'foobar',
 			} as LabelPropsObject),
 			valueController: new SliderTextController(doc, {
 				baseStep: 1,
 				parser: parseNumber,
-				sliderProps: new ValueMap({
+				sliderProps: ValueMap.fromObject({
 					maxValue: 100,
 					minValue: -100,
 				}),
-				textProps: new ValueMap({
+				textProps: ValueMap.fromObject({
 					draggingScale: 1,
 					formatter: numberToString,
 				}),
-				value: new PrimitiveValue(123),
+				value: createValue(123),
 				viewProps: createViewProps(),
 			}),
 		});
@@ -116,22 +116,22 @@ describe(SliderApi.name, () => {
 	it('should handle event', (done) => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
-			blade: new Blade(),
-			props: new ValueMap({
+			blade: createBlade(),
+			props: ValueMap.fromObject({
 				label: undefined,
 			} as LabelPropsObject),
 			valueController: new SliderTextController(doc, {
 				baseStep: 1,
 				parser: parseNumber,
-				sliderProps: new ValueMap({
+				sliderProps: ValueMap.fromObject({
 					maxValue: 100,
 					minValue: 0,
 				}),
-				textProps: new ValueMap({
+				textProps: ValueMap.fromObject({
 					draggingScale: 1,
 					formatter: numberToString,
 				}),
-				value: new PrimitiveValue(0),
+				value: createValue(0),
 				viewProps: createViewProps(),
 			}),
 		});

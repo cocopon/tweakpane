@@ -8,21 +8,21 @@ import {
 	createNumberFormatter,
 	numberFromUnknown,
 } from '../../../common/converter/number';
-import {BoundValue} from '../../../common/model/bound-value';
 import {Buffer} from '../../../common/model/buffered-value';
 import {ValueMap} from '../../../common/model/value-map';
+import {createValue} from '../../../common/model/values';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {SingleLogMonitorController} from '../../../monitor-binding/common/controller/single-log';
 import {TpUpdateEvent} from '../../common/api/tp-event';
-import {Blade} from '../../common/model/blade';
+import {createBlade} from '../../common/model/blade';
 import {LabelPropsObject} from '../../label/view/label';
 import {MonitorBindingController} from '../controller/monitor-binding';
 import {MonitorBindingApi} from './monitor-binding';
 
 function createApi(target: BindingTarget) {
 	const doc = TestUtil.createWindow().document;
-	const value = new BoundValue([0] as Buffer<number>);
+	const value = createValue<Buffer<number>>([0]);
 	const mc = new SingleLogMonitorController(doc, {
 		formatter: createNumberFormatter(0),
 		value: value,
@@ -35,8 +35,8 @@ function createApi(target: BindingTarget) {
 			ticker: new ManualTicker(),
 			value: value,
 		}),
-		blade: new Blade(),
-		props: new ValueMap({
+		blade: createBlade(),
+		props: ValueMap.fromObject({
 			label: 'label',
 		} as LabelPropsObject),
 		valueController: mc,

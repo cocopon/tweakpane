@@ -1,7 +1,7 @@
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {bindValueMap} from '../../../common/view/reactive';
-import {Blade} from '../../common/model/blade';
+import {createBlade} from '../../common/model/blade';
 import {RackController} from '../../rack/controller/rack';
 import {TabItemProps} from '../view/tab-item';
 import {TabItemController} from './tab-item';
@@ -30,7 +30,7 @@ export class TabPageController {
 		this.ic_.emitter.on('click', this.onItemClick_);
 
 		this.cc_ = new RackController(doc, {
-			blade: new Blade(),
+			blade: createBlade(),
 			viewProps: createViewProps(),
 		});
 

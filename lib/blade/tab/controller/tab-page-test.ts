@@ -9,11 +9,11 @@ describe(TabPageController.name, () => {
 	it('should apply initial props', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TabPageController(doc, {
-			itemProps: new ValueMap({
+			itemProps: ValueMap.fromObject({
 				selected: false as boolean,
 				title: 'foo',
 			}),
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				selected: false as boolean,
 			}),
 		});
@@ -25,11 +25,11 @@ describe(TabPageController.name, () => {
 	it('should apply props change', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TabPageController(doc, {
-			itemProps: new ValueMap({
+			itemProps: ValueMap.fromObject({
 				selected: false as boolean,
 				title: 'foo',
 			}),
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				selected: false as boolean,
 			}),
 		});
@@ -43,11 +43,11 @@ describe(TabPageController.name, () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new TabPageController(doc, {
-			itemProps: new ValueMap({
+			itemProps: ValueMap.fromObject({
 				selected: false as boolean,
 				title: 'foo',
 			}),
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				selected: false as boolean,
 			}),
 		});

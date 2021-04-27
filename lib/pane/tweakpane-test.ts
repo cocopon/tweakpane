@@ -100,7 +100,7 @@ describe(Tweakpane.name, () => {
 				controller: (args) => {
 					return new TextController(args.document, {
 						parser: (v) => v,
-						props: new ValueMap({
+						props: ValueMap.fromObject({
 							formatter: formatString,
 						}),
 						value: args.value,

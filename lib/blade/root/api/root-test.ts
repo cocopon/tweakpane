@@ -4,14 +4,14 @@ import {describe, it} from 'mocha';
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
-import {Blade} from '../../common/model/blade';
+import {createBlade} from '../../common/model/blade';
 import {RootController} from '../controller/root';
 import {RootApi} from './root';
 
 function createApi(): RootApi {
 	const c = new RootController(TestUtil.createWindow().document, {
-		blade: new Blade(),
-		props: new ValueMap({
+		blade: createBlade(),
+		props: ValueMap.fromObject({
 			title: undefined as string | undefined,
 		}),
 		viewProps: createViewProps(),

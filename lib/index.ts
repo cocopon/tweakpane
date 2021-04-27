@@ -1,6 +1,6 @@
 import {getAllPlugins} from './blade/common/api/plugins';
 import {registerPlugin} from './blade/common/api/util';
-import {Blade} from './blade/common/model/blade';
+import {createBlade} from './blade/common/model/blade';
 import {ListBladePlugin} from './blade/list/plugin';
 import {BladePlugin} from './blade/plugin';
 import {RootApi} from './blade/root/api/root';
@@ -74,8 +74,8 @@ export default class Tweakpane extends RootApi {
 
 		const rootController = new RootController(doc, {
 			expanded: config.expanded,
-			blade: new Blade(),
-			props: new ValueMap({
+			blade: createBlade(),
+			props: ValueMap.fromObject({
 				title: config.title,
 			}),
 			viewProps: createViewProps(),

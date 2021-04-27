@@ -2,13 +2,15 @@ import {
 	createSvgIconElement,
 	removeChildElements,
 } from '../../../common/dom-util';
+import {Value} from '../../../common/model/value';
 import {NumberTextView} from '../../../common/number/view/number-text';
 import {ClassName} from '../../../common/view/class-name';
+import {bindValue} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
-import {PickedColor} from '../model/picked-color';
+import {ColorMode} from '../model/color-model';
 
 interface Config {
-	pickedColor: PickedColor;
+	colorMode: Value<ColorMode>;
 	textViews: [NumberTextView, NumberTextView, NumberTextView];
 }
 
@@ -38,14 +40,11 @@ function createModeSelectElement(doc: Document): HTMLSelectElement {
  */
 export class ColorTextView implements View {
 	public readonly element: HTMLElement;
-	public readonly pickedColor: PickedColor;
+	private readonly modeElem_: HTMLSelectElement;
+	private readonly textsElem_: HTMLElement;
 	private textViews_: [NumberTextView, NumberTextView, NumberTextView];
-	private modeElem_: HTMLSelectElement;
-	private textsElem_: HTMLElement;
 
 	constructor(doc: Document, config: Config) {
-		this.onValueChange_ = this.onValueChange_.bind(this);
-
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
 
@@ -70,10 +69,9 @@ export class ColorTextView implements View {
 		this.textViews_ = config.textViews;
 		this.applyTextViews_();
 
-		this.pickedColor = config.pickedColor;
-		this.pickedColor.emitter.on('change', this.onValueChange_);
-
-		this.update_();
+		bindValue(config.colorMode, (mode) => {
+			this.modeElem_.value = mode;
+		});
 	}
 
 	get modeSelectElement(): HTMLSelectElement {
@@ -89,10 +87,6 @@ export class ColorTextView implements View {
 		this.applyTextViews_();
 	}
 
-	private update_(): void {
-		this.modeElem_.value = this.pickedColor.mode;
-	}
-
 	private applyTextViews_() {
 		removeChildElements(this.textsElem_);
 
@@ -103,9 +97,5 @@ export class ColorTextView implements View {
 			compElem.appendChild(v.element);
 			this.textsElem_.appendChild(compElem);
 		});
-	}
-
-	private onValueChange_(): void {
-		this.update_();
 	}
 }

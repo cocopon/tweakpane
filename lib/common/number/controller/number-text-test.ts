@@ -3,8 +3,8 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../misc/test-util';
 import {createNumberFormatter, parseNumber} from '../../converter/number';
-import {BoundValue} from '../../model/bound-value';
 import {ValueMap} from '../../model/value-map';
+import {createValue} from '../../model/values';
 import {createViewProps} from '../../model/view-props';
 import {NumberTextController} from './number-text';
 
@@ -15,11 +15,11 @@ describe(NumberTextController.name, () => {
 		const c = new NumberTextController(doc, {
 			baseStep: 1,
 			parser: parseNumber,
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				draggingScale: 1,
 				formatter: createNumberFormatter(0),
 			}),
-			value: new BoundValue(123),
+			value: createValue(123),
 			viewProps: createViewProps(),
 		});
 
@@ -38,11 +38,11 @@ describe(NumberTextController.name, () => {
 		const c = new NumberTextController(doc, {
 			baseStep: 1,
 			parser: parseNumber,
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				draggingScale: 1,
 				formatter: createNumberFormatter(0),
 			}),
-			value: new BoundValue(123),
+			value: createValue(123),
 			viewProps: createViewProps(),
 		});
 

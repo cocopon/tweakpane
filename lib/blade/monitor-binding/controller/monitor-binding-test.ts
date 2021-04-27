@@ -6,12 +6,12 @@ import {BindingTarget} from '../../../common/binding/target';
 import {ManualTicker} from '../../../common/binding/ticker/manual';
 import {createNumberFormatter} from '../../../common/converter/number';
 import {numberFromUnknown} from '../../../common/converter/number';
-import {BoundValue} from '../../../common/model/bound-value';
 import {ValueMap} from '../../../common/model/value-map';
+import {createValue} from '../../../common/model/values';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {SingleLogMonitorController} from '../../../monitor-binding/common/controller/single-log';
-import {Blade} from '../../common/model/blade';
+import {createBlade} from '../../common/model/blade';
 import {LabelPropsObject} from '../../label/view/label';
 import {MonitorBindingController} from './monitor-binding';
 
@@ -20,7 +20,7 @@ function create(): MonitorBindingController<number> {
 		foo: 123,
 	};
 	const doc = TestUtil.createWindow().document;
-	const value = new BoundValue(Array(10).fill(undefined));
+	const value = createValue(Array(10).fill(undefined));
 	const binding = new MonitorBinding({
 		reader: numberFromUnknown,
 		target: new BindingTarget(obj, 'foo'),
@@ -34,8 +34,8 @@ function create(): MonitorBindingController<number> {
 	});
 	return new MonitorBindingController(doc, {
 		binding: binding,
-		blade: new Blade(),
-		props: new ValueMap({
+		blade: createBlade(),
+		props: ValueMap.fromObject({
 			label: 'foo',
 		} as LabelPropsObject),
 		valueController: controller,

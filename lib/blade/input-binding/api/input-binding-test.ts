@@ -8,26 +8,26 @@ import {
 	numberFromUnknown,
 	parseNumber,
 } from '../../../common/converter/number';
-import {BoundValue} from '../../../common/model/bound-value';
 import {ValueMap} from '../../../common/model/value-map';
+import {createValue} from '../../../common/model/values';
 import {createViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from '../../../common/number/controller/number-text';
 import {writePrimitive} from '../../../common/primitive';
 import {TestUtil} from '../../../misc/test-util';
 import {assertInitialState, assertUpdates} from '../../common/api/test-util';
 import {TpChangeEvent} from '../../common/api/tp-event';
-import {Blade} from '../../common/model/blade';
+import {createBlade} from '../../common/model/blade';
 import {LabelPropsObject} from '../../label/view/label';
 import {InputBindingController} from '../controller/input-binding';
 import {InputBindingApi} from './input-binding';
 
 function createApi(target: BindingTarget) {
 	const doc = TestUtil.createWindow().document;
-	const value = new BoundValue(0);
+	const value = createValue(0);
 	const ic = new NumberTextController(doc, {
 		baseStep: 1,
 		parser: parseNumber,
-		props: new ValueMap({
+		props: ValueMap.fromObject({
 			draggingScale: 1,
 			formatter: createNumberFormatter(0),
 		}),
@@ -41,8 +41,8 @@ function createApi(target: BindingTarget) {
 			value: value,
 			writer: writePrimitive,
 		}),
-		blade: new Blade(),
-		props: new ValueMap({
+		blade: createBlade(),
+		props: ValueMap.fromObject({
 			label: 'label',
 		} as LabelPropsObject),
 		valueController: ic,

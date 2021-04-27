@@ -33,11 +33,11 @@ export const TabBladePlugin: BladePlugin<TabBladeParams> = {
 		});
 		args.params.pages.forEach((p) => {
 			const pc = new TabPageController(args.document, {
-				itemProps: new ValueMap({
+				itemProps: ValueMap.fromObject({
 					selected: false as boolean,
 					title: p.title,
 				}),
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					selected: false as boolean,
 				}),
 			});

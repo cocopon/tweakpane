@@ -42,7 +42,7 @@ export const BooleanInputPlugin: InputBindingPlugin<boolean, boolean> = {
 
 		if (c && findConstraint(c, ListConstraint)) {
 			return new ListController(doc, {
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					options: findListItems(c) ?? [],
 				}),
 				value: value,

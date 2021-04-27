@@ -6,7 +6,7 @@ import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps, ViewProps} from '../../../common/model/view-props';
 import {View} from '../../../common/view/view';
 import {TestUtil} from '../../../misc/test-util';
-import {Blade} from '../../common/model/blade';
+import {createBlade} from '../../common/model/blade';
 import {LabelPropsObject} from '../view/label';
 import {LabelController} from './label';
 
@@ -37,8 +37,8 @@ describe(LabelController.name, () => {
 	it('should have initial state', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
-			blade: new Blade(),
-			props: new ValueMap({
+			blade: createBlade(),
+			props: ValueMap.fromObject({
 				label: 'hello',
 			} as LabelPropsObject),
 			valueController: new TestController(doc, {
@@ -52,8 +52,8 @@ describe(LabelController.name, () => {
 	it('should update properties', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
-			blade: new Blade(),
-			props: new ValueMap({
+			blade: createBlade(),
+			props: ValueMap.fromObject({
 				label: 'hello',
 			} as LabelPropsObject),
 			valueController: new TestController(doc, {

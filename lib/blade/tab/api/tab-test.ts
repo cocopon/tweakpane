@@ -6,7 +6,7 @@ import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {forceCast} from '../../../misc/type-util';
 import {TpChangeEvent} from '../../common/api/tp-event';
-import {Blade} from '../../common/model/blade';
+import {createBlade} from '../../common/model/blade';
 import {InputBindingApi} from '../../input-binding/api/input-binding';
 import {TabController} from '../controller/tab';
 import {TabApi} from './tab';
@@ -15,7 +15,7 @@ describe(TabApi.name, () => {
 	it('should have initial state', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TabController(doc, {
-			blade: new Blade(),
+			blade: createBlade(),
 			viewProps: createViewProps(),
 		});
 		const api = new TabApi(c);
@@ -25,7 +25,7 @@ describe(TabApi.name, () => {
 	it('should add page', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TabController(doc, {
-			blade: new Blade(),
+			blade: createBlade(),
 			viewProps: createViewProps(),
 		});
 		const api = new TabApi(c);
@@ -40,7 +40,7 @@ describe(TabApi.name, () => {
 	it('should insert page', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TabController(doc, {
-			blade: new Blade(),
+			blade: createBlade(),
 			viewProps: createViewProps(),
 		});
 		const api = new TabApi(c);
@@ -53,7 +53,7 @@ describe(TabApi.name, () => {
 	it('should remove page', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TabController(doc, {
-			blade: new Blade(),
+			blade: createBlade(),
 			viewProps: createViewProps(),
 		});
 		const api = new TabApi(c);
@@ -69,7 +69,7 @@ describe(TabApi.name, () => {
 	it('should handle global input events', (done) => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TabController(doc, {
-			blade: new Blade(),
+			blade: createBlade(),
 			viewProps: createViewProps(),
 		});
 		const api = new TabApi(c);
@@ -97,7 +97,7 @@ describe(TabApi.name, () => {
 	it('should handle global input events (nested)', (done) => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TabController(doc, {
-			blade: new Blade(),
+			blade: createBlade(),
 			viewProps: createViewProps(),
 		});
 		const api = new TabApi(c);

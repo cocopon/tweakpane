@@ -3,18 +3,18 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../misc/test-util';
 import {createNumberFormatter, parseNumber} from '../converter/number';
-import {BoundValue} from '../model/bound-value';
 import {ValueMap} from '../model/value-map';
+import {createValue} from '../model/values';
 import {createViewProps} from '../model/view-props';
 import {TextController} from './text';
 
 describe(TextController.name, () => {
 	it('should get value', () => {
-		const value = new BoundValue(0);
+		const value = createValue(0);
 		const doc = TestUtil.createWindow().document;
 		const c = new TextController(doc, {
 			parser: parseNumber,
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				formatter: createNumberFormatter(2),
 			}),
 			value: value,
@@ -25,12 +25,12 @@ describe(TextController.name, () => {
 	});
 
 	it('should apply input to value', () => {
-		const value = new BoundValue(0);
+		const value = createValue(0);
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new TextController(doc, {
 			parser: parseNumber,
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				formatter: createNumberFormatter(2),
 			}),
 			value: value,
@@ -48,10 +48,10 @@ describe(TextController.name, () => {
 		const doc = win.document;
 		const c = new TextController(doc, {
 			parser: parseNumber,
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				formatter: createNumberFormatter(0),
 			}),
-			value: new BoundValue(123),
+			value: createValue(123),
 			viewProps: createViewProps(),
 		});
 

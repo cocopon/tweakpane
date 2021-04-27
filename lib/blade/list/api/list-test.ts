@@ -3,8 +3,8 @@ import {describe, it} from 'mocha';
 
 import {ListItem} from '../../../common/constraint/list';
 import {ListController} from '../../../common/controller/list';
-import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {ValueMap} from '../../../common/model/value-map';
+import {createValue} from '../../../common/model/values';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {
@@ -12,7 +12,7 @@ import {
 	assertInitialState,
 	assertUpdates,
 } from '../../common/api/test-util';
-import {Blade} from '../../common/model/blade';
+import {createBlade} from '../../common/model/blade';
 import {LabelController} from '../../label/controller/label';
 import {LabelPropsObject} from '../../label/view/label';
 import {ListApi} from './list';
@@ -21,15 +21,15 @@ describe(ListApi.name, () => {
 	it('should dispose', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
-			blade: new Blade(),
-			props: new ValueMap({
+			blade: createBlade(),
+			props: ValueMap.fromObject({
 				label: undefined,
 			} as LabelPropsObject),
 			valueController: new ListController(doc, {
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					options: [] as ListItem<number>[],
 				}),
-				value: new PrimitiveValue(0),
+				value: createValue(0),
 				viewProps: createViewProps(),
 			}),
 		});
@@ -40,18 +40,18 @@ describe(ListApi.name, () => {
 	it('should have initial state', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
-			blade: new Blade(),
-			props: new ValueMap({
+			blade: createBlade(),
+			props: ValueMap.fromObject({
 				label: undefined,
 			} as LabelPropsObject),
 			valueController: new ListController(doc, {
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					options: [
 						{text: 'foo', value: 123},
 						{text: 'bar', value: 456},
 					],
 				}),
-				value: new PrimitiveValue(0),
+				value: createValue(0),
 				viewProps: createViewProps(),
 			}),
 		});
@@ -67,18 +67,18 @@ describe(ListApi.name, () => {
 	it('should update properties', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
-			blade: new Blade(),
-			props: new ValueMap({
+			blade: createBlade(),
+			props: ValueMap.fromObject({
 				label: undefined,
 			} as LabelPropsObject),
 			valueController: new ListController(doc, {
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					options: [
 						{text: 'foo', value: 123},
 						{text: 'bar', value: 456},
 					],
 				}),
-				value: new PrimitiveValue(0),
+				value: createValue(0),
 				viewProps: createViewProps(),
 			}),
 		});
@@ -103,18 +103,18 @@ describe(ListApi.name, () => {
 	it('should handle event', (done) => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
-			blade: new Blade(),
-			props: new ValueMap({
+			blade: createBlade(),
+			props: ValueMap.fromObject({
 				label: undefined,
 			} as LabelPropsObject),
 			valueController: new ListController(doc, {
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					options: [
 						{text: 'foo', value: 123},
 						{text: 'bar', value: 456},
 					],
 				}),
-				value: new PrimitiveValue(0),
+				value: createValue(0),
 				viewProps: createViewProps(),
 			}),
 		});

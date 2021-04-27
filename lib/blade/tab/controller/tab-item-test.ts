@@ -10,7 +10,7 @@ describe(TabItemController.name, () => {
 	it('should apply initial props', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TabItemController(doc, {
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				selected: false as boolean,
 				title: 'hello',
 			}),
@@ -22,7 +22,7 @@ describe(TabItemController.name, () => {
 	it('should update props', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TabItemController(doc, {
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				selected: false as boolean,
 				title: 'hello',
 			}),
@@ -37,7 +37,7 @@ describe(TabItemController.name, () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new TabItemController(doc, {
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				selected: false as boolean,
 				title: 'hello',
 			}),

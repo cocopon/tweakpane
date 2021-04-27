@@ -2,18 +2,18 @@ import * as assert from 'assert';
 import {describe} from 'mocha';
 
 import {TestUtil} from '../../misc/test-util';
-import {BoundValue} from '../model/bound-value';
 import {ValueMap} from '../model/value-map';
+import {createValue} from '../model/values';
 import {createViewProps} from '../model/view-props';
 import {TextView} from './text';
 
 describe(TextView.name, () => {
 	it('should apply initial value', () => {
 		const doc = TestUtil.createWindow().document;
-		const props = new ValueMap({
+		const props = ValueMap.fromObject({
 			formatter: (v: string) => `hello${v}world`,
 		});
-		const v = new BoundValue('foo');
+		const v = createValue('foo');
 		const view = new TextView(doc, {
 			props: props,
 			value: v,
@@ -25,10 +25,10 @@ describe(TextView.name, () => {
 
 	it('should apply value change', () => {
 		const doc = TestUtil.createWindow().document;
-		const props = new ValueMap({
+		const props = ValueMap.fromObject({
 			formatter: (v: string) => `hello${v}world`,
 		});
-		const v = new BoundValue('foo');
+		const v = createValue('foo');
 		const view = new TextView(doc, {
 			props: props,
 			value: v,
@@ -42,10 +42,10 @@ describe(TextView.name, () => {
 
 	it('should apply props change', () => {
 		const doc = TestUtil.createWindow().document;
-		const props = new ValueMap({
+		const props = ValueMap.fromObject({
 			formatter: (v: string) => `hello${v}world`,
 		});
-		const v = new BoundValue('foo');
+		const v = createValue('foo');
 		const view = new TextView(doc, {
 			props: props,
 			value: v,

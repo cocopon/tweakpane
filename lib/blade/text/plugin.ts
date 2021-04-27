@@ -1,8 +1,8 @@
 import {TextController} from '../../common/controller/text';
 import {Formatter} from '../../common/converter/formatter';
 import {Parser} from '../../common/converter/parser';
-import {PrimitiveValue} from '../../common/model/primitive-value';
 import {ValueMap} from '../../common/model/value-map';
+import {createValue} from '../../common/model/values';
 import {ParamsParser, ParamsParsers, parseParams} from '../../common/params';
 import {BladeParams} from '../common/api/types';
 import {LabelController} from '../label/controller/label';
@@ -36,15 +36,15 @@ export const TextBladePlugin = (function<T>(): BladePlugin<TextBladeParams<T>> {
 		controller(args) {
 			const ic = new TextController(args.document, {
 				parser: args.params.parse,
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					formatter: args.params.format ?? ((v: T) => String(v)),
 				}),
-				value: new PrimitiveValue(args.params.value),
+				value: createValue(args.params.value),
 				viewProps: args.viewProps,
 			});
 			return new LabelController(args.document, {
 				blade: args.blade,
-				props: new ValueMap({
+				props: ValueMap.fromObject({
 					label: args.params.label,
 				}),
 				valueController: ic,

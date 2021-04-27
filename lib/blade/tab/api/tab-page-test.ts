@@ -11,11 +11,11 @@ import {TabPageApi} from './tab-page';
 function createApi() {
 	const doc = TestUtil.createWindow().document;
 	const c = new TabPageController(doc, {
-		itemProps: new ValueMap({
+		itemProps: ValueMap.fromObject({
 			selected: false as boolean,
 			title: 'foo',
 		}),
-		props: new ValueMap({
+		props: ValueMap.fromObject({
 			selected: false as boolean,
 		}),
 	});

@@ -4,17 +4,17 @@ import {describe} from 'mocha';
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
-import {Blade} from '../../common/model/blade';
+import {createBlade} from '../../common/model/blade';
 import {TabController} from '../controller/tab';
 import {TabPageController} from './tab-page';
 
 function createTabPage(doc: Document, title: string) {
 	return new TabPageController(doc, {
-		itemProps: new ValueMap({
+		itemProps: ValueMap.fromObject({
 			selected: false as boolean,
 			title: title,
 		}),
-		props: new ValueMap({
+		props: ValueMap.fromObject({
 			selected: false as boolean,
 		}),
 	});
@@ -24,7 +24,7 @@ describe(TabController.name, () => {
 	it('should select first page by default', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TabController(doc, {
-			blade: new Blade(),
+			blade: createBlade(),
 			viewProps: createViewProps(),
 		});
 
@@ -38,7 +38,7 @@ describe(TabController.name, () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new TabController(doc, {
-			blade: new Blade(),
+			blade: createBlade(),
 			viewProps: createViewProps(),
 		});
 		const pcs = [
@@ -61,7 +61,7 @@ describe(TabController.name, () => {
 		const win = TestUtil.createWindow();
 		const doc = win.document;
 		const c = new TabController(doc, {
-			blade: new Blade(),
+			blade: createBlade(),
 			viewProps: createViewProps(),
 		});
 		const pcs = [

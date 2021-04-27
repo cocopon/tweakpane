@@ -9,7 +9,7 @@ import {
 	assertInitialState,
 	assertUpdates,
 } from '../../common/api/test-util';
-import {Blade} from '../../common/model/blade';
+import {createBlade} from '../../common/model/blade';
 import {LabelController} from '../../label/controller/label';
 import {LabelPropsObject} from '../../label/view/label';
 import {ButtonController} from '../controller/button';
@@ -17,12 +17,12 @@ import {ButtonApi} from './button';
 
 function createApi(doc: Document): ButtonApi {
 	const c = new LabelController(doc, {
-		blade: new Blade(),
-		props: new ValueMap({
+		blade: createBlade(),
+		props: ValueMap.fromObject({
 			label: undefined,
 		} as LabelPropsObject),
 		valueController: new ButtonController(doc, {
-			props: new ValueMap({
+			props: ValueMap.fromObject({
 				title: 'Button',
 			}),
 			viewProps: createViewProps(),
