@@ -5,7 +5,7 @@ import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../../common/converter/number';
-import {BoundValue} from '../../../common/model/bound-value';
+import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
@@ -37,7 +37,7 @@ describe(PointNdTextController.name, () => {
 				},
 			],
 			parser: parseNumber,
-			value: new BoundValue(new Point2d(12, 34)),
+			value: new PrimitiveValue(new Point2d(12, 34)),
 			viewProps: createViewProps(),
 		});
 

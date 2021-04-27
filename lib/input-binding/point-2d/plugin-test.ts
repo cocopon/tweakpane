@@ -6,6 +6,7 @@ import {findConstraint} from '../../common/constraint/composite';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
 import {BoundValue} from '../../common/model/bound-value';
+import {Value} from '../../common/model/value';
 import {TestUtil} from '../../misc/test-util';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {createInputBindingController} from '../plugin';
@@ -115,7 +116,7 @@ describe(Point2dInputPlugin.id, () => {
 			target: new BindingTarget(obj, 'p'),
 		});
 
-		const v = c?.binding.value as BoundValue<Point2d>;
+		const v = c?.binding.value as Value<Point2d>;
 		v.rawValue = new Point2d(56, 78);
 		assert.strictEqual(p, obj.p);
 		assert.strictEqual(p.x, 56);

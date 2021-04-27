@@ -6,7 +6,7 @@ import {BindingTarget} from '../../../common/binding/target';
 import {ManualTicker} from '../../../common/binding/ticker/manual';
 import {createNumberFormatter} from '../../../common/converter/number';
 import {numberFromUnknown} from '../../../common/converter/number';
-import {BoundValue} from '../../../common/model/bound-value';
+import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
@@ -20,7 +20,7 @@ function create(): MonitorBindingController<number> {
 		foo: 123,
 	};
 	const doc = TestUtil.createWindow().document;
-	const value = new BoundValue(Array(10).fill(undefined));
+	const value = new PrimitiveValue(Array(10).fill(undefined));
 	const binding = new MonitorBinding({
 		reader: numberFromUnknown,
 		target: new BindingTarget(obj, 'foo'),

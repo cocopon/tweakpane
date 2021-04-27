@@ -3,7 +3,7 @@ import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../misc/test-util';
 import {createNumberFormatter, parseNumber} from '../../converter/number';
-import {BoundValue} from '../../model/bound-value';
+import {PrimitiveValue} from '../../model/primitive-value';
 import {ValueMap} from '../../model/value-map';
 import {createViewProps} from '../../model/view-props';
 import {NumberTextController} from './number-text';
@@ -19,7 +19,7 @@ describe(NumberTextController.name, () => {
 				draggingScale: 1,
 				formatter: createNumberFormatter(0),
 			}),
-			value: new BoundValue(123),
+			value: new PrimitiveValue(123),
 			viewProps: createViewProps(),
 		});
 
@@ -42,7 +42,7 @@ describe(NumberTextController.name, () => {
 				draggingScale: 1,
 				formatter: createNumberFormatter(0),
 			}),
-			value: new BoundValue(123),
+			value: new PrimitiveValue(123),
 			viewProps: createViewProps(),
 		});
 

@@ -9,7 +9,7 @@ import {
 	parseNumber,
 } from '../../../common/converter/number';
 import {numberFromUnknown} from '../../../common/converter/number';
-import {BoundValue} from '../../../common/model/bound-value';
+import {PrimitiveValue} from '../../../common/model/primitive-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
@@ -23,7 +23,7 @@ describe(InputBindingController.name, () => {
 			foo: 123,
 		};
 		const doc = TestUtil.createWindow().document;
-		const value = new BoundValue(0);
+		const value = new PrimitiveValue(0);
 		const binding = new InputBinding({
 			reader: numberFromUnknown,
 			target: new BindingTarget(obj, 'foo'),

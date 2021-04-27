@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {numberFromUnknown} from '../converter/number';
-import {BoundValue} from '../model/bound-value';
+import {PrimitiveValue} from '../model/primitive-value';
 import {writePrimitive} from '../primitive';
 import {InputBinding} from './input';
 import {BindingTarget} from './target';
@@ -13,7 +13,7 @@ describe(InputBinding.name, () => {
 			foo: 123,
 		};
 		const target = new BindingTarget(obj, 'foo');
-		const value = new BoundValue(0);
+		const value = new PrimitiveValue(0);
 		const b = new InputBinding({
 			reader: numberFromUnknown,
 			target: target,
@@ -29,7 +29,7 @@ describe(InputBinding.name, () => {
 			foo: 123,
 		};
 		const target = new BindingTarget(obj, 'foo');
-		const value = new BoundValue(0);
+		const value = new PrimitiveValue(0);
 		new InputBinding({
 			reader: numberFromUnknown,
 			target: target,
@@ -51,7 +51,7 @@ describe(InputBinding.name, () => {
 	it('should not apply binding value to undefined field', () => {
 		const obj: {foo?: string} = {};
 		const target = new BindingTarget(obj, 'foo');
-		const value = new BoundValue(0);
+		const value = new PrimitiveValue(0);
 		new InputBinding({
 			reader: numberFromUnknown,
 			target: target,
