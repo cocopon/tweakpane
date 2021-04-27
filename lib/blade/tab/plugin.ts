@@ -4,7 +4,8 @@ import {BladeParams} from '../common/api/types';
 import {BladePlugin} from '../plugin';
 import {TabApi} from './api/tab';
 import {TabController} from './controller/tab';
-import {TabPageController} from './controller/tab-page';
+import {TabPageController, TabPagePropsObject} from './controller/tab-page';
+import {TabItemPropsObject} from './view/tab-item';
 
 export interface TabBladeParams extends BladeParams {
 	pages: {
@@ -33,12 +34,12 @@ export const TabBladePlugin: BladePlugin<TabBladeParams> = {
 		});
 		args.params.pages.forEach((p) => {
 			const pc = new TabPageController(args.document, {
-				itemProps: ValueMap.fromObject({
-					selected: false as boolean,
+				itemProps: ValueMap.fromObject<TabItemPropsObject>({
+					selected: false,
 					title: p.title,
 				}),
-				props: ValueMap.fromObject({
-					selected: false as boolean,
+				props: ValueMap.fromObject<TabPagePropsObject>({
+					selected: false,
 				}),
 			});
 			c.add(pc);

@@ -5,6 +5,7 @@ import {PlainView} from '../common/view/plain';
 import {BladeController} from './common/controller/blade';
 import {createBlade} from './common/model/blade';
 import {LabelController} from './label/controller/label';
+import {LabelPropsObject} from './label/view/label';
 
 class LabelableController implements Controller {
 	public readonly viewProps = createViewProps();
@@ -25,7 +26,7 @@ export function createEmptyLabelableController(doc: Document) {
 export function createLabelController(doc: Document, vc: LabelableController) {
 	return new LabelController(doc, {
 		blade: createBlade(),
-		props: ValueMap.fromObject({label: '' as string | undefined}),
+		props: ValueMap.fromObject<LabelPropsObject>({label: ''}),
 		valueController: vc,
 	});
 }

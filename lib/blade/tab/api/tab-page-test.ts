@@ -5,18 +5,19 @@ import {ValueMap} from '../../../common/model/value-map';
 import {TestUtil} from '../../../misc/test-util';
 import {testBladeContainer} from '../../common/api/blade-rack-test';
 import {RackApi} from '../../rack/api/rack';
-import {TabPageController} from '../controller/tab-page';
+import {TabPageController, TabPagePropsObject} from '../controller/tab-page';
+import {TabItemPropsObject} from '../view/tab-item';
 import {TabPageApi} from './tab-page';
 
 function createApi() {
 	const doc = TestUtil.createWindow().document;
 	const c = new TabPageController(doc, {
-		itemProps: ValueMap.fromObject({
-			selected: false as boolean,
+		itemProps: ValueMap.fromObject<TabItemPropsObject>({
+			selected: false,
 			title: 'foo',
 		}),
-		props: ValueMap.fromObject({
-			selected: false as boolean,
+		props: ValueMap.fromObject<TabPagePropsObject>({
+			selected: false,
 		}),
 	});
 	return new TabPageApi(c, new RackApi(c.contentController));

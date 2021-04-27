@@ -194,7 +194,7 @@ describe(Color.name, () => {
 					params.components as ColorComponents4,
 					params.fromMode as ColorMode,
 				);
-				assert.deepEqual(
+				assert.deepStrictEqual(
 					c.getComponents(params.toMode as ColorMode).map((comp, index) => {
 						return index === 3 ? comp : Math.floor(comp);
 					}),

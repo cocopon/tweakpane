@@ -18,9 +18,9 @@ import {ButtonApi} from './button';
 function createApi(doc: Document): ButtonApi {
 	const c = new LabelController(doc, {
 		blade: createBlade(),
-		props: ValueMap.fromObject({
+		props: ValueMap.fromObject<LabelPropsObject>({
 			label: undefined,
-		} as LabelPropsObject),
+		}),
 		valueController: new ButtonController(doc, {
 			props: ValueMap.fromObject({
 				title: 'Button',

@@ -32,7 +32,7 @@ export class TabController extends RackLikeController<TabView> {
 			blade: config.blade,
 			viewProps: config.viewProps,
 		});
-		const empty = createValue(true as boolean);
+		const empty = createValue<boolean>(true);
 		super({
 			blade: config.blade,
 			rackController: cr,

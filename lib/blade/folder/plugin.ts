@@ -4,6 +4,7 @@ import {BladeParams} from '../common/api/types';
 import {BladePlugin} from '../plugin';
 import {FolderApi} from './api/folder';
 import {FolderController} from './controller/folder';
+import {FolderPropsObject} from './view/folder';
 
 export interface FolderBladeParams extends BladeParams {
 	title: string;
@@ -28,8 +29,8 @@ export const FolderBladePlugin: BladePlugin<FolderBladeParams> = {
 		return new FolderController(args.document, {
 			blade: args.blade,
 			expanded: args.params.expanded,
-			props: ValueMap.fromObject({
-				title: args.params.title as string | undefined,
+			props: ValueMap.fromObject<FolderPropsObject>({
+				title: args.params.title,
 			}),
 			viewProps: args.viewProps,
 		});

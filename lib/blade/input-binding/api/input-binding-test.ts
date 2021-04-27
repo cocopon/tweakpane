@@ -42,9 +42,9 @@ function createApi(target: BindingTarget) {
 			writer: writePrimitive,
 		}),
 		blade: createBlade(),
-		props: ValueMap.fromObject({
+		props: ValueMap.fromObject<LabelPropsObject>({
 			label: 'label',
-		} as LabelPropsObject),
+		}),
 		valueController: ic,
 	});
 	return new InputBindingApi(bc);

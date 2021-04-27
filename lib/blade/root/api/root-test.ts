@@ -5,14 +5,15 @@ import {ValueMap} from '../../../common/model/value-map';
 import {createViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {createBlade} from '../../common/model/blade';
+import {FolderPropsObject} from '../../folder/view/folder';
 import {RootController} from '../controller/root';
 import {RootApi} from './root';
 
 function createApi(): RootApi {
 	const c = new RootController(TestUtil.createWindow().document, {
 		blade: createBlade(),
-		props: ValueMap.fromObject({
-			title: undefined as string | undefined,
+		props: ValueMap.fromObject<FolderPropsObject>({
+			title: undefined,
 		}),
 		viewProps: createViewProps(),
 	});

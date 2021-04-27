@@ -21,9 +21,9 @@ describe(TextApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
 			blade: createBlade(),
-			props: ValueMap.fromObject({
+			props: ValueMap.fromObject<LabelPropsObject>({
 				label: undefined,
-			} as LabelPropsObject),
+			}),
 			valueController: new TextController(doc, {
 				parser: (v: string) => v,
 				props: ValueMap.fromObject({
@@ -43,9 +43,9 @@ describe(TextApi.name, () => {
 		const formatter = (v: string) => v;
 		const c = new LabelController(doc, {
 			blade: createBlade(),
-			props: ValueMap.fromObject({
+			props: ValueMap.fromObject<LabelPropsObject>({
 				label: 'foobar',
-			} as LabelPropsObject),
+			}),
 			valueController: new TextController(doc, {
 				parser: (v: string) => v,
 				props: ValueMap.fromObject({
@@ -67,9 +67,9 @@ describe(TextApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
 			blade: createBlade(),
-			props: ValueMap.fromObject({
+			props: ValueMap.fromObject<LabelPropsObject>({
 				label: undefined,
-			} as LabelPropsObject),
+			}),
 			valueController: new TextController(doc, {
 				parser: (v: string) => v,
 				props: ValueMap.fromObject({
@@ -100,9 +100,9 @@ describe(TextApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new LabelController(doc, {
 			blade: createBlade(),
-			props: ValueMap.fromObject({
+			props: ValueMap.fromObject<LabelPropsObject>({
 				label: undefined,
-			} as LabelPropsObject),
+			}),
 			valueController: new TextController(doc, {
 				parser: (v: string) => v,
 				props: ValueMap.fromObject({

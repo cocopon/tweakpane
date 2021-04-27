@@ -6,9 +6,11 @@ import {RackController} from '../../rack/controller/rack';
 import {TabItemProps} from '../view/tab-item';
 import {TabItemController} from './tab-item';
 
-export type TabPageProps = ValueMap<{
+export type TabPagePropsObject = {
 	selected: boolean;
-}>;
+};
+
+export type TabPageProps = ValueMap<TabPagePropsObject>;
 
 interface Config {
 	itemProps: TabItemProps;

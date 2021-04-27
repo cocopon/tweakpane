@@ -12,9 +12,11 @@ import {isEmpty} from '../../../misc/type-util';
 import {Foldable, getFoldableStyleExpanded} from '../../common/model/foldable';
 import {bladeContainerClassName} from '../../common/view/blade-container';
 
-export type FolderProps = ValueMap<{
+export type FolderPropsObject = {
 	title: string | undefined;
-}>;
+};
+
+export type FolderProps = ValueMap<FolderPropsObject>;
 
 export interface Config {
 	containerElement: HTMLElement;

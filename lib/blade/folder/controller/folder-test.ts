@@ -10,14 +10,15 @@ import {BladeController} from '../../common/controller/blade';
 import {createBlade} from '../../common/model/blade';
 import {LabelController} from '../../label/controller/label';
 import {LabelPropsObject} from '../../label/view/label';
+import {FolderPropsObject} from '../view/folder';
 import {FolderController} from './folder';
 
 function createSomeBladeController(doc: Document): BladeController<View> {
 	return new LabelController(doc, {
 		blade: createBlade(),
-		props: ValueMap.fromObject({
+		props: ValueMap.fromObject<LabelPropsObject>({
 			label: undefined,
-		} as LabelPropsObject),
+		}),
 		valueController: new ButtonController(doc, {
 			props: ValueMap.fromObject({
 				title: 'Foobar',
@@ -32,8 +33,8 @@ describe(FolderController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new FolderController(doc, {
 			blade: createBlade(),
-			props: ValueMap.fromObject({
-				title: '' as string | undefined,
+			props: ValueMap.fromObject<FolderPropsObject>({
+				title: '',
 			}),
 			viewProps: createViewProps(),
 		});
@@ -52,8 +53,8 @@ describe(FolderController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new FolderController(doc, {
 			blade: createBlade(),
-			props: ValueMap.fromObject({
-				title: '' as string | undefined,
+			props: ValueMap.fromObject<FolderPropsObject>({
+				title: '',
 			}),
 			viewProps: createViewProps(),
 		});
@@ -69,8 +70,8 @@ describe(FolderController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new FolderController(doc, {
 			blade: createBlade(),
-			props: ValueMap.fromObject({
-				title: '' as string | undefined,
+			props: ValueMap.fromObject<FolderPropsObject>({
+				title: '',
 			}),
 			viewProps: createViewProps(),
 		});
@@ -86,16 +87,16 @@ describe(FolderController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new FolderController(doc, {
 			blade: createBlade(),
-			props: ValueMap.fromObject({
-				title: 'Folder' as string | undefined,
+			props: ValueMap.fromObject<FolderPropsObject>({
+				title: 'Folder',
 			}),
 			viewProps: createViewProps(),
 		});
 
 		const sc = new FolderController(doc, {
 			blade: createBlade(),
-			props: ValueMap.fromObject({
-				title: '' as string | undefined,
+			props: ValueMap.fromObject<FolderPropsObject>({
+				title: '',
 			}),
 			viewProps: createViewProps(),
 		});
@@ -110,8 +111,8 @@ describe(FolderController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new FolderController(doc, {
 			blade: createBlade(),
-			props: ValueMap.fromObject({
-				title: '' as string | undefined,
+			props: ValueMap.fromObject<FolderPropsObject>({
+				title: '',
 			}),
 			viewProps: createViewProps(),
 		});
@@ -135,15 +136,15 @@ describe(FolderController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new FolderController(doc, {
 			blade: createBlade(),
-			props: ValueMap.fromObject({
-				title: '' as string | undefined,
+			props: ValueMap.fromObject<FolderPropsObject>({
+				title: '',
 			}),
 			viewProps: createViewProps(),
 		});
 		const sc = new FolderController(doc, {
 			blade: createBlade(),
-			props: ValueMap.fromObject({
-				title: '' as string | undefined,
+			props: ValueMap.fromObject<FolderPropsObject>({
+				title: '',
 			}),
 			viewProps: createViewProps(),
 		});
