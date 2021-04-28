@@ -1,5 +1,6 @@
+// TODO: Rename to `params.ts`
+
 import {Formatter} from '../../../common/converter/formatter';
-import {TpChangeEvent} from './tp-event';
 
 interface BaseParams {
 	disabled?: boolean;
@@ -133,13 +134,4 @@ export interface TabParams extends BaseParams {
 	pages: {
 		title: string;
 	}[];
-}
-
-/**
- * @hidden
- */
-export interface ApiChangeEvents<T> {
-	change: {
-		event: TpChangeEvent<T>;
-	};
 }

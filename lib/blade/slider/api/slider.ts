@@ -1,8 +1,8 @@
 import {Emitter} from '../../../common/model/emitter';
 import {SliderTextController} from '../../../common/number/controller/slider-text';
 import {BladeApi, LabelableApi} from '../../common/api/blade';
+import {ApiChangeEvents} from '../../common/api/events';
 import {TpChangeEvent} from '../../common/api/tp-event';
-import {ApiChangeEvents} from '../../common/api/types';
 import {LabelController} from '../../label/controller/label';
 
 export class SliderApi extends BladeApi<LabelController<SliderTextController>>

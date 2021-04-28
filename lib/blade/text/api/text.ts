@@ -2,8 +2,8 @@ import {TextController} from '../../../common/controller/text';
 import {Formatter} from '../../../common/converter/formatter';
 import {Emitter} from '../../../common/model/emitter';
 import {BladeApi, LabelableApi} from '../../common/api/blade';
+import {ApiChangeEvents} from '../../common/api/events';
 import {TpChangeEvent} from '../../common/api/tp-event';
-import {ApiChangeEvents} from '../../common/api/types';
 import {LabelController} from '../../label/controller/label';
 
 export class TextApi<T> extends BladeApi<LabelController<TextController<T>>>

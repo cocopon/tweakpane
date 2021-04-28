@@ -2,8 +2,8 @@ import {ListItem} from '../../../common/constraint/list';
 import {ListController} from '../../../common/controller/list';
 import {Emitter} from '../../../common/model/emitter';
 import {BladeApi, LabelableApi} from '../../common/api/blade';
+import {ApiChangeEvents} from '../../common/api/events';
 import {TpChangeEvent} from '../../common/api/tp-event';
-import {ApiChangeEvents} from '../../common/api/types';
 import {LabelController} from '../../label/controller/label';
 
 export class ListApi<T> extends BladeApi<LabelController<ListController<T>>>
