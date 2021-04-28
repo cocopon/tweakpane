@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {ValueMap} from '../../../common/model/value-map';
-import {createViewProps} from '../../../common/model/view-props';
+import {ViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {TabItemPropsObject} from '../view/tab-item';
 import {TabItemController} from './tab-item';
@@ -15,7 +15,7 @@ describe(TabItemController.name, () => {
 				selected: false,
 				title: 'hello',
 			}),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 		assert.strictEqual(c.view.titleElement.textContent, 'hello');
 	});
@@ -27,7 +27,7 @@ describe(TabItemController.name, () => {
 				selected: false,
 				title: 'hello',
 			}),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 
 		c.props.set('title', 'changed');
@@ -42,7 +42,7 @@ describe(TabItemController.name, () => {
 				selected: false,
 				title: 'hello',
 			}),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 
 		c.emitter.on('click', (ev) => {

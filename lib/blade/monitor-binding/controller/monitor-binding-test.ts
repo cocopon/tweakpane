@@ -8,7 +8,7 @@ import {createNumberFormatter} from '../../../common/converter/number';
 import {numberFromUnknown} from '../../../common/converter/number';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
-import {createViewProps} from '../../../common/model/view-props';
+import {ViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {SingleLogMonitorController} from '../../../monitor-binding/common/controller/single-log';
 import {createBlade} from '../../common/model/blade';
@@ -30,7 +30,7 @@ function create(): MonitorBindingController<number> {
 	const controller = new SingleLogMonitorController(doc, {
 		formatter: createNumberFormatter(0),
 		value: value,
-		viewProps: createViewProps(),
+		viewProps: ViewProps.create(),
 	});
 	return new MonitorBindingController(doc, {
 		binding: binding,

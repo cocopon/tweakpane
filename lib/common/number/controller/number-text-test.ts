@@ -5,7 +5,7 @@ import {TestUtil} from '../../../misc/test-util';
 import {createNumberFormatter, parseNumber} from '../../converter/number';
 import {ValueMap} from '../../model/value-map';
 import {createValue} from '../../model/values';
-import {createViewProps} from '../../model/view-props';
+import {ViewProps} from '../../model/view-props';
 import {NumberTextController} from './number-text';
 
 describe(NumberTextController.name, () => {
@@ -20,7 +20,7 @@ describe(NumberTextController.name, () => {
 				formatter: createNumberFormatter(0),
 			}),
 			value: createValue(123),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 
 		c.view.inputElement.dispatchEvent(
@@ -43,7 +43,7 @@ describe(NumberTextController.name, () => {
 				formatter: createNumberFormatter(0),
 			}),
 			value: createValue(123),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 
 		const inputElem = c.view.inputElement;

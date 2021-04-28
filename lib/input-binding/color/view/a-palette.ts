@@ -2,7 +2,6 @@ import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
-import {bindTabIndex} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {colorToFunctionalRgbaString} from '../converter/color-string';
 import {Color} from '../model/color';
@@ -32,7 +31,7 @@ export class APaletteView implements View {
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
-		bindTabIndex(config.viewProps, this.element);
+		config.viewProps.bindTabIndex(this.element);
 
 		const barElem = doc.createElement('div');
 		barElem.classList.add(className('b'));

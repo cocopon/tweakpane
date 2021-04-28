@@ -4,7 +4,7 @@ import {describe} from 'mocha';
 import {TestUtil} from '../../misc/test-util';
 import {ValueMap} from '../model/value-map';
 import {createValue} from '../model/values';
-import {createViewProps} from '../model/view-props';
+import {ViewProps} from '../model/view-props';
 import {TextView} from './text';
 
 describe(TextView.name, () => {
@@ -17,7 +17,7 @@ describe(TextView.name, () => {
 		const view = new TextView(doc, {
 			props: props,
 			value: v,
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 
 		assert.strictEqual(view.inputElement.value, 'hellofooworld');
@@ -32,7 +32,7 @@ describe(TextView.name, () => {
 		const view = new TextView(doc, {
 			props: props,
 			value: v,
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 
 		v.rawValue = 'bar';
@@ -49,7 +49,7 @@ describe(TextView.name, () => {
 		const view = new TextView(doc, {
 			props: props,
 			value: v,
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 
 		assert.strictEqual(view.inputElement.value, 'hellofooworld');

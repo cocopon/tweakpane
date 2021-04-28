@@ -1,4 +1,4 @@
-import {createViewProps, ViewProps} from '../common/model/view-props';
+import {ViewProps} from '../common/model/view-props';
 import {ParamsParsers} from '../common/params';
 import {View} from '../common/view/view';
 import {forceCast} from '../misc/type-util';
@@ -54,7 +54,7 @@ export function createBladeController<P extends BladeParams>(
 			disabled: disabled,
 			hidden: hidden,
 		}),
-		viewProps: createViewProps({
+		viewProps: ViewProps.create({
 			disabled: disabled,
 			hidden: hidden,
 		}),

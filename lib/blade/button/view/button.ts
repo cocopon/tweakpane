@@ -1,11 +1,7 @@
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
-import {
-	bindClassModifier,
-	bindDisabled,
-	bindTextContent,
-} from '../../../common/view/reactive';
+import {bindValueMapToTextContent} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 
 export type ButtonProps = ValueMap<{
@@ -29,12 +25,12 @@ export class ButtonView implements View {
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
-		bindClassModifier(config.viewProps, this.element);
+		config.viewProps.bindClassModifiers(this.element);
 
 		const buttonElem = doc.createElement('button');
 		buttonElem.classList.add(className('b'));
-		bindDisabled(config.viewProps, buttonElem);
-		bindTextContent(config.props, 'title', buttonElem);
+		config.viewProps.bindDisabled(buttonElem);
+		bindValueMapToTextContent(config.props, 'title', buttonElem);
 		this.element.appendChild(buttonElem);
 		this.buttonElement = buttonElem;
 	}

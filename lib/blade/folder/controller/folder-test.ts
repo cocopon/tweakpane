@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {ValueMap} from '../../../common/model/value-map';
-import {createViewProps} from '../../../common/model/view-props';
+import {ViewProps} from '../../../common/model/view-props';
 import {View} from '../../../common/view/view';
 import {TestUtil} from '../../../misc/test-util';
 import {ButtonController} from '../../button/controller/button';
@@ -23,7 +23,7 @@ function createSomeBladeController(doc: Document): BladeController<View> {
 			props: ValueMap.fromObject({
 				title: 'Foobar',
 			}),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		}),
 	});
 }
@@ -36,7 +36,7 @@ describe(FolderController.name, () => {
 			props: ValueMap.fromObject<FolderPropsObject>({
 				title: '',
 			}),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 
 		assert.strictEqual(c.foldable.get('expanded'), true);
@@ -56,7 +56,7 @@ describe(FolderController.name, () => {
 			props: ValueMap.fromObject<FolderPropsObject>({
 				title: '',
 			}),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 		const bc = createSomeBladeController(doc);
 		c.rackController.rack.add(bc);
@@ -73,7 +73,7 @@ describe(FolderController.name, () => {
 			props: ValueMap.fromObject<FolderPropsObject>({
 				title: '',
 			}),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 		const bc = createSomeBladeController(doc);
 		c.rackController.rack.add(bc);
@@ -90,7 +90,7 @@ describe(FolderController.name, () => {
 			props: ValueMap.fromObject<FolderPropsObject>({
 				title: 'Folder',
 			}),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 
 		const sc = new FolderController(doc, {
@@ -98,7 +98,7 @@ describe(FolderController.name, () => {
 			props: ValueMap.fromObject<FolderPropsObject>({
 				title: '',
 			}),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 		c.rackController.rack.add(sc);
 
@@ -114,7 +114,7 @@ describe(FolderController.name, () => {
 			props: ValueMap.fromObject<FolderPropsObject>({
 				title: '',
 			}),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 
 		const bcs = [
@@ -139,14 +139,14 @@ describe(FolderController.name, () => {
 			props: ValueMap.fromObject<FolderPropsObject>({
 				title: '',
 			}),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 		const sc = new FolderController(doc, {
 			blade: createBlade(),
 			props: ValueMap.fromObject<FolderPropsObject>({
 				title: '',
 			}),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 		c.rackController.rack.add(sc);
 		const bc = createSomeBladeController(doc);

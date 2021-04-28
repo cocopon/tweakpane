@@ -6,7 +6,6 @@ import {ValueController} from '../common/controller/value';
 import {stringFromUnknown} from '../common/converter/string';
 import {Buffer, BufferedValue} from '../common/model/buffered-value';
 import {ViewProps} from '../common/model/view-props';
-import {bindDisposed} from '../common/view/reactive';
 import {View} from '../common/view/view';
 import {TestUtil} from '../misc/test-util';
 import {createMonitorBindingController, MonitorBindingPlugin} from './plugin';
@@ -40,7 +39,7 @@ class TestController implements ValueController<Buffer<string>> {
 		this.value = config.value;
 		this.view = new TestView(doc);
 		this.viewProps = config.viewProps;
-		bindDisposed(this.viewProps, () => {
+		this.viewProps.handleDispose(() => {
 			this.disposed = true;
 		});
 	}

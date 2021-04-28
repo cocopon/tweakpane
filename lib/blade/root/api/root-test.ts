@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {ValueMap} from '../../../common/model/value-map';
-import {createViewProps} from '../../../common/model/view-props';
+import {ViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {createBlade} from '../../common/model/blade';
 import {FolderPropsObject} from '../../folder/view/folder';
@@ -15,7 +15,7 @@ function createApi(): RootApi {
 		props: ValueMap.fromObject<FolderPropsObject>({
 			title: undefined,
 		}),
-		viewProps: createViewProps(),
+		viewProps: ViewProps.create(),
 	});
 	return new RootApi(c);
 }

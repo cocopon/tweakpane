@@ -5,7 +5,7 @@ import {TestUtil} from '../../misc/test-util';
 import {createNumberFormatter, parseNumber} from '../converter/number';
 import {ValueMap} from '../model/value-map';
 import {createValue} from '../model/values';
-import {createViewProps} from '../model/view-props';
+import {ViewProps} from '../model/view-props';
 import {TextController} from './text';
 
 describe(TextController.name, () => {
@@ -18,7 +18,7 @@ describe(TextController.name, () => {
 				formatter: createNumberFormatter(2),
 			}),
 			value: value,
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 
 		assert.strictEqual(c.value, value);
@@ -34,7 +34,7 @@ describe(TextController.name, () => {
 				formatter: createNumberFormatter(2),
 			}),
 			value: value,
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 
 		c.view.inputElement.value = '3.14';
@@ -52,7 +52,7 @@ describe(TextController.name, () => {
 				formatter: createNumberFormatter(0),
 			}),
 			value: createValue(123),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 
 		const inputElem = c.view.inputElement;

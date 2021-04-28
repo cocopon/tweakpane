@@ -3,7 +3,6 @@ import {Value} from '../model/value';
 import {ValueMap} from '../model/value-map';
 import {ViewProps} from '../model/view-props';
 import {ClassName} from './class-name';
-import {bindClassModifier, bindDisabled} from './reactive';
 import {View} from './view';
 
 export type TextProps<T> = ValueMap<{
@@ -32,7 +31,7 @@ export class TextView<T> implements View {
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
-		bindClassModifier(config.viewProps, this.element);
+		config.viewProps.bindClassModifiers(this.element);
 
 		this.props_ = config.props;
 		this.props_.emitter.on('change', this.onChange_);
@@ -40,7 +39,7 @@ export class TextView<T> implements View {
 		const inputElem = doc.createElement('input');
 		inputElem.classList.add(className('i'));
 		inputElem.type = 'text';
-		bindDisabled(config.viewProps, inputElem);
+		config.viewProps.bindDisabled(inputElem);
 		this.element.appendChild(inputElem);
 		this.inputElement = inputElem;
 

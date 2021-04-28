@@ -10,7 +10,7 @@ import {
 } from '../../../common/converter/number';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
-import {createViewProps} from '../../../common/model/view-props';
+import {ViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from '../../../common/number/controller/number-text';
 import {writePrimitive} from '../../../common/primitive';
 import {TestUtil} from '../../../misc/test-util';
@@ -32,7 +32,7 @@ function createApi(target: BindingTarget) {
 			formatter: createNumberFormatter(0),
 		}),
 		value: value,
-		viewProps: createViewProps(),
+		viewProps: ViewProps.create(),
 	});
 	const bc = new InputBindingController(doc, {
 		binding: new InputBinding({

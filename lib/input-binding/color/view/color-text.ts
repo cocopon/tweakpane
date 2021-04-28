@@ -2,10 +2,10 @@ import {
 	createSvgIconElement,
 	removeChildElements,
 } from '../../../common/dom-util';
+import {bindValue} from '../../../common/model/reactive';
 import {Value} from '../../../common/model/value';
 import {NumberTextView} from '../../../common/number/view/number-text';
 import {ClassName} from '../../../common/view/class-name';
-import {bindValue} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {ColorMode} from '../model/color-model';
 

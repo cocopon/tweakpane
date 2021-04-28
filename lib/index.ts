@@ -10,7 +10,7 @@ import {TabBladePlugin} from './blade/tab/plugin';
 import {TextBladePlugin} from './blade/text/plugin';
 import {getWindowDocument} from './common/dom-util';
 import {ValueMap} from './common/model/value-map';
-import {createViewProps} from './common/model/view-props';
+import {ViewProps} from './common/model/view-props';
 import {TpError} from './common/tp-error';
 import {ClassName} from './common/view/class-name';
 import {BooleanInputPlugin} from './input-binding/boolean/plugin';
@@ -78,7 +78,7 @@ export default class Tweakpane extends RootApi {
 			props: ValueMap.fromObject({
 				title: config.title,
 			}),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 		super(rootController);
 

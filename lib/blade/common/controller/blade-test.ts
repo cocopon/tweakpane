@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {createViewProps} from '../../../common/model/view-props';
+import {ViewProps} from '../../../common/model/view-props';
 import {View} from '../../../common/view/view';
 import {TestUtil} from '../../../misc/test-util';
 import {createBlade} from '../model/blade';
@@ -22,7 +22,7 @@ class TestController extends BladeController<TestView> {
 		super({
 			blade: createBlade(),
 			view: new TestView(doc),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 	}
 }

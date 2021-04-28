@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {ValueMap} from '../../../common/model/value-map';
-import {createViewProps} from '../../../common/model/view-props';
+import {ViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {
 	assertDisposes,
@@ -25,7 +25,7 @@ function createApi(doc: Document): ButtonApi {
 			props: ValueMap.fromObject({
 				title: 'Button',
 			}),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		}),
 	});
 	return new ButtonApi(c);

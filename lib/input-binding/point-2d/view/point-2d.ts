@@ -1,14 +1,10 @@
 import {PickerLayout} from '../../../blade/common/api/types';
 import {createSvgIconElement} from '../../../common/dom-util';
+import {bindValue} from '../../../common/model/reactive';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
-import {
-	bindClassModifier,
-	bindDisabled,
-	bindValue,
-	valueToClassName,
-} from '../../../common/view/reactive';
+import {valueToClassName} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 
 interface Config {
@@ -31,7 +27,7 @@ export class Point2dView implements View {
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
-		bindClassModifier(config.viewProps, this.element);
+		config.viewProps.bindClassModifiers(this.element);
 		bindValue(
 			config.expanded,
 			valueToClassName(this.element, className(undefined, 'expanded')),
@@ -44,7 +40,7 @@ export class Point2dView implements View {
 		const buttonElem = doc.createElement('button');
 		buttonElem.classList.add(className('b'));
 		buttonElem.appendChild(createSvgIconElement(doc, 'p2dpad'));
-		bindDisabled(config.viewProps, buttonElem);
+		config.viewProps.bindDisabled(buttonElem);
 		headElem.appendChild(buttonElem);
 		this.buttonElement = buttonElem;
 

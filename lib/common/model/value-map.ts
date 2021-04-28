@@ -9,11 +9,15 @@ export interface ValueMapEvents<O extends Record<string, unknown>> {
 	};
 }
 
+export type ValueMapCore<O extends Record<string, unknown>> = {
+	[Key in keyof O]: Value<O[Key]>;
+};
+
 export class ValueMap<O extends Record<string, unknown>> {
 	public readonly emitter: Emitter<ValueMapEvents<O>> = new Emitter();
-	private valMap_: {[Key in keyof O]: Value<O[Key]>};
+	private valMap_: ValueMapCore<O>;
 
-	constructor(valueMap: {[Key in keyof O]: Value<O[Key]>}) {
+	constructor(valueMap: ValueMapCore<O>) {
 		this.valMap_ = valueMap;
 
 		for (const key in this.valMap_) {
@@ -27,17 +31,23 @@ export class ValueMap<O extends Record<string, unknown>> {
 		}
 	}
 
-	public static fromObject<O extends Record<string, unknown>>(
+	public static createCore<O extends Record<string, unknown>>(
 		initialValue: O,
-	): ValueMap<O> {
+	): ValueMapCore<O> {
 		const keys: (keyof O)[] = Object.keys(initialValue);
-		const valMap = keys.reduce((o, key) => {
+		return keys.reduce((o, key) => {
 			key;
 			return Object.assign(o, {
 				[key]: createValue(initialValue[key]),
 			});
 		}, {} as {[Key in keyof O]: Value<O[Key]>});
-		return new ValueMap(valMap);
+	}
+
+	public static fromObject<O extends Record<string, unknown>>(
+		initialValue: O,
+	): ValueMap<O> {
+		const core = this.createCore(initialValue);
+		return new ValueMap(core);
 	}
 
 	public get<Key extends keyof O>(key: Key): O[Key] {

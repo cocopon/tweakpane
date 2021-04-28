@@ -9,7 +9,7 @@ import {Constraint} from './constraint/constraint';
 import {ListConstraint, ListItem} from './constraint/list';
 import {StepConstraint} from './constraint/step';
 import {ValueController} from './controller/value';
-import {createViewProps} from './model/view-props';
+import {ViewProps} from './model/view-props';
 import {getDecimalDigits} from './number-util';
 
 export function normalizeListOptions<T>(
@@ -112,7 +112,7 @@ export function polyfillViewProps<T>(
 	pluginId: string,
 ) {
 	if (!controller.viewProps) {
-		(controller as any).viewProps = createViewProps();
+		(controller as any).viewProps = ViewProps.create();
 		console.warn(
 			`Missing controller.viewProps (plugin: '${pluginId}')\nThis polyfill will be removed in the next major version.`,
 		);

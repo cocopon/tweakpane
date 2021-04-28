@@ -3,7 +3,7 @@ import {describe, it} from 'mocha';
 
 import {Controller} from '../../../common/controller/controller';
 import {ValueMap} from '../../../common/model/value-map';
-import {createViewProps, ViewProps} from '../../../common/model/view-props';
+import {ViewProps} from '../../../common/model/view-props';
 import {View} from '../../../common/view/view';
 import {TestUtil} from '../../../misc/test-util';
 import {createBlade} from '../../common/model/blade';
@@ -42,7 +42,7 @@ describe(LabelController.name, () => {
 				label: 'hello',
 			}),
 			valueController: new TestController(doc, {
-				viewProps: createViewProps(),
+				viewProps: ViewProps.create(),
 			}),
 		});
 		assert.strictEqual(c.props.get('label'), 'hello');
@@ -57,7 +57,7 @@ describe(LabelController.name, () => {
 				label: 'hello',
 			}),
 			valueController: new TestController(doc, {
-				viewProps: createViewProps(),
+				viewProps: ViewProps.create(),
 			}),
 		});
 

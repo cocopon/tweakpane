@@ -11,7 +11,7 @@ import {
 import {numberFromUnknown} from '../../../common/converter/number';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
-import {createViewProps} from '../../../common/model/view-props';
+import {ViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {createBlade} from '../../common/model/blade';
 import {LabelPropsObject} from '../../label/view/label';
@@ -36,7 +36,7 @@ describe(InputBindingController.name, () => {
 				formatter: createNumberFormatter(0),
 			}),
 			value: value,
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 		const bc = new InputBindingController(doc, {
 			binding: binding,

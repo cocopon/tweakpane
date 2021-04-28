@@ -1,12 +1,8 @@
+import {bindValueMap} from '../../../common/model/reactive';
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
-import {
-	bindClassModifier,
-	bindDisabled,
-	bindTextContent,
-	bindValueMap,
-} from '../../../common/view/reactive';
+import {bindValueMapToTextContent} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {isEmpty} from '../../../misc/type-util';
 import {Foldable, getFoldableStyleExpanded} from '../../common/model/foldable';
@@ -44,7 +40,7 @@ export class FolderView implements View {
 		this.className_ = ClassName(config.viewName || 'fld');
 		this.element = doc.createElement('div');
 		this.element.classList.add(this.className_(), bladeContainerClassName());
-		bindClassModifier(config.viewProps, this.element);
+		config.viewProps.bindClassModifiers(this.element);
 
 		this.foldable_ = config.foldable;
 		bindValueMap(this.foldable_, 'expanded', this.onFoldableExpandedChange_);
@@ -58,13 +54,13 @@ export class FolderView implements View {
 				this.element.classList.remove(this.className_(undefined, 'not'));
 			}
 		});
-		bindDisabled(config.viewProps, buttonElem);
+		config.viewProps.bindDisabled(buttonElem);
 		this.element.appendChild(buttonElem);
 		this.buttonElement = buttonElem;
 
 		const titleElem = doc.createElement('div');
 		titleElem.classList.add(this.className_('t'));
-		bindTextContent(config.props, 'title', titleElem);
+		bindValueMapToTextContent(config.props, 'title', titleElem);
 		this.buttonElement.appendChild(titleElem);
 		this.titleElement = titleElem;
 

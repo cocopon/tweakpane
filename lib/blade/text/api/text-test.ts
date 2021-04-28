@@ -4,7 +4,7 @@ import {describe, it} from 'mocha';
 import {TextController} from '../../../common/controller/text';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
-import {createViewProps} from '../../../common/model/view-props';
+import {ViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {
 	assertDisposes,
@@ -30,7 +30,7 @@ describe(TextApi.name, () => {
 					formatter: (v: string) => v,
 				}),
 				value: createValue(''),
-				viewProps: createViewProps(),
+				viewProps: ViewProps.create(),
 			}),
 		});
 		const api = new TextApi(c);
@@ -52,7 +52,7 @@ describe(TextApi.name, () => {
 					formatter: formatter,
 				}),
 				value: createValue('hello'),
-				viewProps: createViewProps(),
+				viewProps: ViewProps.create(),
 			}),
 		});
 		const api = new TextApi(c);
@@ -76,7 +76,7 @@ describe(TextApi.name, () => {
 					formatter: (v: string) => v,
 				}),
 				value: createValue('hello'),
-				viewProps: createViewProps(),
+				viewProps: ViewProps.create(),
 			}),
 		});
 		const api = new TextApi(c);
@@ -109,7 +109,7 @@ describe(TextApi.name, () => {
 					formatter: (v: string) => v,
 				}),
 				value: createValue(''),
-				viewProps: createViewProps(),
+				viewProps: ViewProps.create(),
 			}),
 		});
 		const api = new TextApi(c);

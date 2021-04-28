@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe} from 'mocha';
 
 import {ValueMap} from '../../../common/model/value-map';
-import {createViewProps} from '../../../common/model/view-props';
+import {ViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {createBlade} from '../../common/model/blade';
 import {TabController} from '../controller/tab';
@@ -26,7 +26,7 @@ describe(TabController.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TabController(doc, {
 			blade: createBlade(),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 
 		c.add(createTabPage(doc, 'foo'));
@@ -40,7 +40,7 @@ describe(TabController.name, () => {
 		const doc = win.document;
 		const c = new TabController(doc, {
 			blade: createBlade(),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 		const pcs = [
 			createTabPage(doc, 'foo'),
@@ -63,7 +63,7 @@ describe(TabController.name, () => {
 		const doc = win.document;
 		const c = new TabController(doc, {
 			blade: createBlade(),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 		const pcs = [
 			createTabPage(doc, 'foo'),

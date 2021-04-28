@@ -5,7 +5,7 @@ import {TestUtil} from '../../misc/test-util';
 import {ListConstraint} from '../constraint/list';
 import {ValueMap} from '../model/value-map';
 import {createValue} from '../model/values';
-import {createViewProps} from '../model/view-props';
+import {ViewProps} from '../model/view-props';
 import {findListItems} from '../util';
 import {ListController} from './list';
 
@@ -25,7 +25,7 @@ describe(ListController.name, () => {
 				options: findListItems(constraint) ?? [],
 			}),
 			value: value,
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 
 		assert.strictEqual(c.value, value);
@@ -47,7 +47,7 @@ describe(ListController.name, () => {
 				options: findListItems(constraint) ?? [],
 			}),
 			value: value,
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 
 		c.view.selectElement.value = '34';
@@ -71,7 +71,7 @@ describe(ListController.name, () => {
 				options: findListItems(constraint) ?? [],
 			}),
 			value: value,
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 
 		c.props.set('options', [

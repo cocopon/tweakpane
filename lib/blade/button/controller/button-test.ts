@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {ValueMap} from '../../../common/model/value-map';
-import {createViewProps} from '../../../common/model/view-props';
+import {ViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {ButtonController} from './button';
 
@@ -13,7 +13,7 @@ describe(ButtonController.name, () => {
 			props: ValueMap.fromObject({
 				title: 'Push',
 			}),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 
 		let count = 0;

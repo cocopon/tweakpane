@@ -1,9 +1,9 @@
 import * as assert from 'assert';
 import {describe, it as context, it} from 'mocha';
 
-import {createViewProps} from './view-props';
+import {ViewProps} from './view-props';
 
-describe(createViewProps.name, () => {
+describe(ViewProps.name, () => {
 	[
 		{
 			params: undefined,
@@ -40,7 +40,7 @@ describe(createViewProps.name, () => {
 	].forEach(({params, expected}) => {
 		context(`when ${JSON.stringify(params)}`, () => {
 			it('should set initial value', () => {
-				const p = createViewProps(params);
+				const p = ViewProps.create(params);
 				assert.strictEqual(p.get('disabled'), expected.disabled);
 				assert.strictEqual(p.get('disposed'), expected.disposed);
 				assert.strictEqual(p.get('hidden'), expected.hidden);

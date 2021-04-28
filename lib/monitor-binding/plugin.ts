@@ -12,7 +12,7 @@ import {ValueController} from '../common/controller/value';
 import {Buffer} from '../common/model/buffered-value';
 import {BufferedValue, initializeBuffer} from '../common/model/buffered-value';
 import {ValueMap} from '../common/model/value-map';
-import {createViewProps, ViewProps} from '../common/model/view-props';
+import {ViewProps} from '../common/model/view-props';
 import {polyfillViewProps} from '../common/util';
 import {Constants} from '../misc/constants';
 import {BasePlugin} from '../plugin';
@@ -131,7 +131,7 @@ export function createMonitorBindingController<T>(
 		document: args.document,
 		params: args.params,
 		value: binding.value,
-		viewProps: createViewProps({
+		viewProps: ViewProps.create({
 			disabled: args.params.disabled,
 		}),
 	});
