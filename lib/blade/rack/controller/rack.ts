@@ -1,7 +1,6 @@
 import {insertElementAt, removeElement} from '../../../common/dom-util';
 import {ViewProps} from '../../../common/model/view-props';
 import {PlainView} from '../../../common/view/plain';
-import {bindDisposed} from '../../../common/view/reactive';
 import {BladeController} from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
 import {BladeRack, BladeRackEvents} from '../../common/model/blade-rack';
@@ -36,7 +35,7 @@ export class RackController extends BladeController<PlainView> {
 		rack.emitter.on('remove', this.onRackRemove_);
 		this.rack = rack;
 
-		bindDisposed(this.viewProps, () => {
+		this.viewProps.handleDispose(() => {
 			for (let i = this.rack.children.length - 1; i >= 0; i--) {
 				const bc = this.rack.children[i];
 				bc.viewProps.set('disposed', true);

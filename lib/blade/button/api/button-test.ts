@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {ValueMap} from '../../../common/model/value-map';
-import {createViewProps} from '../../../common/model/view-props';
+import {ViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {
 	assertDisposes,
@@ -13,6 +13,7 @@ import {createBlade} from '../../common/model/blade';
 import {LabelController} from '../../label/controller/label';
 import {LabelPropsObject} from '../../label/view/label';
 import {ButtonController} from '../controller/button';
+import {ButtonPropsObject} from '../view/button';
 import {ButtonApi} from './button';
 
 function createApi(doc: Document): ButtonApi {
@@ -22,10 +23,10 @@ function createApi(doc: Document): ButtonApi {
 			label: undefined,
 		}),
 		valueController: new ButtonController(doc, {
-			props: ValueMap.fromObject({
+			props: ValueMap.fromObject<ButtonPropsObject>({
 				title: 'Button',
 			}),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		}),
 	});
 	return new ButtonApi(c);

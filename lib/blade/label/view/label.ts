@@ -1,8 +1,8 @@
 import {removeChildNodes} from '../../../common/dom-util';
+import {bindValueMap} from '../../../common/model/reactive';
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
-import {bindClassModifier, bindValueMap} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {isEmpty} from '../../../misc/type-util';
 
@@ -46,7 +46,7 @@ export class LabelView implements View {
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
-		bindClassModifier(config.viewProps, this.element);
+		config.viewProps.bindClassModifiers(this.element);
 
 		const labelElem = doc.createElement('div');
 		labelElem.classList.add(className('l'));

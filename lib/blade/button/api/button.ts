@@ -34,7 +34,7 @@ export class ButtonApi extends BladeApi<LabelController<ButtonController>>
 	}
 
 	get title(): string {
-		return this.controller_.valueController.props.get('title');
+		return this.controller_.valueController.props.get('title') ?? '';
 	}
 
 	set title(title: string) {

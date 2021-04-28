@@ -1,10 +1,10 @@
 import {ListItem} from '../constraint/list';
 import {createSvgIconElement, removeChildElements} from '../dom-util';
+import {bindValueMap} from '../model/reactive';
 import {Value} from '../model/value';
 import {ValueMap} from '../model/value-map';
 import {ViewProps} from '../model/view-props';
 import {ClassName} from './class-name';
-import {bindClassModifier, bindDisabled, bindValueMap} from './reactive';
 import {View} from './view';
 
 export type ListProps<T> = ValueMap<{
@@ -35,7 +35,7 @@ export class ListView<T> implements View {
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
-		bindClassModifier(config.viewProps, this.element);
+		config.viewProps.bindClassModifiers(this.element);
 
 		const selectElem = doc.createElement('select');
 		selectElem.classList.add(className('s'));
@@ -50,7 +50,7 @@ export class ListView<T> implements View {
 				selectElem.appendChild(optionElem);
 			});
 		});
-		bindDisabled(config.viewProps, selectElem);
+		config.viewProps.bindDisabled(selectElem);
 		this.element.appendChild(selectElem);
 		this.selectElement = selectElem;
 

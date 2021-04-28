@@ -1,11 +1,8 @@
+import {bindValue} from '../../../common/model/reactive';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
-import {
-	bindClassModifier,
-	bindValue,
-	valueToClassName,
-} from '../../../common/view/reactive';
+import {valueToClassName} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {bladeContainerClassName} from '../../common/view/blade-container';
 
@@ -28,7 +25,7 @@ export class TabView implements View {
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
 		this.element.classList.add(className(), bladeContainerClassName());
-		bindClassModifier(config.viewProps, this.element);
+		config.viewProps.bindClassModifiers(this.element);
 		bindValue(
 			config.empty,
 			valueToClassName(this.element, className(undefined, 'nop')),

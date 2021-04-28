@@ -1,6 +1,6 @@
 import {describe, it} from 'mocha';
 
-import {createViewProps} from '../../../common/model/view-props';
+import {ViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {assertInitialState, assertUpdates} from '../../common/api/test-util';
 import {createBlade} from '../../common/model/blade';
@@ -12,7 +12,7 @@ describe(SeparatorApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new SeparatorController(doc, {
 			blade: createBlade(),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 		const api = new SeparatorApi(c);
 		assertInitialState(api);
@@ -22,7 +22,7 @@ describe(SeparatorApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new SeparatorController(doc, {
 			blade: createBlade(),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 		const api = new SeparatorApi(c);
 		assertUpdates(api);

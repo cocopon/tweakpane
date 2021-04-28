@@ -10,7 +10,7 @@ import {stringFromUnknown} from '../../../common/converter/string';
 import {Buffer} from '../../../common/model/buffered-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
-import {createViewProps} from '../../../common/model/view-props';
+import {ViewProps} from '../../../common/model/view-props';
 import {writePrimitive} from '../../../common/primitive';
 import {CheckboxController} from '../../../input-binding/boolean/controller/checkbox';
 import {TestUtil} from '../../../misc/test-util';
@@ -41,7 +41,7 @@ function createInputBindingController(
 		}),
 		valueController: new CheckboxController(doc, {
 			value: b.value,
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		}),
 	});
 }
@@ -64,7 +64,7 @@ function createMonitorBindingController(
 		valueController: new SingleLogMonitorController(doc, {
 			formatter: (v) => String(v),
 			value: b.value,
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		}),
 	});
 }
@@ -75,7 +75,7 @@ function createFolderController(doc: Document): FolderController {
 		props: ValueMap.fromObject<FolderPropsObject>({
 			title: 'folder',
 		}),
-		viewProps: createViewProps(),
+		viewProps: ViewProps.create(),
 	});
 }
 

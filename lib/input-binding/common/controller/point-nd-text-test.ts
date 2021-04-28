@@ -7,7 +7,7 @@ import {
 } from '../../../common/converter/number';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
-import {createViewProps} from '../../../common/model/view-props';
+import {ViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {Point2d, Point2dAssembly} from '../../point-2d/model/point-2d';
 import {PointNdTextController} from './point-nd-text';
@@ -38,7 +38,7 @@ describe(PointNdTextController.name, () => {
 			],
 			parser: parseNumber,
 			value: createValue(new Point2d(12, 34)),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 
 		c.view.textViews[0].inputElement.value = '3.14';

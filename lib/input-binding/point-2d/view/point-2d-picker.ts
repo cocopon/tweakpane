@@ -4,7 +4,6 @@ import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
-import {bindTabIndex} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {Point2d} from '../model/point-2d';
 
@@ -46,7 +45,7 @@ export class Point2dPickerView implements View {
 
 		const padElem = doc.createElement('div');
 		padElem.classList.add(className('p'));
-		bindTabIndex(config.viewProps, padElem);
+		config.viewProps.bindTabIndex(padElem);
 		this.element.appendChild(padElem);
 		this.padElement = padElem;
 

@@ -5,7 +5,7 @@ import {ListItem} from '../../../common/constraint/list';
 import {ListController} from '../../../common/controller/list';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
-import {createViewProps} from '../../../common/model/view-props';
+import {ViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {
 	assertDisposes,
@@ -32,7 +32,7 @@ describe(ListApi.name, () => {
 					options: [],
 				}),
 				value: createValue(0),
-				viewProps: createViewProps(),
+				viewProps: ViewProps.create(),
 			}),
 		});
 		const api = new ListApi(c);
@@ -54,7 +54,7 @@ describe(ListApi.name, () => {
 					],
 				}),
 				value: createValue(0),
-				viewProps: createViewProps(),
+				viewProps: ViewProps.create(),
 			}),
 		});
 		const api = new ListApi(c);
@@ -81,7 +81,7 @@ describe(ListApi.name, () => {
 					],
 				}),
 				value: createValue(0),
-				viewProps: createViewProps(),
+				viewProps: ViewProps.create(),
 			}),
 		});
 		const api = new ListApi(c);
@@ -117,7 +117,7 @@ describe(ListApi.name, () => {
 					],
 				}),
 				value: createValue(0),
-				viewProps: createViewProps(),
+				viewProps: ViewProps.create(),
 			}),
 		});
 		const api = new ListApi(c);

@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe} from 'mocha';
 
 import {Value} from '../../../common/model/value';
-import {createViewProps} from '../../../common/model/view-props';
+import {ViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {forceCast} from '../../../misc/type-util';
 import {TpChangeEvent} from '../../common/api/tp-event';
@@ -16,7 +16,7 @@ describe(TabApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TabController(doc, {
 			blade: createBlade(),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 		const api = new TabApi(c);
 		assert.deepStrictEqual(api.pages, []);
@@ -26,7 +26,7 @@ describe(TabApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TabController(doc, {
 			blade: createBlade(),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 		const api = new TabApi(c);
 		const papi1 = api.addPage({title: 'foo'});
@@ -41,7 +41,7 @@ describe(TabApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TabController(doc, {
 			blade: createBlade(),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 		const api = new TabApi(c);
 		api.addPage({title: 'foo'});
@@ -54,7 +54,7 @@ describe(TabApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TabController(doc, {
 			blade: createBlade(),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 		const api = new TabApi(c);
 		api.addPage({title: 'foo'});
@@ -70,7 +70,7 @@ describe(TabApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TabController(doc, {
 			blade: createBlade(),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 		const api = new TabApi(c);
 		api.addPage({title: ''});
@@ -98,7 +98,7 @@ describe(TabApi.name, () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new TabController(doc, {
 			blade: createBlade(),
-			viewProps: createViewProps(),
+			viewProps: ViewProps.create(),
 		});
 		const api = new TabApi(c);
 		api.addPage({title: ''});

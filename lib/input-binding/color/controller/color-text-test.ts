@@ -3,7 +3,7 @@ import {describe, it} from 'mocha';
 
 import {parseNumber} from '../../../common/converter/number';
 import {createValue} from '../../../common/model/values';
-import {createViewProps} from '../../../common/model/view-props';
+import {ViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {Color} from '../model/color';
 import {ColorComponents3} from '../model/color-model';
@@ -56,7 +56,7 @@ describe(ColorTextController.name, () => {
 				const c = new ColorTextController(doc, {
 					parser: parseNumber,
 					value: value,
-					viewProps: createViewProps(),
+					viewProps: ViewProps.create(),
 				});
 
 				const inputElem = c.view.textViews[testCase.params.index].inputElement;
@@ -121,7 +121,7 @@ describe(ColorTextController.name, () => {
 				const c = new ColorTextController(doc, {
 					parser: parseNumber,
 					value: value,
-					viewProps: createViewProps(),
+					viewProps: ViewProps.create(),
 				});
 
 				const inputElem = c.view.textViews[testCase.params.index].inputElement;

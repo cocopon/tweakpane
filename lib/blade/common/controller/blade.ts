@@ -2,7 +2,6 @@ import {Controller} from '../../../common/controller/controller';
 import {disposeElement} from '../../../common/disposing-util';
 import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
-import {bindDisposed} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {Blade} from '../model/blade';
 import {BladePosition, getAllBladePositions} from '../model/blade-positions';
@@ -43,7 +42,7 @@ export class BladeController<V extends View> implements Controller {
 			});
 		});
 
-		bindDisposed(this.viewProps, () => {
+		this.viewProps.handleDispose(() => {
 			// TODO: Remove in the next major version
 			if (this.view.onDispose) {
 				console.warn(

@@ -10,7 +10,7 @@ import {ValueController} from '../common/controller/value';
 import {Value} from '../common/model/value';
 import {ValueMap} from '../common/model/value-map';
 import {createValue} from '../common/model/values';
-import {createViewProps, ViewProps} from '../common/model/view-props';
+import {ViewProps} from '../common/model/view-props';
 import {polyfillViewProps} from '../common/util';
 import {BasePlugin} from '../plugin';
 
@@ -149,7 +149,7 @@ export function createInputBindingController<In, Ex>(
 		initialValue: initialValue,
 		params: args.params,
 		value: binding.value,
-		viewProps: createViewProps({
+		viewProps: ViewProps.create({
 			disabled: args.params.disabled,
 		}),
 	});

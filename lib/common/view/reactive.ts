@@ -1,18 +1,11 @@
-import {Value, ValueEvents} from '../model/value';
+import {warnDeprecation} from '../compat';
+import {
+	bindValue as bindValueV3,
+	bindValueMap as bindValueMapV3,
+} from '../model/reactive';
+import {Value} from '../model/value';
 import {ValueMap} from '../model/value-map';
 import {ViewProps} from '../model/view-props';
-import {ClassName} from './class-name';
-
-function compose<A, B, C>(
-	h1: (input: A) => B,
-	h2: (input: B) => C,
-): (input: A) => C {
-	return (input) => h2(h1(input));
-}
-
-function extractValue<T>(ev: ValueEvents<T>['change']): T {
-	return ev.rawValue;
-}
 
 function applyClass(elem: HTMLElement, className: string, active: boolean) {
 	if (active) {
@@ -31,62 +24,88 @@ export function valueToClassName(
 	};
 }
 
-const className = ClassName('');
-function valueToModifier(
-	elem: HTMLElement,
-	modifier: string,
-): (value: boolean) => void {
-	return valueToClassName(elem, className(undefined, modifier));
-}
-
+/** @deprecated */
 export function bindValue<T>(value: Value<T>, applyValue: (value: T) => void) {
-	value.emitter.on('change', compose(extractValue, applyValue));
-	applyValue(value.rawValue);
+	warnDeprecation({
+		name: bindValue.name,
+		postscript: 'It is moved to `common/model/reactive`',
+	});
+	bindValueV3(value, applyValue);
 }
 
+/** @deprecated */
 export function bindValueMap<
 	O extends Record<string, unknown>,
 	Key extends keyof O
 >(valueMap: ValueMap<O>, key: Key, applyValue: (value: O[Key]) => void) {
-	bindValue(valueMap.value(key), applyValue);
+	warnDeprecation({
+		name: bindValueMap.name,
+		postscript: 'It is moved to `common/model/reactive`',
+	});
+	bindValueMapV3(valueMap, key, applyValue);
 }
 
+/** @deprecated */
 export function bindClassModifier(viewProps: ViewProps, elem: HTMLElement) {
-	bindValueMap(viewProps, 'disabled', valueToModifier(elem, 'disabled'));
-	bindValueMap(viewProps, 'hidden', valueToModifier(elem, 'hidden'));
+	warnDeprecation({
+		name: bindClassModifier.name,
+		alternative: 'ViewProps.bindClassModifiers',
+	});
+	viewProps.bindClassModifiers(elem);
 }
 
 interface Disableable {
 	disabled: boolean;
 }
 
+/** @deprecated */
 export function bindDisabled(viewProps: ViewProps, target: Disableable) {
-	bindValueMap(viewProps, 'disabled', (disabled: boolean) => {
-		target.disabled = disabled;
+	warnDeprecation({
+		name: bindDisabled.name,
+		alternative: 'ViewProps.bindDisabled',
 	});
+	viewProps.bindDisabled(target);
 }
 
+/** @deprecated */
 export function bindTabIndex(viewProps: ViewProps, elem: HTMLOrSVGElement) {
-	bindValueMap(viewProps, 'disabled', (disabled: boolean) => {
-		elem.tabIndex = disabled ? -1 : 0;
+	warnDeprecation({
+		name: bindTabIndex.name,
+		alternative: 'ViewProps.bindTabIndex',
+	});
+	viewProps.bindTabIndex(elem);
+}
+
+export function bindValueToTextContent(
+	value: Value<string | undefined>,
+	elem: HTMLElement,
+) {
+	bindValueV3(value, (text) => {
+		elem.textContent = text ?? '';
 	});
 }
 
+/** @deprecated */
 export function bindTextContent<
 	Key extends string,
 	O extends {
 		[key in Key]: string | undefined;
 	}
 >(valueMap: ValueMap<O>, key: Key, elem: HTMLElement) {
-	bindValueMap(valueMap, key, (text: string | undefined) => {
+	warnDeprecation({
+		name: bindTextContent.name,
+		alternative: bindValueToTextContent.name,
+	});
+	bindValueMapV3(valueMap, key, (text) => {
 		elem.textContent = text ?? '';
 	});
 }
 
+/** @deprecated */
 export function bindDisposed(viewProps: ViewProps, callback: () => void): void {
-	viewProps.value('disposed').emitter.on('change', (disposed) => {
-		if (disposed) {
-			callback();
-		}
+	warnDeprecation({
+		name: bindDisposed.name,
+		alternative: 'ViewProps.handleDispose',
 	});
+	viewProps.handleDispose(callback);
 }

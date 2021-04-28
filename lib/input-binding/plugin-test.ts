@@ -7,7 +7,6 @@ import {stringFromUnknown} from '../common/converter/string';
 import {Value} from '../common/model/value';
 import {ViewProps} from '../common/model/view-props';
 import {writePrimitive} from '../common/primitive';
-import {bindDisposed} from '../common/view/reactive';
 import {View} from '../common/view/view';
 import {TestUtil} from '../misc/test-util';
 import {createInputBindingController, InputBindingPlugin} from './plugin';
@@ -41,7 +40,7 @@ class TestController implements ValueController<string> {
 		this.value = config.value;
 		this.view = new TestView(doc);
 		this.viewProps = config.viewProps;
-		bindDisposed(this.viewProps, () => {
+		this.viewProps.handleDispose(() => {
 			this.disposed = true;
 		});
 	}

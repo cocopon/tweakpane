@@ -1,7 +1,8 @@
+import {bindValue} from '../model/reactive';
 import {Value} from '../model/value';
 import {ViewProps} from '../model/view-props';
 import {ClassName} from './class-name';
-import {bindClassModifier, bindValue, valueToClassName} from './reactive';
+import {valueToClassName} from './reactive';
 import {View} from './view';
 
 interface Config {
@@ -20,7 +21,7 @@ export class PopupView implements View {
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
-		bindClassModifier(config.viewProps, this.element);
+		config.viewProps.bindClassModifiers(this.element);
 		bindValue(
 			config.shows,
 			valueToClassName(this.element, className(undefined, 'v')),

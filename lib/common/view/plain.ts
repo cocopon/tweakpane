@@ -1,6 +1,5 @@
 import {ViewProps} from '../model/view-props';
 import {ClassName} from './class-name';
-import {bindClassModifier} from './reactive';
 import {View} from './view';
 
 interface Config {
@@ -18,6 +17,6 @@ export class PlainView implements View {
 		const className = ClassName(config.viewName);
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
-		bindClassModifier(config.viewProps, this.element);
+		config.viewProps.bindClassModifiers(this.element);
 	}
 }

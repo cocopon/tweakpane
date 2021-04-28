@@ -4,7 +4,6 @@ import {BufferedValue} from '../../../common/model/buffered-value';
 import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
-import {bindClassModifier} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {GraphCursor} from '../model/graph-cursor';
 
@@ -40,7 +39,7 @@ export class GraphLogView implements View {
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
-		bindClassModifier(config.viewProps, this.element);
+		config.viewProps.bindClassModifiers(this.element);
 
 		this.formatter_ = config.formatter;
 		this.minValue_ = config.minValue;

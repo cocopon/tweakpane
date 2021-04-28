@@ -2,7 +2,6 @@ import {createSvgIconElement} from '../../../common/dom-util';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
-import {bindClassModifier, bindDisabled} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 
 interface Config {
@@ -25,7 +24,7 @@ export class CheckboxView implements View {
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
-		bindClassModifier(config.viewProps, this.element);
+		config.viewProps.bindClassModifiers(this.element);
 
 		const labelElem = doc.createElement('label');
 		labelElem.classList.add(className('l'));
@@ -36,7 +35,7 @@ export class CheckboxView implements View {
 		inputElem.type = 'checkbox';
 		labelElem.appendChild(inputElem);
 		this.inputElement = inputElem;
-		bindDisabled(config.viewProps, this.inputElement);
+		config.viewProps.bindDisabled(this.inputElement);
 
 		const wrapperElem = doc.createElement('div');
 		wrapperElem.classList.add(className('w'));

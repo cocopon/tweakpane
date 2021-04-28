@@ -1,7 +1,6 @@
 import {MonitorBinding} from '../../../common/binding/monitor';
 import {ValueController} from '../../../common/controller/value';
 import {Buffer} from '../../../common/model/buffered-value';
-import {bindDisabled, bindDisposed} from '../../../common/view/reactive';
 import {Blade} from '../../common/model/blade';
 import {LabelController} from '../../label/controller/label';
 import {LabelProps} from '../../label/view/label';
@@ -26,8 +25,8 @@ export class MonitorBindingController<T> extends LabelController<
 
 		this.binding = config.binding;
 
-		bindDisabled(this.viewProps, this.binding.ticker);
-		bindDisposed(this.viewProps, () => {
+		this.viewProps.bindDisabled(this.binding.ticker);
+		this.viewProps.handleDispose(() => {
 			this.binding.dispose();
 		});
 	}

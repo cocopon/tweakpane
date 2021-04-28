@@ -1,5 +1,4 @@
 import {Controller} from '../../../common/controller/controller';
-import {bindDisposed} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {BladeController} from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
@@ -38,7 +37,7 @@ export class LabelController<
 		this.view.valueElement.appendChild(this.valueController.view.element);
 
 		// TODO: Remove in the next major version
-		bindDisposed(this.viewProps, () => {
+		this.viewProps.handleDispose(() => {
 			const vc = this.valueController;
 			if (vc.onDispose) {
 				console.warn(

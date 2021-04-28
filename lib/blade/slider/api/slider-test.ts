@@ -4,7 +4,7 @@ import {describe, it} from 'mocha';
 import {numberToString, parseNumber} from '../../../common/converter/number';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
-import {createViewProps} from '../../../common/model/view-props';
+import {ViewProps} from '../../../common/model/view-props';
 import {SliderTextController} from '../../../common/number/controller/slider-text';
 import {TestUtil} from '../../../misc/test-util';
 import {
@@ -37,7 +37,7 @@ describe(SliderApi.name, () => {
 					formatter: numberToString,
 				}),
 				value: createValue(0),
-				viewProps: createViewProps(),
+				viewProps: ViewProps.create(),
 			}),
 		});
 		const api = new SliderApi(c);
@@ -63,7 +63,7 @@ describe(SliderApi.name, () => {
 					formatter: numberToString,
 				}),
 				value: createValue(123),
-				viewProps: createViewProps(),
+				viewProps: ViewProps.create(),
 			}),
 		});
 		const api = new SliderApi(c);
@@ -94,7 +94,7 @@ describe(SliderApi.name, () => {
 					formatter: numberToString,
 				}),
 				value: createValue(123),
-				viewProps: createViewProps(),
+				viewProps: ViewProps.create(),
 			}),
 		});
 		const api = new SliderApi(c);
@@ -132,7 +132,7 @@ describe(SliderApi.name, () => {
 					formatter: numberToString,
 				}),
 				value: createValue(0),
-				viewProps: createViewProps(),
+				viewProps: ViewProps.create(),
 			}),
 		});
 		const api = new SliderApi(c);

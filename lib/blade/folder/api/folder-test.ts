@@ -3,7 +3,7 @@ import {describe, it} from 'mocha';
 
 import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
-import {createViewProps} from '../../../common/model/view-props';
+import {ViewProps} from '../../../common/model/view-props';
 import {Color} from '../../../input-binding/color/model/color';
 import {TestUtil} from '../../../misc/test-util';
 import {forceCast} from '../../../misc/type-util';
@@ -23,7 +23,7 @@ function createApi(opt_doc?: Document): FolderApi {
 		props: ValueMap.fromObject<FolderPropsObject>({
 			title: 'Folder',
 		}),
-		viewProps: createViewProps(),
+		viewProps: ViewProps.create(),
 	});
 	return new FolderApi(c);
 }
