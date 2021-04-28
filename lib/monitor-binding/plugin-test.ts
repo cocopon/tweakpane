@@ -45,23 +45,50 @@ class TestController implements ValueController<Buffer<string>> {
 	}
 }
 
-describe(createMonitorBindingController.name, () => {
-	it('should be able to handle disposing from plugin', () => {
-		const plugin: MonitorBindingPlugin<string> = {
-			id: 'test',
-			accept: (ex) => (typeof ex === 'string' ? ex : null),
-			binding: {
-				reader: (_) => stringFromUnknown,
-			},
-			controller: (args) => {
-				return new TestController(args.document, {
-					value: args.value,
-					viewProps: args.viewProps,
-				});
-			},
-		};
+const TestPlugin: MonitorBindingPlugin<string> = {
+	id: 'test',
+	accept: (ex) => (typeof ex === 'string' ? ex : null),
+	binding: {
+		reader: (_) => stringFromUnknown,
+	},
+	controller: (args) => {
+		return new TestController(args.document, {
+			value: args.value,
+			viewProps: args.viewProps,
+		});
+	},
+};
 
-		const bc = createMonitorBindingController(plugin, {
+describe(createMonitorBindingController.name, () => {
+	it('should have default state', () => {
+		const bc = createMonitorBindingController(TestPlugin, {
+			document: TestUtil.createWindow().document,
+			params: {},
+			target: new BindingTarget({foo: 'bar'}, 'foo'),
+		});
+
+		assert.strictEqual(bc?.viewProps.get('disabled'), false);
+		assert.strictEqual(bc?.viewProps.get('hidden'), false);
+		bc.viewProps.set('disposed', true);
+	});
+
+	it('should apply initial state', () => {
+		const bc = createMonitorBindingController(TestPlugin, {
+			document: TestUtil.createWindow().document,
+			params: {
+				disabled: true,
+				hidden: true,
+			},
+			target: new BindingTarget({foo: 'bar'}, 'foo'),
+		});
+
+		assert.strictEqual(bc?.viewProps.get('disabled'), true);
+		assert.strictEqual(bc?.viewProps.get('hidden'), true);
+		bc.viewProps.set('disposed', true);
+	});
+
+	it('should be able to handle disposing from plugin', () => {
+		const bc = createMonitorBindingController(TestPlugin, {
 			document: TestUtil.createWindow().document,
 			params: {},
 			target: new BindingTarget({foo: 'bar'}, 'foo'),

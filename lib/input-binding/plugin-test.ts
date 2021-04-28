@@ -46,25 +46,50 @@ class TestController implements ValueController<string> {
 	}
 }
 
-describe(createInputBindingController.name, () => {
-	it('should be able to handle disposing from plugin', () => {
-		const plugin: InputBindingPlugin<string, string> = {
-			id: 'test',
-			accept: (ex) => (typeof ex === 'string' ? ex : null),
-			binding: {
-				reader: (_) => stringFromUnknown,
-				equals: (v1, v2) => v1 === v2,
-				writer: (_) => writePrimitive,
-			},
-			controller: (args) => {
-				return new TestController(args.document, {
-					value: args.value,
-					viewProps: args.viewProps,
-				});
-			},
-		};
+const TestPlugin: InputBindingPlugin<string, string> = {
+	id: 'test',
+	accept: (ex) => (typeof ex === 'string' ? ex : null),
+	binding: {
+		reader: (_) => stringFromUnknown,
+		equals: (v1, v2) => v1 === v2,
+		writer: (_) => writePrimitive,
+	},
+	controller: (args) => {
+		return new TestController(args.document, {
+			value: args.value,
+			viewProps: args.viewProps,
+		});
+	},
+};
 
-		const bc = createInputBindingController(plugin, {
+describe(createInputBindingController.name, () => {
+	it('should have default state', () => {
+		const bc = createInputBindingController(TestPlugin, {
+			document: TestUtil.createWindow().document,
+			params: {},
+			target: new BindingTarget({foo: 'bar'}, 'foo'),
+		});
+
+		assert.strictEqual(bc?.viewProps.get('disabled'), false);
+		assert.strictEqual(bc?.viewProps.get('hidden'), false);
+	});
+
+	it('should apply initial state', () => {
+		const bc = createInputBindingController(TestPlugin, {
+			document: TestUtil.createWindow().document,
+			params: {
+				disabled: true,
+				hidden: true,
+			},
+			target: new BindingTarget({foo: 'bar'}, 'foo'),
+		});
+
+		assert.strictEqual(bc?.viewProps.get('disabled'), true);
+		assert.strictEqual(bc?.viewProps.get('hidden'), true);
+	});
+
+	it('should be able to handle disposing from plugin', () => {
+		const bc = createInputBindingController(TestPlugin, {
 			document: TestUtil.createWindow().document,
 			params: {},
 			target: new BindingTarget({foo: 'bar'}, 'foo'),

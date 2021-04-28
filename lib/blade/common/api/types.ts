@@ -2,6 +2,8 @@ import {Formatter} from '../../../common/converter/formatter';
 import {TpChangeEvent} from './tp-event';
 
 interface BaseParams {
+	disabled?: boolean;
+	hidden?: boolean;
 	index?: number;
 }
 
@@ -23,7 +25,6 @@ export interface Point2dYParams extends PointDimensionParams {
 }
 
 export interface BaseInputParams extends BaseParams, LabelableParams {
-	disabled?: boolean;
 	presetKey?: string;
 	view?: string;
 }
@@ -90,7 +91,6 @@ export type InputParams =
 
 export interface BaseMonitorParams extends BaseParams, LabelableParams {
 	bufferSize?: number;
-	disabled?: boolean;
 	interval?: number;
 	view?: string;
 }
@@ -117,8 +117,6 @@ export type MonitorParams =
 
 export interface ButtonParams extends BaseParams, LabelableParams {
 	title: string;
-
-	disabled?: boolean;
 }
 
 export interface FolderParams extends BaseParams {
@@ -129,10 +127,7 @@ export interface FolderParams extends BaseParams {
 
 export type SeparatorParams = BaseParams;
 
-export interface BladeParams extends BaseParams, Record<string, unknown> {
-	disabled?: boolean;
-	hidden?: boolean;
-}
+export interface BladeParams extends BaseParams, Record<string, unknown> {}
 
 export interface TabParams extends BaseParams {
 	pages: {
