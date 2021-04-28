@@ -2,12 +2,12 @@ import {bindValueMap} from '../../../common/model/reactive';
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
-import {bindValueMapToTextContent} from '../../../common/view/reactive';
+import {bindValueToTextContent} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 
 export type TabItemPropsObject = {
 	selected: boolean;
-	title: string;
+	title: string | undefined;
 };
 
 export type TabItemProps = ValueMap<TabItemPropsObject>;
@@ -47,7 +47,7 @@ export class TabItemView implements View {
 
 		const titleElem = doc.createElement('div');
 		titleElem.classList.add(className('t'));
-		bindValueMapToTextContent(config.props, 'title', titleElem);
+		bindValueToTextContent(config.props.value('title'), titleElem);
 		this.buttonElement.appendChild(titleElem);
 		this.titleElement = titleElem;
 	}

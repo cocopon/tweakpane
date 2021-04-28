@@ -4,13 +4,14 @@ import {describe, it} from 'mocha';
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
+import {ButtonPropsObject} from '../view/button';
 import {ButtonController} from './button';
 
 describe(ButtonController.name, () => {
 	it('should emit click event', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new ButtonController(doc, {
-			props: ValueMap.fromObject({
+			props: ValueMap.fromObject<ButtonPropsObject>({
 				title: 'Push',
 			}),
 			viewProps: ViewProps.create(),

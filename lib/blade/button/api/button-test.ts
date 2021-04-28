@@ -13,6 +13,7 @@ import {createBlade} from '../../common/model/blade';
 import {LabelController} from '../../label/controller/label';
 import {LabelPropsObject} from '../../label/view/label';
 import {ButtonController} from '../controller/button';
+import {ButtonPropsObject} from '../view/button';
 import {ButtonApi} from './button';
 
 function createApi(doc: Document): ButtonApi {
@@ -22,7 +23,7 @@ function createApi(doc: Document): ButtonApi {
 			label: undefined,
 		}),
 		valueController: new ButtonController(doc, {
-			props: ValueMap.fromObject({
+			props: ValueMap.fromObject<ButtonPropsObject>({
 				title: 'Button',
 			}),
 			viewProps: ViewProps.create(),

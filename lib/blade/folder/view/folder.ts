@@ -2,7 +2,7 @@ import {bindValueMap} from '../../../common/model/reactive';
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
-import {bindValueMapToTextContent} from '../../../common/view/reactive';
+import {bindValueToTextContent} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {isEmpty} from '../../../misc/type-util';
 import {Foldable, getFoldableStyleExpanded} from '../../common/model/foldable';
@@ -60,7 +60,7 @@ export class FolderView implements View {
 
 		const titleElem = doc.createElement('div');
 		titleElem.classList.add(this.className_('t'));
-		bindValueMapToTextContent(config.props, 'title', titleElem);
+		bindValueToTextContent(config.props.value('title'), titleElem);
 		this.buttonElement.appendChild(titleElem);
 		this.titleElement = titleElem;
 

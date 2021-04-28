@@ -6,6 +6,7 @@ import {ViewProps} from '../../../common/model/view-props';
 import {View} from '../../../common/view/view';
 import {TestUtil} from '../../../misc/test-util';
 import {ButtonController} from '../../button/controller/button';
+import {ButtonPropsObject} from '../../button/view/button';
 import {BladeController} from '../../common/controller/blade';
 import {createBlade} from '../../common/model/blade';
 import {LabelController} from '../../label/controller/label';
@@ -20,7 +21,7 @@ function createSomeBladeController(doc: Document): BladeController<View> {
 			label: undefined,
 		}),
 		valueController: new ButtonController(doc, {
-			props: ValueMap.fromObject({
+			props: ValueMap.fromObject<ButtonPropsObject>({
 				title: 'Foobar',
 			}),
 			viewProps: ViewProps.create(),

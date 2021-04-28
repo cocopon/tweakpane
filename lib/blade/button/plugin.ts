@@ -5,6 +5,7 @@ import {LabelController} from '../label/controller/label';
 import {BladePlugin} from '../plugin';
 import {ButtonApi} from './api/button';
 import {ButtonController} from './controller/button';
+import {ButtonPropsObject} from './view/button';
 
 export interface ButtonBladeParams extends BladeParams {
 	title: string;
@@ -32,7 +33,7 @@ export const ButtonBladePlugin: BladePlugin<ButtonBladeParams> = {
 				label: args.params.label,
 			}),
 			valueController: new ButtonController(args.document, {
-				props: ValueMap.fromObject({
+				props: ValueMap.fromObject<ButtonPropsObject>({
 					title: args.params.title,
 				}),
 				viewProps: args.viewProps,

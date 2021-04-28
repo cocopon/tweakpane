@@ -76,13 +76,11 @@ export function bindTabIndex(viewProps: ViewProps, elem: HTMLOrSVGElement) {
 	viewProps.bindTabIndex(elem);
 }
 
-export function bindValueMapToTextContent<
-	Key extends string,
-	O extends {
-		[key in Key]: string | undefined;
-	}
->(valueMap: ValueMap<O>, key: Key, elem: HTMLElement) {
-	bindValueMapV3(valueMap, key, (text: string | undefined) => {
+export function bindValueToTextContent(
+	value: Value<string | undefined>,
+	elem: HTMLElement,
+) {
+	bindValueV3(value, (text) => {
 		elem.textContent = text ?? '';
 	});
 }
@@ -96,9 +94,11 @@ export function bindTextContent<
 >(valueMap: ValueMap<O>, key: Key, elem: HTMLElement) {
 	warnDeprecation({
 		name: bindTextContent.name,
-		alternative: bindValueMapToTextContent.name,
+		alternative: bindValueToTextContent.name,
 	});
-	bindValueMapToTextContent(valueMap, key, elem);
+	bindValueMapV3(valueMap, key, (text) => {
+		elem.textContent = text ?? '';
+	});
 }
 
 /** @deprecated */

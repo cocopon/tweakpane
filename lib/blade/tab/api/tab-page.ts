@@ -30,7 +30,7 @@ export class TabPageApi implements BladeRackApi {
 	}
 
 	get title(): string {
-		return this.controller_.itemController.props.get('title');
+		return this.controller_.itemController.props.get('title') ?? '';
 	}
 
 	set title(title: string) {
