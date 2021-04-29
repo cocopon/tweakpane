@@ -1,11 +1,6 @@
 @mixin themeVariable($in-name, $ex-name, $value) {
 	--#{$in-name}: var(--#{$prefix}-#{$ex-name}, #{$value});
 }
-// TODO: Remove polyfill in the next major version
-@mixin themeVariablePolyfill($in-name, $ex-name, $deprecated-ex-name, $value) {
-	// prettier-ignore
-	--#{$in-name}: var(--#{$prefix}-#{$ex-name}, var(--#{$prefix}-#{$deprecated-ex-name}, #{$value}));
-}
 
 %themeVariables {
 	$base-hue: 230;
@@ -54,36 +49,27 @@
 	@include themeVariable('btn-fg', 'button-foreground-color', $bg-color);
 
 	// Container
-	@include themeVariablePolyfill(
+	@include themeVariable(
 		'cnt-bg',
 		'container-background-color',
-		'folder-background-color',
 		rgba($fg-color, 0.1)
 	);
-	@include themeVariablePolyfill(
+	@include themeVariable(
 		'cnt-bg-a',
 		'container-background-color-active',
-		'folder-background-color-active',
 		rgba($fg-color, 0.25)
 	);
-	@include themeVariablePolyfill(
+	@include themeVariable(
 		'cnt-bg-f',
 		'container-background-color-focus',
-		'folder-background-color-focus',
 		rgba($fg-color, 0.2)
 	);
-	@include themeVariablePolyfill(
+	@include themeVariable(
 		'cnt-bg-h',
 		'container-background-color-hover',
-		'folder-background-color-hover',
 		rgba($fg-color, 0.15)
 	);
-	@include themeVariablePolyfill(
-		'cnt-fg',
-		'container-foreground-color',
-		'folder-foreground-color',
-		$fg-color
-	);
+	@include themeVariable('cnt-fg', 'container-foreground-color', $fg-color);
 
 	// Input
 	@include themeVariable(
@@ -128,34 +114,11 @@
 	);
 
 	// Groove
-	@include themeVariablePolyfill(
+	@include themeVariable(
 		'grv-fg',
 		'groove-foreground-color',
-		'separator-color',
 		rgba($color-exdark, 0.2)
 	);
-
-	// TODO: Remove outdated variables in the next major update
-	--button-background-color: var(--btn-bg);
-	--button-background-color-active: var(--btn-bg-a);
-	--button-background-color-focus: var(--btn-bg-f);
-	--button-background-color-hover: var(--btn-bg-h);
-	--button-foreground-color: var(--btn-fg);
-	--folder-background-color: var(--cnt-bg);
-	--folder-background-color-active: var(--cnt-bg-a);
-	--folder-background-color-focus: var(--cnt-bg-f);
-	--folder-background-color-hover: var(--cnt-bg-h);
-	--folder-foreground-color: var(--cnt-fg);
-	--input-background-color: var(--in-bg);
-	--input-background-color-active: var(--in-bg-a);
-	--input-background-color-focus: var(--in-bg-f);
-	--input-background-color-hover: var(--in-bg-h);
-	--input-foreground-color: var(--in-fg);
-	--label-foregound-color: var(--lbl-fg);
-	--monitor-background-color: var(--mo-bg);
-	--monitor-foreground-color: var(--mo-fg);
-	--separator-color: var(--grv-fg);
-	--unit-size: var(--bld-h);
 }
 
 .#{$prefix}-rotv {
