@@ -13,8 +13,6 @@ class TestView implements View {
 	constructor(doc: Document) {
 		this.element = doc.createElement('div');
 	}
-
-	onDispose() {}
 }
 
 class TestController extends BladeController<TestView> {

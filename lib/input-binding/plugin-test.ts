@@ -13,14 +13,9 @@ import {createInputBindingController, InputBindingPlugin} from './plugin';
 
 class TestView implements View {
 	public readonly element: HTMLElement;
-	public disposed = false;
 
 	constructor(doc: Document) {
 		this.element = doc.createElement('div');
-	}
-
-	onDispose() {
-		this.disposed = true;
 	}
 }
 
@@ -96,9 +91,7 @@ describe(createInputBindingController.name, () => {
 		});
 		const c = bc?.valueController as TestController;
 		assert.strictEqual(c.disposed, false);
-		assert.strictEqual(c.view.disposed, false);
 		bc?.viewProps.set('disposed', true);
 		assert.strictEqual(c.disposed, true);
-		assert.strictEqual(c.view.disposed, true);
 	});
 });

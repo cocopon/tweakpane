@@ -35,22 +35,5 @@ export class LabelController<
 		this.valueController = config.valueController;
 
 		this.view.valueElement.appendChild(this.valueController.view.element);
-
-		// TODO: Remove in the next major version
-		this.viewProps.handleDispose(() => {
-			const vc = this.valueController;
-			if (vc.onDispose) {
-				console.warn(
-					"Controller.onDispose is deprecated. Use ViewProps.value('disposed').emitter instead.",
-				);
-				vc.onDispose();
-			}
-			if (vc.view.onDispose) {
-				console.warn(
-					"View.onDispose is deprecated. Use ViewProps.value('disposed').emitter instead.",
-				);
-				vc.view.onDispose();
-			}
-		});
 	}
 }
