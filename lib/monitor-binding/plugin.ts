@@ -13,7 +13,6 @@ import {Buffer} from '../common/model/buffered-value';
 import {BufferedValue, initializeBuffer} from '../common/model/buffered-value';
 import {ValueMap} from '../common/model/value-map';
 import {ViewProps} from '../common/model/view-props';
-import {polyfillViewProps} from '../common/util';
 import {Constants} from '../misc/constants';
 import {BasePlugin} from '../plugin';
 
@@ -136,7 +135,6 @@ export function createMonitorBindingController<T>(
 			hidden: args.params.hidden,
 		}),
 	});
-	polyfillViewProps(controller, plugin.id);
 
 	return new MonitorBindingController(args.document, {
 		binding: binding,

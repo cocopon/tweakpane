@@ -11,7 +11,6 @@ import {Value} from '../common/model/value';
 import {ValueMap} from '../common/model/value-map';
 import {createValue} from '../common/model/values';
 import {ViewProps} from '../common/model/view-props';
-import {polyfillViewProps} from '../common/util';
 import {BasePlugin} from '../plugin';
 
 interface BindingArguments<Ex> {
@@ -154,7 +153,6 @@ export function createInputBindingController<In, Ex>(
 			hidden: args.params.hidden,
 		}),
 	});
-	polyfillViewProps(controller, plugin.id);
 
 	return new InputBindingController(args.document, {
 		binding: binding,
