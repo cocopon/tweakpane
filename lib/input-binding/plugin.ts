@@ -151,6 +151,7 @@ export function createInputBindingController<In, Ex>(
 		value: binding.value,
 		viewProps: ViewProps.create({
 			disabled: args.params.disabled,
+			hidden: args.params.hidden,
 		}),
 	});
 	polyfillViewProps(controller, plugin.id);
