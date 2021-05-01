@@ -2,9 +2,9 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {BindingTarget} from '../common/binding/target';
-import {ValueController} from '../common/controller/value';
+import {Controller} from '../common/controller/controller';
 import {stringFromUnknown} from '../common/converter/string';
-import {Buffer, BufferedValue} from '../common/model/buffered-value';
+import {BufferedValue} from '../common/model/buffered-value';
 import {ViewProps} from '../common/model/view-props';
 import {View} from '../common/view/view';
 import {TestUtil} from '../misc/test-util';
@@ -18,7 +18,7 @@ class TestView implements View {
 	}
 }
 
-class TestController implements ValueController<Buffer<string>> {
+class TestController implements Controller {
 	public readonly value: BufferedValue<string>;
 	public readonly view: TestView;
 	public readonly viewProps: ViewProps;

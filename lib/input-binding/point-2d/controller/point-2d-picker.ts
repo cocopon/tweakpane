@@ -1,5 +1,5 @@
 import {PickerLayout} from '../../../blade/common/api/types';
-import {ValueController} from '../../../common/controller/value';
+import {Controller} from '../../../common/controller/controller';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
@@ -29,7 +29,7 @@ interface Config {
 /**
  * @hidden
  */
-export class Point2dPickerController implements ValueController<Point2d> {
+export class Point2dPickerController implements Controller {
 	public readonly value: Value<Point2d>;
 	public readonly view: Point2dPickerView;
 	public readonly viewProps: ViewProps;

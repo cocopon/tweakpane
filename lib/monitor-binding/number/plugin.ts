@@ -1,11 +1,10 @@
 import {MonitorParams} from '../../blade/common/api/types';
-import {ValueController} from '../../common/controller/value';
+import {LabelableController} from '../../blade/label/controller/label';
 import {Formatter} from '../../common/converter/formatter';
 import {
 	createNumberFormatter,
 	numberFromUnknown,
 } from '../../common/converter/number';
-import {Buffer} from '../../common/model/buffered-value';
 import {Constants} from '../../misc/constants';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogMonitorController} from '../common/controller/single-log';
@@ -38,7 +37,7 @@ function createTextMonitor(
 
 function createGraphMonitor(
 	args: Parameters<MonitorBindingPlugin<number>['controller']>[0],
-): ValueController<Buffer<number>> {
+): LabelableController {
 	return new GraphLogController(args.document, {
 		formatter: createFormatter(),
 		lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,

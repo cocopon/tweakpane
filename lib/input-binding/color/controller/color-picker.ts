@@ -1,5 +1,5 @@
 import {RangeConstraint} from '../../../common/constraint/range';
-import {ValueController} from '../../../common/controller/value';
+import {Controller} from '../../../common/controller/controller';
 import {
 	createNumberFormatter,
 	parseNumber,
@@ -26,7 +26,7 @@ interface Config {
 /**
  * @hidden
  */
-export class ColorPickerController implements ValueController<Color> {
+export class ColorPickerController implements Controller {
 	public readonly value: Value<Color>;
 	public readonly view: ColorPickerView;
 	public readonly viewProps: ViewProps;

@@ -1,4 +1,4 @@
-import {ValueController} from '../../../common/controller/value';
+import {Controller} from '../../../common/controller/controller';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {forceCast} from '../../../misc/type-util';
@@ -15,7 +15,7 @@ export interface Config {
 /**
  * @hidden
  */
-export class CheckboxController implements ValueController<boolean> {
+export class CheckboxController implements Controller {
 	public readonly value: Value<boolean>;
 	public readonly view: CheckboxView;
 	public readonly viewProps: ViewProps;

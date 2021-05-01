@@ -1,6 +1,6 @@
-import {ValueController} from '../../../common/controller/value';
+import {Controller} from '../../../common/controller/controller';
 import {Formatter} from '../../../common/converter/formatter';
-import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
+import {BufferedValue} from '../../../common/model/buffered-value';
 import {ViewProps} from '../../../common/model/view-props';
 import {MultiLogView} from '../view/multi-log';
 
@@ -14,7 +14,7 @@ interface Config<T> {
 /**
  * @hidden
  */
-export class MultiLogController<T> implements ValueController<Buffer<T>> {
+export class MultiLogController<T> implements Controller {
 	public readonly value: BufferedValue<T>;
 	public readonly view: MultiLogView<T>;
 	public readonly viewProps: ViewProps;

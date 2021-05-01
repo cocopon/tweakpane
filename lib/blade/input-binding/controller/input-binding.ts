@@ -1,21 +1,23 @@
 import {InputBinding} from '../../../common/binding/input';
-import {ValueController} from '../../../common/controller/value';
 import {Blade} from '../../common/model/blade';
-import {LabelController} from '../../label/controller/label';
+import {
+	LabelableController,
+	LabelController,
+} from '../../label/controller/label';
 import {LabelProps} from '../../label/view/label';
 
 interface Config<In> {
 	binding: InputBinding<In>;
 	blade: Blade;
 	props: LabelProps;
-	valueController: ValueController<In>;
+	valueController: LabelableController;
 }
 
 /**
  * @hidden
  */
 export class InputBindingController<In> extends LabelController<
-	ValueController<In>
+	LabelableController
 > {
 	public readonly binding: InputBinding<In>;
 

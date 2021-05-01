@@ -1,22 +1,23 @@
 import {MonitorBinding} from '../../../common/binding/monitor';
-import {ValueController} from '../../../common/controller/value';
-import {Buffer} from '../../../common/model/buffered-value';
 import {Blade} from '../../common/model/blade';
-import {LabelController} from '../../label/controller/label';
+import {
+	LabelableController,
+	LabelController,
+} from '../../label/controller/label';
 import {LabelProps} from '../../label/view/label';
 
 interface Config<T> {
 	binding: MonitorBinding<T>;
 	blade: Blade;
 	props: LabelProps;
-	valueController: ValueController<Buffer<T>>;
+	valueController: LabelableController;
 }
 
 /**
  * @hidden
  */
 export class MonitorBindingController<T> extends LabelController<
-	ValueController<Buffer<T>>
+	LabelableController
 > {
 	public readonly binding: MonitorBinding<T>;
 
