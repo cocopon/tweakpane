@@ -22,7 +22,7 @@ describe(NumberInputPlugin.id, () => {
 			target: new BindingTarget({foo: 1}, 'foo'),
 		});
 
-		const v = c?.valueController.value as BoundValue<number>;
+		const v = c?.binding.value as BoundValue<number>;
 		assert.strictEqual(
 			findConstraint(v.constraint as Constraint<number>, StepConstraint)?.step,
 			1,

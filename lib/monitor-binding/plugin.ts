@@ -8,11 +8,11 @@ import {BindingTarget} from '../common/binding/target';
 import {IntervalTicker} from '../common/binding/ticker/interval';
 import {ManualTicker} from '../common/binding/ticker/manual';
 import {Ticker} from '../common/binding/ticker/ticker';
-import {ValueController} from '../common/controller/value';
-import {Buffer} from '../common/model/buffered-value';
+import {Controller} from '../common/controller/controller';
 import {BufferedValue, initializeBuffer} from '../common/model/buffered-value';
 import {ValueMap} from '../common/model/value-map';
 import {ViewProps} from '../common/model/view-props';
+import {View} from '../common/view/view';
 import {Constants} from '../misc/constants';
 import {BasePlugin} from '../plugin';
 
@@ -78,7 +78,7 @@ export interface MonitorBindingPlugin<T> extends BasePlugin {
 		 * @param args The arguments for creating a controller.
 		 * @return A custom controller that contains a custom view.
 		 */
-		(args: ControllerArguments<T>): ValueController<Buffer<T>>;
+		(args: ControllerArguments<T>): Controller<View>;
 	};
 }
 

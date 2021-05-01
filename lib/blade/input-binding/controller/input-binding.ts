@@ -1,5 +1,6 @@
 import {InputBinding} from '../../../common/binding/input';
-import {ValueController} from '../../../common/controller/value';
+import {Controller} from '../../../common/controller/controller';
+import {View} from '../../../common/view/view';
 import {Blade} from '../../common/model/blade';
 import {LabelController} from '../../label/controller/label';
 import {LabelProps} from '../../label/view/label';
@@ -8,14 +9,14 @@ interface Config<In> {
 	binding: InputBinding<In>;
 	blade: Blade;
 	props: LabelProps;
-	valueController: ValueController<In>;
+	valueController: Controller<View>;
 }
 
 /**
  * @hidden
  */
 export class InputBindingController<In> extends LabelController<
-	ValueController<In>
+	Controller<View>
 > {
 	public readonly binding: InputBinding<In>;
 

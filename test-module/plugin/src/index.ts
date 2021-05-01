@@ -1,6 +1,6 @@
 import Tweakpane from 'tweakpane';
+import {Controller} from 'tweakpane/lib/common/controller/controller';
 // Import individual classes
-import {ValueController} from 'tweakpane/lib/common/controller/value';
 import {stringFromUnknown} from 'tweakpane/lib/common/converter/string';
 import {Value} from 'tweakpane/lib/common/model/value';
 import {ViewProps} from 'tweakpane/lib/common/model/view-props';
@@ -27,7 +27,7 @@ class TestView implements View {
 	}
 }
 
-class TestController implements ValueController<string> {
+class TestController implements Controller<TestView> {
 	public readonly value: Value<string>;
 	public readonly view: TestView;
 	public readonly viewProps: ViewProps;

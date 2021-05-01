@@ -4,18 +4,14 @@ import {BladeController} from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
 import {LabelProps, LabelView} from '../view/label';
 
-export interface LabelableController extends Controller {
-	view: View;
-}
-
-interface Config<C extends LabelableController> {
+interface Config<C extends Controller<View>> {
 	blade: Blade;
 	props: LabelProps;
 	valueController: C;
 }
 
 export class LabelController<
-	C extends LabelableController
+	C extends Controller<View>
 > extends BladeController<LabelView> {
 	public readonly props: LabelProps;
 	public readonly valueController: C;

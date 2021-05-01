@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {BindingTarget} from '../common/binding/target';
-import {ValueController} from '../common/controller/value';
+import {Controller} from '../common/controller/controller';
 import {stringFromUnknown} from '../common/converter/string';
 import {Value} from '../common/model/value';
 import {ViewProps} from '../common/model/view-props';
@@ -19,7 +19,7 @@ class TestView implements View {
 	}
 }
 
-class TestController implements ValueController<string> {
+class TestController implements Controller<TestView> {
 	public readonly value: Value<string>;
 	public readonly view: TestView;
 	public readonly viewProps: ViewProps;

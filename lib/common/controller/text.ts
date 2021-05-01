@@ -3,7 +3,7 @@ import {Parser} from '../converter/parser';
 import {Value} from '../model/value';
 import {ViewProps} from '../model/view-props';
 import {TextProps, TextView} from '../view/text';
-import {ValueController} from './value';
+import {Controller} from './controller';
 
 /**
  * @hidden
@@ -18,7 +18,7 @@ export interface Config<T> {
 /**
  * @hidden
  */
-export class TextController<T> implements ValueController<T> {
+export class TextController<T> implements Controller<TextView<T>> {
 	public readonly props: TextProps<T>;
 	public readonly value: Value<T>;
 	public readonly view: TextView<T>;

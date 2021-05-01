@@ -1,4 +1,4 @@
-import {ValueController} from '../../../common/controller/value';
+import {Controller} from '../../../common/controller/controller';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {Color} from '../model/color';
@@ -12,7 +12,7 @@ interface Config {
 /**
  * @hidden
  */
-export class ColorSwatchController implements ValueController<Color> {
+export class ColorSwatchController implements Controller<ColorSwatchView> {
 	public readonly value: Value<Color>;
 	public readonly view: ColorSwatchView;
 	public readonly viewProps: ViewProps;

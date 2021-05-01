@@ -1,5 +1,5 @@
 import {forceCast, isEmpty} from '../../../misc/type-util';
-import {ValueController} from '../../controller/value';
+import {Controller} from '../../controller/controller';
 import {Parser} from '../../converter/parser';
 import {Value} from '../../model/value';
 import {createValue} from '../../model/values';
@@ -21,7 +21,7 @@ interface Config {
 /**
  * @hidden
  */
-export class NumberTextController implements ValueController<number> {
+export class NumberTextController implements Controller<NumberTextView> {
 	public readonly props: NumberTextProps;
 	public readonly value: Value<number>;
 	public readonly view: NumberTextView;

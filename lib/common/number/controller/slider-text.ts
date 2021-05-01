@@ -1,4 +1,4 @@
-import {ValueController} from '../../controller/value';
+import {Controller} from '../../controller/controller';
 import {Parser} from '../../converter/parser';
 import {Value} from '../../model/value';
 import {ViewProps} from '../../model/view-props';
@@ -20,7 +20,7 @@ interface Config {
 /**
  * @hidden
  */
-export class SliderTextController implements ValueController<number> {
+export class SliderTextController implements Controller<SliderTextView> {
 	public readonly value: Value<number>;
 	public readonly view: SliderTextView;
 	public readonly viewProps: ViewProps;

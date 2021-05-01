@@ -2,7 +2,7 @@ import {forceCast} from '../../misc/type-util';
 import {Value} from '../model/value';
 import {ViewProps} from '../model/view-props';
 import {ListProps, ListView} from '../view/list';
-import {ValueController} from './value';
+import {Controller} from './controller';
 
 interface Config<T> {
 	props: ListProps<T>;
@@ -13,7 +13,7 @@ interface Config<T> {
 /**
  * @hidden
  */
-export class ListController<T> implements ValueController<T> {
+export class ListController<T> implements Controller<ListView<T>> {
 	public readonly value: Value<T>;
 	public readonly view: ListView<T>;
 	public readonly props: ListProps<T>;
