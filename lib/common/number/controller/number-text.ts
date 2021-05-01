@@ -21,7 +21,7 @@ interface Config {
 /**
  * @hidden
  */
-export class NumberTextController implements Controller {
+export class NumberTextController implements Controller<NumberTextView> {
 	public readonly props: NumberTextProps;
 	public readonly value: Value<number>;
 	public readonly view: NumberTextView;

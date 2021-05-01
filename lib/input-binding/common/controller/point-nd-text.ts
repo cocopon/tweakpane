@@ -45,7 +45,8 @@ function createAxisController<PointNd>(
 /**
  * @hidden
  */
-export class PointNdTextController<PointNd> implements Controller {
+export class PointNdTextController<PointNd>
+	implements Controller<PointNdTextView> {
 	public readonly value: Value<PointNd>;
 	public readonly view: PointNdTextView;
 	public readonly viewProps: ViewProps;

@@ -8,7 +8,7 @@ interface Config {
 	viewProps: ViewProps;
 }
 
-export class PopupController implements Controller {
+export class PopupController implements Controller<PopupView> {
 	public readonly shows: Value<boolean> = createValue<boolean>(false);
 	public readonly view: PopupView;
 	public readonly viewProps: ViewProps;

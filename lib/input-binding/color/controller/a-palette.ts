@@ -19,7 +19,7 @@ interface Config {
 /**
  * @hidden
  */
-export class APaletteController implements Controller {
+export class APaletteController implements Controller<APaletteView> {
 	public readonly value: Value<Color>;
 	public readonly view: APaletteView;
 	public readonly viewProps: ViewProps;

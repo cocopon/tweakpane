@@ -21,7 +21,7 @@ const POS_TO_CLASS_NAME_MAP: {[pos in BladePosition]: string} = {
 	verylast: 'vlst',
 };
 
-export class BladeController<V extends View> implements Controller {
+export class BladeController<V extends View> implements Controller<V> {
 	public readonly blade: Blade;
 	public readonly view: V;
 	public readonly viewProps: ViewProps;

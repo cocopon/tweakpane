@@ -26,7 +26,7 @@ interface Config {
 /**
  * @hidden
  */
-export class ColorPickerController implements Controller {
+export class ColorPickerController implements Controller<ColorPickerView> {
 	public readonly value: Value<Color>;
 	public readonly view: ColorPickerView;
 	public readonly viewProps: ViewProps;

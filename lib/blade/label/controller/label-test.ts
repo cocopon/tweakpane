@@ -18,7 +18,7 @@ class TestView implements View {
 	}
 }
 
-class TestController implements Controller {
+class TestController implements Controller<TestView> {
 	public readonly viewProps: ViewProps;
 	public readonly view: TestView;
 

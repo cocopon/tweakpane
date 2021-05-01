@@ -39,7 +39,7 @@ interface Config {
 /**
  * @hidden
  */
-export class Point2dController implements Controller {
+export class Point2dController implements Controller<Point2dView> {
 	public readonly value: Value<Point2d>;
 	public readonly view: Point2dView;
 	public readonly viewProps: ViewProps;

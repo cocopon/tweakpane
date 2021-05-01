@@ -14,7 +14,7 @@ interface Config<T> {
 /**
  * @hidden
  */
-export class MultiLogController<T> implements Controller {
+export class MultiLogController<T> implements Controller<MultiLogView<T>> {
 	public readonly value: BufferedValue<T>;
 	public readonly view: MultiLogView<T>;
 	public readonly viewProps: ViewProps;

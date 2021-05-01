@@ -33,7 +33,7 @@ interface Config {
 /**
  * @hidden
  */
-export class ColorController implements Controller {
+export class ColorController implements Controller<ColorView> {
 	public readonly value: Value<Color>;
 	public readonly view: ColorView;
 	public readonly viewProps: ViewProps;

@@ -13,7 +13,7 @@ interface Config<T> {
 /**
  * @hidden
  */
-export class ListController<T> implements Controller {
+export class ListController<T> implements Controller<ListView<T>> {
 	public readonly value: Value<T>;
 	public readonly view: ListView<T>;
 	public readonly props: ListProps<T>;

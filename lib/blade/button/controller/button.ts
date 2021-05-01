@@ -20,7 +20,7 @@ interface Config {
 /**
  * @hidden
  */
-export class ButtonController implements Controller {
+export class ButtonController implements Controller<ButtonView> {
 	public readonly emitter: Emitter<ButtonEvents> = new Emitter();
 	public readonly props: ButtonProps;
 	public readonly view: ButtonView;

@@ -20,7 +20,7 @@ interface Config {
 /**
  * @hidden
  */
-export class SliderController implements Controller {
+export class SliderController implements Controller<SliderView> {
 	public readonly value: Value<number>;
 	public readonly view: SliderView;
 	public readonly viewProps: ViewProps;

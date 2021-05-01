@@ -1,16 +1,17 @@
 import {InputParams} from '../blade/common/api/types';
 import {createBlade} from '../blade/common/model/blade';
 import {InputBindingController} from '../blade/input-binding/controller/input-binding';
-import {LabelableController} from '../blade/label/controller/label';
 import {LabelPropsObject} from '../blade/label/view/label';
 import {BindingReader, BindingWriter} from '../common/binding/binding';
 import {InputBinding} from '../common/binding/input';
 import {BindingTarget} from '../common/binding/target';
 import {Constraint} from '../common/constraint/constraint';
+import {Controller} from '../common/controller/controller';
 import {Value} from '../common/model/value';
 import {ValueMap} from '../common/model/value-map';
 import {createValue} from '../common/model/values';
 import {ViewProps} from '../common/model/view-props';
+import {View} from '../common/view/view';
 import {BasePlugin} from '../plugin';
 
 interface BindingArguments<Ex> {
@@ -105,7 +106,7 @@ export interface InputBindingPlugin<In, Ex> extends BasePlugin {
 		 * @param args The arguments for creating a controller.
 		 * @return A custom controller that contains a custom view.
 		 */
-		(args: ControllerArguments<In, Ex>): LabelableController;
+		(args: ControllerArguments<In, Ex>): Controller<View>;
 	};
 }
 

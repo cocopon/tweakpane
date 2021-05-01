@@ -23,7 +23,7 @@ interface Config {
 /**
  * @hidden
  */
-export class GraphLogController implements Controller {
+export class GraphLogController implements Controller<GraphLogView> {
 	public readonly value: BufferedValue<number>;
 	public readonly view: GraphLogView;
 	public readonly viewProps: ViewProps;

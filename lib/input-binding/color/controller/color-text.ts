@@ -71,7 +71,7 @@ function createComponentController(
 /**
  * @hidden
  */
-export class ColorTextController implements Controller {
+export class ColorTextController implements Controller<ColorTextView> {
 	public readonly colorMode: Value<ColorMode>;
 	public readonly value: Value<Color>;
 	public readonly view: ColorTextView;

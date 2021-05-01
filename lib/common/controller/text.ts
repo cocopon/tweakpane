@@ -18,7 +18,7 @@ export interface Config<T> {
 /**
  * @hidden
  */
-export class TextController<T> implements Controller {
+export class TextController<T> implements Controller<TextView<T>> {
 	public readonly props: TextProps<T>;
 	public readonly value: Value<T>;
 	public readonly view: TextView<T>;

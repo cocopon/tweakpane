@@ -13,7 +13,8 @@ interface Config<T> {
 /**
  * @hidden
  */
-export class SingleLogMonitorController<T> implements Controller {
+export class SingleLogMonitorController<T>
+	implements Controller<SingleLogView<T>> {
 	public readonly value: BufferedValue<T>;
 	public readonly view: SingleLogView<T>;
 	public readonly viewProps: ViewProps;

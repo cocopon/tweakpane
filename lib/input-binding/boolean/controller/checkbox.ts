@@ -15,7 +15,7 @@ export interface Config {
 /**
  * @hidden
  */
-export class CheckboxController implements Controller {
+export class CheckboxController implements Controller<CheckboxView> {
 	public readonly value: Value<boolean>;
 	public readonly view: CheckboxView;
 	public readonly viewProps: ViewProps;

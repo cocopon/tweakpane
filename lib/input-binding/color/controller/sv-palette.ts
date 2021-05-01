@@ -25,7 +25,7 @@ interface Config {
 /**
  * @hidden
  */
-export class SvPaletteController implements Controller {
+export class SvPaletteController implements Controller<SvPaletteView> {
 	public readonly value: Value<Color>;
 	public readonly view: SvPaletteView;
 	public readonly viewProps: ViewProps;

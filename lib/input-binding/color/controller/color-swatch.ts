@@ -12,7 +12,7 @@ interface Config {
 /**
  * @hidden
  */
-export class ColorSwatchController implements Controller {
+export class ColorSwatchController implements Controller<ColorSwatchView> {
 	public readonly value: Value<Color>;
 	public readonly view: ColorSwatchView;
 	public readonly viewProps: ViewProps;

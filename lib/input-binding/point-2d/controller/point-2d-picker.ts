@@ -29,7 +29,7 @@ interface Config {
 /**
  * @hidden
  */
-export class Point2dPickerController implements Controller {
+export class Point2dPickerController implements Controller<Point2dPickerView> {
 	public readonly value: Value<Point2d>;
 	public readonly view: Point2dPickerView;
 	public readonly viewProps: ViewProps;

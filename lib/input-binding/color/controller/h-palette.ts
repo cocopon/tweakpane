@@ -20,7 +20,7 @@ interface Config {
 /**
  * @hidden
  */
-export class HPaletteController implements Controller {
+export class HPaletteController implements Controller<HPaletteView> {
 	public readonly value: Value<Color>;
 	public readonly view: HPaletteView;
 	public readonly viewProps: ViewProps;
