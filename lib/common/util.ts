@@ -8,8 +8,6 @@ import {findConstraint} from './constraint/composite';
 import {Constraint} from './constraint/constraint';
 import {ListConstraint, ListItem} from './constraint/list';
 import {StepConstraint} from './constraint/step';
-import {ValueController} from './controller/value';
-import {ViewProps} from './model/view-props';
 import {getDecimalDigits} from './number-util';
 
 export function normalizeListOptions<T>(
@@ -104,17 +102,4 @@ export function getSuitableDraggingScale(
 	const base = Math.abs(sc?.step ?? rawValue);
 
 	return base === 0 ? 0.1 : Math.pow(10, Math.floor(Math.log10(base)) - 1);
-}
-
-// TODO: Remove polyfill in the next major release
-export function polyfillViewProps<T>(
-	controller: ValueController<T>,
-	pluginId: string,
-) {
-	if (!controller.viewProps) {
-		(controller as any).viewProps = ViewProps.create();
-		console.warn(
-			`Missing controller.viewProps (plugin: '${pluginId}')\nThis polyfill will be removed in the next major version.`,
-		);
-	}
 }

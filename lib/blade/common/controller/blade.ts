@@ -43,13 +43,6 @@ export class BladeController<V extends View> implements Controller {
 		});
 
 		this.viewProps.handleDispose(() => {
-			// TODO: Remove in the next major version
-			if (this.view.onDispose) {
-				console.warn(
-					"View.onDispose is deprecated. Use ViewProps.value('disposed').emitter instead.",
-				);
-				this.view.onDispose();
-			}
 			disposeElement(elem);
 		});
 	}

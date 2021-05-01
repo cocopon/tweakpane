@@ -1,5 +1,5 @@
 import {Emitter} from './emitter';
-import {Value, ValueEvents} from './value';
+import {Value} from './value';
 import {createValue} from './values';
 
 export interface ValueMapEvents<O extends Record<string, unknown>> {
@@ -60,16 +60,5 @@ export class ValueMap<O extends Record<string, unknown>> {
 
 	public value<Key extends keyof O>(key: Key): Value<O[Key]> {
 		return this.valMap_[key];
-	}
-
-	// TODO: Remove in the next major version
-	/** @deprecated Use ValueMap.value.emitter instead. */
-	public valueEmitter<Key extends keyof O>(
-		key: Key,
-	): Emitter<ValueEvents<O[Key]>> {
-		console.warn(
-			`ValueMap.valueEmitter is deprecated. Use ValueMap.value.emitter instead.\nThis polyfill will be removed in the next major version.`,
-		);
-		return this.valMap_[key].emitter;
 	}
 }
