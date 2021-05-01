@@ -1,12 +1,10 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {Color} from '../../../input-binding/color/model/color';
 import {TestUtil} from '../../../misc/test-util';
-import {forceCast} from '../../../misc/type-util';
 import {testBladeContainer} from '../../common/api/blade-rack-test';
 import {assertUpdates} from '../../common/api/test-util';
 import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event';
@@ -103,53 +101,6 @@ describe(FolderApi.name, () => {
 			done();
 		});
 		api.controller_.foldable.set('expanded', false);
-	});
-
-	it('should handle global input events', (done) => {
-		const api = createApi();
-		const obj = {foo: 1};
-		const bapi = api.addInput(obj, 'foo');
-
-		api.on('change', (ev) => {
-			assert.strictEqual(ev instanceof TpChangeEvent, true);
-			assert.strictEqual(ev.presetKey, 'foo');
-			assert.strictEqual(ev.value, 2);
-
-			if (!(ev.target instanceof InputBindingApi)) {
-				assert.fail('unexpected target');
-			}
-			assert.strictEqual(ev.target.controller_, bapi.controller_);
-
-			done();
-		});
-
-		const value: Value<number> = forceCast(bapi.controller_.binding.value);
-		value.rawValue += 1;
-	});
-
-	it('should handle global input events (nested)', (done) => {
-		const api = createApi();
-		const obj = {foo: 1};
-		const fapi = api.addFolder({
-			title: 'foo',
-		});
-		const bapi = fapi.addInput(obj, 'foo');
-
-		api.on('change', (ev) => {
-			assert.strictEqual(ev instanceof TpChangeEvent, true);
-			assert.strictEqual(ev.presetKey, 'foo');
-			assert.strictEqual(ev.value, 2);
-
-			if (!(ev.target instanceof InputBindingApi)) {
-				assert.fail('unexpected target');
-			}
-			assert.strictEqual(ev.target.controller_, bapi.controller_);
-
-			done();
-		});
-
-		const value: Value<number> = forceCast(bapi.controller_.binding.value);
-		value.rawValue += 1;
 	});
 
 	it('should bind `this` within handler to pane', (done) => {
@@ -289,20 +240,5 @@ describe(FolderApi.name, () => {
 				bapi.controller_.binding.value.rawValue = params.newInternalValue;
 			});
 		});
-	});
-
-	it('should not handle removed child events', () => {
-		const api = createApi();
-
-		let count = 0;
-		api.on('change', () => {
-			count += 1;
-		});
-
-		const item = api.addInput({foo: 0}, 'foo');
-		(item.controller_.binding.value as Value<number>).rawValue += 1;
-		api.remove(item);
-		(item.controller_.binding.value as Value<number>).rawValue += 1;
-		assert.strictEqual(count, 1);
 	});
 });

@@ -6,11 +6,16 @@ import {MonitorBinding} from '../../../common/binding/monitor';
 import {BindingTarget} from '../../../common/binding/target';
 import {ManualTicker} from '../../../common/binding/ticker/manual';
 import {boolFromUnknown} from '../../../common/converter/boolean';
+import {
+	createNumberFormatter,
+	parseNumber,
+} from '../../../common/converter/number';
 import {stringFromUnknown} from '../../../common/converter/string';
 import {Buffer} from '../../../common/model/buffered-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
+import {SliderTextController} from '../../../common/number/controller/slider-text';
 import {writePrimitive} from '../../../common/primitive';
 import {CheckboxController} from '../../../input-binding/boolean/controller/checkbox';
 import {TestUtil} from '../../../misc/test-util';
@@ -19,8 +24,10 @@ import {SingleLogMonitorController} from '../../../monitor-binding/common/contro
 import {FolderController} from '../../folder/controller/folder';
 import {FolderPropsObject} from '../../folder/view/folder';
 import {InputBindingController} from '../../input-binding/controller/input-binding';
-import {LabelPropsObject} from '../../label/view/label';
+import {LabeledValueController} from '../../label/controller/value-label';
+import {LabelPropsObject, LabelView} from '../../label/view/label';
 import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
+import {ValueBladeController} from '../controller/value-blade';
 import {createBlade} from './blade';
 import {BladeRack} from './blade-rack';
 
@@ -64,6 +71,32 @@ function createMonitorBindingController(
 		valueController: new SingleLogMonitorController(doc, {
 			formatter: (v) => String(v),
 			value: b.value,
+			viewProps: ViewProps.create(),
+		}),
+	});
+}
+
+function createValueBladeController(
+	doc: Document,
+): ValueBladeController<number, LabelView> {
+	const v = createValue(123);
+	return new LabeledValueController<number, SliderTextController>(doc, {
+		blade: createBlade(),
+		props: ValueMap.fromObject<LabelPropsObject>({
+			label: '',
+		}),
+		valueController: new SliderTextController(doc, {
+			baseStep: 1,
+			parser: parseNumber,
+			sliderProps: ValueMap.fromObject({
+				maxValue: 100,
+				minValue: 0,
+			}),
+			textProps: ValueMap.fromObject({
+				draggingScale: 1,
+				formatter: createNumberFormatter(2),
+			}),
+			value: v,
 			viewProps: ViewProps.create(),
 		}),
 	});
@@ -113,7 +146,7 @@ describe(BladeRack.name, () => {
 		rack.add(bc);
 
 		rack.emitter.on('inputchange', (ev) => {
-			assert.strictEqual(ev.bindingController, forceCast(bc));
+			assert.strictEqual(ev.bladeController, forceCast(bc));
 			done();
 		});
 
@@ -129,7 +162,7 @@ describe(BladeRack.name, () => {
 		fc.rackController.rack.add(bc);
 
 		rack.emitter.on('inputchange', (ev) => {
-			assert.strictEqual(ev.bindingController, forceCast(bc));
+			assert.strictEqual(ev.bladeController, forceCast(bc));
 			done();
 		});
 
@@ -147,7 +180,7 @@ describe(BladeRack.name, () => {
 		sfc.rackController.rack.add(bc);
 
 		rack.emitter.on('inputchange', (ev) => {
-			assert.strictEqual(ev.bindingController, forceCast(bc));
+			assert.strictEqual(ev.bladeController, forceCast(bc));
 			done();
 		});
 
@@ -161,7 +194,7 @@ describe(BladeRack.name, () => {
 		rack.add(bc);
 
 		rack.emitter.on('monitorupdate', (ev) => {
-			assert.strictEqual(ev.bindingController, forceCast(bc));
+			assert.strictEqual(ev.bladeController, forceCast(bc));
 			done();
 		});
 
@@ -177,11 +210,41 @@ describe(BladeRack.name, () => {
 		fc.rackController.rack.add(bc);
 
 		rack.emitter.on('monitorupdate', (ev) => {
-			assert.strictEqual(ev.bindingController, forceCast(bc));
+			assert.strictEqual(ev.bladeController, forceCast(bc));
 			done();
 		});
 
 		(bc.binding.ticker as ManualTicker).tick();
+	});
+
+	it('should handle value change', (done) => {
+		const rack = new BladeRack();
+		const doc = TestUtil.createWindow().document;
+		const bc = createValueBladeController(doc);
+		rack.add(bc);
+
+		rack.emitter.on('inputchange', (ev) => {
+			assert.strictEqual(ev.bladeController, forceCast(bc));
+			done();
+		});
+
+		bc.value.rawValue += 1;
+	});
+
+	it('should handle value change (nested)', (done) => {
+		const rack = new BladeRack();
+		const doc = TestUtil.createWindow().document;
+		const fc = createFolderController(doc);
+		rack.add(fc);
+		const bc = createValueBladeController(doc);
+		fc.rackController.rack.add(bc);
+
+		rack.emitter.on('inputchange', (ev) => {
+			assert.strictEqual(ev.bladeController, forceCast(bc));
+			done();
+		});
+
+		bc.value.rawValue += 1;
 	});
 
 	it('should remove disposed blade', () => {

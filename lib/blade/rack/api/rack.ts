@@ -30,11 +30,14 @@ import {
 } from '../../common/api/types';
 import {createBindingTarget} from '../../common/api/util';
 import {BladeController} from '../../common/controller/blade';
+import {ValueBladeController} from '../../common/controller/value-blade';
 import {BladeRackEvents} from '../../common/model/blade-rack';
 import {NestedOrderedSet} from '../../common/model/nested-ordered-set';
 import {FolderApi} from '../../folder/api/folder';
 import {InputBindingApi} from '../../input-binding/api/input-binding';
+import {InputBindingController} from '../../input-binding/controller/input-binding';
 import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
+import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
 import {SeparatorApi} from '../../separator/api/separator';
 import {TabApi} from '../../tab/api/tab';
 import {RackController} from '../controller/rack';
@@ -214,20 +217,33 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 	}
 
 	private onRackInputChange_(ev: BladeRackEvents['inputchange']) {
-		const api = getApiByController(this.apiSet_, ev.bindingController);
-		const binding = ev.bindingController.binding;
-		this.emitter_.emit('change', {
-			event: new TpChangeEvent(
-				api,
-				forceCast(binding.target.read()),
-				binding.target.presetKey,
-			),
-		});
+		const bc = ev.bladeController;
+		if (bc instanceof InputBindingController) {
+			const api = getApiByController(this.apiSet_, bc);
+			const binding = bc.binding;
+			this.emitter_.emit('change', {
+				event: new TpChangeEvent(
+					api,
+					forceCast(binding.target.read()),
+					binding.target.presetKey,
+				),
+			});
+		} else if (bc instanceof ValueBladeController) {
+			const api = getApiByController(this.apiSet_, bc);
+			this.emitter_.emit('change', {
+				event: new TpChangeEvent(api, bc.value.rawValue, undefined),
+			});
+		}
 	}
 
 	private onRackMonitorUpdate_(ev: BladeRackEvents['monitorupdate']) {
-		const api = getApiByController(this.apiSet_, ev.bindingController);
-		const binding = ev.bindingController.binding;
+		/* istanbul ignore next */
+		if (!(ev.bladeController instanceof MonitorBindingController)) {
+			throw TpError.shouldNeverHappen();
+		}
+
+		const api = getApiByController(this.apiSet_, ev.bladeController);
+		const binding = ev.bladeController.binding;
 		this.emitter_.emit('update', {
 			event: new TpUpdateEvent(
 				api,
