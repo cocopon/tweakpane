@@ -4,6 +4,7 @@ import {
 	MonitorBindingEvents,
 } from '../../../common/binding/monitor';
 import {Emitter} from '../../../common/model/emitter';
+import {Value, ValueEvents} from '../../../common/model/value';
 import {ViewPropsEvents} from '../../../common/model/view-props';
 import {TpError} from '../../../common/tp-error';
 import {View} from '../../../common/view/view';
@@ -19,6 +20,7 @@ import {
 import {InputBindingController} from '../../input-binding/controller/input-binding';
 import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
 import {RackController} from '../../rack/controller/rack';
+import {ValueBladeController} from '../controller/value-blade';
 
 /**
  * @hidden
@@ -37,14 +39,14 @@ export interface BladeRackEvents {
 	};
 
 	inputchange: {
-		bindingController: InputBindingController<unknown>;
+		bladeController: BladeController<View>;
 		sender: BladeRack;
 	};
 	layout: {
 		sender: BladeRack;
 	};
 	monitorupdate: {
-		bindingController: MonitorBindingController<unknown>;
+		bladeController: BladeController<View>;
 		sender: BladeRack;
 	};
 }
@@ -69,6 +71,19 @@ function findMonitorBindingController<In>(
 	for (let i = 0; i < bcs.length; i++) {
 		const bc = bcs[i];
 		if (bc instanceof MonitorBindingController && bc.binding === b) {
+			return bc;
+		}
+	}
+	return null;
+}
+
+function findValueBladeController<T, V extends View>(
+	bcs: ValueBladeController<T, V>[],
+	v: Value<T>,
+): ValueBladeController<T, V> | null {
+	for (let i = 0; i < bcs.length; i++) {
+		const bc = bcs[i];
+		if (bc instanceof ValueBladeController && bc.value === v) {
 			return bc;
 		}
 	}
@@ -108,10 +123,11 @@ export class BladeRack {
 		this.onChildPositionsChange_ = this.onChildPositionsChange_.bind(this);
 		this.onChildInputChange_ = this.onChildInputChange_.bind(this);
 		this.onChildMonitorUpdate_ = this.onChildMonitorUpdate_.bind(this);
+		this.onChildValueChange_ = this.onChildValueChange_.bind(this);
 		this.onChildViewPropsChange_ = this.onChildViewPropsChange_.bind(this);
 		this.onDescendantLayout_ = this.onDescendantLayout_.bind(this);
 		this.onDescendantInputChange_ = this.onDescendantInputChange_.bind(this);
-		this.onDescendaantMonitorUpdate_ = this.onDescendaantMonitorUpdate_.bind(
+		this.onDescendantMonitorUpdate_ = this.onDescendantMonitorUpdate_.bind(
 			this,
 		);
 
@@ -178,13 +194,15 @@ export class BladeRack {
 			bc.binding.emitter.on('change', this.onChildInputChange_);
 		} else if (bc instanceof MonitorBindingController) {
 			bc.binding.emitter.on('update', this.onChildMonitorUpdate_);
+		} else if (bc instanceof ValueBladeController) {
+			bc.value.emitter.on('change', this.onChildValueChange_);
 		} else {
 			const rack = findSubRack(bc);
 			if (rack) {
 				const emitter = rack.emitter;
 				emitter.on('layout', this.onDescendantLayout_);
 				emitter.on('inputchange', this.onDescendantInputChange_);
-				emitter.on('monitorupdate', this.onDescendaantMonitorUpdate_);
+				emitter.on('monitorupdate', this.onDescendantMonitorUpdate_);
 			}
 		}
 	}
@@ -210,13 +228,15 @@ export class BladeRack {
 			bc.binding.emitter.off('change', this.onChildInputChange_);
 		} else if (bc instanceof MonitorBindingController) {
 			bc.binding.emitter.off('update', this.onChildMonitorUpdate_);
+		} else if (bc instanceof ValueBladeController) {
+			bc.value.emitter.off('change', this.onChildValueChange_);
 		} else {
 			const rack = findSubRack(bc);
 			if (rack) {
 				const emitter = rack.emitter;
 				emitter.off('layout', this.onDescendantLayout_);
 				emitter.off('inputchange', this.onDescendantInputChange_);
-				emitter.off('monitorupdate', this.onDescendaantMonitorUpdate_);
+				emitter.off('monitorupdate', this.onDescendantMonitorUpdate_);
 			}
 		}
 	}
@@ -275,17 +295,16 @@ export class BladeRack {
 	}
 
 	private onChildInputChange_(ev: InputBindingEvents<unknown>['change']): void {
-		const ibc = findInputBindingController(
+		const bc = findInputBindingController(
 			this.find(InputBindingController),
 			ev.sender,
 		);
 		/* istanbul ignore next */
-		if (!ibc) {
+		if (!bc) {
 			throw TpError.shouldNeverHappen();
 		}
-
 		this.emitter.emit('inputchange', {
-			bindingController: ibc,
+			bladeController: bc,
 			sender: this,
 		});
 	}
@@ -293,17 +312,31 @@ export class BladeRack {
 	private onChildMonitorUpdate_(
 		ev: MonitorBindingEvents<unknown>['update'],
 	): void {
-		const mbc = findMonitorBindingController(
+		const bc = findMonitorBindingController(
 			this.find(MonitorBindingController),
 			ev.sender,
 		);
 		/* istanbul ignore next */
-		if (!mbc) {
+		if (!bc) {
 			throw TpError.shouldNeverHappen();
 		}
-
 		this.emitter.emit('monitorupdate', {
-			bindingController: mbc,
+			bladeController: bc,
+			sender: this,
+		});
+	}
+
+	private onChildValueChange_(ev: ValueEvents<unknown>['change']) {
+		const bc = findValueBladeController(
+			this.find(ValueBladeController),
+			ev.sender,
+		);
+		/* istanbul ignore next */
+		if (!bc) {
+			throw TpError.shouldNeverHappen();
+		}
+		this.emitter.emit('inputchange', {
+			bladeController: bc,
 			sender: this,
 		});
 	}
@@ -317,14 +350,14 @@ export class BladeRack {
 
 	private onDescendantInputChange_(ev: BladeRackEvents['inputchange']) {
 		this.emitter.emit('inputchange', {
-			bindingController: ev.bindingController,
+			bladeController: ev.bladeController,
 			sender: this,
 		});
 	}
 
-	private onDescendaantMonitorUpdate_(ev: BladeRackEvents['monitorupdate']) {
+	private onDescendantMonitorUpdate_(ev: BladeRackEvents['monitorupdate']) {
 		this.emitter.emit('monitorupdate', {
-			bindingController: ev.bindingController,
+			bladeController: ev.bladeController,
 			sender: this,
 		});
 	}

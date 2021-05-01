@@ -8,7 +8,7 @@ import {
 	BladeParams,
 	ObjectStyleListOptions,
 } from '../common/api/types';
-import {LabelController} from '../label/controller/label';
+import {LabeledValueController} from '../label/controller/value-label';
 import {BladePlugin} from '../plugin';
 import {ListApi} from './api/list';
 
@@ -65,7 +65,7 @@ export const ListBladePlugin = (function<T>(): BladePlugin<ListBladeParams<T>> {
 				value: createValue(args.params.value),
 				viewProps: args.viewProps,
 			});
-			return new LabelController(args.document, {
+			return new LabeledValueController<T, ListController<T>>(args.document, {
 				blade: args.blade,
 				props: ValueMap.fromObject({
 					label: args.params.label,
@@ -74,7 +74,7 @@ export const ListBladePlugin = (function<T>(): BladePlugin<ListBladeParams<T>> {
 			});
 		},
 		api(controller) {
-			if (!(controller instanceof LabelController)) {
+			if (!(controller instanceof LabeledValueController)) {
 				return null;
 			}
 			if (!(controller.valueController instanceof ListController)) {

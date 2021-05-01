@@ -6,7 +6,7 @@ import {SliderTextController} from '../../common/number/controller/slider-text';
 import {ParamsParser, ParamsParsers, parseParams} from '../../common/params';
 import {getSuitableDraggingScale} from '../../common/util';
 import {BladeParams} from '../common/api/types';
-import {LabelController} from '../label/controller/label';
+import {LabeledValueController} from '../label/controller/value-label';
 import {BladePlugin} from '../plugin';
 import {SliderApi} from './api/slider';
 
@@ -51,16 +51,19 @@ export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 			value: createValue(v),
 			viewProps: args.viewProps,
 		});
-		return new LabelController(args.document, {
-			blade: args.blade,
-			props: ValueMap.fromObject({
-				label: args.params.label,
-			}),
-			valueController: vc,
-		});
+		return new LabeledValueController<number, SliderTextController>(
+			args.document,
+			{
+				blade: args.blade,
+				props: ValueMap.fromObject({
+					label: args.params.label,
+				}),
+				valueController: vc,
+			},
+		);
 	},
 	api(controller) {
-		if (!(controller instanceof LabelController)) {
+		if (!(controller instanceof LabeledValueController)) {
 			return null;
 		}
 		if (!(controller.valueController instanceof SliderTextController)) {
