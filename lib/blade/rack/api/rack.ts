@@ -176,9 +176,7 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 		this.controller_.rack.remove(api.controller_);
 	}
 
-	public addBlade_v3_(
-		opt_params?: BladeParams,
-	): BladeApi<BladeController<View>> {
+	public addBlade(opt_params?: BladeParams): BladeApi<BladeController<View>> {
 		const params = opt_params ?? {};
 		const doc = this.controller_.view.element.ownerDocument;
 		const bc = createBlade(doc, params);

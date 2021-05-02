@@ -134,10 +134,8 @@ export class FolderApi extends RackLikeApi<FolderController>
 		this.rackApi_.remove(api);
 	}
 
-	public addBlade_v3_(
-		opt_params?: BladeParams,
-	): BladeApi<BladeController<View>> {
-		return this.rackApi_.addBlade_v3_(opt_params);
+	public addBlade(opt_params?: BladeParams): BladeApi<BladeController<View>> {
+		return this.rackApi_.addBlade(opt_params);
 	}
 
 	/**

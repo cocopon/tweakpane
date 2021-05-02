@@ -333,7 +333,7 @@ export function initCatalog() {
 					view: 'tab',
 				} as TabBladeParams,
 			].forEach((params) => {
-				pane.addBlade_v3_(params);
+				pane.addBlade(params);
 			});
 		},
 	};

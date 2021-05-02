@@ -73,14 +73,14 @@ export function testBladeContainer(createApi: () => BladeRackApi) {
 
 	it('should implement addBlade()', () => {
 		const api = createApi();
-		const bapi1 = api.addBlade_v3_({
+		const bapi1 = api.addBlade({
 			parse: parseNumber,
 			value: 123,
 			view: 'text',
 		});
 		assert.strictEqual(api.children[api.children.length - 1], bapi1);
 
-		const bapi2 = api.addBlade_v3_({
+		const bapi2 = api.addBlade({
 			index: 0,
 			parse: parseNumber,
 			value: 123,
