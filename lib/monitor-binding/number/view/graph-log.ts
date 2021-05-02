@@ -50,7 +50,7 @@ export class GraphLogView implements View {
 
 		const svgElem = doc.createElementNS(SVG_NS, 'svg');
 		svgElem.classList.add(className('g'));
-		svgElem.style.height = `calc(var(--bld-h) * ${config.lineCount})`;
+		svgElem.style.height = `calc(var(--bld-us) * ${config.lineCount})`;
 		this.element.appendChild(svgElem);
 		this.svgElem_ = svgElem;
 

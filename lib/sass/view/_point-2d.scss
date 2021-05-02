@@ -9,10 +9,10 @@
 	&_b {
 		@extend %button;
 
-		height: var(--bld-h);
+		height: var(--bld-us);
 		margin-right: 4px;
 		position: relative;
-		width: var(--bld-h);
+		width: var(--bld-us);
 
 		svg {
 			display: block;
@@ -56,6 +56,6 @@
 	.#{$prefix}-popv {
 		left: calc(-1 * var(--cnt-h-p));
 		right: calc(-1 * var(--cnt-h-p));
-		top: var(--bld-h);
+		top: var(--bld-us);
 	}
 }

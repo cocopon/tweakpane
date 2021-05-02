@@ -7,7 +7,7 @@
 	&_s {
 		flex-grow: 0;
 		flex-shrink: 0;
-		width: var(--bld-h);
+		width: var(--bld-us);
 	}
 	&_t {
 		flex: 1;
@@ -30,6 +30,6 @@
 	.#{$prefix}-popv {
 		left: calc(-1 * var(--cnt-h-p));
 		right: calc(-1 * var(--cnt-h-p));
-		top: var(--bld-h);
+		top: var(--bld-us);
 	}
 }

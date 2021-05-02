@@ -5,7 +5,7 @@
 		@extend %monitor;
 
 		display: block;
-		height: calc(var(--bld-h) * 3);
+		height: calc(var(--bld-us) * 3);
 
 		polyline {
 			fill: none;

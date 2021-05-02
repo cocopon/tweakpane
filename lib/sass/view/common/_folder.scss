@@ -5,11 +5,11 @@
 	color: var(--cnt-fg);
 	cursor: pointer;
 	display: block;
-	height: calc(var(--bld-h) + 4px);
-	line-height: calc(var(--bld-h) + 4px);
+	height: calc(var(--bld-us) + 4px);
+	line-height: calc(var(--bld-us) + 4px);
 	overflow: hidden;
 	padding-left: calc(var(--cnt-h-p) + 8px);
-	padding-right: calc(2px * 2 + var(--bld-h) + var(--cnt-h-p));
+	padding-right: calc(2px * 2 + var(--bld-us) + var(--cnt-h-p));
 	position: relative;
 	text-align: left;
 	text-overflow: ellipsis;
@@ -50,7 +50,7 @@
 	content: '';
 	display: block;
 	height: $size;
-	right: calc(var(--cnt-h-p) + (var(--bld-h) + 4px - #{$size}) / 2 - 2px);
+	right: calc(var(--cnt-h-p) + (var(--bld-us) + 4px - #{$size}) / 2 - 2px);
 	margin: auto;
 	opacity: 0.5;
 	position: absolute;

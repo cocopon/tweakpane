@@ -14,8 +14,8 @@
 		@extend %monitor;
 
 		display: block;
-		height: calc(var(--bld-h) * 3);
-		line-height: var(--bld-h);
+		height: calc(var(--bld-us) * 3);
+		line-height: var(--bld-us);
 		padding: 0 4px;
 		resize: none;
 		white-space: pre;
