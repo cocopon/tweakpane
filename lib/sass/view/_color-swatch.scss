@@ -16,14 +16,14 @@
 		border-width: 0;
 		cursor: pointer;
 		display: block;
-		height: var(--bld-h);
+		height: var(--bld-us);
 		left: 0;
 		margin: 0;
 		outline: none;
 		padding: 0;
 		position: absolute;
 		top: 0;
-		width: var(--bld-h);
+		width: var(--bld-us);
 
 		&:focus::after {
 			border: rgba(white, 0.75) solid 2px;

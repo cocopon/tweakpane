@@ -10,14 +10,14 @@ describe(Tweakpane.name, () => {
 			document: doc,
 		});
 
-		const i1 = pane.addBlade_v3_({
+		const i1 = pane.addBlade({
 			title: '',
 			view: 'button',
 		});
 		assert.strictEqual(i1.disabled, false);
 		assert.strictEqual(i1.hidden, false);
 
-		const i2 = pane.addBlade_v3_({
+		const i2 = pane.addBlade({
 			disabled: true,
 			hidden: true,
 			title: '',

@@ -42,6 +42,7 @@ export interface BladeRackApi {
 		key: Key,
 		opt_params?: InputParams,
 	): InputBindingApi<unknown, O[Key]>;
+
 	/**
 	 * Creates a new monitor binding and add it to the container.
 	 * @param object The binding target.
@@ -55,18 +56,18 @@ export interface BladeRackApi {
 		opt_params?: MonitorParams,
 	): MonitorBindingApi<O[Key]>;
 
-	// TODO: Rename
 	/**
-	 * @hidden
+	 * Creates a new blade and add it to the container.
+	 * @param params The options for a blade.
 	 */
-	addBlade_v3_(opt_params?: BladeParams): BladeApi<BladeController<View>>;
+	addBlade(params: BladeParams): BladeApi<BladeController<View>>;
 }
 
 export function addButtonAsBlade(
 	api: BladeRackApi,
 	params: ButtonParams,
 ): ButtonApi {
-	return api.addBlade_v3_({
+	return api.addBlade({
 		...params,
 		view: 'button',
 	}) as ButtonApi;
@@ -76,7 +77,7 @@ export function addFolderAsBlade(
 	api: BladeRackApi,
 	params: FolderParams,
 ): FolderApi {
-	return api.addBlade_v3_({
+	return api.addBlade({
 		...params,
 		view: 'folder',
 	}) as FolderApi;
@@ -87,14 +88,14 @@ export function addSeparatorAsBlade(
 	opt_params?: SeparatorParams,
 ): SeparatorApi {
 	const params = opt_params || {};
-	return api.addBlade_v3_({
+	return api.addBlade({
 		...params,
 		view: 'separator',
 	});
 }
 
 export function addTabAsBlade(api: BladeRackApi, params: TabParams): TabApi {
-	return api.addBlade_v3_({
+	return api.addBlade({
 		...params,
 		view: 'tab',
 	}) as TabApi;

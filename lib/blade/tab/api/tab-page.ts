@@ -89,9 +89,7 @@ export class TabPageApi implements BladeRackApi {
 		return this.rackApi_.addMonitor(object, key, opt_params);
 	}
 
-	public addBlade_v3_(
-		opt_params?: BladeParams,
-	): BladeApi<BladeController<View>> {
-		return this.rackApi_.addBlade_v3_(opt_params);
+	public addBlade(params: BladeParams): BladeApi<BladeController<View>> {
+		return this.rackApi_.addBlade(params);
 	}
 }

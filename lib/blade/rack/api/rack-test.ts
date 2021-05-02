@@ -57,7 +57,7 @@ describe(RackApi.name, () => {
 
 	it('should handle global value events', (done) => {
 		const api = createApi();
-		const bapi = api.addBlade_v3_({
+		const bapi = api.addBlade({
 			max: 100,
 			min: 0,
 			value: 50,

@@ -103,7 +103,7 @@ describe(TabApi.name, () => {
 		const api = new TabApi(c);
 		api.addPage({title: ''});
 		api.addPage({title: ''});
-		const tapi = api.pages[1].addBlade_v3_({
+		const tapi = api.pages[1].addBlade({
 			pages: [{title: ''}, {title: ''}],
 			view: 'tab',
 		}) as TabApi;

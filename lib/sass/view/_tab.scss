@@ -9,7 +9,7 @@
 		overflow: hidden;
 	}
 	&#{&}-nop &_i {
-		height: calc(var(--bld-h) + 4px);
+		height: calc(var(--bld-us) + 4px);
 		position: relative;
 
 		&::before {
@@ -76,8 +76,8 @@
 	}
 	&_t {
 		color: var(--cnt-fg);
-		height: calc(var(--bld-h) + 4px);
-		line-height: calc(var(--bld-h) + 4px);
+		height: calc(var(--bld-us) + 4px);
+		line-height: calc(var(--bld-us) + 4px);
 		opacity: 0.5;
 		overflow: hidden;
 		text-overflow: ellipsis;

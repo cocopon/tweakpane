@@ -52,7 +52,7 @@ $slider-track-width: 4px;
 	&_c {
 		cursor: crosshair;
 		display: block;
-		height: calc(var(--bld-h) * 4);
+		height: calc(var(--bld-us) * 4);
 		width: 100%;
 	}
 	&_m {
@@ -74,7 +74,7 @@ $slider-track-width: 4px;
 
 .#{$prefix}-hplv {
 	cursor: pointer;
-	height: var(--bld-h);
+	height: var(--bld-us);
 	outline: none;
 	position: relative;
 
@@ -113,7 +113,7 @@ $slider-track-width: 4px;
 
 .#{$prefix}-aplv {
 	cursor: pointer;
-	height: var(--bld-h);
+	height: var(--bld-us);
 	outline: none;
 	position: relative;
 	width: 100%;

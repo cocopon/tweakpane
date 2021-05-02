@@ -33,7 +33,7 @@ export class MultiLogView<T> implements View {
 
 		const textareaElem = doc.createElement('textarea');
 		textareaElem.classList.add(className('i'));
-		textareaElem.style.height = `calc(var(--bld-h) * ${config.lineCount})`;
+		textareaElem.style.height = `calc(var(--bld-us) * ${config.lineCount})`;
 		textareaElem.readOnly = true;
 		config.viewProps.bindDisabled(textareaElem);
 		this.element.appendChild(textareaElem);

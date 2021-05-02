@@ -22,7 +22,9 @@
 			box-shadow: 0 0 0 transparent;
 
 			@include nonwide() {
-				--tp-value-width-v3: 60vw;
+				.tp-lblv_v {
+					width: 60vw;
+				}
 			}
 		}
 	}
