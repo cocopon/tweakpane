@@ -1,4 +1,4 @@
-import {PickerLayout} from '../../../blade/common/api/types';
+import {PickerLayout} from '../../../blade/common/api/params';
 import {
 	bindFoldable,
 	createFoldable,

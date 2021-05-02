@@ -4,7 +4,7 @@ import {Parser} from '../../common/converter/parser';
 import {ValueMap} from '../../common/model/value-map';
 import {createValue} from '../../common/model/values';
 import {ParamsParser, ParamsParsers, parseParams} from '../../common/params';
-import {BladeParams} from '../common/api/types';
+import {BladeParams} from '../common/api/params';
 import {LabeledValueController} from '../label/controller/value-label';
 import {BladePlugin} from '../plugin';
 import {TextApi} from './api/text';

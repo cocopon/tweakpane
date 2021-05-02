@@ -7,7 +7,7 @@ import {
 	ArrayStyleListOptions,
 	BladeParams,
 	ObjectStyleListOptions,
-} from '../common/api/types';
+} from '../common/api/params';
 import {LabeledValueController} from '../label/controller/value-label';
 import {BladePlugin} from '../plugin';
 import {ListApi} from './api/list';

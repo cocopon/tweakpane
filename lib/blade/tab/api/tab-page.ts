@@ -10,7 +10,7 @@ import {
 	MonitorParams,
 	SeparatorParams,
 	TabParams,
-} from '../../common/api/types';
+} from '../../common/api/params';
 import {BladeController} from '../../common/controller/blade';
 import {FolderApi} from '../../folder/api/folder';
 import {InputBindingApi} from '../../input-binding/api/input-binding';

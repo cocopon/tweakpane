@@ -1,4 +1,4 @@
-import {InputParams} from '../blade/common/api/types';
+import {InputParams} from '../blade/common/api/params';
 import {createBlade} from '../blade/common/model/blade';
 import {InputBindingController} from '../blade/input-binding/controller/input-binding';
 import {LabelPropsObject} from '../blade/label/view/label';

@@ -1,4 +1,4 @@
-import {MonitorParams} from '../blade/common/api/types';
+import {MonitorParams} from '../blade/common/api/params';
 import {createBlade} from '../blade/common/model/blade';
 import {LabelPropsObject} from '../blade/label/view/label';
 import {MonitorBindingController} from '../blade/monitor-binding/controller/monitor-binding';

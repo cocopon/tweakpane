@@ -2,7 +2,7 @@ import {
 	ArrayStyleListOptions,
 	InputParams,
 	ObjectStyleListOptions,
-} from '../blade/common/api/types';
+} from '../blade/common/api/params';
 import {forceCast} from '../misc/type-util';
 import {findConstraint} from './constraint/composite';
 import {Constraint} from './constraint/constraint';

@@ -12,14 +12,6 @@ import {
 	BladeRackApi,
 } from '../../common/api/blade-rack';
 import {
-	createBlade,
-	createBladeApi,
-	createInput,
-	createMonitor,
-} from '../../common/api/plugins';
-import {RackLikeApi} from '../../common/api/rack-like-api';
-import {TpChangeEvent, TpUpdateEvent} from '../../common/api/tp-event';
-import {
 	BladeParams,
 	ButtonParams,
 	FolderParams,
@@ -27,7 +19,15 @@ import {
 	MonitorParams,
 	SeparatorParams,
 	TabParams,
-} from '../../common/api/types';
+} from '../../common/api/params';
+import {
+	createBlade,
+	createBladeApi,
+	createInput,
+	createMonitor,
+} from '../../common/api/plugins';
+import {RackLikeApi} from '../../common/api/rack-like-api';
+import {TpChangeEvent, TpUpdateEvent} from '../../common/api/tp-event';
 import {createBindingTarget} from '../../common/api/util';
 import {BladeController} from '../../common/controller/blade';
 import {ValueBladeController} from '../../common/controller/value-blade';

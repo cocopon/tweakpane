@@ -1,6 +1,6 @@
 import {ValueMap} from '../../common/model/value-map';
 import {ParamsParsers, parseParams} from '../../common/params';
-import {BladeParams} from '../common/api/types';
+import {BladeParams} from '../common/api/params';
 import {BladePlugin} from '../plugin';
 import {TabApi} from './api/tab';
 import {TabController} from './controller/tab';

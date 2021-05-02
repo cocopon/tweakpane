@@ -4,7 +4,7 @@ import {View} from '../common/view/view';
 import {forceCast} from '../misc/type-util';
 import {BasePlugin} from '../plugin';
 import {BladeApi} from './common/api/blade';
-import {BladeParams} from './common/api/types';
+import {BladeParams} from './common/api/params';
 import {BladeController} from './common/controller/blade';
 import {Blade, createBlade} from './common/model/blade';
 

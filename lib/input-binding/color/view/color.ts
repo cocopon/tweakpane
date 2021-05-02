@@ -1,4 +1,4 @@
-import {PickerLayout} from '../../../blade/common/api/types';
+import {PickerLayout} from '../../../blade/common/api/params';
 import {bindValue} from '../../../common/model/reactive';
 import {Value} from '../../../common/model/value';
 import {ClassName} from '../../../common/view/class-name';
