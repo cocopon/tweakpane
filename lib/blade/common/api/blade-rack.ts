@@ -58,9 +58,9 @@ export interface BladeRackApi {
 
 	/**
 	 * Creates a new blade and add it to the container.
-	 * @param opt_params The options for a blade.
+	 * @param params The options for a blade.
 	 */
-	addBlade(opt_params?: BladeParams): BladeApi<BladeController<View>>;
+	addBlade(params: BladeParams): BladeApi<BladeController<View>>;
 }
 
 export function addButtonAsBlade(
