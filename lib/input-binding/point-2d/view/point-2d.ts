@@ -1,4 +1,4 @@
-import {PickerLayout} from '../../../blade/common/api/types';
+import {PickerLayout} from '../../../blade/common/api/params';
 import {createSvgIconElement} from '../../../common/dom-util';
 import {bindValue} from '../../../common/model/reactive';
 import {Value} from '../../../common/model/value';

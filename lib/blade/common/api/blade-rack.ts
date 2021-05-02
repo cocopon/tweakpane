@@ -15,7 +15,7 @@ import {
 	MonitorParams,
 	SeparatorParams,
 	TabParams,
-} from './types';
+} from './params';
 
 export interface BladeRackApi {
 	/**

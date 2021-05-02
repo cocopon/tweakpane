@@ -1,4 +1,4 @@
-import {MonitorParams} from '../../blade/common/api/types';
+import {MonitorParams} from '../../blade/common/api/params';
 import {Controller} from '../../common/controller/controller';
 import {Formatter} from '../../common/converter/formatter';
 import {

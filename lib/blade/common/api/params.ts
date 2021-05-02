@@ -1,5 +1,3 @@
-// TODO: Rename to `params.ts`
-
 import {Formatter} from '../../../common/converter/formatter';
 
 interface BaseParams {

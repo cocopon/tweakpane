@@ -1,4 +1,4 @@
-import {InputParams} from '../../blade/common/api/types';
+import {InputParams} from '../../blade/common/api/params';
 import {
 	CompositeConstraint,
 	findConstraint,

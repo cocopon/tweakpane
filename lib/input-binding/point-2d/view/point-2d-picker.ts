@@ -1,4 +1,4 @@
-import {PickerLayout} from '../../../blade/common/api/types';
+import {PickerLayout} from '../../../blade/common/api/params';
 import {SVG_NS} from '../../../common/dom-util';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';

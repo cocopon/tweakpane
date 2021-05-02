@@ -1,4 +1,4 @@
-import {InputParams, PointDimensionParams} from '../../blade/common/api/types';
+import {InputParams, PointDimensionParams} from '../../blade/common/api/params';
 import {
 	CompositeConstraint,
 	findConstraint,

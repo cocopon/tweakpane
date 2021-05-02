@@ -4,12 +4,6 @@ import {View} from '../../../common/view/view';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
 import {BladeRackApi} from '../../common/api/blade-rack';
-import {RackLikeApi} from '../../common/api/rack-like-api';
-import {
-	TpChangeEvent,
-	TpFoldEvent,
-	TpUpdateEvent,
-} from '../../common/api/tp-event';
 import {
 	BladeParams,
 	ButtonParams,
@@ -18,7 +12,13 @@ import {
 	MonitorParams,
 	SeparatorParams,
 	TabParams,
-} from '../../common/api/types';
+} from '../../common/api/params';
+import {RackLikeApi} from '../../common/api/rack-like-api';
+import {
+	TpChangeEvent,
+	TpFoldEvent,
+	TpUpdateEvent,
+} from '../../common/api/tp-event';
 import {BladeController} from '../../common/controller/blade';
 import {InputBindingApi} from '../../input-binding/api/input-binding';
 import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';

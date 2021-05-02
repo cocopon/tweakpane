@@ -1,4 +1,4 @@
-import {PickerLayout} from '../../../blade/common/api/types';
+import {PickerLayout} from '../../../blade/common/api/params';
 import {Controller} from '../../../common/controller/controller';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
