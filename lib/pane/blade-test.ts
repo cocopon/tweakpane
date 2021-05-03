@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 
-import Tweakpane from '../index';
+import {Tweakpane} from '../index';
 import {TestUtil} from '../misc/test-util';
 
 describe(Tweakpane.name, () => {

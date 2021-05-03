@@ -1,5 +1,5 @@
 const Jsdom = require('jsdom').JSDOM;
-const Tweakpane = require('tweakpane');
+const {Tweakpane} = require('tweakpane');
 require('../dist/bundle');
 
 const doc = new Jsdom('').window.document;

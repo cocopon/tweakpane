@@ -1,6 +1,6 @@
 import {describe, it} from 'mocha';
 
-import Tweakpane from '../index';
+import {Tweakpane} from '../index';
 import {TestUtil} from '../misc/test-util';
 
 function createPane(): Tweakpane {

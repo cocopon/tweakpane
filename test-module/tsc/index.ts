@@ -1,6 +1,6 @@
 import {JSDOM} from 'jsdom';
 // Import default module
-import Tweakpane from 'tweakpane';
+import {Tweakpane} from 'tweakpane';
 import {
 	TpChangeEvent,
 	TpUpdateEvent,

@@ -6,7 +6,7 @@ import {InputBindingController} from '../blade/input-binding/controller/input-bi
 import {LabelController} from '../blade/label/controller/label';
 import {MonitorBindingController} from '../blade/monitor-binding/controller/monitor-binding';
 import {SeparatorController} from '../blade/separator/controller/separator';
-import Tweakpane from '../index';
+import {Tweakpane} from '../index';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
 

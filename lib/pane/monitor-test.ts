@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import Tweakpane from '..';
+import {Tweakpane} from '..';
 import {TpUpdateEvent} from '../blade/common/api/tp-event';
 import {IntervalTicker} from '../common/binding/ticker/interval';
 import {ManualTicker} from '../common/binding/ticker/manual';
