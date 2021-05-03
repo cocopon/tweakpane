@@ -242,10 +242,11 @@ export function initInput() {
 				container: container,
 			});
 			pane.addInput(PARAMS, 'background', {
-				input: 'color',
+				view: 'color',
 			});
 			pane.addInput(PARAMS, 'tint', {
-				input: 'color.rgba',
+				alpha: true,
+				view: 'color',
 			});
 		},
 		inputstring: (container) => {
@@ -256,7 +257,7 @@ export function initInput() {
 				container: container,
 			});
 			pane.addInput(PARAMS, 'hex', {
-				input: 'string',
+				view: 'text',
 			});
 		},
 		colorinline: (container) => {

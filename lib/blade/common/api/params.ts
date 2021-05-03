@@ -42,12 +42,9 @@ export interface NumberInputParams extends BaseInputParams {
 	step?: number;
 }
 
-// TODO: Use `view` instead
-type ColorInputType = 'color' | 'color.rgb' | 'color.rgba';
-
 export interface ColorInputParams extends BaseInputParams {
+	alpha?: boolean;
 	expanded?: boolean;
-	input?: ColorInputType;
 	picker?: PickerLayout;
 }
 
@@ -71,11 +68,7 @@ export interface Point4dInputParams extends BaseInputParams {
 	w?: PointDimensionParams;
 }
 
-// TODO: Use `view` instead
-export type StringInputType = 'string';
-
 export interface StringInputParams extends BaseInputParams {
-	input?: StringInputType;
 	options?: ArrayStyleListOptions<string> | ObjectStyleListOptions<string>;
 }
 

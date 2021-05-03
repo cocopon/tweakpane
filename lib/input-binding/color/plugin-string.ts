@@ -20,7 +20,7 @@ export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
 		if (typeof value !== 'string') {
 			return null;
 		}
-		if ('input' in params && params.input === 'string') {
+		if ('view' in params && params.view === 'text') {
 			return null;
 		}
 		const notation = getColorNotation(value);
