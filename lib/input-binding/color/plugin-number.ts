@@ -14,7 +14,7 @@ import {createColorNumberWriter} from './converter/writer';
 import {Color} from './model/color';
 
 function shouldSupportAlpha(inputParams: InputParams): boolean {
-	return 'input' in inputParams && inputParams.input === 'color.rgba';
+	return 'alpha' in inputParams && inputParams.alpha === true;
 }
 
 /**
@@ -27,14 +27,10 @@ export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
 			return null;
 		}
 
-		if (!('input' in params)) {
+		if (!('view' in params)) {
 			return null;
 		}
-		if (
-			params.input !== 'color' &&
-			params.input !== 'color.rgb' &&
-			params.input !== 'color.rgba'
-		) {
+		if (params.view !== 'color') {
 			return null;
 		}
 

@@ -228,14 +228,14 @@ describe(Tweakpane.name, () => {
 		{
 			args: {
 				value: '#112233',
-				params: {input: 'string'},
+				params: {view: 'text'},
 			},
 			expectedClass: TextController,
 		},
 		{
 			args: {
 				value: 'rgb(0, 100, 200)',
-				params: {input: 'string'},
+				params: {view: 'text'},
 			},
 			expectedClass: TextController,
 		},
@@ -268,16 +268,7 @@ describe(Tweakpane.name, () => {
 			args: {
 				value: 0x112233,
 				params: {
-					input: 'color',
-				},
-			},
-			expectedClass: ColorController,
-		},
-		{
-			args: {
-				value: 0x112233,
-				params: {
-					input: 'color.rgb',
+					view: 'color',
 				},
 			},
 			expectedClass: ColorController,
@@ -286,7 +277,8 @@ describe(Tweakpane.name, () => {
 			args: {
 				value: 0x11223344,
 				params: {
-					input: 'color.rgba',
+					alpha: true,
+					view: 'color',
 				},
 			},
 			expectedClass: ColorController,
