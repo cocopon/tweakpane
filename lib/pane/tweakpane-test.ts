@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import Tweakpane from '..';
+import {Tweakpane} from '..';
 import {TextController} from '../common/controller/text';
 import {formatString, stringFromUnknown} from '../common/converter/string';
 import {ValueMap} from '../common/model/value-map';

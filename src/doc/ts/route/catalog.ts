@@ -1,6 +1,6 @@
 import {toCss} from 'ts/panepaint';
 import {createTheme, ThemeId} from 'ts/themes';
-import Tweakpane from 'tweakpane';
+import {Tweakpane} from 'tweakpane';
 import {ButtonBladeParams} from 'tweakpane/blade/button/plugin';
 import {FolderBladeParams} from 'tweakpane/blade/folder/plugin';
 import {ListBladeParams} from 'tweakpane/blade/list/plugin';

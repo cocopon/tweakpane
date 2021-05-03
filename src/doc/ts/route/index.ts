@@ -1,4 +1,4 @@
-import Tweakpane from 'tweakpane';
+import {Tweakpane} from 'tweakpane';
 import {mapRange} from 'tweakpane/common/number-util';
 
 import {

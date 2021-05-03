@@ -2,7 +2,7 @@
 
 const Jsdom = require('jsdom').JSDOM;
 // Require default module
-const Tweakpane = require('tweakpane');
+const {Tweakpane} = require('tweakpane');
 
 const Package = require('../../package.json');
 

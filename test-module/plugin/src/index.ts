@@ -1,4 +1,4 @@
-import Tweakpane from 'tweakpane';
+import {Tweakpane} from 'tweakpane';
 import {Controller} from 'tweakpane/lib/common/controller/controller';
 // Import individual classes
 import {stringFromUnknown} from 'tweakpane/lib/common/converter/string';

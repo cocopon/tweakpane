@@ -1,4 +1,4 @@
-import Tweakpane from 'tweakpane';
+import {Tweakpane} from 'tweakpane';
 
 import {selectContainer} from '../util';
 
