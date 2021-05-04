@@ -1,4 +1,4 @@
-import {BaseParams, LabelableParams} from '../../../common/params';
+import {BaseParams} from '../../../common/params';
 import {BooleanInputParams} from '../../../input-binding/boolean/plugin';
 import {ColorInputParams} from '../../../input-binding/color/util';
 import {NumberInputParams} from '../../../input-binding/number/plugin';
@@ -24,8 +24,10 @@ export type MonitorParams =
 	| NumberMonitorParams
 	| StringMonitorParams;
 
-export interface ButtonParams extends BaseParams, LabelableParams {
+export interface ButtonParams extends BaseParams {
 	title: string;
+
+	label?: string;
 }
 
 export interface FolderParams extends BaseParams {

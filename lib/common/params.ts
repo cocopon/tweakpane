@@ -4,10 +4,6 @@ export interface BaseParams {
 	index?: number;
 }
 
-export interface LabelableParams {
-	label?: string;
-}
-
 export type ArrayStyleListOptions<T> = {text: string; value: T}[];
 export type ObjectStyleListOptions<T> = {[text: string]: T};
 export type ListParamsOptions<T> =
@@ -22,20 +18,16 @@ export interface PointDimensionParams {
 
 export type PickerLayout = 'inline' | 'popup';
 
-export interface BaseInputParams
-	extends BaseParams,
-		LabelableParams,
-		Record<string, unknown> {
+export interface BaseInputParams extends BaseParams, Record<string, unknown> {
+	label?: string;
 	presetKey?: string;
 	view?: string;
 }
 
-export interface BaseMonitorParams
-	extends BaseParams,
-		LabelableParams,
-		Record<string, unknown> {
+export interface BaseMonitorParams extends BaseParams, Record<string, unknown> {
 	bufferSize?: number;
 	interval?: number;
+	label?: string;
 	view?: string;
 }
 
