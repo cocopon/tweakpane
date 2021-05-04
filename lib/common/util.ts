@@ -1,7 +1,10 @@
 import {
 	ArrayStyleListOptions,
 	InputParams,
+	ListParamsOptions,
 	ObjectStyleListOptions,
+	PickerLayout,
+	PointDimensionParams,
 } from '../blade/common/api/params';
 import {forceCast} from '../misc/type-util';
 import {findConstraint} from './constraint/composite';
@@ -9,6 +12,44 @@ import {Constraint} from './constraint/constraint';
 import {ListConstraint, ListItem} from './constraint/list';
 import {StepConstraint} from './constraint/step';
 import {getDecimalDigits} from './number-util';
+import {ParamsParser, ParamsParsers} from './params';
+
+export function parseListOptions<T>(
+	value: unknown,
+): ListParamsOptions<T> | undefined {
+	const p = ParamsParsers;
+	if (Array.isArray(value)) {
+		return p.required.array(
+			p.required.object({
+				text: p.required.string,
+				value: p.required.raw as ParamsParser<T>,
+			}),
+		)(value).value;
+	}
+	if (typeof value === 'object') {
+		return (p.required.raw as ParamsParser<ObjectStyleListOptions<T>>)(value)
+			.value;
+	}
+	return undefined;
+}
+
+export function parsePickerLayout(value: unknown): PickerLayout | undefined {
+	if (value === 'inline' || value === 'popup') {
+		return value;
+	}
+	return undefined;
+}
+
+export function parsePointDimensionParams(
+	value: unknown,
+): PointDimensionParams | undefined {
+	const p = ParamsParsers;
+	return p.required.object({
+		max: p.optional.number,
+		min: p.optional.number,
+		step: p.optional.number,
+	})(value).value;
+}
 
 export function normalizeListOptions<T>(
 	options: ArrayStyleListOptions<T> | ObjectStyleListOptions<T>,

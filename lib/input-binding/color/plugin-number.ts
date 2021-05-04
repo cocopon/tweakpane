@@ -1,4 +1,3 @@
-import {InputParams} from '../../blade/common/api/params';
 import {InputBindingPlugin} from '../plugin';
 import {ColorController} from './controller/color';
 import {
@@ -12,21 +11,25 @@ import {
 } from './converter/color-string';
 import {createColorNumberWriter} from './converter/writer';
 import {Color} from './model/color';
+import {ColorInputParams, parseColorInputParams} from './util';
 
-function shouldSupportAlpha(inputParams: InputParams): boolean {
+function shouldSupportAlpha(inputParams: ColorInputParams): boolean {
 	return 'alpha' in inputParams && inputParams.alpha === true;
 }
 
 /**
  * @hidden
  */
-export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
+export const NumberColorInputPlugin: InputBindingPlugin<
+	Color,
+	number,
+	ColorInputParams
+> = {
 	id: 'input-color-number',
 	accept: (value, params) => {
 		if (typeof value !== 'number') {
 			return null;
 		}
-
 		if (!('view' in params)) {
 			return null;
 		}
@@ -34,7 +37,13 @@ export const NumberColorInputPlugin: InputBindingPlugin<Color, number> = {
 			return null;
 		}
 
-		return value;
+		const result = parseColorInputParams(params);
+		return result
+			? {
+					initialValue: value,
+					params: result,
+			  }
+			: null;
 	},
 	binding: {
 		reader: (args) => {

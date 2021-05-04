@@ -1,4 +1,7 @@
-import {InputParams} from '../../blade/common/api/params';
+import {
+	BaseInputParams,
+	ListParamsOptions,
+} from '../../blade/common/api/params';
 import {
 	CompositeConstraint,
 	findConstraint,
@@ -8,6 +11,7 @@ import {ListConstraint} from '../../common/constraint/list';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
 import {ListController} from '../../common/controller/list';
+import {Formatter} from '../../common/converter/formatter';
 import {
 	createNumberFormatter,
 	parseNumber,
@@ -16,6 +20,7 @@ import {numberFromUnknown} from '../../common/converter/number';
 import {ValueMap} from '../../common/model/value-map';
 import {NumberTextController} from '../../common/number/controller/number-text';
 import {SliderTextController} from '../../common/number/controller/slider-text';
+import {ParamsParser, ParamsParsers, parseParams} from '../../common/params';
 import {writePrimitive} from '../../common/primitive';
 import {
 	createListConstraint,
@@ -23,9 +28,18 @@ import {
 	getBaseStep,
 	getSuitableDecimalDigits,
 	getSuitableDraggingScale,
+	parseListOptions,
 } from '../../common/util';
 import {isEmpty} from '../../misc/type-util';
 import {InputBindingPlugin} from '../plugin';
+
+interface NumberInputParams extends BaseInputParams {
+	format?: Formatter<number>;
+	max?: number;
+	min?: number;
+	options?: ListParamsOptions<number>;
+	step?: number;
+}
 
 /**
  * Tries to create a step constraint.
@@ -33,7 +47,7 @@ import {InputBindingPlugin} from '../plugin';
  * @return A constraint or null if not found.
  */
 export function createStepConstraint(
-	params: InputParams,
+	params: NumberInputParams,
 ): Constraint<number> | null {
 	if ('step' in params && !isEmpty(params.step)) {
 		return new StepConstraint(params.step);
@@ -47,7 +61,7 @@ export function createStepConstraint(
  * @return A constraint or null if not found.
  */
 export function createRangeConstraint(
-	params: InputParams,
+	params: NumberInputParams,
 ): Constraint<number> | null {
 	if (
 		('max' in params && !isEmpty(params.max)) ||
@@ -61,7 +75,7 @@ export function createRangeConstraint(
 	return null;
 }
 
-function createConstraint(params: InputParams): Constraint<number> {
+function createConstraint(params: NumberInputParams): Constraint<number> {
 	const constraints: Constraint<number>[] = [];
 
 	const sc = createStepConstraint(params);
@@ -101,9 +115,31 @@ function estimateSuitableRange(
 /**
  * @hidden
  */
-export const NumberInputPlugin: InputBindingPlugin<number, number> = {
+export const NumberInputPlugin: InputBindingPlugin<
+	number,
+	number,
+	NumberInputParams
+> = {
 	id: 'input-number',
-	accept: (value) => (typeof value === 'number' ? value : null),
+	accept: (value, params) => {
+		if (typeof value !== 'number') {
+			return null;
+		}
+		const p = ParamsParsers;
+		const result = parseParams<NumberInputParams>(params, {
+			format: p.optional.function as ParamsParser<Formatter<number>>,
+			max: p.optional.number,
+			min: p.optional.number,
+			options: p.optional.custom<ListParamsOptions<number>>(parseListOptions),
+			step: p.optional.number,
+		});
+		return result
+			? {
+					initialValue: value,
+					params: result,
+			  }
+			: null;
+	},
 	binding: {
 		reader: (_args) => numberFromUnknown,
 		constraint: (args) => createConstraint(args.params),

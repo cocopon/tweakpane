@@ -12,6 +12,9 @@ interface LabelableParams {
 
 export type ArrayStyleListOptions<T> = {text: string; value: T}[];
 export type ObjectStyleListOptions<T> = {[text: string]: T};
+export type ListParamsOptions<T> =
+	| ArrayStyleListOptions<T>
+	| ObjectStyleListOptions<T>;
 
 export interface PointDimensionParams {
 	max?: number;
@@ -23,7 +26,10 @@ export interface Point2dYParams extends PointDimensionParams {
 	inverted?: boolean;
 }
 
-export interface BaseInputParams extends BaseParams, LabelableParams {
+export interface BaseInputParams
+	extends BaseParams,
+		LabelableParams,
+		Record<string, unknown> {
 	presetKey?: string;
 	view?: string;
 }
@@ -31,14 +37,14 @@ export interface BaseInputParams extends BaseParams, LabelableParams {
 export type PickerLayout = 'inline' | 'popup';
 
 export interface BooleanInputParams extends BaseInputParams {
-	options?: ArrayStyleListOptions<boolean> | ObjectStyleListOptions<boolean>;
+	options?: ListParamsOptions<boolean>;
 }
 
 export interface NumberInputParams extends BaseInputParams {
 	format?: Formatter<number>;
 	max?: number;
 	min?: number;
-	options?: ArrayStyleListOptions<number> | ObjectStyleListOptions<number>;
+	options?: ListParamsOptions<number>;
 	step?: number;
 }
 
@@ -69,7 +75,7 @@ export interface Point4dInputParams extends BaseInputParams {
 }
 
 export interface StringInputParams extends BaseInputParams {
-	options?: ArrayStyleListOptions<string> | ObjectStyleListOptions<string>;
+	options?: ListParamsOptions<string>;
 }
 
 export type InputParams =

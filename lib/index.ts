@@ -1,3 +1,4 @@
+import {BaseInputParams, BaseMonitorParams} from './blade/common/api/params';
 import {getAllPlugins} from './blade/common/api/plugins';
 import {registerPlugin} from './blade/common/api/util';
 import {createBlade} from './blade/common/model/blade';
@@ -129,7 +130,7 @@ function registerDefaultPlugins() {
 		ObjectColorInputPlugin,
 		NumberColorInputPlugin,
 		BooleanInputPlugin,
-	].forEach((p: InputBindingPlugin<any, any>) => {
+	].forEach((p: InputBindingPlugin<any, any, BaseInputParams>) => {
 		registerPlugin({
 			type: 'input',
 			plugin: p,
@@ -137,7 +138,7 @@ function registerDefaultPlugins() {
 	});
 
 	[BooleanMonitorPlugin, StringMonitorPlugin, NumberMonitorPlugin].forEach(
-		(p: MonitorBindingPlugin<any, any>) => {
+		(p: MonitorBindingPlugin<any, BaseMonitorParams>) => {
 			registerPlugin({
 				type: 'monitor',
 				plugin: p,

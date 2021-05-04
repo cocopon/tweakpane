@@ -39,6 +39,7 @@ interface ControllerArguments<T, P extends BaseMonitorParams> {
 /**
  * A monitor binding plugin interface.
  * @template T The type of the value.
+ * @template P The type of the parameters.
  */
 export interface MonitorBindingPlugin<T, P extends BaseMonitorParams>
 	extends BasePlugin {

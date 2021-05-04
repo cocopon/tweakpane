@@ -1,4 +1,5 @@
 import {Tweakpane} from 'tweakpane';
+import {BaseInputParams} from 'tweakpane/lib/blade/common/api/params';
 import {Controller} from 'tweakpane/lib/common/controller/controller';
 // Import individual classes
 import {stringFromUnknown} from 'tweakpane/lib/common/converter/string';
@@ -69,6 +70,6 @@ class TestController implements Controller<TestView> {
 					viewProps: args.viewProps,
 				});
 			},
-		} as InputBindingPlugin<string, string>,
+		} as InputBindingPlugin<string, string, BaseInputParams>,
 	});
 }

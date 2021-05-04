@@ -1,4 +1,7 @@
-import {InputParams} from '../../blade/common/api/params';
+import {
+	BaseInputParams,
+	ListParamsOptions,
+} from '../../blade/common/api/params';
 import {
 	CompositeConstraint,
 	findConstraint,
@@ -8,12 +11,21 @@ import {ListConstraint} from '../../common/constraint/list';
 import {ListController} from '../../common/controller/list';
 import {boolFromUnknown} from '../../common/converter/boolean';
 import {ValueMap} from '../../common/model/value-map';
+import {ParamsParsers, parseParams} from '../../common/params';
 import {writePrimitive} from '../../common/primitive';
-import {createListConstraint, findListItems} from '../../common/util';
+import {
+	createListConstraint,
+	findListItems,
+	parseListOptions,
+} from '../../common/util';
 import {InputBindingPlugin} from '../plugin';
 import {CheckboxController} from './controller/checkbox';
 
-function createConstraint(params: InputParams): Constraint<boolean> {
+interface BooleanInputParams extends BaseInputParams {
+	options?: ListParamsOptions<boolean>;
+}
+
+function createConstraint(params: BooleanInputParams): Constraint<boolean> {
 	const constraints: Constraint<boolean>[] = [];
 
 	const lc = createListConstraint<boolean>(params);
@@ -27,9 +39,27 @@ function createConstraint(params: InputParams): Constraint<boolean> {
 /**
  * @hidden
  */
-export const BooleanInputPlugin: InputBindingPlugin<boolean, boolean> = {
+export const BooleanInputPlugin: InputBindingPlugin<
+	boolean,
+	boolean,
+	BooleanInputParams
+> = {
 	id: 'input-bool',
-	accept: (value) => (typeof value === 'boolean' ? value : null),
+	accept: (value, params) => {
+		if (typeof value !== 'boolean') {
+			return null;
+		}
+		const p = ParamsParsers;
+		const result = parseParams<BooleanInputParams>(params, {
+			options: p.optional.custom<ListParamsOptions<boolean>>(parseListOptions),
+		});
+		return result
+			? {
+					initialValue: value,
+					params: result,
+			  }
+			: null;
+	},
 	binding: {
 		reader: (_args) => boolFromUnknown,
 		constraint: (args) => createConstraint(args.params),

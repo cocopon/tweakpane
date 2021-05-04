@@ -10,11 +10,16 @@ import {
 } from './converter/color-string';
 import {createColorStringWriter} from './converter/writer';
 import {Color} from './model/color';
+import {ColorInputParams, parseColorInputParams} from './util';
 
 /**
  * @hidden
  */
-export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
+export const StringColorInputPlugin: InputBindingPlugin<
+	Color,
+	string,
+	ColorInputParams
+> = {
 	id: 'input-color-string',
 	accept: (value, params) => {
 		if (typeof value !== 'string') {
@@ -27,7 +32,14 @@ export const StringColorInputPlugin: InputBindingPlugin<Color, string> = {
 		if (!notation) {
 			return null;
 		}
-		return value;
+
+		const result = parseColorInputParams(params);
+		return result
+			? {
+					initialValue: value,
+					params: result,
+			  }
+			: null;
 	},
 	binding: {
 		reader: (_args) => colorFromString,

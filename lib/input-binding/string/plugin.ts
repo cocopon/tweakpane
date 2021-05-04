@@ -1,4 +1,7 @@
-import {InputParams} from '../../blade/common/api/params';
+import {
+	BaseInputParams,
+	ListParamsOptions,
+} from '../../blade/common/api/params';
 import {
 	CompositeConstraint,
 	findConstraint,
@@ -9,11 +12,20 @@ import {ListController} from '../../common/controller/list';
 import {TextController} from '../../common/controller/text';
 import {formatString, stringFromUnknown} from '../../common/converter/string';
 import {ValueMap} from '../../common/model/value-map';
+import {ParamsParsers, parseParams} from '../../common/params';
 import {writePrimitive} from '../../common/primitive';
-import {createListConstraint, findListItems} from '../../common/util';
+import {
+	createListConstraint,
+	findListItems,
+	parseListOptions,
+} from '../../common/util';
 import {InputBindingPlugin} from '../plugin';
 
-function createConstraint(params: InputParams): Constraint<string> {
+interface StringInputParams extends BaseInputParams {
+	options?: ListParamsOptions<string>;
+}
+
+function createConstraint(params: StringInputParams): Constraint<string> {
 	const constraints: Constraint<string>[] = [];
 
 	const lc = createListConstraint<string>(params);
@@ -27,9 +39,27 @@ function createConstraint(params: InputParams): Constraint<string> {
 /**
  * @hidden
  */
-export const StringInputPlugin: InputBindingPlugin<string, string> = {
+export const StringInputPlugin: InputBindingPlugin<
+	string,
+	string,
+	StringInputParams
+> = {
 	id: 'input-string',
-	accept: (value, _params) => (typeof value === 'string' ? value : null),
+	accept: (value, params) => {
+		if (typeof value !== 'string') {
+			return null;
+		}
+		const p = ParamsParsers;
+		const result = parseParams<StringInputParams>(params, {
+			options: p.optional.custom<ListParamsOptions<string>>(parseListOptions),
+		});
+		return result
+			? {
+					initialValue: value,
+					params: result,
+			  }
+			: null;
+	},
 	binding: {
 		reader: (_args) => stringFromUnknown,
 		constraint: (args) => createConstraint(args.params),

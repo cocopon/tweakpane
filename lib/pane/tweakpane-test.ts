@@ -2,6 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {Tweakpane} from '..';
+import {BaseInputParams} from '../blade/common/api/params';
 import {TextController} from '../common/controller/text';
 import {formatString, stringFromUnknown} from '../common/converter/string';
 import {ValueMap} from '../common/model/value-map';
@@ -107,7 +108,7 @@ describe(Tweakpane.name, () => {
 						viewProps: ViewProps.create(),
 					});
 				},
-			} as InputBindingPlugin<string, string>,
+			} as InputBindingPlugin<string, string, BaseInputParams>,
 		});
 		const doc = TestUtil.createWindow().document;
 		new Tweakpane({

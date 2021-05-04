@@ -1,6 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
+import {BaseInputParams} from '../blade/common/api/params';
 import {BindingTarget} from '../common/binding/target';
 import {Controller} from '../common/controller/controller';
 import {stringFromUnknown} from '../common/converter/string';
@@ -41,9 +42,10 @@ class TestController implements Controller<TestView> {
 	}
 }
 
-const TestPlugin: InputBindingPlugin<string, string> = {
+const TestPlugin: InputBindingPlugin<string, string, BaseInputParams> = {
 	id: 'test',
-	accept: (ex) => (typeof ex === 'string' ? ex : null),
+	accept: (ex) =>
+		typeof ex === 'string' ? {initialValue: ex, params: {}} : null,
 	binding: {
 		reader: (_) => stringFromUnknown,
 		equals: (v1, v2) => v1 === v2,
