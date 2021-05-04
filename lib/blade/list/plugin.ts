@@ -2,7 +2,7 @@ import {ListController} from '../../common/controller/list';
 import {ValueMap} from '../../common/model/value-map';
 import {createValue} from '../../common/model/values';
 import {ListParamsOptions} from '../../common/params';
-import {BladeParams} from '../../common/params';
+import {BaseBladeParams} from '../../common/params';
 import {
 	ParamsParser,
 	ParamsParsers,
@@ -13,7 +13,7 @@ import {LabeledValueController} from '../label/controller/value-label';
 import {BladePlugin} from '../plugin';
 import {ListApi} from './api/list';
 
-export interface ListBladeParams<T> extends BladeParams {
+export interface ListBladeParams<T> extends BaseBladeParams {
 	options: ListParamsOptions<T>;
 	value: T;
 	view: 'list';

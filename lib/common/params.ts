@@ -39,4 +39,4 @@ export interface BaseMonitorParams
 	view?: string;
 }
 
-export interface BladeParams extends BaseParams, Record<string, unknown> {}
+export interface BaseBladeParams extends BaseParams, Record<string, unknown> {}

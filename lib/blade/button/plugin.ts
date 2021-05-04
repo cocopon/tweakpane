@@ -1,5 +1,5 @@
 import {ValueMap} from '../../common/model/value-map';
-import {BladeParams} from '../../common/params';
+import {BaseBladeParams} from '../../common/params';
 import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {LabelController} from '../label/controller/label';
 import {BladePlugin} from '../plugin';
@@ -7,7 +7,7 @@ import {ButtonApi} from './api/button';
 import {ButtonController} from './controller/button';
 import {ButtonPropsObject} from './view/button';
 
-export interface ButtonBladeParams extends BladeParams {
+export interface ButtonBladeParams extends BaseBladeParams {
 	title: string;
 	view: 'button';
 

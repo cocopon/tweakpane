@@ -1,4 +1,4 @@
-import {BladeParams} from '../../../common/params';
+import {BaseBladeParams} from '../../../common/params';
 import {View} from '../../../common/view/view';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
@@ -89,7 +89,7 @@ export class TabPageApi implements BladeRackApi {
 		return this.rackApi_.addMonitor(object, key, opt_params);
 	}
 
-	public addBlade(params: BladeParams): BladeApi<BladeController<View>> {
+	public addBlade(params: BaseBladeParams): BladeApi<BladeController<View>> {
 		return this.rackApi_.addBlade(params);
 	}
 }

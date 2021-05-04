@@ -1,5 +1,5 @@
 import {ValueMap} from '../../common/model/value-map';
-import {BladeParams} from '../../common/params';
+import {BaseBladeParams} from '../../common/params';
 import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {BladePlugin} from '../plugin';
 import {TabApi} from './api/tab';
@@ -7,7 +7,7 @@ import {TabController} from './controller/tab';
 import {TabPageController, TabPagePropsObject} from './controller/tab-page';
 import {TabItemPropsObject} from './view/tab-item';
 
-export interface TabBladeParams extends BladeParams {
+export interface TabBladeParams extends BaseBladeParams {
 	pages: {
 		title: string;
 	}[];
