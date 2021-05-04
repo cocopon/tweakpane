@@ -6,6 +6,7 @@ import {Controller} from '../common/controller/controller';
 import {stringFromUnknown} from '../common/converter/string';
 import {BufferedValue} from '../common/model/buffered-value';
 import {ViewProps} from '../common/model/view-props';
+import {BaseMonitorParams} from '../common/params';
 import {View} from '../common/view/view';
 import {TestUtil} from '../misc/test-util';
 import {createMonitorBindingController, MonitorBindingPlugin} from './plugin';
@@ -40,9 +41,17 @@ class TestController implements Controller<TestView> {
 	}
 }
 
-const TestPlugin: MonitorBindingPlugin<string> = {
+const TestPlugin: MonitorBindingPlugin<string, BaseMonitorParams> = {
 	id: 'test',
-	accept: (ex) => (typeof ex === 'string' ? ex : null),
+	accept: (ex) => {
+		if (typeof ex !== 'string') {
+			return null;
+		}
+		return {
+			initialValue: ex,
+			params: {},
+		};
+	},
 	binding: {
 		reader: (_) => stringFromUnknown,
 	},

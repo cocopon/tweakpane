@@ -1,4 +1,3 @@
-import {InputParams} from '../blade/common/api/params';
 import {createBlade} from '../blade/common/model/blade';
 import {InputBindingController} from '../blade/input-binding/controller/input-binding';
 import {LabelPropsObject} from '../blade/label/view/label';
@@ -11,20 +10,28 @@ import {Value} from '../common/model/value';
 import {ValueMap} from '../common/model/value-map';
 import {createValue} from '../common/model/values';
 import {ViewProps} from '../common/model/view-props';
+import {BaseInputParams} from '../common/params';
+import {ParamsParsers} from '../common/params-parsers';
 import {View} from '../common/view/view';
+import {isEmpty} from '../misc/type-util';
 import {BasePlugin} from '../plugin';
 
-interface BindingArguments<Ex> {
+interface Acceptance<T, P extends BaseInputParams> {
+	initialValue: T;
+	params: P;
+}
+
+interface BindingArguments<Ex, P extends BaseInputParams> {
 	initialValue: Ex;
-	params: InputParams;
+	params: P;
 	target: BindingTarget;
 }
 
-interface ControllerArguments<In, Ex> {
+interface ControllerArguments<In, Ex, P extends BaseInputParams> {
 	constraint: Constraint<In> | undefined;
 	document: Document;
 	initialValue: Ex;
-	params: InputParams;
+	params: P;
 	value: Value<In>;
 	viewProps: ViewProps;
 }
@@ -33,8 +40,10 @@ interface ControllerArguments<In, Ex> {
  * An input binding plugin interface.
  * @template In The type of the internal value.
  * @template Ex The type of the external value. It will be provided by users.
+ * @template P The type of the parameters.
  */
-export interface InputBindingPlugin<In, Ex> extends BasePlugin {
+export interface InputBindingPlugin<In, Ex, P extends BaseInputParams>
+	extends BasePlugin {
 	/**
 	 * Decides whether the plugin accepts the provided value and the parameters.
 	 */
@@ -44,7 +53,10 @@ export interface InputBindingPlugin<In, Ex> extends BasePlugin {
 		 * @param params The additional parameters specified by users.
 		 * @return A typed value if the plugin accepts the input, or null if the plugin sees them off and pass them to the next plugin.
 		 */
-		(exValue: unknown, params: InputParams): Ex | null;
+		(exValue: unknown, params: Record<string, unknown>): Acceptance<
+			Ex,
+			P
+		> | null;
 	};
 
 	/**
@@ -59,7 +71,7 @@ export interface InputBindingPlugin<In, Ex> extends BasePlugin {
 			 * @param args The arguments for binding.
 			 * @return A value reader.
 			 */
-			(args: BindingArguments<Ex>): BindingReader<In>;
+			(args: BindingArguments<Ex, P>): BindingReader<In>;
 		};
 
 		/**
@@ -70,7 +82,7 @@ export interface InputBindingPlugin<In, Ex> extends BasePlugin {
 			 * @param args The arguments for binding.
 			 * @return A value constraint.
 			 */
-			(args: BindingArguments<Ex>): Constraint<In>;
+			(args: BindingArguments<Ex, P>): Constraint<In>;
 		};
 
 		/**
@@ -94,7 +106,7 @@ export interface InputBindingPlugin<In, Ex> extends BasePlugin {
 			 * @param args The arguments for binding.
 			 * @return A value writer.
 			 */
-			(args: BindingArguments<Ex>): BindingWriter<In>;
+			(args: BindingArguments<Ex, P>): BindingWriter<In>;
 		};
 	};
 
@@ -106,34 +118,36 @@ export interface InputBindingPlugin<In, Ex> extends BasePlugin {
 		 * @param args The arguments for creating a controller.
 		 * @return A custom controller that contains a custom view.
 		 */
-		(args: ControllerArguments<In, Ex>): Controller<View>;
+		(args: ControllerArguments<In, Ex, P>): Controller<View>;
 	};
 }
 
-export function createInputBindingController<In, Ex>(
-	plugin: InputBindingPlugin<In, Ex>,
+export function createInputBindingController<In, Ex, P extends BaseInputParams>(
+	plugin: InputBindingPlugin<In, Ex, P>,
 	args: {
 		document: Document;
-		params: InputParams;
+		params: Record<string, unknown>;
 		target: BindingTarget;
 	},
 ): InputBindingController<In> | null {
-	const initialValue = plugin.accept(args.target.read(), args.params);
-	if (initialValue === null) {
+	const result = plugin.accept(args.target.read(), args.params);
+	if (isEmpty(result)) {
 		return null;
 	}
 
+	const p = ParamsParsers;
+
 	const valueArgs = {
 		target: args.target,
-		initialValue: initialValue,
-		params: args.params,
+		initialValue: result.initialValue,
+		params: result.params,
 	};
 
 	const reader = plugin.binding.reader(valueArgs);
 	const constraint = plugin.binding.constraint
 		? plugin.binding.constraint(valueArgs)
 		: undefined;
-	const value = createValue(reader(initialValue), {
+	const value = createValue(reader(result.initialValue), {
 		constraint: constraint,
 		equals: plugin.binding.equals,
 	});
@@ -143,23 +157,26 @@ export function createInputBindingController<In, Ex>(
 		value: value,
 		writer: plugin.binding.writer(valueArgs),
 	});
+	const disabled = p.optional.boolean(args.params.disabled).value;
+	const hidden = p.optional.boolean(args.params.hidden).value;
 	const controller = plugin.controller({
 		constraint: constraint,
 		document: args.document,
-		initialValue: initialValue,
-		params: args.params,
+		initialValue: result.initialValue,
+		params: result.params,
 		value: binding.value,
 		viewProps: ViewProps.create({
-			disabled: args.params.disabled,
-			hidden: args.params.hidden,
+			disabled: disabled,
+			hidden: hidden,
 		}),
 	});
 
+	const label = p.optional.string(args.params.label).value;
 	return new InputBindingController(args.document, {
 		binding: binding,
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
-			label: args.params.label || args.target.key,
+			label: label || args.target.key,
 		}),
 		valueController: controller,
 	});

@@ -1,3 +1,4 @@
+import {BaseBladeParams} from '../../../common/params';
 import {View} from '../../../common/view/view';
 import {ButtonApi} from '../../button/api/button';
 import {FolderApi} from '../../folder/api/folder';
@@ -8,7 +9,6 @@ import {TabApi} from '../../tab/api/tab';
 import {BladeController} from '../controller/blade';
 import {BladeApi} from './blade';
 import {
-	BladeParams,
 	ButtonParams,
 	FolderParams,
 	InputParams,
@@ -60,7 +60,7 @@ export interface BladeRackApi {
 	 * Creates a new blade and add it to the container.
 	 * @param params The options for a blade.
 	 */
-	addBlade(params: BladeParams): BladeApi<BladeController<View>>;
+	addBlade(params: BaseBladeParams): BladeApi<BladeController<View>>;
 }
 
 export function addButtonAsBlade(

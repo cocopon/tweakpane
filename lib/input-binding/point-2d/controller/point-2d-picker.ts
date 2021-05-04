@@ -1,8 +1,8 @@
-import {PickerLayout} from '../../../blade/common/api/params';
 import {Controller} from '../../../common/controller/controller';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
+import {PickerLayout} from '../../../common/params';
 import {
 	getHorizontalStepKeys,
 	getStepForKey,

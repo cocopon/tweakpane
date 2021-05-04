@@ -1,4 +1,3 @@
-import {InputParams, PointDimensionParams} from '../../blade/common/api/params';
 import {
 	CompositeConstraint,
 	findConstraint,
@@ -11,11 +10,19 @@ import {
 	parseNumber,
 } from '../../common/converter/number';
 import {ValueMap} from '../../common/model/value-map';
+import {
+	BaseInputParams,
+	PickerLayout,
+	PointDimensionParams,
+} from '../../common/params';
+import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {TpError} from '../../common/tp-error';
 import {
 	getBaseStep,
 	getSuitableDecimalDigits,
 	getSuitableDraggingScale,
+	parsePickerLayout,
+	parsePointDimensionParams,
 } from '../../common/util';
 import {isEmpty} from '../../misc/type-util';
 import {PointNdConstraint} from '../common/constraint/point-nd';
@@ -23,6 +30,17 @@ import {InputBindingPlugin} from '../plugin';
 import {Point2dController} from './controller/point-2d';
 import {point2dFromUnknown, writePoint2d} from './converter/point-2d';
 import {Point2d, Point2dAssembly, Point2dObject} from './model/point-2d';
+
+interface Point2dYParams extends PointDimensionParams {
+	inverted?: boolean;
+}
+
+export interface Point2dInputParams extends BaseInputParams {
+	expanded?: boolean;
+	picker?: PickerLayout;
+	x?: PointDimensionParams;
+	y?: Point2dYParams;
+}
 
 function createDimensionConstraint(
 	params: PointDimensionParams | undefined,
@@ -47,7 +65,7 @@ function createDimensionConstraint(
 	return new CompositeConstraint(constraints);
 }
 
-function createConstraint(params: InputParams): Constraint<Point2d> {
+function createConstraint(params: Point2dInputParams): Constraint<Point2d> {
 	return new PointNdConstraint({
 		assembly: Point2dAssembly,
 		components: [
@@ -106,7 +124,7 @@ function createAxis(
 	};
 }
 
-function shouldInvertY(params: InputParams): boolean {
+function shouldInvertY(params: Point2dInputParams): boolean {
 	if (!('y' in params)) {
 		return false;
 	}
@@ -122,9 +140,35 @@ function shouldInvertY(params: InputParams): boolean {
 /**
  * @hidden
  */
-export const Point2dInputPlugin: InputBindingPlugin<Point2d, Point2dObject> = {
+export const Point2dInputPlugin: InputBindingPlugin<
+	Point2d,
+	Point2dObject,
+	Point2dInputParams
+> = {
 	id: 'input-point2d',
-	accept: (value, _params) => (Point2d.isObject(value) ? value : null),
+	accept: (value, params) => {
+		if (!Point2d.isObject(value)) {
+			return null;
+		}
+		const p = ParamsParsers;
+		const result = parseParams<Point2dInputParams>(params, {
+			expanded: p.optional.boolean,
+			picker: p.optional.custom(parsePickerLayout),
+			x: p.optional.custom(parsePointDimensionParams),
+			y: p.optional.object<Point2dYParams & Record<string, unknown>>({
+				inverted: p.optional.boolean,
+				max: p.optional.number,
+				min: p.optional.number,
+				step: p.optional.number,
+			}),
+		});
+		return result
+			? {
+					initialValue: value,
+					params: result,
+			  }
+			: null;
+	},
 	binding: {
 		reader: (_args) => point2dFromUnknown,
 		constraint: (args) => createConstraint(args.params),

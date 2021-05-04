@@ -4,6 +4,7 @@ import {Controller} from 'tweakpane/lib/common/controller/controller';
 import {stringFromUnknown} from 'tweakpane/lib/common/converter/string';
 import {Value} from 'tweakpane/lib/common/model/value';
 import {ViewProps} from 'tweakpane/lib/common/model/view-props';
+import {BaseInputParams} from 'tweakpane/lib/common/params';
 import {writePrimitive} from 'tweakpane/lib/common/primitive';
 import {ClassName} from 'tweakpane/lib/common/view/class-name';
 import {View} from 'tweakpane/lib/common/view/view';
@@ -69,6 +70,6 @@ class TestController implements Controller<TestView> {
 					viewProps: args.viewProps,
 				});
 			},
-		} as InputBindingPlugin<string, string>,
+		} as InputBindingPlugin<string, string, BaseInputParams>,
 	});
 }

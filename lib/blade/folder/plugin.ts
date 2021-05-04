@@ -1,12 +1,12 @@
 import {ValueMap} from '../../common/model/value-map';
-import {ParamsParsers, parseParams} from '../../common/params';
-import {BladeParams} from '../common/api/params';
+import {BaseBladeParams} from '../../common/params';
+import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {BladePlugin} from '../plugin';
 import {FolderApi} from './api/folder';
 import {FolderController} from './controller/folder';
 import {FolderPropsObject} from './view/folder';
 
-export interface FolderBladeParams extends BladeParams {
+export interface FolderBladeParams extends BaseBladeParams {
 	title: string;
 	view: 'folder';
 

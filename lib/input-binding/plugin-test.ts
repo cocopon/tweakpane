@@ -6,6 +6,7 @@ import {Controller} from '../common/controller/controller';
 import {stringFromUnknown} from '../common/converter/string';
 import {Value} from '../common/model/value';
 import {ViewProps} from '../common/model/view-props';
+import {BaseInputParams} from '../common/params';
 import {writePrimitive} from '../common/primitive';
 import {View} from '../common/view/view';
 import {TestUtil} from '../misc/test-util';
@@ -41,9 +42,10 @@ class TestController implements Controller<TestView> {
 	}
 }
 
-const TestPlugin: InputBindingPlugin<string, string> = {
+const TestPlugin: InputBindingPlugin<string, string, BaseInputParams> = {
 	id: 'test',
-	accept: (ex) => (typeof ex === 'string' ? ex : null),
+	accept: (ex) =>
+		typeof ex === 'string' ? {initialValue: ex, params: {}} : null,
 	binding: {
 		reader: (_) => stringFromUnknown,
 		equals: (v1, v2) => v1 === v2,

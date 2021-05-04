@@ -1,25 +1,25 @@
 import {ViewProps} from '../common/model/view-props';
-import {ParamsParsers} from '../common/params';
+import {BaseBladeParams} from '../common/params';
+import {ParamsParsers} from '../common/params-parsers';
 import {View} from '../common/view/view';
 import {forceCast} from '../misc/type-util';
 import {BasePlugin} from '../plugin';
 import {BladeApi} from './common/api/blade';
-import {BladeParams} from './common/api/params';
 import {BladeController} from './common/controller/blade';
 import {Blade, createBlade} from './common/model/blade';
 
-interface Acceptance<P extends BladeParams> {
+interface Acceptance<P extends BaseBladeParams> {
 	params: Omit<P, 'disabled' | 'hidden'>;
 }
 
-interface ApiArguments<P extends BladeParams> {
+interface ApiArguments<P extends BaseBladeParams> {
 	blade: Blade;
 	document: Document;
 	params: P;
 	viewProps: ViewProps;
 }
 
-export interface BladePlugin<P extends BladeParams> extends BasePlugin {
+export interface BladePlugin<P extends BaseBladeParams> extends BasePlugin {
 	accept: {
 		(params: Record<string, unknown>): Acceptance<P> | null;
 	};
@@ -31,7 +31,7 @@ export interface BladePlugin<P extends BladeParams> extends BasePlugin {
 	};
 }
 
-export function createBladeController<P extends BladeParams>(
+export function createBladeController<P extends BaseBladeParams>(
 	plugin: BladePlugin<P>,
 	args: {
 		document: Document;

@@ -1,10 +1,10 @@
-import {ParamsParsers, parseParams} from '../../common/params';
-import {BladeParams} from '../common/api/params';
+import {BaseBladeParams} from '../../common/params';
+import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {BladePlugin} from '../plugin';
 import {SeparatorApi} from './api/separator';
 import {SeparatorController} from './controller/separator';
 
-export interface SeparatorBladeParams extends BladeParams {
+export interface SeparatorBladeParams extends BaseBladeParams {
 	view: 'separator';
 }
 

@@ -1,4 +1,3 @@
-import {InputParams, PointDimensionParams} from '../../blade/common/api/params';
 import {CompositeConstraint} from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
 import {RangeConstraint} from '../../common/constraint/range';
@@ -8,11 +7,14 @@ import {
 	parseNumber,
 } from '../../common/converter/number';
 import {ValueMap} from '../../common/model/value-map';
+import {BaseInputParams, PointDimensionParams} from '../../common/params';
+import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {TpError} from '../../common/tp-error';
 import {
 	getBaseStep,
 	getSuitableDecimalDigits,
 	getSuitableDraggingScale,
+	parsePointDimensionParams,
 } from '../../common/util';
 import {isEmpty} from '../../misc/type-util';
 import {PointNdConstraint} from '../common/constraint/point-nd';
@@ -20,6 +22,13 @@ import {PointNdTextController} from '../common/controller/point-nd-text';
 import {InputBindingPlugin} from '../plugin';
 import {point4dFromUnknown, writePoint4d} from './converter/point-4d';
 import {Point4d, Point4dAssembly, Point4dObject} from './model/point-4d';
+
+export interface Point4dInputParams extends BaseInputParams {
+	x?: PointDimensionParams;
+	y?: PointDimensionParams;
+	z?: PointDimensionParams;
+	w?: PointDimensionParams;
+}
 
 function createDimensionConstraint(
 	params: PointDimensionParams | undefined,
@@ -44,7 +53,7 @@ function createDimensionConstraint(
 	return new CompositeConstraint(constraints);
 }
 
-function createConstraint(params: InputParams): Constraint<Point4d> {
+function createConstraint(params: Point4dInputParams): Constraint<Point4d> {
 	return new PointNdConstraint({
 		assembly: Point4dAssembly,
 		components: [
@@ -75,9 +84,30 @@ function createAxis(
 /**
  * @hidden
  */
-export const Point4dInputPlugin: InputBindingPlugin<Point4d, Point4dObject> = {
+export const Point4dInputPlugin: InputBindingPlugin<
+	Point4d,
+	Point4dObject,
+	Point4dInputParams
+> = {
 	id: 'input-point4d',
-	accept: (value, _params) => (Point4d.isObject(value) ? value : null),
+	accept: (value, params) => {
+		if (!Point4d.isObject(value)) {
+			return null;
+		}
+		const p = ParamsParsers;
+		const result = parseParams<Point4dInputParams>(params, {
+			x: p.optional.custom(parsePointDimensionParams),
+			y: p.optional.custom(parsePointDimensionParams),
+			z: p.optional.custom(parsePointDimensionParams),
+			w: p.optional.custom(parsePointDimensionParams),
+		});
+		return result
+			? {
+					initialValue: value,
+					params: result,
+			  }
+			: null;
+	},
 	binding: {
 		reader: (_args) => point4dFromUnknown,
 		constraint: (args) => createConstraint(args.params),

@@ -1,4 +1,5 @@
 import {Emitter} from '../../../common/model/emitter';
+import {BaseBladeParams} from '../../../common/params';
 import {TpError} from '../../../common/tp-error';
 import {View} from '../../../common/view/view';
 import {forceCast} from '../../../misc/type-util';
@@ -12,7 +13,6 @@ import {
 	BladeRackApi,
 } from '../../common/api/blade-rack';
 import {
-	BladeParams,
 	ButtonParams,
 	FolderParams,
 	InputParams,
@@ -176,7 +176,7 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 		this.controller_.rack.remove(api.controller_);
 	}
 
-	public addBlade(params: BladeParams): BladeApi<BladeController<View>> {
+	public addBlade(params: BaseBladeParams): BladeApi<BladeController<View>> {
 		const doc = this.controller_.view.element.ownerDocument;
 		const bc = createBlade(doc, params);
 		const api = createBladeApi(bc);

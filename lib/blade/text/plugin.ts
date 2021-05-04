@@ -3,13 +3,17 @@ import {Formatter} from '../../common/converter/formatter';
 import {Parser} from '../../common/converter/parser';
 import {ValueMap} from '../../common/model/value-map';
 import {createValue} from '../../common/model/values';
-import {ParamsParser, ParamsParsers, parseParams} from '../../common/params';
-import {BladeParams} from '../common/api/params';
+import {BaseBladeParams} from '../../common/params';
+import {
+	ParamsParser,
+	ParamsParsers,
+	parseParams,
+} from '../../common/params-parsers';
 import {LabeledValueController} from '../label/controller/value-label';
 import {BladePlugin} from '../plugin';
 import {TextApi} from './api/text';
 
-export interface TextBladeParams<T> extends BladeParams {
+export interface TextBladeParams<T> extends BaseBladeParams {
 	parse: Parser<T>;
 	value: T;
 	view: 'text';

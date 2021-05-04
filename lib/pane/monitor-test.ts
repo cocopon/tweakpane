@@ -3,7 +3,6 @@ import {describe, it} from 'mocha';
 
 import {Tweakpane} from '..';
 import {TpUpdateEvent} from '../blade/common/api/tp-event';
-import {IntervalTicker} from '../common/binding/ticker/interval';
 import {ManualTicker} from '../common/binding/ticker/manual';
 import {TpError} from '../common/tp-error';
 import {TestUtil} from '../misc/test-util';
@@ -243,9 +242,7 @@ describe(Tweakpane.name, () => {
 					bapi.controller_.valueController instanceof testCase.expectedClass,
 					true,
 				);
-
-				const b = bapi.controller_.binding;
-				(b.ticker as IntervalTicker).dispose();
+				bapi.dispose();
 			});
 		});
 	});

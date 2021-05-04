@@ -1,15 +1,40 @@
 import {formatString, stringFromUnknown} from '../../common/converter/string';
+import {BaseMonitorParams} from '../../common/params';
+import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {Constants} from '../../misc/constants';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogMonitorController} from '../common/controller/single-log';
 import {MonitorBindingPlugin} from '../plugin';
 
+export interface StringMonitorParams extends BaseMonitorParams {
+	lineCount?: number;
+	multiline?: boolean;
+}
+
 /**
  * @hidden
  */
-export const StringMonitorPlugin: MonitorBindingPlugin<string> = {
+export const StringMonitorPlugin: MonitorBindingPlugin<
+	string,
+	StringMonitorParams
+> = {
 	id: 'monitor-string',
-	accept: (value, _params) => (typeof value === 'string' ? value : null),
+	accept: (value, params) => {
+		if (typeof value !== 'string') {
+			return null;
+		}
+		const p = ParamsParsers;
+		const result = parseParams<StringMonitorParams>(params, {
+			lineCount: p.optional.number,
+			multiline: p.optional.boolean,
+		});
+		return result
+			? {
+					initialValue: value,
+					params: result,
+			  }
+			: null;
+	},
 	binding: {
 		reader: (_args) => stringFromUnknown,
 	},

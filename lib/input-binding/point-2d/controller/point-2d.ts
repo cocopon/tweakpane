@@ -1,4 +1,3 @@
-import {PickerLayout} from '../../../blade/common/api/params';
 import {
 	bindFoldable,
 	createFoldable,
@@ -13,6 +12,7 @@ import {Value} from '../../../common/model/value';
 import {connectValues} from '../../../common/model/value-sync';
 import {ViewProps} from '../../../common/model/view-props';
 import {NumberTextProps} from '../../../common/number/view/number-text';
+import {PickerLayout} from '../../../common/params';
 import {forceCast} from '../../../misc/type-util';
 import {PointNdTextController} from '../../common/controller/point-nd-text';
 import {Point2d, Point2dAssembly} from '../model/point-2d';

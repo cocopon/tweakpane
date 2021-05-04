@@ -1,6 +1,6 @@
-import {PickerLayout} from '../../../blade/common/api/params';
 import {bindValue} from '../../../common/model/reactive';
 import {Value} from '../../../common/model/value';
+import {PickerLayout} from '../../../common/params';
 import {ClassName} from '../../../common/view/class-name';
 import {valueToClassName} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';

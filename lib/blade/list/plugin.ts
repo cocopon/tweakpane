@@ -1,46 +1,24 @@
 import {ListController} from '../../common/controller/list';
 import {ValueMap} from '../../common/model/value-map';
 import {createValue} from '../../common/model/values';
-import {ParamsParser, ParamsParsers, parseParams} from '../../common/params';
-import {normalizeListOptions} from '../../common/util';
+import {ListParamsOptions} from '../../common/params';
+import {BaseBladeParams} from '../../common/params';
 import {
-	ArrayStyleListOptions,
-	BladeParams,
-	ObjectStyleListOptions,
-} from '../common/api/params';
+	ParamsParser,
+	ParamsParsers,
+	parseParams,
+} from '../../common/params-parsers';
+import {normalizeListOptions, parseListOptions} from '../../common/util';
 import {LabeledValueController} from '../label/controller/value-label';
 import {BladePlugin} from '../plugin';
 import {ListApi} from './api/list';
 
-type ListBladeParamsOptions<T> =
-	| ArrayStyleListOptions<T>
-	| ObjectStyleListOptions<T>;
-
-export interface ListBladeParams<T> extends BladeParams {
-	options: ListBladeParamsOptions<T>;
+export interface ListBladeParams<T> extends BaseBladeParams {
+	options: ListParamsOptions<T>;
 	value: T;
 	view: 'list';
 
 	label?: string;
-}
-
-function parseOptions<T>(
-	value: unknown,
-): ListBladeParamsOptions<T> | undefined {
-	const p = ParamsParsers;
-	if (Array.isArray(value)) {
-		return p.required.array(
-			p.required.object({
-				text: p.required.string,
-				value: p.required.raw as ParamsParser<T>,
-			}),
-		)(value).value;
-	}
-	if (typeof value === 'object') {
-		return (p.required.raw as ParamsParser<ObjectStyleListOptions<T>>)(value)
-			.value;
-	}
-	return undefined;
 }
 
 export const ListBladePlugin = (function<T>(): BladePlugin<ListBladeParams<T>> {
@@ -49,7 +27,7 @@ export const ListBladePlugin = (function<T>(): BladePlugin<ListBladeParams<T>> {
 		accept(params) {
 			const p = ParamsParsers;
 			const result = parseParams<ListBladeParams<T>>(params, {
-				options: p.required.custom<ListBladeParamsOptions<T>>(parseOptions),
+				options: p.required.custom<ListParamsOptions<T>>(parseListOptions),
 				value: p.required.raw as ParamsParser<T>,
 				view: p.required.constant('list'),
 

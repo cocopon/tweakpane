@@ -1,11 +1,11 @@
 import {Emitter} from '../../../common/model/emitter';
 import {ValueEvents} from '../../../common/model/value';
+import {BaseBladeParams} from '../../../common/params';
 import {View} from '../../../common/view/view';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
 import {BladeRackApi} from '../../common/api/blade-rack';
 import {
-	BladeParams,
 	ButtonParams,
 	FolderParams,
 	InputParams,
@@ -134,7 +134,7 @@ export class FolderApi extends RackLikeApi<FolderController>
 		this.rackApi_.remove(api);
 	}
 
-	public addBlade(params: BladeParams): BladeApi<BladeController<View>> {
+	public addBlade(params: BaseBladeParams): BladeApi<BladeController<View>> {
 		return this.rackApi_.addBlade(params);
 	}
 

@@ -8,6 +8,7 @@ import {
 } from './converter/color-string';
 import {createColorObjectWriter} from './converter/writer';
 import {Color, RgbaColorObject, RgbColorObject} from './model/color';
+import {ColorInputParams, parseColorInputParams} from './util';
 
 function shouldSupportAlpha(
 	initialValue: RgbColorObject | RgbaColorObject,
@@ -20,10 +21,22 @@ function shouldSupportAlpha(
  */
 export const ObjectColorInputPlugin: InputBindingPlugin<
 	Color,
-	RgbColorObject | RgbaColorObject
+	RgbColorObject | RgbaColorObject,
+	ColorInputParams
 > = {
 	id: 'input-color-object',
-	accept: (value, _params) => (Color.isColorObject(value) ? value : null),
+	accept: (value, params) => {
+		if (!Color.isColorObject(value)) {
+			return null;
+		}
+		const result = parseColorInputParams(params);
+		return result
+			? {
+					initialValue: value,
+					params: result,
+			  }
+			: null;
+	},
 	binding: {
 		reader: (_args) => colorFromObject,
 		equals: Color.equals,

@@ -34,7 +34,7 @@ describe(NumberInputPlugin.id, () => {
 		const c = createInputBindingController(NumberInputPlugin, {
 			document: doc,
 			params: {
-				format: (v) => `foo ${v} bar`,
+				format: (v: number) => `foo ${v} bar`,
 			},
 			target: new BindingTarget({foo: 123}, 'foo'),
 		});

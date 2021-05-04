@@ -11,6 +11,7 @@ import {TextBladePlugin} from './blade/text/plugin';
 import {getWindowDocument} from './common/dom-util';
 import {ValueMap} from './common/model/value-map';
 import {ViewProps} from './common/model/view-props';
+import {BaseInputParams, BaseMonitorParams} from './common/params';
 import {TpError} from './common/tp-error';
 import {ClassName} from './common/view/class-name';
 import {BooleanInputPlugin} from './input-binding/boolean/plugin';
@@ -129,7 +130,7 @@ function registerDefaultPlugins() {
 		ObjectColorInputPlugin,
 		NumberColorInputPlugin,
 		BooleanInputPlugin,
-	].forEach((p: InputBindingPlugin<any, any>) => {
+	].forEach((p: InputBindingPlugin<any, any, BaseInputParams>) => {
 		registerPlugin({
 			type: 'input',
 			plugin: p,
@@ -137,7 +138,7 @@ function registerDefaultPlugins() {
 	});
 
 	[BooleanMonitorPlugin, StringMonitorPlugin, NumberMonitorPlugin].forEach(
-		(p: MonitorBindingPlugin<any>) => {
+		(p: MonitorBindingPlugin<any, BaseMonitorParams>) => {
 			registerPlugin({
 				type: 'monitor',
 				plugin: p,

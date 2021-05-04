@@ -1,4 +1,5 @@
 import {BindingTarget} from '../../../common/binding/target';
+import {BaseInputParams, BaseMonitorParams} from '../../../common/params';
 import {TpError} from '../../../common/tp-error';
 import {View} from '../../../common/view/view';
 import {
@@ -24,8 +25,8 @@ import {InputParams, MonitorParams} from './params';
 
 export const Plugins: {
 	blades: BladePlugin<any>[];
-	inputs: InputBindingPlugin<any, any>[];
-	monitors: MonitorBindingPlugin<any>[];
+	inputs: InputBindingPlugin<any, any, BaseInputParams>[];
+	monitors: MonitorBindingPlugin<any, BaseMonitorParams>[];
 } = {
 	blades: [],
 	inputs: [],

@@ -2,17 +2,40 @@ import {
 	BooleanFormatter,
 	boolFromUnknown,
 } from '../../common/converter/boolean';
+import {BaseMonitorParams} from '../../common/params';
+import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {Constants} from '../../misc/constants';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogMonitorController} from '../common/controller/single-log';
 import {MonitorBindingPlugin} from '../plugin';
 
+export interface BooleanMonitorParams extends BaseMonitorParams {
+	lineCount?: number;
+}
+
 /**
  * @hidden
  */
-export const BooleanMonitorPlugin: MonitorBindingPlugin<boolean> = {
+export const BooleanMonitorPlugin: MonitorBindingPlugin<
+	boolean,
+	BooleanMonitorParams
+> = {
 	id: 'monitor-bool',
-	accept: (value, _params) => (typeof value === 'boolean' ? value : null),
+	accept: (value, params) => {
+		if (typeof value !== 'boolean') {
+			return null;
+		}
+		const p = ParamsParsers;
+		const result = parseParams<BooleanMonitorParams>(params, {
+			lineCount: p.optional.number,
+		});
+		return result
+			? {
+					initialValue: value,
+					params: result,
+			  }
+			: null;
+	},
 	binding: {
 		reader: (_args) => boolFromUnknown,
 	},

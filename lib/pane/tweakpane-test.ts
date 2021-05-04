@@ -6,6 +6,7 @@ import {TextController} from '../common/controller/text';
 import {formatString, stringFromUnknown} from '../common/converter/string';
 import {ValueMap} from '../common/model/value-map';
 import {ViewProps} from '../common/model/view-props';
+import {BaseInputParams} from '../common/params';
 import {writePrimitive} from '../common/primitive';
 import {TpError} from '../common/tp-error';
 import {InputBindingPlugin} from '../input-binding/plugin';
@@ -107,7 +108,7 @@ describe(Tweakpane.name, () => {
 						viewProps: ViewProps.create(),
 					});
 				},
-			} as InputBindingPlugin<string, string>,
+			} as InputBindingPlugin<string, string, BaseInputParams>,
 		});
 		const doc = TestUtil.createWindow().document;
 		new Tweakpane({
