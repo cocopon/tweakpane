@@ -1,10 +1,11 @@
-import {MonitorParams} from '../../blade/common/api/params';
+import {BaseMonitorParams} from '../../blade/common/api/params';
 import {Controller} from '../../common/controller/controller';
 import {Formatter} from '../../common/converter/formatter';
 import {
 	createNumberFormatter,
 	numberFromUnknown,
 } from '../../common/converter/number';
+import {ParamsParsers, parseParams} from '../../common/params';
 import {View} from '../../common/view/view';
 import {Constants} from '../../misc/constants';
 import {MultiLogController} from '../common/controller/multi-log';
@@ -12,13 +13,21 @@ import {SingleLogMonitorController} from '../common/controller/single-log';
 import {MonitorBindingPlugin} from '../plugin';
 import {GraphLogController} from './controller/graph-log';
 
+interface NumberMonitorParams extends BaseMonitorParams {
+	lineCount?: number;
+	max?: number;
+	min?: number;
+}
+
 function createFormatter(): Formatter<number> {
 	// TODO: formatter precision
 	return createNumberFormatter(2);
 }
 
 function createTextMonitor(
-	args: Parameters<MonitorBindingPlugin<number>['controller']>[0],
+	args: Parameters<
+		MonitorBindingPlugin<number, NumberMonitorParams>['controller']
+	>[0],
 ) {
 	if (args.value.rawValue.length === 1) {
 		return new SingleLogMonitorController(args.document, {
@@ -37,7 +46,9 @@ function createTextMonitor(
 }
 
 function createGraphMonitor(
-	args: Parameters<MonitorBindingPlugin<number>['controller']>[0],
+	args: Parameters<
+		MonitorBindingPlugin<number, NumberMonitorParams>['controller']
+	>[0],
 ): Controller<View> {
 	return new GraphLogController(args.document, {
 		formatter: createFormatter(),
@@ -49,16 +60,36 @@ function createGraphMonitor(
 	});
 }
 
-function shouldShowGraph(params: MonitorParams): boolean {
+function shouldShowGraph(params: NumberMonitorParams): boolean {
 	return 'view' in params && params.view === 'graph';
 }
 
 /**
  * @hidden
  */
-export const NumberMonitorPlugin: MonitorBindingPlugin<number> = {
+export const NumberMonitorPlugin: MonitorBindingPlugin<
+	number,
+	NumberMonitorParams
+> = {
 	id: 'monitor-number',
-	accept: (value, _params) => (typeof value === 'number' ? value : null),
+	accept: (value, params) => {
+		if (typeof value !== 'number') {
+			return null;
+		}
+		const p = ParamsParsers;
+		const result = parseParams<NumberMonitorParams>(params, {
+			lineCount: p.optional.number,
+			max: p.optional.number,
+			min: p.optional.number,
+			view: p.optional.string,
+		});
+		return result
+			? {
+					initialValue: value,
+					params: result,
+			  }
+			: null;
+	},
 	binding: {
 		defaultBufferSize: (params) => (shouldShowGraph(params) ? 64 : 1),
 		reader: (_args) => numberFromUnknown,

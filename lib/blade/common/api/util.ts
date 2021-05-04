@@ -27,7 +27,7 @@ export type PluginRegistration =
 	  }
 	| {
 			type: 'monitor';
-			plugin: MonitorBindingPlugin<any>;
+			plugin: MonitorBindingPlugin<any, any>;
 	  };
 
 export function registerPlugin(r: PluginRegistration): void {

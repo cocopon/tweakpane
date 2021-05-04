@@ -1,6 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
+import {BaseMonitorParams} from '../blade/common/api/params';
 import {BindingTarget} from '../common/binding/target';
 import {Controller} from '../common/controller/controller';
 import {stringFromUnknown} from '../common/converter/string';
@@ -40,9 +41,17 @@ class TestController implements Controller<TestView> {
 	}
 }
 
-const TestPlugin: MonitorBindingPlugin<string> = {
+const TestPlugin: MonitorBindingPlugin<string, BaseMonitorParams> = {
 	id: 'test',
-	accept: (ex) => (typeof ex === 'string' ? ex : null),
+	accept: (ex) => {
+		if (typeof ex !== 'string') {
+			return null;
+		}
+		return {
+			initialValue: ex,
+			params: {},
+		};
+	},
 	binding: {
 		reader: (_) => stringFromUnknown,
 	},

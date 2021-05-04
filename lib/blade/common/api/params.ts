@@ -81,7 +81,10 @@ export type InputParams =
 	| Point4dInputParams
 	| StringInputParams;
 
-export interface BaseMonitorParams extends BaseParams, LabelableParams {
+export interface BaseMonitorParams
+	extends BaseParams,
+		LabelableParams,
+		Record<string, unknown> {
 	bufferSize?: number;
 	interval?: number;
 	view?: string;

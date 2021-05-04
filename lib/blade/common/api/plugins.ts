@@ -25,7 +25,7 @@ import {InputParams, MonitorParams} from './params';
 export const Plugins: {
 	blades: BladePlugin<any>[];
 	inputs: InputBindingPlugin<any, any>[];
-	monitors: MonitorBindingPlugin<any>[];
+	monitors: MonitorBindingPlugin<any, any>[];
 } = {
 	blades: [],
 	inputs: [],
