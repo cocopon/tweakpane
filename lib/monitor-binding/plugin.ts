@@ -1,4 +1,3 @@
-import {BaseMonitorParams} from '../blade/common/api/params';
 import {createBlade} from '../blade/common/model/blade';
 import {LabelPropsObject} from '../blade/label/view/label';
 import {MonitorBindingController} from '../blade/monitor-binding/controller/monitor-binding';
@@ -12,6 +11,7 @@ import {Controller} from '../common/controller/controller';
 import {BufferedValue, initializeBuffer} from '../common/model/buffered-value';
 import {ValueMap} from '../common/model/value-map';
 import {ViewProps} from '../common/model/view-props';
+import {BaseMonitorParams} from '../common/params';
 import {ParamsParsers} from '../common/params-parsers';
 import {View} from '../common/view/view';
 import {Constants} from '../misc/constants';

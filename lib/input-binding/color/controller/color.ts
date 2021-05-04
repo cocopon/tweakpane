@@ -1,4 +1,3 @@
-import {PickerLayout} from '../../../blade/common/api/params';
 import {
 	bindFoldable,
 	createFoldable,
@@ -14,6 +13,7 @@ import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
 import {connectValues} from '../../../common/model/value-sync';
 import {ViewProps} from '../../../common/model/view-props';
+import {PickerLayout} from '../../../common/params';
 import {forceCast} from '../../../misc/type-util';
 import {Color} from '../model/color';
 import {ColorView} from '../view/color';

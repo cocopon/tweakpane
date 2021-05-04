@@ -3,12 +3,12 @@ import {Formatter} from '../../common/converter/formatter';
 import {Parser} from '../../common/converter/parser';
 import {ValueMap} from '../../common/model/value-map';
 import {createValue} from '../../common/model/values';
+import {BladeParams} from '../../common/params';
 import {
 	ParamsParser,
 	ParamsParsers,
 	parseParams,
 } from '../../common/params-parsers';
-import {BladeParams} from '../common/api/params';
 import {LabeledValueController} from '../label/controller/value-label';
 import {BladePlugin} from '../plugin';
 import {TextApi} from './api/text';

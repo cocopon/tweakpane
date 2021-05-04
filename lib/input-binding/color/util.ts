@@ -1,4 +1,4 @@
-import {BaseInputParams, PickerLayout} from '../../blade/common/api/params';
+import {BaseInputParams, PickerLayout} from '../../common/params';
 import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {parsePickerLayout} from '../../common/util';
 

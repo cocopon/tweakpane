@@ -1,7 +1,3 @@
-import {
-	BaseInputParams,
-	PointDimensionParams,
-} from '../../blade/common/api/params';
 import {CompositeConstraint} from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
 import {RangeConstraint} from '../../common/constraint/range';
@@ -11,6 +7,7 @@ import {
 	parseNumber,
 } from '../../common/converter/number';
 import {ValueMap} from '../../common/model/value-map';
+import {BaseInputParams, PointDimensionParams} from '../../common/params';
 import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {TpError} from '../../common/tp-error';
 import {
@@ -26,7 +23,7 @@ import {InputBindingPlugin} from '../plugin';
 import {point3dFromUnknown, writePoint3d} from './converter/point-3d';
 import {Point3d, Point3dAssembly, Point3dObject} from './model/point-3d';
 
-interface Point3dInputParams extends BaseInputParams {
+export interface Point3dInputParams extends BaseInputParams {
 	x?: PointDimensionParams;
 	y?: PointDimensionParams;
 	z?: PointDimensionParams;

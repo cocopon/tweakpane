@@ -1,10 +1,10 @@
-import {BaseMonitorParams} from '../../blade/common/api/params';
 import {Controller} from '../../common/controller/controller';
 import {Formatter} from '../../common/converter/formatter';
 import {
 	createNumberFormatter,
 	numberFromUnknown,
 } from '../../common/converter/number';
+import {BaseMonitorParams} from '../../common/params';
 import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {View} from '../../common/view/view';
 import {Constants} from '../../misc/constants';
@@ -13,7 +13,7 @@ import {SingleLogMonitorController} from '../common/controller/single-log';
 import {MonitorBindingPlugin} from '../plugin';
 import {GraphLogController} from './controller/graph-log';
 
-interface NumberMonitorParams extends BaseMonitorParams {
+export interface NumberMonitorParams extends BaseMonitorParams {
 	lineCount?: number;
 	max?: number;
 	min?: number;

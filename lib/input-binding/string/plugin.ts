@@ -1,8 +1,4 @@
 import {
-	BaseInputParams,
-	ListParamsOptions,
-} from '../../blade/common/api/params';
-import {
 	CompositeConstraint,
 	findConstraint,
 } from '../../common/constraint/composite';
@@ -12,6 +8,7 @@ import {ListController} from '../../common/controller/list';
 import {TextController} from '../../common/controller/text';
 import {formatString, stringFromUnknown} from '../../common/converter/string';
 import {ValueMap} from '../../common/model/value-map';
+import {BaseInputParams, ListParamsOptions} from '../../common/params';
 import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {writePrimitive} from '../../common/primitive';
 import {
@@ -21,14 +18,14 @@ import {
 } from '../../common/util';
 import {InputBindingPlugin} from '../plugin';
 
-interface StringInputParams extends BaseInputParams {
+export interface StringInputParams extends BaseInputParams {
 	options?: ListParamsOptions<string>;
 }
 
 function createConstraint(params: StringInputParams): Constraint<string> {
 	const constraints: Constraint<string>[] = [];
 
-	const lc = createListConstraint<string>(params);
+	const lc = createListConstraint<string>(params.options);
 	if (lc) {
 		constraints.push(lc);
 	}

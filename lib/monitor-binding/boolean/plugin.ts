@@ -1,15 +1,15 @@
-import {BaseMonitorParams} from '../../blade/common/api/params';
 import {
 	BooleanFormatter,
 	boolFromUnknown,
 } from '../../common/converter/boolean';
+import {BaseMonitorParams} from '../../common/params';
 import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {Constants} from '../../misc/constants';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogMonitorController} from '../common/controller/single-log';
 import {MonitorBindingPlugin} from '../plugin';
 
-interface BooleanMonitorParams extends BaseMonitorParams {
+export interface BooleanMonitorParams extends BaseMonitorParams {
 	lineCount?: number;
 }
 

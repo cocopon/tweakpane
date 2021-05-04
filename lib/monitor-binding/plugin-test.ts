@@ -1,12 +1,12 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {BaseMonitorParams} from '../blade/common/api/params';
 import {BindingTarget} from '../common/binding/target';
 import {Controller} from '../common/controller/controller';
 import {stringFromUnknown} from '../common/converter/string';
 import {BufferedValue} from '../common/model/buffered-value';
 import {ViewProps} from '../common/model/view-props';
+import {BaseMonitorParams} from '../common/params';
 import {View} from '../common/view/view';
 import {TestUtil} from '../misc/test-util';
 import {createMonitorBindingController, MonitorBindingPlugin} from './plugin';

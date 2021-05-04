@@ -1,82 +1,14 @@
-import {Formatter} from '../../../common/converter/formatter';
-
-interface BaseParams {
-	disabled?: boolean;
-	hidden?: boolean;
-	index?: number;
-}
-
-interface LabelableParams {
-	label?: string;
-}
-
-export type ArrayStyleListOptions<T> = {text: string; value: T}[];
-export type ObjectStyleListOptions<T> = {[text: string]: T};
-export type ListParamsOptions<T> =
-	| ArrayStyleListOptions<T>
-	| ObjectStyleListOptions<T>;
-
-export interface PointDimensionParams {
-	max?: number;
-	min?: number;
-	step?: number;
-}
-
-export interface Point2dYParams extends PointDimensionParams {
-	inverted?: boolean;
-}
-
-export interface BaseInputParams
-	extends BaseParams,
-		LabelableParams,
-		Record<string, unknown> {
-	presetKey?: string;
-	view?: string;
-}
-
-export type PickerLayout = 'inline' | 'popup';
-
-export interface BooleanInputParams extends BaseInputParams {
-	options?: ListParamsOptions<boolean>;
-}
-
-export interface NumberInputParams extends BaseInputParams {
-	format?: Formatter<number>;
-	max?: number;
-	min?: number;
-	options?: ListParamsOptions<number>;
-	step?: number;
-}
-
-export interface ColorInputParams extends BaseInputParams {
-	alpha?: boolean;
-	expanded?: boolean;
-	picker?: PickerLayout;
-}
-
-export interface Point2dInputParams extends BaseInputParams {
-	expanded?: boolean;
-	picker?: PickerLayout;
-	x?: PointDimensionParams;
-	y?: Point2dYParams;
-}
-
-export interface Point3dInputParams extends BaseInputParams {
-	x?: PointDimensionParams;
-	y?: PointDimensionParams;
-	z?: PointDimensionParams;
-}
-
-export interface Point4dInputParams extends BaseInputParams {
-	x?: PointDimensionParams;
-	y?: PointDimensionParams;
-	z?: PointDimensionParams;
-	w?: PointDimensionParams;
-}
-
-export interface StringInputParams extends BaseInputParams {
-	options?: ListParamsOptions<string>;
-}
+import {BaseParams, LabelableParams} from '../../../common/params';
+import {BooleanInputParams} from '../../../input-binding/boolean/plugin';
+import {ColorInputParams} from '../../../input-binding/color/util';
+import {NumberInputParams} from '../../../input-binding/number/plugin';
+import {Point2dInputParams} from '../../../input-binding/point-2d/plugin';
+import {Point3dInputParams} from '../../../input-binding/point-3d/plugin';
+import {Point4dInputParams} from '../../../input-binding/point-4d/plugin';
+import {StringInputParams} from '../../../input-binding/string/plugin';
+import {BooleanMonitorParams} from '../../../monitor-binding/boolean/plugin';
+import {NumberMonitorParams} from '../../../monitor-binding/number/plugin';
+import {StringMonitorParams} from '../../../monitor-binding/string/plugin';
 
 export type InputParams =
 	| BooleanInputParams
@@ -86,30 +18,6 @@ export type InputParams =
 	| Point3dInputParams
 	| Point4dInputParams
 	| StringInputParams;
-
-export interface BaseMonitorParams
-	extends BaseParams,
-		LabelableParams,
-		Record<string, unknown> {
-	bufferSize?: number;
-	interval?: number;
-	view?: string;
-}
-
-export interface BooleanMonitorParams extends BaseMonitorParams {
-	lineCount?: number;
-}
-
-export interface NumberMonitorParams extends BaseMonitorParams {
-	lineCount?: number;
-	max?: number;
-	min?: number;
-}
-
-export interface StringMonitorParams extends BaseMonitorParams {
-	lineCount?: number;
-	multiline?: boolean;
-}
 
 export type MonitorParams =
 	| BooleanMonitorParams
@@ -127,8 +35,6 @@ export interface FolderParams extends BaseParams {
 }
 
 export type SeparatorParams = BaseParams;
-
-export interface BladeParams extends BaseParams, Record<string, unknown> {}
 
 export interface TabParams extends BaseParams {
 	pages: {

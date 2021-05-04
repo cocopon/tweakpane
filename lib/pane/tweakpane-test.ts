@@ -2,11 +2,11 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {Tweakpane} from '..';
-import {BaseInputParams} from '../blade/common/api/params';
 import {TextController} from '../common/controller/text';
 import {formatString, stringFromUnknown} from '../common/converter/string';
 import {ValueMap} from '../common/model/value-map';
 import {ViewProps} from '../common/model/view-props';
+import {BaseInputParams} from '../common/params';
 import {writePrimitive} from '../common/primitive';
 import {TpError} from '../common/tp-error';
 import {InputBindingPlugin} from '../input-binding/plugin';

@@ -1,5 +1,5 @@
+import {BladeParams} from '../../common/params';
 import {ParamsParsers, parseParams} from '../../common/params-parsers';
-import {BladeParams} from '../common/api/params';
 import {BladePlugin} from '../plugin';
 import {SeparatorApi} from './api/separator';
 import {SeparatorController} from './controller/separator';

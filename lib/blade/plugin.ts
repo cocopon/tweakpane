@@ -1,10 +1,10 @@
 import {ViewProps} from '../common/model/view-props';
+import {BladeParams} from '../common/params';
 import {ParamsParsers} from '../common/params-parsers';
 import {View} from '../common/view/view';
 import {forceCast} from '../misc/type-util';
 import {BasePlugin} from '../plugin';
 import {BladeApi} from './common/api/blade';
-import {BladeParams} from './common/api/params';
 import {BladeController} from './common/controller/blade';
 import {Blade, createBlade} from './common/model/blade';
 

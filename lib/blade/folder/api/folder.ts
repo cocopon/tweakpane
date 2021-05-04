@@ -1,11 +1,11 @@
 import {Emitter} from '../../../common/model/emitter';
 import {ValueEvents} from '../../../common/model/value';
+import {BladeParams} from '../../../common/params';
 import {View} from '../../../common/view/view';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
 import {BladeRackApi} from '../../common/api/blade-rack';
 import {
-	BladeParams,
 	ButtonParams,
 	FolderParams,
 	InputParams,

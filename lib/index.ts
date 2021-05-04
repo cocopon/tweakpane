@@ -1,4 +1,3 @@
-import {BaseInputParams, BaseMonitorParams} from './blade/common/api/params';
 import {getAllPlugins} from './blade/common/api/plugins';
 import {registerPlugin} from './blade/common/api/util';
 import {createBlade} from './blade/common/model/blade';
@@ -12,6 +11,7 @@ import {TextBladePlugin} from './blade/text/plugin';
 import {getWindowDocument} from './common/dom-util';
 import {ValueMap} from './common/model/value-map';
 import {ViewProps} from './common/model/view-props';
+import {BaseInputParams, BaseMonitorParams} from './common/params';
 import {TpError} from './common/tp-error';
 import {ClassName} from './common/view/class-name';
 import {BooleanInputPlugin} from './input-binding/boolean/plugin';

@@ -1,4 +1,3 @@
-import {BaseInputParams} from '../blade/common/api/params';
 import {createBlade} from '../blade/common/model/blade';
 import {InputBindingController} from '../blade/input-binding/controller/input-binding';
 import {LabelPropsObject} from '../blade/label/view/label';
@@ -11,6 +10,7 @@ import {Value} from '../common/model/value';
 import {ValueMap} from '../common/model/value-map';
 import {createValue} from '../common/model/values';
 import {ViewProps} from '../common/model/view-props';
+import {BaseInputParams} from '../common/params';
 import {ParamsParsers} from '../common/params-parsers';
 import {View} from '../common/view/view';
 import {isEmpty} from '../misc/type-util';

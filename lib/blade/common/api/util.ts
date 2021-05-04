@@ -1,9 +1,9 @@
 import {BindingTarget} from '../../../common/binding/target';
+import {BaseInputParams, BaseMonitorParams} from '../../../common/params';
 import {TpError} from '../../../common/tp-error';
 import {InputBindingPlugin} from '../../../input-binding/plugin';
 import {MonitorBindingPlugin} from '../../../monitor-binding/plugin';
 import {BladePlugin} from '../../plugin';
-import {BaseInputParams, BaseMonitorParams} from './params';
 import {Plugins} from './plugins';
 
 export function createBindingTarget(

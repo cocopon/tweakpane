@@ -1,12 +1,12 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {BaseInputParams} from '../blade/common/api/params';
 import {BindingTarget} from '../common/binding/target';
 import {Controller} from '../common/controller/controller';
 import {stringFromUnknown} from '../common/converter/string';
 import {Value} from '../common/model/value';
 import {ViewProps} from '../common/model/view-props';
+import {BaseInputParams} from '../common/params';
 import {writePrimitive} from '../common/primitive';
 import {View} from '../common/view/view';
 import {TestUtil} from '../misc/test-util';

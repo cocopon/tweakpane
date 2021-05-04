@@ -1,8 +1,3 @@
-import {
-	BaseInputParams,
-	Point3dInputParams,
-	PointDimensionParams,
-} from '../../blade/common/api/params';
 import {CompositeConstraint} from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
 import {RangeConstraint} from '../../common/constraint/range';
@@ -12,6 +7,7 @@ import {
 	parseNumber,
 } from '../../common/converter/number';
 import {ValueMap} from '../../common/model/value-map';
+import {BaseInputParams, PointDimensionParams} from '../../common/params';
 import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {TpError} from '../../common/tp-error';
 import {
@@ -27,7 +23,7 @@ import {InputBindingPlugin} from '../plugin';
 import {point4dFromUnknown, writePoint4d} from './converter/point-4d';
 import {Point4d, Point4dAssembly, Point4dObject} from './model/point-4d';
 
-interface Point4dInputParams extends BaseInputParams {
+export interface Point4dInputParams extends BaseInputParams {
 	x?: PointDimensionParams;
 	y?: PointDimensionParams;
 	z?: PointDimensionParams;
@@ -99,7 +95,7 @@ export const Point4dInputPlugin: InputBindingPlugin<
 			return null;
 		}
 		const p = ParamsParsers;
-		const result = parseParams<Point3dInputParams>(params, {
+		const result = parseParams<Point4dInputParams>(params, {
 			x: p.optional.custom(parsePointDimensionParams),
 			y: p.optional.custom(parsePointDimensionParams),
 			z: p.optional.custom(parsePointDimensionParams),

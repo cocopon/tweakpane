@@ -1,17 +1,16 @@
-import {
-	ArrayStyleListOptions,
-	InputParams,
-	ListParamsOptions,
-	ObjectStyleListOptions,
-	PickerLayout,
-	PointDimensionParams,
-} from '../blade/common/api/params';
-import {forceCast} from '../misc/type-util';
+import {forceCast, isEmpty} from '../misc/type-util';
 import {findConstraint} from './constraint/composite';
 import {Constraint} from './constraint/constraint';
 import {ListConstraint, ListItem} from './constraint/list';
 import {StepConstraint} from './constraint/step';
 import {getDecimalDigits} from './number-util';
+import {
+	ArrayStyleListOptions,
+	ListParamsOptions,
+	ObjectStyleListOptions,
+	PickerLayout,
+	PointDimensionParams,
+} from './params';
 import {ParamsParser, ParamsParsers} from './params-parsers';
 
 export function parseListOptions<T>(
@@ -68,18 +67,15 @@ export function normalizeListOptions<T>(
 /**
  * Tries to create a list constraint.
  * @template T The type of the raw value.
- * @param params The input parameters object.
+ * @param options The list options.
  * @return A constraint or null if not found.
  */
 export function createListConstraint<T>(
-	params: InputParams,
+	options: ListParamsOptions<T> | undefined,
 ): ListConstraint<T> | null {
-	if ('options' in params && params.options !== undefined) {
-		return new ListConstraint(
-			normalizeListOptions<T>(forceCast(params.options)),
-		);
-	}
-	return null;
+	return !isEmpty(options)
+		? new ListConstraint(normalizeListOptions<T>(forceCast(options)))
+		: null;
 }
 
 /**

@@ -1,4 +1,5 @@
 import {Emitter} from '../../../common/model/emitter';
+import {BladeParams} from '../../../common/params';
 import {TpError} from '../../../common/tp-error';
 import {View} from '../../../common/view/view';
 import {forceCast} from '../../../misc/type-util';
@@ -12,7 +13,6 @@ import {
 	BladeRackApi,
 } from '../../common/api/blade-rack';
 import {
-	BladeParams,
 	ButtonParams,
 	FolderParams,
 	InputParams,

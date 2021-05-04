@@ -1,8 +1,4 @@
 import {
-	BaseInputParams,
-	ListParamsOptions,
-} from '../../blade/common/api/params';
-import {
 	CompositeConstraint,
 	findConstraint,
 } from '../../common/constraint/composite';
@@ -11,6 +7,7 @@ import {ListConstraint} from '../../common/constraint/list';
 import {ListController} from '../../common/controller/list';
 import {boolFromUnknown} from '../../common/converter/boolean';
 import {ValueMap} from '../../common/model/value-map';
+import {BaseInputParams, ListParamsOptions} from '../../common/params';
 import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {writePrimitive} from '../../common/primitive';
 import {
@@ -21,14 +18,14 @@ import {
 import {InputBindingPlugin} from '../plugin';
 import {CheckboxController} from './controller/checkbox';
 
-interface BooleanInputParams extends BaseInputParams {
+export interface BooleanInputParams extends BaseInputParams {
 	options?: ListParamsOptions<boolean>;
 }
 
 function createConstraint(params: BooleanInputParams): Constraint<boolean> {
 	const constraints: Constraint<boolean>[] = [];
 
-	const lc = createListConstraint<boolean>(params);
+	const lc = createListConstraint<boolean>(params.options);
 	if (lc) {
 		constraints.push(lc);
 	}

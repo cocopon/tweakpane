@@ -1,8 +1,4 @@
 import {
-	BaseInputParams,
-	ListParamsOptions,
-} from '../../blade/common/api/params';
-import {
 	CompositeConstraint,
 	findConstraint,
 } from '../../common/constraint/composite';
@@ -20,6 +16,7 @@ import {numberFromUnknown} from '../../common/converter/number';
 import {ValueMap} from '../../common/model/value-map';
 import {NumberTextController} from '../../common/number/controller/number-text';
 import {SliderTextController} from '../../common/number/controller/slider-text';
+import {BaseInputParams, ListParamsOptions} from '../../common/params';
 import {
 	ParamsParser,
 	ParamsParsers,
@@ -37,7 +34,7 @@ import {
 import {isEmpty} from '../../misc/type-util';
 import {InputBindingPlugin} from '../plugin';
 
-interface NumberInputParams extends BaseInputParams {
+export interface NumberInputParams extends BaseInputParams {
 	format?: Formatter<number>;
 	max?: number;
 	min?: number;
@@ -90,7 +87,7 @@ function createConstraint(params: NumberInputParams): Constraint<number> {
 	if (rc) {
 		constraints.push(rc);
 	}
-	const lc = createListConstraint<number>(params);
+	const lc = createListConstraint<number>(params.options);
 	if (lc) {
 		constraints.push(lc);
 	}

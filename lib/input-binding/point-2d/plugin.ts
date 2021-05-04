@@ -1,10 +1,4 @@
 import {
-	BaseInputParams,
-	PickerLayout,
-	Point2dYParams,
-	PointDimensionParams,
-} from '../../blade/common/api/params';
-import {
 	CompositeConstraint,
 	findConstraint,
 } from '../../common/constraint/composite';
@@ -16,6 +10,11 @@ import {
 	parseNumber,
 } from '../../common/converter/number';
 import {ValueMap} from '../../common/model/value-map';
+import {
+	BaseInputParams,
+	PickerLayout,
+	PointDimensionParams,
+} from '../../common/params';
 import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {TpError} from '../../common/tp-error';
 import {
@@ -32,7 +31,11 @@ import {Point2dController} from './controller/point-2d';
 import {point2dFromUnknown, writePoint2d} from './converter/point-2d';
 import {Point2d, Point2dAssembly, Point2dObject} from './model/point-2d';
 
-interface Point2dInputParams extends BaseInputParams {
+interface Point2dYParams extends PointDimensionParams {
+	inverted?: boolean;
+}
+
+export interface Point2dInputParams extends BaseInputParams {
 	expanded?: boolean;
 	picker?: PickerLayout;
 	x?: PointDimensionParams;
