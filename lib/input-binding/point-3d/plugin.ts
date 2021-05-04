@@ -11,7 +11,7 @@ import {
 	parseNumber,
 } from '../../common/converter/number';
 import {ValueMap} from '../../common/model/value-map';
-import {ParamsParsers, parseParams} from '../../common/params';
+import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {TpError} from '../../common/tp-error';
 import {
 	getBaseStep,

@@ -1,7 +1,11 @@
 import {ListController} from '../../common/controller/list';
 import {ValueMap} from '../../common/model/value-map';
 import {createValue} from '../../common/model/values';
-import {ParamsParser, ParamsParsers, parseParams} from '../../common/params';
+import {
+	ParamsParser,
+	ParamsParsers,
+	parseParams,
+} from '../../common/params-parsers';
 import {normalizeListOptions, parseListOptions} from '../../common/util';
 import {BladeParams, ListParamsOptions} from '../common/api/params';
 import {LabeledValueController} from '../label/controller/value-label';

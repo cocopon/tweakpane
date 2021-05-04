@@ -1,5 +1,5 @@
 import {ViewProps} from '../common/model/view-props';
-import {ParamsParsers} from '../common/params';
+import {ParamsParsers} from '../common/params-parsers';
 import {View} from '../common/view/view';
 import {forceCast} from '../misc/type-util';
 import {BasePlugin} from '../plugin';

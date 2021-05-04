@@ -1,5 +1,5 @@
 import {ValueMap} from '../../common/model/value-map';
-import {ParamsParsers, parseParams} from '../../common/params';
+import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {BladeParams} from '../common/api/params';
 import {LabelController} from '../label/controller/label';
 import {BladePlugin} from '../plugin';

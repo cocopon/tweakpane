@@ -1,6 +1,6 @@
 import {BaseMonitorParams} from '../../blade/common/api/params';
 import {formatString, stringFromUnknown} from '../../common/converter/string';
-import {ParamsParsers, parseParams} from '../../common/params';
+import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {Constants} from '../../misc/constants';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogMonitorController} from '../common/controller/single-log';

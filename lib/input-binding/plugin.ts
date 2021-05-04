@@ -11,7 +11,7 @@ import {Value} from '../common/model/value';
 import {ValueMap} from '../common/model/value-map';
 import {createValue} from '../common/model/values';
 import {ViewProps} from '../common/model/view-props';
-import {ParamsParsers} from '../common/params';
+import {ParamsParsers} from '../common/params-parsers';
 import {View} from '../common/view/view';
 import {isEmpty} from '../misc/type-util';
 import {BasePlugin} from '../plugin';

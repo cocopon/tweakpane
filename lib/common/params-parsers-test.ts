@@ -1,9 +1,9 @@
 import * as assert from 'assert';
 import {describe as context, describe} from 'mocha';
 
-import {ParamsParsers} from './params';
+import {ParamsParsers} from './params-parsers';
 
-describe('ParamsValueParsers', () => {
+describe('ParamsParsers', () => {
 	[
 		{
 			value: true,

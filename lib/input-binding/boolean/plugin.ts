@@ -11,7 +11,7 @@ import {ListConstraint} from '../../common/constraint/list';
 import {ListController} from '../../common/controller/list';
 import {boolFromUnknown} from '../../common/converter/boolean';
 import {ValueMap} from '../../common/model/value-map';
-import {ParamsParsers, parseParams} from '../../common/params';
+import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {writePrimitive} from '../../common/primitive';
 import {
 	createListConstraint,

@@ -20,7 +20,11 @@ import {numberFromUnknown} from '../../common/converter/number';
 import {ValueMap} from '../../common/model/value-map';
 import {NumberTextController} from '../../common/number/controller/number-text';
 import {SliderTextController} from '../../common/number/controller/slider-text';
-import {ParamsParser, ParamsParsers, parseParams} from '../../common/params';
+import {
+	ParamsParser,
+	ParamsParsers,
+	parseParams,
+} from '../../common/params-parsers';
 import {writePrimitive} from '../../common/primitive';
 import {
 	createListConstraint,

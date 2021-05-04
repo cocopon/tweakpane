@@ -12,7 +12,7 @@ import {Constraint} from './constraint/constraint';
 import {ListConstraint, ListItem} from './constraint/list';
 import {StepConstraint} from './constraint/step';
 import {getDecimalDigits} from './number-util';
-import {ParamsParser, ParamsParsers} from './params';
+import {ParamsParser, ParamsParsers} from './params-parsers';
 
 export function parseListOptions<T>(
 	value: unknown,

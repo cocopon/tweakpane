@@ -12,7 +12,7 @@ import {Controller} from '../common/controller/controller';
 import {BufferedValue, initializeBuffer} from '../common/model/buffered-value';
 import {ValueMap} from '../common/model/value-map';
 import {ViewProps} from '../common/model/view-props';
-import {ParamsParsers} from '../common/params';
+import {ParamsParsers} from '../common/params-parsers';
 import {View} from '../common/view/view';
 import {Constants} from '../misc/constants';
 import {isEmpty} from '../misc/type-util';

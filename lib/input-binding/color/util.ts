@@ -1,5 +1,5 @@
 import {BaseInputParams, PickerLayout} from '../../blade/common/api/params';
-import {ParamsParsers, parseParams} from '../../common/params';
+import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {parsePickerLayout} from '../../common/util';
 
 export interface ColorInputParams extends BaseInputParams {

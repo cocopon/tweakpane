@@ -5,7 +5,7 @@ import {
 	createNumberFormatter,
 	numberFromUnknown,
 } from '../../common/converter/number';
-import {ParamsParsers, parseParams} from '../../common/params';
+import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {View} from '../../common/view/view';
 import {Constants} from '../../misc/constants';
 import {MultiLogController} from '../common/controller/multi-log';

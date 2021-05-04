@@ -3,7 +3,11 @@ import {numberToString, parseNumber} from '../../common/converter/number';
 import {ValueMap} from '../../common/model/value-map';
 import {createValue} from '../../common/model/values';
 import {SliderTextController} from '../../common/number/controller/slider-text';
-import {ParamsParser, ParamsParsers, parseParams} from '../../common/params';
+import {
+	ParamsParser,
+	ParamsParsers,
+	parseParams,
+} from '../../common/params-parsers';
 import {getSuitableDraggingScale} from '../../common/util';
 import {BladeParams} from '../common/api/params';
 import {LabeledValueController} from '../label/controller/value-label';

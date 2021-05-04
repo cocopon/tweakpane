@@ -12,7 +12,7 @@ import {ListController} from '../../common/controller/list';
 import {TextController} from '../../common/controller/text';
 import {formatString, stringFromUnknown} from '../../common/converter/string';
 import {ValueMap} from '../../common/model/value-map';
-import {ParamsParsers, parseParams} from '../../common/params';
+import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {writePrimitive} from '../../common/primitive';
 import {
 	createListConstraint,
