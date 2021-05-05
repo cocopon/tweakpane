@@ -1,4 +1,4 @@
-import {Tweakpane} from 'tweakpane';
+import {Pane} from 'tweakpane';
 
 import {selectContainer} from '../util';
 
@@ -15,7 +15,7 @@ export function initInput() {
 				v3: {x: 12, y: 34, z: 56},
 				s: 'string',
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			const nf = pane.addFolder({
@@ -71,7 +71,7 @@ export function initInput() {
 		},
 		numbertext: (container) => {
 			const PARAMS = {value: 50};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'value', {
@@ -80,7 +80,7 @@ export function initInput() {
 		},
 		slider: (container) => {
 			const PARAMS = {value: 50};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'value', {
@@ -94,7 +94,7 @@ export function initInput() {
 				speed: 0.5,
 				count: 10,
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'speed', {
@@ -116,7 +116,7 @@ export function initInput() {
 			const log = {
 				json: '',
 			};
-			const consolePane = new Tweakpane({
+			const consolePane = new Pane({
 				container: consoleElem,
 			});
 			consolePane.addMonitor(log, 'json', {
@@ -130,7 +130,7 @@ export function initInput() {
 				consolePane.refresh();
 			};
 
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane
@@ -148,7 +148,7 @@ export function initInput() {
 		},
 		numberformatter: (container) => {
 			const PARAMS = {value: 0};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'value', {
@@ -158,7 +158,7 @@ export function initInput() {
 		},
 		stringtext: (container) => {
 			const PARAMS = {value: 'hello, world'};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'value', {
@@ -172,7 +172,7 @@ export function initInput() {
 			const log = {
 				json: '',
 			};
-			const consolePane = new Tweakpane({
+			const consolePane = new Pane({
 				container: consoleElem,
 			});
 			consolePane.addMonitor(log, 'json', {
@@ -186,7 +186,7 @@ export function initInput() {
 				consolePane.refresh();
 			};
 
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane
@@ -204,7 +204,7 @@ export function initInput() {
 		},
 		checkbox: (container) => {
 			const PARAMS = {value: true};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'value', {
@@ -216,7 +216,7 @@ export function initInput() {
 				background: {r: 255, g: 127, b: 0},
 				tint: {r: 255, g: 255, b: 0, a: 0.5},
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'background');
@@ -227,7 +227,7 @@ export function initInput() {
 				primary: '#8df',
 				secondary: 'rgb(255, 136, 221)',
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'primary');
@@ -238,7 +238,7 @@ export function initInput() {
 				background: 0x0088ff,
 				tint: 0x00ff0044,
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'background', {
@@ -253,7 +253,7 @@ export function initInput() {
 			const PARAMS = {
 				hex: '#0088ff',
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'hex', {
@@ -264,7 +264,7 @@ export function initInput() {
 			const PARAMS = {
 				key: '#22aaeeff',
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'key', {
@@ -274,7 +274,7 @@ export function initInput() {
 		},
 		point2d: (container) => {
 			const PARAMS = {value: {x: 50, y: 25}};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'value', {
@@ -283,7 +283,7 @@ export function initInput() {
 		},
 		point2dparams: (container) => {
 			const PARAMS = {value: {x: 20, y: 30}};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'value', {
@@ -294,7 +294,7 @@ export function initInput() {
 		},
 		point2dinvertedy: (container) => {
 			const PARAMS = {value: {x: 50, y: 50}};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'value', {
@@ -304,7 +304,7 @@ export function initInput() {
 		},
 		point2dinline: (container) => {
 			const PARAMS = {value: {x: 50, y: 25}};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'value', {
@@ -318,7 +318,7 @@ export function initInput() {
 				camera: {x: 0, y: 20, z: -10},
 				source: {x: 0, y: 0, z: 0},
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'source');
@@ -331,7 +331,7 @@ export function initInput() {
 			const PARAMS = {
 				color: {x: 0, y: 0, z: 0, w: 1},
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			const copt = {min: 0, max: 1};

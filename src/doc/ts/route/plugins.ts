@@ -1,4 +1,4 @@
-import {Tweakpane} from 'tweakpane';
+import {Pane} from 'tweakpane';
 
 import {selectContainer} from '../util';
 
@@ -13,7 +13,7 @@ export function initPlugins() {
 				size2: {min: 16, max: 48},
 			};
 
-			const consolePane = new Tweakpane({
+			const consolePane = new Pane({
 				container: selectContainer('interval', true),
 			});
 			consolePane.addMonitor(params, 'log', {
@@ -23,7 +23,7 @@ export function initPlugins() {
 				multiline: true,
 			});
 
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 
@@ -45,7 +45,7 @@ export function initPlugins() {
 				fnum: 1.8,
 				iso: 100,
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(params, 'flen', {

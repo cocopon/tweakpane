@@ -1,4 +1,4 @@
-import {Tweakpane} from 'tweakpane';
+import {Pane} from 'tweakpane';
 
 import {
 	colorFromString,
@@ -107,7 +107,7 @@ const GROUPS: ThemePaneGroup[] = [
 ];
 
 export function createPane(container: HTMLElement, theme: Theme): any {
-	const pane = new Tweakpane({
+	const pane = new Pane({
 		container: container,
 		title: 'Panepaint',
 	});

@@ -6,18 +6,18 @@ import {InputBindingController} from '../blade/input-binding/controller/input-bi
 import {LabelController} from '../blade/label/controller/label';
 import {MonitorBindingController} from '../blade/monitor-binding/controller/monitor-binding';
 import {SeparatorController} from '../blade/separator/controller/separator';
-import {Tweakpane} from '../index';
 import {TestUtil} from '../misc/test-util';
 import {Class} from '../misc/type-util';
+import {Pane} from './pane';
 
-function createApi(title?: string): Tweakpane {
-	return new Tweakpane({
+function createApi(title?: string): Pane {
+	return new Pane({
 		document: TestUtil.createWindow().document,
 		title: title,
 	});
 }
 
-describe(Tweakpane.name, () => {
+describe(Pane.name, () => {
 	([
 		{
 			insert: (api, index) => {
@@ -55,7 +55,7 @@ describe(Tweakpane.name, () => {
 			expected: SeparatorController,
 		},
 	] as {
-		insert: (api: Tweakpane, index: number) => void;
+		insert: (api: Pane, index: number) => void;
 		expected: Class<any>;
 	}[]).forEach((testCase) => {
 		context(`when ${testCase.expected.name}`, () => {

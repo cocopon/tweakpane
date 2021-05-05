@@ -1,4 +1,4 @@
-import {Tweakpane} from 'tweakpane';
+import {Pane} from 'tweakpane';
 import {mapRange} from 'tweakpane/common/number-util';
 
 import {
@@ -77,7 +77,7 @@ export function initIndex() {
 		[key: string]: (container: HTMLElement) => void;
 	} = {
 		index: (container) => {
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 				title: 'Parameters',
 			});

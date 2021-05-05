@@ -1,16 +1,16 @@
 import {describe, it} from 'mocha';
 
-import {Tweakpane} from '../index';
 import {TestUtil} from '../misc/test-util';
+import {Pane} from './pane';
 
-function createPane(): Tweakpane {
-	return new Tweakpane({
+function createPane(): Pane {
+	return new Pane({
 		document: TestUtil.createWindow().document,
 		title: 'Title',
 	});
 }
 
-describe(Tweakpane.name, () => {
+describe(Pane.name, () => {
 	it('should listen fold event', (done) => {
 		const pane = createPane();
 		pane.on('fold', () => {

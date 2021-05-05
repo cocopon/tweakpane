@@ -8,7 +8,6 @@ import {TextController} from '../common/controller/text';
 import {NumberTextController} from '../common/number/controller/number-text';
 import {SliderTextController} from '../common/number/controller/slider-text';
 import {TpError} from '../common/tp-error';
-import {Tweakpane} from '../index';
 import {CheckboxController} from '../input-binding/boolean/controller/checkbox';
 import {ColorController} from '../input-binding/color/controller/color';
 import {Color} from '../input-binding/color/model/color';
@@ -16,14 +15,15 @@ import {PointNdTextController} from '../input-binding/common/controller/point-nd
 import {Point2dController} from '../input-binding/point-2d/controller/point-2d';
 import {TestUtil} from '../misc/test-util';
 import {forceCast} from '../misc/type-util';
+import {Pane} from './pane';
 
-function createPane(): Tweakpane {
-	return new Tweakpane({
+function createPane(): Pane {
+	return new Pane({
 		document: TestUtil.createWindow().document,
 	});
 }
 
-describe(Tweakpane.name, () => {
+describe(Pane.name, () => {
 	[
 		{
 			errorType: 'nomatchingcontroller',

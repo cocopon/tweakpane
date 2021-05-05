@@ -1,4 +1,4 @@
-import {Tweakpane} from 'tweakpane';
+import {Pane} from 'tweakpane';
 
 import {selectContainer} from '../util';
 
@@ -7,7 +7,7 @@ export function initUiComponents() {
 		[key: string]: (container: HTMLElement) => void;
 	} = {
 		header: (container) => {
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 				title: 'Root title',
 			});
@@ -43,7 +43,7 @@ export function initUiComponents() {
 				randomness: 0,
 				speed: 0,
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			const f1 = pane.addFolder({
@@ -64,7 +64,7 @@ export function initUiComponents() {
 				gravity: 0.01,
 				speed: 0.1,
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 				title: 'Parameters',
 			});
@@ -89,14 +89,14 @@ export function initUiComponents() {
 			const PARAMS = {count: '0'};
 
 			const consoleElem = selectContainer('button', true);
-			const consolePane = new Tweakpane({
+			const consolePane = new Pane({
 				container: consoleElem,
 			});
 			consolePane.addMonitor(PARAMS, 'count', {
 				interval: 0,
 			});
 
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane
@@ -111,7 +111,7 @@ export function initUiComponents() {
 		},
 
 		tab: (container) => {
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			const tab = pane.addTab({
@@ -129,7 +129,7 @@ export function initUiComponents() {
 		},
 
 		separator: (container) => {
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addButton({

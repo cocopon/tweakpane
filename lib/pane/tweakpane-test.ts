@@ -1,7 +1,6 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {Tweakpane} from '..';
 import {TextController} from '../common/controller/text';
 import {formatString, stringFromUnknown} from '../common/converter/string';
 import {ValueMap} from '../common/model/value-map';
@@ -11,11 +10,12 @@ import {writePrimitive} from '../common/primitive';
 import {TpError} from '../common/tp-error';
 import {InputBindingPlugin} from '../input-binding/plugin';
 import {TestUtil} from '../misc/test-util';
+import {Pane} from './pane';
 
-describe(Tweakpane.name, () => {
+describe(Pane.name, () => {
 	it('should dispose with default container', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = new Tweakpane({
+		const c = new Pane({
 			document: doc,
 		});
 
@@ -29,7 +29,7 @@ describe(Tweakpane.name, () => {
 		const containerElem = doc.createElement('div');
 		doc.body.appendChild(containerElem);
 
-		const c = new Tweakpane({
+		const c = new Pane({
 			container: containerElem,
 			document: doc,
 		});
@@ -41,7 +41,7 @@ describe(Tweakpane.name, () => {
 
 	it("should throw 'alreadyDisposed' error", () => {
 		const doc = TestUtil.createWindow().document;
-		const c = new Tweakpane({
+		const c = new Pane({
 			document: doc,
 		});
 		c.dispose();
@@ -52,7 +52,7 @@ describe(Tweakpane.name, () => {
 
 	it('should expanded by default', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = new Tweakpane({
+		const c = new Pane({
 			document: doc,
 			title: 'Title',
 		});
@@ -61,7 +61,7 @@ describe(Tweakpane.name, () => {
 
 	it('should shrink by default with `expanded: false` option', () => {
 		const doc = TestUtil.createWindow().document;
-		const c = new Tweakpane({
+		const c = new Pane({
 			document: doc,
 			expanded: false,
 			title: 'Title',
@@ -71,7 +71,7 @@ describe(Tweakpane.name, () => {
 
 	it('should embed default style', () => {
 		const doc = TestUtil.createWindow().document;
-		new Tweakpane({
+		new Pane({
 			document: doc,
 		});
 		assert.notStrictEqual(
@@ -82,7 +82,7 @@ describe(Tweakpane.name, () => {
 
 	it('should embed plugin style', () => {
 		const css = '.tp-tstv{color:white;}';
-		Tweakpane.registerPlugin({
+		Pane.registerPlugin({
 			type: 'input',
 			plugin: {
 				id: 'test',
@@ -111,7 +111,7 @@ describe(Tweakpane.name, () => {
 			} as InputBindingPlugin<string, string, BaseInputParams>,
 		});
 		const doc = TestUtil.createWindow().document;
-		new Tweakpane({
+		new Pane({
 			document: doc,
 		});
 		const styleElem = doc.querySelector('style[data-tp-style=plugin-test]');

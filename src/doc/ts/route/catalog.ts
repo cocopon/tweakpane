@@ -1,6 +1,6 @@
 import {toCss} from 'ts/panepaint';
 import {createTheme, ThemeId} from 'ts/themes';
-import {Tweakpane} from 'tweakpane';
+import {Pane} from 'tweakpane';
 import {ButtonBladeParams} from 'tweakpane/blade/button/plugin';
 import {FolderBladeParams} from 'tweakpane/blade/folder/plugin';
 import {ListBladeParams} from 'tweakpane/blade/list/plugin';
@@ -11,8 +11,8 @@ import {TextBladeParams} from 'tweakpane/blade/text/plugin';
 
 import {selectContainer, wave} from '../util';
 
-function createThemePane(container: HTMLElement): Tweakpane {
-	const pane = new Tweakpane({
+function createThemePane(container: HTMLElement): Pane {
+	const pane = new Pane({
 		container: container,
 		title: 'Theme',
 	});
@@ -47,7 +47,7 @@ export function initCatalog() {
 			const params = {
 				number: 0,
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 				title: 'Number',
 			});
@@ -73,7 +73,7 @@ export function initCatalog() {
 			const params = {
 				string: 'text',
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 				title: 'String',
 			});
@@ -93,7 +93,7 @@ export function initCatalog() {
 			const params = {
 				bool: true,
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 				title: 'Boolean',
 			});
@@ -106,7 +106,7 @@ export function initCatalog() {
 			const params = {
 				color: '#ff00007f',
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 				title: 'Color',
 			});
@@ -123,7 +123,7 @@ export function initCatalog() {
 				p3d: {x: 0, y: 0, z: 0},
 				p4d: {x: 0, y: 0, z: 0, w: 0},
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 				title: 'Point',
 			});
@@ -152,7 +152,7 @@ export function initCatalog() {
 				wavet += 1;
 			}, 50);
 
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 				title: 'Number',
 			});
@@ -181,7 +181,7 @@ export function initCatalog() {
 				params.string = new Date().toISOString();
 			}, 1000);
 
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 				title: 'String',
 			});
@@ -205,7 +205,7 @@ export function initCatalog() {
 				params.bool = !params.bool;
 			}, 1000);
 
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 				title: 'Boolean',
 			});
@@ -222,7 +222,7 @@ export function initCatalog() {
 			});
 		},
 		folder: (container) => {
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 				title: 'Folder',
 			});
@@ -236,7 +236,7 @@ export function initCatalog() {
 			sf.addInput({param: 0}, 'param', {disabled: disabled});
 		},
 		tab: (container) => {
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 				title: 'Tab',
 			});
@@ -250,7 +250,7 @@ export function initCatalog() {
 			st.pages[0].addInput({param: 0}, 'param', {disabled: disabled});
 		},
 		button: (container) => {
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 				title: 'Button',
 			});
@@ -265,7 +265,7 @@ export function initCatalog() {
 			});
 		},
 		separator: (container) => {
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 				title: 'Separator',
 			});
@@ -283,7 +283,7 @@ export function initCatalog() {
 			createThemePane(container);
 		},
 		blades: (container) => {
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 				title: 'Blades',
 			});

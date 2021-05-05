@@ -1,4 +1,4 @@
-import {Tweakpane} from 'tweakpane';
+import {Pane} from 'tweakpane';
 
 import {selectContainer, wave} from '../util';
 
@@ -12,7 +12,7 @@ export function initQuickTour() {
 				title: 'hello',
 				color: '#0f0',
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'factor');
@@ -24,7 +24,7 @@ export function initQuickTour() {
 				percentage: 50,
 				theme: 'dark',
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'percentage', {
@@ -45,7 +45,7 @@ export function initQuickTour() {
 				text: 'hello',
 				size: 16,
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'factor');
@@ -66,7 +66,7 @@ export function initQuickTour() {
 				text: 'hello',
 				size: 16,
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 				title: 'Parameters',
 			});
@@ -93,7 +93,7 @@ export function initQuickTour() {
 				size: 16,
 			};
 
-			const consolePane = new Tweakpane({
+			const consolePane = new Pane({
 				container: consoleElem,
 			});
 			consolePane.addMonitor(PARAMS, 'log', {
@@ -103,7 +103,7 @@ export function initQuickTour() {
 				lineCount: 5,
 			});
 
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane
@@ -130,7 +130,7 @@ export function initQuickTour() {
 				log: '',
 			};
 
-			const consolePane = new Tweakpane({
+			const consolePane = new Pane({
 				container: consoleElem,
 			});
 			consolePane.addMonitor(PARAMS, 'log', {
@@ -140,7 +140,7 @@ export function initQuickTour() {
 				multiline: true,
 			});
 
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'factor', {
@@ -172,7 +172,7 @@ export function initQuickTour() {
 				t += 1;
 			}, 50);
 
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addMonitor(PARAMS, 'signal', {

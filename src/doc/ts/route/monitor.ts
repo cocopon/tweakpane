@@ -1,4 +1,4 @@
-import {Tweakpane} from 'tweakpane';
+import {Pane} from 'tweakpane';
 
 import {selectContainer, wave} from '../util';
 
@@ -27,7 +27,7 @@ export function initMonitor() {
 		[key: string]: (container: HTMLElement) => void;
 	} = {
 		monitor: (container) => {
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			const nf = pane.addFolder({
@@ -55,7 +55,7 @@ export function initMonitor() {
 		},
 		multiline: (container) => {
 			const PARAMS = {params: ''};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane
@@ -69,7 +69,7 @@ export function initMonitor() {
 		},
 
 		buffersize: (container) => {
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addMonitor(SHARED_PARAMS, 'wave', {
@@ -78,7 +78,7 @@ export function initMonitor() {
 		},
 
 		interval: (container) => {
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addMonitor(SHARED_PARAMS, 'time', {
@@ -87,7 +87,7 @@ export function initMonitor() {
 		},
 
 		graph: (container) => {
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addMonitor(SHARED_PARAMS, 'wave', {

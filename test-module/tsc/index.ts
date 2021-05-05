@@ -1,6 +1,6 @@
 import {JSDOM} from 'jsdom';
 // Import default module
-import {Tweakpane} from 'tweakpane';
+import {Pane} from 'tweakpane';
 import {
 	TpChangeEvent,
 	TpUpdateEvent,
@@ -19,7 +19,7 @@ const PARAMS = {
 
 // Create pane
 const doc = new JSDOM('').window.document;
-const pane = new Tweakpane({
+const pane = new Pane({
 	document: doc,
 });
 
