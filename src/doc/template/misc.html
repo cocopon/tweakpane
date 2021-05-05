@@ -22,7 +22,7 @@
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
-			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
 pane.addInput(PARAMS, 'value')
   .<strong>on</strong>('change', (ev) =&gt; {
     console.log(ev.value.toFixed(2));
@@ -40,7 +40,7 @@ pane.addInput(PARAMS, 'value')
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
-			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
 pane.addInput(PARAMS, 'boolean');
 pane.addInput(PARAMS, 'color');
 pane.addInput(PARAMS, 'number');
@@ -65,7 +65,7 @@ pane.<strong>on</strong>('change', (ev) =&gt; {
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
-			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
 // pane.addInput(PARAMS, ...);
 // pane.addInput(PARAMS, ...);
 
@@ -85,7 +85,7 @@ console.log(preset);
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
-			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
 // pane.addInput(PARAMS, ...);
 // pane.addInput(PARAMS, ...);
 
@@ -104,7 +104,7 @@ pane.<strong>importPreset</strong>(preset);
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
-			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
 pane.addInput(PARAMS1, 'speed');
 pane.addInput(PARAMS2, 'speed', {
   <strong>presetKey</strong>: 'speed2',
@@ -128,7 +128,7 @@ pane.addInput(PARAMS2, 'speed', {
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
-			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane({
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane({
   <strong>container</strong>: document.getElementById('someContainer'),
 });
 </code></pre></div>
@@ -143,7 +143,7 @@ pane.addInput(PARAMS2, 'speed', {
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
-			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
 pane.addInput(PARAMS, 'initSpd', {
   <strong>label</strong>: 'Initial speed',
 });
@@ -165,7 +165,7 @@ pane.addInput(PARAMS, 'size', {
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
-			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
 // pane.addInput(PARAMS, ...);
 // pane.addInput(PARAMS, ...);
 
@@ -182,7 +182,7 @@ pane.<strong>refresh</strong>();
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
-			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
 const f = pane.addFolder({
   title: 'Advanced',
 });
@@ -207,7 +207,7 @@ btn.on('click', () => {
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
-			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
 const i = pane.addInput(PARAMS, 'param', {
   <strong>disabled</strong>: true,
   title: 'Advanced',
@@ -233,7 +233,7 @@ btn.on('click', () => {
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
-			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
 const i = pane.addInput(PARAMS, 'count');
 
 // ...
@@ -255,7 +255,7 @@ pane.<strong>dispose</strong>();
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
-			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
 pane.addButton({title: 'Run'});
 pane.addButton({title: 'Stop'});
 pane.addButton({

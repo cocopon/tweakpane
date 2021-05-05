@@ -1,7 +1,6 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {Tweakpane} from '..';
 import {TpUpdateEvent} from '../blade/common/api/tp-event';
 import {ManualTicker} from '../common/binding/ticker/manual';
 import {TpError} from '../common/tp-error';
@@ -9,14 +8,15 @@ import {TestUtil} from '../misc/test-util';
 import {MultiLogController} from '../monitor-binding/common/controller/multi-log';
 import {SingleLogMonitorController} from '../monitor-binding/common/controller/single-log';
 import {GraphLogController} from '../monitor-binding/number/controller/graph-log';
+import {Pane} from './pane';
 
-function createPane(): Tweakpane {
-	return new Tweakpane({
+function createPane(): Pane {
+	return new Pane({
 		document: TestUtil.createWindow().document,
 	});
 }
 
-describe(Tweakpane.name, () => {
+describe(Pane.name, () => {
 	[
 		{
 			errorType: 'nomatchingcontroller',

@@ -29,7 +29,7 @@
   speed: 0.5,
 };
 
-const pane = new Tweakpane();
+const pane = new Pane();
 pane.addInput(PARAMS, 'speed');</code></pre></div>
 		</div>
 		<div class="demo_resultLayout">
@@ -49,7 +49,7 @@ pane.addInput(PARAMS, 'speed');</code></pre></div>
   speed: 50,
 };
 
-const pane = new Tweakpane();
+const pane = new Pane();
 pane.addInput(PARAMS, 'speed', {
   <strong>min</strong>: 0,
   <strong>max</strong>: 100,
@@ -73,7 +73,7 @@ pane.addInput(PARAMS, 'speed', {
   count: 10,
 };
 
-const pane = new Tweakpane();
+const pane = new Pane();
 pane.addInput(PARAMS, 'speed', {
   <strong>step</strong>: 0.1,
 });
@@ -100,7 +100,7 @@ pane.addInput(PARAMS, 'count', {
   quality: 0,
 };
 
-const pane = new Tweakpane();
+const pane = new Pane();
 pane.addInput(PARAMS, 'quality', {
   <strong>options</strong>: {
     low: 0,
@@ -127,7 +127,7 @@ pane.addInput(PARAMS, 'quality', {
   k: 0,
 };
 
-const pane = new Tweakpane();
+const pane = new Pane();
 pane.addInput(PARAMS, 'k', {
   <strong>format</strong>: (v) => v.toFixed(6),
 });</code></pre></div>
@@ -149,7 +149,7 @@ pane.addInput(PARAMS, 'k', {
   message: 'hello, world',
 };
 
-const pane = new Tweakpane();
+const pane = new Pane();
 pane.addInput(PARAMS, 'message');</code></pre></div>
 		</div>
 		<div class="demo_resultLayout">
@@ -169,7 +169,7 @@ pane.addInput(PARAMS, 'message');</code></pre></div>
   theme: '',
 };
 
-const pane = new Tweakpane();
+const pane = new Pane();
 pane.addInput(PARAMS, 'theme', {
   <strong>options</strong>: {
     none: '',
@@ -196,7 +196,7 @@ pane.addInput(PARAMS, 'theme', {
   hidden: true,
 };
 
-const pane = new Tweakpane();
+const pane = new Pane();
 pane.addInput(PARAMS, 'hidden');</code></pre></div>
 		</div>
 		<div class="demo_resultLayout">
@@ -217,7 +217,7 @@ pane.addInput(PARAMS, 'hidden');</code></pre></div>
   tint: {r: 255, g: 255, b: 0, a: 0.5},
 };
 
-const pane = new Tweakpane();
+const pane = new Pane();
 pane.addInput(PARAMS, 'background');
 pane.addInput(PARAMS, 'tint');</code></pre></div>
 		</div>
@@ -237,7 +237,7 @@ pane.addInput(PARAMS, 'tint');</code></pre></div>
   secondary: 'rgb(255, 136, 221)',
 };
 
-const pane = new Tweakpane();
+const pane = new Pane();
 pane.addInput(PARAMS, 'primary');
 pane.addInput(PARAMS, 'secondary');</code></pre></div>
 		</div>
@@ -257,7 +257,7 @@ pane.addInput(PARAMS, 'secondary');</code></pre></div>
   tint: 0x00ff0044,
 };
 
-const pane = new Tweakpane();
+const pane = new Pane();
 pane.addInput(PARAMS, 'background', {
   <strong>view: 'color'</strong>,
 });
@@ -281,7 +281,7 @@ pane.addInput(PARAMS, 'tint', {
   hex: '#0088ff',
 };
 
-const pane = new Tweakpane();
+const pane = new Pane();
 pane.addInput(PARAMS, 'hex', {
   <strong>view: 'text'</strong>,
 });</code></pre></div>
@@ -301,7 +301,7 @@ pane.addInput(PARAMS, 'hex', {
   key: '#22aaeeff',
 };
 
-const pane = new Tweakpane();
+const pane = new Pane();
 pane.addInput(PARAMS, 'key', {
   <strong>picker: 'inline'</strong>,
   expanded: true,
@@ -327,7 +327,7 @@ pane.addInput(PARAMS, 'key', {
   offset: {x: 50, y: 25},
 };
 
-const pane = new Tweakpane();
+const pane = new Pane();
 pane.addInput(PARAMS, 'offset');</code></pre></div>
 		</div>
 		<div class="demo_resultLayout">
@@ -345,7 +345,7 @@ pane.addInput(PARAMS, 'offset');</code></pre></div>
   offset: {x: 20, y: 30},
 };
 
-const pane = new Tweakpane();
+const pane = new Pane();
 pane.addInput(PARAMS, 'offset', {
   x: {<strong>step</strong>: 20},
   y: {<strong>min</strong>: 0, <strong>max</strong>: 100},
@@ -366,7 +366,7 @@ pane.addInput(PARAMS, 'offset', {
   offset: {x: 50, y: 50},
 };
 
-const pane = new Tweakpane();
+const pane = new Pane();
 pane.addInput(PARAMS, 'offset', {
   y: {<strong>inverted</strong>: true},
 });</code></pre></div>
@@ -386,7 +386,7 @@ pane.addInput(PARAMS, 'offset', {
   offset: {x: 50, y: 50},
 };
 
-const pane = new Tweakpane();
+const pane = new Pane();
 pane.addInput(PARAMS, 'offset', {
   <strong>picker: 'inline'</strong>,
   expanded: true,
@@ -412,7 +412,7 @@ pane.addInput(PARAMS, 'offset', {
 };
 
 // 3d
-const pane = new Tweakpane();
+const pane = new Pane();
 pane.addInput(PARAMS, 'source');
 pane.addInput(PARAMS, 'camera', {
   y: {step: 10},

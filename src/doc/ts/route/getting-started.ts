@@ -1,4 +1,4 @@
-import {Tweakpane} from 'tweakpane';
+import {Pane} from 'tweakpane';
 
 import {selectContainer} from '../util';
 
@@ -7,7 +7,7 @@ export function initGettingStarted() {
 		[key: string]: (container: HTMLElement) => void;
 	} = {
 		hello: (container) => {
-			new Tweakpane({
+			new Pane({
 				container: container,
 			});
 		},

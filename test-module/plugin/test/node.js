@@ -1,10 +1,10 @@
 const Jsdom = require('jsdom').JSDOM;
-const {Tweakpane} = require('tweakpane');
+const {Pane} = require('tweakpane');
 require('../dist/bundle');
 
 const doc = new Jsdom('').window.document;
 const params = {foo: 'hello, world'};
-const pane = new Tweakpane({
+const pane = new Pane({
 	document: doc,
 });
 

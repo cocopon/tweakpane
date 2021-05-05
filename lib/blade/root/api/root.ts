@@ -1,5 +1,5 @@
 import {ButtonBladePlugin} from '../../button/plugin';
-import {PluginRegistration, registerPlugin} from '../../common/api/util';
+import {registerPlugin} from '../../common/api/util';
 import {FolderApi} from '../../folder/api/folder';
 import {FolderBladePlugin} from '../../folder/plugin';
 import {InputBindingController} from '../../input-binding/controller/input-binding';
@@ -15,14 +15,6 @@ export class RootApi extends FolderApi {
 	 */
 	constructor(controller: RootController) {
 		super(controller);
-	}
-
-	/**
-	 * Registers a plugin.
-	 * @param r The configuration of the plugin.
-	 */
-	public static registerPlugin(r: PluginRegistration): void {
-		registerPlugin(r);
 	}
 
 	get element(): HTMLElement {

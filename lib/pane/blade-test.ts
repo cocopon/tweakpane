@@ -1,12 +1,12 @@
 import * as assert from 'assert';
 
-import {Tweakpane} from '../index';
 import {TestUtil} from '../misc/test-util';
+import {Pane} from './pane';
 
-describe(Tweakpane.name, () => {
+describe(Pane.name, () => {
 	it('should apply initial view properties', () => {
 		const doc = TestUtil.createWindow().document;
-		const pane = new Tweakpane({
+		const pane = new Pane({
 			document: doc,
 		});
 

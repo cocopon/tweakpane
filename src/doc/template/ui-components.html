@@ -25,7 +25,7 @@
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
-			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
 
 const f1 = pane.<strong>addFolder</strong>({
   title: 'Basic',
@@ -51,7 +51,7 @@ f2.addInput(PARAMS, 'randomness');</code></pre></div>
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
-			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane({
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane({
   <strong>title</strong>: 'Parameters',
 });
 
@@ -71,7 +71,7 @@ f2.addInput(PARAMS, 'randomness');</code></pre></div>
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
-			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
 
 const btn = pane.<strong>addButton</strong>({
   title: 'Increment',
@@ -99,7 +99,7 @@ btn.<strong>on</strong>('click', () =&gt; {
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
-			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
 
 const tab = pane.<strong>addTab</strong>({
   pages: [
@@ -124,7 +124,7 @@ tab.<strong>pages[0]</strong>.addInput(...);
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
-			<div class="codeBlock"><pre><code class="js">const pane = new Tweakpane();
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
 pane.addButton({title: 'Previous'});
 pane.addButton({title: 'Next'});
 pane<strong>.addSeparator</strong>();

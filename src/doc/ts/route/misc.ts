@@ -1,4 +1,4 @@
-import {Tweakpane} from 'tweakpane';
+import {Pane} from 'tweakpane';
 
 import {selectContainer, wave} from '../util';
 
@@ -26,7 +26,7 @@ export function initMisc() {
 				value: 0,
 			};
 
-			const consolePane = new Tweakpane({
+			const consolePane = new Pane({
 				container: consoleElem,
 			});
 			consolePane.addMonitor(PARAMS, 'log', {
@@ -36,7 +36,7 @@ export function initMisc() {
 				lineCount: 5,
 			});
 
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane
@@ -66,7 +66,7 @@ export function initMisc() {
 				log: '',
 			};
 
-			const consolePane = new Tweakpane({
+			const consolePane = new Pane({
 				container: consoleElem,
 			});
 			consolePane.addMonitor(PARAMS, 'log', {
@@ -76,7 +76,7 @@ export function initMisc() {
 				lineCount: 5,
 			});
 
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'boolean');
@@ -106,7 +106,7 @@ export function initMisc() {
 				return;
 			}
 
-			const consolePane = new Tweakpane({
+			const consolePane = new Pane({
 				container: consoleElem,
 			});
 			consolePane.addMonitor(IMEX_LOG, 'log', {
@@ -115,7 +115,7 @@ export function initMisc() {
 				multiline: true,
 			});
 
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(IMEX_PARAMS, 'name');
@@ -140,7 +140,7 @@ export function initMisc() {
 				return;
 			}
 
-			const consolePane = new Tweakpane({
+			const consolePane = new Pane({
 				container: consoleElem,
 			});
 			consolePane.addMonitor(IMEX_LOG, 'log', {
@@ -152,10 +152,10 @@ export function initMisc() {
 			const PARAMS = {
 				color: '#0080ff',
 				log: '',
-				name: 'tweakpane',
+				name: 'Pane',
 				size: 50,
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane
@@ -184,7 +184,7 @@ export function initMisc() {
 				preset: '',
 			};
 
-			const consolePane = new Tweakpane({
+			const consolePane = new Pane({
 				container: consoleElem,
 			});
 			consolePane.addMonitor(PARAMS, 'preset', {
@@ -194,7 +194,7 @@ export function initMisc() {
 				multiline: true,
 			});
 
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS.foo, 'speed', {
@@ -222,7 +222,7 @@ export function initMisc() {
 				initSpd: 0,
 				size: 30,
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'initSpd', {
@@ -234,7 +234,7 @@ export function initMisc() {
 		},
 
 		insert: (container) => {
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 			pane.addButton({title: 'Run'});
@@ -246,7 +246,7 @@ export function initMisc() {
 			const PARAMS = {
 				seed: 0.1,
 			};
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 
@@ -275,7 +275,7 @@ export function initMisc() {
 				wavet += 1;
 			}, 200);
 
-			const pane = new Tweakpane({
+			const pane = new Pane({
 				container: container,
 			});
 

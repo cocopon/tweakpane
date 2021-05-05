@@ -3,7 +3,7 @@ import {createTheme} from '../themes';
 import {selectContainer} from '../util';
 
 declare let hljs: any;
-import {Tweakpane} from 'tweakpane';
+import {Pane} from 'tweakpane';
 
 function applyPreviewHtml(selector: string, theme: Theme, comment: string) {
 	const elem = document.querySelector(selector);
@@ -47,7 +47,7 @@ function createPreviewPane(containerElem: HTMLElement) {
 		text: 'text',
 		monitor: [0, 1, 2, 3].map(() => Math.random().toFixed(2)).join('\n'),
 	};
-	const pane = new Tweakpane({
+	const pane = new Pane({
 		container: containerElem,
 		title: 'Preview',
 	});
