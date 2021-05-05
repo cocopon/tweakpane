@@ -1,4 +1,4 @@
-import {Pane} from 'tweakpane';
+import {registerPlugin} from 'tweakpane';
 import {Controller} from 'tweakpane/lib/common/controller/controller';
 // Import individual classes
 import {stringFromUnknown} from 'tweakpane/lib/common/converter/string';
@@ -50,7 +50,7 @@ class TestController implements Controller<TestView> {
 }
 
 {
-	Pane.registerPlugin({
+	registerPlugin({
 		type: 'input',
 		plugin: {
 			id: 'input-test',

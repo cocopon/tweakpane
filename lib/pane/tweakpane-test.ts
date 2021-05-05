@@ -1,6 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
+import {Pane, registerPlugin} from '..';
 import {TextController} from '../common/controller/text';
 import {formatString, stringFromUnknown} from '../common/converter/string';
 import {ValueMap} from '../common/model/value-map';
@@ -10,9 +11,8 @@ import {writePrimitive} from '../common/primitive';
 import {TpError} from '../common/tp-error';
 import {InputBindingPlugin} from '../input-binding/plugin';
 import {TestUtil} from '../misc/test-util';
-import {Pane} from './pane';
 
-describe(Pane.name, () => {
+describe('Tweakpane', () => {
 	it('should dispose with default container', () => {
 		const doc = TestUtil.createWindow().document;
 		const c = new Pane({
@@ -82,7 +82,7 @@ describe(Pane.name, () => {
 
 	it('should embed plugin style', () => {
 		const css = '.tp-tstv{color:white;}';
-		Pane.registerPlugin({
+		registerPlugin({
 			type: 'input',
 			plugin: {
 				id: 'test',

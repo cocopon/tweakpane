@@ -30,6 +30,10 @@ export type PluginRegistration =
 			plugin: MonitorBindingPlugin<any, any>;
 	  };
 
+/**
+ * Registers a plugin.
+ * @param r The configuration of the plugin.
+ */
 export function registerPlugin(r: PluginRegistration): void {
 	if (r.type === 'blade') {
 		Plugins.blades.unshift(r.plugin);
