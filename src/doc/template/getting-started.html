@@ -40,7 +40,7 @@
 	</div>
 </div>
 
-<p>You can also install, require/import it as <a href="https://www.npmjs.com/package/tweakpane" target="_blank">npm package</a>:</p>
+<p>You can also install, import it as <a href="https://www.npmjs.com/package/tweakpane" target="_blank">npm package</a>:</p>
 
 <div class="main_mediaLayout">
 	<div class="codeBlock">
@@ -50,7 +50,7 @@
 
 <div class="main_mediaLayout">
 	<div class="codeBlock">
-		<pre><code class="js">const {Tweakpane} = require('tweakpane');</code></pre>
+		<pre><code class="js">import {Pane} from 'tweakpane';</code></pre>
 		<div class="codeBlock_title">
 			.js
 		</div>
@@ -59,13 +59,17 @@
 
 
 <h2>2. Create a pane</h2>
-<p>Create an instance of Tweakpane by <code>new Tweakpane()</code>.</p>
+<p>Create an instance of a pane by <code>new</code>.</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
 		<div class="demo_codeLayout">
 			<div class="codeBlock">
-				<pre><code class="js">const pane = new Tweakpane();</code></pre>
+				<pre><code class="js">// CDN
+const pane = new Tweakpane.Pane();
+
+// npm
+const pane = new Pane();</code></pre>
 			</div>
 		</div>
 		<div class="demo_resultLayout">
