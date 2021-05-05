@@ -14,6 +14,7 @@ import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
 import {TestUtil} from '../../../misc/test-util';
 import {SingleLogMonitorController} from '../../../monitor-binding/common/controller/single-log';
+import {assertInitialState, assertUpdates} from '../../common/api/test-util';
 import {TpUpdateEvent} from '../../common/api/tp-event';
 import {createBlade} from '../../common/model/blade';
 import {LabelPropsObject} from '../../label/view/label';
@@ -45,6 +46,26 @@ function createApi(target: BindingTarget) {
 }
 
 describe(MonitorBindingApi.name, () => {
+	it('should have initial state', () => {
+		const PARAMS = {
+			foo: 0,
+		};
+		const api = createApi(new BindingTarget(PARAMS, 'foo'));
+		assertInitialState(api);
+		assert.strictEqual(api.label, 'label');
+	});
+
+	it('should update properties', () => {
+		const PARAMS = {
+			foo: 0,
+		};
+		const api = createApi(new BindingTarget(PARAMS, 'foo'));
+		assertUpdates(api);
+
+		api.label = 'changed';
+		assert.strictEqual(api.label, 'changed');
+	});
+
 	it('should listen update event', (done) => {
 		const PARAMS = {
 			foo: 0,

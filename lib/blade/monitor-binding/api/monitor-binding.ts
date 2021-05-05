@@ -32,6 +32,14 @@ export class MonitorBindingApi<T> extends BladeApi<
 		this.controller_.binding.emitter.on('update', this.onBindingUpdate_);
 	}
 
+	get label(): string | undefined {
+		return this.controller_.props.get('label');
+	}
+
+	set label(label: string | undefined) {
+		this.controller_.props.set('label', label);
+	}
+
 	public on<EventName extends keyof MonitorBindingApiEvents<T>>(
 		eventName: EventName,
 		handler: (ev: MonitorBindingApiEvents<T>[EventName]['event']) => void,
