@@ -96,6 +96,7 @@ describe(InputBindingApi.name, () => {
 		};
 		const api = createApi(new BindingTarget(PARAMS, 'foo'));
 		assertInitialState(api);
+		assert.strictEqual(api.label, 'label');
 	});
 
 	it('should update properties', () => {
@@ -104,5 +105,8 @@ describe(InputBindingApi.name, () => {
 		};
 		const api = createApi(new BindingTarget(PARAMS, 'foo'));
 		assertUpdates(api);
+
+		api.label = 'changed';
+		assert.strictEqual(api.label, 'changed');
 	});
 });

@@ -34,6 +34,14 @@ export class InputBindingApi<In, Ex> extends BladeApi<
 		this.controller_.binding.emitter.on('change', this.onBindingChange_);
 	}
 
+	get label(): string | undefined {
+		return this.controller_.props.get('label');
+	}
+
+	set label(label: string | undefined) {
+		this.controller_.props.set('label', label);
+	}
+
 	public on<EventName extends keyof InputBindingApiEvents<Ex>>(
 		eventName: EventName,
 		handler: (ev: InputBindingApiEvents<Ex>[EventName]['event']) => void,
