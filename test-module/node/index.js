@@ -2,12 +2,12 @@
 
 const Jsdom = require('jsdom').JSDOM;
 // Require default module
-const {Pane} = require('tweakpane');
+const {Pane, VERSION} = require('tweakpane');
 
 const Package = require('../../package.json');
 
 // Check version
-if (Pane.version.toString() !== Package.version) {
+if (VERSION.toString() !== Package.version) {
 	throw new Error('invalid version');
 }
 

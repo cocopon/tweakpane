@@ -23,7 +23,6 @@ import {Point2dInputPlugin} from '../input-binding/point-2d/plugin';
 import {Point3dInputPlugin} from '../input-binding/point-3d/plugin';
 import {Point4dInputPlugin} from '../input-binding/point-4d/plugin';
 import {StringInputPlugin} from '../input-binding/string/plugin';
-import {Semver} from '../misc/semver';
 import {BooleanMonitorPlugin} from '../monitor-binding/boolean/plugin';
 import {NumberMonitorPlugin} from '../monitor-binding/number/plugin';
 import {MonitorBindingPlugin} from '../monitor-binding/plugin';
@@ -63,7 +62,6 @@ function embedDefaultStyleIfNeeded(doc: Document) {
  * The Tweakpane interface.
  */
 export class Pane extends RootApi {
-	public static readonly version = new Semver('3.14.16');
 	private doc_: Document | null;
 	private containerElem_: HTMLElement | null;
 	private usesDefaultWrapper_: boolean;
