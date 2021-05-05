@@ -1,5 +1,4 @@
 import {BindingTarget} from '../../../common/binding/target';
-import {BaseInputParams, BaseMonitorParams} from '../../../common/params';
 import {TpError} from '../../../common/tp-error';
 import {InputBindingPlugin} from '../../../input-binding/plugin';
 import {MonitorBindingPlugin} from '../../../monitor-binding/plugin';
@@ -24,11 +23,11 @@ export type PluginRegistration =
 	  }
 	| {
 			type: 'input';
-			plugin: InputBindingPlugin<any, any, BaseInputParams>;
+			plugin: InputBindingPlugin<any, any, any>;
 	  }
 	| {
 			type: 'monitor';
-			plugin: MonitorBindingPlugin<any, BaseMonitorParams>;
+			plugin: MonitorBindingPlugin<any, any>;
 	  };
 
 export function registerPlugin(r: PluginRegistration): void {
