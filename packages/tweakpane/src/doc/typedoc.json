@@ -1,0 +1,11 @@
+{
+	"entryPoints": ["./src/main/ts"],
+	"exclude": [
+		"**/*.d.ts",
+		"**/*-test.ts"
+	],
+	"excludePrivate": true,
+	"tsconfig": "src/main/tsconfig.json",
+	"out": "docs/api",
+	"readme": "none"
+}

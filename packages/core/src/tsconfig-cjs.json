@@ -1,0 +1,7 @@
+{
+	"extends": "./tsconfig-es6.json",
+	"compilerOptions": {
+		"outDir": "../dist/cjs",
+		"target": "ES5"
+	}
+}
