@@ -50,8 +50,9 @@ export function createBladeController<P extends BaseBladeParams>(
 		return null;
 	}
 
-	const disabled = ParamsParsers.optional.boolean(args.params['disabled'])
-		.value;
+	const disabled = ParamsParsers.optional.boolean(
+		args.params['disabled'],
+	).value;
 	const hidden = ParamsParsers.optional.boolean(args.params['hidden']).value;
 	return plugin.controller({
 		blade: createBlade(),

@@ -23,7 +23,9 @@ export interface ListBladeParams<T> extends BaseBladeParams {
 	label?: string;
 }
 
-export const ListBladePlugin = (function<T>(): BladePlugin<ListBladeParams<T>> {
+export const ListBladePlugin = (function <T>(): BladePlugin<
+	ListBladeParams<T>
+> {
 	return {
 		id: 'list',
 		type: 'blade',

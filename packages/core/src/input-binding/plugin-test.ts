@@ -44,6 +44,7 @@ class TestController implements Controller<TestView> {
 
 const TestPlugin: InputBindingPlugin<string, string, BaseInputParams> = {
 	id: 'test',
+	type: 'input',
 	accept: (ex) =>
 		typeof ex === 'string' ? {initialValue: ex, params: {}} : null,
 	binding: {

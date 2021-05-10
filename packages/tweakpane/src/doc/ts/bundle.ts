@@ -22,9 +22,8 @@ function setUpScrews() {
 }
 
 function setUpSpMenu() {
-	const buttonElem: HTMLElement | null = document.getElementById(
-		'spMenuButton',
-	);
+	const buttonElem: HTMLElement | null =
+		document.getElementById('spMenuButton');
 	const menuElem: HTMLElement | null = document.querySelector('.menu');
 	if (!buttonElem || !menuElem) {
 		return;

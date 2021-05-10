@@ -43,6 +43,7 @@ class TestController implements Controller<TestView> {
 
 const TestPlugin: MonitorBindingPlugin<string, BaseMonitorParams> = {
 	id: 'test',
+	type: 'monitor',
 	accept: (ex) => {
 		if (typeof ex !== 'string') {
 			return null;

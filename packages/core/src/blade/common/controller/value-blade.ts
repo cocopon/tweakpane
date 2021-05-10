@@ -11,9 +11,10 @@ interface Config<T, V extends View> {
 	viewProps: ViewProps;
 }
 
-export class ValueBladeController<T, V extends View> extends BladeController<
-	V
-> {
+export class ValueBladeController<
+	T,
+	V extends View,
+> extends BladeController<V> {
 	public readonly value: Value<T>;
 
 	constructor(config: Config<T, V>) {

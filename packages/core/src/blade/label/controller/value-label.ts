@@ -12,7 +12,7 @@ interface Config<T, C extends ValueController<T, View>> {
 
 export class LabeledValueController<
 	T,
-	C extends ValueController<T, View>
+	C extends ValueController<T, View>,
 > extends ValueBladeController<T, LabelView> {
 	public readonly props: LabelProps;
 	public readonly valueController: C;

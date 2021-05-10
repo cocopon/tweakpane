@@ -97,63 +97,65 @@ describe('StringColorParser', () => {
 		});
 	});
 
-	([
-		{
-			expected: {
-				components: [123, 45, 67, 1.0],
-				mode: 'hsl',
+	(
+		[
+			{
+				expected: {
+					components: [123, 45, 67, 1.0],
+					mode: 'hsl',
+				},
+				input: 'hsl(123, 45, 67)',
 			},
-			input: 'hsl(123, 45, 67)',
-		},
-		{
-			expected: {
-				components: [123, 0, 0, 1.0],
-				mode: 'hsl',
+			{
+				expected: {
+					components: [123, 0, 0, 1.0],
+					mode: 'hsl',
+				},
+				input: 'hsla(123, 0, 0, 1)',
 			},
-			input: 'hsla(123, 0, 0, 1)',
-		},
-		{
-			expected: {
-				components: [180, 0, 0, 1.0],
-				mode: 'hsl',
+			{
+				expected: {
+					components: [180, 0, 0, 1.0],
+					mode: 'hsl',
+				},
+				input: 'hsla(180deg, 0, 0, 1)',
 			},
-			input: 'hsla(180deg, 0, 0, 1)',
-		},
-		{
-			expected: {
-				components: [(3 * 360) / (2 * Math.PI), 0, 0, 1.0],
-				mode: 'hsl',
+			{
+				expected: {
+					components: [(3 * 360) / (2 * Math.PI), 0, 0, 1.0],
+					mode: 'hsl',
+				},
+				input: 'hsla(3rad, 0, 0, 1)',
 			},
-			input: 'hsla(3rad, 0, 0, 1)',
-		},
-		{
-			expected: {
-				components: [180, 0, 0, 1.0],
-				mode: 'hsl',
+			{
+				expected: {
+					components: [180, 0, 0, 1.0],
+					mode: 'hsl',
+				},
+				input: 'hsla(200grad, 0, 0, 1)',
 			},
-			input: 'hsla(200grad, 0, 0, 1)',
-		},
-		{
-			expected: {
-				components: [90, 0, 0, 1.0],
-				mode: 'hsl',
+			{
+				expected: {
+					components: [90, 0, 0, 1.0],
+					mode: 'hsl',
+				},
+				input: 'hsla(0.25turn, 0, 0, 1)',
 			},
-			input: 'hsla(0.25turn, 0, 0, 1)',
-		},
-		{
-			expected: {
-				components: [0, 0, 0, 0.5],
-				mode: 'hsl',
+			{
+				expected: {
+					components: [0, 0, 0, 0.5],
+					mode: 'hsl',
+				},
+				input: 'hsla(0, 0%, 0%, 0.5)',
 			},
-			input: 'hsla(0, 0%, 0%, 0.5)',
-		},
-	] as {
-		expected: {
-			components: ColorComponents4;
-			mode: ColorMode;
-		};
-		input: string;
-	}[]).forEach(({expected, input}) => {
+		] as {
+			expected: {
+				components: ColorComponents4;
+				mode: ColorMode;
+			};
+			input: string;
+		}[]
+	).forEach(({expected, input}) => {
 		context(`when ${JSON.stringify(input)}`, () => {
 			it('should parse color', () => {
 				const c = CompositeColorParser(input);
@@ -320,47 +322,49 @@ describe('StringColorParser', () => {
 		});
 	});
 
-	([
-		{
-			components: [0, 0, 0],
-			hex: '#000000',
-			rgb: 'rgb(0, 0, 0)',
-		},
-		{
-			components: [255, 255, 255],
-			hex: '#ffffff',
-			rgb: 'rgb(255, 255, 255)',
-		},
-		{
-			components: [0, 0, 0, 0.4],
-			hex: '#00000066',
-			rgb: 'rgba(0, 0, 0, 0.40)',
-		},
-		{
-			components: [0x22, 0x44, 0x88],
-			hex: '#224488',
-			rgb: 'rgb(34, 68, 136)',
-		},
-		{
-			components: [3.14, 0, 0],
-			hex: '#030000',
-			rgb: 'rgb(3, 0, 0)',
-		},
-		{
-			components: [400, 200, 0],
-			hex: '#ffc800',
-			rgb: 'rgb(255, 200, 0)',
-		},
-		{
-			components: [0, 0, 3776],
-			hex: '#0000ff',
-			rgb: 'rgb(0, 0, 255)',
-		},
-	] as {
-		components: ColorComponents3 | ColorComponents4;
-		hex: string;
-		rgb: string;
-	}[]).forEach((testCase) => {
+	(
+		[
+			{
+				components: [0, 0, 0],
+				hex: '#000000',
+				rgb: 'rgb(0, 0, 0)',
+			},
+			{
+				components: [255, 255, 255],
+				hex: '#ffffff',
+				rgb: 'rgb(255, 255, 255)',
+			},
+			{
+				components: [0, 0, 0, 0.4],
+				hex: '#00000066',
+				rgb: 'rgba(0, 0, 0, 0.40)',
+			},
+			{
+				components: [0x22, 0x44, 0x88],
+				hex: '#224488',
+				rgb: 'rgb(34, 68, 136)',
+			},
+			{
+				components: [3.14, 0, 0],
+				hex: '#030000',
+				rgb: 'rgb(3, 0, 0)',
+			},
+			{
+				components: [400, 200, 0],
+				hex: '#ffc800',
+				rgb: 'rgb(255, 200, 0)',
+			},
+			{
+				components: [0, 0, 3776],
+				hex: '#0000ff',
+				rgb: 'rgb(0, 0, 255)',
+			},
+		] as {
+			components: ColorComponents3 | ColorComponents4;
+			hex: string;
+			rgb: string;
+		}[]
+	).forEach((testCase) => {
 		context(`when ${JSON.stringify(testCase.components)}`, () => {
 			it(`it should format to ${JSON.stringify(testCase.hex)}`, () => {
 				const c = new Color(testCase.components, 'rgb');
