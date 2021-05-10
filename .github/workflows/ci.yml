@@ -9,20 +9,21 @@ on:
   release:
     types: [released]
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '10.x'
-      - run: npm install
-      - run: npm run test
-      - run: npm run coverage
-      - uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: ./test/coverage/lcov.info
+  # TODO: Re-enable after releasing core
+  # test:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: '16'
+  #     - run: npm install
+  #     - run: npm run test --workspaces
+  #     - run: npm run coverage
+  #     - uses: coverallsapp/github-action@master
+  #       with:
+  #         github-token: ${{ secrets.GITHUB_TOKEN }}
+  #         path-to-lcov: ./coverage/lcov.info
   deploy:
     needs: test
     if: startsWith(github.ref, 'refs/tags/')
@@ -31,7 +32,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: '10.x'
+          node-version: '16'
       - run: npm install
       - run: npm run build
       - uses: peaceiris/actions-gh-pages@v2

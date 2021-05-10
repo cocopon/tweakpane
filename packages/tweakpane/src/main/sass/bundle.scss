@@ -1,0 +1,94 @@
+@import '../../../node_modules/@tweakpane/core/lib/sass/full';
+
+.#{$prefix}-rotv {
+	@extend %themeVariables;
+
+	background-color: var(--bs-bg);
+	border-radius: var(--bs-br);
+	box-shadow: 0 2px 4px var(--bs-sh);
+	font-family: var(--font-family);
+	font-size: 11px;
+	font-weight: 500;
+	line-height: 1;
+	text-align: left;
+
+	&_b {
+		@extend %folder_title;
+
+		border-bottom-left-radius: var(--bs-br);
+		border-bottom-right-radius: var(--bs-br);
+		border-top-left-radius: var(--bs-br);
+		border-top-right-radius: var(--bs-br);
+		padding-left: calc(2px * 2 + var(--bld-us) + var(--cnt-h-p));
+		text-align: center;
+	}
+	&#{&}-expanded &_b {
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+	&#{&}-not &_b {
+		display: none;
+	}
+	&_m {
+		@extend %folder_mark;
+	}
+	&#{&}-expanded &_m {
+		@extend %folder_mark-expanded;
+	}
+	&_c {
+		@extend %folder_container;
+		@extend %bladeRack-children;
+
+		// Bottom of the last container
+		& > .#{$prefix}-fldv.#{$prefix}-v-lst > .#{$prefix}-fldv_c,
+		& > .#{$prefix}-tabv.#{$prefix}-v-lst > .#{$prefix}-tabv_c {
+			border-bottom-left-radius: var(--bs-br);
+			border-bottom-right-radius: var(--bs-br);
+		}
+		// Bottom of the last folder title when collapsed
+		&
+			> .#{$prefix}-fldv.#{$prefix}-v-lst:not(.#{$prefix}-fldv-expanded)
+			> .#{$prefix}-fldv_b {
+			border-bottom-left-radius: var(--bs-br);
+			border-bottom-right-radius: var(--bs-br);
+		}
+		// Bottom of the last subfolder title when collapsed
+		&
+			.#{$prefix}-fldv.#{$prefix}-v-vlst:not(.#{$prefix}-fldv-expanded)
+			> .#{$prefix}-fldv_b {
+			border-bottom-right-radius: var(--bs-br);
+		}
+	}
+	&#{&}-expanded &_c {
+		@extend %folder_container-expanded;
+	}
+	&#{&}-not &_c {
+		// First folder without pane title
+		& > .#{$prefix}-fldv.#{$prefix}-v-fst {
+			margin-top: calc(-1 * var(--cnt-v-p));
+
+			& > .#{$prefix}-fldv_b {
+				border-top-left-radius: var(--bs-br);
+				border-top-right-radius: var(--bs-br);
+			}
+		}
+		// First tab without pane title
+		& > .#{$prefix}-tabv.#{$prefix}-v-fst {
+			margin-top: calc(-1 * var(--cnt-v-p));
+
+			& > .#{$prefix}-tabv_i {
+				border-top-left-radius: var(--bs-br);
+				border-top-right-radius: var(--bs-br);
+			}
+		}
+	}
+
+	&.#{$prefix}-v-disabled,
+	.#{$prefix}-v-disabled {
+		pointer-events: none;
+	}
+	&.#{$prefix}-v-hidden,
+	.#{$prefix}-v-hidden {
+		display: none;
+	}
+}
