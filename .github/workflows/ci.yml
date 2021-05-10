@@ -9,21 +9,21 @@ on:
   release:
     types: [released]
 jobs:
-  # TODO: Re-enable after releasing core
-  # test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-node@v1
-  #       with:
-  #         node-version: '16'
-  #     - run: npm install
-  #     - run: npm run test --workspaces
-  #     - run: npm run coverage
-  #     - uses: coverallsapp/github-action@master
-  #       with:
-  #         github-token: ${{ secrets.GITHUB_TOKEN }}
-  #         path-to-lcov: ./coverage/lcov.info
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '16'
+      # TODO: Find better way to set up packages
+      - run: npm run setup
+      - run: npm run test --workspaces
+      - run: npm run coverage
+      - uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./coverage/lcov.info
   deploy:
     needs: test
     if: startsWith(github.ref, 'refs/tags/')

@@ -86,7 +86,7 @@ describe(ButtonApi.name, () => {
 		const win = createTestWindow();
 		const doc = win.document;
 		const api = createApi(doc);
-		api.on('click', function(this: any) {
+		api.on('click', function (this: any) {
 			assert.strictEqual(this, api);
 			done();
 		});

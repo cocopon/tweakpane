@@ -82,9 +82,8 @@ export function initIndex() {
 				title: 'Parameters',
 			});
 			pane.addInput(ENV, 'color').on('change', (ev) => {
-				const headerElem: HTMLElement | null = document.querySelector(
-					'.pageHeader',
-				);
+				const headerElem: HTMLElement | null =
+					document.querySelector('.pageHeader');
 				if (!headerElem) {
 					return;
 				}

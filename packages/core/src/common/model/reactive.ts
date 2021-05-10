@@ -19,7 +19,7 @@ export function bindValue<T>(value: Value<T>, applyValue: (value: T) => void) {
 
 export function bindValueMap<
 	O extends Record<string, unknown>,
-	Key extends keyof O
+	Key extends keyof O,
 >(valueMap: ValueMap<O>, key: Key, applyValue: (value: O[Key]) => void) {
 	bindValue(valueMap.value(key), applyValue);
 }

@@ -40,8 +40,10 @@ export interface FolderApiEvents {
 	};
 }
 
-export class FolderApi extends RackLikeApi<FolderController>
-	implements BladeRackApi {
+export class FolderApi
+	extends RackLikeApi<FolderController>
+	implements BladeRackApi
+{
 	private readonly emitter_: Emitter<FolderApiEvents>;
 
 	/**

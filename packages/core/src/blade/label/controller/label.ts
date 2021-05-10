@@ -11,7 +11,7 @@ interface Config<C extends Controller<View>> {
 }
 
 export class LabelController<
-	C extends Controller<View>
+	C extends Controller<View>,
 > extends BladeController<LabelView> {
 	public readonly props: LabelProps;
 	public readonly valueController: C;

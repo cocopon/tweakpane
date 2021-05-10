@@ -21,7 +21,8 @@ interface Config {
  * @hidden
  */
 export class SliderTextController
-	implements ValueController<number, SliderTextView> {
+	implements ValueController<number, SliderTextView>
+{
 	public readonly value: Value<number>;
 	public readonly view: SliderTextView;
 	public readonly viewProps: ViewProps;

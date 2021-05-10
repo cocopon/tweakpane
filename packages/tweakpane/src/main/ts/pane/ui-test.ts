@@ -20,46 +20,48 @@ function createApi(title?: string): Pane {
 }
 
 describe(Pane.name, () => {
-	([
-		{
-			insert: (api, index) => {
-				api.addInput({foo: 1}, 'foo', {index: index});
+	(
+		[
+			{
+				insert: (api, index) => {
+					api.addInput({foo: 1}, 'foo', {index: index});
+				},
+				expected: InputBindingController,
 			},
-			expected: InputBindingController,
-		},
-		{
-			insert: (api, index) => {
-				api.addMonitor({foo: 1}, 'foo', {
-					index: index,
-					interval: 0,
-				});
+			{
+				insert: (api, index) => {
+					api.addMonitor({foo: 1}, 'foo', {
+						index: index,
+						interval: 0,
+					});
+				},
+				expected: MonitorBindingController,
 			},
-			expected: MonitorBindingController,
-		},
-		{
-			insert: (api, index) => {
-				api.addButton({index: index, title: 'button'});
+			{
+				insert: (api, index) => {
+					api.addButton({index: index, title: 'button'});
+				},
+				expected: LabelController,
 			},
-			expected: LabelController,
-		},
-		{
-			insert: (api, index) => {
-				api.addFolder({index: index, title: 'folder'});
+			{
+				insert: (api, index) => {
+					api.addFolder({index: index, title: 'folder'});
+				},
+				expected: FolderController,
 			},
-			expected: FolderController,
-		},
-		{
-			insert: (api, index) => {
-				api.addSeparator({
-					index: index,
-				});
+			{
+				insert: (api, index) => {
+					api.addSeparator({
+						index: index,
+					});
+				},
+				expected: SeparatorController,
 			},
-			expected: SeparatorController,
-		},
-	] as {
-		insert: (api: Pane, index: number) => void;
-		expected: Class<any>;
-	}[]).forEach((testCase) => {
+		] as {
+			insert: (api: Pane, index: number) => void;
+			expected: Class<any>;
+		}[]
+	).forEach((testCase) => {
 		context(`when ${testCase.expected.name}`, () => {
 			it('should insert input/monitor into specified position', () => {
 				const params = {

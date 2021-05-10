@@ -124,9 +124,8 @@ export class BladeRack {
 		this.onChildViewPropsChange_ = this.onChildViewPropsChange_.bind(this);
 		this.onDescendantLayout_ = this.onDescendantLayout_.bind(this);
 		this.onDescendantInputChange_ = this.onDescendantInputChange_.bind(this);
-		this.onDescendantMonitorUpdate_ = this.onDescendantMonitorUpdate_.bind(
-			this,
-		);
+		this.onDescendantMonitorUpdate_ =
+			this.onDescendantMonitorUpdate_.bind(this);
 
 		this.emitter = new Emitter();
 

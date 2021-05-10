@@ -307,9 +307,9 @@ export function colorToFunctionalHslString(value: Color): string {
 		formatPercentage,
 		formatPercentage,
 	];
-	const comps = removeAlphaComponent(
-		value.getComponents('hsl'),
-	).map((comp, index) => formatters[index](comp));
+	const comps = removeAlphaComponent(value.getComponents('hsl')).map(
+		(comp, index) => formatters[index](comp),
+	);
 	return `hsl(${comps.join(', ')})`;
 }
 

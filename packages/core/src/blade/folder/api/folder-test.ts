@@ -108,7 +108,7 @@ describe(FolderApi.name, () => {
 	it('should bind `this` within handler to pane', (done) => {
 		const PARAMS = {foo: 1};
 		const pane = createApi();
-		pane.on('change', function(this: any) {
+		pane.on('change', function (this: any) {
 			assert.strictEqual(this, pane);
 			done();
 		});
@@ -148,7 +148,7 @@ describe(FolderApi.name, () => {
 	it('should bind `this` within handler to folder', (done) => {
 		const PARAMS = {foo: 1};
 		const api = createApi();
-		api.on('change', function(this: any) {
+		api.on('change', function (this: any) {
 			assert.strictEqual(this, api);
 			done();
 		});

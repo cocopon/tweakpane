@@ -5,25 +5,27 @@ import {Color, RgbaColorObject} from './color';
 import {ColorComponents3, ColorComponents4, ColorMode} from './color-model';
 
 describe(Color.name, () => {
-	([
-		{
-			expected: {r: 10, g: 20, b: 30, a: 1},
-			params: {
-				components: [10, 20, 30],
+	(
+		[
+			{
+				expected: {r: 10, g: 20, b: 30, a: 1},
+				params: {
+					components: [10, 20, 30],
+				},
 			},
-		},
-		{
-			expected: {r: 0, g: 255, b: 0, a: 1},
-			params: {
-				components: [-1, 300, 0],
+			{
+				expected: {r: 0, g: 255, b: 0, a: 1},
+				params: {
+					components: [-1, 300, 0],
+				},
 			},
-		},
-	] as {
-		expected: RgbaColorObject;
-		params: {
-			components: ColorComponents3;
-		};
-	}[]).forEach(({expected, params}) => {
+		] as {
+			expected: RgbaColorObject;
+			params: {
+				components: ColorComponents3;
+			};
+		}[]
+	).forEach(({expected, params}) => {
 		context(`when ${JSON.stringify(params)}`, () => {
 			const c = new Color(params.components, 'rgb');
 			it('should get components', () => {
@@ -40,56 +42,58 @@ describe(Color.name, () => {
 		});
 	});
 
-	([
-		{
-			expected: [359, 0, 100, 1],
-			params: {
-				components: [359, 0, 100],
-				mode: 'hsv',
+	(
+		[
+			{
+				expected: [359, 0, 100, 1],
+				params: {
+					components: [359, 0, 100],
+					mode: 'hsv',
+				},
 			},
-		},
-		{
-			expected: [350, 0, 100, 1],
-			params: {
-				components: [-10, -10, 100],
-				mode: 'hsv',
+			{
+				expected: [350, 0, 100, 1],
+				params: {
+					components: [-10, -10, 100],
+					mode: 'hsv',
+				},
 			},
-		},
-		{
-			expected: [10, 100, 100, 1],
-			params: {
-				components: [370, 110, 100],
-				mode: 'hsv',
+			{
+				expected: [10, 100, 100, 1],
+				params: {
+					components: [370, 110, 100],
+					mode: 'hsv',
+				},
 			},
-		},
-		{
-			expected: [359, 0, 100, 1],
-			params: {
-				components: [359, 0, 100],
-				mode: 'hsl',
+			{
+				expected: [359, 0, 100, 1],
+				params: {
+					components: [359, 0, 100],
+					mode: 'hsl',
+				},
 			},
-		},
-		{
-			expected: [350, 0, 100, 1],
-			params: {
-				components: [-10, -10, 100],
-				mode: 'hsl',
+			{
+				expected: [350, 0, 100, 1],
+				params: {
+					components: [-10, -10, 100],
+					mode: 'hsl',
+				},
 			},
-		},
-		{
-			expected: [10, 100, 100, 1],
-			params: {
-				components: [370, 110, 100],
-				mode: 'hsl',
+			{
+				expected: [10, 100, 100, 1],
+				params: {
+					components: [370, 110, 100],
+					mode: 'hsl',
+				},
 			},
-		},
-	] as {
-		expected: ColorComponents4;
-		params: {
-			components: ColorComponents3;
-			mode: ColorMode;
-		};
-	}[]).forEach(({expected, params}) => {
+		] as {
+			expected: ColorComponents4;
+			params: {
+				components: ColorComponents3;
+				mode: ColorMode;
+			};
+		}[]
+	).forEach(({expected, params}) => {
 		context(`when ${JSON.stringify(params)}`, () => {
 			const c = new Color(params.components, params.mode);
 			it('should get components', () => {
