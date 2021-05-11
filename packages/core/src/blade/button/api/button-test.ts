@@ -67,7 +67,8 @@ describe(ButtonApi.name, () => {
 		const win = createTestWindow();
 		const doc = win.document;
 		const api = createApi(doc);
-		api.on('click', () => {
+		api.on('click', (ev) => {
+			assert.strictEqual(ev.target, api);
 			done();
 		});
 		api.controller_.valueController.view.buttonElement.dispatchEvent(
