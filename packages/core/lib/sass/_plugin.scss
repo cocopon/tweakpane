@@ -1,6 +1,9 @@
 // Entry point for plugins
 $prefix: 'tp';
 
+// Animation
+$folder-transition-duration: 0.2s;
+
 // Reset user agent
 %resetUserAgent {
 	appearance: none;
