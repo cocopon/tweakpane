@@ -1,10 +1,12 @@
-import {forceCast} from '../../../misc/type-util';
 import {BladeApi} from '../../common/api/blade';
+import {TpEvent} from '../../common/api/tp-event';
 import {LabelController} from '../../label/controller/label';
 import {ButtonController} from '../controller/button';
 
-interface ButtonApiEventHandlers {
-	click: () => void;
+interface ButtonApiEvents {
+	click: {
+		event: TpEvent;
+	};
 }
 
 export class ButtonApi extends BladeApi<LabelController<ButtonController>> {
@@ -40,12 +42,15 @@ export class ButtonApi extends BladeApi<LabelController<ButtonController>> {
 		this.controller_.valueController.props.set('title', title);
 	}
 
-	public on<EventName extends keyof ButtonApiEventHandlers>(
+	public on<EventName extends keyof ButtonApiEvents>(
 		eventName: EventName,
-		handler: ButtonApiEventHandlers[EventName],
+		handler: (ev: ButtonApiEvents[EventName]['event']) => void,
 	): ButtonApi {
+		const bh = handler.bind(this);
 		const emitter = this.controller_.valueController.emitter;
-		emitter.on(eventName, forceCast(handler.bind(this)));
+		emitter.on(eventName, () => {
+			bh(new TpEvent(this));
+		});
 		return this;
 	}
 }
