@@ -17,8 +17,8 @@
 	width: 100%;
 
 	// Delay border-radius transition to avoid unwanted clipping
-	transition: border-radius $folder-transition-duration ease-in-out
-		$folder-transition-duration;
+	transition: border-radius $fold-transition-duration ease-in-out
+		$fold-transition-duration;
 
 	&:hover {
 		background-color: var(--cnt-bg-h);
@@ -56,7 +56,7 @@
 	position: absolute;
 	top: 0;
 	transform: rotate(90deg);
-	transition: transform $folder-transition-duration ease-in-out;
+	transition: transform $fold-transition-duration ease-in-out;
 	width: $size;
 }
 
@@ -72,9 +72,9 @@
 	padding-bottom: 0;
 	padding-top: 0;
 	position: relative;
-	transition: height $folder-transition-duration ease-in-out,
-		opacity $folder-transition-duration linear,
-		padding $folder-transition-duration ease-in-out;
+	transition: height $fold-transition-duration ease-in-out,
+		opacity $fold-transition-duration linear,
+		padding $fold-transition-duration ease-in-out;
 }
 %folder_container-expanded {
 	opacity: 1;
@@ -86,7 +86,7 @@
 	overflow: visible;
 
 	// Delay opacity transition to avoid overflow contents
-	transition: height $folder-transition-duration ease-in-out,
-		opacity $folder-transition-duration linear $folder-transition-duration,
-		padding $folder-transition-duration ease-in-out;
+	transition: height $fold-transition-duration ease-in-out,
+		opacity $fold-transition-duration linear $fold-transition-duration,
+		padding $fold-transition-duration ease-in-out;
 }

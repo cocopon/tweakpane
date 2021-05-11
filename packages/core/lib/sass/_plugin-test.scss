@@ -1,0 +1,9 @@
+@import './plugin';
+
+.#{$prefix}-test {
+	@extend %button;
+	@extend %input;
+	@extend %monitor;
+
+	transition-duration: $fold-transition-duration;
+}
