@@ -37,7 +37,7 @@ function applyTheme({
 	);
 }
 
-function createPreviewPane(containerElem: HTMLElement) {
+function createPreviewPane(containerElem: HTMLElement, expanded = true) {
 	const PARAMS = {
 		checkbox: true,
 		color: 'rgba(0, 0, 0, 0)',
@@ -73,7 +73,7 @@ function createPreviewPane(containerElem: HTMLElement) {
 			title: 'folder',
 		})
 		.addInput(PARAMS, 'color', {
-			expanded: true,
+			expanded: expanded,
 			picker: 'inline',
 		});
 	pane
@@ -81,7 +81,7 @@ function createPreviewPane(containerElem: HTMLElement) {
 			title: 'folder',
 		})
 		.addInput(PARAMS, 'point2d', {
-			expanded: true,
+			expanded: expanded,
 			picker: 'inline',
 		});
 	return pane;
@@ -119,7 +119,7 @@ export function initTheming() {
 	} = {
 		header: (container) => {
 			if (container) {
-				createPreviewPane(container);
+				createPreviewPane(container, false);
 			}
 		},
 	};
