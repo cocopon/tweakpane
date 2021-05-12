@@ -8,6 +8,7 @@
 	padding-left: 12px + 8px;
 	position: relative;
 	text-decoration: none;
+	white-space: nowrap;
 
 	&:hover {
 		color: $logo-hover-color;
@@ -46,5 +47,15 @@
 			$logo-hover-color 8px,
 			$logo-hover-color
 		);
+	}
+	&_version {
+		border: var(--fg-color-secondary) solid 1px;
+		border-radius: 2px;
+		color: var(--fg-color-secondary);
+		display: inline;
+		font-size: 0.7rem;
+		margin-left: 1em;
+		padding: 1px 4px;
+		white-space: nowrap;
 	}
 }
