@@ -17,7 +17,7 @@
 
 
 {% block content %}
-<h2 id="interval"><a href="https://github.com/cocopon/tweakpane-plugin-interval">Interval</a></h2>
+<h2 id="interval"><a href="https://github.com/tweakpane/plugin-interval">Interval</a></h2>
 <p>Range slider control for interval object value <code>{min, max}</code>.</p>
 <div class="main_mediaLayout">
 	<div class="demo">
@@ -48,7 +48,7 @@ pane.addInput(PARAMS, 'size2', {
 </div>
 
 
-<h2 id="camerakit"><a href="https://github.com/cocopon/tweakpane-plugin-camerakit">Camerakit</a></h2>
+<h2 id="camerakit"><a href="https://github.com/tweakpane/plugin-camerakit">Camerakit</a></h2>
 <p>Enjoyable camera flavored controls.</p>
 <div class="main_mediaLayout">
 	<div class="demo">
@@ -64,8 +64,7 @@ pane.addInput(PARAMS, 'size2', {
 
 pane.addInput(PARAMS, 'fnum', {
   // Use a ring view of Camerakit
-  plugin: 'camerakit',
-  view: 'ring',
+  view: 'cameraring',
   // Appearance of the ring
   series: 1,
   // Configuration of the scale unit
@@ -93,12 +92,11 @@ pane.addInput(PARAMS, 'fnum', {
 
 
 <h2 id="create">Create your own plugin</h2>
-<p>From version 2.0.0, you can provide custom input/monitor components for various user inputs with the plugin system.</p>
+<p>From version 2.0.0, you can provide custom components with the plugin system.</p>
 
 <div class="main_mediaLayout">
 	<div class="codeBlock">
-		<pre><code class="js">Tweakpane.registerPlugin({
-  type: 'input',
+		<pre><code class="js">pane.registerPlugin({
   plugin: {
     ...
   },
@@ -109,11 +107,11 @@ pane.addInput(PARAMS, 'fnum', {
 	</div>
 </div>
 
-<p>See the <a href="https://github.com/cocopon/tweakpane-plugin-template">template repository</a> for details.</p>
+<p>See the <a href="https://github.com/tweakpane/plugin-template">template repository</a> for details.</p>
 {% endblock %}
 
 
 {% block pluginScripts %}
-<script src="https://cdn.jsdelivr.net/npm/tweakpane-plugin-interval@0.2.4/dist/tweakpane-plugin-interval.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/tweakpane-plugin-camerakit@0.1.4/dist/tweakpane-plugin-camerakit.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tweakpane/plugin-interval@0.3.0-beta.0/dist/tweakpane-plugin-interval.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tweakpane/plugin-camerakit@0.2.0-beta.0/dist/tweakpane-plugin-camerakit.min.js"></script>
 {% endblock %}

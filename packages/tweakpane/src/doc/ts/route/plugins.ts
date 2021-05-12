@@ -1,6 +1,10 @@
+import {TpPluginBundle} from '@tweakpane/core';
 import {Pane} from 'tweakpane';
 
 import {selectContainer} from '../util';
+
+declare const TweakpaneCamerakitPlugin: TpPluginBundle;
+declare const TweakpaneIntervalPlugin: TpPluginBundle;
 
 export function initPlugins() {
 	const markerToFnMap: {
@@ -12,7 +16,6 @@ export function initPlugins() {
 				size1: {min: 16, max: 48},
 				size2: {min: 16, max: 48},
 			};
-
 			const consolePane = new Pane({
 				container: selectContainer('interval', true),
 			});
@@ -22,11 +25,10 @@ export function initPlugins() {
 				lineCount: 4,
 				multiline: true,
 			});
-
 			const pane = new Pane({
 				container: container,
 			});
-
+			pane.registerPlugin(TweakpaneIntervalPlugin);
 			pane.addInput(params, 'size1');
 			pane.addInput(params, 'size2', {
 				min: 0,
@@ -48,14 +50,13 @@ export function initPlugins() {
 			const pane = new Pane({
 				container: container,
 			});
+			pane.registerPlugin(TweakpaneCamerakitPlugin);
 			pane.addInput(params, 'flen', {
-				plugin: 'camerakit',
-				view: 'ring',
+				view: 'cameraring',
 				series: 0,
 			} as any);
 			pane.addInput(params, 'fnum', {
-				plugin: 'camerakit',
-				view: 'ring',
+				view: 'cameraring',
 				series: 1,
 				unit: {
 					ticks: 10,
@@ -67,13 +68,11 @@ export function initPlugins() {
 				step: 0.02,
 			} as any);
 			pane.addInput(params, 'flen', {
-				plugin: 'camerakit',
-				view: 'ring',
+				view: 'cameraring',
 				series: 2,
 			} as any);
 			pane.addInput(params, 'iso', {
-				plugin: 'camerakit',
-				view: 'wheel',
+				view: 'camerawheel',
 				amount: 10,
 				min: 100,
 				step: 100,
