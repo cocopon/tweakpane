@@ -7,6 +7,9 @@ export class BladeApi<C extends BladeController<View>> {
 	 */
 	public readonly controller_: C;
 
+	/**
+	 * @hidden
+	 */
 	constructor(controller: C) {
 		this.controller_ = controller;
 	}

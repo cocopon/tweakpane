@@ -2,7 +2,7 @@ import {Pane} from 'tweakpane';
 
 import {selectContainer} from '../util';
 
-export function initInput() {
+export function initInputBindings() {
 	const markerToFnMap: {
 		[key: string]: (container: HTMLElement) => void;
 	} = {

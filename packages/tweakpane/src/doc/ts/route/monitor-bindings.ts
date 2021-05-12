@@ -2,7 +2,7 @@ import {Pane} from 'tweakpane';
 
 import {selectContainer, wave} from '../util';
 
-export function initMonitor() {
+export function initMonitorBindings() {
 	const SHARED_PARAMS = {
 		positive: false,
 		time: '',

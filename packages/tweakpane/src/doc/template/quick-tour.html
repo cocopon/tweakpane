@@ -17,7 +17,21 @@
 
 
 {% block content %}
-<h2 id="inputs">Inputs</h2>
+<h2 id="blades">Blades</h2>
+<p>You can add controls as rows to the pane. Tweakpane calls each row a &ldquo;<strong>blade</strong>&rdquo;.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-blades></div>
+		</div>
+	</div>
+</div>
+
+<p>There are various types of blades: <a href="#inputs">input bindings</a>, <a href="#folders">folders</a>, <a href="ui-components.html">etc</a>. It can also be extended with a <a href="plugins.html">plugin system</a>.</p>
+
+
+<h2 id="inputs">Input bindings</h2>
 <p>Use <code>addInput()</code> to modify parameter values.</p>
 
 <div class="main_mediaLayout">
@@ -75,10 +89,10 @@ pane.addInput(
 	</div>
 </div>
 
-<p>See <a href="input.html">Inputs</a> section or <a href="api/classes/pane_pane.pane.html">API reference</a> for details.</p>
+<p>See <a href="input-bindings.html">Input bindings</a> section or <a href="api/classes/pane_pane.pane.html">API reference</a> for details.</p>
 
 <h2 id="folders">Folders</h2>
-<p>Use <code>addFolder()</code> to organize inputs.</p>
+<p>Use <code>addFolder()</code> to organize blades.</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
@@ -171,7 +185,7 @@ input.<strong>on</strong>('change', function(ev) {
 
 <p>See <a href="misc.html#imex">Import/Export</a> section for details. </p>
 
-<h2 id="monitors">Monitors</h2>
+<h2 id="monitors">Monitor bindings</h2>
 <p>Use <code>addMonitor()</code> to monitor value changes.</p>
 
 <div class="main_mediaLayout">
@@ -192,15 +206,15 @@ input.<strong>on</strong>('change', function(ev) {
 	</div>
 </div>
 
-<p>See <a href="monitor.html">Monitors</a> section for full features.</p>
+<p>See <a href="monitor-bindings.html">Monitor bindings</a> section for full features.</p>
 
 <h2>What's next</h2>
 <div class="rel">
 	<div class="relItem">
-		<a class="relItem_anchor" href="input.html">
+		<a class="relItem_anchor" href="input-bindings.html">
 			<div class="relItem_title">
 				<span class="fa fa-arrow-right"></span>
-				Inputs
+				Input bindings
 			</div>
 			<div class="relItem_detail">
 				components for fine-tuning parameter values
@@ -208,10 +222,10 @@ input.<strong>on</strong>('change', function(ev) {
 		</a>
 	</div>
 	<div class="relItem">
-		<a class="relItem_anchor" href="monitor.html">
+		<a class="relItem_anchor" href="monitor-bindings.html">
 			<div class="relItem_title">
 				<span class="fa fa-arrow-right"></span>
-				Monitors
+				Monitor bindings
 			</div>
 			<div class="relItem_detail">
 				components for monitoring value changes

@@ -1,0 +1,90 @@
+{% set pageId = 'blade' %}
+{% set title = 'Blades' %}
+{% extends "_template.html" %}
+
+
+{% block pageHeader %}
+<div class="pageHeader">
+	<div class="pageHeader_innerLayout">
+		<div class="pageHeader_titleLayout">
+			<h1 class="pageHeader_title">{{ title }}</h1>
+			<p><code>addBlade()</code> creates a <a href="quick-tour.html#blades">blade</a> without binding.</p>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<h2 id="text">Text</h2>
+<p>
+	<a href="api/interfaces/blade_text_plugin.textbladeparams.html">Parameters</a> | <a href="api/classes/blade_text_api_text.textapi.html">API</a>
+</p>
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
+pane.addBlade({
+  view: 'text',
+  label: 'name',
+  parse: (v) => String(v),
+  value: 'sketch-01',
+});</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-text></div>
+		</div>
+	</div>
+</div>
+
+
+<h2 id="list">List</h2>
+<p>
+	<a href="api/interfaces/blade_list_plugin.listbladeparams.html">Parameters</a> | <a href="api/classes/blade_list_api_list.listapi.html">API</a>
+</p>
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
+pane.addBlade({
+  view: 'list',
+  label: 'scene',
+  options: [
+    {text: 'loading', value: 'LDG'},
+    {text: 'menu', value: 'MNU'},
+    {text: 'field', value: 'FLD'},
+  ],
+  value: 'LDG',
+});</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-list></div>
+			<div class="paneContainer paneContainer-console" data-pane-listconsole></div>
+		</div>
+	</div>
+</div>
+
+
+<h2 id="slider">Slider</h2>
+<p>
+	<a href="api/interfaces/blade_slider_plugin.sliderbladeparams.html">Parameters</a> | <a href="api/classes/blade_slider_api_slider.sliderapi.html">API</a>
+</p>
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
+pane.addBlade({
+  view: 'slider',
+  label: 'brightness',
+  min: 0,
+  max: 1,
+  value: 0.5,
+});</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-slider></div>
+			<div class="paneContainer paneContainer-console" data-pane-sliderconsole></div>
+		</div>
+	</div>
+</div>
+{% endblock %}

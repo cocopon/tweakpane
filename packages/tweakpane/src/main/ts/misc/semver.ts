@@ -7,6 +7,9 @@ export class Semver {
 	public readonly patch: number;
 	public readonly prerelease: string | null;
 
+	/**
+	 * @hidden
+	 */
 	constructor(text: string) {
 		const [core, prerelease] = text.split('-');
 		const coreComps = core.split('.');

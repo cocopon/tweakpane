@@ -17,7 +17,7 @@ import {RootApi} from '../blade/root/api/root';
 import {RootController} from '../blade/root/controller/root';
 import {SliderBladePlugin} from '../blade/slider/plugin';
 import {TextBladePlugin} from '../blade/text/plugin';
-import {TweakpaneConfig} from './tweakpane-config';
+import {PaneConfig} from './pane-config';
 
 function createDefaultWrapperElement(doc: Document): HTMLElement {
 	const elem = doc.createElement('div');
@@ -47,7 +47,7 @@ export class Pane extends RootApi {
 	private pool_: PluginPool;
 	private usesDefaultWrapper_: boolean;
 
-	constructor(opt_config?: TweakpaneConfig) {
+	constructor(opt_config?: PaneConfig) {
 		const config = opt_config || {};
 		const doc = config.document ?? getWindowDocument();
 
