@@ -90,14 +90,18 @@ pane.addInput(PARAMS, 'fnum', {
 	<div class="demo">
 		<div class="demo_codeLayout">
 			<div class="codeBlock">
-				<pre><code class="js">pane.addBlade({
+				<pre><code class="js">const b = pane.addBlade({
   view: 'cubicbezier',
   // Control points [x1, y1, x2, y2]
   value: [0.25, 0.1, 0.25, 1],
   label: 'bezier',
   picker: 'inline',
   expanded: true,
-});</code></pre>
+});
+
+// Calculate y from x (x, y: [0, 1])
+const bezier = b.value;
+console.log(bezier.y(0.5));</code></pre>
 			</div>
 		</div>
 		<div class="demo_resultLayout">

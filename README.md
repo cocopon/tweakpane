@@ -10,8 +10,9 @@ value changes, inspired by [dat.GUI][].
 
 
 ## Concept
-- Clean and simple
+- Clean and simple design
 - Dependency-free
+- Extensible
 - Mobile support
 
 
