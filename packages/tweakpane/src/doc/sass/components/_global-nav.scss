@@ -41,6 +41,10 @@
 	}
 }
 .menuItem {
+	& + & {
+		margin-top: 2px;
+	}
+
 	&_anchor {
 		color: var(--fg-color);
 		display: block;
@@ -71,6 +75,10 @@
 }
 
 .submenuItem {
+	& + & {
+		margin-top: 2px;
+	}
+
 	&_anchor {
 		color: var(--fg-color-secondary);
 		display: block;

@@ -4,6 +4,7 @@ import {Pane} from 'tweakpane';
 import {selectContainer} from '../util';
 
 declare const TweakpaneCamerakitPlugin: TpPluginBundle;
+declare const TweakpaneCubicBezierPlugin: TpPluginBundle;
 declare const TweakpaneIntervalPlugin: TpPluginBundle;
 
 export function initPlugins() {
@@ -54,7 +55,7 @@ export function initPlugins() {
 			pane.addInput(params, 'flen', {
 				view: 'cameraring',
 				series: 0,
-			} as any);
+			});
 			pane.addInput(params, 'fnum', {
 				view: 'cameraring',
 				series: 1,
@@ -66,17 +67,31 @@ export function initPlugins() {
 				wide: true,
 				min: 1.4,
 				step: 0.02,
-			} as any);
+			});
 			pane.addInput(params, 'flen', {
 				view: 'cameraring',
 				series: 2,
-			} as any);
+			});
 			pane.addInput(params, 'iso', {
 				view: 'camerawheel',
 				amount: 10,
 				min: 100,
 				step: 100,
-			} as any);
+			});
+		},
+
+		cubicbezier: (container) => {
+			const pane = new Pane({
+				container: container,
+			});
+			pane.registerPlugin(TweakpaneCubicBezierPlugin);
+			pane.addBlade({
+				view: 'cubicbezier',
+				label: 'bezier',
+				picker: 'inline',
+				expanded: true,
+				value: [0.25, 0.1, 0.25, 1],
+			});
 		},
 	};
 	Object.keys(markerToFnMap).forEach((marker) => {

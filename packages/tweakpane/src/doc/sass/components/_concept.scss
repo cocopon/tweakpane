@@ -1,0 +1,28 @@
+.concepts {
+	display: grid;
+	margin-bottom: 1em;
+	margin-top: 1em;
+
+	@include wide() {
+		gap: 16px;
+		grid-template-columns: repeat(3, 1fr);
+	}
+	@include nonwide() {
+		gap: 8px;
+		grid-template-columns: repeat(1, 1fr);
+	}
+}
+
+.concept {
+	border: var(--bg-color-secondary) solid 2px;
+	border-radius: 6px;
+	padding: 24px 32px;
+
+	&_title {
+		font-weight: bold;
+	}
+	&_detail {
+		color: var(--fg-color-secondary);
+		margin-top: 8px;
+	}
+}

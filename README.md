@@ -10,8 +10,9 @@ value changes, inspired by [dat.GUI][].
 
 
 ## Concept
-- Clean and simple
+- Clean and simple design
 - Dependency-free
+- Extensible
 - Mobile support
 
 
@@ -19,16 +20,16 @@ value changes, inspired by [dat.GUI][].
 See the [official page][documents] for details.
 
 
-### [Inputs](https://cocopon.github.io/tweakpane/input.html)
+### [Input bindings](https://cocopon.github.io/tweakpane/input.html)
 Number, String, Boolean, Color, Point 2D/3D/4D
 
-![Inputs](https://user-images.githubusercontent.com/602961/115102111-e9faec00-9f83-11eb-8770-8da0abbd7363.png)
+![Input bindings](https://user-images.githubusercontent.com/602961/115102111-e9faec00-9f83-11eb-8770-8da0abbd7363.png)
 
 
-### [Monitors](https://cocopon.github.io/tweakpane/monitor.html)
+### [Monitor bindings](https://cocopon.github.io/tweakpane/monitor.html)
 Number, String, Boolean
 
-![Monitors](https://user-images.githubusercontent.com/602961/115102110-e9625580-9f83-11eb-88a6-7fa3557250c8.png)
+![Monitor bindings](https://user-images.githubusercontent.com/602961/115102110-e9625580-9f83-11eb-88a6-7fa3557250c8.png)
 
 
 ### [UI components](https://cocopon.github.io/tweakpane/ui-components.html)

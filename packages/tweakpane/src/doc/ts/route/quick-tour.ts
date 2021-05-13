@@ -1,11 +1,31 @@
 import {Pane} from 'tweakpane';
 
+import * as PlaceholderPlugin from '../placeholder-plugin';
 import {selectContainer, wave} from '../util';
 
 export function initQuickTour() {
 	const markerToFnMap: {
 		[key: string]: (container: HTMLElement) => void;
 	} = {
+		blades: (container) => {
+			const pane = new Pane({
+				container: container,
+			});
+			pane.registerPlugin(PlaceholderPlugin);
+			pane.addBlade({
+				title: 'blade',
+				view: 'placeholder',
+			});
+			pane.addBlade({
+				title: 'blade',
+				view: 'placeholder',
+			});
+			pane.addBlade({
+				lineCount: 3,
+				title: 'blade',
+				view: 'placeholder',
+			});
+		},
 		inputs: (container) => {
 			const PARAMS = {
 				factor: 123,

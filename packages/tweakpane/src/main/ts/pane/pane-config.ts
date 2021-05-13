@@ -1,4 +1,4 @@
-export interface TweakpaneConfig {
+export interface PaneConfig {
 	/**
 	 * The custom container element of the pane.
 	 */

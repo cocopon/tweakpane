@@ -1,9 +1,10 @@
+import {initBlades} from './route/blades';
 import {initCatalog} from './route/catalog';
 import {initGettingStarted} from './route/getting-started';
 import {initIndex} from './route/index';
-import {initInput} from './route/input';
+import {initInputBindings} from './route/input-bindings';
 import {initMisc} from './route/misc';
-import {initMonitor} from './route/monitor';
+import {initMonitorBindings} from './route/monitor-bindings';
 import {initPlugins} from './route/plugins';
 import {initQuickTour} from './route/quick-tour';
 import {initTheming} from './route/theming';
@@ -39,10 +40,11 @@ function setUpSpMenu() {
 	const router = new SimpleRouter();
 	router.add(/^(\/tweakpane)?\/getting-started\.html$/, initGettingStarted);
 	router.add(/^(\/tweakpane)?\/$/, initIndex);
+	router.add(/^(\/tweakpane)?\/blades\.html$/, initBlades);
 	router.add(/^(\/tweakpane)?\/catalog\.html$/, initCatalog);
-	router.add(/^(\/tweakpane)?\/input\.html$/, initInput);
+	router.add(/^(\/tweakpane)?\/input-bindings\.html$/, initInputBindings);
 	router.add(/^(\/tweakpane)?\/misc\.html$/, initMisc);
-	router.add(/^(\/tweakpane)?\/monitor\.html$/, initMonitor);
+	router.add(/^(\/tweakpane)?\/monitor-bindings\.html$/, initMonitorBindings);
 	router.add(/^(\/tweakpane)?\/theming\.html$/, initTheming);
 	router.add(/^(\/tweakpane)?\/plugins\.html$/, initPlugins);
 	router.add(/^(\/tweakpane)?\/quick-tour\.html$/, initQuickTour);
