@@ -1,0 +1,35 @@
+.#{$prefix}-colv {
+	position: relative;
+
+	&_h {
+		display: flex;
+	}
+	&_s {
+		flex-grow: 0;
+		flex-shrink: 0;
+		width: var(--bld-us);
+	}
+	&_t {
+		flex: 1;
+		margin-left: 4px;
+	}
+	&_p {
+		height: 0;
+		margin-top: 0;
+		opacity: 0;
+		overflow: hidden;
+		transition: height $fold-transition-duration ease-in-out,
+			opacity $fold-transition-duration linear,
+			margin $fold-transition-duration ease-in-out;
+	}
+	&#{&}-expanded &_p {
+		margin-top: var(--bld-s);
+		opacity: 1;
+	}
+
+	.#{$prefix}-popv {
+		left: calc(-1 * var(--cnt-h-p));
+		right: calc(-1 * var(--cnt-h-p));
+		top: var(--bld-us);
+	}
+}

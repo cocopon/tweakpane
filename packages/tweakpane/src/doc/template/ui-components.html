@@ -1,0 +1,138 @@
+{% set pageId = 'uicomponents' %}
+{% set title = 'UI components' %}
+{% extends "_template.html" %}
+
+
+{% block pageHeader %}
+<div class="pageHeader">
+	<div class="pageHeader_innerLayout">
+		<div class="pageHeader_titleLayout">
+			<h1 class="pageHeader_title">{{ title }}</h1>
+			<p>Tweakpane has useful components to organize the pane: folders, buttons, etc.</p>
+		</div>
+		<div class="pageHeader_paneLayout">
+			<div class="paneContainer" data-pane-header></div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<h2 id="folder">Folder</h2>
+<p>Use <code>addFolder()</code> to add folders. You can add all types of components to the returned folder just like adding them to the pane.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
+
+const f1 = pane.<strong>addFolder</strong>({
+  title: 'Basic',
+});
+f1.addInput(PARAMS, 'speed');
+
+const f2 = pane.<strong>addFolder</strong>({
+  title: 'Advanced',
+  expanded: false,   // optional
+});
+f2.addInput(PARAMS, 'acceleration');
+f2.addInput(PARAMS, 'randomness');</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-folder></div>
+		</div>
+	</div>
+</div>
+
+<h3 id="pane_title">Pane title</h3>
+<p><code>title</code> option of the pane creates a root title. It can expand/collapse the whole pane.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane({
+  <strong>title</strong>: 'Parameters',
+});
+
+// ...
+</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-panetitle></div>
+		</div>
+	</div>
+</div>
+
+
+<h2 id="button">Button</h2>
+<p><code>addButton()</code> adds a button component. Use <code>on()</code> to handle click events.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
+
+const btn = pane.<strong>addButton</strong>({
+  title: 'Increment',
+  label: 'counter',   // optional
+});
+
+let count = 0;
+btn.<strong>on</strong>('click', () =&gt; {
+  count += 1;
+  console.log(count);
+});
+</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-button></div>
+			<div class="paneContainer paneContainer-console" data-pane-buttonconsole></div>
+		</div>
+	</div>
+</div>
+
+
+<h2 id="tab">Tab</h2>
+<p><code>addTab()</code> adds a tab component. You can access an each page by <code>pages[]</code> and add components into it.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
+
+const tab = pane.<strong>addTab</strong>({
+  pages: [
+    {title: 'Parameters'},
+    {title: 'Advanced'},
+  ],
+});
+
+tab.<strong>pages[0]</strong>.addInput(...);
+</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-tab></div>
+		</div>
+	</div>
+</div>
+
+
+<h2 id="separator">Separator</h2>
+<p><code>addSeparator()</code> is for adding a separator between components.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
+pane.addButton({title: 'Previous'});
+pane.addButton({title: 'Next'});
+pane<strong>.addSeparator</strong>();
+pane.addButton({title: 'Reset'});</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-separator></div>
+		</div>
+	</div>
+</div>
+{% endblock %}

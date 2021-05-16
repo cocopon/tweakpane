@@ -1,0 +1,57 @@
+.#{$prefix}-ckbv {
+	&_l {
+		display: block;
+		position: relative;
+	}
+	&_i {
+		@extend %resetUserAgent;
+
+		left: 0;
+		opacity: 0;
+		position: absolute;
+		top: 0;
+	}
+	&_w {
+		background-color: var(--in-bg);
+		border-radius: var(--elm-br);
+		cursor: pointer;
+		display: block;
+		height: var(--bld-us);
+		position: relative;
+		width: var(--bld-us);
+
+		svg {
+			bottom: 0;
+			display: block;
+			height: 16px;
+			left: 0;
+			margin: auto;
+			opacity: 0;
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 16px;
+
+			path {
+				fill: none;
+				stroke: var(--in-fg);
+				stroke-width: 2;
+			}
+		}
+	}
+	&_i:hover + &_w {
+		background-color: var(--in-bg-h);
+	}
+	&_i:focus + &_w {
+		background-color: var(--in-bg-f);
+	}
+	&_i:active + &_w {
+		background-color: var(--in-bg-a);
+	}
+	&_i:checked + &_w svg {
+		opacity: 1;
+	}
+	&.#{$prefix}-v-disabled &_w {
+		opacity: 0.5;
+	}
+}

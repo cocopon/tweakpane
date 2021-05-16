@@ -1,0 +1,40 @@
+.#{$prefix}-colswv {
+	@include checkerboard(10px);
+
+	border-radius: var(--elm-br);
+
+	&.#{$prefix}-v-disabled {
+		opacity: 0.5;
+	}
+
+	&_sw {
+		@extend %input;
+	}
+	&_b {
+		appearance: none;
+		background-color: transparent;
+		border-width: 0;
+		cursor: pointer;
+		display: block;
+		height: var(--bld-us);
+		left: 0;
+		margin: 0;
+		outline: none;
+		padding: 0;
+		position: absolute;
+		top: 0;
+		width: var(--bld-us);
+
+		&:focus::after {
+			border: rgba(white, 0.75) solid 2px;
+			border-radius: var(--elm-br);
+			bottom: 0;
+			content: '';
+			display: block;
+			left: 0;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+	}
+}

@@ -1,0 +1,33 @@
+// Entry point for full features
+
+@import './plugin';
+
+@import './common/defs';
+
+@import './view/common/blade-rack';
+@import './view/common/color';
+@import './view/common/folder';
+@import './view/common/list';
+@import './view/common/texts';
+
+@import './view/button';
+@import './view/checkbox';
+@import './view/color';
+@import './view/color-picker';
+@import './view/color-swatch';
+@import './view/color-text';
+@import './view/default-wrapper';
+@import './view/folder';
+@import './view/graph-log';
+@import './view/label';
+@import './view/list';
+@import './view/log';
+@import './view/point-2d';
+@import './view/point-2d-picker';
+@import './view/point-nd-text';
+@import './view/popup';
+@import './view/separator';
+@import './view/slider';
+@import './view/tab';
+@import './view/text';
+@import './view/tooltip';

@@ -1,0 +1,236 @@
+{% set pageId = 'quickTour' %}
+{% set title = 'Quick tour' %}
+{% extends "_template.html" %}
+
+
+{% block pageHeader %}
+<div class="pageHeader">
+	<div class="pageHeader_sketchContainer"></div>
+	<div class="pageHeader_innerLayout">
+		<div class="pageHeader_titleLayout">
+			<h1 class="pageHeader_title">{{ title }}</h1>
+			<p>Take a look at the basics of Tweakpane in minutes.</p>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<h2 id="blades">Blades</h2>
+<p>You can add controls as rows to the pane. Tweakpane calls each row a &ldquo;<strong>blade</strong>&rdquo;.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-blades></div>
+		</div>
+	</div>
+</div>
+
+<p>There are various types of blades: <a href="#inputs">input bindings</a>, <a href="#folders">folders</a>, <a href="ui-components.html">etc</a>. It can also be extended with a <a href="plugins.html">plugin system</a>.</p>
+
+
+<h2 id="inputs">Input bindings</h2>
+<p>Use <code>addInput()</code> to modify parameter values.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock">
+				<pre><code class="js">const PARAMS = {
+  factor: 123,
+  title: 'hello',
+  color: '#0f0',
+};
+
+const pane = new Pane();
+
+pane.<strong>addInput</strong>(PARAMS, 'factor');
+pane.<strong>addInput</strong>(PARAMS, 'title');
+pane.<strong>addInput</strong>(PARAMS, 'color');
+</code></pre>
+			</div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-inputs></div>
+		</div>
+	</div>
+</div>
+
+<p>Some kinds of input types accept additional parameters:</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock">
+				<pre><code class="js">const PARAMS = {
+  percentage: 50,
+  theme: 'dark',
+};
+
+// `min` and `max`: slider
+pane.addInput(
+  PARAMS, 'percentage',
+  <strong>{min: 0, max: 100, step: 10}</strong>
+);
+
+// `options`: list
+pane.addInput(
+  PARAMS, 'theme',
+  <strong>{options: {Dark: 'dark', Light: 'light'}}</strong>
+);
+</code></pre>
+			</div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-inputparams></div>
+		</div>
+	</div>
+</div>
+
+<p>See <a href="input-bindings.html">Input bindings</a> section or <a href="api/classes/pane_pane.pane.html">API reference</a> for details.</p>
+
+<h2 id="folders">Folders</h2>
+<p>Use <code>addFolder()</code> to organize blades.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock">
+				<pre><code class="js">const f = pane.<strong>addFolder</strong>({
+  title: 'Title',
+  expanded: true,
+});
+
+f.addInput(PARAMS, 'text');
+f.addInput(PARAMS, 'size');
+</code></pre>
+			</div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-folders></div>
+		</div>
+	</div>
+</div>
+
+<p>If you want to expand/collapse the whole pane, specify <code>title</code> option of the pane:</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock">
+				<pre><code class="js">const pane = new Pane({
+  <strong>title</strong>: 'Parameters',
+  expanded: true,
+});
+</code></pre>
+			</div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-title></div>
+		</div>
+	</div>
+</div>
+
+<p>See <a href="ui-components.html">UI components</a> section for additional useful components.</p>
+
+<h2 id="events">Events</h2>
+<p>Use <code>on()</code> of the input to handle change events.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock">
+				<pre><code class="js">const input = pane.addInput(
+  PARAMS, 'size',
+  {min: 8, max: 100, step: 1}
+);
+
+input.<strong>on</strong>('change', function(ev) {
+  console.log(`change: ${ev.value}`);
+});
+</code></pre>
+			</div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-events></div>
+			<div class="paneContainer paneContainer-console" data-pane-eventsconsole></div>
+		</div>
+	</div>
+</div>
+
+<p><a href="misc.html#events">Global events</a> are also available to handle events of all components at once.</p>
+
+<h2 id="presets">Presets</h2>
+<p>Use <code>exportPreset()</code> to export the current bound values in JSON format.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock">
+				<pre><code class="js">btn.on('click', function() {
+  const preset = pane.<strong>exportPreset</strong>();
+  console.log(preset);
+});
+</code></pre>
+			</div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-preset></div>
+			<div class="paneContainer paneContainer-console" data-pane-presetconsole></div>
+		</div>
+	</div>
+</div>
+
+<p>See <a href="misc.html#imex">Import/Export</a> section for details. </p>
+
+<h2 id="monitors">Monitor bindings</h2>
+<p>Use <code>addMonitor()</code> to monitor value changes.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock">
+				<pre><code class="js">pane.<strong>addMonitor</strong>(sketch, 'signal', {
+  view: 'graph',
+  interval: 200,
+  min: -1,
+  max: +1,
+});</code></pre>
+			</div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-monitors></div>
+		</div>
+	</div>
+</div>
+
+<p>See <a href="monitor-bindings.html">Monitor bindings</a> section for full features.</p>
+
+<h2>What's next</h2>
+<div class="rel">
+	<div class="relItem">
+		<a class="relItem_anchor" href="input-bindings.html">
+			<div class="relItem_title">
+				<span class="fa fa-arrow-right"></span>
+				Input bindings
+			</div>
+			<div class="relItem_detail">
+				components for fine-tuning parameter values
+			</div>
+		</a>
+	</div>
+	<div class="relItem">
+		<a class="relItem_anchor" href="monitor-bindings.html">
+			<div class="relItem_title">
+				<span class="fa fa-arrow-right"></span>
+				Monitor bindings
+			</div>
+			<div class="relItem_detail">
+				components for monitoring value changes
+			</div>
+		</a>
+	</div>
+</div>
+{% endblock %}

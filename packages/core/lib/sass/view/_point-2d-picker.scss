@@ -1,0 +1,51 @@
+.#{$prefix}-p2dpv {
+	padding-left: calc(var(--bld-us) + 4px);
+
+	// Pad
+	&_p {
+		@extend %input;
+
+		cursor: crosshair;
+		height: 0;
+		overflow: hidden;
+		padding-bottom: 100%;
+		position: relative;
+	}
+	// Graphics
+	&_g {
+		display: block;
+		height: 100%;
+		left: 0;
+		pointer-events: none;
+		position: absolute;
+		top: 0;
+		width: 100%;
+	}
+	// Axis
+	&_ax {
+		opacity: 0.1;
+		stroke: var(--in-fg);
+		stroke-dasharray: 1;
+	}
+	// Line
+	&_l {
+		opacity: 0.5;
+		stroke: var(--in-fg);
+		stroke-dasharray: 1;
+	}
+	// Marker
+	&_m {
+		border: var(--in-fg) solid 1px;
+		border-radius: 50%;
+		box-sizing: border-box;
+		height: 4px;
+		margin-left: -2px;
+		margin-top: -2px;
+		position: absolute;
+		width: 4px;
+	}
+	&_p:focus &_m {
+		background-color: var(--in-fg);
+		border-width: 0;
+	}
+}

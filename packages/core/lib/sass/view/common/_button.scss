@@ -1,0 +1,28 @@
+%button {
+	@extend %resetUserAgent;
+
+	background-color: var(--btn-bg);
+	border-radius: var(--elm-br);
+	color: var(--btn-fg);
+	cursor: pointer;
+	display: block;
+	font-weight: bold;
+	height: var(--bld-us);
+	line-height: var(--bld-us);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+
+	&:hover {
+		background-color: var(--btn-bg-h);
+	}
+	&:focus {
+		background-color: var(--btn-bg-f);
+	}
+	&:active {
+		background-color: var(--btn-bg-a);
+	}
+	&:disabled {
+		opacity: 0.5;
+	}
+}

@@ -1,0 +1,101 @@
+.#{$prefix}-txtv {
+	position: relative;
+
+	&_i {
+		@extend %input;
+
+		padding: 0 4px;
+	}
+	&#{&}-fst &_i {
+		border-bottom-right-radius: 0;
+		border-top-right-radius: 0;
+	}
+	&#{&}-mid &_i {
+		border-radius: 0;
+	}
+	&#{&}-lst &_i {
+		border-bottom-left-radius: 0;
+		border-top-left-radius: 0;
+	}
+}
+
+// number-text
+.#{$prefix}-txtv {
+	$knob-bounds-width: 12px;
+	$knob-visual-width: 2px;
+
+	&#{&}-num &_i {
+		text-align: right;
+	}
+	&#{&}-drg &_i {
+		opacity: 0.3;
+	}
+	&_k {
+		cursor: pointer;
+		height: 100%;
+		left: 2px - (($knob-bounds-width - $knob-visual-width) / 2);
+		position: absolute;
+		top: 0;
+		width: $knob-bounds-width;
+
+		&::before {
+			background-color: var(--in-fg);
+			border-radius: $knob-visual-width / 2;
+			bottom: 0;
+			content: '';
+			height: calc(var(--bld-us) - 4px);
+			left: 50%;
+			margin-bottom: auto;
+			margin-left: -($knob-visual-width / 2);
+			margin-top: auto;
+			opacity: 0.1;
+			position: absolute;
+			top: 0;
+			transition: border-radius 0.1s, height 0.1s, transform 0.1s, width 0.1s;
+			width: $knob-visual-width;
+		}
+	}
+	&_k:hover::before,
+	&#{&}-drg &_k::before {
+		opacity: 1;
+	}
+	&#{&}-drg &_k::before {
+		border-radius: 50%;
+		height: 4px;
+		transform: translateX(($knob-visual-width - 4px) / 2);
+		width: 4px;
+	}
+	&_g {
+		bottom: 0;
+		display: block;
+		height: 8px;
+		left: 50%;
+		margin: auto;
+		overflow: visible;
+		pointer-events: none;
+		position: absolute;
+		top: 0;
+		visibility: hidden;
+		width: 100%;
+	}
+	&#{&}-drg &_g {
+		visibility: visible;
+	}
+	&_gb {
+		fill: none;
+		stroke: var(--in-fg);
+		stroke-dasharray: 1;
+	}
+	&_gh {
+		fill: none;
+		stroke: var(--in-fg);
+	}
+
+	.#{$prefix}-ttv {
+		margin-left: $knob-bounds-width / 2;
+		visibility: hidden;
+	}
+	&#{&}-drg .#{$prefix}-ttv {
+		visibility: visible;
+	}
+}

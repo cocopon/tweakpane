@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+		"lib": ["DOM", "ES2015"],
+		"moduleResolution": "Node",
+		"noImplicitAny": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"strict": true,
+		"target": "ES6"
+	},
+	"exclude": ["**/*-test.ts"]
+}

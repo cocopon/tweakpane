@@ -1,0 +1,26 @@
+.#{$prefix}-sglv {
+	&_i {
+		@extend %monitor;
+
+		padding: 0 4px;
+	}
+	&.#{$prefix}-v-disabled &_i {
+		opacity: 0.5;
+	}
+}
+
+.#{$prefix}-mllv {
+	&_i {
+		@extend %monitor;
+
+		display: block;
+		height: calc(var(--bld-us) * 3);
+		line-height: var(--bld-us);
+		padding: 0 4px;
+		resize: none;
+		white-space: pre;
+	}
+	&.#{$prefix}-v-disabled &_i {
+		opacity: 0.5;
+	}
+}

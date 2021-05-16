@@ -1,0 +1,26 @@
+%input {
+	@extend %resetUserAgent;
+
+	background-color: var(--in-bg);
+	border-radius: var(--elm-br);
+	box-sizing: border-box;
+	color: var(--in-fg);
+	font-family: inherit;
+	height: var(--bld-us);
+	line-height: var(--bld-us);
+	min-width: 0;
+	width: 100%;
+
+	&:hover {
+		background-color: var(--in-bg-h);
+	}
+	&:focus {
+		background-color: var(--in-bg-f);
+	}
+	&:active {
+		background-color: var(--in-bg-a);
+	}
+	&:disabled {
+		opacity: 0.5;
+	}
+}

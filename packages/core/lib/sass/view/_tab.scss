@@ -1,0 +1,88 @@
+.#{$prefix}-tabv {
+	&.#{$prefix}-v-disabled {
+		opacity: 0.5;
+	}
+
+	&_i {
+		align-items: flex-end;
+		display: flex;
+		overflow: hidden;
+	}
+	&#{&}-nop &_i {
+		height: calc(var(--bld-us) + 4px);
+		position: relative;
+
+		&::before {
+			background-color: var(--cnt-bg);
+			bottom: 0;
+			content: '';
+			height: 2px;
+			left: 0;
+			position: absolute;
+			right: 0;
+		}
+	}
+	&_c {
+		border-left: var(--cnt-bg) solid 4px;
+		padding-bottom: var(--cnt-v-p);
+		padding-top: var(--cnt-v-p);
+
+		.#{$prefix}-brkv {
+			@extend %bladeRack-children;
+			@extend %bladeRack-subcontainers;
+		}
+	}
+}
+.#{$prefix}-tbiv {
+	flex: 1;
+	min-width: 0;
+	position: relative;
+
+	& + & {
+		margin-left: 2px;
+
+		&::before {
+			background-color: var(--cnt-bg);
+			bottom: 0;
+			content: '';
+			height: 2px;
+			left: -2px;
+			position: absolute;
+			width: 2px;
+		}
+	}
+
+	&_b {
+		@extend %resetUserAgent;
+
+		background-color: var(--cnt-bg);
+		display: block;
+		padding-left: calc(var(--cnt-h-p) + 4px);
+		padding-right: calc(var(--cnt-h-p) + 4px);
+		width: 100%;
+
+		&:hover {
+			background-color: var(--cnt-bg-h);
+		}
+		&:focus {
+			background-color: var(--cnt-bg-f);
+		}
+		&:active {
+			background-color: var(--cnt-bg-a);
+		}
+		&:disabled {
+			opacity: 0.5;
+		}
+	}
+	&_t {
+		color: var(--cnt-fg);
+		height: calc(var(--bld-us) + 4px);
+		line-height: calc(var(--bld-us) + 4px);
+		opacity: 0.5;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	&#{&}-sel &_t {
+		opacity: 1;
+	}
+}

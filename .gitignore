@@ -1,9 +1,9 @@
 /.vscode/
-/dist/
-/docs/
-/pages/
-/test-module/*/dist/
-/test/
+/coverage/
+/packages/core/dist/
+/packages/tweakpane/dist/
+/packages/tweakpane/docs/
+/packages/tweakpane/test-module/*/dist/
 
 *.tgz
 *.zip

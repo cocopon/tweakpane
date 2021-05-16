@@ -1,0 +1,22 @@
+// Entry point for plugins
+$prefix: 'tp';
+
+// Animation
+$fold-transition-duration: 0.2s;
+
+// Reset user agent
+%resetUserAgent {
+	appearance: none;
+	background-color: transparent;
+	border-width: 0;
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	margin: 0;
+	outline: none;
+	padding: 0;
+}
+
+@import './view/common/button';
+@import './view/common/input';
+@import './view/common/monitor';

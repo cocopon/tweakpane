@@ -1,0 +1,85 @@
+.#{$prefix}-sldv {
+	&.#{$prefix}-v-disabled {
+		opacity: 0.5;
+	}
+
+	&_t {
+		box-sizing: border-box;
+		cursor: pointer;
+		height: var(--bld-us);
+		margin: 0 ($slider-knob-size / 2);
+		outline: none;
+		position: relative;
+
+		&::before {
+			background-color: var(--in-bg);
+			border-radius: 1px;
+			bottom: 0;
+			content: '';
+			display: block;
+			height: 2px;
+			left: 0;
+			margin: auto;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+	}
+	&_k {
+		height: 100%;
+		left: 0;
+		position: absolute;
+		top: 0;
+
+		&::before {
+			background-color: var(--in-fg);
+			border-radius: 1px;
+			bottom: 0;
+			content: '';
+			display: block;
+			height: 2px;
+			left: 0;
+			margin-bottom: auto;
+			margin-top: auto;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+		&::after {
+			background-color: var(--btn-bg);
+			border-radius: var(--elm-br);
+			bottom: 0;
+			content: '';
+			display: block;
+			height: $slider-knob-size;
+			margin-bottom: auto;
+			margin-top: auto;
+			position: absolute;
+			right: -$slider-knob-size / 2;
+			top: 0;
+			width: $slider-knob-size;
+		}
+	}
+	&_t:hover &_k::after {
+		background-color: var(--btn-bg-h);
+	}
+	&_t:focus &_k::after {
+		background-color: var(--btn-bg-f);
+	}
+	&_t:active &_k::after {
+		background-color: var(--btn-bg-a);
+	}
+}
+
+// slider-text
+.#{$prefix}-sldtxtv {
+	display: flex;
+
+	&_s {
+		flex: 2;
+	}
+	&_t {
+		flex: 1;
+		margin-left: 4px;
+	}
+}

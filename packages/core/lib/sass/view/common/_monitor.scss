@@ -1,0 +1,10 @@
+%monitor {
+	@extend %resetUserAgent;
+
+	background-color: var(--mo-bg);
+	border-radius: var(--elm-br);
+	box-sizing: border-box;
+	color: var(--mo-fg);
+	height: var(--bld-us);
+	width: 100%;
+}

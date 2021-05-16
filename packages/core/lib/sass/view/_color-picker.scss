@@ -1,0 +1,169 @@
+$marker-border-color: rgba(white, 0.75);
+$marker-border-color-focus: white;
+$slider-track-width: 4px;
+
+.#{$prefix}-colpv {
+	&_h,
+	&_ap {
+		margin-left: $slider-knob-size / 2;
+		margin-right: $slider-knob-size / 2;
+	}
+	&_h {
+		margin-top: var(--bld-s);
+	}
+	&_rgb {
+		display: flex;
+		margin-top: var(--bld-s);
+		width: 100%;
+	}
+	&_a {
+		display: flex;
+		margin-top: var(--cnt-v-p);
+		padding-top: calc(var(--cnt-v-p) + #{$separator-width});
+		position: relative;
+
+		&:before {
+			background-color: var(--grv-fg);
+			content: '';
+			height: $separator-width;
+			left: calc(-1 * var(--cnt-h-p));
+			position: absolute;
+			right: calc(-1 * var(--cnt-h-p));
+			top: 0;
+		}
+	}
+	&_ap {
+		align-items: center;
+		display: flex;
+		flex: 3;
+	}
+	&_at {
+		flex: 1;
+		margin-left: 4px;
+	}
+}
+
+.#{$prefix}-svpv {
+	border-radius: var(--elm-br);
+	outline: none;
+	overflow: hidden;
+	position: relative;
+
+	&_c {
+		cursor: crosshair;
+		display: block;
+		height: calc(var(--bld-us) * 4);
+		width: 100%;
+	}
+	&_m {
+		border-radius: 100%;
+		border: $marker-border-color solid 2px;
+		box-sizing: border-box;
+		filter: drop-shadow(0 0 1px rgba(black, 0.3));
+		height: $slider-knob-size;
+		margin-left: -($slider-knob-size / 2);
+		margin-top: -($slider-knob-size / 2);
+		pointer-events: none;
+		position: absolute;
+		width: $slider-knob-size;
+	}
+	&:focus &_m {
+		border-color: $marker-border-color-focus;
+	}
+}
+
+.#{$prefix}-hplv {
+	cursor: pointer;
+	height: var(--bld-us);
+	outline: none;
+	position: relative;
+
+	&_c {
+		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAABCAYAAABubagXAAAAQ0lEQVQoU2P8z8Dwn0GCgQEDi2OK/RBgYHjBgIpfovFh8j8YBIgzFGQxuqEgPhaDOT5gOhPkdCxOZeBg+IDFZZiGAgCaSSMYtcRHLgAAAABJRU5ErkJggg==);
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+		border-radius: $slider-track-width / 2;
+		display: block;
+		height: $slider-track-width;
+		left: 0;
+		margin-top: -($slider-track-width / 2);
+		position: absolute;
+		top: 50%;
+		width: 100%;
+	}
+	&_m {
+		border-radius: var(--elm-br);
+		border: $marker-border-color solid 2px;
+		box-shadow: 0 0 2px rgba(black, 0.1);
+		box-sizing: border-box;
+		height: $slider-knob-size;
+		left: 50%;
+		margin-left: -($slider-knob-size / 2);
+		margin-top: -($slider-knob-size / 2);
+		pointer-events: none;
+		position: absolute;
+		top: 50%;
+		width: $slider-knob-size;
+	}
+	&:focus &_m {
+		border-color: $marker-border-color-focus;
+	}
+}
+
+.#{$prefix}-aplv {
+	cursor: pointer;
+	height: var(--bld-us);
+	outline: none;
+	position: relative;
+	width: 100%;
+
+	&_b {
+		@include checkerboard($slider-track-width);
+
+		border-radius: $slider-track-width / 2;
+		display: block;
+		height: $slider-track-width;
+		left: 0;
+		margin-top: -($slider-track-width / 2);
+		overflow: hidden;
+		position: absolute;
+		top: 50%;
+		width: 100%;
+	}
+	&_c {
+		bottom: 0;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+	&_m {
+		@include checkerboard($slider-knob-size);
+
+		border-radius: var(--elm-br);
+		box-shadow: 0 0 2px rgba(black, 0.1);
+		height: $slider-knob-size;
+		left: 50%;
+		margin-left: -($slider-knob-size / 2);
+		margin-top: -($slider-knob-size / 2);
+		overflow: hidden;
+		pointer-events: none;
+		position: absolute;
+		top: 50%;
+		width: $slider-knob-size;
+	}
+	&_p {
+		border-radius: var(--elm-br);
+		border: $marker-border-color solid 2px;
+		box-sizing: border-box;
+		bottom: 0;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+	&:focus &_p {
+		border-color: $marker-border-color-focus;
+	}
+}

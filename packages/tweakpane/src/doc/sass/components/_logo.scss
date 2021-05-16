@@ -1,0 +1,62 @@
+.logo {
+	$logo-color: var(--fg-color);
+	$logo-hover-color: var(--fg-color-action);
+
+	color: $logo-color;
+	display: block;
+	font-weight: 500;
+	padding-left: 12px + 8px;
+	position: relative;
+	text-decoration: none;
+	white-space: nowrap;
+
+	&:hover {
+		color: $logo-hover-color;
+		text-decoration: none;
+	}
+
+	&_symbol {
+		background: linear-gradient(
+			to left,
+			$logo-color,
+			$logo-color 4px,
+			transparent 4px,
+			transparent 8px,
+			$logo-color 8px,
+			$logo-color
+		);
+		border-radius: 4px;
+		bottom: 2px;
+		content: '';
+		display: block;
+		height: 12px;
+		left: 0;
+		margin-bottom: auto;
+		margin-top: auto;
+		position: absolute;
+		top: 0;
+		width: 12px;
+	}
+	&:hover &_symbol {
+		background: linear-gradient(
+			to left,
+			$logo-hover-color,
+			$logo-hover-color 4px,
+			transparent 4px,
+			transparent 8px,
+			$logo-hover-color 8px,
+			$logo-hover-color
+		);
+	}
+	&_version {
+		border: var(--fg-color-secondary) solid 1px;
+		border-radius: 2px;
+		color: var(--fg-color-secondary);
+		display: inline;
+		font-size: 0.8rem;
+		font-weight: normal;
+		margin-left: 2px;
+		padding: 0 4px;
+		white-space: nowrap;
+	}
+}

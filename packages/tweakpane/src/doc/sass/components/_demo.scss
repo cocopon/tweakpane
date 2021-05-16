@@ -1,0 +1,35 @@
+.demo {
+	background-color: var(--bg-color-secondary);
+	border-radius: 6px;
+
+	@include wide() {
+		display: flex;
+	}
+
+	&_codeLayout {
+		flex: 3;
+		overflow: auto;
+	}
+	&_resultLayout {
+		border-color: unquote('hsla(var(--guide-color-comps), 0.1)');
+		border-style: none;
+		border-width: 0;
+		flex: 2;
+		padding: 32px;
+		text-align: center;
+
+		@include wide() {
+			border-left-width: 1px;
+			border-bottom-right-radius: 6px;
+			border-top-right-radius: 6px;
+		}
+		@include nonwide() {
+			border-bottom-left-radius: 6px;
+			border-bottom-right-radius: 6px;
+			border-top-width: 1px;
+		}
+	}
+	&_codeLayout + &_resultLayout {
+		border-style: dashed;
+	}
+}

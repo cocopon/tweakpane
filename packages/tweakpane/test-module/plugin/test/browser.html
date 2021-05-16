@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<script src="../../node_modules/tweakpane/dist/tweakpane.js"></script>
+	<script src="../dist/bundle.js"></script>
+	<script>
+		const params = {
+			foo: 'hello, world',
+		};
+		const pane = new Tweakpane.Pane();
+		pane.addInput(params, 'foo', {
+			view: 'test',
+		});
+	</script>
+</body>
+</html>

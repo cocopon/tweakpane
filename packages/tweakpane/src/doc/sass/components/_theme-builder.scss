@@ -1,0 +1,55 @@
+.paint {
+	background-color: var(--bg-color-secondary);
+	border-radius: 6px;
+	overflow: hidden;
+
+	&_gui {
+		@include wide() {
+			display: flex;
+		}
+	}
+	&_controller {
+		background-color: $pane-bg-color;
+
+		@include nonwide() {
+			.paneContainer {
+				width: 100%;
+			}
+		}
+
+		.tp-rotv {
+			border-top-right-radius: 0;
+			box-shadow: 0 0 0 transparent;
+
+			@include nonwide() {
+				.tp-lblv_v {
+					width: 60vw;
+				}
+			}
+		}
+	}
+	&_preview {
+		align-items: center;
+		display: flex;
+		flex: 1;
+		justify-content: center;
+		overflow: hidden;
+		padding: 32px;
+		position: relative;
+
+		.tp-rotv {
+			position: relative;
+		}
+	}
+	&_bgImage {
+		background-color: black;
+		background: url(https://source.unsplash.com/74ft3aciAY0/900x1600) no-repeat
+			center;
+		background-size: cover;
+		bottom: -16px;
+		left: -16px;
+		position: absolute;
+		right: -16px;
+		top: -16px;
+	}
+}

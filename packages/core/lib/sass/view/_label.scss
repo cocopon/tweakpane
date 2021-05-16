@@ -1,0 +1,35 @@
+.#{$prefix}-lblv {
+	align-items: center;
+	display: flex;
+	line-height: 1.3;
+	padding-left: var(--cnt-h-p);
+	padding-right: var(--cnt-h-p);
+
+	&#{&}-nol {
+		display: block;
+	}
+
+	&_l {
+		color: var(--lbl-fg);
+		flex: 1;
+		hyphens: auto;
+		overflow: hidden;
+		padding-left: 4px;
+		padding-right: 16px;
+	}
+	&.#{$prefix}-v-disabled &_l {
+		opacity: 0.5;
+	}
+	&#{&}-nol &_l {
+		display: none;
+	}
+	&_v {
+		align-self: flex-start;
+		flex-grow: 0;
+		flex-shrink: 0;
+		width: 160px;
+	}
+	&#{&}-nol &_v {
+		width: 100%;
+	}
+}

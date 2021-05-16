@@ -1,0 +1,39 @@
+.#{$prefix}-grlv {
+	position: relative;
+
+	&_g {
+		@extend %monitor;
+
+		display: block;
+		height: calc(var(--bld-us) * 3);
+
+		polyline {
+			fill: none;
+			stroke: var(--mo-fg);
+			stroke-linejoin: round;
+		}
+	}
+	&_t {
+		margin-top: -4px;
+		transition: left 0.05s, top 0.05s;
+		visibility: hidden;
+
+		&#{&}-a {
+			visibility: visible;
+		}
+		&#{&}-in {
+			transition: none;
+		}
+	}
+	&.#{$prefix}-v-disabled &_g {
+		opacity: 0.5;
+	}
+
+	.#{$prefix}-ttv {
+		background-color: var(--mo-fg);
+
+		&::before {
+			border-top-color: var(--mo-fg);
+		}
+	}
+}

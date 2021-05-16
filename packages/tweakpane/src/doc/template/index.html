@@ -1,0 +1,72 @@
+{% set pageId = 'index' %}
+{% extends "_template.html" %}
+
+
+{% block pageHeader %}
+<div class="pageHeader">
+	<div class="pageHeader_sketchContainer"></div>
+	<div class="pageHeader_innerLayout">
+		<div class="pageHeader_titleLayout">
+			<h1 class="pageHeader_title">Tweakpane</h1>
+			<p>Compact pane library for fine-tuning parameters and monitoring value changes.</p>
+		</div>
+		<div class="pageHeader_paneLayout">
+			<div class="paneContainer" data-pane-index></div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<h2>Concept</h2>
+<div class="concepts">
+	<div class="concept">
+		<div class="concept_title">
+			Clean and simple design
+		</div>
+		<p class="concept_detail">
+			Easy to understand API, modest appearance that brings out a main content.
+		</p>
+	</div>
+	<div class="concept">
+		<div class="concept_title">
+			Dependency-free
+		</div>
+		<p class="concept_detail">
+			Stand-alone, doesn't require any other library like jQuery, React, Vue.js, etc.
+		</p>
+	</div>
+	<div class="concept">
+		<div class="concept_title">
+			Extensible
+		</div>
+		<p class="concept_detail">
+			Highly customizable with <a href="theming.html">theming</a> and <a href="plugins.html">plugin</a> system.
+		</p>
+	</div>
+</div>
+
+
+<h2>What's next?</h2>
+<div class="rel">
+	<div class="relItem">
+		<a class="relItem_anchor" href="getting-started.html">
+			<div class="relItem_title">
+				<span class="fa fa-arrow-right"></span>
+				Getting started
+			</div>
+			<div class="relItem_detail">
+				setting up Tweakpane in only 2 steps
+			</div>
+		</a>
+	</div>
+	<div class="relItem relItem-oneline">
+		<a class="relItem_anchor" href="api/classes/pane_pane.pane.html" target="_blank">
+			<div class="relItem_title">
+				API reference<span class="fas fa-external-link-square-alt"></span>
+			</div>
+		</a>
+	</div>
+</div>
+{% endblock %}

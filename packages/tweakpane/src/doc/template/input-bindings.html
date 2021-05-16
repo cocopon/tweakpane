@@ -1,0 +1,438 @@
+{% set pageId = 'input' %}
+{% set title = 'Input bindings' %}
+{% extends "_template.html" %}
+
+
+{% block pageHeader %}
+<div class="pageHeader">
+	<div class="pageHeader_innerLayout">
+		<div class="pageHeader_titleLayout">
+			<h1 class="pageHeader_title">{{ title }}</h1>
+			<p>For fine-tuning parameters, use <code>addInput()</code> of the pane to add components. Tweakpane checks specified parameter types and provides suitable components.</p>
+		</div>
+		<div class="pageHeader_paneLayout">
+			<div class="paneContainer" data-pane-input></div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<h2 id="number">Number</h2>
+<p>Tweakpane provides a text input for number parameters by default.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  speed: 0.5,
+};
+
+const pane = new Pane();
+pane.addInput(PARAMS, 'speed');</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-numbertext></div>
+		</div>
+	</div>
+</div>
+
+
+<h3 id="number_range">Range</h3>
+<p>You can specify a range of number by <code>min</code> and <code>max</code>. If you specify at least one of them, slider control will be created.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  speed: 50,
+};
+
+const pane = new Pane();
+pane.addInput(PARAMS, 'speed', {
+  <strong>min</strong>: 0,
+  <strong>max</strong>: 100,
+});</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-slider></div>
+		</div>
+	</div>
+</div>
+
+
+<h3 id="number_step">Step</h3>
+<p><code>step</code> constraints step of changes.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  speed: 0.5,
+  count: 10,
+};
+
+const pane = new Pane();
+pane.addInput(PARAMS, 'speed', {
+  <strong>step</strong>: 0.1,
+});
+pane.addInput(PARAMS, 'count', {
+  <strong>step</strong>: 10,
+  min: 0,
+  max: 100,
+});</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-step></div>
+		</div>
+	</div>
+</div>
+
+
+<h3 id="number_list">Number list</h3>
+<p>If you want to choose a value from presets, use <code>options</code>.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  quality: 0,
+};
+
+const pane = new Pane();
+pane.addInput(PARAMS, 'quality', {
+  <strong>options</strong>: {
+    low: 0,
+    medium: 50,
+    high: 100,
+  },
+});</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-numberlist></div>
+			<div class="paneContainer paneContainer-console" data-pane-numberlistconsole></div>
+		</div>
+	</div>
+</div>
+
+
+<h3 id="number_formatter">Formatter</h3>
+<p>You can use a custom number formatter with <code>format</code>.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  k: 0,
+};
+
+const pane = new Pane();
+pane.addInput(PARAMS, 'k', {
+  <strong>format</strong>: (v) => v.toFixed(6),
+});</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-numberformatter></div>
+		</div>
+	</div>
+</div>
+
+
+<h2 id="string">String</h2>
+<p>For string parameters, text input will be provided by default.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  message: 'hello, world',
+};
+
+const pane = new Pane();
+pane.addInput(PARAMS, 'message');</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-stringtext></div>
+		</div>
+	</div>
+</div>
+
+
+<h3>String list</h3>
+<p>Same as for number properties, <code>options</code> provides a list component.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  theme: '',
+};
+
+const pane = new Pane();
+pane.addInput(PARAMS, 'theme', {
+  <strong>options</strong>: {
+    none: '',
+    dark: 'dark-theme.json',
+    light: 'light-theme.json',
+  },
+});</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-stringlist></div>
+			<div class="paneContainer paneContainer-console" data-pane-stringlistconsole></div>
+		</div>
+	</div>
+</div>
+
+
+<h2 id="boolean">Boolean</h2>
+<p>For boolean parameters, checkbox field component will be provided.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  hidden: true,
+};
+
+const pane = new Pane();
+pane.addInput(PARAMS, 'hidden');</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-checkbox></div>
+		</div>
+	</div>
+</div>
+
+
+<h2 id="color">Color</h2>
+<p>For object parameters that have components key <code>r</code>, <code>g</code>, and <code>b</code> (and optional <code>a</code>), text field with a color swatch will be provided. You can choose a color from a color picker by clicking the swatch.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  background: {r: 255, g: 127, b: 0},
+  tint: {r: 255, g: 255, b: 0, a: 0.5},
+};
+
+const pane = new Pane();
+pane.addInput(PARAMS, 'background');
+pane.addInput(PARAMS, 'tint');</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-objectcolor></div>
+		</div>
+	</div>
+</div>
+
+<p>This field will also be provided for string parameters that can be parsed as a color.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  primary: '#8df',
+  secondary: 'rgb(255, 136, 221)',
+};
+
+const pane = new Pane();
+pane.addInput(PARAMS, 'primary');
+pane.addInput(PARAMS, 'secondary');</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-stringcolor></div>
+		</div>
+	</div>
+</div>
+
+<p>If you want to regard a hex number (like <code>0x0088ff</code>) as a color, specify <code>{view: 'color'}</code> option, and <code>alpha: true</code> will add an alpha component.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  background: 0x0088ff,
+  tint: 0x00ff0044,
+};
+
+const pane = new Pane();
+pane.addInput(PARAMS, 'background', {
+  <strong>view: 'color'</strong>,
+});
+pane.addInput(PARAMS, 'tint', {
+  <strong>view: 'color'</strong>,
+  <strong>alpha: true</strong>,
+});</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-numbercolor></div>
+		</div>
+	</div>
+</div>
+
+<p>Or, if you want to force a color-like string to be a string input, pass <code>view: 'text'</code> option.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  hex: '#0088ff',
+};
+
+const pane = new Pane();
+pane.addInput(PARAMS, 'hex', {
+  <strong>view: 'text'</strong>,
+});</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-inputstring></div>
+		</div>
+	</div>
+</div>
+
+<p><code>picker</code> can change the layout of the picker.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  key: '#22aaeeff',
+};
+
+const pane = new Pane();
+pane.addInput(PARAMS, 'key', {
+  <strong>picker: 'inline'</strong>,
+  expanded: true,
+});</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-colorinline></div>
+		</div>
+	</div>
+</div>
+
+
+<h2 id="point">Point</h2>
+
+
+<h3 id="point2d">Point 2D</h3>
+<p>For object parameters that have number properties <code>x</code> and <code>y</code>, text fields and a picker will be provided.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  offset: {x: 50, y: 25},
+};
+
+const pane = new Pane();
+pane.addInput(PARAMS, 'offset');</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-point2d></div>
+		</div>
+	</div>
+</div>
+
+<p>Each dimension can be constrained with <code>step</code>, <code>min</code> and <code>max</code> parameters just like a numeric input.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  offset: {x: 20, y: 30},
+};
+
+const pane = new Pane();
+pane.addInput(PARAMS, 'offset', {
+  x: {<strong>step</strong>: 20},
+  y: {<strong>min</strong>: 0, <strong>max</strong>: 100},
+});</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-point2dParams></div>
+		</div>
+	</div>
+</div>
+
+<p><code>inverted: true</code> inverts Y-axis.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  offset: {x: 50, y: 50},
+};
+
+const pane = new Pane();
+pane.addInput(PARAMS, 'offset', {
+  y: {<strong>inverted</strong>: true},
+});</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-point2dinvertedy></div>
+		</div>
+	</div>
+</div>
+
+<p><code>picker</code> can change the layout of the picker.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  offset: {x: 50, y: 50},
+};
+
+const pane = new Pane();
+pane.addInput(PARAMS, 'offset', {
+  <strong>picker: 'inline'</strong>,
+  expanded: true,
+});</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-point2dinline></div>
+		</div>
+	</div>
+</div>
+
+
+<h3 id="pointnd">Point 3D/4D</h3>
+<p>Tweakpane also has a support for 3D and 4D vector object. You can constrain each axis same as Point 2D.</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  source: {x: 0, y: 0, z: 0},
+  camera: {x: 0, y: 20, z: -10},
+  color: {x: 0, y: 0, z: 0, w: 1},
+};
+
+// 3d
+const pane = new Pane();
+pane.addInput(PARAMS, 'source');
+pane.addInput(PARAMS, 'camera', {
+  y: {step: 10},
+  z: {max: 0},
+});
+
+// 4d
+pane.addInput(PARAMS, 'color', {
+  x: {min: 0, max: 1},
+  y: {min: 0, max: 1},
+  z: {min: 0, max: 1},
+  w: {min: 0, max: 1},
+});
+</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-point3d></div>
+			<div class="paneContainer" data-pane-point4d></div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
