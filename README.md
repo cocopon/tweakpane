@@ -57,9 +57,8 @@ $ npm install
 $ npm start
 ```
 
-It starts a web server for the online document, building source files,
-watching changes for the next build. After executing the command, open
-`http://localhost:8080/` for browsing the document.
+The above commands start a web server for the document, build source files, and
+watch for changes. Open `http://localhost:8080/` to browse the document.
 
 
 ## License
