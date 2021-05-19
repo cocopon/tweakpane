@@ -19,7 +19,7 @@
     "coverage:package:tweakpane": "(cd packages/tweakpane && npm install && npm run coverage)",
     "coverage:prepare": "mkdirp .nyc_output",
     "coverage:report": "nyc report --reporter=lcov",
-    "setup": "(cd packages/core && npm install) && (cd packages/tweakpane && npm install) && npm install"
+    "setup": "(cd packages/core && npm install && npm run build) && (cd packages/tweakpane && npm install && npm run build) && npm install"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.23.0",
