@@ -26,6 +26,7 @@
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
 	}
+	// no title
 	&#{&}-not &_b {
 		display: none;
 	}
@@ -61,6 +62,9 @@
 	}
 	&#{&}-expanded &_c {
 		@extend %folder_container-expanded;
+	}
+	&#{&}-cpl:not(#{&}-expanded) &_c {
+		@extend %folder_container-shrinkedCompletely;
 	}
 	&#{&}-not &_c {
 		// First folder without pane title
