@@ -16,6 +16,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '16'
+      - run: npm install
       # TODO: Find better way to set up packages
       - run: npm run setup
       - run: npm run test --workspaces

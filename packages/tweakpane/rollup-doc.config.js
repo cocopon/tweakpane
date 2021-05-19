@@ -20,7 +20,7 @@ export default async () => {
 				entries: [
 					{
 						find: '@tweakpane/core',
-						replacement: './node_modules/@tweakpane/core/dist/es6/index.js'
+						replacement: '../../node_modules/@tweakpane/core/dist/es6/index.js',
 					},
 				],
 			}),

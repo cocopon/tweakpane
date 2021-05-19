@@ -7,7 +7,7 @@
   "main": "dist/cjs/index.js",
   "types": "dist/cjs/index.d.ts",
   "scripts": {
-    "prepare": "run-s clean build",
+    "prepack": "run-s clean build",
     "prepublishOnly": "npm test",
     "test": "run-s test:scss test:ts",
     "build": "run-s build:ts",
