@@ -6,6 +6,7 @@ import {ValueMap} from '../../../common/model/value-map';
 import {isEmpty} from '../../../misc/type-util';
 
 type FoldableObject = {
+	completed: boolean;
 	expanded: boolean;
 	expandedHeight: number | null;
 	shouldFixHeight: boolean;
@@ -20,6 +21,7 @@ export type Foldable = ValueMap<FoldableObject>;
 
 export function createFoldable(expanded: boolean): Foldable {
 	return ValueMap.fromObject<FoldableObject>({
+		completed: false,
 		expanded: expanded,
 		expandedHeight: null,
 		shouldFixHeight: false,
@@ -75,6 +77,8 @@ function applyHeight(foldable: Foldable, elem: HTMLElement): void {
 
 export function bindFoldable(foldable: Foldable, elem: HTMLElement): void {
 	foldable.value('expanded').emitter.on('beforechange', () => {
+		foldable.set('completed', false);
+
 		if (isEmpty(foldable.get('expandedHeight'))) {
 			foldable.set(
 				'expandedHeight',
@@ -98,5 +102,6 @@ export function bindFoldable(foldable: Foldable, elem: HTMLElement): void {
 
 		foldable.set('shouldFixHeight', false);
 		foldable.set('expandedHeight', null);
+		foldable.set('completed', true);
 	});
 }

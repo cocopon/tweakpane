@@ -30,4 +30,7 @@
 	&#{&}-expanded > &_c {
 		@extend %folder_container-expanded;
 	}
+	&#{&}-cpl:not(#{&}-expanded) > &_c {
+		@extend %folder_container-shrinkedCompletely;
+	}
 }

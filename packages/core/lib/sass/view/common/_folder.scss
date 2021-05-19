@@ -76,6 +76,9 @@
 		opacity $fold-transition-duration linear,
 		padding $fold-transition-duration ease-in-out;
 }
+%folder_container-shrinkedCompletely {
+	display: none;
+}
 %folder_container-expanded {
 	opacity: 1;
 	padding-bottom: var(--cnt-v-p);
