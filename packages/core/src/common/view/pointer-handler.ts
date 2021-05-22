@@ -1,4 +1,3 @@
-import {supportsTouch} from '../dom-util';
 import {Emitter} from '../model/emitter';
 
 /**
@@ -74,14 +73,10 @@ export class PointerHandler {
 		this.elem_ = element;
 		this.emitter = new Emitter();
 
-		const doc = this.elem_.ownerDocument;
-		if (supportsTouch(doc)) {
-			element.addEventListener('touchstart', this.onTouchStart_);
-			element.addEventListener('touchmove', this.onTouchMove_);
-			element.addEventListener('touchend', this.onTouchEnd_);
-		} else {
-			element.addEventListener('mousedown', this.onMouseDown_);
-		}
+		element.addEventListener('touchstart', this.onTouchStart_);
+		element.addEventListener('touchmove', this.onTouchMove_);
+		element.addEventListener('touchend', this.onTouchEnd_);
+		element.addEventListener('mousedown', this.onMouseDown_);
 	}
 
 	private computePosition_(offset?: {x: number; y: number}): PointerData {
