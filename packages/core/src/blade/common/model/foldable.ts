@@ -21,7 +21,7 @@ export type Foldable = ValueMap<FoldableObject>;
 
 export function createFoldable(expanded: boolean): Foldable {
 	return ValueMap.fromObject<FoldableObject>({
-		completed: false,
+		completed: true,
 		expanded: expanded,
 		expandedHeight: null,
 		shouldFixHeight: false,
