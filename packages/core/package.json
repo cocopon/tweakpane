@@ -9,6 +9,7 @@
   "scripts": {
     "prepack": "run-s clean build",
     "prepublishOnly": "npm test",
+    "start": "run-s build watch",
     "test": "run-s test:scss test:ts",
     "build": "run-s build:ts",
     "build:ts": "run-p build:ts:*",
