@@ -8,7 +8,7 @@ import {
 } from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {isEmpty} from '../../../misc/type-util';
-import {Foldable, getFoldableStyleExpanded} from '../../common/model/foldable';
+import {Foldable} from '../../common/model/foldable';
 import {bladeContainerClassName} from '../../common/view/blade-container';
 
 export type FolderPropsObject = {
@@ -38,15 +38,16 @@ export class FolderView implements View {
 	private readonly className_: ReturnType<typeof ClassName>;
 
 	constructor(doc: Document, config: Config) {
-		this.onFoldableExpandedChange_ = this.onFoldableExpandedChange_.bind(this);
-
 		this.className_ = ClassName(config.viewName || 'fld');
 		this.element = doc.createElement('div');
 		this.element.classList.add(this.className_(), bladeContainerClassName());
 		config.viewProps.bindClassModifiers(this.element);
 
 		this.foldable_ = config.foldable;
-		bindValueMap(this.foldable_, 'expanded', this.onFoldableExpandedChange_);
+		this.foldable_.bindExpandedClass(
+			this.element,
+			this.className_(undefined, 'expanded'),
+		);
 		bindValueMap(
 			this.foldable_,
 			'completed',
@@ -80,15 +81,5 @@ export class FolderView implements View {
 		containerElem.classList.add(this.className_('c'));
 		this.element.appendChild(containerElem);
 		this.containerElement = containerElem;
-	}
-
-	private onFoldableExpandedChange_(): void {
-		const expanded = getFoldableStyleExpanded(this.foldable_);
-		const expandedClass = this.className_(undefined, 'expanded');
-		if (expanded) {
-			this.element.classList.add(expandedClass);
-		} else {
-			this.element.classList.remove(expandedClass);
-		}
 	}
 }

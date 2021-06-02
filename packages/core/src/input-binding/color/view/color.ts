@@ -1,12 +1,12 @@
-import {bindValue} from '../../../common/model/reactive';
-import {Value} from '../../../common/model/value';
+import {Foldable} from '../../../blade/common/model/foldable';
+import {bindValueMap} from '../../../common/model/reactive';
 import {PickerLayout} from '../../../common/params';
 import {ClassName} from '../../../common/view/class-name';
 import {valueToClassName} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 
 interface Config {
-	expanded: Value<boolean>;
+	foldable: Foldable;
 	pickerLayout: PickerLayout;
 }
 
@@ -24,9 +24,14 @@ export class ColorView implements View {
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
-		bindValue(
-			config.expanded,
-			valueToClassName(this.element, className(undefined, 'expanded')),
+		config.foldable.bindExpandedClass(
+			this.element,
+			className(undefined, 'expanded'),
+		);
+		bindValueMap(
+			config.foldable,
+			'completed',
+			valueToClassName(this.element, className(undefined, 'cpl')),
 		);
 
 		const headElem = doc.createElement('div');

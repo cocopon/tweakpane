@@ -1,8 +1,4 @@
-import {
-	bindFoldable,
-	createFoldable,
-	Foldable,
-} from '../../../blade/common/model/foldable';
+import {bindFoldable, Foldable} from '../../../blade/common/model/foldable';
 import {Controller} from '../../../common/controller/controller';
 import {PopupController} from '../../../common/controller/popup';
 import {TextController} from '../../../common/controller/text';
@@ -52,7 +48,7 @@ export class ColorController implements Controller<ColorView> {
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 
-		this.foldable_ = createFoldable(config.expanded);
+		this.foldable_ = Foldable.create(config.expanded);
 
 		this.swatchC_ = new ColorSwatchController(doc, {
 			value: this.value,
@@ -72,7 +68,7 @@ export class ColorController implements Controller<ColorView> {
 		});
 
 		this.view = new ColorView(doc, {
-			expanded: this.foldable_.value('expanded'),
+			foldable: this.foldable_,
 			pickerLayout: config.pickerLayout,
 		});
 		this.view.swatchElement.appendChild(this.swatchC_.view.element);
