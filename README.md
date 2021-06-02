@@ -52,8 +52,9 @@ Folder, Tab, Button, Separator
 
 ## Development
 ```
-$ cd packages/tweakpane
 $ npm install
+$ npm run setup
+$ cd packages/tweakpane
 $ npm start
 ```
 
