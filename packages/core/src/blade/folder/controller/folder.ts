@@ -1,11 +1,7 @@
 import {ViewProps} from '../../../common/model/view-props';
 import {RackLikeController} from '../../common/controller/rack-like';
 import {Blade} from '../../common/model/blade';
-import {
-	bindFoldable,
-	createFoldable,
-	Foldable,
-} from '../../common/model/foldable';
+import {bindFoldable, Foldable} from '../../common/model/foldable';
 import {RackController} from '../../rack/controller/rack';
 import {FolderProps, FolderView} from '../view/folder';
 
@@ -26,7 +22,7 @@ export class FolderController extends RackLikeController<FolderView> {
 	public readonly props: FolderProps;
 
 	constructor(doc: Document, config: Config) {
-		const foldable = createFoldable(config.expanded ?? true);
+		const foldable = Foldable.create(config.expanded ?? true);
 		const rc = new RackController(doc, {
 			blade: config.blade,
 			root: config.root,

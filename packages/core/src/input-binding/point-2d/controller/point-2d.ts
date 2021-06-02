@@ -1,8 +1,4 @@
-import {
-	bindFoldable,
-	createFoldable,
-	Foldable,
-} from '../../../blade/common/model/foldable';
+import {bindFoldable, Foldable} from '../../../blade/common/model/foldable';
 import {Constraint} from '../../../common/constraint/constraint';
 import {Controller} from '../../../common/controller/controller';
 import {PopupController} from '../../../common/controller/popup';
@@ -57,7 +53,7 @@ export class Point2dController implements Controller<Point2dView> {
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 
-		this.foldable_ = createFoldable(config.expanded);
+		this.foldable_ = Foldable.create(config.expanded);
 
 		this.popC_ =
 			config.pickerLayout === 'popup'

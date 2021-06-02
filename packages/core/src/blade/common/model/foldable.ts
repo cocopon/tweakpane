@@ -2,6 +2,8 @@ import {
 	disableTransitionTemporarily,
 	forceReflow,
 } from '../../../common/dom-util';
+import {bindValueMap} from '../../../common/model/reactive';
+import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
 import {isEmpty} from '../../../misc/type-util';
 
@@ -17,16 +19,60 @@ type FoldableObject = {
 /**
  * @hidden
  */
-export type Foldable = ValueMap<FoldableObject>;
+export class Foldable extends ValueMap<FoldableObject> {
+	constructor(
+		valueMap: {[Key in keyof FoldableObject]: Value<FoldableObject[Key]>},
+	) {
+		super(valueMap);
+	}
 
+	public static create(expanded: boolean): Foldable {
+		const coreObj: FoldableObject = {
+			completed: true,
+			expanded: expanded,
+			expandedHeight: null,
+			shouldFixHeight: false,
+			temporaryExpanded: null,
+		};
+		const core = ValueMap.createCore(coreObj);
+		return new Foldable(core);
+	}
+
+	get styleExpanded(): boolean {
+		return this.get('temporaryExpanded') ?? this.get('expanded');
+	}
+
+	get styleHeight(): string {
+		if (!this.styleExpanded) {
+			return '0';
+		}
+
+		const exHeight = this.get('expandedHeight');
+		if (this.get('shouldFixHeight') && !isEmpty(exHeight)) {
+			return `${exHeight}px`;
+		}
+
+		return 'auto';
+	}
+
+	public bindExpandedClass(elem: HTMLElement, expandedClassName: string): void {
+		bindValueMap(this, 'expanded', () => {
+			const expanded = this.styleExpanded;
+			if (expanded) {
+				elem.classList.add(expandedClassName);
+			} else {
+				elem.classList.remove(expandedClassName);
+			}
+		});
+	}
+}
+
+/**
+ * @deprecated Use Foldable.create instead.
+ */
 export function createFoldable(expanded: boolean): Foldable {
-	return ValueMap.fromObject<FoldableObject>({
-		completed: true,
-		expanded: expanded,
-		expandedHeight: null,
-		shouldFixHeight: false,
-		temporaryExpanded: null,
-	});
+	// TODO: Warn deprecation at next minor version
+	return Foldable.create(expanded);
 }
 
 function computeExpandedFolderHeight(
@@ -54,25 +100,22 @@ function computeExpandedFolderHeight(
 	return height;
 }
 
+/**
+ * @deprecated Use foldable.styleExpanded instead.
+ */
 export function getFoldableStyleExpanded(foldable: Foldable): boolean {
-	return foldable.get('temporaryExpanded') ?? foldable.get('expanded');
+	return foldable.styleExpanded;
 }
 
+/**
+ * @deprecated Use foldable.styleHeight instead.
+ */
 export function getFoldableStyleHeight(foldable: Foldable): string {
-	if (!getFoldableStyleExpanded(foldable)) {
-		return '0';
-	}
-
-	const exHeight = foldable.get('expandedHeight');
-	if (foldable.get('shouldFixHeight') && !isEmpty(exHeight)) {
-		return `${exHeight}px`;
-	}
-
-	return 'auto';
+	return foldable.styleHeight;
 }
 
 function applyHeight(foldable: Foldable, elem: HTMLElement): void {
-	elem.style.height = getFoldableStyleHeight(foldable);
+	elem.style.height = foldable.styleHeight;
 }
 
 export function bindFoldable(foldable: Foldable, elem: HTMLElement): void {
