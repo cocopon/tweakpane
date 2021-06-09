@@ -32,8 +32,12 @@ export class ButtonView implements View {
 		const buttonElem = doc.createElement('button');
 		buttonElem.classList.add(className('b'));
 		config.viewProps.bindDisabled(buttonElem);
-		bindValueToTextContent(config.props.value('title'), buttonElem);
 		this.element.appendChild(buttonElem);
 		this.buttonElement = buttonElem;
+
+		const titleElem = doc.createElement('div');
+		titleElem.classList.add(className('t'));
+		bindValueToTextContent(config.props.value('title'), titleElem);
+		this.buttonElement.appendChild(titleElem);
 	}
 }
