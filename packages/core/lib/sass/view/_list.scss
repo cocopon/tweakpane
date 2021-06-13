@@ -7,9 +7,6 @@
 		padding: 0 (16px + 2px * 2) 0 4px;
 		width: 100%;
 	}
-	&.#{$prefix}-v-disabled &_s {
-		opacity: 0.5;
-	}
 	&_m {
 		@extend %list_arrow;
 

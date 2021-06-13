@@ -6,6 +6,8 @@ export * from './blade/common/api/tp-event';
 export * from './common/binding/target';
 
 export * from './blade/button/api/button';
+export * from './blade/button/controller/button';
+export * from './blade/button/view/button';
 export * from './blade/button/plugin';
 
 export * from './blade/common/controller/blade';
@@ -43,6 +45,7 @@ export * from './blade/tab/plugin';
 export {BladePlugin, createBladeController} from './blade/plugin';
 
 export * from './common/binding/ticker/manual';
+export * from './common/binding/ticker/interval';
 export * from './common/binding/ticker/ticker';
 
 export * from './common/constraint/composite';

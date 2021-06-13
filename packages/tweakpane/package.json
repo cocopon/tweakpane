@@ -60,8 +60,8 @@
     "main:test:ts:module": "npm pack && node scripts/main-test-ts-module-pre.js && (cd test-module && rimraf ./node_modules/tweakpane && npm install && npm test)",
     "main:test:ts:static": "eslint --ext .ts 'src/main/ts/**/*.ts'",
     "main:watch": "run-p main:watch:*",
-    "main:watch:ts": "onchange 'src/main/ts/**/*.ts' -- npm run main:build:dev",
-    "main:watch:scss": "onchange 'src/main/sass/**/*.scss' -- npm run main:build:dev"
+    "main:watch:ts": "onchange -k 'src/main/ts/**/*.ts' '../core/dist/**/*' -- npm run main:build:dev",
+    "main:watch:scss": "onchange -k 'src/main/sass/**/*.scss' '../core/lib/sass/**/*.scss' -- npm run main:build:dev"
   },
   "devDependencies": {
     "@rollup/plugin-alias": "^3.1.2",
