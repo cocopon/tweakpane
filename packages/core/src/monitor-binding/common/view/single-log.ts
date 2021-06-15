@@ -17,9 +17,9 @@ const className = ClassName('sgl');
  */
 export class SingleLogView<T> implements View {
 	public readonly element: HTMLElement;
+	public readonly inputElement: HTMLInputElement;
 	public readonly value: BufferedValue<T>;
 	private formatter_: Formatter<T>;
-	private inputElem_: HTMLInputElement;
 
 	constructor(doc: Document, config: Config<T>) {
 		this.onValueUpdate_ = this.onValueUpdate_.bind(this);
@@ -36,7 +36,7 @@ export class SingleLogView<T> implements View {
 		inputElem.type = 'text';
 		config.viewProps.bindDisabled(inputElem);
 		this.element.appendChild(inputElem);
-		this.inputElem_ = inputElem;
+		this.inputElement = inputElem;
 
 		config.value.emitter.on('change', this.onValueUpdate_);
 		this.value = config.value;
@@ -47,7 +47,7 @@ export class SingleLogView<T> implements View {
 	private update_(): void {
 		const values = this.value.rawValue;
 		const lastValue = values[values.length - 1];
-		this.inputElem_.value =
+		this.inputElement.value =
 			lastValue !== undefined ? this.formatter_(lastValue) : '';
 	}
 

@@ -5,23 +5,30 @@ import {
 	numberFromUnknown,
 } from '../../common/converter/number';
 import {BaseMonitorParams} from '../../common/params';
-import {ParamsParsers, parseParams} from '../../common/params-parsers';
+import {
+	ParamsParser,
+	ParamsParsers,
+	parseParams,
+} from '../../common/params-parsers';
 import {View} from '../../common/view/view';
 import {Constants} from '../../misc/constants';
+import {isEmpty} from '../../misc/type-util';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogController} from '../common/controller/single-log';
 import {MonitorBindingPlugin} from '../plugin';
 import {GraphLogController} from './controller/graph-log';
 
 export interface NumberMonitorParams extends BaseMonitorParams {
+	format?: Formatter<number>;
 	lineCount?: number;
 	max?: number;
 	min?: number;
 }
 
-function createFormatter(): Formatter<number> {
-	// TODO: formatter precision
-	return createNumberFormatter(2);
+function createFormatter(params: NumberMonitorParams): Formatter<number> {
+	return 'format' in params && !isEmpty(params.format)
+		? params.format
+		: createNumberFormatter(2);
 }
 
 function createTextMonitor(
@@ -31,14 +38,14 @@ function createTextMonitor(
 ) {
 	if (args.value.rawValue.length === 1) {
 		return new SingleLogController(args.document, {
-			formatter: createFormatter(),
+			formatter: createFormatter(args.params),
 			value: args.value,
 			viewProps: args.viewProps,
 		});
 	}
 
 	return new MultiLogController(args.document, {
-		formatter: createFormatter(),
+		formatter: createFormatter(args.params),
 		lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,
 		value: args.value,
 		viewProps: args.viewProps,
@@ -51,7 +58,7 @@ function createGraphMonitor(
 	>[0],
 ): Controller<View> {
 	return new GraphLogController(args.document, {
-		formatter: createFormatter(),
+		formatter: createFormatter(args.params),
 		lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,
 		maxValue: ('max' in args.params ? args.params.max : null) ?? 100,
 		minValue: ('min' in args.params ? args.params.min : null) ?? 0,
@@ -79,6 +86,7 @@ export const NumberMonitorPlugin: MonitorBindingPlugin<
 		}
 		const p = ParamsParsers;
 		const result = parseParams<NumberMonitorParams>(params, {
+			format: p.optional.function as ParamsParser<Formatter<number>>,
 			lineCount: p.optional.number,
 			max: p.optional.number,
 			min: p.optional.number,
