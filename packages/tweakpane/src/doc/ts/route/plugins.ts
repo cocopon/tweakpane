@@ -4,41 +4,80 @@ import {Pane} from 'tweakpane';
 import {selectContainer} from '../util';
 
 declare const TweakpaneCamerakitPlugin: TpPluginBundle;
-declare const TweakpaneCubicBezierPlugin: TpPluginBundle;
-declare const TweakpaneIntervalPlugin: TpPluginBundle;
+declare const TweakpaneEssentialsPlugin: TpPluginBundle;
 
 export function initPlugins() {
 	const markerToFnMap: {
 		[key: string]: (container: HTMLElement) => void;
 	} = {
-		interval: (container) => {
+		essentials: (container) => {
 			const params = {
-				log: '',
-				size1: {min: 16, max: 48},
-				size2: {min: 16, max: 48},
+				interval: {min: 16, max: 48},
+				radiogrid: 25,
 			};
-			const consolePane = new Pane({
-				container: selectContainer('interval', true),
-			});
-			consolePane.addMonitor(params, 'log', {
-				interval: 0,
-				label: 'value',
-				lineCount: 4,
-				multiline: true,
-			});
 			const pane = new Pane({
 				container: container,
 			});
-			pane.registerPlugin(TweakpaneIntervalPlugin);
-			pane.addInput(params, 'size1');
-			pane.addInput(params, 'size2', {
+			pane.registerPlugin(TweakpaneEssentialsPlugin);
+
+			// Input bindings
+			const fi = pane.addFolder({
+				title: 'Input bindings',
+			});
+			fi.addInput(params, 'interval', {
 				min: 0,
 				max: 100,
 				step: 1,
 			});
-			pane.on('change', (ev) => {
-				params.log = JSON.stringify(ev.value, undefined, 2);
-				consolePane.refresh();
+
+			const scales = [10, 20, 25, 50, 75, 100];
+			fi.addInput(params, 'radiogrid', {
+				groupName: 'scale',
+				label: 'radiogrid',
+				size: [3, 2],
+				cells: (x: number, y: number) => ({
+					title: `${scales[y * 3 + x]}%`,
+					value: scales[y * 3 + x],
+				}),
+				view: 'radiogrid',
+			});
+
+			// Blades
+			const fb = pane.addFolder({
+				title: 'Blades',
+			});
+			const fpsGraph: any = fb.addBlade({
+				label: 'fpsgraph',
+				lineCount: 2,
+				view: 'fpsgraph',
+			});
+			function render() {
+				fpsGraph.begin();
+				fpsGraph.end();
+				requestAnimationFrame(render);
+			}
+			render();
+
+			fb.addBlade({
+				view: 'cubicbezier',
+				value: [0.5, 0, 0.5, 1],
+
+				expanded: true,
+				label: 'cubic\nbezier',
+				picker: 'inline',
+			});
+
+			fb.addBlade({
+				view: 'buttongrid',
+				size: [3, 3],
+				cells: (x: number, y: number) => ({
+					title: [
+						['NW', 'N', 'NE'],
+						['W', '*', 'E'],
+						['SW', 'S', 'SE'],
+					][y][x],
+				}),
+				label: 'button\ngrid',
 			});
 		},
 
@@ -77,20 +116,6 @@ export function initPlugins() {
 				amount: 10,
 				min: 100,
 				step: 100,
-			});
-		},
-
-		cubicbezier: (container) => {
-			const pane = new Pane({
-				container: container,
-			});
-			pane.registerPlugin(TweakpaneCubicBezierPlugin);
-			pane.addBlade({
-				view: 'cubicbezier',
-				label: 'bezier',
-				picker: 'inline',
-				expanded: true,
-				value: [0.25, 0.1, 0.25, 1],
 			});
 		},
 	};
