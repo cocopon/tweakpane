@@ -19,6 +19,7 @@
     "coverage:package:tweakpane": "(cd packages/tweakpane && npm install && npm run coverage)",
     "coverage:prepare": "mkdirp .nyc_output",
     "coverage:report": "nyc report --reporter=lcov",
+    "lint": "(cd packages/core && npm run lint) && (cd packages/tweakpane && npm run lint)",
     "setup": "run-s setup:core setup:tweakpane",
     "setup:core": "(cd packages/core && npm install && npm run build)",
     "setup:tweakpane": "(cd packages/tweakpane && npm install && npm run build)"
