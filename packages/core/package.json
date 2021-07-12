@@ -20,6 +20,7 @@
     "format": "run-p format:*",
     "format:scss": "prettier --parser scss --write 'lib/sass/**/*.scss'",
     "format:ts": "eslint --ext .ts --fix 'src/**/*.ts'",
+    "lint": "run-p test:scss:static test:ts:static",
     "test:scss": "run-s test:scss:static test:scss:dynamic",
     "test:scss:static": "prettier --parser scss --list-different 'lib/sass/**/*.scss'",
     "test:scss:dynamic": "node-sass lib/sass/_plugin-test.scss",

@@ -1,13 +1,8 @@
 {
+	"extends": "../../../../tsconfig.json",
 	"compilerOptions": {
 		"baseUrl": ".",
-		"lib": ["DOM", "ES2015"],
 		"moduleResolution": "Node",
-		"noImplicitAny": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"strict": true,
-		"target": "ES6",
 		"paths": {
 			"tweakpane": ["../../lib/index"]
 		}
