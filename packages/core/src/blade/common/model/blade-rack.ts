@@ -4,7 +4,11 @@ import {
 	MonitorBindingEvents,
 } from '../../../common/binding/monitor';
 import {Emitter} from '../../../common/model/emitter';
-import {Value, ValueEvents} from '../../../common/model/value';
+import {
+	Value,
+	ValueChangeOptions,
+	ValueEvents,
+} from '../../../common/model/value';
 import {ViewPropsEvents} from '../../../common/model/view-props';
 import {TpError} from '../../../common/tp-error';
 import {View} from '../../../common/view/view';
@@ -37,6 +41,7 @@ export interface BladeRackEvents {
 
 	inputchange: {
 		bladeController: BladeController<View>;
+		options: ValueChangeOptions;
 		sender: BladeRack;
 	};
 	layout: {
@@ -301,6 +306,7 @@ export class BladeRack {
 		}
 		this.emitter.emit('inputchange', {
 			bladeController: bc,
+			options: ev.options,
 			sender: this,
 		});
 	}
@@ -333,6 +339,7 @@ export class BladeRack {
 		}
 		this.emitter.emit('inputchange', {
 			bladeController: bc,
+			options: ev.options,
 			sender: this,
 		});
 	}
@@ -347,6 +354,7 @@ export class BladeRack {
 	private onDescendantInputChange_(ev: BladeRackEvents['inputchange']) {
 		this.emitter.emit('inputchange', {
 			bladeController: ev.bladeController,
+			options: ev.options,
 			sender: this,
 		});
 	}

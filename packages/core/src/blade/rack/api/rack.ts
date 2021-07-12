@@ -235,12 +235,18 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 					api,
 					forceCast(binding.target.read()),
 					binding.target.presetKey,
+					ev.options.last,
 				),
 			});
 		} else if (bc instanceof ValueBladeController) {
 			const api = getApiByController(this.apiSet_, bc);
 			this.emitter_.emit('change', {
-				event: new TpChangeEvent(api, bc.value.rawValue, undefined),
+				event: new TpChangeEvent(
+					api,
+					bc.value.rawValue,
+					undefined,
+					ev.options.last,
+				),
 			});
 		}
 	}

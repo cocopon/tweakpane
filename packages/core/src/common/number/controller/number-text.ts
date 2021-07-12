@@ -5,7 +5,11 @@ import {Value} from '../../model/value';
 import {createValue} from '../../model/values';
 import {ViewProps} from '../../model/view-props';
 import {getStepForKey, getVerticalStepKeys} from '../../ui';
-import {PointerHandler, PointerHandlerEvent} from '../../view/pointer-handler';
+import {
+	PointerData,
+	PointerHandler,
+	PointerHandlerEvent,
+} from '../../view/pointer-handler';
 import {NumberTextProps, NumberTextView} from '../view/number-text';
 
 interface Config {
@@ -84,18 +88,38 @@ export class NumberTextController implements Controller<NumberTextView> {
 		this.dragging_.rawValue = 0;
 	}
 
+	private computeDraggingValue_(data: PointerData): number | null {
+		if (!data.point) {
+			return null;
+		}
+
+		const dx = data.point.x - data.bounds.width / 2;
+		return this.originRawValue_ + dx * this.props.get('draggingScale');
+	}
+
 	private onPointerMove_(ev: PointerHandlerEvent) {
-		if (!ev.data.point) {
+		const v = this.computeDraggingValue_(ev.data);
+		if (v === null) {
 			return;
 		}
 
-		const dx = ev.data.point.x - ev.data.bounds.width / 2;
-		this.value.rawValue =
-			this.originRawValue_ + dx * this.props.get('draggingScale');
+		this.value.setRawValue(v, {
+			forceEmit: false,
+			last: false,
+		});
 		this.dragging_.rawValue = this.value.rawValue - this.originRawValue_;
 	}
 
-	private onPointerUp_() {
+	private onPointerUp_(ev: PointerHandlerEvent) {
+		const v = this.computeDraggingValue_(ev.data);
+		if (v === null) {
+			return;
+		}
+
+		this.value.setRawValue(v, {
+			forceEmit: true,
+			last: true,
+		});
 		this.dragging_.rawValue = null;
 	}
 }

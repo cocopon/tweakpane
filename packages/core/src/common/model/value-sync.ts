@@ -31,24 +31,27 @@ export function connectValues<T1, T2>({
 		changing = false;
 	}
 
-	primary.emitter.on('change', () => {
+	primary.emitter.on('change', (ev) => {
 		preventFeedback(() => {
-			secondary.rawValue = forward(primary, secondary);
+			secondary.setRawValue(forward(primary, secondary), ev.options);
 		});
 	});
-	secondary.emitter.on('change', () => {
+	secondary.emitter.on('change', (ev) => {
 		preventFeedback(() => {
-			primary.rawValue = backward(primary, secondary);
+			primary.setRawValue(backward(primary, secondary), ev.options);
 		});
 
 		// Re-update secondary value
 		// to apply change from constraint of primary value
 		preventFeedback(() => {
-			secondary.rawValue = forward(primary, secondary);
+			secondary.setRawValue(forward(primary, secondary), ev.options);
 		});
 	});
 
 	preventFeedback(() => {
-		secondary.rawValue = forward(primary, secondary);
+		secondary.setRawValue(forward(primary, secondary), {
+			forceEmit: false,
+			last: true,
+		});
 	});
 }

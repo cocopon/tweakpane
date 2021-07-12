@@ -1,5 +1,5 @@
 import {Controller} from '../../../common/controller/controller';
-import {Value} from '../../../common/model/value';
+import {Value, ValueChangeOptions} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {getHorizontalStepKeys, getStepForKey} from '../../../common/ui';
 import {
@@ -47,7 +47,7 @@ export class APaletteController implements Controller<APaletteView> {
 		this.view.element.addEventListener('keydown', this.onKeyDown_);
 	}
 
-	private handlePointerEvent_(d: PointerData): void {
+	private handlePointerEvent_(d: PointerData, opts: ValueChangeOptions): void {
 		if (!d.point) {
 			return;
 		}
@@ -56,19 +56,28 @@ export class APaletteController implements Controller<APaletteView> {
 
 		const c = this.value.rawValue;
 		const [h, s, v] = c.getComponents('hsv');
-		this.value.rawValue = new Color([h, s, v, alpha], 'hsv');
+		this.value.setRawValue(new Color([h, s, v, alpha], 'hsv'), opts);
 	}
 
 	private onPointerDown_(ev: PointerHandlerEvents['down']): void {
-		this.handlePointerEvent_(ev.data);
+		this.handlePointerEvent_(ev.data, {
+			forceEmit: false,
+			last: false,
+		});
 	}
 
 	private onPointerMove_(ev: PointerHandlerEvents['move']): void {
-		this.handlePointerEvent_(ev.data);
+		this.handlePointerEvent_(ev.data, {
+			forceEmit: false,
+			last: false,
+		});
 	}
 
 	private onPointerUp_(ev: PointerHandlerEvents['up']): void {
-		this.handlePointerEvent_(ev.data);
+		this.handlePointerEvent_(ev.data, {
+			forceEmit: true,
+			last: true,
+		});
 	}
 
 	private onKeyDown_(ev: KeyboardEvent): void {
