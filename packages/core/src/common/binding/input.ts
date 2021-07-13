@@ -1,5 +1,5 @@
 import {Emitter} from '../model/emitter';
-import {Value, ValueEvents} from '../model/value';
+import {Value, ValueChangeOptions, ValueEvents} from '../model/value';
 import {BindingReader, BindingWriter} from './binding';
 import {BindingTarget} from './target';
 
@@ -15,6 +15,7 @@ interface Config<In> {
  */
 export interface InputBindingEvents<In> {
 	change: {
+		options: ValueChangeOptions;
 		rawValue: In;
 		sender: InputBinding<In>;
 	};
@@ -58,6 +59,7 @@ export class InputBinding<In> {
 	private onValueChange_(ev: ValueEvents<In>['change']): void {
 		this.write_(ev.rawValue);
 		this.emitter.emit('change', {
+			options: ev.options,
 			rawValue: ev.rawValue,
 			sender: this,
 		});

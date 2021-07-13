@@ -1,5 +1,5 @@
 import {Controller} from '../../../common/controller/controller';
-import {Value} from '../../../common/model/value';
+import {Value, ValueChangeOptions} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
 import {PickerLayout} from '../../../common/params';
@@ -67,7 +67,7 @@ export class Point2dPickerController implements Controller<Point2dPickerView> {
 		this.view.padElement.addEventListener('keydown', this.onPadKeyDown_);
 	}
 
-	private handlePointerEvent_(d: PointerData): void {
+	private handlePointerEvent_(d: PointerData, opts: ValueChangeOptions): void {
 		if (!d.point) {
 			return;
 		}
@@ -81,19 +81,28 @@ export class Point2dPickerController implements Controller<Point2dPickerView> {
 			-max,
 			+max,
 		);
-		this.value.rawValue = new Point2d(px, py);
+		this.value.setRawValue(new Point2d(px, py), opts);
 	}
 
 	private onPointerDown_(ev: PointerHandlerEvents['down']): void {
-		this.handlePointerEvent_(ev.data);
+		this.handlePointerEvent_(ev.data, {
+			forceEmit: false,
+			last: false,
+		});
 	}
 
 	private onPointerMove_(ev: PointerHandlerEvents['move']): void {
-		this.handlePointerEvent_(ev.data);
+		this.handlePointerEvent_(ev.data, {
+			forceEmit: false,
+			last: false,
+		});
 	}
 
 	private onPointerUp_(ev: PointerHandlerEvents['up']): void {
-		this.handlePointerEvent_(ev.data);
+		this.handlePointerEvent_(ev.data, {
+			forceEmit: true,
+			last: true,
+		});
 	}
 
 	private onPadKeyDown_(ev: KeyboardEvent): void {

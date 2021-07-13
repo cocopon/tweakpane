@@ -1,5 +1,5 @@
 import {Controller} from '../../../common/controller/controller';
-import {Value} from '../../../common/model/value';
+import {Value, ValueChangeOptions} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
 import {
@@ -53,7 +53,7 @@ export class SvPaletteController implements Controller<SvPaletteView> {
 		this.view.element.addEventListener('keydown', this.onKeyDown_);
 	}
 
-	private handlePointerEvent_(d: PointerData): void {
+	private handlePointerEvent_(d: PointerData, opts: ValueChangeOptions): void {
 		if (!d.point) {
 			return;
 		}
@@ -62,19 +62,28 @@ export class SvPaletteController implements Controller<SvPaletteView> {
 		const value = mapRange(d.point.y, 0, d.bounds.height, 100, 0);
 
 		const [h, , , a] = this.value.rawValue.getComponents('hsv');
-		this.value.rawValue = new Color([h, saturation, value, a], 'hsv');
+		this.value.setRawValue(new Color([h, saturation, value, a], 'hsv'), opts);
 	}
 
 	private onPointerDown_(ev: PointerHandlerEvents['down']): void {
-		this.handlePointerEvent_(ev.data);
+		this.handlePointerEvent_(ev.data, {
+			forceEmit: false,
+			last: false,
+		});
 	}
 
 	private onPointerMove_(ev: PointerHandlerEvents['move']): void {
-		this.handlePointerEvent_(ev.data);
+		this.handlePointerEvent_(ev.data, {
+			forceEmit: false,
+			last: false,
+		});
 	}
 
 	private onPointerUp_(ev: PointerHandlerEvents['up']): void {
-		this.handlePointerEvent_(ev.data);
+		this.handlePointerEvent_(ev.data, {
+			forceEmit: true,
+			last: true,
+		});
 	}
 
 	private onKeyDown_(ev: KeyboardEvent): void {

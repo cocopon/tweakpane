@@ -1,5 +1,5 @@
 import {Controller} from '../../controller/controller';
-import {Value} from '../../model/value';
+import {Value, ValueChangeOptions} from '../../model/value';
 import {ViewProps} from '../../model/view-props';
 import {constrainRange, mapRange} from '../../number-util';
 import {getHorizontalStepKeys, getStepForKey} from '../../ui';
@@ -30,7 +30,8 @@ export class SliderController implements Controller<SliderView> {
 
 	constructor(doc: Document, config: Config) {
 		this.onKeyDown_ = this.onKeyDown_.bind(this);
-		this.onPoint_ = this.onPoint_.bind(this);
+		this.onPointerDownOrMove_ = this.onPointerDownOrMove_.bind(this);
+		this.onPointerUp_ = this.onPointerUp_.bind(this);
 
 		this.baseStep_ = config.baseStep;
 		this.value = config.value;
@@ -45,29 +46,42 @@ export class SliderController implements Controller<SliderView> {
 		});
 
 		this.ptHandler_ = new PointerHandler(this.view.trackElement);
-		this.ptHandler_.emitter.on('down', this.onPoint_);
-		this.ptHandler_.emitter.on('move', this.onPoint_);
-		this.ptHandler_.emitter.on('up', this.onPoint_);
+		this.ptHandler_.emitter.on('down', this.onPointerDownOrMove_);
+		this.ptHandler_.emitter.on('move', this.onPointerDownOrMove_);
+		this.ptHandler_.emitter.on('up', this.onPointerUp_);
 
 		this.view.trackElement.addEventListener('keydown', this.onKeyDown_);
 	}
 
-	private handlePointerEvent_(d: PointerData): void {
+	private handlePointerEvent_(d: PointerData, opts: ValueChangeOptions): void {
 		if (!d.point) {
 			return;
 		}
 
-		this.value.rawValue = mapRange(
-			constrainRange(d.point.x, 0, d.bounds.width),
-			0,
-			d.bounds.width,
-			this.props.get('minValue'),
-			this.props.get('maxValue'),
+		this.value.setRawValue(
+			mapRange(
+				constrainRange(d.point.x, 0, d.bounds.width),
+				0,
+				d.bounds.width,
+				this.props.get('minValue'),
+				this.props.get('maxValue'),
+			),
+			opts,
 		);
 	}
 
-	private onPoint_(ev: PointerHandlerEvent): void {
-		this.handlePointerEvent_(ev.data);
+	private onPointerDownOrMove_(ev: PointerHandlerEvent): void {
+		this.handlePointerEvent_(ev.data, {
+			forceEmit: false,
+			last: false,
+		});
+	}
+
+	private onPointerUp_(ev: PointerHandlerEvent): void {
+		this.handlePointerEvent_(ev.data, {
+			forceEmit: true,
+			last: true,
+		});
 	}
 
 	private onKeyDown_(ev: KeyboardEvent): void {

@@ -28,15 +28,20 @@ export class TpChangeEvent<T> extends TpEvent {
 	 * The value.
 	 */
 	public readonly value: T;
+	/**
+	 * The flag indicating whether the event is for the last change.
+	 */
+	public readonly last: boolean;
 
 	/**
 	 * @hidden
 	 */
-	constructor(target: unknown, value: T, presetKey?: string) {
+	constructor(target: unknown, value: T, presetKey?: string, last?: boolean) {
 		super(target);
 
 		this.value = value;
 		this.presetKey = presetKey;
+		this.last = last ?? true;
 	}
 }
 

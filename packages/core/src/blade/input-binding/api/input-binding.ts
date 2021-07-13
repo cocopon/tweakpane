@@ -64,6 +64,7 @@ export class InputBindingApi<In, Ex> extends BladeApi<
 				this,
 				forceCast(value),
 				this.controller_.binding.target.presetKey,
+				ev.options.last,
 			),
 		});
 	}

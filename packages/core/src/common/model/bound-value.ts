@@ -1,6 +1,6 @@
 import {Constraint} from '../constraint/constraint';
 import {Emitter} from './emitter';
-import {Value, ValueEvents} from './value';
+import {Value, ValueChangeOptions, ValueEvents} from './value';
 
 interface Config<T> {
 	constraint?: Constraint<T>;
@@ -29,12 +29,24 @@ export class BoundValue<T> implements Value<T> {
 	}
 
 	set rawValue(rawValue: T) {
+		this.setRawValue(rawValue, {
+			forceEmit: false,
+			last: true,
+		});
+	}
+
+	public setRawValue(rawValue: T, options?: ValueChangeOptions): void {
+		const opts = options ?? {
+			forceEmit: false,
+			last: true,
+		};
+
 		const constrainedValue = this.constraint_
 			? this.constraint_.constrain(rawValue)
 			: rawValue;
 
 		const changed = !this.equals_(this.rawValue_, constrainedValue);
-		if (!changed) {
+		if (!changed && !opts.forceEmit) {
 			return;
 		}
 
@@ -45,6 +57,7 @@ export class BoundValue<T> implements Value<T> {
 		this.rawValue_ = constrainedValue;
 
 		this.emitter.emit('change', {
+			options: opts,
 			rawValue: constrainedValue,
 			sender: this,
 		});
