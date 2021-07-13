@@ -4,7 +4,8 @@
 		"baseUrl": ".",
 		"moduleResolution": "Node",
 		"paths": {
-			"tweakpane": ["../../lib/index"]
+			"@tweakpane/core": ["../../../core/src/index"],
+			"tweakpane": ["../main/ts/index"]
 		}
 	}
 }

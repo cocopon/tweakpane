@@ -26,6 +26,9 @@
 pane.addInput(PARAMS, 'value')
   .<strong>on</strong>('change', (ev) =&gt; {
     console.log(ev.value.toFixed(2));
+    if (ev.last) {
+      console.log('(last)');
+    }
   });</code></pre></div>
 		</div>
 		<div class="demo_resultLayout">

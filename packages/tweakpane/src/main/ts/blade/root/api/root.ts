@@ -2,8 +2,8 @@ import {
 	FolderApi,
 	InputBindingController,
 	MonitorBindingController,
+	PluginPool,
 } from '@tweakpane/core';
-import {PluginPool} from '@tweakpane/core/dist/cjs/plugin/pool';
 
 import {RootController} from '../controller/root';
 import {exportPresetJson, importPresetJson, PresetObject} from './preset';
