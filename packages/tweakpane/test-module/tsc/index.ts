@@ -61,13 +61,13 @@ f1.addInput(PARAMS, 'xy').on('change', (ev: TpChangeEvent<V2dObj>) => {
 });
 f1.addMonitor(PARAMS, 'num', {interval: 0}).on(
 	'update',
-	(ev: TpChangeEvent<number>) => {
+	(ev: TpUpdateEvent<number>) => {
 		console.log(ev);
 	},
 );
 f1.addMonitor(PARAMS, 'text', {interval: 0}).on(
 	'update',
-	(ev: TpChangeEvent<string>) => {
+	(ev: TpUpdateEvent<string>) => {
 		console.log(ev);
 	},
 );
