@@ -47,6 +47,10 @@ export function initMisc() {
 				.on('change', (ev) => {
 					PARAMS.log = ev.value.toFixed(2);
 					consolePane.refresh();
+					if (ev.last) {
+						PARAMS.log = '(last)';
+						consolePane.refresh();
+					}
 				});
 		},
 
