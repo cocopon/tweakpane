@@ -61,6 +61,7 @@ export interface PointerHandlerEvents {
 export class PointerHandler {
 	public readonly emitter: Emitter<PointerHandlerEvents>;
 	private readonly elem_: HTMLElement;
+	private lastTouch_: Touch | null = null;
 
 	constructor(element: HTMLElement) {
 		this.onDocumentMouseMove_ = this.onDocumentMouseMove_.bind(this);
@@ -154,6 +155,7 @@ export class PointerHandler {
 			sender: this,
 			shiftKey: ev.shiftKey,
 		});
+		this.lastTouch_ = touch;
 	}
 
 	private onTouchMove_(ev: TouchEvent) {
@@ -172,10 +174,11 @@ export class PointerHandler {
 			sender: this,
 			shiftKey: ev.shiftKey,
 		});
+		this.lastTouch_ = touch;
 	}
 
 	private onTouchEnd_(ev: TouchEvent) {
-		const touch = ev.targetTouches.item(0);
+		const touch = ev.targetTouches.item(0) ?? this.lastTouch_;
 		const rect = this.elem_.getBoundingClientRect();
 		this.emitter.emit('up', {
 			altKey: ev.altKey,
