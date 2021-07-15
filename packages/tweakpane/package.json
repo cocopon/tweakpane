@@ -37,7 +37,7 @@
     "doc:format:scss": "prettier --parser scss --write 'src/doc/sass/**/*.scss'",
     "doc:format:ts": "eslint --ext .ts --fix 'src/doc/ts/**/*.ts'",
     "doc:lint": "run-p doc:test:scss doc:test:ts",
-    "doc:server": "http-server ./docs",
+    "doc:server": "http-server -c-1 ./docs",
     "doc:test": "run-p doc:test:*",
     "doc:test:scss": "prettier --parser scss --list-different 'src/doc/sass/**/*.scss'",
     "doc:test:ts": "eslint --ext .ts 'src/doc/ts/**/*.ts'",
