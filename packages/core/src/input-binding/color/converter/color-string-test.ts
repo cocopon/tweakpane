@@ -27,6 +27,8 @@ describe('StringColorParser', () => {
 		{
 			expected: {r: 0x11, g: 0x22, b: 0x33, a: 1},
 			inputs: [
+				'0x112233',
+				'0x112233ff',
 				'#112233',
 				'#112233ff',
 				'rgb(17,34,51)',
@@ -56,6 +58,7 @@ describe('StringColorParser', () => {
 	});
 
 	[
+		'0x123',
 		'601',
 		'112233',
 		'foobar',
@@ -74,6 +77,10 @@ describe('StringColorParser', () => {
 	});
 
 	[
+		{
+			expected: 'hex.rgb',
+			input: '0x009aff',
+		},
 		{
 			expected: 'hex.rgb',
 			input: '#009aff',
@@ -388,5 +395,11 @@ describe('StringColorParser', () => {
 				}
 			});
 		});
+	});
+
+	it('should format color with prefix', () => {
+		const c = new Color([0x12, 0x34, 0x56, 1], 'rgb');
+		assert.strictEqual(colorToHexRgbString(c, '0x'), '0x123456');
+		assert.strictEqual(colorToHexRgbaString(c, '0x'), '0x123456ff');
 	});
 });

@@ -1,3 +1,4 @@
+import {Formatter} from '../../common/converter/formatter';
 import {InputBindingPlugin} from '../plugin';
 import {ColorController} from './controller/color';
 import {
@@ -15,6 +16,12 @@ import {ColorInputParams, parseColorInputParams} from './util';
 
 function shouldSupportAlpha(inputParams: ColorInputParams): boolean {
 	return 'alpha' in inputParams && inputParams.alpha === true;
+}
+
+function createFormatter(supportsAlpha: boolean): Formatter<Color> {
+	return supportsAlpha
+		? (v: Color) => colorToHexRgbaString(v, '0x')
+		: (v: Color) => colorToHexRgbString(v, '0x');
 }
 
 /**
@@ -62,12 +69,9 @@ export const NumberColorInputPlugin: InputBindingPlugin<
 		const expanded =
 			'expanded' in args.params ? args.params.expanded : undefined;
 		const picker = 'picker' in args.params ? args.params.picker : undefined;
-		const formatter = supportsAlpha
-			? colorToHexRgbaString
-			: colorToHexRgbString;
 		return new ColorController(args.document, {
 			expanded: expanded ?? false,
-			formatter: formatter,
+			formatter: createFormatter(supportsAlpha),
 			parser: CompositeColorParser,
 			pickerLayout: picker ?? 'popup',
 			supportsAlpha: supportsAlpha,
