@@ -141,24 +141,28 @@ const NOTATION_TO_PARSER_MAP: {
 	},
 
 	'hex.rgb': (text) => {
-		const mRrggbb = text.match(/^#([0-9A-Fa-f])([0-9A-Fa-f])([0-9A-Fa-f])$/);
-		if (mRrggbb) {
+		const mRgb = text.match(/^#([0-9A-Fa-f])([0-9A-Fa-f])([0-9A-Fa-f])$/);
+		if (mRgb) {
 			return new Color(
 				[
-					parseInt(mRrggbb[1] + mRrggbb[1], 16),
-					parseInt(mRrggbb[2] + mRrggbb[2], 16),
-					parseInt(mRrggbb[3] + mRrggbb[3], 16),
+					parseInt(mRgb[1] + mRgb[1], 16),
+					parseInt(mRgb[2] + mRgb[2], 16),
+					parseInt(mRgb[3] + mRgb[3], 16),
 				],
 				'rgb',
 			);
 		}
 
-		const mRgb = text.match(
-			/^#([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})$/,
+		const mRrggbb = text.match(
+			/^(?:#|0x)([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})$/,
 		);
-		if (mRgb) {
+		if (mRrggbb) {
 			return new Color(
-				[parseInt(mRgb[1], 16), parseInt(mRgb[2], 16), parseInt(mRgb[3], 16)],
+				[
+					parseInt(mRrggbb[1], 16),
+					parseInt(mRrggbb[2], 16),
+					parseInt(mRrggbb[3], 16),
+				],
 				'rgb',
 			);
 		}
@@ -167,31 +171,31 @@ const NOTATION_TO_PARSER_MAP: {
 	},
 
 	'hex.rgba': (text) => {
-		const mRrggbb = text.match(
+		const mRgb = text.match(
 			/^#?([0-9A-Fa-f])([0-9A-Fa-f])([0-9A-Fa-f])([0-9A-Fa-f])$/,
 		);
-		if (mRrggbb) {
+		if (mRgb) {
 			return new Color(
 				[
-					parseInt(mRrggbb[1] + mRrggbb[1], 16),
-					parseInt(mRrggbb[2] + mRrggbb[2], 16),
-					parseInt(mRrggbb[3] + mRrggbb[3], 16),
-					mapRange(parseInt(mRrggbb[4] + mRrggbb[4], 16), 0, 255, 0, 1),
+					parseInt(mRgb[1] + mRgb[1], 16),
+					parseInt(mRgb[2] + mRgb[2], 16),
+					parseInt(mRgb[3] + mRgb[3], 16),
+					mapRange(parseInt(mRgb[4] + mRgb[4], 16), 0, 255, 0, 1),
 				],
 				'rgb',
 			);
 		}
 
-		const mRgb = text.match(
-			/^#?([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})$/,
+		const mRrggbb = text.match(
+			/^(?:#|0x)?([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})$/,
 		);
-		if (mRgb) {
+		if (mRrggbb) {
 			return new Color(
 				[
-					parseInt(mRgb[1], 16),
-					parseInt(mRgb[2], 16),
-					parseInt(mRgb[3], 16),
-					mapRange(parseInt(mRgb[4], 16), 0, 255, 0, 1),
+					parseInt(mRrggbb[1], 16),
+					parseInt(mRrggbb[2], 16),
+					parseInt(mRrggbb[3], 16),
+					mapRange(parseInt(mRrggbb[4], 16), 0, 255, 0, 1),
 				],
 				'rgb',
 			);
@@ -256,22 +260,22 @@ function zerofill(comp: number): string {
 /**
  * @hidden
  */
-export function colorToHexRgbString(value: Color): string {
+export function colorToHexRgbString(value: Color, prefix = '#'): string {
 	const hexes = removeAlphaComponent(value.getComponents('rgb'))
 		.map(zerofill)
 		.join('');
-	return `#${hexes}`;
+	return `${prefix}${hexes}`;
 }
 
 /**
  * @hidden
  */
-export function colorToHexRgbaString(value: Color): string {
+export function colorToHexRgbaString(value: Color, prefix = '#'): string {
 	const rgbaComps = value.getComponents('rgb');
 	const hexes = [rgbaComps[0], rgbaComps[1], rgbaComps[2], rgbaComps[3] * 255]
 		.map(zerofill)
 		.join('');
-	return `#${hexes}`;
+	return `${prefix}${hexes}`;
 }
 
 /**
