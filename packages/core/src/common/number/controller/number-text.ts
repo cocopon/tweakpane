@@ -38,6 +38,7 @@ export class NumberTextController implements Controller<NumberTextView> {
 	constructor(doc: Document, config: Config) {
 		this.onInputChange_ = this.onInputChange_.bind(this);
 		this.onInputKeyDown_ = this.onInputKeyDown_.bind(this);
+		this.onInputKeyUp_ = this.onInputKeyUp_.bind(this);
 		this.onPointerDown_ = this.onPointerDown_.bind(this);
 		this.onPointerMove_ = this.onPointerMove_.bind(this);
 		this.onPointerUp_ = this.onPointerUp_.bind(this);
@@ -58,6 +59,7 @@ export class NumberTextController implements Controller<NumberTextView> {
 		});
 		this.view.inputElement.addEventListener('change', this.onInputChange_);
 		this.view.inputElement.addEventListener('keydown', this.onInputKeyDown_);
+		this.view.inputElement.addEventListener('keyup', this.onInputKeyUp_);
 
 		const ph = new PointerHandler(this.view.knobElement);
 		ph.emitter.on('down', this.onPointerDown_);
@@ -76,11 +78,26 @@ export class NumberTextController implements Controller<NumberTextView> {
 		this.view.refresh();
 	}
 
-	private onInputKeyDown_(e: KeyboardEvent): void {
-		const step = getStepForKey(this.baseStep_, getVerticalStepKeys(e));
-		if (step !== 0) {
-			this.value.rawValue += step;
+	private onInputKeyDown_(ev: KeyboardEvent): void {
+		const step = getStepForKey(this.baseStep_, getVerticalStepKeys(ev));
+		if (step === 0) {
+			return;
 		}
+		this.value.setRawValue(this.value.rawValue + step, {
+			forceEmit: false,
+			last: false,
+		});
+	}
+
+	private onInputKeyUp_(ev: KeyboardEvent): void {
+		const step = getStepForKey(this.baseStep_, getVerticalStepKeys(ev));
+		if (step === 0) {
+			return;
+		}
+		this.value.setRawValue(this.value.rawValue, {
+			forceEmit: true,
+			last: true,
+		});
 	}
 
 	private onPointerDown_() {

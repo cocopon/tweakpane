@@ -27,6 +27,7 @@ export class APaletteController implements Controller<APaletteView> {
 
 	constructor(doc: Document, config: Config) {
 		this.onKeyDown_ = this.onKeyDown_.bind(this);
+		this.onKeyUp_ = this.onKeyUp_.bind(this);
 		this.onPointerDown_ = this.onPointerDown_.bind(this);
 		this.onPointerMove_ = this.onPointerMove_.bind(this);
 		this.onPointerUp_ = this.onPointerUp_.bind(this);
@@ -45,6 +46,7 @@ export class APaletteController implements Controller<APaletteView> {
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
 
 		this.view.element.addEventListener('keydown', this.onKeyDown_);
+		this.view.element.addEventListener('keyup', this.onKeyUp_);
 	}
 
 	private handlePointerEvent_(d: PointerData, opts: ValueChangeOptions): void {
@@ -85,8 +87,30 @@ export class APaletteController implements Controller<APaletteView> {
 			getBaseStepForColor(true),
 			getHorizontalStepKeys(ev),
 		);
+		if (step === 0) {
+			return;
+		}
+
 		const c = this.value.rawValue;
 		const [h, s, v, a] = c.getComponents('hsv');
-		this.value.rawValue = new Color([h, s, v, a + step], 'hsv');
+		this.value.setRawValue(new Color([h, s, v, a + step], 'hsv'), {
+			forceEmit: false,
+			last: false,
+		});
+	}
+
+	private onKeyUp_(ev: KeyboardEvent): void {
+		const step = getStepForKey(
+			getBaseStepForColor(true),
+			getHorizontalStepKeys(ev),
+		);
+		if (step === 0) {
+			return;
+		}
+
+		this.value.setRawValue(this.value.rawValue, {
+			forceEmit: true,
+			last: true,
+		});
 	}
 }
