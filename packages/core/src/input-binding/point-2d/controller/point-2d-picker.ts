@@ -26,6 +26,17 @@ interface Config {
 	viewProps: ViewProps;
 }
 
+function computeOffset(
+	ev: KeyboardEvent,
+	baseSteps: [number, number],
+	invertsY: boolean,
+): [number, number] {
+	return [
+		getStepForKey(baseSteps[0], getHorizontalStepKeys(ev)),
+		getStepForKey(baseSteps[1], getVerticalStepKeys(ev)) * (invertsY ? 1 : -1),
+	];
+}
+
 /**
  * @hidden
  */
@@ -40,6 +51,7 @@ export class Point2dPickerController implements Controller<Point2dPickerView> {
 
 	constructor(doc: Document, config: Config) {
 		this.onPadKeyDown_ = this.onPadKeyDown_.bind(this);
+		this.onPadKeyUp_ = this.onPadKeyUp_.bind(this);
 		this.onPointerDown_ = this.onPointerDown_.bind(this);
 		this.onPointerMove_ = this.onPointerMove_.bind(this);
 		this.onPointerUp_ = this.onPointerUp_.bind(this);
@@ -65,6 +77,7 @@ export class Point2dPickerController implements Controller<Point2dPickerView> {
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
 
 		this.view.padElement.addEventListener('keydown', this.onPadKeyDown_);
+		this.view.padElement.addEventListener('keyup', this.onPadKeyUp_);
 	}
 
 	private handlePointerEvent_(d: PointerData, opts: ValueChangeOptions): void {
@@ -110,12 +123,29 @@ export class Point2dPickerController implements Controller<Point2dPickerView> {
 			ev.preventDefault();
 		}
 
-		this.value.rawValue = new Point2d(
-			this.value.rawValue.x +
-				getStepForKey(this.baseSteps_[0], getHorizontalStepKeys(ev)),
-			this.value.rawValue.y +
-				getStepForKey(this.baseSteps_[1], getVerticalStepKeys(ev)) *
-					(this.invertsY_ ? 1 : -1),
+		const [dx, dy] = computeOffset(ev, this.baseSteps_, this.invertsY_);
+		if (dx === 0 && dy === 0) {
+			return;
+		}
+
+		this.value.setRawValue(
+			new Point2d(this.value.rawValue.x + dx, this.value.rawValue.y + dy),
+			{
+				forceEmit: false,
+				last: false,
+			},
 		);
+	}
+
+	private onPadKeyUp_(ev: KeyboardEvent): void {
+		const [dx, dy] = computeOffset(ev, this.baseSteps_, this.invertsY_);
+		if (dx === 0 && dy === 0) {
+			return;
+		}
+
+		this.value.setRawValue(this.value.rawValue, {
+			forceEmit: true,
+			last: true,
+		});
 	}
 }

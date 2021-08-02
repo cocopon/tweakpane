@@ -33,6 +33,7 @@ export class SvPaletteController implements Controller<SvPaletteView> {
 
 	constructor(doc: Document, config: Config) {
 		this.onKeyDown_ = this.onKeyDown_.bind(this);
+		this.onKeyUp_ = this.onKeyUp_.bind(this);
 		this.onPointerDown_ = this.onPointerDown_.bind(this);
 		this.onPointerMove_ = this.onPointerMove_.bind(this);
 		this.onPointerUp_ = this.onPointerUp_.bind(this);
@@ -51,6 +52,7 @@ export class SvPaletteController implements Controller<SvPaletteView> {
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
 
 		this.view.element.addEventListener('keydown', this.onKeyDown_);
+		this.view.element.addEventListener('keyup', this.onKeyUp_);
 	}
 
 	private handlePointerEvent_(d: PointerData, opts: ValueChangeOptions): void {
@@ -93,15 +95,29 @@ export class SvPaletteController implements Controller<SvPaletteView> {
 
 		const [h, s, v, a] = this.value.rawValue.getComponents('hsv');
 		const baseStep = getBaseStepForColor(false);
+		const ds = getStepForKey(baseStep, getHorizontalStepKeys(ev));
+		const dv = getStepForKey(baseStep, getVerticalStepKeys(ev));
+		if (ds === 0 && dv === 0) {
+			return;
+		}
 
-		this.value.rawValue = new Color(
-			[
-				h,
-				s + getStepForKey(baseStep, getHorizontalStepKeys(ev)),
-				v + getStepForKey(baseStep, getVerticalStepKeys(ev)),
-				a,
-			],
-			'hsv',
-		);
+		this.value.setRawValue(new Color([h, s + ds, v + dv, a], 'hsv'), {
+			forceEmit: false,
+			last: false,
+		});
+	}
+
+	private onKeyUp_(ev: KeyboardEvent): void {
+		const baseStep = getBaseStepForColor(false);
+		const ds = getStepForKey(baseStep, getHorizontalStepKeys(ev));
+		const dv = getStepForKey(baseStep, getVerticalStepKeys(ev));
+		if (ds === 0 && dv === 0) {
+			return;
+		}
+
+		this.value.setRawValue(this.value.rawValue, {
+			forceEmit: true,
+			last: true,
+		});
 	}
 }

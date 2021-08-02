@@ -30,6 +30,7 @@ export class SliderController implements Controller<SliderView> {
 
 	constructor(doc: Document, config: Config) {
 		this.onKeyDown_ = this.onKeyDown_.bind(this);
+		this.onKeyUp_ = this.onKeyUp_.bind(this);
 		this.onPointerDownOrMove_ = this.onPointerDownOrMove_.bind(this);
 		this.onPointerUp_ = this.onPointerUp_.bind(this);
 
@@ -51,6 +52,7 @@ export class SliderController implements Controller<SliderView> {
 		this.ptHandler_.emitter.on('up', this.onPointerUp_);
 
 		this.view.trackElement.addEventListener('keydown', this.onKeyDown_);
+		this.view.trackElement.addEventListener('keyup', this.onKeyUp_);
 	}
 
 	private handlePointerEvent_(d: PointerData, opts: ValueChangeOptions): void {
@@ -85,9 +87,24 @@ export class SliderController implements Controller<SliderView> {
 	}
 
 	private onKeyDown_(ev: KeyboardEvent): void {
-		this.value.rawValue += getStepForKey(
-			this.baseStep_,
-			getHorizontalStepKeys(ev),
-		);
+		const step = getStepForKey(this.baseStep_, getHorizontalStepKeys(ev));
+		if (step === 0) {
+			return;
+		}
+		this.value.setRawValue(this.value.rawValue + step, {
+			forceEmit: false,
+			last: false,
+		});
+	}
+
+	private onKeyUp_(ev: KeyboardEvent): void {
+		const step = getStepForKey(this.baseStep_, getHorizontalStepKeys(ev));
+		if (step === 0) {
+			return;
+		}
+		this.value.setRawValue(this.value.rawValue, {
+			forceEmit: true,
+			last: true,
+		});
 	}
 }
