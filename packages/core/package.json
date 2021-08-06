@@ -29,7 +29,7 @@
     "test:ts:dynamic:inspect": "TS_NODE_PROJECT='src/tsconfig-cjs.json' mocha --require ts-node/register 'src/**/*-test.ts' --inspect-brk",
     "test:ts:static": "eslint --ext .ts 'src/**/*.ts'",
     "watch": "run-p watch:*",
-    "watch:ts": "onchange 'src/**/*.ts' -- npm run build:ts"
+    "watch:ts": "onchange --initial --kill 'src/**/*.ts' -- npm run build:ts"
   },
   "devDependencies": {
     "@types/assert": "^1.5.4",
