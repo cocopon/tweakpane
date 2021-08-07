@@ -43,6 +43,7 @@ Folder, Tab, Button, Separator
 
 
 ### [Plugins](https://cocopon.github.io/tweakpane/plugins.html)
+![Plugins](https://user-images.githubusercontent.com/602961/122059107-41ec8c80-ce27-11eb-9d17-08c522efb05f.png)
 
 
 ### [Misc](https://cocopon.github.io/tweakpane/misc.html)
