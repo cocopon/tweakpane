@@ -4,7 +4,7 @@
   "description": "A compact pane for fine-tuning parameters and monitoring value changes",
   "author": "cocopon",
   "license": "MIT",
-  "homepage": "https://cocopon.github.com/tweakpane/",
+  "homepage": "https://cocopon.github.io/tweakpane/",
   "main": "dist/tweakpane.js",
   "types": "dist/types/index.d.ts",
   "prettier": "../../prettier.config.js",
