@@ -120,9 +120,9 @@ function createParamsParserBuilders(optional: boolean) {
 
 		raw: createParamsParserBuilder((v: unknown) => v)(optional),
 
-		object: <O extends Record<string, unknown>>(
-			keyToParserMap: {[Key in keyof O]: ParamsParser<O[Key]>},
-		) =>
+		object: <O extends Record<string, unknown>>(keyToParserMap: {
+			[Key in keyof O]: ParamsParser<O[Key]>;
+		}) =>
 			createParamsParserBuilder<O>((v) => {
 				if (!isObject(v)) {
 					return undefined;

@@ -8,6 +8,7 @@
   "workspaces": [
     "packages/*"
   ],
+  "prettier": "./prettier.config.js",
   "scripts": {
     "clean": "rimraf .nyc_output test",
     "coverage": "run-s coverage:prepare coverage:package coverage:merge coverage:report",

@@ -20,9 +20,9 @@ type FoldableObject = {
  * @hidden
  */
 export class Foldable extends ValueMap<FoldableObject> {
-	constructor(
-		valueMap: {[Key in keyof FoldableObject]: Value<FoldableObject[Key]>},
-	) {
+	constructor(valueMap: {
+		[Key in keyof FoldableObject]: Value<FoldableObject[Key]>;
+	}) {
 		super(valueMap);
 	}
 

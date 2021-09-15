@@ -25,9 +25,9 @@ interface Disableable {
 }
 
 export class ViewProps extends ValueMap<ViewPropsObject> {
-	constructor(
-		valueMap: {[Key in keyof ViewPropsObject]: Value<ViewPropsObject[Key]>},
-	) {
+	constructor(valueMap: {
+		[Key in keyof ViewPropsObject]: Value<ViewPropsObject[Key]>;
+	}) {
 		super(valueMap);
 	}
 
