@@ -1,3 +1,4 @@
+import {Bindable} from '../../../common/binding/target';
 import {BaseBladeParams} from '../../../common/params';
 import {View} from '../../../common/view/view';
 import {ButtonApi} from '../../button/api/button';
@@ -73,7 +74,7 @@ export class TabPageApi implements BladeRackApi {
 		this.rackApi_.remove(api);
 	}
 
-	public addInput<O extends Record<string, any>, Key extends string>(
+	public addInput<O extends Bindable, Key extends string>(
 		object: O,
 		key: Key,
 		opt_params?: InputParams,
@@ -81,7 +82,7 @@ export class TabPageApi implements BladeRackApi {
 		return this.rackApi_.addInput(object, key, opt_params);
 	}
 
-	public addMonitor<O extends Record<string, any>, Key extends string>(
+	public addMonitor<O extends Bindable, Key extends string>(
 		object: O,
 		key: Key,
 		opt_params?: MonitorParams,

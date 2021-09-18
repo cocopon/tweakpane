@@ -1,4 +1,4 @@
-import {BindingTarget} from '../../../common/binding/target';
+import {Bindable, BindingTarget} from '../../../common/binding/target';
 import {Emitter} from '../../../common/model/emitter';
 import {BaseBladeParams} from '../../../common/params';
 import {TpError} from '../../../common/tp-error';
@@ -120,7 +120,7 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 		);
 	}
 
-	public addInput<O extends Record<string, any>, Key extends string>(
+	public addInput<O extends Bindable, Key extends string>(
 		object: O,
 		key: Key,
 		opt_params?: InputParams,
@@ -136,7 +136,7 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 		return this.add(api, params.index);
 	}
 
-	public addMonitor<O extends Record<string, any>, Key extends string>(
+	public addMonitor<O extends Bindable, Key extends string>(
 		object: O,
 		key: Key,
 		opt_params?: MonitorParams,
