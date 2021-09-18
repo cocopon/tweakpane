@@ -95,7 +95,7 @@ export class FolderApi
 		return this.rackApi_.children;
 	}
 
-	public addInput<O extends Bindable, Key extends string>(
+	public addInput<O extends Bindable, Key extends keyof O>(
 		object: O,
 		key: Key,
 		opt_params?: InputParams,
@@ -103,7 +103,7 @@ export class FolderApi
 		return this.rackApi_.addInput(object, key, opt_params);
 	}
 
-	public addMonitor<O extends Bindable, Key extends string>(
+	public addMonitor<O extends Bindable, Key extends keyof O>(
 		object: O,
 		key: Key,
 		opt_params?: MonitorParams,

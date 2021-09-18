@@ -70,15 +70,15 @@ function getApiByController(
 	return api;
 }
 
-function createBindingTarget(
-	obj: unknown,
-	key: string,
+function createBindingTarget<O extends Bindable, Key extends keyof O>(
+	obj: O,
+	key: Key,
 	opt_id?: string,
 ): BindingTarget {
 	if (!BindingTarget.isBindable(obj)) {
 		throw TpError.notBindable();
 	}
-	return new BindingTarget(obj, key, opt_id);
+	return new BindingTarget(obj, key as string, opt_id);
 }
 
 /**
@@ -120,7 +120,7 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 		);
 	}
 
-	public addInput<O extends Bindable, Key extends string>(
+	public addInput<O extends Bindable, Key extends keyof O>(
 		object: O,
 		key: Key,
 		opt_params?: InputParams,
@@ -136,7 +136,7 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 		return this.add(api, params.index);
 	}
 
-	public addMonitor<O extends Bindable, Key extends string>(
+	public addMonitor<O extends Bindable, Key extends keyof O>(
 		object: O,
 		key: Key,
 		opt_params?: MonitorParams,

@@ -74,7 +74,7 @@ export class TabPageApi implements BladeRackApi {
 		this.rackApi_.remove(api);
 	}
 
-	public addInput<O extends Bindable, Key extends string>(
+	public addInput<O extends Bindable, Key extends keyof O>(
 		object: O,
 		key: Key,
 		opt_params?: InputParams,
@@ -82,7 +82,7 @@ export class TabPageApi implements BladeRackApi {
 		return this.rackApi_.addInput(object, key, opt_params);
 	}
 
-	public addMonitor<O extends Bindable, Key extends string>(
+	public addMonitor<O extends Bindable, Key extends keyof O>(
 		object: O,
 		key: Key,
 		opt_params?: MonitorParams,

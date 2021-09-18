@@ -38,7 +38,7 @@ export interface BladeRackApi {
 	 * @param opt_params The options of a binding.
 	 * @return The API object.
 	 */
-	addInput<O extends Bindable, Key extends string>(
+	addInput<O extends Bindable, Key extends keyof O>(
 		object: O,
 		key: Key,
 		opt_params?: InputParams,
@@ -51,7 +51,7 @@ export interface BladeRackApi {
 	 * @param opt_params The options of a binding.
 	 * @return The API object.
 	 */
-	addMonitor<O extends Bindable, Key extends string>(
+	addMonitor<O extends Bindable, Key extends keyof O>(
 		object: O,
 		key: Key,
 		opt_params?: MonitorParams,
