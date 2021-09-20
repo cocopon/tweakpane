@@ -1,20 +1,22 @@
 import {TpError} from '../tp-error';
 
+export type Bindable = Record<string, any>;
+
 /**
  * A binding target.
  */
 export class BindingTarget {
 	private key_: string;
-	private obj_: Record<string, any>;
+	private obj_: Bindable;
 	private presetKey_: string;
 
-	constructor(obj: Record<string, any>, key: string, opt_id?: string) {
+	constructor(obj: Bindable, key: string, opt_id?: string) {
 		this.obj_ = obj;
 		this.key_ = key;
 		this.presetKey_ = opt_id ?? key;
 	}
 
-	public static isBindable(obj: unknown): obj is Record<string, any> {
+	public static isBindable(obj: unknown): obj is Bindable {
 		if (obj === null) {
 			return false;
 		}

@@ -1,3 +1,4 @@
+import {Bindable} from '../../../common/binding/target';
 import {Emitter} from '../../../common/model/emitter';
 import {ValueEvents} from '../../../common/model/value';
 import {BaseBladeParams} from '../../../common/params';
@@ -94,7 +95,7 @@ export class FolderApi
 		return this.rackApi_.children;
 	}
 
-	public addInput<O extends Record<string, any>, Key extends string>(
+	public addInput<O extends Bindable, Key extends keyof O>(
 		object: O,
 		key: Key,
 		opt_params?: InputParams,
@@ -102,7 +103,7 @@ export class FolderApi
 		return this.rackApi_.addInput(object, key, opt_params);
 	}
 
-	public addMonitor<O extends Record<string, any>, Key extends string>(
+	public addMonitor<O extends Bindable, Key extends keyof O>(
 		object: O,
 		key: Key,
 		opt_params?: MonitorParams,

@@ -1,3 +1,4 @@
+import {Bindable} from '../../../common/binding/target';
 import {BaseBladeParams} from '../../../common/params';
 import {View} from '../../../common/view/view';
 import {ButtonApi} from '../../button/api/button';
@@ -37,7 +38,7 @@ export interface BladeRackApi {
 	 * @param opt_params The options of a binding.
 	 * @return The API object.
 	 */
-	addInput<O extends Record<string, any>, Key extends string>(
+	addInput<O extends Bindable, Key extends keyof O>(
 		object: O,
 		key: Key,
 		opt_params?: InputParams,
@@ -50,7 +51,7 @@ export interface BladeRackApi {
 	 * @param opt_params The options of a binding.
 	 * @return The API object.
 	 */
-	addMonitor<O extends Record<string, any>, Key extends string>(
+	addMonitor<O extends Bindable, Key extends keyof O>(
 		object: O,
 		key: Key,
 		opt_params?: MonitorParams,
