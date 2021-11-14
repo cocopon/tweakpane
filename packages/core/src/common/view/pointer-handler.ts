@@ -74,8 +74,12 @@ export class PointerHandler {
 		this.elem_ = element;
 		this.emitter = new Emitter();
 
-		element.addEventListener('touchstart', this.onTouchStart_);
-		element.addEventListener('touchmove', this.onTouchMove_);
+		element.addEventListener('touchstart', this.onTouchStart_, {
+			passive: false,
+		});
+		element.addEventListener('touchmove', this.onTouchMove_, {
+			passive: true,
+		});
 		element.addEventListener('touchend', this.onTouchEnd_);
 		element.addEventListener('mousedown', this.onMouseDown_);
 	}
