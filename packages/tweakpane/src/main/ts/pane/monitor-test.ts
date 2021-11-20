@@ -53,7 +53,7 @@ describe(Pane.name, () => {
 					const pane = createPane();
 
 					try {
-						pane.addMonitor(testCase.obj, testCase.key, {
+						pane.addMonitor(testCase.obj, testCase.key as any, {
 							interval: 0,
 						});
 						assert.fail('should not be called');

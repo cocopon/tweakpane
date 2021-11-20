@@ -59,7 +59,7 @@ describe(Pane.name, () => {
 					const pane = createPane();
 
 					try {
-						pane.addInput(testCase.obj, testCase.key);
+						pane.addInput(testCase.obj, testCase.key as any);
 						assert.fail('should not be called');
 					} catch (ev) {
 						assert.strictEqual(ev instanceof TpError, true);
