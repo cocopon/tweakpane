@@ -31,15 +31,17 @@ export function getWindowDocument(): Document {
 	return globalObj.document;
 }
 
-function isBrowser(): boolean {
-	return 'document' in getGlobalObject();
-}
-
 export function getCanvasContext(
 	canvasElement: HTMLCanvasElement,
 ): CanvasRenderingContext2D | null {
+	const win = canvasElement.ownerDocument.defaultView;
+	if (!win) {
+		return null;
+	}
+
 	// HTMLCanvasElement.prototype.getContext is not defined on testing environment
-	return isBrowser() ? canvasElement.getContext('2d') : null;
+	const isBrowser = 'document' in win;
+	return isBrowser ? canvasElement.getContext('2d') : null;
 }
 
 const ICON_ID_TO_INNER_HTML_MAP: {[key in string]: string} = {
