@@ -5,6 +5,9 @@
 	&#{&}-not &_b {
 		display: none;
 	}
+	&_t {
+		padding-left: 4px;
+	}
 	&_m {
 		@extend %folder_mark;
 	}

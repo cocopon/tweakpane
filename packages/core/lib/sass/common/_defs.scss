@@ -81,22 +81,22 @@ $z-index-picker: 1000;
 	@include themeVariable(
 		'in-bg',
 		'input-background-color',
-		rgba($color-exdark, 0.2)
+		rgba($fg-color, 0.1)
 	);
 	@include themeVariable(
 		'in-bg-a',
 		'input-background-color-active',
-		rgba($color-exdark, 0.35)
+		rgba($fg-color, 0.25)
 	);
 	@include themeVariable(
 		'in-bg-f',
 		'input-background-color-focus',
-		rgba($color-exdark, 0.3)
+		rgba($fg-color, 0.2)
 	);
 	@include themeVariable(
 		'in-bg-h',
 		'input-background-color-hover',
-		rgba($color-exdark, 0.25)
+		rgba($fg-color, 0.15)
 	);
 	@include themeVariable('in-fg', 'input-foreground-color', $fg-color);
 
