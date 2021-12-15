@@ -172,7 +172,7 @@ export function createPane(container: HTMLElement, theme: Theme): any {
 		group.props.forEach((prop) => {
 			const m = prop.match(/(.+):state$/);
 			if (!m) {
-				f.addInput(theme, prop, {
+				f.addInput(theme, prop as ThemeProperty, {
 					label: group
 						.label(prop)
 						.replace('background', 'bg')
@@ -214,7 +214,7 @@ export function createPane(container: HTMLElement, theme: Theme): any {
 			const baseProp = m[1];
 			['active', 'focus', 'hover'].forEach((state) => {
 				const prop = [baseProp, state].join('-');
-				sf.addInput(theme, prop, {
+				sf.addInput(theme, prop as ThemeProperty, {
 					label: group
 						.label(prop)
 						.replace('background', 'bg')
