@@ -11,19 +11,19 @@ export type ThemeId =
 
 const ID_TO_THEME_MAP: {[id in ThemeId]: () => Theme} = {
 	default: () => ({
-		'base-background-color': 'hsla(230, 7%, 20%, 1)',
+		'base-background-color': 'hsla(230, 7%, 17%, 1)',
 		'base-shadow-color': 'hsla(0, 0%, 0%, 0.2)',
 		'button-background-color': 'hsla(230, 7%, 70%, 1)',
 		'button-background-color-active': 'hsla(230, 7%, 85%, 1)',
 		'button-background-color-focus': 'hsla(230, 7%, 80%, 1)',
 		'button-background-color-hover': 'hsla(230, 7%, 75%, 1)',
-		'button-foreground-color': 'hsla(230, 7%, 20%, 1)',
+		'button-foreground-color': 'hsla(230, 7%, 17%, 1)',
 		'container-background-color': 'hsla(230, 7%, 75%, 0.1)',
 		'container-background-color-active': 'hsla(230, 7%, 75%, 0.25)',
 		'container-background-color-focus': 'hsla(230, 7%, 75%, 0.2)',
 		'container-background-color-hover': 'hsla(230, 7%, 75%, 0.15)',
 		'container-foreground-color': 'hsla(230, 7%, 75%, 1)',
-		'groove-foreground-color': 'hsla(230, 7%, 0%, 0.2)',
+		'groove-foreground-color': 'hsla(230, 7%, 75%, 0.1)',
 		'input-background-color': 'hsla(230, 7%, 75%, 0.1)',
 		'input-background-color-active': 'hsla(230, 7%, 75%, 0.25)',
 		'input-background-color-focus': 'hsla(230, 7%, 75%, 0.2)',

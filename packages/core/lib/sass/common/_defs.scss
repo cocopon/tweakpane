@@ -12,7 +12,7 @@ $z-index-picker: 1000;
 %themeVariables {
 	$base-hue: 230;
 	$color-exdark: hsl($base-hue, 7%, 0%);
-	$color-dark: hsl($base-hue, 7%, 20%);
+	$color-dark: hsl($base-hue, 7%, 17%);
 	$color-light: hsl($base-hue, 7%, 70%);
 	$color-exlight: hsl($base-hue, 7%, 75%);
 	$bg-color: $color-dark;
@@ -123,6 +123,6 @@ $z-index-picker: 1000;
 	@include themeVariable(
 		'grv-fg',
 		'groove-foreground-color',
-		rgba($color-exdark, 0.2)
+		rgba($fg-color, 0.1)
 	);
 }
