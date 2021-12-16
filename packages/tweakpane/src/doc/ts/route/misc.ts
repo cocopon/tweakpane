@@ -4,7 +4,7 @@ import {selectContainer, wave} from '../util';
 
 export function initMisc() {
 	const IMEX_PARAMS = {
-		color: '#ff8000',
+		color: '#00ffd6',
 		name: 'exported json',
 		size: 10,
 	};
@@ -62,7 +62,7 @@ export function initMisc() {
 
 			const PARAMS = {
 				boolean: true,
-				color: '#0080ff',
+				color: '#ff0055',
 				number: 0,
 				point2d: {x: 0, y: 0},
 				string: 'text',
@@ -154,7 +154,7 @@ export function initMisc() {
 			});
 
 			const PARAMS = {
-				color: '#0080ff',
+				color: '#ff0055',
 				log: '',
 				name: 'Pane',
 				size: 50,

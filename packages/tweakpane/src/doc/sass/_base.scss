@@ -7,34 +7,34 @@
 	--fg-color-action: #{hsla($base-hue, 5%, 35%, 0.8)};
 	--fg-color-secondary: #{hsla($base-hue, 5%, 35%, 0.7)};
 
-	--a-color: #{hsl($base-hue - 20, 70%, 50%)};
+	--a-color: #{hsl($base-hue - 10, 50%, 50%)};
 	--code-color: #{hsl($base-hue, 20%, 50%)};
-	--guide-color-comps: #{$base-hue, 30%, 15%};
+	--guide-color-comps: #{$base-hue, 20%, 15%};
 	--heading-color: #{hsl($base-hue, 5%, 20%)};
 
 	--hl-comment: #{hsl($base-hue, 7%, 60%)};
-	--hl-keyword: #{hsl(225, 43%, 47%)};
-	--hl-constant: #{hsl(270, 43%, 58%)};
+	--hl-keyword: #{hsl(225, 40%, 47%)};
+	--hl-constant: #{hsl(340, 35%, 55%)};
 	--hl-string: #{hsl($base-hue, 15%, 50%)};
 
 	@media (prefers-color-scheme: dark) {
-		--bg-color: #{hsl($base-hue, 10%, 5%)};
+		--bg-color: #{hsl($base-hue, 5%, 10%)};
 		--bg-color-translucent: #{rgba(black, 0.9)};
-		--bg-color-secondary: #{hsl($base-hue, 7%, 10%)};
-		--bg-color-secondary-action: #{hsl($base-hue, 7%, 12%)};
+		--bg-color-secondary: #{hsl($base-hue, 5%, 12%)};
+		--bg-color-secondary-action: #{hsl($base-hue, 5%, 14%)};
 		--fg-color: #{hsl($base-hue, 5%, 60%)};
 		--fg-color-action: #{hsl($base-hue, 5%, 65%)};
 		--fg-color-secondary: #{hsla($base-hue, 5%, 60%, 0.8)};
 
-		--a-color: #{hsl($base-hue - 10, 55%, 60%)};
-		--code-color: #{hsl($base-hue, 30%, 60%)};
-		--guide-color-comps: #{$base-hue, 7%, 80%};
+		--a-color: #{hsl($base-hue - 10, 25%, 55%)};
+		--code-color: #{hsl(170, 25%, 55%)};
+		--guide-color-comps: #{$base-hue, 5%, 80%};
 		--heading-color: #{hsl($base-hue, 5%, 70%)};
 
 		--hl-comment: #{hsl($base-hue, 7%, 40%)};
-		--hl-keyword: #{hsl(220, 35%, 56%)};
-		--hl-constant: #{hsl(270, 30%, 58%)};
-		--hl-string: #{hsl(200, 30%, 55%)};
+		--hl-keyword: #{hsl(220, 25%, 55%)};
+		--hl-constant: #{hsl(340, 15%, 55%)};
+		--hl-string: #{hsl(170, 12%, 50%)};
 	}
 }
 

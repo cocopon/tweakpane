@@ -51,5 +51,20 @@
 		position: absolute;
 		right: -16px;
 		top: -16px;
+
+		&::before {
+			background-image: radial-gradient(
+				rgba(255, 255, 255, 0.1) 1px,
+				transparent 0
+			);
+			background-position: center;
+			background-size: 16px 16px;
+			bottom: 0;
+			content: '';
+			left: 0;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
 	}
 }

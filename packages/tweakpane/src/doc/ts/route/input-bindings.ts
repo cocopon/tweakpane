@@ -9,7 +9,7 @@ export function initInputBindings() {
 		input: (container) => {
 			const PARAMS = {
 				b: true,
-				c: '#ff8800',
+				c: '#ff0055',
 				n: 50,
 				v2: {x: 12, y: 34},
 				v3: {x: 12, y: 34, z: 56},
@@ -213,8 +213,8 @@ export function initInputBindings() {
 		},
 		objectcolor: (container) => {
 			const PARAMS = {
-				background: {r: 255, g: 127, b: 0},
-				tint: {r: 255, g: 255, b: 0, a: 0.5},
+				background: {r: 255, g: 0, b: 84},
+				tint: {r: 0, g: 255, b: 214, a: 0.5},
 			};
 			const pane = new Pane({
 				container: container,
@@ -224,8 +224,8 @@ export function initInputBindings() {
 		},
 		stringcolor: (container) => {
 			const PARAMS = {
-				primary: '#8df',
-				secondary: 'rgb(255, 136, 221)',
+				primary: '#f05',
+				secondary: 'rgb(0, 255, 214)',
 			};
 			const pane = new Pane({
 				container: container,
@@ -235,8 +235,8 @@ export function initInputBindings() {
 		},
 		numbercolor: (container) => {
 			const PARAMS = {
-				background: 0x0088ff,
-				tint: 0x00ff0044,
+				background: 0xff0055,
+				tint: 0x00ffd644,
 			};
 			const pane = new Pane({
 				container: container,
@@ -262,7 +262,7 @@ export function initInputBindings() {
 		},
 		colorinline: (container) => {
 			const PARAMS = {
-				key: '#22aaeeff',
+				key: '#ff0055ff',
 			};
 			const pane = new Pane({
 				container: container,

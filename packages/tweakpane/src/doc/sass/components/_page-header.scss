@@ -1,4 +1,6 @@
 .pageHeader {
+	@include dotGrid();
+
 	background-color: var(--bg-color-secondary);
 	position: relative;
 
@@ -59,6 +61,7 @@
 	}
 	&_title {
 		font-size: 3rem;
+		line-height: 1;
 
 		@include nonwide() {
 			font-size: 2rem;

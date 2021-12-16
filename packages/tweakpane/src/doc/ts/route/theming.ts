@@ -33,7 +33,7 @@ function applyTheme({
 	applyPreviewHtml(
 		'*[data-preview-code]',
 		theme,
-		'Append this element into your head element to apply the theme',
+		'Append this element into the head element to apply the theme',
 	);
 }
 

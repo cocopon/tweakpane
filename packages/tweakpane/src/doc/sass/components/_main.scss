@@ -10,7 +10,7 @@
 		}
 	}
 	&_wrapLayout {
-		@include responsive-inner();
+		@include responsiveContainer();
 
 		@include wide() {
 			display: flex;
@@ -45,6 +45,12 @@
 		@include document();
 
 		flex: 1;
+
+		h1 + p {
+			margin-top: 1em;
+			padding-left: 0.1em;
+			padding-right: 0.1em;
+		}
 	}
 	&_pageHeaderLayout {
 		@include middle() {

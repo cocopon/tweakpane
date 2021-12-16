@@ -1,4 +1,7 @@
 :root.index {
+	.pageHeader {
+		background-image: none;
+	}
 	.pageHeader_innerLayout {
 		position: static;
 
@@ -32,6 +35,26 @@
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: cover;
+
+		&::before {
+			background-image: radial-gradient(
+				rgba(255, 255, 255, 0.1) 1px,
+				transparent 0
+			);
+			background-position: center;
+			background-size: 16px 16px;
+			bottom: 0;
+			content: '';
+			left: 0;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+
+		.paneContainer {
+			-webkit-backdrop-filter: blur(4px);
+			backdrop-filter: blur(4px);
+		}
 	}
 	.pageHeader_titleLayout {
 		h1,
