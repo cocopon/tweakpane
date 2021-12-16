@@ -10,55 +10,55 @@
 	}
 
 	&#{&}-console {
-		--tp-base-background-color: transparent;
+		--tp-base-background-color: var(--bg-color-secondary);
 		--tp-base-shadow-color: transparent;
 		--tp-button-background-color: #{unquote(
-				'hsla(var(--guide-color-comps), 0.05)'
+				'hsla(var(--guide-color-comps), 0.04)'
 			)};
 		--tp-button-background-color-active: #{unquote(
-				'hsla(var(--guide-color-comps), 0.05)'
+				'hsla(var(--guide-color-comps), 0.04)'
 			)};
 		--tp-button-background-color-focus: #{unquote(
-				'hsla(var(--guide-color-comps), 0.05)'
+				'hsla(var(--guide-color-comps), 0.04)'
 			)};
 		--tp-button-background-color-hover: #{unquote(
-				'hsla(var(--guide-color-comps), 0.05)'
+				'hsla(var(--guide-color-comps), 0.04)'
 			)};
 		--tp-button-foreground-color: #{unquote(
 				'hsla(var(--guide-color-comps), 0.4)'
 			)};
 		--tp-container-background-color: #{unquote(
-				'hsla(var(--guide-color-comps), 0.05)'
+				'hsla(var(--guide-color-comps), 0.04)'
 			)};
 		--tp-container-background-color-active: #{unquote(
-				'hsla(var(--guide-color-comps), 0.05)'
+				'hsla(var(--guide-color-comps), 0.04)'
 			)};
 		--tp-container-background-color-focus: #{unquote(
-				'hsla(var(--guide-color-comps), 0.05)'
+				'hsla(var(--guide-color-comps), 0.04)'
 			)};
 		--tp-container-background-color-hover: #{unquote(
-				'hsla(var(--guide-color-comps), 0.05)'
+				'hsla(var(--guide-color-comps), 0.04)'
 			)};
 		--tp-container-foreground-color: #{unquote(
 				'hsla(var(--guide-color-comps), 0.4)'
 			)};
 		--tp-input-background-color: #{unquote(
-				'hsla(var(--guide-color-comps), 0.05)'
+				'hsla(var(--guide-color-comps), 0.04)'
 			)};
 		--tp-input-background-color-active: #{unquote(
-				'hsla(var(--guide-color-comps), 0.05)'
+				'hsla(var(--guide-color-comps), 0.04)'
 			)};
 		--tp-input-background-color-focus: #{unquote(
-				'hsla(var(--guide-color-comps), 0.05)'
+				'hsla(var(--guide-color-comps), 0.04)'
 			)};
 		--tp-input-background-color-hover: #{unquote(
-				'hsla(var(--guide-color-comps), 0.05)'
+				'hsla(var(--guide-color-comps), 0.04)'
 			)};
 		--tp-input-foreground-color: #{unquote(
 				'hsla(var(--guide-color-comps), 0.4)'
 			)};
 		--tp-monitor-background-color: #{unquote(
-				'hsla(var(--guide-color-comps), 0.05)'
+				'hsla(var(--guide-color-comps), 0.04)'
 			)};
 		--tp-monitor-foreground-color: #{unquote(
 				'hsla(var(--guide-color-comps), 0.4)'
@@ -71,7 +71,7 @@
 			)};
 
 		.tp-rotv {
-			border: #{unquote('hsla(var(--guide-color-comps), 0.1) dashed 1px')};
+			border: #{unquote('hsla(var(--guide-color-comps), 0.05) solid 1px')};
 		}
 	}
 }

@@ -30,7 +30,7 @@ export function initQuickTour() {
 			const PARAMS = {
 				factor: 123,
 				title: 'hello',
-				color: '#0f0',
+				color: '#ff0055',
 			};
 			const pane = new Pane({
 				container: container,
@@ -146,7 +146,7 @@ export function initQuickTour() {
 			const PARAMS = {
 				factor: 50,
 				title: 'hello',
-				color: '#0f0',
+				color: '#ff0055',
 				log: '',
 			};
 

@@ -43,7 +43,7 @@ class Dot {
 		this.element.setAttributeNS(null, 'cx', `${this.x}px`);
 		this.element.setAttributeNS(null, 'cy', `${this.y}px`);
 
-		const sz = (1 - Math.pow(0.9, this.en)) * this.env_.maxSize;
+		const sz = map(1 - Math.pow(0.9, this.en), 0, 1, 1, this.env_.maxSize);
 		this.element.setAttributeNS(null, 'r', `${sz}px`);
 	}
 }
@@ -99,7 +99,7 @@ export class Sketch {
 			for (let ix = 0; ix <= xcount; ix++) {
 				const dot = new Dot(env);
 				dot.en = 0;
-				dot.x = (ix + (iy % 2 === 0 ? 0 : 0.5)) * xstep;
+				dot.x = ix * xstep;
 				dot.y = iy * ystep;
 				newDotsElem.appendChild(dot.element);
 				this.dots_.push(dot);

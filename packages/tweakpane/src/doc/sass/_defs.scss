@@ -14,7 +14,7 @@ $global-nav-width: 240px;
 
 // Colors
 $base-hue: 230;
-$pane-bg-color: hsl($base-hue, 7%, 20%);
+$pane-bg-color: hsl($base-hue, 7%, 17%);
 
 // Z-index
 $z-index-global-header: 1002;
@@ -23,7 +23,7 @@ $z-index-global-nav: 1003;
 // Mixins
 
 @mixin wide() {
-	@media screen and (min-width: $tablet-width + 1) {
+	@media screen and (min-width: ($tablet-width + 1)) {
 		@content;
 	}
 }
@@ -33,7 +33,7 @@ $z-index-global-nav: 1003;
 	}
 }
 @mixin middle() {
-	@media screen and (min-width: $sp-width + 1) and (max-width: $tablet-width) {
+	@media screen and (min-width: ($sp-width + 1)) and (max-width: $tablet-width) {
 		@content;
 	}
 }
@@ -43,7 +43,7 @@ $z-index-global-nav: 1003;
 	}
 }
 
-@mixin responsive-inner() {
+@mixin responsiveContainer() {
 	box-sizing: border-box;
 
 	@include wide() {
@@ -121,4 +121,17 @@ $z-index-global-nav: 1003;
 	a {
 		color: var(--a-color);
 	}
+}
+
+@mixin dotGrid() {
+	background-image: radial-gradient(
+			#{unquote('hsla(var(--guide-color-comps), 0.08)')} 1px,
+			transparent 0
+		),
+		radial-gradient(
+			#{unquote('hsla(var(--guide-color-comps), 0.04)')} 1px,
+			transparent 0
+		);
+	background-size: 32px 32px, 8px 8px;
+	background-position: center;
 }

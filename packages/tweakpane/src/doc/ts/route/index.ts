@@ -10,13 +10,18 @@ import {Sketch} from '../sketch';
 import {Environment} from '../sketch';
 import {selectContainer} from '../util';
 
+const COLORS = {
+	dark: 'hsl(200deg, 5%, 16%)',
+	light: 'hsl(200deg, 7%, 90%)',
+};
+
 export function initIndex() {
 	const ENV: Environment = {
 		amp: {x: 0.1, y: 0.5},
-		color: '#d8dbde',
+		color: 'hsl(0deg, 0, 0)',
 		freq: {
-			x: 12.57,
-			y: 6.28,
+			x: 17,
+			y: 6.3,
 		},
 		maxSize: 5,
 		range: 0,
@@ -25,17 +30,13 @@ export function initIndex() {
 		title: 'Tweakpane',
 	};
 
-	if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-		ENV.color = '#020202';
-	}
-
 	const PRESETS: {[key: string]: Environment} = {
 		atmos: {
 			amp: {x: 0.1, y: 0.53},
 			color: '#cacbcd',
 			freq: {x: 45, y: 16},
 			maxSize: 128,
-			range: 0.79,
+			range: 0.77,
 			spacing: 24,
 			speed: 0.02,
 			title: 'Tweakpane',
@@ -45,7 +46,7 @@ export function initIndex() {
 			color: '#f2f2f2',
 			freq: {x: 64, y: 32},
 			maxSize: 128,
-			range: 0.65,
+			range: 0.5,
 			spacing: 48,
 			speed: 0.02,
 			title: 'Tweakpane',
@@ -73,6 +74,18 @@ export function initIndex() {
 	}
 	const sketch = new Sketch(sketchElem, ENV);
 
+	const updateBg = () => {
+		const headerElem: HTMLElement | null =
+			document.querySelector('.pageHeader');
+		if (!headerElem) {
+			return;
+		}
+
+		const [h, s, l] = colorFromString(ENV.color).getComponents('hsl');
+		const bg = new Color([h + 30, s, l < 50 ? l - 4 : l + 5], 'hsl');
+		headerElem.style.backgroundColor = colorToFunctionalRgbaString(bg);
+	};
+
 	const markerToFnMap: {
 		[key: string]: (container: HTMLElement) => void;
 	} = {
@@ -81,20 +94,7 @@ export function initIndex() {
 				container: container,
 				title: 'Parameters',
 			});
-			pane.addInput(ENV, 'color').on('change', (ev) => {
-				const headerElem: HTMLElement | null =
-					document.querySelector('.pageHeader');
-				if (!headerElem) {
-					return;
-				}
-
-				const comps = colorFromString(ev.value).getComponents('hsl');
-				const bg = new Color(
-					[comps[0] + 30, comps[1] * 1.5, comps[2] + 8],
-					'hsl',
-				);
-				headerElem.style.backgroundColor = colorToFunctionalRgbaString(bg);
-			});
+			pane.addInput(ENV, 'color').on('change', updateBg);
 			pane.addInput(ENV, 'title').on('change', (ev) => {
 				const titleElem = document.querySelector('.pageHeader_title');
 				if (titleElem) {
@@ -172,9 +172,18 @@ export function initIndex() {
 				const tz = Math.max(t, 0);
 				const et = tz < 0.5 ? 2 * tz * tz : 1 - 2 * (1 - tz) * (1 - tz);
 				ENV.range = mapRange(et, 0, 1, 0, 0.8);
-				ENV.maxSize = mapRange(et, 0, 1, 5, 64);
+				ENV.maxSize = mapRange(et, 0, 1, 5, 70);
 				pane.refresh();
 			}, 1000 / 30);
+
+			const mm = window.matchMedia('(prefers-color-scheme: dark)');
+			const applyScheme = () => {
+				ENV.color = mm.matches ? COLORS.dark : COLORS.light;
+				sketch.resize();
+				pane.refresh();
+			};
+			mm.addEventListener('change', applyScheme);
+			applyScheme();
 		},
 	};
 	Object.keys(markerToFnMap).forEach((marker) => {
@@ -182,6 +191,4 @@ export function initIndex() {
 		const container = selectContainer(marker);
 		initFn(container);
 	});
-
-	sketch.resize();
 }

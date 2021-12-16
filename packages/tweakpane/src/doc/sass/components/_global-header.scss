@@ -16,7 +16,7 @@
 	z-index: $z-index-global-header;
 
 	&_innerLayout {
-		@include responsive-inner();
+		@include responsiveContainer();
 
 		box-sizing: border-box;
 		margin-left: auto;
