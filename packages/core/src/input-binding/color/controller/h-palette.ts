@@ -1,7 +1,7 @@
 import {Controller} from '../../../common/controller/controller';
 import {Value, ValueChangeOptions} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
-import {mapRange} from '../../../common/number-util';
+import {constrainRange, mapRange} from '../../../common/number-util';
 import {getHorizontalStepKeys, getStepForKey} from '../../../common/ui';
 import {
 	PointerData,
@@ -55,7 +55,13 @@ export class HPaletteController implements Controller<HPaletteView> {
 			return;
 		}
 
-		const hue = mapRange(d.point.x, 0, d.bounds.width, 0, 360);
+		const hue = mapRange(
+			constrainRange(d.point.x, 0, d.bounds.width),
+			0,
+			d.bounds.width,
+			0,
+			359,
+		);
 
 		const c = this.value.rawValue;
 		const [, s, v, a] = c.getComponents('hsv');
