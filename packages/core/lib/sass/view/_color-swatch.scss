@@ -2,6 +2,7 @@
 	@include checkerboard(10px);
 
 	border-radius: var(--elm-br);
+	overflow: hidden;
 
 	&.#{$prefix}-v-disabled {
 		opacity: 0.5;
@@ -9,6 +10,8 @@
 
 	&_sw {
 		@extend %input;
+
+		border-radius: 0;
 	}
 	&_b {
 		appearance: none;
