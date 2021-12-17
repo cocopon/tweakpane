@@ -3,7 +3,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/cocopon/tweakpane/badge.svg)](https://coveralls.io/github/cocopon/tweakpane)
 [![npm version](https://badge.fury.io/js/tweakpane.svg)](https://badge.fury.io/js/tweakpane)
 
-![cover](https://user-images.githubusercontent.com/602961/115102456-d8b2df00-9f85-11eb-8501-112e7a681e4a.jpg)
+![cover](https://user-images.githubusercontent.com/602961/146529897-38829c6f-56df-46f6-81fe-d65fb2027eaa.png)
 
 Tweakpane is a compact pane library for fine-tuning parameters and monitoring
 value changes, inspired by [dat.GUI][].
