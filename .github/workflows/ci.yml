@@ -9,6 +9,10 @@ on:
   release:
     types: [released]
   workflow_dispatch:
+    inputs:
+      deploy:
+        required: false
+        type: boolean
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -28,7 +32,7 @@ jobs:
           path-to-lcov: ./coverage/lcov.info
   deploy:
     needs: test
-    if: startsWith(github.ref, 'refs/tags/')
+    if: startsWith(github.ref, 'refs/tags/') || github.event.inputs.deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
