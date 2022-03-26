@@ -8,6 +8,7 @@ on:
       - main
   release:
     types: [released]
+  workflow_dispatch:
 jobs:
   test:
     runs-on: ubuntu-latest
