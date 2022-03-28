@@ -47,6 +47,16 @@ export class FolderController extends RackLikeController<FolderView> {
 		this.foldable = foldable;
 		bindFoldable(this.foldable, this.view.containerElement);
 
+		// Clean up transition manually
+		// Toggling `expanded` doesn't fire transition events in some cases
+		// (e.g. expanding empty folder: 0px -> 0px)
+		this.rackController.rack.emitter.on('add', () => {
+			this.foldable.cleanUpTransition();
+		});
+		this.rackController.rack.emitter.on('remove', () => {
+			this.foldable.cleanUpTransition();
+		});
+
 		this.view.buttonElement.addEventListener('click', this.onTitleClick_);
 	}
 
