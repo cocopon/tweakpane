@@ -56,14 +56,17 @@ export class Foldable extends ValueMap<FoldableObject> {
 	}
 
 	public bindExpandedClass(elem: HTMLElement, expandedClassName: string): void {
-		bindValueMap(this, 'expanded', () => {
+		const onExpand = () => {
 			const expanded = this.styleExpanded;
 			if (expanded) {
 				elem.classList.add(expandedClassName);
 			} else {
 				elem.classList.remove(expandedClassName);
 			}
-		});
+		};
+
+		bindValueMap(this, 'expanded', onExpand);
+		bindValueMap(this, 'temporaryExpanded', onExpand);
 	}
 
 	public cleanUpTransition(): void {
