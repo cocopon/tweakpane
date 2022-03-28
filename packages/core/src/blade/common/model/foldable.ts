@@ -65,6 +65,12 @@ export class Foldable extends ValueMap<FoldableObject> {
 			}
 		});
 	}
+
+	public cleanUpTransition(): void {
+		this.set('shouldFixHeight', false);
+		this.set('expandedHeight', null);
+		this.set('completed', true);
+	}
 }
 
 /**
@@ -143,8 +149,6 @@ export function bindFoldable(foldable: Foldable, elem: HTMLElement): void {
 			return;
 		}
 
-		foldable.set('shouldFixHeight', false);
-		foldable.set('expandedHeight', null);
-		foldable.set('completed', true);
+		foldable.cleanUpTransition();
 	});
 }
