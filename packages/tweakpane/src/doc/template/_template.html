@@ -16,8 +16,8 @@
 	<meta name="twitter:description" content="{{ description }}">
 	<meta name="twitter:image" content="https://cocopon.github.io/tweakpane/assets/og.png">
 	<meta name="twitter:title" content="Tweakpane">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 	<link rel="stylesheet" href="assets/bundle.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 	<div class="main main-{{ pageId }}">
@@ -42,9 +42,8 @@
 		</div>
 	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
-	<script async defer src="https://buttons.github.io/buttons.js"></script>
-	<script src="assets/tweakpane.js"></script>
+	<script src="assets/tweakpane.js" defer></script>
 	{% block pluginScripts %}{% endblock %}
-	<script src="assets/bundle.js"></script>
+	<script src="assets/bundle.js" defer></script>
 </body>
 </html>
