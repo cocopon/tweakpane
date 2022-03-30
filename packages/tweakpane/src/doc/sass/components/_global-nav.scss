@@ -65,8 +65,9 @@
 			background-color: var(--bg-color-secondary);
 		}
 
-		.fa-external-link-square-alt {
-			margin-left: 0.5em;
+		.material-icons {
+			font-size: 1.2em;
+			vertical-align: middle;
 		}
 	}
 	&:first-child &_anchor {

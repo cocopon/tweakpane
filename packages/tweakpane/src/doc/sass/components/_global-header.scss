@@ -34,9 +34,10 @@
 }
 
 .spMenuButton {
+	align-items: center;
 	color: inherit;
+	display: flex;
 	height: $global-header-height;
-	line-height: $global-header-height;
-	text-align: center;
+	justify-content: center;
 	width: $global-header-height;
 }
