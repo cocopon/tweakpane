@@ -1,17 +1,18 @@
 .menu {
 	background-color: var(--bg-color);
+	bottom: 0;
 	overflow-y: auto;
+	padding-bottom: 32px;
+	padding-top: 32px;
 	position: fixed;
+	top: 0;
 	width: $global-nav-width;
 	z-index: $z-index-global-nav;
 
-	@include wide() {
-		bottom: 32px;
-		top: 32px;
-	}
 	@include nonwide() {
-		bottom: 0;
 		left: -$global-nav-width;
+		padding-bottom: 24px;
+		padding-top: 24px;
 		top: $global-header-height;
 		transform: none;
 
@@ -36,8 +37,9 @@
 		}
 	}
 	&_list {
-		padding-top: 24px;
-		padding-bottom: 24px;
+		@include wide() {
+			margin-top: 24px;
+		}
 	}
 }
 .menuItem {
@@ -50,11 +52,17 @@
 		display: block;
 		font-weight: 500;
 		margin-top: 24px;
-		padding: 8px 32px;
+		padding: 8px 16px;
 		text-decoration: none;
 
 		@include wide() {
 			border-radius: 6px;
+			margin-left: 16px;
+			margin-right: 16px;
+		}
+		@include nonwide() {
+			padding-left: 32px;
+			padding-right: 32px;
 		}
 
 		&#{&}-active {
@@ -67,6 +75,8 @@
 
 		.material-icons {
 			font-size: 1.2em;
+			position: relative;
+			top: -1px;
 			vertical-align: middle;
 		}
 	}
@@ -83,11 +93,16 @@
 	&_anchor {
 		color: var(--fg-color-secondary);
 		display: block;
-		padding: 8px 16px 8px 32px;
+		padding: 8px 16px;
 		text-decoration: none;
 
 		@include wide() {
 			border-radius: 6px;
+			margin-left: 16px;
+			margin-right: 16px;
+		}
+		@include nonwide() {
+			padding-left: 32px;
 		}
 
 		&#{&}-active {

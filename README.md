@@ -13,7 +13,6 @@ value changes, inspired by [dat.GUI][].
 - Clean and simple design
 - Dependency-free
 - Extensible
-- Mobile support
 
 
 ## Features
@@ -47,8 +46,9 @@ Folder, Tab, Button, Separator
 
 
 ### [Misc](https://cocopon.github.io/tweakpane/misc.html)
-- JSON import / export
+- Mobile support
 - TypeScript type definitions
+- JSON import / export
 
 
 ## Development

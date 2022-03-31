@@ -35,6 +35,7 @@
 		margin-top: auto;
 		position: absolute;
 		top: 0;
+		transition: transform 0.05s ease-out;
 		width: 12px;
 	}
 	&:hover &_symbol {
