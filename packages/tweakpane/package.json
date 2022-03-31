@@ -12,6 +12,7 @@
     "type": "git",
     "url": "https://github.com/cocopon/tweakpane.git"
   },
+  "funding": "https://github.com/sponsors/cocopon",
   "files": [
     "dist"
   ],
