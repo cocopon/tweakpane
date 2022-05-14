@@ -14,6 +14,10 @@ export class BladeApi<C extends BladeController<View>> {
 		this.controller_ = controller;
 	}
 
+	get element(): HTMLElement {
+		return this.controller_.view.element;
+	}
+
 	get disabled(): boolean {
 		return this.controller_.viewProps.get('disabled');
 	}
