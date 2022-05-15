@@ -17,16 +17,19 @@ describe(NumberInputPlugin.id, () => {
 		const c = createInputBindingController(NumberInputPlugin, {
 			document: doc,
 			params: {
-				step: 1,
+				min: 1,
+				step: 2,
 			},
 			target: new BindingTarget({foo: 1}, 'foo'),
 		});
 
 		const v = c?.binding.value as BoundValue<number>;
-		assert.strictEqual(
-			findConstraint(v.constraint as Constraint<number>, StepConstraint)?.step,
-			1,
+		const constraint = findConstraint(
+			v.constraint as Constraint<number>,
+			StepConstraint,
 		);
+		assert.strictEqual(constraint?.step, 2);
+		assert.strictEqual(constraint?.origin, 1);
 	});
 
 	it('should use specified formatter', () => {
