@@ -1,7 +1,4 @@
-import {CompositeConstraint} from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
-import {RangeConstraint} from '../../common/constraint/range';
-import {StepConstraint} from '../../common/constraint/step';
 import {
 	createNumberFormatter,
 	parseNumber,
@@ -16,10 +13,10 @@ import {
 	getSuitableDraggingScale,
 	parsePointDimensionParams,
 } from '../../common/util';
-import {isEmpty} from '../../misc/type-util';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {PointNdTextController} from '../common/controller/point-nd-text';
 import {InputBindingPlugin} from '../plugin';
+import {createDimensionConstraint} from '../point-2d/plugin';
 import {point4dFromUnknown, writePoint4d} from './converter/point-4d';
 import {Point4d, Point4dAssembly, Point4dObject} from './model/point-4d';
 
@@ -30,37 +27,29 @@ export interface Point4dInputParams extends BaseInputParams {
 	w?: PointDimensionParams;
 }
 
-function createDimensionConstraint(
-	params: PointDimensionParams | undefined,
-): Constraint<number> | undefined {
-	if (!params) {
-		return undefined;
-	}
-
-	const constraints: Constraint<number>[] = [];
-
-	if (!isEmpty(params.step)) {
-		constraints.push(new StepConstraint(params.step));
-	}
-	if (!isEmpty(params.max) || !isEmpty(params.min)) {
-		constraints.push(
-			new RangeConstraint({
-				max: params.max,
-				min: params.min,
-			}),
-		);
-	}
-	return new CompositeConstraint(constraints);
-}
-
-function createConstraint(params: Point4dInputParams): Constraint<Point4d> {
+function createConstraint(
+	params: Point4dInputParams,
+	initialValue: Point4dObject,
+): Constraint<Point4d> {
 	return new PointNdConstraint({
 		assembly: Point4dAssembly,
 		components: [
-			createDimensionConstraint('x' in params ? params.x : undefined),
-			createDimensionConstraint('y' in params ? params.y : undefined),
-			createDimensionConstraint('z' in params ? params.z : undefined),
-			createDimensionConstraint('w' in params ? params.w : undefined),
+			createDimensionConstraint(
+				'x' in params ? params.x : undefined,
+				initialValue.x,
+			),
+			createDimensionConstraint(
+				'y' in params ? params.y : undefined,
+				initialValue.y,
+			),
+			createDimensionConstraint(
+				'z' in params ? params.z : undefined,
+				initialValue.z,
+			),
+			createDimensionConstraint(
+				'w' in params ? params.w : undefined,
+				initialValue.w,
+			),
 		],
 	});
 }
@@ -111,7 +100,7 @@ export const Point4dInputPlugin: InputBindingPlugin<
 	},
 	binding: {
 		reader: (_args) => point4dFromUnknown,
-		constraint: (args) => createConstraint(args.params),
+		constraint: (args) => createConstraint(args.params, args.initialValue),
 		equals: Point4d.equals,
 		writer: (_args) => writePoint4d,
 	},

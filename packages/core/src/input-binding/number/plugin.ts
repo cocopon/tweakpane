@@ -48,10 +48,13 @@ export interface NumberInputParams extends BaseInputParams {
  * @return A constraint or null if not found.
  */
 export function createStepConstraint(
-	params: NumberInputParams,
+	params: {
+		step?: number;
+	},
+	initialValue?: number,
 ): Constraint<number> | null {
 	if ('step' in params && !isEmpty(params.step)) {
-		return new StepConstraint(params.step);
+		return new StepConstraint(params.step, initialValue);
 	}
 	return null;
 }
@@ -61,9 +64,10 @@ export function createStepConstraint(
  * @param params The input parameters object.
  * @return A constraint or null if not found.
  */
-export function createRangeConstraint(
-	params: NumberInputParams,
-): Constraint<number> | null {
+export function createRangeConstraint(params: {
+	max?: number;
+	min?: number;
+}): Constraint<number> | null {
 	if (
 		('max' in params && !isEmpty(params.max)) ||
 		('min' in params && !isEmpty(params.min))
@@ -76,10 +80,14 @@ export function createRangeConstraint(
 	return null;
 }
 
-function createConstraint(params: NumberInputParams): Constraint<number> {
+function createConstraint(
+	params: NumberInputParams,
+	// TODO: Make it required in the next version
+	initialValue?: number,
+): Constraint<number> {
 	const constraints: Constraint<number>[] = [];
 
-	const sc = createStepConstraint(params);
+	const sc = createStepConstraint(params, initialValue);
 	if (sc) {
 		constraints.push(sc);
 	}
@@ -144,7 +152,7 @@ export const NumberInputPlugin: InputBindingPlugin<
 	},
 	binding: {
 		reader: (_args) => numberFromUnknown,
-		constraint: (args) => createConstraint(args.params),
+		constraint: (args) => createConstraint(args.params, args.initialValue),
 		writer: (_args) => writePrimitive,
 	},
 	controller: (args) => {

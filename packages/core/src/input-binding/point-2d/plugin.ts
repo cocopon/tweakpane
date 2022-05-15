@@ -4,7 +4,6 @@ import {
 } from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
 import {RangeConstraint} from '../../common/constraint/range';
-import {StepConstraint} from '../../common/constraint/step';
 import {
 	createNumberFormatter,
 	parseNumber,
@@ -24,8 +23,8 @@ import {
 	parsePickerLayout,
 	parsePointDimensionParams,
 } from '../../common/util';
-import {isEmpty} from '../../misc/type-util';
 import {PointNdConstraint} from '../common/constraint/point-nd';
+import {createRangeConstraint, createStepConstraint} from '../number/plugin';
 import {InputBindingPlugin} from '../plugin';
 import {Point2dController} from './controller/point-2d';
 import {point2dFromUnknown, writePoint2d} from './converter/point-2d';
@@ -42,35 +41,41 @@ export interface Point2dInputParams extends BaseInputParams {
 	y?: Point2dYParams;
 }
 
-function createDimensionConstraint(
+export function createDimensionConstraint(
 	params: PointDimensionParams | undefined,
+	initialValue: number,
 ): Constraint<number> | undefined {
 	if (!params) {
 		return undefined;
 	}
 
 	const constraints: Constraint<number>[] = [];
-
-	if (!isEmpty(params.step)) {
-		constraints.push(new StepConstraint(params.step));
+	const cs = createStepConstraint(params, initialValue);
+	if (cs) {
+		constraints.push(cs);
 	}
-	if (!isEmpty(params.max) || !isEmpty(params.min)) {
-		constraints.push(
-			new RangeConstraint({
-				max: params.max,
-				min: params.min,
-			}),
-		);
+	const rs = createRangeConstraint(params);
+	if (rs) {
+		constraints.push(rs);
 	}
 	return new CompositeConstraint(constraints);
 }
 
-function createConstraint(params: Point2dInputParams): Constraint<Point2d> {
+function createConstraint(
+	params: Point2dInputParams,
+	initialValue: Point2dObject,
+): Constraint<Point2d> {
 	return new PointNdConstraint({
 		assembly: Point2dAssembly,
 		components: [
-			createDimensionConstraint('x' in params ? params.x : undefined),
-			createDimensionConstraint('y' in params ? params.y : undefined),
+			createDimensionConstraint(
+				'x' in params ? params.x : undefined,
+				initialValue.x,
+			),
+			createDimensionConstraint(
+				'y' in params ? params.y : undefined,
+				initialValue.y,
+			),
 		],
 	});
 }
@@ -172,7 +177,7 @@ export const Point2dInputPlugin: InputBindingPlugin<
 	},
 	binding: {
 		reader: (_args) => point2dFromUnknown,
-		constraint: (args) => createConstraint(args.params),
+		constraint: (args) => createConstraint(args.params, args.initialValue),
 		equals: Point2d.equals,
 		writer: (_args) => writePoint2d,
 	},
