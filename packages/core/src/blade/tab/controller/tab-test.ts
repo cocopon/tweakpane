@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import {describe} from 'mocha';
+import {describe, it} from 'mocha';
 
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
@@ -22,43 +22,28 @@ function createTabPage(doc: Document, title: string) {
 }
 
 describe(TabController.name, () => {
-	it('should select first page by default', () => {
-		const doc = createTestWindow().document;
-		const c = new TabController(doc, {
-			blade: createBlade(),
-			viewProps: ViewProps.create(),
-		});
-
-		c.add(createTabPage(doc, 'foo'));
-		c.add(createTabPage(doc, 'bar'));
-		assert.strictEqual(c.pageSet.items[0].props.get('selected'), true);
-		assert.strictEqual(c.pageSet.items[1].props.get('selected'), false);
-	});
-
-	it('should select first page by default', () => {
+	it('should add page element', () => {
 		const win = createTestWindow();
 		const doc = win.document;
 		const c = new TabController(doc, {
 			blade: createBlade(),
 			viewProps: ViewProps.create(),
 		});
-		const pcs = [
-			createTabPage(doc, 'foo'),
-			createTabPage(doc, 'bar'),
-			createTabPage(doc, 'baz'),
-		];
-		c.add(pcs[0]);
-		assert.strictEqual(c.pageSet.items[0].props.get('selected'), true);
+		const pc = createTabPage(doc, 'foo');
+		c.add(pc);
 
-		c.add(pcs[1]);
-		c.add(pcs[2]);
-		assert.deepStrictEqual(
-			c.pageSet.items.map((i) => i.props.get('selected')),
-			[true, false, false],
+		assert.strictEqual(c.pageSet.items[0], pc);
+		assert.strictEqual(
+			c.view.itemsElement.contains(pc.itemController.view.element),
+			true,
+		);
+		assert.strictEqual(
+			c.view.contentsElement.contains(pc.contentController.view.element),
+			true,
 		);
 	});
 
-	it('should change selection', () => {
+	it('should insert page at specific position', () => {
 		const win = createTestWindow();
 		const doc = win.document;
 		const c = new TabController(doc, {
@@ -72,22 +57,34 @@ describe(TabController.name, () => {
 		];
 		c.add(pcs[0]);
 		c.add(pcs[1]);
-		c.add(pcs[2]);
+		c.add(pcs[2], 1);
 
-		pcs[1].props.set('selected', true);
-		assert.deepStrictEqual(
-			c.pageSet.items.map((i) => i.props.get('selected')),
-			[false, true, false],
+		assert.strictEqual(c.pageSet.items[1], pcs[2]);
+	});
+
+	it('should remove page', () => {
+		const win = createTestWindow();
+		const doc = win.document;
+		const c = new TabController(doc, {
+			blade: createBlade(),
+			viewProps: ViewProps.create(),
+		});
+		const pcs = [
+			createTabPage(doc, 'foo'),
+			createTabPage(doc, 'bar'),
+			createTabPage(doc, 'baz'),
+		];
+		pcs.forEach((pc) => c.add(pc));
+
+		c.remove(1);
+		assert.deepStrictEqual(c.pageSet.items, [pcs[0], pcs[2]]);
+		assert.strictEqual(
+			c.view.itemsElement.contains(pcs[1].itemController.view.element),
+			false,
 		);
-		pcs[0].props.set('selected', true);
-		assert.deepStrictEqual(
-			c.pageSet.items.map((i) => i.props.get('selected')),
-			[true, false, false],
-		);
-		pcs[2].props.set('selected', true);
-		assert.deepStrictEqual(
-			c.pageSet.items.map((i) => i.props.get('selected')),
-			[false, false, true],
+		assert.strictEqual(
+			c.view.contentsElement.contains(pcs[1].contentController.view.element),
+			false,
 		);
 	});
 });
