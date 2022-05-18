@@ -132,4 +132,26 @@ describe(TabApi.name, () => {
 		const value: Value<number> = forceCast(bapi.controller_.binding.value);
 		value.rawValue += 1;
 	});
+
+	it('should emit select event', () => {
+		const doc = createTestWindow().document;
+		const c = new TabController(doc, {
+			blade: createBlade(),
+			viewProps: ViewProps.create(),
+		});
+		const pool = createDefaultPluginPool();
+		const api = new TabApi(c, pool);
+		api.addPage({title: 'foo'});
+		api.addPage({title: 'bar'});
+		api.addPage({title: 'baz'});
+
+		const selectedIndexes: number[] = [];
+		api.on('select', (ev) => {
+			selectedIndexes.push(ev.index);
+		});
+		api.pages[1].selected = true;
+		api.pages[2].selected = true;
+		api.pages[0].selected = true;
+		assert.deepStrictEqual(selectedIndexes, [1, 2, 0]);
+	});
 });

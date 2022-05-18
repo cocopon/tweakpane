@@ -17,13 +17,10 @@ interface Config {
 	viewProps: ViewProps;
 }
 
-export interface TabPageParams {
-	title: string;
-
-	index?: number;
-}
+const INDEX_NOT_SELECTED = -1;
 
 export class TabController extends RackLikeController<TabView> {
+	public readonly selectedIndex: Value<number>;
 	private readonly pageSet_: NestedOrderedSet<TabPageController>;
 	private readonly empty_: Value<boolean>;
 
@@ -52,6 +49,7 @@ export class TabController extends RackLikeController<TabView> {
 		this.pageSet_.emitter.on('remove', this.onPageRemove_);
 
 		this.empty_ = empty;
+		this.selectedIndex = createValue(INDEX_NOT_SELECTED);
 		this.applyPages_();
 	}
 
@@ -102,6 +100,7 @@ export class TabController extends RackLikeController<TabView> {
 
 	private keepSelection_(): void {
 		if (this.pageSet_.items.length === 0) {
+			this.selectedIndex.rawValue = INDEX_NOT_SELECTED;
 			return;
 		}
 
@@ -112,10 +111,12 @@ export class TabController extends RackLikeController<TabView> {
 			this.pageSet_.items.forEach((pc, i) => {
 				pc.props.set('selected', i === 0);
 			});
+			this.selectedIndex.rawValue = 0;
 		} else {
 			this.pageSet_.items.forEach((pc, i) => {
 				pc.props.set('selected', i === firstSelIndex);
 			});
+			this.selectedIndex.rawValue = firstSelIndex;
 		}
 	}
 
@@ -127,6 +128,7 @@ export class TabController extends RackLikeController<TabView> {
 			this.pageSet_.items.forEach((pc, i) => {
 				pc.props.set('selected', i === index);
 			});
+			this.selectedIndex.rawValue = index;
 		} else {
 			this.keepSelection_();
 		}

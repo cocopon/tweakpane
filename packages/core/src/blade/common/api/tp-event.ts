@@ -88,3 +88,22 @@ export class TpFoldEvent extends TpEvent {
 		this.expanded = expanded;
 	}
 }
+
+/**
+ * An event class for tab selection.
+ */
+export class TpTabSelectEvent extends TpEvent {
+	/**
+	 * The selected index of the tab item.
+	 */
+	public readonly index: number;
+
+	/**
+	 * @hidden
+	 */
+	constructor(target: unknown, index: number) {
+		super(target);
+
+		this.index = index;
+	}
+}

@@ -90,4 +90,25 @@ describe(TabController.name, () => {
 			[false, false, true],
 		);
 	});
+
+	it('should change selected index', () => {
+		const win = createTestWindow();
+		const doc = win.document;
+		const c = new TabController(doc, {
+			blade: createBlade(),
+			viewProps: ViewProps.create(),
+		});
+		c.add(createTabPage(doc, 'foo'));
+		c.add(createTabPage(doc, 'bar'));
+		c.add(createTabPage(doc, 'baz'));
+
+		const selectedIndexes: number[] = [];
+		c.selectedIndex.emitter.on('change', (ev) => {
+			selectedIndexes.push(ev.rawValue);
+		});
+		c.pageSet.items[1].itemController.view.buttonElement.click();
+		c.pageSet.items[2].itemController.view.buttonElement.click();
+		c.pageSet.items[0].itemController.view.buttonElement.click();
+		assert.deepStrictEqual(selectedIndexes, [1, 2, 0]);
+	});
 });

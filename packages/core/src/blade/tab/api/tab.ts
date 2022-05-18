@@ -1,12 +1,17 @@
 import {Emitter} from '../../../common/model/emitter';
+import {ValueEvents} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
 import {TpError} from '../../../common/tp-error';
 import {PluginPool} from '../../../plugin/pool';
 import {RackLikeApi} from '../../common/api/rack-like-api';
-import {TpChangeEvent, TpUpdateEvent} from '../../common/api/tp-event';
+import {
+	TpChangeEvent,
+	TpTabSelectEvent,
+	TpUpdateEvent,
+} from '../../common/api/tp-event';
 import {NestedOrderedSetEvents} from '../../common/model/nested-ordered-set';
 import {RackApi} from '../../rack/api/rack';
-import {TabController, TabPageParams} from '../controller/tab';
+import {TabController} from '../controller/tab';
 import {TabPageController, TabPagePropsObject} from '../controller/tab-page';
 import {TabItemPropsObject} from '../view/tab-item';
 import {TabPageApi} from './tab-page';
@@ -15,9 +20,18 @@ interface TabApiEvents {
 	change: {
 		event: TpChangeEvent<unknown>;
 	};
+	select: {
+		event: TpTabSelectEvent;
+	};
 	update: {
 		event: TpUpdateEvent<unknown>;
 	};
+}
+
+export interface TabPageParams {
+	title: string;
+
+	index?: number;
 }
 
 export class TabApi extends RackLikeApi<TabController> {
@@ -32,6 +46,7 @@ export class TabApi extends RackLikeApi<TabController> {
 
 		this.onPageAdd_ = this.onPageAdd_.bind(this);
 		this.onPageRemove_ = this.onPageRemove_.bind(this);
+		this.onSelect_ = this.onSelect_.bind(this);
 
 		this.emitter_ = new Emitter();
 		this.pageApiMap_ = new Map();
@@ -47,6 +62,7 @@ export class TabApi extends RackLikeApi<TabController> {
 			});
 		});
 
+		this.controller_.selectedIndex.emitter.on('change', this.onSelect_);
 		this.controller_.pageSet.emitter.on('add', this.onPageAdd_);
 		this.controller_.pageSet.emitter.on('remove', this.onPageRemove_);
 
@@ -127,5 +143,11 @@ export class TabApi extends RackLikeApi<TabController> {
 			throw TpError.shouldNeverHappen();
 		}
 		this.pageApiMap_.delete(ev.item);
+	}
+
+	private onSelect_(ev: ValueEvents<number>['change']) {
+		this.emitter_.emit('select', {
+			event: new TpTabSelectEvent(this, ev.rawValue),
+		});
 	}
 }
