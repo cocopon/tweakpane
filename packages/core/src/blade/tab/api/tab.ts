@@ -62,7 +62,7 @@ export class TabApi extends RackLikeApi<TabController> {
 			});
 		});
 
-		this.controller_.selectedIndex.emitter.on('change', this.onSelect_);
+		this.controller_.tab.selectedIndex.emitter.on('change', this.onSelect_);
 		this.controller_.pageSet.emitter.on('add', this.onPageAdd_);
 		this.controller_.pageSet.emitter.on('remove', this.onPageRemove_);
 
