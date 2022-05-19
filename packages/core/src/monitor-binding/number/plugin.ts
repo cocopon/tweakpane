@@ -4,6 +4,7 @@ import {
 	createNumberFormatter,
 	numberFromUnknown,
 } from '../../common/converter/number';
+import {ValueMap} from '../../common/model/value-map';
 import {BaseMonitorParams} from '../../common/params';
 import {
 	ParamsParser,
@@ -60,8 +61,10 @@ function createGraphMonitor(
 	return new GraphLogController(args.document, {
 		formatter: createFormatter(args.params),
 		lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,
-		maxValue: ('max' in args.params ? args.params.max : null) ?? 100,
-		minValue: ('min' in args.params ? args.params.min : null) ?? 0,
+		props: ValueMap.fromObject({
+			maxValue: ('max' in args.params ? args.params.max : null) ?? 100,
+			minValue: ('min' in args.params ? args.params.min : null) ?? 0,
+		}),
 		value: args.value,
 		viewProps: args.viewProps,
 	});

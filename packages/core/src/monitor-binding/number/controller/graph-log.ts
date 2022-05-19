@@ -9,13 +9,12 @@ import {
 	PointerHandlerEvent,
 } from '../../../common/view/pointer-handler';
 import {GraphCursor} from '../model/graph-cursor';
-import {GraphLogView} from '../view/graph-log';
+import {GraphLogProps, GraphLogView} from '../view/graph-log';
 
 interface Config {
 	formatter: Formatter<number>;
 	lineCount: number;
-	maxValue: number;
-	minValue: number;
+	props: GraphLogProps;
 	value: BufferedValue<number>;
 	viewProps: ViewProps;
 }
@@ -27,7 +26,8 @@ export class GraphLogController implements Controller<GraphLogView> {
 	public readonly value: BufferedValue<number>;
 	public readonly view: GraphLogView;
 	public readonly viewProps: ViewProps;
-	private cursor_: GraphCursor;
+	private readonly cursor_: GraphCursor;
+	private readonly props_: GraphLogProps;
 
 	constructor(doc: Document, config: Config) {
 		this.onGraphMouseMove_ = this.onGraphMouseMove_.bind(this);
@@ -36,6 +36,7 @@ export class GraphLogController implements Controller<GraphLogView> {
 		this.onGraphPointerMove_ = this.onGraphPointerMove_.bind(this);
 		this.onGraphPointerUp_ = this.onGraphPointerUp_.bind(this);
 
+		this.props_ = config.props;
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 		this.cursor_ = new GraphCursor();
@@ -44,8 +45,7 @@ export class GraphLogController implements Controller<GraphLogView> {
 			cursor: this.cursor_,
 			formatter: config.formatter,
 			lineCount: config.lineCount,
-			maxValue: config.maxValue,
-			minValue: config.minValue,
+			props: this.props_,
 			value: this.value,
 			viewProps: this.viewProps,
 		});

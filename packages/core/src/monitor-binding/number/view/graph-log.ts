@@ -1,18 +1,23 @@
 import {Formatter} from '../../../common/converter/formatter';
 import {forceReflow, SVG_NS} from '../../../common/dom-util';
 import {BufferedValue} from '../../../common/model/buffered-value';
+import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 import {GraphCursor} from '../model/graph-cursor';
 
+export type GraphLogProps = ValueMap<{
+	maxValue: number;
+	minValue: number;
+}>;
+
 interface Config {
 	cursor: GraphCursor;
 	formatter: Formatter<number>;
 	lineCount: number;
-	maxValue: number;
-	minValue: number;
+	props: GraphLogProps;
 	value: BufferedValue<number>;
 	viewProps: ViewProps;
 }
@@ -25,11 +30,10 @@ const className = ClassName('grl');
 export class GraphLogView implements View {
 	public readonly element: HTMLElement;
 	public readonly value: BufferedValue<number>;
+	private readonly props_: GraphLogProps;
 	private cursor_: GraphCursor;
 	private formatter_: Formatter<number>;
 	private lineElem_: Element;
-	private maxValue_: number;
-	private minValue_: number;
 	private svgElem_: Element;
 	private tooltipElem_: HTMLElement;
 
@@ -42,8 +46,7 @@ export class GraphLogView implements View {
 		config.viewProps.bindClassModifiers(this.element);
 
 		this.formatter_ = config.formatter;
-		this.minValue_ = config.minValue;
-		this.maxValue_ = config.maxValue;
+		this.props_ = config.props;
 
 		this.cursor_ = config.cursor;
 		this.cursor_.emitter.on('change', this.onCursorChange_);
@@ -78,8 +81,8 @@ export class GraphLogView implements View {
 
 		// Graph
 		const maxIndex = this.value.rawValue.length - 1;
-		const min = this.minValue_;
-		const max = this.maxValue_;
+		const min = this.props_.get('minValue');
+		const max = this.props_.get('maxValue');
 		const points: string[] = [];
 		this.value.rawValue.forEach((v, index) => {
 			if (v === undefined) {
