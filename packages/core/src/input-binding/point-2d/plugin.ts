@@ -86,7 +86,7 @@ function getSuitableMaxDimensionValue(
 ): number {
 	const rc = constraint && findConstraint(constraint, RangeConstraint);
 	if (rc) {
-		return Math.max(Math.abs(rc.minValue || 0), Math.abs(rc.maxValue || 0));
+		return Math.max(Math.abs(rc.minValue ?? 0), Math.abs(rc.maxValue ?? 0));
 	}
 
 	const step = getBaseStep(constraint);

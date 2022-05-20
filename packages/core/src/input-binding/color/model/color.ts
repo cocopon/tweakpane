@@ -127,7 +127,7 @@ export class Color {
 			convertColorMode(
 				removeAlphaComponent(this.comps_),
 				this.mode_,
-				opt_mode || this.mode_,
+				opt_mode ?? this.mode_,
 			),
 			this.comps_[3],
 		);

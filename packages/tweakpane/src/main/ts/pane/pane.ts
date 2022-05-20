@@ -48,7 +48,7 @@ export class Pane extends RootApi {
 	private containerElem_: HTMLElement | null;
 
 	constructor(opt_config?: PaneConfig) {
-		const config = opt_config || {};
+		const config = opt_config ?? {};
 		const doc = config.document ?? getWindowDocument();
 
 		const pool = createDefaultPluginPool();
@@ -64,7 +64,7 @@ export class Pane extends RootApi {
 
 		this.pool_ = pool;
 
-		this.containerElem_ = config.container || createDefaultWrapperElement(doc);
+		this.containerElem_ = config.container ?? createDefaultWrapperElement(doc);
 		this.containerElem_.appendChild(this.element);
 
 		this.doc_ = doc;

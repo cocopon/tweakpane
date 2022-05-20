@@ -11,7 +11,7 @@ export function initMonitorBindings() {
 
 	const updateTime = () => {
 		const matches = String(new Date()).match(/\d{2}:\d{2}:\d{2}/);
-		SHARED_PARAMS.time = (matches && matches[0]) || '';
+		SHARED_PARAMS.time = (matches && matches[0]) ?? '';
 	};
 	setInterval(updateTime, 1000);
 	updateTime();

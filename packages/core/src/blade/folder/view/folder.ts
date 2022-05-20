@@ -38,7 +38,7 @@ export class FolderView implements View {
 	private readonly className_: ReturnType<typeof ClassName>;
 
 	constructor(doc: Document, config: Config) {
-		this.className_ = ClassName(config.viewName || 'fld');
+		this.className_ = ClassName(config.viewName ?? 'fld');
 		this.element = doc.createElement('div');
 		this.element.classList.add(this.className_(), bladeContainerClassName());
 		config.viewProps.bindClassModifiers(this.element);

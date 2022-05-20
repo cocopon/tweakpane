@@ -48,7 +48,7 @@ const GROUPS: ThemePaneGroup[] = [
 		props: ['base-background-color', 'base-shadow-color'],
 		label: (prop: string): string => {
 			const m = prop.match(/^base-(.+)-color$/);
-			return (m && m[1]) || prop;
+			return (m && m[1]) ?? prop;
 		},
 	},
 	{
@@ -60,7 +60,7 @@ const GROUPS: ThemePaneGroup[] = [
 		],
 		label: (prop: string): string => {
 			const m = prop.match(/^input-(.+)-color(-.+)?$/);
-			return (m && `${m[1]}${m[2] || ''}`) || prop;
+			return (m && `${m[1]}${m[2] ?? ''}`) ?? prop;
 		},
 	},
 	{
@@ -68,7 +68,7 @@ const GROUPS: ThemePaneGroup[] = [
 		props: ['monitor-foreground-color', 'monitor-background-color'],
 		label: (prop: string): string => {
 			const m = prop.match(/^monitor-(.+)-color(-.+)?$/);
-			return (m && `${m[1]}${m[2] || ''}`) || prop;
+			return (m && `${m[1]}${m[2] ?? ''}`) ?? prop;
 		},
 	},
 	{
@@ -80,7 +80,7 @@ const GROUPS: ThemePaneGroup[] = [
 		],
 		label: (prop: string): string => {
 			const m = prop.match(/^button-(.+)-color(-.+)?$/);
-			return (m && `${m[1]}${m[2] || ''}`) || prop;
+			return (m && `${m[1]}${m[2] ?? ''}`) ?? prop;
 		},
 	},
 	{
@@ -92,7 +92,7 @@ const GROUPS: ThemePaneGroup[] = [
 		],
 		label: (prop: string): string => {
 			const m = prop.match(/^container-(.+)-color(-.+)?$/);
-			return (m && `${m[1]}${m[2] || ''}`) || prop;
+			return (m && `${m[1]}${m[2] ?? ''}`) ?? prop;
 		},
 	},
 	{
@@ -101,7 +101,7 @@ const GROUPS: ThemePaneGroup[] = [
 		props: ['label-foreground-color', 'groove-foreground-color'],
 		label: (prop: string): string => {
 			const m = prop.match(/^(.+)-color(-.+)?$/);
-			return (m && `${m[1]}${m[2] || ''}`) || prop;
+			return (m && `${m[1]}${m[2] ?? ''}`) ?? prop;
 		},
 	},
 ];

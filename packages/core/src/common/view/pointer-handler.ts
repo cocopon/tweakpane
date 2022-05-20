@@ -34,8 +34,8 @@ function computeOffset(
 	const win = elem.ownerDocument.defaultView;
 	const rect = elem.getBoundingClientRect();
 	return {
-		x: ev.pageX - (((win && win.scrollX) || 0) + rect.left),
-		y: ev.pageY - (((win && win.scrollY) || 0) + rect.top),
+		x: ev.pageX - (((win && win.scrollX) ?? 0) + rect.left),
+		y: ev.pageY - (((win && win.scrollY) ?? 0) + rect.top),
 	};
 }
 

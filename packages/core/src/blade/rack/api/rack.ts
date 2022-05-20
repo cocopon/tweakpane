@@ -125,7 +125,7 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 		key: Key,
 		opt_params?: InputParams,
 	): InputBindingApi<unknown, O[Key]> {
-		const params = opt_params || {};
+		const params = opt_params ?? {};
 		const doc = this.controller_.view.element.ownerDocument;
 		const bc = this.pool_.createInput(
 			doc,
@@ -141,7 +141,7 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 		key: Key,
 		opt_params?: MonitorParams,
 	): MonitorBindingApi<O[Key]> {
-		const params = opt_params || {};
+		const params = opt_params ?? {};
 		const doc = this.controller_.view.element.ownerDocument;
 		const bc = this.pool_.createMonitor(
 			doc,
