@@ -2,13 +2,14 @@ import {Controller} from '../../../common/controller/controller';
 import {Formatter} from '../../../common/converter/formatter';
 import {supportsTouch} from '../../../common/dom-util';
 import {BufferedValue} from '../../../common/model/buffered-value';
+import {Value} from '../../../common/model/value';
+import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
 import {
 	PointerHandler,
 	PointerHandlerEvent,
 } from '../../../common/view/pointer-handler';
-import {GraphCursor} from '../model/graph-cursor';
 import {GraphLogProps, GraphLogView} from '../view/graph-log';
 
 interface Config {
@@ -26,7 +27,7 @@ export class GraphLogController implements Controller<GraphLogView> {
 	public readonly value: BufferedValue<number>;
 	public readonly view: GraphLogView;
 	public readonly viewProps: ViewProps;
-	private readonly cursor_: GraphCursor;
+	private readonly cursor_: Value<number>;
 	private readonly props_: GraphLogProps;
 
 	constructor(doc: Document, config: Config) {
@@ -39,7 +40,7 @@ export class GraphLogController implements Controller<GraphLogView> {
 		this.props_ = config.props;
 		this.value = config.value;
 		this.viewProps = config.viewProps;
-		this.cursor_ = new GraphCursor();
+		this.cursor_ = createValue(-1);
 
 		this.view = new GraphLogView(doc, {
 			cursor: this.cursor_,
@@ -62,12 +63,12 @@ export class GraphLogController implements Controller<GraphLogView> {
 	}
 
 	private onGraphMouseLeave_(): void {
-		this.cursor_.index = -1;
+		this.cursor_.rawValue = -1;
 	}
 
 	private onGraphMouseMove_(ev: MouseEvent): void {
 		const bounds = this.view.element.getBoundingClientRect();
-		this.cursor_.index = Math.floor(
+		this.cursor_.rawValue = Math.floor(
 			mapRange(ev.offsetX, 0, bounds.width, 0, this.value.rawValue.length),
 		);
 	}
@@ -78,11 +79,11 @@ export class GraphLogController implements Controller<GraphLogView> {
 
 	private onGraphPointerMove_(ev: PointerHandlerEvent): void {
 		if (!ev.data.point) {
-			this.cursor_.index = -1;
+			this.cursor_.rawValue = -1;
 			return;
 		}
 
-		this.cursor_.index = Math.floor(
+		this.cursor_.rawValue = Math.floor(
 			mapRange(
 				ev.data.point.x,
 				0,
@@ -94,6 +95,6 @@ export class GraphLogController implements Controller<GraphLogView> {
 	}
 
 	private onGraphPointerUp_(): void {
-		this.cursor_.index = -1;
+		this.cursor_.rawValue = -1;
 	}
 }
