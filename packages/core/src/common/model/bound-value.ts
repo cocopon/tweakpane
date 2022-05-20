@@ -9,8 +9,8 @@ interface Config<T> {
 
 export class BoundValue<T> implements Value<T> {
 	public readonly emitter: Emitter<ValueEvents<T>>;
-	private constraint_: Constraint<T> | undefined;
-	private equals_: (v1: T, v2: T) => boolean;
+	private readonly constraint_: Constraint<T> | undefined;
+	private readonly equals_: (v1: T, v2: T) => boolean;
 	private rawValue_: T;
 
 	constructor(initialValue: T, config?: Config<T>) {

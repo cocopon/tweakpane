@@ -31,11 +31,11 @@ export class GraphLogView implements View {
 	public readonly element: HTMLElement;
 	public readonly value: BufferedValue<number>;
 	private readonly props_: GraphLogProps;
-	private cursor_: GraphCursor;
-	private formatter_: Formatter<number>;
-	private lineElem_: Element;
-	private svgElem_: Element;
-	private tooltipElem_: HTMLElement;
+	private readonly cursor_: GraphCursor;
+	private readonly formatter_: Formatter<number>;
+	private readonly lineElem_: Element;
+	private readonly svgElem_: Element;
+	private readonly tooltipElem_: HTMLElement;
 
 	constructor(doc: Document, config: Config) {
 		this.onCursorChange_ = this.onCursorChange_.bind(this);

@@ -86,8 +86,8 @@ function createBindingTarget<O extends Bindable, Key extends keyof O>(
  */
 export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 	private readonly emitter_: Emitter<BladeRackApiEvents>;
-	private apiSet_: NestedOrderedSet<BladeApi<BladeController<View>>>;
-	private pool_: PluginPool;
+	private readonly apiSet_: NestedOrderedSet<BladeApi<BladeController<View>>>;
+	private readonly pool_: PluginPool;
 
 	/**
 	 * @hidden

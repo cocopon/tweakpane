@@ -19,7 +19,7 @@ export class SingleLogView<T> implements View {
 	public readonly element: HTMLElement;
 	public readonly inputElement: HTMLInputElement;
 	public readonly value: BufferedValue<T>;
-	private formatter_: Formatter<T>;
+	private readonly formatter_: Formatter<T>;
 
 	constructor(doc: Document, config: Config<T>) {
 		this.onValueUpdate_ = this.onValueUpdate_.bind(this);

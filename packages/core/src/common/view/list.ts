@@ -26,7 +26,7 @@ export class ListView<T> implements View {
 	public readonly selectElement: HTMLSelectElement;
 	public readonly element: HTMLElement;
 	private readonly value_: Value<T>;
-	private props_: ListProps<T>;
+	private readonly props_: ListProps<T>;
 
 	constructor(doc: Document, config: Config<T>) {
 		this.onValueChange_ = this.onValueChange_.bind(this);

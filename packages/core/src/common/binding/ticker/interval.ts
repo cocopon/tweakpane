@@ -7,8 +7,8 @@ import {Ticker, TickerEvents} from './ticker';
 export class IntervalTicker implements Ticker {
 	public readonly emitter: Emitter<TickerEvents>;
 	private readonly interval_: number;
+	private readonly doc_: Document;
 	private disabled_ = false;
-	private doc_: Document;
 	private timerId_: number | null = null;
 
 	constructor(doc: Document, interval: number) {

@@ -6,9 +6,9 @@ export type Bindable = Record<string, any>;
  * A binding target.
  */
 export class BindingTarget {
-	private key_: string;
-	private obj_: Bindable;
-	private presetKey_: string;
+	private readonly key_: string;
+	private readonly obj_: Bindable;
+	private readonly presetKey_: string;
 
 	constructor(obj: Bindable, key: string, opt_id?: string) {
 		this.obj_ = obj;

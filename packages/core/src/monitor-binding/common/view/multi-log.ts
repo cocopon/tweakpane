@@ -19,8 +19,8 @@ const className = ClassName('mll');
 export class MultiLogView<T> implements View {
 	public readonly element: HTMLElement;
 	public readonly value: BufferedValue<T>;
-	private formatter_: Formatter<T>;
-	private textareaElem_: HTMLTextAreaElement;
+	private readonly formatter_: Formatter<T>;
+	private readonly textareaElem_: HTMLTextAreaElement;
 
 	constructor(doc: Document, config: Config<T>) {
 		this.onValueUpdate_ = this.onValueUpdate_.bind(this);

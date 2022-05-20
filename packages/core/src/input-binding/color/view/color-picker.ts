@@ -24,13 +24,13 @@ interface Config {
  */
 export class ColorPickerView implements View {
 	public readonly element: HTMLElement;
-	private alphaViews_: {
+	private readonly alphaViews_: {
 		palette: APaletteView;
 		text: NumberTextView;
 	} | null = null;
-	private hPaletteView_: HPaletteView;
-	private svPaletteView_: SvPaletteView;
-	private textView_: ColorTextView;
+	private readonly hPaletteView_: HPaletteView;
+	private readonly svPaletteView_: SvPaletteView;
+	private readonly textView_: ColorTextView;
 
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');

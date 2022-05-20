@@ -9,7 +9,9 @@ interface Observer<E> {
  * @template E The interface that maps event names and event objects.
  */
 export class Emitter<E> {
-	private observers_: {[EventName in keyof E]?: Observer<E[EventName]>[]};
+	private readonly observers_: {
+		[EventName in keyof E]?: Observer<E[EventName]>[];
+	};
 
 	constructor() {
 		this.observers_ = {};

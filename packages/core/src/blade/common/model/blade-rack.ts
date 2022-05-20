@@ -115,7 +115,7 @@ function findSubBladeControllerSet(
 export class BladeRack {
 	public readonly emitter: Emitter<BladeRackEvents>;
 	private readonly blade_: Blade | null;
-	private bcSet_: NestedOrderedSet<BladeController<View>>;
+	private readonly bcSet_: NestedOrderedSet<BladeController<View>>;
 
 	constructor(blade?: Blade) {
 		this.onBladePositionsChange_ = this.onBladePositionsChange_.bind(this);

@@ -15,7 +15,7 @@ export type ValueMapCore<O extends Record<string, unknown>> = {
 
 export class ValueMap<O extends Record<string, unknown>> {
 	public readonly emitter: Emitter<ValueMapEvents<O>> = new Emitter();
-	private valMap_: ValueMapCore<O>;
+	private readonly valMap_: ValueMapCore<O>;
 
 	constructor(valueMap: ValueMapCore<O>) {
 		this.valMap_ = valueMap;

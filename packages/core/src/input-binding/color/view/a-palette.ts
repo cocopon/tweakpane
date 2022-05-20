@@ -19,9 +19,9 @@ interface Config {
 export class APaletteView implements View {
 	public readonly element: HTMLElement;
 	public readonly value: Value<Color>;
-	private colorElem_: HTMLDivElement;
-	private markerElem_: HTMLDivElement;
-	private previewElem_: HTMLDivElement;
+	private readonly colorElem_: HTMLDivElement;
+	private readonly markerElem_: HTMLDivElement;
+	private readonly previewElem_: HTMLDivElement;
 
 	constructor(doc: Document, config: Config) {
 		this.onValueChange_ = this.onValueChange_.bind(this);

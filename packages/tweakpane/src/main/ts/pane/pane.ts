@@ -42,10 +42,10 @@ function embedStyle(doc: Document, id: string, css: string) {
  * The root pane of Tweakpane.
  */
 export class Pane extends RootApi {
+	private readonly pool_: PluginPool;
+	private readonly usesDefaultWrapper_: boolean;
 	private doc_: Document | null;
 	private containerElem_: HTMLElement | null;
-	private pool_: PluginPool;
-	private usesDefaultWrapper_: boolean;
 
 	constructor(opt_config?: PaneConfig) {
 		const config = opt_config || {};

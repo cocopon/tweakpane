@@ -26,8 +26,8 @@ export class SliderTextController
 	public readonly value: Value<number>;
 	public readonly view: SliderTextView;
 	public readonly viewProps: ViewProps;
-	private sliderC_: SliderController;
-	private textC_: NumberTextController;
+	private readonly sliderC_: SliderController;
+	private readonly textC_: NumberTextController;
 
 	constructor(doc: Document, config: Config) {
 		this.value = config.value;

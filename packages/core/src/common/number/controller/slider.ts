@@ -25,8 +25,8 @@ export class SliderController implements Controller<SliderView> {
 	public readonly view: SliderView;
 	public readonly viewProps: ViewProps;
 	public readonly props: SliderProps;
-	private ptHandler_: PointerHandler;
-	private baseStep_: number;
+	private readonly ptHandler_: PointerHandler;
+	private readonly baseStep_: number;
 
 	constructor(doc: Document, config: Config) {
 		this.onKeyDown_ = this.onKeyDown_.bind(this);

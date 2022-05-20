@@ -26,7 +26,7 @@ import {TpPlugin} from './plugins';
  * @hidden
  */
 export class PluginPool {
-	private pluginsMap_: {
+	private readonly pluginsMap_: {
 		blades: BladePlugin<any>[];
 		inputs: InputBindingPlugin<any, any, any>[];
 		monitors: MonitorBindingPlugin<any, any>[];

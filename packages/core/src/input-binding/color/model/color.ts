@@ -110,8 +110,8 @@ export class Color {
 		return true;
 	}
 
-	private comps_: ColorComponents4;
-	private mode_: ColorMode;
+	private readonly comps_: ColorComponents4;
+	private readonly mode_: ColorMode;
 
 	constructor(comps: ColorComponents3 | ColorComponents4, mode: ColorMode) {
 		this.mode_ = mode;
