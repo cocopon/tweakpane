@@ -81,6 +81,7 @@
     "@typescript-eslint/parser": "^4.16.1",
     "assert": "^2.0.0",
     "autoprefixer": "^9.1.5",
+    "canvas": "^2.9.1",
     "eslint": "^7.21.0",
     "fs-extra": "^7.0.0",
     "glob": "^7.1.3",
