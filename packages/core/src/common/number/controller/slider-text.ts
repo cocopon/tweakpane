@@ -43,6 +43,7 @@ export class SliderTextController
 			baseStep: config.baseStep,
 			parser: config.parser,
 			props: config.textProps,
+			sliderProps: config.sliderProps,
 			value: config.value,
 			viewProps: config.viewProps,
 		});

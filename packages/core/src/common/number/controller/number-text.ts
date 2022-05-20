@@ -11,11 +11,13 @@ import {
 	PointerHandlerEvent,
 } from '../../view/pointer-handler';
 import {NumberTextProps, NumberTextView} from '../view/number-text';
+import {SliderProps} from '../view/slider';
 
 interface Config {
 	baseStep: number;
 	parser: Parser<number>;
 	props: NumberTextProps;
+	sliderProps?: SliderProps;
 	value: Value<number>;
 	viewProps: ViewProps;
 
@@ -30,10 +32,11 @@ export class NumberTextController implements Controller<NumberTextView> {
 	public readonly value: Value<number>;
 	public readonly view: NumberTextView;
 	public readonly viewProps: ViewProps;
-	private baseStep_: number;
-	private parser_: Parser<number>;
+	private readonly sliderProps_: SliderProps | null;
+	private readonly baseStep_: number;
+	private readonly parser_: Parser<number>;
+	private readonly dragging_: Value<number | null>;
 	private originRawValue_ = 0;
-	private dragging_: Value<number | null>;
 
 	constructor(doc: Document, config: Config) {
 		this.onInputChange_ = this.onInputChange_.bind(this);
@@ -46,6 +49,7 @@ export class NumberTextController implements Controller<NumberTextView> {
 		this.baseStep_ = config.baseStep;
 		this.parser_ = config.parser;
 		this.props = config.props;
+		this.sliderProps_ = config.sliderProps ?? null;
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 
@@ -67,13 +71,26 @@ export class NumberTextController implements Controller<NumberTextView> {
 		ph.emitter.on('up', this.onPointerUp_);
 	}
 
+	private constrainValue_(value: number): number {
+		const min = this.sliderProps_?.get('minValue');
+		const max = this.sliderProps_?.get('maxValue');
+		let v = value;
+		if (min !== undefined) {
+			v = Math.max(v, min);
+		}
+		if (max !== undefined) {
+			v = Math.min(v, max);
+		}
+		return v;
+	}
+
 	private onInputChange_(e: Event): void {
 		const inputElem: HTMLInputElement = forceCast(e.currentTarget);
 		const value = inputElem.value;
 
 		const parsedValue = this.parser_(value);
 		if (!isEmpty(parsedValue)) {
-			this.value.rawValue = parsedValue;
+			this.value.rawValue = this.constrainValue_(parsedValue);
 		}
 		this.view.refresh();
 	}
@@ -83,7 +100,7 @@ export class NumberTextController implements Controller<NumberTextView> {
 		if (step === 0) {
 			return;
 		}
-		this.value.setRawValue(this.value.rawValue + step, {
+		this.value.setRawValue(this.constrainValue_(this.value.rawValue + step), {
 			forceEmit: false,
 			last: false,
 		});
@@ -111,7 +128,9 @@ export class NumberTextController implements Controller<NumberTextView> {
 		}
 
 		const dx = data.point.x - data.bounds.width / 2;
-		return this.originRawValue_ + dx * this.props.get('draggingScale');
+		return this.constrainValue_(
+			this.originRawValue_ + dx * this.props.get('draggingScale'),
+		);
 	}
 
 	private onPointerMove_(ev: PointerHandlerEvent) {
