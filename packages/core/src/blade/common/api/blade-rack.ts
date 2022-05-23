@@ -88,7 +88,7 @@ export function addSeparatorAsBlade(
 	api: BladeRackApi,
 	opt_params?: SeparatorParams,
 ): SeparatorApi {
-	const params = opt_params || {};
+	const params = opt_params ?? {};
 	return api.addBlade({
 		...params,
 		view: 'separator',

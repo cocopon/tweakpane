@@ -32,7 +32,7 @@ class Dot {
 	public x = 0;
 	public y = 0;
 	public en = 0;
-	private env_: Environment;
+	private readonly env_: Environment;
 
 	constructor(env: Environment) {
 		this.element = document.createElementNS(SVG_NS, 'circle');
@@ -49,11 +49,11 @@ class Dot {
 }
 
 export class Sketch {
+	private readonly elem_: Element;
+	private readonly svgElem_: SVGElement;
+	private readonly env_: Environment;
 	private dots_: Dot[];
-	private elem_: Element;
-	private svgElem_: SVGElement;
 	private dotsElem_: SVGGElement;
-	private env_: Environment;
 	private height_ = 0;
 	private t_: number;
 	private width_ = 0;

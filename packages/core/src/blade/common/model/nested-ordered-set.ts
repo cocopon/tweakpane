@@ -20,9 +20,9 @@ type Extractor<T> = (item: T) => NestedOrderedSet<T> | null;
 
 export class NestedOrderedSet<T> {
 	public readonly emitter: Emitter<NestedOrderedSetEvents<T>> = new Emitter();
-	private items_: T[] = [];
-	private cache_: Set<T> = new Set();
-	private extract_: Extractor<T>;
+	private readonly items_: T[] = [];
+	private readonly cache_: Set<T> = new Set();
+	private readonly extract_: Extractor<T>;
 
 	constructor(extract: Extractor<T>) {
 		this.onSubListAdd_ = this.onSubListAdd_.bind(this);

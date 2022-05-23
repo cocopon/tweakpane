@@ -60,7 +60,7 @@ function parsePrimaryExpression(
 	cursor: number,
 ): ParsingResult | null {
 	return (
-		parseLiteral(text, cursor) || parseParenthesizedExpression(text, cursor)
+		parseLiteral(text, cursor) ?? parseParenthesizedExpression(text, cursor)
 	);
 }
 

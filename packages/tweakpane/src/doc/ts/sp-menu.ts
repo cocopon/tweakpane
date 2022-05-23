@@ -4,8 +4,8 @@ interface Config {
 }
 
 export class SpMenu {
-	private buttonElem_: HTMLElement;
-	private menuElem_: HTMLElement;
+	private readonly buttonElem_: HTMLElement;
+	private readonly menuElem_: HTMLElement;
 	private expanded_ = false;
 
 	constructor(config: Config) {

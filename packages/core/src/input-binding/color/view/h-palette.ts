@@ -19,7 +19,7 @@ interface Config {
 export class HPaletteView implements View {
 	public readonly element: HTMLElement;
 	public readonly value: Value<Color>;
-	private markerElem_: HTMLDivElement;
+	private readonly markerElem_: HTMLDivElement;
 
 	constructor(doc: Document, config: Config) {
 		this.onValueChange_ = this.onValueChange_.bind(this);

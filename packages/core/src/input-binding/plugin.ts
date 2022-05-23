@@ -178,7 +178,7 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 		binding: binding,
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
-			label: label || args.target.key,
+			label: label ?? args.target.key,
 		}),
 		valueController: controller,
 	});

@@ -15,8 +15,8 @@ const className = ClassName('sldtxt');
  */
 export class SliderTextView implements View {
 	public readonly element: HTMLElement;
-	private sliderView_: SliderView;
-	private textView_: NumberTextView;
+	private readonly sliderView_: SliderView;
+	private readonly textView_: NumberTextView;
 
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');

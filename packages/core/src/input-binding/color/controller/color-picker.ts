@@ -30,13 +30,13 @@ export class ColorPickerController implements Controller<ColorPickerView> {
 	public readonly value: Value<Color>;
 	public readonly view: ColorPickerView;
 	public readonly viewProps: ViewProps;
-	private alphaIcs_: {
+	private readonly alphaIcs_: {
 		palette: APaletteController;
 		text: NumberTextController;
 	} | null;
-	private hPaletteC_: HPaletteController;
-	private svPaletteC_: SvPaletteController;
-	private textC_: ColorTextController;
+	private readonly hPaletteC_: HPaletteController;
+	private readonly svPaletteC_: SvPaletteController;
+	private readonly textC_: ColorTextController;
 
 	constructor(doc: Document, config: Config) {
 		this.value = config.value;

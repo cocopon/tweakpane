@@ -1,12 +1,12 @@
 import {Formatter} from '../../../common/converter/formatter';
 import {forceReflow, SVG_NS} from '../../../common/dom-util';
 import {BufferedValue} from '../../../common/model/buffered-value';
+import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
-import {GraphCursor} from '../model/graph-cursor';
 
 export type GraphLogProps = ValueMap<{
 	maxValue: number;
@@ -14,7 +14,7 @@ export type GraphLogProps = ValueMap<{
 }>;
 
 interface Config {
-	cursor: GraphCursor;
+	cursor: Value<number>;
 	formatter: Formatter<number>;
 	lineCount: number;
 	props: GraphLogProps;
@@ -31,11 +31,11 @@ export class GraphLogView implements View {
 	public readonly element: HTMLElement;
 	public readonly value: BufferedValue<number>;
 	private readonly props_: GraphLogProps;
-	private cursor_: GraphCursor;
-	private formatter_: Formatter<number>;
-	private lineElem_: Element;
-	private svgElem_: Element;
-	private tooltipElem_: HTMLElement;
+	private readonly cursor_: Value<number>;
+	private readonly formatter_: Formatter<number>;
+	private readonly lineElem_: Element;
+	private readonly svgElem_: Element;
+	private readonly tooltipElem_: HTMLElement;
 
 	constructor(doc: Document, config: Config) {
 		this.onCursorChange_ = this.onCursorChange_.bind(this);
@@ -96,13 +96,13 @@ export class GraphLogView implements View {
 
 		// Cursor
 		const tooltipElem = this.tooltipElem_;
-		const value = this.value.rawValue[this.cursor_.index];
+		const value = this.value.rawValue[this.cursor_.rawValue];
 		if (value === undefined) {
 			tooltipElem.classList.remove(className('t', 'a'));
 			return;
 		}
 
-		const tx = mapRange(this.cursor_.index, 0, maxIndex, 0, bounds.width);
+		const tx = mapRange(this.cursor_.rawValue, 0, maxIndex, 0, bounds.width);
 		const ty = mapRange(value, min, max, bounds.height, 0);
 		tooltipElem.style.left = `${tx}px`;
 		tooltipElem.style.top = `${ty}px`;

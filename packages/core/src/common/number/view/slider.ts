@@ -26,7 +26,7 @@ export class SliderView implements View {
 	public readonly knobElement: HTMLDivElement;
 	public readonly trackElement: HTMLDivElement;
 	public readonly value: Value<number>;
-	private props_: SliderProps;
+	private readonly props_: SliderProps;
 
 	constructor(doc: Document, config: Config) {
 		this.onChange_ = this.onChange_.bind(this);

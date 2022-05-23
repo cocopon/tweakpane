@@ -19,7 +19,7 @@ export class ColorSwatchView implements View {
 	public readonly element: HTMLElement;
 	public readonly value: Value<Color>;
 	public readonly buttonElement: HTMLButtonElement;
-	private swatchElem_: HTMLDivElement;
+	private readonly swatchElem_: HTMLDivElement;
 
 	constructor(doc: Document, config: Config) {
 		this.onValueChange_ = this.onValueChange_.bind(this);

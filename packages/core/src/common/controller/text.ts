@@ -23,7 +23,7 @@ export class TextController<T> implements ValueController<T, TextView<T>> {
 	public readonly value: Value<T>;
 	public readonly view: TextView<T>;
 	public readonly viewProps: ViewProps;
-	private parser_: Parser<T>;
+	private readonly parser_: Parser<T>;
 
 	constructor(doc: Document, config: Config<T>) {
 		this.onInputChange_ = this.onInputChange_.bind(this);

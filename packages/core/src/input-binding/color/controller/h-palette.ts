@@ -24,7 +24,7 @@ export class HPaletteController implements Controller<HPaletteView> {
 	public readonly value: Value<Color>;
 	public readonly view: HPaletteView;
 	public readonly viewProps: ViewProps;
-	private ptHandler_: PointerHandler;
+	private readonly ptHandler_: PointerHandler;
 
 	constructor(doc: Document, config: Config) {
 		this.onKeyDown_ = this.onKeyDown_.bind(this);

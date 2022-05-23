@@ -26,7 +26,7 @@ import {TpPlugin} from './plugins';
  * @hidden
  */
 export class PluginPool {
-	private pluginsMap_: {
+	private readonly pluginsMap_: {
 		blades: BladePlugin<any>[];
 		inputs: InputBindingPlugin<any, any, any>[];
 		monitors: MonitorBindingPlugin<any, any>[];
@@ -72,7 +72,7 @@ export class PluginPool {
 
 		const bc = this.pluginsMap_.inputs.reduce(
 			(result: InputBindingController<unknown> | null, plugin) =>
-				result ||
+				result ??
 				createInputBindingController(plugin, {
 					document: document,
 					target: target,
@@ -99,7 +99,7 @@ export class PluginPool {
 	): MonitorBindingController<unknown> {
 		const bc = this.pluginsMap_.monitors.reduce(
 			(result: MonitorBindingController<unknown> | null, plugin) =>
-				result ||
+				result ??
 				createMonitorBindingController(plugin, {
 					document: document,
 					params: params,
@@ -125,7 +125,7 @@ export class PluginPool {
 	): BladeController<View> {
 		const bc = this.pluginsMap_.blades.reduce(
 			(result: BladeController<View> | null, plugin) =>
-				result ||
+				result ??
 				createBladeController(plugin, {
 					document: document,
 					params: params,
@@ -158,7 +158,7 @@ export class PluginPool {
 
 		const api = this.pluginsMap_.blades.reduce(
 			(result: BladeApi<BladeController<View>> | null, plugin) =>
-				result ||
+				result ??
 				plugin.api({
 					controller: bc,
 					pool: this,
