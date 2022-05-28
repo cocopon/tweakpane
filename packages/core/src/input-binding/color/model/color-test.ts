@@ -1,8 +1,16 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
+import {TestUtil} from '../../../misc/test-util';
 import {Color, RgbaColorObject} from './color';
-import {ColorComponents3, ColorComponents4, ColorMode} from './color-model';
+import {
+	ColorComponents3,
+	ColorComponents4,
+	ColorMode,
+	ColorType,
+} from './color-model';
+
+const DELTA = 1e-5;
 
 describe(Color.name, () => {
 	(
@@ -204,6 +212,175 @@ describe(Color.name, () => {
 					}),
 					expected.components,
 				);
+			});
+		});
+	});
+
+	[
+		{
+			expected: true,
+			params: {r: 10, g: 20, b: 30, a: 0.5},
+		},
+		{
+			expected: false,
+			params: {r: 10, g: 20, b: 30},
+		},
+	].forEach(({expected, params}) => {
+		context(`when ${JSON.stringify(params)}`, () => {
+			it('should detect RGBA color object', () => {
+				assert.strictEqual(Color.isRgbaColorObject(params), expected);
+			});
+		});
+	});
+
+	[
+		{
+			expected: true,
+			params: {
+				c1: new Color([10, 20, 30, 0.5], 'rgb', 'int'),
+				c2: new Color([10, 20, 30, 0.5], 'rgb', 'int'),
+			},
+		},
+		{
+			expected: false,
+			params: {
+				c1: new Color([10, 20, 30], 'rgb', 'int'),
+				c2: new Color([10, 20, 30, 0.5], 'rgb', 'int'),
+			},
+		},
+		{
+			expected: false,
+			params: {
+				c1: new Color([10, 20, 30], 'rgb', 'int'),
+				c2: new Color([10, 20, 30], 'hsl', 'int'),
+			},
+		},
+	].forEach(({expected, params}) => {
+		context(`when ${JSON.stringify(params)}`, () => {
+			it('should compare color', () => {
+				assert.strictEqual(Color.equals(params.c1, params.c2), expected);
+			});
+		});
+	});
+
+	[
+		{
+			expected: {r: 10, g: 20, b: 30, a: 0.5},
+			params: {
+				color: new Color([10, 20, 30, 0.5], 'rgb', 'int'),
+				type: 'int',
+			},
+		},
+		{
+			expected: {r: 10 / 255, g: 20 / 255, b: 30 / 255, a: 0.5},
+			params: {
+				color: new Color([10, 20, 30, 0.5], 'rgb', 'int'),
+				type: 'float',
+			},
+		},
+	].forEach(({expected, params}) => {
+		context(`when ${JSON.stringify(params)}`, () => {
+			it('should export rgba color object', () => {
+				const o = Color.toRgbaObject(params.color, params.type as ColorType);
+				assert.ok(TestUtil.closeTo(o.r, expected.r, DELTA), 'r');
+				assert.ok(TestUtil.closeTo(o.g, expected.g, DELTA), 'g');
+				assert.ok(TestUtil.closeTo(o.b, expected.b, DELTA), 'b');
+				assert.ok(TestUtil.closeTo(o.a, expected.a, DELTA), 'a');
+			});
+		});
+	});
+
+	[
+		{
+			expected: [0, 0, 0, 0],
+			params: {
+				components: [-10, -20, -30, -1],
+				mode: 'rgb',
+				type: 'int',
+			},
+		},
+		{
+			expected: [255, 255, 255, 1],
+			params: {
+				components: [300, 400, 500, 2],
+				mode: 'rgb',
+				type: 'int',
+			},
+		},
+		{
+			expected: [1, 1, 1, 1],
+			params: {
+				components: [2, 3, 4, 2],
+				mode: 'rgb',
+				type: 'float',
+			},
+		},
+		{
+			expected: [350, 0, 0, 0],
+			params: {
+				components: [-10, -20, -30, -1],
+				mode: 'hsl',
+				type: 'int',
+			},
+		},
+		{
+			expected: [40, 100, 100, 1],
+			params: {
+				components: [400, 500, 500, 2],
+				mode: 'hsl',
+				type: 'int',
+			},
+		},
+		{
+			expected: [0.5, 1, 1, 1],
+			params: {
+				components: [1.5, 3, 4, 2],
+				mode: 'hsl',
+				type: 'float',
+			},
+		},
+		{
+			expected: [350, 0, 0, 0],
+			params: {
+				components: [-10, -20, -30, -1],
+				mode: 'hsv',
+				type: 'int',
+			},
+		},
+		{
+			expected: [40, 100, 100, 1],
+			params: {
+				components: [400, 500, 500, 2],
+				mode: 'hsv',
+				type: 'int',
+			},
+		},
+		{
+			expected: [0.5, 1, 1, 1],
+			params: {
+				components: [1.5, 3, 4, 2],
+				mode: 'hsl',
+				type: 'float',
+			},
+		},
+	].forEach(({expected, params}) => {
+		context(`when ${JSON.stringify(params)}`, () => {
+			it('should constrain components', () => {
+				const c = new Color(
+					params.components as ColorComponents4,
+					params.mode as ColorMode,
+					params.type as ColorType,
+				);
+				const o = c.getComponents(
+					params.mode as ColorMode,
+					params.type as ColorType,
+				);
+				expected.forEach((e, index) => {
+					assert.ok(
+						TestUtil.closeTo(o[index], e, DELTA),
+						`components[${index}]`,
+					);
+				});
 			});
 		});
 	});

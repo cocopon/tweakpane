@@ -4,6 +4,7 @@ export type ColorComponents3 = [number, number, number];
 export type ColorComponents4 = [number, number, number, number];
 
 export type ColorMode = 'hsl' | 'hsv' | 'rgb';
+export type ColorType = 'float' | 'int';
 
 /**
  * Converts RGB color components into HSL (cylindrical, used in CSS).
@@ -185,13 +186,55 @@ const MODE_CONVERTER_MAP: {
 	},
 };
 
+function getMaxComponents(mode: ColorMode, type: ColorType): ColorComponents3 {
+	return [
+		type === 'float' ? 1 : mode === 'rgb' ? 255 : 360,
+		type === 'float' ? 1 : mode === 'rgb' ? 255 : 100,
+		type === 'float' ? 1 : mode === 'rgb' ? 255 : 100,
+	];
+}
+
 /**
  * @hidden
  */
-export function convertColorMode(
-	components: ColorComponents3,
-	fromMode: ColorMode,
-	toMode: ColorMode,
+export function constrainColorComponents(
+	components: ColorComponents3 | ColorComponents4,
+	mode: ColorMode,
+	type: ColorType,
+): ColorComponents4 {
+	const ms = getMaxComponents(mode, type);
+	return [
+		mode === 'rgb'
+			? constrainRange(components[0], 0, ms[0])
+			: loopRange(components[0], ms[0]),
+		constrainRange(components[1], 0, ms[1]),
+		constrainRange(components[2], 0, ms[2]),
+		constrainRange(components[3] ?? 1, 0, 1),
+	];
+}
+
+function convertColorType(
+	comps: ColorComponents3,
+	mode: ColorMode,
+	from: ColorType,
+	to: ColorType,
 ): ColorComponents3 {
-	return MODE_CONVERTER_MAP[fromMode][toMode](...components);
+	const fms = getMaxComponents(mode, from);
+	const tms = getMaxComponents(mode, to);
+	return comps.map(
+		(c, index) => (c / fms[index]) * tms[index],
+	) as ColorComponents3;
+}
+
+/**
+ * @hidden
+ */
+export function convertColor(
+	components: ColorComponents3,
+	from: {mode: ColorMode; type: ColorType},
+	to: {mode: ColorMode; type: ColorType},
+): ColorComponents3 {
+	const intComps = convertColorType(components, from.mode, from.type, 'int');
+	const result = MODE_CONVERTER_MAP[from.mode][to.mode](...intComps);
+	return convertColorType(result, to.mode, 'int', to.type);
 }

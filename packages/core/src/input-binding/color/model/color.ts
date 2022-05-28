@@ -1,11 +1,12 @@
-import {constrainRange, loopRange} from '../../../common/number-util';
 import {isEmpty} from '../../../misc/type-util';
 import {
 	appendAlphaComponent,
 	ColorComponents3,
 	ColorComponents4,
 	ColorMode,
-	convertColorMode,
+	ColorType,
+	constrainColorComponents,
+	convertColor,
 	removeAlphaComponent,
 } from './color-model';
 
@@ -21,37 +22,6 @@ export interface RgbaColorObject {
 	a: number;
 }
 
-const CONSTRAINT_MAP: {
-	[mode in ColorMode]: (
-		comps: ColorComponents3 | ColorComponents4,
-	) => ColorComponents4;
-} = {
-	hsl: (comps) => {
-		return [
-			loopRange(comps[0], 360),
-			constrainRange(comps[1], 0, 100),
-			constrainRange(comps[2], 0, 100),
-			constrainRange(comps[3] ?? 1, 0, 1),
-		];
-	},
-	hsv: (comps) => {
-		return [
-			loopRange(comps[0], 360),
-			constrainRange(comps[1], 0, 100),
-			constrainRange(comps[2], 0, 100),
-			constrainRange(comps[3] ?? 1, 0, 1),
-		];
-	},
-	rgb: (comps) => {
-		return [
-			constrainRange(comps[0], 0, 255),
-			constrainRange(comps[1], 0, 255),
-			constrainRange(comps[2], 0, 255),
-			constrainRange(comps[3] ?? 1, 0, 1),
-		];
-	},
-};
-
 function isRgbColorComponent(obj: any, key: string): boolean {
 	if (typeof obj !== 'object' || isEmpty(obj)) {
 		return false;
@@ -62,19 +32,26 @@ function isRgbColorComponent(obj: any, key: string): boolean {
 /**
  * @hidden
  */
+// TODO: Make type required in the next major version
 export class Color {
-	public static black(): Color {
-		return new Color([0, 0, 0], 'rgb');
+	public static black(type: ColorType = 'int'): Color {
+		return new Color([0, 0, 0], 'rgb', type);
 	}
 
-	public static fromObject(obj: RgbColorObject | RgbaColorObject): Color {
+	public static fromObject(
+		obj: RgbColorObject | RgbaColorObject,
+		type: ColorType = 'int',
+	): Color {
 		const comps: ColorComponents4 | ColorComponents3 =
 			'a' in obj ? [obj.r, obj.g, obj.b, obj.a] : [obj.r, obj.g, obj.b];
-		return new Color(comps, 'rgb');
+		return new Color(comps, 'rgb', type);
 	}
 
-	public static toRgbaObject(color: Color): RgbaColorObject {
-		return color.toRgbaObject();
+	public static toRgbaObject(
+		color: Color,
+		type: ColorType = 'int',
+	): RgbaColorObject {
+		return color.toRgbaObject(type);
 	}
 
 	public static isRgbColorObject(obj: unknown): obj is RgbColorObject {
@@ -96,7 +73,7 @@ export class Color {
 	}
 
 	public static equals(v1: Color, v2: Color): boolean {
-		if (v1.mode_ !== v2.mode_) {
+		if (v1.mode !== v2.mode) {
 			return false;
 		}
 
@@ -111,30 +88,35 @@ export class Color {
 	}
 
 	private readonly comps_: ColorComponents4;
-	private readonly mode_: ColorMode;
+	public readonly mode: ColorMode;
+	public readonly type: ColorType;
 
-	constructor(comps: ColorComponents3 | ColorComponents4, mode: ColorMode) {
-		this.mode_ = mode;
-		this.comps_ = CONSTRAINT_MAP[mode](comps);
+	constructor(
+		comps: ColorComponents3 | ColorComponents4,
+		mode: ColorMode,
+		type: ColorType = 'int',
+	) {
+		this.mode = mode;
+		this.type = type;
+		this.comps_ = constrainColorComponents(comps, mode, type);
 	}
 
-	public get mode(): ColorMode {
-		return this.mode_;
-	}
-
-	public getComponents(opt_mode?: ColorMode): ColorComponents4 {
+	public getComponents(
+		opt_mode?: ColorMode,
+		type: ColorType = 'int',
+	): ColorComponents4 {
 		return appendAlphaComponent(
-			convertColorMode(
+			convertColor(
 				removeAlphaComponent(this.comps_),
-				this.mode_,
-				opt_mode ?? this.mode_,
+				{mode: this.mode, type: this.type},
+				{mode: opt_mode ?? this.mode, type},
 			),
 			this.comps_[3],
 		);
 	}
 
-	public toRgbaObject(): RgbaColorObject {
-		const rgbComps = this.getComponents('rgb');
+	public toRgbaObject(type: ColorType = 'int'): RgbaColorObject {
+		const rgbComps = this.getComponents('rgb', type);
 		return {
 			r: rgbComps[0],
 			g: rgbComps[1],
