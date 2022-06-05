@@ -5,6 +5,10 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"strict": true,
-		"target": "ES6"
+		"target": "ES6",
+		"baseUrl": ".",
+		"paths": {
+			"@tweakpane/core": ["packages/core/src"]
+		}
 	}
 }
