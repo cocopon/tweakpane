@@ -15,13 +15,26 @@ import {Color} from './model/color';
 import {ColorInputParams, parseColorInputParams} from './util';
 
 function shouldSupportAlpha(inputParams: ColorInputParams): boolean {
-	return 'alpha' in inputParams && inputParams.alpha === true;
+	if (inputParams?.alpha || inputParams?.color?.alpha) {
+		return true;
+	}
+	return false;
 }
 
 function createFormatter(supportsAlpha: boolean): Formatter<Color> {
 	return supportsAlpha
 		? (v: Color) => colorToHexRgbaString(v, '0x')
 		: (v: Color) => colorToHexRgbString(v, '0x');
+}
+
+function isForColor(params: Record<string, unknown>): boolean {
+	if ('color' in params) {
+		return true;
+	}
+	if ('view' in params && params.view === 'color') {
+		return true;
+	}
+	return false;
 }
 
 /**
@@ -38,10 +51,7 @@ export const NumberColorInputPlugin: InputBindingPlugin<
 		if (typeof value !== 'number') {
 			return null;
 		}
-		if (!('view' in params)) {
-			return null;
-		}
-		if (params.view !== 'color') {
+		if (!isForColor(params)) {
 			return null;
 		}
 

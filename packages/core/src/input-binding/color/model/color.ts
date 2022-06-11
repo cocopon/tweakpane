@@ -29,10 +29,10 @@ function isRgbColorComponent(obj: any, key: string): boolean {
 	return key in obj && typeof obj[key] === 'number';
 }
 
+// TODO: Make type required in the next major version
 /**
  * @hidden
  */
-// TODO: Make type required in the next major version
 export class Color {
 	public static black(type: ColorType = 'int'): Color {
 		return new Color([0, 0, 0], 'rgb', type);

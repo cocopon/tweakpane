@@ -214,7 +214,7 @@ pane.addInput(PARAMS, 'hidden');</code></pre></div>
 		<div class="demo_codeLayout">
 			<div class="codeBlock"><pre><code class="js">const PARAMS = {
   background: {r: 255, g: 0, b: 55},
-  tint: {r: 0, g: 255, b: 215, a: 0.5},
+  tint: {r: 0, g: 255, b: 214, a: 0.5},
 };
 
 const pane = new Pane();
@@ -223,6 +223,26 @@ pane.addInput(PARAMS, 'tint');</code></pre></div>
 		</div>
 		<div class="demo_resultLayout">
 			<div class="paneContainer" data-pane-objectcolor></div>
+		</div>
+	</div>
+</div>
+
+<p>Passing <code>{color: {type: 'float'}}</code> will change the maximum value of color components to <code>1.0</code>. It may be useful for some cases (e.g. shader colors).</p>
+
+<div class="main_mediaLayout">
+	<div class="demo">
+		<div class="demo_codeLayout">
+			<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  overlay: {r: 1, g: 0, b: 0.33},
+};
+
+const pane = new Pane();
+pane.addInput(PARAMS, 'overlay', {
+  <strong>color: {type: 'float'}</strong>,
+});</code></pre></div>
+		</div>
+		<div class="demo_resultLayout">
+			<div class="paneContainer" data-pane-floatcolor></div>
 		</div>
 	</div>
 </div>
@@ -247,7 +267,7 @@ pane.addInput(PARAMS, 'secondary');</code></pre></div>
 	</div>
 </div>
 
-<p>If you want to regard a hex number (like <code>0x0088ff</code>) as a color, specify <code>{view: 'color'}</code> option, and <code>alpha: true</code> will add an alpha component.</p>
+<p>If you want to regard a hex number (like <code>0x0088ff</code>) as a color, specify <code>{view: 'color'}</code> option, and <code>{color: {alpha: true}}</code> to add an alpha component.</p>
 
 <div class="main_mediaLayout">
 	<div class="demo">
@@ -263,7 +283,7 @@ pane.addInput(PARAMS, 'background', {
 });
 pane.addInput(PARAMS, 'tint', {
   <strong>view: 'color'</strong>,
-  <strong>alpha: true</strong>,
+  <strong>color: {alpha: true}</strong>,
 });</code></pre></div>
 		</div>
 		<div class="demo_resultLayout">

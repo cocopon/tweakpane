@@ -259,7 +259,7 @@ describe('StringColorParser', () => {
 		},
 	].forEach((testCase) => {
 		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
-			it('should convert color to string', () => {
+			it('should convert color to int RGBA string', () => {
 				assert.strictEqual(
 					colorToFunctionalRgbaString(testCase.input),
 					testCase.frgba,
@@ -283,9 +283,49 @@ describe('StringColorParser', () => {
 		},
 	].forEach((testCase) => {
 		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
-			it('should convert color to string', () => {
+			it('should convert color to int RGB string', () => {
 				assert.strictEqual(
 					colorToFunctionalRgbString(testCase.input),
+					testCase.expected,
+				);
+			});
+		});
+	});
+
+	[
+		{
+			input: new Color([0, 0, 0, 1], 'rgb', 'int'),
+			expected: 'rgba(0.00, 0.00, 0.00, 1.00)',
+		},
+		{
+			input: new Color([0, 127, 255, 1], 'rgb', 'int'),
+			expected: 'rgba(0.00, 0.50, 1.00, 1.00)',
+		},
+	].forEach((testCase) => {
+		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
+			it('should convert color to float RGBA string', () => {
+				assert.strictEqual(
+					colorToFunctionalRgbaString(testCase.input, 'float'),
+					testCase.expected,
+				);
+			});
+		});
+	});
+
+	[
+		{
+			input: new Color([0, 0, 0], 'rgb', 'int'),
+			expected: 'rgb(0.00, 0.00, 0.00)',
+		},
+		{
+			input: new Color([0, 127, 255], 'rgb', 'int'),
+			expected: 'rgb(0.00, 0.50, 1.00)',
+		},
+	].forEach((testCase) => {
+		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
+			it('should convert color to float RGB string', () => {
+				assert.strictEqual(
+					colorToFunctionalRgbString(testCase.input, 'float'),
 					testCase.expected,
 				);
 			});
@@ -316,7 +356,7 @@ describe('StringColorParser', () => {
 		},
 	].forEach((testCase) => {
 		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
-			it('should convert color to string (HSL)', () => {
+			it('should convert color to HSL string', () => {
 				assert.strictEqual(
 					colorToFunctionalHslString(testCase.input),
 					testCase.expected.hsl,
