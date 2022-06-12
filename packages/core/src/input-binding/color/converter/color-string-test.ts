@@ -9,20 +9,21 @@ import {
 	ColorMode,
 } from '../model/color-model';
 import {
-	colorFromString,
 	colorToFunctionalHslaString,
 	colorToFunctionalHslString,
 	colorToFunctionalRgbaString,
 	colorToFunctionalRgbString,
 	colorToHexRgbaString,
 	colorToHexRgbString,
-	CompositeColorParser,
+	colorToObjectRgbString,
+	createColorStringBindingReader,
+	createColorStringParser,
 	getColorNotation,
 } from './color-string';
 
 const DELTA = 1e-5;
 
-describe('StringColorParser', () => {
+describe(createColorStringParser.name, () => {
 	[
 		{
 			expected: {r: 0x11, g: 0x22, b: 0x33, a: 1},
@@ -37,6 +38,10 @@ describe('StringColorParser', () => {
 				'rgba( 17  ,  34  ,  51 , 1 )',
 				'rgb(17.0, 34.0, 51.0)',
 				'rgba(17.0, 34.0, 51.0, 1)',
+				'{r: 17, g: 34, b: 51}',
+				'{ r : 17, g : 34, b : 51 }',
+				'{r: 17, g: 34, b: 51, a: 1.0}',
+				'{ r : 17, g : 34, b : 51 , a : 1.0 }',
 			],
 		},
 		{
@@ -47,7 +52,7 @@ describe('StringColorParser', () => {
 		testCase.inputs.forEach((input) => {
 			context(`when ${JSON.stringify(input)}`, () => {
 				it(`it should parse as ${JSON.stringify(testCase.expected)}`, () => {
-					const actual = CompositeColorParser(input);
+					const actual = createColorStringParser('int')(input);
 					assert.deepStrictEqual(
 						actual && actual.toRgbaObject(),
 						testCase.expected,
@@ -70,9 +75,10 @@ describe('StringColorParser', () => {
 		'rgb(123, 234, xyz)',
 		'rgba(55, 66, 78, ..9)',
 		'rgba(55, 66, 78, foo)',
+		'{r: 11, g: 22, b: 33, a: bar}',
 	].forEach((text) => {
 		it(`should not parse invalid string '${text}'`, () => {
-			assert.strictEqual(CompositeColorParser(text), null);
+			assert.strictEqual(createColorStringParser('int')(text), null);
 		});
 	});
 
@@ -165,7 +171,7 @@ describe('StringColorParser', () => {
 	).forEach(({expected, input}) => {
 		context(`when ${JSON.stringify(input)}`, () => {
 			it('should parse color', () => {
-				const c = CompositeColorParser(input);
+				const c = createColorStringParser('int')(input);
 				assert.strictEqual(c?.mode, expected.mode);
 
 				const actualComps = c?.getComponents();
@@ -202,7 +208,7 @@ describe('StringColorParser', () => {
 		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
 			it('should convert string to color', () => {
 				assert.deepStrictEqual(
-					colorFromString(testCase.input).toRgbaObject(),
+					createColorStringBindingReader('int')(testCase.input).toRgbaObject(),
 					testCase.expected,
 				);
 			});
@@ -271,22 +277,35 @@ describe('StringColorParser', () => {
 	[
 		{
 			input: new Color([0, 0, 0], 'rgb'),
-			expected: 'rgb(0, 0, 0)',
+			expected: {
+				int: 'rgb(0, 0, 0)',
+				float: 'rgb(0.00, 0.00, 0.00)',
+			},
 		},
 		{
 			input: new Color([0, 127, 255], 'rgb'),
-			expected: 'rgb(0, 127, 255)',
+			expected: {
+				int: 'rgb(0, 127, 255)',
+				float: 'rgb(0.00, 0.50, 1.00)',
+			},
 		},
 		{
 			input: new Color([255, 255, 255], 'rgb'),
-			expected: 'rgb(255, 255, 255)',
+			expected: {
+				int: 'rgb(255, 255, 255)',
+				float: 'rgb(1.00, 1.00, 1.00)',
+			},
 		},
 	].forEach((testCase) => {
 		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
-			it('should convert color to int RGB string', () => {
+			it('should convert color to RGB string', () => {
 				assert.strictEqual(
 					colorToFunctionalRgbString(testCase.input),
-					testCase.expected,
+					testCase.expected.int,
+				);
+				assert.strictEqual(
+					colorToFunctionalRgbString(testCase.input, 'float'),
+					testCase.expected.float,
 				);
 			});
 		});
@@ -315,18 +334,28 @@ describe('StringColorParser', () => {
 	[
 		{
 			input: new Color([0, 0, 0], 'rgb', 'int'),
-			expected: 'rgb(0.00, 0.00, 0.00)',
+			expected: {
+				int: '{r: 0, g: 0, b: 0}',
+				float: '{r: 0.00, g: 0.00, b: 0.00}',
+			},
 		},
 		{
 			input: new Color([0, 127, 255], 'rgb', 'int'),
-			expected: 'rgb(0.00, 0.50, 1.00)',
+			expected: {
+				int: '{r: 0, g: 127, b: 255}',
+				float: '{r: 0.00, g: 0.50, b: 1.00}',
+			},
 		},
 	].forEach((testCase) => {
 		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
-			it('should convert color to float RGB string', () => {
+			it('should convert color to RGB object', () => {
 				assert.strictEqual(
-					colorToFunctionalRgbString(testCase.input, 'float'),
-					testCase.expected,
+					colorToObjectRgbString(testCase.input, 'int'),
+					testCase.expected.int,
+				);
+				assert.strictEqual(
+					colorToObjectRgbString(testCase.input, 'float'),
+					testCase.expected.float,
 				);
 			});
 		});

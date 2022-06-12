@@ -25,7 +25,7 @@ export type StringColorNotation =
 	| 'func.rgba';
 
 // TODO: Rename
-export type StringColorNotation2 = 'func' | 'hex';
+export type StringColorNotation2 = 'func' | 'hex' | 'object';
 
 export interface StringColorFormat {
 	alpha: boolean;
@@ -255,6 +255,64 @@ function parseHexRgbaColor(text: string): Color | null {
 	return comps ? new Color(comps, 'rgb', 'int') : null;
 }
 
+function parseObjectRgbColorComponents(text: string): ColorComponents3 | null {
+	const m = text.match(
+		/^\{\s*r\s*:\s*([0-9A-Fa-f.]+%?)\s*,\s*g\s*:\s*([0-9A-Fa-f.]+%?)\s*,\s*b\s*:\s*([0-9A-Fa-f.]+%?)\s*\}$/,
+	);
+	if (!m) {
+		return null;
+	}
+
+	const comps: ColorComponents3 = [
+		parseFloat(m[1]),
+		parseFloat(m[2]),
+		parseFloat(m[3]),
+	];
+	if (isNaN(comps[0]) || isNaN(comps[1]) || isNaN(comps[2])) {
+		return null;
+	}
+	return comps;
+}
+
+function createObjectRgbColorParser(type: ColorType): Parser<Color> {
+	return (text) => {
+		const comps = parseObjectRgbColorComponents(text);
+		return comps ? new Color(comps, 'rgb', type) : null;
+	};
+}
+
+function parseObjectRgbaColorComponents(text: string): ColorComponents4 | null {
+	const m = text.match(
+		/^\{\s*r\s*:\s*([0-9A-Fa-f.]+%?)\s*,\s*g\s*:\s*([0-9A-Fa-f.]+%?)\s*,\s*b\s*:\s*([0-9A-Fa-f.]+%?)\s*,\s*a\s*:\s*([0-9A-Fa-f.]+%?)\s*\}$/,
+	);
+	if (!m) {
+		return null;
+	}
+
+	const comps: ColorComponents4 = [
+		parseFloat(m[1]),
+		parseFloat(m[2]),
+		parseFloat(m[3]),
+		parseFloat(m[4]),
+	];
+	if (
+		isNaN(comps[0]) ||
+		isNaN(comps[1]) ||
+		isNaN(comps[2]) ||
+		isNaN(comps[3])
+	) {
+		return null;
+	}
+	return comps;
+}
+
+function createObjectRgbaColorParser(type: ColorType): Parser<Color> {
+	return (text) => {
+		const comps = parseObjectRgbaColorComponents(text);
+		return comps ? new Color(comps, 'rgb', type) : null;
+	};
+}
+
 const NOTATION_TO_PARSER_MAP: {
 	[notation in StringColorNotation]: Parser<Color>;
 } = {
@@ -290,7 +348,7 @@ interface Detection {
 }
 
 const PARSER_SET: {
-	parser: Parser<ColorComponents3> | Parser<ColorComponents4>;
+	parser: Parser<unknown>;
 	detection: Detection;
 }[] = [
 	{
@@ -339,6 +397,22 @@ const PARSER_SET: {
 			alpha: true,
 			mode: 'hsl',
 			notation: 'func',
+		},
+	},
+	{
+		parser: parseObjectRgbColorComponents,
+		detection: {
+			alpha: false,
+			mode: 'rgb',
+			notation: 'object',
+		},
+	},
+	{
+		parser: parseObjectRgbaColorComponents,
+		detection: {
+			alpha: true,
+			mode: 'rgb',
+			notation: 'object',
 		},
 	},
 ];
@@ -394,12 +468,16 @@ const TYPE_TO_PARSERS: {[type in ColorType]: Parser<Color>[]} = {
 		createFunctionalRgbaColorParser('int'),
 		createHslColorParser('int'),
 		createHslaColorParser('int'),
+		createObjectRgbColorParser('int'),
+		createObjectRgbaColorParser('int'),
 	],
 	float: [
 		createFunctionalRgbColorParser('float'),
 		createFunctionalRgbaColorParser('float'),
 		createHslColorParser('float'),
 		createHslaColorParser('float'),
+		createObjectRgbColorParser('float'),
+		createObjectRgbaColorParser('float'),
 	],
 };
 
@@ -561,6 +639,40 @@ export function colorToFunctionalHslaString(value: Color): string {
 	return `hsla(${comps.join(', ')})`;
 }
 
+/**
+ * @hidden
+ */
+export function colorToObjectRgbString(value: Color, type: ColorType): string {
+	const formatter = createNumberFormatter(type === 'float' ? 2 : 0);
+	const names = ['r', 'g', 'b'];
+	const comps = removeAlphaComponent(value.getComponents('rgb', type)).map(
+		(comp, index) => `${names[index]}: ${formatter(comp)}`,
+	);
+	return `{${comps.join(', ')}}`;
+}
+
+function createObjectRgbColorFormatter(type: ColorType): Formatter<Color> {
+	return (value) => colorToObjectRgbString(value, type);
+}
+
+/**
+ * @hidden
+ */
+export function colorToObjectRgbaString(value: Color, type: ColorType): string {
+	const aFormatter = createNumberFormatter(2);
+	const rgbFormatter = createNumberFormatter(type === 'float' ? 2 : 0);
+	const names = ['r', 'g', 'b', 'a'];
+	const comps = value.getComponents('rgb', type).map((comp, index) => {
+		const formatter = index === 3 ? aFormatter : rgbFormatter;
+		return `${names[index]}: ${formatter(comp)}`;
+	});
+	return `{${comps.join(', ')}}`;
+}
+
+function createObjectRgbaColorFormatter(type: ColorType): Formatter<Color> {
+	return (value) => colorToObjectRgbaString(value, type);
+}
+
 const NOTATION_TO_STRINGIFIER_MAP: {
 	[notation in StringColorNotation]: (value: Color) => string;
 } = {
@@ -581,10 +693,12 @@ export function getColorStringifier(
 	return NOTATION_TO_STRINGIFIER_MAP[notation];
 }
 
-const FORMAT_TO_STRINGIFIERS: {
+interface FormatAndStringifier {
 	format: StringColorFormat;
 	stringifier: Formatter<Color>;
-}[] = [
+}
+
+const FORMAT_AND_STRINGIFIERS: FormatAndStringifier[] = [
 	{
 		format: {
 			alpha: false,
@@ -606,42 +720,6 @@ const FORMAT_TO_STRINGIFIERS: {
 	{
 		format: {
 			alpha: false,
-			mode: 'rgb',
-			notation: 'func',
-			type: 'int',
-		},
-		stringifier: createFunctionalRgbColorFormatter('int'),
-	},
-	{
-		format: {
-			alpha: true,
-			mode: 'rgb',
-			notation: 'func',
-			type: 'int',
-		},
-		stringifier: createFunctionalRgbaColorFormatter('int'),
-	},
-	{
-		format: {
-			alpha: false,
-			mode: 'rgb',
-			notation: 'func',
-			type: 'float',
-		},
-		stringifier: createFunctionalRgbColorFormatter('float'),
-	},
-	{
-		format: {
-			alpha: true,
-			mode: 'rgb',
-			notation: 'func',
-			type: 'float',
-		},
-		stringifier: createFunctionalRgbaColorFormatter('float'),
-	},
-	{
-		format: {
-			alpha: false,
 			mode: 'hsl',
 			notation: 'func',
 			type: 'int',
@@ -657,18 +735,62 @@ const FORMAT_TO_STRINGIFIERS: {
 		},
 		stringifier: colorToFunctionalHslaString,
 	},
+	...(['int', 'float'] as ColorType[]).reduce(
+		(prev: FormatAndStringifier[], type) => {
+			return [
+				...prev,
+				{
+					format: {
+						alpha: false,
+						mode: 'rgb',
+						notation: 'func',
+						type: type,
+					},
+					stringifier: createFunctionalRgbColorFormatter(type),
+				},
+				{
+					format: {
+						alpha: true,
+						mode: 'rgb',
+						notation: 'func',
+						type: type,
+					},
+					stringifier: createFunctionalRgbaColorFormatter(type),
+				},
+				{
+					format: {
+						alpha: false,
+						mode: 'rgb',
+						notation: 'object',
+						type: type,
+					},
+					stringifier: createObjectRgbColorFormatter(type),
+				},
+				{
+					format: {
+						alpha: true,
+						mode: 'rgb',
+						notation: 'object',
+						type: type,
+					},
+					stringifier: createObjectRgbaColorFormatter(type),
+				},
+			] as FormatAndStringifier[];
+		},
+		[],
+	),
 ];
 
 export function findColorStringifier(
 	format: StringColorFormat,
 ): Formatter<Color> | null {
-	return FORMAT_TO_STRINGIFIERS.reduce(
-		(prev: Formatter<Color> | null, ftos) => {
+	return FORMAT_AND_STRINGIFIERS.reduce(
+		(prev: Formatter<Color> | null, fas) => {
 			if (prev) {
 				return prev;
 			}
-			return equalsStringColorFormat(ftos.format, format)
-				? ftos.stringifier
+			return equalsStringColorFormat(fas.format, format)
+				? fas.stringifier
 				: null;
 		},
 		null,

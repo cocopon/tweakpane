@@ -4,8 +4,8 @@ import {InputBindingPlugin} from '../plugin';
 import {ColorController} from './controller/color';
 import {colorFromObject} from './converter/color-number';
 import {
-	colorToFunctionalRgbaString,
-	colorToFunctionalRgbString,
+	colorToObjectRgbaString,
+	colorToObjectRgbString,
 	createColorStringParser,
 } from './converter/color-string';
 import {createColorObjectWriter} from './converter/writer';
@@ -37,9 +37,9 @@ function createColorObjectFormatter(
 ): Formatter<Color> {
 	return (value) => {
 		if (supportsAlpha) {
-			return colorToFunctionalRgbaString(value, type);
+			return colorToObjectRgbaString(value, type);
 		}
-		return colorToFunctionalRgbString(value, type);
+		return colorToObjectRgbString(value, type);
 	};
 }
 

@@ -100,7 +100,7 @@ describe(ObjectColorInputPlugin.id, () => {
 				initialValue: {r: 0, g: 0, b: 0, a: 1},
 				inputParams: {},
 			},
-			expected: 'rgba(0, 0, 0, 1.00)',
+			expected: '{r: 0, g: 0, b: 0, a: 1.00}',
 		},
 		{
 			params: {
@@ -111,7 +111,7 @@ describe(ObjectColorInputPlugin.id, () => {
 					},
 				},
 			},
-			expected: 'rgba(0.10, 0.20, 0.30, 1.00)',
+			expected: '{r: 0.10, g: 0.20, b: 0.30, a: 1.00}',
 		},
 	].forEach(({params, expected}) => {
 		context(`when params=${JSON.stringify(params)}`, () => {
@@ -134,7 +134,7 @@ describe(ObjectColorInputPlugin.id, () => {
 				inputParams: {},
 				inputText: 'rgba(0, 127, 255, 1)',
 			},
-			expected: 'rgba(0, 127, 255, 1.00)',
+			expected: '{r: 0, g: 127, b: 255, a: 1.00}',
 		},
 		{
 			params: {
@@ -145,7 +145,7 @@ describe(ObjectColorInputPlugin.id, () => {
 				},
 				inputText: 'rgba(0.1, 0.2, 0.3, 1)',
 			},
-			expected: 'rgba(0.10, 0.20, 0.30, 1.00)',
+			expected: '{r: 0.10, g: 0.20, b: 0.30, a: 1.00}',
 		},
 	].forEach(({params, expected}) => {
 		context(`when params=${JSON.stringify(params)}`, () => {
