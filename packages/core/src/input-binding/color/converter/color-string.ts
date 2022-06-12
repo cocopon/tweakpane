@@ -25,7 +25,7 @@ export type StringColorNotation =
 	| 'func.rgba';
 
 // TODO: Rename
-export type StringColorNotation2 = 'func' | 'hex' | 'object';
+type StringColorNotation2 = 'func' | 'hex' | 'object';
 
 export interface StringColorFormat {
 	alpha: boolean;
@@ -341,19 +341,15 @@ export function getColorNotation(text: string): StringColorNotation | null {
 	}, null);
 }
 
-interface Detection {
-	alpha: boolean;
-	mode: ColorMode;
-	notation: StringColorNotation2;
-}
+type DetectionResult = Omit<StringColorFormat, 'type'>;
 
-const PARSER_SET: {
+const PARSER_AND_RESULT: {
 	parser: Parser<unknown>;
-	detection: Detection;
+	result: DetectionResult;
 }[] = [
 	{
 		parser: parseHexRgbColorComponents,
-		detection: {
+		result: {
 			alpha: false,
 			mode: 'rgb',
 			notation: 'hex',
@@ -361,7 +357,7 @@ const PARSER_SET: {
 	},
 	{
 		parser: parseHexRgbaColorComponents,
-		detection: {
+		result: {
 			alpha: true,
 			mode: 'rgb',
 			notation: 'hex',
@@ -369,7 +365,7 @@ const PARSER_SET: {
 	},
 	{
 		parser: parseFunctionalRgbColorComponents,
-		detection: {
+		result: {
 			alpha: false,
 			mode: 'rgb',
 			notation: 'func',
@@ -377,7 +373,7 @@ const PARSER_SET: {
 	},
 	{
 		parser: parseFunctionalRgbaColorComponents,
-		detection: {
+		result: {
 			alpha: true,
 			mode: 'rgb',
 			notation: 'func',
@@ -385,7 +381,7 @@ const PARSER_SET: {
 	},
 	{
 		parser: parseHslColorComponents,
-		detection: {
+		result: {
 			alpha: false,
 			mode: 'hsl',
 			notation: 'func',
@@ -393,7 +389,7 @@ const PARSER_SET: {
 	},
 	{
 		parser: parseHslaColorComponents,
-		detection: {
+		result: {
 			alpha: true,
 			mode: 'hsl',
 			notation: 'func',
@@ -401,7 +397,7 @@ const PARSER_SET: {
 	},
 	{
 		parser: parseObjectRgbColorComponents,
-		detection: {
+		result: {
 			alpha: false,
 			mode: 'rgb',
 			notation: 'object',
@@ -409,7 +405,7 @@ const PARSER_SET: {
 	},
 	{
 		parser: parseObjectRgbaColorComponents,
-		detection: {
+		result: {
 			alpha: true,
 			mode: 'rgb',
 			notation: 'object',
@@ -417,32 +413,35 @@ const PARSER_SET: {
 	},
 ];
 
-function detectStringColor(text: string): Detection | null {
-	return PARSER_SET.reduce((prev: Detection | null, {parser, detection}) => {
-		if (prev) {
-			return prev;
-		}
-		return parser(text) ? detection : null;
-	}, null);
+function detectStringColor(text: string): DetectionResult | null {
+	return PARSER_AND_RESULT.reduce(
+		(prev: DetectionResult | null, {parser, result: detection}) => {
+			if (prev) {
+				return prev;
+			}
+			return parser(text) ? detection : null;
+		},
+		null,
+	);
 }
 
 export function detectStringColorFormat(
 	text: string,
 	type: ColorType = 'int',
 ): StringColorFormat | null {
-	const d = detectStringColor(text);
-	if (!d) {
+	const r = detectStringColor(text);
+	if (!r) {
 		return null;
 	}
-	if (d.notation === 'hex' && type !== 'float') {
+	if (r.notation === 'hex' && type !== 'float') {
 		return {
-			...d,
+			...r,
 			type: 'int',
 		};
 	}
-	if (d.notation === 'func') {
+	if (r.notation === 'func') {
 		return {
-			...d,
+			...r,
 			type: type,
 		};
 	}
