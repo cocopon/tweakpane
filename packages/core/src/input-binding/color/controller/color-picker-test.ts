@@ -14,6 +14,7 @@ describe(ColorPickerController.name, () => {
 		const win = createTestWindow();
 		const doc = win.document;
 		const c = new ColorPickerController(doc, {
+			colorType: value.rawValue.type,
 			supportsAlpha: false,
 			value: value,
 			viewProps: ViewProps.create(),
@@ -27,6 +28,7 @@ describe(ColorPickerController.name, () => {
 		const win = createTestWindow();
 		const doc = win.document;
 		const c = new ColorPickerController(doc, {
+			colorType: value.rawValue.type,
 			supportsAlpha: false,
 			value: value,
 			viewProps: ViewProps.create(),

@@ -81,6 +81,7 @@ export const ObjectColorInputPlugin: InputBindingPlugin<
 		const picker = 'picker' in args.params ? args.params.picker : undefined;
 		const type = extractColorType(args.params) ?? 'int';
 		return new ColorController(args.document, {
+			colorType: type,
 			expanded: expanded ?? false,
 			formatter: createColorObjectFormatter(supportsAlpha, type),
 			parser: createColorStringParser(type),

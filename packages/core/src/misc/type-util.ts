@@ -1,4 +1,5 @@
 export type Class<T> = new (...args: any[]) => T;
+export type Tuple3<T> = [T, T, T];
 export type Tuple4<T> = [T, T, T, T];
 
 export function forceCast<T>(v: any): T {

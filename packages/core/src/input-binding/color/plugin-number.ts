@@ -8,7 +8,7 @@ import {
 import {
 	colorToHexRgbaString,
 	colorToHexRgbString,
-	CompositeColorParser,
+	createColorStringParser,
 } from './converter/color-string';
 import {createColorNumberWriter} from './converter/writer';
 import {Color} from './model/color';
@@ -80,9 +80,10 @@ export const NumberColorInputPlugin: InputBindingPlugin<
 			'expanded' in args.params ? args.params.expanded : undefined;
 		const picker = 'picker' in args.params ? args.params.picker : undefined;
 		return new ColorController(args.document, {
+			colorType: 'int',
 			expanded: expanded ?? false,
 			formatter: createFormatter(supportsAlpha),
-			parser: CompositeColorParser,
+			parser: createColorStringParser('int'),
 			pickerLayout: picker ?? 'popup',
 			supportsAlpha: supportsAlpha,
 			value: args.value,

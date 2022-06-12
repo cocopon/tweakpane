@@ -1,7 +1,8 @@
 import {constrainRange, loopRange} from '../../../common/number-util';
+import {Tuple3, Tuple4} from '../../../misc/type-util';
 
-export type ColorComponents3 = [number, number, number];
-export type ColorComponents4 = [number, number, number, number];
+export type ColorComponents3 = Tuple3<number>;
+export type ColorComponents4 = Tuple4<number>;
 
 export type ColorMode = 'hsl' | 'hsv' | 'rgb';
 export type ColorType = 'float' | 'int';
@@ -186,7 +187,13 @@ const MODE_CONVERTER_MAP: {
 	},
 };
 
-function getMaxComponents(mode: ColorMode, type: ColorType): ColorComponents3 {
+/**
+ * @hidden
+ */
+export function getColorMaxComponents(
+	mode: ColorMode,
+	type: ColorType,
+): ColorComponents3 {
 	return [
 		type === 'float' ? 1 : mode === 'rgb' ? 255 : 360,
 		type === 'float' ? 1 : mode === 'rgb' ? 255 : 100,
@@ -202,7 +209,7 @@ export function constrainColorComponents(
 	mode: ColorMode,
 	type: ColorType,
 ): ColorComponents4 {
-	const ms = getMaxComponents(mode, type);
+	const ms = getColorMaxComponents(mode, type);
 	return [
 		mode === 'rgb'
 			? constrainRange(components[0], 0, ms[0])
@@ -219,8 +226,8 @@ function convertColorType(
 	from: ColorType,
 	to: ColorType,
 ): ColorComponents3 {
-	const fms = getMaxComponents(mode, from);
-	const tms = getMaxComponents(mode, to);
+	const fms = getColorMaxComponents(mode, from);
+	const tms = getColorMaxComponents(mode, to);
 	return comps.map(
 		(c, index) => (c / fms[index]) * tms[index],
 	) as ColorComponents3;

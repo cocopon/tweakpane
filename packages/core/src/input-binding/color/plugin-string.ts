@@ -85,6 +85,7 @@ export const StringColorInputPlugin: InputBindingPlugin<
 			'expanded' in args.params ? args.params.expanded : undefined;
 		const picker = 'picker' in args.params ? args.params.picker : undefined;
 		return new ColorController(args.document, {
+			colorType: format.type,
 			expanded: expanded ?? false,
 			formatter: stringifier,
 			parser: createColorStringParser(format.type),
