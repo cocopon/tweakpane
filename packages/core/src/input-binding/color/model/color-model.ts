@@ -1,14 +1,16 @@
 import {constrainRange, loopRange} from '../../../common/number-util';
+import {Tuple3, Tuple4} from '../../../misc/type-util';
 
-export type ColorComponents3 = [number, number, number];
-export type ColorComponents4 = [number, number, number, number];
+export type ColorComponents3 = Tuple3<number>;
+export type ColorComponents4 = Tuple4<number>;
 
 export type ColorMode = 'hsl' | 'hsv' | 'rgb';
+export type ColorType = 'float' | 'int';
 
 /**
  * Converts RGB color components into HSL (cylindrical, used in CSS).
  */
-function rgbToHsl(r: number, g: number, b: number): ColorComponents3 {
+function rgbToHslInt(r: number, g: number, b: number): ColorComponents3 {
 	const rp = constrainRange(r / 255, 0, 1);
 	const gp = constrainRange(g / 255, 0, 1);
 	const bp = constrainRange(b / 255, 0, 1);
@@ -37,7 +39,7 @@ function rgbToHsl(r: number, g: number, b: number): ColorComponents3 {
 	return [h * 360, s * 100, l * 100];
 }
 
-function hslToRgb(h: number, s: number, l: number): ColorComponents3 {
+function hslToRgbInt(h: number, s: number, l: number): ColorComponents3 {
 	const hp = ((h % 360) + 360) % 360;
 	const sp = constrainRange(s / 100, 0, 1);
 	const lp = constrainRange(l / 100, 0, 1);
@@ -64,7 +66,7 @@ function hslToRgb(h: number, s: number, l: number): ColorComponents3 {
 	return [(rp + m) * 255, (gp + m) * 255, (bp + m) * 255];
 }
 
-function rgbToHsv(r: number, g: number, b: number): ColorComponents3 {
+function rgbToHsvInt(r: number, g: number, b: number): ColorComponents3 {
 	const rp = constrainRange(r / 255, 0, 1);
 	const gp = constrainRange(g / 255, 0, 1);
 	const bp = constrainRange(b / 255, 0, 1);
@@ -93,7 +95,7 @@ function rgbToHsv(r: number, g: number, b: number): ColorComponents3 {
 /**
  * @hidden
  */
-export function hsvToRgb(h: number, s: number, v: number): ColorComponents3 {
+export function hsvToRgbInt(h: number, s: number, v: number): ColorComponents3 {
 	const hp = loopRange(h, 360);
 	const sp = constrainRange(s / 100, 0, 1);
 	const vp = constrainRange(v / 100, 0, 1);
@@ -123,7 +125,7 @@ export function hsvToRgb(h: number, s: number, v: number): ColorComponents3 {
 /**
  * @hidden
  */
-export function hslToHsv(h: number, s: number, l: number): ColorComponents3 {
+export function hslToHsvInt(h: number, s: number, l: number): ColorComponents3 {
 	const sd = l + (s * (100 - Math.abs(2 * l - 100))) / (2 * 100);
 	return [
 		h,
@@ -135,7 +137,7 @@ export function hslToHsv(h: number, s: number, l: number): ColorComponents3 {
 /**
  * @hidden
  */
-export function hsvToHsl(h: number, s: number, v: number): ColorComponents3 {
+export function hsvToHslInt(h: number, s: number, v: number): ColorComponents3 {
 	const sd = 100 - Math.abs((v * (200 - s)) / 100 - 100);
 	return [h, sd !== 0 ? (s * v) / sd : 0, (v * (200 - s)) / (2 * 100)];
 }
@@ -170,17 +172,17 @@ const MODE_CONVERTER_MAP: {
 } = {
 	hsl: {
 		hsl: (h, s, l) => [h, s, l],
-		hsv: hslToHsv,
-		rgb: hslToRgb,
+		hsv: hslToHsvInt,
+		rgb: hslToRgbInt,
 	},
 	hsv: {
-		hsl: hsvToHsl,
+		hsl: hsvToHslInt,
 		hsv: (h, s, v) => [h, s, v],
-		rgb: hsvToRgb,
+		rgb: hsvToRgbInt,
 	},
 	rgb: {
-		hsl: rgbToHsl,
-		hsv: rgbToHsv,
+		hsl: rgbToHslInt,
+		hsv: rgbToHsvInt,
 		rgb: (r, g, b) => [r, g, b],
 	},
 };
@@ -188,10 +190,58 @@ const MODE_CONVERTER_MAP: {
 /**
  * @hidden
  */
-export function convertColorMode(
-	components: ColorComponents3,
-	fromMode: ColorMode,
-	toMode: ColorMode,
+export function getColorMaxComponents(
+	mode: ColorMode,
+	type: ColorType,
 ): ColorComponents3 {
-	return MODE_CONVERTER_MAP[fromMode][toMode](...components);
+	return [
+		type === 'float' ? 1 : mode === 'rgb' ? 255 : 360,
+		type === 'float' ? 1 : mode === 'rgb' ? 255 : 100,
+		type === 'float' ? 1 : mode === 'rgb' ? 255 : 100,
+	];
+}
+
+/**
+ * @hidden
+ */
+export function constrainColorComponents(
+	components: ColorComponents3 | ColorComponents4,
+	mode: ColorMode,
+	type: ColorType,
+): ColorComponents4 {
+	const ms = getColorMaxComponents(mode, type);
+	return [
+		mode === 'rgb'
+			? constrainRange(components[0], 0, ms[0])
+			: loopRange(components[0], ms[0]),
+		constrainRange(components[1], 0, ms[1]),
+		constrainRange(components[2], 0, ms[2]),
+		constrainRange(components[3] ?? 1, 0, 1),
+	];
+}
+
+function convertColorType(
+	comps: ColorComponents3,
+	mode: ColorMode,
+	from: ColorType,
+	to: ColorType,
+): ColorComponents3 {
+	const fms = getColorMaxComponents(mode, from);
+	const tms = getColorMaxComponents(mode, to);
+	return comps.map(
+		(c, index) => (c / fms[index]) * tms[index],
+	) as ColorComponents3;
+}
+
+/**
+ * @hidden
+ */
+export function convertColor(
+	components: ColorComponents3,
+	from: {mode: ColorMode; type: ColorType},
+	to: {mode: ColorMode; type: ColorType},
+): ColorComponents3 {
+	const intComps = convertColorType(components, from.mode, from.type, 'int');
+	const result = MODE_CONVERTER_MAP[from.mode][to.mode](...intComps);
+	return convertColorType(result, to.mode, 'int', to.type);
 }

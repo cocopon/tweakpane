@@ -12,11 +12,13 @@ import {ViewProps} from '../../../common/model/view-props';
 import {PickerLayout} from '../../../common/params';
 import {forceCast} from '../../../misc/type-util';
 import {Color} from '../model/color';
+import {ColorType} from '../model/color-model';
 import {ColorView} from '../view/color';
 import {ColorPickerController} from './color-picker';
 import {ColorSwatchController} from './color-swatch';
 
 interface Config {
+	colorType: ColorType;
 	expanded: boolean;
 	formatter: Formatter<Color>;
 	parser: Parser<Color>;
@@ -82,6 +84,7 @@ export class ColorController implements Controller<ColorView> {
 				: null;
 
 		const pickerC = new ColorPickerController(doc, {
+			colorType: config.colorType,
 			supportsAlpha: config.supportsAlpha,
 			value: this.value,
 			viewProps: this.viewProps,

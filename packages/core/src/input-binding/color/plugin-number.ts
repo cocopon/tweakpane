@@ -8,20 +8,33 @@ import {
 import {
 	colorToHexRgbaString,
 	colorToHexRgbString,
-	CompositeColorParser,
+	createColorStringParser,
 } from './converter/color-string';
 import {createColorNumberWriter} from './converter/writer';
 import {Color} from './model/color';
 import {ColorInputParams, parseColorInputParams} from './util';
 
 function shouldSupportAlpha(inputParams: ColorInputParams): boolean {
-	return 'alpha' in inputParams && inputParams.alpha === true;
+	if (inputParams?.alpha || inputParams?.color?.alpha) {
+		return true;
+	}
+	return false;
 }
 
 function createFormatter(supportsAlpha: boolean): Formatter<Color> {
 	return supportsAlpha
 		? (v: Color) => colorToHexRgbaString(v, '0x')
 		: (v: Color) => colorToHexRgbString(v, '0x');
+}
+
+function isForColor(params: Record<string, unknown>): boolean {
+	if ('color' in params) {
+		return true;
+	}
+	if ('view' in params && params.view === 'color') {
+		return true;
+	}
+	return false;
 }
 
 /**
@@ -38,10 +51,7 @@ export const NumberColorInputPlugin: InputBindingPlugin<
 		if (typeof value !== 'number') {
 			return null;
 		}
-		if (!('view' in params)) {
-			return null;
-		}
-		if (params.view !== 'color') {
+		if (!isForColor(params)) {
 			return null;
 		}
 
@@ -70,9 +80,10 @@ export const NumberColorInputPlugin: InputBindingPlugin<
 			'expanded' in args.params ? args.params.expanded : undefined;
 		const picker = 'picker' in args.params ? args.params.picker : undefined;
 		return new ColorController(args.document, {
+			colorType: 'int',
 			expanded: expanded ?? false,
 			formatter: createFormatter(supportsAlpha),
-			parser: CompositeColorParser,
+			parser: createColorStringParser('int'),
 			pickerLayout: picker ?? 'popup',
 			supportsAlpha: supportsAlpha,
 			value: args.value,

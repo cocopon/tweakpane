@@ -5,7 +5,7 @@ import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 import {Color} from '../model/color';
-import {hsvToRgb} from '../model/color-model';
+import {hsvToRgbInt} from '../model/color-model';
 
 const className = ClassName('svp');
 
@@ -67,7 +67,7 @@ export class SvPaletteView implements View {
 			for (let ix = 0; ix < width; ix++) {
 				const s = mapRange(ix, 0, width, 0, 100);
 				const v = mapRange(iy, 0, height, 100, 0);
-				const rgbComps = hsvToRgb(hsvComps[0], s, v);
+				const rgbComps = hsvToRgbInt(hsvComps[0], s, v);
 				const i = (iy * width + ix) * 4;
 				data[i] = rgbComps[0];
 				data[i + 1] = rgbComps[1];

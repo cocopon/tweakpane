@@ -2,17 +2,22 @@ import {BindingWriter} from '../../../common/binding/binding';
 import {BindingTarget} from '../../../common/binding/target';
 import {writePrimitive} from '../../../common/primitive';
 import {colorToRgbaNumber, colorToRgbNumber} from '../converter/color-number';
-import {getColorStringifier} from '../converter/color-string';
-import {StringColorNotation} from '../converter/color-string';
+import {
+	findColorStringifier,
+	StringColorFormat,
+} from '../converter/color-string';
 import {Color} from '../model/color';
+import {ColorType} from '../model/color-model';
 
 export function createColorStringWriter(
-	notation: StringColorNotation,
-): BindingWriter<Color> {
-	const stringify = getColorStringifier(notation);
-	return (target, value) => {
-		writePrimitive(target, stringify(value));
-	};
+	format: StringColorFormat,
+): BindingWriter<Color> | null {
+	const stringify = findColorStringifier(format);
+	return stringify
+		? (target, value) => {
+				writePrimitive(target, stringify(value));
+		  }
+		: null;
 }
 
 export function createColorNumberWriter(
@@ -24,23 +29,41 @@ export function createColorNumberWriter(
 	};
 }
 
-export function writeRgbaColorObject(target: BindingTarget, value: Color) {
-	const obj = value.toRgbaObject();
+// TODO: Make type required in the next version
+export function writeRgbaColorObject(
+	target: BindingTarget,
+	value: Color,
+	opt_type?: ColorType,
+) {
+	const obj = value.toRgbaObject(opt_type);
 	target.writeProperty('r', obj.r);
 	target.writeProperty('g', obj.g);
 	target.writeProperty('b', obj.b);
 	target.writeProperty('a', obj.a);
 }
 
-export function writeRgbColorObject(target: BindingTarget, value: Color) {
-	const obj = value.toRgbaObject();
+// TODO: Make type required in the next version
+export function writeRgbColorObject(
+	target: BindingTarget,
+	value: Color,
+	opt_type?: ColorType,
+) {
+	const obj = value.toRgbaObject(opt_type);
 	target.writeProperty('r', obj.r);
 	target.writeProperty('g', obj.g);
 	target.writeProperty('b', obj.b);
 }
 
+// TODO: Make type required in the next version
 export function createColorObjectWriter(
 	supportsAlpha: boolean,
+	opt_type?: ColorType,
 ): BindingWriter<Color> {
-	return supportsAlpha ? writeRgbaColorObject : writeRgbColorObject;
+	return (target, inValue) => {
+		if (supportsAlpha) {
+			writeRgbaColorObject(target, inValue, opt_type);
+		} else {
+			writeRgbColorObject(target, inValue, opt_type);
+		}
+	};
 }

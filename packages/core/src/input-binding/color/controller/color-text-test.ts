@@ -55,6 +55,7 @@ describe(ColorTextController.name, () => {
 				const win = createTestWindow();
 				const doc = win.document;
 				const c = new ColorTextController(doc, {
+					colorType: value.rawValue.type,
 					parser: parseNumber,
 					value: value,
 					viewProps: ViewProps.create(),
@@ -120,6 +121,7 @@ describe(ColorTextController.name, () => {
 				const win = createTestWindow();
 				const doc = win.document;
 				const c = new ColorTextController(doc, {
+					colorType: value.rawValue.type,
 					parser: parseNumber,
 					value: value,
 					viewProps: ViewProps.create(),

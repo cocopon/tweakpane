@@ -1,15 +1,16 @@
 import {mapRange} from '../../../common/number-util';
 import {Color} from '../model/color';
-import {removeAlphaComponent} from '../model/color-model';
+import {ColorType, removeAlphaComponent} from '../model/color-model';
 
+// TODO: Make type required in the next major version
 /**
  * @hidden
  */
-export function colorFromObject(value: unknown): Color {
+export function colorFromObject(value: unknown, opt_type?: ColorType): Color {
 	if (Color.isColorObject(value)) {
-		return Color.fromObject(value);
+		return Color.fromObject(value, opt_type);
 	}
-	return Color.black();
+	return Color.black(opt_type);
 }
 
 /**

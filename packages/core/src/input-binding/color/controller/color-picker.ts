@@ -11,6 +11,7 @@ import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from '../../../common/number/controller/number-text';
 import {Color} from '../model/color';
+import {ColorType} from '../model/color-model';
 import {ColorPickerView} from '../view/color-picker';
 import {APaletteController} from './a-palette';
 import {ColorTextController} from './color-text';
@@ -18,6 +19,7 @@ import {HPaletteController} from './h-palette';
 import {SvPaletteController} from './sv-palette';
 
 interface Config {
+	colorType: ColorType;
 	supportsAlpha: boolean;
 	value: Value<Color>;
 	viewProps: ViewProps;
@@ -85,6 +87,7 @@ export class ColorPickerController implements Controller<ColorPickerView> {
 			});
 		}
 		this.textC_ = new ColorTextController(doc, {
+			colorType: config.colorType,
 			parser: parseNumber,
 			value: this.value,
 			viewProps: this.viewProps,

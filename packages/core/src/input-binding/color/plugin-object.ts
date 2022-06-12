@@ -1,19 +1,46 @@
+import {BindingReader} from '../../common/binding/binding';
+import {Formatter} from '../../common/converter/formatter';
 import {InputBindingPlugin} from '../plugin';
 import {ColorController} from './controller/color';
 import {colorFromObject} from './converter/color-number';
 import {
-	colorToHexRgbaString,
-	colorToHexRgbString,
-	CompositeColorParser,
+	colorToObjectRgbaString,
+	colorToObjectRgbString,
+	createColorStringParser,
 } from './converter/color-string';
 import {createColorObjectWriter} from './converter/writer';
 import {Color, RgbaColorObject, RgbColorObject} from './model/color';
-import {ColorInputParams, parseColorInputParams} from './util';
+import {ColorType} from './model/color-model';
+import {
+	ColorInputParams,
+	extractColorType,
+	parseColorInputParams,
+} from './util';
 
 function shouldSupportAlpha(
 	initialValue: RgbColorObject | RgbaColorObject,
 ): boolean {
 	return Color.isRgbaColorObject(initialValue);
+}
+
+function createColorObjectReader(
+	opt_type: ColorType | undefined,
+): BindingReader<Color> {
+	return (value: unknown): Color => {
+		return colorFromObject(value, opt_type);
+	};
+}
+
+function createColorObjectFormatter(
+	supportsAlpha: boolean,
+	type: ColorType,
+): Formatter<Color> {
+	return (value) => {
+		if (supportsAlpha) {
+			return colorToObjectRgbaString(value, type);
+		}
+		return colorToObjectRgbString(value, type);
+	};
 }
 
 /**
@@ -39,23 +66,25 @@ export const ObjectColorInputPlugin: InputBindingPlugin<
 			: null;
 	},
 	binding: {
-		reader: (_args) => colorFromObject,
+		reader: (args) => createColorObjectReader(extractColorType(args.params)),
 		equals: Color.equals,
 		writer: (args) =>
-			createColorObjectWriter(shouldSupportAlpha(args.initialValue)),
+			createColorObjectWriter(
+				shouldSupportAlpha(args.initialValue),
+				extractColorType(args.params),
+			),
 	},
 	controller: (args) => {
 		const supportsAlpha = Color.isRgbaColorObject(args.initialValue);
 		const expanded =
 			'expanded' in args.params ? args.params.expanded : undefined;
 		const picker = 'picker' in args.params ? args.params.picker : undefined;
-		const formatter = supportsAlpha
-			? colorToHexRgbaString
-			: colorToHexRgbString;
+		const type = extractColorType(args.params) ?? 'int';
 		return new ColorController(args.document, {
+			colorType: type,
 			expanded: expanded ?? false,
-			formatter: formatter,
-			parser: CompositeColorParser,
+			formatter: createColorObjectFormatter(supportsAlpha, type),
+			parser: createColorStringParser(type),
 			pickerLayout: picker ?? 'popup',
 			supportsAlpha: supportsAlpha,
 			value: args.value,

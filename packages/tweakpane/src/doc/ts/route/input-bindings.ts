@@ -222,6 +222,17 @@ export function initInputBindings() {
 			pane.addInput(PARAMS, 'background');
 			pane.addInput(PARAMS, 'tint');
 		},
+		floatcolor: (container) => {
+			const PARAMS = {
+				overlay: {r: 1, g: 0, b: 0.33},
+			};
+			const pane = new Pane({
+				container: container,
+			});
+			pane.addInput(PARAMS, 'overlay', {
+				color: {type: 'float'},
+			});
+		},
 		stringcolor: (container) => {
 			const PARAMS = {
 				primary: '#f05',
@@ -245,8 +256,9 @@ export function initInputBindings() {
 				view: 'color',
 			});
 			pane.addInput(PARAMS, 'tint', {
-				alpha: true,
-				view: 'color',
+				color: {
+					alpha: true,
+				},
 			});
 		},
 		inputstring: (container) => {
