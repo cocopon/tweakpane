@@ -2,15 +2,19 @@ import {
 	ApiChangeEvents,
 	BladeApi,
 	Emitter,
-	LabelController,
+	LabeledValueController,
 	SliderTextController,
 	TpChangeEvent,
 } from '@tweakpane/core';
 
-export class SliderApi extends BladeApi<LabelController<SliderTextController>> {
+export class SliderApi extends BladeApi<
+	LabeledValueController<number, SliderTextController>
+> {
 	private readonly emitter_: Emitter<ApiChangeEvents<number>> = new Emitter();
 
-	constructor(controller: LabelController<SliderTextController>) {
+	constructor(
+		controller: LabeledValueController<number, SliderTextController>,
+	) {
 		super(controller);
 
 		this.controller_.valueController.value.emitter.on('change', (ev) => {

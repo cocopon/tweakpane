@@ -73,7 +73,7 @@
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@rollup/plugin-replace": "^2.3.4",
     "@rollup/plugin-typescript": "^8.2.0",
-    "@tweakpane/core": "^1.1.0",
+    "@tweakpane/core": "..",
     "@types/assert": "^1.5.4",
     "@types/jsdom": "^16.2.13",
     "@types/mocha": "^8.2.1",

@@ -300,9 +300,8 @@ export class BladeRack {
 			this.find(InputBindingController),
 			ev.sender,
 		);
-		/* istanbul ignore next */
 		if (!bc) {
-			throw TpError.shouldNeverHappen();
+			throw TpError.alreadyDisposed();
 		}
 		this.emitter.emit('inputchange', {
 			bladeController: bc,
@@ -318,9 +317,8 @@ export class BladeRack {
 			this.find(MonitorBindingController),
 			ev.sender,
 		);
-		/* istanbul ignore next */
 		if (!bc) {
-			throw TpError.shouldNeverHappen();
+			throw TpError.alreadyDisposed();
 		}
 		this.emitter.emit('monitorupdate', {
 			bladeController: bc,
@@ -333,9 +331,8 @@ export class BladeRack {
 			this.find(ValueBladeController),
 			ev.sender,
 		);
-		/* istanbul ignore next */
 		if (!bc) {
-			throw TpError.shouldNeverHappen();
+			throw TpError.alreadyDisposed();
 		}
 		this.emitter.emit('inputchange', {
 			bladeController: bc,

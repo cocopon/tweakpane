@@ -1,7 +1,7 @@
 import {
 	createBlade,
 	createValue,
-	LabelController,
+	LabeledValueController,
 	LabelPropsObject,
 	numberToString,
 	parseNumber,
@@ -23,7 +23,7 @@ import {SliderApi} from './slider';
 describe(SliderApi.name, () => {
 	it('should dispose', () => {
 		const doc = createTestWindow().document;
-		const c = new LabelController(doc, {
+		const c = new LabeledValueController<number, SliderTextController>(doc, {
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: undefined,
@@ -49,7 +49,7 @@ describe(SliderApi.name, () => {
 
 	it('should have initial state', () => {
 		const doc = createTestWindow().document;
-		const c = new LabelController(doc, {
+		const c = new LabeledValueController<number, SliderTextController>(doc, {
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: 'foobar',
@@ -80,7 +80,7 @@ describe(SliderApi.name, () => {
 
 	it('should update properties', () => {
 		const doc = createTestWindow().document;
-		const c = new LabelController(doc, {
+		const c = new LabeledValueController<number, SliderTextController>(doc, {
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: 'foobar',
@@ -118,7 +118,7 @@ describe(SliderApi.name, () => {
 
 	it('should handle event', (done) => {
 		const doc = createTestWindow().document;
-		const c = new LabelController(doc, {
+		const c = new LabeledValueController<number, SliderTextController>(doc, {
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: undefined,
