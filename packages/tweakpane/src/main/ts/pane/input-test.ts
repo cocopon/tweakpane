@@ -63,7 +63,7 @@ describe(Pane.name, () => {
 						assert.fail('should not be called');
 					} catch (ev) {
 						assert.strictEqual(ev instanceof TpError, true);
-						assert.strictEqual(ev.type, testCase.errorType);
+						assert.strictEqual((ev as any).type, testCase.errorType);
 					}
 				});
 			},

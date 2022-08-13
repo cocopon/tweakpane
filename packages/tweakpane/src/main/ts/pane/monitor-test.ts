@@ -57,9 +57,9 @@ describe(Pane.name, () => {
 							interval: 0,
 						});
 						assert.fail('should not be called');
-					} catch (e) {
-						assert.strictEqual(e instanceof TpError, true);
-						assert.strictEqual(e.type, testCase.errorType);
+					} catch (err) {
+						assert.strictEqual(err instanceof TpError, true);
+						assert.strictEqual((err as any).type, testCase.errorType);
 					}
 				});
 			},
