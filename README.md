@@ -22,19 +22,19 @@ See the [official page][documents] for details.
 ### [Input bindings](https://cocopon.github.io/tweakpane/input.html)
 Number, String, Boolean, Color, Point 2D/3D/4D
 
-![Input bindings](https://user-images.githubusercontent.com/602961/115102111-e9faec00-9f83-11eb-8770-8da0abbd7363.png)
+![Input bindings](https://user-images.githubusercontent.com/602961/184479032-38f50be3-e235-4914-85c0-dce316b33ed2.png)
 
 
 ### [Monitor bindings](https://cocopon.github.io/tweakpane/monitor.html)
 Number, String, Boolean
 
-![Monitor bindings](https://user-images.githubusercontent.com/602961/115102110-e9625580-9f83-11eb-88a6-7fa3557250c8.png)
+![Monitor bindings](https://user-images.githubusercontent.com/602961/184479060-44fda993-9f40-4ef1-b363-18e9f9deff7f.png)
 
 
 ### [UI components](https://cocopon.github.io/tweakpane/ui-components.html)
 Folder, Tab, Button, Separator
 
-![UI components](https://user-images.githubusercontent.com/602961/115102108-e8312880-9f83-11eb-9c7e-f2968397bff9.png)
+![UI components](https://user-images.githubusercontent.com/602961/184479079-84ee5436-b5f6-4c35-92eb-94cc8709ff12.png)
 
 
 ### [Theming](https://cocopon.github.io/tweakpane/theming.html)
@@ -42,7 +42,7 @@ Folder, Tab, Button, Separator
 
 
 ### [Plugins](https://cocopon.github.io/tweakpane/plugins.html)
-![Plugins](https://user-images.githubusercontent.com/602961/122059107-41ec8c80-ce27-11eb-9d17-08c522efb05f.png)
+![Plugins](https://user-images.githubusercontent.com/602961/184479086-cc8c72c2-c958-4e4e-8ae4-2690f721c544.png)
 
 
 ### [Misc](https://cocopon.github.io/tweakpane/misc.html)
