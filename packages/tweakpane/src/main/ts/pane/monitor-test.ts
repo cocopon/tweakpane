@@ -248,4 +248,21 @@ describe(Pane.name, () => {
 			});
 		});
 	});
+
+	it('should throw `alreadydisposed` error when calling dispose() inside monitor change event', (done) => {
+		const pane = createPane();
+		const bapi = pane.addMonitor({foo: 1}, 'foo', {
+			interval: 0,
+		});
+
+		try {
+			bapi.on('update', () => {
+				bapi.dispose();
+			});
+			(bapi.controller_.binding.ticker as ManualTicker).tick();
+		} catch (err) {
+			assert.strictEqual((err as TpError<any>).type, 'alreadydisposed');
+			done();
+		}
+	});
 });

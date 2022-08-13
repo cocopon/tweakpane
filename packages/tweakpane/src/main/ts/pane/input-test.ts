@@ -330,4 +330,19 @@ describe(Pane.name, () => {
 			});
 		});
 	});
+
+	it('should throw `alreadydisposed` error when calling dispose() inside input change event', (done) => {
+		const pane = createPane();
+		const bapi = pane.addInput({foo: 1}, 'foo');
+
+		try {
+			bapi.on('change', () => {
+				bapi.dispose();
+			});
+			bapi.controller_.binding.value.rawValue = 2;
+		} catch (err: unknown) {
+			assert.strictEqual((err as TpError<any>).type, 'alreadydisposed');
+			done();
+		}
+	});
 });
