@@ -3,6 +3,7 @@ import {initCatalog} from './route/catalog';
 import {initGettingStarted} from './route/getting-started';
 import {initIndex} from './route/index';
 import {initInputBindings} from './route/input-bindings';
+import {initMigration} from './route/migration';
 import {initMisc} from './route/misc';
 import {initMonitorBindings} from './route/monitor-bindings';
 import {initPlugins} from './route/plugins';
@@ -44,6 +45,7 @@ function setUpSpMenu() {
 	router.add(/^(\/tweakpane)?\/catalog\.html$/, initCatalog);
 	router.add(/^(\/tweakpane)?\/input-bindings\.html$/, initInputBindings);
 	router.add(/^(\/tweakpane)?\/misc\.html$/, initMisc);
+	router.add(/^(\/tweakpane)?\/migration\.html$/, initMigration);
 	router.add(/^(\/tweakpane)?\/monitor-bindings\.html$/, initMonitorBindings);
 	router.add(/^(\/tweakpane)?\/theming\.html$/, initTheming);
 	router.add(/^(\/tweakpane)?\/plugins\.html$/, initPlugins);

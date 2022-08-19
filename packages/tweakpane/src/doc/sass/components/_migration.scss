@@ -1,0 +1,63 @@
+.comparison {
+	& > *:first-child {
+		border-top-left-radius: 6px;
+		border-top-right-radius: 6px;
+	}
+	& > *:last-child {
+		border-bottom-left-radius: 6px;
+		border-bottom-right-radius: 6px;
+	}
+
+	@include nonwide() {
+		overflow-x: auto;
+	}
+
+	&_codes,
+	&_results,
+	&_texts {
+		background-color: var(--bg-color-secondary);
+		display: flex;
+
+		@include nonwide() {
+			min-width: 640px;
+		}
+	}
+	&_codes {
+		align-items: stretch;
+	}
+	&_code {
+		display: flex;
+		flex: 1;
+		overflow-x: auto;
+	}
+	&_result {
+		@include dotGrid();
+
+		flex: 1;
+		padding-bottom: 32px;
+		padding-top: 32px;
+	}
+	&_text {
+		display: flex;
+		flex: 1;
+		justify-content: center;
+		padding: 32px;
+	}
+	&_code + &_code,
+	&_result + &_result,
+	&_text + &_text {
+		border-left: var(--bg-color) solid 1px;
+	}
+}
+
+// dat.GUI
+.migration {
+	.dg {
+		li + li {
+			margin-top: 0;
+		}
+		li.save-row .button {
+			margin-left: 4px;
+		}
+	}
+}

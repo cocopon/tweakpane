@@ -1,5 +1,4 @@
 .codeBlock {
-	background-color: var(--bg-color-secondary);
 	border-radius: 6px;
 	position: relative;
 
@@ -19,7 +18,6 @@
 	&_title {
 		background-color: var(--hl-comment);
 		border-bottom-left-radius: 1px;
-		border-top-right-radius: 6px;
 		color: var(--bg-color-secondary);
 		font-family: $font-family-mono;
 		font-size: 0.7rem;
