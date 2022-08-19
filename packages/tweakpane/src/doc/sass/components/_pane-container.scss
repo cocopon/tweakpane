@@ -3,12 +3,23 @@
 	flex-shrink: 0;
 	margin-left: auto;
 	margin-right: auto;
+	position: relative;
 	width: 256px;
 
 	& + & {
 		margin-top: 16px;
 	}
+	&#{&}-dat + & {
+		margin-top: 20px + 16px;
+	}
 
+	&#{&}-dat {
+		width: 245px;
+
+		.tp-lblv_v {
+			width: calc(60% + 3px);
+		}
+	}
 	&#{&}-console {
 		--tp-base-background-color: var(--bg-color-secondary);
 		--tp-base-shadow-color: transparent;

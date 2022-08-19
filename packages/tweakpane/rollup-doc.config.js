@@ -7,11 +7,12 @@ import {terser as Terser} from 'rollup-plugin-terser';
 export default async () => {
 	return {
 		input: 'src/doc/ts/bundle.ts',
-		external: ['tweakpane'],
+		external: ['dat.gui', 'tweakpane'],
 		output: {
 			file: `docs/assets/bundle.js`,
 			format: 'umd',
 			globals: {
+				'dat.gui': 'dat',
 				tweakpane: 'Tweakpane',
 			},
 		},
