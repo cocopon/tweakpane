@@ -2,7 +2,7 @@
 	.pageHeader {
 		background-image: none;
 	}
-	.pageHeader_innerLayout {
+	.pageHeader_inner {
 		position: static;
 
 		@include wide() {
@@ -10,20 +10,20 @@
 			padding-top: 128px;
 		}
 	}
-	.pageHeader_titleLayout {
+	.pageHeader_text {
 		mix-blend-mode: difference;
 	}
 	.pageHeader_title {
 		color: white;
 	}
-	.pageHeader_titleLayout p {
+	.pageHeader_text p {
 		color: white;
 
 		@include nonwide() {
 			hyphens: auto;
 		}
 	}
-	.pageHeader_paneLayout {
+	.pageHeader_pane {
 		position: relative;
 	}
 }
@@ -56,7 +56,7 @@
 			backdrop-filter: blur(4px);
 		}
 	}
-	.pageHeader_titleLayout {
+	.pageHeader_title {
 		h1,
 		p {
 			color: rgba(white, 0.8);
@@ -65,10 +65,10 @@
 }
 
 :root.catalog.readme {
-	.main_menuLayout {
+	.main_menu {
 		display: none;
 	}
-	.main_wrapLayout {
+	.main_wrap {
 		max-width: 1088px;
 	}
 	.paneCatalog {

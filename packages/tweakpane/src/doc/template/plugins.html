@@ -6,8 +6,8 @@
 {% block pageHeader %}
 <div class="pageHeader">
 	<div class="pageHeader_sketchContainer"></div>
-	<div class="pageHeader_innerLayout">
-		<div class="pageHeader_titleLayout">
+	<div class="pageHeader_inner">
+		<div class="pageHeader_text">
 			<h1 class="pageHeader_title">{{ title }}</h1>
 			<p>Expand Tweakpane world.</p>
 		</div>
@@ -19,9 +19,9 @@
 {% block content %}
 <h2 id="essentials"><a href="https://github.com/tweakpane/plugin-essentials">Essentials</a></h2>
 <p>Essential components.</p>
-<div class="main_mediaLayout">
+<div class="main_media">
 	<div class="demo">
-		<div class="demo_codeLayout">
+		<div class="demo_code">
 			<div class="codeBlock">
 				<pre><code class="js">const PARAMS = {
   interval: {min: 16, max: 48},
@@ -53,7 +53,7 @@ function render() {
 // ...</code></pre>
 			</div>
 		</div>
-		<div class="demo_resultLayout">
+		<div class="demo_result">
 			<div class="paneContainer" data-pane-essentials></div>
 		</div>
 	</div>
@@ -62,9 +62,9 @@ function render() {
 
 <h2 id="camerakit"><a href="https://github.com/tweakpane/plugin-camerakit">Camerakit</a></h2>
 <p>Enjoyable camera flavored controls.</p>
-<div class="main_mediaLayout">
+<div class="main_media">
 	<div class="demo">
-		<div class="demo_codeLayout">
+		<div class="demo_code">
 			<div class="codeBlock">
 				<pre><code class="js">const PARAMS = {
   flen: 55,
@@ -91,7 +91,7 @@ pane.addInput(PARAMS, 'fnum', {
 // ...</code></pre>
 			</div>
 		</div>
-		<div class="demo_resultLayout">
+		<div class="demo_result">
 			<div class="paneContainer" data-pane-camerakit></div>
 		</div>
 	</div>
@@ -105,16 +105,18 @@ pane.addInput(PARAMS, 'fnum', {
 <h2 id="create">Create your own plugin</h2>
 <p>From version 2.0.0, you can provide custom components with the plugin system.</p>
 
-<div class="main_mediaLayout">
-	<div class="codeBlock">
-		<pre><code class="js">pane.registerPlugin({
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock">
+				<pre><code class="js">pane.registerPlugin({
   plugin: {
     ...
   },
 });</code></pre>
-		<div class="codeBlock_title">
-			.js
+			</div>
 		</div>
+		<div class="demo_chip">.js</div>
 	</div>
 </div>
 

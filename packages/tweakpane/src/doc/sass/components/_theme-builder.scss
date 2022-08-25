@@ -37,6 +37,9 @@
 		padding: 32px;
 		position: relative;
 
+		.paneContainer {
+			position: static;
+		}
 		.tp-rotv {
 			position: relative;
 		}

@@ -1,21 +1,38 @@
 .demo {
 	background-color: var(--bg-color-secondary);
 	border-radius: 6px;
+	position: relative;
 
 	@include wide() {
 		display: flex;
 	}
 
-	&_codeLayout {
+	&_code {
 		display: flex;
 		flex: 3;
 		overflow: auto;
+
+		.codeBlock {
+			flex: 1;
+		}
 	}
-	&_resultLayout {
+	&_result {
 		@include dotGrid();
 
 		flex: 2;
 		padding: 32px;
 		text-align: center;
+	}
+	&_chip {
+		background-color: var(--hl-comment);
+		border-bottom-left-radius: 1px;
+		color: var(--bg-color-secondary);
+		font-family: $font-family-mono;
+		font-size: 0.7rem;
+		font-weight: 500;
+		padding: 0.2em 0.5em;
+		position: absolute;
+		right: 0;
+		top: 0;
 	}
 }
