@@ -14,16 +14,4 @@
 			font-weight: 500;
 		}
 	}
-	&_title {
-		background-color: var(--hl-comment);
-		border-bottom-left-radius: 1px;
-		color: var(--bg-color-secondary);
-		font-family: $font-family-mono;
-		font-size: 0.7rem;
-		font-weight: 500;
-		padding: 0.2em 0.5em;
-		position: absolute;
-		right: 0;
-		top: 0;
-	}
 }
