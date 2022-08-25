@@ -10,6 +10,10 @@
 		display: flex;
 		flex: 3;
 		overflow: auto;
+
+		.codeBlock {
+			flex: 1;
+		}
 	}
 	&_resultLayout {
 		@include dotGrid();
