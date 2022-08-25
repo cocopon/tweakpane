@@ -15,7 +15,7 @@
 	top: 0;
 	z-index: $z-index-global-header;
 
-	&_innerLayout {
+	&_inner {
 		@include responsiveContainer();
 
 		box-sizing: border-box;
@@ -23,10 +23,10 @@
 		margin-right: auto;
 		position: relative;
 	}
-	&_logoLayout {
+	&_logo {
 		display: inline-block;
 	}
-	&_spMenuButtonLayout {
+	&_spMenuButton {
 		left: 0;
 		position: absolute;
 		top: 0;

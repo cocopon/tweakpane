@@ -6,7 +6,7 @@
 		display: flex;
 	}
 
-	&_codeLayout {
+	&_code {
 		display: flex;
 		flex: 3;
 		overflow: auto;
@@ -15,7 +15,7 @@
 			flex: 1;
 		}
 	}
-	&_resultLayout {
+	&_result {
 		@include dotGrid();
 
 		flex: 2;

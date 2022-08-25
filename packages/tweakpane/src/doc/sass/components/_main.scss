@@ -1,7 +1,7 @@
 .main {
 	overflow: hidden;
 
-	&_globalHeaderLayout {
+	&_globalHeader {
 		@include wide() {
 			display: none;
 		}
@@ -9,7 +9,7 @@
 			height: $global-header-height;
 		}
 	}
-	&_wrapLayout {
+	&_wrap {
 		@include responsiveContainer();
 
 		@include wide() {
@@ -17,7 +17,7 @@
 			margin-top: 32px;
 		}
 	}
-	&_menuLayout {
+	&_menu {
 		@include wide() {
 			margin-right: 32px;
 			width: $global-nav-width;
@@ -27,7 +27,7 @@
 			width: 0;
 		}
 	}
-	&_mainLayout {
+	&_main {
 		flex: 1;
 
 		@include wide() {
@@ -40,8 +40,8 @@
 			top: $global-header-height;
 		}
 	}
-	&_pageHeaderLayout,
-	&_innerLayout {
+	&_pageHeader,
+	&_inner {
 		@include document();
 
 		flex: 1;
@@ -52,7 +52,7 @@
 			padding-right: 0.1em;
 		}
 	}
-	&_pageHeaderLayout {
+	&_pageHeader {
 		@include middle() {
 			margin-left: -32px;
 			margin-right: -32px;
@@ -62,7 +62,7 @@
 			margin-right: -16px;
 		}
 	}
-	&_innerLayout {
+	&_inner {
 		@include wide() {
 			padding-bottom: 64px;
 			padding-top: 64px;
@@ -72,7 +72,7 @@
 			padding-top: 32px;
 		}
 	}
-	&_mediaLayout {
+	&_media {
 		margin-bottom: 1em;
 		margin-top: 1em;
 	}

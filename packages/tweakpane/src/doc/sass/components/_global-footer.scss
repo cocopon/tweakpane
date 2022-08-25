@@ -1,14 +1,14 @@
 .globalFooter {
 	text-align: center;
 
-	&_innerLayout {
+	&_inner {
 		box-sizing: border-box;
 		margin-left: auto;
 		margin-right: auto;
 		padding-bottom: 16px;
 		padding-top: 16px;
 	}
-	&_copyLayout {
+	&_copy {
 		color: var(--fg-color-secondary);
 		font-size: 0.8rem;
 

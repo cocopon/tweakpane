@@ -6,8 +6,8 @@
 {% block pageHeader %}
 <div class="pageHeader">
 	<div class="pageHeader_sketchContainer"></div>
-	<div class="pageHeader_innerLayout">
-		<div class="pageHeader_titleLayout">
+	<div class="pageHeader_inner">
+		<div class="pageHeader_text">
 			<h1 class="pageHeader_title">{{ title }}</h1>
 			<p>Setting up Tweakpane in only 2 steps.</p>
 		</div>
@@ -20,9 +20,9 @@
 <h2>1. Add Tweakpane to a project</h2>
 <p>Using <a href="https://www.jsdelivr.com/package/npm/tweakpane" target="_blank">CDN</a> is the easiest way to add Tweakpane:</p>
 
-<div class="main_mediaLayout">
+<div class="main_media">
 	<div class="demo">
-		<div class="demo_codeLayout">
+		<div class="demo_code">
 			<div class="codeBlock">
 				<pre><code class="html">&lt;script src=&quot;<strong>https://cdn.jsdelivr.net/npm/tweakpane@{{ version }}/dist/tweakpane.min.js</strong>&quot;&gt;&lt;/script&gt;</code></pre>
 				<div class="codeBlock_title">
@@ -35,9 +35,9 @@
 
 <p>Or, <a href="https://github.com/cocopon/tweakpane/releases">download the latest Tweakpane</a> and import it to your web page:</p>
 
-<div class="main_mediaLayout">
+<div class="main_media">
 	<div class="demo">
-		<div class="demo_codeLayout">
+		<div class="demo_code">
 			<div class="codeBlock">
 				<pre><code class="html">&lt;script src=&quot;path/to/tweakpane-{{ version }}.min.js&quot;&gt;&lt;/script&gt;</code></pre>
 				<div class="codeBlock_title">
@@ -50,9 +50,9 @@
 
 <p>You can also install, import it as <a href="https://www.npmjs.com/package/tweakpane" target="_blank">npm package</a>:</p>
 
-<div class="main_mediaLayout">
+<div class="main_media">
 	<div class="demo">
-		<div class="demo_codeLayout">
+		<div class="demo_code">
 			<div class="codeBlock">
 				<pre><code class="sh">$ npm install --save tweakpane
 
@@ -63,9 +63,9 @@ $ npm install --save-dev @tweakpane/core</code></pre>
 	</div>
 </div>
 
-<div class="main_mediaLayout">
+<div class="main_media">
 	<div class="demo">
-		<div class="demo_codeLayout">
+		<div class="demo_code">
 			<div class="codeBlock">
 				<pre><code class="js">import {Pane} from 'tweakpane';</code></pre>
 				<div class="codeBlock_title">
@@ -80,9 +80,9 @@ $ npm install --save-dev @tweakpane/core</code></pre>
 <h2>2. Create a pane</h2>
 <p>Create an instance of a pane by <code>new</code>.</p>
 
-<div class="main_mediaLayout">
+<div class="main_media">
 	<div class="demo">
-		<div class="demo_codeLayout">
+		<div class="demo_code">
 			<div class="codeBlock">
 				<pre><code class="js">// CDN
 const pane = new Tweakpane.Pane();
@@ -91,7 +91,7 @@ const pane = new Tweakpane.Pane();
 const pane = new Pane();</code></pre>
 			</div>
 		</div>
-		<div class="demo_resultLayout">
+		<div class="demo_result">
 			<div class="paneContainer" data-pane-hello></div>
 		</div>
 	</div>

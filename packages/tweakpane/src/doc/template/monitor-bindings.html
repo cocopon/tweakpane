@@ -5,12 +5,12 @@
 
 {% block pageHeader %}
 <div class="pageHeader">
-	<div class="pageHeader_innerLayout">
-		<div class="pageHeader_titleLayout">
+	<div class="pageHeader_inner">
+		<div class="pageHeader_text">
 			<h1 class="pageHeader_title">{{ title }}</h1>
 			<p>Tweakpane also has a feature for monitoring value changes. Use <code>addMonitor()</code> to add components.</p>
 		</div>
-		<div class="pageHeader_paneLayout">
+		<div class="pageHeader_pane">
 			<div class="paneContainer" data-pane-monitor></div>
 		</div>
 	</div>
@@ -22,16 +22,16 @@
 <h2 id="multiline">Multiline</h2>
 <p><code>multiline</code> option provides a multiline log component. <code>lineCount</code> can change the number of display lines.</p>
 
-<div class="main_mediaLayout">
+<div class="main_media">
 	<div class="demo">
-		<div class="demo_codeLayout">
+		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
 pane.addMonitor(PARAMS, 'wave', {
   <strong>multiline</strong>: true,
   <strong>lineCount</strong>: 5,
 });</code></pre></div>
 		</div>
-		<div class="demo_resultLayout">
+		<div class="demo_result">
 			<div class="paneContainer" data-pane-multiline></div>
 		</div>
 	</div>
@@ -41,15 +41,15 @@ pane.addMonitor(PARAMS, 'wave', {
 <h2 id="buffersize">Buffer size</h2>
 <p>You can use <code>bufferSize</code> option to change the buffer size.</p>
 
-<div class="main_mediaLayout">
+<div class="main_media">
 	<div class="demo">
-		<div class="demo_codeLayout">
+		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
 pane.addMonitor(PARAMS, 'wave', {
   <strong>bufferSize</strong>: 10,
 });</code></pre></div>
 		</div>
-		<div class="demo_resultLayout">
+		<div class="demo_result">
 			<div class="paneContainer" data-pane-buffersize></div>
 		</div>
 	</div>
@@ -59,15 +59,15 @@ pane.addMonitor(PARAMS, 'wave', {
 <h2 id="interval">Interval</h2>
 <p>To change an interval of monitors, set <code>interval</code> option in milliseconds. The default value is 200(ms).</p>
 
-<div class="main_mediaLayout">
+<div class="main_media">
 	<div class="demo">
-		<div class="demo_codeLayout">
+		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
 pane.addMonitor(PARAMS, 'time', {
   <strong>interval</strong>: 1000,
 });</code></pre></div>
 		</div>
-		<div class="demo_resultLayout">
+		<div class="demo_result">
 			<div class="paneContainer" data-pane-interval></div>
 		</div>
 	</div>
@@ -77,9 +77,9 @@ pane.addMonitor(PARAMS, 'time', {
 <h2 id="graph">Graph</h2>
 <p><code>{view: 'graph'}</code> option for number parameters provides a graph component. Pass <code>min</code> and <code>max</code> for value range.</p>
 
-<div class="main_mediaLayout">
+<div class="main_media">
 	<div class="demo">
-		<div class="demo_codeLayout">
+		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
 pane.addMonitor(PARAMS, 'wave', {
   <strong>view: 'graph'</strong>,
@@ -87,7 +87,7 @@ pane.addMonitor(PARAMS, 'wave', {
   max: +1,
 });</code></pre></div>
 		</div>
-		<div class="demo_resultLayout">
+		<div class="demo_result">
 			<div class="paneContainer" data-pane-graph></div>
 		</div>
 	</div>

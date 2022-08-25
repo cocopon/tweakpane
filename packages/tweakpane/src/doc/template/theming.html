@@ -5,12 +5,12 @@
 
 {% block pageHeader %}
 <div class="pageHeader">
-	<div class="pageHeader_innerLayout">
-		<div class="pageHeader_titleLayout">
+	<div class="pageHeader_inner">
+		<div class="pageHeader_text">
 			<h1 class="pageHeader_title">{{ title }}</h1>
 			<p>Tweakpane can be themed easily with CSS variable.</p>
 		</div>
-		<div class="pageHeader_paneLayout">
+		<div class="pageHeader_pane">
 			<div class="paneContainer" data-pane-header data-preview-css></div>
 		</div>
 	</div>
@@ -22,9 +22,9 @@
 {% block content %}
 <p>Add <code>--tp-*</code> variables to the container element to change pane colors. All themeable variables are listed below:</p>
 
-<div class="main_mediaLayout">
+<div class="main_media">
 	<div class="demo">
-		<div class="demo_codeLayout">
+		<div class="demo_code">
 			<div class="codeBlock">
 				<pre><code class="html" data-exampleCss></code></pre>
 				<div class="codeBlock_title">
@@ -37,7 +37,7 @@
 
 <h2 id="builder">Theme builder</h2>
 <p>You can build your own theme with Panepaint!</p>
-<div class="main_mediaLayout">
+<div class="main_media">
 	<div class="paint">
 		<div class="paint_gui">
 			<div class="paint_controller">

@@ -21,21 +21,21 @@
 </head>
 <body>
 	<div class="main main-{{ pageId }}">
-		<div class="main_globalHeaderLayout">
+		<div class="main_globalHeader">
 			{% include "partial/_global-header.html" %}
 		</div>
-		<div class="main_wrapLayout">
-			<div class="main_menuLayout">
+		<div class="main_wrap">
+			<div class="main_menu">
 				{% include "partial/_global-nav.html" %}
 			</div>
-			<div class="main_mainLayout">
-				<div class="main_pageHeaderLayout">
+			<div class="main_main">
+				<div class="main_pageHeader">
 					{% block pageHeader %}{% endblock %}
 				</div>
-				<div class="main_innerLayout">
+				<div class="main_inner">
 					{% block content %}{% endblock %}
 				</div>
-				<div class="main_globalFooterLayout">
+				<div class="main_globalFooter">
 					{% include "partial/_global-footer.html" %}
 				</div>
 			</div>
