@@ -1,5 +1,7 @@
+@use '../defs';
+
 .pageHeader {
-	@include dotGrid();
+	@include defs.dotGrid();
 
 	background-color: var(--bg-color-secondary);
 	position: relative;
@@ -7,7 +9,7 @@
 	&,
 	&_sketchContainer,
 	&_sketchContainer canvas {
-		@include wide() {
+		@include defs.wide() {
 			border-radius: 6px;
 		}
 	}
@@ -35,27 +37,27 @@
 		margin-right: auto;
 		position: relative;
 
-		@include wide() {
+		@include defs.wide() {
 			align-items: center;
 			display: flex;
 			justify-content: space-between;
 			padding: 64px;
 			max-width: 800px;
 		}
-		@include middle() {
+		@include defs.middle() {
 			max-width: 480px;
 		}
-		@include nonwide() {
+		@include defs.nonwide() {
 			display: block;
 			padding: 64px 32px;
 		}
 	}
 	&_text {
-		@include wide() {
+		@include defs.wide() {
 			padding-bottom: 32px;
 			padding-top: 32px;
 		}
-		@include nonwide() {
+		@include defs.nonwide() {
 			text-align: center;
 		}
 	}
@@ -63,17 +65,17 @@
 		font-size: 3rem;
 		line-height: 1;
 
-		@include nonwide() {
+		@include defs.nonwide() {
 			font-size: 2rem;
 		}
 	}
 	&_pane {
-		@include wide() {
+		@include defs.wide() {
 			flex-grow: 0;
 			flex-shrink: 0;
 			margin-left: 32px;
 		}
-		@include nonwide() {
+		@include defs.nonwide() {
 			margin-top: 32px;
 			text-align: center;
 		}

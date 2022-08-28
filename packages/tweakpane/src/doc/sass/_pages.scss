@@ -1,3 +1,5 @@
+@use './defs';
+
 :root.index {
 	.pageHeader {
 		background-image: none;
@@ -5,7 +7,7 @@
 	.pageHeader_inner {
 		position: static;
 
-		@include wide() {
+		@include defs.wide() {
 			padding-bottom: 128px;
 			padding-top: 128px;
 		}
@@ -19,7 +21,7 @@
 	.pageHeader_text p {
 		color: white;
 
-		@include nonwide() {
+		@include defs.nonwide() {
 			hyphens: auto;
 		}
 	}

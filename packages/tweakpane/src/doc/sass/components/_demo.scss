@@ -1,9 +1,11 @@
+@use '../defs';
+
 .demo {
 	background-color: var(--bg-color-secondary);
 	border-radius: 6px;
 	position: relative;
 
-	@include wide() {
+	@include defs.wide() {
 		display: flex;
 	}
 
@@ -17,7 +19,7 @@
 		}
 	}
 	&_result {
-		@include dotGrid();
+		@include defs.dotGrid();
 
 		flex: 2;
 		padding: 32px;
@@ -27,7 +29,7 @@
 		background-color: var(--hl-comment);
 		border-bottom-left-radius: 1px;
 		color: var(--bg-color-secondary);
-		font-family: $font-family-mono;
+		font-family: defs.$font-family-mono;
 		font-size: 0.7rem;
 		font-weight: 500;
 		padding: 0.2em 0.5em;
