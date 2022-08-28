@@ -1,3 +1,5 @@
+@use '../defs';
+
 .comparison {
 	& > *:first-child {
 		border-top-left-radius: 6px;
@@ -8,7 +10,7 @@
 		border-bottom-right-radius: 6px;
 	}
 
-	@include nonwide() {
+	@include defs.nonwide() {
 		overflow-x: auto;
 	}
 
@@ -18,7 +20,7 @@
 		background-color: var(--bg-color-secondary);
 		display: flex;
 
-		@include nonwide() {
+		@include defs.nonwide() {
 			min-width: 640px;
 		}
 	}
@@ -31,7 +33,7 @@
 		overflow-x: auto;
 	}
 	&_result {
-		@include dotGrid();
+		@include defs.dotGrid();
 
 		flex: 1;
 		padding-bottom: 32px;

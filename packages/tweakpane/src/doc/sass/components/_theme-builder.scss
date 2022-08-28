@@ -1,17 +1,19 @@
+@use '../defs';
+
 .paint {
 	background-color: var(--bg-color-secondary);
 	border-radius: 6px;
 	overflow: hidden;
 
 	&_gui {
-		@include wide() {
+		@include defs.wide() {
 			display: flex;
 		}
 	}
 	&_controller {
-		background-color: $pane-bg-color;
+		background-color: defs.$pane-bg-color;
 
-		@include nonwide() {
+		@include defs.nonwide() {
 			.paneContainer {
 				width: 100%;
 			}
@@ -21,7 +23,7 @@
 			border-top-right-radius: 0;
 			box-shadow: 0 0 0 transparent;
 
-			@include nonwide() {
+			@include defs.nonwide() {
 				.tp-lblv_v {
 					width: 60vw;
 				}

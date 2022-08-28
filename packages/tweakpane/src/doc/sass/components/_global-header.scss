@@ -1,22 +1,22 @@
-.globalHeader {
-	$global-header-fg-color: inherit;
+@use '../defs';
 
+.globalHeader {
 	-webkit-backdrop-filter: blur(2px);
 	backdrop-filter: blur(2px);
 	background-color: var(--bg-color-translucent);
 	box-shadow: 0 2px 4px rgba(black, 0.05);
 	color: inherit;
-	height: $global-header-height;
+	height: defs.$global-header-height;
 	left: 0;
-	line-height: $global-header-height;
+	line-height: defs.$global-header-height;
 	position: fixed;
 	right: 0;
 	text-align: center;
 	top: 0;
-	z-index: $z-index-global-header;
+	z-index: defs.$z-index-global-header;
 
 	&_inner {
-		@include responsiveContainer();
+		@include defs.responsiveContainer();
 
 		box-sizing: border-box;
 		margin-left: auto;
@@ -37,7 +37,7 @@
 	align-items: center;
 	color: inherit;
 	display: flex;
-	height: $global-header-height;
+	height: defs.$global-header-height;
 	justify-content: center;
-	width: $global-header-height;
+	width: defs.$global-header-height;
 }

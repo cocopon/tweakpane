@@ -1,3 +1,5 @@
+@use '../defs';
+
 .codeBlock {
 	position: relative;
 
@@ -5,7 +7,7 @@
 		overflow: auto;
 		padding: 32px;
 
-		@include nonwide() {
+		@include defs.nonwide() {
 			padding: 24px;
 		}
 

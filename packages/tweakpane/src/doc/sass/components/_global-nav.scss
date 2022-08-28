@@ -1,3 +1,5 @@
+@use '../defs';
+
 .menu {
 	background-color: var(--bg-color);
 	bottom: 0;
@@ -6,18 +8,18 @@
 	padding-top: 32px;
 	position: fixed;
 	top: 0;
-	width: $global-nav-width;
-	z-index: $z-index-global-nav;
+	width: defs.$global-nav-width;
+	z-index: defs.$z-index-global-nav;
 
-	@include nonwide() {
-		left: -$global-nav-width;
+	@include defs.nonwide() {
+		left: -(defs.$global-nav-width);
 		padding-bottom: 24px;
 		padding-top: 24px;
-		top: $global-header-height;
+		top: defs.$global-header-height;
 		transform: none;
 
 		&#{&}-expanded {
-			transform: translateX($global-nav-width);
+			transform: translateX(defs.$global-nav-width);
 		}
 	}
 
@@ -27,17 +29,17 @@
 
 	&_logo {
 		border-bottom: var(--bg-color-secondary) solid 2px;
-		height: $global-header-height;
-		line-height: $global-header-height;
+		height: defs.$global-header-height;
+		line-height: defs.$global-header-height;
 		padding-left: 32px;
 		padding-right: 32px;
 
-		@include nonwide() {
+		@include defs.nonwide() {
 			display: none;
 		}
 	}
 	&_list {
-		@include wide() {
+		@include defs.wide() {
 			margin-top: 24px;
 		}
 	}
@@ -55,12 +57,12 @@
 		padding: 8px 16px;
 		text-decoration: none;
 
-		@include wide() {
+		@include defs.wide() {
 			border-radius: 6px;
 			margin-left: 16px;
 			margin-right: 16px;
 		}
-		@include nonwide() {
+		@include defs.nonwide() {
 			padding-left: 32px;
 			padding-right: 32px;
 		}
@@ -96,12 +98,12 @@
 		padding: 8px 16px;
 		text-decoration: none;
 
-		@include wide() {
+		@include defs.wide() {
 			border-radius: 6px;
 			margin-left: 16px;
 			margin-right: 16px;
 		}
-		@include nonwide() {
+		@include defs.nonwide() {
 			padding-left: 32px;
 		}
 

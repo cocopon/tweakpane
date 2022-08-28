@@ -1,28 +1,30 @@
+@use '../defs';
+
 .main {
 	overflow: hidden;
 
 	&_globalHeader {
-		@include wide() {
+		@include defs.wide() {
 			display: none;
 		}
-		@include nonwide() {
-			height: $global-header-height;
+		@include defs.nonwide() {
+			height: defs.$global-header-height;
 		}
 	}
 	&_wrap {
-		@include responsiveContainer();
+		@include defs.responsiveContainer();
 
-		@include wide() {
+		@include defs.wide() {
 			display: flex;
 			margin-top: 32px;
 		}
 	}
 	&_menu {
-		@include wide() {
+		@include defs.wide() {
 			margin-right: 32px;
-			width: $global-nav-width;
+			width: defs.$global-nav-width;
 		}
-		@include nonwide() {
+		@include defs.nonwide() {
 			margin-right: 0;
 			width: 0;
 		}
@@ -30,19 +32,19 @@
 	&_main {
 		flex: 1;
 
-		@include wide() {
-			left: $global-nav-width;
+		@include defs.wide() {
+			left: defs.$global-nav-width;
 			overflow: hidden;
 			top: 0;
 		}
-		@include nonwide() {
+		@include defs.nonwide() {
 			left: 0;
-			top: $global-header-height;
+			top: defs.$global-header-height;
 		}
 	}
 	&_pageHeader,
 	&_inner {
-		@include document();
+		@include defs.document();
 
 		flex: 1;
 
@@ -53,21 +55,21 @@
 		}
 	}
 	&_pageHeader {
-		@include middle() {
+		@include defs.middle() {
 			margin-left: -32px;
 			margin-right: -32px;
 		}
-		@include narrow() {
+		@include defs.narrow() {
 			margin-left: -16px;
 			margin-right: -16px;
 		}
 	}
 	&_inner {
-		@include wide() {
+		@include defs.wide() {
 			padding-bottom: 64px;
 			padding-top: 64px;
 		}
-		@include nonwide() {
+		@include defs.nonwide() {
 			padding-bottom: 32px;
 			padding-top: 32px;
 		}
