@@ -7,6 +7,7 @@
 
 Tweakpane is a compact pane library for fine-tuning parameters and monitoring
 value changes, inspired by [dat.GUI][].
+(dat.GUI user? The [migration guide](https://cocopon.github.io/tweakpane/migration.html#datgui) can be helpful)
 
 
 ## Concept
