@@ -1,4 +1,5 @@
 {% set pageId = 'index' %}
+{% set root = './' %}
 {% extends "_template.html" %}
 
 
@@ -42,7 +43,7 @@
 			Extensible
 		</div>
 		<p class="concept_detail">
-			Highly customizable with <a href="theming.html">theming</a> and the <a href="plugins.html">plugin system</a>.
+			Highly customizable with <a href="{{ root }}theming/">theming</a> and the <a href="{{ root }}plugins/">plugin system</a>.
 		</p>
 	</div>
 </div>
@@ -51,7 +52,7 @@
 <h2>What's next?</h2>
 <div class="rel">
 	<div class="relItem">
-		<a class="relItem_anchor" href="getting-started.html">
+		<a class="relItem_anchor" href="{{ root }}getting-started/">
 			<div class="relItem_text">
 				<div class="relItem_title">
 					Getting started
@@ -66,7 +67,7 @@
 		</a>
 	</div>
 	<div class="relItem relItem-oneline">
-		<a class="relItem_anchor" href="api/classes/pane_pane.pane.html" target="_blank">
+		<a class="relItem_anchor" href="{{ root }}api/classes/pane_pane.pane.html" target="_blank">
 			<div class="relItem_text">
 				<div class="relItem_title">
 					API reference

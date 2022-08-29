@@ -1,6 +1,6 @@
 <div class="menu">
 	<div class="menu_logo">
-		<a class="logo" href="./">
+		<a class="logo" href="{{ root }}">
 			<div class="logo_symbol"></div>
 			Tweakpane
 			<div class="logo_version">{{ version }}</div>
@@ -8,128 +8,128 @@
 	</div>
 	<ul class="menu_list">
 		<li class="menuItem">
-			<a class="menuItem_anchor" href="getting-started.html">Getting started</a>
+			<a class="menuItem_anchor" href="{{ root }}getting-started/">Getting started</a>
 		</li>
 		<li class="menuItem">
-			<a class="menuItem_anchor" href="quick-tour.html">Quick tour</a>
+			<a class="menuItem_anchor" href="{{ root }}quick-tour/">Quick tour</a>
 		</li>
 		<li class="menuItem">
-			<a class="menuItem_anchor" href="input-bindings.html">Input bindings</a>
-		</li>
-		<li class="menuItem">
-			<ul class="submenu">
-				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="input-bindings.html#number">Number</a>
-				</li>
-				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="input-bindings.html#string">String</a>
-				</li>
-				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="input-bindings.html#boolean">Boolean</a>
-				</li>
-				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="input-bindings.html#color">Color</a>
-				</li>
-				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="input-bindings.html#point">Point</a>
-				</li>
-			</ul>
-		</li>
-		<li class="menuItem">
-			<a class="menuItem_anchor" href="monitor-bindings.html">Monitor bindings</a>
+			<a class="menuItem_anchor" href="{{ root }}input-bindings/">Input bindings</a>
 		</li>
 		<li class="menuItem">
 			<ul class="submenu">
 				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="monitor-bindings.html#multiline">Multiline</a>
+					<a class="submenuItem_anchor" href="{{ root }}input-bindings/#number">Number</a>
 				</li>
 				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="monitor-bindings.html#buffersize">Buffer size</a>
+					<a class="submenuItem_anchor" href="{{ root }}input-bindings/#string">String</a>
 				</li>
 				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="monitor-bindings.html#interval">Interval</a>
+					<a class="submenuItem_anchor" href="{{ root }}input-bindings/#boolean">Boolean</a>
 				</li>
 				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="monitor-bindings.html#graph">Graph</a>
+					<a class="submenuItem_anchor" href="{{ root }}input-bindings/#color">Color</a>
+				</li>
+				<li class="submenuItem">
+					<a class="submenuItem_anchor" href="{{ root }}input-bindings/#point">Point</a>
 				</li>
 			</ul>
 		</li>
 		<li class="menuItem">
-			<a class="menuItem_anchor" href="ui-components.html">UI components</a>
+			<a class="menuItem_anchor" href="{{ root }}monitor-bindings/">Monitor bindings</a>
 		</li>
 		<li class="menuItem">
 			<ul class="submenu">
 				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="ui-components.html#folder">Folder</a>
+					<a class="submenuItem_anchor" href="{{ root }}monitor-bindings/#multiline">Multiline</a>
 				</li>
 				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="ui-components.html#button">Button</a>
+					<a class="submenuItem_anchor" href="{{ root }}monitor-bindings/#buffersize">Buffer size</a>
 				</li>
 				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="ui-components.html#tab">Tab</a>
+					<a class="submenuItem_anchor" href="{{ root }}monitor-bindings/#interval">Interval</a>
 				</li>
 				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="ui-components.html#separator">Separator</a>
+					<a class="submenuItem_anchor" href="{{ root }}monitor-bindings/#graph">Graph</a>
 				</li>
 			</ul>
 		</li>
 		<li class="menuItem">
-			<a class="menuItem_anchor" href="blades.html">Blades</a>
+			<a class="menuItem_anchor" href="{{ root }}ui-components/">UI components</a>
 		</li>
 		<li class="menuItem">
 			<ul class="submenu">
 				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="blades.html#text">Text</a>
+					<a class="submenuItem_anchor" href="{{ root }}ui-components/#folder">Folder</a>
 				</li>
 				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="blades.html#list">List</a>
+					<a class="submenuItem_anchor" href="{{ root }}ui-components/#button">Button</a>
 				</li>
 				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="blades.html#slider">Slider</a>
+					<a class="submenuItem_anchor" href="{{ root }}ui-components/#tab">Tab</a>
+				</li>
+				<li class="submenuItem">
+					<a class="submenuItem_anchor" href="{{ root }}ui-components/#separator">Separator</a>
 				</li>
 			</ul>
 		</li>
 		<li class="menuItem">
-			<a class="menuItem_anchor" href="theming.html">Theming</a>
+			<a class="menuItem_anchor" href="{{ root }}blades/">Blades</a>
 		</li>
 		<li class="menuItem">
 			<ul class="submenu">
 				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="theming.html#builder">Theme builder</a>
+					<a class="submenuItem_anchor" href="{{ root }}blades/#text">Text</a>
+				</li>
+				<li class="submenuItem">
+					<a class="submenuItem_anchor" href="{{ root }}blades/#list">List</a>
+				</li>
+				<li class="submenuItem">
+					<a class="submenuItem_anchor" href="{{ root }}blades/#slider">Slider</a>
 				</li>
 			</ul>
 		</li>
 		<li class="menuItem">
-			<a class="menuItem_anchor" href="plugins.html">Plugins</a>
-		</li>
-		<li class="menuItem">
-			<a class="menuItem_anchor" href="misc.html">Misc</a>
+			<a class="menuItem_anchor" href="{{ root }}theming/">Theming</a>
 		</li>
 		<li class="menuItem">
 			<ul class="submenu">
 				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="misc.html#events">Events</a>
-				</li>
-				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="misc.html#imex">Import/Export</a>
-				</li>
-				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="misc.html#tips">Tips</a>
+					<a class="submenuItem_anchor" href="{{ root }}theming/#builder">Theme builder</a>
 				</li>
 			</ul>
 		</li>
 		<li class="menuItem">
-			<a class="menuItem_anchor" href="migration.html">Migration</a>
+			<a class="menuItem_anchor" href="{{ root }}plugins/">Plugins</a>
+		</li>
+		<li class="menuItem">
+			<a class="menuItem_anchor" href="{{ root }}misc/">Misc</a>
 		</li>
 		<li class="menuItem">
 			<ul class="submenu">
 				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="migration.html#datgui">dat.GUI</a>
+					<a class="submenuItem_anchor" href="{{ root }}misc/#events">Events</a>
+				</li>
+				<li class="submenuItem">
+					<a class="submenuItem_anchor" href="{{ root }}misc/#imex">Import/Export</a>
+				</li>
+				<li class="submenuItem">
+					<a class="submenuItem_anchor" href="{{ root }}misc/#tips">Tips</a>
 				</li>
 			</ul>
 		</li>
 		<li class="menuItem">
-			<a class="menuItem_anchor" href="api/classes/pane_pane.pane.html" target="_blank">
+			<a class="menuItem_anchor" href="{{ root }}migration/">Migration</a>
+		</li>
+		<li class="menuItem">
+			<ul class="submenu">
+				<li class="submenuItem">
+					<a class="submenuItem_anchor" href="{{ root }}migration/#datgui">dat.GUI</a>
+				</li>
+			</ul>
+		</li>
+		<li class="menuItem">
+			<a class="menuItem_anchor" href="{{ root }}api/classes/pane_pane.pane.html" target="_blank">
 				API reference
 				<span class="material-icons">open_in_new</span>
 			</a>

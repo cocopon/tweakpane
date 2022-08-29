@@ -1,4 +1,5 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console, @typescript-eslint/no-var-requires */
+/* eslint-env node */
 
 'use strict';
 
@@ -25,9 +26,7 @@ const srcPaths = Glob.sync(SRC_PATTERN).filter((path) => {
 console.log('Found sources:');
 console.log(srcPaths.map((path) => `  ${path}`).join('\n'));
 
-const env = new Nunjucks.Environment(
-	new Nunjucks.FileSystemLoader(SRC_DIR),
-);
+const env = new Nunjucks.Environment(new Nunjucks.FileSystemLoader(SRC_DIR));
 console.log('Compiling...');
 srcPaths.forEach((srcPath) => {
 	const srcBase = Path.relative(SRC_DIR, srcPath);
@@ -39,10 +38,7 @@ srcPaths.forEach((srcPath) => {
 	}
 
 	console.log(`  ${dstPath}`);
-	Fs.writeFileSync(
-		dstPath,
-		env.render(srcBase, context),
-	);
+	Fs.writeFileSync(dstPath, env.render(srcBase, context));
 });
 
 console.log('done.');

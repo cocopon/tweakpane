@@ -1,6 +1,8 @@
+type Matcher = (pathname: string) => boolean;
+
 interface Route {
 	init: () => void;
-	pathname: RegExp;
+	matcher: Matcher;
 }
 
 export class SimpleRouter {
@@ -10,16 +12,21 @@ export class SimpleRouter {
 		this.routes_ = [];
 	}
 
-	public add(pathname: RegExp, callback: () => void): void {
+	public add(matcher: RegExp | Matcher, callback: () => void): void {
 		this.routes_.push({
 			init: callback,
-			pathname: pathname,
+			matcher:
+				matcher instanceof RegExp
+					? (pathname: string): boolean => {
+							return matcher.test(pathname);
+					  }
+					: matcher,
 		});
 	}
 
 	public route(pathname: string): void {
 		this.routes_.forEach((route) => {
-			if (route.pathname.test(pathname)) {
+			if (route.matcher(pathname)) {
 				route.init();
 			}
 		});
