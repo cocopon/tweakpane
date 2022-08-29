@@ -39,18 +39,20 @@ function setUpSpMenu() {
 
 (() => {
 	const router = new SimpleRouter();
-	router.add(/^(\/tweakpane)?\/getting-started\.html$/, initGettingStarted);
-	router.add(/^(\/tweakpane)?\/$/, initIndex);
-	router.add(/^(\/tweakpane)?\/blades\.html$/, initBlades);
-	router.add(/^(\/tweakpane)?\/catalog\.html$/, initCatalog);
-	router.add(/^(\/tweakpane)?\/input-bindings\.html$/, initInputBindings);
-	router.add(/^(\/tweakpane)?\/misc\.html$/, initMisc);
-	router.add(/^(\/tweakpane)?\/migration\.html$/, initMigration);
-	router.add(/^(\/tweakpane)?\/monitor-bindings\.html$/, initMonitorBindings);
-	router.add(/^(\/tweakpane)?\/theming\.html$/, initTheming);
-	router.add(/^(\/tweakpane)?\/plugins\.html$/, initPlugins);
-	router.add(/^(\/tweakpane)?\/quick-tour\.html$/, initQuickTour);
-	router.add(/^(\/tweakpane)?\/ui-components\.html$/, initUiComponents);
+	router.add(/\/getting-started\/$/, initGettingStarted);
+	router.add(/\/blades\/$/, initBlades);
+	router.add(/\/catalog\/$/, initCatalog);
+	router.add(/\/input-bindings\/$/, initInputBindings);
+	router.add(/\/misc\/$/, initMisc);
+	router.add(/\/migration\/$/, initMigration);
+	router.add(/\/monitor-bindings\/$/, initMonitorBindings);
+	router.add(/\/theming\/$/, initTheming);
+	router.add(/\/plugins\/$/, initPlugins);
+	router.add(/\/quick-tour\/$/, initQuickTour);
+	router.add(/\/ui-components\/$/, initUiComponents);
+	router.add(() => {
+		return document.querySelector(':root.index') !== null;
+	}, initIndex);
 	router.route(location.pathname);
 
 	setUpScrews();

@@ -1,4 +1,5 @@
 {% set pageId = 'migration' %}
+{% set root = '../' %}
 {% set title = 'Migration' %}
 {% extends "_template.html" %}
 
@@ -42,8 +43,8 @@
 				<ul>
 					<li>Consistent appearance and API</li>
 					<li>More inputs / UI components</li>
-					<li>Extensible with the <a href="plugins.html">plugin system</a></li>
-					<li><a href="theming.html">Theming</a> support</li>
+					<li>Extensible with the <a href="{{ root }}plugins/">plugin system</a></li>
+					<li><a href="{{ root }}theming/">Theming</a> support</li>
 					<li>...etc.</li>
 				</ul>
 			</div>
@@ -51,7 +52,7 @@
 	</div>
 </div>
 
-<h3><a href="input-bindings.html">Basics</a></h3>
+<h3><a href="{{ root }}input-bindings/">Basics</a></h3>
 <div class="main_media">
 	<div class="comparison">
 		<div class="comparison_codes">
@@ -103,7 +104,7 @@ pane.<strong>addInput</strong>(PARAMS, 'active');</code></pre></div>
 	</div>
 </div>
 
-<h3><a href="input-bindings.html">Slider and dropdown</a></h3>
+<h3><a href="{{ root }}input-bindings/">Slider and dropdown</a></h3>
 <div class="main_media">
 	<div class="comparison">
 		<div class="comparison_codes">
@@ -148,7 +149,7 @@ pane.addInput(PARAMS, 'weight', {
 	</div>
 </div>
 
-<h3><a href="input-bindings.html#color">Color</a></h3>
+<h3><a href="{{ root }}input-bindings/#color">Color</a></h3>
 
 <div class="main_media">
 	<div class="comparison">
@@ -184,7 +185,7 @@ pane.<strong>addInput</strong>(PARAMS, 'color');
 	</div>
 </div>
 
-<h3><a href="ui-components.html#folder">Folders</a></h3>
+<h3><a href="{{ root }}ui-components/#folder">Folders</a></h3>
 <div class="main_media">
 	<div class="comparison">
 		<div class="comparison_codes">
@@ -222,7 +223,7 @@ f.<strong>expanded</strong> = true;</code></pre></div>
 	</div>
 </div>
 
-<h3><a href="ui-components.html#button">Buttons</a></h3>
+<h3><a href="{{ root }}ui-components/#button">Buttons</a></h3>
 <div class="main_media">
 	<div class="comparison">
 		<div class="comparison_codes">
@@ -257,7 +258,7 @@ pane.<strong>addButton</strong>({title: 'Alert'})
 	</div>
 </div>
 
-<h3><a href="misc.html#events">Events</a></h3>
+<h3><a href="{{ root }}misc/#events">Events</a></h3>
 <div class="main_media">
 	<div class="comparison">
 		<div class="comparison_codes">
@@ -294,7 +295,7 @@ pane.<strong>addButton</strong>({title: 'Alert'})
 	</div>
 </div>
 
-<h3><a href="misc.html#container">Custom placement</a></h3>
+<h3><a href="{{ root }}misc/#container">Custom placement</a></h3>
 <div class="main_media">
 	<div class="comparison">
 		<div class="comparison_codes">
@@ -313,7 +314,7 @@ containerElem.appendChild(gui.<strong>domElement</strong>);</code></pre></div>
 	</div>
 </div>
 
-<h3><a href="monitor-bindings.html">Monitoring values</a></h3>
+<h3><a href="{{ root }}monitor-bindings/">Monitoring values</a></h3>
 <div class="main_media">
 	<div class="comparison">
 		<div class="comparison_codes">
@@ -342,7 +343,7 @@ containerElem.appendChild(gui.<strong>domElement</strong>);</code></pre></div>
 	</div>
 </div>
 
-<h3><a href="misc.html#refresh">Updating inputs manually</a></h3>
+<h3><a href="{{ root }}misc/#refresh">Updating inputs manually</a></h3>
 <div class="main_media">
 	<div class="comparison">
 		<div class="comparison_codes">

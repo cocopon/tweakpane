@@ -1,4 +1,5 @@
 {% set pageId = 'quickTour' %}
+{% set root = '../' %}
 {% set title = 'Quick tour' %}
 {% extends "_template.html" %}
 
@@ -28,7 +29,7 @@
 	</div>
 </div>
 
-<p>There are various types of blades: <a href="#inputs">input bindings</a>, <a href="#folders">folders</a>, <a href="ui-components.html">etc</a>. It can also be extended with the <a href="plugins.html">plugin system</a>.</p>
+<p>There are various types of blades: <a href="#inputs">input bindings</a>, <a href="#folders">folders</a>, <a href="{{ root }}ui-components/">etc</a>. It can also be extended with the <a href="{{ root }}plugins/">plugin system</a>.</p>
 
 
 <h2 id="inputs">Input bindings</h2>
@@ -89,7 +90,7 @@ pane.addInput(
 	</div>
 </div>
 
-<p>See <a href="input-bindings.html">Input bindings</a> section or <a href="api/classes/pane_pane.pane.html">API reference</a> for details.</p>
+<p>See <a href="{{ root }}input-bindings/">Input bindings</a> section or <a href="{{ root }}api/classes/pane_pane.pane.html">API reference</a> for details.</p>
 
 <h2 id="folders">Folders</h2>
 <p>Use <code>addFolder()</code> to organize blades.</p>
@@ -133,7 +134,7 @@ f.addInput(PARAMS, 'size');
 	</div>
 </div>
 
-<p>See <a href="ui-components.html">UI components</a> section for additional useful components.</p>
+<p>See <a href="{{ root }}ui-components/">UI components</a> section for additional useful components.</p>
 
 <h2 id="events">Events</h2>
 <p>Use <code>on()</code> of the input to handle change events.</p>
@@ -160,7 +161,7 @@ input.<strong>on</strong>('change', function(ev) {
 	</div>
 </div>
 
-<p><a href="misc.html#events">Global events</a> are also available to handle events of all components at once.</p>
+<p><a href="{{ root }}misc/#events">Global events</a> are also available to handle events of all components at once.</p>
 
 <h2 id="presets">Presets</h2>
 <p>Use <code>exportPreset()</code> to export the current bound values in JSON format.</p>
@@ -183,7 +184,7 @@ input.<strong>on</strong>('change', function(ev) {
 	</div>
 </div>
 
-<p>See <a href="misc.html#imex">Import/Export</a> section for details. </p>
+<p>See <a href="{{ root }}misc/#imex">Import/Export</a> section for details. </p>
 
 <h2 id="monitors">Monitor bindings</h2>
 <p>Use <code>addMonitor()</code> to monitor value changes.</p>
@@ -206,12 +207,12 @@ input.<strong>on</strong>('change', function(ev) {
 	</div>
 </div>
 
-<p>See <a href="monitor-bindings.html">Monitor bindings</a> section for full features.</p>
+<p>See <a href="{{ root }}monitor-bindings/">Monitor bindings</a> section for full features.</p>
 
 <h2>What's next</h2>
 <div class="rel">
 	<div class="relItem">
-		<a class="relItem_anchor" href="input-bindings.html">
+		<a class="relItem_anchor" href="{{ root }}input-bindings/">
 			<div class="relItem_text">
 				<div class="relItem_title">
 					Input bindings
@@ -226,7 +227,7 @@ input.<strong>on</strong>('change', function(ev) {
 		</a>
 	</div>
 	<div class="relItem">
-		<a class="relItem_anchor" href="monitor-bindings.html">
+		<a class="relItem_anchor" href="{{ root }}monitor-bindings/">
 			<div class="relItem_text">
 				<div class="relItem_title">
 					Monitor bindings

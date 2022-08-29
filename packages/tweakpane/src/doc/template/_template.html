@@ -16,7 +16,7 @@
 	<meta name="twitter:description" content="{{ description }}">
 	<meta name="twitter:image" content="https://cocopon.github.io/tweakpane/assets/og.png">
 	<meta name="twitter:title" content="Tweakpane">
-	<link rel="stylesheet" href="assets/bundle.css">
+	<link rel="stylesheet" href="{{ root }}assets/bundle.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
@@ -42,8 +42,8 @@
 		</div>
 	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
-	<script src="assets/tweakpane.js" defer></script>
+	<script src="{{ root }}assets/tweakpane.js" defer></script>
 	{% block pluginScripts %}{% endblock %}
-	<script src="assets/bundle.js" defer></script>
+	<script src="{{ root }}assets/bundle.js" defer></script>
 </body>
 </html>

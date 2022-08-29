@@ -1,4 +1,5 @@
 {% set pageId = 'blade' %}
+{% set root = '../' %}
 {% set title = 'Blades' %}
 {% extends "_template.html" %}
 
@@ -8,7 +9,7 @@
 	<div class="pageHeader_inner">
 		<div class="pageHeader_text">
 			<h1 class="pageHeader_title">{{ title }}</h1>
-			<p><code>addBlade()</code> can create a <a href="quick-tour.html#blades">blade</a> without binding.</p>
+			<p><code>addBlade()</code> can create a <a href="{{ root }}quick-tour/#blades">blade</a> without binding.</p>
 		</div>
 	</div>
 </div>
@@ -18,7 +19,7 @@
 {% block content %}
 <h2 id="text">Text</h2>
 <p>
-	<a href="api/interfaces/blade_text_plugin.textbladeparams.html">Parameters</a> | <a href="api/classes/blade_text_api_text.textapi.html">API</a>
+	<a href="{{ root }}api/interfaces/blade_text_plugin.textbladeparams.html">Parameters</a> | <a href="{{ root }}api/classes/blade_text_api_text.textapi.html">API</a>
 </p>
 <div class="main_media">
 	<div class="demo">
@@ -40,7 +41,7 @@ pane.addBlade({
 
 <h2 id="list">List</h2>
 <p>
-	<a href="api/interfaces/blade_list_plugin.listbladeparams.html">Parameters</a> | <a href="api/classes/blade_list_api_list.listapi.html">API</a>
+	<a href="{{ root }}api/interfaces/blade_list_plugin.listbladeparams.html">Parameters</a> | <a href="{{ root }}api/classes/blade_list_api_list.listapi.html">API</a>
 </p>
 <div class="main_media">
 	<div class="demo">
@@ -67,7 +68,7 @@ pane.addBlade({
 
 <h2 id="slider">Slider</h2>
 <p>
-	<a href="api/interfaces/blade_slider_plugin.sliderbladeparams.html">Parameters</a> | <a href="api/classes/blade_slider_api_slider.sliderapi.html">API</a>
+	<a href="{{ root }}api/interfaces/blade_slider_plugin.sliderbladeparams.html">Parameters</a> | <a href="{{ root }}api/classes/blade_slider_api_slider.sliderapi.html">API</a>
 </p>
 <div class="main_media">
 	<div class="demo">
