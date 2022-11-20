@@ -1,4 +1,4 @@
-import {forceCast} from '../misc/type-util';
+import { forceCast } from '../misc/type-util';
 
 export const SVG_NS = 'http://www.w3.org/2000/svg';
 
@@ -23,7 +23,11 @@ export function supportsTouch(doc: Document): boolean {
 }
 
 function getGlobalObject(): any {
-	return new Function('return this')();
+	try {
+		return new Function('return this')();
+	} catch (e) {
+		return window;
+	}
 }
 
 export function getWindowDocument(): Document {
@@ -44,7 +48,7 @@ export function getCanvasContext(
 	return isBrowser ? canvasElement.getContext('2d') : null;
 }
 
-const ICON_ID_TO_INNER_HTML_MAP: {[key in string]: string} = {
+const ICON_ID_TO_INNER_HTML_MAP: { [key in string]: string } = {
 	check: '<path d="M2 8l4 4l8 -8"/>',
 	dropdown: '<path d="M5 7h6l-3 3 z"/>',
 	p2dpad:
