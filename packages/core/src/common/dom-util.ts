@@ -23,7 +23,7 @@ export function supportsTouch(doc: Document): boolean {
 }
 
 function getGlobalObject(): any {
-	return new Function('return this')();
+	return globalThis;
 }
 
 export function getWindowDocument(): Document {
