@@ -243,11 +243,7 @@ export function initMigration() {
 				autoPlace: false,
 			});
 			container.appendChild(gui.domElement);
-			gui
-				.add(SHARED_PARAMS, 'wave')
-				.min(-1)
-				.max(+1)
-				.listen();
+			gui.add(SHARED_PARAMS, 'wave').min(-1).max(+1).listen();
 		},
 		monitortp: (container) => {
 			const pane = new Pane({
@@ -265,10 +261,7 @@ export function initMigration() {
 				autoPlace: false,
 			});
 			container.appendChild(gui.domElement);
-			gui
-				.add(SHARED_PARAMS, 'wave')
-				.min(-1)
-				.max(+1);
+			gui.add(SHARED_PARAMS, 'wave').min(-1).max(+1);
 
 			setInterval(() => {
 				gui.__controllers.forEach((c) => {
