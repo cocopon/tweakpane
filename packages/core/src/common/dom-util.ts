@@ -41,7 +41,11 @@ export function getCanvasContext(
 
 	// HTMLCanvasElement.prototype.getContext is not defined on testing environment
 	const isBrowser = 'document' in win;
-	return isBrowser ? canvasElement.getContext('2d') : null;
+	return isBrowser
+		? canvasElement.getContext('2d', {
+				willReadFrequently: true,
+		  } as CanvasRenderingContext2DSettings)
+		: null;
 }
 
 const ICON_ID_TO_INNER_HTML_MAP: {[key in string]: string} = {
