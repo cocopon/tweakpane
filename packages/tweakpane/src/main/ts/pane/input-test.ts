@@ -176,12 +176,19 @@ describe(Pane.name, () => {
 				value: 3.14,
 				params: {min: 0},
 			},
-			expectedClass: SliderTextController,
+			expectedClass: NumberTextController,
 		},
 		{
 			args: {
 				value: 3.14,
 				params: {max: 100},
+			},
+			expectedClass: NumberTextController,
+		},
+		{
+			args: {
+				value: 3.14,
+				params: {min: 0, max: 100},
 			},
 			expectedClass: SliderTextController,
 		},
