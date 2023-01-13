@@ -1,5 +1,5 @@
 import {Constraint} from '../../../common/constraint/constraint';
-import {RangeConstraint} from '../../../common/constraint/range';
+import {DefiniteRangeConstraint} from '../../../common/constraint/definite-range';
 import {Controller} from '../../../common/controller/controller';
 import {Formatter} from '../../../common/converter/formatter';
 import {createNumberFormatter} from '../../../common/converter/number';
@@ -39,7 +39,7 @@ function createConstraint(
 	index: number,
 ): Constraint<number> {
 	const max = getColorMaxComponents(mode, type)[index];
-	return new RangeConstraint({
+	return new DefiniteRangeConstraint({
 		min: 0,
 		max: max,
 	});

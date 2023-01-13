@@ -1,4 +1,4 @@
-import {RangeConstraint} from '../../../common/constraint/range';
+import {DefiniteRangeConstraint} from '../../../common/constraint/definite-range';
 import {Controller} from '../../../common/controller/controller';
 import {
 	createNumberFormatter,
@@ -66,7 +66,7 @@ export class ColorPickerController implements Controller<ColorPickerView> {
 							formatter: createNumberFormatter(2),
 						}),
 						value: createValue(0, {
-							constraint: new RangeConstraint({min: 0, max: 1}),
+							constraint: new DefiniteRangeConstraint({min: 0, max: 1}),
 						}),
 						viewProps: this.viewProps,
 					}),

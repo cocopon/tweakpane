@@ -1,9 +1,5 @@
-import {
-	CompositeConstraint,
-	findConstraint,
-} from '../../common/constraint/composite';
+import {CompositeConstraint} from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
-import {RangeConstraint} from '../../common/constraint/range';
 import {
 	createNumberFormatter,
 	parseNumber,
@@ -23,8 +19,13 @@ import {
 	parsePickerLayout,
 	parsePointDimensionParams,
 } from '../../common/util';
+import {isEmpty} from '../../index';
 import {PointNdConstraint} from '../common/constraint/point-nd';
-import {createRangeConstraint, createStepConstraint} from '../number/plugin';
+import {
+	createRangeConstraint,
+	createStepConstraint,
+	findNumberRange,
+} from '../number/plugin';
 import {InputBindingPlugin} from '../plugin';
 import {Point2dController} from './controller/point-2d';
 import {point2dFromUnknown, writePoint2d} from './converter/point-2d';
@@ -84,9 +85,9 @@ function getSuitableMaxDimensionValue(
 	constraint: Constraint<number> | undefined,
 	rawValue: number,
 ): number {
-	const rc = constraint && findConstraint(constraint, RangeConstraint);
-	if (rc) {
-		return Math.max(Math.abs(rc.minValue ?? 0), Math.abs(rc.maxValue ?? 0));
+	const [min, max] = constraint ? findNumberRange(constraint) : [];
+	if (!isEmpty(min) || !isEmpty(max)) {
+		return Math.max(Math.abs(min ?? 0), Math.abs(max ?? 0));
 	}
 
 	const step = getBaseStep(constraint);

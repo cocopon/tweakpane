@@ -9,6 +9,7 @@ import {BoundValue} from '../../common/model/bound-value';
 import {Value} from '../../common/model/value';
 import {createTestWindow} from '../../misc/dom-test-util';
 import {PointNdConstraint} from '../common/constraint/point-nd';
+import {findNumberRange} from '../number/plugin';
 import {createInputBindingController} from '../plugin';
 import {Point2d, Point2dAssembly} from './model/point-2d';
 import {getSuitableMaxValue, Point2dInputPlugin} from './plugin';
@@ -99,9 +100,9 @@ describe(Point2dInputPlugin.id, () => {
 		if (!yc) {
 			assert.fail('Unexpected constraint');
 		}
-		const rc = findConstraint(yc, RangeConstraint);
-		assert.strictEqual(rc && rc.minValue, -123);
-		assert.strictEqual(rc && rc.maxValue, 456);
+		const [min, max] = findNumberRange(yc);
+		assert.strictEqual(min, -123);
+		assert.strictEqual(max, 456);
 	});
 
 	it('should not break original object', () => {

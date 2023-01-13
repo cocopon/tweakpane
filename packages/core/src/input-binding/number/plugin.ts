@@ -3,6 +3,7 @@ import {
 	findConstraint,
 } from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
+import {DefiniteRangeConstraint} from '../../common/constraint/definite-range';
 import {ListConstraint} from '../../common/constraint/list';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
@@ -68,16 +69,38 @@ export function createRangeConstraint(params: {
 	max?: number;
 	min?: number;
 }): Constraint<number> | null {
-	if (
-		('max' in params && !isEmpty(params.max)) ||
-		('min' in params && !isEmpty(params.min))
-	) {
+	if (!isEmpty(params.max) && !isEmpty(params.min)) {
+		return new DefiniteRangeConstraint({
+			max: params.max,
+			min: params.min,
+		});
+	}
+	if (!isEmpty(params.max) || !isEmpty(params.min)) {
 		return new RangeConstraint({
 			max: params.max,
 			min: params.min,
 		});
 	}
 	return null;
+}
+
+/**
+ * Finds a range from number constraint.
+ * @param c The number constraint.
+ * @return A list that contains a minimum value and a max value.
+ */
+export function findNumberRange(
+	c: Constraint<number>,
+): [number | undefined, number | undefined] {
+	const drc = findConstraint(c, DefiniteRangeConstraint);
+	if (drc) {
+		return [drc.values.get('min'), drc.values.get('max')];
+	}
+	const rc = findConstraint(c, RangeConstraint);
+	if (rc) {
+		return [rc.minValue, rc.maxValue];
+	}
+	return [undefined, undefined];
 }
 
 function createConstraint(
@@ -155,14 +178,14 @@ export const NumberInputPlugin: InputBindingPlugin<
 			('format' in args.params ? args.params.format : undefined) ??
 			createNumberFormatter(getSuitableDecimalDigits(c, value.rawValue));
 
-		const rc = c && findConstraint(c, RangeConstraint);
-		if (rc && rc.minValue !== undefined && rc.maxValue !== undefined) {
+		const drc = c && findConstraint(c, DefiniteRangeConstraint);
+		if (drc) {
 			return new SliderTextController(args.document, {
 				baseStep: getBaseStep(c),
 				parser: parseNumber,
 				sliderProps: ValueMap.fromObject({
-					maxValue: rc.minValue,
-					minValue: rc.maxValue,
+					maxValue: drc.values.get('max'),
+					minValue: drc.values.get('min'),
 				}),
 				textProps: ValueMap.fromObject({
 					draggingScale: getSuitableDraggingScale(c, value.rawValue),
