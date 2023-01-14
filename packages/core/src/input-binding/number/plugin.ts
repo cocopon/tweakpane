@@ -183,9 +183,9 @@ export const NumberInputPlugin: InputBindingPlugin<
 			return new SliderTextController(args.document, {
 				baseStep: getBaseStep(c),
 				parser: parseNumber,
-				sliderProps: ValueMap.fromObject({
-					maxValue: drc.values.get('max'),
-					minValue: drc.values.get('min'),
+				sliderProps: new ValueMap({
+					maxValue: drc.values.value('max'),
+					minValue: drc.values.value('min'),
 				}),
 				textProps: ValueMap.fromObject({
 					draggingScale: getSuitableDraggingScale(c, value.rawValue),
