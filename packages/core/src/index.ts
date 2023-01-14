@@ -50,6 +50,7 @@ export * from './common/binding/ticker/ticker';
 
 export * from './common/constraint/composite';
 export * from './common/constraint/constraint';
+export * from './common/constraint/definite-range';
 export * from './common/constraint/list';
 export * from './common/constraint/range';
 export * from './common/constraint/step';
