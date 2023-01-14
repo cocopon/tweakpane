@@ -1,3 +1,4 @@
+import {ValueMap} from '../model/value-map';
 import {Constraint} from './constraint';
 
 /**
@@ -13,14 +14,26 @@ export interface ListItem<T> {
  * @template T The type of the value.
  */
 export class ListConstraint<T> implements Constraint<T> {
-	public readonly options: ListItem<T>[];
+	public readonly values: ValueMap<{
+		options: ListItem<T>[];
+	}>;
 
 	constructor(options: ListItem<T>[]) {
-		this.options = options;
+		this.values = ValueMap.fromObject({
+			options: options,
+		});
+	}
+
+	// TODO: Remove property in the next major version
+	/**
+	 * @deprecated Use values.get('options') instead.
+	 */
+	get options(): ListItem<T>[] {
+		return this.values.get('options');
 	}
 
 	public constrain(value: T): T {
-		const opts = this.options;
+		const opts = this.values.get('options');
 
 		if (opts.length === 0) {
 			return value;
