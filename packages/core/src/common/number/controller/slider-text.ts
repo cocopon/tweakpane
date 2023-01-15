@@ -17,9 +17,6 @@ interface Config {
 	viewProps: ViewProps;
 }
 
-/**
- * @hidden
- */
 export class SliderTextController
 	implements ValueController<number, SliderTextView>
 {

@@ -12,9 +12,6 @@ interface Config {
 	root?: boolean;
 }
 
-/**
- * @hidden
- */
 export class RackController extends BladeController<PlainView> {
 	public readonly rack: BladeRack;
 

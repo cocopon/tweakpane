@@ -10,9 +10,6 @@ interface Config<T> {
 	viewProps: ViewProps;
 }
 
-/**
- * @hidden
- */
 export class ListController<T> implements ValueController<T, ListView<T>> {
 	public readonly value: Value<T>;
 	public readonly view: ListView<T>;

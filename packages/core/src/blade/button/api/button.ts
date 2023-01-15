@@ -3,7 +3,7 @@ import {TpEvent} from '../../common/api/tp-event';
 import {LabelController} from '../../label/controller/label';
 import {ButtonController} from '../controller/button';
 
-interface ButtonApiEvents {
+export interface ButtonApiEvents {
 	click: {
 		event: TpEvent;
 	};

@@ -7,6 +7,10 @@
   "main": "dist/cjs/index.js",
   "types": "dist/cjs/index.d.ts",
   "prettier": "../../prettier.config.js",
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "tsconfig": "./src/tsconfig-es6.json"
+  },
   "scripts": {
     "prepack": "run-s clean build",
     "prepublishOnly": "npm test",

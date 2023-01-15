@@ -15,9 +15,6 @@ export interface Config<T> {
 	viewProps: ViewProps;
 }
 
-/**
- * @hidden
- */
 export class TextController<T> implements ValueController<T, TextView<T>> {
 	public readonly props: TextProps<T>;
 	public readonly value: Value<T>;

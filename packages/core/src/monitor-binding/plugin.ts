@@ -23,7 +23,7 @@ interface Acceptance<T, P extends BaseMonitorParams> {
 	params: P;
 }
 
-interface BindingArguments<T, P extends BaseMonitorParams> {
+export interface BindingArguments<T, P extends BaseMonitorParams> {
 	initialValue: T;
 	params: P;
 	target: BindingTarget;

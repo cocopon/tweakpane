@@ -17,9 +17,6 @@ interface Config {
 	viewProps: ViewProps;
 }
 
-/**
- * @hidden
- */
 export class TabItemController implements Controller<TabItemView> {
 	public readonly emitter: Emitter<TabItemEvents> = new Emitter();
 	public readonly props: TabItemProps;
