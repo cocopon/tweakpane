@@ -1,4 +1,5 @@
 import {isEmpty} from '../../misc/type-util';
+import {ValueMap} from '../model/value-map';
 import {Constraint} from './constraint';
 
 interface Config {
@@ -10,21 +11,44 @@ interface Config {
  * A number range constraint.
  */
 export class RangeConstraint implements Constraint<number> {
-	public readonly maxValue: number | undefined;
-	public readonly minValue: number | undefined;
+	public readonly values: ValueMap<{
+		max: number | undefined;
+		min: number | undefined;
+	}>;
 
 	constructor(config: Config) {
-		this.maxValue = config.max;
-		this.minValue = config.min;
+		this.values = ValueMap.fromObject({
+			max: config.max,
+			min: config.min,
+		});
+	}
+
+	// TODO: Remove property in the next major version
+	/**
+	 * @deprecated Use values.get('max') instead.
+	 */
+	get maxValue(): number | undefined {
+		return this.values.get('max');
+	}
+
+	// TODO: Remove property in the next major version
+	/**
+	 * @deprecated Use values.get('min') instead.
+	 */
+	get minValue(): number | undefined {
+		return this.values.get('min');
 	}
 
 	public constrain(value: number): number {
+		const max = this.values.get('max');
+		const min = this.values.get('min');
+
 		let result = value;
-		if (!isEmpty(this.minValue)) {
-			result = Math.max(result, this.minValue);
+		if (!isEmpty(min)) {
+			result = Math.max(result, min);
 		}
-		if (!isEmpty(this.maxValue)) {
-			result = Math.min(result, this.maxValue);
+		if (!isEmpty(max)) {
+			result = Math.min(result, max);
 		}
 		return result;
 	}

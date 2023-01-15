@@ -3,12 +3,12 @@ import {describe, it} from 'mocha';
 
 import {BindingTarget} from '../../common/binding/target';
 import {findConstraint} from '../../common/constraint/composite';
-import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
 import {BoundValue} from '../../common/model/bound-value';
 import {createTestWindow} from '../../misc/dom-test-util';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {PointNdTextController} from '../common/controller/point-nd-text';
+import {findNumberRange} from '../number/plugin';
 import {createInputBindingController} from '../plugin';
 import {Point4d} from './model/point-4d';
 import {Point4dInputPlugin} from './plugin';
@@ -61,8 +61,8 @@ describe(Point4dInputPlugin.id, () => {
 		if (!wc) {
 			assert.fail('Unexpected constraint');
 		}
-		const rc = findConstraint(wc, RangeConstraint);
-		assert.strictEqual(rc && rc.minValue, -123);
-		assert.strictEqual(rc && rc.maxValue, 456);
+		const [min, max] = findNumberRange(wc);
+		assert.strictEqual(min, -123);
+		assert.strictEqual(max, 456);
 	});
 });

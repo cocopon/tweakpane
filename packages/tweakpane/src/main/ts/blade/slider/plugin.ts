@@ -2,6 +2,7 @@ import {
 	BaseBladeParams,
 	BladePlugin,
 	createValue,
+	DefiniteRangeConstraint,
 	Formatter,
 	getSuitableDraggingScale,
 	LabeledValueController,
@@ -43,19 +44,25 @@ export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 		return result ? {params: result} : null;
 	},
 	controller(args) {
-		const v = args.params.value ?? 0;
+		const initialValue = args.params.value ?? 0;
+		const drc = new DefiniteRangeConstraint({
+			max: args.params.max,
+			min: args.params.min,
+		});
 		const vc = new SliderTextController(args.document, {
 			baseStep: 1,
 			parser: parseNumber,
-			sliderProps: ValueMap.fromObject({
-				maxValue: args.params.max,
-				minValue: args.params.min,
+			sliderProps: new ValueMap({
+				maxValue: drc.values.value('max'),
+				minValue: drc.values.value('min'),
 			}),
 			textProps: ValueMap.fromObject({
-				draggingScale: getSuitableDraggingScale(undefined, v),
+				draggingScale: getSuitableDraggingScale(undefined, initialValue),
 				formatter: args.params.format ?? numberToString,
 			}),
-			value: createValue(v),
+			value: createValue(initialValue, {
+				constraint: drc,
+			}),
 			viewProps: args.viewProps,
 		});
 		return new LabeledValueController<number, SliderTextController>(

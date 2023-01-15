@@ -11,11 +11,7 @@ import {ValueMap} from '../../common/model/value-map';
 import {BaseInputParams, ListParamsOptions} from '../../common/params';
 import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {writePrimitive} from '../../common/primitive';
-import {
-	createListConstraint,
-	findListItems,
-	parseListOptions,
-} from '../../common/util';
+import {createListConstraint, parseListOptions} from '../../common/util';
 import {InputBindingPlugin} from '../plugin';
 
 export interface StringInputParams extends BaseInputParams {
@@ -68,10 +64,11 @@ export const StringInputPlugin: InputBindingPlugin<
 		const value = args.value;
 		const c = args.constraint;
 
-		if (c && findConstraint(c, ListConstraint)) {
+		const lc = c && findConstraint<ListConstraint<string>>(c, ListConstraint);
+		if (lc) {
 			return new ListController(doc, {
-				props: ValueMap.fromObject({
-					options: findListItems(c) ?? [],
+				props: new ValueMap({
+					options: lc.values.value('options'),
 				}),
 				value: value,
 				viewProps: args.viewProps,

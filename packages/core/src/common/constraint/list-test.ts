@@ -28,7 +28,7 @@ describe(ListConstraint.name, () => {
 		assert.strictEqual(c.constrain(3.14), 3.14);
 	});
 
-	it('should constrain an invalid value wit list options', () => {
+	it('should constrain an invalid value with list options', () => {
 		const c = new ListConstraint([
 			{text: 'foo', value: 1.41},
 			{text: 'bar', value: 2.72},

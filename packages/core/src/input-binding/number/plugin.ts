@@ -3,6 +3,7 @@ import {
 	findConstraint,
 } from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
+import {DefiniteRangeConstraint} from '../../common/constraint/definite-range';
 import {ListConstraint} from '../../common/constraint/list';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
@@ -25,7 +26,6 @@ import {
 import {writePrimitive} from '../../common/primitive';
 import {
 	createListConstraint,
-	findListItems,
 	getBaseStep,
 	getSuitableDecimalDigits,
 	getSuitableDraggingScale,
@@ -68,16 +68,38 @@ export function createRangeConstraint(params: {
 	max?: number;
 	min?: number;
 }): Constraint<number> | null {
-	if (
-		('max' in params && !isEmpty(params.max)) ||
-		('min' in params && !isEmpty(params.min))
-	) {
+	if (!isEmpty(params.max) && !isEmpty(params.min)) {
+		return new DefiniteRangeConstraint({
+			max: params.max,
+			min: params.min,
+		});
+	}
+	if (!isEmpty(params.max) || !isEmpty(params.min)) {
 		return new RangeConstraint({
 			max: params.max,
 			min: params.min,
 		});
 	}
 	return null;
+}
+
+/**
+ * Finds a range from number constraint.
+ * @param c The number constraint.
+ * @return A list that contains a minimum value and a max value.
+ */
+export function findNumberRange(
+	c: Constraint<number>,
+): [number | undefined, number | undefined] {
+	const drc = findConstraint(c, DefiniteRangeConstraint);
+	if (drc) {
+		return [drc.values.get('min'), drc.values.get('max')];
+	}
+	const rc = findConstraint(c, RangeConstraint);
+	if (rc) {
+		return [rc.minValue, rc.maxValue];
+	}
+	return [undefined, undefined];
 }
 
 function createConstraint(
@@ -101,24 +123,6 @@ function createConstraint(
 	}
 
 	return new CompositeConstraint(constraints);
-}
-
-function findRange(
-	constraint: Constraint<number>,
-): [number | undefined, number | undefined] {
-	const c = constraint ? findConstraint(constraint, RangeConstraint) : null;
-	if (!c) {
-		return [undefined, undefined];
-	}
-
-	return [c.minValue, c.maxValue];
-}
-
-function estimateSuitableRange(
-	constraint: Constraint<number>,
-): [number, number] {
-	const [min, max] = findRange(constraint);
-	return [min ?? 0, max ?? 100];
 }
 
 /**
@@ -159,10 +163,11 @@ export const NumberInputPlugin: InputBindingPlugin<
 		const value = args.value;
 		const c = args.constraint;
 
-		if (c && findConstraint(c, ListConstraint)) {
+		const lc = c && findConstraint<ListConstraint<number>>(c, ListConstraint);
+		if (lc) {
 			return new ListController(args.document, {
-				props: ValueMap.fromObject({
-					options: findListItems(c) ?? [],
+				props: new ValueMap({
+					options: lc.values.value('options'),
 				}),
 				value: value,
 				viewProps: args.viewProps,
@@ -173,14 +178,14 @@ export const NumberInputPlugin: InputBindingPlugin<
 			('format' in args.params ? args.params.format : undefined) ??
 			createNumberFormatter(getSuitableDecimalDigits(c, value.rawValue));
 
-		if (c && findConstraint(c, RangeConstraint)) {
-			const [min, max] = estimateSuitableRange(c);
+		const drc = c && findConstraint(c, DefiniteRangeConstraint);
+		if (drc) {
 			return new SliderTextController(args.document, {
 				baseStep: getBaseStep(c),
 				parser: parseNumber,
-				sliderProps: ValueMap.fromObject({
-					maxValue: max,
-					minValue: min,
+				sliderProps: new ValueMap({
+					maxValue: drc.values.value('max'),
+					minValue: drc.values.value('min'),
 				}),
 				textProps: ValueMap.fromObject({
 					draggingScale: getSuitableDraggingScale(c, value.rawValue),
