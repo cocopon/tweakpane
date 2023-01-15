@@ -201,6 +201,11 @@ export function getColorMaxComponents(
 	];
 }
 
+function loopHueRange(hue: number, max: number): number {
+	// Maximum value of the slider (e.g. 360deg) should be kept
+	return hue === max ? max : loopRange(hue, max);
+}
+
 /**
  * @hidden
  */
@@ -213,7 +218,7 @@ export function constrainColorComponents(
 	return [
 		mode === 'rgb'
 			? constrainRange(components[0], 0, ms[0])
-			: loopRange(components[0], ms[0]),
+			: loopHueRange(components[0], ms[0]),
 		constrainRange(components[1], 0, ms[1]),
 		constrainRange(components[2], 0, ms[2]),
 		constrainRange(components[3] ?? 1, 0, 1),

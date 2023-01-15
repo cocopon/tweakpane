@@ -384,4 +384,65 @@ describe(Color.name, () => {
 			});
 		});
 	});
+
+	(
+		[
+			{
+				params: {
+					hue: 360,
+					type: 'int',
+				},
+				expected: 360,
+			},
+			{
+				params: {
+					hue: 361,
+					type: 'int',
+				},
+				expected: 1,
+			},
+			{
+				params: {
+					hue: 1,
+					type: 'float',
+				},
+				expected: 1,
+			},
+			{
+				params: {
+					hue: 1.01,
+					type: 'float',
+				},
+				expected: 0.01,
+			},
+		] as {
+			params: {
+				hue: number;
+				type: ColorType;
+			};
+			expected: number;
+		}[]
+	).forEach(({params, expected}) => {
+		context(`when ${JSON.stringify(params)}`, () => {
+			it(`it should constrain hue range`, () => {
+				const c1 = new Color([params.hue, 0, 0], 'hsl', params.type);
+				assert.ok(
+					TestUtil.closeTo(
+						c1.getComponents('hsl', params.type)[0],
+						expected,
+						DELTA,
+					),
+				);
+
+				const c2 = new Color([params.hue, 0, 0], 'hsv', params.type);
+				assert.ok(
+					TestUtil.closeTo(
+						c2.getComponents('hsv', params.type)[0],
+						expected,
+						DELTA,
+					),
+				);
+			});
+		});
+	});
 });
