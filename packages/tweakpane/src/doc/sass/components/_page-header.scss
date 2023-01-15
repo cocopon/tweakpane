@@ -69,6 +69,12 @@
 			font-size: 2rem;
 		}
 	}
+	&#{&}-theming &_text {
+		color: #{hsl(defs.$base-hue, 5%, 60%)};
+	}
+	&#{&}-theming &_title {
+		color: #{hsl(defs.$base-hue, 5%, 70%)};
+	}
 	&_pane {
 		@include defs.wide() {
 			flex-grow: 0;
