@@ -7,7 +7,7 @@ import {convertColor} from './color-model';
 const DELTA = 2;
 
 describe('ColorModel', () => {
-	const testCases = [
+	const t1 = [
 		{
 			hsl: {h: 0, s: 0, l: 0},
 			hsv: {h: 0, s: 0, v: 0},
@@ -54,7 +54,7 @@ describe('ColorModel', () => {
 			rgb: {r: 170, g: 76, b: 143},
 		},
 	];
-	testCases.forEach(({rgb, hsl, hsv}) => {
+	t1.forEach(({rgb, hsl, hsv}) => {
 		context(`when ${JSON.stringify(rgb)}`, () => {
 			it(`it should convert to ${JSON.stringify(hsl)}`, () => {
 				const actual = convertColor(
@@ -78,7 +78,7 @@ describe('ColorModel', () => {
 			});
 		});
 	});
-	testCases.forEach(({rgb, hsl}) => {
+	t1.forEach(({rgb, hsl}) => {
 		context(`when ${JSON.stringify(hsl)}`, () => {
 			it(`it should convert to ${JSON.stringify(rgb)}`, () => {
 				const actual = convertColor(
@@ -92,7 +92,7 @@ describe('ColorModel', () => {
 			});
 		});
 	});
-	testCases.forEach(({rgb, hsv}) => {
+	t1.forEach(({rgb, hsv}) => {
 		context(`when ${JSON.stringify(hsv)}`, () => {
 			it(`it should convert to ${JSON.stringify(rgb)}`, () => {
 				const actual = convertColor(
@@ -106,7 +106,7 @@ describe('ColorModel', () => {
 			});
 		});
 	});
-	testCases.forEach(({hsl, hsv}) => {
+	t1.forEach(({hsl, hsv}) => {
 		context(`when ${JSON.stringify(hsl)}`, () => {
 			it(`it should convert to ${JSON.stringify(hsv)}`, () => {
 				const actual = convertColor(
@@ -120,7 +120,7 @@ describe('ColorModel', () => {
 			});
 		});
 	});
-	testCases.forEach(({hsl, hsv}) => {
+	t1.forEach(({hsl, hsv}) => {
 		context(`when ${JSON.stringify(hsv)}`, () => {
 			it(`it should convert to ${JSON.stringify(hsl)}`, () => {
 				const actual = convertColor(

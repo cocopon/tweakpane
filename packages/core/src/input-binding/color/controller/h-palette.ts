@@ -60,7 +60,7 @@ export class HPaletteController implements Controller<HPaletteView> {
 			0,
 			d.bounds.width,
 			0,
-			359,
+			360,
 		);
 
 		const c = this.value.rawValue;
