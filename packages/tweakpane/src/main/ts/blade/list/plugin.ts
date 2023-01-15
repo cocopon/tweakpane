@@ -3,6 +3,7 @@ import {
 	BladePlugin,
 	createValue,
 	LabeledValueController,
+	ListConstraint,
 	ListController,
 	ListParamsOptions,
 	normalizeListOptions,
@@ -41,11 +42,17 @@ export const ListBladePlugin = (function <T>(): BladePlugin<
 			return result ? {params: result} : null;
 		},
 		controller(args) {
+			const lc = new ListConstraint(
+				normalizeListOptions<T>(args.params.options),
+			);
+			const value = createValue(args.params.value, {
+				constraint: lc,
+			});
 			const ic = new ListController(args.document, {
-				props: ValueMap.fromObject({
-					options: normalizeListOptions<T>(args.params.options),
+				props: new ValueMap({
+					options: lc.values.value('options'),
 				}),
-				value: createValue(args.params.value),
+				value: value,
 				viewProps: args.viewProps,
 			});
 			return new LabeledValueController<T, ListController<T>>(args.document, {

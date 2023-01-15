@@ -78,22 +78,6 @@ export function createListConstraint<T>(
 		: null;
 }
 
-/**
- * @hidden
- */
-export function findListItems<T>(
-	constraint: Constraint<T> | undefined,
-): ListItem<T>[] | null {
-	const c = constraint
-		? findConstraint<ListConstraint<T>>(constraint, ListConstraint)
-		: null;
-	if (!c) {
-		return null;
-	}
-
-	return c.options;
-}
-
 function findStep(constraint: Constraint<number> | undefined): number | null {
 	const c = constraint ? findConstraint(constraint, StepConstraint) : null;
 	if (!c) {

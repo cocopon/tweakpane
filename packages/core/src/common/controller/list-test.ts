@@ -7,7 +7,6 @@ import {ListConstraint} from '../constraint/list';
 import {ValueMap} from '../model/value-map';
 import {createValue} from '../model/values';
 import {ViewProps} from '../model/view-props';
-import {findListItems} from '../util';
 import {ListController} from './list';
 
 describe(ListController.name, () => {
@@ -22,8 +21,8 @@ describe(ListController.name, () => {
 		});
 		const doc = createTestWindow().document;
 		const c = new ListController(doc, {
-			props: ValueMap.fromObject({
-				options: findListItems(constraint) ?? [],
+			props: new ValueMap({
+				options: constraint.values.value('options'),
 			}),
 			value: value,
 			viewProps: ViewProps.create(),
@@ -44,8 +43,8 @@ describe(ListController.name, () => {
 		const win = createTestWindow();
 		const doc = win.document;
 		const c = new ListController(doc, {
-			props: ValueMap.fromObject({
-				options: findListItems(constraint) ?? [],
+			props: new ValueMap({
+				options: constraint.values.value('options'),
 			}),
 			value: value,
 			viewProps: ViewProps.create(),
@@ -68,8 +67,8 @@ describe(ListController.name, () => {
 		});
 		const doc = createTestWindow().document;
 		const c = new ListController(doc, {
-			props: ValueMap.fromObject({
-				options: findListItems(constraint) ?? [],
+			props: new ValueMap({
+				options: constraint.values.value('options'),
 			}),
 			value: value,
 			viewProps: ViewProps.create(),

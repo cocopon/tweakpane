@@ -26,7 +26,6 @@ import {
 import {writePrimitive} from '../../common/primitive';
 import {
 	createListConstraint,
-	findListItems,
 	getBaseStep,
 	getSuitableDecimalDigits,
 	getSuitableDraggingScale,
@@ -164,10 +163,11 @@ export const NumberInputPlugin: InputBindingPlugin<
 		const value = args.value;
 		const c = args.constraint;
 
-		if (c && findConstraint(c, ListConstraint)) {
+		const lc = c && findConstraint<ListConstraint<number>>(c, ListConstraint);
+		if (lc) {
 			return new ListController(args.document, {
-				props: ValueMap.fromObject({
-					options: findListItems(c) ?? [],
+				props: new ValueMap({
+					options: lc.values.value('options'),
 				}),
 				value: value,
 				viewProps: args.viewProps,
