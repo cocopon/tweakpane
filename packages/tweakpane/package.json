@@ -16,6 +16,10 @@
   "files": [
     "dist"
   ],
+  "typedoc": {
+    "entryPoint": "./src/main/ts/index.ts",
+    "tsconfig": "./src/doc/tsconfig.json"
+  },
   "scripts": {
     "prepack": "run-s clean main:prepare",
     "prepublishOnly": "npm test",
@@ -86,6 +90,7 @@
     "rollup": "^2.38.5",
     "rollup-plugin-cleanup": "^3.2.1",
     "rollup-plugin-terser": "^7.0.2",
-    "typedoc": "^0.20.37"
+    "typedoc": "^0.23.24",
+    "typedoc-plugin-missing-exports": "^1.0.0"
   }
 }

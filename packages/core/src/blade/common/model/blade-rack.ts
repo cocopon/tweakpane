@@ -109,9 +109,6 @@ function findSubBladeControllerSet(
 	return rack ? rack['bcSet_'] : null;
 }
 
-/**
- * @hidden
- */
 export class BladeRack {
 	public readonly emitter: Emitter<BladeRackEvents>;
 	private readonly blade_: Blade | null;

@@ -14,9 +14,6 @@ interface Config {
 
 const className = ClassName('tab');
 
-/**
- * @hidden
- */
 export class TabView implements View {
 	public readonly element: HTMLElement;
 	public readonly itemsElement: HTMLElement;

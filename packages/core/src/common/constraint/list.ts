@@ -1,9 +1,6 @@
 import {ValueMap} from '../model/value-map';
 import {Constraint} from './constraint';
 
-/**
- * @hidden
- */
 export interface ListItem<T> {
 	text: string;
 	value: T;
