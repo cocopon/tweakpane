@@ -1,8 +1,5 @@
 name: CI
 on:
-  push:
-    branches-ignore:
-      - 'wip-*'
   pull_request:
     branches:
       - main
