@@ -45,7 +45,7 @@ export function initCatalog() {
 	});
 
 	const markerToFnMap: {
-		[key: string]: (container: HTMLElement) => void;
+		[key: string]: (container: HTMLElement) => Pane;
 	} = {
 		numberinput: (container) => {
 			const params = {
@@ -72,6 +72,7 @@ export function initCatalog() {
 					option: 0,
 				},
 			});
+			return pane;
 		},
 		stringinput: (container) => {
 			const params = {
@@ -92,6 +93,7 @@ export function initCatalog() {
 					option: 'text',
 				},
 			});
+			return pane;
 		},
 		boolinput: (container) => {
 			const params = {
@@ -105,6 +107,7 @@ export function initCatalog() {
 				disabled: disabled,
 				label: 'checkbox',
 			});
+			return pane;
 		},
 		colorinput: (container) => {
 			const params = {
@@ -120,6 +123,7 @@ export function initCatalog() {
 				label: 'picker',
 				picker: 'inline',
 			});
+			return pane;
 		},
 		pointinput: (container) => {
 			const params = {
@@ -145,6 +149,7 @@ export function initCatalog() {
 				disabled: disabled,
 				label: '4d-text',
 			});
+			return pane;
 		},
 		numbermonitor: (container) => {
 			const params = {
@@ -176,6 +181,7 @@ export function initCatalog() {
 				min: -1,
 				view: 'graph',
 			});
+			return pane;
 		},
 		stringmonitor: (container) => {
 			const params = {
@@ -200,6 +206,7 @@ export function initCatalog() {
 				interval: 1000,
 				label: 'multiline',
 			});
+			return pane;
 		},
 		boolmonitor: (container) => {
 			const params = {
@@ -224,6 +231,7 @@ export function initCatalog() {
 				interval: 1000,
 				label: 'multiline',
 			});
+			return pane;
 		},
 		folder: (container) => {
 			const pane = new Pane({
@@ -238,6 +246,7 @@ export function initCatalog() {
 				title: 'Subfolder',
 			});
 			sf.addInput({param: 0}, 'param', {disabled: disabled});
+			return pane;
 		},
 		tab: (container) => {
 			const pane = new Pane({
@@ -252,6 +261,7 @@ export function initCatalog() {
 				pages: [{title: 'Page'}, {title: 'Page'}],
 			});
 			st.pages[0].addInput({param: 0}, 'param', {disabled: disabled});
+			return pane;
 		},
 		button: (container) => {
 			const pane = new Pane({
@@ -267,6 +277,7 @@ export function initCatalog() {
 				disabled: disabled,
 				title: 'Button',
 			});
+			return pane;
 		},
 		separator: (container) => {
 			const pane = new Pane({
@@ -276,15 +287,16 @@ export function initCatalog() {
 			pane.addInput({param: 0}, 'param', {disabled: disabled});
 			pane.addSeparator();
 			pane.addInput({param: 0}, 'param', {disabled: disabled});
+			return pane;
 		},
 		icebergtheme: (container) => {
-			createThemePane(container);
+			return createThemePane(container);
 		},
 		jetblacktheme: (container) => {
-			createThemePane(container);
+			return createThemePane(container);
 		},
 		lighttheme: (container) => {
-			createThemePane(container);
+			return createThemePane(container);
 		},
 		blades: (container) => {
 			const pane = new Pane({
@@ -339,11 +351,34 @@ export function initCatalog() {
 			].forEach((params) => {
 				pane.addBlade(params);
 			});
+			return pane;
+		},
+		nestedfolders: (container) => {
+			const pane = new Pane({
+				container: container,
+				title: 'Nested Folders',
+			});
+
+			((f) => {
+				((sf) => {
+					sf.addInput({param: 0}, 'param');
+					sf.addInput({param: 0}, 'param');
+				})(f.addFolder({title: 'Folder'}));
+				((sf) => {
+					sf.addInput({param: 0}, 'param');
+					sf.addInput({param: 0}, 'param');
+				})(f.addFolder({title: 'Folder'}));
+			})(pane.addFolder({title: 'Folder'}));
+			return pane;
 		},
 	};
+
+	const panes: {[key: string]: Pane} = {};
 	Object.keys(markerToFnMap).forEach((marker) => {
 		const initFn = markerToFnMap[marker];
 		const container = selectContainer(marker);
-		initFn(container);
+		const pane = initFn(container);
+		panes[marker] = pane;
 	});
+	(window as any).panes = panes;
 }
