@@ -41,7 +41,7 @@ function setUpSpMenu() {
 	const router = new SimpleRouter();
 	router.add(/\/getting-started\/$/, initGettingStarted);
 	router.add(/\/blades\/$/, initBlades);
-	router.add(/\/catalog\/$/, initCatalog);
+	router.add(/\/catalog\.html$/, initCatalog);
 	router.add(/\/input-bindings\/$/, initInputBindings);
 	router.add(/\/misc\/$/, initMisc);
 	router.add(/\/migration\/$/, initMigration);
