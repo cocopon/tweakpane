@@ -11,6 +11,9 @@
 	&_m {
 		@extend %folder_mark;
 	}
+	&_b:disabled &_m {
+		display: none;
+	}
 	&#{&}-expanded > &_b > &_m {
 		@extend %folder_mark-expanded;
 	}
