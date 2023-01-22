@@ -26,12 +26,15 @@
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
 	}
-	// no title
 	&#{&}-not &_b {
+		// no title
 		display: none;
 	}
 	&_m {
 		@extend %folder_mark;
+	}
+	&_b:disabled &_m {
+		display: none;
 	}
 	&#{&}-expanded &_m {
 		@extend %folder_mark-expanded;
