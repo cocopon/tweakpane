@@ -17,14 +17,15 @@ export interface ValueChangeOptions {
 /**
  * @hidden
  */
-export interface ValueEvents<In> {
+export interface ValueEvents<T> {
 	beforechange: {
-		sender: Value<In>;
+		sender: Value<T>;
 	};
 	change: {
 		options: ValueChangeOptions;
-		sender: Value<In>;
-		rawValue: In;
+		previousRawValue: T;
+		rawValue: T;
+		sender: Value<T>;
 	};
 }
 
