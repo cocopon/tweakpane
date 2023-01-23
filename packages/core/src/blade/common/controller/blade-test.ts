@@ -5,6 +5,7 @@ import {ViewProps} from '../../../common/model/view-props';
 import {View} from '../../../common/view/view';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {createBlade} from '../model/blade';
+import {BladeRack} from '../model/blade-rack';
 import {BladeController} from './blade';
 
 class TestView implements View {
@@ -53,5 +54,17 @@ describe(BladeController.name, () => {
 		assert.notStrictEqual(v.element.parentNode, null);
 		c.viewProps.set('disposed', true);
 		assert.strictEqual(v.element.parentNode, null);
+	});
+
+	it('should update parent of view props', () => {
+		const doc = createTestWindow().document;
+		const c = new TestController(doc);
+		assert.strictEqual(c.viewProps.get('parent'), null);
+
+		const rack = new BladeRack({
+			viewProps: ViewProps.create({}),
+		});
+		c.parent = rack;
+		assert.strictEqual(c.viewProps.get('parent'), rack.viewProps);
 	});
 });

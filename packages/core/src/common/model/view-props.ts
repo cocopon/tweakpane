@@ -69,7 +69,10 @@ export class ViewProps extends ValueMap<ViewPropsObject> {
 	}
 
 	public bindClassModifiers(elem: HTMLElement): void {
-		bindValueMap(this, 'disabled', valueToModifier(elem, 'disabled'));
+		this.effectiveDisabled_.emitter.on('change', (ev) =>
+			valueToModifier(elem, 'disabled')(ev.rawValue),
+		);
+
 		bindValueMap(this, 'hidden', valueToModifier(elem, 'hidden'));
 	}
 
@@ -80,8 +83,8 @@ export class ViewProps extends ValueMap<ViewPropsObject> {
 	}
 
 	public bindTabIndex(elem: HTMLOrSVGElement): void {
-		bindValueMap(this, 'disabled', (disabled: boolean) => {
-			elem.tabIndex = disabled ? -1 : 0;
+		this.effectiveDisabled_.emitter.on('change', (ev) => {
+			elem.tabIndex = ev.rawValue ? -1 : 0;
 		});
 	}
 
