@@ -67,6 +67,7 @@ export class TabController extends RackLikeController<TabView> {
 			pc.itemController.view.element,
 			ev.index,
 		);
+		pc.itemController.viewProps.set('parent', this.viewProps);
 		this.rackController.rack.add(pc.contentController, ev.index);
 
 		this.tab.add(pc.props.value('selected'));
@@ -77,6 +78,7 @@ export class TabController extends RackLikeController<TabView> {
 	): void {
 		const pc = ev.item;
 		removeElement(pc.itemController.view.element);
+		pc.itemController.viewProps.set('parent', null);
 		this.rackController.rack.remove(pc.contentController);
 
 		this.tab.remove(pc.props.value('selected'));
