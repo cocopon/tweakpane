@@ -33,6 +33,7 @@ export class SvPaletteView implements View {
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
+		config.viewProps.bindClassModifiers(this.element);
 		config.viewProps.bindTabIndex(this.element);
 
 		const canvasElem = doc.createElement('canvas');

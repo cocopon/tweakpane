@@ -3,16 +3,17 @@ import {
 	MonitorBinding,
 	MonitorBindingEvents,
 } from '../../../common/binding/monitor';
+import {warnMissing} from '../../../common/compat';
 import {Emitter} from '../../../common/model/emitter';
 import {
 	Value,
 	ValueChangeOptions,
 	ValueEvents,
 } from '../../../common/model/value';
-import {ViewPropsEvents} from '../../../common/model/view-props';
+import {ViewProps, ViewPropsEvents} from '../../../common/model/view-props';
 import {TpError} from '../../../common/tp-error';
 import {View} from '../../../common/view/view';
-import {Class, forceCast} from '../../../misc/type-util';
+import {Class, forceCast, isPropertyWritable} from '../../../misc/type-util';
 import {InputBindingController} from '../../input-binding/controller/input-binding';
 import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
 import {RackController} from '../../rack/controller/rack';
@@ -109,12 +110,21 @@ function findSubBladeControllerSet(
 	return rack ? rack['bcSet_'] : null;
 }
 
+interface Config {
+	blade?: Blade;
+	viewProps: ViewProps;
+}
+
+/**
+ * A collection of blade controllers that manages positions and event propagation.
+ */
 export class BladeRack {
 	public readonly emitter: Emitter<BladeRackEvents>;
+	public readonly viewProps: ViewProps;
 	private readonly blade_: Blade | null;
 	private readonly bcSet_: NestedOrderedSet<BladeController<View>>;
 
-	constructor(blade?: Blade) {
+	constructor(config: Config) {
 		this.onBladePositionsChange_ = this.onBladePositionsChange_.bind(this);
 		this.onSetAdd_ = this.onSetAdd_.bind(this);
 		this.onSetRemove_ = this.onSetRemove_.bind(this);
@@ -131,10 +141,11 @@ export class BladeRack {
 
 		this.emitter = new Emitter();
 
-		this.blade_ = blade ?? null;
+		this.blade_ = config.blade ?? null;
 		this.blade_
 			?.value('positions')
 			.emitter.on('change', this.onBladePositionsChange_);
+		this.viewProps = config.viewProps;
 
 		this.bcSet_ = new NestedOrderedSet(findSubBladeControllerSet);
 		this.bcSet_.emitter.on('add', this.onSetAdd_);
@@ -146,15 +157,37 @@ export class BladeRack {
 	}
 
 	public add(bc: BladeController<View>, opt_index?: number): void {
-		if (bc.parent) {
-			bc.parent.remove(bc);
+		bc.parent?.remove(bc);
+
+		if (isPropertyWritable(bc, 'parent')) {
+			bc.parent = this;
+		} else {
+			// TODO: Remove it in the next major version
+			bc['parent_'] = this;
+
+			warnMissing({
+				key: 'parent',
+				target: 'BladeController',
+				place: 'BladeRack.add',
+			});
 		}
-		bc['parent_'] = this;
+
 		this.bcSet_.add(bc, opt_index);
 	}
 
 	public remove(bc: BladeController<View>): void {
-		bc['parent_'] = null;
+		if (isPropertyWritable(bc, 'parent')) {
+			bc.parent = null;
+		} else {
+			// TODO: Remove it in the next major version
+			bc['parent_'] = null;
+
+			warnMissing({
+				key: 'parent',
+				target: 'BladeController',
+				place: 'BladeRack.remove',
+			});
+		}
 		this.bcSet_.remove(bc);
 	}
 

@@ -27,7 +27,8 @@ export class PrimitiveValue<T> implements Value<T> {
 			last: true,
 		};
 
-		if (this.value_ === value && !opts.forceEmit) {
+		const prevValue = this.value_;
+		if (prevValue === value && !opts.forceEmit) {
 			return;
 		}
 
@@ -39,6 +40,7 @@ export class PrimitiveValue<T> implements Value<T> {
 
 		this.emitter.emit('change', {
 			options: opts,
+			previousRawValue: prevValue,
 			rawValue: this.value_,
 			sender: this,
 		});

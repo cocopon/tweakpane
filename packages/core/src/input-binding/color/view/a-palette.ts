@@ -31,6 +31,7 @@ export class APaletteView implements View {
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
+		config.viewProps.bindClassModifiers(this.element);
 		config.viewProps.bindTabIndex(this.element);
 
 		const barElem = doc.createElement('div');

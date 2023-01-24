@@ -4,6 +4,7 @@ import {
 } from '../../../common/dom-util';
 import {bindValue} from '../../../common/model/reactive';
 import {Value} from '../../../common/model/value';
+import {ViewProps} from '../../../common/model/view-props';
 import {NumberTextView} from '../../../common/number/view/number-text';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
@@ -12,6 +13,7 @@ import {ColorMode} from '../model/color-model';
 interface Config {
 	colorMode: Value<ColorMode>;
 	textViews: [NumberTextView, NumberTextView, NumberTextView];
+	viewProps: ViewProps;
 }
 
 const className = ClassName('coltxt');
@@ -53,6 +55,7 @@ export class ColorTextView implements View {
 		this.modeElem_ = createModeSelectElement(doc);
 		this.modeElem_.classList.add(className('ms'));
 		modeElem.appendChild(this.modeSelectElement);
+		config.viewProps.bindDisabled(this.modeElem_);
 
 		const modeMarkerElem = doc.createElement('div');
 		modeMarkerElem.classList.add(className('mm'));

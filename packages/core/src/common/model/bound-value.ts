@@ -45,7 +45,8 @@ export class BoundValue<T> implements Value<T> {
 			? this.constraint_.constrain(rawValue)
 			: rawValue;
 
-		const changed = !this.equals_(this.rawValue_, constrainedValue);
+		const prevValue = this.rawValue_;
+		const changed = !this.equals_(prevValue, constrainedValue);
 		if (!changed && !opts.forceEmit) {
 			return;
 		}
@@ -58,6 +59,7 @@ export class BoundValue<T> implements Value<T> {
 
 		this.emitter.emit('change', {
 			options: opts,
+			previousRawValue: prevValue,
 			rawValue: constrainedValue,
 			sender: this,
 		});

@@ -11,6 +11,9 @@
 		padding-bottom: 100%;
 		position: relative;
 	}
+	&.#{$prefix}-v-disabled &_p {
+		opacity: 0.5;
+	}
 	// Graphics
 	&_g {
 		display: block;

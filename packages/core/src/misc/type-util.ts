@@ -24,3 +24,17 @@ export function deepEqualsArray<T>(a1: T[], a2: T[]): boolean {
 	}
 	return true;
 }
+
+export function isPropertyWritable(obj: unknown, key: string): boolean {
+	let target = obj;
+	do {
+		const d = Object.getOwnPropertyDescriptor(target, key);
+		if (d && (d.set !== undefined || d.writable === true)) {
+			return true;
+		}
+
+		target = Object.getPrototypeOf(target);
+	} while (target !== null);
+
+	return false;
+}

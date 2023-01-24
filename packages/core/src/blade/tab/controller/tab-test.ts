@@ -87,4 +87,22 @@ describe(TabController.name, () => {
 			false,
 		);
 	});
+
+	it('should apply parent disabled', () => {
+		const win = createTestWindow();
+		const doc = win.document;
+		const c = new TabController(doc, {
+			blade: createBlade(),
+			viewProps: ViewProps.create(),
+		});
+		const pc = createTabPage(doc, 'foo');
+		c.add(pc);
+
+		c.viewProps.set('disabled', true);
+
+		assert.strictEqual(
+			pc.itemController.viewProps.globalDisabled.rawValue,
+			true,
+		);
+	});
 });

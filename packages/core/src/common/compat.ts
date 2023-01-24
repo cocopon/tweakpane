@@ -11,3 +11,16 @@ export function warnDeprecation(info: {
 		].join(' '),
 	);
 }
+
+export function warnMissing(info: {
+	key: string;
+	target: string;
+	place: string;
+}) {
+	console.warn(
+		[
+			`Missing '${info.key}' of ${info.target} in ${info.place}.`,
+			'Please rebuild plugins with the latest core package.',
+		].join(' '),
+	);
+}

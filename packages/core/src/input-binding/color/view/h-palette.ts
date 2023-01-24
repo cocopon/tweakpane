@@ -29,6 +29,7 @@ export class HPaletteView implements View {
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
+		config.viewProps.bindClassModifiers(this.element);
 		config.viewProps.bindTabIndex(this.element);
 
 		const colorElem = doc.createElement('div');
