@@ -49,6 +49,10 @@ $slider-track-width: 4px;
 	overflow: hidden;
 	position: relative;
 
+	&.#{$prefix}-v-disabled {
+		opacity: 0.5;
+	}
+
 	&_c {
 		cursor: crosshair;
 		display: block;
@@ -77,6 +81,10 @@ $slider-track-width: 4px;
 	height: var(--bld-us);
 	outline: none;
 	position: relative;
+
+	&.#{$prefix}-v-disabled {
+		opacity: 0.5;
+	}
 
 	&_c {
 		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAABCAYAAABubagXAAAAQ0lEQVQoU2P8z8Dwn0GCgQEDi2OK/RBgYHjBgIpfovFh8j8YBIgzFGQxuqEgPhaDOT5gOhPkdCxOZeBg+IDFZZiGAgCaSSMYtcRHLgAAAABJRU5ErkJggg==);
@@ -117,6 +125,10 @@ $slider-track-width: 4px;
 	outline: none;
 	position: relative;
 	width: 100%;
+
+	&.#{$prefix}-v-disabled {
+		opacity: 0.5;
+	}
 
 	&_b {
 		@include checkerboard($slider-track-width);

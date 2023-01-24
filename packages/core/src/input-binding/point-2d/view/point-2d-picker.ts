@@ -42,6 +42,7 @@ export class Point2dPickerView implements View {
 		if (config.layout === 'popup') {
 			this.element.classList.add(className(undefined, 'p'));
 		}
+		config.viewProps.bindClassModifiers(this.element);
 
 		const padElem = doc.createElement('div');
 		padElem.classList.add(className('p'));

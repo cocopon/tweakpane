@@ -96,6 +96,7 @@ export class ColorTextController implements Controller<ColorTextView> {
 		this.view = new ColorTextView(doc, {
 			colorMode: this.colorMode,
 			textViews: [this.ccs_[0].view, this.ccs_[1].view, this.ccs_[2].view],
+			viewProps: this.viewProps,
 		});
 		this.view.modeSelectElement.addEventListener(
 			'change',
