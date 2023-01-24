@@ -102,7 +102,7 @@ describe(ViewProps.name, () => {
 		},
 	].forEach(({params, expected}) => {
 		context(`when ${JSON.stringify(params)}`, () => {
-			it('should update effectiveDisabled', () => {
+			it('should update globalDisabled', () => {
 				const p = ViewProps.create({
 					disabled: params.disabled,
 				});
@@ -119,7 +119,7 @@ describe(ViewProps.name, () => {
 		});
 	});
 
-	it('should apply parent effectiveDisabled to child', () => {
+	it('should apply parent globalDisabled to child', () => {
 		const p = ViewProps.create({
 			disabled: false,
 			parent: ViewProps.create({
@@ -127,7 +127,7 @@ describe(ViewProps.name, () => {
 				parent: ViewProps.create({disabled: true}),
 			}),
 		});
-		assert.strictEqual(p.effectiveDisabled.rawValue, true);
+		assert.strictEqual(p.globalDisabled.rawValue, true);
 	});
 
 	it('should apply parent updates', () => {
@@ -139,6 +139,6 @@ describe(ViewProps.name, () => {
 		});
 
 		p.get('parent')?.set('disabled', true);
-		assert.strictEqual(p.effectiveDisabled.rawValue, true);
+		assert.strictEqual(p.globalDisabled.rawValue, true);
 	});
 });

@@ -88,7 +88,7 @@ describe(TabController.name, () => {
 		);
 	});
 
-	it('should cascade disabled', () => {
+	it('should apply parent disabled', () => {
 		const win = createTestWindow();
 		const doc = win.document;
 		const c = new TabController(doc, {
@@ -101,7 +101,7 @@ describe(TabController.name, () => {
 		c.viewProps.set('disabled', true);
 
 		assert.strictEqual(
-			pc.itemController.viewProps.effectiveDisabled.rawValue,
+			pc.itemController.viewProps.globalDisabled.rawValue,
 			true,
 		);
 	});

@@ -28,8 +28,8 @@ interface Disableable {
 }
 
 export class ViewProps extends ValueMap<ViewPropsObject> {
-	private readonly effectiveDisabled_: ReadonlyValue<boolean>;
-	private readonly setEffectiveDisabled_: SetRawValue<boolean>;
+	private readonly globalDisabled_: ReadonlyValue<boolean>;
+	private readonly setGlobalDisabled_: SetRawValue<boolean>;
 
 	constructor(valueMap: {
 		[Key in keyof ViewPropsObject]: Value<ViewPropsObject[Key]>;
@@ -38,17 +38,18 @@ export class ViewProps extends ValueMap<ViewPropsObject> {
 
 		this.onDisabledChange_ = this.onDisabledChange_.bind(this);
 		this.onParentChange_ = this.onParentChange_.bind(this);
-		this.onParentEffectiveDisabledChange_ =
-			this.onParentEffectiveDisabledChange_.bind(this);
+		this.onParentGlobalDisabledChange_ =
+			this.onParentGlobalDisabledChange_.bind(this);
 
-		[this.effectiveDisabled_, this.setEffectiveDisabled_] =
-			ReadonlyValue.create(createValue(this.getEffectiveDisabled_()));
+		[this.globalDisabled_, this.setGlobalDisabled_] = ReadonlyValue.create(
+			createValue(this.getGlobalDisabled_()),
+		);
 
 		this.value('disabled').emitter.on('change', this.onDisabledChange_);
 		this.value('parent').emitter.on('change', this.onParentChange_);
-		this.get('parent')?.effectiveDisabled.emitter.on(
+		this.get('parent')?.globalDisabled.emitter.on(
 			'change',
-			this.onParentEffectiveDisabledChange_,
+			this.onParentGlobalDisabledChange_,
 		);
 	}
 
@@ -64,12 +65,12 @@ export class ViewProps extends ValueMap<ViewPropsObject> {
 		);
 	}
 
-	get effectiveDisabled(): ReadonlyValue<boolean> {
-		return this.effectiveDisabled_;
+	get globalDisabled(): ReadonlyValue<boolean> {
+		return this.globalDisabled_;
 	}
 
 	public bindClassModifiers(elem: HTMLElement): void {
-		this.effectiveDisabled_.emitter.on('change', (ev) =>
+		this.globalDisabled_.emitter.on('change', (ev) =>
 			valueToModifier(elem, 'disabled')(ev.rawValue),
 		);
 
@@ -77,13 +78,13 @@ export class ViewProps extends ValueMap<ViewPropsObject> {
 	}
 
 	public bindDisabled(target: Disableable): void {
-		this.effectiveDisabled_.emitter.on('change', (ev) => {
+		this.globalDisabled_.emitter.on('change', (ev) => {
 			target.disabled = ev.rawValue;
 		});
 	}
 
 	public bindTabIndex(elem: HTMLOrSVGElement): void {
-		this.effectiveDisabled_.emitter.on('change', (ev) => {
+		this.globalDisabled_.emitter.on('change', (ev) => {
 			elem.tabIndex = ev.rawValue ? -1 : 0;
 		});
 	}
@@ -97,38 +98,38 @@ export class ViewProps extends ValueMap<ViewPropsObject> {
 	}
 
 	/**
-	 * Gets an effective disabled of the view.
+	 * Gets a global disabled of the view.
 	 * Disabled of the view will be affected by its disabled and its parent disabled.
 	 */
-	private getEffectiveDisabled_(): boolean {
+	private getGlobalDisabled_(): boolean {
 		const parent = this.get('parent');
-		const parentDisabled = parent ? parent.effectiveDisabled.rawValue : false;
+		const parentDisabled = parent ? parent.globalDisabled.rawValue : false;
 		return parentDisabled || this.get('disabled');
 	}
 
-	private updateEffectiveDisabled_(): void {
-		this.setEffectiveDisabled_(this.getEffectiveDisabled_());
+	private updateGlobalDisabled_(): void {
+		this.setGlobalDisabled_(this.getGlobalDisabled_());
 	}
 
 	private onDisabledChange_(): void {
-		this.updateEffectiveDisabled_();
+		this.updateGlobalDisabled_();
 	}
 
-	private onParentEffectiveDisabledChange_(): void {
-		this.updateEffectiveDisabled_();
+	private onParentGlobalDisabledChange_(): void {
+		this.updateGlobalDisabled_();
 	}
 
 	private onParentChange_(ev: ValueEvents<ViewProps | null>['change']): void {
 		const prevParent = ev.previousRawValue;
-		prevParent?.effectiveDisabled.emitter.off(
+		prevParent?.globalDisabled.emitter.off(
 			'change',
-			this.onParentEffectiveDisabledChange_,
+			this.onParentGlobalDisabledChange_,
 		);
-		this.get('parent')?.effectiveDisabled.emitter.on(
+		this.get('parent')?.globalDisabled.emitter.on(
 			'change',
-			this.onParentEffectiveDisabledChange_,
+			this.onParentGlobalDisabledChange_,
 		);
 
-		this.updateEffectiveDisabled_();
+		this.updateGlobalDisabled_();
 	}
 }
