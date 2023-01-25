@@ -49,6 +49,7 @@ export class ColorTextView implements View {
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
+		config.viewProps.bindClassModifiers(this.element);
 
 		const modeElem = doc.createElement('div');
 		modeElem.classList.add(className('m'));

@@ -1,6 +1,7 @@
 import {NumberTextView} from '../../../common/number/view/number-text';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
+import {ViewProps} from '../../../index';
 import {APaletteView} from './a-palette';
 import {ColorTextView} from './color-text';
 import {HPaletteView} from './h-palette';
@@ -17,6 +18,7 @@ interface Config {
 	supportsAlpha: boolean;
 	svPaletteView: SvPaletteView;
 	textView: ColorTextView;
+	viewProps: ViewProps;
 }
 
 /**
@@ -35,6 +37,7 @@ export class ColorPickerView implements View {
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
+		config.viewProps.bindClassModifiers(this.element);
 
 		const hsvElem = doc.createElement('div');
 		hsvElem.classList.add(className('hsv'));

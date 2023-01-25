@@ -1,7 +1,9 @@
 %bladeRack-children {
+	// Bottom spacing of last container
 	& > .#{$prefix}-cntv.#{$prefix}-v-lst {
 		margin-bottom: calc(-1 * var(--cnt-v-p));
 	}
+	// Bottom left radius of last folder
 	& > .#{$prefix}-fldv.#{$prefix}-v-lst .#{$prefix}-fldv_c {
 		border-bottom-left-radius: 0;
 	}
@@ -45,6 +47,14 @@
 	}
 	& .#{$prefix}-fldv > .#{$prefix}-fldv_c {
 		border-bottom-left-radius: var(--elm-br);
+	}
+	// Top left border radius of subfolder after container
+	& > .#{$prefix}-cntv + .#{$prefix}-fldv > .#{$prefix}-fldv_b {
+		border-top-left-radius: 0;
+	}
+	// Top left border radius of subtab after container
+	& > .#{$prefix}-cntv + .#{$prefix}-tabv > .#{$prefix}-tabv_t {
+		border-top-left-radius: 0;
 	}
 	// Left border radius of subtab
 	& > .#{$prefix}-tabv > .#{$prefix}-tabv_t {

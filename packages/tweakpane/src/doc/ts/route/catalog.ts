@@ -353,6 +353,29 @@ export function initCatalog() {
 			});
 			return pane;
 		},
+		rootfolder: (container) => {
+			const pane = new Pane({
+				container: container,
+			});
+
+			((f) => {
+				f.addInput({param: 0}, 'param');
+				f.addInput({param: 0}, 'param');
+			})(pane.addFolder({title: 'Root Folder'}));
+			return pane;
+		},
+		roottab: (container) => {
+			const pane = new Pane({
+				container: container,
+			});
+
+			const t = pane.addTab({
+				pages: [{title: 'Root'}, {title: 'Tab'}],
+			});
+			t.pages[0].addInput({param: 0}, 'param');
+			t.pages[0].addInput({param: 0}, 'param');
+			return pane;
+		},
 		nestedfolders: (container) => {
 			const pane = new Pane({
 				container: container,
@@ -371,27 +394,23 @@ export function initCatalog() {
 			})(pane.addFolder({title: 'Folder'}));
 			return pane;
 		},
-		rootfolder: (container) => {
+		containerlist: (container) => {
 			const pane = new Pane({
 				container: container,
 			});
 
+			const rf = pane.addFolder({
+				title: 'Container List',
+			});
 			((f) => {
 				f.addInput({param: 0}, 'param');
+			})(rf.addFolder({title: 'Folder'}));
+			((t) => {
+				t.pages[0].addInput({param: 0}, 'param');
+			})(rf.addTab({pages: [{title: 'Page'}, {title: 'Page'}]}));
+			((f) => {
 				f.addInput({param: 0}, 'param');
-			})(pane.addFolder({title: 'Root Folder'}));
-			return pane;
-		},
-		roottab: (container) => {
-			const pane = new Pane({
-				container: container,
-			});
-
-			const t = pane.addTab({
-				pages: [{title: 'Page'}, {title: 'Page'}],
-			});
-			t.pages[0].addInput({param: 0}, 'param');
-			t.pages[0].addInput({param: 0}, 'param');
+			})(rf.addFolder({title: 'Folder'}));
 			return pane;
 		},
 	};
