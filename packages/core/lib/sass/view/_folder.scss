@@ -1,13 +1,18 @@
 .#{$prefix}-fldv {
+	position: relative;
+
+	// Title button
 	&_b {
 		@extend %folder_title;
 	}
 	&#{&}-not &_b {
 		display: none;
 	}
+	// Title
 	&_t {
 		padding-left: 4px;
 	}
+	// Marker
 	&_m {
 		@extend %folder_mark;
 	}
@@ -17,26 +22,50 @@
 	&#{&}-expanded > &_b > &_m {
 		@extend %folder_mark-expanded;
 	}
+	// Container
 	&_c {
 		@extend %folder_container;
 		@extend %bladeRack-children;
 		@extend %bladeRack-subcontainers;
 
-		border-left: var(--cnt-bg) solid 4px;
-	}
-	&_b:hover + &_c {
-		border-left-color: var(--cnt-bg-h);
-	}
-	&_b:focus + &_c {
-		border-left-color: var(--cnt-bg-f);
-	}
-	&_b:active + &_c {
-		border-left-color: var(--cnt-bg-a);
+		padding-left: 4px;
 	}
 	&#{&}-expanded > &_c {
 		@extend %folder_container-expanded;
 	}
 	&#{&}-cpl:not(#{&}-expanded) > &_c {
 		@extend %folder_container-shrinkedCompletely;
+	}
+	// Indent
+	&_i {
+		bottom: 0;
+		color: var(--cnt-bg);
+		left: 0;
+		overflow: hidden;
+		position: absolute;
+		top: calc(var(--bld-us) + 4px);
+		width: var(--bs-br);
+
+		&::before {
+			background-color: currentColor;
+			bottom: 0;
+			content: '';
+			left: 0;
+			position: absolute;
+			top: 0;
+			width: 4px;
+		}
+	}
+	&_b:hover + &_i {
+		color: var(--cnt-bg-h);
+	}
+	&_b:focus + &_i {
+		color: var(--cnt-bg-f);
+	}
+	&_b:active + &_i {
+		color: var(--cnt-bg-a);
+	}
+	&.#{$prefix}-v-disabled > &_i {
+		opacity: 0.5;
 	}
 }

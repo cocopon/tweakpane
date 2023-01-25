@@ -1,10 +1,41 @@
 .#{$prefix}-tabv {
-	&_i {
+	position: relative;
+
+	// Title
+	&_t {
 		align-items: flex-end;
+		color: var(--cnt-bg);
 		display: flex;
 		overflow: hidden;
+		position: relative;
+
+		&:hover {
+			color: var(--cnt-bg-h);
+		}
+		&:has(*:focus) {
+			color: var(--cnt-bg-f);
+		}
+		&:has(*:active) {
+			color: var(--cnt-bg-a);
+		}
+
+		// Title border
+		&::before {
+			background-color: currentColor;
+			bottom: 0;
+			content: '';
+			height: 2px;
+			left: 0;
+			pointer-events: none;
+			position: absolute;
+			right: 0;
+		}
 	}
-	&#{&}-nop &_i {
+	&.#{$prefix}-v-disabled &_t::before {
+		opacity: 0.5;
+	}
+	// Title without page
+	&#{&}-nop &_t {
 		height: calc(var(--bld-us) + 4px);
 		position: relative;
 
@@ -18,18 +49,48 @@
 			right: 0;
 		}
 	}
-	&.#{$prefix}-v-disabled &_i {
-		opacity: 0.5;
-	}
+	// Container
 	&_c {
-		border-left: var(--cnt-bg) solid 4px;
 		padding-bottom: var(--cnt-v-p);
+		padding-left: 4px;
 		padding-top: var(--cnt-v-p);
 
 		.#{$prefix}-brkv {
 			@extend %bladeRack-children;
 			@extend %bladeRack-subcontainers;
 		}
+	}
+	// Indent
+	&_i {
+		bottom: 0;
+		color: var(--cnt-bg);
+		left: 0;
+		overflow: hidden;
+		position: absolute;
+		top: calc(var(--bld-us) + 4px);
+		width: var(--bs-br);
+
+		&::before {
+			background-color: currentColor;
+			bottom: 0;
+			content: '';
+			left: 0;
+			position: absolute;
+			top: 0;
+			width: 4px;
+		}
+	}
+	&_t:hover + &_i {
+		color: var(--cnt-bg-h);
+	}
+	&_t:has(*:focus) + &_i {
+		color: var(--cnt-bg-f);
+	}
+	&_t:has(*:active) + &_i {
+		color: var(--cnt-bg-a);
+	}
+	&.#{$prefix}-v-disabled > &_i {
+		opacity: 0.5;
 	}
 }
 .#{$prefix}-tbiv {
@@ -39,38 +100,42 @@
 
 	& + & {
 		margin-left: 2px;
-
-		&::before {
-			background-color: var(--cnt-bg);
-			bottom: 0;
-			content: '';
-			height: 2px;
-			left: -2px;
-			position: absolute;
-			width: 2px;
-		}
+	}
+	& + &.#{$prefix}-v-disabled::before {
+		opacity: 0.5;
 	}
 
 	&_b {
 		@extend %resetUserAgent;
 
-		background-color: var(--cnt-bg);
 		display: block;
 		padding-left: calc(var(--cnt-h-p) + 4px);
 		padding-right: calc(var(--cnt-h-p) + 4px);
+		position: relative;
 		width: 100%;
 
-		&:hover {
-			background-color: var(--cnt-bg-h);
-		}
-		&:focus {
-			background-color: var(--cnt-bg-f);
-		}
-		&:active {
-			background-color: var(--cnt-bg-a);
-		}
 		&:disabled {
 			opacity: 0.5;
+		}
+
+		&::before {
+			background-color: var(--cnt-bg);
+			bottom: 2px;
+			content: '';
+			left: 0;
+			pointer-events: none;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+		&:hover::before {
+			background-color: var(--cnt-bg-h);
+		}
+		&:focus::before {
+			background-color: var(--cnt-bg-f);
+		}
+		&:active::before {
+			background-color: var(--cnt-bg-a);
 		}
 	}
 	&_t {

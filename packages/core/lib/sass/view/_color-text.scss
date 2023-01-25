@@ -35,6 +35,9 @@
 
 		color: var(--lbl-fg);
 	}
+	&.#{$prefix}-v-disabled &_mm {
+		opacity: 0.5;
+	}
 	// Text components wrapper
 	&_w {
 		@extend %texts;

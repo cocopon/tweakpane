@@ -42,12 +42,24 @@
 	&_c {
 		@extend %folder_container;
 		@extend %bladeRack-children;
+	}
+	&#{&}-expanded &_c {
+		@extend %folder_container-expanded;
+	}
+	&#{&}-cpl:not(#{&}-expanded) &_c {
+		@extend %folder_container-shrinkedCompletely;
+	}
 
-		// Bottom of the last container
-		& > .#{$prefix}-fldv.#{$prefix}-v-lst > .#{$prefix}-fldv_c,
-		& > .#{$prefix}-tabv.#{$prefix}-v-lst > .#{$prefix}-tabv_c {
+	// Folders
+	&_c {
+		// Bottom of the last folder container
+		& > .#{$prefix}-fldv.#{$prefix}-v-lst > .#{$prefix}-fldv_c {
 			border-bottom-left-radius: var(--bs-br);
 			border-bottom-right-radius: var(--bs-br);
+		}
+		// Bottom of the last folder indent
+		& > .#{$prefix}-fldv.#{$prefix}-v-lst > .#{$prefix}-fldv_i {
+			border-bottom-left-radius: var(--bs-br);
 		}
 		// Bottom of the last folder title when collapsed
 		&
@@ -63,12 +75,6 @@
 			border-bottom-right-radius: var(--bs-br);
 		}
 	}
-	&#{&}-expanded &_c {
-		@extend %folder_container-expanded;
-	}
-	&#{&}-cpl:not(#{&}-expanded) &_c {
-		@extend %folder_container-shrinkedCompletely;
-	}
 	&#{&}-not &_c {
 		// First folder without pane title
 		& > .#{$prefix}-fldv.#{$prefix}-v-fst {
@@ -79,11 +85,26 @@
 				border-top-right-radius: var(--bs-br);
 			}
 		}
+	}
+
+	// Tabs
+	&_c {
+		// Bottom of the last tab container
+		& > .#{$prefix}-tabv.#{$prefix}-v-lst > .#{$prefix}-tabv_c {
+			border-bottom-left-radius: var(--bs-br);
+			border-bottom-right-radius: var(--bs-br);
+		}
+		// Bottom of the last tab indent
+		& > .#{$prefix}-tabv.#{$prefix}-v-lst > .#{$prefix}-tabv_i {
+			border-bottom-left-radius: var(--bs-br);
+		}
+	}
+	&#{&}-not &_c {
 		// First tab without pane title
 		& > .#{$prefix}-tabv.#{$prefix}-v-fst {
 			margin-top: calc(-1 * var(--cnt-v-p));
 
-			& > .#{$prefix}-tabv_i {
+			& > .#{$prefix}-tabv_t {
 				border-top-left-radius: var(--bs-br);
 				border-top-right-radius: var(--bs-br);
 			}

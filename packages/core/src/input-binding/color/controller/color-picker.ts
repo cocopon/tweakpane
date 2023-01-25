@@ -104,6 +104,7 @@ export class ColorPickerController implements Controller<ColorPickerView> {
 			supportsAlpha: config.supportsAlpha,
 			svPaletteView: this.svPaletteC_.view,
 			textView: this.textC_.view,
+			viewProps: this.viewProps,
 		});
 	}
 

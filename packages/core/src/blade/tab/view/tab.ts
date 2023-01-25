@@ -28,10 +28,14 @@ export class TabView implements View {
 			valueToClassName(this.element, className(undefined, 'nop')),
 		);
 
-		const itemsElem = doc.createElement('div');
-		itemsElem.classList.add(className('i'));
-		this.element.appendChild(itemsElem);
-		this.itemsElement = itemsElem;
+		const titleElem = doc.createElement('div');
+		titleElem.classList.add(className('t'));
+		this.element.appendChild(titleElem);
+		this.itemsElement = titleElem;
+
+		const indentElem = doc.createElement('div');
+		indentElem.classList.add(className('i'));
+		this.element.appendChild(indentElem);
 
 		const contentsElem = config.contentsElement;
 		contentsElem.classList.add(className('c'));
