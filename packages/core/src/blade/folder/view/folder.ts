@@ -67,6 +67,10 @@ export class FolderView implements View {
 		this.element.appendChild(buttonElem);
 		this.buttonElement = buttonElem;
 
+		const indentElem = doc.createElement('div');
+		indentElem.classList.add(this.className_('i'));
+		this.element.appendChild(indentElem);
+
 		const titleElem = doc.createElement('div');
 		titleElem.classList.add(this.className_('t'));
 		bindValueToTextContent(config.props.value('title'), titleElem);

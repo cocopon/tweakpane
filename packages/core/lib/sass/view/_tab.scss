@@ -1,10 +1,14 @@
 .#{$prefix}-tabv {
-	&_i {
+	position: relative;
+
+	// Title
+	&_t {
 		align-items: flex-end;
 		display: flex;
 		overflow: hidden;
 	}
-	&#{&}-nop &_i {
+	// Title without page
+	&#{&}-nop &_t {
 		height: calc(var(--bld-us) + 4px);
 		position: relative;
 
@@ -18,18 +22,39 @@
 			right: 0;
 		}
 	}
-	&.#{$prefix}-v-disabled &_i {
-		opacity: 0.5;
-	}
+	// Container
 	&_c {
-		border-left: var(--cnt-bg) solid 4px;
 		padding-bottom: var(--cnt-v-p);
+		padding-left: 4px;
 		padding-top: var(--cnt-v-p);
 
 		.#{$prefix}-brkv {
 			@extend %bladeRack-children;
 			@extend %bladeRack-subcontainers;
 		}
+	}
+	// Indent
+	&_i {
+		bottom: 0;
+		color: var(--cnt-bg);
+		left: 0;
+		overflow: hidden;
+		position: absolute;
+		top: calc(var(--bld-us) + 4px);
+		width: var(--bs-br);
+
+		&::before {
+			background-color: currentColor;
+			bottom: 0;
+			content: '';
+			left: 0;
+			position: absolute;
+			top: 0;
+			width: 4px;
+		}
+	}
+	&.#{$prefix}-v-disabled > &_i {
+		opacity: 0.5;
 	}
 }
 .#{$prefix}-tbiv {
@@ -40,6 +65,7 @@
 	& + & {
 		margin-left: 2px;
 
+		// Tab border
 		&::before {
 			background-color: var(--cnt-bg);
 			bottom: 0;
@@ -49,6 +75,9 @@
 			position: absolute;
 			width: 2px;
 		}
+	}
+	& + &.#{$prefix}-v-disabled::before {
+		opacity: 0.5;
 	}
 
 	&_b {

@@ -47,7 +47,7 @@
 		border-bottom-left-radius: var(--elm-br);
 	}
 	// Left border radius of subtab
-	& > .#{$prefix}-tabv > .#{$prefix}-tabv_i {
+	& > .#{$prefix}-tabv > .#{$prefix}-tabv_t {
 		border-top-left-radius: var(--elm-br);
 	}
 	& .#{$prefix}-tabv > .#{$prefix}-tabv_c {
