@@ -1,6 +1,6 @@
 import {ClassName} from '../view/class-name';
 import {valueToClassName} from '../view/reactive';
-import {bindValueMap} from './reactive';
+import {bindValue, bindValueMap} from './reactive';
 import {ReadonlyValue, SetRawValue} from './readonly-value';
 import {Value, ValueEvents} from './value';
 import {ValueMap, ValueMapEvents} from './value-map';
@@ -70,22 +70,19 @@ export class ViewProps extends ValueMap<ViewPropsObject> {
 	}
 
 	public bindClassModifiers(elem: HTMLElement): void {
-		this.globalDisabled_.emitter.on('change', (ev) =>
-			valueToModifier(elem, 'disabled')(ev.rawValue),
-		);
-
+		bindValue(this.globalDisabled_, valueToModifier(elem, 'disabled'));
 		bindValueMap(this, 'hidden', valueToModifier(elem, 'hidden'));
 	}
 
 	public bindDisabled(target: Disableable): void {
-		this.globalDisabled_.emitter.on('change', (ev) => {
-			target.disabled = ev.rawValue;
+		bindValue(this.globalDisabled_, (disabled) => {
+			target.disabled = disabled;
 		});
 	}
 
 	public bindTabIndex(elem: HTMLOrSVGElement): void {
-		this.globalDisabled_.emitter.on('change', (ev) => {
-			elem.tabIndex = ev.rawValue ? -1 : 0;
+		bindValue(this.globalDisabled_, (disabled) => {
+			elem.tabIndex = disabled ? -1 : 0;
 		});
 	}
 

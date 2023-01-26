@@ -1,5 +1,6 @@
 import {Value, ValueEvents} from '../model/value';
 import {ValueMap} from '../model/value-map';
+import {ReadonlyValue} from './readonly-value';
 
 function compose<A, B, C>(
 	h1: (input: A) => B,
@@ -12,7 +13,10 @@ function extractValue<T>(ev: ValueEvents<T>['change']): T {
 	return ev.rawValue;
 }
 
-export function bindValue<T>(value: Value<T>, applyValue: (value: T) => void) {
+export function bindValue<T>(
+	value: Value<T> | ReadonlyValue<T>,
+	applyValue: (value: T) => void,
+) {
 	value.emitter.on('change', compose(extractValue, applyValue));
 	applyValue(value.rawValue);
 }
