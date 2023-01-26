@@ -1,6 +1,7 @@
 import * as assert from 'assert';
-import {describe, it as context, it} from 'mocha';
+import {describe, it} from 'mocha';
 
+import {createTestWindow} from '../../misc/dom-test-util';
 import {ViewProps, ViewPropsObject} from './view-props';
 
 describe(ViewProps.name, () => {
@@ -47,7 +48,7 @@ describe(ViewProps.name, () => {
 			};
 		}[]
 	).forEach(({params, expected}) => {
-		context(`when ${JSON.stringify(params)}`, () => {
+		describe(`when ${JSON.stringify(params)}`, () => {
 			it('should set initial value', () => {
 				const p = ViewProps.create(params);
 				assert.strictEqual(p.get('disabled'), expected.disabled);
@@ -101,7 +102,7 @@ describe(ViewProps.name, () => {
 			expected: true,
 		},
 	].forEach(({params, expected}) => {
-		context(`when ${JSON.stringify(params)}`, () => {
+		describe(`when ${JSON.stringify(params)}`, () => {
 			it('should update globalDisabled', () => {
 				const p = ViewProps.create({
 					disabled: params.disabled,
@@ -114,7 +115,7 @@ describe(ViewProps.name, () => {
 						  })
 						: null,
 				);
-				assert.strictEqual(p.get('disabled'), expected);
+				assert.strictEqual(p.globalDisabled.rawValue, expected);
 			});
 		});
 	});
@@ -140,5 +141,85 @@ describe(ViewProps.name, () => {
 
 		p.get('parent')?.set('disabled', true);
 		assert.strictEqual(p.globalDisabled.rawValue, true);
+	});
+
+	[
+		{
+			params: {},
+			expected: {
+				disabled: false,
+				tabIndex: 0,
+				classModifiers: [],
+			},
+		},
+		{
+			params: {
+				disabled: true,
+				hidden: true,
+			},
+			expected: {
+				disabled: true,
+				tabIndex: -1,
+				classModifiers: ['tp-v-disabled', 'tp-v-hidden'],
+			},
+		},
+	].forEach(({params, expected}) => {
+		describe(`when ${JSON.stringify(params)}`, () => {
+			it('should apply initial state to bound targets', () => {
+				const p = ViewProps.create(params);
+				const doc = createTestWindow().document;
+
+				const divElem = doc.createElement('div');
+				p.bindTabIndex(divElem);
+				assert.strictEqual(divElem.tabIndex, expected.tabIndex, 'tabIndex');
+
+				p.bindClassModifiers(divElem);
+				expected.classModifiers.forEach((m) => {
+					assert.ok(divElem.classList.contains(m), `class modifier: '${m}'`);
+				});
+
+				const buttonElem = doc.createElement('button');
+				p.bindDisabled(buttonElem);
+
+				assert.strictEqual(buttonElem.disabled, expected.disabled, 'disabled');
+			});
+		});
+	});
+
+	it('should bind disabled', () => {
+		const p = ViewProps.create({});
+		const doc = createTestWindow().document;
+		const elem = doc.createElement('button');
+		p.bindDisabled(elem);
+
+		assert.strictEqual(elem.disabled, false);
+		p.set('disabled', true);
+		assert.strictEqual(elem.disabled, true);
+	});
+
+	it('should bind tab index', () => {
+		const p = ViewProps.create({});
+		const doc = createTestWindow().document;
+		const elem = doc.createElement('div');
+		p.bindTabIndex(elem);
+
+		assert.strictEqual(elem.tabIndex, 0);
+		p.set('disabled', true);
+		assert.strictEqual(elem.tabIndex, -1);
+	});
+
+	it('should bind class modifiers', () => {
+		const p = ViewProps.create({});
+		const doc = createTestWindow().document;
+		const elem = doc.createElement('div');
+		p.bindClassModifiers(elem);
+
+		assert.ok(!elem.classList.contains('tp-v-disabled'));
+		p.set('disabled', true);
+		assert.ok(elem.classList.contains('tp-v-disabled'));
+
+		assert.ok(!elem.classList.contains('tp-v-hidden'));
+		p.set('hidden', true);
+		assert.ok(elem.classList.contains('tp-v-hidden'));
 	});
 });
