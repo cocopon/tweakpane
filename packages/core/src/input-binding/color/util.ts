@@ -4,10 +4,6 @@ import {parsePickerLayout} from '../../common/util';
 import {ColorType} from './model/color-model';
 
 export interface ColorInputParams extends BaseInputParams {
-	/**
-	 * @deprecated Use color.alpha instead.
-	 */
-	alpha?: boolean;
 	color?: {
 		alpha?: boolean;
 		type?: ColorType;
@@ -25,7 +21,6 @@ export function parseColorInputParams(
 ): ColorInputParams | undefined {
 	const p = ParamsParsers;
 	return parseParams<ColorInputParams>(params, {
-		alpha: p.optional.boolean,
 		color: p.optional.object({
 			alpha: p.optional.boolean,
 			type: p.optional.custom(parseColorType),

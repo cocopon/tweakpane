@@ -21,14 +21,6 @@ export class ListConstraint<T> implements Constraint<T> {
 		});
 	}
 
-	// TODO: Remove property in the next major version
-	/**
-	 * @deprecated Use values.get('options') instead.
-	 */
-	get options(): ListItem<T>[] {
-		return this.values.get('options');
-	}
-
 	public constrain(value: T): T {
 		const opts = this.values.get('options');
 

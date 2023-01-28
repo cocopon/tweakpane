@@ -13,24 +13,12 @@ import {
 	removeAlphaComponent,
 } from '../model/color-model';
 
-/**
- * @deprecated
- */
-export type StringColorNotation =
-	| 'hex.rgb'
-	| 'hex.rgba'
-	| 'func.hsl'
-	| 'func.hsla'
-	| 'func.rgb'
-	| 'func.rgba';
-
-// TODO: Rename
-type StringColorNotation2 = 'func' | 'hex' | 'object';
+type StringColorNotation = 'func' | 'hex' | 'object';
 
 export interface StringColorFormat {
 	alpha: boolean;
 	mode: ColorMode;
-	notation: StringColorNotation2;
+	notation: StringColorNotation;
 	type: ColorType;
 }
 
@@ -313,34 +301,6 @@ function createObjectRgbaColorParser(type: ColorType): Parser<Color> {
 	};
 }
 
-const NOTATION_TO_PARSER_MAP: {
-	[notation in StringColorNotation]: Parser<Color>;
-} = {
-	'func.rgb': createFunctionalRgbColorParser('int'),
-	'func.rgba': createFunctionalRgbaColorParser('int'),
-	'func.hsl': createHslColorParser('int'),
-	'func.hsla': createHslaColorParser('int'),
-	'hex.rgb': parseHexRgbColor,
-	'hex.rgba': parseHexRgbaColor,
-};
-
-/**
- * @deprecated
- * @hidden
- */
-export function getColorNotation(text: string): StringColorNotation | null {
-	const notations = Object.keys(
-		NOTATION_TO_PARSER_MAP,
-	) as StringColorNotation[];
-	return notations.reduce((result: StringColorNotation | null, notation) => {
-		if (result) {
-			return result;
-		}
-		const subparser = NOTATION_TO_PARSER_MAP[notation];
-		return subparser(text) ? notation : null;
-	}, null);
-}
-
 type DetectionResult = Omit<StringColorFormat, 'type'>;
 
 const PARSER_AND_RESULT: {
@@ -448,17 +408,6 @@ export function detectStringColorFormat(
 	return null;
 }
 
-/**
- * @deprecated Use createColorStringParser instead.
- * @hidden
- */
-export const CompositeColorParser: Parser<Color> = (
-	text: string,
-): Color | null => {
-	const notation = getColorNotation(text);
-	return notation ? NOTATION_TO_PARSER_MAP[notation](text) : null;
-};
-
 const TYPE_TO_PARSERS: {[type in ColorType]: Parser<Color>[]} = {
 	int: [
 		parseHexRgbColor,
@@ -509,32 +458,6 @@ export function createColorStringParser(type: ColorType): Parser<Color> {
 			return parser(value);
 		}, null);
 	};
-}
-
-/**
- * @deprecated
- * @hidden
- */
-export function hasAlphaComponent(notation: StringColorNotation): boolean {
-	return (
-		notation === 'func.hsla' ||
-		notation === 'func.rgba' ||
-		notation === 'hex.rgba'
-	);
-}
-
-/**
- * @deprecated
- * @hidden
- */
-export function colorFromString(value: unknown): Color {
-	if (typeof value === 'string') {
-		const cv = CompositeColorParser(value);
-		if (cv) {
-			return cv;
-		}
-	}
-	return Color.black();
 }
 
 function zerofill(comp: number): string {
@@ -670,26 +593,6 @@ export function colorToObjectRgbaString(value: Color, type: ColorType): string {
 
 function createObjectRgbaColorFormatter(type: ColorType): Formatter<Color> {
 	return (value) => colorToObjectRgbaString(value, type);
-}
-
-const NOTATION_TO_STRINGIFIER_MAP: {
-	[notation in StringColorNotation]: (value: Color) => string;
-} = {
-	'func.hsl': colorToFunctionalHslString,
-	'func.hsla': colorToFunctionalHslaString,
-	'func.rgb': colorToFunctionalRgbString,
-	'func.rgba': colorToFunctionalRgbaString,
-	'hex.rgb': colorToHexRgbString,
-	'hex.rgba': colorToHexRgbaString,
-};
-
-/**
- * @deprecated
- */
-export function getColorStringifier(
-	notation: StringColorNotation,
-): (value: Color) => string {
-	return NOTATION_TO_STRINGIFIER_MAP[notation];
 }
 
 interface FormatAndStringifier {
