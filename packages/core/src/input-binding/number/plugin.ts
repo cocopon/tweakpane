@@ -97,7 +97,7 @@ export function findNumberRange(
 	}
 	const rc = findConstraint(c, RangeConstraint);
 	if (rc) {
-		return [rc.minValue, rc.maxValue];
+		return [rc.values.get('min'), rc.values.get('max')];
 	}
 	return [undefined, undefined];
 }

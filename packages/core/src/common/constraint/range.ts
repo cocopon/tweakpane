@@ -23,22 +23,6 @@ export class RangeConstraint implements Constraint<number> {
 		});
 	}
 
-	// TODO: Remove property in the next major version
-	/**
-	 * @deprecated Use values.get('max') instead.
-	 */
-	get maxValue(): number | undefined {
-		return this.values.get('max');
-	}
-
-	// TODO: Remove property in the next major version
-	/**
-	 * @deprecated Use values.get('min') instead.
-	 */
-	get minValue(): number | undefined {
-		return this.values.get('min');
-	}
-
 	public constrain(value: number): number {
 		const max = this.values.get('max');
 		const min = this.values.get('min');

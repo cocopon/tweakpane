@@ -18,7 +18,6 @@ import {
 	colorToObjectRgbString,
 	createColorStringBindingReader,
 	createColorStringParser,
-	getColorNotation,
 } from './color-string';
 
 const DELTA = 1e-5;
@@ -79,34 +78,6 @@ describe(createColorStringParser.name, () => {
 	].forEach((text) => {
 		it(`should not parse invalid string '${text}'`, () => {
 			assert.strictEqual(createColorStringParser('int')(text), null);
-		});
-	});
-
-	[
-		{
-			expected: 'hex.rgb',
-			input: '0x009aff',
-		},
-		{
-			expected: 'hex.rgb',
-			input: '#009aff',
-		},
-		{
-			expected: 'func.rgb',
-			input: 'rgb(17,34,51)',
-		},
-		{
-			expected: null,
-			input: 'foobar',
-		},
-	].forEach((testCase) => {
-		context(`when ${JSON.stringify(testCase.input)}`, () => {
-			it(`it should detect notation as ${JSON.stringify(
-				testCase.expected,
-			)}`, () => {
-				const actual = getColorNotation(testCase.input);
-				assert.deepStrictEqual(actual, testCase.expected);
-			});
 		});
 	});
 

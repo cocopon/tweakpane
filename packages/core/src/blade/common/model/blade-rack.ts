@@ -3,7 +3,6 @@ import {
 	MonitorBinding,
 	MonitorBindingEvents,
 } from '../../../common/binding/monitor';
-import {warnMissing} from '../../../common/compat';
 import {Emitter} from '../../../common/model/emitter';
 import {
 	Value,
@@ -13,7 +12,7 @@ import {
 import {ViewProps, ViewPropsEvents} from '../../../common/model/view-props';
 import {TpError} from '../../../common/tp-error';
 import {View} from '../../../common/view/view';
-import {Class, forceCast, isPropertyWritable} from '../../../misc/type-util';
+import {Class, forceCast} from '../../../misc/type-util';
 import {InputBindingController} from '../../input-binding/controller/input-binding';
 import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
 import {RackController} from '../../rack/controller/rack';
@@ -158,36 +157,14 @@ export class BladeRack {
 
 	public add(bc: BladeController<View>, opt_index?: number): void {
 		bc.parent?.remove(bc);
-
-		if (isPropertyWritable(bc, 'parent')) {
-			bc.parent = this;
-		} else {
-			// TODO: Remove it in the next major version
-			bc['parent_'] = this;
-
-			warnMissing({
-				key: 'parent',
-				target: 'BladeController',
-				place: 'BladeRack.add',
-			});
-		}
+		bc.parent = this;
 
 		this.bcSet_.add(bc, opt_index);
 	}
 
 	public remove(bc: BladeController<View>): void {
-		if (isPropertyWritable(bc, 'parent')) {
-			bc.parent = null;
-		} else {
-			// TODO: Remove it in the next major version
-			bc['parent_'] = null;
+		bc.parent = null;
 
-			warnMissing({
-				key: 'parent',
-				target: 'BladeController',
-				place: 'BladeRack.remove',
-			});
-		}
 		this.bcSet_.remove(bc);
 	}
 

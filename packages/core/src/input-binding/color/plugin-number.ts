@@ -15,7 +15,7 @@ import {Color} from './model/color';
 import {ColorInputParams, parseColorInputParams} from './util';
 
 function shouldSupportAlpha(inputParams: ColorInputParams): boolean {
-	if (inputParams?.alpha || inputParams?.color?.alpha) {
+	if (inputParams?.color?.alpha) {
 		return true;
 	}
 	return false;

@@ -11,7 +11,7 @@ describe(ListConstraint.name, () => {
 			{text: 'baz', value: 3.14},
 		];
 		const c = new ListConstraint(options);
-		assert.deepStrictEqual(options, c.options);
+		assert.deepStrictEqual(options, c.values.get('options'));
 	});
 
 	it('should constrain value with list options', () => {

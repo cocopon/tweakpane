@@ -76,14 +76,6 @@ export class Foldable extends ValueMap<FoldableObject> {
 	}
 }
 
-/**
- * @deprecated Use Foldable.create instead.
- */
-export function createFoldable(expanded: boolean): Foldable {
-	// TODO: Warn deprecation at next minor version
-	return Foldable.create(expanded);
-}
-
 function computeExpandedFolderHeight(
 	folder: Foldable,
 	containerElement: HTMLElement,
@@ -107,20 +99,6 @@ function computeExpandedFolderHeight(
 	});
 
 	return height;
-}
-
-/**
- * @deprecated Use foldable.styleExpanded instead.
- */
-export function getFoldableStyleExpanded(foldable: Foldable): boolean {
-	return foldable.styleExpanded;
-}
-
-/**
- * @deprecated Use foldable.styleHeight instead.
- */
-export function getFoldableStyleHeight(foldable: Foldable): string {
-	return foldable.styleHeight;
 }
 
 function applyHeight(foldable: Foldable, elem: HTMLElement): void {

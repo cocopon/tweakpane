@@ -1,4 +1,3 @@
-import {warnMissing} from '../../../common/compat';
 import {Controller} from '../../../common/controller/controller';
 import {disposeElement} from '../../../common/disposing-util';
 import {ViewProps} from '../../../common/model/view-props';
@@ -54,17 +53,6 @@ export class BladeController<V extends View> implements Controller<V> {
 
 	set parent(parent: BladeRack | null) {
 		this.parent_ = parent;
-
-		// TODO: Remove it in the next major version
-		if (!('parent' in (this.viewProps as any).valMap_)) {
-			warnMissing({
-				key: 'parent',
-				target: ViewProps.name,
-				place: 'BladeController.parent',
-			});
-			return;
-		}
-
 		this.viewProps.set('parent', this.parent_ ? this.parent_.viewProps : null);
 	}
 }
