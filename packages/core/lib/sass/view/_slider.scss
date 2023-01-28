@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 .#{$prefix}-sldv {
 	&.#{$prefix}-v-disabled {
 		opacity: 0.5;
@@ -7,7 +9,7 @@
 		box-sizing: border-box;
 		cursor: pointer;
 		height: var(--bld-us);
-		margin: 0 ($slider-knob-size / 2);
+		margin: 0 math.div($slider-knob-size, 2);
 		outline: none;
 		position: relative;
 
@@ -55,7 +57,7 @@
 			margin-bottom: auto;
 			margin-top: auto;
 			position: absolute;
-			right: -$slider-knob-size / 2;
+			right: math.div(-$slider-knob-size, 2);
 			top: 0;
 			width: $slider-knob-size;
 		}
