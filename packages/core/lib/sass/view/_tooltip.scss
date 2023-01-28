@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 .#{$prefix}-ttv {
 	background-color: var(--in-fg);
 	border-radius: var(--elm-br);
@@ -12,13 +14,13 @@
 
 		border-color: var(--in-fg) transparent transparent transparent;
 		border-style: solid;
-		border-width: $size / 2;
+		border-width: math.div($size, 2);
 		box-sizing: border-box;
 		content: '';
 		font-size: 0.9em;
 		height: $size;
 		left: 50%;
-		margin-left: -$size / 2;
+		margin-left: math.div(-$size, 2);
 		position: absolute;
 		top: 100%;
 		width: $size;

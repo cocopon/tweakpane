@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 $marker-border-color: rgba(white, 0.75);
 $marker-border-color-focus: white;
 $slider-track-width: 4px;
@@ -5,8 +7,8 @@ $slider-track-width: 4px;
 .#{$prefix}-colpv {
 	&_h,
 	&_ap {
-		margin-left: $slider-knob-size / 2;
-		margin-right: $slider-knob-size / 2;
+		margin-left: math.div($slider-knob-size, 2);
+		margin-right: math.div($slider-knob-size, 2);
 	}
 	// Hue
 	&_h {
@@ -75,8 +77,8 @@ $slider-track-width: 4px;
 		box-sizing: border-box;
 		filter: drop-shadow(0 0 1px rgba(black, 0.3));
 		height: $slider-knob-size;
-		margin-left: -($slider-knob-size / 2);
-		margin-top: -($slider-knob-size / 2);
+		margin-left: math.div(-$slider-knob-size, 2);
+		margin-top: math.div(-$slider-knob-size, 2);
 		pointer-events: none;
 		position: absolute;
 		width: $slider-knob-size;
@@ -102,11 +104,11 @@ $slider-track-width: 4px;
 		background-position: left top;
 		background-repeat: no-repeat;
 		background-size: 100% 100%;
-		border-radius: $slider-track-width / 2;
+		border-radius: math.div($slider-track-width, 2);
 		display: block;
 		height: $slider-track-width;
 		left: 0;
-		margin-top: -($slider-track-width / 2);
+		margin-top: math.div(-$slider-track-width, 2);
 		position: absolute;
 		top: 50%;
 		width: 100%;
@@ -118,8 +120,8 @@ $slider-track-width: 4px;
 		box-sizing: border-box;
 		height: $slider-knob-size;
 		left: 50%;
-		margin-left: -($slider-knob-size / 2);
-		margin-top: -($slider-knob-size / 2);
+		margin-left: math.div(-$slider-knob-size, 2);
+		margin-top: math.div(-$slider-knob-size, 2);
 		pointer-events: none;
 		position: absolute;
 		top: 50%;
@@ -145,11 +147,11 @@ $slider-track-width: 4px;
 	&_b {
 		@include checkerboard($slider-track-width);
 
-		border-radius: $slider-track-width / 2;
+		border-radius: math.div($slider-track-width, 2);
 		display: block;
 		height: $slider-track-width;
 		left: 0;
-		margin-top: -($slider-track-width / 2);
+		margin-top: math.div(-$slider-track-width, 2);
 		overflow: hidden;
 		position: absolute;
 		top: 50%;
@@ -169,8 +171,8 @@ $slider-track-width: 4px;
 		box-shadow: 0 0 2px rgba(black, 0.1);
 		height: $slider-knob-size;
 		left: 50%;
-		margin-left: -($slider-knob-size / 2);
-		margin-top: -($slider-knob-size / 2);
+		margin-left: math.div(-$slider-knob-size, 2);
+		margin-top: math.div(-$slider-knob-size, 2);
 		overflow: hidden;
 		pointer-events: none;
 		position: absolute;

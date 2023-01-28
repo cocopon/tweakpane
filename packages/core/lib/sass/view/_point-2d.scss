@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 .#{$prefix}-p2dv {
 	position: relative;
 
@@ -18,8 +20,8 @@
 			display: block;
 			height: 16px;
 			left: 50%;
-			margin-left: -(16px / 2);
-			margin-top: -(16px / 2);
+			margin-left: math.div(-16px, 2);
+			margin-top: math.div(-16px, 2);
 			position: absolute;
 			top: 50%;
 			width: 16px;
