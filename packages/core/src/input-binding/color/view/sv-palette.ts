@@ -4,13 +4,13 @@ import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
-import {Color} from '../model/color';
 import {hsvToRgbInt} from '../model/color-model';
+import {IntColor} from '../model/int-color';
 
 const className = ClassName('svp');
 
 interface Config {
-	value: Value<Color>;
+	value: Value<IntColor>;
 	viewProps: ViewProps;
 }
 
@@ -21,7 +21,7 @@ const CANVAS_RESOL = 64;
  */
 export class SvPaletteView implements View {
 	public readonly element: HTMLElement;
-	public readonly value: Value<Color>;
+	public readonly value: Value<IntColor>;
 	public readonly canvasElement: HTMLCanvasElement;
 	private readonly markerElem_: HTMLDivElement;
 

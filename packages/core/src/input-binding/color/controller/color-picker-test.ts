@@ -5,12 +5,12 @@ import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {TestUtil} from '../../../misc/test-util';
-import {Color} from '../model/color';
+import {IntColor} from '../model/int-color';
 import {ColorPickerController} from './color-picker';
 
 describe(ColorPickerController.name, () => {
 	it('should set initial color mode', () => {
-		const value = createValue(new Color([0, 0, 0], 'hsv'));
+		const value = createValue(new IntColor([0, 0, 0], 'hsv'));
 		const win = createTestWindow();
 		const doc = win.document;
 		const c = new ColorPickerController(doc, {
@@ -24,7 +24,7 @@ describe(ColorPickerController.name, () => {
 	});
 
 	it('should change hue of black in HSL', () => {
-		const value = createValue(new Color([0, 0, 0], 'rgb'));
+		const value = createValue(new IntColor([0, 0, 0], 'rgb'));
 		const win = createTestWindow();
 		const doc = win.document;
 		const c = new ColorPickerController(doc, {

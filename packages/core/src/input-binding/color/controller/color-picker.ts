@@ -10,8 +10,8 @@ import {connectValues} from '../../../common/model/value-sync';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from '../../../common/number/controller/number-text';
-import {Color} from '../model/color';
 import {ColorType} from '../model/color-model';
+import {IntColor} from '../model/int-color';
 import {ColorPickerView} from '../view/color-picker';
 import {APaletteController} from './a-palette';
 import {ColorTextController} from './color-text';
@@ -21,7 +21,7 @@ import {SvPaletteController} from './sv-palette';
 interface Config {
 	colorType: ColorType;
 	supportsAlpha: boolean;
-	value: Value<Color>;
+	value: Value<IntColor>;
 	viewProps: ViewProps;
 }
 
@@ -29,7 +29,7 @@ interface Config {
  * @hidden
  */
 export class ColorPickerController implements Controller<ColorPickerView> {
-	public readonly value: Value<Color>;
+	public readonly value: Value<IntColor>;
 	public readonly view: ColorPickerView;
 	public readonly viewProps: ViewProps;
 	private readonly alphaIcs_: {
@@ -82,7 +82,7 @@ export class ColorPickerController implements Controller<ColorPickerView> {
 				backward: (p, s) => {
 					const comps = p.rawValue.getComponents();
 					comps[3] = s.rawValue;
-					return new Color(comps, p.rawValue.mode);
+					return new IntColor(comps, p.rawValue.mode);
 				},
 			});
 		}

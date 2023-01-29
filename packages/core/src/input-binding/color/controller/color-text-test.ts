@@ -6,8 +6,8 @@ import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {TestUtil} from '../../../misc/test-util';
-import {Color} from '../model/color';
 import {ColorComponents3} from '../model/color-model';
+import {IntColor} from '../model/int-color';
 import {ColorTextController} from './color-text';
 
 describe(ColorTextController.name, () => {
@@ -42,7 +42,7 @@ describe(ColorTextController.name, () => {
 				testCase.expected,
 			)}`, (done) => {
 				const value = createValue(
-					new Color(testCase.params.components as ColorComponents3, 'rgb'),
+					new IntColor(testCase.params.components as ColorComponents3, 'rgb'),
 				);
 				value.emitter.on('change', () => {
 					assert.deepStrictEqual(
@@ -108,7 +108,7 @@ describe(ColorTextController.name, () => {
 				testCase.expected,
 			)}`, (done) => {
 				const value = createValue(
-					new Color(testCase.params.components as ColorComponents3, 'rgb'),
+					new IntColor(testCase.params.components as ColorComponents3, 'rgb'),
 				);
 				value.emitter.on('change', () => {
 					assert.deepStrictEqual(

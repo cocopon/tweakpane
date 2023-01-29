@@ -11,7 +11,6 @@ import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from '../../../common/number/controller/number-text';
 import {Tuple3} from '../../../misc/type-util';
-import {Color} from '../model/color';
 import {
 	appendAlphaComponent,
 	ColorMode,
@@ -19,13 +18,15 @@ import {
 	getColorMaxComponents,
 	removeAlphaComponent,
 } from '../model/color-model';
+import {createColor, mapColorType} from '../model/colors';
+import {IntColor} from '../model/int-color';
 import {getBaseStepForColor} from '../util';
 import {ColorTextView} from '../view/color-text';
 
 interface Config {
 	colorType: ColorType;
 	parser: Parser<number>;
-	value: Value<Color>;
+	value: Value<IntColor>;
 	viewProps: ViewProps;
 }
 
@@ -75,7 +76,7 @@ function createComponentController(
  */
 export class ColorTextController implements Controller<ColorTextView> {
 	public readonly colorMode: Value<ColorMode>;
-	public readonly value: Value<Color>;
+	public readonly value: Value<IntColor>;
 	public readonly view: ColorTextView;
 	public readonly viewProps: ViewProps;
 	private readonly parser_: Parser<number>;
@@ -123,20 +124,20 @@ export class ColorTextController implements Controller<ColorTextView> {
 				primary: this.value,
 				secondary: cs.value,
 				forward: (p) => {
-					return p.rawValue.getComponents(
-						this.colorMode.rawValue,
-						this.colorType_,
-					)[index];
+					const mc = mapColorType(p.rawValue, this.colorType_);
+					return mc.getComponents(this.colorMode.rawValue)[index];
 				},
 				backward: (p, s) => {
 					const pickedMode = this.colorMode.rawValue;
-					const comps = p.rawValue.getComponents(pickedMode, this.colorType_);
+					const mc = mapColorType(p.rawValue, this.colorType_);
+					const comps = mc.getComponents(pickedMode);
 					comps[index] = s.rawValue;
-					return new Color(
+					const c = createColor(
 						appendAlphaComponent(removeAlphaComponent(comps), comps[3]),
 						pickedMode,
 						this.colorType_,
 					);
+					return mapColorType(c, 'int');
 				},
 			});
 		});

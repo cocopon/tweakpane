@@ -6,26 +6,28 @@ import {createTestWindow} from '../../misc/dom-test-util';
 import {TestUtil} from '../../misc/test-util';
 import {createInputBindingController} from '../plugin';
 import {ColorController} from './controller/color';
-import {Color} from './model/color';
+import {IntColor} from './model/int-color';
 import {ObjectColorInputPlugin} from './plugin-object';
+
+const DELTA = 1e-5;
 
 describe(ObjectColorInputPlugin.id, () => {
 	[
 		{
 			params: {},
-			expected: 'int',
+			expected: {r: 1, g: 0, b: 0, a: 0.5},
 		},
 		{
 			params: {
 				color: {type: 'int'},
 			},
-			expected: 'int',
+			expected: {r: 1, g: 0, b: 0, a: 0.5},
 		},
 		{
 			params: {
 				color: {type: 'float'},
 			},
-			expected: 'float',
+			expected: {r: 255, g: 0, b: 0, a: 0.5},
 		},
 	].forEach(({params, expected}) => {
 		context(`when params=${JSON.stringify(params)}`, () => {
@@ -36,14 +38,21 @@ describe(ObjectColorInputPlugin.id, () => {
 			if (!result) {
 				throw new Error('unexpected result');
 			}
+			const target = new BindingTarget(input, 'color');
 			const reader = ObjectColorInputPlugin.binding.reader({
 				initialValue: input.color,
 				params: result.params,
-				target: new BindingTarget(input, 'color'),
+				target: target,
 			});
 
 			it('should apply color type to binding reader', () => {
-				assert.strictEqual(reader(input.color).type, expected);
+				const c = reader({r: 1, g: 0, b: 0, a: 0.5});
+				const comps = c.getComponents('rgb');
+
+				assert.ok(TestUtil.closeTo(comps[0], expected.r, DELTA), 'r');
+				assert.ok(TestUtil.closeTo(comps[1], expected.g, DELTA), 'g');
+				assert.ok(TestUtil.closeTo(comps[2], expected.b, DELTA), 'b');
+				assert.ok(TestUtil.closeTo(comps[3], expected.a, DELTA), 'a');
 			});
 		});
 	});
@@ -86,7 +95,7 @@ describe(ObjectColorInputPlugin.id, () => {
 				params: result.params,
 				target: target,
 			});
-			writer(target, new Color([255, 0, 0, 1], 'rgb', 'int'));
+			writer(target, new IntColor([255, 0, 0, 1], 'rgb'));
 
 			it('should apply color type to binding writer', () => {
 				assert.deepStrictEqual(target.read(), expected);
@@ -143,9 +152,9 @@ describe(ObjectColorInputPlugin.id, () => {
 						type: 'float',
 					},
 				},
-				inputText: 'rgba(0.1, 0.2, 0.3, 1)',
+				inputText: 'rgba(0, 127, 255, 1)',
 			},
-			expected: '{r: 0.10, g: 0.20, b: 0.30, a: 1.00}',
+			expected: '{r: 0.00, g: 0.50, b: 1.00, a: 1.00}',
 		},
 	].forEach(({params, expected}) => {
 		context(`when params=${JSON.stringify(params)}`, () => {

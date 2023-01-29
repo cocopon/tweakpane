@@ -109,6 +109,8 @@ export * from './input-binding/color/controller/color';
 export * from './input-binding/color/converter/color-number';
 export * from './input-binding/color/converter/color-string';
 export * from './input-binding/color/model/color';
+export * from './input-binding/color/model/float-color';
+export * from './input-binding/color/model/int-color';
 export * from './input-binding/color/plugin-number';
 export * from './input-binding/color/plugin-object';
 export * from './input-binding/color/plugin-string';

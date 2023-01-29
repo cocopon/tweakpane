@@ -1,7 +1,6 @@
-import {BindingReader} from '../../../common/binding/binding';
 import {Formatter} from '../../../common/converter/formatter';
 import {createNumberFormatter} from '../../../common/converter/number';
-import {Parser} from '../../../common/converter/parser';
+import {composeParsers, Parser} from '../../../common/converter/parser';
 import {formatPercentage} from '../../../common/converter/percentage';
 import {constrainRange, mapRange} from '../../../common/number-util';
 import {Color} from '../model/color';
@@ -12,6 +11,9 @@ import {
 	ColorType,
 	removeAlphaComponent,
 } from '../model/color-model';
+import {createColor, mapColorType} from '../model/colors';
+import {FloatColor} from '../model/float-color';
+import {IntColor} from '../model/int-color';
 
 type StringColorNotation = 'func' | 'hex' | 'object';
 
@@ -83,11 +85,9 @@ function parseFunctionalRgbColorComponents(
 	return comps;
 }
 
-function createFunctionalRgbColorParser(type: ColorType): Parser<Color> {
-	return (text) => {
-		const comps = parseFunctionalRgbColorComponents(text);
-		return comps ? new Color(comps, 'rgb', type) : null;
-	};
+function parseFunctionalRgbColor(text: string): IntColor | null {
+	const comps = parseFunctionalRgbColorComponents(text);
+	return comps ? new IntColor(comps, 'rgb') : null;
 }
 
 function parseFunctionalRgbaColorComponents(
@@ -117,14 +117,14 @@ function parseFunctionalRgbaColorComponents(
 	return comps;
 }
 
-function createFunctionalRgbaColorParser(type: ColorType): Parser<Color> {
-	return (text) => {
-		const comps = parseFunctionalRgbaColorComponents(text);
-		return comps ? new Color(comps, 'rgb', type) : null;
-	};
+function parseFunctionalRgbaColor(text: string): IntColor | null {
+	const comps = parseFunctionalRgbaColorComponents(text);
+	return comps ? new IntColor(comps, 'rgb') : null;
 }
 
-function parseHslColorComponents(text: string): ColorComponents3 | null {
+function parseFunctionalHslColorComponents(
+	text: string,
+): ColorComponents3 | null {
 	const m = text.match(
 		/^hsl\(\s*([0-9A-Fa-f.]+(?:deg|grad|rad|turn)?)\s*,\s*([0-9A-Fa-f.]+%?)\s*,\s*([0-9A-Fa-f.]+%?)\s*\)$/,
 	);
@@ -143,11 +143,9 @@ function parseHslColorComponents(text: string): ColorComponents3 | null {
 	return comps;
 }
 
-function createHslColorParser(type: ColorType): Parser<Color> {
-	return (text) => {
-		const comps = parseHslColorComponents(text);
-		return comps ? new Color(comps, 'hsl', type) : null;
-	};
+function parseFunctionalHslColor(text: string): IntColor | null {
+	const comps = parseFunctionalHslColorComponents(text);
+	return comps ? new IntColor(comps, 'hsl') : null;
 }
 
 function parseHslaColorComponents(text: string): ColorComponents4 | null {
@@ -175,11 +173,9 @@ function parseHslaColorComponents(text: string): ColorComponents4 | null {
 	return comps;
 }
 
-function createHslaColorParser(type: ColorType): Parser<Color> {
-	return (text) => {
-		const comps = parseHslaColorComponents(text);
-		return comps ? new Color(comps, 'hsl', type) : null;
-	};
+function parseFunctionalHslaColor(text: string): IntColor | null {
+	const comps = parseHslaColorComponents(text);
+	return comps ? new IntColor(comps, 'hsl') : null;
 }
 
 function parseHexRgbColorComponents(text: string): ColorComponents3 | null {
@@ -205,9 +201,9 @@ function parseHexRgbColorComponents(text: string): ColorComponents3 | null {
 	return null;
 }
 
-function parseHexRgbColor(text: string): Color | null {
+function parseHexRgbColor(text: string): IntColor | null {
 	const comps = parseHexRgbColorComponents(text);
-	return comps ? new Color(comps, 'rgb', 'int') : null;
+	return comps ? new IntColor(comps, 'rgb') : null;
 }
 
 function parseHexRgbaColorComponents(text: string): ColorComponents4 | null {
@@ -238,9 +234,9 @@ function parseHexRgbaColorComponents(text: string): ColorComponents4 | null {
 	return null;
 }
 
-function parseHexRgbaColor(text: string): Color | null {
+function parseHexRgbaColor(text: string): IntColor | null {
 	const comps = parseHexRgbaColorComponents(text);
-	return comps ? new Color(comps, 'rgb', 'int') : null;
+	return comps ? new IntColor(comps, 'rgb') : null;
 }
 
 function parseObjectRgbColorComponents(text: string): ColorComponents3 | null {
@@ -262,10 +258,12 @@ function parseObjectRgbColorComponents(text: string): ColorComponents3 | null {
 	return comps;
 }
 
+function createObjectRgbColorParser(type: 'int'): Parser<IntColor>;
+function createObjectRgbColorParser(type: 'float'): Parser<FloatColor>;
 function createObjectRgbColorParser(type: ColorType): Parser<Color> {
 	return (text) => {
 		const comps = parseObjectRgbColorComponents(text);
-		return comps ? new Color(comps, 'rgb', type) : null;
+		return comps ? createColor(comps, 'rgb', type) : null;
 	};
 }
 
@@ -294,10 +292,12 @@ function parseObjectRgbaColorComponents(text: string): ColorComponents4 | null {
 	return comps;
 }
 
+function createObjectRgbaColorParser(type: 'int'): Parser<IntColor>;
+function createObjectRgbaColorParser(type: 'float'): Parser<FloatColor>;
 function createObjectRgbaColorParser(type: ColorType): Parser<Color> {
 	return (text) => {
 		const comps = parseObjectRgbaColorComponents(text);
-		return comps ? new Color(comps, 'rgb', type) : null;
+		return comps ? createColor(comps, 'rgb', type) : null;
 	};
 }
 
@@ -340,7 +340,7 @@ const PARSER_AND_RESULT: {
 		},
 	},
 	{
-		parser: parseHslColorComponents,
+		parser: parseFunctionalHslColorComponents,
 		result: {
 			alpha: false,
 			mode: 'hsl',
@@ -408,56 +408,45 @@ export function detectStringColorFormat(
 	return null;
 }
 
-const TYPE_TO_PARSERS: {[type in ColorType]: Parser<Color>[]} = {
-	int: [
+export function createColorStringParser(type: 'int'): Parser<IntColor>;
+export function createColorStringParser(type: 'float'): Parser<FloatColor>;
+export function createColorStringParser(type: ColorType): Parser<Color> {
+	const parsers: Parser<Color>[] = [
 		parseHexRgbColor,
 		parseHexRgbaColor,
-		createFunctionalRgbColorParser('int'),
-		createFunctionalRgbaColorParser('int'),
-		createHslColorParser('int'),
-		createHslaColorParser('int'),
-		createObjectRgbColorParser('int'),
-		createObjectRgbaColorParser('int'),
-	],
-	float: [
-		createFunctionalRgbColorParser('float'),
-		createFunctionalRgbaColorParser('float'),
-		createHslColorParser('float'),
-		createHslaColorParser('float'),
-		createObjectRgbColorParser('float'),
-		createObjectRgbaColorParser('float'),
-	],
-};
+		parseFunctionalRgbColor,
+		parseFunctionalRgbaColor,
+		parseFunctionalHslColor,
+		parseFunctionalHslaColor,
+	];
+	if (type === 'int') {
+		parsers.push(
+			createObjectRgbColorParser('int'),
+			createObjectRgbaColorParser('int'),
+		);
+	}
+	if (type === 'float') {
+		parsers.push(
+			createObjectRgbColorParser('float'),
+			createObjectRgbaColorParser('float'),
+		);
+	}
+	const parser = composeParsers(parsers);
 
-export function createColorStringBindingReader(
-	type: ColorType,
-): BindingReader<Color> {
-	const parsers = TYPE_TO_PARSERS[type];
-	return (value) => {
-		if (typeof value !== 'string') {
-			return Color.black(type);
-		}
-
-		const result = parsers.reduce((prev: Color | null, parser) => {
-			if (prev) {
-				return prev;
-			}
-			return parser(value);
-		}, null);
-		return result ?? Color.black(type);
+	return (text) => {
+		const result = parser(text);
+		return result ? mapColorType(result, type) : null;
 	};
 }
 
-export function createColorStringParser(type: ColorType): Parser<Color> {
-	const parsers = TYPE_TO_PARSERS[type];
-	return (value) => {
-		return parsers.reduce((prev: Color | null, parser) => {
-			if (prev) {
-				return prev;
-			}
-			return parser(value);
-		}, null);
-	};
+export function readIntColorString(value: unknown): IntColor {
+	const parser = createColorStringParser('int');
+	if (typeof value !== 'string') {
+		return IntColor.black();
+	}
+
+	const result = parser(value);
+	return result ?? IntColor.black();
 }
 
 function zerofill(comp: number): string {
@@ -468,7 +457,7 @@ function zerofill(comp: number): string {
 /**
  * @hidden
  */
-export function colorToHexRgbString(value: Color, prefix = '#'): string {
+export function colorToHexRgbString(value: IntColor, prefix = '#'): string {
 	const hexes = removeAlphaComponent(value.getComponents('rgb'))
 		.map(zerofill)
 		.join('');
@@ -478,7 +467,7 @@ export function colorToHexRgbString(value: Color, prefix = '#'): string {
 /**
  * @hidden
  */
-export function colorToHexRgbaString(value: Color, prefix = '#'): string {
+export function colorToHexRgbaString(value: IntColor, prefix = '#'): string {
 	const rgbaComps = value.getComponents('rgb');
 	const hexes = [rgbaComps[0], rgbaComps[1], rgbaComps[2], rgbaComps[3] * 255]
 		.map(zerofill)
@@ -486,48 +475,30 @@ export function colorToHexRgbaString(value: Color, prefix = '#'): string {
 	return `${prefix}${hexes}`;
 }
 
-// TODO: Make type required in the next major version
 /**
  * @hidden
  */
-export function colorToFunctionalRgbString(
-	value: Color,
-	opt_type?: ColorType,
-): string {
-	const formatter = createNumberFormatter(opt_type === 'float' ? 2 : 0);
-	const comps = removeAlphaComponent(value.getComponents('rgb', opt_type)).map(
-		(comp) => formatter(comp),
+export function colorToFunctionalRgbString(value: Color): string {
+	const formatter = createNumberFormatter(0);
+	const ci = mapColorType(value, 'int');
+	const comps = removeAlphaComponent(ci.getComponents('rgb')).map((comp) =>
+		formatter(comp),
 	);
 	return `rgb(${comps.join(', ')})`;
 }
 
-function createFunctionalRgbColorFormatter(type: ColorType): Formatter<Color> {
-	return (value) => {
-		return colorToFunctionalRgbString(value, type);
-	};
-}
-
-// TODO: Make type required in the next major version
 /**
  * @hidden
  */
-export function colorToFunctionalRgbaString(
-	value: Color,
-	opt_type?: ColorType,
-): string {
+export function colorToFunctionalRgbaString(value: Color): string {
 	const aFormatter = createNumberFormatter(2);
-	const rgbFormatter = createNumberFormatter(opt_type === 'float' ? 2 : 0);
-	const comps = value.getComponents('rgb', opt_type).map((comp, index) => {
+	const rgbFormatter = createNumberFormatter(0);
+	const ci = mapColorType(value, 'int');
+	const comps = ci.getComponents('rgb').map((comp, index) => {
 		const formatter = index === 3 ? aFormatter : rgbFormatter;
 		return formatter(comp);
 	});
 	return `rgba(${comps.join(', ')})`;
-}
-
-function createFunctionalRgbaColorFormatter(type: ColorType): Formatter<Color> {
-	return (value) => {
-		return colorToFunctionalRgbaString(value, type);
-	};
 }
 
 /**
@@ -539,7 +510,8 @@ export function colorToFunctionalHslString(value: Color): string {
 		formatPercentage,
 		formatPercentage,
 	];
-	const comps = removeAlphaComponent(value.getComponents('hsl')).map(
+	const ci = mapColorType(value, 'int');
+	const comps = removeAlphaComponent(ci.getComponents('hsl')).map(
 		(comp, index) => formatters[index](comp),
 	);
 	return `hsl(${comps.join(', ')})`;
@@ -555,7 +527,8 @@ export function colorToFunctionalHslaString(value: Color): string {
 		formatPercentage,
 		createNumberFormatter(2),
 	];
-	const comps = value
+	const ci = mapColorType(value, 'int');
+	const comps = ci
 		.getComponents('hsl')
 		.map((comp, index) => formatters[index](comp));
 	return `hsla(${comps.join(', ')})`;
@@ -567,7 +540,8 @@ export function colorToFunctionalHslaString(value: Color): string {
 export function colorToObjectRgbString(value: Color, type: ColorType): string {
 	const formatter = createNumberFormatter(type === 'float' ? 2 : 0);
 	const names = ['r', 'g', 'b'];
-	const comps = removeAlphaComponent(value.getComponents('rgb', type)).map(
+	const cc = mapColorType(value, type);
+	const comps = removeAlphaComponent(cc.getComponents('rgb')).map(
 		(comp, index) => `${names[index]}: ${formatter(comp)}`,
 	);
 	return `{${comps.join(', ')}}`;
@@ -584,7 +558,8 @@ export function colorToObjectRgbaString(value: Color, type: ColorType): string {
 	const aFormatter = createNumberFormatter(2);
 	const rgbFormatter = createNumberFormatter(type === 'float' ? 2 : 0);
 	const names = ['r', 'g', 'b', 'a'];
-	const comps = value.getComponents('rgb', type).map((comp, index) => {
+	const cc = mapColorType(value, type);
+	const comps = cc.getComponents('rgb').map((comp, index) => {
 		const formatter = index === 3 ? aFormatter : rgbFormatter;
 		return `${names[index]}: ${formatter(comp)}`;
 	});
@@ -608,7 +583,7 @@ const FORMAT_AND_STRINGIFIERS: FormatAndStringifier[] = [
 			notation: 'hex',
 			type: 'int',
 		},
-		stringifier: colorToHexRgbString,
+		stringifier: colorToHexRgbString as Formatter<Color>,
 	},
 	{
 		format: {
@@ -617,7 +592,25 @@ const FORMAT_AND_STRINGIFIERS: FormatAndStringifier[] = [
 			notation: 'hex',
 			type: 'int',
 		},
-		stringifier: colorToHexRgbaString,
+		stringifier: colorToHexRgbaString as Formatter<Color>,
+	},
+	{
+		format: {
+			alpha: false,
+			mode: 'rgb',
+			notation: 'func',
+			type: 'int',
+		},
+		stringifier: colorToFunctionalRgbString,
+	},
+	{
+		format: {
+			alpha: true,
+			mode: 'rgb',
+			notation: 'func',
+			type: 'int',
+		},
+		stringifier: colorToFunctionalRgbaString,
 	},
 	{
 		format: {
@@ -641,24 +634,6 @@ const FORMAT_AND_STRINGIFIERS: FormatAndStringifier[] = [
 		(prev: FormatAndStringifier[], type) => {
 			return [
 				...prev,
-				{
-					format: {
-						alpha: false,
-						mode: 'rgb',
-						notation: 'func',
-						type: type,
-					},
-					stringifier: createFunctionalRgbColorFormatter(type),
-				},
-				{
-					format: {
-						alpha: true,
-						mode: 'rgb',
-						notation: 'func',
-						type: type,
-					},
-					stringifier: createFunctionalRgbaColorFormatter(type),
-				},
 				{
 					format: {
 						alpha: false,

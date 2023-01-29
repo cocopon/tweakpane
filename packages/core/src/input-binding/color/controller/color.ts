@@ -11,8 +11,8 @@ import {connectValues} from '../../../common/model/value-sync';
 import {ViewProps} from '../../../common/model/view-props';
 import {PickerLayout} from '../../../common/params';
 import {forceCast} from '../../../misc/type-util';
-import {Color} from '../model/color';
 import {ColorType} from '../model/color-model';
+import {IntColor} from '../model/int-color';
 import {ColorView} from '../view/color';
 import {ColorPickerController} from './color-picker';
 import {ColorSwatchController} from './color-swatch';
@@ -20,11 +20,11 @@ import {ColorSwatchController} from './color-swatch';
 interface Config {
 	colorType: ColorType;
 	expanded: boolean;
-	formatter: Formatter<Color>;
-	parser: Parser<Color>;
+	formatter: Formatter<IntColor>;
+	parser: Parser<IntColor>;
 	pickerLayout: PickerLayout;
 	supportsAlpha: boolean;
-	value: Value<Color>;
+	value: Value<IntColor>;
 	viewProps: ViewProps;
 }
 
@@ -32,11 +32,11 @@ interface Config {
  * @hidden
  */
 export class ColorController implements Controller<ColorView> {
-	public readonly value: Value<Color>;
+	public readonly value: Value<IntColor>;
 	public readonly view: ColorView;
 	public readonly viewProps: ViewProps;
 	private readonly swatchC_: ColorSwatchController;
-	private readonly textC_: TextController<Color>;
+	private readonly textC_: TextController<IntColor>;
 	private readonly pickerC_: ColorPickerController;
 	private readonly popC_: PopupController | null;
 	private readonly foldable_: Foldable;
@@ -112,7 +112,7 @@ export class ColorController implements Controller<ColorView> {
 		}
 	}
 
-	get textController(): TextController<Color> {
+	get textController(): TextController<IntColor> {
 		return this.textC_;
 	}
 

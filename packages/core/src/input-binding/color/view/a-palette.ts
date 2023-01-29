@@ -4,12 +4,12 @@ import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 import {colorToFunctionalRgbaString} from '../converter/color-string';
-import {Color} from '../model/color';
+import {IntColor} from '../model/int-color';
 
 const className = ClassName('apl');
 
 interface Config {
-	value: Value<Color>;
+	value: Value<IntColor>;
 	viewProps: ViewProps;
 }
 
@@ -18,7 +18,7 @@ interface Config {
  */
 export class APaletteView implements View {
 	public readonly element: HTMLElement;
-	public readonly value: Value<Color>;
+	public readonly value: Value<IntColor>;
 	private readonly colorElem_: HTMLDivElement;
 	private readonly markerElem_: HTMLDivElement;
 	private readonly previewElem_: HTMLDivElement;
@@ -59,11 +59,11 @@ export class APaletteView implements View {
 	private update_(): void {
 		const c = this.value.rawValue;
 		const rgbaComps = c.getComponents('rgb');
-		const leftColor = new Color(
+		const leftColor = new IntColor(
 			[rgbaComps[0], rgbaComps[1], rgbaComps[2], 0],
 			'rgb',
 		);
-		const rightColor = new Color(
+		const rightColor = new IntColor(
 			[rgbaComps[0], rgbaComps[1], rgbaComps[2], 255],
 			'rgb',
 		);
