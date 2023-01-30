@@ -2,13 +2,14 @@ import {TpError} from '../../common/tp-error';
 import {InputBindingPlugin} from '../plugin';
 import {ColorController} from './controller/color';
 import {
-	createColorStringBindingReader,
 	createColorStringParser,
 	detectStringColorFormat,
 	findColorStringifier,
+	readIntColorString,
 } from './converter/color-string';
 import {createColorStringWriter} from './converter/writer';
-import {Color} from './model/color';
+import {equalsColor} from './model/color';
+import {IntColor} from './model/int-color';
 import {
 	ColorInputParams,
 	extractColorType,
@@ -19,7 +20,7 @@ import {
  * @hidden
  */
 export const StringColorInputPlugin: InputBindingPlugin<
-	Color,
+	IntColor,
 	string,
 	ColorInputParams
 > = {
@@ -50,9 +51,8 @@ export const StringColorInputPlugin: InputBindingPlugin<
 			: null;
 	},
 	binding: {
-		reader: (args) =>
-			createColorStringBindingReader(extractColorType(args.params) ?? 'int'),
-		equals: Color.equals,
+		reader: () => readIntColorString,
+		equals: equalsColor,
 		writer: (args) => {
 			const format = detectStringColorFormat(
 				args.initialValue,
@@ -88,7 +88,7 @@ export const StringColorInputPlugin: InputBindingPlugin<
 			colorType: format.type,
 			expanded: expanded ?? false,
 			formatter: stringifier,
-			parser: createColorStringParser(format.type),
+			parser: createColorStringParser('int'),
 			pickerLayout: picker ?? 'popup',
 			supportsAlpha: format.alpha,
 			value: args.value,

@@ -3,7 +3,7 @@ import {describe, it} from 'mocha';
 
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
-import {Color} from '../../../input-binding/color/model/color';
+import {IntColor} from '../../../input-binding/color/model/int-color';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {createDefaultPluginPool} from '../../../plugin/plugins';
 import {testBladeContainer} from '../../common/api/blade-rack-test';
@@ -195,14 +195,14 @@ describe(FolderApi.name, () => {
 			expected: '#224488',
 			params: {
 				propertyValue: '#123',
-				newInternalValue: new Color([0x22, 0x44, 0x88], 'rgb'),
+				newInternalValue: new IntColor([0x22, 0x44, 0x88], 'rgb'),
 			},
 		},
 		{
 			expected: 'rgb(0, 127, 255)',
 			params: {
 				propertyValue: 'rgb(10, 20, 30)',
-				newInternalValue: new Color([0, 127, 255], 'rgb'),
+				newInternalValue: new IntColor([0, 127, 255], 'rgb'),
 			},
 		},
 	].forEach(({expected, params}) => {

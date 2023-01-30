@@ -8,12 +8,12 @@ import {
 	PointerHandler,
 	PointerHandlerEvents,
 } from '../../../common/view/pointer-handler';
-import {Color} from '../model/color';
+import {IntColor} from '../model/int-color';
 import {getBaseStepForColor} from '../util';
 import {HPaletteView} from '../view/h-palette';
 
 interface Config {
-	value: Value<Color>;
+	value: Value<IntColor>;
 	viewProps: ViewProps;
 }
 
@@ -21,7 +21,7 @@ interface Config {
  * @hidden
  */
 export class HPaletteController implements Controller<HPaletteView> {
-	public readonly value: Value<Color>;
+	public readonly value: Value<IntColor>;
 	public readonly view: HPaletteView;
 	public readonly viewProps: ViewProps;
 	private readonly ptHandler_: PointerHandler;
@@ -65,7 +65,7 @@ export class HPaletteController implements Controller<HPaletteView> {
 
 		const c = this.value.rawValue;
 		const [, s, v, a] = c.getComponents('hsv');
-		this.value.setRawValue(new Color([hue, s, v, a], 'hsv'), opts);
+		this.value.setRawValue(new IntColor([hue, s, v, a], 'hsv'), opts);
 	}
 
 	private onPointerDown_(ev: PointerHandlerEvents['down']): void {
@@ -100,7 +100,7 @@ export class HPaletteController implements Controller<HPaletteView> {
 
 		const c = this.value.rawValue;
 		const [h, s, v, a] = c.getComponents('hsv');
-		this.value.setRawValue(new Color([h + step, s, v, a], 'hsv'), {
+		this.value.setRawValue(new IntColor([h + step, s, v, a], 'hsv'), {
 			forceEmit: false,
 			last: false,
 		});

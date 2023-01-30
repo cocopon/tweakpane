@@ -11,7 +11,8 @@ import {
 	createColorStringParser,
 } from './converter/color-string';
 import {createColorNumberWriter} from './converter/writer';
-import {Color} from './model/color';
+import {equalsColor} from './model/color';
+import {IntColor} from './model/int-color';
 import {ColorInputParams, parseColorInputParams} from './util';
 
 function shouldSupportAlpha(inputParams: ColorInputParams): boolean {
@@ -21,10 +22,10 @@ function shouldSupportAlpha(inputParams: ColorInputParams): boolean {
 	return false;
 }
 
-function createFormatter(supportsAlpha: boolean): Formatter<Color> {
+function createFormatter(supportsAlpha: boolean): Formatter<IntColor> {
 	return supportsAlpha
-		? (v: Color) => colorToHexRgbaString(v, '0x')
-		: (v: Color) => colorToHexRgbString(v, '0x');
+		? (v: IntColor) => colorToHexRgbaString(v, '0x')
+		: (v: IntColor) => colorToHexRgbString(v, '0x');
 }
 
 function isForColor(params: Record<string, unknown>): boolean {
@@ -41,7 +42,7 @@ function isForColor(params: Record<string, unknown>): boolean {
  * @hidden
  */
 export const NumberColorInputPlugin: InputBindingPlugin<
-	Color,
+	IntColor,
 	number,
 	ColorInputParams
 > = {
@@ -69,7 +70,7 @@ export const NumberColorInputPlugin: InputBindingPlugin<
 				? colorFromRgbaNumber
 				: colorFromRgbNumber;
 		},
-		equals: Color.equals,
+		equals: equalsColor,
 		writer: (args) => {
 			return createColorNumberWriter(shouldSupportAlpha(args.params));
 		},

@@ -3,10 +3,10 @@ import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 import {colorToHexRgbaString} from '../converter/color-string';
-import {Color} from '../model/color';
+import {IntColor} from '../model/int-color';
 
 interface Config {
-	value: Value<Color>;
+	value: Value<IntColor>;
 	viewProps: ViewProps;
 }
 
@@ -17,7 +17,7 @@ const className = ClassName('colsw');
  */
 export class ColorSwatchView implements View {
 	public readonly element: HTMLElement;
-	public readonly value: Value<Color>;
+	public readonly value: Value<IntColor>;
 	public readonly buttonElement: HTMLButtonElement;
 	private readonly swatchElem_: HTMLDivElement;
 

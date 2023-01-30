@@ -1,8 +1,8 @@
 import {
-	Color,
-	colorFromString,
 	colorToFunctionalRgbaString,
+	IntColor,
 	mapRange,
+	readIntColorString,
 } from '@tweakpane/core';
 import {Pane} from 'tweakpane';
 
@@ -81,8 +81,8 @@ export function initIndex() {
 			return;
 		}
 
-		const [h, s, l] = colorFromString(ENV.color).getComponents('hsl');
-		const bg = new Color([h + 30, s, l < 50 ? l - 4 : l + 5], 'hsl');
+		const [h, s, l] = readIntColorString(ENV.color).getComponents('hsl');
+		const bg = new IntColor([h + 30, s, l < 50 ? l - 4 : l + 5], 'hsl');
 		headerElem.style.backgroundColor = colorToFunctionalRgbaString(bg);
 	};
 
