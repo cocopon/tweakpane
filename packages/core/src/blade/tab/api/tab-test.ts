@@ -4,7 +4,6 @@ import {describe} from 'mocha';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {createTestWindow} from '../../../misc/dom-test-util';
-import {forceCast} from '../../../misc/type-util';
 import {createDefaultPluginPool} from '../../../plugin/plugins';
 import {TpChangeEvent} from '../../common/api/tp-event';
 import {createBlade} from '../../common/model/blade';
@@ -96,7 +95,7 @@ describe(TabApi.name, () => {
 			done();
 		});
 
-		const value: Value<number> = forceCast(bapi.controller_.binding.value);
+		const value = bapi.controller_.value as Value<number>;
 		value.rawValue += 1;
 	});
 
@@ -129,7 +128,7 @@ describe(TabApi.name, () => {
 			done();
 		});
 
-		const value: Value<number> = forceCast(bapi.controller_.binding.value);
+		const value = bapi.controller_.value as Value<number>;
 		value.rawValue += 1;
 	});
 

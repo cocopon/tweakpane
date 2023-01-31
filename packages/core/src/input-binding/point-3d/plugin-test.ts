@@ -34,7 +34,7 @@ describe(Point3dInputPlugin.id, () => {
 			target: new BindingTarget({foo: {x: 12, y: 34, z: 56}}, 'foo'),
 		});
 
-		const cs = (c?.binding.value as ComplexValue<unknown>)
+		const cs = (c?.value as ComplexValue<unknown>)
 			.constraint as PointNdConstraint<Point3d>;
 		const zc = cs.components[2];
 		if (!zc) {
@@ -57,7 +57,7 @@ describe(Point3dInputPlugin.id, () => {
 			target: new BindingTarget({foo: {x: 12, y: 34, z: 56}}, 'foo'),
 		});
 
-		const cs = (c?.binding.value as ComplexValue<unknown>)
+		const cs = (c?.value as ComplexValue<unknown>)
 			.constraint as PointNdConstraint<Point3d>;
 		const zc = cs.components[2];
 		if (!zc) {

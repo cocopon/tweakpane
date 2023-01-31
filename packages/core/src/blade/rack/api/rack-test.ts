@@ -42,7 +42,7 @@ describe(RackApi.name, () => {
 			done();
 		});
 
-		const value: Value<number> = forceCast(bapi.controller_.binding.value);
+		const value: Value<number> = forceCast(bapi.controller_.value);
 		value.rawValue += 1;
 	});
 
@@ -61,7 +61,7 @@ describe(RackApi.name, () => {
 			done();
 		});
 
-		const value: Value<number> = forceCast(bapi.controller_.binding.value);
+		const value: Value<number> = forceCast(bapi.controller_.value);
 		value.rawValue += 1;
 	});
 
@@ -100,9 +100,9 @@ describe(RackApi.name, () => {
 		});
 
 		const item = api.addInput({foo: 0}, 'foo');
-		(item.controller_.binding.value as Value<number>).rawValue += 1;
+		(item.controller_.value as Value<number>).rawValue += 1;
 		api.remove(item);
-		(item.controller_.binding.value as Value<number>).rawValue += 1;
+		(item.controller_.value as Value<number>).rawValue += 1;
 		assert.strictEqual(count, 1);
 	});
 });

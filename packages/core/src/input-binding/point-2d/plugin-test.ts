@@ -74,7 +74,7 @@ describe(Point2dInputPlugin.id, () => {
 			target: new BindingTarget({foo: {x: 12, y: 34}}, 'foo'),
 		});
 
-		const constraint = (c?.binding.value as ComplexValue<unknown>)
+		const constraint = (c?.value as ComplexValue<unknown>)
 			.constraint as PointNdConstraint<Point2d>;
 		const xc = constraint.components[0];
 		if (!xc) {
@@ -94,7 +94,7 @@ describe(Point2dInputPlugin.id, () => {
 			target: new BindingTarget({foo: {x: 12, y: 34}}, 'foo'),
 		});
 
-		const constraint = (c?.binding.value as ComplexValue<unknown>)
+		const constraint = (c?.value as ComplexValue<unknown>)
 			.constraint as PointNdConstraint<Point2d>;
 		const yc = constraint.components[1];
 		if (!yc) {
@@ -117,7 +117,7 @@ describe(Point2dInputPlugin.id, () => {
 			target: new BindingTarget(obj, 'p'),
 		});
 
-		const v = c?.binding.value as Value<Point2d>;
+		const v = c?.value as Value<Point2d>;
 		v.rawValue = new Point2d(56, 78);
 		assert.strictEqual(p, obj.p);
 		assert.strictEqual(p.x, 56);

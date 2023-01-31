@@ -114,7 +114,7 @@ describe(FolderApi.name, () => {
 		});
 
 		const bapi = pane.addInput(PARAMS, 'foo');
-		bapi.controller_.binding.value.rawValue = 2;
+		bapi.controller_.value.rawValue = 2;
 	});
 
 	it('should dispose items', () => {
@@ -154,7 +154,7 @@ describe(FolderApi.name, () => {
 		});
 
 		const bapi = api.addInput(PARAMS, 'foo');
-		bapi.controller_.binding.value.rawValue = 2;
+		bapi.controller_.value.rawValue = 2;
 	});
 
 	it('should have right target', (done) => {
@@ -219,7 +219,7 @@ describe(FolderApi.name, () => {
 					assert.strictEqual(ev.value, expected);
 					done();
 				});
-				bapi.controller_.binding.value.rawValue = params.newInternalValue;
+				bapi.controller_.value.rawValue = params.newInternalValue;
 			});
 
 			it('should pass event for change event (global)', (done) => {
@@ -239,7 +239,7 @@ describe(FolderApi.name, () => {
 
 					done();
 				});
-				bapi.controller_.binding.value.rawValue = params.newInternalValue;
+				bapi.controller_.value.rawValue = params.newInternalValue;
 			});
 		});
 	});

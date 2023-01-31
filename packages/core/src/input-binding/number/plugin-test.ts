@@ -23,7 +23,7 @@ describe(NumberInputPlugin.id, () => {
 			target: new BindingTarget({foo: 1}, 'foo'),
 		});
 
-		const v = c?.binding.value as ComplexValue<number>;
+		const v = c?.value as ComplexValue<number>;
 		const constraint = findConstraint(
 			v.constraint as Constraint<number>,
 			StepConstraint,

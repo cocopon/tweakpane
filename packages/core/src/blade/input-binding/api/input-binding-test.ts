@@ -63,7 +63,7 @@ describe(InputBindingApi.name, () => {
 			assert.strictEqual(ev.value, 123);
 			done();
 		});
-		api.controller_.binding.value.rawValue = 123;
+		api.controller_.value.rawValue = 123;
 	});
 
 	it('should apply presetKey to event object', (done) => {
@@ -75,7 +75,7 @@ describe(InputBindingApi.name, () => {
 			assert.strictEqual(ev.presetKey, 'renamed');
 			done();
 		});
-		api.controller_.binding.value.rawValue = 123;
+		api.controller_.value.rawValue = 123;
 	});
 
 	it('should refresh bound value', () => {
@@ -87,7 +87,7 @@ describe(InputBindingApi.name, () => {
 		PARAMS.foo = 123;
 		api.refresh();
 
-		assert.strictEqual(api.controller_.binding.value.rawValue, 123);
+		assert.strictEqual(api.controller_.value.rawValue, 123);
 	});
 
 	it('should have initial state', () => {

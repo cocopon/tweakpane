@@ -158,7 +158,7 @@ describe(BladeRack.name, () => {
 			done();
 		});
 
-		bc.binding.value.rawValue = !bc.binding.value.rawValue;
+		bc.value.rawValue = !bc.value.rawValue;
 	});
 
 	it('should handle input change (nested)', (done) => {
@@ -176,7 +176,7 @@ describe(BladeRack.name, () => {
 			done();
 		});
 
-		bc.binding.value.rawValue = !bc.binding.value.rawValue;
+		bc.value.rawValue = !bc.value.rawValue;
 	});
 
 	it('should handle input change (deep-nested)', (done) => {
@@ -196,7 +196,7 @@ describe(BladeRack.name, () => {
 			done();
 		});
 
-		bc.binding.value.rawValue = !bc.binding.value.rawValue;
+		bc.value.rawValue = !bc.value.rawValue;
 	});
 
 	it('should handle monitor update', (done) => {
@@ -311,7 +311,7 @@ describe(BladeRack.name, () => {
 		});
 
 		bc.viewProps.set('disposed', true);
-		bc.binding.value.rawValue = !bc.binding.value.rawValue;
+		bc.value.rawValue = !bc.value.rawValue;
 	});
 
 	it('should not handle removed folder event', () => {
@@ -329,7 +329,7 @@ describe(BladeRack.name, () => {
 		});
 
 		fc.viewProps.set('disposed', true);
-		bc.binding.value.rawValue = !bc.binding.value.rawValue;
+		bc.value.rawValue = !bc.value.rawValue;
 	});
 
 	it('should handle layout (nested)', () => {

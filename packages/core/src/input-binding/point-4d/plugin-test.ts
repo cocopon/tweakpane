@@ -34,7 +34,7 @@ describe(Point4dInputPlugin.id, () => {
 			target: new BindingTarget({foo: {x: 12, y: 34, z: 56, w: 78}}, 'foo'),
 		});
 
-		const cs = (c?.binding.value as ComplexValue<unknown>)
+		const cs = (c?.value as ComplexValue<unknown>)
 			.constraint as PointNdConstraint<Point4d>;
 		if (!(cs instanceof PointNdConstraint)) {
 			assert.fail('Unexpected constraint');
@@ -55,7 +55,7 @@ describe(Point4dInputPlugin.id, () => {
 			target: new BindingTarget({foo: {x: 12, y: 34, z: 56, w: 78}}, 'foo'),
 		});
 
-		const cs = (c?.binding.value as ComplexValue<unknown>)
+		const cs = (c?.value as ComplexValue<unknown>)
 			.constraint as PointNdConstraint<Point4d>;
 		const wc = cs.components[3];
 		if (!wc) {
