@@ -12,11 +12,6 @@ import {ViewProps, ViewPropsEvents} from '../../../common/model/view-props';
 import {TpError} from '../../../common/tp-error';
 import {View} from '../../../common/view/view';
 import {Class, forceCast} from '../../../misc/type-util';
-import {
-	InputBindingController,
-	isInputBindingController,
-} from '../../input-binding/controller/input-binding';
-import {LabeledValueController} from '../../label/controller/value-label';
 import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
 import {RackController} from '../../rack/controller/rack';
 import {BladeController} from '../controller/blade';
@@ -54,19 +49,6 @@ export interface BladeRackEvents {
 		bladeController: BladeController<View>;
 		sender: BladeRack;
 	};
-}
-
-function findInputBindingController(
-	bcs: LabeledValueController<unknown>[],
-	v: Value<unknown>,
-): InputBindingController<unknown> | null {
-	for (let i = 0; i < bcs.length; i++) {
-		const bc = bcs[i];
-		if (isInputBindingController(bc) && bc.value === v) {
-			return bc;
-		}
-	}
-	return null;
 }
 
 function findMonitorBindingController<In>(
@@ -132,7 +114,6 @@ export class BladeRack {
 		this.onSetRemove_ = this.onSetRemove_.bind(this);
 		this.onChildDispose_ = this.onChildDispose_.bind(this);
 		this.onChildPositionsChange_ = this.onChildPositionsChange_.bind(this);
-		this.onChildInputChange_ = this.onChildInputChange_.bind(this);
 		this.onChildMonitorUpdate_ = this.onChildMonitorUpdate_.bind(this);
 		this.onChildValueChange_ = this.onChildValueChange_.bind(this);
 		this.onChildViewPropsChange_ = this.onChildViewPropsChange_.bind(this);
@@ -201,9 +182,7 @@ export class BladeRack {
 			.emitter.on('change', this.onChildPositionsChange_);
 		bc.viewProps.handleDispose(this.onChildDispose_);
 
-		if (isInputBindingController(bc)) {
-			bc.value.emitter.on('change', this.onChildInputChange_);
-		} else if (bc instanceof MonitorBindingController) {
+		if (bc instanceof MonitorBindingController) {
 			bc.binding.emitter.on('update', this.onChildMonitorUpdate_);
 		} else if (bc instanceof ValueBladeController) {
 			bc.value.emitter.on('change', this.onChildValueChange_);
@@ -235,9 +214,7 @@ export class BladeRack {
 		}
 
 		const bc = ev.item;
-		if (isInputBindingController(bc)) {
-			bc.value.emitter.off('change', this.onChildInputChange_);
-		} else if (bc instanceof MonitorBindingController) {
+		if (bc instanceof MonitorBindingController) {
 			bc.binding.emitter.off('update', this.onChildMonitorUpdate_);
 		} else if (bc instanceof ValueBladeController) {
 			bc.value.emitter.off('change', this.onChildValueChange_);
@@ -302,21 +279,6 @@ export class BladeRack {
 		});
 		disposedUcs.forEach((bc) => {
 			this.bcSet_.remove(bc);
-		});
-	}
-
-	private onChildInputChange_(ev: ValueEvents<unknown>['change']): void {
-		const bc = findInputBindingController(
-			this.find(LabeledValueController),
-			ev.sender,
-		);
-		if (!bc) {
-			throw TpError.alreadyDisposed();
-		}
-		this.emitter.emit('inputchange', {
-			bladeController: bc,
-			options: ev.options,
-			sender: this,
 		});
 	}
 
