@@ -5,7 +5,7 @@ import {BindingTarget} from '../../common/binding/target';
 import {findConstraint} from '../../common/constraint/composite';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
-import {BoundValue} from '../../common/model/bound-value';
+import {ComplexValue} from '../../common/model/complex-value';
 import {Value} from '../../common/model/value';
 import {createTestWindow} from '../../misc/dom-test-util';
 import {PointNdConstraint} from '../common/constraint/point-nd';
@@ -74,7 +74,7 @@ describe(Point2dInputPlugin.id, () => {
 			target: new BindingTarget({foo: {x: 12, y: 34}}, 'foo'),
 		});
 
-		const constraint = (c?.binding.value as BoundValue<unknown>)
+		const constraint = (c?.binding.value as ComplexValue<unknown>)
 			.constraint as PointNdConstraint<Point2d>;
 		const xc = constraint.components[0];
 		if (!xc) {
@@ -94,7 +94,7 @@ describe(Point2dInputPlugin.id, () => {
 			target: new BindingTarget({foo: {x: 12, y: 34}}, 'foo'),
 		});
 
-		const constraint = (c?.binding.value as BoundValue<unknown>)
+		const constraint = (c?.binding.value as ComplexValue<unknown>)
 			.constraint as PointNdConstraint<Point2d>;
 		const yc = constraint.components[1];
 		if (!yc) {

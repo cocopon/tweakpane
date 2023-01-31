@@ -1,5 +1,5 @@
 import {Constraint} from '../constraint/constraint';
-import {BoundValue} from './bound-value';
+import {ComplexValue} from './complex-value';
 import {PrimitiveValue} from './primitive-value';
 import {Value} from './value';
 
@@ -14,5 +14,5 @@ export function createValue<T>(initialValue: T, config?: Config<T>): Value<T> {
 	if (!constraint && !equals) {
 		return new PrimitiveValue(initialValue);
 	}
-	return new BoundValue(initialValue, config);
+	return new ComplexValue(initialValue, config);
 }

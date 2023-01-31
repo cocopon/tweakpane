@@ -4,7 +4,7 @@ import {describe, it} from 'mocha';
 import {BindingTarget} from '../../common/binding/target';
 import {findConstraint} from '../../common/constraint/composite';
 import {StepConstraint} from '../../common/constraint/step';
-import {BoundValue} from '../../common/model/bound-value';
+import {ComplexValue} from '../../common/model/complex-value';
 import {createTestWindow} from '../../misc/dom-test-util';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {PointNdTextController} from '../common/controller/point-nd-text';
@@ -34,7 +34,7 @@ describe(Point3dInputPlugin.id, () => {
 			target: new BindingTarget({foo: {x: 12, y: 34, z: 56}}, 'foo'),
 		});
 
-		const cs = (c?.binding.value as BoundValue<unknown>)
+		const cs = (c?.binding.value as ComplexValue<unknown>)
 			.constraint as PointNdConstraint<Point3d>;
 		const zc = cs.components[2];
 		if (!zc) {
@@ -57,7 +57,7 @@ describe(Point3dInputPlugin.id, () => {
 			target: new BindingTarget({foo: {x: 12, y: 34, z: 56}}, 'foo'),
 		});
 
-		const cs = (c?.binding.value as BoundValue<unknown>)
+		const cs = (c?.binding.value as ComplexValue<unknown>)
 			.constraint as PointNdConstraint<Point3d>;
 		const zc = cs.components[2];
 		if (!zc) {

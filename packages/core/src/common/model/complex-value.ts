@@ -7,7 +7,11 @@ interface Config<T> {
 	equals?: (v1: T, v2: T) => boolean;
 }
 
-export class BoundValue<T> implements Value<T> {
+/**
+ * A complex value that has constraint and comparator.
+ * @template T the type of the raw value.
+ */
+export class ComplexValue<T> implements Value<T> {
 	public readonly emitter: Emitter<ValueEvents<T>>;
 	private readonly constraint_: Constraint<T> | undefined;
 	private readonly equals_: (v1: T, v2: T) => boolean;
