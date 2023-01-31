@@ -1,4 +1,4 @@
-import {BoundValue} from '../../../common/model/bound-value';
+import {BindingValue} from '../../../common/model/binding-value';
 import {Emitter} from '../../../common/model/emitter';
 import {ValueEvents} from '../../../common/model/value';
 import {TpError} from '../../../common/tp-error';
@@ -57,7 +57,7 @@ export class InputBindingApi<In, Ex> extends BladeApi<
 
 	public refresh(): void {
 		const value = this.controller_.value;
-		if (!(value instanceof BoundValue)) {
+		if (!(value instanceof BindingValue)) {
 			throw TpError.shouldNeverHappen();
 		}
 		value.read();

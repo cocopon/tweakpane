@@ -11,7 +11,7 @@ import {
 	parseNumber,
 } from '../../../common/converter/number';
 import {stringFromUnknown} from '../../../common/converter/string';
-import {BoundValue} from '../../../common/model/bound-value';
+import {BindingValue} from '../../../common/model/binding-value';
 import {Buffer} from '../../../common/model/buffered-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
@@ -40,7 +40,7 @@ function createInputBindingController(
 		target: new BindingTarget({foo: false}, 'foo'),
 		writer: writePrimitive,
 	});
-	const value = new BoundValue(createValue(false), b);
+	const value = new BindingValue(createValue(false), b);
 	return new InputBindingController(doc, {
 		blade: createBlade(),
 		binding: b,

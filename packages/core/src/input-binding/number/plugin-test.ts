@@ -5,7 +5,7 @@ import {BindingTarget} from '../../common/binding/target';
 import {findConstraint} from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
 import {StepConstraint} from '../../common/constraint/step';
-import {BoundValue} from '../../common/model/bound-value';
+import {BindingValue} from '../../common/model/binding-value';
 import {ComplexValue} from '../../common/model/complex-value';
 import {getBoundValue} from '../../common/model/test-util';
 import {NumberTextController} from '../../common/number/controller/number-text';
@@ -26,7 +26,7 @@ describe(NumberInputPlugin.id, () => {
 		});
 
 		const v = getBoundValue(
-			c?.value as BoundValue<number>,
+			c?.value as BindingValue<number>,
 		) as ComplexValue<number>;
 		const constraint = findConstraint(
 			v.constraint as Constraint<number>,

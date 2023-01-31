@@ -1,5 +1,5 @@
 import {
-	BoundValue,
+	BindingValue,
 	FolderApi,
 	InputBindingController,
 	MonitorBindingController,
@@ -57,7 +57,7 @@ export class RootApi extends FolderApi {
 			.find(InputBindingController)
 			.forEach((ibc) => {
 				const v = ibc.value;
-				if (v instanceof BoundValue) {
+				if (v instanceof BindingValue) {
 					v.read();
 				}
 			});

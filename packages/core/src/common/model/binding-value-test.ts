@@ -3,14 +3,14 @@ import {describe, it} from 'mocha';
 
 import {Binding} from '../binding/binding';
 import {BindingTarget} from '../binding/target';
-import {BoundValue} from './bound-value';
+import {BindingValue} from './binding-value';
 import {PrimitiveValue} from './primitive-value';
 
-describe(BoundValue.name, () => {
+describe(BindingValue.name, () => {
 	it('should apply rawValue to target', () => {
 		const iv = new PrimitiveValue(0);
 		const target = new BindingTarget({foo: 0}, 'foo');
-		const bv = new BoundValue(
+		const bv = new BindingValue(
 			iv,
 			new Binding({
 				reader: (v: unknown) => Number(v),
@@ -25,7 +25,7 @@ describe(BoundValue.name, () => {
 
 	it('should have its own sender', (done) => {
 		const iv = new PrimitiveValue(0);
-		const bv = new BoundValue(
+		const bv = new BindingValue(
 			iv,
 			new Binding({
 				reader: (v: unknown) => Number(v),

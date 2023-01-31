@@ -4,7 +4,7 @@ import {LabelPropsObject} from '../blade/label/view/label';
 import {Binding, BindingReader, BindingWriter} from '../common/binding/binding';
 import {BindingTarget} from '../common/binding/target';
 import {Constraint} from '../common/constraint/constraint';
-import {BoundValue} from '../common/model/bound-value';
+import {BindingValue} from '../common/model/binding-value';
 import {Value} from '../common/model/value';
 import {ValueMap} from '../common/model/value-map';
 import {createValue} from '../common/model/values';
@@ -155,7 +155,7 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 		target: args.target,
 		writer: plugin.binding.writer(valueArgs),
 	});
-	const value = new BoundValue(
+	const value = new BindingValue(
 		createValue(reader(result.initialValue), {
 			constraint: constraint,
 			equals: plugin.binding.equals,

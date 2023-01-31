@@ -9,7 +9,7 @@ import {
 	parseNumber,
 } from '../../../common/converter/number';
 import {numberFromUnknown} from '../../../common/converter/number';
-import {BoundValue} from '../../../common/model/bound-value';
+import {BindingValue} from '../../../common/model/binding-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
@@ -29,7 +29,7 @@ describe(InputBindingController.name, () => {
 			target: new BindingTarget(obj, 'foo'),
 			writer: (v) => v,
 		});
-		const value = new BoundValue(createValue(0), binding);
+		const value = new BindingValue(createValue(0), binding);
 		const controller = new TextController(doc, {
 			parser: parseNumber,
 			props: ValueMap.fromObject({

@@ -8,7 +8,7 @@ import {
 	numberFromUnknown,
 	parseNumber,
 } from '../../../common/converter/number';
-import {BoundValue} from '../../../common/model/bound-value';
+import {BindingValue} from '../../../common/model/binding-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
@@ -29,7 +29,7 @@ function createApi(target: BindingTarget) {
 		target: target,
 		writer: writePrimitive,
 	});
-	const value = new BoundValue(createValue(0), binding);
+	const value = new BindingValue(createValue(0), binding);
 	const ic = new NumberTextController(doc, {
 		baseStep: 1,
 		parser: parseNumber,

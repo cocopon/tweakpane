@@ -2,7 +2,7 @@ import {Binding} from '../binding/binding';
 import {Emitter} from './emitter';
 import {Value, ValueChangeOptions, ValueEvents} from './value';
 
-export class BoundValue<T> implements Value<T> {
+export class BindingValue<T> implements Value<T> {
 	public readonly binding: Binding<T>;
 	public readonly emitter: Emitter<ValueEvents<T>>;
 	private readonly value_: Value<T>;
@@ -60,5 +60,5 @@ export class BoundValue<T> implements Value<T> {
 }
 
 export function findValueBinding<T>(value: Value<T>): Binding<T> | null {
-	return value instanceof BoundValue ? value.binding : null;
+	return value instanceof BindingValue ? value.binding : null;
 }
