@@ -15,10 +15,11 @@ import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {createBlade} from '../../common/model/blade';
-import {LabelPropsObject} from '../../label/view/label';
-import {InputBindingController} from './input-binding';
+import {InputBindingController} from '../../input-binding/controller/input-binding';
+import {LabelPropsObject} from '../view/label';
+import {LabeledValueController} from './value-label';
 
-describe(InputBindingController.name, () => {
+describe(LabeledValueController.name, () => {
 	it('should get properties', () => {
 		const obj = {
 			foo: 123,
@@ -38,7 +39,7 @@ describe(InputBindingController.name, () => {
 			value: value,
 			viewProps: ViewProps.create(),
 		});
-		const bc = new InputBindingController(doc, {
+		const bc: InputBindingController<number> = new LabeledValueController(doc, {
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: 'foo',
@@ -46,7 +47,7 @@ describe(InputBindingController.name, () => {
 			value: value,
 			valueController: controller,
 		});
-		assert.strictEqual(bc.value.binding, binding);
+		assert.strictEqual(bc.value, value);
 		assert.strictEqual(bc.valueController, controller);
 	});
 });

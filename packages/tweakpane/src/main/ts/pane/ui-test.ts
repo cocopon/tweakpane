@@ -1,8 +1,8 @@
 import {
 	Class,
 	FolderController,
-	InputBindingController,
 	LabelController,
+	LabeledValueController,
 	MonitorBindingController,
 	SeparatorController,
 } from '@tweakpane/core';
@@ -26,7 +26,7 @@ describe(Pane.name, () => {
 				insert: (api, index) => {
 					api.addInput({foo: 1}, 'foo', {index: index});
 				},
-				expected: InputBindingController,
+				expected: LabeledValueController,
 			},
 			{
 				insert: (api, index) => {

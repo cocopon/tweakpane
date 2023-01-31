@@ -12,7 +12,11 @@ import {ViewProps, ViewPropsEvents} from '../../../common/model/view-props';
 import {TpError} from '../../../common/tp-error';
 import {View} from '../../../common/view/view';
 import {Class, forceCast} from '../../../misc/type-util';
-import {InputBindingController} from '../../input-binding/controller/input-binding';
+import {
+	InputBindingController,
+	isInputBindingController,
+} from '../../input-binding/controller/input-binding';
+import {LabeledValueController} from '../../label/controller/value-label';
 import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
 import {RackController} from '../../rack/controller/rack';
 import {BladeController} from '../controller/blade';
@@ -52,13 +56,13 @@ export interface BladeRackEvents {
 	};
 }
 
-function findInputBindingController<In>(
-	bcs: InputBindingController<In>[],
-	v: Value<In>,
-): InputBindingController<In> | null {
+function findInputBindingController(
+	bcs: LabeledValueController<unknown>[],
+	v: Value<unknown>,
+): InputBindingController<unknown> | null {
 	for (let i = 0; i < bcs.length; i++) {
 		const bc = bcs[i];
-		if (bc instanceof InputBindingController && bc.value === v) {
+		if (isInputBindingController(bc) && bc.value === v) {
 			return bc;
 		}
 	}
@@ -197,7 +201,7 @@ export class BladeRack {
 			.emitter.on('change', this.onChildPositionsChange_);
 		bc.viewProps.handleDispose(this.onChildDispose_);
 
-		if (bc instanceof InputBindingController) {
+		if (isInputBindingController(bc)) {
 			bc.value.emitter.on('change', this.onChildInputChange_);
 		} else if (bc instanceof MonitorBindingController) {
 			bc.binding.emitter.on('update', this.onChildMonitorUpdate_);
@@ -231,7 +235,7 @@ export class BladeRack {
 		}
 
 		const bc = ev.item;
-		if (bc instanceof InputBindingController) {
+		if (isInputBindingController(bc)) {
 			bc.value.emitter.off('change', this.onChildInputChange_);
 		} else if (bc instanceof MonitorBindingController) {
 			bc.binding.emitter.off('update', this.onChildMonitorUpdate_);
@@ -303,7 +307,7 @@ export class BladeRack {
 
 	private onChildInputChange_(ev: ValueEvents<unknown>['change']): void {
 		const bc = findInputBindingController(
-			this.find(InputBindingController),
+			this.find(LabeledValueController),
 			ev.sender,
 		);
 		if (!bc) {

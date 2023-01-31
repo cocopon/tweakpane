@@ -1,13 +1,22 @@
 import {
 	BindingValue,
+	BladeRack,
 	FolderApi,
-	InputBindingController,
+	isInputBindingController,
+	LabeledValueController,
 	MonitorBindingController,
 	PluginPool,
 } from '@tweakpane/core';
 
 import {RootController} from '../controller/root';
 import {exportPresetJson, importPresetJson, PresetObject} from './preset';
+
+function findBindingValues(rack: BladeRack): BindingValue<unknown>[] {
+	return rack
+		.find(LabeledValueController)
+		.filter(isInputBindingController)
+		.map((vc) => vc.value);
+}
 
 export class RootApi extends FolderApi {
 	/**
@@ -26,11 +35,8 @@ export class RootApi extends FolderApi {
 	 * @param preset The preset object to import.
 	 */
 	public importPreset(preset: PresetObject): void {
-		const targets = this.controller_.rackController.rack
-			.find(InputBindingController)
-			.map((ibc) => {
-				return ibc.value.binding.target;
-			});
+		const bvs = findBindingValues(this.controller_.rackController.rack);
+		const targets = bvs.map((bv) => bv.binding.target);
 		importPresetJson(targets, preset);
 		this.refresh();
 	}
@@ -40,11 +46,8 @@ export class RootApi extends FolderApi {
 	 * @return An exported preset object.
 	 */
 	public exportPreset(): PresetObject {
-		const targets = this.controller_.rackController.rack
-			.find(InputBindingController)
-			.map((ibc) => {
-				return ibc.value.binding.target;
-			});
+		const bvs = findBindingValues(this.controller_.rackController.rack);
+		const targets = bvs.map((bv) => bv.binding.target);
 		return exportPresetJson(targets);
 	}
 
@@ -53,14 +56,9 @@ export class RootApi extends FolderApi {
 	 */
 	public refresh(): void {
 		// Force-read all input bindings
-		this.controller_.rackController.rack
-			.find(InputBindingController)
-			.forEach((ibc) => {
-				const v = ibc.value;
-				if (v instanceof BindingValue) {
-					v.read();
-				}
-			});
+		findBindingValues(this.controller_.rackController.rack).forEach((bv) =>
+			bv.read(),
+		);
 
 		// Force-read all monitor bindings
 		this.controller_.rackController.rack

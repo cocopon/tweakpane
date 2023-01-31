@@ -41,7 +41,7 @@ function createInputBindingController(
 		writer: writePrimitive,
 	});
 	const v = new BindingValue(createValue(false), b);
-	return new InputBindingController(doc, {
+	return new LabeledValueController(doc, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: '',

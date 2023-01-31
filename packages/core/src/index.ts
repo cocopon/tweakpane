@@ -13,8 +13,9 @@ export * from './blade/button/plugin';
 export * from './blade/common/controller/blade';
 export * from './blade/common/controller/value-blade';
 
-export * from './blade/common/model/blade-positions';
 export * from './blade/common/model/blade';
+export * from './blade/common/model/blade-positions';
+export * from './blade/common/model/blade-rack';
 export * from './blade/common/model/foldable';
 
 export * from './blade/folder/api/folder';

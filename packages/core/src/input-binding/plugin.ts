@@ -1,5 +1,6 @@
 import {createBlade} from '../blade/common/model/blade';
 import {InputBindingController} from '../blade/input-binding/controller/input-binding';
+import {LabeledValueController} from '../blade/label/controller/value-label';
 import {LabelPropsObject} from '../blade/label/view/label';
 import {Binding, BindingReader, BindingWriter} from '../common/binding/binding';
 import {BindingTarget} from '../common/binding/target';
@@ -179,7 +180,7 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 
 	// Input binding controller
 	const label = p.optional.string(args.params.label).value;
-	return new InputBindingController(args.document, {
+	return new LabeledValueController(args.document, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: label ?? args.target.key,

@@ -30,7 +30,7 @@ import {BladeRackEvents} from '../../common/model/blade-rack';
 import {NestedOrderedSet} from '../../common/model/nested-ordered-set';
 import {FolderApi} from '../../folder/api/folder';
 import {InputBindingApi} from '../../input-binding/api/input-binding';
-import {InputBindingController} from '../../input-binding/controller/input-binding';
+import {isInputBindingController} from '../../input-binding/controller/input-binding';
 import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
 import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
 import {SeparatorApi} from '../../separator/api/separator';
@@ -224,7 +224,7 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 
 	private onRackInputChange_(ev: BladeRackEvents['inputchange']) {
 		const bc = ev.bladeController;
-		if (bc instanceof InputBindingController) {
+		if (isInputBindingController(bc)) {
 			const api = getApiByController(this.apiSet_, bc);
 			const binding = bc.value.binding;
 			this.emitter_.emit('change', {

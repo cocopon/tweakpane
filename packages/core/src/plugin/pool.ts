@@ -2,7 +2,10 @@ import {BladeApi} from '../blade/common/api/blade';
 import {InputParams, MonitorParams} from '../blade/common/api/params';
 import {BladeController} from '../blade/common/controller/blade';
 import {InputBindingApi} from '../blade/input-binding/api/input-binding';
-import {InputBindingController} from '../blade/input-binding/controller/input-binding';
+import {
+	InputBindingController,
+	isInputBindingController,
+} from '../blade/input-binding/controller/input-binding';
 import {MonitorBindingApi} from '../blade/monitor-binding/api/monitor-binding';
 import {MonitorBindingController} from '../blade/monitor-binding/controller/monitor-binding';
 import {BladePlugin, createBladeController} from '../blade/plugin';
@@ -146,7 +149,7 @@ export class PluginPool {
 	public createBladeApi(
 		bc: BladeController<View>,
 	): BladeApi<BladeController<View>> {
-		if (bc instanceof InputBindingController) {
+		if (isInputBindingController(bc)) {
 			return new InputBindingApi(bc);
 		}
 		if (bc instanceof MonitorBindingController) {
