@@ -40,15 +40,15 @@ function createInputBindingController(
 		target: new BindingTarget({foo: false}, 'foo'),
 		writer: writePrimitive,
 	});
-	const value = new BindingValue(createValue(false), b);
+	const v = new BindingValue(createValue(false), b);
 	return new InputBindingController(doc, {
 		blade: createBlade(),
-		binding: b,
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: '',
 		}),
+		value: v,
 		valueController: new CheckboxController(doc, {
-			value: value,
+			value: v,
 			viewProps: ViewProps.create(),
 		}),
 	});
@@ -86,6 +86,7 @@ function createValueBladeController(
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: '',
 		}),
+		value: v,
 		valueController: new SliderTextController(doc, {
 			baseStep: 1,
 			parser: parseNumber,

@@ -1,27 +1,33 @@
 import {ValueController} from '../../../common/controller/value';
-import {View} from '../../../common/view/view';
+import {Value} from '../../../common/model/value';
+import {TpError} from '../../../common/tp-error';
 import {ValueBladeController} from '../../common/controller/value-blade';
 import {Blade} from '../../common/model/blade';
 import {LabelProps, LabelView} from '../view/label';
 
-interface Config<T, C extends ValueController<T, View>> {
+interface Config<T, C extends ValueController<T>, Va extends Value<T>> {
 	blade: Blade;
 	props: LabelProps;
+	value: Va;
 	valueController: C;
 }
 
 export class LabeledValueController<
 	T,
-	C extends ValueController<T, View>,
-> extends ValueBladeController<T, LabelView> {
+	C extends ValueController<T> = ValueController<T>,
+	Va extends Value<T> = Value<T>,
+> extends ValueBladeController<T, LabelView, Va> {
 	public readonly props: LabelProps;
 	public readonly valueController: C;
 
-	constructor(doc: Document, config: Config<T, C>) {
+	constructor(doc: Document, config: Config<T, C, Va>) {
+		if (config.value !== config.valueController.value) {
+			throw TpError.shouldNeverHappen();
+		}
 		const viewProps = config.valueController.viewProps;
 		super({
 			...config,
-			value: config.valueController.value,
+			value: config.value,
 			view: new LabelView(doc, {
 				props: config.props,
 				viewProps: viewProps,

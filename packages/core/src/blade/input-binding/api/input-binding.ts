@@ -64,12 +64,13 @@ export class InputBindingApi<In, Ex> extends BladeApi<
 	}
 
 	private onValueChange_(ev: ValueEvents<In>['change']) {
-		const value = this.controller_.binding.target.read();
+		const binding = this.controller_.value.binding;
+		const value = binding.target.read();
 		this.emitter_.emit('change', {
 			event: new TpChangeEvent(
 				this,
 				forceCast(value),
-				this.controller_.binding.target.presetKey,
+				binding.target.presetKey,
 				ev.options.last,
 			),
 		});

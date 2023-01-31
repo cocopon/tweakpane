@@ -226,7 +226,7 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 		const bc = ev.bladeController;
 		if (bc instanceof InputBindingController) {
 			const api = getApiByController(this.apiSet_, bc);
-			const binding = bc.binding;
+			const binding = bc.value.binding;
 			this.emitter_.emit('change', {
 				event: new TpChangeEvent(
 					api,

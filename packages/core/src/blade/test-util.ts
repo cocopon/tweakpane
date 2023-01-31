@@ -79,6 +79,7 @@ export const TestValueBladePlugin: BladePlugin<TestBladeParams> = {
 		return r ? {params: r} : null;
 	},
 	controller(args) {
+		const v = createValue<boolean>(false);
 		return new LabeledValueController<boolean, CheckboxController>(
 			args.document,
 			{
@@ -86,8 +87,9 @@ export const TestValueBladePlugin: BladePlugin<TestBladeParams> = {
 				props: ValueMap.fromObject<LabelPropsObject>({
 					label: '',
 				}),
+				value: v,
 				valueController: new CheckboxController(args.document, {
-					value: createValue<boolean>(false),
+					value: v,
 					viewProps: args.viewProps,
 				}),
 			},

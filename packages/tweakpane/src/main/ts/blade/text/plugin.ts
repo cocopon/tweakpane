@@ -42,12 +42,13 @@ export const TextBladePlugin = (function <T>(): BladePlugin<
 			return result ? {params: result} : null;
 		},
 		controller(args) {
+			const v = createValue(args.params.value);
 			const ic = new TextController(args.document, {
 				parser: args.params.parse,
 				props: ValueMap.fromObject({
 					formatter: args.params.format ?? ((v: T) => String(v)),
 				}),
-				value: createValue(args.params.value),
+				value: v,
 				viewProps: args.viewProps,
 			});
 			return new LabeledValueController<T, TextController<T>>(args.document, {
@@ -55,6 +56,7 @@ export const TextBladePlugin = (function <T>(): BladePlugin<
 				props: ValueMap.fromObject({
 					label: args.params.label,
 				}),
+				value: v,
 				valueController: ic,
 			});
 		},

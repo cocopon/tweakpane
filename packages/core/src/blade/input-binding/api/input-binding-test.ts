@@ -29,7 +29,7 @@ function createApi(target: BindingTarget) {
 		target: target,
 		writer: writePrimitive,
 	});
-	const value = new BindingValue(createValue(0), binding);
+	const v = new BindingValue(createValue(0), binding);
 	const ic = new NumberTextController(doc, {
 		baseStep: 1,
 		parser: parseNumber,
@@ -37,15 +37,15 @@ function createApi(target: BindingTarget) {
 			draggingScale: 1,
 			formatter: createNumberFormatter(0),
 		}),
-		value: value,
+		value: v,
 		viewProps: ViewProps.create(),
 	});
 	const bc = new InputBindingController(doc, {
-		binding: binding,
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: 'label',
 		}),
+		value: v,
 		valueController: ic,
 	});
 	return new InputBindingApi(bc);

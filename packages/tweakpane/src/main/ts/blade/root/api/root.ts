@@ -29,7 +29,7 @@ export class RootApi extends FolderApi {
 		const targets = this.controller_.rackController.rack
 			.find(InputBindingController)
 			.map((ibc) => {
-				return ibc.binding.target;
+				return ibc.value.binding.target;
 			});
 		importPresetJson(targets, preset);
 		this.refresh();
@@ -43,7 +43,7 @@ export class RootApi extends FolderApi {
 		const targets = this.controller_.rackController.rack
 			.find(InputBindingController)
 			.map((ibc) => {
-				return ibc.binding.target;
+				return ibc.value.binding.target;
 			});
 		return exportPresetJson(targets);
 	}

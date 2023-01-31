@@ -23,11 +23,13 @@ import {SliderApi} from './slider';
 describe(SliderApi.name, () => {
 	it('should dispose', () => {
 		const doc = createTestWindow().document;
+		const v = createValue(0);
 		const c = new LabeledValueController<number, SliderTextController>(doc, {
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: undefined,
 			}),
+			value: v,
 			valueController: new SliderTextController(doc, {
 				baseStep: 1,
 				parser: parseNumber,
@@ -39,7 +41,7 @@ describe(SliderApi.name, () => {
 					draggingScale: 1,
 					formatter: numberToString,
 				}),
-				value: createValue(0),
+				value: v,
 				viewProps: ViewProps.create(),
 			}),
 		});
@@ -49,11 +51,13 @@ describe(SliderApi.name, () => {
 
 	it('should have initial state', () => {
 		const doc = createTestWindow().document;
+		const v = createValue(123);
 		const c = new LabeledValueController<number, SliderTextController>(doc, {
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: 'foobar',
 			}),
+			value: v,
 			valueController: new SliderTextController(doc, {
 				baseStep: 1,
 				parser: parseNumber,
@@ -65,7 +69,7 @@ describe(SliderApi.name, () => {
 					draggingScale: 1,
 					formatter: numberToString,
 				}),
-				value: createValue(123),
+				value: v,
 				viewProps: ViewProps.create(),
 			}),
 		});
@@ -80,11 +84,13 @@ describe(SliderApi.name, () => {
 
 	it('should update properties', () => {
 		const doc = createTestWindow().document;
+		const v = createValue(123);
 		const c = new LabeledValueController<number, SliderTextController>(doc, {
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: 'foobar',
 			}),
+			value: v,
 			valueController: new SliderTextController(doc, {
 				baseStep: 1,
 				parser: parseNumber,
@@ -96,7 +102,7 @@ describe(SliderApi.name, () => {
 					draggingScale: 1,
 					formatter: numberToString,
 				}),
-				value: createValue(123),
+				value: v,
 				viewProps: ViewProps.create(),
 			}),
 		});
@@ -118,11 +124,13 @@ describe(SliderApi.name, () => {
 
 	it('should handle event', (done) => {
 		const doc = createTestWindow().document;
+		const v = createValue(0);
 		const c = new LabeledValueController<number, SliderTextController>(doc, {
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: undefined,
 			}),
+			value: v,
 			valueController: new SliderTextController(doc, {
 				baseStep: 1,
 				parser: parseNumber,
@@ -134,7 +142,7 @@ describe(SliderApi.name, () => {
 					draggingScale: 1,
 					formatter: numberToString,
 				}),
-				value: createValue(0),
+				value: v,
 				viewProps: ViewProps.create(),
 			}),
 		});

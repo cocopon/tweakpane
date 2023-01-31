@@ -68,13 +68,15 @@ describe(RackApi.name, () => {
 	it('should handle global value events', (done) => {
 		const doc = createTestWindow().document;
 		const api = createApi(doc);
+		const v = createValue<boolean>(false);
 		const c = new LabeledValueController<boolean, CheckboxController>(doc, {
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: '',
 			}),
+			value: v,
 			valueController: new CheckboxController(doc, {
-				value: createValue<boolean>(false),
+				value: v,
 				viewProps: ViewProps.create(),
 			}),
 		});

@@ -11,7 +11,6 @@ import {createValue} from '../common/model/values';
 import {ViewProps} from '../common/model/view-props';
 import {BaseInputParams} from '../common/params';
 import {ParamsParsers} from '../common/params-parsers';
-import {View} from '../common/view/view';
 import {ValueController} from '../index';
 import {isEmpty} from '../misc/type-util';
 import {BasePlugin} from '../plugin/plugin';
@@ -120,7 +119,7 @@ export interface InputBindingPlugin<In, Ex, P extends BaseInputParams>
 		 * @param args The arguments for creating a controller.
 		 * @return A custom controller that contains a custom view.
 		 */
-		(args: ControllerArguments<In, Ex, P>): ValueController<In, View>;
+		(args: ControllerArguments<In, Ex, P>): ValueController<In>;
 	};
 }
 
@@ -181,11 +180,11 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 	// Input binding controller
 	const label = p.optional.string(args.params.label).value;
 	return new InputBindingController(args.document, {
-		binding: binding,
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: label ?? args.target.key,
 		}),
+		value: value,
 		valueController: controller,
 	});
 }
