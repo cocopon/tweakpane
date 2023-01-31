@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {InputBinding} from '../../../common/binding/input';
+import {Binding} from '../../../common/binding/binding';
 import {BindingTarget} from '../../../common/binding/target';
 import {TextController} from '../../../common/controller/text';
 import {
@@ -9,6 +9,7 @@ import {
 	parseNumber,
 } from '../../../common/converter/number';
 import {numberFromUnknown} from '../../../common/converter/number';
+import {BoundValue} from '../../../common/model/bound-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
@@ -23,13 +24,12 @@ describe(InputBindingController.name, () => {
 			foo: 123,
 		};
 		const doc = createTestWindow().document;
-		const value = createValue(0);
-		const binding = new InputBinding({
+		const binding = new Binding({
 			reader: numberFromUnknown,
 			target: new BindingTarget(obj, 'foo'),
-			value: value,
 			writer: (v) => v,
 		});
+		const value = new BoundValue(createValue(0), binding);
 		const controller = new TextController(doc, {
 			parser: parseNumber,
 			props: ValueMap.fromObject({

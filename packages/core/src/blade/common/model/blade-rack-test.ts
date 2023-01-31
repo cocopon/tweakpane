@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {InputBinding} from '../../../common/binding/input';
+import {Binding} from '../../../common/binding/binding';
 import {MonitorBinding} from '../../../common/binding/monitor';
 import {BindingTarget} from '../../../common/binding/target';
 import {ManualTicker} from '../../../common/binding/ticker/manual';
@@ -11,6 +11,7 @@ import {
 	parseNumber,
 } from '../../../common/converter/number';
 import {stringFromUnknown} from '../../../common/converter/string';
+import {BoundValue} from '../../../common/model/bound-value';
 import {Buffer} from '../../../common/model/buffered-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
@@ -34,12 +35,12 @@ import {BladeRack} from './blade-rack';
 function createInputBindingController(
 	doc: Document,
 ): InputBindingController<boolean> {
-	const b = new InputBinding({
+	const b = new Binding({
 		reader: boolFromUnknown,
 		target: new BindingTarget({foo: false}, 'foo'),
-		value: createValue(false),
 		writer: writePrimitive,
 	});
+	const value = new BoundValue(createValue(false), b);
 	return new InputBindingController(doc, {
 		blade: createBlade(),
 		binding: b,
@@ -47,7 +48,7 @@ function createInputBindingController(
 			label: '',
 		}),
 		valueController: new CheckboxController(doc, {
-			value: b.value,
+			value: value,
 			viewProps: ViewProps.create(),
 		}),
 	});

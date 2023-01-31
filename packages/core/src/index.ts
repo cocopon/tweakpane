@@ -68,6 +68,7 @@ export * from './common/converter/parser';
 export * from './common/converter/percentage';
 export * from './common/converter/string';
 
+export * from './common/model/bound-value';
 export * from './common/model/buffered-value';
 export * from './common/model/emitter';
 export * from './common/model/reactive';

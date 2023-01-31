@@ -1,10 +1,10 @@
 import {createBlade} from '../blade/common/model/blade';
 import {InputBindingController} from '../blade/input-binding/controller/input-binding';
 import {LabelPropsObject} from '../blade/label/view/label';
-import {BindingReader, BindingWriter} from '../common/binding/binding';
-import {InputBinding} from '../common/binding/input';
+import {Binding, BindingReader, BindingWriter} from '../common/binding/binding';
 import {BindingTarget} from '../common/binding/target';
 import {Constraint} from '../common/constraint/constraint';
+import {BoundValue} from '../common/model/bound-value';
 import {Value} from '../common/model/value';
 import {ValueMap} from '../common/model/value-map';
 import {createValue} from '../common/model/values';
@@ -145,20 +145,25 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 		params: result.params,
 	};
 
+	// Binding and value
 	const reader = plugin.binding.reader(valueArgs);
 	const constraint = plugin.binding.constraint
 		? plugin.binding.constraint(valueArgs)
 		: undefined;
-	const value = createValue(reader(result.initialValue), {
-		constraint: constraint,
-		equals: plugin.binding.equals,
-	});
-	const binding = new InputBinding({
+	const binding = new Binding({
 		reader: reader,
 		target: args.target,
-		value: value,
 		writer: plugin.binding.writer(valueArgs),
 	});
+	const value = new BoundValue(
+		createValue(reader(result.initialValue), {
+			constraint: constraint,
+			equals: plugin.binding.equals,
+		}),
+		binding,
+	);
+
+	// Value controller
 	const disabled = p.optional.boolean(args.params.disabled).value;
 	const hidden = p.optional.boolean(args.params.hidden).value;
 	const controller = plugin.controller({
@@ -166,13 +171,14 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 		document: args.document,
 		initialValue: result.initialValue,
 		params: result.params,
-		value: binding.value,
+		value: value,
 		viewProps: ViewProps.create({
 			disabled: disabled,
 			hidden: hidden,
 		}),
 	});
 
+	// Input binding controller
 	const label = p.optional.string(args.params.label).value;
 	return new InputBindingController(args.document, {
 		binding: binding,

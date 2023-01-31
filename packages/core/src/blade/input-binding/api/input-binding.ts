@@ -1,5 +1,7 @@
-import {InputBindingEvents} from '../../../common/binding/input';
+import {BoundValue} from '../../../common/model/bound-value';
 import {Emitter} from '../../../common/model/emitter';
+import {ValueEvents} from '../../../common/model/value';
+import {TpError} from '../../../common/tp-error';
 import {forceCast} from '../../../misc/type-util';
 import {BladeApi} from '../../common/api/blade';
 import {TpChangeEvent} from '../../common/api/tp-event';
@@ -27,11 +29,11 @@ export class InputBindingApi<In, Ex> extends BladeApi<
 	constructor(controller: InputBindingController<In>) {
 		super(controller);
 
-		this.onBindingChange_ = this.onBindingChange_.bind(this);
+		this.onValueChange_ = this.onValueChange_.bind(this);
 
 		this.emitter_ = new Emitter();
 
-		this.controller_.binding.emitter.on('change', this.onBindingChange_);
+		this.controller_.value.emitter.on('change', this.onValueChange_);
 	}
 
 	get label(): string | undefined {
@@ -54,11 +56,15 @@ export class InputBindingApi<In, Ex> extends BladeApi<
 	}
 
 	public refresh(): void {
-		this.controller_.binding.read();
+		const value = this.controller_.value;
+		if (!(value instanceof BoundValue)) {
+			throw TpError.shouldNeverHappen();
+		}
+		value.read();
 	}
 
-	private onBindingChange_(ev: InputBindingEvents<In>['change']) {
-		const value = ev.sender.target.read();
+	private onValueChange_(ev: ValueEvents<In>['change']) {
+		const value = this.controller_.binding.target.read();
 		this.emitter_.emit('change', {
 			event: new TpChangeEvent(
 				this,

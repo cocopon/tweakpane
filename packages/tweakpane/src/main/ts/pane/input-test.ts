@@ -120,7 +120,7 @@ describe(Pane.name, () => {
 					assert.strictEqual(ev.value, expected);
 					done();
 				});
-				bapi.controller_.binding.value.rawValue = params.newInternalValue;
+				bapi.controller_.value.rawValue = params.newInternalValue;
 			});
 
 			it('should pass right argument for change event (global)', (done) => {
@@ -135,7 +135,7 @@ describe(Pane.name, () => {
 					assert.strictEqual(ev.target, bapi);
 					done();
 				});
-				bapi.controller_.binding.value.rawValue = params.newInternalValue;
+				bapi.controller_.value.rawValue = params.newInternalValue;
 			});
 		});
 	});
@@ -159,7 +159,7 @@ describe(Pane.name, () => {
 			assert.strictEqual(this, bapi);
 			done();
 		});
-		bapi.controller_.binding.value.rawValue = 2;
+		bapi.controller_.value.rawValue = 2;
 	});
 
 	[
@@ -346,7 +346,7 @@ describe(Pane.name, () => {
 			bapi.on('change', () => {
 				bapi.dispose();
 			});
-			bapi.controller_.binding.value.rawValue = 2;
+			bapi.controller_.value.rawValue = 2;
 		} catch (err: unknown) {
 			assert.strictEqual((err as TpError<any>).type, 'alreadydisposed');
 			done();

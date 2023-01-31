@@ -1,13 +1,14 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {InputBinding} from '../../../common/binding/input';
+import {Binding} from '../../../common/binding/binding';
 import {BindingTarget} from '../../../common/binding/target';
 import {
 	createNumberFormatter,
 	numberFromUnknown,
 	parseNumber,
 } from '../../../common/converter/number';
+import {BoundValue} from '../../../common/model/bound-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
@@ -23,7 +24,12 @@ import {InputBindingApi} from './input-binding';
 
 function createApi(target: BindingTarget) {
 	const doc = createTestWindow().document;
-	const value = createValue(0);
+	const binding = new Binding({
+		reader: numberFromUnknown,
+		target: target,
+		writer: writePrimitive,
+	});
+	const value = new BoundValue(createValue(0), binding);
 	const ic = new NumberTextController(doc, {
 		baseStep: 1,
 		parser: parseNumber,
@@ -35,12 +41,7 @@ function createApi(target: BindingTarget) {
 		viewProps: ViewProps.create(),
 	});
 	const bc = new InputBindingController(doc, {
-		binding: new InputBinding({
-			reader: numberFromUnknown,
-			target: target,
-			value: value,
-			writer: writePrimitive,
-		}),
+		binding: binding,
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: 'label',

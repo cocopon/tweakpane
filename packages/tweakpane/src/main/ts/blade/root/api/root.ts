@@ -1,4 +1,5 @@
 import {
+	BoundValue,
 	FolderApi,
 	InputBindingController,
 	MonitorBindingController,
@@ -55,7 +56,10 @@ export class RootApi extends FolderApi {
 		this.controller_.rackController.rack
 			.find(InputBindingController)
 			.forEach((ibc) => {
-				ibc.binding.read();
+				const v = ibc.value;
+				if (v instanceof BoundValue) {
+					v.read();
+				}
 			});
 
 		// Force-read all monitor bindings
