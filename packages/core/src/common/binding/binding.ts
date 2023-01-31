@@ -23,3 +23,33 @@ export interface BindingWriter<In> {
 	 */
 	(target: BindingTarget, inValue: In): void;
 }
+
+interface Config<T> {
+	reader: BindingReader<T>;
+	target: BindingTarget;
+	writer: BindingWriter<T>;
+}
+
+/**
+ * A binding that can read and write the target.
+ * @template In The type of the internal value.
+ */
+export class Binding<In> {
+	public readonly target: BindingTarget;
+	private readonly reader_: BindingReader<In>;
+	private readonly writer_: BindingWriter<In>;
+
+	constructor(config: Config<In>) {
+		this.target = config.target;
+		this.reader_ = config.reader;
+		this.writer_ = config.writer;
+	}
+
+	public read(): In {
+		return this.reader_(this.target.read());
+	}
+
+	public write(value: In): void {
+		this.writer_(this.target, value);
+	}
+}

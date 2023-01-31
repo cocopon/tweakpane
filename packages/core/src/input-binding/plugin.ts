@@ -5,7 +5,6 @@ import {BindingReader, BindingWriter} from '../common/binding/binding';
 import {InputBinding} from '../common/binding/input';
 import {BindingTarget} from '../common/binding/target';
 import {Constraint} from '../common/constraint/constraint';
-import {Controller} from '../common/controller/controller';
 import {Value} from '../common/model/value';
 import {ValueMap} from '../common/model/value-map';
 import {createValue} from '../common/model/values';
@@ -13,6 +12,7 @@ import {ViewProps} from '../common/model/view-props';
 import {BaseInputParams} from '../common/params';
 import {ParamsParsers} from '../common/params-parsers';
 import {View} from '../common/view/view';
+import {ValueController} from '../index';
 import {isEmpty} from '../misc/type-util';
 import {BasePlugin} from '../plugin/plugin';
 
@@ -120,7 +120,7 @@ export interface InputBindingPlugin<In, Ex, P extends BaseInputParams>
 		 * @param args The arguments for creating a controller.
 		 * @return A custom controller that contains a custom view.
 		 */
-		(args: ControllerArguments<In, Ex, P>): Controller<View>;
+		(args: ControllerArguments<In, Ex, P>): ValueController<In, View>;
 	};
 }
 
