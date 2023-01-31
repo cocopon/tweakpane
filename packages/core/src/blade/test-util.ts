@@ -53,14 +53,14 @@ export function createEmptyBladeController(
 }
 
 export class TestValueBladeApi extends BladeApi<
-	LabelController<CheckboxController>
+	LabeledValueController<boolean, CheckboxController>
 > {
 	get value(): boolean {
-		return this.controller_.valueController.value.rawValue;
+		return this.controller_.value.rawValue;
 	}
 
 	set value(value: boolean) {
-		this.controller_.valueController.value.rawValue = value;
+		this.controller_.value.rawValue = value;
 	}
 }
 

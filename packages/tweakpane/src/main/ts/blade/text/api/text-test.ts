@@ -1,7 +1,7 @@
 import {
 	createBlade,
 	createValue,
-	LabelController,
+	LabeledValueController,
 	LabelPropsObject,
 	TextController,
 	ValueMap,
@@ -21,17 +21,19 @@ import {TextApi} from './text';
 describe(TextApi.name, () => {
 	it('should dispose', () => {
 		const doc = createTestWindow().document;
-		const c = new LabelController(doc, {
+		const v = createValue('');
+		const c = new LabeledValueController<string, TextController<string>>(doc, {
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: undefined,
 			}),
+			value: v,
 			valueController: new TextController(doc, {
 				parser: (v: string) => v,
 				props: ValueMap.fromObject({
 					formatter: (v: string) => v,
 				}),
-				value: createValue(''),
+				value: v,
 				viewProps: ViewProps.create(),
 			}),
 		});
@@ -43,17 +45,19 @@ describe(TextApi.name, () => {
 	it('should have initial state', () => {
 		const doc = createTestWindow().document;
 		const formatter = (v: string) => v;
-		const c = new LabelController(doc, {
+		const v = createValue('hello');
+		const c = new LabeledValueController<string, TextController<string>>(doc, {
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: 'foobar',
 			}),
+			value: v,
 			valueController: new TextController(doc, {
 				parser: (v: string) => v,
 				props: ValueMap.fromObject({
 					formatter: formatter,
 				}),
-				value: createValue('hello'),
+				value: v,
 				viewProps: ViewProps.create(),
 			}),
 		});
@@ -67,17 +71,19 @@ describe(TextApi.name, () => {
 
 	it('should update properties', () => {
 		const doc = createTestWindow().document;
-		const c = new LabelController(doc, {
+		const v = createValue('hello');
+		const c = new LabeledValueController<string, TextController<string>>(doc, {
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: undefined,
 			}),
+			value: v,
 			valueController: new TextController(doc, {
 				parser: (v: string) => v,
 				props: ValueMap.fromObject({
 					formatter: (v: string) => v,
 				}),
-				value: createValue('hello'),
+				value: v,
 				viewProps: ViewProps.create(),
 			}),
 		});
@@ -100,17 +106,19 @@ describe(TextApi.name, () => {
 
 	it('should handle event', (done) => {
 		const doc = createTestWindow().document;
-		const c = new LabelController(doc, {
+		const v = createValue('');
+		const c = new LabeledValueController<string, TextController<string>>(doc, {
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: undefined,
 			}),
+			value: v,
 			valueController: new TextController(doc, {
 				parser: (v: string) => v,
 				props: ValueMap.fromObject({
 					formatter: (v: string) => v,
 				}),
-				value: createValue(''),
+				value: v,
 				viewProps: ViewProps.create(),
 			}),
 		});

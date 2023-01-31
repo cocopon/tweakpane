@@ -1,7 +1,7 @@
 import {
 	createBlade,
 	createValue,
-	LabelController,
+	LabeledValueController,
 	LabelPropsObject,
 	ListController,
 	ListItem,
@@ -22,18 +22,20 @@ import {ListApi} from './list';
 describe(ListApi.name, () => {
 	it('should dispose', () => {
 		const doc = createTestWindow().document;
-		const c = new LabelController(doc, {
+		const v = createValue(0);
+		const c = new LabeledValueController<number, ListController<number>>(doc, {
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: undefined,
 			}),
+			value: v,
 			valueController: new ListController(doc, {
 				props: ValueMap.fromObject<{
 					options: ListItem<number>[];
 				}>({
 					options: [],
 				}),
-				value: createValue(0),
+				value: v,
 				viewProps: ViewProps.create(),
 			}),
 		});
@@ -43,11 +45,13 @@ describe(ListApi.name, () => {
 
 	it('should have initial state', () => {
 		const doc = createTestWindow().document;
-		const c = new LabelController(doc, {
+		const v = createValue(0);
+		const c = new LabeledValueController<number, ListController<number>>(doc, {
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: undefined,
 			}),
+			value: v,
 			valueController: new ListController(doc, {
 				props: ValueMap.fromObject({
 					options: [
@@ -55,7 +59,7 @@ describe(ListApi.name, () => {
 						{text: 'bar', value: 456},
 					],
 				}),
-				value: createValue(0),
+				value: v,
 				viewProps: ViewProps.create(),
 			}),
 		});
@@ -70,11 +74,13 @@ describe(ListApi.name, () => {
 
 	it('should update properties', () => {
 		const doc = createTestWindow().document;
-		const c = new LabelController(doc, {
+		const v = createValue(0);
+		const c = new LabeledValueController<number, ListController<number>>(doc, {
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: undefined,
 			}),
+			value: v,
 			valueController: new ListController(doc, {
 				props: ValueMap.fromObject({
 					options: [
@@ -82,7 +88,7 @@ describe(ListApi.name, () => {
 						{text: 'bar', value: 456},
 					],
 				}),
-				value: createValue(0),
+				value: v,
 				viewProps: ViewProps.create(),
 			}),
 		});
@@ -106,11 +112,13 @@ describe(ListApi.name, () => {
 
 	it('should handle event', (done) => {
 		const doc = createTestWindow().document;
-		const c = new LabelController(doc, {
+		const v = createValue(0);
+		const c = new LabeledValueController<number, ListController<number>>(doc, {
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: undefined,
 			}),
+			value: v,
 			valueController: new ListController(doc, {
 				props: ValueMap.fromObject({
 					options: [
@@ -118,7 +126,7 @@ describe(ListApi.name, () => {
 						{text: 'bar', value: 456},
 					],
 				}),
-				value: createValue(0),
+				value: v,
 				viewProps: ViewProps.create(),
 			}),
 		});
