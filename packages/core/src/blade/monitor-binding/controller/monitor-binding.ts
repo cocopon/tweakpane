@@ -1,33 +1,32 @@
-import {MonitorBinding} from '../../../common/binding/monitor';
-import {Controller} from '../../../common/controller/controller';
+import {MonitorBindingValue} from '../../../common/binding/value/monitor';
+import {ValueController} from '../../../common/controller/value';
+import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
 import {View} from '../../../common/view/view';
 import {Blade} from '../../common/model/blade';
-import {LabelController} from '../../label/controller/label';
+import {LabeledValueController} from '../../label/controller/value-label';
 import {LabelProps} from '../../label/view/label';
 
 interface Config<T> {
-	binding: MonitorBinding<T>;
 	blade: Blade;
 	props: LabelProps;
-	valueController: Controller<View>;
+	value: MonitorBindingValue<T>;
+	valueController: ValueController<Buffer<T>, View, BufferedValue<T>>;
 }
 
 /**
  * @hidden
  */
-export class MonitorBindingController<T> extends LabelController<
-	Controller<View>
+export class MonitorBindingController<T> extends LabeledValueController<
+	Buffer<T>,
+	ValueController<Buffer<T>>,
+	MonitorBindingValue<T>
 > {
-	public readonly binding: MonitorBinding<T>;
-
 	constructor(doc: Document, config: Config<T>) {
 		super(doc, config);
 
-		this.binding = config.binding;
-
-		this.viewProps.bindDisabled(this.binding.ticker);
+		this.viewProps.bindDisabled(this.value.ticker);
 		this.viewProps.handleDispose(() => {
-			this.binding.dispose();
+			this.value.ticker.dispose();
 		});
 	}
 }

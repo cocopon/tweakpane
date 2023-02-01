@@ -63,7 +63,7 @@ export function initMonitorBindings() {
 					lineCount: 5,
 					multiline: true,
 				})
-				.on('update', () => {
+				.on('change', () => {
 					PARAMS.params = JSON.stringify(SHARED_PARAMS, null, 2);
 				});
 		},

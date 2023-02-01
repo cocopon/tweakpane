@@ -1,13 +1,13 @@
-import {MonitorBindingEvents} from '../../../common/binding/monitor';
+import {BufferedValueEvents} from '../../../common/model/buffered-value';
 import {Emitter} from '../../../common/model/emitter';
 import {forceCast} from '../../../misc/type-util';
 import {BladeApi} from '../../common/api/blade';
-import {TpUpdateEvent} from '../../common/api/tp-event';
+import {TpChangeEvent} from '../../common/api/tp-event';
 import {MonitorBindingController} from '../controller/monitor-binding';
 
 export interface MonitorBindingApiEvents<T> {
-	update: {
-		event: TpUpdateEvent<T>;
+	change: {
+		event: TpChangeEvent<T>;
 	};
 }
 
@@ -25,11 +25,11 @@ export class MonitorBindingApi<T> extends BladeApi<
 	constructor(controller: MonitorBindingController<T>) {
 		super(controller);
 
-		this.onBindingUpdate_ = this.onBindingUpdate_.bind(this);
+		this.onValueChange_ = this.onValueChange_.bind(this);
 
 		this.emitter_ = new Emitter();
 
-		this.controller_.binding.emitter.on('update', this.onBindingUpdate_);
+		this.controller_.value.emitter.on('change', this.onValueChange_);
 	}
 
 	get label(): string | undefined {
@@ -52,16 +52,17 @@ export class MonitorBindingApi<T> extends BladeApi<
 	}
 
 	public refresh(): void {
-		this.controller_.binding.read();
+		this.controller_.value.fetch();
 	}
 
-	private onBindingUpdate_(ev: MonitorBindingEvents<T>['update']) {
-		const value = ev.sender.target.read();
-		this.emitter_.emit('update', {
-			event: new TpUpdateEvent(
+	private onValueChange_(_ev: BufferedValueEvents<T>['change']) {
+		const binding = this.controller_.value.binding;
+		const value = binding.target.read();
+		this.emitter_.emit('change', {
+			event: new TpChangeEvent(
 				this,
 				forceCast(value),
-				this.controller_.binding.target.presetKey,
+				binding.target.presetKey,
 			),
 		});
 	}

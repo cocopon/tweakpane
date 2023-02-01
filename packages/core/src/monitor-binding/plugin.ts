@@ -2,13 +2,14 @@ import {createBlade} from '../blade/common/model/blade';
 import {LabelPropsObject} from '../blade/label/view/label';
 import {MonitorBindingController} from '../blade/monitor-binding/controller/monitor-binding';
 import {BindingReader} from '../common/binding/binding';
-import {MonitorBinding} from '../common/binding/monitor';
+import {ReadonlyBinding} from '../common/binding/readonly';
 import {BindingTarget} from '../common/binding/target';
 import {IntervalTicker} from '../common/binding/ticker/interval';
 import {ManualTicker} from '../common/binding/ticker/manual';
 import {Ticker} from '../common/binding/ticker/ticker';
-import {Controller} from '../common/controller/controller';
-import {BufferedValue, initializeBuffer} from '../common/model/buffered-value';
+import {MonitorBindingValue} from '../common/binding/value/monitor';
+import {ValueController} from '../common/controller/value';
+import {Buffer, BufferedValue} from '../common/model/buffered-value';
 import {ValueMap} from '../common/model/value-map';
 import {ViewProps} from '../common/model/view-props';
 import {BaseMonitorParams} from '../common/params';
@@ -32,7 +33,7 @@ export interface BindingArguments<T, P extends BaseMonitorParams> {
 interface ControllerArguments<T, P extends BaseMonitorParams> {
 	document: Document;
 	params: P;
-	value: BufferedValue<T>;
+	value: MonitorBindingValue<T>;
 	viewProps: ViewProps;
 }
 
@@ -92,7 +93,11 @@ export interface MonitorBindingPlugin<T, P extends BaseMonitorParams>
 		 * @param args The arguments for creating a controller.
 		 * @return A custom controller that contains a custom view.
 		 */
-		(args: ControllerArguments<T, P>): Controller<View>;
+		(args: ControllerArguments<T, P>): ValueController<
+			Buffer<T>,
+			View,
+			BufferedValue<T>
+		>;
 	};
 }
 
@@ -135,11 +140,13 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 			plugin.binding.defaultBufferSize(result.params)) ??
 		1;
 	const interval = P.optional.number(args.params.interval).value;
-	const binding = new MonitorBinding({
-		reader: reader,
-		target: args.target,
+	const value = new MonitorBindingValue({
+		binding: new ReadonlyBinding({
+			reader: reader,
+			target: args.target,
+		}),
+		bufferSize: bufferSize,
 		ticker: createTicker(args.document, interval),
-		value: initializeBuffer<T>(bufferSize),
 	});
 
 	const disabled = P.optional.boolean(args.params.disabled).value;
@@ -147,7 +154,7 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 	const controller = plugin.controller({
 		document: args.document,
 		params: result.params,
-		value: binding.value,
+		value: value,
 		viewProps: ViewProps.create({
 			disabled: disabled,
 			hidden: hidden,
@@ -156,11 +163,11 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 
 	const label = P.optional.string(args.params.label).value ?? args.target.key;
 	return new MonitorBindingController(args.document, {
-		binding: binding,
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: label,
 		}),
+		value: value,
 		valueController: controller,
 	});
 }

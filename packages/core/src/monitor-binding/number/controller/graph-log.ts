@@ -1,7 +1,7 @@
-import {Controller} from '../../../common/controller/controller';
+import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
 import {supportsTouch} from '../../../common/dom-util';
-import {BufferedValue} from '../../../common/model/buffered-value';
+import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
 import {Value} from '../../../common/model/value';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
@@ -23,7 +23,10 @@ interface Config {
 /**
  * @hidden
  */
-export class GraphLogController implements Controller<GraphLogView> {
+export class GraphLogController
+	implements
+		ValueController<Buffer<number>, GraphLogView, BufferedValue<number>>
+{
 	public readonly value: BufferedValue<number>;
 	public readonly view: GraphLogView;
 	public readonly viewProps: ViewProps;

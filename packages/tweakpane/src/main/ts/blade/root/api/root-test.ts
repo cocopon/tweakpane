@@ -92,6 +92,6 @@ describe(RootApi.name, () => {
 
 		assert.strictEqual(i1.controller_.value.rawValue, 2);
 		assert.strictEqual(i2.controller_.value.rawValue, 'changed');
-		assert.strictEqual(m1.controller_.binding.value.rawValue[0], 456);
+		assert.strictEqual(m1.controller_.value.rawValue[0], 456);
 	});
 });

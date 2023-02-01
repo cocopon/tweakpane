@@ -23,7 +23,7 @@ import {
 	TabParams,
 } from '../../common/api/params';
 import {RackLikeApi} from '../../common/api/rack-like-api';
-import {TpChangeEvent, TpUpdateEvent} from '../../common/api/tp-event';
+import {TpChangeEvent} from '../../common/api/tp-event';
 import {BladeController} from '../../common/controller/blade';
 import {ValueBladeController} from '../../common/controller/value-blade';
 import {BladeRackEvents} from '../../common/model/blade-rack';
@@ -40,9 +40,6 @@ import {RackController} from '../controller/rack';
 export interface BladeRackApiEvents {
 	change: {
 		event: TpChangeEvent<unknown>;
-	};
-	update: {
-		event: TpUpdateEvent<unknown>;
 	};
 }
 
@@ -95,7 +92,6 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 		this.onRackAdd_ = this.onRackAdd_.bind(this);
 		this.onRackRemove_ = this.onRackRemove_.bind(this);
 		this.onRackInputChange_ = this.onRackInputChange_.bind(this);
-		this.onRackMonitorUpdate_ = this.onRackMonitorUpdate_.bind(this);
 
 		this.emitter_ = new Emitter();
 		this.apiSet_ = new NestedOrderedSet(findSubBladeApiSet);
@@ -105,7 +101,6 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 		rack.emitter.on('add', this.onRackAdd_);
 		rack.emitter.on('remove', this.onRackRemove_);
 		rack.emitter.on('inputchange', this.onRackInputChange_);
-		rack.emitter.on('monitorupdate', this.onRackMonitorUpdate_);
 		rack.children.forEach((bc) => {
 			this.setUpApi_(bc);
 		});
@@ -235,6 +230,17 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 					ev.options.last,
 				),
 			});
+		} else if (bc instanceof MonitorBindingController) {
+			const api = getApiByController(this.apiSet_, bc);
+			const binding = bc.value.binding;
+			this.emitter_.emit('change', {
+				event: new TpChangeEvent(
+					api,
+					forceCast(binding.target.read()),
+					binding.target.presetKey,
+					ev.options.last,
+				),
+			});
 		} else if (bc instanceof ValueBladeController) {
 			const api = getApiByController(this.apiSet_, bc);
 			this.emitter_.emit('change', {
@@ -246,22 +252,5 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 				),
 			});
 		}
-	}
-
-	private onRackMonitorUpdate_(ev: BladeRackEvents['monitorupdate']) {
-		/* istanbul ignore next */
-		if (!(ev.bladeController instanceof MonitorBindingController)) {
-			throw TpError.shouldNeverHappen();
-		}
-
-		const api = getApiByController(this.apiSet_, ev.bladeController);
-		const binding = ev.bladeController.binding;
-		this.emitter_.emit('update', {
-			event: new TpUpdateEvent(
-				api,
-				forceCast(binding.target.read()),
-				binding.target.presetKey,
-			),
-		});
 	}
 }

@@ -1,4 +1,3 @@
-import {Controller} from '../../common/controller/controller';
 import {Formatter} from '../../common/converter/formatter';
 import {
 	createNumberFormatter,
@@ -11,7 +10,6 @@ import {
 	ParamsParsers,
 	parseParams,
 } from '../../common/params-parsers';
-import {View} from '../../common/view/view';
 import {Constants} from '../../misc/constants';
 import {isEmpty} from '../../misc/type-util';
 import {MultiLogController} from '../common/controller/multi-log';
@@ -57,7 +55,7 @@ function createGraphMonitor(
 	args: Parameters<
 		MonitorBindingPlugin<number, NumberMonitorParams>['controller']
 	>[0],
-): Controller<View> {
+) {
 	return new GraphLogController(args.document, {
 		formatter: createFormatter(args.params),
 		lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,

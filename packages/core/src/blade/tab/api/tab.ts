@@ -4,11 +4,7 @@ import {ValueMap} from '../../../common/model/value-map';
 import {TpError} from '../../../common/tp-error';
 import {PluginPool} from '../../../plugin/pool';
 import {RackLikeApi} from '../../common/api/rack-like-api';
-import {
-	TpChangeEvent,
-	TpTabSelectEvent,
-	TpUpdateEvent,
-} from '../../common/api/tp-event';
+import {TpChangeEvent, TpTabSelectEvent} from '../../common/api/tp-event';
 import {NestedOrderedSetEvents} from '../../common/model/nested-ordered-set';
 import {RackApi} from '../../rack/api/rack';
 import {TabController} from '../controller/tab';
@@ -22,9 +18,6 @@ interface TabApiEvents {
 	};
 	select: {
 		event: TpTabSelectEvent;
-	};
-	update: {
-		event: TpUpdateEvent<unknown>;
 	};
 }
 
@@ -53,11 +46,6 @@ export class TabApi extends RackLikeApi<TabController> {
 
 		this.rackApi_.on('change', (ev) => {
 			this.emitter_.emit('change', {
-				event: ev,
-			});
-		});
-		this.rackApi_.on('update', (ev) => {
-			this.emitter_.emit('update', {
 				event: ev,
 			});
 		});

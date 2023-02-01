@@ -1,7 +1,3 @@
-import {
-	MonitorBinding,
-	MonitorBindingEvents,
-} from '../../../common/binding/monitor';
 import {Emitter} from '../../../common/model/emitter';
 import {
 	Value,
@@ -12,7 +8,6 @@ import {ViewProps, ViewPropsEvents} from '../../../common/model/view-props';
 import {TpError} from '../../../common/tp-error';
 import {View} from '../../../common/view/view';
 import {Class, forceCast} from '../../../misc/type-util';
-import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
 import {RackController} from '../../rack/controller/rack';
 import {BladeController} from '../controller/blade';
 import {RackLikeController} from '../controller/rack-like';
@@ -45,23 +40,6 @@ export interface BladeRackEvents {
 	layout: {
 		sender: BladeRack;
 	};
-	monitorupdate: {
-		bladeController: BladeController<View>;
-		sender: BladeRack;
-	};
-}
-
-function findMonitorBindingController<In>(
-	bcs: MonitorBindingController<In>[],
-	b: MonitorBinding<In>,
-): MonitorBindingController<In> | null {
-	for (let i = 0; i < bcs.length; i++) {
-		const bc = bcs[i];
-		if (bc instanceof MonitorBindingController && bc.binding === b) {
-			return bc;
-		}
-	}
-	return null;
 }
 
 function findValueBladeController<T, V extends View>(
@@ -114,13 +92,10 @@ export class BladeRack {
 		this.onSetRemove_ = this.onSetRemove_.bind(this);
 		this.onChildDispose_ = this.onChildDispose_.bind(this);
 		this.onChildPositionsChange_ = this.onChildPositionsChange_.bind(this);
-		this.onChildMonitorUpdate_ = this.onChildMonitorUpdate_.bind(this);
 		this.onChildValueChange_ = this.onChildValueChange_.bind(this);
 		this.onChildViewPropsChange_ = this.onChildViewPropsChange_.bind(this);
 		this.onDescendantLayout_ = this.onDescendantLayout_.bind(this);
 		this.onDescendantInputChange_ = this.onDescendantInputChange_.bind(this);
-		this.onDescendantMonitorUpdate_ =
-			this.onDescendantMonitorUpdate_.bind(this);
 
 		this.emitter = new Emitter();
 
@@ -182,9 +157,7 @@ export class BladeRack {
 			.emitter.on('change', this.onChildPositionsChange_);
 		bc.viewProps.handleDispose(this.onChildDispose_);
 
-		if (bc instanceof MonitorBindingController) {
-			bc.binding.emitter.on('update', this.onChildMonitorUpdate_);
-		} else if (bc instanceof ValueBladeController) {
+		if (bc instanceof ValueBladeController) {
 			bc.value.emitter.on('change', this.onChildValueChange_);
 		} else {
 			const rack = findSubRack(bc);
@@ -192,7 +165,6 @@ export class BladeRack {
 				const emitter = rack.emitter;
 				emitter.on('layout', this.onDescendantLayout_);
 				emitter.on('inputchange', this.onDescendantInputChange_);
-				emitter.on('monitorupdate', this.onDescendantMonitorUpdate_);
 			}
 		}
 	}
@@ -214,9 +186,7 @@ export class BladeRack {
 		}
 
 		const bc = ev.item;
-		if (bc instanceof MonitorBindingController) {
-			bc.binding.emitter.off('update', this.onChildMonitorUpdate_);
-		} else if (bc instanceof ValueBladeController) {
+		if (bc instanceof ValueBladeController) {
 			bc.value.emitter.off('change', this.onChildValueChange_);
 		} else {
 			const rack = findSubRack(bc);
@@ -224,7 +194,6 @@ export class BladeRack {
 				const emitter = rack.emitter;
 				emitter.off('layout', this.onDescendantLayout_);
 				emitter.off('inputchange', this.onDescendantInputChange_);
-				emitter.off('monitorupdate', this.onDescendantMonitorUpdate_);
 			}
 		}
 	}
@@ -282,22 +251,6 @@ export class BladeRack {
 		});
 	}
 
-	private onChildMonitorUpdate_(
-		ev: MonitorBindingEvents<unknown>['update'],
-	): void {
-		const bc = findMonitorBindingController(
-			this.find(MonitorBindingController),
-			ev.sender,
-		);
-		if (!bc) {
-			throw TpError.alreadyDisposed();
-		}
-		this.emitter.emit('monitorupdate', {
-			bladeController: bc,
-			sender: this,
-		});
-	}
-
 	private onChildValueChange_(ev: ValueEvents<unknown>['change']) {
 		const bc = findValueBladeController(
 			this.find(ValueBladeController),
@@ -324,13 +277,6 @@ export class BladeRack {
 		this.emitter.emit('inputchange', {
 			bladeController: ev.bladeController,
 			options: ev.options,
-			sender: this,
-		});
-	}
-
-	private onDescendantMonitorUpdate_(ev: BladeRackEvents['monitorupdate']) {
-		this.emitter.emit('monitorupdate', {
-			bladeController: ev.bladeController,
 			sender: this,
 		});
 	}

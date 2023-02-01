@@ -1,12 +1,15 @@
 import {forceCast} from '../../misc/type-util';
-import {Value} from './value';
-import {createValue} from './values';
+import {Value, ValueEvents} from './value';
 
 /**
  * @hidden
  */
 export type Buffer<T> = (T | undefined)[];
 
+/**
+ * @hidden
+ */
+export type BufferedValueEvents<T> = ValueEvents<Buffer<T>>;
 /**
  * @hidden
  */
@@ -21,10 +24,10 @@ function fillBuffer<T>(buffer: Buffer<T>, bufferSize: number) {
 /**
  * @hidden
  */
-export function initializeBuffer<T>(bufferSize: number): BufferedValue<T> {
+export function initializeBuffer<T>(bufferSize: number): Buffer<T> {
 	const buffer: Buffer<T> = [];
 	fillBuffer(buffer, bufferSize);
-	return createValue(buffer);
+	return buffer;
 }
 
 function createTrimmedBuffer<T>(buffer: Buffer<T>): T[] {

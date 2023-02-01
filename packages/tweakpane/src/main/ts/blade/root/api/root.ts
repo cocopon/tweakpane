@@ -64,7 +64,7 @@ export class RootApi extends FolderApi {
 		this.controller_.rackController.rack
 			.find(MonitorBindingController)
 			.forEach((mbc) => {
-				mbc.binding.read();
+				mbc.value.fetch();
 			});
 	}
 }
