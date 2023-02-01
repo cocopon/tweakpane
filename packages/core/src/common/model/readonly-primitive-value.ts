@@ -1,18 +1,20 @@
 import {Emitter} from './emitter';
-import {ReadonlyValue, Value, ValueEvents} from './value';
+import {ReadonlyValue, ReadonlyValueEvents, Value, ValueEvents} from './value';
 
 export class ReadonlyPrimitiveValue<T> implements ReadonlyValue<T> {
-	private value_: Value<T>;
-
-	constructor(value: Value<T>) {
-		this.value_ = value;
-	}
-
 	/**
 	 * The event emitter for value changes.
 	 */
-	get emitter(): Emitter<ValueEvents<T>> {
-		return this.value_.emitter;
+	public readonly emitter: Emitter<ReadonlyValueEvents<T>> = new Emitter();
+	private value_: Value<T>;
+
+	constructor(value: Value<T>) {
+		this.onValueBeforeChange_ = this.onValueBeforeChange_.bind(this);
+		this.onValueChange_ = this.onValueChange_.bind(this);
+
+		this.value_ = value;
+		this.value_.emitter.on('beforechange', this.onValueBeforeChange_);
+		this.value_.emitter.on('change', this.onValueChange_);
 	}
 
 	/**
@@ -20,5 +22,19 @@ export class ReadonlyPrimitiveValue<T> implements ReadonlyValue<T> {
 	 */
 	get rawValue(): T {
 		return this.value_.rawValue;
+	}
+
+	private onValueBeforeChange_(ev: ValueEvents<T>['beforechange']): void {
+		this.emitter.emit('beforechange', {
+			...ev,
+			sender: this,
+		});
+	}
+
+	private onValueChange_(ev: ValueEvents<T>['change']): void {
+		this.emitter.emit('change', {
+			...ev,
+			sender: this,
+		});
 	}
 }

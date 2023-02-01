@@ -1,4 +1,4 @@
-import {BindingReader} from '../../common/binding/writable';
+import {BindingReader} from '../../common/binding/binding';
 import {Formatter} from '../../common/converter/formatter';
 import {InputBindingPlugin} from '../plugin';
 import {ColorController} from './controller/color';
