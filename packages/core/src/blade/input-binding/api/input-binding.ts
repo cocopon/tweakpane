@@ -1,7 +1,5 @@
-import {BindingValue} from '../../../common/binding/value';
 import {Emitter} from '../../../common/model/emitter';
 import {ValueEvents} from '../../../common/model/value';
-import {TpError} from '../../../common/tp-error';
 import {forceCast} from '../../../misc/type-util';
 import {BladeApi} from '../../common/api/blade';
 import {TpChangeEvent} from '../../common/api/tp-event';
@@ -56,11 +54,7 @@ export class InputBindingApi<In, Ex> extends BladeApi<
 	}
 
 	public refresh(): void {
-		const value = this.controller_.value;
-		if (!(value instanceof BindingValue)) {
-			throw TpError.shouldNeverHappen();
-		}
-		value.read();
+		this.controller_.value.fetch();
 	}
 
 	private onValueChange_(ev: ValueEvents<In>['change']) {

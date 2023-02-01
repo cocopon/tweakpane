@@ -3,16 +3,16 @@ import {describe, it} from 'mocha';
 
 import {numberFromUnknown} from '../converter/number';
 import {writePrimitive} from '../primitive';
-import {Binding} from './binding';
+import {WritableBinding} from './binding';
 import {BindingTarget} from './target';
 
-describe(Binding.name, () => {
+describe(WritableBinding.name, () => {
 	it('should read value', () => {
 		const obj = {
 			foo: 123,
 		};
 		const target = new BindingTarget(obj, 'foo');
-		const b = new Binding({
+		const b = new WritableBinding({
 			reader: numberFromUnknown,
 			target: target,
 			writer: (v) => v,
@@ -26,7 +26,7 @@ describe(Binding.name, () => {
 			foo: 123,
 		};
 		const target = new BindingTarget(obj, 'foo');
-		const b = new Binding({
+		const b = new WritableBinding({
 			reader: numberFromUnknown,
 			target: target,
 			writer: writePrimitive,

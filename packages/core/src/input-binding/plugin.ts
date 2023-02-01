@@ -2,7 +2,7 @@ import {createBlade} from '../blade/common/model/blade';
 import {InputBindingController} from '../blade/input-binding/controller/input-binding';
 import {LabeledValueController} from '../blade/label/controller/value-label';
 import {LabelPropsObject} from '../blade/label/view/label';
-import {Binding, BindingReader, BindingWriter} from '../common/binding/binding';
+import {WritableBinding, BindingReader, BindingWriter} from '../common/binding/binding';
 import {BindingTarget} from '../common/binding/target';
 import {BindingValue} from '../common/binding/value';
 import {Constraint} from '../common/constraint/constraint';
@@ -150,7 +150,7 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 	const constraint = plugin.binding.constraint
 		? plugin.binding.constraint(valueArgs)
 		: undefined;
-	const binding = new Binding({
+	const binding = new WritableBinding({
 		reader: reader,
 		target: args.target,
 		writer: plugin.binding.writer(valueArgs),

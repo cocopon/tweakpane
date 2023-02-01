@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {Binding} from '../../../common/binding/binding';
+import {WritableBinding} from '../../../common/binding/binding';
 import {BindingTarget} from '../../../common/binding/target';
 import {BindingValue} from '../../../common/binding/value';
 import {
@@ -25,7 +25,7 @@ import {InputBindingApi} from './input-binding';
 
 function createApi(target: BindingTarget) {
 	const doc = createTestWindow().document;
-	const binding = new Binding({
+	const binding = new WritableBinding({
 		reader: numberFromUnknown,
 		target: target,
 		writer: writePrimitive,

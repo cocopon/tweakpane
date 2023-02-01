@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {Binding} from '../../../common/binding/binding';
+import {WritableBinding} from '../../../common/binding/binding';
 import {MonitorBinding} from '../../../common/binding/monitor';
 import {BindingTarget} from '../../../common/binding/target';
 import {ManualTicker} from '../../../common/binding/ticker/manual';
@@ -35,7 +35,7 @@ import {BladeRack} from './blade-rack';
 function createInputBindingController(
 	doc: Document,
 ): InputBindingController<boolean> {
-	const b = new Binding({
+	const b = new WritableBinding({
 		reader: boolFromUnknown,
 		target: new BindingTarget({foo: false}, 'foo'),
 		writer: writePrimitive,

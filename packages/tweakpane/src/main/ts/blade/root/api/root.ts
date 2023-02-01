@@ -57,7 +57,7 @@ export class RootApi extends FolderApi {
 	public refresh(): void {
 		// Force-read all input bindings
 		findBindingValues(this.controller_.rackController.rack).forEach((bv) =>
-			bv.read(),
+			bv.fetch(),
 		);
 
 		// Force-read all monitor bindings

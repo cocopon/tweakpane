@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {PrimitiveValue} from '../model/primitive-value';
-import {Binding} from './binding';
+import {WritableBinding} from './binding';
 import {BindingTarget} from './target';
 import {BindingValue} from './value';
 
@@ -12,7 +12,7 @@ describe(BindingValue.name, () => {
 		const target = new BindingTarget({foo: 0}, 'foo');
 		const bv = new BindingValue(
 			iv,
-			new Binding({
+			new WritableBinding({
 				reader: (v: unknown) => Number(v),
 				writer: (t, v) => t.write(v),
 				target: target,
@@ -27,7 +27,7 @@ describe(BindingValue.name, () => {
 		const iv = new PrimitiveValue(0);
 		const bv = new BindingValue(
 			iv,
-			new Binding({
+			new WritableBinding({
 				reader: (v: unknown) => Number(v),
 				writer: (t, v) => t.write(v),
 				target: new BindingTarget({foo: 0}, 'foo'),

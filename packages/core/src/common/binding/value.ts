@@ -1,13 +1,13 @@
 import {Emitter} from '../model/emitter';
 import {Value, ValueChangeOptions, ValueEvents} from '../model/value';
-import {Binding} from './binding';
+import {WritableBinding} from './binding';
 
 export class BindingValue<T> implements Value<T> {
-	public readonly binding: Binding<T>;
+	public readonly binding: WritableBinding<T>;
 	public readonly emitter: Emitter<ValueEvents<T>>;
 	private readonly value_: Value<T>;
 
-	constructor(value: Value<T>, binding: Binding<T>) {
+	constructor(value: Value<T>, binding: WritableBinding<T>) {
 		this.onValueBeforeChange_ = this.onValueBeforeChange_.bind(this);
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
@@ -35,11 +35,11 @@ export class BindingValue<T> implements Value<T> {
 		this.value_.setRawValue(rawValue, options);
 	}
 
-	public read(): void {
+	public fetch(): void {
 		this.value_.rawValue = this.binding.read();
 	}
 
-	public write(): void {
+	public push(): void {
 		this.binding.write(this.value_.rawValue);
 	}
 
@@ -51,7 +51,7 @@ export class BindingValue<T> implements Value<T> {
 	}
 
 	private onValueChange_(ev: ValueEvents<T>['change']): void {
-		this.write();
+		this.push();
 		this.emitter.emit('change', {
 			...ev,
 			sender: this,
@@ -59,6 +59,8 @@ export class BindingValue<T> implements Value<T> {
 	}
 }
 
-export function findValueBinding<T>(value: Value<T>): Binding<T> | null {
+export function findValueBinding<T>(
+	value: Value<T>,
+): WritableBinding<T> | null {
 	return value instanceof BindingValue ? value.binding : null;
 }
