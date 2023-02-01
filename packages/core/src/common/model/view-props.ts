@@ -1,10 +1,10 @@
 import {ClassName} from '../view/class-name';
 import {valueToClassName} from '../view/reactive';
 import {bindValue, bindValueMap} from './reactive';
-import {ReadonlyValue, SetRawValue} from './readonly-value';
-import {Value, ValueEvents} from './value';
+import {ReadonlyValue, Value, ValueEvents} from './value';
 import {ValueMap, ValueMapEvents} from './value-map';
-import {createValue} from './values';
+import {SetRawValue} from './values';
+import {createReadonlyValue, createValue} from './values';
 
 export type ViewPropsObject = {
 	disabled: boolean;
@@ -41,7 +41,7 @@ export class ViewProps extends ValueMap<ViewPropsObject> {
 		this.onParentGlobalDisabledChange_ =
 			this.onParentGlobalDisabledChange_.bind(this);
 
-		[this.globalDisabled_, this.setGlobalDisabled_] = ReadonlyValue.create(
+		[this.globalDisabled_, this.setGlobalDisabled_] = createReadonlyValue(
 			createValue(this.getGlobalDisabled_()),
 		);
 

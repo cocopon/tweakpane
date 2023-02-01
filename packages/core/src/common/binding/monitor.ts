@@ -1,8 +1,8 @@
 import {Ticker, TickerEvents} from '../binding/ticker/ticker';
 import {BufferedValue, createPushedBuffer} from '../model/buffered-value';
 import {Emitter} from '../model/emitter';
-import {BindingReader} from './writable';
 import {BindingTarget} from './target';
+import {BindingReader} from './writable';
 
 interface Config<T> {
 	reader: BindingReader<T>;

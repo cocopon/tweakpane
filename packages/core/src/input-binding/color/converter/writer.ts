@@ -1,5 +1,5 @@
-import {BindingWriter} from '../../../common/binding/writable';
 import {BindingTarget} from '../../../common/binding/target';
+import {BindingWriter} from '../../../common/binding/writable';
 import {writePrimitive} from '../../../common/primitive';
 import {colorToRgbaNumber, colorToRgbNumber} from '../converter/color-number';
 import {

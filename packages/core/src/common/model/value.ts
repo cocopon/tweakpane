@@ -30,10 +30,25 @@ export interface ValueEvents<T> {
 }
 
 /**
- * A model for handling value changes.
+ * A readonly value that can be changed elsewhere.
  * @template T The type of the raw value.
  */
-export interface Value<T> {
+export interface ReadonlyValue<T> {
+	/**
+	 * The event emitter for value changes.
+	 */
+	readonly emitter: Emitter<ValueEvents<T>>;
+	/**
+	 * The raw value of the model.
+	 */
+	readonly rawValue: T;
+}
+
+/**
+ * A value that handles changes.
+ * @template T The type of the raw value.
+ */
+export interface Value<T> extends ReadonlyValue<T> {
 	/**
 	 * The event emitter for value changes.
 	 */

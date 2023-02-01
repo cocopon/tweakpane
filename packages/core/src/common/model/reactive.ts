@@ -1,6 +1,5 @@
-import {Value, ValueEvents} from '../model/value';
+import {ReadonlyValue, Value, ValueEvents} from '../model/value';
 import {ValueMap} from '../model/value-map';
-import {ReadonlyValue} from './readonly-value';
 
 function compose<A, B, C>(
 	h1: (input: A) => B,
