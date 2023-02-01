@@ -7,7 +7,10 @@ import {
 	isInputBindingController,
 } from '../blade/input-binding/controller/input-binding';
 import {MonitorBindingApi} from '../blade/monitor-binding/api/monitor-binding';
-import {MonitorBindingController} from '../blade/monitor-binding/controller/monitor-binding';
+import {
+	isMonitorBindingController,
+	MonitorBindingController,
+} from '../blade/monitor-binding/controller/monitor-binding';
 import {BladePlugin, createBladeController} from '../blade/plugin';
 import {RackApi} from '../blade/rack/api/rack';
 import {RackController} from '../blade/rack/controller/rack';
@@ -152,7 +155,7 @@ export class PluginPool {
 		if (isInputBindingController(bc)) {
 			return new InputBindingApi(bc);
 		}
-		if (bc instanceof MonitorBindingController) {
+		if (isMonitorBindingController(bc)) {
 			return new MonitorBindingApi(bc);
 		}
 		if (bc instanceof RackController) {

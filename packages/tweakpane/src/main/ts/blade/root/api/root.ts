@@ -3,8 +3,9 @@ import {
 	BladeRack,
 	FolderApi,
 	isInputBindingController,
+	isMonitorBindingController,
 	LabeledValueController,
-	MonitorBindingController,
+	MonitorBindingValue,
 	PluginPool,
 } from '@tweakpane/core';
 
@@ -16,6 +17,15 @@ function findBindingValues(rack: BladeRack): BindingValue<unknown>[] {
 		.find(LabeledValueController)
 		.filter(isInputBindingController)
 		.map((vc) => vc.value);
+}
+
+function findMonitorBindingValues(
+	rack: BladeRack,
+): MonitorBindingValue<unknown>[] {
+	return rack
+		.find(LabeledValueController)
+		.filter(isMonitorBindingController)
+		.map((vc) => vc.value as MonitorBindingValue<unknown>);
 }
 
 export class RootApi extends FolderApi {
@@ -61,10 +71,10 @@ export class RootApi extends FolderApi {
 		);
 
 		// Force-read all monitor bindings
-		this.controller_.rackController.rack
-			.find(MonitorBindingController)
-			.forEach((mbc) => {
-				mbc.value.fetch();
-			});
+		findMonitorBindingValues(this.controller_.rackController.rack).forEach(
+			(mbv) => {
+				mbv.fetch();
+			},
+		);
 	}
 }

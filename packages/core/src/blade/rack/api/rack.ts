@@ -32,7 +32,7 @@ import {FolderApi} from '../../folder/api/folder';
 import {InputBindingApi} from '../../input-binding/api/input-binding';
 import {isInputBindingController} from '../../input-binding/controller/input-binding';
 import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
-import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
+import {isMonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
 import {SeparatorApi} from '../../separator/api/separator';
 import {TabApi} from '../../tab/api/tab';
 import {RackController} from '../controller/rack';
@@ -219,18 +219,7 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 
 	private onRackInputChange_(ev: BladeRackEvents['inputchange']) {
 		const bc = ev.bladeController;
-		if (isInputBindingController(bc)) {
-			const api = getApiByController(this.apiSet_, bc);
-			const binding = bc.value.binding;
-			this.emitter_.emit('change', {
-				event: new TpChangeEvent(
-					api,
-					forceCast(binding.target.read()),
-					binding.target.presetKey,
-					ev.options.last,
-				),
-			});
-		} else if (bc instanceof MonitorBindingController) {
+		if (isInputBindingController(bc) || isMonitorBindingController(bc)) {
 			const api = getApiByController(this.apiSet_, bc);
 			const binding = bc.value.binding;
 			this.emitter_.emit('change', {

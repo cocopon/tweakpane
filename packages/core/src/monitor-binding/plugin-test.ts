@@ -103,4 +103,15 @@ describe(createMonitorBindingController.name, () => {
 		bc?.viewProps.set('disposed', true);
 		assert.strictEqual(c.disposed, true);
 	});
+
+	it('should disable ticker', () => {
+		const bc = createMonitorBindingController(TestPlugin, {
+			document: createTestWindow().document,
+			params: {},
+			target: new BindingTarget({foo: 'bar'}, 'foo'),
+		});
+		assert.strictEqual(bc?.value.ticker.disabled, false);
+		bc?.viewProps.set('disabled', true);
+		assert.strictEqual(bc?.value.ticker.disabled, true);
+	});
 });

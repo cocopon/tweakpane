@@ -1,4 +1,5 @@
 import {createBlade} from '../blade/common/model/blade';
+import {LabeledValueController} from '../blade/label/controller/value-label';
 import {LabelPropsObject} from '../blade/label/view/label';
 import {MonitorBindingController} from '../blade/monitor-binding/controller/monitor-binding';
 import {BindingReader} from '../common/binding/binding';
@@ -133,6 +134,7 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 		params: result.params,
 	};
 
+	// Binding and value
 	const reader = plugin.binding.reader(bindingArgs);
 	const bufferSize =
 		P.optional.number(args.params.bufferSize).value ??
@@ -149,6 +151,7 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 		ticker: createTicker(args.document, interval),
 	});
 
+	// Value controller
 	const disabled = P.optional.boolean(args.params.disabled).value;
 	const hidden = P.optional.boolean(args.params.hidden).value;
 	const controller = plugin.controller({
@@ -160,9 +163,14 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 			hidden: hidden,
 		}),
 	});
+	controller.viewProps.bindDisabled(value.ticker);
+	controller.viewProps.handleDispose(() => {
+		value.ticker.dispose();
+	});
 
+	// Monitor binding controller
 	const label = P.optional.string(args.params.label).value ?? args.target.key;
-	return new MonitorBindingController(args.document, {
+	return new LabeledValueController(args.document, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: label,

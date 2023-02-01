@@ -65,7 +65,7 @@ function createMonitorBindingController(
 		bufferSize: 1,
 		ticker: new ManualTicker(),
 	});
-	return new MonitorBindingController(doc, {
+	return new LabeledValueController(doc, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: '',

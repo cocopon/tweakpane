@@ -3,7 +3,6 @@ import {
 	FolderController,
 	LabelController,
 	LabeledValueController,
-	MonitorBindingController,
 	SeparatorController,
 } from '@tweakpane/core';
 import * as assert from 'assert';
@@ -35,7 +34,7 @@ describe(Pane.name, () => {
 						interval: 0,
 					});
 				},
-				expected: MonitorBindingController,
+				expected: LabeledValueController,
 			},
 			{
 				insert: (api, index) => {

@@ -16,6 +16,7 @@ import {SingleLogController} from '../../../monitor-binding/common/controller/si
 import {assertInitialState, assertUpdates} from '../../common/api/test-util';
 import {TpChangeEvent} from '../../common/api/tp-event';
 import {createBlade} from '../../common/model/blade';
+import {LabeledValueController} from '../../label/controller/value-label';
 import {LabelPropsObject} from '../../label/view/label';
 import {MonitorBindingController} from '../controller/monitor-binding';
 import {MonitorBindingApi} from './monitor-binding';
@@ -35,14 +36,14 @@ function createApi(target: BindingTarget) {
 		value: v,
 		viewProps: ViewProps.create(),
 	});
-	const bc = new MonitorBindingController(doc, {
+	const bc = new LabeledValueController(doc, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: 'label',
 		}),
 		value: v,
 		valueController: mc,
-	});
+	}) as MonitorBindingController<number>;
 	return new MonitorBindingApi(bc);
 }
 
