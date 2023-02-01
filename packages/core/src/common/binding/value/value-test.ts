@@ -1,9 +1,9 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {PrimitiveValue} from '../model/primitive-value';
-import {WritableBinding} from './binding';
-import {BindingTarget} from './target';
+import {PrimitiveValue} from '../../model/primitive-value';
+import {BindingTarget} from '../target';
+import {WritableBinding} from '../writable';
 import {BindingValue} from './value';
 
 describe(BindingValue.name, () => {

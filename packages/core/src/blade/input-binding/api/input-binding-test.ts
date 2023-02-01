@@ -1,9 +1,9 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {WritableBinding} from '../../../common/binding/binding';
+import {WritableBinding} from '../../../common/binding/writable';
 import {BindingTarget} from '../../../common/binding/target';
-import {BindingValue} from '../../../common/binding/value';
+import {BindingValue} from '../../../common/binding/value/value';
 import {
 	createNumberFormatter,
 	numberFromUnknown,

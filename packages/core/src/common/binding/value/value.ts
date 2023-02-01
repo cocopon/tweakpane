@@ -1,6 +1,6 @@
-import {Emitter} from '../model/emitter';
-import {Value, ValueChangeOptions, ValueEvents} from '../model/value';
-import {WritableBinding} from './binding';
+import {Emitter} from '../../model/emitter';
+import {Value, ValueChangeOptions, ValueEvents} from '../../model/value';
+import {WritableBinding} from '../writable';
 
 export class BindingValue<T> implements Value<T> {
 	public readonly binding: WritableBinding<T>;

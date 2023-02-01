@@ -1,4 +1,4 @@
-import {BindingValue} from '../../../common/binding/value';
+import {BindingValue} from '../../../common/binding/value/value';
 import {ValueController} from '../../../common/controller/value';
 import {LabeledValueController} from '../../label/controller/value-label';
 

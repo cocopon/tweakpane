@@ -1,11 +1,11 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {WritableBinding} from '../../../common/binding/binding';
 import {MonitorBinding} from '../../../common/binding/monitor';
 import {BindingTarget} from '../../../common/binding/target';
 import {ManualTicker} from '../../../common/binding/ticker/manual';
-import {BindingValue} from '../../../common/binding/value';
+import {BindingValue} from '../../../common/binding/value/value';
+import {WritableBinding} from '../../../common/binding/writable';
 import {boolFromUnknown} from '../../../common/converter/boolean';
 import {
 	createNumberFormatter,

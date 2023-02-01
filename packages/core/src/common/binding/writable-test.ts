@@ -3,8 +3,8 @@ import {describe, it} from 'mocha';
 
 import {numberFromUnknown} from '../converter/number';
 import {writePrimitive} from '../primitive';
-import {WritableBinding} from './binding';
 import {BindingTarget} from './target';
+import {WritableBinding} from './writable';
 
 describe(WritableBinding.name, () => {
 	it('should read value', () => {

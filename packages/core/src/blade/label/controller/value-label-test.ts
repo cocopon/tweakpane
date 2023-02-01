@@ -1,9 +1,9 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {WritableBinding} from '../../../common/binding/binding';
 import {BindingTarget} from '../../../common/binding/target';
-import {BindingValue} from '../../../common/binding/value';
+import {BindingValue} from '../../../common/binding/value/value';
+import {WritableBinding} from '../../../common/binding/writable';
 import {TextController} from '../../../common/controller/text';
 import {
 	createNumberFormatter,

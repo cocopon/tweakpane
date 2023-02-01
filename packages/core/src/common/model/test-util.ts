@@ -1,4 +1,4 @@
-import {BindingValue} from '../binding/value';
+import {BindingValue} from '../binding/value/value';
 import {Value} from './value';
 
 export function getBoundValue<T>(v: BindingValue<T>): Value<T> {

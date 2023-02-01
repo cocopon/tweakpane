@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
 import {BindingTarget} from '../../common/binding/target';
-import {BindingValue} from '../../common/binding/value';
+import {BindingValue} from '../../common/binding/value/value';
 import {findConstraint} from '../../common/constraint/composite';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
