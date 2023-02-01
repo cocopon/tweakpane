@@ -58,9 +58,3 @@ export class BindingValue<T> implements Value<T> {
 		});
 	}
 }
-
-export function findValueBinding<T>(
-	value: Value<T>,
-): WritableBinding<T> | null {
-	return value instanceof BindingValue ? value.binding : null;
-}
