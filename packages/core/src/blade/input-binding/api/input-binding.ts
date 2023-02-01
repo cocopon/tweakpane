@@ -1,4 +1,4 @@
-import {BindingValue} from '../../../common/model/binding-value';
+import {BindingValue} from '../../../common/binding/value';
 import {Emitter} from '../../../common/model/emitter';
 import {ValueEvents} from '../../../common/model/value';
 import {TpError} from '../../../common/tp-error';

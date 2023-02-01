@@ -1,5 +1,5 @@
+import {BindingValue} from '../../../common/binding/value';
 import {ValueController} from '../../../common/controller/value';
-import {BindingValue} from '../../../common/model/binding-value';
 import {LabeledValueController} from '../../label/controller/value-label';
 
 export type InputBindingController<In> = LabeledValueController<

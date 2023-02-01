@@ -5,13 +5,13 @@ import {Binding} from '../../../common/binding/binding';
 import {MonitorBinding} from '../../../common/binding/monitor';
 import {BindingTarget} from '../../../common/binding/target';
 import {ManualTicker} from '../../../common/binding/ticker/manual';
+import {BindingValue} from '../../../common/binding/value';
 import {boolFromUnknown} from '../../../common/converter/boolean';
 import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../../common/converter/number';
 import {stringFromUnknown} from '../../../common/converter/string';
-import {BindingValue} from '../../../common/model/binding-value';
 import {Buffer} from '../../../common/model/buffered-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';

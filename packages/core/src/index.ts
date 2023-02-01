@@ -48,6 +48,7 @@ export {BladePlugin, createBladeController} from './blade/plugin';
 export * from './common/binding/ticker/manual';
 export * from './common/binding/ticker/interval';
 export * from './common/binding/ticker/ticker';
+export * from './common/binding/value';
 
 export * from './common/constraint/composite';
 export * from './common/constraint/constraint';
@@ -69,7 +70,6 @@ export * from './common/converter/parser';
 export * from './common/converter/percentage';
 export * from './common/converter/string';
 
-export * from './common/model/binding-value';
 export * from './common/model/buffered-value';
 export * from './common/model/emitter';
 export * from './common/model/reactive';

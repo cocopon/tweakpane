@@ -1,6 +1,6 @@
-import {Binding} from '../binding/binding';
-import {Emitter} from './emitter';
-import {Value, ValueChangeOptions, ValueEvents} from './value';
+import {Emitter} from '../model/emitter';
+import {Value, ValueChangeOptions, ValueEvents} from '../model/value';
+import {Binding} from './binding';
 
 export class BindingValue<T> implements Value<T> {
 	public readonly binding: Binding<T>;

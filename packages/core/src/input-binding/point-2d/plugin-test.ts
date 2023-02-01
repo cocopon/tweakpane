@@ -2,10 +2,10 @@ import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
 import {BindingTarget} from '../../common/binding/target';
+import {BindingValue} from '../../common/binding/value';
 import {findConstraint} from '../../common/constraint/composite';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
-import {BindingValue} from '../../common/model/binding-value';
 import {ComplexValue} from '../../common/model/complex-value';
 import {getBoundValue} from '../../common/model/test-util';
 import {Value} from '../../common/model/value';

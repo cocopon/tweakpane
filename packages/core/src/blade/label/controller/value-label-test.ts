@@ -3,13 +3,13 @@ import {describe, it} from 'mocha';
 
 import {Binding} from '../../../common/binding/binding';
 import {BindingTarget} from '../../../common/binding/target';
+import {BindingValue} from '../../../common/binding/value';
 import {TextController} from '../../../common/controller/text';
 import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../../common/converter/number';
 import {numberFromUnknown} from '../../../common/converter/number';
-import {BindingValue} from '../../../common/model/binding-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';

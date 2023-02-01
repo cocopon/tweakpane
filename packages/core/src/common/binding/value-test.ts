@@ -1,10 +1,10 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {Binding} from '../binding/binding';
-import {BindingTarget} from '../binding/target';
-import {BindingValue} from './binding-value';
-import {PrimitiveValue} from './primitive-value';
+import {PrimitiveValue} from '../model/primitive-value';
+import {Binding} from './binding';
+import {BindingTarget} from './target';
+import {BindingValue} from './value';
 
 describe(BindingValue.name, () => {
 	it('should apply rawValue to target', () => {
