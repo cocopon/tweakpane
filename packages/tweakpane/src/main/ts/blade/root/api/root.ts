@@ -13,9 +13,9 @@ import {
 import {RootController} from '../controller/root';
 import {exportPresetJson, importPresetJson, PresetObject} from './preset';
 
-function isInputBindingController<In>(
+function isInputBindingController(
 	c: unknown,
-): c is InputBindingController<In> {
+): c is InputBindingController<unknown> {
 	if (!(c instanceof LabeledValueController)) {
 		return false;
 	}
@@ -25,9 +25,9 @@ function isInputBindingController<In>(
 	return true;
 }
 
-function isMonitorBindingController<T>(
+function isMonitorBindingController(
 	c: unknown,
-): c is MonitorBindingController<T> {
+): c is MonitorBindingController<unknown> {
 	if (!(c instanceof LabeledValueController)) {
 		return false;
 	}

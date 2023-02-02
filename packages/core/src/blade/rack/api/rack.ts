@@ -1,6 +1,8 @@
 import {Bindable, BindingTarget} from '../../../common/binding/target';
+import {isBindingValue} from '../../../common/binding/value/binding';
 import {TpBuffer} from '../../../common/model/buffered-value';
 import {Emitter} from '../../../common/model/emitter';
+import {Value} from '../../../common/model/value';
 import {BaseBladeParams} from '../../../common/params';
 import {TpError} from '../../../common/tp-error';
 import {View} from '../../../common/view/view';
@@ -9,7 +11,6 @@ import {PluginPool} from '../../../plugin/pool';
 import {BindingApi} from '../../binding/api/binding';
 import {InputBindingApi} from '../../binding/api/input-binding';
 import {MonitorBindingApi} from '../../binding/api/monitor-binding';
-import {isBindingController} from '../../binding/controller/binding';
 import {MonitorBindingController} from '../../binding/controller/monitor-binding';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
@@ -226,24 +227,17 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 	private onRackInputChange_(ev: BladeRackEvents['inputchange']) {
 		const bc = ev.bladeController;
 		const api = getApiByController(this.apiSet_, bc);
-		if (isBindingController(bc)) {
-			this.emitter_.emit('change', {
-				event: new TpChangeEvent(
-					api,
-					forceCast(bc.value.binding.target.read()),
-					bc.value.binding.target.presetKey,
-					ev.options.last,
-				),
-			});
-		} else if (bc instanceof ValueBladeController) {
-			this.emitter_.emit('change', {
-				event: new TpChangeEvent(
-					api,
-					bc.value.rawValue,
-					undefined,
-					ev.options.last,
-				),
-			});
-		}
+		const value: Value<unknown> =
+			bc instanceof ValueBladeController ? bc.value : null;
+		const binding = isBindingValue(value) ? value.binding : null;
+
+		this.emitter_.emit('change', {
+			event: new TpChangeEvent(
+				api,
+				binding ? binding.target.read() : value.rawValue,
+				binding ? binding.target.presetKey : undefined,
+				ev.options.last,
+			),
+		});
 	}
 }
