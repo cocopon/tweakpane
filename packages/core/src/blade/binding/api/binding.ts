@@ -1,23 +1,15 @@
-import {BindingValue} from '../../../common/binding/value/binding';
-import {ValueController} from '../../../common/controller/value';
 import {Emitter} from '../../../common/model/emitter';
 import {ValueEvents} from '../../../common/model/value';
 import {forceCast} from '../../../misc/type-util';
 import {BladeApi} from '../../common/api/blade';
 import {TpChangeEvent} from '../../common/api/tp-event';
-import {LabeledValueController} from '../../label/controller/value-label';
+import {BindingController} from '../controller/binding';
 
 export interface BindingApiEvents<Ex> {
 	change: {
 		event: TpChangeEvent<Ex>;
 	};
 }
-
-type BindingController<In> = LabeledValueController<
-	In,
-	ValueController<In>,
-	BindingValue<In>
->;
 
 /**
  * The API for binding between the parameter and the pane.

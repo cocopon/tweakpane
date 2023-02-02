@@ -9,11 +9,8 @@ import {PluginPool} from '../../../plugin/pool';
 import {BindingApi} from '../../binding/api/binding';
 import {InputBindingApi} from '../../binding/api/input-binding';
 import {MonitorBindingApi} from '../../binding/api/monitor-binding';
-import {isInputBindingController} from '../../binding/controller/input-binding';
-import {
-	isMonitorBindingController,
-	MonitorBindingController,
-} from '../../binding/controller/monitor-binding';
+import {isBindingController} from '../../binding/controller/binding';
+import {MonitorBindingController} from '../../binding/controller/monitor-binding';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
 import {
@@ -228,8 +225,8 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 
 	private onRackInputChange_(ev: BladeRackEvents['inputchange']) {
 		const bc = ev.bladeController;
-		if (isInputBindingController(bc) || isMonitorBindingController(bc)) {
-			const api = getApiByController(this.apiSet_, bc);
+		const api = getApiByController(this.apiSet_, bc);
+		if (isBindingController(bc)) {
 			this.emitter_.emit('change', {
 				event: new TpChangeEvent(
 					api,
@@ -239,7 +236,6 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 				),
 			});
 		} else if (bc instanceof ValueBladeController) {
-			const api = getApiByController(this.apiSet_, bc);
 			this.emitter_.emit('change', {
 				event: new TpChangeEvent(
 					api,

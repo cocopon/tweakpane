@@ -12,6 +12,10 @@ export function isEmpty<T>(
 	return value === null || value === undefined;
 }
 
+export function isObject(value: unknown): value is object {
+	return value !== null && typeof value === 'object';
+}
+
 export function deepEqualsArray<T>(a1: T[], a2: T[]): boolean {
 	if (a1.length !== a2.length) {
 		return false;

@@ -14,15 +14,3 @@ export type MonitorBindingController<T> = LabeledValueController<
 	BufferedValueController<T>,
 	MonitorBindingValue<T>
 >;
-
-export function isMonitorBindingController<T>(
-	c: unknown,
-): c is MonitorBindingController<T> {
-	if (!(c instanceof LabeledValueController)) {
-		return false;
-	}
-	if (!(c.value instanceof MonitorBindingValue)) {
-		return false;
-	}
-	return true;
-}

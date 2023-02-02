@@ -3,15 +3,39 @@ import {
 	BladeRack,
 	FolderApi,
 	InputBindingController,
-	isInputBindingController,
-	isMonitorBindingController,
+	InputBindingValue,
 	LabeledValueController,
+	MonitorBindingController,
 	MonitorBindingValue,
 	PluginPool,
 } from '@tweakpane/core';
 
 import {RootController} from '../controller/root';
 import {exportPresetJson, importPresetJson, PresetObject} from './preset';
+
+function isInputBindingController<In>(
+	c: unknown,
+): c is InputBindingController<In> {
+	if (!(c instanceof LabeledValueController)) {
+		return false;
+	}
+	if (!(c.value instanceof InputBindingValue)) {
+		return false;
+	}
+	return true;
+}
+
+function isMonitorBindingController<T>(
+	c: unknown,
+): c is MonitorBindingController<T> {
+	if (!(c instanceof LabeledValueController)) {
+		return false;
+	}
+	if (!(c.value instanceof MonitorBindingValue)) {
+		return false;
+	}
+	return true;
+}
 
 function findInputBindingValues(rack: BladeRack): BindingValue<unknown>[] {
 	const vcs = rack
