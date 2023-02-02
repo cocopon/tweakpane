@@ -77,6 +77,7 @@ export class RootApi extends FolderApi {
 			values.map((v) => v.binding.target),
 			preset,
 		);
+		this.refresh();
 	}
 
 	/**

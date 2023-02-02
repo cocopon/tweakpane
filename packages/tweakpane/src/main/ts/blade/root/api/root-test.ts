@@ -2,6 +2,9 @@ import {
 	createBlade,
 	createDefaultPluginPool,
 	FolderPropsObject,
+	NumberTextController,
+	SingleLogController,
+	TextController,
 	ValueMap,
 	ViewProps,
 } from '@tweakpane/core';
@@ -38,29 +41,51 @@ describe(RootApi.name, () => {
 		});
 		const preset = api.exportPreset();
 		assert.deepStrictEqual(preset, {
-			bar: 'hello',
 			foo: 1,
+			bar: 'hello',
 		});
 	});
 
-	it('should import preset', () => {
+	it('should apply imported preset to target', () => {
 		const PARAMS = {
-			bar: 'hello',
 			foo: 1,
+			bar: 'hello',
 		};
 		const api = createApi();
 		api.addInput(PARAMS, 'foo');
 		api.addInput(PARAMS, 'bar');
 
 		api.importPreset({
-			bar: 'world',
 			foo: 123,
+			bar: 'world',
 		});
 
 		assert.deepStrictEqual(PARAMS, {
-			bar: 'world',
 			foo: 123,
+			bar: 'world',
 		});
+	});
+
+	it('should apply imported preset to views', () => {
+		const PARAMS = {
+			foo: 1,
+			bar: 'hello',
+		};
+		const api = createApi();
+		const i1 = api.addInput(PARAMS, 'foo');
+		const i2 = api.addInput(PARAMS, 'bar');
+
+		api.importPreset({
+			foo: 123,
+			bar: 'world',
+		});
+
+		const vcs = {
+			foo: i1.controller_.valueController as NumberTextController,
+			bar: i2.controller_.valueController as TextController<string>,
+		};
+		assert.strictEqual(vcs.foo.view.inputElement.value, '123.00');
+		assert.strictEqual(vcs.bar.view.inputElement.value, 'world');
 	});
 
 	it('should get element', () => {
@@ -90,8 +115,13 @@ describe(RootApi.name, () => {
 
 		api.refresh();
 
-		assert.strictEqual(i1.controller_.value.rawValue, 2);
-		assert.strictEqual(i2.controller_.value.rawValue, 'changed');
-		assert.strictEqual(m1.controller_.value.rawValue[0], 456);
+		const vcs = {
+			foo: i1.controller_.valueController as NumberTextController,
+			bar: i2.controller_.valueController as TextController<string>,
+			baz: m1.controller_.valueController as SingleLogController<number>,
+		};
+		assert.strictEqual(vcs.foo.view.inputElement.value, '2.00', 'foo');
+		assert.strictEqual(vcs.bar.view.inputElement.value, 'changed', 'bar');
+		assert.strictEqual(vcs.baz.view.inputElement.value, '456.00', 'baz');
 	});
 });
