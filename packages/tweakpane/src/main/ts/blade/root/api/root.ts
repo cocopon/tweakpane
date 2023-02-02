@@ -2,6 +2,7 @@ import {
 	BindingValue,
 	BladeRack,
 	FolderApi,
+	InputBindingController,
 	isInputBindingController,
 	isMonitorBindingController,
 	LabeledValueController,
@@ -12,11 +13,13 @@ import {
 import {RootController} from '../controller/root';
 import {exportPresetJson, importPresetJson, PresetObject} from './preset';
 
-function findBindingValues(rack: BladeRack): BindingValue<unknown>[] {
-	return rack
+function findInputBindingValues(rack: BladeRack): BindingValue<unknown>[] {
+	const vcs = rack
 		.find(LabeledValueController)
-		.filter(isInputBindingController)
-		.map((vc) => vc.value);
+		.filter((vc) =>
+			isInputBindingController(vc),
+		) as InputBindingController<unknown>[];
+	return vcs.map((vc) => vc.value);
 }
 
 function findMonitorBindingValues(
@@ -45,10 +48,11 @@ export class RootApi extends FolderApi {
 	 * @param preset The preset object to import.
 	 */
 	public importPreset(preset: PresetObject): void {
-		const bvs = findBindingValues(this.controller_.rackController.rack);
-		const targets = bvs.map((bv) => bv.binding.target);
-		importPresetJson(targets, preset);
-		this.refresh();
+		const values = findInputBindingValues(this.controller_.rackController.rack);
+		importPresetJson(
+			values.map((v) => v.binding.target),
+			preset,
+		);
 	}
 
 	/**
@@ -56,9 +60,8 @@ export class RootApi extends FolderApi {
 	 * @return An exported preset object.
 	 */
 	public exportPreset(): PresetObject {
-		const bvs = findBindingValues(this.controller_.rackController.rack);
-		const targets = bvs.map((bv) => bv.binding.target);
-		return exportPresetJson(targets);
+		const values = findInputBindingValues(this.controller_.rackController.rack);
+		return exportPresetJson(values.map((v) => v.binding.target));
 	}
 
 	/**
@@ -66,7 +69,7 @@ export class RootApi extends FolderApi {
 	 */
 	public refresh(): void {
 		// Force-read all input bindings
-		findBindingValues(this.controller_.rackController.rack).forEach((bv) =>
+		findInputBindingValues(this.controller_.rackController.rack).forEach((bv) =>
 			bv.fetch(),
 		);
 

@@ -10,6 +10,7 @@ import {ValueChangeOptions} from '../../model/value';
 import {createValue} from '../../model/values';
 import {ReadonlyBinding} from '../readonly';
 import {Ticker} from '../ticker/ticker';
+import {BindingValue} from './binding';
 
 interface Config<T> {
 	binding: ReadonlyBinding<T>;
@@ -17,7 +18,7 @@ interface Config<T> {
 	ticker: Ticker;
 }
 
-export class MonitorBindingValue<T> implements BufferedValue<T> {
+export class MonitorBindingValue<T> implements BindingValue<Buffer<T>> {
 	public readonly binding: ReadonlyBinding<T>;
 	public readonly emitter: Emitter<BufferedValueEvents<T>> = new Emitter();
 	public readonly ticker: Ticker;

@@ -1,9 +1,9 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {WritableBinding} from '../../../common/binding/writable';
+import {ReadWriteBinding} from '../../../common/binding/read-write';
 import {BindingTarget} from '../../../common/binding/target';
-import {BindingValue} from '../../../common/binding/value/value';
+import {InputBindingValue} from '../../../common/binding/value/input-binding';
 import {
 	createNumberFormatter,
 	numberFromUnknown,
@@ -21,16 +21,17 @@ import {createBlade} from '../../common/model/blade';
 import {LabeledValueController} from '../../label/controller/value-label';
 import {LabelPropsObject} from '../../label/view/label';
 import {InputBindingController} from '../controller/input-binding';
+import {BindingApi} from './binding';
 import {InputBindingApi} from './input-binding';
 
-function createApi(target: BindingTarget) {
+function createApi(target: BindingTarget): InputBindingApi<number, unknown> {
 	const doc = createTestWindow().document;
-	const binding = new WritableBinding({
+	const binding = new ReadWriteBinding({
 		reader: numberFromUnknown,
 		target: target,
 		writer: writePrimitive,
 	});
-	const v = new BindingValue(createValue(0), binding);
+	const v = new InputBindingValue(createValue(0), binding);
 	const ic = new NumberTextController(doc, {
 		baseStep: 1,
 		parser: parseNumber,
@@ -49,10 +50,10 @@ function createApi(target: BindingTarget) {
 		value: v,
 		valueController: ic,
 	});
-	return new InputBindingApi(bc);
+	return new BindingApi(bc);
 }
 
-describe(InputBindingApi.name, () => {
+describe('InputBindingApi', () => {
 	it('should listen change event', (done) => {
 		const PARAMS = {
 			foo: 0,

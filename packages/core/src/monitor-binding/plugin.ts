@@ -1,14 +1,14 @@
+import {MonitorBindingController} from '../blade/binding/controller/monitor-binding';
 import {createBlade} from '../blade/common/model/blade';
 import {LabeledValueController} from '../blade/label/controller/value-label';
 import {LabelPropsObject} from '../blade/label/view/label';
-import {MonitorBindingController} from '../blade/monitor-binding/controller/monitor-binding';
 import {BindingReader} from '../common/binding/binding';
 import {ReadonlyBinding} from '../common/binding/readonly';
 import {BindingTarget} from '../common/binding/target';
 import {IntervalTicker} from '../common/binding/ticker/interval';
 import {ManualTicker} from '../common/binding/ticker/manual';
 import {Ticker} from '../common/binding/ticker/ticker';
-import {MonitorBindingValue} from '../common/binding/value/monitor';
+import {MonitorBindingValue} from '../common/binding/value/monitor-binding';
 import {ValueController} from '../common/controller/value';
 import {Buffer, BufferedValue} from '../common/model/buffered-value';
 import {ValueMap} from '../common/model/value-map';

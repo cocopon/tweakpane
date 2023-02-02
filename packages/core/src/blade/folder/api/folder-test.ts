@@ -6,11 +6,11 @@ import {ViewProps} from '../../../common/model/view-props';
 import {IntColor} from '../../../input-binding/color/model/int-color';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {createDefaultPluginPool} from '../../../plugin/plugins';
+import {BindingApi} from '../../binding/api/binding';
 import {testBladeContainer} from '../../common/api/blade-rack-test';
 import {assertUpdates} from '../../common/api/test-util';
 import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event';
 import {createBlade} from '../../common/model/blade';
-import {InputBindingApi} from '../../input-binding/api/input-binding';
 import {FolderController} from '../controller/folder';
 import {FolderPropsObject} from '../view/folder';
 import {FolderApi} from './folder';
@@ -232,7 +232,7 @@ describe(FolderApi.name, () => {
 					assert.strictEqual(ev.presetKey, 'foo');
 					assert.strictEqual(ev.value, expected);
 
-					if (!(ev.target instanceof InputBindingApi)) {
+					if (!(ev.target instanceof BindingApi)) {
 						assert.fail('unexpected target');
 					}
 					assert.strictEqual(ev.target.controller_, bapi.controller_);

@@ -1,6 +1,6 @@
-import {BindingValue} from '../binding/value/value';
+import {InputBindingValue} from '../binding/value/input-binding';
 import {Value} from './value';
 
-export function getBoundValue<T>(v: BindingValue<T>): Value<T> {
+export function getBoundValue<T>(v: InputBindingValue<T>): Value<T> {
 	return (v as any).value_;
 }

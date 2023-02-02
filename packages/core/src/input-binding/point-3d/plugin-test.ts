@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {BindingTarget} from '../../common/binding/target';
-import {BindingValue} from '../../common/binding/value/value';
+import {InputBindingValue} from '../../common/binding/value/input-binding';
 import {findConstraint} from '../../common/constraint/composite';
 import {StepConstraint} from '../../common/constraint/step';
 import {ComplexValue} from '../../common/model/complex-value';
@@ -37,7 +37,9 @@ describe(Point3dInputPlugin.id, () => {
 		});
 
 		const cs = (
-			getBoundValue(c?.value as BindingValue<unknown>) as ComplexValue<unknown>
+			getBoundValue(
+				c?.value as InputBindingValue<unknown>,
+			) as ComplexValue<unknown>
 		).constraint as PointNdConstraint<Point3d>;
 		const zc = cs.components[2];
 		if (!zc) {
@@ -61,7 +63,9 @@ describe(Point3dInputPlugin.id, () => {
 		});
 
 		const cs = (
-			getBoundValue(c?.value as BindingValue<unknown>) as ComplexValue<unknown>
+			getBoundValue(
+				c?.value as InputBindingValue<unknown>,
+			) as ComplexValue<unknown>
 		).constraint as PointNdConstraint<Point3d>;
 		const zc = cs.components[2];
 		if (!zc) {

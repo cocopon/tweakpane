@@ -4,6 +4,8 @@ import {ValueEvents} from '../../../common/model/value';
 import {BaseBladeParams} from '../../../common/params';
 import {View} from '../../../common/view/view';
 import {PluginPool} from '../../../plugin/pool';
+import {InputBindingApi} from '../../binding/api/input-binding';
+import {MonitorBindingApi} from '../../binding/api/monitor-binding';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
 import {BladeRackApi} from '../../common/api/blade-rack';
@@ -18,8 +20,6 @@ import {
 import {RackLikeApi} from '../../common/api/rack-like-api';
 import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event';
 import {BladeController} from '../../common/controller/blade';
-import {InputBindingApi} from '../../input-binding/api/input-binding';
-import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
 import {RackApi} from '../../rack/api/rack';
 import {SeparatorApi} from '../../separator/api/separator';
 import {TabApi} from '../../tab/api/tab';

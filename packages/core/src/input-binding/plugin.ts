@@ -1,11 +1,11 @@
+import {InputBindingController} from '../blade/binding/controller/input-binding';
 import {createBlade} from '../blade/common/model/blade';
-import {InputBindingController} from '../blade/input-binding/controller/input-binding';
 import {LabeledValueController} from '../blade/label/controller/value-label';
 import {LabelPropsObject} from '../blade/label/view/label';
 import {BindingReader, BindingWriter} from '../common/binding/binding';
+import {ReadWriteBinding} from '../common/binding/read-write';
 import {BindingTarget} from '../common/binding/target';
-import {BindingValue} from '../common/binding/value/value';
-import {WritableBinding} from '../common/binding/writable';
+import {InputBindingValue} from '../common/binding/value/input-binding';
 import {Constraint} from '../common/constraint/constraint';
 import {Value} from '../common/model/value';
 import {ValueMap} from '../common/model/value-map';
@@ -151,12 +151,12 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 	const constraint = plugin.binding.constraint
 		? plugin.binding.constraint(valueArgs)
 		: undefined;
-	const binding = new WritableBinding({
+	const binding = new ReadWriteBinding({
 		reader: reader,
 		target: args.target,
 		writer: plugin.binding.writer(valueArgs),
 	});
-	const value = new BindingValue(
+	const value = new InputBindingValue(
 		createValue(reader(result.initialValue), {
 			constraint: constraint,
 			equals: plugin.binding.equals,

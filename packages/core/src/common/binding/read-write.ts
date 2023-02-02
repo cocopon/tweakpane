@@ -11,7 +11,7 @@ interface Config<T> {
  * A binding that can read and write the target.
  * @template In The type of the internal value.
  */
-export class WritableBinding<In> {
+export class ReadWriteBinding<In> {
 	public readonly target: BindingTarget;
 	private readonly reader_: BindingReader<In>;
 	private readonly writer_: BindingWriter<In>;

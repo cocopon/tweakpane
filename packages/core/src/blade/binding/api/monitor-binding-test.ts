@@ -4,11 +4,12 @@ import {describe, it} from 'mocha';
 import {ReadonlyBinding} from '../../../common/binding/readonly';
 import {BindingTarget} from '../../../common/binding/target';
 import {ManualTicker} from '../../../common/binding/ticker/manual';
-import {MonitorBindingValue} from '../../../common/binding/value/monitor';
+import {MonitorBindingValue} from '../../../common/binding/value/monitor-binding';
 import {
 	createNumberFormatter,
 	numberFromUnknown,
 } from '../../../common/converter/number';
+import {Buffer} from '../../../common/model/buffered-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {createTestWindow} from '../../../misc/dom-test-util';
@@ -19,9 +20,10 @@ import {createBlade} from '../../common/model/blade';
 import {LabeledValueController} from '../../label/controller/value-label';
 import {LabelPropsObject} from '../../label/view/label';
 import {MonitorBindingController} from '../controller/monitor-binding';
+import {BindingApi} from './binding';
 import {MonitorBindingApi} from './monitor-binding';
 
-function createApi(target: BindingTarget) {
+function createApi(target: BindingTarget): MonitorBindingApi<number> {
 	const doc = createTestWindow().document;
 	const v = new MonitorBindingValue({
 		binding: new ReadonlyBinding({
@@ -44,10 +46,14 @@ function createApi(target: BindingTarget) {
 		value: v,
 		valueController: mc,
 	}) as MonitorBindingController<number>;
-	return new MonitorBindingApi(bc);
+	return new BindingApi<
+		Buffer<number>,
+		number,
+		MonitorBindingController<number>
+	>(bc);
 }
 
-describe(MonitorBindingApi.name, () => {
+describe('MonitorBindingApi', () => {
 	it('should have initial state', () => {
 		const PARAMS = {
 			foo: 0,

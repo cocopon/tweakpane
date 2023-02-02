@@ -1,4 +1,4 @@
-import {MonitorBindingValue} from '../../../common/binding/value/monitor';
+import {MonitorBindingValue} from '../../../common/binding/value/monitor-binding';
 import {ValueController} from '../../../common/controller/value';
 import {Buffer} from '../../../common/model/buffered-value';
 import {LabeledValueController} from '../../label/controller/value-label';

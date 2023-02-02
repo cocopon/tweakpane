@@ -1,9 +1,9 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
+import {ReadWriteBinding} from '../../../common/binding/read-write';
 import {BindingTarget} from '../../../common/binding/target';
-import {BindingValue} from '../../../common/binding/value/value';
-import {WritableBinding} from '../../../common/binding/writable';
+import {InputBindingValue} from '../../../common/binding/value/input-binding';
 import {TextController} from '../../../common/controller/text';
 import {
 	createNumberFormatter,
@@ -14,8 +14,8 @@ import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
 import {createTestWindow} from '../../../misc/dom-test-util';
+import {InputBindingController} from '../../binding/controller/input-binding';
 import {createBlade} from '../../common/model/blade';
-import {InputBindingController} from '../../input-binding/controller/input-binding';
 import {LabelPropsObject} from '../view/label';
 import {LabeledValueController} from './value-label';
 
@@ -25,12 +25,12 @@ describe(LabeledValueController.name, () => {
 			foo: 123,
 		};
 		const doc = createTestWindow().document;
-		const binding = new WritableBinding({
+		const binding = new ReadWriteBinding({
 			reader: numberFromUnknown,
 			target: new BindingTarget(obj, 'foo'),
 			writer: (v) => v,
 		});
-		const value = new BindingValue(createValue(0), binding);
+		const value = new InputBindingValue(createValue(0), binding);
 		const controller = new TextController(doc, {
 			parser: parseNumber,
 			props: ValueMap.fromObject({

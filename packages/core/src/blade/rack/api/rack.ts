@@ -1,10 +1,19 @@
 import {Bindable, BindingTarget} from '../../../common/binding/target';
+import {Buffer} from '../../../common/model/buffered-value';
 import {Emitter} from '../../../common/model/emitter';
 import {BaseBladeParams} from '../../../common/params';
 import {TpError} from '../../../common/tp-error';
 import {View} from '../../../common/view/view';
 import {forceCast} from '../../../misc/type-util';
 import {PluginPool} from '../../../plugin/pool';
+import {BindingApi} from '../../binding/api/binding';
+import {InputBindingApi} from '../../binding/api/input-binding';
+import {MonitorBindingApi} from '../../binding/api/monitor-binding';
+import {isInputBindingController} from '../../binding/controller/input-binding';
+import {
+	isMonitorBindingController,
+	MonitorBindingController,
+} from '../../binding/controller/monitor-binding';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
 import {
@@ -29,10 +38,6 @@ import {ValueBladeController} from '../../common/controller/value-blade';
 import {BladeRackEvents} from '../../common/model/blade-rack';
 import {NestedOrderedSet} from '../../common/model/nested-ordered-set';
 import {FolderApi} from '../../folder/api/folder';
-import {InputBindingApi} from '../../input-binding/api/input-binding';
-import {isInputBindingController} from '../../input-binding/controller/input-binding';
-import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
-import {isMonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
 import {SeparatorApi} from '../../separator/api/separator';
 import {TabApi} from '../../tab/api/tab';
 import {RackController} from '../controller/rack';
@@ -124,7 +129,7 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 			createBindingTarget(object, key, params.presetKey),
 			params,
 		);
-		const api = new InputBindingApi(bc);
+		const api = new BindingApi(bc);
 		return this.add(api, params.index);
 	}
 
@@ -140,7 +145,11 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 			createBindingTarget(object, key),
 			params,
 		);
-		const api = new MonitorBindingApi(bc);
+		const api = new BindingApi<
+			Buffer<unknown>,
+			unknown,
+			MonitorBindingController<unknown>
+		>(bc);
 		return forceCast(this.add(api, params.index));
 	}
 
@@ -221,12 +230,11 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 		const bc = ev.bladeController;
 		if (isInputBindingController(bc) || isMonitorBindingController(bc)) {
 			const api = getApiByController(this.apiSet_, bc);
-			const binding = bc.value.binding;
 			this.emitter_.emit('change', {
 				event: new TpChangeEvent(
 					api,
-					forceCast(binding.target.read()),
-					binding.target.presetKey,
+					forceCast(bc.value.binding.target.read()),
+					bc.value.binding.target.presetKey,
 					ev.options.last,
 				),
 			});

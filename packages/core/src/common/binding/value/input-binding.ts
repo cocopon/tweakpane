@@ -1,13 +1,14 @@
 import {Emitter} from '../../model/emitter';
 import {Value, ValueChangeOptions, ValueEvents} from '../../model/value';
-import {WritableBinding} from '../writable';
+import {ReadWriteBinding} from '../read-write';
+import {BindingValue} from './binding';
 
-export class BindingValue<T> implements Value<T> {
-	public readonly binding: WritableBinding<T>;
+export class InputBindingValue<T> implements BindingValue<T> {
+	public readonly binding: ReadWriteBinding<T>;
 	public readonly emitter: Emitter<ValueEvents<T>>;
 	private readonly value_: Value<T>;
 
-	constructor(value: Value<T>, binding: WritableBinding<T>) {
+	constructor(value: Value<T>, binding: ReadWriteBinding<T>) {
 		this.onValueBeforeChange_ = this.onValueBeforeChange_.bind(this);
 		this.onValueChange_ = this.onValueChange_.bind(this);
 

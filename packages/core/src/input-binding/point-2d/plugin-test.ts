@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
 import {BindingTarget} from '../../common/binding/target';
-import {BindingValue} from '../../common/binding/value/value';
+import {InputBindingValue} from '../../common/binding/value/input-binding';
 import {findConstraint} from '../../common/constraint/composite';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
@@ -77,7 +77,9 @@ describe(Point2dInputPlugin.id, () => {
 		});
 
 		const constraint = (
-			getBoundValue(c?.value as BindingValue<unknown>) as ComplexValue<unknown>
+			getBoundValue(
+				c?.value as InputBindingValue<unknown>,
+			) as ComplexValue<unknown>
 		).constraint as PointNdConstraint<Point2d>;
 		const xc = constraint.components[0];
 		if (!xc) {
@@ -98,7 +100,9 @@ describe(Point2dInputPlugin.id, () => {
 		});
 
 		const constraint = (
-			getBoundValue(c?.value as BindingValue<unknown>) as ComplexValue<unknown>
+			getBoundValue(
+				c?.value as InputBindingValue<unknown>,
+			) as ComplexValue<unknown>
 		).constraint as PointNdConstraint<Point2d>;
 		const yc = constraint.components[1];
 		if (!yc) {

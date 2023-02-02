@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {BindingTarget} from '../../common/binding/target';
-import {BindingValue} from '../../common/binding/value/value';
+import {InputBindingValue} from '../../common/binding/value/input-binding';
 import {findConstraint} from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
 import {StepConstraint} from '../../common/constraint/step';
@@ -26,7 +26,7 @@ describe(NumberInputPlugin.id, () => {
 		});
 
 		const v = getBoundValue(
-			c?.value as BindingValue<number>,
+			c?.value as InputBindingValue<number>,
 		) as ComplexValue<number>;
 		const constraint = findConstraint(
 			v.constraint as Constraint<number>,

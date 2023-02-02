@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe} from 'mocha';
 
-import {MonitorBindingController} from '../../blade/monitor-binding/controller/monitor-binding';
+import {MonitorBindingController} from '../../blade/binding/controller/monitor-binding';
 import {BindingTarget} from '../../common/binding/target';
 import {createTestWindow} from '../../misc/dom-test-util';
 import {SingleLogController} from '../common/controller/single-log';

@@ -2,17 +2,17 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {PrimitiveValue} from '../../model/primitive-value';
+import {ReadWriteBinding} from '../read-write';
 import {BindingTarget} from '../target';
-import {WritableBinding} from '../writable';
-import {BindingValue} from './value';
+import {InputBindingValue} from './input-binding';
 
-describe(BindingValue.name, () => {
+describe(InputBindingValue.name, () => {
 	it('should apply rawValue to target', () => {
 		const iv = new PrimitiveValue(0);
 		const target = new BindingTarget({foo: 0}, 'foo');
-		const bv = new BindingValue(
+		const bv = new InputBindingValue(
 			iv,
-			new WritableBinding({
+			new ReadWriteBinding({
 				reader: (v: unknown) => Number(v),
 				writer: (t, v) => t.write(v),
 				target: target,
@@ -25,9 +25,9 @@ describe(BindingValue.name, () => {
 
 	it('should have its own sender', (done) => {
 		const iv = new PrimitiveValue(0);
-		const bv = new BindingValue(
+		const bv = new InputBindingValue(
 			iv,
-			new WritableBinding({
+			new ReadWriteBinding({
 				reader: (v: unknown) => Number(v),
 				writer: (t, v) => t.write(v),
 				target: new BindingTarget({foo: 0}, 'foo'),

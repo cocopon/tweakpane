@@ -1,6 +1,8 @@
 import {Bindable} from '../../../common/binding/target';
 import {BaseBladeParams} from '../../../common/params';
 import {View} from '../../../common/view/view';
+import {InputBindingApi} from '../../binding/api/input-binding';
+import {MonitorBindingApi} from '../../binding/api/monitor-binding';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
 import {BladeRackApi} from '../../common/api/blade-rack';
@@ -14,8 +16,6 @@ import {
 } from '../../common/api/params';
 import {BladeController} from '../../common/controller/blade';
 import {FolderApi} from '../../folder/api/folder';
-import {InputBindingApi} from '../../input-binding/api/input-binding';
-import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
 import {RackApi} from '../../rack/api/rack';
 import {SeparatorApi} from '../../separator/api/separator';
 import {TabPageController} from '../controller/tab-page';

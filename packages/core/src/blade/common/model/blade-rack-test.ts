@@ -1,12 +1,12 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
+import {ReadWriteBinding} from '../../../common/binding/read-write';
 import {ReadonlyBinding} from '../../../common/binding/readonly';
 import {BindingTarget} from '../../../common/binding/target';
 import {ManualTicker} from '../../../common/binding/ticker/manual';
-import {MonitorBindingValue} from '../../../common/binding/value/monitor';
-import {BindingValue} from '../../../common/binding/value/value';
-import {WritableBinding} from '../../../common/binding/writable';
+import {InputBindingValue} from '../../../common/binding/value/input-binding';
+import {MonitorBindingValue} from '../../../common/binding/value/monitor-binding';
 import {boolFromUnknown} from '../../../common/converter/boolean';
 import {
 	createNumberFormatter,
@@ -22,12 +22,12 @@ import {CheckboxController} from '../../../input-binding/boolean/controller/chec
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {forceCast} from '../../../misc/type-util';
 import {SingleLogController} from '../../../monitor-binding/common/controller/single-log';
+import {InputBindingController} from '../../binding/controller/input-binding';
+import {MonitorBindingController} from '../../binding/controller/monitor-binding';
 import {FolderController} from '../../folder/controller/folder';
 import {FolderPropsObject} from '../../folder/view/folder';
-import {InputBindingController} from '../../input-binding/controller/input-binding';
 import {LabeledValueController} from '../../label/controller/value-label';
 import {LabelPropsObject, LabelView} from '../../label/view/label';
-import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
 import {ValueBladeController} from '../controller/value-blade';
 import {createBlade} from './blade';
 import {BladeRack} from './blade-rack';
@@ -35,12 +35,12 @@ import {BladeRack} from './blade-rack';
 function createInputBindingController(
 	doc: Document,
 ): InputBindingController<boolean> {
-	const b = new WritableBinding({
+	const b = new ReadWriteBinding({
 		reader: boolFromUnknown,
 		target: new BindingTarget({foo: false}, 'foo'),
 		writer: writePrimitive,
 	});
-	const v = new BindingValue(createValue(false), b);
+	const v = new InputBindingValue(createValue(false), b);
 	return new LabeledValueController(doc, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({

@@ -26,9 +26,9 @@ function createApi(): RootApi {
 describe(RootApi.name, () => {
 	it('should export inputs as preset', () => {
 		const PARAMS = {
+			foo: 1,
 			bar: 'hello',
 			baz: 2,
-			foo: 1,
 		};
 		const api = createApi();
 		api.addInput(PARAMS, 'foo');
@@ -71,9 +71,9 @@ describe(RootApi.name, () => {
 	it('should refresh views', () => {
 		const api = createApi();
 		const obj = {
+			foo: 1,
 			bar: 'bar',
 			baz: 123,
-			foo: 1,
 		};
 		const i1 = api.addInput(obj, 'foo');
 		const f = api.addFolder({

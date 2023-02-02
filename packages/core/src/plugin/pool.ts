@@ -1,20 +1,20 @@
-import {BladeApi} from '../blade/common/api/blade';
-import {InputParams, MonitorParams} from '../blade/common/api/params';
-import {BladeController} from '../blade/common/controller/blade';
-import {InputBindingApi} from '../blade/input-binding/api/input-binding';
+import {BindingApi} from '../blade/binding/api/binding';
 import {
 	InputBindingController,
 	isInputBindingController,
-} from '../blade/input-binding/controller/input-binding';
-import {MonitorBindingApi} from '../blade/monitor-binding/api/monitor-binding';
+} from '../blade/binding/controller/input-binding';
 import {
 	isMonitorBindingController,
 	MonitorBindingController,
-} from '../blade/monitor-binding/controller/monitor-binding';
+} from '../blade/binding/controller/monitor-binding';
+import {BladeApi} from '../blade/common/api/blade';
+import {InputParams, MonitorParams} from '../blade/common/api/params';
+import {BladeController} from '../blade/common/controller/blade';
 import {BladePlugin, createBladeController} from '../blade/plugin';
 import {RackApi} from '../blade/rack/api/rack';
 import {RackController} from '../blade/rack/controller/rack';
 import {BindingTarget} from '../common/binding/target';
+import {Buffer} from '../common/model/buffered-value';
 import {TpError} from '../common/tp-error';
 import {View} from '../common/view/view';
 import {
@@ -153,10 +153,14 @@ export class PluginPool {
 		bc: BladeController<View>,
 	): BladeApi<BladeController<View>> {
 		if (isInputBindingController(bc)) {
-			return new InputBindingApi(bc);
+			return new BindingApi(bc);
 		}
 		if (isMonitorBindingController(bc)) {
-			return new MonitorBindingApi(bc);
+			return new BindingApi<
+				Buffer<unknown>,
+				unknown,
+				MonitorBindingController<unknown>
+			>(bc);
 		}
 		if (bc instanceof RackController) {
 			return new RackApi(bc, this);

@@ -4,7 +4,7 @@ import {describe, it} from 'mocha';
 import {ReadonlyBinding} from '../readonly';
 import {BindingTarget} from '../target';
 import {ManualTicker} from '../ticker/manual';
-import {MonitorBindingValue} from './monitor';
+import {MonitorBindingValue} from './monitor-binding';
 
 describe(MonitorBindingValue.name, () => {
 	it('should set up initial value', () => {
