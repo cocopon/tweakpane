@@ -17,7 +17,6 @@ export {
 	InputParams,
 	ListParamsOptions,
 	MonitorBindingApi,
-	MonitorBindingApiEvents,
 	MonitorParams,
 	NumberInputParams,
 	NumberMonitorParams,

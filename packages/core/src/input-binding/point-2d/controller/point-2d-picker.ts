@@ -1,4 +1,4 @@
-import {Controller} from '../../../common/controller/controller';
+import {ValueController} from '../../../common/controller/value';
 import {Value, ValueChangeOptions} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
@@ -40,7 +40,9 @@ function computeOffset(
 /**
  * @hidden
  */
-export class Point2dPickerController implements Controller<Point2dPickerView> {
+export class Point2dPickerController
+	implements ValueController<Point2d, Point2dPickerView>
+{
 	public readonly value: Value<Point2d>;
 	public readonly view: Point2dPickerView;
 	public readonly viewProps: ViewProps;
