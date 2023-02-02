@@ -7,13 +7,13 @@ import {ReadWriteBinding} from '../common/binding/read-write';
 import {BindingTarget} from '../common/binding/target';
 import {InputBindingValue} from '../common/binding/value/input-binding';
 import {Constraint} from '../common/constraint/constraint';
+import {ValueController} from '../common/controller/value';
 import {Value} from '../common/model/value';
 import {ValueMap} from '../common/model/value-map';
 import {createValue} from '../common/model/values';
 import {ViewProps} from '../common/model/view-props';
 import {BaseInputParams} from '../common/params';
 import {ParamsParsers} from '../common/params-parsers';
-import {ValueController} from '../index';
 import {isEmpty} from '../misc/type-util';
 import {BasePlugin} from '../plugin/plugin';
 

@@ -1,8 +1,8 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {Class} from '../../../index';
 import {TestUtil} from '../../../misc/test-util';
+import {Class} from '../../../misc/type-util';
 import {Color} from './color';
 import {
 	ColorComponents3,

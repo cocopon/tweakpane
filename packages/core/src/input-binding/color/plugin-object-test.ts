@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe as context, describe} from 'mocha';
 
-import {BindingTarget} from '../../index';
+import {BindingTarget} from '../../common/binding/target';
 import {createTestWindow} from '../../misc/dom-test-util';
 import {TestUtil} from '../../misc/test-util';
 import {createInputBindingController} from '../plugin';
