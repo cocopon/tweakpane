@@ -1,4 +1,7 @@
-import {MonitorBindingController} from '../blade/binding/controller/monitor-binding';
+import {
+	BufferedValueController,
+	MonitorBindingController,
+} from '../blade/binding/controller/monitor-binding';
 import {createBlade} from '../blade/common/model/blade';
 import {LabeledValueController} from '../blade/label/controller/value-label';
 import {LabelPropsObject} from '../blade/label/view/label';
@@ -9,13 +12,10 @@ import {IntervalTicker} from '../common/binding/ticker/interval';
 import {ManualTicker} from '../common/binding/ticker/manual';
 import {Ticker} from '../common/binding/ticker/ticker';
 import {MonitorBindingValue} from '../common/binding/value/monitor-binding';
-import {ValueController} from '../common/controller/value';
-import {Buffer, BufferedValue} from '../common/model/buffered-value';
 import {ValueMap} from '../common/model/value-map';
 import {ViewProps} from '../common/model/view-props';
 import {BaseMonitorParams} from '../common/params';
 import {ParamsParsers} from '../common/params-parsers';
-import {View} from '../common/view/view';
 import {Constants} from '../misc/constants';
 import {isEmpty} from '../misc/type-util';
 import {BasePlugin} from '../plugin/plugin';
@@ -94,11 +94,7 @@ export interface MonitorBindingPlugin<T, P extends BaseMonitorParams>
 		 * @param args The arguments for creating a controller.
 		 * @return A custom controller that contains a custom view.
 		 */
-		(args: ControllerArguments<T, P>): ValueController<
-			Buffer<T>,
-			View,
-			BufferedValue<T>
-		>;
+		(args: ControllerArguments<T, P>): BufferedValueController<T>;
 	};
 }
 

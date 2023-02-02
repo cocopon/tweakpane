@@ -1,7 +1,7 @@
-import {ValueController} from '../../../common/controller/value';
+import {BufferedValueController} from '../../../blade/binding/controller/monitor-binding';
 import {Formatter} from '../../../common/converter/formatter';
 import {supportsTouch} from '../../../common/dom-util';
-import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
+import {BufferedValue} from '../../../common/model/buffered-value';
 import {Value} from '../../../common/model/value';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
@@ -24,8 +24,7 @@ interface Config {
  * @hidden
  */
 export class GraphLogController
-	implements
-		ValueController<Buffer<number>, GraphLogView, BufferedValue<number>>
+	implements BufferedValueController<number, GraphLogView>
 {
 	public readonly value: BufferedValue<number>;
 	public readonly view: GraphLogView;

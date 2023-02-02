@@ -9,7 +9,7 @@ import {
 	createNumberFormatter,
 	numberFromUnknown,
 } from '../../../common/converter/number';
-import {Buffer} from '../../../common/model/buffered-value';
+import {TpBuffer} from '../../../common/model/buffered-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {createTestWindow} from '../../../misc/dom-test-util';
@@ -47,7 +47,7 @@ function createApi(target: BindingTarget): MonitorBindingApi<number> {
 		valueController: mc,
 	}) as MonitorBindingController<number>;
 	return new BindingApi<
-		Buffer<number>,
+		TpBuffer<number>,
 		number,
 		MonitorBindingController<number>
 	>(bc);

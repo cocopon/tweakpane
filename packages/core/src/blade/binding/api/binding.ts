@@ -13,6 +13,12 @@ export interface BindingApiEvents<Ex> {
 	};
 }
 
+type BindingController<In> = LabeledValueController<
+	In,
+	ValueController<In>,
+	BindingValue<In>
+>;
+
 /**
  * The API for binding between the parameter and the pane.
  * @template In The internal type.
@@ -21,7 +27,7 @@ export interface BindingApiEvents<Ex> {
 export class BindingApi<
 	In,
 	Ex,
-	C extends LabeledValueController<In, ValueController<In>, BindingValue<In>>,
+	C extends BindingController<In>,
 > extends BladeApi<C> {
 	private readonly emitter_: Emitter<BindingApiEvents<Ex>>;
 

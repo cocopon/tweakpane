@@ -1,5 +1,5 @@
 import {Bindable, BindingTarget} from '../../../common/binding/target';
-import {Buffer} from '../../../common/model/buffered-value';
+import {TpBuffer} from '../../../common/model/buffered-value';
 import {Emitter} from '../../../common/model/emitter';
 import {BaseBladeParams} from '../../../common/params';
 import {TpError} from '../../../common/tp-error';
@@ -146,7 +146,7 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 			params,
 		);
 		const api = new BindingApi<
-			Buffer<unknown>,
+			TpBuffer<unknown>,
 			unknown,
 			MonitorBindingController<unknown>
 		>(bc);

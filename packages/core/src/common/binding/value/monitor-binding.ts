@@ -1,9 +1,9 @@
 import {
-	Buffer,
 	BufferedValue,
 	BufferedValueEvents,
 	createPushedBuffer,
 	initializeBuffer,
+	TpBuffer,
 } from '../../model/buffered-value';
 import {Emitter} from '../../model/emitter';
 import {ValueChangeOptions} from '../../model/value';
@@ -18,7 +18,7 @@ interface Config<T> {
 	ticker: Ticker;
 }
 
-export class MonitorBindingValue<T> implements BindingValue<Buffer<T>> {
+export class MonitorBindingValue<T> implements BindingValue<TpBuffer<T>> {
 	public readonly binding: ReadonlyBinding<T>;
 	public readonly emitter: Emitter<BufferedValueEvents<T>> = new Emitter();
 	public readonly ticker: Ticker;
@@ -41,16 +41,16 @@ export class MonitorBindingValue<T> implements BindingValue<Buffer<T>> {
 		this.fetch();
 	}
 
-	get rawValue(): Buffer<T> {
+	get rawValue(): TpBuffer<T> {
 		return this.value_.rawValue;
 	}
 
-	set rawValue(rawValue: Buffer<T>) {
+	set rawValue(rawValue: TpBuffer<T>) {
 		this.value_.rawValue = rawValue;
 	}
 
 	public setRawValue(
-		rawValue: Buffer<T>,
+		rawValue: TpBuffer<T>,
 		options?: ValueChangeOptions | undefined,
 	): void {
 		this.value_.setRawValue(rawValue, options);

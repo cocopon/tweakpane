@@ -1,7 +1,7 @@
+import {BufferedValueController} from '../../../blade/binding/controller/monitor-binding';
 import {MonitorBindingValue} from '../../../common/binding/value/monitor-binding';
-import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
-import {Buffer, BufferedValue} from '../../../common/model/buffered-value';
+import {BufferedValue} from '../../../common/model/buffered-value';
 import {ViewProps} from '../../../common/model/view-props';
 import {SingleLogView} from '../view/single-log';
 
@@ -15,7 +15,7 @@ interface Config<T> {
  * @hidden
  */
 export class SingleLogController<T>
-	implements ValueController<Buffer<T>, SingleLogView<T>, BufferedValue<T>>
+	implements BufferedValueController<T, SingleLogView<T>>
 {
 	public readonly value: BufferedValue<T>;
 	public readonly view: SingleLogView<T>;

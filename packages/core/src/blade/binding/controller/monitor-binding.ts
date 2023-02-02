@@ -1,11 +1,17 @@
 import {MonitorBindingValue} from '../../../common/binding/value/monitor-binding';
 import {ValueController} from '../../../common/controller/value';
-import {Buffer} from '../../../common/model/buffered-value';
+import {TpBuffer} from '../../../common/model/buffered-value';
+import {View} from '../../../common/view/view';
 import {LabeledValueController} from '../../label/controller/value-label';
 
+export type BufferedValueController<
+	T,
+	Vw extends View = View,
+> = ValueController<TpBuffer<T>, Vw>;
+
 export type MonitorBindingController<T> = LabeledValueController<
-	Buffer<T>,
-	ValueController<Buffer<T>>,
+	TpBuffer<T>,
+	BufferedValueController<T>,
 	MonitorBindingValue<T>
 >;
 

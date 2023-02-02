@@ -14,7 +14,7 @@ import {BladePlugin, createBladeController} from '../blade/plugin';
 import {RackApi} from '../blade/rack/api/rack';
 import {RackController} from '../blade/rack/controller/rack';
 import {BindingTarget} from '../common/binding/target';
-import {Buffer} from '../common/model/buffered-value';
+import {TpBuffer} from '../common/model/buffered-value';
 import {TpError} from '../common/tp-error';
 import {View} from '../common/view/view';
 import {
@@ -157,7 +157,7 @@ export class PluginPool {
 		}
 		if (isMonitorBindingController(bc)) {
 			return new BindingApi<
-				Buffer<unknown>,
+				TpBuffer<unknown>,
 				unknown,
 				MonitorBindingController<unknown>
 			>(bc);
