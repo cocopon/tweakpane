@@ -38,13 +38,17 @@ function isForColor(params: Record<string, unknown>): boolean {
 	return false;
 }
 
+interface NumberColorInputParams extends ColorInputParams {
+	supportsAlpha: boolean;
+}
+
 /**
  * @hidden
  */
 export const NumberColorInputPlugin: InputBindingPlugin<
 	IntColor,
 	number,
-	ColorInputParams
+	NumberColorInputParams
 > = {
 	id: 'input-color-number',
 	type: 'input',
@@ -60,33 +64,32 @@ export const NumberColorInputPlugin: InputBindingPlugin<
 		return result
 			? {
 					initialValue: value,
-					params: result,
+					params: {
+						...result,
+						supportsAlpha: shouldSupportAlpha(params),
+					},
 			  }
 			: null;
 	},
 	binding: {
 		reader: (args) => {
-			return shouldSupportAlpha(args.params)
+			return args.params.supportsAlpha
 				? colorFromRgbaNumber
 				: colorFromRgbNumber;
 		},
 		equals: equalsColor,
 		writer: (args) => {
-			return createColorNumberWriter(shouldSupportAlpha(args.params));
+			return createColorNumberWriter(args.params.supportsAlpha);
 		},
 	},
 	controller: (args) => {
-		const supportsAlpha = shouldSupportAlpha(args.params);
-		const expanded =
-			'expanded' in args.params ? args.params.expanded : undefined;
-		const picker = 'picker' in args.params ? args.params.picker : undefined;
 		return new ColorController(args.document, {
 			colorType: 'int',
-			expanded: expanded ?? false,
-			formatter: createFormatter(supportsAlpha),
+			expanded: args.params.expanded ?? false,
+			formatter: createFormatter(args.params.supportsAlpha),
 			parser: createColorStringParser('int'),
-			pickerLayout: picker ?? 'popup',
-			supportsAlpha: supportsAlpha,
+			pickerLayout: args.params.picker ?? 'popup',
+			supportsAlpha: args.params.supportsAlpha,
 			value: args.value,
 			viewProps: args.viewProps,
 		});
