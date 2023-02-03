@@ -1,4 +1,4 @@
-import {BindingTarget} from '@tweakpane/core';
+import {Binding, BindingTarget} from '@tweakpane/core';
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
@@ -12,9 +12,15 @@ describe('Preset', () => {
 		};
 
 		const preset = exportPresetJson([
-			new BindingTarget(PARAMS, 'foo'),
-			new BindingTarget(PARAMS, 'bar'),
-		]);
+			{
+				target: new BindingTarget(PARAMS, 'foo'),
+				presetKey: 'foo',
+			},
+			{
+				target: new BindingTarget(PARAMS, 'bar'),
+				presetKey: 'bar',
+			},
+		] as Binding[]);
 		assert.deepStrictEqual(preset, {
 			bar: 'hello',
 			foo: 1,
@@ -27,15 +33,21 @@ describe('Preset', () => {
 			foo: 1,
 		};
 
-		const targets = [
-			new BindingTarget(PARAMS, 'foo'),
-			new BindingTarget(PARAMS, 'bar'),
+		const bindings: Binding[] = [
+			{
+				target: new BindingTarget(PARAMS, 'foo'),
+				presetKey: 'foo',
+			},
+			{
+				target: new BindingTarget(PARAMS, 'bar'),
+				presetKey: 'bar',
+			},
 		];
-		const preset = exportPresetJson(targets);
+		const preset = exportPresetJson(bindings);
 		preset.foo = 123;
 		preset.bar = 'world';
 
-		importPresetJson(targets, preset);
+		importPresetJson(bindings, preset);
 
 		assert.strictEqual(PARAMS.foo, 123);
 		assert.strictEqual(PARAMS.bar, 'world');

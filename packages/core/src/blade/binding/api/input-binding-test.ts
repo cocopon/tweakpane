@@ -69,18 +69,6 @@ describe('InputBindingApi', () => {
 		api.controller_.value.rawValue = 123;
 	});
 
-	it('should apply presetKey to event object', (done) => {
-		const PARAMS = {
-			foo: 0,
-		};
-		const api = createApi(new BindingTarget(PARAMS, 'foo', 'renamed'));
-		api.on('change', (ev) => {
-			assert.strictEqual(ev.presetKey, 'renamed');
-			done();
-		});
-		api.controller_.value.rawValue = 123;
-	});
-
 	it('should refresh bound value', () => {
 		const PARAMS = {
 			foo: 0,

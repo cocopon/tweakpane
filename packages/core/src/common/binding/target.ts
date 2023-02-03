@@ -6,14 +6,15 @@ export type Bindable = Record<string, any>;
  * A binding target.
  */
 export class BindingTarget {
-	private readonly key_: string;
+	/**
+	 * The property name of the binding.
+	 */
+	public readonly key: string;
 	private readonly obj_: Bindable;
-	private readonly presetKey_: string;
 
-	constructor(obj: Bindable, key: string, opt_id?: string) {
+	constructor(obj: Bindable, key: string) {
 		this.obj_ = obj;
-		this.key_ = key;
-		this.presetKey_ = opt_id ?? key;
+		this.key = key;
 	}
 
 	public static isBindable(obj: unknown): obj is Bindable {
@@ -27,25 +28,11 @@ export class BindingTarget {
 	}
 
 	/**
-	 * The property name of the binding.
-	 */
-	get key(): string {
-		return this.key_;
-	}
-
-	/**
-	 * The key used for presets.
-	 */
-	get presetKey(): string {
-		return this.presetKey_;
-	}
-
-	/**
 	 * Read a bound value.
 	 * @return A bound value
 	 */
 	public read(): unknown {
-		return this.obj_[this.key_];
+		return this.obj_[this.key];
 	}
 
 	/**
@@ -53,7 +40,7 @@ export class BindingTarget {
 	 * @param value The value to write to the target.
 	 */
 	public write(value: unknown): void {
-		this.obj_[this.key_] = value;
+		this.obj_[this.key] = value;
 	}
 
 	/**

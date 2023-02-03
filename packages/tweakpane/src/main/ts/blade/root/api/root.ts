@@ -74,7 +74,7 @@ export class RootApi extends FolderApi {
 	public importPreset(preset: PresetObject): void {
 		const values = findInputBindingValues(this.controller_.rackController.rack);
 		importPresetJson(
-			values.map((v) => v.binding.target),
+			values.map((v) => v.binding),
 			preset,
 		);
 		this.refresh();
@@ -86,7 +86,7 @@ export class RootApi extends FolderApi {
 	 */
 	public exportPreset(): PresetObject {
 		const values = findInputBindingValues(this.controller_.rackController.rack);
-		return exportPresetJson(values.map((v) => v.binding.target));
+		return exportPresetJson(values.map((v) => v.binding));
 	}
 
 	/**

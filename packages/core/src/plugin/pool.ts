@@ -77,6 +77,7 @@ export class PluginPool {
 					document: document,
 					target: target,
 					params: params,
+					presetKey: params.presetKey,
 				}),
 			null,
 		);

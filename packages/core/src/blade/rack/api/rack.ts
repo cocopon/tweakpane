@@ -73,12 +73,11 @@ function getApiByController(
 function createBindingTarget<O extends Bindable, Key extends keyof O>(
 	obj: O,
 	key: Key,
-	opt_id?: string,
 ): BindingTarget {
 	if (!BindingTarget.isBindable(obj)) {
 		throw TpError.notBindable();
 	}
-	return new BindingTarget(obj, key as string, opt_id);
+	return new BindingTarget(obj, key as string);
 }
 
 export class RackApi extends BladeApi<RackController> implements BladeRackApi {
@@ -124,7 +123,7 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 		const doc = this.controller_.view.element.ownerDocument;
 		const bc = this.pool_.createInput(
 			doc,
-			createBindingTarget(object, key, params.presetKey),
+			createBindingTarget(object, key),
 			params,
 		);
 		const api = new BindingApi(bc);
@@ -235,7 +234,7 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 			event: new TpChangeEvent(
 				api,
 				binding ? binding.target.read() : value.rawValue,
-				binding ? binding.target.presetKey : undefined,
+				binding ? binding.presetKey : undefined,
 				ev.options.last,
 			),
 		});

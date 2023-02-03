@@ -3,6 +3,7 @@ export * from './blade/common/api/events';
 export * from './blade/common/api/params';
 export * from './blade/common/api/tp-event';
 
+export * from './common/binding/binding';
 export * from './common/binding/target';
 
 export * from './blade/binding/api/binding';
