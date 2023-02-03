@@ -53,7 +53,7 @@ export function createStepConstraint(
 	},
 	initialValue?: number,
 ): Constraint<number> | null {
-	if ('step' in params && !isEmpty(params.step)) {
+	if (!isEmpty(params.step)) {
 		return new StepConstraint(params.step, initialValue);
 	}
 	return null;
@@ -175,7 +175,7 @@ export const NumberInputPlugin: InputBindingPlugin<
 		}
 
 		const formatter =
-			('format' in args.params ? args.params.format : undefined) ??
+			args.params.format ??
 			createNumberFormatter(getSuitableDecimalDigits(c, value.rawValue));
 
 		const drc = c && findConstraint(c, DefiniteRangeConstraint);

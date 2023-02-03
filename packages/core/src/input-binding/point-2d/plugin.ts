@@ -69,14 +69,8 @@ function createConstraint(
 	return new PointNdConstraint({
 		assembly: Point2dAssembly,
 		components: [
-			createDimensionConstraint(
-				'x' in params ? params.x : undefined,
-				initialValue.x,
-			),
-			createDimensionConstraint(
-				'y' in params ? params.y : undefined,
-				initialValue.y,
-			),
+			createDimensionConstraint(params.x, initialValue.x),
+			createDimensionConstraint(params.y, initialValue.y),
 		],
 	});
 }
@@ -190,19 +184,16 @@ export const Point2dInputPlugin: InputBindingPlugin<
 			throw TpError.shouldNeverHappen();
 		}
 
-		const expanded =
-			'expanded' in args.params ? args.params.expanded : undefined;
-		const picker = 'picker' in args.params ? args.params.picker : undefined;
 		return new Point2dController(doc, {
 			axes: [
 				createAxis(value.rawValue.x, c.components[0]),
 				createAxis(value.rawValue.y, c.components[1]),
 			],
-			expanded: expanded ?? false,
+			expanded: args.params.expanded ?? false,
 			invertsY: shouldInvertY(args.params),
 			maxValue: getSuitableMaxValue(value.rawValue, c),
 			parser: parseNumber,
-			pickerLayout: picker ?? 'popup',
+			pickerLayout: args.params.picker ?? 'popup',
 			value: value,
 			viewProps: args.viewProps,
 		});

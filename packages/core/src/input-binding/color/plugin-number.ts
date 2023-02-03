@@ -32,7 +32,7 @@ function isForColor(params: Record<string, unknown>): boolean {
 	if ('color' in params) {
 		return true;
 	}
-	if ('view' in params && params.view === 'color') {
+	if (params.view === 'color') {
 		return true;
 	}
 	return false;

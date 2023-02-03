@@ -37,7 +37,7 @@ export const StringColorInputPlugin: InputBindingPlugin<
 		if (typeof value !== 'string') {
 			return null;
 		}
-		if ('view' in params && params.view === 'text') {
+		if (params.view === 'text') {
 			return null;
 		}
 		const format = detectStringColorFormat(value, extractColorType(params));

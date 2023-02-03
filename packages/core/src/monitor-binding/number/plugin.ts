@@ -25,9 +25,7 @@ export interface NumberMonitorParams extends BaseMonitorParams {
 }
 
 function createFormatter(params: NumberMonitorParams): Formatter<number> {
-	return 'format' in params && !isEmpty(params.format)
-		? params.format
-		: createNumberFormatter(2);
+	return !isEmpty(params.format) ? params.format : createNumberFormatter(2);
 }
 
 function createTextMonitor(
@@ -60,8 +58,8 @@ function createGraphMonitor(
 		formatter: createFormatter(args.params),
 		lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,
 		props: ValueMap.fromObject({
-			maxValue: ('max' in args.params ? args.params.max : null) ?? 100,
-			minValue: ('min' in args.params ? args.params.min : null) ?? 0,
+			maxValue: args.params.max ?? 100,
+			minValue: args.params.min ?? 0,
 		}),
 		value: args.value,
 		viewProps: args.viewProps,
@@ -69,7 +67,7 @@ function createGraphMonitor(
 }
 
 function shouldShowGraph(params: NumberMonitorParams): boolean {
-	return 'view' in params && params.view === 'graph';
+	return params.view === 'graph';
 }
 
 /**
