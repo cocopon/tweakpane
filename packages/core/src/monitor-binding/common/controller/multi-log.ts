@@ -1,4 +1,4 @@
-import {Controller} from '../../../common/controller/controller';
+import {BufferedValueController} from '../../../blade/binding/controller/monitor-binding';
 import {Formatter} from '../../../common/converter/formatter';
 import {BufferedValue} from '../../../common/model/buffered-value';
 import {ViewProps} from '../../../common/model/view-props';
@@ -14,7 +14,9 @@ interface Config<T> {
 /**
  * @hidden
  */
-export class MultiLogController<T> implements Controller<MultiLogView<T>> {
+export class MultiLogController<T>
+	implements BufferedValueController<T, MultiLogView<T>>
+{
 	public readonly value: BufferedValue<T>;
 	public readonly view: MultiLogView<T>;
 	public readonly viewProps: ViewProps;

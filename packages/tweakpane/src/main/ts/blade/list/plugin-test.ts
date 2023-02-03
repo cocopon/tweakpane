@@ -2,9 +2,9 @@ import {
 	BladeController,
 	createBladeController,
 	createDefaultPluginPool,
+	PluginPool,
 	View,
 } from '@tweakpane/core';
-import {PluginPool} from '@tweakpane/core/dist/cjs/plugin/pool';
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 

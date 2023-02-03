@@ -1,12 +1,12 @@
 import {
 	BaseInputParams,
 	ClassName,
-	Controller,
 	InputBindingPlugin,
 	ParamsParsers,
 	parseParams,
 	stringFromUnknown,
 	Value,
+	ValueController,
 	View,
 	ViewProps,
 	writePrimitive,
@@ -30,7 +30,7 @@ class TestView implements View {
 	}
 }
 
-class TestController implements Controller<TestView> {
+class TestController implements ValueController<string, TestView> {
 	public readonly value: Value<string>;
 	public readonly view: TestView;
 	public readonly viewProps: ViewProps;

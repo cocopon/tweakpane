@@ -6,11 +6,11 @@ import {ViewProps} from '../../../common/model/view-props';
 import {IntColor} from '../../../input-binding/color/model/int-color';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {createDefaultPluginPool} from '../../../plugin/plugins';
+import {BindingApi} from '../../binding/api/binding';
 import {testBladeContainer} from '../../common/api/blade-rack-test';
 import {assertUpdates} from '../../common/api/test-util';
 import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event';
 import {createBlade} from '../../common/model/blade';
-import {InputBindingApi} from '../../input-binding/api/input-binding';
 import {FolderController} from '../controller/folder';
 import {FolderPropsObject} from '../view/folder';
 import {FolderApi} from './folder';
@@ -114,7 +114,7 @@ describe(FolderApi.name, () => {
 		});
 
 		const bapi = pane.addInput(PARAMS, 'foo');
-		bapi.controller_.binding.value.rawValue = 2;
+		bapi.controller_.value.rawValue = 2;
 	});
 
 	it('should dispose items', () => {
@@ -154,7 +154,7 @@ describe(FolderApi.name, () => {
 		});
 
 		const bapi = api.addInput(PARAMS, 'foo');
-		bapi.controller_.binding.value.rawValue = 2;
+		bapi.controller_.value.rawValue = 2;
 	});
 
 	it('should have right target', (done) => {
@@ -219,7 +219,7 @@ describe(FolderApi.name, () => {
 					assert.strictEqual(ev.value, expected);
 					done();
 				});
-				bapi.controller_.binding.value.rawValue = params.newInternalValue;
+				bapi.controller_.value.rawValue = params.newInternalValue;
 			});
 
 			it('should pass event for change event (global)', (done) => {
@@ -232,14 +232,14 @@ describe(FolderApi.name, () => {
 					assert.strictEqual(ev.presetKey, 'foo');
 					assert.strictEqual(ev.value, expected);
 
-					if (!(ev.target instanceof InputBindingApi)) {
+					if (!(ev.target instanceof BindingApi)) {
 						assert.fail('unexpected target');
 					}
 					assert.strictEqual(ev.target.controller_, bapi.controller_);
 
 					done();
 				});
-				bapi.controller_.binding.value.rawValue = params.newInternalValue;
+				bapi.controller_.value.rawValue = params.newInternalValue;
 			});
 		});
 	});

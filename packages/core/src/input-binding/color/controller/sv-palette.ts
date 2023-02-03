@@ -1,4 +1,4 @@
-import {Controller} from '../../../common/controller/controller';
+import {ValueController} from '../../../common/controller/value';
 import {Value, ValueChangeOptions} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
@@ -25,7 +25,9 @@ interface Config {
 /**
  * @hidden
  */
-export class SvPaletteController implements Controller<SvPaletteView> {
+export class SvPaletteController
+	implements ValueController<IntColor, SvPaletteView>
+{
 	public readonly value: Value<IntColor>;
 	public readonly view: SvPaletteView;
 	public readonly viewProps: ViewProps;

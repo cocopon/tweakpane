@@ -1,4 +1,4 @@
-import {Controller} from '../../../common/controller/controller';
+import {ValueController} from '../../../common/controller/value';
 import {Value, ValueChangeOptions} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {getHorizontalStepKeys, getStepForKey} from '../../../common/ui';
@@ -19,7 +19,9 @@ interface Config {
 /**
  * @hidden
  */
-export class APaletteController implements Controller<APaletteView> {
+export class APaletteController
+	implements ValueController<IntColor, APaletteView>
+{
 	public readonly value: Value<IntColor>;
 	public readonly view: APaletteView;
 	public readonly viewProps: ViewProps;

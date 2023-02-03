@@ -2,9 +2,11 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {BindingTarget} from '../../common/binding/target';
+import {InputBindingValue} from '../../common/binding/value/input-binding';
 import {findConstraint} from '../../common/constraint/composite';
 import {StepConstraint} from '../../common/constraint/step';
-import {BoundValue} from '../../common/model/bound-value';
+import {ComplexValue} from '../../common/model/complex-value';
+import {getBoundValue} from '../../common/model/test-util';
 import {createTestWindow} from '../../misc/dom-test-util';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {PointNdTextController} from '../common/controller/point-nd-text';
@@ -19,6 +21,7 @@ describe(Point3dInputPlugin.id, () => {
 		const c = createInputBindingController(Point3dInputPlugin, {
 			document: doc,
 			params: {},
+			presetKey: undefined,
 			target: new BindingTarget({foo: {x: 12, y: 34, z: 56}}, 'foo'),
 		});
 
@@ -31,11 +34,15 @@ describe(Point3dInputPlugin.id, () => {
 		const c = createInputBindingController(Point3dInputPlugin, {
 			document: doc,
 			params: {z: {step: 1}},
+			presetKey: undefined,
 			target: new BindingTarget({foo: {x: 12, y: 34, z: 56}}, 'foo'),
 		});
 
-		const cs = (c?.binding.value as BoundValue<unknown>)
-			.constraint as PointNdConstraint<Point3d>;
+		const cs = (
+			getBoundValue(
+				c?.value as InputBindingValue<unknown>,
+			) as ComplexValue<unknown>
+		).constraint as PointNdConstraint<Point3d>;
 		const zc = cs.components[2];
 		if (!zc) {
 			assert.fail('Unexpected constraint');
@@ -54,11 +61,15 @@ describe(Point3dInputPlugin.id, () => {
 					min: -123,
 				},
 			},
+			presetKey: undefined,
 			target: new BindingTarget({foo: {x: 12, y: 34, z: 56}}, 'foo'),
 		});
 
-		const cs = (c?.binding.value as BoundValue<unknown>)
-			.constraint as PointNdConstraint<Point3d>;
+		const cs = (
+			getBoundValue(
+				c?.value as InputBindingValue<unknown>,
+			) as ComplexValue<unknown>
+		).constraint as PointNdConstraint<Point3d>;
 		const zc = cs.components[2];
 		if (!zc) {
 			assert.fail('Unexpected constraint');

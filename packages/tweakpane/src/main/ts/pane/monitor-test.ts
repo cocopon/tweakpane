@@ -3,8 +3,8 @@ import {
 	ManualTicker,
 	MultiLogController,
 	SingleLogController,
+	TpChangeEvent,
 	TpError,
-	TpUpdateEvent,
 } from '@tweakpane/core';
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
@@ -96,15 +96,15 @@ describe(Pane.name, () => {
 				const bapi = pane.addMonitor(obj, 'foo', {
 					interval: 0,
 				});
-				bapi.on('update', (ev) => {
-					assert.strictEqual(ev instanceof TpUpdateEvent, true);
+				bapi.on('change', (ev) => {
+					assert.strictEqual(ev instanceof TpChangeEvent, true);
 					assert.strictEqual(ev.value, expected);
 					bapi.dispose();
 					done();
 				});
 
 				obj.foo = params.newInternalValue;
-				(bapi.controller_.binding.ticker as ManualTicker).tick();
+				(bapi.controller_.value.ticker as ManualTicker).tick();
 			});
 
 			it('should pass event for update event (global)', (done) => {
@@ -113,15 +113,15 @@ describe(Pane.name, () => {
 				const bapi = pane.addMonitor(obj, 'foo', {
 					interval: 0,
 				});
-				pane.on('update', (ev) => {
-					assert.strictEqual(ev instanceof TpUpdateEvent, true);
+				pane.on('change', (ev) => {
+					assert.strictEqual(ev instanceof TpChangeEvent, true);
 					assert.strictEqual(ev.value, expected);
 					bapi.dispose();
 					done();
 				});
 
 				obj.foo = params.newInternalValue;
-				(bapi.controller_.binding.ticker as ManualTicker).tick();
+				(bapi.controller_.value.ticker as ManualTicker).tick();
 			});
 		});
 	});
@@ -145,14 +145,14 @@ describe(Pane.name, () => {
 		const bapi = pane.addMonitor(PARAMS, 'foo', {
 			interval: 0,
 		});
-		bapi.on('update', function (this: any) {
+		bapi.on('change', function (this: any) {
 			bapi.dispose();
 			assert.strictEqual(this, bapi);
 			done();
 		});
 
 		PARAMS.foo = 2;
-		(bapi.controller_.binding.ticker as ManualTicker).tick();
+		(bapi.controller_.value.ticker as ManualTicker).tick();
 	});
 
 	it('should have right initial buffer', () => {
@@ -163,7 +163,7 @@ describe(Pane.name, () => {
 			interval: 0,
 		});
 
-		const v = bapi.controller_.binding.value;
+		const v = bapi.controller_.value;
 		assert.deepStrictEqual(v.rawValue, [
 			123,
 			undefined,
@@ -256,10 +256,10 @@ describe(Pane.name, () => {
 		});
 
 		try {
-			bapi.on('update', () => {
+			bapi.on('change', () => {
 				bapi.dispose();
 			});
-			(bapi.controller_.binding.ticker as ManualTicker).tick();
+			(bapi.controller_.value.ticker as ManualTicker).tick();
 		} catch (err) {
 			assert.strictEqual((err as TpError<any>).type, 'alreadydisposed');
 			done();

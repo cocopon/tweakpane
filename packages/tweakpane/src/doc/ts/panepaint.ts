@@ -113,7 +113,7 @@ export function createPane(container: HTMLElement, theme: Theme): any {
 	});
 
 	const presetObj = {
-		preset: 'Select...',
+		preset: '',
 	};
 	pane
 		.addInput(presetObj, 'preset', {

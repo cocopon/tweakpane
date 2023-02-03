@@ -1,9 +1,8 @@
 import {
 	Class,
 	FolderController,
-	InputBindingController,
 	LabelController,
-	MonitorBindingController,
+	LabeledValueController,
 	SeparatorController,
 } from '@tweakpane/core';
 import * as assert from 'assert';
@@ -26,7 +25,7 @@ describe(Pane.name, () => {
 				insert: (api, index) => {
 					api.addInput({foo: 1}, 'foo', {index: index});
 				},
-				expected: InputBindingController,
+				expected: LabeledValueController,
 			},
 			{
 				insert: (api, index) => {
@@ -35,7 +34,7 @@ describe(Pane.name, () => {
 						interval: 0,
 					});
 				},
-				expected: MonitorBindingController,
+				expected: LabeledValueController,
 			},
 			{
 				insert: (api, index) => {

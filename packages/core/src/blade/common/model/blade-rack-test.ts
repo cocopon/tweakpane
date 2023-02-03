@@ -1,17 +1,18 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {InputBinding} from '../../../common/binding/input';
-import {MonitorBinding} from '../../../common/binding/monitor';
+import {ReadWriteBinding} from '../../../common/binding/read-write';
+import {ReadonlyBinding} from '../../../common/binding/readonly';
 import {BindingTarget} from '../../../common/binding/target';
 import {ManualTicker} from '../../../common/binding/ticker/manual';
+import {InputBindingValue} from '../../../common/binding/value/input-binding';
+import {MonitorBindingValue} from '../../../common/binding/value/monitor-binding';
 import {boolFromUnknown} from '../../../common/converter/boolean';
 import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../../common/converter/number';
 import {stringFromUnknown} from '../../../common/converter/string';
-import {Buffer} from '../../../common/model/buffered-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
@@ -21,12 +22,12 @@ import {CheckboxController} from '../../../input-binding/boolean/controller/chec
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {forceCast} from '../../../misc/type-util';
 import {SingleLogController} from '../../../monitor-binding/common/controller/single-log';
+import {InputBindingController} from '../../binding/controller/input-binding';
+import {MonitorBindingController} from '../../binding/controller/monitor-binding';
 import {FolderController} from '../../folder/controller/folder';
 import {FolderPropsObject} from '../../folder/view/folder';
-import {InputBindingController} from '../../input-binding/controller/input-binding';
 import {LabeledValueController} from '../../label/controller/value-label';
 import {LabelPropsObject, LabelView} from '../../label/view/label';
-import {MonitorBindingController} from '../../monitor-binding/controller/monitor-binding';
 import {ValueBladeController} from '../controller/value-blade';
 import {createBlade} from './blade';
 import {BladeRack} from './blade-rack';
@@ -34,20 +35,20 @@ import {BladeRack} from './blade-rack';
 function createInputBindingController(
 	doc: Document,
 ): InputBindingController<boolean> {
-	const b = new InputBinding({
+	const b = new ReadWriteBinding({
 		reader: boolFromUnknown,
 		target: new BindingTarget({foo: false}, 'foo'),
-		value: createValue(false),
 		writer: writePrimitive,
 	});
-	return new InputBindingController(doc, {
+	const v = new InputBindingValue(createValue(false), b);
+	return new LabeledValueController(doc, {
 		blade: createBlade(),
-		binding: b,
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: '',
 		}),
+		value: v,
 		valueController: new CheckboxController(doc, {
-			value: b.value,
+			value: v,
 			viewProps: ViewProps.create(),
 		}),
 	});
@@ -56,21 +57,23 @@ function createInputBindingController(
 function createMonitorBindingController(
 	doc: Document,
 ): MonitorBindingController<string> {
-	const b = new MonitorBinding({
-		reader: stringFromUnknown,
-		target: new BindingTarget({foo: false}, 'foo'),
+	const v = new MonitorBindingValue({
+		binding: new ReadonlyBinding({
+			reader: stringFromUnknown,
+			target: new BindingTarget({foo: false}, 'foo'),
+		}),
+		bufferSize: 1,
 		ticker: new ManualTicker(),
-		value: createValue<Buffer<string>>([]),
 	});
-	return new MonitorBindingController(doc, {
+	return new LabeledValueController(doc, {
 		blade: createBlade(),
-		binding: b,
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: '',
 		}),
+		value: v,
 		valueController: new SingleLogController(doc, {
 			formatter: (v) => String(v),
-			value: b.value,
+			value: v,
 			viewProps: ViewProps.create(),
 		}),
 	});
@@ -85,6 +88,7 @@ function createValueBladeController(
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: '',
 		}),
+		value: v,
 		valueController: new SliderTextController(doc, {
 			baseStep: 1,
 			parser: parseNumber,
@@ -158,7 +162,7 @@ describe(BladeRack.name, () => {
 			done();
 		});
 
-		bc.binding.value.rawValue = !bc.binding.value.rawValue;
+		bc.value.rawValue = !bc.value.rawValue;
 	});
 
 	it('should handle input change (nested)', (done) => {
@@ -176,7 +180,7 @@ describe(BladeRack.name, () => {
 			done();
 		});
 
-		bc.binding.value.rawValue = !bc.binding.value.rawValue;
+		bc.value.rawValue = !bc.value.rawValue;
 	});
 
 	it('should handle input change (deep-nested)', (done) => {
@@ -196,7 +200,7 @@ describe(BladeRack.name, () => {
 			done();
 		});
 
-		bc.binding.value.rawValue = !bc.binding.value.rawValue;
+		bc.value.rawValue = !bc.value.rawValue;
 	});
 
 	it('should handle monitor update', (done) => {
@@ -207,12 +211,12 @@ describe(BladeRack.name, () => {
 		const bc = createMonitorBindingController(doc);
 		rack.add(bc);
 
-		rack.emitter.on('monitorupdate', (ev) => {
+		rack.emitter.on('inputchange', (ev) => {
 			assert.strictEqual(ev.bladeController, forceCast(bc));
 			done();
 		});
 
-		(bc.binding.ticker as ManualTicker).tick();
+		(bc.value.ticker as ManualTicker).tick();
 	});
 
 	it('should handle monitor update (nested)', (done) => {
@@ -225,12 +229,12 @@ describe(BladeRack.name, () => {
 		const bc = createMonitorBindingController(doc);
 		fc.rackController.rack.add(bc);
 
-		rack.emitter.on('monitorupdate', (ev) => {
+		rack.emitter.on('inputchange', (ev) => {
 			assert.strictEqual(ev.bladeController, forceCast(bc));
 			done();
 		});
 
-		(bc.binding.ticker as ManualTicker).tick();
+		(bc.value.ticker as ManualTicker).tick();
 	});
 
 	it('should handle value change', (done) => {
@@ -311,7 +315,7 @@ describe(BladeRack.name, () => {
 		});
 
 		bc.viewProps.set('disposed', true);
-		bc.binding.value.rawValue = !bc.binding.value.rawValue;
+		bc.value.rawValue = !bc.value.rawValue;
 	});
 
 	it('should not handle removed folder event', () => {
@@ -329,7 +333,7 @@ describe(BladeRack.name, () => {
 		});
 
 		fc.viewProps.set('disposed', true);
-		bc.binding.value.rawValue = !bc.binding.value.rawValue;
+		bc.value.rawValue = !bc.value.rawValue;
 	});
 
 	it('should handle layout (nested)', () => {

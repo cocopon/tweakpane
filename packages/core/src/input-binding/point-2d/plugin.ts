@@ -19,7 +19,7 @@ import {
 	parsePickerLayout,
 	parsePointDimensionParams,
 } from '../../common/util';
-import {isEmpty} from '../../index';
+import {isEmpty} from '../../misc/type-util';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {
 	createRangeConstraint,

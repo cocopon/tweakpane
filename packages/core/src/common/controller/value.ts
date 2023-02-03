@@ -2,6 +2,10 @@ import {Value} from '../model/value';
 import {View} from '../view/view';
 import {Controller} from './controller';
 
-export interface ValueController<T, V extends View> extends Controller<V> {
-	readonly value: Value<T>;
+export interface ValueController<
+	T,
+	Vw extends View = View,
+	Va extends Value<T> = Value<T>,
+> extends Controller<Vw> {
+	readonly value: Va;
 }

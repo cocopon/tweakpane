@@ -1,6 +1,6 @@
 import {Constraint} from '../../../common/constraint/constraint';
 import {DefiniteRangeConstraint} from '../../../common/constraint/definite-range';
-import {Controller} from '../../../common/controller/controller';
+import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
 import {createNumberFormatter} from '../../../common/converter/number';
 import {Parser} from '../../../common/converter/parser';
@@ -74,7 +74,9 @@ function createComponentController(
 /**
  * @hidden
  */
-export class ColorTextController implements Controller<ColorTextView> {
+export class ColorTextController
+	implements ValueController<IntColor, ColorTextView>
+{
 	public readonly colorMode: Value<ColorMode>;
 	public readonly value: Value<IntColor>;
 	public readonly view: ColorTextView;

@@ -1,8 +1,8 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
+import {BufferedValueController} from '../blade/binding/controller/monitor-binding';
 import {BindingTarget} from '../common/binding/target';
-import {Controller} from '../common/controller/controller';
 import {stringFromUnknown} from '../common/converter/string';
 import {BufferedValue} from '../common/model/buffered-value';
 import {ViewProps} from '../common/model/view-props';
@@ -19,7 +19,7 @@ class TestView implements View {
 	}
 }
 
-class TestController implements Controller<TestView> {
+class TestController implements BufferedValueController<string, TestView> {
 	public readonly value: BufferedValue<string>;
 	public readonly view: TestView;
 	public readonly viewProps: ViewProps;
@@ -102,5 +102,16 @@ describe(createMonitorBindingController.name, () => {
 		assert.strictEqual(c.disposed, false);
 		bc?.viewProps.set('disposed', true);
 		assert.strictEqual(c.disposed, true);
+	});
+
+	it('should disable ticker', () => {
+		const bc = createMonitorBindingController(TestPlugin, {
+			document: createTestWindow().document,
+			params: {},
+			target: new BindingTarget({foo: 'bar'}, 'foo'),
+		});
+		assert.strictEqual(bc?.value.ticker.disabled, false);
+		bc?.viewProps.set('disabled', true);
+		assert.strictEqual(bc?.value.ticker.disabled, true);
 	});
 });

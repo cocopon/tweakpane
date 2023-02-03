@@ -1,7 +1,7 @@
 import {bindFoldable, Foldable} from '../../../blade/common/model/foldable';
 import {Constraint} from '../../../common/constraint/constraint';
-import {Controller} from '../../../common/controller/controller';
 import {PopupController} from '../../../common/controller/popup';
+import {ValueController} from '../../../common/controller/value';
 import {Parser} from '../../../common/converter/parser';
 import {findNextTarget, supportsTouch} from '../../../common/dom-util';
 import {Value} from '../../../common/model/value';
@@ -35,7 +35,9 @@ interface Config {
 /**
  * @hidden
  */
-export class Point2dController implements Controller<Point2dView> {
+export class Point2dController
+	implements ValueController<Point2d, Point2dView>
+{
 	public readonly value: Value<Point2d>;
 	public readonly view: Point2dView;
 	public readonly viewProps: ViewProps;

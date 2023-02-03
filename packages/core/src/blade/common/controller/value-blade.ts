@@ -4,20 +4,21 @@ import {View} from '../../../common/view/view';
 import {Blade} from '../model/blade';
 import {BladeController} from './blade';
 
-interface Config<T, V extends View> {
+interface Config<T, Vw extends View, Va extends Value<T>> {
 	blade: Blade;
-	value: Value<T>;
-	view: V;
+	value: Va;
+	view: Vw;
 	viewProps: ViewProps;
 }
 
 export class ValueBladeController<
 	T,
-	V extends View,
-> extends BladeController<V> {
-	public readonly value: Value<T>;
+	Vw extends View = View,
+	Va extends Value<T> = Value<T>,
+> extends BladeController<Vw> {
+	public readonly value: Va;
 
-	constructor(config: Config<T, V>) {
+	constructor(config: Config<T, Vw, Va>) {
 		super(config);
 
 		this.value = config.value;

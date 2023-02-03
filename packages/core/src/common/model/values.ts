@@ -1,7 +1,8 @@
 import {Constraint} from '../constraint/constraint';
-import {BoundValue} from './bound-value';
+import {ComplexValue} from './complex-value';
 import {PrimitiveValue} from './primitive-value';
-import {Value} from './value';
+import {ReadonlyPrimitiveValue} from './readonly-primitive-value';
+import {ReadonlyValue, Value, ValueChangeOptions} from './value';
 
 interface Config<T> {
 	constraint?: Constraint<T>;
@@ -14,5 +15,21 @@ export function createValue<T>(initialValue: T, config?: Config<T>): Value<T> {
 	if (!constraint && !equals) {
 		return new PrimitiveValue(initialValue);
 	}
-	return new BoundValue(initialValue, config);
+	return new ComplexValue(initialValue, config);
+}
+
+export type SetRawValue<T> = (
+	rawValue: T,
+	options?: ValueChangeOptions | undefined,
+) => void;
+
+export function createReadonlyValue<T>(
+	value: Value<T>,
+): [ReadonlyValue<T>, SetRawValue<T>] {
+	return [
+		new ReadonlyPrimitiveValue(value),
+		(rawValue: T, options: ValueChangeOptions | undefined) => {
+			value.setRawValue(rawValue, options);
+		},
+	];
 }

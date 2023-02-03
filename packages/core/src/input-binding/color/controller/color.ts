@@ -1,7 +1,7 @@
 import {bindFoldable, Foldable} from '../../../blade/common/model/foldable';
-import {Controller} from '../../../common/controller/controller';
 import {PopupController} from '../../../common/controller/popup';
 import {TextController} from '../../../common/controller/text';
+import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
 import {Parser} from '../../../common/converter/parser';
 import {findNextTarget, supportsTouch} from '../../../common/dom-util';
@@ -31,7 +31,7 @@ interface Config {
 /**
  * @hidden
  */
-export class ColorController implements Controller<ColorView> {
+export class ColorController implements ValueController<IntColor, ColorView> {
 	public readonly value: Value<IntColor>;
 	public readonly view: ColorView;
 	public readonly viewProps: ViewProps;

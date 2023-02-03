@@ -53,14 +53,14 @@ export function createEmptyBladeController(
 }
 
 export class TestValueBladeApi extends BladeApi<
-	LabelController<CheckboxController>
+	LabeledValueController<boolean, CheckboxController>
 > {
 	get value(): boolean {
-		return this.controller_.valueController.value.rawValue;
+		return this.controller_.value.rawValue;
 	}
 
 	set value(value: boolean) {
-		this.controller_.valueController.value.rawValue = value;
+		this.controller_.value.rawValue = value;
 	}
 }
 
@@ -79,6 +79,7 @@ export const TestValueBladePlugin: BladePlugin<TestBladeParams> = {
 		return r ? {params: r} : null;
 	},
 	controller(args) {
+		const v = createValue<boolean>(false);
 		return new LabeledValueController<boolean, CheckboxController>(
 			args.document,
 			{
@@ -86,8 +87,9 @@ export const TestValueBladePlugin: BladePlugin<TestBladeParams> = {
 				props: ValueMap.fromObject<LabelPropsObject>({
 					label: '',
 				}),
+				value: v,
 				valueController: new CheckboxController(args.document, {
-					value: createValue<boolean>(false),
+					value: v,
 					viewProps: args.viewProps,
 				}),
 			},

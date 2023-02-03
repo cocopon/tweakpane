@@ -1,4 +1,4 @@
-import {Controller} from '../../../common/controller/controller';
+import {ValueController} from '../../../common/controller/value';
 import {Value, ValueChangeOptions} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {constrainRange, mapRange} from '../../../common/number-util';
@@ -20,7 +20,9 @@ interface Config {
 /**
  * @hidden
  */
-export class HPaletteController implements Controller<HPaletteView> {
+export class HPaletteController
+	implements ValueController<IntColor, HPaletteView>
+{
 	public readonly value: Value<IntColor>;
 	public readonly view: HPaletteView;
 	public readonly viewProps: ViewProps;

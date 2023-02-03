@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe as context, describe} from 'mocha';
 
-import {BindingTarget} from '../../index';
+import {BindingTarget} from '../../common/binding/target';
 import {createTestWindow} from '../../misc/dom-test-util';
 import {TestUtil} from '../../misc/test-util';
 import {createInputBindingController} from '../plugin';
@@ -127,6 +127,7 @@ describe(ObjectColorInputPlugin.id, () => {
 			const bc = createInputBindingController(ObjectColorInputPlugin, {
 				document: createTestWindow().document,
 				params: params.inputParams,
+				presetKey: undefined,
 				target: new BindingTarget(params, 'initialValue'),
 			});
 			const c = bc?.valueController as ColorController;
@@ -162,6 +163,7 @@ describe(ObjectColorInputPlugin.id, () => {
 			const bc = createInputBindingController(ObjectColorInputPlugin, {
 				document: win.document,
 				params: params.inputParams,
+				presetKey: undefined,
 				target: new BindingTarget(
 					{
 						color: {r: 0, g: 0, b: 0, a: 0},

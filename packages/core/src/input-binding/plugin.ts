@@ -1,18 +1,19 @@
+import {InputBindingController} from '../blade/binding/controller/input-binding';
 import {createBlade} from '../blade/common/model/blade';
-import {InputBindingController} from '../blade/input-binding/controller/input-binding';
+import {LabeledValueController} from '../blade/label/controller/value-label';
 import {LabelPropsObject} from '../blade/label/view/label';
 import {BindingReader, BindingWriter} from '../common/binding/binding';
-import {InputBinding} from '../common/binding/input';
+import {ReadWriteBinding} from '../common/binding/read-write';
 import {BindingTarget} from '../common/binding/target';
+import {InputBindingValue} from '../common/binding/value/input-binding';
 import {Constraint} from '../common/constraint/constraint';
-import {Controller} from '../common/controller/controller';
+import {ValueController} from '../common/controller/value';
 import {Value} from '../common/model/value';
 import {ValueMap} from '../common/model/value-map';
 import {createValue} from '../common/model/values';
 import {ViewProps} from '../common/model/view-props';
 import {BaseInputParams} from '../common/params';
 import {ParamsParsers} from '../common/params-parsers';
-import {View} from '../common/view/view';
 import {isEmpty} from '../misc/type-util';
 import {BasePlugin} from '../plugin/plugin';
 
@@ -120,7 +121,7 @@ export interface InputBindingPlugin<In, Ex, P extends BaseInputParams>
 		 * @param args The arguments for creating a controller.
 		 * @return A custom controller that contains a custom view.
 		 */
-		(args: ControllerArguments<In, Ex, P>): Controller<View>;
+		(args: ControllerArguments<In, Ex, P>): ValueController<In>;
 	};
 }
 
@@ -129,6 +130,7 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 	args: {
 		document: Document;
 		params: Record<string, unknown>;
+		presetKey: string | undefined;
 		target: BindingTarget;
 	},
 ): InputBindingController<In> | null {
@@ -145,20 +147,26 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 		params: result.params,
 	};
 
+	// Binding and value
 	const reader = plugin.binding.reader(valueArgs);
 	const constraint = plugin.binding.constraint
 		? plugin.binding.constraint(valueArgs)
 		: undefined;
-	const value = createValue(reader(result.initialValue), {
-		constraint: constraint,
-		equals: plugin.binding.equals,
-	});
-	const binding = new InputBinding({
+	const binding = new ReadWriteBinding({
+		presetKey: args.presetKey,
 		reader: reader,
 		target: args.target,
-		value: value,
 		writer: plugin.binding.writer(valueArgs),
 	});
+	const value = new InputBindingValue(
+		createValue(reader(result.initialValue), {
+			constraint: constraint,
+			equals: plugin.binding.equals,
+		}),
+		binding,
+	);
+
+	// Value controller
 	const disabled = p.optional.boolean(args.params.disabled).value;
 	const hidden = p.optional.boolean(args.params.hidden).value;
 	const controller = plugin.controller({
@@ -166,20 +174,21 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 		document: args.document,
 		initialValue: result.initialValue,
 		params: result.params,
-		value: binding.value,
+		value: value,
 		viewProps: ViewProps.create({
 			disabled: disabled,
 			hidden: hidden,
 		}),
 	});
 
+	// Input binding controller
 	const label = p.optional.string(args.params.label).value;
-	return new InputBindingController(args.document, {
-		binding: binding,
+	return new LabeledValueController(args.document, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: label ?? args.target.key,
 		}),
+		value: value,
 		valueController: controller,
 	});
 }

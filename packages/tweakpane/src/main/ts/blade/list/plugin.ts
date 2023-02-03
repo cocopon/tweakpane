@@ -60,6 +60,7 @@ export const ListBladePlugin = (function <T>(): BladePlugin<
 				props: ValueMap.fromObject({
 					label: args.params.label,
 				}),
+				value: value,
 				valueController: ic,
 			});
 		},

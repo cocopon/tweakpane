@@ -1,10 +1,10 @@
+import {BindingApi} from '../blade/binding/api/binding';
+import {isBindingController} from '../blade/binding/controller/binding';
+import {InputBindingController} from '../blade/binding/controller/input-binding';
+import {MonitorBindingController} from '../blade/binding/controller/monitor-binding';
 import {BladeApi} from '../blade/common/api/blade';
 import {InputParams, MonitorParams} from '../blade/common/api/params';
 import {BladeController} from '../blade/common/controller/blade';
-import {InputBindingApi} from '../blade/input-binding/api/input-binding';
-import {InputBindingController} from '../blade/input-binding/controller/input-binding';
-import {MonitorBindingApi} from '../blade/monitor-binding/api/monitor-binding';
-import {MonitorBindingController} from '../blade/monitor-binding/controller/monitor-binding';
 import {BladePlugin, createBladeController} from '../blade/plugin';
 import {RackApi} from '../blade/rack/api/rack';
 import {RackController} from '../blade/rack/controller/rack';
@@ -77,6 +77,7 @@ export class PluginPool {
 					document: document,
 					target: target,
 					params: params,
+					presetKey: params.presetKey,
 				}),
 			null,
 		);
@@ -146,11 +147,8 @@ export class PluginPool {
 	public createBladeApi(
 		bc: BladeController<View>,
 	): BladeApi<BladeController<View>> {
-		if (bc instanceof InputBindingController) {
-			return new InputBindingApi(bc);
-		}
-		if (bc instanceof MonitorBindingController) {
-			return new MonitorBindingApi(bc);
+		if (isBindingController(bc)) {
+			return new BindingApi(bc);
 		}
 		if (bc instanceof RackController) {
 			return new RackApi(bc, this);

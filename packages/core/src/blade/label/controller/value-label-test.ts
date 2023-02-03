@@ -1,8 +1,9 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {InputBinding} from '../../../common/binding/input';
+import {ReadWriteBinding} from '../../../common/binding/read-write';
 import {BindingTarget} from '../../../common/binding/target';
+import {InputBindingValue} from '../../../common/binding/value/input-binding';
 import {TextController} from '../../../common/controller/text';
 import {
 	createNumberFormatter,
@@ -13,23 +14,23 @@ import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
 import {createTestWindow} from '../../../misc/dom-test-util';
+import {InputBindingController} from '../../binding/controller/input-binding';
 import {createBlade} from '../../common/model/blade';
-import {LabelPropsObject} from '../../label/view/label';
-import {InputBindingController} from './input-binding';
+import {LabelPropsObject} from '../view/label';
+import {LabeledValueController} from './value-label';
 
-describe(InputBindingController.name, () => {
+describe(LabeledValueController.name, () => {
 	it('should get properties', () => {
 		const obj = {
 			foo: 123,
 		};
 		const doc = createTestWindow().document;
-		const value = createValue(0);
-		const binding = new InputBinding({
+		const binding = new ReadWriteBinding({
 			reader: numberFromUnknown,
 			target: new BindingTarget(obj, 'foo'),
-			value: value,
 			writer: (v) => v,
 		});
+		const value = new InputBindingValue(createValue(0), binding);
 		const controller = new TextController(doc, {
 			parser: parseNumber,
 			props: ValueMap.fromObject({
@@ -38,15 +39,15 @@ describe(InputBindingController.name, () => {
 			value: value,
 			viewProps: ViewProps.create(),
 		});
-		const bc = new InputBindingController(doc, {
-			binding: binding,
+		const bc: InputBindingController<number> = new LabeledValueController(doc, {
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: 'foo',
 			}),
+			value: value,
 			valueController: controller,
 		});
-		assert.strictEqual(bc.binding, binding);
+		assert.strictEqual(bc.value, value);
 		assert.strictEqual(bc.valueController, controller);
 	});
 });

@@ -1,3 +1,4 @@
+import {isObject} from '../../misc/type-util';
 import {BindingTarget} from './target';
 
 /**
@@ -22,4 +23,16 @@ export interface BindingWriter<In> {
 	 * @param inValue The value to write.
 	 */
 	(target: BindingTarget, inValue: In): void;
+}
+
+export interface Binding {
+	readonly target: BindingTarget;
+	readonly presetKey: string;
+}
+
+export function isBinding(value: unknown): value is Binding {
+	if (!isObject(value) || !('target' in value)) {
+		return false;
+	}
+	return (value as {target: unknown}).target instanceof BindingTarget;
 }

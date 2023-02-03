@@ -4,11 +4,10 @@ import {describe} from 'mocha';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
 import {createTestWindow} from '../../../misc/dom-test-util';
-import {forceCast} from '../../../misc/type-util';
 import {createDefaultPluginPool} from '../../../plugin/plugins';
+import {BindingApi} from '../../binding/api/binding';
 import {TpChangeEvent} from '../../common/api/tp-event';
 import {createBlade} from '../../common/model/blade';
-import {InputBindingApi} from '../../input-binding/api/input-binding';
 import {TabController} from '../controller/tab';
 import {TabApi} from './tab';
 
@@ -88,7 +87,7 @@ describe(TabApi.name, () => {
 			assert.strictEqual(ev.presetKey, 'foo');
 			assert.strictEqual(ev.value, 2);
 
-			if (!(ev.target instanceof InputBindingApi)) {
+			if (!(ev.target instanceof BindingApi)) {
 				assert.fail('unexpected target');
 			}
 			assert.strictEqual(ev.target.controller_, bapi.controller_);
@@ -96,7 +95,7 @@ describe(TabApi.name, () => {
 			done();
 		});
 
-		const value: Value<number> = forceCast(bapi.controller_.binding.value);
+		const value = bapi.controller_.value as Value<number>;
 		value.rawValue += 1;
 	});
 
@@ -121,7 +120,7 @@ describe(TabApi.name, () => {
 			assert.strictEqual(ev.presetKey, 'foo');
 			assert.strictEqual(ev.value, 2);
 
-			if (!(ev.target instanceof InputBindingApi)) {
+			if (!(ev.target instanceof BindingApi)) {
 				assert.fail('unexpected target');
 			}
 			assert.strictEqual(ev.target.controller_, bapi.controller_);
@@ -129,7 +128,7 @@ describe(TabApi.name, () => {
 			done();
 		});
 
-		const value: Value<number> = forceCast(bapi.controller_.binding.value);
+		const value = bapi.controller_.value as Value<number>;
 		value.rawValue += 1;
 	});
 

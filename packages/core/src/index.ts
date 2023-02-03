@@ -3,7 +3,14 @@ export * from './blade/common/api/events';
 export * from './blade/common/api/params';
 export * from './blade/common/api/tp-event';
 
+export * from './common/binding/binding';
 export * from './common/binding/target';
+
+export * from './blade/binding/api/binding';
+export * from './blade/binding/api/input-binding';
+export * from './blade/binding/api/monitor-binding';
+export * from './blade/binding/controller/input-binding';
+export * from './blade/binding/controller/monitor-binding';
 
 export * from './blade/button/api/button';
 export * from './blade/button/controller/button';
@@ -13,8 +20,9 @@ export * from './blade/button/plugin';
 export * from './blade/common/controller/blade';
 export * from './blade/common/controller/value-blade';
 
-export * from './blade/common/model/blade-positions';
 export * from './blade/common/model/blade';
+export * from './blade/common/model/blade-positions';
+export * from './blade/common/model/blade-rack';
 export * from './blade/common/model/foldable';
 
 export * from './blade/folder/api/folder';
@@ -22,15 +30,9 @@ export * from './blade/folder/controller/folder';
 export * from './blade/folder/view/folder';
 export * from './blade/folder/plugin';
 
-export * from './blade/input-binding/api/input-binding';
-export * from './blade/input-binding/controller/input-binding';
-
 export * from './blade/label/controller/label';
 export * from './blade/label/controller/value-label';
 export * from './blade/label/view/label';
-
-export * from './blade/monitor-binding/api/monitor-binding';
-export * from './blade/monitor-binding/controller/monitor-binding';
 
 export * from './blade/separator/api/separator';
 export * from './blade/separator/controller/separator';
@@ -47,6 +49,9 @@ export {BladePlugin, createBladeController} from './blade/plugin';
 export * from './common/binding/ticker/manual';
 export * from './common/binding/ticker/interval';
 export * from './common/binding/ticker/ticker';
+export * from './common/binding/value/binding';
+export * from './common/binding/value/monitor-binding';
+export * from './common/binding/value/input-binding';
 
 export * from './common/constraint/composite';
 export * from './common/constraint/constraint';

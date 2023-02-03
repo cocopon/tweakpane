@@ -17,20 +17,20 @@ export interface ValueChangeOptions {
 /**
  * @hidden
  */
-export interface ValueEvents<T> {
+export interface ValueEvents<T, V = Value<T>> {
 	beforechange: {
-		sender: Value<T>;
+		sender: V;
 	};
 	change: {
 		options: ValueChangeOptions;
 		previousRawValue: T;
 		rawValue: T;
-		sender: Value<T>;
+		sender: V;
 	};
 }
 
 /**
- * A model for handling value changes.
+ * A value that handles changes.
  * @template T The type of the raw value.
  */
 export interface Value<T> {
@@ -44,4 +44,24 @@ export interface Value<T> {
 	rawValue: T;
 
 	setRawValue(rawValue: T, options?: ValueChangeOptions): void;
+}
+
+/**
+ * @hidden
+ */
+export type ReadonlyValueEvents<T> = ValueEvents<T, ReadonlyValue<T>>;
+
+/**
+ * A readonly value that can be changed elsewhere.
+ * @template T The type of the raw value.
+ */
+export interface ReadonlyValue<T> {
+	/**
+	 * The event emitter for value changes.
+	 */
+	readonly emitter: Emitter<ReadonlyValueEvents<T>>;
+	/**
+	 * The raw value of the model.
+	 */
+	readonly rawValue: T;
 }

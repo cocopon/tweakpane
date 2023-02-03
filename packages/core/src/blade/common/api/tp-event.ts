@@ -16,7 +16,7 @@ export class TpEvent {
 }
 
 /**
- * An event class for value changes of input bindings.
+ * An event class for value changes.
  * @template T The type of the value.
  */
 export class TpChangeEvent<T> extends TpEvent {
@@ -42,31 +42,6 @@ export class TpChangeEvent<T> extends TpEvent {
 		this.value = value;
 		this.presetKey = presetKey;
 		this.last = last ?? true;
-	}
-}
-
-/**
- * An event class for value updates of monitor bindings.
- * @template T The type of the value.
- */
-export class TpUpdateEvent<T> extends TpEvent {
-	/**
-	 * The preset key of the event target.
-	 */
-	public readonly presetKey: string;
-	/**
-	 * The value.
-	 */
-	public readonly value: T;
-
-	/**
-	 * @hidden
-	 */
-	constructor(target: unknown, value: T, presetKey: string) {
-		super(target);
-
-		this.value = value;
-		this.presetKey = presetKey;
 	}
 }
 

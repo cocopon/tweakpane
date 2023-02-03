@@ -1,8 +1,9 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {InputBinding} from '../../../common/binding/input';
+import {ReadWriteBinding} from '../../../common/binding/read-write';
 import {BindingTarget} from '../../../common/binding/target';
+import {InputBindingValue} from '../../../common/binding/value/input-binding';
 import {
 	createNumberFormatter,
 	numberFromUnknown,
@@ -17,13 +18,20 @@ import {createTestWindow} from '../../../misc/dom-test-util';
 import {assertInitialState, assertUpdates} from '../../common/api/test-util';
 import {TpChangeEvent} from '../../common/api/tp-event';
 import {createBlade} from '../../common/model/blade';
+import {LabeledValueController} from '../../label/controller/value-label';
 import {LabelPropsObject} from '../../label/view/label';
 import {InputBindingController} from '../controller/input-binding';
+import {BindingApi} from './binding';
 import {InputBindingApi} from './input-binding';
 
-function createApi(target: BindingTarget) {
+function createApi(target: BindingTarget): InputBindingApi<number, unknown> {
 	const doc = createTestWindow().document;
-	const value = createValue(0);
+	const binding = new ReadWriteBinding({
+		reader: numberFromUnknown,
+		target: target,
+		writer: writePrimitive,
+	});
+	const v = new InputBindingValue(createValue(0), binding);
 	const ic = new NumberTextController(doc, {
 		baseStep: 1,
 		parser: parseNumber,
@@ -31,26 +39,21 @@ function createApi(target: BindingTarget) {
 			draggingScale: 1,
 			formatter: createNumberFormatter(0),
 		}),
-		value: value,
+		value: v,
 		viewProps: ViewProps.create(),
 	});
-	const bc = new InputBindingController(doc, {
-		binding: new InputBinding({
-			reader: numberFromUnknown,
-			target: target,
-			value: value,
-			writer: writePrimitive,
-		}),
+	const bc: InputBindingController<number> = new LabeledValueController(doc, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: 'label',
 		}),
+		value: v,
 		valueController: ic,
 	});
-	return new InputBindingApi(bc);
+	return new BindingApi(bc);
 }
 
-describe(InputBindingApi.name, () => {
+describe('InputBindingApi', () => {
 	it('should listen change event', (done) => {
 		const PARAMS = {
 			foo: 0,
@@ -63,19 +66,7 @@ describe(InputBindingApi.name, () => {
 			assert.strictEqual(ev.value, 123);
 			done();
 		});
-		api.controller_.binding.value.rawValue = 123;
-	});
-
-	it('should apply presetKey to event object', (done) => {
-		const PARAMS = {
-			foo: 0,
-		};
-		const api = createApi(new BindingTarget(PARAMS, 'foo', 'renamed'));
-		api.on('change', (ev) => {
-			assert.strictEqual(ev.presetKey, 'renamed');
-			done();
-		});
-		api.controller_.binding.value.rawValue = 123;
+		api.controller_.value.rawValue = 123;
 	});
 
 	it('should refresh bound value', () => {
@@ -87,7 +78,7 @@ describe(InputBindingApi.name, () => {
 		PARAMS.foo = 123;
 		api.refresh();
 
-		assert.strictEqual(api.controller_.binding.value.rawValue, 123);
+		assert.strictEqual(api.controller_.value.rawValue, 123);
 	});
 
 	it('should have initial state', () => {

@@ -2,10 +2,12 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {BindingTarget} from '../../common/binding/target';
+import {InputBindingValue} from '../../common/binding/value/input-binding';
 import {findConstraint} from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
 import {StepConstraint} from '../../common/constraint/step';
-import {BoundValue} from '../../common/model/bound-value';
+import {ComplexValue} from '../../common/model/complex-value';
+import {getBoundValue} from '../../common/model/test-util';
 import {NumberTextController} from '../../common/number/controller/number-text';
 import {createTestWindow} from '../../misc/dom-test-util';
 import {createInputBindingController} from '../plugin';
@@ -20,10 +22,13 @@ describe(NumberInputPlugin.id, () => {
 				min: 1,
 				step: 2,
 			},
+			presetKey: undefined,
 			target: new BindingTarget({foo: 1}, 'foo'),
 		});
 
-		const v = c?.binding.value as BoundValue<number>;
+		const v = getBoundValue(
+			c?.value as InputBindingValue<number>,
+		) as ComplexValue<number>;
 		const constraint = findConstraint(
 			v.constraint as Constraint<number>,
 			StepConstraint,
@@ -39,6 +44,7 @@ describe(NumberInputPlugin.id, () => {
 			params: {
 				format: (v: number) => `foo ${v} bar`,
 			},
+			presetKey: undefined,
 			target: new BindingTarget({foo: 123}, 'foo'),
 		});
 

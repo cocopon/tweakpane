@@ -1,19 +1,21 @@
+import {
+	BufferedValueController,
+	MonitorBindingController,
+} from '../blade/binding/controller/monitor-binding';
 import {createBlade} from '../blade/common/model/blade';
+import {LabeledValueController} from '../blade/label/controller/value-label';
 import {LabelPropsObject} from '../blade/label/view/label';
-import {MonitorBindingController} from '../blade/monitor-binding/controller/monitor-binding';
 import {BindingReader} from '../common/binding/binding';
-import {MonitorBinding} from '../common/binding/monitor';
+import {ReadonlyBinding} from '../common/binding/readonly';
 import {BindingTarget} from '../common/binding/target';
 import {IntervalTicker} from '../common/binding/ticker/interval';
 import {ManualTicker} from '../common/binding/ticker/manual';
 import {Ticker} from '../common/binding/ticker/ticker';
-import {Controller} from '../common/controller/controller';
-import {BufferedValue, initializeBuffer} from '../common/model/buffered-value';
+import {MonitorBindingValue} from '../common/binding/value/monitor-binding';
 import {ValueMap} from '../common/model/value-map';
 import {ViewProps} from '../common/model/view-props';
 import {BaseMonitorParams} from '../common/params';
 import {ParamsParsers} from '../common/params-parsers';
-import {View} from '../common/view/view';
 import {Constants} from '../misc/constants';
 import {isEmpty} from '../misc/type-util';
 import {BasePlugin} from '../plugin/plugin';
@@ -32,7 +34,7 @@ export interface BindingArguments<T, P extends BaseMonitorParams> {
 interface ControllerArguments<T, P extends BaseMonitorParams> {
 	document: Document;
 	params: P;
-	value: BufferedValue<T>;
+	value: MonitorBindingValue<T>;
 	viewProps: ViewProps;
 }
 
@@ -92,7 +94,7 @@ export interface MonitorBindingPlugin<T, P extends BaseMonitorParams>
 		 * @param args The arguments for creating a controller.
 		 * @return A custom controller that contains a custom view.
 		 */
-		(args: ControllerArguments<T, P>): Controller<View>;
+		(args: ControllerArguments<T, P>): BufferedValueController<T>;
 	};
 }
 
@@ -128,6 +130,7 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 		params: result.params,
 	};
 
+	// Binding and value
 	const reader = plugin.binding.reader(bindingArgs);
 	const bufferSize =
 		P.optional.number(args.params.bufferSize).value ??
@@ -135,32 +138,40 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 			plugin.binding.defaultBufferSize(result.params)) ??
 		1;
 	const interval = P.optional.number(args.params.interval).value;
-	const binding = new MonitorBinding({
-		reader: reader,
-		target: args.target,
+	const value = new MonitorBindingValue({
+		binding: new ReadonlyBinding({
+			reader: reader,
+			target: args.target,
+		}),
+		bufferSize: bufferSize,
 		ticker: createTicker(args.document, interval),
-		value: initializeBuffer<T>(bufferSize),
 	});
 
+	// Value controller
 	const disabled = P.optional.boolean(args.params.disabled).value;
 	const hidden = P.optional.boolean(args.params.hidden).value;
 	const controller = plugin.controller({
 		document: args.document,
 		params: result.params,
-		value: binding.value,
+		value: value,
 		viewProps: ViewProps.create({
 			disabled: disabled,
 			hidden: hidden,
 		}),
 	});
+	controller.viewProps.bindDisabled(value.ticker);
+	controller.viewProps.handleDispose(() => {
+		value.ticker.dispose();
+	});
 
+	// Monitor binding controller
 	const label = P.optional.string(args.params.label).value ?? args.target.key;
-	return new MonitorBindingController(args.document, {
-		binding: binding,
+	return new LabeledValueController(args.document, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: label,
 		}),
+		value: value,
 		valueController: controller,
 	});
 }

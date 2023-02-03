@@ -3,7 +3,7 @@ import {describe as context, describe, it} from 'mocha';
 
 import {createPushedBuffer, initializeBuffer} from './buffered-value';
 
-describe('BufferedValue', () => {
+describe(initializeBuffer.name, () => {
 	[
 		{
 			expected: [undefined],
@@ -20,14 +20,13 @@ describe('BufferedValue', () => {
 	].forEach(({expected, params}) => {
 		context(`when ${JSON.stringify(params)}`, () => {
 			it('should initialize buffer', () => {
-				assert.deepStrictEqual(
-					initializeBuffer(params.bufferSize).rawValue,
-					expected,
-				);
+				assert.deepStrictEqual(initializeBuffer(params.bufferSize), expected);
 			});
 		});
 	});
+});
 
+describe(createPushedBuffer.name, () => {
 	[
 		{
 			expected: [0, 1, undefined],

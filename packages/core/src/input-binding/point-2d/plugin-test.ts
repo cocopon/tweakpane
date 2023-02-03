@@ -2,10 +2,12 @@ import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
 import {BindingTarget} from '../../common/binding/target';
+import {InputBindingValue} from '../../common/binding/value/input-binding';
 import {findConstraint} from '../../common/constraint/composite';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
-import {BoundValue} from '../../common/model/bound-value';
+import {ComplexValue} from '../../common/model/complex-value';
+import {getBoundValue} from '../../common/model/test-util';
 import {Value} from '../../common/model/value';
 import {createTestWindow} from '../../misc/dom-test-util';
 import {PointNdConstraint} from '../common/constraint/point-nd';
@@ -71,11 +73,15 @@ describe(Point2dInputPlugin.id, () => {
 			params: {
 				x: {step: 1},
 			},
+			presetKey: undefined,
 			target: new BindingTarget({foo: {x: 12, y: 34}}, 'foo'),
 		});
 
-		const constraint = (c?.binding.value as BoundValue<unknown>)
-			.constraint as PointNdConstraint<Point2d>;
+		const constraint = (
+			getBoundValue(
+				c?.value as InputBindingValue<unknown>,
+			) as ComplexValue<unknown>
+		).constraint as PointNdConstraint<Point2d>;
 		const xc = constraint.components[0];
 		if (!xc) {
 			assert.fail('Unexpected constraint');
@@ -91,11 +97,15 @@ describe(Point2dInputPlugin.id, () => {
 			params: {
 				y: {max: 456, min: -123},
 			},
+			presetKey: undefined,
 			target: new BindingTarget({foo: {x: 12, y: 34}}, 'foo'),
 		});
 
-		const constraint = (c?.binding.value as BoundValue<unknown>)
-			.constraint as PointNdConstraint<Point2d>;
+		const constraint = (
+			getBoundValue(
+				c?.value as InputBindingValue<unknown>,
+			) as ComplexValue<unknown>
+		).constraint as PointNdConstraint<Point2d>;
 		const yc = constraint.components[1];
 		if (!yc) {
 			assert.fail('Unexpected constraint');
@@ -114,10 +124,11 @@ describe(Point2dInputPlugin.id, () => {
 			params: {
 				y: {max: 456, min: -123},
 			},
+			presetKey: undefined,
 			target: new BindingTarget(obj, 'p'),
 		});
 
-		const v = c?.binding.value as Value<Point2d>;
+		const v = c?.value as Value<Point2d>;
 		v.rawValue = new Point2d(56, 78);
 		assert.strictEqual(p, obj.p);
 		assert.strictEqual(p.x, 56);

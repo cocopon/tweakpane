@@ -1,4 +1,5 @@
-import {mapRange, TpError} from '../../../index';
+import {mapRange} from '../../../common/number-util';
+import {TpError} from '../../../common/tp-error';
 import {Color} from './color';
 import {
 	ColorComponents3,

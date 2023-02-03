@@ -1,5 +1,5 @@
 import {Constraint} from '../../../common/constraint/constraint';
-import {Controller} from '../../../common/controller/controller';
+import {ValueController} from '../../../common/controller/value';
 import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
 import {connectValues} from '../../../common/model/value-sync';
@@ -46,7 +46,7 @@ function createAxisController<PointNd>(
  * @hidden
  */
 export class PointNdTextController<PointNd>
-	implements Controller<PointNdTextView>
+	implements ValueController<PointNd, PointNdTextView>
 {
 	public readonly value: Value<PointNd>;
 	public readonly view: PointNdTextView;

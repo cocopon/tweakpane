@@ -8,13 +8,6 @@ describe(BindingTarget.name, () => {
 		const obj = {foo: 'bar'};
 		const target = new BindingTarget(obj, 'foo');
 		assert.strictEqual(target.key, 'foo');
-		assert.strictEqual(target.presetKey, 'foo');
-	});
-
-	it('should specify preset key', () => {
-		const obj = {foo: 'bar'};
-		const target = new BindingTarget(obj, 'foo', 'baz');
-		assert.strictEqual(target.presetKey, 'baz');
 	});
 
 	it('should read value', () => {
