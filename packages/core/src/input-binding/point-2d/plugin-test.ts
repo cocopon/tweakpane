@@ -73,6 +73,7 @@ describe(Point2dInputPlugin.id, () => {
 			params: {
 				x: {step: 1},
 			},
+			presetKey: undefined,
 			target: new BindingTarget({foo: {x: 12, y: 34}}, 'foo'),
 		});
 
@@ -96,6 +97,7 @@ describe(Point2dInputPlugin.id, () => {
 			params: {
 				y: {max: 456, min: -123},
 			},
+			presetKey: undefined,
 			target: new BindingTarget({foo: {x: 12, y: 34}}, 'foo'),
 		});
 
@@ -122,6 +124,7 @@ describe(Point2dInputPlugin.id, () => {
 			params: {
 				y: {max: 456, min: -123},
 			},
+			presetKey: undefined,
 			target: new BindingTarget(obj, 'p'),
 		});
 

@@ -20,7 +20,7 @@
     "build:ts": "run-p build:ts:*",
     "build:ts:cjs": "tsc --project src/tsconfig-cjs.json",
     "build:ts:es6": "tsc --project src/tsconfig-es6.json",
-    "clean": "rimraf .nyc_output dist tweakpane-core-*.tgz",
+    "clean": "rimraf .nyc_output dist tweakpane-core.tgz tweakpane-core-*.tgz",
     "coverage": "nyc --reporter=text --extension \".ts\" --exclude \"**/*-test.ts\" npm run test:ts:dynamic",
     "format": "run-p format:*",
     "format:scss": "prettier --parser scss --write \"lib/sass/**/*.scss\"",

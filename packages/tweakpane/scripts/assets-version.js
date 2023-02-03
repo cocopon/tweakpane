@@ -1,4 +1,5 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console, @typescript-eslint/no-var-requires */
+/* eslint-env node */
 
 'use strict';
 

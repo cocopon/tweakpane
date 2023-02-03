@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import {TpChangeEvent} from '@tweakpane/core';
 import {JSDOM} from 'jsdom';
 import {Pane} from 'tweakpane';

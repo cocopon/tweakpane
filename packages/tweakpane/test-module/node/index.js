@@ -1,3 +1,6 @@
+/* eslint-disable no-console, @typescript-eslint/no-var-requires */
+/* eslint-env node */
+
 'use strict';
 
 const Jsdom = require('jsdom').JSDOM;

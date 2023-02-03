@@ -21,6 +21,7 @@ describe(Point4dInputPlugin.id, () => {
 		const c = createInputBindingController(Point4dInputPlugin, {
 			document: doc,
 			params: {},
+			presetKey: undefined,
 			target: new BindingTarget({foo: {x: 12, y: 34, z: 56, w: 78}}, 'foo'),
 		});
 
@@ -33,6 +34,7 @@ describe(Point4dInputPlugin.id, () => {
 		const c = createInputBindingController(Point4dInputPlugin, {
 			document: doc,
 			params: {w: {step: 1}},
+			presetKey: undefined,
 			target: new BindingTarget({foo: {x: 12, y: 34, z: 56, w: 78}}, 'foo'),
 		});
 
@@ -57,6 +59,7 @@ describe(Point4dInputPlugin.id, () => {
 		const c = createInputBindingController(Point4dInputPlugin, {
 			document: doc,
 			params: {w: {max: 456, min: -123}},
+			presetKey: undefined,
 			target: new BindingTarget({foo: {x: 12, y: 34, z: 56, w: 78}}, 'foo'),
 		});
 

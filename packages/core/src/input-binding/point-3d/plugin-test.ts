@@ -21,6 +21,7 @@ describe(Point3dInputPlugin.id, () => {
 		const c = createInputBindingController(Point3dInputPlugin, {
 			document: doc,
 			params: {},
+			presetKey: undefined,
 			target: new BindingTarget({foo: {x: 12, y: 34, z: 56}}, 'foo'),
 		});
 
@@ -33,6 +34,7 @@ describe(Point3dInputPlugin.id, () => {
 		const c = createInputBindingController(Point3dInputPlugin, {
 			document: doc,
 			params: {z: {step: 1}},
+			presetKey: undefined,
 			target: new BindingTarget({foo: {x: 12, y: 34, z: 56}}, 'foo'),
 		});
 
@@ -59,6 +61,7 @@ describe(Point3dInputPlugin.id, () => {
 					min: -123,
 				},
 			},
+			presetKey: undefined,
 			target: new BindingTarget({foo: {x: 12, y: 34, z: 56}}, 'foo'),
 		});
 
