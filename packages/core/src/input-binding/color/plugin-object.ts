@@ -53,13 +53,17 @@ function createColorObjectFormatter(
 	};
 }
 
+interface ObjectColorInputParams extends ColorInputParams {
+	colorType: ColorType;
+}
+
 /**
  * @hidden
  */
 export const ObjectColorInputPlugin: InputBindingPlugin<
 	IntColor,
 	RgbColorObject | RgbaColorObject,
-	ColorInputParams
+	ObjectColorInputParams
 > = {
 	id: 'input-color-object',
 	type: 'input',
@@ -71,32 +75,33 @@ export const ObjectColorInputPlugin: InputBindingPlugin<
 		return result
 			? {
 					initialValue: value,
-					params: result,
+					params: {
+						...result,
+						colorType: extractColorType(params) ?? 'int',
+					},
 			  }
 			: null;
 	},
 	binding: {
-		reader: (args) =>
-			createColorObjectBindingReader(extractColorType(args.params) ?? 'int'),
+		reader: (args) => createColorObjectBindingReader(args.params.colorType),
 		equals: equalsColor,
 		writer: (args) =>
 			createColorObjectWriter(
 				shouldSupportAlpha(args.initialValue),
-				extractColorType(args.params) ?? 'int',
+				args.params.colorType,
 			),
 	},
 	controller: (args) => {
 		const supportsAlpha = isRgbaColorObject(args.initialValue);
-		const expanded =
-			'expanded' in args.params ? args.params.expanded : undefined;
-		const picker = 'picker' in args.params ? args.params.picker : undefined;
-		const type = extractColorType(args.params) ?? 'int';
 		return new ColorController(args.document, {
-			colorType: type,
-			expanded: expanded ?? false,
-			formatter: createColorObjectFormatter(supportsAlpha, type),
+			colorType: args.params.colorType,
+			expanded: args.params.expanded ?? false,
+			formatter: createColorObjectFormatter(
+				supportsAlpha,
+				args.params.colorType,
+			),
 			parser: createColorStringParser('int'),
-			pickerLayout: picker ?? 'popup',
+			pickerLayout: args.params.picker ?? 'popup',
 			supportsAlpha: supportsAlpha,
 			value: args.value,
 			viewProps: args.viewProps,

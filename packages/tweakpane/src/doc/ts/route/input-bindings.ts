@@ -14,6 +14,7 @@ export function initInputBindings() {
 				v2: {x: 12, y: 34},
 				v3: {x: 12, y: 34, z: 56},
 				s: 'string',
+				theme: 'Dark',
 			};
 			const pane = new Pane({
 				container: container,
@@ -43,7 +44,7 @@ export function initInputBindings() {
 			sf.addInput(PARAMS, 's', {
 				label: 'text',
 			});
-			sf.addInput(PARAMS, 's', {
+			sf.addInput(PARAMS, 'theme', {
 				label: 'list',
 				options: {
 					dark: 'Dark',

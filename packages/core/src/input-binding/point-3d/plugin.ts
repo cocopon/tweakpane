@@ -33,18 +33,9 @@ function createConstraint(
 	return new PointNdConstraint({
 		assembly: Point3dAssembly,
 		components: [
-			createDimensionConstraint(
-				'x' in params ? params.x : undefined,
-				initialValue.x,
-			),
-			createDimensionConstraint(
-				'y' in params ? params.y : undefined,
-				initialValue.y,
-			),
-			createDimensionConstraint(
-				'z' in params ? params.z : undefined,
-				initialValue.z,
-			),
+			createDimensionConstraint(params.x, initialValue.x),
+			createDimensionConstraint(params.y, initialValue.y),
+			createDimensionConstraint(params.z, initialValue.z),
 		],
 	});
 }

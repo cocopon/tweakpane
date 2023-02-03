@@ -41,9 +41,7 @@ export const StringMonitorPlugin: MonitorBindingPlugin<
 	},
 	controller: (args) => {
 		const value = args.value;
-		const multiline =
-			value.rawValue.length > 1 ||
-			('multiline' in args.params && args.params.multiline);
+		const multiline = value.rawValue.length > 1 || args.params.multiline;
 		if (multiline) {
 			return new MultiLogController(args.document, {
 				formatter: formatString,
