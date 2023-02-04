@@ -1,7 +1,6 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
-import {View} from '../../common/view/view';
 import {createTestWindow} from '../../misc/dom-test-util';
 import {createDefaultPluginPool} from '../../plugin/plugins';
 import {BladeController} from '../common/controller/blade';
@@ -58,7 +57,7 @@ describe(ButtonBladePlugin.id, () => {
 				title: 'Title',
 				view: 'button',
 			},
-		}) as BladeController<View>;
+		}) as BladeController;
 		const pool = createDefaultPluginPool();
 		const api = pool.createBladeApi(bc) as ButtonApi;
 

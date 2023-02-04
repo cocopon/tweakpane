@@ -1,7 +1,6 @@
-import {View} from '../../../common/view/view';
 import {BladeController} from '../controller/blade';
 
-export class BladeApi<C extends BladeController<View>> {
+export class BladeApi<C extends BladeController = BladeController> {
 	/**
 	 * @hidden
 	 */

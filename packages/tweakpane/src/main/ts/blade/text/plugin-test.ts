@@ -3,7 +3,6 @@ import {
 	createBladeController,
 	createDefaultPluginPool,
 	PluginPool,
-	View,
 } from '@tweakpane/core';
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
@@ -80,7 +79,7 @@ describe(TextBladePlugin.id, () => {
 		const bc = createBladeController(TextBladePlugin, {
 			document: doc,
 			params: params,
-		}) as BladeController<View>;
+		}) as BladeController;
 		const pool = createPluginPool();
 		const api = pool.createBladeApi(bc) as TextApi<string>;
 		assert.strictEqual(api.formatter, formatter);

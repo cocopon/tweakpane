@@ -5,7 +5,6 @@ import {Emitter} from '../../../common/model/emitter';
 import {Value} from '../../../common/model/value';
 import {BaseBladeParams} from '../../../common/params';
 import {TpError} from '../../../common/tp-error';
-import {View} from '../../../common/view/view';
 import {forceCast} from '../../../misc/type-util';
 import {PluginPool} from '../../../plugin/pool';
 import {BindingApi} from '../../binding/api/binding';
@@ -47,8 +46,8 @@ export interface BladeRackApiEvents {
 }
 
 export function findSubBladeApiSet(
-	api: BladeApi<BladeController<View>>,
-): NestedOrderedSet<BladeApi<BladeController<View>>> | null {
+	api: BladeApi,
+): NestedOrderedSet<BladeApi> | null {
 	if (api instanceof RackApi) {
 		return api['apiSet_'];
 	}
@@ -59,9 +58,9 @@ export function findSubBladeApiSet(
 }
 
 function getApiByController(
-	apiSet: NestedOrderedSet<BladeApi<BladeController<View>>>,
-	controller: BladeController<View>,
-): BladeApi<BladeController<View>> {
+	apiSet: NestedOrderedSet<BladeApi>,
+	controller: BladeController,
+): BladeApi {
 	const api = apiSet.find((api) => api.controller_ === controller);
 	/* istanbul ignore next */
 	if (!api) {
@@ -82,7 +81,7 @@ function createBindingTarget<O extends Bindable, Key extends keyof O>(
 
 export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 	private readonly emitter_: Emitter<BladeRackApiEvents>;
-	private readonly apiSet_: NestedOrderedSet<BladeApi<BladeController<View>>>;
+	private readonly apiSet_: NestedOrderedSet<BladeApi>;
 	private readonly pool_: PluginPool;
 
 	/**
@@ -108,7 +107,7 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 		});
 	}
 
-	get children(): BladeApi<BladeController<View>>[] {
+	get children(): BladeApi[] {
 		return this.controller_.rack.children.map((bc) =>
 			getApiByController(this.apiSet_, bc),
 		);
@@ -166,10 +165,7 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 		return addTabAsBlade(this, params);
 	}
 
-	public add<A extends BladeApi<BladeController<View>>>(
-		api: A,
-		opt_index?: number,
-	): A {
+	public add<A extends BladeApi>(api: A, opt_index?: number): A {
 		this.controller_.rack.add(api.controller_, opt_index);
 
 		// Replace generated API with specified one
@@ -182,11 +178,11 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 		return api;
 	}
 
-	public remove(api: BladeApi<BladeController<View>>): void {
+	public remove(api: BladeApi): void {
 		this.controller_.rack.remove(api.controller_);
 	}
 
-	public addBlade(params: BaseBladeParams): BladeApi<BladeController<View>> {
+	public addBlade(params: BaseBladeParams): BladeApi {
 		const doc = this.controller_.view.element.ownerDocument;
 		const bc = this.pool_.createBlade(doc, params);
 		const api = this.pool_.createBladeApi(bc);
@@ -204,7 +200,7 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 		return this;
 	}
 
-	private setUpApi_(bc: BladeController<View>) {
+	private setUpApi_(bc: BladeController) {
 		const api = this.apiSet_.find((api) => api.controller_ === bc);
 		if (!api) {
 			// Auto-fill missing API

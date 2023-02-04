@@ -1,13 +1,11 @@
 import {Bindable} from '../../../common/binding/target';
 import {BaseBladeParams} from '../../../common/params';
-import {View} from '../../../common/view/view';
 import {InputBindingApi} from '../../binding/api/input-binding';
 import {MonitorBindingApi} from '../../binding/api/monitor-binding';
 import {ButtonApi} from '../../button/api/button';
 import {FolderApi} from '../../folder/api/folder';
 import {SeparatorApi} from '../../separator/api/separator';
 import {TabApi} from '../../tab/api/tab';
-import {BladeController} from '../controller/blade';
 import {BladeApi} from './blade';
 import {
 	ButtonParams,
@@ -22,14 +20,14 @@ export interface BladeRackApi {
 	/**
 	 * Children of the container.
 	 */
-	readonly children: BladeApi<BladeController<View>>[];
+	readonly children: BladeApi[];
 
 	addButton(params: ButtonParams): ButtonApi;
 	addFolder(params: FolderParams): FolderApi;
 	addSeparator(opt_params?: SeparatorParams): SeparatorApi;
 	addTab(params: TabParams): TabApi;
-	add(api: BladeApi<BladeController<View>>, opt_index?: number): void;
-	remove(api: BladeApi<BladeController<View>>): void;
+	add(api: BladeApi, opt_index?: number): void;
+	remove(api: BladeApi): void;
 
 	/**
 	 * Creates a new input binding and add it to the container.
@@ -61,7 +59,7 @@ export interface BladeRackApi {
 	 * Creates a new blade and add it to the container.
 	 * @param params The options for a blade.
 	 */
-	addBlade(params: BaseBladeParams): BladeApi<BladeController<View>>;
+	addBlade(params: BaseBladeParams): BladeApi;
 }
 
 export function addButtonAsBlade(

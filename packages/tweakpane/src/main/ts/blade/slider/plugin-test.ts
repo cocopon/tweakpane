@@ -3,7 +3,6 @@ import {
 	createBladeController,
 	createDefaultPluginPool,
 	PluginPool,
-	View,
 } from '@tweakpane/core';
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
@@ -79,7 +78,7 @@ describe(SliderBladePlugin.id, () => {
 				value: 50,
 				view: 'slider',
 			} as SliderBladeParams,
-		}) as BladeController<View>;
+		}) as BladeController;
 		const pool = createPluginPool();
 		const api = pool.createBladeApi(bc) as SliderApi;
 

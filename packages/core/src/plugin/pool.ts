@@ -10,7 +10,6 @@ import {RackApi} from '../blade/rack/api/rack';
 import {RackController} from '../blade/rack/controller/rack';
 import {BindingTarget} from '../common/binding/target';
 import {TpError} from '../common/tp-error';
-import {View} from '../common/view/view';
 import {
 	createInputBindingController,
 	InputBindingPlugin,
@@ -123,9 +122,9 @@ export class PluginPool {
 	public createBlade(
 		document: Document,
 		params: Record<string, unknown>,
-	): BladeController<View> {
+	): BladeController {
 		const bc = this.pluginsMap_.blades.reduce(
-			(result: BladeController<View> | null, plugin) =>
+			(result: BladeController | null, plugin) =>
 				result ??
 				createBladeController(plugin, {
 					document: document,
@@ -144,9 +143,7 @@ export class PluginPool {
 		return bc;
 	}
 
-	public createBladeApi(
-		bc: BladeController<View>,
-	): BladeApi<BladeController<View>> {
+	public createBladeApi(bc: BladeController): BladeApi {
 		if (isBindingController(bc)) {
 			return new BindingApi(bc);
 		}
@@ -155,7 +152,7 @@ export class PluginPool {
 		}
 
 		const api = this.pluginsMap_.blades.reduce(
-			(result: BladeApi<BladeController<View>> | null, plugin) =>
+			(result: BladeApi | null, plugin) =>
 				result ??
 				plugin.api({
 					controller: bc,

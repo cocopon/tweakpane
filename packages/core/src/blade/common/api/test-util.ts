@@ -1,21 +1,19 @@
 import * as assert from 'assert';
 
-import {View} from '../../../common/view/view';
-import {BladeController} from '../controller/blade';
 import {BladeApi} from './blade';
 
-export function assertInitialState(api: BladeApi<BladeController<View>>) {
+export function assertInitialState(api: BladeApi) {
 	assert.strictEqual(api.disabled, false);
 	assert.strictEqual(api.hidden, false);
 	assert.strictEqual(api.controller_.viewProps.get('disposed'), false);
 }
 
-export function assertDisposes(api: BladeApi<BladeController<View>>) {
+export function assertDisposes(api: BladeApi) {
 	api.dispose();
 	assert.strictEqual(api.controller_.viewProps.get('disposed'), true);
 }
 
-export function assertUpdates(api: BladeApi<BladeController<View>>) {
+export function assertUpdates(api: BladeApi) {
 	api.disabled = true;
 	assert.strictEqual(api.disabled, true);
 	assert.strictEqual(

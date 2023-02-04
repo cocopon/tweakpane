@@ -2,7 +2,6 @@ import {Bindable} from '../../../common/binding/target';
 import {Emitter} from '../../../common/model/emitter';
 import {ValueEvents} from '../../../common/model/value';
 import {BaseBladeParams} from '../../../common/params';
-import {View} from '../../../common/view/view';
 import {PluginPool} from '../../../plugin/pool';
 import {InputBindingApi} from '../../binding/api/input-binding';
 import {MonitorBindingApi} from '../../binding/api/monitor-binding';
@@ -19,7 +18,6 @@ import {
 } from '../../common/api/params';
 import {RackLikeApi} from '../../common/api/rack-like-api';
 import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event';
-import {BladeController} from '../../common/controller/blade';
 import {RackApi} from '../../rack/api/rack';
 import {SeparatorApi} from '../../separator/api/separator';
 import {TabApi} from '../../tab/api/tab';
@@ -79,7 +77,7 @@ export class FolderApi
 		this.controller_.props.set('title', title);
 	}
 
-	get children(): BladeApi<BladeController<View>>[] {
+	get children(): BladeApi[] {
 		return this.rackApi_.children;
 	}
 
@@ -115,18 +113,15 @@ export class FolderApi
 		return this.rackApi_.addTab(params);
 	}
 
-	public add<A extends BladeApi<BladeController<View>>>(
-		api: A,
-		opt_index?: number,
-	): A {
+	public add<A extends BladeApi>(api: A, opt_index?: number): A {
 		return this.rackApi_.add(api, opt_index);
 	}
 
-	public remove(api: BladeApi<BladeController<View>>): void {
+	public remove(api: BladeApi): void {
 		this.rackApi_.remove(api);
 	}
 
-	public addBlade(params: BaseBladeParams): BladeApi<BladeController<View>> {
+	public addBlade(params: BaseBladeParams): BladeApi {
 		return this.rackApi_.addBlade(params);
 	}
 

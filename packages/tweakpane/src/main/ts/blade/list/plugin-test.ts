@@ -3,7 +3,6 @@ import {
 	createBladeController,
 	createDefaultPluginPool,
 	PluginPool,
-	View,
 } from '@tweakpane/core';
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
@@ -103,7 +102,7 @@ describe(ListBladePlugin.id, () => {
 				value: 123,
 				view: 'list',
 			} as ListBladeParams<number>,
-		}) as BladeController<View>;
+		}) as BladeController;
 		const pool = createPluginPool();
 		const api = pool.createBladeApi(bc) as ListApi<number>;
 

@@ -1,7 +1,6 @@
 import {ViewProps} from '../common/model/view-props';
 import {BaseBladeParams} from '../common/params';
 import {ParamsParsers} from '../common/params-parsers';
-import {View} from '../common/view/view';
 import {forceCast} from '../misc/type-util';
 import {BasePlugin} from '../plugin/plugin';
 import {PluginPool} from '../plugin/pool';
@@ -21,7 +20,7 @@ interface ControllerArguments<P extends BaseBladeParams> {
 }
 
 interface ApiArguments {
-	controller: BladeController<View>;
+	controller: BladeController;
 	pool: PluginPool;
 }
 
@@ -31,10 +30,10 @@ export interface BladePlugin<P extends BaseBladeParams> extends BasePlugin {
 		(params: Record<string, unknown>): Acceptance<P> | null;
 	};
 	controller: {
-		(args: ControllerArguments<P>): BladeController<View>;
+		(args: ControllerArguments<P>): BladeController;
 	};
 	api: {
-		(args: ApiArguments): BladeApi<BladeController<View>> | null;
+		(args: ApiArguments): BladeApi | null;
 	};
 }
 
@@ -44,7 +43,7 @@ export function createBladeController<P extends BaseBladeParams>(
 		document: Document;
 		params: Record<string, unknown>;
 	},
-): BladeController<View> | null {
+): BladeController | null {
 	const ac = plugin.accept(args.params);
 	if (!ac) {
 		return null;
