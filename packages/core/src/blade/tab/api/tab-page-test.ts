@@ -2,10 +2,11 @@ import * as assert from 'assert';
 import {describe} from 'mocha';
 
 import {ValueMap} from '../../../common/model/value-map';
+import {ViewProps} from '../../../common/model/view-props';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {createDefaultPluginPool} from '../../../plugin/plugins';
 import {testBladeContainer} from '../../common/api/blade-rack-test';
-import {RackApi} from '../../rack/api/rack';
+import {createBlade} from '../../common/model/blade';
 import {TabPageController, TabPagePropsObject} from '../controller/tab-page';
 import {TabItemPropsObject} from '../view/tab-item';
 import {TabPageApi} from './tab-page';
@@ -13,6 +14,7 @@ import {TabPageApi} from './tab-page';
 function createApi() {
 	const doc = createTestWindow().document;
 	const c = new TabPageController(doc, {
+		blade: createBlade(),
 		itemProps: ValueMap.fromObject<TabItemPropsObject>({
 			selected: false,
 			title: 'foo',
@@ -20,9 +22,10 @@ function createApi() {
 		props: ValueMap.fromObject<TabPagePropsObject>({
 			selected: false,
 		}),
+		viewProps: ViewProps.create(),
 	});
 	const pool = createDefaultPluginPool();
-	return new TabPageApi(c, new RackApi(c.contentController, pool));
+	return new TabPageApi(c, pool);
 }
 
 describe(TabPageApi.name, () => {

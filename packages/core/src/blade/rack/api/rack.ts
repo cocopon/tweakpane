@@ -200,7 +200,12 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 		return this;
 	}
 
-	private setUpApi_(bc: BladeController) {
+	/**
+	 * Sets up an API for the controller if not exists.
+	 * Used, for example, when initializing a container controller with child controllers.
+	 * @param bc The controller.
+	 */
+	private setUpApi_(bc: BladeController): void {
 		const api = this.apiSet_.find((api) => api.controller_ === bc);
 		if (!api) {
 			// Auto-fill missing API

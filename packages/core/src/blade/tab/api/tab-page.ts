@@ -1,5 +1,6 @@
 import {Bindable} from '../../../common/binding/target';
 import {BaseBladeParams} from '../../../common/params';
+import {PluginPool} from '../../../plugin/pool';
 import {InputBindingApi} from '../../binding/api/input-binding';
 import {MonitorBindingApi} from '../../binding/api/monitor-binding';
 import {ButtonApi} from '../../button/api/button';
@@ -13,19 +14,19 @@ import {
 	SeparatorParams,
 	TabParams,
 } from '../../common/api/params';
+import {RackLikeApi} from '../../common/api/rack-like-api';
 import {FolderApi} from '../../folder/api/folder';
 import {RackApi} from '../../rack/api/rack';
 import {SeparatorApi} from '../../separator/api/separator';
 import {TabPageController} from '../controller/tab-page';
 import {TabApi} from './tab';
 
-export class TabPageApi implements BladeRackApi {
-	public readonly controller_: TabPageController;
-	private readonly rackApi_: RackApi;
-
-	constructor(controller: TabPageController, contentRackApi: RackApi) {
-		this.controller_ = controller;
-		this.rackApi_ = contentRackApi;
+export class TabPageApi
+	extends RackLikeApi<TabPageController>
+	implements BladeRackApi
+{
+	constructor(controller: TabPageController, pool: PluginPool) {
+		super(controller, new RackApi(controller.rackController, pool));
 	}
 
 	get title(): string {

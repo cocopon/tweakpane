@@ -80,7 +80,7 @@ interface Config {
  * A collection of blade controllers that manages positions and event propagation.
  */
 export class BladeRack {
-	public readonly emitter: Emitter<BladeRackEvents>;
+	public readonly emitter: Emitter<BladeRackEvents> = new Emitter();
 	public readonly viewProps: ViewProps;
 	private readonly blade_: Blade | null;
 	private readonly bcSet_: NestedOrderedSet<BladeController>;
@@ -95,8 +95,6 @@ export class BladeRack {
 		this.onChildViewPropsChange_ = this.onChildViewPropsChange_.bind(this);
 		this.onDescendantLayout_ = this.onDescendantLayout_.bind(this);
 		this.onDescendantInputChange_ = this.onDescendantInputChange_.bind(this);
-
-		this.emitter = new Emitter();
 
 		this.blade_ = config.blade ?? null;
 		this.blade_

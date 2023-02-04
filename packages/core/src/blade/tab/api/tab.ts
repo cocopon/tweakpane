@@ -1,11 +1,11 @@
 import {Emitter} from '../../../common/model/emitter';
 import {ValueEvents} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
-import {TpError} from '../../../common/tp-error';
+import {ViewProps} from '../../../common/model/view-props';
 import {PluginPool} from '../../../plugin/pool';
 import {RackLikeApi} from '../../common/api/rack-like-api';
 import {TpChangeEvent, TpTabSelectEvent} from '../../common/api/tp-event';
-import {NestedOrderedSetEvents} from '../../common/model/nested-ordered-set';
+import {createBlade} from '../../common/model/blade';
 import {RackApi} from '../../rack/api/rack';
 import {TabController} from '../controller/tab';
 import {TabPageController, TabPagePropsObject} from '../controller/tab-page';
@@ -28,8 +28,8 @@ export interface TabPageParams {
 }
 
 export class TabApi extends RackLikeApi<TabController> {
-	private readonly emitter_: Emitter<TabApiEvents>;
-	private readonly pageApiMap_: Map<TabPageController, TabPageApi>;
+	private readonly emitter_: Emitter<TabApiEvents> = new Emitter();
+	private readonly pool_: PluginPool;
 
 	/**
 	 * @hidden
@@ -37,12 +37,9 @@ export class TabApi extends RackLikeApi<TabController> {
 	constructor(controller: TabController, pool: PluginPool) {
 		super(controller, new RackApi(controller.rackController, pool));
 
-		this.onPageAdd_ = this.onPageAdd_.bind(this);
-		this.onPageRemove_ = this.onPageRemove_.bind(this);
 		this.onSelect_ = this.onSelect_.bind(this);
 
-		this.emitter_ = new Emitter();
-		this.pageApiMap_ = new Map();
+		this.pool_ = pool;
 
 		this.rackApi_.on('change', (ev) => {
 			this.emitter_.emit('change', {
@@ -51,28 +48,18 @@ export class TabApi extends RackLikeApi<TabController> {
 		});
 
 		this.controller_.tab.selectedIndex.emitter.on('change', this.onSelect_);
-		this.controller_.pageSet.emitter.on('add', this.onPageAdd_);
-		this.controller_.pageSet.emitter.on('remove', this.onPageRemove_);
-
-		this.controller_.pageSet.items.forEach((pc) => {
-			this.setUpPageApi_(pc);
-		});
 	}
 
 	get pages(): TabPageApi[] {
-		return this.controller_.pageSet.items.map((pc) => {
-			const api = this.pageApiMap_.get(pc);
-			/* istanbul ignore next */
-			if (!api) {
-				throw TpError.shouldNeverHappen();
-			}
-			return api;
-		});
+		return this.rackApi_.children.reduce((result: TabPageApi[], bapi) => {
+			return bapi instanceof TabPageApi ? [...result, bapi] : result;
+		}, []);
 	}
 
 	public addPage(params: TabPageParams): TabPageApi {
 		const doc = this.controller_.view.element.ownerDocument;
 		const pc = new TabPageController(doc, {
+			blade: createBlade(),
 			itemProps: ValueMap.fromObject<TabItemPropsObject>({
 				selected: false,
 				title: params.title,
@@ -80,19 +67,14 @@ export class TabApi extends RackLikeApi<TabController> {
 			props: ValueMap.fromObject<TabPagePropsObject>({
 				selected: false,
 			}),
+			viewProps: ViewProps.create(),
 		});
-		this.controller_.add(pc, params.index);
-
-		const api = this.pageApiMap_.get(pc);
-		/* istanbul ignore next */
-		if (!api) {
-			throw TpError.shouldNeverHappen();
-		}
-		return api;
+		const papi = new TabPageApi(pc, this.pool_);
+		return this.rackApi_.add(papi, params.index);
 	}
 
 	public removePage(index: number): void {
-		this.controller_.remove(index);
+		this.rackApi_.remove(this.rackApi_.children[index]);
 	}
 
 	public on<EventName extends keyof TabApiEvents>(
@@ -104,33 +86,6 @@ export class TabApi extends RackLikeApi<TabController> {
 			bh(ev.event);
 		});
 		return this;
-	}
-
-	private setUpPageApi_(pc: TabPageController) {
-		const rackApi = this.rackApi_['apiSet_'].find(
-			(api) => api.controller_ === pc.contentController,
-		) as RackApi | null;
-		if (!rackApi) {
-			throw TpError.shouldNeverHappen();
-		}
-
-		const api = new TabPageApi(pc, rackApi);
-		this.pageApiMap_.set(pc, api);
-	}
-
-	private onPageAdd_(ev: NestedOrderedSetEvents<TabPageController>['add']) {
-		this.setUpPageApi_(ev.item);
-	}
-
-	private onPageRemove_(
-		ev: NestedOrderedSetEvents<TabPageController>['remove'],
-	) {
-		const api = this.pageApiMap_.get(ev.item);
-		/* istanbul ignore next */
-		if (!api) {
-			throw TpError.shouldNeverHappen();
-		}
-		this.pageApiMap_.delete(ev.item);
 	}
 
 	private onSelect_(ev: ValueEvents<number>['change']) {
