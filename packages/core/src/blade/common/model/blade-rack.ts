@@ -6,7 +6,6 @@ import {
 } from '../../../common/model/value';
 import {ViewProps, ViewPropsEvents} from '../../../common/model/view-props';
 import {TpError} from '../../../common/tp-error';
-import {View} from '../../../common/view/view';
 import {Class, forceCast} from '../../../misc/type-util';
 import {RackController} from '../../rack/controller/rack';
 import {BladeController} from '../controller/blade';
@@ -42,10 +41,10 @@ export interface BladeRackEvents {
 	};
 }
 
-function findValueBladeController<T, V extends View>(
-	bcs: ValueBladeController<T, V>[],
-	v: Value<T>,
-): ValueBladeController<T, V> | null {
+function findValueBladeController(
+	bcs: ValueBladeController<unknown>[],
+	v: Value<unknown>,
+): ValueBladeController<unknown> | null {
 	for (let i = 0; i < bcs.length; i++) {
 		const bc = bcs[i];
 		if (bc instanceof ValueBladeController && bc.value === v) {
