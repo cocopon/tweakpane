@@ -3,7 +3,6 @@ import {describe, it} from 'mocha';
 
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
-import {View} from '../../../common/view/view';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {ButtonController} from '../../button/controller/button';
 import {ButtonPropsObject} from '../../button/view/button';
@@ -14,7 +13,7 @@ import {LabelPropsObject} from '../../label/view/label';
 import {FolderPropsObject} from '../view/folder';
 import {FolderController} from './folder';
 
-function createSomeBladeController(doc: Document): BladeController<View> {
+function createSomeBladeController(doc: Document): BladeController {
 	return new LabelController(doc, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({

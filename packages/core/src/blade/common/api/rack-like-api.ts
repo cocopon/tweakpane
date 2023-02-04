@@ -1,4 +1,3 @@
-import {View} from '../../../common/view/view';
 import {RackApi} from '../../rack/api/rack';
 import {BladeController} from '../controller/blade';
 import {BladeApi} from './blade';
@@ -6,7 +5,7 @@ import {BladeApi} from './blade';
 /**
  * @hidden
  */
-export class RackLikeApi<C extends BladeController<View>> extends BladeApi<C> {
+export class RackLikeApi<C extends BladeController> extends BladeApi<C> {
 	/**
 	 * @hidden
 	 */

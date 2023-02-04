@@ -5,7 +5,6 @@ import {ViewProps} from '../common/model/view-props';
 import {BaseBladeParams} from '../common/params';
 import {ParamsParsers, parseParams} from '../common/params-parsers';
 import {PlainView} from '../common/view/plain';
-import {View} from '../common/view/view';
 import {CheckboxController} from '../input-binding/boolean/controller/checkbox';
 import {BladeApi} from './common/api/blade';
 import {BladeController} from './common/controller/blade';
@@ -15,7 +14,7 @@ import {LabeledValueController} from './label/controller/value-label';
 import {LabelPropsObject} from './label/view/label';
 import {BladePlugin} from './plugin';
 
-class LabelableController implements Controller<View> {
+class LabelableController implements Controller {
 	public readonly viewProps = ViewProps.create();
 	public readonly view: PlainView;
 

@@ -1,6 +1,5 @@
 import {Bindable} from '../../../common/binding/target';
 import {BaseBladeParams} from '../../../common/params';
-import {View} from '../../../common/view/view';
 import {InputBindingApi} from '../../binding/api/input-binding';
 import {MonitorBindingApi} from '../../binding/api/monitor-binding';
 import {ButtonApi} from '../../button/api/button';
@@ -14,7 +13,6 @@ import {
 	SeparatorParams,
 	TabParams,
 } from '../../common/api/params';
-import {BladeController} from '../../common/controller/blade';
 import {FolderApi} from '../../folder/api/folder';
 import {RackApi} from '../../rack/api/rack';
 import {SeparatorApi} from '../../separator/api/separator';
@@ -46,7 +44,7 @@ export class TabPageApi implements BladeRackApi {
 		this.controller_.props.set('selected', selected);
 	}
 
-	get children(): BladeApi<BladeController<View>>[] {
+	get children(): BladeApi[] {
 		return this.rackApi_.children;
 	}
 
@@ -66,11 +64,11 @@ export class TabPageApi implements BladeRackApi {
 		return this.rackApi_.addTab(params);
 	}
 
-	public add(api: BladeApi<BladeController<View>>, opt_index?: number): void {
+	public add(api: BladeApi, opt_index?: number): void {
 		this.rackApi_.add(api, opt_index);
 	}
 
-	public remove(api: BladeApi<BladeController<View>>): void {
+	public remove(api: BladeApi): void {
 		this.rackApi_.remove(api);
 	}
 
@@ -90,7 +88,7 @@ export class TabPageApi implements BladeRackApi {
 		return this.rackApi_.addMonitor(object, key, opt_params);
 	}
 
-	public addBlade(params: BaseBladeParams): BladeApi<BladeController<View>> {
+	public addBlade(params: BaseBladeParams): BladeApi {
 		return this.rackApi_.addBlade(params);
 	}
 }

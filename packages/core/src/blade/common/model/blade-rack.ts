@@ -6,7 +6,6 @@ import {
 } from '../../../common/model/value';
 import {ViewProps, ViewPropsEvents} from '../../../common/model/view-props';
 import {TpError} from '../../../common/tp-error';
-import {View} from '../../../common/view/view';
 import {Class, forceCast} from '../../../misc/type-util';
 import {RackController} from '../../rack/controller/rack';
 import {BladeController} from '../controller/blade';
@@ -21,19 +20,19 @@ import {NestedOrderedSet, NestedOrderedSetEvents} from './nested-ordered-set';
  */
 export interface BladeRackEvents {
 	add: {
-		bladeController: BladeController<View>;
+		bladeController: BladeController;
 		index: number;
 		isRoot: boolean;
 		sender: BladeRack;
 	};
 	remove: {
-		bladeController: BladeController<View>;
+		bladeController: BladeController;
 		isRoot: boolean;
 		sender: BladeRack;
 	};
 
 	inputchange: {
-		bladeController: BladeController<View>;
+		bladeController: BladeController;
 		options: ValueChangeOptions;
 		sender: BladeRack;
 	};
@@ -42,10 +41,10 @@ export interface BladeRackEvents {
 	};
 }
 
-function findValueBladeController<T, V extends View>(
-	bcs: ValueBladeController<T, V>[],
-	v: Value<T>,
-): ValueBladeController<T, V> | null {
+function findValueBladeController(
+	bcs: ValueBladeController<unknown>[],
+	v: Value<unknown>,
+): ValueBladeController<unknown> | null {
 	for (let i = 0; i < bcs.length; i++) {
 		const bc = bcs[i];
 		if (bc instanceof ValueBladeController && bc.value === v) {
@@ -55,7 +54,7 @@ function findValueBladeController<T, V extends View>(
 	return null;
 }
 
-function findSubRack(bc: BladeController<View>): BladeRack | null {
+function findSubRack(bc: BladeController): BladeRack | null {
 	if (bc instanceof RackController) {
 		return bc.rack;
 	}
@@ -66,8 +65,8 @@ function findSubRack(bc: BladeController<View>): BladeRack | null {
 }
 
 function findSubBladeControllerSet(
-	bc: BladeController<View>,
-): NestedOrderedSet<BladeController<View>> | null {
+	bc: BladeController,
+): NestedOrderedSet<BladeController> | null {
 	const rack = findSubRack(bc);
 	return rack ? rack['bcSet_'] : null;
 }
@@ -84,7 +83,7 @@ export class BladeRack {
 	public readonly emitter: Emitter<BladeRackEvents>;
 	public readonly viewProps: ViewProps;
 	private readonly blade_: Blade | null;
-	private readonly bcSet_: NestedOrderedSet<BladeController<View>>;
+	private readonly bcSet_: NestedOrderedSet<BladeController>;
 
 	constructor(config: Config) {
 		this.onBladePositionsChange_ = this.onBladePositionsChange_.bind(this);
@@ -110,24 +109,24 @@ export class BladeRack {
 		this.bcSet_.emitter.on('remove', this.onSetRemove_);
 	}
 
-	get children(): BladeController<View>[] {
+	get children(): BladeController[] {
 		return this.bcSet_.items;
 	}
 
-	public add(bc: BladeController<View>, opt_index?: number): void {
+	public add(bc: BladeController, opt_index?: number): void {
 		bc.parent?.remove(bc);
 		bc.parent = this;
 
 		this.bcSet_.add(bc, opt_index);
 	}
 
-	public remove(bc: BladeController<View>): void {
+	public remove(bc: BladeController): void {
 		bc.parent = null;
 
 		this.bcSet_.remove(bc);
 	}
 
-	public find<B extends BladeController<View>>(controllerClass: Class<B>): B[] {
+	public find<B extends BladeController>(controllerClass: Class<B>): B[] {
 		return forceCast(
 			this.bcSet_.allItems().filter((bc) => {
 				return bc instanceof controllerClass;
@@ -135,7 +134,7 @@ export class BladeRack {
 		);
 	}
 
-	private onSetAdd_(ev: NestedOrderedSetEvents<BladeController<View>>['add']) {
+	private onSetAdd_(ev: NestedOrderedSetEvents<BladeController>['add']) {
 		this.updatePositions_();
 
 		const isRoot = ev.target === ev.root;
@@ -169,9 +168,7 @@ export class BladeRack {
 		}
 	}
 
-	private onSetRemove_(
-		ev: NestedOrderedSetEvents<BladeController<View>>['remove'],
-	) {
+	private onSetRemove_(ev: NestedOrderedSetEvents<BladeController>['remove']) {
 		this.updatePositions_();
 
 		const isRoot = ev.target === ev.root;
