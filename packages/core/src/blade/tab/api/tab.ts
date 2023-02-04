@@ -3,10 +3,9 @@ import {ValueEvents} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {PluginPool} from '../../../plugin/pool';
-import {RackLikeApi} from '../../common/api/rack-like-api';
+import {ContainerBladeApi} from '../../common/api/container-blade';
 import {TpChangeEvent, TpTabSelectEvent} from '../../common/api/tp-event';
 import {createBlade} from '../../common/model/blade';
-import {RackApi} from '../../rack/api/rack';
 import {TabController} from '../controller/tab';
 import {TabPageController, TabPagePropsObject} from '../controller/tab-page';
 import {TabItemPropsObject} from '../view/tab-item';
@@ -27,7 +26,7 @@ export interface TabPageParams {
 	index?: number;
 }
 
-export class TabApi extends RackLikeApi<TabController> {
+export class TabApi extends ContainerBladeApi<TabController> {
 	private readonly emitter_: Emitter<TabApiEvents> = new Emitter();
 	private readonly pool_: PluginPool;
 
@@ -35,7 +34,7 @@ export class TabApi extends RackLikeApi<TabController> {
 	 * @hidden
 	 */
 	constructor(controller: TabController, pool: PluginPool) {
-		super(controller, new RackApi(controller.rackController, pool));
+		super(controller, pool);
 
 		this.onSelect_ = this.onSelect_.bind(this);
 

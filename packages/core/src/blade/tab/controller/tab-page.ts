@@ -2,7 +2,7 @@ import {bindValueMap} from '../../../common/model/reactive';
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {PlainView} from '../../../common/view/plain';
-import {RackLikeController} from '../../common/controller/rack-like';
+import {ContainerBladeController} from '../../common/controller/container-blade';
 import {Blade} from '../../common/model/blade';
 import {RackController} from '../../rack/controller/rack';
 import {TabItemProps} from '../view/tab-item';
@@ -21,7 +21,7 @@ interface Config {
 	viewProps: ViewProps;
 }
 
-export class TabPageController extends RackLikeController<PlainView> {
+export class TabPageController extends ContainerBladeController<PlainView> {
 	public readonly props: TabPageProps;
 	private readonly ic_: TabItemController;
 

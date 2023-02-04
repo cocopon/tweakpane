@@ -9,7 +9,7 @@ import {TpError} from '../../../common/tp-error';
 import {Class, forceCast} from '../../../misc/type-util';
 import {RackController} from '../../rack/controller/rack';
 import {BladeController} from '../controller/blade';
-import {RackLikeController} from '../controller/rack-like';
+import {ContainerBladeController} from '../controller/container-blade';
 import {ValueBladeController} from '../controller/value-blade';
 import {Blade} from './blade';
 import {BladePosition} from './blade-positions';
@@ -58,7 +58,7 @@ function findSubRack(bc: BladeController): BladeRack | null {
 	if (bc instanceof RackController) {
 		return bc.rack;
 	}
-	if (bc instanceof RackLikeController) {
+	if (bc instanceof ContainerBladeController) {
 		return bc.rackController.rack;
 	}
 	return null;

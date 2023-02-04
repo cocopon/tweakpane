@@ -20,6 +20,7 @@ import {
 	addTabAsBlade,
 	BladeRackApi,
 } from '../../common/api/blade-rack';
+import {ContainerBladeApi} from '../../common/api/container-blade';
 import {
 	ButtonParams,
 	FolderParams,
@@ -28,7 +29,6 @@ import {
 	SeparatorParams,
 	TabParams,
 } from '../../common/api/params';
-import {RackLikeApi} from '../../common/api/rack-like-api';
 import {TpChangeEvent} from '../../common/api/tp-event';
 import {BladeController} from '../../common/controller/blade';
 import {ValueBladeController} from '../../common/controller/value-blade';
@@ -51,7 +51,7 @@ export function findSubBladeApiSet(
 	if (api instanceof RackApi) {
 		return api['apiSet_'];
 	}
-	if (api instanceof RackLikeApi) {
+	if (api instanceof ContainerBladeApi) {
 		return api['rackApi_']['apiSet_'];
 	}
 	return null;

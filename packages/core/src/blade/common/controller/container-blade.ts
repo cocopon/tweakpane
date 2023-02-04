@@ -9,7 +9,9 @@ interface Config<V extends View> {
 	view: V;
 }
 
-export class RackLikeController<V extends View> extends BladeController<V> {
+export class ContainerBladeController<
+	V extends View = View,
+> extends BladeController<V> {
 	public readonly rackController: RackController;
 
 	constructor(config: Config<V>) {

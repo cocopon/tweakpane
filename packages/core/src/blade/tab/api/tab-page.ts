@@ -1,11 +1,11 @@
 import {Bindable} from '../../../common/binding/target';
 import {BaseBladeParams} from '../../../common/params';
-import {PluginPool} from '../../../plugin/pool';
 import {InputBindingApi} from '../../binding/api/input-binding';
 import {MonitorBindingApi} from '../../binding/api/monitor-binding';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
 import {BladeRackApi} from '../../common/api/blade-rack';
+import {ContainerBladeApi} from '../../common/api/container-blade';
 import {
 	ButtonParams,
 	FolderParams,
@@ -14,21 +14,15 @@ import {
 	SeparatorParams,
 	TabParams,
 } from '../../common/api/params';
-import {RackLikeApi} from '../../common/api/rack-like-api';
 import {FolderApi} from '../../folder/api/folder';
-import {RackApi} from '../../rack/api/rack';
 import {SeparatorApi} from '../../separator/api/separator';
 import {TabPageController} from '../controller/tab-page';
 import {TabApi} from './tab';
 
 export class TabPageApi
-	extends RackLikeApi<TabPageController>
+	extends ContainerBladeApi<TabPageController>
 	implements BladeRackApi
 {
-	constructor(controller: TabPageController, pool: PluginPool) {
-		super(controller, new RackApi(controller.rackController, pool));
-	}
-
 	get title(): string {
 		return this.controller_.itemController.props.get('title') ?? '';
 	}

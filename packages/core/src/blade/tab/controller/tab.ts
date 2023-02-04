@@ -1,7 +1,7 @@
 import {insertElementAt, removeElement} from '../../../common/dom-util';
 import {ViewProps} from '../../../common/model/view-props';
 import {TpError} from '../../../common/tp-error';
-import {RackLikeController} from '../../common/controller/rack-like';
+import {ContainerBladeController} from '../../common/controller/container-blade';
 import {Blade} from '../../common/model/blade';
 import {BladeRackEvents} from '../../common/model/blade-rack';
 import {RackController} from '../../rack/controller/rack';
@@ -14,7 +14,7 @@ interface Config {
 	viewProps: ViewProps;
 }
 
-export class TabController extends RackLikeController<TabView> {
+export class TabController extends ContainerBladeController<TabView> {
 	public readonly tab: Tab;
 
 	constructor(doc: Document, config: Config) {
