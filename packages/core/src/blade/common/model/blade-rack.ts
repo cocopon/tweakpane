@@ -31,7 +31,7 @@ export interface BladeRackEvents {
 		sender: BladeRack;
 	};
 
-	inputchange: {
+	valuechange: {
 		bladeController: BladeController;
 		options: ValueChangeOptions;
 		sender: BladeRack;
@@ -94,7 +94,7 @@ export class BladeRack {
 		this.onChildValueChange_ = this.onChildValueChange_.bind(this);
 		this.onChildViewPropsChange_ = this.onChildViewPropsChange_.bind(this);
 		this.onDescendantLayout_ = this.onDescendantLayout_.bind(this);
-		this.onDescendantInputChange_ = this.onDescendantInputChange_.bind(this);
+		this.onDescendantValueChange_ = this.onDescendantValueChange_.bind(this);
 
 		this.blade_ = config.blade ?? null;
 		this.blade_
@@ -161,7 +161,7 @@ export class BladeRack {
 			if (rack) {
 				const emitter = rack.emitter;
 				emitter.on('layout', this.onDescendantLayout_);
-				emitter.on('inputchange', this.onDescendantInputChange_);
+				emitter.on('valuechange', this.onDescendantValueChange_);
 			}
 		}
 	}
@@ -188,7 +188,7 @@ export class BladeRack {
 			if (rack) {
 				const emitter = rack.emitter;
 				emitter.off('layout', this.onDescendantLayout_);
-				emitter.off('inputchange', this.onDescendantInputChange_);
+				emitter.off('valuechange', this.onDescendantValueChange_);
 			}
 		}
 	}
@@ -254,7 +254,7 @@ export class BladeRack {
 		if (!bc) {
 			throw TpError.alreadyDisposed();
 		}
-		this.emitter.emit('inputchange', {
+		this.emitter.emit('valuechange', {
 			bladeController: bc,
 			options: ev.options,
 			sender: this,
@@ -268,8 +268,8 @@ export class BladeRack {
 		});
 	}
 
-	private onDescendantInputChange_(ev: BladeRackEvents['inputchange']) {
-		this.emitter.emit('inputchange', {
+	private onDescendantValueChange_(ev: BladeRackEvents['valuechange']) {
+		this.emitter.emit('valuechange', {
 			bladeController: ev.bladeController,
 			options: ev.options,
 			sender: this,
