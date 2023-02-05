@@ -45,9 +45,7 @@ export interface BladeRackApiEvents {
 	};
 }
 
-export function findSubBladeApiSet(
-	api: BladeApi,
-): NestedOrderedSet<BladeApi> | null {
+function findSubBladeApiSet(api: BladeApi): NestedOrderedSet<BladeApi> | null {
 	if (api instanceof RackApi) {
 		return api['apiSet_'];
 	}
