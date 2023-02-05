@@ -26,14 +26,14 @@ export class TabPageController extends ContainerBladeController<PlainView> {
 	private readonly ic_: TabItemController;
 
 	constructor(doc: Document, config: Config) {
-		const cc = new RackController(doc, {
+		const rc = new RackController(doc, {
 			blade: config.blade,
 			viewProps: config.viewProps,
 		});
 		super({
 			...config,
-			rackController: cc,
-			view: cc.view,
+			rackController: rc,
+			view: rc.view,
 		});
 
 		this.onItemClick_ = this.onItemClick_.bind(this);
