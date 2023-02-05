@@ -66,8 +66,8 @@ export class NestedOrderedSet<T> {
 			subList.emitter.on('add', this.onSubListAdd_);
 			subList.emitter.on('remove', this.onSubListRemove_);
 
-			subList.allItems().forEach((item) => {
-				this.cache_.add(item);
+			subList.allItems().forEach((i) => {
+				this.cache_.add(i);
 			});
 		}
 
@@ -90,6 +90,10 @@ export class NestedOrderedSet<T> {
 
 		const subList = this.extract_(item);
 		if (subList) {
+			subList.allItems().forEach((i) => {
+				this.cache_.delete(i);
+			});
+
 			subList.emitter.off('add', this.onSubListAdd_);
 			subList.emitter.off('remove', this.onSubListRemove_);
 		}

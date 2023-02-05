@@ -20,6 +20,7 @@ import {
 	addTabAsBlade,
 	BladeRackApi,
 } from '../../common/api/blade-rack';
+import {ContainerBladeApi} from '../../common/api/container-blade';
 import {
 	ButtonParams,
 	FolderParams,
@@ -28,7 +29,6 @@ import {
 	SeparatorParams,
 	TabParams,
 } from '../../common/api/params';
-import {RackLikeApi} from '../../common/api/rack-like-api';
 import {TpChangeEvent} from '../../common/api/tp-event';
 import {BladeController} from '../../common/controller/blade';
 import {ValueBladeController} from '../../common/controller/value-blade';
@@ -45,13 +45,11 @@ export interface BladeRackApiEvents {
 	};
 }
 
-export function findSubBladeApiSet(
-	api: BladeApi,
-): NestedOrderedSet<BladeApi> | null {
+function findSubBladeApiSet(api: BladeApi): NestedOrderedSet<BladeApi> | null {
 	if (api instanceof RackApi) {
 		return api['apiSet_'];
 	}
-	if (api instanceof RackLikeApi) {
+	if (api instanceof ContainerBladeApi) {
 		return api['rackApi_']['apiSet_'];
 	}
 	return null;
@@ -200,7 +198,12 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 		return this;
 	}
 
-	private setUpApi_(bc: BladeController) {
+	/**
+	 * Sets up an API for the controller if not exists.
+	 * Used, for example, when initializing a container controller with child controllers.
+	 * @param bc The controller.
+	 */
+	private setUpApi_(bc: BladeController): void {
 		const api = this.apiSet_.find((api) => api.controller_ === bc);
 		if (!api) {
 			// Auto-fill missing API

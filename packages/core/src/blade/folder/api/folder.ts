@@ -8,6 +8,7 @@ import {MonitorBindingApi} from '../../binding/api/monitor-binding';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
 import {BladeRackApi} from '../../common/api/blade-rack';
+import {ContainerBladeApi} from '../../common/api/container-blade';
 import {
 	ButtonParams,
 	FolderParams,
@@ -16,9 +17,7 @@ import {
 	SeparatorParams,
 	TabParams,
 } from '../../common/api/params';
-import {RackLikeApi} from '../../common/api/rack-like-api';
 import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event';
-import {RackApi} from '../../rack/api/rack';
 import {SeparatorApi} from '../../separator/api/separator';
 import {TabApi} from '../../tab/api/tab';
 import {FolderController} from '../controller/folder';
@@ -33,7 +32,7 @@ export interface FolderApiEvents {
 }
 
 export class FolderApi
-	extends RackLikeApi<FolderController>
+	extends ContainerBladeApi<FolderController>
 	implements BladeRackApi
 {
 	private readonly emitter_: Emitter<FolderApiEvents>;
@@ -42,7 +41,7 @@ export class FolderApi
 	 * @hidden
 	 */
 	constructor(controller: FolderController, pool: PluginPool) {
-		super(controller, new RackApi(controller.rackController, pool));
+		super(controller, pool);
 
 		this.emitter_ = new Emitter();
 

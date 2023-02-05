@@ -1,5 +1,5 @@
 import {ViewProps} from '../../../common/model/view-props';
-import {RackLikeController} from '../../common/controller/rack-like';
+import {ContainerBladeController} from '../../common/controller/container-blade';
 import {Blade} from '../../common/model/blade';
 import {bindFoldable, Foldable} from '../../common/model/foldable';
 import {RackController} from '../../rack/controller/rack';
@@ -17,7 +17,7 @@ interface Config {
 /**
  * @hidden
  */
-export class FolderController extends RackLikeController<FolderView> {
+export class FolderController extends ContainerBladeController<FolderView> {
 	public readonly foldable: Foldable;
 	public readonly props: FolderProps;
 

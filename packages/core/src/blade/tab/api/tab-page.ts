@@ -5,6 +5,7 @@ import {MonitorBindingApi} from '../../binding/api/monitor-binding';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
 import {BladeRackApi} from '../../common/api/blade-rack';
+import {ContainerBladeApi} from '../../common/api/container-blade';
 import {
 	ButtonParams,
 	FolderParams,
@@ -14,20 +15,14 @@ import {
 	TabParams,
 } from '../../common/api/params';
 import {FolderApi} from '../../folder/api/folder';
-import {RackApi} from '../../rack/api/rack';
 import {SeparatorApi} from '../../separator/api/separator';
 import {TabPageController} from '../controller/tab-page';
 import {TabApi} from './tab';
 
-export class TabPageApi implements BladeRackApi {
-	public readonly controller_: TabPageController;
-	private readonly rackApi_: RackApi;
-
-	constructor(controller: TabPageController, contentRackApi: RackApi) {
-		this.controller_ = controller;
-		this.rackApi_ = contentRackApi;
-	}
-
+export class TabPageApi
+	extends ContainerBladeApi<TabPageController>
+	implements BladeRackApi
+{
 	get title(): string {
 		return this.controller_.itemController.props.get('title') ?? '';
 	}

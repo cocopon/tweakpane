@@ -9,7 +9,7 @@ import {TpError} from '../../../common/tp-error';
 import {Class, forceCast} from '../../../misc/type-util';
 import {RackController} from '../../rack/controller/rack';
 import {BladeController} from '../controller/blade';
-import {RackLikeController} from '../controller/rack-like';
+import {ContainerBladeController} from '../controller/container-blade';
 import {ValueBladeController} from '../controller/value-blade';
 import {Blade} from './blade';
 import {BladePosition} from './blade-positions';
@@ -58,7 +58,7 @@ function findSubRack(bc: BladeController): BladeRack | null {
 	if (bc instanceof RackController) {
 		return bc.rack;
 	}
-	if (bc instanceof RackLikeController) {
+	if (bc instanceof ContainerBladeController) {
 		return bc.rackController.rack;
 	}
 	return null;
@@ -80,7 +80,7 @@ interface Config {
  * A collection of blade controllers that manages positions and event propagation.
  */
 export class BladeRack {
-	public readonly emitter: Emitter<BladeRackEvents>;
+	public readonly emitter: Emitter<BladeRackEvents> = new Emitter();
 	public readonly viewProps: ViewProps;
 	private readonly blade_: Blade | null;
 	private readonly bcSet_: NestedOrderedSet<BladeController>;
@@ -95,8 +95,6 @@ export class BladeRack {
 		this.onChildViewPropsChange_ = this.onChildViewPropsChange_.bind(this);
 		this.onDescendantLayout_ = this.onDescendantLayout_.bind(this);
 		this.onDescendantInputChange_ = this.onDescendantInputChange_.bind(this);
-
-		this.emitter = new Emitter();
 
 		this.blade_ = config.blade ?? null;
 		this.blade_

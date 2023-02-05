@@ -1,6 +1,8 @@
 import {ValueMap} from '../../common/model/value-map';
+import {ViewProps} from '../../common/model/view-props';
 import {BaseBladeParams} from '../../common/params';
 import {ParamsParsers, parseParams} from '../../common/params-parsers';
+import {createBlade} from '../common/model/blade';
 import {BladePlugin} from '../plugin';
 import {TabApi} from './api/tab';
 import {TabController} from './controller/tab';
@@ -35,6 +37,7 @@ export const TabBladePlugin: BladePlugin<TabBladeParams> = {
 		});
 		args.params.pages.forEach((p) => {
 			const pc = new TabPageController(args.document, {
+				blade: createBlade(),
 				itemProps: ValueMap.fromObject<TabItemPropsObject>({
 					selected: false,
 					title: p.title,
@@ -42,6 +45,7 @@ export const TabBladePlugin: BladePlugin<TabBladeParams> = {
 				props: ValueMap.fromObject<TabPagePropsObject>({
 					selected: false,
 				}),
+				viewProps: ViewProps.create(),
 			});
 			c.add(pc);
 		});
