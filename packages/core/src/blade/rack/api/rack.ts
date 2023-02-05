@@ -90,7 +90,7 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 
 		this.onRackAdd_ = this.onRackAdd_.bind(this);
 		this.onRackRemove_ = this.onRackRemove_.bind(this);
-		this.onRackInputChange_ = this.onRackInputChange_.bind(this);
+		this.onRackValueChange_ = this.onRackValueChange_.bind(this);
 
 		this.emitter_ = new Emitter();
 		this.apiSet_ = new NestedOrderedSet(findSubBladeApiSet);
@@ -99,7 +99,7 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 		const rack = this.controller_.rack;
 		rack.emitter.on('add', this.onRackAdd_);
 		rack.emitter.on('remove', this.onRackRemove_);
-		rack.emitter.on('inputchange', this.onRackInputChange_);
+		rack.emitter.on('valuechange', this.onRackValueChange_);
 		rack.children.forEach((bc) => {
 			this.setUpApi_(bc);
 		});
@@ -222,7 +222,7 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 		}
 	}
 
-	private onRackInputChange_(ev: BladeRackEvents['inputchange']) {
+	private onRackValueChange_(ev: BladeRackEvents['valuechange']) {
 		const bc = ev.bladeController;
 		const api = getApiByController(this.apiSet_, bc);
 		const value: Value<unknown> =

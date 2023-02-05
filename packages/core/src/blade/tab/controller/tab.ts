@@ -18,16 +18,16 @@ export class TabController extends ContainerBladeController<TabView> {
 	public readonly tab: Tab;
 
 	constructor(doc: Document, config: Config) {
-		const cr = new RackController(doc, {
+		const rc = new RackController(doc, {
 			blade: config.blade,
 			viewProps: config.viewProps,
 		});
 		const tab = new Tab();
 		super({
 			blade: config.blade,
-			rackController: cr,
+			rackController: rc,
 			view: new TabView(doc, {
-				contentsElement: cr.view.element,
+				contentsElement: rc.view.element,
 				empty: tab.empty,
 				viewProps: config.viewProps,
 			}),

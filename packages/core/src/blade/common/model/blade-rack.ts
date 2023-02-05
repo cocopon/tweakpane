@@ -31,7 +31,7 @@ export interface BladeRackEvents {
 		sender: BladeRack;
 	};
 
-	inputchange: {
+	valuechange: {
 		bladeController: BladeController;
 		options: ValueChangeOptions;
 		sender: BladeRack;
@@ -93,8 +93,8 @@ export class BladeRack {
 		this.onChildPositionsChange_ = this.onChildPositionsChange_.bind(this);
 		this.onChildValueChange_ = this.onChildValueChange_.bind(this);
 		this.onChildViewPropsChange_ = this.onChildViewPropsChange_.bind(this);
-		this.onDescendantLayout_ = this.onDescendantLayout_.bind(this);
-		this.onDescendantInputChange_ = this.onDescendantInputChange_.bind(this);
+		this.onRackLayout_ = this.onRackLayout_.bind(this);
+		this.onRackValueChange_ = this.onRackValueChange_.bind(this);
 
 		this.blade_ = config.blade ?? null;
 		this.blade_
@@ -160,8 +160,8 @@ export class BladeRack {
 			const rack = findSubRack(bc);
 			if (rack) {
 				const emitter = rack.emitter;
-				emitter.on('layout', this.onDescendantLayout_);
-				emitter.on('inputchange', this.onDescendantInputChange_);
+				emitter.on('layout', this.onRackLayout_);
+				emitter.on('valuechange', this.onRackValueChange_);
 			}
 		}
 	}
@@ -187,8 +187,8 @@ export class BladeRack {
 			const rack = findSubRack(bc);
 			if (rack) {
 				const emitter = rack.emitter;
-				emitter.off('layout', this.onDescendantLayout_);
-				emitter.off('inputchange', this.onDescendantInputChange_);
+				emitter.off('layout', this.onRackLayout_);
+				emitter.off('valuechange', this.onRackValueChange_);
 			}
 		}
 	}
@@ -254,22 +254,22 @@ export class BladeRack {
 		if (!bc) {
 			throw TpError.alreadyDisposed();
 		}
-		this.emitter.emit('inputchange', {
+		this.emitter.emit('valuechange', {
 			bladeController: bc,
 			options: ev.options,
 			sender: this,
 		});
 	}
 
-	private onDescendantLayout_(_: BladeRackEvents['layout']) {
+	private onRackLayout_(_: BladeRackEvents['layout']) {
 		this.updatePositions_();
 		this.emitter.emit('layout', {
 			sender: this,
 		});
 	}
 
-	private onDescendantInputChange_(ev: BladeRackEvents['inputchange']) {
-		this.emitter.emit('inputchange', {
+	private onRackValueChange_(ev: BladeRackEvents['valuechange']) {
+		this.emitter.emit('valuechange', {
 			bladeController: ev.bladeController,
 			options: ev.options,
 			sender: this,

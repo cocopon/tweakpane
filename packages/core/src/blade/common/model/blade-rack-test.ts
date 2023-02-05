@@ -157,7 +157,7 @@ describe(BladeRack.name, () => {
 		const bc = createInputBindingController(doc);
 		rack.add(bc);
 
-		rack.emitter.on('inputchange', (ev) => {
+		rack.emitter.on('valuechange', (ev) => {
 			assert.strictEqual(ev.bladeController, forceCast(bc));
 			done();
 		});
@@ -175,7 +175,7 @@ describe(BladeRack.name, () => {
 		const bc = createInputBindingController(doc);
 		fc.rackController.rack.add(bc);
 
-		rack.emitter.on('inputchange', (ev) => {
+		rack.emitter.on('valuechange', (ev) => {
 			assert.strictEqual(ev.bladeController, forceCast(bc));
 			done();
 		});
@@ -195,7 +195,7 @@ describe(BladeRack.name, () => {
 		const bc = createInputBindingController(doc);
 		sfc.rackController.rack.add(bc);
 
-		rack.emitter.on('inputchange', (ev) => {
+		rack.emitter.on('valuechange', (ev) => {
 			assert.strictEqual(ev.bladeController, forceCast(bc));
 			done();
 		});
@@ -211,7 +211,7 @@ describe(BladeRack.name, () => {
 		const bc = createMonitorBindingController(doc);
 		rack.add(bc);
 
-		rack.emitter.on('inputchange', (ev) => {
+		rack.emitter.on('valuechange', (ev) => {
 			assert.strictEqual(ev.bladeController, forceCast(bc));
 			done();
 		});
@@ -229,7 +229,7 @@ describe(BladeRack.name, () => {
 		const bc = createMonitorBindingController(doc);
 		fc.rackController.rack.add(bc);
 
-		rack.emitter.on('inputchange', (ev) => {
+		rack.emitter.on('valuechange', (ev) => {
 			assert.strictEqual(ev.bladeController, forceCast(bc));
 			done();
 		});
@@ -245,7 +245,7 @@ describe(BladeRack.name, () => {
 		const bc = createValueBladeController(doc);
 		rack.add(bc);
 
-		rack.emitter.on('inputchange', (ev) => {
+		rack.emitter.on('valuechange', (ev) => {
 			assert.strictEqual(ev.bladeController, forceCast(bc));
 			done();
 		});
@@ -263,7 +263,7 @@ describe(BladeRack.name, () => {
 		const bc = createValueBladeController(doc);
 		fc.rackController.rack.add(bc);
 
-		rack.emitter.on('inputchange', (ev) => {
+		rack.emitter.on('valuechange', (ev) => {
 			assert.strictEqual(ev.bladeController, forceCast(bc));
 			done();
 		});
@@ -310,7 +310,7 @@ describe(BladeRack.name, () => {
 		const bc = createInputBindingController(doc);
 		rack.add(bc);
 
-		rack.emitter.on('inputchange', () => {
+		rack.emitter.on('valuechange', () => {
 			assert.fail('should not be called');
 		});
 
@@ -328,7 +328,7 @@ describe(BladeRack.name, () => {
 		const bc = createInputBindingController(doc);
 		fc.rackController.rack.add(bc);
 
-		rack.emitter.on('inputchange', () => {
+		rack.emitter.on('valuechange', () => {
 			assert.fail('should not be called');
 		});
 
