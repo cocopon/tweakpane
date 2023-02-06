@@ -1,5 +1,6 @@
 import {BindingApi} from '../blade/binding/api/binding';
 import {InputBindingApi} from '../blade/binding/api/input-binding';
+import {MonitorBindingApi} from '../blade/binding/api/monitor-binding';
 import {isBindingController} from '../blade/binding/controller/binding';
 import {InputBindingController} from '../blade/binding/controller/input-binding';
 import {MonitorBindingController} from '../blade/binding/controller/monitor-binding';
@@ -178,6 +179,25 @@ export class PluginPool {
 				return (
 					plugin.api?.({
 						controller: bc as InputBindingController<unknown>,
+					}) ?? null
+				);
+			},
+			null,
+		);
+		return api ?? new BindingApi(bc);
+	}
+
+	public createMonitorBindingApi<T>(
+		bc: MonitorBindingController<T>,
+	): MonitorBindingApi<T> {
+		const api = this.pluginsMap_.monitors.reduce(
+			(result: MonitorBindingApi<T> | null, plugin) => {
+				if (result) {
+					return result;
+				}
+				return (
+					plugin.api?.({
+						controller: bc as MonitorBindingController<unknown>,
 					}) ?? null
 				);
 			},

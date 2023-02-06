@@ -130,11 +130,11 @@ export interface InputBindingPlugin<In, Ex, P extends BaseInputParams>
 	};
 
 	/**
-	 * Creates a custom API for the plugin if needed.
+	 * Creates a custom API for the plugin if available.
 	 */
 	api?: {
 		/**
-		 * @param args The arguments for creating a controller.
+		 * @param args The arguments for creating an API.
 		 * @return A custom API for the specified controller, or null if there is no suitable API.
 		 */
 		(args: ApiArguments): InputBindingApi<In, Ex> | null;

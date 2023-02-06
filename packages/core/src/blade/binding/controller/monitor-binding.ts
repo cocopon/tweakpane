@@ -9,8 +9,7 @@ export type BufferedValueController<
 	Vw extends View = View,
 > = ValueController<TpBuffer<T>, Vw>;
 
-export type MonitorBindingController<T> = LabeledValueController<
-	TpBuffer<T>,
-	BufferedValueController<T>,
-	MonitorBindingValue<T>
->;
+export type MonitorBindingController<
+	T,
+	Vc extends BufferedValueController<T> = BufferedValueController<T>,
+> = LabeledValueController<TpBuffer<T>, Vc, MonitorBindingValue<T>>;

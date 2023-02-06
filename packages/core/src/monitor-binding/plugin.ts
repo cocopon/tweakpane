@@ -1,3 +1,4 @@
+import {MonitorBindingApi} from '../blade/binding/api/monitor-binding';
 import {
 	BufferedValueController,
 	MonitorBindingController,
@@ -36,6 +37,10 @@ interface ControllerArguments<T, P extends BaseMonitorParams> {
 	params: P;
 	value: MonitorBindingValue<T>;
 	viewProps: ViewProps;
+}
+
+interface ApiArguments {
+	controller: MonitorBindingController<unknown>;
 }
 
 /**
@@ -95,6 +100,17 @@ export interface MonitorBindingPlugin<T, P extends BaseMonitorParams>
 		 * @return A custom controller that contains a custom view.
 		 */
 		(args: ControllerArguments<T, P>): BufferedValueController<T>;
+	};
+
+	/**
+	 * Creates a custom API for the plugin if available.
+	 */
+	api?: {
+		/**
+		 * @param args The arguments for creating an API.
+		 * @return A custom API for the specified controller, or null if there is no suitable API.
+		 */
+		(args: ApiArguments): MonitorBindingApi<T> | null;
 	};
 }
 
