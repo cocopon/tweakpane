@@ -17,9 +17,9 @@ import {
 	assertUpdates,
 	createTestWindow,
 } from '../../../misc/test-util';
-import {ListApi} from './list';
+import {ListBladeApi} from './list';
 
-describe(ListApi.name, () => {
+describe(ListBladeApi.name, () => {
 	it('should dispose', () => {
 		const doc = createTestWindow().document;
 		const v = createValue(0);
@@ -39,7 +39,7 @@ describe(ListApi.name, () => {
 				viewProps: ViewProps.create(),
 			}),
 		});
-		const api = new ListApi(c);
+		const api = new ListBladeApi(c);
 		assertDisposes(api);
 	});
 
@@ -63,7 +63,7 @@ describe(ListApi.name, () => {
 				viewProps: ViewProps.create(),
 			}),
 		});
-		const api = new ListApi(c);
+		const api = new ListBladeApi(c);
 
 		assertInitialState(api);
 		assert.strictEqual(api.label, undefined);
@@ -92,7 +92,7 @@ describe(ListApi.name, () => {
 				viewProps: ViewProps.create(),
 			}),
 		});
-		const api = new ListApi(c);
+		const api = new ListBladeApi(c);
 
 		assertUpdates(api);
 
@@ -130,7 +130,7 @@ describe(ListApi.name, () => {
 				viewProps: ViewProps.create(),
 			}),
 		});
-		const api = new ListApi(c);
+		const api = new ListBladeApi(c);
 
 		api.on('change', (ev) => {
 			assert.strictEqual(ev.presetKey, undefined);

@@ -14,7 +14,7 @@ import {
 	ValueMap,
 } from '@tweakpane/core';
 
-import {ListApi} from './api/list';
+import {ListBladeApi} from './api/list';
 
 export interface ListBladeParams<T> extends BaseBladeParams {
 	options: ListParamsOptions<T>;
@@ -71,7 +71,7 @@ export const ListBladePlugin = (function <T>(): BladePlugin<
 			if (!(args.controller.valueController instanceof ListController)) {
 				return null;
 			}
-			return new ListApi(args.controller);
+			return new ListBladeApi(args.controller);
 		},
 	};
 })();

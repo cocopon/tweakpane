@@ -1,7 +1,7 @@
 import {TpError} from '@tweakpane/core';
 import * as assert from 'assert';
 
-import {SliderApi} from '../blade/slider/api/slider';
+import {SliderBladeApi} from '../blade/slider/api/slider';
 import {createTestWindow} from '../misc/test-util';
 import {Pane} from './pane';
 
@@ -38,7 +38,7 @@ describe(Pane.name, () => {
 			max: 100,
 			min: 0,
 			view: 'slider',
-		}) as SliderApi;
+		}) as SliderBladeApi;
 
 		try {
 			b.on('change', () => {

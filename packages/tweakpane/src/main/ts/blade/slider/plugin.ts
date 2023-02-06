@@ -15,7 +15,7 @@ import {
 	ValueMap,
 } from '@tweakpane/core';
 
-import {SliderApi} from './api/slider';
+import {SliderBladeApi} from './api/slider';
 
 export interface SliderBladeParams extends BaseBladeParams {
 	max: number;
@@ -85,6 +85,6 @@ export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 		if (!(args.controller.valueController instanceof SliderTextController)) {
 			return null;
 		}
-		return new SliderApi(args.controller);
+		return new SliderBladeApi(args.controller);
 	},
 };

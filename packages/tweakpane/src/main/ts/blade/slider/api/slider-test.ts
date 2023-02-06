@@ -18,9 +18,9 @@ import {
 	assertUpdates,
 	createTestWindow,
 } from '../../../misc/test-util';
-import {SliderApi} from './slider';
+import {SliderBladeApi} from './slider';
 
-describe(SliderApi.name, () => {
+describe(SliderBladeApi.name, () => {
 	it('should dispose', () => {
 		const doc = createTestWindow().document;
 		const v = createValue(0);
@@ -45,7 +45,7 @@ describe(SliderApi.name, () => {
 				viewProps: ViewProps.create(),
 			}),
 		});
-		const api = new SliderApi(c);
+		const api = new SliderBladeApi(c);
 		assertDisposes(api);
 	});
 
@@ -73,7 +73,7 @@ describe(SliderApi.name, () => {
 				viewProps: ViewProps.create(),
 			}),
 		});
-		const api = new SliderApi(c);
+		const api = new SliderBladeApi(c);
 
 		assertInitialState(api);
 		assert.strictEqual(api.maxValue, 100);
@@ -106,7 +106,7 @@ describe(SliderApi.name, () => {
 				viewProps: ViewProps.create(),
 			}),
 		});
-		const api = new SliderApi(c);
+		const api = new SliderBladeApi(c);
 
 		assertUpdates(api);
 
@@ -146,7 +146,7 @@ describe(SliderApi.name, () => {
 				viewProps: ViewProps.create(),
 			}),
 		});
-		const api = new SliderApi(c);
+		const api = new SliderBladeApi(c);
 
 		api.on('change', (ev) => {
 			assert.strictEqual(ev.presetKey, undefined);

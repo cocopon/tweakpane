@@ -16,9 +16,9 @@ import {
 	assertUpdates,
 	createTestWindow,
 } from '../../../misc/test-util';
-import {TextApi} from './text';
+import {TextBladeApi} from './text';
 
-describe(TextApi.name, () => {
+describe(TextBladeApi.name, () => {
 	it('should dispose', () => {
 		const doc = createTestWindow().document;
 		const v = createValue('');
@@ -37,7 +37,7 @@ describe(TextApi.name, () => {
 				viewProps: ViewProps.create(),
 			}),
 		});
-		const api = new TextApi(c);
+		const api = new TextBladeApi(c);
 
 		assertDisposes(api);
 	});
@@ -61,7 +61,7 @@ describe(TextApi.name, () => {
 				viewProps: ViewProps.create(),
 			}),
 		});
-		const api = new TextApi(c);
+		const api = new TextBladeApi(c);
 
 		assertInitialState(api);
 		assert.strictEqual(api.formatter, formatter);
@@ -87,7 +87,7 @@ describe(TextApi.name, () => {
 				viewProps: ViewProps.create(),
 			}),
 		});
-		const api = new TextApi(c);
+		const api = new TextBladeApi(c);
 
 		assertUpdates(api);
 
@@ -122,7 +122,7 @@ describe(TextApi.name, () => {
 				viewProps: ViewProps.create(),
 			}),
 		});
-		const api = new TextApi(c);
+		const api = new TextBladeApi(c);
 
 		api.on('change', (ev) => {
 			assert.strictEqual(ev.presetKey, undefined);

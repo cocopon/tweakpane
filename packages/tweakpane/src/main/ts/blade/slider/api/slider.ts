@@ -7,7 +7,7 @@ import {
 	TpChangeEvent,
 } from '@tweakpane/core';
 
-export class SliderApi extends BladeApi<
+export class SliderBladeApi extends BladeApi<
 	LabeledValueController<number, SliderTextController>
 > {
 	private readonly emitter_: Emitter<ApiChangeEvents<number>> = new Emitter();

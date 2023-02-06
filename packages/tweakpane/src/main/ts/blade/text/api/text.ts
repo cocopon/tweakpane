@@ -8,7 +8,7 @@ import {
 	TpChangeEvent,
 } from '@tweakpane/core';
 
-export class TextApi<T> extends BladeApi<
+export class TextBladeApi<T> extends BladeApi<
 	LabeledValueController<T, TextController<T>>
 > {
 	private readonly emitter_: Emitter<ApiChangeEvents<T>> = new Emitter();
