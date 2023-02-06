@@ -18,9 +18,9 @@ import {
 	assertUpdates,
 	createTestWindow,
 } from '../../../misc/test-util';
-import {SliderApi} from './slider';
+import {SliderBladeApi} from './slider';
 
-describe(SliderApi.name, () => {
+describe(SliderBladeApi.name, () => {
 	it('should dispose', () => {
 		const doc = createTestWindow().document;
 		const v = createValue(0);
@@ -34,8 +34,8 @@ describe(SliderApi.name, () => {
 				baseStep: 1,
 				parser: parseNumber,
 				sliderProps: ValueMap.fromObject({
-					maxValue: 100,
-					minValue: 0,
+					max: 100,
+					min: 0,
 				}),
 				textProps: ValueMap.fromObject({
 					draggingScale: 1,
@@ -45,7 +45,7 @@ describe(SliderApi.name, () => {
 				viewProps: ViewProps.create(),
 			}),
 		});
-		const api = new SliderApi(c);
+		const api = new SliderBladeApi(c);
 		assertDisposes(api);
 	});
 
@@ -62,8 +62,8 @@ describe(SliderApi.name, () => {
 				baseStep: 1,
 				parser: parseNumber,
 				sliderProps: ValueMap.fromObject({
-					maxValue: 100,
-					minValue: -100,
+					max: 100,
+					min: -100,
 				}),
 				textProps: ValueMap.fromObject({
 					draggingScale: 1,
@@ -73,11 +73,11 @@ describe(SliderApi.name, () => {
 				viewProps: ViewProps.create(),
 			}),
 		});
-		const api = new SliderApi(c);
+		const api = new SliderBladeApi(c);
 
 		assertInitialState(api);
-		assert.strictEqual(api.maxValue, 100);
-		assert.strictEqual(api.minValue, -100);
+		assert.strictEqual(api.max, 100);
+		assert.strictEqual(api.min, -100);
 		assert.strictEqual(api.label, 'foobar');
 		assert.strictEqual(api.value, 123);
 	});
@@ -95,8 +95,8 @@ describe(SliderApi.name, () => {
 				baseStep: 1,
 				parser: parseNumber,
 				sliderProps: ValueMap.fromObject({
-					maxValue: 100,
-					minValue: -100,
+					max: 100,
+					min: -100,
 				}),
 				textProps: ValueMap.fromObject({
 					draggingScale: 1,
@@ -106,17 +106,17 @@ describe(SliderApi.name, () => {
 				viewProps: ViewProps.create(),
 			}),
 		});
-		const api = new SliderApi(c);
+		const api = new SliderBladeApi(c);
 
 		assertUpdates(api);
 
 		api.label = 'buzqux';
 		assert.strictEqual(api.label, 'buzqux');
 
-		api.maxValue = 200;
-		assert.strictEqual(api.maxValue, 200);
-		api.minValue = -200;
-		assert.strictEqual(api.minValue, -200);
+		api.max = 200;
+		assert.strictEqual(api.max, 200);
+		api.min = -200;
+		assert.strictEqual(api.min, -200);
 
 		api.value = 0;
 		assert.strictEqual(api.value, 0);
@@ -135,8 +135,8 @@ describe(SliderApi.name, () => {
 				baseStep: 1,
 				parser: parseNumber,
 				sliderProps: ValueMap.fromObject({
-					maxValue: 100,
-					minValue: 0,
+					max: 100,
+					min: 0,
 				}),
 				textProps: ValueMap.fromObject({
 					draggingScale: 1,
@@ -146,7 +146,7 @@ describe(SliderApi.name, () => {
 				viewProps: ViewProps.create(),
 			}),
 		});
-		const api = new SliderApi(c);
+		const api = new SliderBladeApi(c);
 
 		api.on('change', (ev) => {
 			assert.strictEqual(ev.presetKey, undefined);

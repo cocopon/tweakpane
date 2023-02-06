@@ -91,7 +91,7 @@ function getSuitableMaxDimensionValue(
 /**
  * @hidden
  */
-export function getSuitableMaxValue(
+export function getSuitableMax(
 	initialValue: Point2d,
 	constraint: Constraint<Point2d> | undefined,
 ): number {
@@ -191,7 +191,7 @@ export const Point2dInputPlugin: InputBindingPlugin<
 			],
 			expanded: args.params.expanded ?? false,
 			invertsY: shouldInvertY(args.params),
-			maxValue: getSuitableMaxValue(value.rawValue, c),
+			max: getSuitableMax(value.rawValue, c),
 			parser: parseNumber,
 			pickerLayout: args.params.picker ?? 'popup',
 			value: value,

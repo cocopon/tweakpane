@@ -10,7 +10,7 @@ import {Point2d} from '../model/point-2d';
 interface Config {
 	invertsY: boolean;
 	layout: PickerLayout;
-	maxValue: number;
+	max: number;
 	value: Value<Point2d>;
 	viewProps: ViewProps;
 }
@@ -25,7 +25,7 @@ export class Point2dPickerView implements View {
 	public readonly padElement: HTMLDivElement;
 	public readonly value: Value<Point2d>;
 	private readonly invertsY_: boolean;
-	private readonly maxValue_: number;
+	private readonly max_: number;
 	private readonly svgElem_: Element;
 	private readonly lineElem_: Element;
 	private readonly markerElem_: HTMLElement;
@@ -35,7 +35,7 @@ export class Point2dPickerView implements View {
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
 		this.invertsY_ = config.invertsY;
-		this.maxValue_ = config.maxValue;
+		this.max_ = config.max;
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
@@ -95,7 +95,7 @@ export class Point2dPickerView implements View {
 
 	private update_(): void {
 		const [x, y] = this.value.rawValue.getComponents();
-		const max = this.maxValue_;
+		const max = this.max_;
 		const px = mapRange(x, -max, +max, 0, 100);
 		const py = mapRange(y, -max, +max, 0, 100);
 		const ipy = this.invertsY_ ? 100 - py : py;

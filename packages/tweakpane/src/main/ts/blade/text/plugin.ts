@@ -12,7 +12,7 @@ import {
 	ValueMap,
 } from '@tweakpane/core';
 
-import {TextApi} from './api/text';
+import {TextBladeApi} from './api/text';
 
 export interface TextBladeParams<T> extends BaseBladeParams {
 	parse: Parser<T>;
@@ -67,7 +67,7 @@ export const TextBladePlugin = (function <T>(): BladePlugin<
 			if (!(args.controller.valueController instanceof TextController)) {
 				return null;
 			}
-			return new TextApi(args.controller);
+			return new TextBladeApi(args.controller);
 		},
 	};
 })();

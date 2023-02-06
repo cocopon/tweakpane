@@ -13,7 +13,7 @@ import {
 	createLabelController,
 	createTestWindow,
 } from '../../misc/test-util';
-import {TextApi} from './api/text';
+import {TextBladeApi} from './api/text';
 import {TextBladeParams, TextBladePlugin} from './plugin';
 
 function createPluginPool(): PluginPool {
@@ -81,7 +81,7 @@ describe(TextBladePlugin.id, () => {
 			params: params,
 		}) as BladeController;
 		const pool = createPluginPool();
-		const api = pool.createBladeApi(bc) as TextApi<string>;
+		const api = pool.createBladeApi(bc) as TextBladeApi<string>;
 		assert.strictEqual(api.formatter, formatter);
 		assert.strictEqual(api.value, 'hello');
 		assert.strictEqual(

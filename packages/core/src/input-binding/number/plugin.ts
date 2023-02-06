@@ -1,3 +1,5 @@
+import {InputBindingController} from '../../blade/binding/controller/input-binding';
+import {ListInputBindingApi} from '../../common/api/list';
 import {
 	CompositeConstraint,
 	findConstraint,
@@ -33,6 +35,7 @@ import {
 } from '../../common/util';
 import {isEmpty} from '../../misc/type-util';
 import {InputBindingPlugin} from '../plugin';
+import {SliderInputBindingApi} from './api/slider';
 
 export interface NumberInputParams extends BaseInputParams {
 	format?: Formatter<number>;
@@ -104,8 +107,7 @@ export function findNumberRange(
 
 function createConstraint(
 	params: NumberInputParams,
-	// TODO: Make it required in the next version
-	initialValue?: number,
+	initialValue: number,
 ): Constraint<number> {
 	const constraints: Constraint<number>[] = [];
 
@@ -184,8 +186,8 @@ export const NumberInputPlugin: InputBindingPlugin<
 				baseStep: getBaseStep(c),
 				parser: parseNumber,
 				sliderProps: new ValueMap({
-					maxValue: drc.values.value('max'),
-					minValue: drc.values.value('min'),
+					max: drc.values.value('max'),
+					min: drc.values.value('min'),
 				}),
 				textProps: ValueMap.fromObject({
 					draggingScale: getSuitableDraggingScale(c, value.rawValue),
@@ -206,5 +208,26 @@ export const NumberInputPlugin: InputBindingPlugin<
 			value: value,
 			viewProps: args.viewProps,
 		});
+	},
+	api(args) {
+		if (typeof args.controller.value.rawValue !== 'number') {
+			return null;
+		}
+
+		if (args.controller.valueController instanceof SliderTextController) {
+			return new SliderInputBindingApi(
+				args.controller as InputBindingController<number, SliderTextController>,
+			);
+		}
+		if (args.controller.valueController instanceof ListController) {
+			return new ListInputBindingApi(
+				args.controller as InputBindingController<
+					number,
+					ListController<number>
+				>,
+			);
+		}
+
+		return null;
 	},
 };

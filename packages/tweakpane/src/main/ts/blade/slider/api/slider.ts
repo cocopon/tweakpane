@@ -7,7 +7,7 @@ import {
 	TpChangeEvent,
 } from '@tweakpane/core';
 
-export class SliderApi extends BladeApi<
+export class SliderBladeApi extends BladeApi<
 	LabeledValueController<number, SliderTextController>
 > {
 	private readonly emitter_: Emitter<ApiChangeEvents<number>> = new Emitter();
@@ -32,30 +32,20 @@ export class SliderApi extends BladeApi<
 		this.controller_.props.set('label', label);
 	}
 
-	get maxValue(): number {
-		return this.controller_.valueController.sliderController.props.get(
-			'maxValue',
-		);
+	get max(): number {
+		return this.controller_.valueController.sliderController.props.get('max');
 	}
 
-	set maxValue(maxValue: number) {
-		this.controller_.valueController.sliderController.props.set(
-			'maxValue',
-			maxValue,
-		);
+	set max(max: number) {
+		this.controller_.valueController.sliderController.props.set('max', max);
 	}
 
-	get minValue(): number {
-		return this.controller_.valueController.sliderController.props.get(
-			'minValue',
-		);
+	get min(): number {
+		return this.controller_.valueController.sliderController.props.get('min');
 	}
 
-	set minValue(minValue: number) {
-		this.controller_.valueController.sliderController.props.set(
-			'minValue',
-			minValue,
-		);
+	set min(min: number) {
+		this.controller_.valueController.sliderController.props.set('min', min);
 	}
 
 	get value(): number {

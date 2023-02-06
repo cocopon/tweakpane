@@ -15,6 +15,7 @@ export {
 	FolderParams,
 	InputBindingApi,
 	InputParams,
+	ListInputBindingApi,
 	ListParamsOptions,
 	MonitorBindingApi,
 	MonitorParams,
@@ -26,6 +27,7 @@ export {
 	Point4dInputParams,
 	SeparatorApi,
 	SeparatorParams,
+	SliderInputBindingApi,
 	StringInputParams,
 	StringMonitorParams,
 	TabApi,
@@ -37,11 +39,11 @@ export {
 	TpPluginBundle,
 } from '@tweakpane/core';
 
-export {ListApi} from './blade/list/api/list';
+export {ListBladeApi as ListApi} from './blade/list/api/list';
 export {ListBladeParams} from './blade/list/plugin';
-export {SliderApi} from './blade/slider/api/slider';
+export {SliderBladeApi as SliderApi} from './blade/slider/api/slider';
 export {SliderBladeParams} from './blade/slider/plugin';
-export {TextApi} from './blade/text/api/text';
+export {TextBladeApi as TextApi} from './blade/text/api/text';
 export {TextBladeParams} from './blade/text/plugin';
 
 export {Pane} from './pane/pane';

@@ -25,7 +25,7 @@ interface Config {
 	axes: [Axis, Axis];
 	expanded: boolean;
 	invertsY: boolean;
-	maxValue: number;
+	max: number;
 	parser: Parser<number>;
 	pickerLayout: PickerLayout;
 	value: Value<Point2d>;
@@ -68,7 +68,7 @@ export class Point2dController
 			baseSteps: [config.axes[0].baseStep, config.axes[1].baseStep],
 			invertsY: config.invertsY,
 			layout: config.pickerLayout,
-			maxValue: config.maxValue,
+			max: config.max,
 			value: this.value,
 			viewProps: this.viewProps,
 		});

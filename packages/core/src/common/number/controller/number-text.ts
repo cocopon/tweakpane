@@ -74,8 +74,8 @@ export class NumberTextController
 	}
 
 	private constrainValue_(value: number): number {
-		const min = this.sliderProps_?.get('minValue');
-		const max = this.sliderProps_?.get('maxValue');
+		const min = this.sliderProps_?.get('min');
+		const max = this.sliderProps_?.get('max');
 		let v = value;
 		if (min !== undefined) {
 			v = Math.max(v, min);

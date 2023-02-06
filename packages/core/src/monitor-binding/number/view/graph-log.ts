@@ -9,8 +9,8 @@ import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 
 export type GraphLogProps = ValueMap<{
-	maxValue: number;
-	minValue: number;
+	max: number;
+	min: number;
 }>;
 
 interface Config {
@@ -81,8 +81,8 @@ export class GraphLogView implements View {
 
 		// Graph
 		const maxIndex = this.value.rawValue.length - 1;
-		const min = this.props_.get('minValue');
-		const max = this.props_.get('maxValue');
+		const min = this.props_.get('min');
+		const max = this.props_.get('max');
 		const points: string[] = [];
 		this.value.rawValue.forEach((v, index) => {
 			if (v === undefined) {

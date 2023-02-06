@@ -13,7 +13,7 @@ import {
 	createLabelController,
 	createTestWindow,
 } from '../../misc/test-util';
-import {ListApi} from './api/list';
+import {ListBladeApi} from './api/list';
 import {ListBladeParams, ListBladePlugin} from './plugin';
 
 function createPluginPool(): PluginPool {
@@ -104,7 +104,7 @@ describe(ListBladePlugin.id, () => {
 			} as ListBladeParams<number>,
 		}) as BladeController;
 		const pool = createPluginPool();
-		const api = pool.createBladeApi(bc) as ListApi<number>;
+		const api = pool.createBladeApi(bc) as ListBladeApi<number>;
 
 		assert.strictEqual(api.value, 123);
 		assert.deepStrictEqual(api.options[0], {text: 'foo', value: 1});
