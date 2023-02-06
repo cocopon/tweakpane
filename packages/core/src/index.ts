@@ -139,6 +139,7 @@ export * from './misc/type-util';
 export * from './monitor-binding/boolean/plugin';
 export * from './monitor-binding/common/controller/multi-log';
 export * from './monitor-binding/common/controller/single-log';
+export * from './monitor-binding/number/api/graph-log';
 export * from './monitor-binding/number/controller/graph-log';
 export * from './monitor-binding/number/plugin';
 export * from './monitor-binding/string/plugin';

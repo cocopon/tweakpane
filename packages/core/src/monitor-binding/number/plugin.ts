@@ -1,3 +1,4 @@
+import {MonitorBindingController} from '../../blade/binding/controller/monitor-binding';
 import {Formatter} from '../../common/converter/formatter';
 import {
 	createNumberFormatter,
@@ -15,6 +16,7 @@ import {isEmpty} from '../../misc/type-util';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogController} from '../common/controller/single-log';
 import {MonitorBindingPlugin} from '../plugin';
+import {GraphLogMonitorBindingApi} from './api/graph-log';
 import {GraphLogController} from './controller/graph-log';
 
 export interface NumberMonitorParams extends BaseMonitorParams {
@@ -107,5 +109,13 @@ export const NumberMonitorPlugin: MonitorBindingPlugin<
 			return createGraphMonitor(args);
 		}
 		return createTextMonitor(args);
+	},
+	api: (args) => {
+		if (args.controller.valueController instanceof GraphLogController) {
+			return new GraphLogMonitorBindingApi(
+				args.controller as MonitorBindingController<number, GraphLogController>,
+			);
+		}
+		return null;
 	},
 };

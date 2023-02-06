@@ -1,16 +1,12 @@
 import {Bindable, BindingTarget} from '../../../common/binding/target';
 import {isBindingValue} from '../../../common/binding/value/binding';
-import {TpBuffer} from '../../../common/model/buffered-value';
 import {Emitter} from '../../../common/model/emitter';
 import {Value} from '../../../common/model/value';
 import {BaseBladeParams} from '../../../common/params';
 import {TpError} from '../../../common/tp-error';
-import {forceCast} from '../../../misc/type-util';
 import {PluginPool} from '../../../plugin/pool';
-import {BindingApi} from '../../binding/api/binding';
 import {InputBindingApi} from '../../binding/api/input-binding';
 import {MonitorBindingApi} from '../../binding/api/monitor-binding';
-import {MonitorBindingController} from '../../binding/controller/monitor-binding';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
 import {
@@ -139,12 +135,10 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 			createBindingTarget(object, key),
 			params,
 		);
-		const api = new BindingApi<
-			TpBuffer<unknown>,
-			unknown,
-			MonitorBindingController<unknown>
-		>(bc);
-		return forceCast(this.add(api, params.index));
+		const api = this.pool_.createMonitorBindingApi(bc) as MonitorBindingApi<
+			O[Key]
+		>;
+		return this.add(api, params.index);
 	}
 
 	public addFolder(params: FolderParams): FolderApi {

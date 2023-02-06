@@ -1,5 +1,6 @@
 import {
 	GraphLogController,
+	GraphLogMonitorBindingApi,
 	ManualTicker,
 	MultiLogController,
 	SingleLogController,
@@ -180,7 +181,9 @@ describe(Pane.name, () => {
 				value: 123,
 				params: {},
 			},
-			expectedClass: SingleLogController,
+			expected: {
+				controller: SingleLogController,
+			},
 		},
 		{
 			args: {
@@ -189,7 +192,9 @@ describe(Pane.name, () => {
 					bufferSize: 10,
 				},
 			},
-			expectedClass: MultiLogController,
+			expected: {
+				controller: MultiLogController,
+			},
 		},
 		{
 			args: {
@@ -198,7 +203,10 @@ describe(Pane.name, () => {
 					view: 'graph',
 				},
 			},
-			expectedClass: GraphLogController,
+			expected: {
+				controller: GraphLogController,
+				api: GraphLogMonitorBindingApi,
+			},
 		},
 		// String
 		{
@@ -206,7 +214,9 @@ describe(Pane.name, () => {
 				value: 'foobar',
 				params: {},
 			},
-			expectedClass: SingleLogController,
+			expected: {
+				controller: SingleLogController,
+			},
 		},
 		{
 			args: {
@@ -215,7 +225,9 @@ describe(Pane.name, () => {
 					bufferSize: 10,
 				},
 			},
-			expectedClass: MultiLogController,
+			expected: {
+				controller: MultiLogController,
+			},
 		},
 		// Boolean
 		{
@@ -223,7 +235,9 @@ describe(Pane.name, () => {
 				value: true,
 				params: {},
 			},
-			expectedClass: SingleLogController,
+			expected: {
+				controller: SingleLogController,
+			},
 		},
 		{
 			args: {
@@ -232,20 +246,32 @@ describe(Pane.name, () => {
 					bufferSize: 10,
 				},
 			},
-			expectedClass: MultiLogController,
+			expected: {
+				controller: MultiLogController,
+			},
 		},
-	].forEach((testCase) => {
-		context(`when ${JSON.stringify(testCase.args)}`, () => {
-			it(`should return controller: ${testCase.expectedClass.name}`, () => {
+	].forEach(({args, expected}) => {
+		context(`when ${JSON.stringify(args)}`, () => {
+			it(`should return controller: ${expected.controller.name}`, () => {
 				const pane = createPane();
-				const obj = {foo: testCase.args.value};
-				const bapi = pane.addMonitor(obj, 'foo', testCase.args.params);
+				const obj = {foo: args.value};
+				const bapi = pane.addMonitor(obj, 'foo', args.params);
 				assert.strictEqual(
-					bapi.controller_.valueController instanceof testCase.expectedClass,
+					bapi.controller_.valueController instanceof expected.controller,
 					true,
 				);
 				bapi.dispose();
 			});
+
+			if (expected.api) {
+				it(`should return api: ${expected.api.name}`, () => {
+					const pane = createPane();
+					const obj = {foo: args.value};
+					const bapi = pane.addMonitor(obj, 'foo', args.params);
+					assert.strictEqual(bapi instanceof expected.api, true);
+					bapi.dispose();
+				});
+			}
 		});
 	});
 
