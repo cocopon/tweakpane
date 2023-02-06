@@ -4,6 +4,7 @@ import {
 	forceCast,
 	IntColor,
 	ListController,
+	ListInputBindingApi,
 	NumberTextController,
 	Point2dController,
 	PointNdTextController,
@@ -209,6 +210,7 @@ describe(Pane.name, () => {
 			},
 			expected: {
 				controller: ListController,
+				api: ListInputBindingApi,
 			},
 		},
 		{
@@ -223,6 +225,7 @@ describe(Pane.name, () => {
 			},
 			expected: {
 				controller: ListController,
+				api: ListInputBindingApi,
 			},
 		},
 		// String
@@ -244,6 +247,7 @@ describe(Pane.name, () => {
 			},
 			expected: {
 				controller: ListController,
+				api: ListInputBindingApi,
 			},
 		},
 		{
@@ -283,6 +287,7 @@ describe(Pane.name, () => {
 			},
 			expected: {
 				controller: ListController,
+				api: ListInputBindingApi,
 			},
 		},
 		// Color

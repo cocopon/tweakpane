@@ -1,3 +1,5 @@
+import {InputBindingController} from '../../blade/binding/controller/input-binding';
+import {ListInputBindingApi} from '../../common/api/list';
 import {
 	CompositeConstraint,
 	findConstraint,
@@ -83,5 +85,21 @@ export const StringInputPlugin: InputBindingPlugin<
 			value: value,
 			viewProps: args.viewProps,
 		});
+	},
+	api(args) {
+		if (typeof args.controller.value.rawValue !== 'string') {
+			return null;
+		}
+
+		if (args.controller.valueController instanceof ListController) {
+			return new ListInputBindingApi(
+				args.controller as InputBindingController<
+					string,
+					ListController<string>
+				>,
+			);
+		}
+
+		return null;
 	},
 };

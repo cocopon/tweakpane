@@ -1,4 +1,5 @@
 import {InputBindingController} from '../../blade/binding/controller/input-binding';
+import {ListInputBindingApi} from '../../common/api/list';
 import {
 	CompositeConstraint,
 	findConstraint,
@@ -209,13 +210,25 @@ export const NumberInputPlugin: InputBindingPlugin<
 			viewProps: args.viewProps,
 		});
 	},
-
 	api(args) {
+		if (typeof args.controller.value.rawValue !== 'number') {
+			return null;
+		}
+
 		if (args.controller.valueController instanceof SliderTextController) {
 			return new SliderInputBindingApi(
 				args.controller as InputBindingController<number, SliderTextController>,
 			);
 		}
+		if (args.controller.valueController instanceof ListController) {
+			return new ListInputBindingApi(
+				args.controller as InputBindingController<
+					number,
+					ListController<number>
+				>,
+			);
+		}
+
 		return null;
 	},
 };

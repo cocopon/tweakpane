@@ -38,8 +38,8 @@ interface ControllerArguments<In, Ex, P extends BaseInputParams> {
 	viewProps: ViewProps;
 }
 
-interface ApiArguments<In> {
-	controller: InputBindingController<In>;
+interface ApiArguments {
+	controller: InputBindingController<unknown>;
 }
 
 /**
@@ -137,7 +137,7 @@ export interface InputBindingPlugin<In, Ex, P extends BaseInputParams>
 		 * @param args The arguments for creating a controller.
 		 * @return A custom API for the specified controller, or null if there is no suitable API.
 		 */
-		(args: ApiArguments<In>): InputBindingApi<In, Ex> | null;
+		(args: ApiArguments): InputBindingApi<In, Ex> | null;
 	};
 }
 

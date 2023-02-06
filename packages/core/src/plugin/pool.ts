@@ -177,7 +177,7 @@ export class PluginPool {
 				}
 				return (
 					plugin.api?.({
-						controller: bc,
+						controller: bc as InputBindingController<unknown>,
 					}) ?? null
 				);
 			},
