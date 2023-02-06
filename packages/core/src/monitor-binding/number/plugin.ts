@@ -58,8 +58,8 @@ function createGraphMonitor(
 		formatter: createFormatter(args.params),
 		lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,
 		props: ValueMap.fromObject({
-			maxValue: args.params.max ?? 100,
-			minValue: args.params.min ?? 0,
+			max: args.params.max ?? 100,
+			min: args.params.min ?? 0,
 		}),
 		value: args.value,
 		viewProps: args.viewProps,

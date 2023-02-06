@@ -65,8 +65,8 @@ export class SliderController implements ValueController<number, SliderView> {
 				constrainRange(d.point.x, 0, d.bounds.width),
 				0,
 				d.bounds.width,
-				this.props.get('minValue'),
-				this.props.get('maxValue'),
+				this.props.get('min'),
+				this.props.get('max'),
 			),
 			opts,
 		);

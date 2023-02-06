@@ -93,8 +93,8 @@ function createValueBladeController(
 			baseStep: 1,
 			parser: parseNumber,
 			sliderProps: ValueMap.fromObject({
-				maxValue: 100,
-				minValue: 0,
+				max: 100,
+				min: 0,
 			}),
 			textProps: ValueMap.fromObject({
 				draggingScale: 1,

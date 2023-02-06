@@ -56,8 +56,8 @@ export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 			baseStep: 1,
 			parser: parseNumber,
 			sliderProps: new ValueMap({
-				maxValue: drc.values.value('max'),
-				minValue: drc.values.value('min'),
+				max: drc.values.value('max'),
+				min: drc.values.value('min'),
 			}),
 			textProps: ValueMap.fromObject({
 				draggingScale: getSuitableDraggingScale(undefined, initialValue),

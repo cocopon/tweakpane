@@ -21,7 +21,7 @@ interface Config {
 	baseSteps: [number, number];
 	invertsY: boolean;
 	layout: PickerLayout;
-	maxValue: number;
+	max: number;
 	value: Value<Point2d>;
 	viewProps: ViewProps;
 }
@@ -49,7 +49,7 @@ export class Point2dPickerController
 	private readonly baseSteps_: [number, number];
 	private readonly ptHandler_: PointerHandler;
 	private readonly invertsY_: boolean;
-	private readonly maxValue_: number;
+	private readonly max_: number;
 
 	constructor(doc: Document, config: Config) {
 		this.onPadKeyDown_ = this.onPadKeyDown_.bind(this);
@@ -62,13 +62,13 @@ export class Point2dPickerController
 		this.viewProps = config.viewProps;
 
 		this.baseSteps_ = config.baseSteps;
-		this.maxValue_ = config.maxValue;
+		this.max_ = config.max;
 		this.invertsY_ = config.invertsY;
 
 		this.view = new Point2dPickerView(doc, {
 			invertsY: this.invertsY_,
 			layout: config.layout,
-			maxValue: this.maxValue_,
+			max: this.max_,
 			value: this.value,
 			viewProps: this.viewProps,
 		});
@@ -87,7 +87,7 @@ export class Point2dPickerController
 			return;
 		}
 
-		const max = this.maxValue_;
+		const max = this.max_;
 		const px = mapRange(d.point.x, 0, d.bounds.width, -max, +max);
 		const py = mapRange(
 			this.invertsY_ ? d.bounds.height - d.point.y : d.point.y,

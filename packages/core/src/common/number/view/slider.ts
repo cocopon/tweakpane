@@ -6,8 +6,8 @@ import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 
 export type SliderProps = ValueMap<{
-	maxValue: number;
-	minValue: number;
+	max: number;
+	min: number;
 }>;
 
 interface Config {
@@ -59,8 +59,8 @@ export class SliderView implements View {
 		const p = constrainRange(
 			mapRange(
 				this.value.rawValue,
-				this.props_.get('minValue'),
-				this.props_.get('maxValue'),
+				this.props_.get('min'),
+				this.props_.get('max'),
 				0,
 				100,
 			),

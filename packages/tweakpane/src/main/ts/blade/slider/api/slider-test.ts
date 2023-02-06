@@ -34,8 +34,8 @@ describe(SliderBladeApi.name, () => {
 				baseStep: 1,
 				parser: parseNumber,
 				sliderProps: ValueMap.fromObject({
-					maxValue: 100,
-					minValue: 0,
+					max: 100,
+					min: 0,
 				}),
 				textProps: ValueMap.fromObject({
 					draggingScale: 1,
@@ -62,8 +62,8 @@ describe(SliderBladeApi.name, () => {
 				baseStep: 1,
 				parser: parseNumber,
 				sliderProps: ValueMap.fromObject({
-					maxValue: 100,
-					minValue: -100,
+					max: 100,
+					min: -100,
 				}),
 				textProps: ValueMap.fromObject({
 					draggingScale: 1,
@@ -76,8 +76,8 @@ describe(SliderBladeApi.name, () => {
 		const api = new SliderBladeApi(c);
 
 		assertInitialState(api);
-		assert.strictEqual(api.maxValue, 100);
-		assert.strictEqual(api.minValue, -100);
+		assert.strictEqual(api.max, 100);
+		assert.strictEqual(api.min, -100);
 		assert.strictEqual(api.label, 'foobar');
 		assert.strictEqual(api.value, 123);
 	});
@@ -95,8 +95,8 @@ describe(SliderBladeApi.name, () => {
 				baseStep: 1,
 				parser: parseNumber,
 				sliderProps: ValueMap.fromObject({
-					maxValue: 100,
-					minValue: -100,
+					max: 100,
+					min: -100,
 				}),
 				textProps: ValueMap.fromObject({
 					draggingScale: 1,
@@ -113,10 +113,10 @@ describe(SliderBladeApi.name, () => {
 		api.label = 'buzqux';
 		assert.strictEqual(api.label, 'buzqux');
 
-		api.maxValue = 200;
-		assert.strictEqual(api.maxValue, 200);
-		api.minValue = -200;
-		assert.strictEqual(api.minValue, -200);
+		api.max = 200;
+		assert.strictEqual(api.max, 200);
+		api.min = -200;
+		assert.strictEqual(api.min, -200);
 
 		api.value = 0;
 		assert.strictEqual(api.value, 0);
@@ -135,8 +135,8 @@ describe(SliderBladeApi.name, () => {
 				baseStep: 1,
 				parser: parseNumber,
 				sliderProps: ValueMap.fromObject({
-					maxValue: 100,
-					minValue: 0,
+					max: 100,
+					min: 0,
 				}),
 				textProps: ValueMap.fromObject({
 					draggingScale: 1,

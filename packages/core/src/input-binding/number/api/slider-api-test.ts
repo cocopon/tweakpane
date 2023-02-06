@@ -42,8 +42,8 @@ function createApi(config: {min: number; max: number}): SliderInputBindingApi {
 				baseStep: 1,
 				parser: parseNumber,
 				sliderProps: ValueMap.fromObject({
-					maxValue: config.max,
-					minValue: config.min,
+					max: config.max,
+					min: config.min,
 				}),
 				textProps: ValueMap.fromObject({
 					draggingScale: 1,

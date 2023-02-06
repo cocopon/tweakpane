@@ -36,12 +36,12 @@ function equalsStringColorFormat(
 	);
 }
 
-function parseCssNumberOrPercentage(text: string, maxValue: number): number {
+function parseCssNumberOrPercentage(text: string, max: number): number {
 	const m = text.match(/^(.+)%$/);
 	if (!m) {
-		return Math.min(parseFloat(text), maxValue);
+		return Math.min(parseFloat(text), max);
 	}
-	return Math.min(parseFloat(m[1]) * 0.01 * maxValue, maxValue);
+	return Math.min(parseFloat(m[1]) * 0.01 * max, max);
 }
 
 type CssAngleUnit = 'deg' | 'grad' | 'rad' | 'turn';

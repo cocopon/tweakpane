@@ -82,8 +82,8 @@ describe(SliderBladePlugin.id, () => {
 		const pool = createPluginPool();
 		const api = pool.createBladeApi(bc) as SliderBladeApi;
 
-		assert.strictEqual(api.maxValue, 100);
-		assert.strictEqual(api.minValue, -100);
+		assert.strictEqual(api.max, 100);
+		assert.strictEqual(api.min, -100);
 		assert.strictEqual(api.value, 50);
 
 		assert.strictEqual(

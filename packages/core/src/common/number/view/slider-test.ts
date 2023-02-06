@@ -11,8 +11,8 @@ describe(SliderView.name, () => {
 	it('should apply initial value', () => {
 		const doc = createTestWindow().document;
 		const props = ValueMap.fromObject({
-			maxValue: 200,
-			minValue: 0,
+			max: 200,
+			min: 0,
 		});
 		const v = createValue(100);
 		const view = new SliderView(doc, {
@@ -27,8 +27,8 @@ describe(SliderView.name, () => {
 	it('should apply value change', () => {
 		const doc = createTestWindow().document;
 		const props = ValueMap.fromObject({
-			maxValue: 200,
-			minValue: 0,
+			max: 200,
+			min: 0,
 		});
 		const v = createValue(100);
 		const view = new SliderView(doc, {
@@ -45,8 +45,8 @@ describe(SliderView.name, () => {
 	it('should apply props change', () => {
 		const doc = createTestWindow().document;
 		const props = ValueMap.fromObject({
-			maxValue: 200,
-			minValue: 0,
+			max: 200,
+			min: 0,
 		});
 		const v = createValue(100);
 		const view = new SliderView(doc, {
@@ -55,7 +55,7 @@ describe(SliderView.name, () => {
 			viewProps: ViewProps.create(),
 		});
 
-		props.set('maxValue', 100);
+		props.set('max', 100);
 
 		assert.strictEqual(view.knobElement.style.width, '100%');
 	});

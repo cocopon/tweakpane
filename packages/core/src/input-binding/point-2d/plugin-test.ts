@@ -14,9 +14,9 @@ import {PointNdConstraint} from '../common/constraint/point-nd';
 import {findNumberRange} from '../number/plugin';
 import {createInputBindingController} from '../plugin';
 import {Point2d, Point2dAssembly} from './model/point-2d';
-import {getSuitableMaxValue, Point2dInputPlugin} from './plugin';
+import {getSuitableMax, Point2dInputPlugin} from './plugin';
 
-describe(getSuitableMaxValue.name, () => {
+describe(getSuitableMax.name, () => {
 	[
 		{
 			expected: 10,
@@ -55,7 +55,7 @@ describe(getSuitableMaxValue.name, () => {
 	].forEach((testCase) => {
 		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should return ${testCase.expected}`, () => {
-				const mv = getSuitableMaxValue(
+				const mv = getSuitableMax(
 					testCase.params.rawValue,
 					testCase.params.constraint,
 				);
