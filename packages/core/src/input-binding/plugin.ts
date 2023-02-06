@@ -1,3 +1,4 @@
+import {InputBindingApi} from '../blade/binding/api/input-binding';
 import {InputBindingController} from '../blade/binding/controller/input-binding';
 import {createBlade} from '../blade/common/model/blade';
 import {LabeledValueController} from '../blade/label/controller/value-label';
@@ -35,6 +36,10 @@ interface ControllerArguments<In, Ex, P extends BaseInputParams> {
 	params: P;
 	value: Value<In>;
 	viewProps: ViewProps;
+}
+
+interface ApiArguments<In> {
+	controller: InputBindingController<In>;
 }
 
 /**
@@ -122,6 +127,17 @@ export interface InputBindingPlugin<In, Ex, P extends BaseInputParams>
 		 * @return A custom controller that contains a custom view.
 		 */
 		(args: ControllerArguments<In, Ex, P>): ValueController<In>;
+	};
+
+	/**
+	 * Creates a custom API for the plugin if needed.
+	 */
+	api?: {
+		/**
+		 * @param args The arguments for creating a controller.
+		 * @return A custom API for the specified controller, or null if there is no suitable API.
+		 */
+		(args: ApiArguments<In>): InputBindingApi<In, Ex> | null;
 	};
 }
 

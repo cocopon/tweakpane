@@ -122,6 +122,7 @@ export * from './input-binding/color/plugin-string';
 export {ColorInputParams} from './input-binding/color/util';
 export * from './input-binding/common/constraint/point-nd';
 export * from './input-binding/common/controller/point-nd-text';
+export * from './input-binding/number/api/slider';
 export * from './input-binding/number/plugin';
 export * from './input-binding/point-2d/controller/point-2d';
 export * from './input-binding/point-2d/plugin';

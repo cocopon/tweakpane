@@ -5,11 +5,10 @@ import {
 import {ValueController} from '../../../common/controller/value';
 import {LabeledValueController} from '../../label/controller/value-label';
 
-export type BindingController<In> = LabeledValueController<
+export type BindingController<
 	In,
-	ValueController<In>,
-	BindingValue<In>
->;
+	Vc extends ValueController<In> = ValueController<In>,
+> = LabeledValueController<In, Vc, BindingValue<In>>;
 
 export function isBindingController(
 	c: unknown,

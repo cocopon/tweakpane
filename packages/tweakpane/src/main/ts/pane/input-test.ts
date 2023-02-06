@@ -7,6 +7,7 @@ import {
 	NumberTextController,
 	Point2dController,
 	PointNdTextController,
+	SliderInputBindingApi,
 	SliderTextController,
 	TextController,
 	TpChangeEvent,
@@ -169,35 +170,46 @@ describe(Pane.name, () => {
 				value: 3.14,
 				params: {},
 			},
-			expectedClass: NumberTextController,
+			expected: {
+				controller: NumberTextController,
+			},
 		},
 		{
 			args: {
 				value: 3.14,
 				params: {min: 0},
 			},
-			expectedClass: NumberTextController,
+			expected: {
+				controller: NumberTextController,
+			},
 		},
 		{
 			args: {
 				value: 3.14,
 				params: {max: 100},
 			},
-			expectedClass: NumberTextController,
+			expected: {
+				controller: NumberTextController,
+			},
 		},
 		{
 			args: {
 				value: 3.14,
 				params: {min: 0, max: 100},
 			},
-			expectedClass: SliderTextController,
+			expected: {
+				controller: SliderTextController,
+				api: SliderInputBindingApi,
+			},
 		},
 		{
 			args: {
 				value: 3.14,
 				params: {options: {bar: 1, foo: 0}},
 			},
-			expectedClass: ListController,
+			expected: {
+				controller: ListController,
+			},
 		},
 		{
 			args: {
@@ -209,7 +221,9 @@ describe(Pane.name, () => {
 					],
 				},
 			},
-			expectedClass: ListController,
+			expected: {
+				controller: ListController,
+			},
 		},
 		// String
 		{
@@ -217,7 +231,9 @@ describe(Pane.name, () => {
 				value: 'foobar',
 				params: {},
 			},
-			expectedClass: TextController,
+			expected: {
+				controller: TextController,
+			},
 		},
 		{
 			args: {
@@ -226,21 +242,27 @@ describe(Pane.name, () => {
 					options: {baz: 'qux', foo: 'bar'},
 				},
 			},
-			expectedClass: ListController,
+			expected: {
+				controller: ListController,
+			},
 		},
 		{
 			args: {
 				value: '#112233',
 				params: {view: 'text'},
 			},
-			expectedClass: TextController,
+			expected: {
+				controller: TextController,
+			},
 		},
 		{
 			args: {
 				value: 'rgb(0, 100, 200)',
 				params: {view: 'text'},
 			},
-			expectedClass: TextController,
+			expected: {
+				controller: TextController,
+			},
 		},
 		// Boolean
 		{
@@ -248,7 +270,9 @@ describe(Pane.name, () => {
 				value: false,
 				params: {},
 			},
-			expectedClass: CheckboxController,
+			expected: {
+				controller: CheckboxController,
+			},
 		},
 		{
 			args: {
@@ -257,7 +281,9 @@ describe(Pane.name, () => {
 					options: {off: false, on: true},
 				},
 			},
-			expectedClass: ListController,
+			expected: {
+				controller: ListController,
+			},
 		},
 		// Color
 		{
@@ -265,7 +291,9 @@ describe(Pane.name, () => {
 				value: '#00ff00',
 				params: {},
 			},
-			expectedClass: ColorController,
+			expected: {
+				controller: ColorController,
+			},
 		},
 		{
 			args: {
@@ -274,7 +302,9 @@ describe(Pane.name, () => {
 					view: 'color',
 				},
 			},
-			expectedClass: ColorController,
+			expected: {
+				controller: ColorController,
+			},
 		},
 		{
 			args: {
@@ -284,21 +314,27 @@ describe(Pane.name, () => {
 					view: 'color',
 				},
 			},
-			expectedClass: ColorController,
+			expected: {
+				controller: ColorController,
+			},
 		},
 		{
 			args: {
 				value: {r: 0, g: 127, b: 255},
 				params: {},
 			},
-			expectedClass: ColorController,
+			expected: {
+				controller: ColorController,
+			},
 		},
 		{
 			args: {
 				value: {r: 0, g: 127, b: 255, a: 0.5},
 				params: {},
 			},
-			expectedClass: ColorController,
+			expected: {
+				controller: ColorController,
+			},
 		},
 		// Point2d
 		{
@@ -306,7 +342,9 @@ describe(Pane.name, () => {
 				value: {x: 12, y: 34},
 				params: {},
 			},
-			expectedClass: Point2dController,
+			expected: {
+				controller: Point2dController,
+			},
 		},
 		// Point3d
 		{
@@ -314,7 +352,9 @@ describe(Pane.name, () => {
 				value: {x: 12, y: 34, z: 56},
 				params: {},
 			},
-			expectedClass: PointNdTextController,
+			expected: {
+				controller: PointNdTextController,
+			},
 		},
 		// Point4d
 		{
@@ -322,19 +362,30 @@ describe(Pane.name, () => {
 				value: {x: 12, y: 34, z: 56, w: 78},
 				params: {},
 			},
-			expectedClass: PointNdTextController,
+			expected: {
+				controller: PointNdTextController,
+			},
 		},
-	].forEach(({args, expectedClass}) => {
+	].forEach(({args, expected}) => {
 		context(`when params = ${JSON.stringify(args.params)}`, () => {
-			it(`should return controller: ${expectedClass.name}`, () => {
+			it(`should return controller: ${expected.controller.name}`, () => {
 				const pane = createPane();
 				const obj = {foo: args.value};
 				const bapi = pane.addInput(obj, 'foo', forceCast(args.params));
 				assert.strictEqual(
-					bapi.controller_.valueController instanceof expectedClass,
+					bapi.controller_.valueController instanceof expected.controller,
 					true,
 				);
 			});
+
+			if (expected.api) {
+				it(`should return api: ${expected.api.name}`, () => {
+					const pane = createPane();
+					const obj = {foo: args.value};
+					const bapi = pane.addInput(obj, 'foo', forceCast(args.params));
+					assert.strictEqual(bapi instanceof expected.api, true);
+				});
+			}
 		});
 	});
 

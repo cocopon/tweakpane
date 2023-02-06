@@ -1,3 +1,4 @@
+import {InputBindingController} from '../../blade/binding/controller/input-binding';
 import {
 	CompositeConstraint,
 	findConstraint,
@@ -33,6 +34,7 @@ import {
 } from '../../common/util';
 import {isEmpty} from '../../misc/type-util';
 import {InputBindingPlugin} from '../plugin';
+import {SliderInputBindingApi} from './api/slider';
 
 export interface NumberInputParams extends BaseInputParams {
 	format?: Formatter<number>;
@@ -206,5 +208,14 @@ export const NumberInputPlugin: InputBindingPlugin<
 			value: value,
 			viewProps: args.viewProps,
 		});
+	},
+
+	api(args) {
+		if (args.controller.valueController instanceof SliderTextController) {
+			return new SliderInputBindingApi(
+				args.controller as InputBindingController<number, SliderTextController>,
+			);
+		}
+		return null;
 	},
 };

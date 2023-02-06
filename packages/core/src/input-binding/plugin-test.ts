@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {BindingTarget} from '../common/binding/target';
-import {Controller} from '../common/controller/controller';
+import {ValueController} from '../common/controller/value';
 import {stringFromUnknown} from '../common/converter/string';
 import {Value} from '../common/model/value';
 import {ViewProps} from '../common/model/view-props';
@@ -20,7 +20,7 @@ class TestView implements View {
 	}
 }
 
-class TestController implements Controller<TestView> {
+class TestController implements ValueController<string, TestView> {
 	public readonly value: Value<string>;
 	public readonly view: TestView;
 	public readonly viewProps: ViewProps;
@@ -69,8 +69,9 @@ describe(createInputBindingController.name, () => {
 			target: new BindingTarget({foo: 'bar'}, 'foo'),
 		});
 
-		assert.strictEqual(bc?.viewProps.get('disabled'), false);
-		assert.strictEqual(bc?.viewProps.get('hidden'), false);
+		assert.strictEqual(bc?.viewProps.get('disabled'), false, 'disabled');
+		assert.strictEqual(bc?.viewProps.get('disposed'), false, 'disposed');
+		assert.strictEqual(bc?.viewProps.get('hidden'), false, 'hidden');
 	});
 
 	it('should apply initial state', () => {
@@ -96,7 +97,6 @@ describe(createInputBindingController.name, () => {
 			target: new BindingTarget({foo: 'bar'}, 'foo'),
 		});
 		const c = bc?.valueController as TestController;
-		assert.strictEqual(c.disposed, false);
 		bc?.viewProps.set('disposed', true);
 		assert.strictEqual(c.disposed, true);
 	});

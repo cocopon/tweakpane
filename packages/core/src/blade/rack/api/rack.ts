@@ -123,7 +123,7 @@ export class RackApi extends BladeApi<RackController> implements BladeRackApi {
 			createBindingTarget(object, key),
 			params,
 		);
-		const api = new BindingApi(bc);
+		const api = this.pool_.createInputBindingApi(bc);
 		return this.add(api, params.index);
 	}
 
