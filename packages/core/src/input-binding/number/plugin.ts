@@ -107,8 +107,7 @@ export function findNumberRange(
 
 function createConstraint(
 	params: NumberInputParams,
-	// TODO: Make it required in the next version
-	initialValue?: number,
+	initialValue: number,
 ): Constraint<number> {
 	const constraints: Constraint<number>[] = [];
 
