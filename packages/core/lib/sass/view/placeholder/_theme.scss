@@ -1,4 +1,4 @@
-@use '../../../common/defs';
+@use '../../common/defs';
 
 @mixin themeVariable($in-name, $ex-name, $value) {
 	--#{$in-name}: var(--#{defs.$prefix}-#{$ex-name}, #{$value});
