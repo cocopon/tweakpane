@@ -1,3 +1,6 @@
+@use 'sass:map';
+@use 'sass:string';
+
 $prefix: 'tp';
 
 // Classes for view states
@@ -8,11 +11,52 @@ $last: #{$prefix}-v-lst;
 $very-first: #{$prefix}-v-vfst;
 $very-last: #{$prefix}-v-vlst;
 
-// Common variables
+// Common Sass variables
 $fold-transition-duration: 0.2s;
 $separator-width: 2px;
 $slider-knob-size: 12px;
 $z-index-picker: 1000;
+
+// CSS variables
+// Use short names to reduce file size
+$css-vars: (
+	'base-bg': 'bs-bg',
+	'base-shadow': 'bs-sh',
+	'base-border-radius': 'bs-br',
+	'blade-spacing': 'bld-s',
+	'blade-unit-size': 'bld-us',
+	'button-bg': 'btn-bg',
+	'button-bg-active': 'btn-bg-a',
+	'button-bg-focus': 'btn-bg-f',
+	'button-bg-hover': 'btn-bg-h',
+	'button-fg': 'btn-fg',
+	'container-bg': 'cnt-bg',
+	'container-bg-active': 'cnt-bg-a',
+	'container-bg-focus': 'cnt-bg-f',
+	'container-bg-hover': 'cnt-bg-h',
+	'container-fg': 'cnt-fg',
+	'container-h-padding': 'cnt-h-p',
+	'container-v-padding': 'cnt-v-p',
+	'element-border-radius': 'elm-br',
+	'font-family': 'font-family',
+	'groove-fg': 'grv-fg',
+	'input-bg': 'in-bg',
+	'input-bg-active': 'in-bg-a',
+	'input-bg-focus': 'in-bg-f',
+	'input-bg-hover': 'in-bg-h',
+	'input-fg': 'in-fg',
+	'label-fg': 'lbl-fg',
+	'monitor-bg': 'mo-bg',
+	'monitor-fg': 'mo-fg',
+);
+
+@function cssVar($name) {
+	$short-name: map.get($css-vars, $name);
+	@if $short-name == null {
+		@error 'Short CSS variable for \'#{$name}\' not found.';
+	}
+	@return string.unquote('var(--' + $short-name + ')');
+}
 
 // Reset user agent
 %resetUserAgent {

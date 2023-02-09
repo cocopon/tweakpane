@@ -7,11 +7,11 @@
 		@extend %monitor;
 
 		display: block;
-		height: calc(var(--bld-us) * 3);
+		height: calc(#{tp.cssVar('blade-unit-size')} * 3);
 
 		polyline {
 			fill: none;
-			stroke: var(--mo-fg);
+			stroke: tp.cssVar('monitor-fg');
 			stroke-linejoin: round;
 		}
 	}
@@ -32,10 +32,10 @@
 	}
 
 	.#{tp.$prefix}-ttv {
-		background-color: var(--mo-fg);
+		background-color: tp.cssVar('monitor-fg');
 
 		&::before {
-			border-top-color: var(--mo-fg);
+			border-top-color: tp.cssVar('monitor-fg');
 		}
 	}
 }

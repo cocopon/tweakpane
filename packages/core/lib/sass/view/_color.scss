@@ -9,7 +9,7 @@
 	&_s {
 		flex-grow: 0;
 		flex-shrink: 0;
-		width: var(--bld-us);
+		width: tp.cssVar('blade-unit-size');
 	}
 	&_t {
 		flex: 1;
@@ -28,13 +28,13 @@
 		overflow: visible;
 	}
 	&#{&}-expanded &_p {
-		margin-top: var(--bld-s);
+		margin-top: tp.cssVar('blade-spacing');
 		opacity: 1;
 	}
 
 	.#{tp.$prefix}-popv {
-		left: calc(-1 * var(--cnt-h-p));
-		right: calc(-1 * var(--cnt-h-p));
-		top: var(--bld-us);
+		left: calc(-1 * #{tp.cssVar('container-h-padding')});
+		right: calc(-1 * #{tp.cssVar('container-h-padding')});
+		top: tp.cssVar('blade-unit-size');
 	}
 }

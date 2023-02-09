@@ -12,10 +12,10 @@
 	&_b {
 		@extend %button;
 
-		height: var(--bld-us);
+		height: tp.cssVar('blade-unit-size');
 		margin-right: 4px;
 		position: relative;
-		width: var(--bld-us);
+		width: tp.cssVar('blade-unit-size');
 
 		svg {
 			display: block;
@@ -51,14 +51,14 @@
 			margin tp.$fold-transition-duration ease-in-out;
 	}
 	&#{&}-expanded &_p {
-		margin-top: var(--bld-s);
+		margin-top: tp.cssVar('blade-spacing');
 		opacity: 1;
 	}
 
 	// Popup
 	.#{tp.$prefix}-popv {
-		left: calc(-1 * var(--cnt-h-p));
-		right: calc(-1 * var(--cnt-h-p));
-		top: var(--bld-us);
+		left: calc(-1 * #{tp.cssVar('container-h-padding')});
+		right: calc(-1 * #{tp.cssVar('container-h-padding')});
+		top: tp.cssVar('blade-unit-size');
 	}
 }

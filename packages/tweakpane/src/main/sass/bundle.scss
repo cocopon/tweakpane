@@ -4,10 +4,10 @@
 .#{tp.$prefix}-rotv {
 	@extend %themeVariables;
 
-	background-color: var(--bs-bg);
-	border-radius: var(--bs-br);
-	box-shadow: 0 2px 4px var(--bs-sh);
-	font-family: var(--font-family);
+	background-color: tp.cssVar('base-bg');
+	border-radius: tp.cssVar('base-border-radius');
+	box-shadow: 0 2px 4px tp.cssVar('base-shadow');
+	font-family: tp.cssVar('font-family');
 	font-size: 11px;
 	font-weight: 500;
 	line-height: 1;
@@ -16,11 +16,15 @@
 	&_b {
 		@extend %folder_title;
 
-		border-bottom-left-radius: var(--bs-br);
-		border-bottom-right-radius: var(--bs-br);
-		border-top-left-radius: var(--bs-br);
-		border-top-right-radius: var(--bs-br);
-		padding-left: calc(2px * 2 + var(--bld-us) + var(--cnt-h-p));
+		border-bottom-left-radius: tp.cssVar('base-border-radius');
+		border-bottom-right-radius: tp.cssVar('base-border-radius');
+		border-top-left-radius: tp.cssVar('base-border-radius');
+		border-top-right-radius: tp.cssVar('base-border-radius');
+		padding-left: calc(
+			2px * 2 + #{tp.cssVar('blade-unit-size')} + #{tp.cssVar(
+					'container-h-padding'
+				)}
+		);
 		text-align: center;
 	}
 	&#{&}-expanded &_b {
@@ -55,35 +59,35 @@
 	&_c {
 		// Bottom of the last folder container
 		& > .#{tp.$prefix}-fldv.#{tp.$last} > .#{tp.$prefix}-fldv_c {
-			border-bottom-left-radius: var(--bs-br);
-			border-bottom-right-radius: var(--bs-br);
+			border-bottom-left-radius: tp.cssVar('base-border-radius');
+			border-bottom-right-radius: tp.cssVar('base-border-radius');
 		}
 		// Bottom of the last folder indent
 		& > .#{tp.$prefix}-fldv.#{tp.$last} > .#{tp.$prefix}-fldv_i {
-			border-bottom-left-radius: var(--bs-br);
+			border-bottom-left-radius: tp.cssVar('base-border-radius');
 		}
 		// Bottom of the last folder title when collapsed
 		&
 			> .#{tp.$prefix}-fldv.#{tp.$last}:not(.#{tp.$prefix}-fldv-expanded)
 			> .#{tp.$prefix}-fldv_b {
-			border-bottom-left-radius: var(--bs-br);
-			border-bottom-right-radius: var(--bs-br);
+			border-bottom-left-radius: tp.cssVar('base-border-radius');
+			border-bottom-right-radius: tp.cssVar('base-border-radius');
 		}
 		// Bottom of the last subfolder title when collapsed
 		&
 			.#{tp.$prefix}-fldv.#{tp.$very-last}:not(.#{tp.$prefix}-fldv-expanded)
 			> .#{tp.$prefix}-fldv_b {
-			border-bottom-right-radius: var(--bs-br);
+			border-bottom-right-radius: tp.cssVar('base-border-radius');
 		}
 	}
 	&#{&}-not &_c {
 		// First folder without pane title
 		& > .#{tp.$prefix}-fldv.#{tp.$first} {
-			margin-top: calc(-1 * var(--cnt-v-p));
+			margin-top: calc(-1 * #{tp.cssVar('container-v-padding')});
 
 			& > .#{tp.$prefix}-fldv_b {
-				border-top-left-radius: var(--bs-br);
-				border-top-right-radius: var(--bs-br);
+				border-top-left-radius: tp.cssVar('base-border-radius');
+				border-top-right-radius: tp.cssVar('base-border-radius');
 			}
 		}
 	}
@@ -92,22 +96,22 @@
 	&_c {
 		// Bottom of the last tab container
 		& > .#{tp.$prefix}-tabv.#{tp.$last} > .#{tp.$prefix}-tabv_c {
-			border-bottom-left-radius: var(--bs-br);
-			border-bottom-right-radius: var(--bs-br);
+			border-bottom-left-radius: tp.cssVar('base-border-radius');
+			border-bottom-right-radius: tp.cssVar('base-border-radius');
 		}
 		// Bottom of the last tab indent
 		& > .#{tp.$prefix}-tabv.#{tp.$last} > .#{tp.$prefix}-tabv_i {
-			border-bottom-left-radius: var(--bs-br);
+			border-bottom-left-radius: tp.cssVar('base-border-radius');
 		}
 	}
 	&#{&}-not &_c {
 		// First tab without pane title
 		& > .#{tp.$prefix}-tabv.#{tp.$first} {
-			margin-top: calc(-1 * var(--cnt-v-p));
+			margin-top: calc(-1 * #{tp.cssVar('container-v-padding')});
 
 			& > .#{tp.$prefix}-tabv_t {
-				border-top-left-radius: var(--bs-br);
-				border-top-right-radius: var(--bs-br);
+				border-top-left-radius: tp.cssVar('base-border-radius');
+				border-top-right-radius: tp.cssVar('base-border-radius');
 			}
 		}
 	}

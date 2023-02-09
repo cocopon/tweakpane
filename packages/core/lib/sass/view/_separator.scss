@@ -2,7 +2,7 @@
 
 .#{tp.$prefix}-sprv {
 	&_r {
-		background-color: var(--grv-fg);
+		background-color: tp.cssVar('groove-fg');
 		border-width: 0;
 		display: block;
 		height: tp.$separator-width;

@@ -12,6 +12,6 @@
 	&_m {
 		@extend %list_arrow;
 
-		color: var(--btn-fg);
+		color: tp.cssVar('button-fg');
 	}
 }

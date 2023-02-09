@@ -5,5 +5,7 @@
 	@extend %input;
 	@extend %monitor;
 
+	background-color: tp.cssVar('input-bg');
+	color: tp.cssVar('input-fg');
 	transition-duration: tp.$fold-transition-duration;
 }

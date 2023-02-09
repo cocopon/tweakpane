@@ -42,11 +42,11 @@
 		width: $knob-bounds-width;
 
 		&::before {
-			background-color: var(--in-fg);
+			background-color: tp.cssVar('input-fg');
 			border-radius: math.div($knob-visual-width, 2);
 			bottom: 0;
 			content: '';
-			height: calc(var(--bld-us) - 4px);
+			height: calc(#{tp.cssVar('blade-unit-size')} - 4px);
 			left: 50%;
 			margin-bottom: auto;
 			margin-left: math.div(-$knob-visual-width, 2);
@@ -86,12 +86,12 @@
 	}
 	&_gb {
 		fill: none;
-		stroke: var(--in-fg);
+		stroke: tp.cssVar('input-fg');
 		stroke-dasharray: 1;
 	}
 	&_gh {
 		fill: none;
-		stroke: var(--in-fg);
+		stroke: tp.cssVar('input-fg');
 	}
 
 	.#{tp.$prefix}-ttv {

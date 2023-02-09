@@ -14,29 +14,31 @@ $track-width: 4px;
 	}
 	// Hue
 	&_h {
-		margin-top: var(--bld-s);
+		margin-top: tp.cssVar('blade-spacing');
 	}
 	// RGB text
 	&_rgb {
 		display: flex;
-		margin-top: var(--bld-s);
+		margin-top: tp.cssVar('blade-spacing');
 		width: 100%;
 	}
 	// Alpha
 	&_a {
 		display: flex;
-		margin-top: var(--cnt-v-p);
-		padding-top: calc(var(--cnt-v-p) + #{tp.$separator-width});
+		margin-top: tp.cssVar('container-v-padding');
+		padding-top: calc(
+			#{tp.cssVar('container-v-padding')} + #{tp.$separator-width}
+		);
 		position: relative;
 
 		// Separator
 		&::before {
-			background-color: var(--grv-fg);
+			background-color: tp.cssVar('groove-fg');
 			content: '';
 			height: tp.$separator-width;
-			left: calc(-1 * var(--cnt-h-p));
+			left: calc(-1 * #{tp.cssVar('container-h-padding')});
 			position: absolute;
-			right: calc(-1 * var(--cnt-h-p));
+			right: calc(-1 * #{tp.cssVar('container-h-padding')});
 			top: 0;
 		}
 	}
@@ -58,7 +60,7 @@ $track-width: 4px;
 
 // Saturation-value palette
 .#{tp.$prefix}-svpv {
-	border-radius: var(--elm-br);
+	border-radius: tp.cssVar('element-border-radius');
 	outline: none;
 	overflow: hidden;
 	position: relative;
@@ -70,7 +72,7 @@ $track-width: 4px;
 	&_c {
 		cursor: crosshair;
 		display: block;
-		height: calc(var(--bld-us) * 4);
+		height: calc(tp.cssVar('blade-unit-size') * 4);
 		width: 100%;
 	}
 	&_m {
@@ -93,7 +95,7 @@ $track-width: 4px;
 // Hue palette
 .#{tp.$prefix}-hplv {
 	cursor: pointer;
-	height: var(--bld-us);
+	height: tp.cssVar('blade-unit-size');
 	outline: none;
 	position: relative;
 
@@ -116,7 +118,7 @@ $track-width: 4px;
 		width: 100%;
 	}
 	&_m {
-		border-radius: var(--elm-br);
+		border-radius: tp.cssVar('element-border-radius');
 		border: $marker-border-color solid 2px;
 		box-shadow: 0 0 2px rgba(black, 0.1);
 		box-sizing: border-box;
@@ -137,7 +139,7 @@ $track-width: 4px;
 // Alpha palette
 .#{tp.$prefix}-aplv {
 	cursor: pointer;
-	height: var(--bld-us);
+	height: tp.cssVar('blade-unit-size');
 	outline: none;
 	position: relative;
 	width: 100%;
@@ -169,7 +171,7 @@ $track-width: 4px;
 	&_m {
 		@include color.checkerboard(tp.$slider-knob-size);
 
-		border-radius: var(--elm-br);
+		border-radius: tp.cssVar('element-border-radius');
 		box-shadow: 0 0 2px rgba(black, 0.1);
 		height: tp.$slider-knob-size;
 		left: 50%;
@@ -182,7 +184,7 @@ $track-width: 4px;
 		width: tp.$slider-knob-size;
 	}
 	&_p {
-		border-radius: var(--elm-br);
+		border-radius: tp.cssVar('element-border-radius');
 		border: $marker-border-color solid 2px;
 		box-sizing: border-box;
 		bottom: 0;

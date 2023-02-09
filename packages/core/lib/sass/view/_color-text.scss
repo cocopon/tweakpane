@@ -14,28 +14,28 @@
 	&_ms {
 		@extend %resetUserAgent;
 
-		border-radius: var(--elm-br);
-		color: var(--lbl-fg);
+		border-radius: tp.cssVar('element-border-radius');
+		color: tp.cssVar('label-fg');
 		cursor: pointer;
-		height: var(--bld-us);
-		line-height: var(--bld-us);
+		height: tp.cssVar('blade-unit-size');
+		line-height: tp.cssVar('blade-unit-size');
 		padding: 0 18px 0 4px;
 
 		&:hover {
-			background-color: var(--in-bg-h);
+			background-color: tp.cssVar('input-bg-hover');
 		}
 		&:focus {
-			background-color: var(--in-bg-f);
+			background-color: tp.cssVar('input-bg-focus');
 		}
 		&:active {
-			background-color: var(--in-bg-a);
+			background-color: tp.cssVar('input-bg-active');
 		}
 	}
 	// Mode selector mark
 	&_mm {
 		@extend %list_arrow;
 
-		color: var(--lbl-fg);
+		color: tp.cssVar('label-fg');
 	}
 	&.#{tp.$disabled} &_mm {
 		opacity: 0.5;

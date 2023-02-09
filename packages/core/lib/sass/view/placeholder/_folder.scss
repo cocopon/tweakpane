@@ -3,15 +3,19 @@
 %folder_title {
 	@extend %resetUserAgent;
 
-	background-color: var(--cnt-bg);
-	color: var(--cnt-fg);
+	background-color: defs.cssVar('container-bg');
+	color: defs.cssVar('container-fg');
 	cursor: pointer;
 	display: block;
-	height: calc(var(--bld-us) + 4px);
-	line-height: calc(var(--bld-us) + 4px);
+	height: calc(#{defs.cssVar('blade-unit-size')} + 4px);
+	line-height: calc(#{defs.cssVar('blade-unit-size')} + 4px);
 	overflow: hidden;
-	padding-left: var(--cnt-h-p);
-	padding-right: calc(2px * 2 + var(--bld-us) + var(--cnt-h-p));
+	padding-left: defs.cssVar('container-h-padding');
+	padding-right: calc(
+		2px * 2 + #{defs.cssVar('blade-unit-size')} + #{defs.cssVar(
+				'container-h-padding'
+			)}
+	);
 	position: relative;
 	text-align: left;
 	text-overflow: ellipsis;
@@ -23,13 +27,13 @@
 		defs.$fold-transition-duration;
 
 	&:hover {
-		background-color: var(--cnt-bg-h);
+		background-color: defs.cssVar('container-bg-hover');
 	}
 	&:focus {
-		background-color: var(--cnt-bg-f);
+		background-color: defs.cssVar('container-bg-focus');
 	}
 	&:active {
-		background-color: var(--cnt-bg-a);
+		background-color: defs.cssVar('container-bg-active');
 	}
 	&:disabled {
 		opacity: 0.5;
@@ -41,18 +45,22 @@
 
 	background: linear-gradient(
 		to left,
-		var(--cnt-fg),
-		var(--cnt-fg) 2px,
+		defs.cssVar('container-fg'),
+		defs.cssVar('container-fg') 2px,
 		transparent 2px,
 		transparent 4px,
-		var(--cnt-fg) 4px
+		defs.cssVar('container-fg') 4px
 	);
 	border-radius: 2px;
 	bottom: 0;
 	content: '';
 	display: block;
 	height: $size;
-	right: calc(var(--cnt-h-p) + (var(--bld-us) + 4px - #{$size}) / 2 - 2px);
+	right: calc(
+		#{defs.cssVar('container-h-padding')} + (
+				#{defs.cssVar('blade-unit-size')} + 4px - #{$size}
+			) / 2 - 2px
+	);
 	margin: auto;
 	opacity: 0.5;
 	position: absolute;
@@ -83,8 +91,8 @@
 }
 %folder_container-expanded {
 	opacity: 1;
-	padding-bottom: var(--cnt-v-p);
-	padding-top: var(--cnt-v-p);
+	padding-bottom: defs.cssVar('container-v-padding');
+	padding-top: defs.cssVar('container-v-padding');
 	transform: none;
 
 	// Clip subviews without `overflow: hidden` for popup elements (e.g. color picker)

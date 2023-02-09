@@ -3,26 +3,26 @@
 %button {
 	@extend %resetUserAgent;
 
-	background-color: var(--btn-bg);
-	border-radius: var(--elm-br);
-	color: var(--btn-fg);
+	background-color: defs.cssVar('button-bg');
+	border-radius: defs.cssVar('element-border-radius');
+	color: defs.cssVar('button-fg');
 	cursor: pointer;
 	display: block;
 	font-weight: bold;
-	height: var(--bld-us);
-	line-height: var(--bld-us);
+	height: defs.cssVar('blade-unit-size');
+	line-height: defs.cssVar('blade-unit-size');
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 
 	&:hover {
-		background-color: var(--btn-bg-h);
+		background-color: defs.cssVar('button-bg-hover');
 	}
 	&:focus {
-		background-color: var(--btn-bg-f);
+		background-color: defs.cssVar('button-bg-focus');
 	}
 	&:active {
-		background-color: var(--btn-bg-a);
+		background-color: defs.cssVar('button-bg-active');
 	}
 	&:disabled {
 		opacity: 0.5;

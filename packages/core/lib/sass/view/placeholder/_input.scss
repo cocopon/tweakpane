@@ -3,24 +3,24 @@
 %input {
 	@extend %resetUserAgent;
 
-	background-color: var(--in-bg);
-	border-radius: var(--elm-br);
+	background-color: defs.cssVar('input-bg');
+	border-radius: defs.cssVar('element-border-radius');
 	box-sizing: border-box;
-	color: var(--in-fg);
+	color: defs.cssVar('input-fg');
 	font-family: inherit;
-	height: var(--bld-us);
-	line-height: var(--bld-us);
+	height: defs.cssVar('blade-unit-size');
+	line-height: defs.cssVar('blade-unit-size');
 	min-width: 0;
 	width: 100%;
 
 	&:hover {
-		background-color: var(--in-bg-h);
+		background-color: defs.cssVar('input-bg-hover');
 	}
 	&:focus {
-		background-color: var(--in-bg-f);
+		background-color: defs.cssVar('input-bg-focus');
 	}
 	&:active {
-		background-color: var(--in-bg-a);
+		background-color: defs.cssVar('input-bg-active');
 	}
 	&:disabled {
 		opacity: 0.5;

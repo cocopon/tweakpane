@@ -41,12 +41,12 @@
 	// Indent
 	&_i {
 		bottom: 0;
-		color: var(--cnt-bg);
+		color: tp.cssVar('container-bg');
 		left: 0;
 		overflow: hidden;
 		position: absolute;
-		top: calc(var(--bld-us) + 4px);
-		width: var(--bs-br);
+		top: calc(#{tp.cssVar('blade-unit-size')} + 4px);
+		width: tp.cssVar('base-border-radius');
 
 		&::before {
 			background-color: currentColor;
@@ -59,13 +59,13 @@
 		}
 	}
 	&_b:hover + &_i {
-		color: var(--cnt-bg-h);
+		color: tp.cssVar('container-bg-hover');
 	}
 	&_b:focus + &_i {
-		color: var(--cnt-bg-f);
+		color: tp.cssVar('container-bg-focus');
 	}
 	&_b:active + &_i {
-		color: var(--cnt-bg-a);
+		color: tp.cssVar('container-bg-active');
 	}
 	&.#{tp.$disabled} > &_i {
 		opacity: 0.5;
