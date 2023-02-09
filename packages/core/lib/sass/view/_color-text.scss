@@ -1,4 +1,6 @@
-.#{$prefix}-coltxtv {
+@use '../tp';
+
+.#{tp.$prefix}-coltxtv {
 	display: flex;
 	width: 100%;
 
@@ -35,7 +37,7 @@
 
 		color: var(--lbl-fg);
 	}
-	&.#{$prefix}-v-disabled &_mm {
+	&.#{tp.$disabled} &_mm {
 		opacity: 0.5;
 	}
 	// Text components wrapper

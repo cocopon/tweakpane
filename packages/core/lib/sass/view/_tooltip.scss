@@ -1,6 +1,7 @@
 @use 'sass:math';
+@use '../tp';
 
-.#{$prefix}-ttv {
+.#{tp.$prefix}-ttv {
 	background-color: var(--in-fg);
 	border-radius: var(--elm-br);
 	color: var(--bs-bg);

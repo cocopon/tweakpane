@@ -1,4 +1,6 @@
-.#{$prefix}-fldv {
+@use '../tp';
+
+.#{tp.$prefix}-fldv {
 	position: relative;
 
 	// Title button
@@ -25,8 +27,8 @@
 	// Container
 	&_c {
 		@extend %folder_container;
-		@extend %bladeRack-children;
-		@extend %bladeRack-subcontainers;
+		@extend %container-children;
+		@extend %container-subcontainers;
 
 		padding-left: 4px;
 	}
@@ -65,7 +67,7 @@
 	&_b:active + &_i {
 		color: var(--cnt-bg-a);
 	}
-	&.#{$prefix}-v-disabled > &_i {
+	&.#{tp.$disabled} > &_i {
 		opacity: 0.5;
 	}
 }

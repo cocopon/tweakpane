@@ -1,4 +1,6 @@
-.#{$prefix}-grlv {
+@use '../tp';
+
+.#{tp.$prefix}-grlv {
 	position: relative;
 
 	&_g {
@@ -25,11 +27,11 @@
 			transition: none;
 		}
 	}
-	&.#{$prefix}-v-disabled &_g {
+	&.#{tp.$disabled} &_g {
 		opacity: 0.5;
 	}
 
-	.#{$prefix}-ttv {
+	.#{tp.$prefix}-ttv {
 		background-color: var(--mo-fg);
 
 		&::before {

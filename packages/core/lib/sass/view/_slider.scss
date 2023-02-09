@@ -1,7 +1,8 @@
 @use 'sass:math';
+@use '../tp';
 
-.#{$prefix}-sldv {
-	&.#{$prefix}-v-disabled {
+.#{tp.$prefix}-sldv {
+	&.#{tp.$disabled} {
 		opacity: 0.5;
 	}
 
@@ -9,7 +10,7 @@
 		box-sizing: border-box;
 		cursor: pointer;
 		height: var(--bld-us);
-		margin: 0 math.div($slider-knob-size, 2);
+		margin: 0 math.div(tp.$slider-knob-size, 2);
 		outline: none;
 		position: relative;
 
@@ -53,13 +54,13 @@
 			bottom: 0;
 			content: '';
 			display: block;
-			height: $slider-knob-size;
+			height: tp.$slider-knob-size;
 			margin-bottom: auto;
 			margin-top: auto;
 			position: absolute;
-			right: math.div(-$slider-knob-size, 2);
+			right: math.div(-1 * tp.$slider-knob-size, 2);
 			top: 0;
-			width: $slider-knob-size;
+			width: tp.$slider-knob-size;
 		}
 	}
 	&_t:hover &_k::after {
@@ -74,7 +75,7 @@
 }
 
 // slider-text
-.#{$prefix}-sldtxtv {
+.#{tp.$prefix}-sldtxtv {
 	display: flex;
 
 	&_s {

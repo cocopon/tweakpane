@@ -1,3 +1,5 @@
+@use '../../../common/defs';
+
 %folder_title {
 	@extend %resetUserAgent;
 
@@ -17,8 +19,8 @@
 	width: 100%;
 
 	// Delay border-radius transition to avoid unwanted clipping
-	transition: border-radius $fold-transition-duration ease-in-out
-		$fold-transition-duration;
+	transition: border-radius defs.$fold-transition-duration ease-in-out
+		defs.$fold-transition-duration;
 
 	&:hover {
 		background-color: var(--cnt-bg-h);
@@ -56,7 +58,7 @@
 	position: absolute;
 	top: 0;
 	transform: rotate(90deg);
-	transition: transform $fold-transition-duration ease-in-out;
+	transition: transform defs.$fold-transition-duration ease-in-out;
 	width: $size;
 }
 
@@ -72,9 +74,9 @@
 	padding-bottom: 0;
 	padding-top: 0;
 	position: relative;
-	transition: height $fold-transition-duration ease-in-out,
-		opacity $fold-transition-duration linear,
-		padding $fold-transition-duration ease-in-out;
+	transition: height defs.$fold-transition-duration ease-in-out,
+		opacity defs.$fold-transition-duration linear,
+		padding defs.$fold-transition-duration ease-in-out;
 }
 %folder_container-shrinkedCompletely {
 	display: none;
@@ -89,7 +91,7 @@
 	overflow: visible;
 
 	// Delay opacity transition to avoid overflow contents
-	transition: height $fold-transition-duration ease-in-out,
-		opacity $fold-transition-duration linear $fold-transition-duration,
-		padding $fold-transition-duration ease-in-out;
+	transition: height defs.$fold-transition-duration ease-in-out,
+		opacity defs.$fold-transition-duration linear defs.$fold-transition-duration,
+		padding defs.$fold-transition-duration ease-in-out;
 }

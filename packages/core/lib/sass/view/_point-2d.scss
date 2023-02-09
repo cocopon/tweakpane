@@ -1,6 +1,7 @@
 @use 'sass:math';
+@use '../tp';
 
-.#{$prefix}-p2dv {
+.#{tp.$prefix}-p2dv {
 	position: relative;
 
 	// Head
@@ -45,9 +46,9 @@
 		margin-top: 0;
 		opacity: 0;
 		overflow: hidden;
-		transition: height $fold-transition-duration ease-in-out,
-			opacity $fold-transition-duration linear,
-			margin $fold-transition-duration ease-in-out;
+		transition: height tp.$fold-transition-duration ease-in-out,
+			opacity tp.$fold-transition-duration linear,
+			margin tp.$fold-transition-duration ease-in-out;
 	}
 	&#{&}-expanded &_p {
 		margin-top: var(--bld-s);
@@ -55,7 +56,7 @@
 	}
 
 	// Popup
-	.#{$prefix}-popv {
+	.#{tp.$prefix}-popv {
 		left: calc(-1 * var(--cnt-h-p));
 		right: calc(-1 * var(--cnt-h-p));
 		top: var(--bld-us);

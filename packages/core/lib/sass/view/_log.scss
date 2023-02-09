@@ -1,15 +1,17 @@
-.#{$prefix}-sglv {
+@use '../tp';
+
+.#{tp.$prefix}-sglv {
 	&_i {
 		@extend %monitor;
 
 		padding: 0 4px;
 	}
-	&.#{$prefix}-v-disabled &_i {
+	&.#{tp.$disabled} &_i {
 		opacity: 0.5;
 	}
 }
 
-.#{$prefix}-mllv {
+.#{tp.$prefix}-mllv {
 	&_i {
 		@extend %monitor;
 
@@ -20,7 +22,7 @@
 		resize: none;
 		white-space: pre;
 	}
-	&.#{$prefix}-v-disabled &_i {
+	&.#{tp.$disabled} &_i {
 		opacity: 0.5;
 	}
 }

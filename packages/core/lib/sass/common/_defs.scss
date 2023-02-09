@@ -1,128 +1,28 @@
-// Geometry
+$prefix: 'tp';
+
+// Classes for view states
+$disabled: #{$prefix}-v-disabled;
+$first: #{$prefix}-v-fst;
+$hidden: #{$prefix}-v-hidden;
+$last: #{$prefix}-v-lst;
+$very-first: #{$prefix}-v-vfst;
+$very-last: #{$prefix}-v-vlst;
+
+// Common variables
+$fold-transition-duration: 0.2s;
 $separator-width: 2px;
 $slider-knob-size: 12px;
-
-// Z-index
 $z-index-picker: 1000;
 
-@mixin themeVariable($in-name, $ex-name, $value) {
-	--#{$in-name}: var(--#{$prefix}-#{$ex-name}, #{$value});
-}
-
-%themeVariables {
-	$base-hue: 230;
-	$color-exdark: hsl($base-hue, 7%, 0%);
-	$color-dark: hsl($base-hue, 7%, 17%);
-	$color-light: hsl($base-hue, 7%, 70%);
-	$color-exlight: hsl($base-hue, 7%, 75%);
-	$bg-color: $color-dark;
-	$fg-color: $color-exlight;
-
-	@include themeVariable(
-		'font-family',
-		'font-family',
-		('Roboto Mono', 'Source Code Pro', Menlo, Courier, monospace)
-	);
-	// TODO: Rename
-	@include themeVariable('bs-br', 'base-border-radius', 6px);
-	@include themeVariable('cnt-h-p', 'container-horizontal-padding', 4px);
-	@include themeVariable('cnt-v-p', 'container-vertical-padding', 4px);
-	@include themeVariable('elm-br', 'element-border-radius', 2px);
-	@include themeVariable('bld-s', 'blade-spacing', 4px);
-	@include themeVariable('bld-us', 'blade-unit-size', 20px);
-
-	// Base
-	@include themeVariable('bs-bg', 'base-background-color', $bg-color);
-	@include themeVariable('bs-sh', 'base-shadow-color', rgba(black, 0.2));
-
-	// Button
-	@include themeVariable('btn-bg', 'button-background-color', $color-light);
-	@include themeVariable(
-		'btn-bg-a',
-		'button-background-color-active',
-		lighten($color-light, 15%)
-	);
-	@include themeVariable(
-		'btn-bg-f',
-		'button-background-color-focus',
-		lighten($color-light, 10%)
-	);
-	@include themeVariable(
-		'btn-bg-h',
-		'button-background-color-hover',
-		lighten($color-light, 5%)
-	);
-	@include themeVariable('btn-fg', 'button-foreground-color', $bg-color);
-
-	// Container
-	@include themeVariable(
-		'cnt-bg',
-		'container-background-color',
-		rgba($fg-color, 0.1)
-	);
-	@include themeVariable(
-		'cnt-bg-a',
-		'container-background-color-active',
-		rgba($fg-color, 0.25)
-	);
-	@include themeVariable(
-		'cnt-bg-f',
-		'container-background-color-focus',
-		rgba($fg-color, 0.2)
-	);
-	@include themeVariable(
-		'cnt-bg-h',
-		'container-background-color-hover',
-		rgba($fg-color, 0.15)
-	);
-	@include themeVariable('cnt-fg', 'container-foreground-color', $fg-color);
-
-	// Input
-	@include themeVariable(
-		'in-bg',
-		'input-background-color',
-		rgba($fg-color, 0.1)
-	);
-	@include themeVariable(
-		'in-bg-a',
-		'input-background-color-active',
-		rgba($fg-color, 0.25)
-	);
-	@include themeVariable(
-		'in-bg-f',
-		'input-background-color-focus',
-		rgba($fg-color, 0.2)
-	);
-	@include themeVariable(
-		'in-bg-h',
-		'input-background-color-hover',
-		rgba($fg-color, 0.15)
-	);
-	@include themeVariable('in-fg', 'input-foreground-color', $fg-color);
-
-	// Label
-	@include themeVariable(
-		'lbl-fg',
-		'label-foreground-color',
-		rgba($fg-color, 0.7)
-	);
-
-	// Monitor
-	@include themeVariable(
-		'mo-bg',
-		'monitor-background-color',
-		rgba($color-exdark, 0.2)
-	);
-	@include themeVariable(
-		'mo-fg',
-		'monitor-foreground-color',
-		rgba($fg-color, 0.7)
-	);
-
-	// Groove
-	@include themeVariable(
-		'grv-fg',
-		'groove-foreground-color',
-		rgba($fg-color, 0.1)
-	);
+// Reset user agent
+%resetUserAgent {
+	appearance: none;
+	background-color: transparent;
+	border-width: 0;
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	margin: 0;
+	outline: none;
+	padding: 0;
 }

@@ -1,4 +1,6 @@
-.#{$prefix}-tabv {
+@use '../tp';
+
+.#{tp.$prefix}-tabv {
 	position: relative;
 
 	// Title
@@ -31,7 +33,7 @@
 			right: 0;
 		}
 	}
-	&.#{$prefix}-v-disabled &_t::before {
+	&.#{tp.$disabled} &_t::before {
 		opacity: 0.5;
 	}
 	// Title without page
@@ -55,9 +57,9 @@
 		padding-left: 4px;
 		padding-top: var(--cnt-v-p);
 
-		.#{$prefix}-brkv {
-			@extend %bladeRack-children;
-			@extend %bladeRack-subcontainers;
+		.#{tp.$prefix}-brkv {
+			@extend %container-children;
+			@extend %container-subcontainers;
 		}
 	}
 	// Indent
@@ -89,11 +91,11 @@
 	&_t:has(*:active) + &_i {
 		color: var(--cnt-bg-a);
 	}
-	&.#{$prefix}-v-disabled > &_i {
+	&.#{tp.$disabled} > &_i {
 		opacity: 0.5;
 	}
 }
-.#{$prefix}-tbiv {
+.#{tp.$prefix}-tbiv {
 	flex: 1;
 	min-width: 0;
 	position: relative;
@@ -101,7 +103,7 @@
 	& + & {
 		margin-left: 2px;
 	}
-	& + &.#{$prefix}-v-disabled::before {
+	& + &.#{tp.$disabled}::before {
 		opacity: 0.5;
 	}
 

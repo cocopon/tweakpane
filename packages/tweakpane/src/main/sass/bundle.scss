@@ -1,6 +1,7 @@
-@import '../../../../../node_modules/@tweakpane/core/lib/sass/full';
+@use '../../../../../node_modules/@tweakpane/core/lib/sass/view/views';
+@use '../../../../../node_modules/@tweakpane/core/lib/sass/tp';
 
-.#{$prefix}-rotv {
+.#{tp.$prefix}-rotv {
 	@extend %themeVariables;
 
 	background-color: var(--bs-bg);
@@ -41,7 +42,7 @@
 	}
 	&_c {
 		@extend %folder_container;
-		@extend %bladeRack-children;
+		@extend %container-children;
 	}
 	&#{&}-expanded &_c {
 		@extend %folder_container-expanded;
@@ -53,34 +54,34 @@
 	// Folders
 	&_c {
 		// Bottom of the last folder container
-		& > .#{$prefix}-fldv.#{$prefix}-v-lst > .#{$prefix}-fldv_c {
+		& > .#{tp.$prefix}-fldv.#{tp.$last} > .#{tp.$prefix}-fldv_c {
 			border-bottom-left-radius: var(--bs-br);
 			border-bottom-right-radius: var(--bs-br);
 		}
 		// Bottom of the last folder indent
-		& > .#{$prefix}-fldv.#{$prefix}-v-lst > .#{$prefix}-fldv_i {
+		& > .#{tp.$prefix}-fldv.#{tp.$last} > .#{tp.$prefix}-fldv_i {
 			border-bottom-left-radius: var(--bs-br);
 		}
 		// Bottom of the last folder title when collapsed
 		&
-			> .#{$prefix}-fldv.#{$prefix}-v-lst:not(.#{$prefix}-fldv-expanded)
-			> .#{$prefix}-fldv_b {
+			> .#{tp.$prefix}-fldv.#{tp.$last}:not(.#{tp.$prefix}-fldv-expanded)
+			> .#{tp.$prefix}-fldv_b {
 			border-bottom-left-radius: var(--bs-br);
 			border-bottom-right-radius: var(--bs-br);
 		}
 		// Bottom of the last subfolder title when collapsed
 		&
-			.#{$prefix}-fldv.#{$prefix}-v-vlst:not(.#{$prefix}-fldv-expanded)
-			> .#{$prefix}-fldv_b {
+			.#{tp.$prefix}-fldv.#{tp.$very-last}:not(.#{tp.$prefix}-fldv-expanded)
+			> .#{tp.$prefix}-fldv_b {
 			border-bottom-right-radius: var(--bs-br);
 		}
 	}
 	&#{&}-not &_c {
 		// First folder without pane title
-		& > .#{$prefix}-fldv.#{$prefix}-v-fst {
+		& > .#{tp.$prefix}-fldv.#{tp.$first} {
 			margin-top: calc(-1 * var(--cnt-v-p));
 
-			& > .#{$prefix}-fldv_b {
+			& > .#{tp.$prefix}-fldv_b {
 				border-top-left-radius: var(--bs-br);
 				border-top-right-radius: var(--bs-br);
 			}
@@ -90,33 +91,33 @@
 	// Tabs
 	&_c {
 		// Bottom of the last tab container
-		& > .#{$prefix}-tabv.#{$prefix}-v-lst > .#{$prefix}-tabv_c {
+		& > .#{tp.$prefix}-tabv.#{tp.$last} > .#{tp.$prefix}-tabv_c {
 			border-bottom-left-radius: var(--bs-br);
 			border-bottom-right-radius: var(--bs-br);
 		}
 		// Bottom of the last tab indent
-		& > .#{$prefix}-tabv.#{$prefix}-v-lst > .#{$prefix}-tabv_i {
+		& > .#{tp.$prefix}-tabv.#{tp.$last} > .#{tp.$prefix}-tabv_i {
 			border-bottom-left-radius: var(--bs-br);
 		}
 	}
 	&#{&}-not &_c {
 		// First tab without pane title
-		& > .#{$prefix}-tabv.#{$prefix}-v-fst {
+		& > .#{tp.$prefix}-tabv.#{tp.$first} {
 			margin-top: calc(-1 * var(--cnt-v-p));
 
-			& > .#{$prefix}-tabv_t {
+			& > .#{tp.$prefix}-tabv_t {
 				border-top-left-radius: var(--bs-br);
 				border-top-right-radius: var(--bs-br);
 			}
 		}
 	}
 
-	&.#{$prefix}-v-disabled,
-	.#{$prefix}-v-disabled {
+	&.#{tp.$disabled},
+	.#{tp.$disabled} {
 		pointer-events: none;
 	}
-	&.#{$prefix}-v-hidden,
-	.#{$prefix}-v-hidden {
+	&.#{tp.$hidden},
+	.#{tp.$hidden} {
 		display: none;
 	}
 }

@@ -1,4 +1,6 @@
-.#{$prefix}-pndtxtv {
+@use '../tp';
+
+.#{tp.$prefix}-pndtxtv {
 	@extend %texts;
 
 	&_a {

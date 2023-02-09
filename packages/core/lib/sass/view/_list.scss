@@ -1,4 +1,6 @@
-.#{$prefix}-lstv {
+@use '../tp';
+
+.#{tp.$prefix}-lstv {
 	@extend %list;
 
 	&_s {

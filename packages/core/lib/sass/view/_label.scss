@@ -1,4 +1,6 @@
-.#{$prefix}-lblv {
+@use '../tp';
+
+.#{tp.$prefix}-lblv {
 	align-items: center;
 	display: flex;
 	line-height: 1.3;
@@ -17,7 +19,7 @@
 		padding-left: 4px;
 		padding-right: 16px;
 	}
-	&.#{$prefix}-v-disabled &_l {
+	&.#{tp.$disabled} &_l {
 		opacity: 0.5;
 	}
 	&#{&}-nol &_l {

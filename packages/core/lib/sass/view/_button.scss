@@ -1,4 +1,6 @@
-.#{$prefix}-btnv {
+@use '../tp';
+
+.#{tp.$prefix}-btnv {
 	&_b {
 		@extend %button;
 

@@ -1,4 +1,6 @@
-.#{$prefix}-p2dpv {
+@use '../tp';
+
+.#{tp.$prefix}-p2dpv {
 	padding-left: calc(var(--bld-us) + 4px);
 
 	// Pad
@@ -11,7 +13,7 @@
 		padding-bottom: 100%;
 		position: relative;
 	}
-	&.#{$prefix}-v-disabled &_p {
+	&.#{tp.$disabled} &_p {
 		opacity: 0.5;
 	}
 	// Graphics

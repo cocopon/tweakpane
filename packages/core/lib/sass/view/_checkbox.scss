@@ -1,4 +1,6 @@
-.#{$prefix}-ckbv {
+@use '../tp';
+
+.#{tp.$prefix}-ckbv {
 	&_l {
 		display: block;
 		position: relative;
@@ -51,7 +53,7 @@
 	&_i:checked + &_w svg {
 		opacity: 1;
 	}
-	&.#{$prefix}-v-disabled &_w {
+	&.#{tp.$disabled} &_w {
 		opacity: 0.5;
 	}
 }

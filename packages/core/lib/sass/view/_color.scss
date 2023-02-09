@@ -1,4 +1,6 @@
-.#{$prefix}-colv {
+@use '../tp';
+
+.#{tp.$prefix}-colv {
 	position: relative;
 
 	&_h {
@@ -18,9 +20,9 @@
 		margin-top: 0;
 		opacity: 0;
 		overflow: hidden;
-		transition: height $fold-transition-duration ease-in-out,
-			opacity $fold-transition-duration linear,
-			margin $fold-transition-duration ease-in-out;
+		transition: height tp.$fold-transition-duration ease-in-out,
+			opacity tp.$fold-transition-duration linear,
+			margin tp.$fold-transition-duration ease-in-out;
 	}
 	&#{&}-cpl &_p {
 		overflow: visible;
@@ -30,7 +32,7 @@
 		opacity: 1;
 	}
 
-	.#{$prefix}-popv {
+	.#{tp.$prefix}-popv {
 		left: calc(-1 * var(--cnt-h-p));
 		right: calc(-1 * var(--cnt-h-p));
 		top: var(--bld-us);

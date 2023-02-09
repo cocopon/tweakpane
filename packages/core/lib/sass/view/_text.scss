@@ -1,6 +1,7 @@
 @use 'sass:math';
+@use '../tp';
 
-.#{$prefix}-txtv {
+.#{tp.$prefix}-txtv {
 	position: relative;
 
 	&_i {
@@ -22,7 +23,7 @@
 }
 
 // number-text
-.#{$prefix}-txtv {
+.#{tp.$prefix}-txtv {
 	$knob-bounds-width: 12px;
 	$knob-visual-width: 2px;
 
@@ -93,11 +94,11 @@
 		stroke: var(--in-fg);
 	}
 
-	.#{$prefix}-ttv {
+	.#{tp.$prefix}-ttv {
 		margin-left: math.div($knob-bounds-width, 2);
 		visibility: hidden;
 	}
-	&#{&}-drg .#{$prefix}-ttv {
+	&#{&}-drg .#{tp.$prefix}-ttv {
 		visibility: visible;
 	}
 }

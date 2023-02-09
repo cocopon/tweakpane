@@ -1,10 +1,13 @@
-.#{$prefix}-colswv {
-	@include checkerboard(10px);
+@use '../tp';
+@use './common/color';
+
+.#{tp.$prefix}-colswv {
+	@include color.checkerboard(10px);
 
 	border-radius: var(--elm-br);
 	overflow: hidden;
 
-	&.#{$prefix}-v-disabled {
+	&.#{tp.$disabled} {
 		opacity: 0.5;
 	}
 
@@ -14,16 +17,12 @@
 		border-radius: 0;
 	}
 	&_b {
-		appearance: none;
-		background-color: transparent;
-		border-width: 0;
+		@extend %resetUserAgent;
+
 		cursor: pointer;
 		display: block;
 		height: var(--bld-us);
 		left: 0;
-		margin: 0;
-		outline: none;
-		padding: 0;
 		position: absolute;
 		top: 0;
 		width: var(--bld-us);
