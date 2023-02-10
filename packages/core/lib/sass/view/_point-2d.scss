@@ -10,7 +10,7 @@
 	}
 	// Button
 	&_b {
-		@extend %button;
+		@extend %tp-button;
 
 		height: tp.cssVar('blade-unit-size');
 		margin-right: 4px;

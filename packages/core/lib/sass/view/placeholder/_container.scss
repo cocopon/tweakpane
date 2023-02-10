@@ -1,6 +1,6 @@
 @use '../../common/defs';
 
-%container-children {
+%tp-container_children {
 	// Bottom spacing of last container
 	& > .#{defs.$prefix}-cntv.#{defs.$last} {
 		margin-bottom: calc(-1 * #{defs.cssVar('container-v-padding')});
@@ -34,7 +34,7 @@
 	}
 }
 
-%container-subcontainers {
+%tp-container_subcontainers {
 	// Left spacing of subcontainers
 	& > .#{defs.$prefix}-cntv {
 		margin-left: 4px;

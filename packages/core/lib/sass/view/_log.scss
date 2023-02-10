@@ -2,7 +2,7 @@
 
 .#{tp.$prefix}-sglv {
 	&_i {
-		@extend %monitor;
+		@extend %tp-monitor;
 
 		padding: 0 4px;
 	}
@@ -13,7 +13,7 @@
 
 .#{tp.$prefix}-mllv {
 	&_i {
-		@extend %monitor;
+		@extend %tp-monitor;
 
 		display: block;
 		height: calc(#{tp.cssVar('blade-unit-size')} * 3);

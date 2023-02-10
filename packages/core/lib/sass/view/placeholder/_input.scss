@@ -1,7 +1,7 @@
 @use '../../common/defs';
 
-%input {
-	@extend %resetUserAgent;
+%tp-input {
+	@extend %tp-resetUserAgent;
 
 	background-color: defs.cssVar('input-bg');
 	border-radius: defs.cssVar('element-border-radius');

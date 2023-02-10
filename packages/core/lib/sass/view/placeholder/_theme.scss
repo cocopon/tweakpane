@@ -9,7 +9,7 @@
 	--#{$in-name}: var(--#{defs.$prefix}-#{$ex-name}, #{$value});
 }
 
-%themeVariables {
+%tp-theming {
 	$base-hue: 230;
 	$color-exdark: hsl($base-hue, 7%, 0%);
 	$color-dark: hsl($base-hue, 7%, 17%);

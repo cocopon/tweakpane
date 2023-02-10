@@ -5,7 +5,7 @@
 
 	// Title button
 	&_b {
-		@extend %folder_title;
+		@extend %tp-folder_title;
 	}
 	&#{&}-not &_b {
 		display: none;
@@ -16,27 +16,27 @@
 	}
 	// Marker
 	&_m {
-		@extend %folder_mark;
+		@extend %tp-folder_mark;
 	}
 	&_b:disabled &_m {
 		display: none;
 	}
 	&#{&}-expanded > &_b > &_m {
-		@extend %folder_mark-expanded;
+		@extend %tp-folder_mark-expanded;
 	}
 	// Container
 	&_c {
-		@extend %folder_container;
-		@extend %container-children;
-		@extend %container-subcontainers;
+		@extend %tp-folder_container;
+		@extend %tp-container_children;
+		@extend %tp-container_subcontainers;
 
 		padding-left: 4px;
 	}
 	&#{&}-expanded > &_c {
-		@extend %folder_container-expanded;
+		@extend %tp-folder_container-expanded;
 	}
 	&#{&}-cpl:not(#{&}-expanded) > &_c {
-		@extend %folder_container-shrinkedCompletely;
+		@extend %tp-folder_container-shrinkedCompletely;
 	}
 	// Indent
 	&_i {

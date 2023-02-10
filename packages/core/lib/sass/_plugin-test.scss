@@ -1,9 +1,9 @@
 @use './tp';
 
 .#{tp.$prefix}-test {
-	@extend %button;
-	@extend %input;
-	@extend %monitor;
+	@extend %tp-button;
+	@extend %tp-input;
+	@extend %tp-monitor;
 
 	background-color: tp.cssVar('input-bg');
 	color: tp.cssVar('input-fg');

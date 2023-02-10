@@ -5,7 +5,7 @@
 	position: relative;
 
 	&_i {
-		@extend %input;
+		@extend %tp-input;
 
 		padding: 0 4px;
 	}

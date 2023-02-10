@@ -2,7 +2,7 @@
 @use '../../../../../node_modules/@tweakpane/core/lib/sass/tp';
 
 .#{tp.$prefix}-rotv {
-	@extend %themeVariables;
+	@extend %tp-theming;
 
 	background-color: tp.cssVar('base-bg');
 	border-radius: tp.cssVar('base-border-radius');
@@ -14,7 +14,7 @@
 	text-align: left;
 
 	&_b {
-		@extend %folder_title;
+		@extend %tp-folder_title;
 
 		border-bottom-left-radius: tp.cssVar('base-border-radius');
 		border-bottom-right-radius: tp.cssVar('base-border-radius');
@@ -36,23 +36,23 @@
 		display: none;
 	}
 	&_m {
-		@extend %folder_mark;
+		@extend %tp-folder_mark;
 	}
 	&_b:disabled &_m {
 		display: none;
 	}
 	&#{&}-expanded &_m {
-		@extend %folder_mark-expanded;
+		@extend %tp-folder_mark-expanded;
 	}
 	&_c {
-		@extend %folder_container;
-		@extend %container-children;
+		@extend %tp-folder_container;
+		@extend %tp-container_children;
 	}
 	&#{&}-expanded &_c {
-		@extend %folder_container-expanded;
+		@extend %tp-folder_container-expanded;
 	}
 	&#{&}-cpl:not(#{&}-expanded) &_c {
-		@extend %folder_container-shrinkedCompletely;
+		@extend %tp-folder_container-shrinkedCompletely;
 	}
 
 	// Folders

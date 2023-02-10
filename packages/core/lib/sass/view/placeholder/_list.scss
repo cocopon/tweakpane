@@ -1,17 +1,17 @@
 @use './button';
 
-%list {
+%tp-list {
 	position: relative;
 }
 
-%list_select {
-	@extend %button;
+%tp-list_select {
+	@extend %tp-button;
 
 	padding: 0 (16px + 2px * 2) 0 4px;
 	width: 100%;
 }
 
-%list_arrow {
+%tp-list_arrow {
 	bottom: 0;
 	margin: auto;
 	pointer-events: none;

@@ -6,7 +6,7 @@
 		position: relative;
 	}
 	&_i {
-		@extend %resetUserAgent;
+		@extend %tp-resetUserAgent;
 
 		left: 0;
 		opacity: 0;

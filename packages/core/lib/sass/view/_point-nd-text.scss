@@ -1,9 +1,9 @@
 @use '../tp';
 
 .#{tp.$prefix}-pndtxtv {
-	@extend %texts;
+	@extend %tp-texts;
 
 	&_a {
-		@extend %texts_item;
+		@extend %tp-texts_item;
 	}
 }

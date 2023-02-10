@@ -58,8 +58,8 @@
 		padding-top: tp.cssVar('container-v-padding');
 
 		.#{tp.$prefix}-brkv {
-			@extend %container-children;
-			@extend %container-subcontainers;
+			@extend %tp-container_children;
+			@extend %tp-container_subcontainers;
 		}
 	}
 	// Indent
@@ -108,7 +108,7 @@
 	}
 
 	&_b {
-		@extend %resetUserAgent;
+		@extend %tp-resetUserAgent;
 
 		display: block;
 		padding-left: calc(#{tp.cssVar('container-h-padding')} + 4px);

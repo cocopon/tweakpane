@@ -12,12 +12,12 @@
 	}
 
 	&_sw {
-		@extend %input;
+		@extend %tp-input;
 
 		border-radius: 0;
 	}
 	&_b {
-		@extend %resetUserAgent;
+		@extend %tp-resetUserAgent;
 
 		cursor: pointer;
 		display: block;

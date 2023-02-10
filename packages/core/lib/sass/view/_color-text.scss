@@ -6,13 +6,13 @@
 
 	// Mode selector wrapper
 	&_m {
-		@extend %list;
+		@extend %tp-list;
 
 		margin-right: 4px;
 	}
 	// Mode selector
 	&_ms {
-		@extend %resetUserAgent;
+		@extend %tp-resetUserAgent;
 
 		border-radius: tp.cssVar('element-border-radius');
 		color: tp.cssVar('label-fg');
@@ -33,7 +33,7 @@
 	}
 	// Mode selector mark
 	&_mm {
-		@extend %list_arrow;
+		@extend %tp-list_arrow;
 
 		color: tp.cssVar('label-fg');
 	}
@@ -42,12 +42,12 @@
 	}
 	// Text components wrapper
 	&_w {
-		@extend %texts;
+		@extend %tp-texts;
 
 		flex: 1;
 	}
 	// Text component
 	&_c {
-		@extend %texts_item;
+		@extend %tp-texts_item;
 	}
 }

@@ -1,16 +1,16 @@
 @use '../tp';
 
 .#{tp.$prefix}-lstv {
-	@extend %list;
+	@extend %tp-list;
 
 	&_s {
-		@extend %list_select;
+		@extend %tp-list_select;
 
 		padding: 0 (16px + 2px * 2) 0 4px;
 		width: 100%;
 	}
 	&_m {
-		@extend %list_arrow;
+		@extend %tp-list_arrow;
 
 		color: tp.cssVar('button-fg');
 	}

@@ -58,8 +58,8 @@ $css-vars: (
 	@return string.unquote('var(--' + $short-name + ')');
 }
 
-// Reset user agent
-%resetUserAgent {
+// Reset user agent style
+%tp-resetUserAgent {
 	appearance: none;
 	background-color: transparent;
 	border-width: 0;

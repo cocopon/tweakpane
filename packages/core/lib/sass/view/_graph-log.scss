@@ -4,7 +4,7 @@
 	position: relative;
 
 	&_g {
-		@extend %monitor;
+		@extend %tp-monitor;
 
 		display: block;
 		height: calc(#{tp.cssVar('blade-unit-size')} * 3);

@@ -1,7 +1,7 @@
 @use '../../common/defs';
 
-%monitor {
-	@extend %resetUserAgent;
+%tp-monitor {
+	@extend %tp-resetUserAgent;
 
 	background-color: defs.cssVar('monitor-bg');
 	border-radius: defs.cssVar('element-border-radius');

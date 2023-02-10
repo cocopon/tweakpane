@@ -1,7 +1,7 @@
 @use '../../common/defs';
 
-%folder_title {
-	@extend %resetUserAgent;
+%tp-folder_title {
+	@extend %tp-resetUserAgent;
 
 	background-color: defs.cssVar('container-bg');
 	color: defs.cssVar('container-fg');
@@ -40,7 +40,7 @@
 	}
 }
 
-%folder_mark {
+%tp-folder_mark {
 	$size: 6px;
 
 	background: linear-gradient(
@@ -70,11 +70,11 @@
 	width: $size;
 }
 
-%folder_mark-expanded {
+%tp-folder_mark-expanded {
 	transform: none;
 }
 
-%folder_container {
+%tp-folder_container {
 	box-sizing: border-box;
 	height: 0;
 	opacity: 0;
@@ -86,10 +86,10 @@
 		opacity defs.$fold-transition-duration linear,
 		padding defs.$fold-transition-duration ease-in-out;
 }
-%folder_container-shrinkedCompletely {
+%tp-folder_container-shrinkedCompletely {
 	display: none;
 }
-%folder_container-expanded {
+%tp-folder_container-expanded {
 	opacity: 1;
 	padding-bottom: defs.cssVar('container-v-padding');
 	padding-top: defs.cssVar('container-v-padding');
