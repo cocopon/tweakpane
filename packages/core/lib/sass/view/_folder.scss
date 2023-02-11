@@ -45,7 +45,7 @@
 		left: 0;
 		overflow: hidden;
 		position: absolute;
-		top: calc(#{tp.cssVar('blade-unit-size')} + 4px);
+		top: calc(#{tp.cssVar('container-unit-size')} + 4px);
 		width: tp.cssVar('base-border-radius');
 
 		&::before {

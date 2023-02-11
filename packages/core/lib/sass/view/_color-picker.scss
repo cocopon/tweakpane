@@ -14,12 +14,12 @@ $track-width: 4px;
 	}
 	// Hue
 	&_h {
-		margin-top: tp.cssVar('blade-spacing');
+		margin-top: tp.cssVar('container-unit-spacing');
 	}
 	// RGB text
 	&_rgb {
 		display: flex;
-		margin-top: tp.cssVar('blade-spacing');
+		margin-top: tp.cssVar('container-unit-spacing');
 		width: 100%;
 	}
 	// Alpha
@@ -60,7 +60,7 @@ $track-width: 4px;
 
 // Saturation-value palette
 .#{tp.$prefix}-svpv {
-	border-radius: tp.cssVar('element-border-radius');
+	border-radius: tp.cssVar('blade-border-radius');
 	outline: none;
 	overflow: hidden;
 	position: relative;
@@ -72,7 +72,7 @@ $track-width: 4px;
 	&_c {
 		cursor: crosshair;
 		display: block;
-		height: calc(tp.cssVar('blade-unit-size') * 4);
+		height: calc(tp.cssVar('container-unit-size') * 4);
 		width: 100%;
 	}
 	&_m {
@@ -95,7 +95,7 @@ $track-width: 4px;
 // Hue palette
 .#{tp.$prefix}-hplv {
 	cursor: pointer;
-	height: tp.cssVar('blade-unit-size');
+	height: tp.cssVar('container-unit-size');
 	outline: none;
 	position: relative;
 
@@ -118,7 +118,7 @@ $track-width: 4px;
 		width: 100%;
 	}
 	&_m {
-		border-radius: tp.cssVar('element-border-radius');
+		border-radius: tp.cssVar('blade-border-radius');
 		border: $marker-border-color solid 2px;
 		box-shadow: 0 0 2px rgba(black, 0.1);
 		box-sizing: border-box;
@@ -139,7 +139,7 @@ $track-width: 4px;
 // Alpha palette
 .#{tp.$prefix}-aplv {
 	cursor: pointer;
-	height: tp.cssVar('blade-unit-size');
+	height: tp.cssVar('container-unit-size');
 	outline: none;
 	position: relative;
 	width: 100%;
@@ -171,7 +171,7 @@ $track-width: 4px;
 	&_m {
 		@include color.checkerboard(tp.$slider-knob-size);
 
-		border-radius: tp.cssVar('element-border-radius');
+		border-radius: tp.cssVar('blade-border-radius');
 		box-shadow: 0 0 2px rgba(black, 0.1);
 		height: tp.$slider-knob-size;
 		left: 50%;
@@ -184,7 +184,7 @@ $track-width: 4px;
 		width: tp.$slider-knob-size;
 	}
 	&_p {
-		border-radius: tp.cssVar('element-border-radius');
+		border-radius: tp.cssVar('blade-border-radius');
 		border: $marker-border-color solid 2px;
 		box-sizing: border-box;
 		bottom: 0;

@@ -46,7 +46,7 @@
 			border-radius: math.div($knob-visual-width, 2);
 			bottom: 0;
 			content: '';
-			height: calc(#{tp.cssVar('blade-unit-size')} - 4px);
+			height: calc(#{tp.cssVar('container-unit-size')} - 4px);
 			left: 50%;
 			margin-bottom: auto;
 			margin-left: math.div(-$knob-visual-width, 2);

@@ -15,7 +15,7 @@
 
 	// Spacing between two blades
 	& > *:not(.#{defs.$first}) {
-		margin-top: defs.cssVar('blade-spacing');
+		margin-top: defs.cssVar('container-unit-spacing');
 	}
 	// Top spacing of folder and separator
 	& > .#{defs.$prefix}-sprv:not(.#{defs.$first}),
@@ -41,8 +41,8 @@
 	}
 	// Left border radius of subfolder
 	& > .#{defs.$prefix}-fldv > .#{defs.$prefix}-fldv_b {
-		border-top-left-radius: defs.cssVar('element-border-radius');
-		border-bottom-left-radius: defs.cssVar('element-border-radius');
+		border-top-left-radius: defs.cssVar('blade-border-radius');
+		border-bottom-left-radius: defs.cssVar('blade-border-radius');
 	}
 	&
 		> .#{defs.$prefix}-fldv.#{defs.$prefix}-fldv-expanded
@@ -50,7 +50,7 @@
 		border-bottom-left-radius: 0;
 	}
 	& .#{defs.$prefix}-fldv > .#{defs.$prefix}-fldv_c {
-		border-bottom-left-radius: defs.cssVar('element-border-radius');
+		border-bottom-left-radius: defs.cssVar('blade-border-radius');
 	}
 	// Top left border radius of subfolder after container
 	& > .#{defs.$prefix}-cntv + .#{defs.$prefix}-fldv > .#{defs.$prefix}-fldv_b {
@@ -62,9 +62,9 @@
 	}
 	// Left border radius of subtab
 	& > .#{defs.$prefix}-tabv > .#{defs.$prefix}-tabv_t {
-		border-top-left-radius: defs.cssVar('element-border-radius');
+		border-top-left-radius: defs.cssVar('blade-border-radius');
 	}
 	& .#{defs.$prefix}-tabv > .#{defs.$prefix}-tabv_c {
-		border-bottom-left-radius: defs.cssVar('element-border-radius');
+		border-bottom-left-radius: defs.cssVar('blade-border-radius');
 	}
 }

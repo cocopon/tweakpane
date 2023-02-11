@@ -16,8 +16,8 @@
 		@extend %tp-monitor;
 
 		display: block;
-		height: calc(#{tp.cssVar('blade-unit-size')} * 3);
-		line-height: tp.cssVar('blade-unit-size');
+		height: calc(#{tp.cssVar('container-unit-size')} * 3);
+		line-height: tp.cssVar('container-unit-size');
 		padding: 0 4px;
 		resize: none;
 		white-space: pre;

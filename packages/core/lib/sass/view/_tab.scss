@@ -38,7 +38,7 @@
 	}
 	// Title without page
 	&#{&}-nop &_t {
-		height: calc(#{tp.cssVar('blade-unit-size')} + 4px);
+		height: calc(#{tp.cssVar('container-unit-size')} + 4px);
 		position: relative;
 
 		&::before {
@@ -69,7 +69,7 @@
 		left: 0;
 		overflow: hidden;
 		position: absolute;
-		top: calc(#{tp.cssVar('blade-unit-size')} + 4px);
+		top: calc(#{tp.cssVar('container-unit-size')} + 4px);
 		width: tp.cssVar('base-border-radius');
 
 		&::before {
@@ -142,8 +142,8 @@
 	}
 	&_t {
 		color: tp.cssVar('container-fg');
-		height: calc(#{tp.cssVar('blade-unit-size')} + 4px);
-		line-height: calc(#{tp.cssVar('blade-unit-size')} + 4px);
+		height: calc(#{tp.cssVar('container-unit-size')} + 4px);
+		line-height: calc(#{tp.cssVar('container-unit-size')} + 4px);
 		opacity: 0.5;
 		overflow: hidden;
 		text-overflow: ellipsis;

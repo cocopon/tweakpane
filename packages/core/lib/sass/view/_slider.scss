@@ -9,7 +9,7 @@
 	&_t {
 		box-sizing: border-box;
 		cursor: pointer;
-		height: tp.cssVar('blade-unit-size');
+		height: tp.cssVar('container-unit-size');
 		margin: 0 math.div(tp.$slider-knob-size, 2);
 		outline: none;
 		position: relative;
@@ -50,7 +50,7 @@
 		}
 		&::after {
 			background-color: tp.cssVar('button-bg');
-			border-radius: tp.cssVar('element-border-radius');
+			border-radius: tp.cssVar('blade-border-radius');
 			bottom: 0;
 			content: '';
 			display: block;

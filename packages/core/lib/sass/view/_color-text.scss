@@ -14,11 +14,11 @@
 	&_ms {
 		@extend %tp-resetUserAgent;
 
-		border-radius: tp.cssVar('element-border-radius');
+		border-radius: tp.cssVar('blade-border-radius');
 		color: tp.cssVar('label-fg');
 		cursor: pointer;
-		height: tp.cssVar('blade-unit-size');
-		line-height: tp.cssVar('blade-unit-size');
+		height: tp.cssVar('container-unit-size');
+		line-height: tp.cssVar('container-unit-size');
 		padding: 0 18px 0 4px;
 
 		&:hover {

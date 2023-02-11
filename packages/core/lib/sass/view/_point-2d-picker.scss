@@ -1,7 +1,7 @@
 @use '../tp';
 
 .#{tp.$prefix}-p2dpv {
-	padding-left: calc(#{tp.cssVar('blade-unit-size')} + 4px);
+	padding-left: calc(#{tp.cssVar('container-unit-size')} + 4px);
 
 	// Pad
 	&_p {

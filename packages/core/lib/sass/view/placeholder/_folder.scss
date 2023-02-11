@@ -7,12 +7,12 @@
 	color: defs.cssVar('container-fg');
 	cursor: pointer;
 	display: block;
-	height: calc(#{defs.cssVar('blade-unit-size')} + 4px);
-	line-height: calc(#{defs.cssVar('blade-unit-size')} + 4px);
+	height: calc(#{defs.cssVar('container-unit-size')} + 4px);
+	line-height: calc(#{defs.cssVar('container-unit-size')} + 4px);
 	overflow: hidden;
 	padding-left: defs.cssVar('container-h-padding');
 	padding-right: calc(
-		2px * 2 + #{defs.cssVar('blade-unit-size')} + #{defs.cssVar(
+		2px * 2 + #{defs.cssVar('container-unit-size')} + #{defs.cssVar(
 				'container-h-padding'
 			)}
 	);
@@ -58,7 +58,7 @@
 	height: $size;
 	right: calc(
 		#{defs.cssVar('container-h-padding')} + (
-				#{defs.cssVar('blade-unit-size')} + 4px - #{$size}
+				#{defs.cssVar('container-unit-size')} + 4px - #{$size}
 			) / 2 - 2px
 	);
 	margin: auto;

@@ -7,7 +7,7 @@
 	background-color: tp.cssVar('base-bg');
 	border-radius: tp.cssVar('base-border-radius');
 	box-shadow: 0 2px 4px tp.cssVar('base-shadow');
-	font-family: tp.cssVar('font-family');
+	font-family: tp.cssVar('base-font');
 	font-size: 11px;
 	font-weight: 500;
 	line-height: 1;
@@ -21,7 +21,7 @@
 		border-top-left-radius: tp.cssVar('base-border-radius');
 		border-top-right-radius: tp.cssVar('base-border-radius');
 		padding-left: calc(
-			2px * 2 + #{tp.cssVar('blade-unit-size')} + #{tp.cssVar(
+			2px * 2 + #{tp.cssVar('container-unit-size')} + #{tp.cssVar(
 					'container-h-padding'
 				)}
 		);

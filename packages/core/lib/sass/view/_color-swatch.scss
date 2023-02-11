@@ -4,7 +4,7 @@
 .#{tp.$prefix}-colswv {
 	@include color.checkerboard(10px);
 
-	border-radius: tp.cssVar('element-border-radius');
+	border-radius: tp.cssVar('blade-border-radius');
 	overflow: hidden;
 
 	&.#{tp.$disabled} {
@@ -21,15 +21,15 @@
 
 		cursor: pointer;
 		display: block;
-		height: tp.cssVar('blade-unit-size');
+		height: tp.cssVar('container-unit-size');
 		left: 0;
 		position: absolute;
 		top: 0;
-		width: tp.cssVar('blade-unit-size');
+		width: tp.cssVar('container-unit-size');
 
 		&:focus::after {
 			border: rgba(white, 0.75) solid 2px;
-			border-radius: tp.cssVar('element-border-radius');
+			border-radius: tp.cssVar('blade-border-radius');
 			bottom: 0;
 			content: '';
 			display: block;

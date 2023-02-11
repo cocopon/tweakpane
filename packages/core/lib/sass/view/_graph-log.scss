@@ -7,7 +7,7 @@
 		@extend %tp-monitor;
 
 		display: block;
-		height: calc(#{tp.cssVar('blade-unit-size')} * 3);
+		height: calc(#{tp.cssVar('container-unit-size')} * 3);
 
 		polyline {
 			fill: none;

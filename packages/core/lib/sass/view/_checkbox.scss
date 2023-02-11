@@ -15,12 +15,12 @@
 	}
 	&_w {
 		background-color: tp.cssVar('input-bg');
-		border-radius: tp.cssVar('element-border-radius');
+		border-radius: tp.cssVar('blade-border-radius');
 		cursor: pointer;
 		display: block;
-		height: tp.cssVar('blade-unit-size');
+		height: tp.cssVar('container-unit-size');
 		position: relative;
-		width: tp.cssVar('blade-unit-size');
+		width: tp.cssVar('container-unit-size');
 
 		svg {
 			bottom: 0;
