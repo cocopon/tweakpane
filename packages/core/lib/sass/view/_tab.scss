@@ -70,7 +70,7 @@
 		overflow: hidden;
 		position: absolute;
 		top: calc(#{tp.cssVar('container-unit-size')} + 4px);
-		width: tp.cssVar('base-border-radius');
+		width: max(tp.cssVar('base-border-radius'), 4px);
 
 		&::before {
 			background-color: currentColor;
