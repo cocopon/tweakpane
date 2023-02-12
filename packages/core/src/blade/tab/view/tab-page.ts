@@ -7,7 +7,7 @@ interface Config {
 	viewProps: ViewProps;
 }
 
-const className = ClassName('tbp');
+const cn = ClassName('tbp');
 
 /**
  * @hidden
@@ -18,11 +18,11 @@ export class TabPageView implements View {
 
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 
 		const containerElem = config.containerElement;
-		containerElem.classList.add(className('c'));
+		containerElem.classList.add(cn('c'));
 		this.element.appendChild(containerElem);
 		this.containerElement = containerElem;
 	}

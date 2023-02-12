@@ -16,7 +16,7 @@ interface Config {
 	viewProps: ViewProps;
 }
 
-const className = ClassName('sld');
+const cn = ClassName('sld');
 
 /**
  * @hidden
@@ -35,17 +35,17 @@ export class SliderView implements View {
 		this.props_.emitter.on('change', this.onChange_);
 
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 
 		const trackElem = doc.createElement('div');
-		trackElem.classList.add(className('t'));
+		trackElem.classList.add(cn('t'));
 		config.viewProps.bindTabIndex(trackElem);
 		this.element.appendChild(trackElem);
 		this.trackElement = trackElem;
 
 		const knobElem = doc.createElement('div');
-		knobElem.classList.add(className('k'));
+		knobElem.classList.add(cn('k'));
 		this.trackElement.appendChild(knobElem);
 		this.knobElement = knobElem;
 

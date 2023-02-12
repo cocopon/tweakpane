@@ -7,7 +7,7 @@ import {View} from '../../../common/view/view';
 import {hsvToRgbInt} from '../model/color-model';
 import {IntColor} from '../model/int-color';
 
-const className = ClassName('svp');
+const cn = ClassName('svp');
 
 interface Config {
 	value: Value<IntColor>;
@@ -32,19 +32,19 @@ export class SvPaletteView implements View {
 		this.value.emitter.on('change', this.onValueChange_);
 
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 		config.viewProps.bindTabIndex(this.element);
 
 		const canvasElem = doc.createElement('canvas');
 		canvasElem.height = CANVAS_RESOL;
 		canvasElem.width = CANVAS_RESOL;
-		canvasElem.classList.add(className('c'));
+		canvasElem.classList.add(cn('c'));
 		this.element.appendChild(canvasElem);
 		this.canvasElement = canvasElem;
 
 		const markerElem = doc.createElement('div');
-		markerElem.classList.add(className('m'));
+		markerElem.classList.add(cn('m'));
 		this.element.appendChild(markerElem);
 		this.markerElem_ = markerElem;
 

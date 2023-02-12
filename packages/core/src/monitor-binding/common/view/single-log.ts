@@ -10,7 +10,7 @@ interface Config<T> {
 	viewProps: ViewProps;
 }
 
-const className = ClassName('sgl');
+const cn = ClassName('sgl');
 
 /**
  * @hidden
@@ -27,11 +27,11 @@ export class SingleLogView<T> implements View {
 		this.formatter_ = config.formatter;
 
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 
 		const inputElem = doc.createElement('input');
-		inputElem.classList.add(className('i'));
+		inputElem.classList.add(cn('i'));
 		inputElem.readOnly = true;
 		inputElem.type = 'text';
 		config.viewProps.bindDisabled(inputElem);

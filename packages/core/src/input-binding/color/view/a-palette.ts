@@ -6,7 +6,7 @@ import {View} from '../../../common/view/view';
 import {colorToFunctionalRgbaString} from '../converter/color-string';
 import {IntColor} from '../model/int-color';
 
-const className = ClassName('apl');
+const cn = ClassName('apl');
 
 interface Config {
 	value: Value<IntColor>;
@@ -30,26 +30,26 @@ export class APaletteView implements View {
 		this.value.emitter.on('change', this.onValueChange_);
 
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 		config.viewProps.bindTabIndex(this.element);
 
 		const barElem = doc.createElement('div');
-		barElem.classList.add(className('b'));
+		barElem.classList.add(cn('b'));
 		this.element.appendChild(barElem);
 
 		const colorElem = doc.createElement('div');
-		colorElem.classList.add(className('c'));
+		colorElem.classList.add(cn('c'));
 		barElem.appendChild(colorElem);
 		this.colorElem_ = colorElem;
 
 		const markerElem = doc.createElement('div');
-		markerElem.classList.add(className('m'));
+		markerElem.classList.add(cn('m'));
 		this.element.appendChild(markerElem);
 		this.markerElem_ = markerElem;
 
 		const previewElem = doc.createElement('div');
-		previewElem.classList.add(className('p'));
+		previewElem.classList.add(cn('p'));
 		this.markerElem_.appendChild(previewElem);
 		this.previewElem_ = previewElem;
 

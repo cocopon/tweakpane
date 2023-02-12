@@ -2,7 +2,7 @@ import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 
-const className = ClassName('spr');
+const cn = ClassName('spr');
 
 interface Config {
 	viewProps: ViewProps;
@@ -16,11 +16,11 @@ export class SeparatorView implements View {
 
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 
 		const hrElem = doc.createElement('hr');
-		hrElem.classList.add(className('r'));
+		hrElem.classList.add(cn('r'));
 		this.element.appendChild(hrElem);
 	}
 }

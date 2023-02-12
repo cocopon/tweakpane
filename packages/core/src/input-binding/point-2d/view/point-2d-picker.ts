@@ -15,7 +15,7 @@ interface Config {
 	viewProps: ViewProps;
 }
 
-const className = ClassName('p2dp');
+const cn = ClassName('p2dp');
 
 /**
  * @hidden
@@ -38,25 +38,25 @@ export class Point2dPickerView implements View {
 		this.max_ = config.max;
 
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		if (config.layout === 'popup') {
-			this.element.classList.add(className(undefined, 'p'));
+			this.element.classList.add(cn(undefined, 'p'));
 		}
 		config.viewProps.bindClassModifiers(this.element);
 
 		const padElem = doc.createElement('div');
-		padElem.classList.add(className('p'));
+		padElem.classList.add(cn('p'));
 		config.viewProps.bindTabIndex(padElem);
 		this.element.appendChild(padElem);
 		this.padElement = padElem;
 
 		const svgElem = doc.createElementNS(SVG_NS, 'svg');
-		svgElem.classList.add(className('g'));
+		svgElem.classList.add(cn('g'));
 		this.padElement.appendChild(svgElem);
 		this.svgElem_ = svgElem;
 
 		const xAxisElem = doc.createElementNS(SVG_NS, 'line');
-		xAxisElem.classList.add(className('ax'));
+		xAxisElem.classList.add(cn('ax'));
 		xAxisElem.setAttributeNS(null, 'x1', '0');
 		xAxisElem.setAttributeNS(null, 'y1', '50%');
 		xAxisElem.setAttributeNS(null, 'x2', '100%');
@@ -64,7 +64,7 @@ export class Point2dPickerView implements View {
 		this.svgElem_.appendChild(xAxisElem);
 
 		const yAxisElem = doc.createElementNS(SVG_NS, 'line');
-		yAxisElem.classList.add(className('ax'));
+		yAxisElem.classList.add(cn('ax'));
 		yAxisElem.setAttributeNS(null, 'x1', '50%');
 		yAxisElem.setAttributeNS(null, 'y1', '0');
 		yAxisElem.setAttributeNS(null, 'x2', '50%');
@@ -72,14 +72,14 @@ export class Point2dPickerView implements View {
 		this.svgElem_.appendChild(yAxisElem);
 
 		const lineElem = doc.createElementNS(SVG_NS, 'line');
-		lineElem.classList.add(className('l'));
+		lineElem.classList.add(cn('l'));
 		lineElem.setAttributeNS(null, 'x1', '50%');
 		lineElem.setAttributeNS(null, 'y1', '50%');
 		this.svgElem_.appendChild(lineElem);
 		this.lineElem_ = lineElem;
 
 		const markerElem = doc.createElement('div');
-		markerElem.classList.add(className('m'));
+		markerElem.classList.add(cn('m'));
 		this.padElement.appendChild(markerElem);
 		this.markerElem_ = markerElem;
 

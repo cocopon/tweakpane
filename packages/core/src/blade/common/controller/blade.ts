@@ -13,7 +13,7 @@ interface Config<V extends View> {
 	viewProps: ViewProps;
 }
 
-const className = ClassName('');
+const cn = ClassName('');
 const POS_TO_CLASS_NAME_MAP: {[pos in BladePosition]: string} = {
 	veryfirst: 'vfst',
 	first: 'fst',
@@ -35,10 +35,10 @@ export class BladeController<V extends View = View> implements Controller<V> {
 		const elem = this.view.element;
 		this.blade.value('positions').emitter.on('change', () => {
 			getAllBladePositions().forEach((pos) => {
-				elem.classList.remove(className(undefined, POS_TO_CLASS_NAME_MAP[pos]));
+				elem.classList.remove(cn(undefined, POS_TO_CLASS_NAME_MAP[pos]));
 			});
 			this.blade.get('positions').forEach((pos) => {
-				elem.classList.add(className(undefined, POS_TO_CLASS_NAME_MAP[pos]));
+				elem.classList.add(cn(undefined, POS_TO_CLASS_NAME_MAP[pos]));
 			});
 		});
 

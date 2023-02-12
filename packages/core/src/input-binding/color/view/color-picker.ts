@@ -7,7 +7,7 @@ import {ColorTextView} from './color-text';
 import {HPaletteView} from './h-palette';
 import {SvPaletteView} from './sv-palette';
 
-const className = ClassName('colp');
+const cn = ClassName('colp');
 
 interface Config {
 	alphaViews: {
@@ -36,27 +36,27 @@ export class ColorPickerView implements View {
 
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 
 		const hsvElem = doc.createElement('div');
-		hsvElem.classList.add(className('hsv'));
+		hsvElem.classList.add(cn('hsv'));
 
 		const svElem = doc.createElement('div');
-		svElem.classList.add(className('sv'));
+		svElem.classList.add(cn('sv'));
 		this.svPaletteView_ = config.svPaletteView;
 		svElem.appendChild(this.svPaletteView_.element);
 		hsvElem.appendChild(svElem);
 
 		const hElem = doc.createElement('div');
-		hElem.classList.add(className('h'));
+		hElem.classList.add(cn('h'));
 		this.hPaletteView_ = config.hPaletteView;
 		hElem.appendChild(this.hPaletteView_.element);
 		hsvElem.appendChild(hElem);
 		this.element.appendChild(hsvElem);
 
 		const rgbElem = doc.createElement('div');
-		rgbElem.classList.add(className('rgb'));
+		rgbElem.classList.add(cn('rgb'));
 		this.textView_ = config.textView;
 		rgbElem.appendChild(this.textView_.element);
 		this.element.appendChild(rgbElem);
@@ -68,15 +68,15 @@ export class ColorPickerView implements View {
 			};
 
 			const aElem = doc.createElement('div');
-			aElem.classList.add(className('a'));
+			aElem.classList.add(cn('a'));
 
 			const apElem = doc.createElement('div');
-			apElem.classList.add(className('ap'));
+			apElem.classList.add(cn('ap'));
 			apElem.appendChild(this.alphaViews_.palette.element);
 			aElem.appendChild(apElem);
 
 			const atElem = doc.createElement('div');
-			atElem.classList.add(className('at'));
+			atElem.classList.add(cn('at'));
 			atElem.appendChild(this.alphaViews_.text.element);
 			aElem.appendChild(atElem);
 

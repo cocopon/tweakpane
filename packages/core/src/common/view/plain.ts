@@ -14,9 +14,9 @@ export class PlainView implements View {
 	public readonly element: HTMLElement;
 
 	constructor(doc: Document, config: Config) {
-		const className = ClassName(config.viewName);
+		const cn = ClassName(config.viewName);
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 	}
 }

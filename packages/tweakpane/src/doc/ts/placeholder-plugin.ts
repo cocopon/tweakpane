@@ -11,7 +11,7 @@ import {
 	ViewProps,
 } from '@tweakpane/core';
 
-const className = ClassName('ph');
+const cn = ClassName('ph');
 
 class PlaceholderView implements View {
 	public readonly element: HTMLElement;
@@ -25,12 +25,12 @@ class PlaceholderView implements View {
 		},
 	) {
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		this.element.style.height = `calc(${config.lineCount} * var(--bld-us))`;
 		config.viewProps.bindClassModifiers(this.element);
 
 		const titleElem = doc.createElement('div');
-		titleElem.classList.add(className('t'));
+		titleElem.classList.add(cn('t'));
 		titleElem.textContent = config.title;
 		this.element.appendChild(titleElem);
 	}

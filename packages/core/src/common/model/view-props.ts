@@ -15,12 +15,13 @@ export type ViewPropsObject = {
 
 export type ViewPropsEvents = ValueMapEvents<ViewPropsObject>;
 
-const className = ClassName('');
+const cn = ClassName('');
+
 function valueToModifier(
 	elem: HTMLElement,
 	modifier: string,
 ): (value: boolean) => void {
-	return valueToClassName(elem, className(undefined, modifier));
+	return valueToClassName(elem, cn(undefined, modifier));
 }
 
 interface Disableable {
