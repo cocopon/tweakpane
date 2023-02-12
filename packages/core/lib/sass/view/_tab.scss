@@ -57,7 +57,7 @@
 		padding-left: 4px;
 		padding-top: tp.cssVar('container-v-padding');
 
-		.#{tp.$prefix}-brkv {
+		.#{tp.$prefix}-rckv {
 			@extend %tp-container_children;
 			@extend %tp-container_subcontainers;
 		}

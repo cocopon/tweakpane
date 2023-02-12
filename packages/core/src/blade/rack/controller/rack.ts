@@ -19,7 +19,7 @@ export class RackController extends BladeController<PlainView> {
 		super({
 			...config,
 			view: new PlainView(doc, {
-				viewName: 'brk',
+				viewName: 'rck',
 				viewProps: config.viewProps,
 			}),
 		});
