@@ -30,6 +30,8 @@
 	&#{&}-expanded &_b {
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
+		transition-delay: 0s;
+		transition-duration: 0s;
 	}
 	&#{&}-not &_b {
 		// no title
@@ -72,6 +74,13 @@
 			> .#{tp.$prefix}-fldv_b {
 			border-bottom-left-radius: tp.cssVar('base-border-radius');
 			border-bottom-right-radius: tp.cssVar('base-border-radius');
+		}
+		// Bottom of the last folder title when expanded
+		&
+			> .#{tp.$prefix}-fldv.#{tp.$last}.#{tp.$prefix}-fldv-expanded
+			> .#{tp.$prefix}-fldv_b {
+			transition-delay: 0s;
+			transition-duration: 0s;
 		}
 		// Bottom of the last subfolder title when collapsed
 		&
