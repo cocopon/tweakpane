@@ -2,10 +2,10 @@
 
 .#{tp.$prefix}-popv {
 	background-color: tp.cssVar('base-bg');
-	border-radius: 6px;
+	border-radius: tp.cssVar('base-border-radius');
 	box-shadow: 0 2px 4px tp.cssVar('base-shadow');
 	display: none;
-	max-width: 160px + 2 * 4px;
+	max-width: tp.cssVar('blade-value-width');
 	padding: tp.cssVar('container-v-padding') tp.cssVar('container-h-padding');
 	position: absolute;
 	visibility: hidden;

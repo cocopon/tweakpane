@@ -4,7 +4,8 @@
 	&_i {
 		@extend %tp-monitor;
 
-		padding: 0 4px;
+		padding-left: tp.cssVar('blade-h-padding');
+		padding-right: tp.cssVar('blade-h-padding');
 	}
 	&.#{tp.$disabled} &_i {
 		opacity: 0.5;
@@ -18,7 +19,8 @@
 		display: block;
 		height: calc(#{tp.cssVar('container-unit-size')} * 3);
 		line-height: tp.cssVar('container-unit-size');
-		padding: 0 4px;
+		padding-left: tp.cssVar('blade-h-padding');
+		padding-right: tp.cssVar('blade-h-padding');
 		resize: none;
 		white-space: pre;
 	}

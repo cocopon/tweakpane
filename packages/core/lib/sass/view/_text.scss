@@ -7,7 +7,8 @@
 	&_i {
 		@extend %tp-input;
 
-		padding: 0 4px;
+		padding-left: tp.cssVar('blade-h-padding');
+		padding-right: tp.cssVar('blade-h-padding');
 	}
 	&#{&}-fst &_i {
 		border-bottom-right-radius: 0;
@@ -36,7 +37,12 @@
 	&_k {
 		cursor: pointer;
 		height: 100%;
-		left: 2px - math.div($knob-bounds-width - $knob-visual-width, 2);
+		left: calc(
+			#{tp.cssVar('blade-h-padding')} - #{math.div(
+					$knob-bounds-width - $knob-visual-width,
+					2
+				)}
+		);
 		position: absolute;
 		top: 0;
 		width: $knob-bounds-width;

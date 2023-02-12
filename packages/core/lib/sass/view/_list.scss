@@ -6,7 +6,7 @@
 	&_s {
 		@extend %tp-list_select;
 
-		padding: 0 (16px + 2px * 2) 0 4px;
+		padding: 0 (16px + 2px * 2) 0 tp.cssVar('blade-h-padding');
 		width: 100%;
 	}
 	&_m {

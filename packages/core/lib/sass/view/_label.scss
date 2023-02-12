@@ -29,7 +29,7 @@
 		align-self: flex-start;
 		flex-grow: 0;
 		flex-shrink: 0;
-		width: 160px;
+		width: tp.cssVar('blade-value-width');
 	}
 	&#{&}-nol &_v {
 		width: 100%;
