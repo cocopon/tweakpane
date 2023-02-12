@@ -16,7 +16,7 @@ import {
 	TabParams,
 } from './params';
 
-export interface BladeRackApi {
+export interface ContainerApi {
 	/**
 	 * Children of the container.
 	 */
@@ -63,7 +63,7 @@ export interface BladeRackApi {
 }
 
 export function addButtonAsBlade(
-	api: BladeRackApi,
+	api: ContainerApi,
 	params: ButtonParams,
 ): ButtonApi {
 	return api.addBlade({
@@ -73,7 +73,7 @@ export function addButtonAsBlade(
 }
 
 export function addFolderAsBlade(
-	api: BladeRackApi,
+	api: ContainerApi,
 	params: FolderParams,
 ): FolderApi {
 	return api.addBlade({
@@ -83,7 +83,7 @@ export function addFolderAsBlade(
 }
 
 export function addSeparatorAsBlade(
-	api: BladeRackApi,
+	api: ContainerApi,
 	opt_params?: SeparatorParams,
 ): SeparatorApi {
 	const params = opt_params ?? {};
@@ -93,7 +93,7 @@ export function addSeparatorAsBlade(
 	});
 }
 
-export function addTabAsBlade(api: BladeRackApi, params: TabParams): TabApi {
+export function addTabAsBlade(api: ContainerApi, params: TabParams): TabApi {
 	return api.addBlade({
 		...params,
 		view: 'tab',

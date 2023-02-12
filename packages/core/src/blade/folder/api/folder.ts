@@ -7,7 +7,7 @@ import {InputBindingApi} from '../../binding/api/input-binding';
 import {MonitorBindingApi} from '../../binding/api/monitor-binding';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
-import {BladeRackApi} from '../../common/api/blade-rack';
+import {ContainerApi} from '../../common/api/container';
 import {ContainerBladeApi} from '../../common/api/container-blade';
 import {
 	ButtonParams,
@@ -33,7 +33,7 @@ export interface FolderApiEvents {
 
 export class FolderApi
 	extends ContainerBladeApi<FolderController>
-	implements BladeRackApi
+	implements ContainerApi
 {
 	private readonly emitter_: Emitter<FolderApiEvents>;
 

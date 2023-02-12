@@ -4,7 +4,7 @@ import {InputBindingApi} from '../../binding/api/input-binding';
 import {MonitorBindingApi} from '../../binding/api/monitor-binding';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
-import {BladeRackApi} from '../../common/api/blade-rack';
+import {ContainerApi} from '../../common/api/container';
 import {ContainerBladeApi} from '../../common/api/container-blade';
 import {
 	ButtonParams,
@@ -21,7 +21,7 @@ import {TabApi} from './tab';
 
 export class TabPageApi
 	extends ContainerBladeApi<TabPageController>
-	implements BladeRackApi
+	implements ContainerApi
 {
 	get title(): string {
 		return this.controller_.itemController.props.get('title') ?? '';

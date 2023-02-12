@@ -14,8 +14,8 @@ import {
 	addFolderAsBlade,
 	addSeparatorAsBlade,
 	addTabAsBlade,
-	BladeRackApi,
-} from '../../common/api/blade-rack';
+	ContainerApi,
+} from '../../common/api/container';
 import {ContainerBladeApi} from '../../common/api/container-blade';
 import {
 	ButtonParams,
@@ -73,7 +73,7 @@ function createBindingTarget<O extends Bindable, Key extends keyof O>(
 	return new BindingTarget(obj, key as string);
 }
 
-export class RackApi extends BladeApi<RackController> implements BladeRackApi {
+export class RackApi extends BladeApi<RackController> implements ContainerApi {
 	private readonly emitter_: Emitter<BladeRackApiEvents>;
 	private readonly apiSet_: NestedOrderedSet<BladeApi>;
 	private readonly pool_: PluginPool;

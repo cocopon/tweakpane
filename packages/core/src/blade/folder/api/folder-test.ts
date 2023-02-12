@@ -7,7 +7,7 @@ import {IntColor} from '../../../input-binding/color/model/int-color';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {createDefaultPluginPool} from '../../../plugin/plugins';
 import {BindingApi} from '../../binding/api/binding';
-import {testBladeContainer} from '../../common/api/blade-rack-test';
+import {testBladeContainer} from '../../common/api/container-test';
 import {assertUpdates} from '../../common/api/test-util';
 import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event';
 import {createBlade} from '../../common/model/blade';
