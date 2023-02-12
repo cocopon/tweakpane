@@ -423,4 +423,85 @@ export function initCatalog() {
 		panes[marker] = pane;
 	});
 	(window as any).panes = panes;
+
+	(() => {
+		const params = {
+			base: {
+				borderRadius: 6,
+			},
+			blade: {
+				borderRadius: 2,
+			},
+			container: {
+				hPadding: 4,
+				unitSize: 20,
+				unitSpacing: 4,
+				vPadding: 4,
+			},
+			disabled: false,
+		};
+		const pane = new Pane({
+			expanded: false,
+			title: 'Parameters',
+		});
+		pane.addInput(params, 'disabled');
+		((f) => {
+			f.addInput(params.base, 'borderRadius', {
+				label: 'border-radius',
+				min: 0,
+				max: 16,
+				step: 1,
+			});
+		})(pane.addFolder({title: 'base'}));
+		((f) => {
+			f.addInput(params.blade, 'borderRadius', {
+				label: 'border-radius',
+				min: 0,
+				max: 16,
+				step: 1,
+			});
+		})(pane.addFolder({title: 'blade'}));
+		((f) => {
+			f.addInput(params.container, 'unitSpacing', {
+				label: 'unit-spacing',
+				min: 0,
+				max: 16,
+				step: 1,
+			});
+			f.addInput(params.container, 'unitSize', {
+				label: 'unit-size',
+				min: 8,
+				max: 32,
+				step: 1,
+			});
+			f.addInput(params.container, 'hPadding', {
+				label: 'h-padding',
+				min: 0,
+				max: 16,
+				step: 1,
+			});
+			f.addInput(params.container, 'vPadding', {
+				label: 'v-padding',
+				min: 0,
+				max: 16,
+				step: 1,
+			});
+		})(pane.addFolder({title: 'container'}));
+
+		const styleElem = document.createElement('style');
+		document.head.appendChild(styleElem);
+		pane.on('change', () => {
+			const decls = [
+				`--tp-base-border-radius:${params.base.borderRadius}px`,
+				`--tp-blade-border-radius:${params.blade.borderRadius}px`,
+				`--tp-container-horizontal-padding:${params.container.hPadding}px`,
+				`--tp-container-unit-size:${params.container.unitSize}px`,
+				`--tp-container-unit-spacing:${params.container.unitSpacing}px`,
+				`--tp-container-vertical-padding:${params.container.vPadding}px`,
+			];
+			styleElem.textContent = `.paneContainer{${decls.join(';')}}`;
+
+			Object.values(panes).forEach((p) => (p.disabled = params.disabled));
+		});
+	})();
 }

@@ -66,15 +66,24 @@
 	}
 }
 
-:root.catalog.readme {
-	.main_menu {
+:root.catalog {
+	&.readme {
+		.main_menu {
+			display: none;
+		}
+		.main_wrap {
+			max-width: 1088px;
+		}
+		.paneCatalog {
+			border-radius: 0;
+			padding: 64px;
+		}
+	}
+
+	.tp-dfwv {
+		position: fixed;
+	}
+	&.readme .tp-dfwv {
 		display: none;
-	}
-	.main_wrap {
-		max-width: 1088px;
-	}
-	.paneCatalog {
-		border-radius: 0;
-		padding: 64px;
 	}
 }
