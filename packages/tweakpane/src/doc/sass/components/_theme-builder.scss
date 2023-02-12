@@ -11,22 +11,15 @@
 		}
 	}
 	&_controller {
+		--tp-base-border-radius: 0px;
+		--tp-base-shadow-color: transparent;
 		background-color: defs.$pane-bg-color;
 
 		@include defs.nonwide() {
+			--tp-blade-value-width: 60vw;
+
 			.paneContainer {
 				width: 100%;
-			}
-		}
-
-		.tp-rotv {
-			border-top-right-radius: 0;
-			box-shadow: 0 0 0 transparent;
-
-			@include defs.nonwide() {
-				.tp-lblv_v {
-					width: 60vw;
-				}
 			}
 		}
 	}

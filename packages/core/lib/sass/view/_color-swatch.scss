@@ -1,36 +1,35 @@
-.#{$prefix}-colswv {
-	@include checkerboard(10px);
+@use '../tp';
+@use './common/color';
 
-	border-radius: var(--elm-br);
+.#{tp.$prefix}-colswv {
+	@include color.checkerboard(10px);
+
+	border-radius: tp.cssVar('blade-border-radius');
 	overflow: hidden;
 
-	&.#{$prefix}-v-disabled {
+	&.#{tp.$disabled} {
 		opacity: 0.5;
 	}
 
 	&_sw {
-		@extend %input;
+		@extend %tp-input;
 
 		border-radius: 0;
 	}
 	&_b {
-		appearance: none;
-		background-color: transparent;
-		border-width: 0;
+		@extend %tp-resetUserAgent;
+
 		cursor: pointer;
 		display: block;
-		height: var(--bld-us);
+		height: tp.cssVar('container-unit-size');
 		left: 0;
-		margin: 0;
-		outline: none;
-		padding: 0;
 		position: absolute;
 		top: 0;
-		width: var(--bld-us);
+		width: tp.cssVar('container-unit-size');
 
 		&:focus::after {
 			border: rgba(white, 0.75) solid 2px;
-			border-radius: var(--elm-br);
+			border-radius: tp.cssVar('blade-border-radius');
 			bottom: 0;
 			content: '';
 			display: block;

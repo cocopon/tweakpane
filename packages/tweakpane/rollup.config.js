@@ -19,7 +19,7 @@ async function compileCss() {
 	const result = await Postcss([Autoprefixer]).process(css, {
 		from: undefined,
 	});
-	return result.css.replace(/'/g, "\\'").trim();
+	return result.css.replace(/\n/g, '').replace(/'/g, "\\'").trim();
 }
 
 function getPlugins(css, shouldMinify) {

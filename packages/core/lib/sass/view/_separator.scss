@@ -1,13 +1,15 @@
-.#{$prefix}-sprv {
+@use '../tp';
+
+.#{tp.$prefix}-sprv {
 	&_r {
-		background-color: var(--grv-fg);
+		background-color: tp.cssVar('groove-fg');
 		border-width: 0;
 		display: block;
-		height: $separator-width;
+		height: tp.$separator-width;
 		margin: 0;
 		width: 100%;
 	}
-	&.#{$prefix}-v-disabled &_r {
+	&.#{tp.$disabled} &_r {
 		opacity: 0.5;
 	}
 }

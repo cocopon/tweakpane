@@ -1,11 +1,13 @@
-%monitor {
-	@extend %resetUserAgent;
+@use '../../common/defs';
 
-	background-color: var(--mo-bg);
-	border-radius: var(--elm-br);
+%tp-monitor {
+	@extend %tp-resetUserAgent;
+
+	background-color: defs.cssVar('monitor-bg');
+	border-radius: defs.cssVar('blade-border-radius');
 	box-sizing: border-box;
-	color: var(--mo-fg);
-	height: var(--bld-us);
+	color: defs.cssVar('monitor-fg');
+	height: defs.cssVar('container-unit-size');
 	scrollbar-color: currentColor transparent;
 	scrollbar-width: thin;
 	width: 100%;

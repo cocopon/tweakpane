@@ -1,0 +1,70 @@
+@use '../../common/defs';
+
+%tp-container_children {
+	// Bottom spacing of last container
+	& > .#{defs.$prefix}-cntv.#{defs.$last} {
+		margin-bottom: calc(-1 * #{defs.cssVar('container-v-padding')});
+	}
+	// Bottom left radius of last folder
+	& > .#{defs.$prefix}-fldv.#{defs.$last} .#{defs.$prefix}-fldv_c {
+		border-bottom-left-radius: 0;
+	}
+	& > .#{defs.$prefix}-fldv.#{defs.$last} .#{defs.$prefix}-fldv_b {
+		border-bottom-left-radius: 0;
+	}
+
+	// Spacing between two blades
+	& > *:not(.#{defs.$first}) {
+		margin-top: defs.cssVar('container-unit-spacing');
+	}
+	// Top spacing of folder and separator
+	& > .#{defs.$prefix}-sprv:not(.#{defs.$first}),
+	& > .#{defs.$prefix}-cntv:not(.#{defs.$first}) {
+		margin-top: defs.cssVar('container-v-padding');
+	}
+	// Bottom spacing of separator and containers
+	& > .#{defs.$prefix}-sprv + *:not(.#{defs.$hidden}),
+	& > .#{defs.$prefix}-cntv + *:not(.#{defs.$hidden}) {
+		margin-top: defs.cssVar('container-v-padding');
+	}
+	// Spacing between two containers and separators
+	& > .#{defs.$prefix}-sprv:not(.#{defs.$hidden}) + .#{defs.$prefix}-sprv,
+	& > .#{defs.$prefix}-cntv:not(.#{defs.$hidden}) + .#{defs.$prefix}-cntv {
+		margin-top: 0;
+	}
+}
+
+%tp-container_subcontainers {
+	// Left spacing of subcontainers
+	& > .#{defs.$prefix}-cntv {
+		margin-left: 4px;
+	}
+	// Left border radius of subfolder
+	& > .#{defs.$prefix}-fldv > .#{defs.$prefix}-fldv_b {
+		border-top-left-radius: defs.cssVar('blade-border-radius');
+		border-bottom-left-radius: defs.cssVar('blade-border-radius');
+	}
+	&
+		> .#{defs.$prefix}-fldv.#{defs.$prefix}-fldv-expanded
+		> .#{defs.$prefix}-fldv_b {
+		border-bottom-left-radius: 0;
+	}
+	& .#{defs.$prefix}-fldv > .#{defs.$prefix}-fldv_c {
+		border-bottom-left-radius: defs.cssVar('blade-border-radius');
+	}
+	// Top left border radius of subfolder after container
+	& > .#{defs.$prefix}-cntv + .#{defs.$prefix}-fldv > .#{defs.$prefix}-fldv_b {
+		border-top-left-radius: 0;
+	}
+	// Top left border radius of subtab after container
+	& > .#{defs.$prefix}-cntv + .#{defs.$prefix}-tabv > .#{defs.$prefix}-tabv_t {
+		border-top-left-radius: 0;
+	}
+	// Left border radius of subtab
+	& > .#{defs.$prefix}-tabv > .#{defs.$prefix}-tabv_t {
+		border-top-left-radius: defs.cssVar('blade-border-radius');
+	}
+	& .#{defs.$prefix}-tabv > .#{defs.$prefix}-tabv_c {
+		border-bottom-left-radius: defs.cssVar('blade-border-radius');
+	}
+}

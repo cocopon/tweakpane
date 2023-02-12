@@ -1,0 +1,12 @@
+// Entry point for plugins
+
+@forward './common/defs';
+
+@forward './view/placeholder/button';
+@forward './view/placeholder/container';
+@forward './view/placeholder/folder';
+@forward './view/placeholder/input';
+@forward './view/placeholder/list';
+@forward './view/placeholder/monitor';
+@forward './view/placeholder/texts';
+@forward './view/placeholder/theme';

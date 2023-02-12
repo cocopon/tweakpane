@@ -6,7 +6,7 @@
   "scripts": {
     "test": " run-p test:*",
     "test:node": "node node/index.js",
-    "test:sass": "test -f node_modules/@tweakpane/core/lib/sass/_plugin.scss",
+    "test:sass": "test -f node_modules/@tweakpane/core/lib/sass/_tp.scss",
     "test:tsc": "tsc --build --clean tsc/tsconfig.json && tsc --build tsc/tsconfig.json && node tsc/dist/index.js",
     "test:plugin": "rollup --config plugin/rollup.config.js && node plugin/test/node.js"
   },

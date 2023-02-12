@@ -1,20 +1,21 @@
 @use 'sass:math';
+@use '../tp';
 
-.#{$prefix}-sldv {
-	&.#{$prefix}-v-disabled {
+.#{tp.$prefix}-sldv {
+	&.#{tp.$disabled} {
 		opacity: 0.5;
 	}
 
 	&_t {
 		box-sizing: border-box;
 		cursor: pointer;
-		height: var(--bld-us);
-		margin: 0 math.div($slider-knob-size, 2);
+		height: tp.cssVar('container-unit-size');
+		margin: 0 math.div(tp.$slider-knob-size, 2);
 		outline: none;
 		position: relative;
 
 		&::before {
-			background-color: var(--in-bg);
+			background-color: tp.cssVar('input-bg');
 			border-radius: 1px;
 			bottom: 0;
 			content: '';
@@ -34,7 +35,7 @@
 		top: 0;
 
 		&::before {
-			background-color: var(--in-fg);
+			background-color: tp.cssVar('input-fg');
 			border-radius: 1px;
 			bottom: 0;
 			content: '';
@@ -48,33 +49,33 @@
 			top: 0;
 		}
 		&::after {
-			background-color: var(--btn-bg);
-			border-radius: var(--elm-br);
+			background-color: tp.cssVar('button-bg');
+			border-radius: tp.cssVar('blade-border-radius');
 			bottom: 0;
 			content: '';
 			display: block;
-			height: $slider-knob-size;
+			height: tp.$slider-knob-size;
 			margin-bottom: auto;
 			margin-top: auto;
 			position: absolute;
-			right: math.div(-$slider-knob-size, 2);
+			right: math.div(-1 * tp.$slider-knob-size, 2);
 			top: 0;
-			width: $slider-knob-size;
+			width: tp.$slider-knob-size;
 		}
 	}
 	&_t:hover &_k::after {
-		background-color: var(--btn-bg-h);
+		background-color: tp.cssVar('button-bg-hover');
 	}
 	&_t:focus &_k::after {
-		background-color: var(--btn-bg-f);
+		background-color: tp.cssVar('button-bg-focus');
 	}
 	&_t:active &_k::after {
-		background-color: var(--btn-bg-a);
+		background-color: tp.cssVar('button-bg-active');
 	}
 }
 
 // slider-text
-.#{$prefix}-sldtxtv {
+.#{tp.$prefix}-sldtxtv {
 	display: flex;
 
 	&_s {

@@ -1,9 +1,11 @@
-@import './plugin';
+@use './tp';
 
-.#{$prefix}-test {
-	@extend %button;
-	@extend %input;
-	@extend %monitor;
+.#{tp.$prefix}-test {
+	@extend %tp-button;
+	@extend %tp-input;
+	@extend %tp-monitor;
 
-	transition-duration: $fold-transition-duration;
+	background-color: tp.cssVar('input-bg');
+	color: tp.cssVar('input-fg');
+	transition-duration: tp.$fold-transition-duration;
 }

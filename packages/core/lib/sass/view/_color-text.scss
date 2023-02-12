@@ -1,51 +1,53 @@
-.#{$prefix}-coltxtv {
+@use '../tp';
+
+.#{tp.$prefix}-coltxtv {
 	display: flex;
 	width: 100%;
 
 	// Mode selector wrapper
 	&_m {
-		@extend %list;
+		@extend %tp-list;
 
 		margin-right: 4px;
 	}
 	// Mode selector
 	&_ms {
-		@extend %resetUserAgent;
+		@extend %tp-resetUserAgent;
 
-		border-radius: var(--elm-br);
-		color: var(--lbl-fg);
+		border-radius: tp.cssVar('blade-border-radius');
+		color: tp.cssVar('label-fg');
 		cursor: pointer;
-		height: var(--bld-us);
-		line-height: var(--bld-us);
+		height: tp.cssVar('container-unit-size');
+		line-height: tp.cssVar('container-unit-size');
 		padding: 0 18px 0 4px;
 
 		&:hover {
-			background-color: var(--in-bg-h);
+			background-color: tp.cssVar('input-bg-hover');
 		}
 		&:focus {
-			background-color: var(--in-bg-f);
+			background-color: tp.cssVar('input-bg-focus');
 		}
 		&:active {
-			background-color: var(--in-bg-a);
+			background-color: tp.cssVar('input-bg-active');
 		}
 	}
 	// Mode selector mark
 	&_mm {
-		@extend %list_arrow;
+		@extend %tp-list_arrow;
 
-		color: var(--lbl-fg);
+		color: tp.cssVar('label-fg');
 	}
-	&.#{$prefix}-v-disabled &_mm {
+	&.#{tp.$disabled} &_mm {
 		opacity: 0.5;
 	}
 	// Text components wrapper
 	&_w {
-		@extend %texts;
+		@extend %tp-texts;
 
 		flex: 1;
 	}
 	// Text component
 	&_c {
-		@extend %texts_item;
+		@extend %tp-texts_item;
 	}
 }

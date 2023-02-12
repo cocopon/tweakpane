@@ -1,44 +1,48 @@
 @use 'sass:math';
+@use '../tp';
+@use './common/color';
 
 $marker-border-color: rgba(white, 0.75);
 $marker-border-color-focus: white;
-$slider-track-width: 4px;
+$track-width: 4px;
 
-.#{$prefix}-colpv {
+.#{tp.$prefix}-colpv {
 	&_h,
 	&_ap {
-		margin-left: math.div($slider-knob-size, 2);
-		margin-right: math.div($slider-knob-size, 2);
+		margin-left: math.div(tp.$slider-knob-size, 2);
+		margin-right: math.div(tp.$slider-knob-size, 2);
 	}
 	// Hue
 	&_h {
-		margin-top: var(--bld-s);
+		margin-top: tp.cssVar('container-unit-spacing');
 	}
 	// RGB text
 	&_rgb {
 		display: flex;
-		margin-top: var(--bld-s);
+		margin-top: tp.cssVar('container-unit-spacing');
 		width: 100%;
 	}
 	// Alpha
 	&_a {
 		display: flex;
-		margin-top: var(--cnt-v-p);
-		padding-top: calc(var(--cnt-v-p) + #{$separator-width});
+		margin-top: tp.cssVar('container-v-padding');
+		padding-top: calc(
+			#{tp.cssVar('container-v-padding')} + #{tp.$separator-width}
+		);
 		position: relative;
 
 		// Separator
 		&::before {
-			background-color: var(--grv-fg);
+			background-color: tp.cssVar('groove-fg');
 			content: '';
-			height: $separator-width;
-			left: calc(-1 * var(--cnt-h-p));
+			height: tp.$separator-width;
+			left: calc(-1 * #{tp.cssVar('container-h-padding')});
 			position: absolute;
-			right: calc(-1 * var(--cnt-h-p));
+			right: calc(-1 * #{tp.cssVar('container-h-padding')});
 			top: 0;
 		}
 	}
-	&.#{$prefix}-v-disabled &_a::before {
+	&.#{tp.$disabled} &_a::before {
 		opacity: 0.5;
 	}
 	// Alpha palette
@@ -55,20 +59,20 @@ $slider-track-width: 4px;
 }
 
 // Saturation-value palette
-.#{$prefix}-svpv {
-	border-radius: var(--elm-br);
+.#{tp.$prefix}-svpv {
+	border-radius: tp.cssVar('blade-border-radius');
 	outline: none;
 	overflow: hidden;
 	position: relative;
 
-	&.#{$prefix}-v-disabled {
+	&.#{tp.$disabled} {
 		opacity: 0.5;
 	}
 
 	&_c {
 		cursor: crosshair;
 		display: block;
-		height: calc(var(--bld-us) * 4);
+		height: calc(tp.cssVar('container-unit-size') * 4);
 		width: 100%;
 	}
 	&_m {
@@ -76,12 +80,12 @@ $slider-track-width: 4px;
 		border: $marker-border-color solid 2px;
 		box-sizing: border-box;
 		filter: drop-shadow(0 0 1px rgba(black, 0.3));
-		height: $slider-knob-size;
-		margin-left: math.div(-$slider-knob-size, 2);
-		margin-top: math.div(-$slider-knob-size, 2);
+		height: tp.$slider-knob-size;
+		margin-left: math.div(-1 * tp.$slider-knob-size, 2);
+		margin-top: math.div(-1 * tp.$slider-knob-size, 2);
 		pointer-events: none;
 		position: absolute;
-		width: $slider-knob-size;
+		width: tp.$slider-knob-size;
 	}
 	&:focus &_m {
 		border-color: $marker-border-color-focus;
@@ -89,13 +93,13 @@ $slider-track-width: 4px;
 }
 
 // Hue palette
-.#{$prefix}-hplv {
+.#{tp.$prefix}-hplv {
 	cursor: pointer;
-	height: var(--bld-us);
+	height: tp.cssVar('container-unit-size');
 	outline: none;
 	position: relative;
 
-	&.#{$prefix}-v-disabled {
+	&.#{tp.$disabled} {
 		opacity: 0.5;
 	}
 
@@ -104,28 +108,28 @@ $slider-track-width: 4px;
 		background-position: left top;
 		background-repeat: no-repeat;
 		background-size: 100% 100%;
-		border-radius: math.div($slider-track-width, 2);
+		border-radius: math.div($track-width, 2);
 		display: block;
-		height: $slider-track-width;
+		height: $track-width;
 		left: 0;
-		margin-top: math.div(-$slider-track-width, 2);
+		margin-top: math.div(-$track-width, 2);
 		position: absolute;
 		top: 50%;
 		width: 100%;
 	}
 	&_m {
-		border-radius: var(--elm-br);
+		border-radius: tp.cssVar('blade-border-radius');
 		border: $marker-border-color solid 2px;
 		box-shadow: 0 0 2px rgba(black, 0.1);
 		box-sizing: border-box;
-		height: $slider-knob-size;
+		height: tp.$slider-knob-size;
 		left: 50%;
-		margin-left: math.div(-$slider-knob-size, 2);
-		margin-top: math.div(-$slider-knob-size, 2);
+		margin-left: math.div(-1 * tp.$slider-knob-size, 2);
+		margin-top: math.div(-1 * tp.$slider-knob-size, 2);
 		pointer-events: none;
 		position: absolute;
 		top: 50%;
-		width: $slider-knob-size;
+		width: tp.$slider-knob-size;
 	}
 	&:focus &_m {
 		border-color: $marker-border-color-focus;
@@ -133,25 +137,25 @@ $slider-track-width: 4px;
 }
 
 // Alpha palette
-.#{$prefix}-aplv {
+.#{tp.$prefix}-aplv {
 	cursor: pointer;
-	height: var(--bld-us);
+	height: tp.cssVar('container-unit-size');
 	outline: none;
 	position: relative;
 	width: 100%;
 
-	&.#{$prefix}-v-disabled {
+	&.#{tp.$disabled} {
 		opacity: 0.5;
 	}
 
 	&_b {
-		@include checkerboard($slider-track-width);
+		@include color.checkerboard($track-width);
 
-		border-radius: math.div($slider-track-width, 2);
+		border-radius: math.div($track-width, 2);
 		display: block;
-		height: $slider-track-width;
+		height: $track-width;
 		left: 0;
-		margin-top: math.div(-$slider-track-width, 2);
+		margin-top: math.div(-$track-width, 2);
 		overflow: hidden;
 		position: absolute;
 		top: 50%;
@@ -165,22 +169,22 @@ $slider-track-width: 4px;
 		top: 0;
 	}
 	&_m {
-		@include checkerboard($slider-knob-size);
+		@include color.checkerboard(tp.$slider-knob-size);
 
-		border-radius: var(--elm-br);
+		border-radius: tp.cssVar('blade-border-radius');
 		box-shadow: 0 0 2px rgba(black, 0.1);
-		height: $slider-knob-size;
+		height: tp.$slider-knob-size;
 		left: 50%;
-		margin-left: math.div(-$slider-knob-size, 2);
-		margin-top: math.div(-$slider-knob-size, 2);
+		margin-left: math.div(-1 * tp.$slider-knob-size, 2);
+		margin-top: math.div(-1 * tp.$slider-knob-size, 2);
 		overflow: hidden;
 		pointer-events: none;
 		position: absolute;
 		top: 50%;
-		width: $slider-knob-size;
+		width: tp.$slider-knob-size;
 	}
 	&_p {
-		border-radius: var(--elm-br);
+		border-radius: tp.cssVar('blade-border-radius');
 		border: $marker-border-color solid 2px;
 		box-sizing: border-box;
 		bottom: 0;

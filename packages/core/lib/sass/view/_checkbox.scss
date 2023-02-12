@@ -1,10 +1,12 @@
-.#{$prefix}-ckbv {
+@use '../tp';
+
+.#{tp.$prefix}-ckbv {
 	&_l {
 		display: block;
 		position: relative;
 	}
 	&_i {
-		@extend %resetUserAgent;
+		@extend %tp-resetUserAgent;
 
 		left: 0;
 		opacity: 0;
@@ -12,13 +14,13 @@
 		top: 0;
 	}
 	&_w {
-		background-color: var(--in-bg);
-		border-radius: var(--elm-br);
+		background-color: tp.cssVar('input-bg');
+		border-radius: tp.cssVar('blade-border-radius');
 		cursor: pointer;
 		display: block;
-		height: var(--bld-us);
+		height: tp.cssVar('container-unit-size');
 		position: relative;
-		width: var(--bld-us);
+		width: tp.cssVar('container-unit-size');
 
 		svg {
 			bottom: 0;
@@ -34,24 +36,24 @@
 
 			path {
 				fill: none;
-				stroke: var(--in-fg);
+				stroke: tp.cssVar('input-fg');
 				stroke-width: 2;
 			}
 		}
 	}
 	&_i:hover + &_w {
-		background-color: var(--in-bg-h);
+		background-color: tp.cssVar('input-bg-hover');
 	}
 	&_i:focus + &_w {
-		background-color: var(--in-bg-f);
+		background-color: tp.cssVar('input-bg-focus');
 	}
 	&_i:active + &_w {
-		background-color: var(--in-bg-a);
+		background-color: tp.cssVar('input-bg-active');
 	}
 	&_i:checked + &_w svg {
 		opacity: 1;
 	}
-	&.#{$prefix}-v-disabled &_w {
+	&.#{tp.$disabled} &_w {
 		opacity: 0.5;
 	}
 }

@@ -1,88 +1,102 @@
-@import '../../../../../node_modules/@tweakpane/core/lib/sass/full';
+@use '../../../../../node_modules/@tweakpane/core/lib/sass/view/views';
+@use '../../../../../node_modules/@tweakpane/core/lib/sass/tp';
 
-.#{$prefix}-rotv {
-	@extend %themeVariables;
+.#{tp.$prefix}-rotv {
+	@extend %tp-theming;
 
-	background-color: var(--bs-bg);
-	border-radius: var(--bs-br);
-	box-shadow: 0 2px 4px var(--bs-sh);
-	font-family: var(--font-family);
+	background-color: tp.cssVar('base-bg');
+	border-radius: tp.cssVar('base-border-radius');
+	box-shadow: 0 2px 4px tp.cssVar('base-shadow');
+	font-family: tp.cssVar('base-font');
 	font-size: 11px;
 	font-weight: 500;
 	line-height: 1;
 	text-align: left;
 
 	&_b {
-		@extend %folder_title;
+		@extend %tp-folder_title;
 
-		border-bottom-left-radius: var(--bs-br);
-		border-bottom-right-radius: var(--bs-br);
-		border-top-left-radius: var(--bs-br);
-		border-top-right-radius: var(--bs-br);
-		padding-left: calc(2px * 2 + var(--bld-us) + var(--cnt-h-p));
+		border-bottom-left-radius: tp.cssVar('base-border-radius');
+		border-bottom-right-radius: tp.cssVar('base-border-radius');
+		border-top-left-radius: tp.cssVar('base-border-radius');
+		border-top-right-radius: tp.cssVar('base-border-radius');
+		padding-left: calc(
+			2px * 2 + #{tp.cssVar('container-unit-size')} + #{tp.cssVar(
+					'container-h-padding'
+				)}
+		);
 		text-align: center;
 	}
 	&#{&}-expanded &_b {
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
+		transition-delay: 0s;
+		transition-duration: 0s;
 	}
 	&#{&}-not &_b {
 		// no title
 		display: none;
 	}
 	&_m {
-		@extend %folder_mark;
+		@extend %tp-folder_mark;
 	}
 	&_b:disabled &_m {
 		display: none;
 	}
 	&#{&}-expanded &_m {
-		@extend %folder_mark-expanded;
+		@extend %tp-folder_mark-expanded;
 	}
 	&_c {
-		@extend %folder_container;
-		@extend %bladeRack-children;
+		@extend %tp-folder_container;
+		@extend %tp-container_children;
 	}
 	&#{&}-expanded &_c {
-		@extend %folder_container-expanded;
+		@extend %tp-folder_container-expanded;
 	}
 	&#{&}-cpl:not(#{&}-expanded) &_c {
-		@extend %folder_container-shrinkedCompletely;
+		@extend %tp-folder_container-shrinkedCompletely;
 	}
 
 	// Folders
 	&_c {
 		// Bottom of the last folder container
-		& > .#{$prefix}-fldv.#{$prefix}-v-lst > .#{$prefix}-fldv_c {
-			border-bottom-left-radius: var(--bs-br);
-			border-bottom-right-radius: var(--bs-br);
+		& > .#{tp.$prefix}-fldv.#{tp.$last} > .#{tp.$prefix}-fldv_c {
+			border-bottom-left-radius: tp.cssVar('base-border-radius');
+			border-bottom-right-radius: tp.cssVar('base-border-radius');
 		}
 		// Bottom of the last folder indent
-		& > .#{$prefix}-fldv.#{$prefix}-v-lst > .#{$prefix}-fldv_i {
-			border-bottom-left-radius: var(--bs-br);
+		& > .#{tp.$prefix}-fldv.#{tp.$last} > .#{tp.$prefix}-fldv_i {
+			border-bottom-left-radius: tp.cssVar('base-border-radius');
 		}
 		// Bottom of the last folder title when collapsed
 		&
-			> .#{$prefix}-fldv.#{$prefix}-v-lst:not(.#{$prefix}-fldv-expanded)
-			> .#{$prefix}-fldv_b {
-			border-bottom-left-radius: var(--bs-br);
-			border-bottom-right-radius: var(--bs-br);
+			> .#{tp.$prefix}-fldv.#{tp.$last}:not(.#{tp.$prefix}-fldv-expanded)
+			> .#{tp.$prefix}-fldv_b {
+			border-bottom-left-radius: tp.cssVar('base-border-radius');
+			border-bottom-right-radius: tp.cssVar('base-border-radius');
+		}
+		// Bottom of the last folder title when expanded
+		&
+			> .#{tp.$prefix}-fldv.#{tp.$last}.#{tp.$prefix}-fldv-expanded
+			> .#{tp.$prefix}-fldv_b {
+			transition-delay: 0s;
+			transition-duration: 0s;
 		}
 		// Bottom of the last subfolder title when collapsed
 		&
-			.#{$prefix}-fldv.#{$prefix}-v-vlst:not(.#{$prefix}-fldv-expanded)
-			> .#{$prefix}-fldv_b {
-			border-bottom-right-radius: var(--bs-br);
+			.#{tp.$prefix}-fldv.#{tp.$very-last}:not(.#{tp.$prefix}-fldv-expanded)
+			> .#{tp.$prefix}-fldv_b {
+			border-bottom-right-radius: tp.cssVar('base-border-radius');
 		}
 	}
 	&#{&}-not &_c {
 		// First folder without pane title
-		& > .#{$prefix}-fldv.#{$prefix}-v-fst {
-			margin-top: calc(-1 * var(--cnt-v-p));
+		& > .#{tp.$prefix}-fldv.#{tp.$first} {
+			margin-top: calc(-1 * #{tp.cssVar('container-v-padding')});
 
-			& > .#{$prefix}-fldv_b {
-				border-top-left-radius: var(--bs-br);
-				border-top-right-radius: var(--bs-br);
+			& > .#{tp.$prefix}-fldv_b {
+				border-top-left-radius: tp.cssVar('base-border-radius');
+				border-top-right-radius: tp.cssVar('base-border-radius');
 			}
 		}
 	}
@@ -90,33 +104,33 @@
 	// Tabs
 	&_c {
 		// Bottom of the last tab container
-		& > .#{$prefix}-tabv.#{$prefix}-v-lst > .#{$prefix}-tabv_c {
-			border-bottom-left-radius: var(--bs-br);
-			border-bottom-right-radius: var(--bs-br);
+		& > .#{tp.$prefix}-tabv.#{tp.$last} > .#{tp.$prefix}-tabv_c {
+			border-bottom-left-radius: tp.cssVar('base-border-radius');
+			border-bottom-right-radius: tp.cssVar('base-border-radius');
 		}
 		// Bottom of the last tab indent
-		& > .#{$prefix}-tabv.#{$prefix}-v-lst > .#{$prefix}-tabv_i {
-			border-bottom-left-radius: var(--bs-br);
+		& > .#{tp.$prefix}-tabv.#{tp.$last} > .#{tp.$prefix}-tabv_i {
+			border-bottom-left-radius: tp.cssVar('base-border-radius');
 		}
 	}
 	&#{&}-not &_c {
 		// First tab without pane title
-		& > .#{$prefix}-tabv.#{$prefix}-v-fst {
-			margin-top: calc(-1 * var(--cnt-v-p));
+		& > .#{tp.$prefix}-tabv.#{tp.$first} {
+			margin-top: calc(-1 * #{tp.cssVar('container-v-padding')});
 
-			& > .#{$prefix}-tabv_t {
-				border-top-left-radius: var(--bs-br);
-				border-top-right-radius: var(--bs-br);
+			& > .#{tp.$prefix}-tabv_t {
+				border-top-left-radius: tp.cssVar('base-border-radius');
+				border-top-right-radius: tp.cssVar('base-border-radius');
 			}
 		}
 	}
 
-	&.#{$prefix}-v-disabled,
-	.#{$prefix}-v-disabled {
+	&.#{tp.$disabled},
+	.#{tp.$disabled} {
 		pointer-events: none;
 	}
-	&.#{$prefix}-v-hidden,
-	.#{$prefix}-v-hidden {
+	&.#{tp.$hidden},
+	.#{tp.$hidden} {
 		display: none;
 	}
 }

@@ -1,0 +1,28 @@
+@use '../../common/defs';
+
+%tp-input {
+	@extend %tp-resetUserAgent;
+
+	background-color: defs.cssVar('input-bg');
+	border-radius: defs.cssVar('blade-border-radius');
+	box-sizing: border-box;
+	color: defs.cssVar('input-fg');
+	font-family: inherit;
+	height: defs.cssVar('container-unit-size');
+	line-height: defs.cssVar('container-unit-size');
+	min-width: 0;
+	width: 100%;
+
+	&:hover {
+		background-color: defs.cssVar('input-bg-hover');
+	}
+	&:focus {
+		background-color: defs.cssVar('input-bg-focus');
+	}
+	&:active {
+		background-color: defs.cssVar('input-bg-active');
+	}
+	&:disabled {
+		opacity: 0.5;
+	}
+}

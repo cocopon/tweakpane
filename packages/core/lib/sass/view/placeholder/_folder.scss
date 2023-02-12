@@ -1,0 +1,105 @@
+@use '../../common/defs';
+
+%tp-folder_title {
+	@extend %tp-resetUserAgent;
+
+	background-color: defs.cssVar('container-bg');
+	color: defs.cssVar('container-fg');
+	cursor: pointer;
+	display: block;
+	height: calc(#{defs.cssVar('container-unit-size')} + 4px);
+	line-height: calc(#{defs.cssVar('container-unit-size')} + 4px);
+	overflow: hidden;
+	padding-left: defs.cssVar('container-h-padding');
+	padding-right: calc(
+		2px * 2 + #{defs.cssVar('container-unit-size')} + #{defs.cssVar(
+				'container-h-padding'
+			)}
+	);
+	position: relative;
+	text-align: left;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 100%;
+
+	// Delay border-radius transition to avoid unwanted clipping
+	transition: border-radius defs.$fold-transition-duration ease-in-out
+		defs.$fold-transition-duration;
+
+	&:hover {
+		background-color: defs.cssVar('container-bg-hover');
+	}
+	&:focus {
+		background-color: defs.cssVar('container-bg-focus');
+	}
+	&:active {
+		background-color: defs.cssVar('container-bg-active');
+	}
+	&:disabled {
+		opacity: 0.5;
+	}
+}
+
+%tp-folder_mark {
+	$size: 6px;
+
+	background: linear-gradient(
+		to left,
+		defs.cssVar('container-fg'),
+		defs.cssVar('container-fg') 2px,
+		transparent 2px,
+		transparent 4px,
+		defs.cssVar('container-fg') 4px
+	);
+	border-radius: 2px;
+	bottom: 0;
+	content: '';
+	display: block;
+	height: $size;
+	right: calc(
+		#{defs.cssVar('container-h-padding')} + (
+				#{defs.cssVar('container-unit-size')} + 4px - #{$size}
+			) / 2 - 2px
+	);
+	margin: auto;
+	opacity: 0.5;
+	position: absolute;
+	top: 0;
+	transform: rotate(90deg);
+	transition: transform defs.$fold-transition-duration ease-in-out;
+	width: $size;
+}
+
+%tp-folder_mark-expanded {
+	transform: none;
+}
+
+%tp-folder_container {
+	box-sizing: border-box;
+	height: 0;
+	opacity: 0;
+	overflow: hidden;
+	padding-bottom: 0;
+	padding-top: 0;
+	position: relative;
+	transition: height defs.$fold-transition-duration ease-in-out,
+		opacity defs.$fold-transition-duration linear,
+		padding defs.$fold-transition-duration ease-in-out;
+}
+%tp-folder_container-shrinkedCompletely {
+	display: none;
+}
+%tp-folder_container-expanded {
+	opacity: 1;
+	padding-bottom: defs.cssVar('container-v-padding');
+	padding-top: defs.cssVar('container-v-padding');
+	transform: none;
+
+	// Clip subviews without `overflow: hidden` for popup elements (e.g. color picker)
+	overflow: visible;
+
+	// Delay opacity transition to avoid overflow contents
+	transition: height defs.$fold-transition-duration ease-in-out,
+		opacity defs.$fold-transition-duration linear defs.$fold-transition-duration,
+		padding defs.$fold-transition-duration ease-in-out;
+}
