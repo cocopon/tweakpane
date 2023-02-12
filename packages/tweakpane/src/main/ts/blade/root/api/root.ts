@@ -1,6 +1,5 @@
 import {
 	BindingValue,
-	BladeRack,
 	FolderApi,
 	InputBindingController,
 	InputBindingValue,
@@ -8,6 +7,7 @@ import {
 	MonitorBindingController,
 	MonitorBindingValue,
 	PluginPool,
+	Rack,
 } from '@tweakpane/core';
 
 import {RootController} from '../controller/root';
@@ -37,7 +37,7 @@ function isMonitorBindingController(
 	return true;
 }
 
-function findInputBindingValues(rack: BladeRack): BindingValue<unknown>[] {
+function findInputBindingValues(rack: Rack): BindingValue<unknown>[] {
 	const vcs = rack
 		.find(LabeledValueController)
 		.filter((vc) =>
@@ -46,9 +46,7 @@ function findInputBindingValues(rack: BladeRack): BindingValue<unknown>[] {
 	return vcs.map((vc) => vc.value);
 }
 
-function findMonitorBindingValues(
-	rack: BladeRack,
-): MonitorBindingValue<unknown>[] {
+function findMonitorBindingValues(rack: Rack): MonitorBindingValue<unknown>[] {
 	return rack
 		.find(LabeledValueController)
 		.filter(isMonitorBindingController)

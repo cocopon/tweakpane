@@ -28,14 +28,14 @@ import {
 import {TpChangeEvent} from '../../common/api/tp-event';
 import {BladeController} from '../../common/controller/blade';
 import {ValueBladeController} from '../../common/controller/value-blade';
-import {BladeRackEvents} from '../../common/model/blade-rack';
 import {NestedOrderedSet} from '../../common/model/nested-ordered-set';
+import {RackEvents} from '../../common/model/rack';
 import {FolderApi} from '../../folder/api/folder';
 import {SeparatorApi} from '../../separator/api/separator';
 import {TabApi} from '../../tab/api/tab';
 import {RackController} from '../controller/rack';
 
-export interface BladeRackApiEvents {
+export interface RackApiEvents {
 	change: {
 		event: TpChangeEvent<unknown>;
 	};
@@ -74,7 +74,7 @@ function createBindingTarget<O extends Bindable, Key extends keyof O>(
 }
 
 export class RackApi extends BladeApi<RackController> implements ContainerApi {
-	private readonly emitter_: Emitter<BladeRackApiEvents>;
+	private readonly emitter_: Emitter<RackApiEvents>;
 	private readonly apiSet_: NestedOrderedSet<BladeApi>;
 	private readonly pool_: PluginPool;
 
@@ -181,9 +181,9 @@ export class RackApi extends BladeApi<RackController> implements ContainerApi {
 		return this.add(api, params.index);
 	}
 
-	public on<EventName extends keyof BladeRackApiEvents>(
+	public on<EventName extends keyof RackApiEvents>(
 		eventName: EventName,
-		handler: (ev: BladeRackApiEvents[EventName]['event']) => void,
+		handler: (ev: RackApiEvents[EventName]['event']) => void,
 	): this {
 		const bh = handler.bind(this);
 		this.emitter_.on(eventName, (ev) => {
@@ -205,18 +205,18 @@ export class RackApi extends BladeApi<RackController> implements ContainerApi {
 		}
 	}
 
-	private onRackAdd_(ev: BladeRackEvents['add']) {
+	private onRackAdd_(ev: RackEvents['add']) {
 		this.setUpApi_(ev.bladeController);
 	}
 
-	private onRackRemove_(ev: BladeRackEvents['remove']) {
+	private onRackRemove_(ev: RackEvents['remove']) {
 		if (ev.isRoot) {
 			const api = getApiByController(this.apiSet_, ev.bladeController);
 			this.apiSet_.remove(api);
 		}
 	}
 
-	private onRackValueChange_(ev: BladeRackEvents['valuechange']) {
+	private onRackValueChange_(ev: RackEvents['valuechange']) {
 		const bc = ev.bladeController;
 		const api = getApiByController(this.apiSet_, bc);
 		const value: Value<unknown> =

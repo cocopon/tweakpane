@@ -5,7 +5,7 @@ import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 import {Blade} from '../model/blade';
 import {BladePosition, getAllBladePositions} from '../model/blade-positions';
-import {BladeRack} from '../model/blade-rack';
+import {Rack} from '../model/rack';
 
 interface Config<V extends View> {
 	blade: Blade;
@@ -25,7 +25,7 @@ export class BladeController<V extends View = View> implements Controller<V> {
 	public readonly blade: Blade;
 	public readonly view: V;
 	public readonly viewProps: ViewProps;
-	private parent_: BladeRack | null = null;
+	private parent_: Rack | null = null;
 
 	constructor(config: Config<V>) {
 		this.blade = config.blade;
@@ -47,11 +47,11 @@ export class BladeController<V extends View = View> implements Controller<V> {
 		});
 	}
 
-	get parent(): BladeRack | null {
+	get parent(): Rack | null {
 		return this.parent_;
 	}
 
-	set parent(parent: BladeRack | null) {
+	set parent(parent: Rack | null) {
 		this.parent_ = parent;
 		this.viewProps.set('parent', this.parent_ ? this.parent_.viewProps : null);
 	}

@@ -3,7 +3,7 @@ import {ViewProps} from '../../../common/model/view-props';
 import {PlainView} from '../../../common/view/plain';
 import {BladeController} from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
-import {BladeRack, BladeRackEvents} from '../../common/model/blade-rack';
+import {Rack, RackEvents} from '../../common/model/rack';
 
 interface Config {
 	blade: Blade;
@@ -13,7 +13,7 @@ interface Config {
 }
 
 export class RackController extends BladeController<PlainView> {
-	public readonly rack: BladeRack;
+	public readonly rack: Rack;
 
 	constructor(doc: Document, config: Config) {
 		super({
@@ -27,7 +27,7 @@ export class RackController extends BladeController<PlainView> {
 		this.onRackAdd_ = this.onRackAdd_.bind(this);
 		this.onRackRemove_ = this.onRackRemove_.bind(this);
 
-		const rack = new BladeRack({
+		const rack = new Rack({
 			blade: config.root ? undefined : config.blade,
 			viewProps: config.viewProps,
 		});
@@ -43,7 +43,7 @@ export class RackController extends BladeController<PlainView> {
 		});
 	}
 
-	private onRackAdd_(ev: BladeRackEvents['add']): void {
+	private onRackAdd_(ev: RackEvents['add']): void {
 		if (!ev.isRoot) {
 			return;
 		}
@@ -54,7 +54,7 @@ export class RackController extends BladeController<PlainView> {
 		);
 	}
 
-	private onRackRemove_(ev: BladeRackEvents['remove']): void {
+	private onRackRemove_(ev: RackEvents['remove']): void {
 		if (!ev.isRoot) {
 			return;
 		}
