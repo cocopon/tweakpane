@@ -48,7 +48,7 @@ export function initPlugins() {
 			});
 			const fpsGraph: any = fb.addBlade({
 				label: 'fpsgraph',
-				lineCount: 2,
+				rows: 2,
 				view: 'fpsgraph',
 			});
 			function render() {

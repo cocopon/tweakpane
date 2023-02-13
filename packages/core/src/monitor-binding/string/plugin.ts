@@ -7,8 +7,11 @@ import {SingleLogController} from '../common/controller/single-log';
 import {MonitorBindingPlugin} from '../plugin';
 
 export interface StringMonitorParams extends BaseMonitorParams {
-	lineCount?: number;
 	multiline?: boolean;
+	/**
+	 * Number of rows for visual height.
+	 */
+	rows?: number;
 }
 
 /**
@@ -26,8 +29,8 @@ export const StringMonitorPlugin: MonitorBindingPlugin<
 		}
 		const p = ParamsParsers;
 		const result = parseParams<StringMonitorParams>(params, {
-			lineCount: p.optional.number,
 			multiline: p.optional.boolean,
+			rows: p.optional.number,
 		});
 		return result
 			? {
@@ -45,7 +48,7 @@ export const StringMonitorPlugin: MonitorBindingPlugin<
 		if (multiline) {
 			return new MultiLogController(args.document, {
 				formatter: formatString,
-				lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,
+				rows: args.params.rows ?? Constants.monitor.defaultRows,
 				value: value,
 				viewProps: args.viewProps,
 			});

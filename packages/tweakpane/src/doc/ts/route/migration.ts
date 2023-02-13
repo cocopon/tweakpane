@@ -181,7 +181,7 @@ export function initMigration() {
 				bufferSize: 10,
 				interval: 0,
 				label: 'console',
-				lineCount: 5,
+				rows: 5,
 			});
 
 			const gui = new Dat.GUI({
@@ -216,7 +216,7 @@ export function initMigration() {
 				bufferSize: 10,
 				interval: 0,
 				label: 'console',
-				lineCount: 5,
+				rows: 5,
 			});
 
 			const pane = new Pane({

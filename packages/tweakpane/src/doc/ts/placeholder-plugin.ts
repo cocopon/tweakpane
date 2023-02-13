@@ -20,14 +20,14 @@ class PlaceholderView implements View {
 	constructor(
 		doc: Document,
 		config: {
-			lineCount: number;
+			rows: number;
 			title: string;
 			viewProps: ViewProps;
 		},
 	) {
 		this.element = doc.createElement('div');
 		this.element.classList.add(cn());
-		this.element.style.height = `calc(${config.lineCount} * var(${getCssVar(
+		this.element.style.height = `calc(${config.rows} * var(${getCssVar(
 			'containerUnitSize',
 		)}))`;
 		config.viewProps.bindClassModifiers(this.element);
@@ -43,7 +43,7 @@ class PlaceholderController extends BladeController<PlaceholderView> {
 	constructor(
 		doc: Document,
 		config: {
-			lineCount: number;
+			rows: number;
 			title: string;
 			viewProps: ViewProps;
 		},
@@ -57,7 +57,7 @@ class PlaceholderController extends BladeController<PlaceholderView> {
 }
 
 interface PlaceholderBladeParams extends BaseBladeParams {
-	lineCount?: number;
+	rows?: number;
 	title: string;
 	view: 'placeholder';
 }
@@ -96,7 +96,7 @@ export const plugin: BladePlugin<PlaceholderBladeParams> = {
 	accept(params) {
 		const p = ParamsParsers;
 		const r = parseParams(params, {
-			lineCount: p.optional.number,
+			rows: p.optional.number,
 			title: p.required.string,
 			view: p.required.constant('placeholder'),
 		});
@@ -104,7 +104,7 @@ export const plugin: BladePlugin<PlaceholderBladeParams> = {
 	},
 	controller(args) {
 		return new PlaceholderController(args.document, {
-			lineCount: args.params.lineCount ?? 1,
+			rows: args.params.rows ?? 1,
 			title: args.params.title,
 			viewProps: args.viewProps,
 		});

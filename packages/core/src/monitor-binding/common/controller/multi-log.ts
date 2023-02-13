@@ -6,7 +6,7 @@ import {MultiLogView} from '../view/multi-log';
 
 interface Config<T> {
 	formatter: Formatter<T>;
-	lineCount: number;
+	rows: number;
 	value: BufferedValue<T>;
 	viewProps: ViewProps;
 }
@@ -27,7 +27,7 @@ export class MultiLogController<T>
 
 		this.view = new MultiLogView(doc, {
 			formatter: config.formatter,
-			lineCount: config.lineCount,
+			rows: config.rows,
 			value: this.value,
 			viewProps: this.viewProps,
 		});

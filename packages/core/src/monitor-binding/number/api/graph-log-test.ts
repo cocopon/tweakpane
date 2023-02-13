@@ -44,7 +44,7 @@ function createApi(config: {
 		value: v,
 		valueController: new GraphLogController(doc, {
 			formatter: createNumberFormatter(1),
-			lineCount: 1,
+			rows: 1,
 			props: ValueMap.fromObject({
 				max: config.max,
 				min: config.min,

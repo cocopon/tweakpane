@@ -21,9 +21,12 @@ import {GraphLogController} from './controller/graph-log';
 
 export interface NumberMonitorParams extends BaseMonitorParams {
 	format?: Formatter<number>;
-	lineCount?: number;
 	max?: number;
 	min?: number;
+	/**
+	 * Number of rows for visual height.
+	 */
+	rows?: number;
 }
 
 function createFormatter(params: NumberMonitorParams): Formatter<number> {
@@ -45,7 +48,7 @@ function createTextMonitor(
 
 	return new MultiLogController(args.document, {
 		formatter: createFormatter(args.params),
-		lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,
+		rows: args.params.rows ?? Constants.monitor.defaultRows,
 		value: args.value,
 		viewProps: args.viewProps,
 	});
@@ -58,7 +61,7 @@ function createGraphMonitor(
 ) {
 	return new GraphLogController(args.document, {
 		formatter: createFormatter(args.params),
-		lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,
+		rows: args.params.rows ?? Constants.monitor.defaultRows,
 		props: ValueMap.fromObject({
 			max: args.params.max ?? 100,
 			min: args.params.min ?? 0,
@@ -88,7 +91,7 @@ export const NumberMonitorPlugin: MonitorBindingPlugin<
 		const p = ParamsParsers;
 		const result = parseParams<NumberMonitorParams>(params, {
 			format: p.optional.function as ParamsParser<Formatter<number>>,
-			lineCount: p.optional.number,
+			rows: p.optional.number,
 			max: p.optional.number,
 			min: p.optional.number,
 			view: p.optional.string,

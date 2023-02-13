@@ -7,7 +7,7 @@ import {View} from '../../../common/view/view';
 
 interface Config<T> {
 	formatter: Formatter<T>;
-	lineCount: number;
+	rows: number;
 	value: BufferedValue<T>;
 	viewProps: ViewProps;
 }
@@ -36,7 +36,7 @@ export class MultiLogView<T> implements View {
 		textareaElem.classList.add(cn('i'));
 		textareaElem.style.height = `calc(var(${getCssVar(
 			'containerUnitSize',
-		)}) * ${config.lineCount})`;
+		)}) * ${config.rows})`;
 		textareaElem.readOnly = true;
 		config.viewProps.bindDisabled(textareaElem);
 		this.element.appendChild(textareaElem);

@@ -33,7 +33,7 @@ export function initMisc() {
 				bufferSize: 10,
 				interval: 0,
 				label: 'console',
-				lineCount: 5,
+				rows: 5,
 			});
 
 			const pane = new Pane({
@@ -77,7 +77,7 @@ export function initMisc() {
 				bufferSize: 10,
 				interval: 0,
 				label: 'console',
-				lineCount: 5,
+				rows: 5,
 			});
 
 			const pane = new Pane({
@@ -115,8 +115,8 @@ export function initMisc() {
 			});
 			consolePane.addMonitor(IMEX_LOG, 'log', {
 				label: 'preset',
-				lineCount: 5,
 				multiline: true,
+				rows: 5,
 			});
 
 			const pane = new Pane({
@@ -149,8 +149,8 @@ export function initMisc() {
 			});
 			consolePane.addMonitor(IMEX_LOG, 'log', {
 				label: 'preset',
-				lineCount: 5,
 				multiline: true,
+				rows: 5,
 			});
 
 			const PARAMS = {
@@ -194,8 +194,8 @@ export function initMisc() {
 			consolePane.addMonitor(PARAMS, 'preset', {
 				interval: 0,
 				label: 'preset',
-				lineCount: 4,
 				multiline: true,
+				rows: 4,
 			});
 
 			const pane = new Pane({

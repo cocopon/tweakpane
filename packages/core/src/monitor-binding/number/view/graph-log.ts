@@ -17,8 +17,8 @@ export type GraphLogProps = ValueMap<{
 interface Config {
 	cursor: Value<number>;
 	formatter: Formatter<number>;
-	lineCount: number;
 	props: GraphLogProps;
+	rows: number;
 	value: BufferedValue<number>;
 	viewProps: ViewProps;
 }
@@ -55,7 +55,7 @@ export class GraphLogView implements View {
 		const svgElem = doc.createElementNS(SVG_NS, 'svg');
 		svgElem.classList.add(cn('g'));
 		svgElem.style.height = `calc(var(${getCssVar('containerUnitSize')}) * ${
-			config.lineCount
+			config.rows
 		})`;
 		this.element.appendChild(svgElem);
 		this.svgElem_ = svgElem;

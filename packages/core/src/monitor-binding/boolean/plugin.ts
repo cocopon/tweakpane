@@ -10,7 +10,10 @@ import {SingleLogController} from '../common/controller/single-log';
 import {MonitorBindingPlugin} from '../plugin';
 
 export interface BooleanMonitorParams extends BaseMonitorParams {
-	lineCount?: number;
+	/**
+	 * Number of rows for visual height.
+	 */
+	rows?: number;
 }
 
 /**
@@ -28,7 +31,7 @@ export const BooleanMonitorPlugin: MonitorBindingPlugin<
 		}
 		const p = ParamsParsers;
 		const result = parseParams<BooleanMonitorParams>(params, {
-			lineCount: p.optional.number,
+			rows: p.optional.number,
 		});
 		return result
 			? {
@@ -51,7 +54,7 @@ export const BooleanMonitorPlugin: MonitorBindingPlugin<
 
 		return new MultiLogController(args.document, {
 			formatter: BooleanFormatter,
-			lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,
+			rows: args.params.rows ?? Constants.monitor.defaultRows,
 			value: args.value,
 			viewProps: args.viewProps,
 		});
