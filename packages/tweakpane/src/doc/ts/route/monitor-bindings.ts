@@ -60,8 +60,8 @@ export function initMonitorBindings() {
 			});
 			pane
 				.addMonitor(PARAMS, 'params', {
-					lineCount: 5,
 					multiline: true,
+					rows: 5,
 				})
 				.on('change', () => {
 					PARAMS.params = JSON.stringify(SHARED_PARAMS, null, 2);

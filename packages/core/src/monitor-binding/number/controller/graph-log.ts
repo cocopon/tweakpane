@@ -14,8 +14,8 @@ import {GraphLogProps, GraphLogView} from '../view/graph-log';
 
 interface Config {
 	formatter: Formatter<number>;
-	lineCount: number;
 	props: GraphLogProps;
+	rows: number;
 	value: BufferedValue<number>;
 	viewProps: ViewProps;
 }
@@ -47,7 +47,7 @@ export class GraphLogController
 		this.view = new GraphLogView(doc, {
 			cursor: this.cursor_,
 			formatter: config.formatter,
-			lineCount: config.lineCount,
+			rows: config.rows,
 			props: this.props,
 			value: this.value,
 			viewProps: this.viewProps,

@@ -21,7 +21,7 @@ export function initQuickTour() {
 				view: 'placeholder',
 			});
 			pane.addBlade({
-				lineCount: 3,
+				rows: 3,
 				title: 'blade',
 				view: 'placeholder',
 			});
@@ -120,7 +120,7 @@ export function initQuickTour() {
 				bufferSize: 100,
 				interval: 0,
 				label: 'console',
-				lineCount: 5,
+				rows: 5,
 			});
 
 			const pane = new Pane({
@@ -156,8 +156,8 @@ export function initQuickTour() {
 			consolePane.addMonitor(PARAMS, 'log', {
 				interval: 0,
 				label: 'preset',
-				lineCount: 5,
 				multiline: true,
+				rows: 5,
 			});
 
 			const pane = new Pane({

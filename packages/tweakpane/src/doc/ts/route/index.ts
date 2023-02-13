@@ -145,8 +145,8 @@ export function initIndex() {
 			});
 			p1.addMonitor(HIDDEN_PARAMS, 'presetJson', {
 				label: 'data',
-				lineCount: 4,
 				multiline: true,
+				rows: 4,
 			});
 
 			pane.on('change', () => {

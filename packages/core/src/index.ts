@@ -92,6 +92,7 @@ export * from './common/number/view/slider';
 export * from './common/number/view/slider-text';
 
 export * from './common/view/class-name';
+export * from './common/view/css-vars';
 export * from './common/view/list';
 export * from './common/view/plain';
 export * from './common/view/pointer-handler';

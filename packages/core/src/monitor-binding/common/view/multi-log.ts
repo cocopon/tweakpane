@@ -2,11 +2,12 @@ import {Formatter} from '../../../common/converter/formatter';
 import {BufferedValue} from '../../../common/model/buffered-value';
 import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
+import {getCssVar} from '../../../common/view/css-vars';
 import {View} from '../../../common/view/view';
 
 interface Config<T> {
 	formatter: Formatter<T>;
-	lineCount: number;
+	rows: number;
 	value: BufferedValue<T>;
 	viewProps: ViewProps;
 }
@@ -33,7 +34,9 @@ export class MultiLogView<T> implements View {
 
 		const textareaElem = doc.createElement('textarea');
 		textareaElem.classList.add(cn('i'));
-		textareaElem.style.height = `calc(var(--bld-us) * ${config.lineCount})`;
+		textareaElem.style.height = `calc(var(${getCssVar(
+			'containerUnitSize',
+		)}) * ${config.rows})`;
 		textareaElem.readOnly = true;
 		config.viewProps.bindDisabled(textareaElem);
 		this.element.appendChild(textareaElem);
