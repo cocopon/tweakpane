@@ -17,7 +17,7 @@ interface Config {
 	viewProps: ViewProps;
 }
 
-const className = ClassName('lbl');
+const cn = ClassName('lbl');
 
 function createLabelNode(doc: Document, label: string): DocumentFragment {
 	const frag = doc.createDocumentFragment();
@@ -45,16 +45,16 @@ export class LabelView implements View {
 
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 
 		const labelElem = doc.createElement('div');
-		labelElem.classList.add(className('l'));
+		labelElem.classList.add(cn('l'));
 		bindValueMap(config.props, 'label', (value: string | undefined) => {
 			if (isEmpty(value)) {
-				this.element.classList.add(className(undefined, 'nol'));
+				this.element.classList.add(cn(undefined, 'nol'));
 			} else {
-				this.element.classList.remove(className(undefined, 'nol'));
+				this.element.classList.remove(cn(undefined, 'nol'));
 				removeChildNodes(labelElem);
 				labelElem.appendChild(createLabelNode(doc, value));
 			}
@@ -63,7 +63,7 @@ export class LabelView implements View {
 		this.labelElement = labelElem;
 
 		const valueElem = doc.createElement('div');
-		valueElem.classList.add(className('v'));
+		valueElem.classList.add(cn('v'));
 		this.element.appendChild(valueElem);
 		this.valueElement = valueElem;
 	}

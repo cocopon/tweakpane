@@ -6,6 +6,7 @@ import {ContainerBladeController} from '../../common/controller/container-blade'
 import {Blade} from '../../common/model/blade';
 import {RackController} from '../../rack/controller/rack';
 import {TabItemProps} from '../view/tab-item';
+import {TabPageView} from '../view/tab-page';
 import {TabItemController} from './tab-item';
 
 export type TabPagePropsObject = {
@@ -33,7 +34,10 @@ export class TabPageController extends ContainerBladeController<PlainView> {
 		super({
 			...config,
 			rackController: rc,
-			view: rc.view,
+			view: new TabPageView(doc, {
+				containerElement: rc.view.element,
+				viewProps: config.viewProps,
+			}),
 		});
 
 		this.onItemClick_ = this.onItemClick_.bind(this);

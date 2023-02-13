@@ -11,7 +11,7 @@ interface Config<T> {
 	viewProps: ViewProps;
 }
 
-const className = ClassName('mll');
+const cn = ClassName('mll');
 
 /**
  * @hidden
@@ -28,11 +28,11 @@ export class MultiLogView<T> implements View {
 		this.formatter_ = config.formatter;
 
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 
 		const textareaElem = doc.createElement('textarea');
-		textareaElem.classList.add(className('i'));
+		textareaElem.classList.add(cn('i'));
 		textareaElem.style.height = `calc(var(--bld-us) * ${config.lineCount})`;
 		textareaElem.readOnly = true;
 		config.viewProps.bindDisabled(textareaElem);

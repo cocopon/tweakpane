@@ -3,7 +3,7 @@ import {ViewProps} from '../../../common/model/view-props';
 import {TpError} from '../../../common/tp-error';
 import {ContainerBladeController} from '../../common/controller/container-blade';
 import {Blade} from '../../common/model/blade';
-import {BladeRackEvents} from '../../common/model/blade-rack';
+import {RackEvents} from '../../common/model/rack';
 import {RackController} from '../../rack/controller/rack';
 import {Tab} from '../model/tab';
 import {TabView} from '../view/tab';
@@ -51,7 +51,7 @@ export class TabController extends ContainerBladeController<TabView> {
 		this.rackController.rack.remove(this.rackController.rack.children[index]);
 	}
 
-	private onRackAdd_(ev: BladeRackEvents['add']): void {
+	private onRackAdd_(ev: RackEvents['add']): void {
 		if (!ev.isRoot) {
 			return;
 		}
@@ -72,7 +72,7 @@ export class TabController extends ContainerBladeController<TabView> {
 		this.tab.add(pc.props.value('selected'));
 	}
 
-	private onRackRemove_(ev: BladeRackEvents['remove']): void {
+	private onRackRemove_(ev: RackEvents['remove']): void {
 		if (!ev.isRoot) {
 			return;
 		}

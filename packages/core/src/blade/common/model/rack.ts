@@ -18,26 +18,26 @@ import {NestedOrderedSet, NestedOrderedSetEvents} from './nested-ordered-set';
 /**
  * @hidden
  */
-export interface BladeRackEvents {
+export interface RackEvents {
 	add: {
 		bladeController: BladeController;
 		index: number;
 		isRoot: boolean;
-		sender: BladeRack;
+		sender: Rack;
 	};
 	remove: {
 		bladeController: BladeController;
 		isRoot: boolean;
-		sender: BladeRack;
+		sender: Rack;
 	};
 
 	valuechange: {
 		bladeController: BladeController;
 		options: ValueChangeOptions;
-		sender: BladeRack;
+		sender: Rack;
 	};
 	layout: {
-		sender: BladeRack;
+		sender: Rack;
 	};
 }
 
@@ -54,7 +54,7 @@ function findValueBladeController(
 	return null;
 }
 
-function findSubRack(bc: BladeController): BladeRack | null {
+function findSubRack(bc: BladeController): Rack | null {
 	if (bc instanceof RackController) {
 		return bc.rack;
 	}
@@ -79,8 +79,8 @@ interface Config {
 /**
  * A collection of blade controllers that manages positions and event propagation.
  */
-export class BladeRack {
-	public readonly emitter: Emitter<BladeRackEvents> = new Emitter();
+export class Rack {
+	public readonly emitter: Emitter<RackEvents> = new Emitter();
 	public readonly viewProps: ViewProps;
 	private readonly blade_: Blade | null;
 	private readonly bcSet_: NestedOrderedSet<BladeController>;
@@ -261,14 +261,14 @@ export class BladeRack {
 		});
 	}
 
-	private onRackLayout_(_: BladeRackEvents['layout']) {
+	private onRackLayout_(_: RackEvents['layout']) {
 		this.updatePositions_();
 		this.emitter.emit('layout', {
 			sender: this,
 		});
 	}
 
-	private onRackValueChange_(ev: BladeRackEvents['valuechange']) {
+	private onRackValueChange_(ev: RackEvents['valuechange']) {
 		this.emitter.emit('valuechange', {
 			bladeController: ev.bladeController,
 			options: ev.options,

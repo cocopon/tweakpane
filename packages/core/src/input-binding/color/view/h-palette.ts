@@ -6,7 +6,7 @@ import {View} from '../../../common/view/view';
 import {colorToFunctionalRgbString} from '../converter/color-string';
 import {IntColor} from '../model/int-color';
 
-const className = ClassName('hpl');
+const cn = ClassName('hpl');
 
 interface Config {
 	value: Value<IntColor>;
@@ -28,16 +28,16 @@ export class HPaletteView implements View {
 		this.value.emitter.on('change', this.onValueChange_);
 
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 		config.viewProps.bindTabIndex(this.element);
 
 		const colorElem = doc.createElement('div');
-		colorElem.classList.add(className('c'));
+		colorElem.classList.add(cn('c'));
 		this.element.appendChild(colorElem);
 
 		const markerElem = doc.createElement('div');
-		markerElem.classList.add(className('m'));
+		markerElem.classList.add(cn('m'));
 		this.element.appendChild(markerElem);
 		this.markerElem_ = markerElem;
 

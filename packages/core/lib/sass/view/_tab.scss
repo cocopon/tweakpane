@@ -51,17 +51,6 @@
 			right: 0;
 		}
 	}
-	// Container
-	&_c {
-		padding-bottom: tp.cssVar('container-v-padding');
-		padding-left: 4px;
-		padding-top: tp.cssVar('container-v-padding');
-
-		.#{tp.$prefix}-brkv {
-			@extend %tp-container_children;
-			@extend %tp-container_subcontainers;
-		}
-	}
 	// Indent
 	&_i {
 		bottom: 0;
@@ -150,5 +139,16 @@
 	}
 	&#{&}-sel &_t {
 		opacity: 1;
+	}
+}
+.#{tp.$prefix}-tbpv {
+	// Container
+	&_c {
+		@extend %tp-container_children;
+		@extend %tp-container_subcontainers;
+
+		padding-bottom: tp.cssVar('container-v-padding');
+		padding-left: 4px;
+		padding-top: tp.cssVar('container-v-padding');
 	}
 }

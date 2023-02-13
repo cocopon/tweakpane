@@ -17,7 +17,7 @@ interface Config<T> {
 	viewProps: ViewProps;
 }
 
-const className = ClassName('lst');
+const cn = ClassName('lst');
 
 /**
  * @hidden
@@ -34,11 +34,11 @@ export class ListView<T> implements View {
 		this.props_ = config.props;
 
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 
 		const selectElem = doc.createElement('select');
-		selectElem.classList.add(className('s'));
+		selectElem.classList.add(cn('s'));
 		bindValueMap(this.props_, 'options', (opts) => {
 			removeChildElements(selectElem);
 
@@ -55,7 +55,7 @@ export class ListView<T> implements View {
 		this.selectElement = selectElem;
 
 		const markElem = doc.createElement('div');
-		markElem.classList.add(className('m'));
+		markElem.classList.add(cn('m'));
 		markElem.appendChild(createSvgIconElement(doc, 'dropdown'));
 		this.element.appendChild(markElem);
 

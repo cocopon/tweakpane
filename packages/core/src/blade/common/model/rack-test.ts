@@ -30,7 +30,7 @@ import {LabeledValueController} from '../../label/controller/value-label';
 import {LabelPropsObject, LabelView} from '../../label/view/label';
 import {ValueBladeController} from '../controller/value-blade';
 import {createBlade} from './blade';
-import {BladeRack} from './blade-rack';
+import {Rack} from './rack';
 
 function createInputBindingController(
 	doc: Document,
@@ -116,16 +116,16 @@ function createFolderController(doc: Document): FolderController {
 	});
 }
 
-describe(BladeRack.name, () => {
+describe(Rack.name, () => {
 	it('should be empty by default', () => {
-		const rack = new BladeRack({
+		const rack = new Rack({
 			viewProps: ViewProps.create({}),
 		});
 		assert.strictEqual(rack.children.length, 0);
 	});
 
 	it('should add blade', () => {
-		const rack = new BladeRack({
+		const rack = new Rack({
 			viewProps: ViewProps.create({}),
 		});
 		const doc = createTestWindow().document;
@@ -137,7 +137,7 @@ describe(BladeRack.name, () => {
 	});
 
 	it('should remove blade', () => {
-		const rack = new BladeRack({
+		const rack = new Rack({
 			viewProps: ViewProps.create({}),
 		});
 		const doc = createTestWindow().document;
@@ -150,7 +150,7 @@ describe(BladeRack.name, () => {
 	});
 
 	it('should handle input change', (done) => {
-		const rack = new BladeRack({
+		const rack = new Rack({
 			viewProps: ViewProps.create({}),
 		});
 		const doc = createTestWindow().document;
@@ -166,7 +166,7 @@ describe(BladeRack.name, () => {
 	});
 
 	it('should handle input change (nested)', (done) => {
-		const rack = new BladeRack({
+		const rack = new Rack({
 			viewProps: ViewProps.create({}),
 		});
 		const doc = createTestWindow().document;
@@ -184,7 +184,7 @@ describe(BladeRack.name, () => {
 	});
 
 	it('should handle input change (deep-nested)', (done) => {
-		const rack = new BladeRack({
+		const rack = new Rack({
 			viewProps: ViewProps.create({}),
 		});
 		const doc = createTestWindow().document;
@@ -204,7 +204,7 @@ describe(BladeRack.name, () => {
 	});
 
 	it('should handle monitor update', (done) => {
-		const rack = new BladeRack({
+		const rack = new Rack({
 			viewProps: ViewProps.create({}),
 		});
 		const doc = createTestWindow().document;
@@ -220,7 +220,7 @@ describe(BladeRack.name, () => {
 	});
 
 	it('should handle monitor update (nested)', (done) => {
-		const rack = new BladeRack({
+		const rack = new Rack({
 			viewProps: ViewProps.create({}),
 		});
 		const doc = createTestWindow().document;
@@ -238,7 +238,7 @@ describe(BladeRack.name, () => {
 	});
 
 	it('should handle value change', (done) => {
-		const rack = new BladeRack({
+		const rack = new Rack({
 			viewProps: ViewProps.create({}),
 		});
 		const doc = createTestWindow().document;
@@ -254,7 +254,7 @@ describe(BladeRack.name, () => {
 	});
 
 	it('should handle value change (nested)', (done) => {
-		const rack = new BladeRack({
+		const rack = new Rack({
 			viewProps: ViewProps.create({}),
 		});
 		const doc = createTestWindow().document;
@@ -272,7 +272,7 @@ describe(BladeRack.name, () => {
 	});
 
 	it('should remove disposed blade', () => {
-		const rack = new BladeRack({
+		const rack = new Rack({
 			viewProps: ViewProps.create({}),
 		});
 		const doc = createTestWindow().document;
@@ -285,7 +285,7 @@ describe(BladeRack.name, () => {
 	});
 
 	it('should handle layout', () => {
-		const rack = new BladeRack({
+		const rack = new Rack({
 			viewProps: ViewProps.create({}),
 		});
 		const doc = createTestWindow().document;
@@ -303,7 +303,7 @@ describe(BladeRack.name, () => {
 	});
 
 	it('should not handle removed input event', () => {
-		const rack = new BladeRack({
+		const rack = new Rack({
 			viewProps: ViewProps.create({}),
 		});
 		const doc = createTestWindow().document;
@@ -319,7 +319,7 @@ describe(BladeRack.name, () => {
 	});
 
 	it('should not handle removed folder event', () => {
-		const rack = new BladeRack({
+		const rack = new Rack({
 			viewProps: ViewProps.create({}),
 		});
 		const doc = createTestWindow().document;
@@ -337,7 +337,7 @@ describe(BladeRack.name, () => {
 	});
 
 	it('should handle layout (nested)', () => {
-		const rack = new BladeRack({
+		const rack = new Rack({
 			viewProps: ViewProps.create({}),
 		});
 		const doc = createTestWindow().document;
@@ -356,7 +356,7 @@ describe(BladeRack.name, () => {
 	});
 
 	it('should move to the last when re-adding child', () => {
-		const rack = new BladeRack({
+		const rack = new Rack({
 			viewProps: ViewProps.create({}),
 		});
 		const doc = createTestWindow().document;
@@ -371,13 +371,13 @@ describe(BladeRack.name, () => {
 	});
 
 	it('should be removed from previous parent', () => {
-		const rack1 = new BladeRack({
+		const rack1 = new Rack({
 			viewProps: ViewProps.create({}),
 		});
 		const doc = createTestWindow().document;
 		const bc = createInputBindingController(doc);
 		rack1.add(bc);
-		const rack2 = new BladeRack({
+		const rack2 = new Rack({
 			viewProps: ViewProps.create({}),
 		});
 		rack2.add(bc);
@@ -388,7 +388,7 @@ describe(BladeRack.name, () => {
 	});
 
 	it('should update positions', () => {
-		const rack = new BladeRack({
+		const rack = new Rack({
 			viewProps: ViewProps.create({}),
 		});
 		const doc = createTestWindow().document;

@@ -15,7 +15,7 @@ interface Config {
 	viewProps: ViewProps;
 }
 
-const className = ClassName('btn');
+const cn = ClassName('btn');
 
 /**
  * @hidden
@@ -26,17 +26,17 @@ export class ButtonView implements View {
 
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 
 		const buttonElem = doc.createElement('button');
-		buttonElem.classList.add(className('b'));
+		buttonElem.classList.add(cn('b'));
 		config.viewProps.bindDisabled(buttonElem);
 		this.element.appendChild(buttonElem);
 		this.buttonElement = buttonElem;
 
 		const titleElem = doc.createElement('div');
-		titleElem.classList.add(className('t'));
+		titleElem.classList.add(cn('t'));
 		bindValueToTextContent(config.props.value('title'), titleElem);
 		this.buttonElement.appendChild(titleElem);
 	}

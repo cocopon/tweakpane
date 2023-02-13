@@ -15,7 +15,7 @@ interface Config<T> {
 	viewProps: ViewProps;
 }
 
-const className = ClassName('txt');
+const cn = ClassName('txt');
 
 /**
  * @hidden
@@ -30,14 +30,14 @@ export class TextView<T> implements View {
 		this.onChange_ = this.onChange_.bind(this);
 
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 
 		this.props_ = config.props;
 		this.props_.emitter.on('change', this.onChange_);
 
 		const inputElem = doc.createElement('input');
-		inputElem.classList.add(className('i'));
+		inputElem.classList.add(cn('i'));
 		inputElem.type = 'text';
 		config.viewProps.bindDisabled(inputElem);
 		this.element.appendChild(inputElem);

@@ -1,9 +1,9 @@
 import * as assert from 'assert';
 import {it} from 'mocha';
 
-import {BladeRackApi} from './blade-rack';
+import {ContainerApi} from './container';
 
-export function testBladeContainer(createApi: () => BladeRackApi) {
+export function testBladeContainer(createApi: () => ContainerApi) {
 	it('should implement children', () => {
 		const api = createApi();
 		const bapis = [api.addSeparator(), api.addSeparator(), api.addSeparator()];

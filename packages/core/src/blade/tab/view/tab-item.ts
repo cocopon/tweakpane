@@ -17,7 +17,7 @@ interface Config {
 	viewProps: ViewProps;
 }
 
-const className = ClassName('tbi');
+const cn = ClassName('tbi');
 
 /**
  * @hidden
@@ -29,24 +29,24 @@ export class TabItemView implements View {
 
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 		bindValueMap(config.props, 'selected', (selected) => {
 			if (selected) {
-				this.element.classList.add(className(undefined, 'sel'));
+				this.element.classList.add(cn(undefined, 'sel'));
 			} else {
-				this.element.classList.remove(className(undefined, 'sel'));
+				this.element.classList.remove(cn(undefined, 'sel'));
 			}
 		});
 
 		const buttonElem = doc.createElement('button');
-		buttonElem.classList.add(className('b'));
+		buttonElem.classList.add(cn('b'));
 		config.viewProps.bindDisabled(buttonElem);
 		this.element.appendChild(buttonElem);
 		this.buttonElement = buttonElem;
 
 		const titleElem = doc.createElement('div');
-		titleElem.classList.add(className('t'));
+		titleElem.classList.add(cn('t'));
 		bindValueToTextContent(config.props.value('title'), titleElem);
 		this.buttonElement.appendChild(titleElem);
 		this.titleElement = titleElem;

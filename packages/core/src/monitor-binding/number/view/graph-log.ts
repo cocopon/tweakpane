@@ -22,7 +22,7 @@ interface Config {
 	viewProps: ViewProps;
 }
 
-const className = ClassName('grl');
+const cn = ClassName('grl');
 
 /**
  * @hidden
@@ -42,7 +42,7 @@ export class GraphLogView implements View {
 		this.onValueUpdate_ = this.onValueUpdate_.bind(this);
 
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 
 		this.formatter_ = config.formatter;
@@ -52,7 +52,7 @@ export class GraphLogView implements View {
 		this.cursor_.emitter.on('change', this.onCursorChange_);
 
 		const svgElem = doc.createElementNS(SVG_NS, 'svg');
-		svgElem.classList.add(className('g'));
+		svgElem.classList.add(cn('g'));
 		svgElem.style.height = `calc(var(--bld-us) * ${config.lineCount})`;
 		this.element.appendChild(svgElem);
 		this.svgElem_ = svgElem;
@@ -62,7 +62,7 @@ export class GraphLogView implements View {
 		this.lineElem_ = lineElem;
 
 		const tooltipElem = doc.createElement('div');
-		tooltipElem.classList.add(className('t'), ClassName('tt')());
+		tooltipElem.classList.add(cn('t'), ClassName('tt')());
 		this.element.appendChild(tooltipElem);
 		this.tooltipElem_ = tooltipElem;
 
@@ -98,7 +98,7 @@ export class GraphLogView implements View {
 		const tooltipElem = this.tooltipElem_;
 		const value = this.value.rawValue[this.cursor_.rawValue];
 		if (value === undefined) {
-			tooltipElem.classList.remove(className('t', 'a'));
+			tooltipElem.classList.remove(cn('t', 'a'));
 			return;
 		}
 
@@ -108,11 +108,11 @@ export class GraphLogView implements View {
 		tooltipElem.style.top = `${ty}px`;
 		tooltipElem.textContent = `${this.formatter_(value)}`;
 
-		if (!tooltipElem.classList.contains(className('t', 'a'))) {
+		if (!tooltipElem.classList.contains(cn('t', 'a'))) {
 			// Suppresses unwanted initial transition
-			tooltipElem.classList.add(className('t', 'a'), className('t', 'in'));
+			tooltipElem.classList.add(cn('t', 'a'), cn('t', 'in'));
 			forceReflow(tooltipElem);
-			tooltipElem.classList.remove(className('t', 'in'));
+			tooltipElem.classList.remove(cn('t', 'in'));
 		}
 	}
 

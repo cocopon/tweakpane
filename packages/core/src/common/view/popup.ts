@@ -10,7 +10,7 @@ interface Config {
 	viewProps: ViewProps;
 }
 
-const className = ClassName('pop');
+const cn = ClassName('pop');
 
 /**
  * @hidden
@@ -20,11 +20,8 @@ export class PopupView implements View {
 
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
-		bindValue(
-			config.shows,
-			valueToClassName(this.element, className(undefined, 'v')),
-		);
+		bindValue(config.shows, valueToClassName(this.element, cn(undefined, 'v')));
 	}
 }

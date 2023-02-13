@@ -5,7 +5,7 @@ import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {createDefaultPluginPool} from '../../../plugin/plugins';
-import {testBladeContainer} from '../../common/api/blade-rack-test';
+import {testBladeContainer} from '../../common/api/container-test';
 import {createBlade} from '../../common/model/blade';
 import {TabPageController, TabPagePropsObject} from '../controller/tab-page';
 import {TabItemPropsObject} from '../view/tab-item';

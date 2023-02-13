@@ -16,7 +16,7 @@ interface Config {
 	viewProps: ViewProps;
 }
 
-const className = ClassName('coltxt');
+const cn = ClassName('coltxt');
 
 function createModeSelectElement(doc: Document): HTMLSelectElement {
 	const selectElem = doc.createElement('select');
@@ -48,25 +48,25 @@ export class ColorTextView implements View {
 
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 
 		const modeElem = doc.createElement('div');
-		modeElem.classList.add(className('m'));
+		modeElem.classList.add(cn('m'));
 		this.modeElem_ = createModeSelectElement(doc);
-		this.modeElem_.classList.add(className('ms'));
+		this.modeElem_.classList.add(cn('ms'));
 		modeElem.appendChild(this.modeSelectElement);
 		config.viewProps.bindDisabled(this.modeElem_);
 
 		const modeMarkerElem = doc.createElement('div');
-		modeMarkerElem.classList.add(className('mm'));
+		modeMarkerElem.classList.add(cn('mm'));
 		modeMarkerElem.appendChild(createSvgIconElement(doc, 'dropdown'));
 		modeElem.appendChild(modeMarkerElem);
 
 		this.element.appendChild(modeElem);
 
 		const textsElem = doc.createElement('div');
-		textsElem.classList.add(className('w'));
+		textsElem.classList.add(cn('w'));
 		this.element.appendChild(textsElem);
 		this.textsElem_ = textsElem;
 
@@ -97,7 +97,7 @@ export class ColorTextView implements View {
 		const doc = this.element.ownerDocument;
 		this.textViews_.forEach((v) => {
 			const compElem = doc.createElement('div');
-			compElem.classList.add(className('c'));
+			compElem.classList.add(cn('c'));
 			compElem.appendChild(v.element);
 			this.textsElem_.appendChild(compElem);
 		});
