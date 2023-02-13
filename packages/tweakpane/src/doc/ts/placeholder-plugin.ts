@@ -5,6 +5,7 @@ import {
 	BladePlugin,
 	ClassName,
 	createBlade,
+	getCssVar,
 	ParamsParsers,
 	parseParams,
 	View,
@@ -26,7 +27,9 @@ class PlaceholderView implements View {
 	) {
 		this.element = doc.createElement('div');
 		this.element.classList.add(cn());
-		this.element.style.height = `calc(${config.lineCount} * var(--bld-us))`;
+		this.element.style.height = `calc(${config.lineCount} * var(${getCssVar(
+			'containerUnitSize',
+		)}))`;
 		config.viewProps.bindClassModifiers(this.element);
 
 		const titleElem = doc.createElement('div');
@@ -65,18 +68,21 @@ export const plugin: BladePlugin<PlaceholderBladeParams> = {
 	css: `.tp-phv {
 	align-items: center;
 	display: flex;
-	height: var(--bld-us);
+	height: var(--cnt-usz);
+	margin-left: var(--cnt-vp);
+	margin-right: var(--cnt-vp);
 	position: relative;
 }
 .tp-phv::before {
 	border: var(--mo-fg) dashed 1px;
-	border-radius: var(--elm-br);
+	border-radius: var(--bld-br);
 	bottom: 0;
 	content: '';
-	left: var(--cnt-v-p);
+	left: 0;
 	opacity: 0.3;
+	pointer-events: none;
 	position: absolute;
-	right: var(--cnt-v-p);
+	right: 0;
 	top: 0;
 }
 .tp-phv_t {

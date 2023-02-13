@@ -6,6 +6,7 @@ import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
+import {getCssVar} from '../../../common/view/css-vars';
 import {View} from '../../../common/view/view';
 
 export type GraphLogProps = ValueMap<{
@@ -53,7 +54,9 @@ export class GraphLogView implements View {
 
 		const svgElem = doc.createElementNS(SVG_NS, 'svg');
 		svgElem.classList.add(cn('g'));
-		svgElem.style.height = `calc(var(--bld-us) * ${config.lineCount})`;
+		svgElem.style.height = `calc(var(${getCssVar('containerUnitSize')}) * ${
+			config.lineCount
+		})`;
 		this.element.appendChild(svgElem);
 		this.svgElem_ = svgElem;
 
