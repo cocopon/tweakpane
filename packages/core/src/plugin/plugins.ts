@@ -3,7 +3,6 @@ import {FolderBladePlugin} from '../blade/folder/plugin';
 import {BladePlugin} from '../blade/plugin';
 import {SeparatorBladePlugin} from '../blade/separator/plugin';
 import {TabBladePlugin} from '../blade/tab/plugin';
-import {TabPageBladePlugin} from '../blade/tab/plugin-page';
 import {BooleanInputPlugin} from '../input-binding/boolean/plugin';
 import {NumberColorInputPlugin} from '../input-binding/color/plugin-number';
 import {ObjectColorInputPlugin} from '../input-binding/color/plugin-object';
@@ -55,7 +54,6 @@ export function createDefaultPluginPool(): PluginPool {
 		FolderBladePlugin,
 		SeparatorBladePlugin,
 		TabBladePlugin,
-		TabPageBladePlugin,
 	].forEach((p) => {
 		pool.register(p);
 	});

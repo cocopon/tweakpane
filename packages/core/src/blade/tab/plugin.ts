@@ -5,6 +5,7 @@ import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {createBlade} from '../common/model/blade';
 import {BladePlugin} from '../plugin';
 import {TabApi} from './api/tab';
+import {TabPageApi} from './api/tab-page';
 import {TabController} from './controller/tab';
 import {TabPageController, TabPagePropsObject} from './controller/tab-page';
 import {TabItemPropsObject} from './view/tab-item';
@@ -52,9 +53,12 @@ export const TabBladePlugin: BladePlugin<TabBladeParams> = {
 		return c;
 	},
 	api(args) {
-		if (!(args.controller instanceof TabController)) {
-			return null;
+		if (args.controller instanceof TabController) {
+			return new TabApi(args.controller, args.pool);
 		}
-		return new TabApi(args.controller, args.pool);
+		if (args.controller instanceof TabPageController) {
+			return new TabPageApi(args.controller, args.pool);
+		}
+		return null;
 	},
 };
