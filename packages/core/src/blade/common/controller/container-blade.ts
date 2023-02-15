@@ -23,3 +23,9 @@ export class ContainerBladeController<
 		this.rackController = config.rackController;
 	}
 }
+
+export function isContainerBladeController(
+	bc: BladeController,
+): bc is ContainerBladeController {
+	return 'rackController' in bc;
+}

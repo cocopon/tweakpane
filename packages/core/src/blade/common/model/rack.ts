@@ -7,7 +7,7 @@ import {
 import {ViewProps, ViewPropsEvents} from '../../../common/model/view-props';
 import {TpError} from '../../../common/tp-error';
 import {BladeController} from '../controller/blade';
-import {ContainerBladeController} from '../controller/container-blade';
+import {isContainerBladeController} from '../controller/container-blade';
 import {
 	isValueBladeController,
 	ValueBladeController,
@@ -55,18 +55,12 @@ function findValueBladeController(
 	return null;
 }
 
-function findSubRack(bc: BladeController): Rack | null {
-	if (bc instanceof ContainerBladeController) {
-		return bc.rackController.rack;
-	}
-	return null;
-}
-
 function findSubBladeControllerSet(
 	bc: BladeController,
 ): NestedOrderedSet<BladeController> | null {
-	const rack = findSubRack(bc);
-	return rack ? rack['bcSet_'] : null;
+	return isContainerBladeController(bc)
+		? bc.rackController.rack['bcSet_']
+		: null;
 }
 
 interface Config {
@@ -152,8 +146,8 @@ export class Rack {
 
 		if (isValueBladeController(bc)) {
 			bc.value.emitter.on('change', this.onChildValueChange_);
-		} else {
-			const rack = findSubRack(bc);
+		} else if (isContainerBladeController(bc)) {
+			const rack = bc.rackController.rack;
 			if (rack) {
 				const emitter = rack.emitter;
 				emitter.on('layout', this.onRackLayout_);
@@ -179,8 +173,8 @@ export class Rack {
 		const bc = ev.item;
 		if (isValueBladeController(bc)) {
 			bc.value.emitter.off('change', this.onChildValueChange_);
-		} else {
-			const rack = findSubRack(bc);
+		} else if (isContainerBladeController(bc)) {
+			const rack = bc.rackController.rack;
 			if (rack) {
 				const emitter = rack.emitter;
 				emitter.off('layout', this.onRackLayout_);
