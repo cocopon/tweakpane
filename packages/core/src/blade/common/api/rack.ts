@@ -34,9 +34,7 @@ import {
 import {TpChangeEvent} from './tp-event';
 
 export interface RackApiEvents {
-	change: {
-		event: TpChangeEvent<unknown>;
-	};
+	change: TpChangeEvent<unknown>;
 }
 
 function findSubBladeApiSet(api: BladeApi): NestedOrderedSet<BladeApi> | null {
@@ -177,11 +175,11 @@ export class RackApi implements ContainerApi {
 
 	public on<EventName extends keyof RackApiEvents>(
 		eventName: EventName,
-		handler: (ev: RackApiEvents[EventName]['event']) => void,
+		handler: (ev: RackApiEvents[EventName]) => void,
 	): this {
 		const bh = handler.bind(this);
 		this.emitter_.on(eventName, (ev) => {
-			bh(ev.event);
+			bh(ev);
 		});
 		return this;
 	}
@@ -215,13 +213,14 @@ export class RackApi implements ContainerApi {
 		const api = getApiByController(this.apiSet_, bc);
 		const binding = isBindingValue(bc.value) ? bc.value.binding : null;
 
-		this.emitter_.emit('change', {
-			event: new TpChangeEvent(
+		this.emitter_.emit(
+			'change',
+			new TpChangeEvent(
 				api,
 				binding ? binding.target.read() : bc.value.rawValue,
 				binding ? binding.presetKey : undefined,
 				ev.options.last,
 			),
-		});
+		);
 	}
 }

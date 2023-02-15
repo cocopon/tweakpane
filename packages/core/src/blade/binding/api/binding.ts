@@ -6,9 +6,7 @@ import {TpChangeEvent} from '../../common/api/tp-event';
 import {BindingController} from '../controller/binding';
 
 export interface BindingApiEvents<Ex> {
-	change: {
-		event: TpChangeEvent<Ex>;
-	};
+	change: TpChangeEvent<Ex>;
 }
 
 /**
@@ -46,11 +44,11 @@ export class BindingApi<
 
 	public on<EventName extends keyof BindingApiEvents<Ex>>(
 		eventName: EventName,
-		handler: (ev: BindingApiEvents<Ex>[EventName]['event']) => void,
+		handler: (ev: BindingApiEvents<Ex>[EventName]) => void,
 	): this {
 		const bh = handler.bind(this);
 		this.emitter_.on(eventName, (ev) => {
-			bh(ev.event);
+			bh(ev);
 		});
 		return this;
 	}
@@ -61,13 +59,14 @@ export class BindingApi<
 
 	private onValueChange_(ev: ValueEvents<In>['change']) {
 		const value = this.controller_.value;
-		this.emitter_.emit('change', {
-			event: new TpChangeEvent(
+		this.emitter_.emit(
+			'change',
+			new TpChangeEvent(
 				this,
 				forceCast(value.binding.target.read()),
 				value.binding.presetKey,
 				ev.options.last,
 			),
-		});
+		);
 	}
 }

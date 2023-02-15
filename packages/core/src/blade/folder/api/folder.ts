@@ -23,12 +23,8 @@ import {TabApi} from '../../tab/api/tab';
 import {FolderController} from '../controller/folder';
 
 export interface FolderApiEvents {
-	change: {
-		event: TpChangeEvent<unknown>;
-	};
-	fold: {
-		event: TpFoldEvent;
-	};
+	change: TpChangeEvent<unknown>;
+	fold: TpFoldEvent;
 }
 
 export class FolderApi
@@ -48,15 +44,11 @@ export class FolderApi
 		this.controller_.foldable
 			.value('expanded')
 			.emitter.on('change', (ev: ValueEvents<boolean>['change']) => {
-				this.emitter_.emit('fold', {
-					event: new TpFoldEvent(this, ev.sender.rawValue),
-				});
+				this.emitter_.emit('fold', new TpFoldEvent(this, ev.sender.rawValue));
 			});
 
 		this.rackApi_.on('change', (ev) => {
-			this.emitter_.emit('change', {
-				event: ev,
-			});
+			this.emitter_.emit('change', ev);
 		});
 	}
 
@@ -131,11 +123,11 @@ export class FolderApi
 	 */
 	public on<EventName extends keyof FolderApiEvents>(
 		eventName: EventName,
-		handler: (ev: FolderApiEvents[EventName]['event']) => void,
+		handler: (ev: FolderApiEvents[EventName]) => void,
 	): FolderApi {
 		const bh = handler.bind(this);
 		this.emitter_.on(eventName, (ev) => {
-			bh(ev.event);
+			bh(ev);
 		});
 		return this;
 	}

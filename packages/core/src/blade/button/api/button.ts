@@ -4,9 +4,7 @@ import {LabelController} from '../../label/controller/label';
 import {ButtonController} from '../controller/button';
 
 export interface ButtonApiEvents {
-	click: {
-		event: TpEvent;
-	};
+	click: TpEvent;
 }
 
 export class ButtonApi extends BladeApi<LabelController<ButtonController>> {
@@ -28,7 +26,7 @@ export class ButtonApi extends BladeApi<LabelController<ButtonController>> {
 
 	public on<EventName extends keyof ButtonApiEvents>(
 		eventName: EventName,
-		handler: (ev: ButtonApiEvents[EventName]['event']) => void,
+		handler: (ev: ButtonApiEvents[EventName]) => void,
 	): ButtonApi {
 		const bh = handler.bind(this);
 		const emitter = this.controller_.valueController.emitter;

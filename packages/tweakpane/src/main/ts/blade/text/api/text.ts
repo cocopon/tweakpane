@@ -17,9 +17,7 @@ export class TextBladeApi<T> extends BladeApi<
 		super(controller);
 
 		this.controller_.value.emitter.on('change', (ev) => {
-			this.emitter_.emit('change', {
-				event: new TpChangeEvent(this, ev.rawValue),
-			});
+			this.emitter_.emit('change', new TpChangeEvent(this, ev.rawValue));
 		});
 	}
 
@@ -49,11 +47,11 @@ export class TextBladeApi<T> extends BladeApi<
 
 	public on<EventName extends keyof ApiChangeEvents<T>>(
 		eventName: EventName,
-		handler: (ev: ApiChangeEvents<T>[EventName]['event']) => void,
+		handler: (ev: ApiChangeEvents<T>[EventName]) => void,
 	): this {
 		const bh = handler.bind(this);
 		this.emitter_.on(eventName, (ev) => {
-			bh(ev.event);
+			bh(ev);
 		});
 		return this;
 	}
