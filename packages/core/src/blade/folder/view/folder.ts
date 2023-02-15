@@ -18,7 +18,6 @@ export type FolderPropsObject = {
 export type FolderProps = ValueMap<FolderPropsObject>;
 
 interface Config {
-	containerElement: HTMLElement;
 	foldable: Foldable;
 	props: FolderProps;
 	viewProps: ViewProps;
@@ -81,7 +80,7 @@ export class FolderView implements View {
 		markElem.classList.add(this.className_('m'));
 		this.buttonElement.appendChild(markElem);
 
-		const containerElem = config.containerElement;
+		const containerElem = doc.createElement('div');
 		containerElem.classList.add(this.className_('c'));
 		this.element.appendChild(containerElem);
 		this.containerElement = containerElem;

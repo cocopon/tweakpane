@@ -50,9 +50,7 @@ export class TabApi extends ContainerBladeApi<TabController> {
 	}
 
 	get pages(): TabPageApi[] {
-		return this.rackApi_.children.reduce((result: TabPageApi[], bapi) => {
-			return bapi instanceof TabPageApi ? [...result, bapi] : result;
-		}, []);
+		return this.rackApi_.children as TabPageApi[];
 	}
 
 	public addPage(params: TabPageParams): TabPageApi {

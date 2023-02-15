@@ -1,9 +1,9 @@
 import {insertElementAt, removeElement} from '../../../common/dom-util';
 import {ViewProps} from '../../../common/model/view-props';
 import {ContainerBladeController} from '../../common/controller/container-blade';
+import {RackController} from '../../common/controller/rack';
 import {Blade} from '../../common/model/blade';
 import {RackEvents} from '../../common/model/rack';
-import {RackController} from '../../rack/controller/rack';
 import {Tab} from '../model/tab';
 import {TabView} from '../view/tab';
 import {TabPageController} from './tab-page';
@@ -17,19 +17,19 @@ export class TabController extends ContainerBladeController<TabView> {
 	public readonly tab: Tab;
 
 	constructor(doc: Document, config: Config) {
-		const rc = new RackController(doc, {
-			blade: config.blade,
+		const tab = new Tab();
+		const view = new TabView(doc, {
+			empty: tab.empty,
 			viewProps: config.viewProps,
 		});
-		const tab = new Tab();
 		super({
 			blade: config.blade,
-			rackController: rc,
-			view: new TabView(doc, {
-				contentsElement: rc.view.element,
-				empty: tab.empty,
+			rackController: new RackController({
+				blade: config.blade,
+				element: view.contentsElement,
 				viewProps: config.viewProps,
 			}),
+			view: view,
 		});
 
 		this.onRackAdd_ = this.onRackAdd_.bind(this);

@@ -1,7 +1,7 @@
 import {PluginPool} from '../../../plugin/pool';
-import {RackApi} from '../../rack/api/rack';
 import {ContainerBladeController} from '../controller/container-blade';
 import {BladeApi} from './blade';
+import {RackApi} from './rack';
 
 /**
  * @hidden

@@ -6,7 +6,6 @@ import {
 } from '../../../common/model/value';
 import {ViewProps, ViewPropsEvents} from '../../../common/model/view-props';
 import {TpError} from '../../../common/tp-error';
-import {RackController} from '../../rack/controller/rack';
 import {BladeController} from '../controller/blade';
 import {ContainerBladeController} from '../controller/container-blade';
 import {
@@ -57,9 +56,6 @@ function findValueBladeController(
 }
 
 function findSubRack(bc: BladeController): Rack | null {
-	if (bc instanceof RackController) {
-		return bc.rack;
-	}
 	if (bc instanceof ContainerBladeController) {
 		return bc.rackController.rack;
 	}

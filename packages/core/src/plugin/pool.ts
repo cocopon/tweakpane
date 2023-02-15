@@ -8,8 +8,6 @@ import {BladeApi} from '../blade/common/api/blade';
 import {InputParams, MonitorParams} from '../blade/common/api/params';
 import {BladeController} from '../blade/common/controller/blade';
 import {BladePlugin, createBladeController} from '../blade/plugin';
-import {RackApi} from '../blade/rack/api/rack';
-import {RackController} from '../blade/rack/controller/rack';
 import {BindingTarget} from '../common/binding/target';
 import {TpError} from '../common/tp-error';
 import {
@@ -148,9 +146,6 @@ export class PluginPool {
 	public createBladeApi(bc: BladeController): BladeApi {
 		if (isBindingController(bc)) {
 			return new BindingApi(bc);
-		}
-		if (bc instanceof RackController) {
-			return new RackApi(bc, this);
 		}
 
 		const api = this.pluginsMap_.blades.reduce(

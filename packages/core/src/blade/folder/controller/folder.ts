@@ -1,8 +1,8 @@
 import {ViewProps} from '../../../common/model/view-props';
 import {ContainerBladeController} from '../../common/controller/container-blade';
+import {RackController} from '../../common/controller/rack';
 import {Blade} from '../../common/model/blade';
 import {bindFoldable, Foldable} from '../../common/model/foldable';
-import {RackController} from '../../rack/controller/rack';
 import {FolderProps, FolderView} from '../view/folder';
 
 interface Config {
@@ -23,21 +23,21 @@ export class FolderController extends ContainerBladeController<FolderView> {
 
 	constructor(doc: Document, config: Config) {
 		const foldable = Foldable.create(config.expanded ?? true);
-		const rc = new RackController(doc, {
-			blade: config.blade,
-			root: config.root,
+		const view = new FolderView(doc, {
+			foldable: foldable,
+			props: config.props,
+			viewName: config.root ? 'rot' : undefined,
 			viewProps: config.viewProps,
 		});
 		super({
 			...config,
-			rackController: rc,
-			view: new FolderView(doc, {
-				containerElement: rc.view.element,
-				foldable: foldable,
-				props: config.props,
-				viewName: config.root ? 'rot' : undefined,
+			rackController: new RackController({
+				blade: config.blade,
+				element: view.containerElement,
+				root: config.root,
 				viewProps: config.viewProps,
 			}),
+			view: view,
 		});
 
 		this.onTitleClick_ = this.onTitleClick_.bind(this);

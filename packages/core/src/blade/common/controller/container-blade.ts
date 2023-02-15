@@ -1,7 +1,7 @@
 import {View} from '../../../common/view/view';
-import {RackController} from '../../rack/controller/rack';
 import {Blade} from '../model/blade';
 import {BladeController} from './blade';
+import {RackController} from './rack';
 
 interface Config<V extends View> {
 	blade: Blade;

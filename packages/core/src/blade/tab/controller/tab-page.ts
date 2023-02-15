@@ -3,8 +3,8 @@ import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {PlainView} from '../../../common/view/plain';
 import {ContainerBladeController} from '../../common/controller/container-blade';
+import {RackController} from '../../common/controller/rack';
 import {Blade} from '../../common/model/blade';
-import {RackController} from '../../rack/controller/rack';
 import {TabItemProps} from '../view/tab-item';
 import {TabPageView} from '../view/tab-page';
 import {TabItemController} from './tab-item';
@@ -27,17 +27,17 @@ export class TabPageController extends ContainerBladeController<PlainView> {
 	private readonly ic_: TabItemController;
 
 	constructor(doc: Document, config: Config) {
-		const rc = new RackController(doc, {
-			blade: config.blade,
+		const view = new TabPageView(doc, {
 			viewProps: config.viewProps,
 		});
 		super({
 			...config,
-			rackController: rc,
-			view: new TabPageView(doc, {
-				containerElement: rc.view.element,
+			rackController: new RackController({
+				blade: config.blade,
+				element: view.containerElement,
 				viewProps: config.viewProps,
 			}),
+			view: view,
 		});
 
 		this.onItemClick_ = this.onItemClick_.bind(this);

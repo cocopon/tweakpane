@@ -7,15 +7,22 @@ import {PluginPool} from '../../../plugin/pool';
 import {InputBindingApi} from '../../binding/api/input-binding';
 import {MonitorBindingApi} from '../../binding/api/monitor-binding';
 import {ButtonApi} from '../../button/api/button';
-import {BladeApi} from '../../common/api/blade';
+import {FolderApi} from '../../folder/api/folder';
+import {SeparatorApi} from '../../separator/api/separator';
+import {TabApi} from '../../tab/api/tab';
+import {BladeController} from '../controller/blade';
+import {RackController} from '../controller/rack';
+import {NestedOrderedSet} from '../model/nested-ordered-set';
+import {RackEvents} from '../model/rack';
+import {BladeApi} from './blade';
 import {
 	addButtonAsBlade,
 	addFolderAsBlade,
 	addSeparatorAsBlade,
 	addTabAsBlade,
 	ContainerApi,
-} from '../../common/api/container';
-import {ContainerBladeApi} from '../../common/api/container-blade';
+} from './container';
+import {ContainerBladeApi} from './container-blade';
 import {
 	ButtonParams,
 	FolderParams,
@@ -23,15 +30,8 @@ import {
 	MonitorParams,
 	SeparatorParams,
 	TabParams,
-} from '../../common/api/params';
-import {TpChangeEvent} from '../../common/api/tp-event';
-import {BladeController} from '../../common/controller/blade';
-import {NestedOrderedSet} from '../../common/model/nested-ordered-set';
-import {RackEvents} from '../../common/model/rack';
-import {FolderApi} from '../../folder/api/folder';
-import {SeparatorApi} from '../../separator/api/separator';
-import {TabApi} from '../../tab/api/tab';
-import {RackController} from '../controller/rack';
+} from './params';
+import {TpChangeEvent} from './tp-event';
 
 export interface RackApiEvents {
 	change: {
@@ -40,9 +40,6 @@ export interface RackApiEvents {
 }
 
 function findSubBladeApiSet(api: BladeApi): NestedOrderedSet<BladeApi> | null {
-	if (api instanceof RackApi) {
-		return api['apiSet_'];
-	}
 	if (api instanceof ContainerBladeApi) {
 		return api['rackApi_']['apiSet_'];
 	}
@@ -71,7 +68,8 @@ function createBindingTarget<O extends Bindable, Key extends keyof O>(
 	return new BindingTarget(obj, key as string);
 }
 
-export class RackApi extends BladeApi<RackController> implements ContainerApi {
+export class RackApi implements ContainerApi {
+	private readonly controller_: RackController;
 	private readonly emitter_: Emitter<RackApiEvents>;
 	private readonly apiSet_: NestedOrderedSet<BladeApi>;
 	private readonly pool_: PluginPool;
@@ -80,12 +78,11 @@ export class RackApi extends BladeApi<RackController> implements ContainerApi {
 	 * @hidden
 	 */
 	constructor(controller: RackController, pool: PluginPool) {
-		super(controller);
-
 		this.onRackAdd_ = this.onRackAdd_.bind(this);
 		this.onRackRemove_ = this.onRackRemove_.bind(this);
 		this.onRackValueChange_ = this.onRackValueChange_.bind(this);
 
+		this.controller_ = controller;
 		this.emitter_ = new Emitter();
 		this.apiSet_ = new NestedOrderedSet(findSubBladeApiSet);
 		this.pool_ = pool;
@@ -111,7 +108,7 @@ export class RackApi extends BladeApi<RackController> implements ContainerApi {
 		opt_params?: InputParams,
 	): InputBindingApi<unknown, O[Key]> {
 		const params = opt_params ?? {};
-		const doc = this.controller_.view.element.ownerDocument;
+		const doc = this.controller_.element.ownerDocument;
 		const bc = this.pool_.createInput(
 			doc,
 			createBindingTarget(object, key),
@@ -127,7 +124,7 @@ export class RackApi extends BladeApi<RackController> implements ContainerApi {
 		opt_params?: MonitorParams,
 	): MonitorBindingApi<O[Key]> {
 		const params = opt_params ?? {};
-		const doc = this.controller_.view.element.ownerDocument;
+		const doc = this.controller_.element.ownerDocument;
 		const bc = this.pool_.createMonitor(
 			doc,
 			createBindingTarget(object, key),
@@ -173,7 +170,7 @@ export class RackApi extends BladeApi<RackController> implements ContainerApi {
 	}
 
 	public addBlade(params: BaseBladeParams): BladeApi {
-		const doc = this.controller_.view.element.ownerDocument;
+		const doc = this.controller_.element.ownerDocument;
 		const bc = this.pool_.createBlade(doc, params);
 		const api = this.pool_.createBladeApi(bc);
 		return this.add(api, params.index);
