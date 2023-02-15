@@ -1,3 +1,5 @@
+/* eslint-disable no-console, @typescript-eslint/no-var-requires */
+/* eslint-env node */
 const Jsdom = require('jsdom').JSDOM;
 const {Pane} = require('tweakpane');
 const TestInputPlugin = require('../dist/bundle');
@@ -12,7 +14,7 @@ pane.registerPlugin(TestInputPlugin);
 const input = pane.addInput(params, 'foo', {
 	view: 'test',
 });
-const elem = input.controller_.view.element.querySelector('.tp-tstv');
+const elem = input['controller_'].view.element.querySelector('.tp-tstv');
 if (!elem) {
 	throw new Error('custom view not found');
 }

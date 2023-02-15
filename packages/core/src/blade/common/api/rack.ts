@@ -47,7 +47,7 @@ function getApiByController(
 	apiSet: NestedOrderedSet<BladeApi>,
 	controller: BladeController,
 ): BladeApi {
-	const api = apiSet.find((api) => api.controller_ === controller);
+	const api = apiSet.find((api) => api['controller_'] === controller);
 	/* istanbul ignore next */
 	if (!api) {
 		throw TpError.shouldNeverHappen();
@@ -150,10 +150,12 @@ export class RackApi implements ContainerApi {
 	}
 
 	public add<A extends BladeApi>(api: A, opt_index?: number): A {
-		this.controller_.rack.add(api.controller_, opt_index);
+		this.controller_.rack.add(api['controller_'], opt_index);
 
 		// Replace generated API with specified one
-		const gapi = this.apiSet_.find((a) => a.controller_ === api.controller_);
+		const gapi = this.apiSet_.find(
+			(a) => a['controller_'] === api['controller_'],
+		);
 		if (gapi) {
 			this.apiSet_.remove(gapi);
 		}
@@ -163,7 +165,7 @@ export class RackApi implements ContainerApi {
 	}
 
 	public remove(api: BladeApi): void {
-		this.controller_.rack.remove(api.controller_);
+		this.controller_.rack.remove(api['controller_']);
 	}
 
 	public addBlade(params: BaseBladeParams): BladeApi {
@@ -190,7 +192,7 @@ export class RackApi implements ContainerApi {
 	 * @param bc The controller.
 	 */
 	private setUpApi_(bc: BladeController): void {
-		const api = this.apiSet_.find((api) => api.controller_ === bc);
+		const api = this.apiSet_.find((api) => api['controller_'] === bc);
 		if (!api) {
 			// Auto-fill missing API
 			this.apiSet_.add(this.pool_.createBladeApi(bc));

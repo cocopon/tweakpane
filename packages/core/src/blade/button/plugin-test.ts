@@ -62,7 +62,7 @@ describe(ButtonBladePlugin.id, () => {
 		const api = pool.createBladeApi(bc) as ButtonApi;
 
 		assert.strictEqual(
-			api.controller_.view.element.innerHTML.includes('initiallabel'),
+			api['controller_'].view.element.innerHTML.includes('initiallabel'),
 			true,
 		);
 	});

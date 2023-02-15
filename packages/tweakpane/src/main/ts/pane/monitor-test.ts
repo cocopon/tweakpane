@@ -105,7 +105,7 @@ describe(Pane.name, () => {
 				});
 
 				obj.foo = params.newInternalValue;
-				(bapi.controller_.value.ticker as ManualTicker).tick();
+				(bapi['controller_'].value.ticker as ManualTicker).tick();
 			});
 
 			it('should pass event for update event (global)', (done) => {
@@ -122,7 +122,7 @@ describe(Pane.name, () => {
 				});
 
 				obj.foo = params.newInternalValue;
-				(bapi.controller_.value.ticker as ManualTicker).tick();
+				(bapi['controller_'].value.ticker as ManualTicker).tick();
 			});
 		});
 	});
@@ -135,7 +135,7 @@ describe(Pane.name, () => {
 		});
 		bapi.dispose();
 		assert.strictEqual(
-			pane.controller_.view.element.querySelector('.tp-lblv'),
+			pane['controller_'].view.element.querySelector('.tp-lblv'),
 			null,
 		);
 	});
@@ -153,7 +153,7 @@ describe(Pane.name, () => {
 		});
 
 		PARAMS.foo = 2;
-		(bapi.controller_.value.ticker as ManualTicker).tick();
+		(bapi['controller_'].value.ticker as ManualTicker).tick();
 	});
 
 	it('should have right initial buffer', () => {
@@ -164,7 +164,7 @@ describe(Pane.name, () => {
 			interval: 0,
 		});
 
-		const v = bapi.controller_.value;
+		const v = bapi['controller_'].value;
 		assert.deepStrictEqual(v.rawValue, [
 			123,
 			undefined,
@@ -257,7 +257,7 @@ describe(Pane.name, () => {
 				const obj = {foo: args.value};
 				const bapi = pane.addMonitor(obj, 'foo', args.params);
 				assert.strictEqual(
-					bapi.controller_.valueController instanceof expected.controller,
+					bapi['controller_'].valueController instanceof expected.controller,
 					true,
 				);
 				bapi.dispose();
@@ -285,7 +285,7 @@ describe(Pane.name, () => {
 			bapi.on('change', () => {
 				bapi.dispose();
 			});
-			(bapi.controller_.value.ticker as ManualTicker).tick();
+			(bapi['controller_'].value.ticker as ManualTicker).tick();
 		} catch (err) {
 			assert.strictEqual((err as TpError<any>).type, 'alreadydisposed');
 			done();

@@ -57,26 +57,26 @@ export function createEmptyBladeController(
 export function assertInitialState(api: BladeApi) {
 	assert.strictEqual(api.disabled, false);
 	assert.strictEqual(api.hidden, false);
-	assert.strictEqual(api.controller_.viewProps.get('disposed'), false);
+	assert.strictEqual(api['controller_'].viewProps.get('disposed'), false);
 }
 
 export function assertDisposes(api: BladeApi) {
 	api.dispose();
-	assert.strictEqual(api.controller_.viewProps.get('disposed'), true);
+	assert.strictEqual(api['controller_'].viewProps.get('disposed'), true);
 }
 
 export function assertUpdates(api: BladeApi) {
 	api.disabled = true;
 	assert.strictEqual(api.disabled, true);
 	assert.strictEqual(
-		api.controller_.view.element.classList.contains('tp-v-disabled'),
+		api['controller_'].view.element.classList.contains('tp-v-disabled'),
 		true,
 	);
 
 	api.hidden = true;
 	assert.strictEqual(api.hidden, true);
 	assert.strictEqual(
-		api.controller_.view.element.classList.contains('tp-v-hidden'),
+		api['controller_'].view.element.classList.contains('tp-v-hidden'),
 		true,
 	);
 }

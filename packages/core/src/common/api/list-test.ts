@@ -76,7 +76,7 @@ describe(ListInputBindingApi.name, () => {
 		api.options = opts;
 		assert.deepStrictEqual(api.options, opts);
 		assert.strictEqual(
-			api.controller_.valueController.view.selectElement.children[0]
+			api['controller_'].valueController.view.selectElement.children[0]
 				.textContent,
 			'baz',
 		);

@@ -66,7 +66,7 @@ describe('InputBindingApi', () => {
 			assert.strictEqual(ev.value, 123);
 			done();
 		});
-		api.controller_.value.rawValue = 123;
+		api['controller_'].value.rawValue = 123;
 	});
 
 	it('should refresh bound value', () => {
@@ -78,7 +78,7 @@ describe('InputBindingApi', () => {
 		PARAMS.foo = 123;
 		api.refresh();
 
-		assert.strictEqual(api.controller_.value.rawValue, 123);
+		assert.strictEqual(api['controller_'].value.rawValue, 123);
 	});
 
 	it('should have initial state', () => {

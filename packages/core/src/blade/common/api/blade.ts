@@ -4,7 +4,7 @@ export class BladeApi<C extends BladeController = BladeController> {
 	/**
 	 * @hidden
 	 */
-	public readonly controller_: C;
+	protected readonly controller_: C;
 
 	/**
 	 * @hidden

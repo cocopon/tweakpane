@@ -87,7 +87,7 @@ describe(SliderBladePlugin.id, () => {
 		assert.strictEqual(api.value, 50);
 
 		assert.strictEqual(
-			api.controller_.view.element.querySelector('.tp-lblv_l')?.textContent,
+			api['controller_'].view.element.querySelector('.tp-lblv_l')?.textContent,
 			'hello',
 		);
 	});
