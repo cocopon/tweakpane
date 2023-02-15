@@ -18,9 +18,7 @@ export class SliderBladeApi extends BladeApi<
 		super(controller);
 
 		this.controller_.value.emitter.on('change', (ev) => {
-			this.emitter_.emit('change', {
-				event: new TpChangeEvent(this, ev.rawValue),
-			});
+			this.emitter_.emit('change', new TpChangeEvent(this, ev.rawValue));
 		});
 	}
 
@@ -58,11 +56,11 @@ export class SliderBladeApi extends BladeApi<
 
 	public on<EventName extends keyof ApiChangeEvents<number>>(
 		eventName: EventName,
-		handler: (ev: ApiChangeEvents<number>[EventName]['event']) => void,
+		handler: (ev: ApiChangeEvents<number>[EventName]) => void,
 	): this {
 		const bh = handler.bind(this);
 		this.emitter_.on(eventName, (ev) => {
-			bh(ev.event);
+			bh(ev);
 		});
 		return this;
 	}

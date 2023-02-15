@@ -12,12 +12,8 @@ import {TabItemPropsObject} from '../view/tab-item';
 import {TabPageApi} from './tab-page';
 
 interface TabApiEvents {
-	change: {
-		event: TpChangeEvent<unknown>;
-	};
-	select: {
-		event: TpTabSelectEvent;
-	};
+	change: TpChangeEvent<unknown>;
+	select: TpTabSelectEvent;
 }
 
 export interface TabPageParams {
@@ -41,9 +37,7 @@ export class TabApi extends ContainerBladeApi<TabController> {
 		this.pool_ = pool;
 
 		this.rackApi_.on('change', (ev) => {
-			this.emitter_.emit('change', {
-				event: ev,
-			});
+			this.emitter_.emit('change', ev);
 		});
 
 		this.controller_.tab.selectedIndex.emitter.on('change', this.onSelect_);
@@ -76,18 +70,16 @@ export class TabApi extends ContainerBladeApi<TabController> {
 
 	public on<EventName extends keyof TabApiEvents>(
 		eventName: EventName,
-		handler: (ev: TabApiEvents[EventName]['event']) => void,
+		handler: (ev: TabApiEvents[EventName]) => void,
 	): TabApi {
 		const bh = handler.bind(this);
 		this.emitter_.on(eventName, (ev) => {
-			bh(ev.event);
+			bh(ev);
 		});
 		return this;
 	}
 
 	private onSelect_(ev: ValueEvents<number>['change']) {
-		this.emitter_.emit('select', {
-			event: new TpTabSelectEvent(this, ev.rawValue),
-		});
+		this.emitter_.emit('select', new TpTabSelectEvent(this, ev.rawValue));
 	}
 }
