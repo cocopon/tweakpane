@@ -1,5 +1,6 @@
 import {Emitter} from '../../model/emitter';
 import {Value, ValueChangeOptions, ValueEvents} from '../../model/value';
+import {isBinding} from '../binding';
 import {ReadWriteBinding} from '../read-write';
 import {BindingValue} from './binding';
 
@@ -58,4 +59,14 @@ export class InputBindingValue<T> implements BindingValue<T> {
 			sender: this,
 		});
 	}
+}
+
+export function isInputBindingValue(
+	v: Value<unknown>,
+): v is InputBindingValue<unknown> {
+	if (!('binding' in v)) {
+		return false;
+	}
+	const b = v['binding'];
+	return isBinding(b) && 'read' in b && 'write' in b;
 }

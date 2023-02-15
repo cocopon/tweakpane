@@ -3,6 +3,8 @@ import {
 	isBindingValue,
 } from '../../../common/binding/value/binding';
 import {ValueController} from '../../../common/controller/value';
+import {BladeController} from '../../common/controller/blade';
+import {isValueBladeController} from '../../common/controller/value-blade';
 import {LabeledValueController} from '../../label/controller/value-label';
 
 export type BindingController<
@@ -11,7 +13,7 @@ export type BindingController<
 > = LabeledValueController<In, Vc, BindingValue<In>>;
 
 export function isBindingController(
-	c: unknown,
-): c is BindingController<unknown> {
-	return c instanceof LabeledValueController && isBindingValue(c.value);
+	bc: BladeController,
+): bc is BindingController<unknown> {
+	return isValueBladeController(bc) && isBindingValue(bc.value);
 }

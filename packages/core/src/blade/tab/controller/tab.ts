@@ -1,6 +1,5 @@
 import {insertElementAt, removeElement} from '../../../common/dom-util';
 import {ViewProps} from '../../../common/model/view-props';
-import {TpError} from '../../../common/tp-error';
 import {ContainerBladeController} from '../../common/controller/container-blade';
 import {Blade} from '../../common/model/blade';
 import {RackEvents} from '../../common/model/rack';
@@ -56,12 +55,7 @@ export class TabController extends ContainerBladeController<TabView> {
 			return;
 		}
 
-		const pc = ev.bladeController;
-		/* istanbul ignore next */
-		if (!(pc instanceof TabPageController)) {
-			throw TpError.shouldNeverHappen();
-		}
-
+		const pc = ev.bladeController as TabPageController;
 		insertElementAt(
 			this.view.itemsElement,
 			pc.itemController.view.element,
@@ -77,12 +71,7 @@ export class TabController extends ContainerBladeController<TabView> {
 			return;
 		}
 
-		const pc = ev.bladeController;
-		/* istanbul ignore next */
-		if (!(pc instanceof TabPageController)) {
-			throw TpError.shouldNeverHappen();
-		}
-
+		const pc = ev.bladeController as TabPageController;
 		removeElement(pc.itemController.view.element);
 		pc.itemController.viewProps.set('parent', null);
 

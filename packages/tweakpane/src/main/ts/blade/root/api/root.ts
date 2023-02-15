@@ -2,9 +2,9 @@ import {
 	BindingValue,
 	FolderApi,
 	InputBindingController,
-	InputBindingValue,
+	isInputBindingController,
+	isMonitorBindingController,
 	LabeledValueController,
-	MonitorBindingController,
 	MonitorBindingValue,
 	PluginPool,
 	Rack,
@@ -12,30 +12,6 @@ import {
 
 import {RootController} from '../controller/root';
 import {exportPresetJson, importPresetJson, PresetObject} from './preset';
-
-function isInputBindingController(
-	c: unknown,
-): c is InputBindingController<unknown> {
-	if (!(c instanceof LabeledValueController)) {
-		return false;
-	}
-	if (!(c.value instanceof InputBindingValue)) {
-		return false;
-	}
-	return true;
-}
-
-function isMonitorBindingController(
-	c: unknown,
-): c is MonitorBindingController<unknown> {
-	if (!(c instanceof LabeledValueController)) {
-		return false;
-	}
-	if (!(c.value instanceof MonitorBindingValue)) {
-		return false;
-	}
-	return true;
-}
 
 function findInputBindingValues(rack: Rack): BindingValue<unknown>[] {
 	const vcs = rack

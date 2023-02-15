@@ -1,7 +1,6 @@
 import {Bindable, BindingTarget} from '../../../common/binding/target';
 import {isBindingValue} from '../../../common/binding/value/binding';
 import {Emitter} from '../../../common/model/emitter';
-import {Value} from '../../../common/model/value';
 import {BaseBladeParams} from '../../../common/params';
 import {TpError} from '../../../common/tp-error';
 import {PluginPool} from '../../../plugin/pool';
@@ -27,7 +26,6 @@ import {
 } from '../../common/api/params';
 import {TpChangeEvent} from '../../common/api/tp-event';
 import {BladeController} from '../../common/controller/blade';
-import {ValueBladeController} from '../../common/controller/value-blade';
 import {NestedOrderedSet} from '../../common/model/nested-ordered-set';
 import {RackEvents} from '../../common/model/rack';
 import {FolderApi} from '../../folder/api/folder';
@@ -219,14 +217,12 @@ export class RackApi extends BladeApi<RackController> implements ContainerApi {
 	private onRackValueChange_(ev: RackEvents['valuechange']) {
 		const bc = ev.bladeController;
 		const api = getApiByController(this.apiSet_, bc);
-		const value: Value<unknown> =
-			bc instanceof ValueBladeController ? bc.value : null;
-		const binding = isBindingValue(value) ? value.binding : null;
+		const binding = isBindingValue(bc.value) ? bc.value.binding : null;
 
 		this.emitter_.emit('change', {
 			event: new TpChangeEvent(
 				api,
-				binding ? binding.target.read() : value.rawValue,
+				binding ? binding.target.read() : bc.value.rawValue,
 				binding ? binding.presetKey : undefined,
 				ev.options.last,
 			),

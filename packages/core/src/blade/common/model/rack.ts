@@ -10,7 +10,10 @@ import {Class, forceCast} from '../../../misc/type-util';
 import {RackController} from '../../rack/controller/rack';
 import {BladeController} from '../controller/blade';
 import {ContainerBladeController} from '../controller/container-blade';
-import {ValueBladeController} from '../controller/value-blade';
+import {
+	isValueBladeController,
+	ValueBladeController,
+} from '../controller/value-blade';
 import {Blade} from './blade';
 import {BladePosition} from './blade-positions';
 import {NestedOrderedSet, NestedOrderedSetEvents} from './nested-ordered-set';
@@ -32,7 +35,7 @@ export interface RackEvents {
 	};
 
 	valuechange: {
-		bladeController: BladeController;
+		bladeController: ValueBladeController<unknown>;
 		options: ValueChangeOptions;
 		sender: Rack;
 	};
@@ -47,7 +50,7 @@ function findValueBladeController(
 ): ValueBladeController<unknown> | null {
 	for (let i = 0; i < bcs.length; i++) {
 		const bc = bcs[i];
-		if (bc instanceof ValueBladeController && bc.value === v) {
+		if (isValueBladeController(bc) && bc.value === v) {
 			return bc;
 		}
 	}
@@ -154,7 +157,7 @@ export class Rack {
 			.emitter.on('change', this.onChildPositionsChange_);
 		bc.viewProps.handleDispose(this.onChildDispose_);
 
-		if (bc instanceof ValueBladeController) {
+		if (isValueBladeController(bc)) {
 			bc.value.emitter.on('change', this.onChildValueChange_);
 		} else {
 			const rack = findSubRack(bc);
@@ -181,7 +184,7 @@ export class Rack {
 		}
 
 		const bc = ev.item;
-		if (bc instanceof ValueBladeController) {
+		if (isValueBladeController(bc)) {
 			bc.value.emitter.off('change', this.onChildValueChange_);
 		} else {
 			const rack = findSubRack(bc);
