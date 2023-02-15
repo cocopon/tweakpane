@@ -6,7 +6,6 @@ import {
 } from '../../../common/model/value';
 import {ViewProps, ViewPropsEvents} from '../../../common/model/view-props';
 import {TpError} from '../../../common/tp-error';
-import {Class, forceCast} from '../../../misc/type-util';
 import {RackController} from '../../rack/controller/rack';
 import {BladeController} from '../controller/blade';
 import {ContainerBladeController} from '../controller/container-blade';
@@ -127,12 +126,10 @@ export class Rack {
 		this.bcSet_.remove(bc);
 	}
 
-	public find<B extends BladeController>(controllerClass: Class<B>): B[] {
-		return forceCast(
-			this.bcSet_.allItems().filter((bc) => {
-				return bc instanceof controllerClass;
-			}),
-		);
+	public find<B extends BladeController>(
+		finder: (bc: BladeController) => bc is B,
+	): B[] {
+		return this.bcSet_.allItems().filter(finder);
 	}
 
 	private onSetAdd_(ev: NestedOrderedSetEvents<BladeController>['add']) {
@@ -251,7 +248,7 @@ export class Rack {
 
 	private onChildValueChange_(ev: ValueEvents<unknown>['change']) {
 		const bc = findValueBladeController(
-			this.find(ValueBladeController),
+			this.find(isValueBladeController),
 			ev.sender,
 		);
 		if (!bc) {
