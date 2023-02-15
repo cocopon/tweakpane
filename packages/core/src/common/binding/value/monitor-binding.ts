@@ -8,6 +8,7 @@ import {
 import {Emitter} from '../../model/emitter';
 import {ValueChangeOptions} from '../../model/value';
 import {createValue} from '../../model/values';
+import {isBinding} from '../binding';
 import {ReadonlyBinding} from '../readonly';
 import {Ticker} from '../ticker/ticker';
 import {BindingValue} from './binding';
@@ -82,4 +83,14 @@ export class MonitorBindingValue<T> implements BindingValue<TpBuffer<T>> {
 			sender: this,
 		});
 	}
+}
+
+export function isMonitorBindingValue(
+	v: BufferedValue<unknown>,
+): v is MonitorBindingValue<unknown> {
+	if (!('binding' in v)) {
+		return false;
+	}
+	const b = v['binding'];
+	return isBinding(b) && 'read' in b && !('write' in b);
 }

@@ -24,3 +24,9 @@ export class ValueBladeController<
 		this.value = config.value;
 	}
 }
+
+export function isValueBladeController(
+	bc: BladeController,
+): bc is ValueBladeController<unknown> {
+	return 'value' in bc;
+}

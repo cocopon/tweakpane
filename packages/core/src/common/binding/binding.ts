@@ -31,8 +31,8 @@ export interface Binding {
 }
 
 export function isBinding(value: unknown): value is Binding {
-	if (!isObject(value) || !('target' in value)) {
+	if (!isObject(value)) {
 		return false;
 	}
-	return (value as {target: unknown}).target instanceof BindingTarget;
+	return 'target' in value && 'presetKey' in value;
 }

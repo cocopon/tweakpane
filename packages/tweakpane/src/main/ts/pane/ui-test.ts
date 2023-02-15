@@ -72,7 +72,7 @@ describe(Pane.name, () => {
 				pane.addInput(params, 'bar');
 				testCase.insert(pane, 1);
 
-				const cs = pane.controller_.rackController.rack.children;
+				const cs = pane['controller_'].rackController.rack.children;
 				assert.strictEqual(cs[1] instanceof testCase.expected, true);
 			});
 		});

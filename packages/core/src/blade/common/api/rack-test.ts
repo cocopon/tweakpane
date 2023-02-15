@@ -9,17 +9,18 @@ import {CheckboxController} from '../../../input-binding/boolean/controller/chec
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {forceCast} from '../../../misc/type-util';
 import {createDefaultPluginPool} from '../../../plugin/plugins';
-import {createBlade} from '../../common/model/blade';
 import {LabeledValueController} from '../../label/controller/value-label';
 import {LabelPropsObject} from '../../label/view/label';
 import {TestValueBladeApi, TestValueBladePlugin} from '../../test-util';
 import {RackController} from '../controller/rack';
+import {createBlade} from '../model/blade';
 import {RackApi} from './rack';
 
 function createApi(opt_doc?: Document) {
 	const doc = opt_doc ?? createTestWindow().document;
-	const c = new RackController(doc, {
+	const c = new RackController({
 		blade: createBlade(),
+		element: doc.createElement('div'),
 		viewProps: ViewProps.create(),
 	});
 
@@ -42,7 +43,7 @@ describe(RackApi.name, () => {
 			done();
 		});
 
-		const value: Value<number> = forceCast(bapi.controller_.value);
+		const value: Value<number> = forceCast(bapi['controller_'].value);
 		value.rawValue += 1;
 	});
 
@@ -61,7 +62,7 @@ describe(RackApi.name, () => {
 			done();
 		});
 
-		const value: Value<number> = forceCast(bapi.controller_.value);
+		const value: Value<number> = forceCast(bapi['controller_'].value);
 		value.rawValue += 1;
 	});
 
@@ -102,9 +103,9 @@ describe(RackApi.name, () => {
 		});
 
 		const item = api.addInput({foo: 0}, 'foo');
-		(item.controller_.value as Value<number>).rawValue += 1;
+		(item['controller_'].value as Value<number>).rawValue += 1;
 		api.remove(item);
-		(item.controller_.value as Value<number>).rawValue += 1;
+		(item['controller_'].value as Value<number>).rawValue += 1;
 		assert.strictEqual(count, 1);
 	});
 });

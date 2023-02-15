@@ -44,7 +44,7 @@ describe(Pane.name, () => {
 			b.on('change', () => {
 				b.dispose();
 			});
-			b.controller_.value.rawValue = 1;
+			b['controller_'].value.rawValue = 1;
 		} catch (err) {
 			assert.strictEqual((err as TpError<any>).type, 'alreadydisposed');
 			done();

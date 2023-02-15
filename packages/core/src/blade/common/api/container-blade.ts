@@ -1,7 +1,7 @@
 import {PluginPool} from '../../../plugin/pool';
-import {RackApi} from '../../rack/api/rack';
 import {ContainerBladeController} from '../controller/container-blade';
 import {BladeApi} from './blade';
+import {RackApi} from './rack';
 
 /**
  * @hidden
@@ -19,4 +19,10 @@ export class ContainerBladeApi<
 
 		this.rackApi_ = new RackApi(controller.rackController, pool);
 	}
+}
+
+export function isContainerBladeApi(
+	api: BladeApi,
+): api is ContainerBladeApi<ContainerBladeController> {
+	return 'rackApi_' in api;
 }

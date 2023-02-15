@@ -1,22 +1,28 @@
 import {Bindable, BindingTarget} from '../../../common/binding/target';
 import {isBindingValue} from '../../../common/binding/value/binding';
 import {Emitter} from '../../../common/model/emitter';
-import {Value} from '../../../common/model/value';
 import {BaseBladeParams} from '../../../common/params';
 import {TpError} from '../../../common/tp-error';
 import {PluginPool} from '../../../plugin/pool';
 import {InputBindingApi} from '../../binding/api/input-binding';
 import {MonitorBindingApi} from '../../binding/api/monitor-binding';
 import {ButtonApi} from '../../button/api/button';
-import {BladeApi} from '../../common/api/blade';
+import {FolderApi} from '../../folder/api/folder';
+import {SeparatorApi} from '../../separator/api/separator';
+import {TabApi} from '../../tab/api/tab';
+import {BladeController} from '../controller/blade';
+import {RackController} from '../controller/rack';
+import {NestedOrderedSet} from '../model/nested-ordered-set';
+import {RackEvents} from '../model/rack';
+import {BladeApi} from './blade';
 import {
 	addButtonAsBlade,
 	addFolderAsBlade,
 	addSeparatorAsBlade,
 	addTabAsBlade,
 	ContainerApi,
-} from '../../common/api/container';
-import {ContainerBladeApi} from '../../common/api/container-blade';
+} from './container';
+import {isContainerBladeApi} from './container-blade';
 import {
 	ButtonParams,
 	FolderParams,
@@ -24,16 +30,8 @@ import {
 	MonitorParams,
 	SeparatorParams,
 	TabParams,
-} from '../../common/api/params';
-import {TpChangeEvent} from '../../common/api/tp-event';
-import {BladeController} from '../../common/controller/blade';
-import {ValueBladeController} from '../../common/controller/value-blade';
-import {NestedOrderedSet} from '../../common/model/nested-ordered-set';
-import {RackEvents} from '../../common/model/rack';
-import {FolderApi} from '../../folder/api/folder';
-import {SeparatorApi} from '../../separator/api/separator';
-import {TabApi} from '../../tab/api/tab';
-import {RackController} from '../controller/rack';
+} from './params';
+import {TpChangeEvent} from './tp-event';
 
 export interface RackApiEvents {
 	change: {
@@ -42,20 +40,14 @@ export interface RackApiEvents {
 }
 
 function findSubBladeApiSet(api: BladeApi): NestedOrderedSet<BladeApi> | null {
-	if (api instanceof RackApi) {
-		return api['apiSet_'];
-	}
-	if (api instanceof ContainerBladeApi) {
-		return api['rackApi_']['apiSet_'];
-	}
-	return null;
+	return isContainerBladeApi(api) ? api['rackApi_']['apiSet_'] : null;
 }
 
 function getApiByController(
 	apiSet: NestedOrderedSet<BladeApi>,
 	controller: BladeController,
 ): BladeApi {
-	const api = apiSet.find((api) => api.controller_ === controller);
+	const api = apiSet.find((api) => api['controller_'] === controller);
 	/* istanbul ignore next */
 	if (!api) {
 		throw TpError.shouldNeverHappen();
@@ -73,7 +65,8 @@ function createBindingTarget<O extends Bindable, Key extends keyof O>(
 	return new BindingTarget(obj, key as string);
 }
 
-export class RackApi extends BladeApi<RackController> implements ContainerApi {
+export class RackApi implements ContainerApi {
+	private readonly controller_: RackController;
 	private readonly emitter_: Emitter<RackApiEvents>;
 	private readonly apiSet_: NestedOrderedSet<BladeApi>;
 	private readonly pool_: PluginPool;
@@ -82,12 +75,11 @@ export class RackApi extends BladeApi<RackController> implements ContainerApi {
 	 * @hidden
 	 */
 	constructor(controller: RackController, pool: PluginPool) {
-		super(controller);
-
 		this.onRackAdd_ = this.onRackAdd_.bind(this);
 		this.onRackRemove_ = this.onRackRemove_.bind(this);
 		this.onRackValueChange_ = this.onRackValueChange_.bind(this);
 
+		this.controller_ = controller;
 		this.emitter_ = new Emitter();
 		this.apiSet_ = new NestedOrderedSet(findSubBladeApiSet);
 		this.pool_ = pool;
@@ -113,7 +105,7 @@ export class RackApi extends BladeApi<RackController> implements ContainerApi {
 		opt_params?: InputParams,
 	): InputBindingApi<unknown, O[Key]> {
 		const params = opt_params ?? {};
-		const doc = this.controller_.view.element.ownerDocument;
+		const doc = this.controller_.element.ownerDocument;
 		const bc = this.pool_.createInput(
 			doc,
 			createBindingTarget(object, key),
@@ -129,7 +121,7 @@ export class RackApi extends BladeApi<RackController> implements ContainerApi {
 		opt_params?: MonitorParams,
 	): MonitorBindingApi<O[Key]> {
 		const params = opt_params ?? {};
-		const doc = this.controller_.view.element.ownerDocument;
+		const doc = this.controller_.element.ownerDocument;
 		const bc = this.pool_.createMonitor(
 			doc,
 			createBindingTarget(object, key),
@@ -158,10 +150,12 @@ export class RackApi extends BladeApi<RackController> implements ContainerApi {
 	}
 
 	public add<A extends BladeApi>(api: A, opt_index?: number): A {
-		this.controller_.rack.add(api.controller_, opt_index);
+		this.controller_.rack.add(api['controller_'], opt_index);
 
 		// Replace generated API with specified one
-		const gapi = this.apiSet_.find((a) => a.controller_ === api.controller_);
+		const gapi = this.apiSet_.find(
+			(a) => a['controller_'] === api['controller_'],
+		);
 		if (gapi) {
 			this.apiSet_.remove(gapi);
 		}
@@ -171,11 +165,11 @@ export class RackApi extends BladeApi<RackController> implements ContainerApi {
 	}
 
 	public remove(api: BladeApi): void {
-		this.controller_.rack.remove(api.controller_);
+		this.controller_.rack.remove(api['controller_']);
 	}
 
 	public addBlade(params: BaseBladeParams): BladeApi {
-		const doc = this.controller_.view.element.ownerDocument;
+		const doc = this.controller_.element.ownerDocument;
 		const bc = this.pool_.createBlade(doc, params);
 		const api = this.pool_.createBladeApi(bc);
 		return this.add(api, params.index);
@@ -198,7 +192,7 @@ export class RackApi extends BladeApi<RackController> implements ContainerApi {
 	 * @param bc The controller.
 	 */
 	private setUpApi_(bc: BladeController): void {
-		const api = this.apiSet_.find((api) => api.controller_ === bc);
+		const api = this.apiSet_.find((api) => api['controller_'] === bc);
 		if (!api) {
 			// Auto-fill missing API
 			this.apiSet_.add(this.pool_.createBladeApi(bc));
@@ -219,14 +213,12 @@ export class RackApi extends BladeApi<RackController> implements ContainerApi {
 	private onRackValueChange_(ev: RackEvents['valuechange']) {
 		const bc = ev.bladeController;
 		const api = getApiByController(this.apiSet_, bc);
-		const value: Value<unknown> =
-			bc instanceof ValueBladeController ? bc.value : null;
-		const binding = isBindingValue(value) ? value.binding : null;
+		const binding = isBindingValue(bc.value) ? bc.value.binding : null;
 
 		this.emitter_.emit('change', {
 			event: new TpChangeEvent(
 				api,
-				binding ? binding.target.read() : value.rawValue,
+				binding ? binding.target.read() : bc.value.rawValue,
 				binding ? binding.presetKey : undefined,
 				ev.options.last,
 			),

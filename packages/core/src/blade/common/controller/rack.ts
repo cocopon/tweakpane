@@ -1,31 +1,27 @@
 import {insertElementAt, removeElement} from '../../../common/dom-util';
 import {ViewProps} from '../../../common/model/view-props';
-import {PlainView} from '../../../common/view/plain';
-import {BladeController} from '../../common/controller/blade';
-import {Blade} from '../../common/model/blade';
-import {Rack, RackEvents} from '../../common/model/rack';
+import {Blade} from '../model/blade';
+import {Rack, RackEvents} from '../model/rack';
 
 interface Config {
 	blade: Blade;
+	element: HTMLElement;
 	viewProps: ViewProps;
 
 	root?: boolean;
 }
 
-export class RackController extends BladeController<PlainView> {
+export class RackController {
+	public readonly element: HTMLElement;
 	public readonly rack: Rack;
+	public readonly viewProps: ViewProps;
 
-	constructor(doc: Document, config: Config) {
-		super({
-			...config,
-			view: new PlainView(doc, {
-				viewName: 'rck',
-				viewProps: config.viewProps,
-			}),
-		});
-
+	constructor(config: Config) {
 		this.onRackAdd_ = this.onRackAdd_.bind(this);
 		this.onRackRemove_ = this.onRackRemove_.bind(this);
+
+		this.element = config.element;
+		this.viewProps = config.viewProps;
 
 		const rack = new Rack({
 			blade: config.root ? undefined : config.blade,
@@ -47,11 +43,7 @@ export class RackController extends BladeController<PlainView> {
 		if (!ev.isRoot) {
 			return;
 		}
-		insertElementAt(
-			this.view.element,
-			ev.bladeController.view.element,
-			ev.index,
-		);
+		insertElementAt(this.element, ev.bladeController.view.element, ev.index);
 	}
 
 	private onRackRemove_(ev: RackEvents['remove']): void {

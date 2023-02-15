@@ -7,7 +7,6 @@ import {View} from '../../../common/view/view';
 import {bladeContainerClassName} from '../../common/view/blade-container';
 
 interface Config {
-	contentsElement: HTMLElement;
 	empty: Value<boolean>;
 	viewProps: ViewProps;
 }
@@ -37,7 +36,7 @@ export class TabView implements View {
 		indentElem.classList.add(cn('i'));
 		this.element.appendChild(indentElem);
 
-		const contentsElem = config.contentsElement;
+		const contentsElem = doc.createElement('div');
 		contentsElem.classList.add(cn('c'));
 		this.element.appendChild(contentsElem);
 		this.contentsElement = contentsElem;
