@@ -20,3 +20,9 @@ export class ContainerBladeApi<
 		this.rackApi_ = new RackApi(controller.rackController, pool);
 	}
 }
+
+export function isContainerBladeApi(
+	api: BladeApi,
+): api is ContainerBladeApi<ContainerBladeController> {
+	return 'rackApi_' in api;
+}

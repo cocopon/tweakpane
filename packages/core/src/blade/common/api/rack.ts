@@ -22,7 +22,7 @@ import {
 	addTabAsBlade,
 	ContainerApi,
 } from './container';
-import {ContainerBladeApi} from './container-blade';
+import {isContainerBladeApi} from './container-blade';
 import {
 	ButtonParams,
 	FolderParams,
@@ -40,10 +40,7 @@ export interface RackApiEvents {
 }
 
 function findSubBladeApiSet(api: BladeApi): NestedOrderedSet<BladeApi> | null {
-	if (api instanceof ContainerBladeApi) {
-		return api['rackApi_']['apiSet_'];
-	}
-	return null;
+	return isContainerBladeApi(api) ? api['rackApi_']['apiSet_'] : null;
 }
 
 function getApiByController(
