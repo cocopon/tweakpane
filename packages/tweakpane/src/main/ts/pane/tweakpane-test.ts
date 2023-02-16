@@ -8,6 +8,7 @@ import {
 	TextController,
 	TpError,
 	ValueMap,
+	VERSION,
 	ViewProps,
 	writePrimitive,
 } from '@tweakpane/core';
@@ -96,6 +97,7 @@ describe('Tweakpane', () => {
 				id: 'test',
 				type: 'input',
 				css: css,
+				core: VERSION,
 				accept: (value, params) => {
 					if (typeof value !== 'string') {
 						return null;

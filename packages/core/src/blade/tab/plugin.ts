@@ -2,6 +2,7 @@ import {ValueMap} from '../../common/model/value-map';
 import {ViewProps} from '../../common/model/view-props';
 import {BaseBladeParams} from '../../common/params';
 import {ParamsParsers, parseParams} from '../../common/params-parsers';
+import {VERSION} from '../../version';
 import {createBlade} from '../common/model/blade';
 import {BladePlugin} from '../plugin';
 import {TabApi} from './api/tab';
@@ -20,6 +21,7 @@ export interface TabBladeParams extends BaseBladeParams {
 export const TabBladePlugin: BladePlugin<TabBladeParams> = {
 	id: 'tab',
 	type: 'blade',
+	core: VERSION,
 	accept(params) {
 		const p = ParamsParsers;
 		const result = parseParams<TabBladeParams>(params, {

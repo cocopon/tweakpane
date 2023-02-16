@@ -20,6 +20,7 @@ import {
 	parsePointDimensionParams,
 } from '../../common/util';
 import {isEmpty} from '../../misc/type-util';
+import {VERSION} from '../../version';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {
 	createRangeConstraint,
@@ -147,6 +148,7 @@ export const Point2dInputPlugin: InputBindingPlugin<
 > = {
 	id: 'input-point2d',
 	type: 'input',
+	core: VERSION,
 	accept: (value, params) => {
 		if (!Point2d.isObject(value)) {
 			return null;

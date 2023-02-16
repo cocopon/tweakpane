@@ -1,6 +1,7 @@
 import {BladePlugin} from '../../blade/plugin';
 import {BaseBladeParams} from '../../common/params';
 import {ParamsParsers, parseParams} from '../../common/params-parsers';
+import {VERSION} from '../../version';
 import {SeparatorApi} from './api/separator';
 import {SeparatorController} from './controller/separator';
 
@@ -11,6 +12,7 @@ export interface SeparatorBladeParams extends BaseBladeParams {
 export const SeparatorBladePlugin: BladePlugin<SeparatorBladeParams> = {
 	id: 'separator',
 	type: 'blade',
+	core: VERSION,
 	accept(params) {
 		const p = ParamsParsers;
 		const result = parseParams<SeparatorBladeParams>(params, {

@@ -13,6 +13,7 @@ import {BaseInputParams, ListParamsOptions} from '../../common/params';
 import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {writePrimitive} from '../../common/primitive';
 import {createListConstraint, parseListOptions} from '../../common/util';
+import {VERSION} from '../../version';
 import {InputBindingPlugin} from '../plugin';
 import {CheckboxController} from './controller/checkbox';
 
@@ -41,6 +42,7 @@ export const BooleanInputPlugin: InputBindingPlugin<
 > = {
 	id: 'input-bool',
 	type: 'input',
+	core: VERSION,
 	accept: (value, params) => {
 		if (typeof value !== 'boolean') {
 			return null;

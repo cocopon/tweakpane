@@ -1,5 +1,6 @@
 import {BindingReader} from '../../common/binding/binding';
 import {Formatter} from '../../common/converter/formatter';
+import {VERSION} from '../../version';
 import {InputBindingPlugin} from '../plugin';
 import {ColorController} from './controller/color';
 import {colorFromObject} from './converter/color-object';
@@ -67,6 +68,7 @@ export const ObjectColorInputPlugin: InputBindingPlugin<
 > = {
 	id: 'input-color-object',
 	type: 'input',
+	core: VERSION,
 	accept: (value, params) => {
 		if (!isColorObject(value)) {
 			return null;

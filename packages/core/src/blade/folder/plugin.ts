@@ -1,6 +1,7 @@
 import {ValueMap} from '../../common/model/value-map';
 import {BaseBladeParams} from '../../common/params';
 import {ParamsParsers, parseParams} from '../../common/params-parsers';
+import {VERSION} from '../../version';
 import {BladePlugin} from '../plugin';
 import {FolderApi} from './api/folder';
 import {FolderController} from './controller/folder';
@@ -16,6 +17,7 @@ export interface FolderBladeParams extends BaseBladeParams {
 export const FolderBladePlugin: BladePlugin<FolderBladeParams> = {
 	id: 'folder',
 	type: 'blade',
+	core: VERSION,
 	accept(params) {
 		const p = ParamsParsers;
 		const result = parseParams<FolderBladeParams>(params, {

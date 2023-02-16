@@ -6,6 +6,7 @@ import {BaseBladeParams} from '../common/params';
 import {ParamsParsers, parseParams} from '../common/params-parsers';
 import {PlainView} from '../common/view/plain';
 import {CheckboxController} from '../input-binding/boolean/controller/checkbox';
+import {VERSION} from '../version';
 import {BladeApi} from './common/api/blade';
 import {BladeController} from './common/controller/blade';
 import {createBlade} from './common/model/blade';
@@ -70,6 +71,7 @@ interface TestBladeParams extends BaseBladeParams {
 export const TestValueBladePlugin: BladePlugin<TestBladeParams> = {
 	id: 'test',
 	type: 'blade',
+	core: VERSION,
 	accept(params) {
 		const p = ParamsParsers;
 		const r = parseParams(params, {

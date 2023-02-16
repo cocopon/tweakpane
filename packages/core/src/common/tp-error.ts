@@ -6,6 +6,7 @@ interface ErrorContext {
 	nomatchingcontroller: {key: string};
 	nomatchingview: {params: Record<string, unknown>};
 	notbindable: undefined;
+	notcompatible: {id: string};
 	propertynotfound: {name: string};
 	shouldneverhappen: undefined;
 }
@@ -27,6 +28,7 @@ const CREATE_MESSAGE_MAP: {[key in ErrorType]: CreateMessage<key>} = {
 	nomatchingview: (context) =>
 		`No matching view for '${JSON.stringify(context.params)}'`,
 	notbindable: () => `Value is not bindable`,
+	notcompatible: (context) => `Not compatible with  plugin '${context.id}'`,
 	propertynotfound: (context) => `Property '${context.name}' not found`,
 	shouldneverhappen: () => 'This error should never happen',
 };
@@ -39,6 +41,15 @@ export class TpError<T extends ErrorType> {
 	public static notBindable(): TpError<'notbindable'> {
 		return new TpError({
 			type: 'notbindable',
+		});
+	}
+
+	public static notCompatible(id: string): TpError<'notcompatible'> {
+		return new TpError({
+			type: 'notcompatible',
+			context: {
+				id: id,
+			},
 		});
 	}
 
@@ -67,5 +78,9 @@ export class TpError<T extends ErrorType> {
 		this.name = this.constructor.name;
 		this.stack = new Error(this.message).stack;
 		this.type = config.type;
+	}
+
+	public toString(): string {
+		return this.message;
 	}
 }

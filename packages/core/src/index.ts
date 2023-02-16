@@ -135,6 +135,7 @@ export * from './input-binding/string/plugin';
 export {InputBindingPlugin} from './input-binding/plugin';
 
 export * from './misc/constants';
+export * from './misc/semver';
 export * from './misc/type-util';
 
 export * from './monitor-binding/boolean/plugin';
@@ -149,3 +150,5 @@ export {MonitorBindingPlugin} from './monitor-binding/plugin';
 export * from './plugin/plugin';
 export * from './plugin/plugins';
 export * from './plugin/pool';
+
+export * from './version';

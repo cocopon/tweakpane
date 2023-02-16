@@ -1,5 +1,6 @@
 import {Formatter} from '../../common/converter/formatter';
 import {TpError} from '../../common/tp-error';
+import {VERSION} from '../../version';
 import {InputBindingPlugin} from '../plugin';
 import {ColorController} from './controller/color';
 import {
@@ -33,6 +34,7 @@ export const StringColorInputPlugin: InputBindingPlugin<
 > = {
 	id: 'input-color-string',
 	type: 'input',
+	core: VERSION,
 	accept: (value, params) => {
 		if (typeof value !== 'string') {
 			return null;

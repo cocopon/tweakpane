@@ -2,6 +2,7 @@ import {formatString, stringFromUnknown} from '../../common/converter/string';
 import {BaseMonitorParams} from '../../common/params';
 import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {Constants} from '../../misc/constants';
+import {VERSION} from '../../version';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogController} from '../common/controller/single-log';
 import {MonitorBindingPlugin} from '../plugin';
@@ -23,6 +24,7 @@ export const StringMonitorPlugin: MonitorBindingPlugin<
 > = {
 	id: 'monitor-string',
 	type: 'monitor',
+	core: VERSION,
 	accept: (value, params) => {
 		if (typeof value !== 'string') {
 			return null;

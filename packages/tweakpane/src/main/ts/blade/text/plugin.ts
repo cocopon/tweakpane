@@ -10,6 +10,7 @@ import {
 	Parser,
 	TextController,
 	ValueMap,
+	VERSION,
 } from '@tweakpane/core';
 
 import {TextBladeApi} from './api/text';
@@ -29,6 +30,7 @@ export const TextBladePlugin = (function <T>(): BladePlugin<
 	return {
 		id: 'text',
 		type: 'blade',
+		core: VERSION,
 		accept(params) {
 			const p = ParamsParsers;
 			const result = parseParams<TextBladeParams<T>>(params, {
