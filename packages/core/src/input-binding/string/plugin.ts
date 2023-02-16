@@ -14,6 +14,7 @@ import {BaseInputParams, ListParamsOptions} from '../../common/params';
 import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {writePrimitive} from '../../common/primitive';
 import {createListConstraint, parseListOptions} from '../../common/util';
+import {VERSION} from '../../version';
 import {InputBindingPlugin} from '../plugin';
 
 export interface StringInputParams extends BaseInputParams {
@@ -41,6 +42,7 @@ export const StringInputPlugin: InputBindingPlugin<
 > = {
 	id: 'input-string',
 	type: 'input',
+	core: VERSION,
 	accept: (value, params) => {
 		if (typeof value !== 'string') {
 			return null;

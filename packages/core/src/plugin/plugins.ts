@@ -35,7 +35,7 @@ export type TpPluginBundle =
 export function createDefaultPluginPool(): PluginPool {
 	const pool = new PluginPool();
 	[
-		// Inpput
+		// Input
 		Point2dInputPlugin,
 		Point3dInputPlugin,
 		Point4dInputPlugin,

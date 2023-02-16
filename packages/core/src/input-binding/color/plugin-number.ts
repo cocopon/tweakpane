@@ -1,4 +1,5 @@
 import {Formatter} from '../../common/converter/formatter';
+import {VERSION} from '../../version';
 import {InputBindingPlugin} from '../plugin';
 import {ColorController} from './controller/color';
 import {
@@ -52,6 +53,7 @@ export const NumberColorInputPlugin: InputBindingPlugin<
 > = {
 	id: 'input-color-number',
 	type: 'input',
+	core: VERSION,
 	accept: (value, params) => {
 		if (typeof value !== 'number') {
 			return null;

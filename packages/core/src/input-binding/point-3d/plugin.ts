@@ -13,6 +13,7 @@ import {
 	getSuitableDraggingScale,
 	parsePointDimensionParams,
 } from '../../common/util';
+import {VERSION} from '../../version';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {PointNdTextController} from '../common/controller/point-nd-text';
 import {InputBindingPlugin} from '../plugin';
@@ -66,6 +67,7 @@ export const Point3dInputPlugin: InputBindingPlugin<
 > = {
 	id: 'input-point3d',
 	type: 'input',
+	core: VERSION,
 	accept: (value, params) => {
 		if (!Point3d.isObject(value)) {
 			return null;

@@ -13,6 +13,7 @@ import {
 	parseParams,
 	SliderTextController,
 	ValueMap,
+	VERSION,
 } from '@tweakpane/core';
 
 import {SliderBladeApi} from './api/slider';
@@ -30,6 +31,7 @@ export interface SliderBladeParams extends BaseBladeParams {
 export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 	id: 'slider',
 	type: 'blade',
+	core: VERSION,
 	accept(params) {
 		const p = ParamsParsers;
 		const result = parseParams<SliderBladeParams>(params, {

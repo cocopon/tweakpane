@@ -34,6 +34,7 @@ import {
 	parseListOptions,
 } from '../../common/util';
 import {isEmpty} from '../../misc/type-util';
+import {VERSION} from '../../version';
 import {InputBindingPlugin} from '../plugin';
 import {SliderInputBindingApi} from './api/slider';
 
@@ -137,6 +138,7 @@ export const NumberInputPlugin: InputBindingPlugin<
 > = {
 	id: 'input-number',
 	type: 'input',
+	core: VERSION,
 	accept: (value, params) => {
 		if (typeof value !== 'number') {
 			return null;

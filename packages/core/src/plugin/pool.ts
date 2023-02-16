@@ -10,6 +10,7 @@ import {BladeController} from '../blade/common/controller/blade';
 import {BladePlugin, createBladeController} from '../blade/plugin';
 import {BindingTarget} from '../common/binding/target';
 import {TpError} from '../common/tp-error';
+import {isCompatible} from '../index';
 import {
 	createInputBindingController,
 	InputBindingPlugin,
@@ -44,6 +45,10 @@ export class PluginPool {
 	}
 
 	public register(r: TpPlugin): void {
+		if (!isCompatible(r.core)) {
+			throw TpError.notCompatible(r.id);
+		}
+
 		if (r.type === 'blade') {
 			this.pluginsMap_.blades.unshift(r);
 		} else if (r.type === 'input') {

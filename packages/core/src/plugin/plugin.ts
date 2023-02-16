@@ -1,3 +1,5 @@
+import {Semver} from '../misc/semver';
+
 export type PluginType = 'blade' | 'input' | 'monitor';
 
 /**
@@ -18,4 +20,9 @@ export interface BasePlugin {
 	 * The custom CSS for the plugin.
 	 */
 	css?: string;
+
+	/**
+	 * The version of the core used for this plugin.
+	 */
+	core?: Semver;
 }

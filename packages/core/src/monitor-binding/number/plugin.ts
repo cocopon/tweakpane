@@ -13,6 +13,7 @@ import {
 } from '../../common/params-parsers';
 import {Constants} from '../../misc/constants';
 import {isEmpty} from '../../misc/type-util';
+import {VERSION} from '../../version';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogController} from '../common/controller/single-log';
 import {MonitorBindingPlugin} from '../plugin';
@@ -84,6 +85,7 @@ export const NumberMonitorPlugin: MonitorBindingPlugin<
 > = {
 	id: 'monitor-number',
 	type: 'monitor',
+	core: VERSION,
 	accept: (value, params) => {
 		if (typeof value !== 'number') {
 			return null;

@@ -12,6 +12,7 @@ import {
 	parseListOptions,
 	parseParams,
 	ValueMap,
+	VERSION,
 } from '@tweakpane/core';
 
 import {ListBladeApi} from './api/list';
@@ -30,6 +31,7 @@ export const ListBladePlugin = (function <T>(): BladePlugin<
 	return {
 		id: 'list',
 		type: 'blade',
+		core: VERSION,
 		accept(params) {
 			const p = ParamsParsers;
 			const result = parseParams<ListBladeParams<T>>(params, {

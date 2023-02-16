@@ -1,6 +1,7 @@
 import {ValueMap} from '../../common/model/value-map';
 import {BaseBladeParams} from '../../common/params';
 import {ParamsParsers, parseParams} from '../../common/params-parsers';
+import {VERSION} from '../../version';
 import {LabelController} from '../label/controller/label';
 import {BladePlugin} from '../plugin';
 import {ButtonApi} from './api/button';
@@ -17,6 +18,7 @@ export interface ButtonBladeParams extends BaseBladeParams {
 export const ButtonBladePlugin: BladePlugin<ButtonBladeParams> = {
 	id: 'button',
 	type: 'blade',
+	core: VERSION,
 	accept(params) {
 		const p = ParamsParsers;
 		const result = parseParams<ButtonBladeParams>(params, {

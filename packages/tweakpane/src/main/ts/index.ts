@@ -1,4 +1,4 @@
-import {Semver} from './misc/semver';
+import {Semver} from '@tweakpane/core';
 
 export {
 	ArrayStyleListOptions,
@@ -25,6 +25,7 @@ export {
 	Point2dInputParams,
 	Point3dInputParams,
 	Point4dInputParams,
+	Semver,
 	SeparatorApi,
 	SeparatorParams,
 	SliderInputBindingApi,
@@ -48,4 +49,4 @@ export {TextBladeParams} from './blade/text/plugin';
 
 export {Pane} from './pane/pane';
 
-export const VERSION = new Semver('3.14.16');
+export const VERSION = new Semver('0.0.0-tweakpane.0');

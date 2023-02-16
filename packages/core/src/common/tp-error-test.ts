@@ -14,4 +14,9 @@ describe(TpError.name, () => {
 
 		assert.strictEqual(e.type, 'invalidparams');
 	});
+
+	it('should use message for toString()', () => {
+		const e = TpError.shouldNeverHappen();
+		assert.strictEqual(e.message, e.toString());
+	});
 });

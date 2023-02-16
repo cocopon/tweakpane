@@ -7,6 +7,7 @@ import {
 	stringFromUnknown,
 	Value,
 	ValueController,
+	VERSION,
 	View,
 	ViewProps,
 	writePrimitive,
@@ -54,6 +55,7 @@ class TestController implements ValueController<string, TestView> {
 const TestInputPlugin: InputBindingPlugin<string, string, BaseInputParams> = {
 	id: 'input-test',
 	type: 'input',
+	core: VERSION,
 	accept(value, params) {
 		if (typeof value !== 'string') {
 			return null;
