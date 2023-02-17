@@ -6,7 +6,7 @@ import {BindingApi} from './binding';
  * The API for the monitor binding between the parameter and the pane.
  * @template T
  */
-export type MonitorBindingApi<T> = BindingApi<
+export type MonitorBindingApi<T = unknown> = BindingApi<
 	TpBuffer<T>,
 	T,
 	MonitorBindingController<T>

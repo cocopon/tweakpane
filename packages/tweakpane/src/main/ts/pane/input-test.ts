@@ -61,7 +61,7 @@ describe(Pane.name, () => {
 					const pane = createPane();
 
 					try {
-						pane.addInput(testCase.obj, testCase.key as any);
+						pane.addBinding(testCase.obj, testCase.key as any);
 						assert.fail('should not be called');
 					} catch (ev) {
 						assert.strictEqual(ev instanceof TpError, true);
@@ -113,7 +113,7 @@ describe(Pane.name, () => {
 			it('should pass right argument for change event (local)', (done) => {
 				const pane = createPane();
 				const obj = {foo: params.propertyValue};
-				const bapi = pane.addInput(obj, 'foo');
+				const bapi = pane.addBinding(obj, 'foo');
 
 				bapi.on('change', (ev) => {
 					assert.strictEqual(ev instanceof TpChangeEvent, true);
@@ -128,7 +128,7 @@ describe(Pane.name, () => {
 			it('should pass right argument for change event (global)', (done) => {
 				const pane = createPane();
 				const obj = {foo: params.propertyValue};
-				const bapi = pane.addInput(obj, 'foo');
+				const bapi = pane.addBinding(obj, 'foo');
 
 				pane.on('change', (ev) => {
 					assert.strictEqual(ev instanceof TpChangeEvent, true);
@@ -145,7 +145,7 @@ describe(Pane.name, () => {
 	it('should dispose input', () => {
 		const PARAMS = {foo: 1};
 		const pane = createPane();
-		const bapi = pane.addInput(PARAMS, 'foo');
+		const bapi = pane.addBinding(PARAMS, 'foo');
 		bapi.dispose();
 		assert.strictEqual(
 			pane['controller_'].view.element.querySelector('.tp-lblv'),
@@ -156,7 +156,7 @@ describe(Pane.name, () => {
 	it('should bind `this` within handler to input itself', (done) => {
 		const PARAMS = {foo: 1};
 		const pane = createPane();
-		const bapi = pane.addInput(PARAMS, 'foo');
+		const bapi = pane.addBinding(PARAMS, 'foo');
 		bapi.on('change', function (this: any) {
 			assert.strictEqual(this, bapi);
 			done();
@@ -376,7 +376,7 @@ describe(Pane.name, () => {
 			it(`should return controller: ${expected.controller.name}`, () => {
 				const pane = createPane();
 				const obj = {foo: args.value};
-				const bapi = pane.addInput(obj, 'foo', forceCast(args.params));
+				const bapi = pane.addBinding(obj, 'foo', forceCast(args.params));
 				assert.strictEqual(
 					bapi['controller_'].valueController instanceof expected.controller,
 					true,
@@ -387,7 +387,7 @@ describe(Pane.name, () => {
 				it(`should return api: ${expected.api.name}`, () => {
 					const pane = createPane();
 					const obj = {foo: args.value};
-					const bapi = pane.addInput(obj, 'foo', forceCast(args.params));
+					const bapi = pane.addBinding(obj, 'foo', forceCast(args.params));
 					assert.strictEqual(bapi instanceof expected.api, true);
 				});
 			}
@@ -396,7 +396,7 @@ describe(Pane.name, () => {
 
 	it('should throw `alreadydisposed` error when calling dispose() inside input change event', (done) => {
 		const pane = createPane();
-		const bapi = pane.addInput({foo: 1}, 'foo');
+		const bapi = pane.addBinding({foo: 1}, 'foo');
 
 		try {
 			bapi.on('change', () => {

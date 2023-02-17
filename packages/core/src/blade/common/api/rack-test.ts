@@ -34,7 +34,7 @@ describe(RackApi.name, () => {
 	it('should handle global input events', (done) => {
 		const api = createApi();
 		const obj = {foo: 1};
-		const bapi = api.addInput(obj, 'foo');
+		const bapi = api.addBinding(obj, 'foo');
 
 		api.on('change', (ev) => {
 			assert.strictEqual(ev.presetKey, 'foo');
@@ -53,7 +53,7 @@ describe(RackApi.name, () => {
 		const fapi = api.addFolder({
 			title: 'foo',
 		});
-		const bapi = fapi.addInput(obj, 'foo');
+		const bapi = fapi.addBinding(obj, 'foo');
 
 		api.on('change', (ev) => {
 			assert.strictEqual(ev.presetKey, 'foo');
@@ -102,7 +102,7 @@ describe(RackApi.name, () => {
 			count += 1;
 		});
 
-		const item = api.addInput({foo: 0}, 'foo');
+		const item = api.addBinding({foo: 0}, 'foo');
 		(item['controller_'].value as Value<number>).rawValue += 1;
 		api.remove(item);
 		(item['controller_'].value as Value<number>).rawValue += 1;

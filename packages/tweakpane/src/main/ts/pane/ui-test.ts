@@ -23,15 +23,16 @@ describe(Pane.name, () => {
 		[
 			{
 				insert: (api, index) => {
-					api.addInput({foo: 1}, 'foo', {index: index});
+					api.addBinding({foo: 1}, 'foo', {index: index});
 				},
 				expected: LabeledValueController,
 			},
 			{
 				insert: (api, index) => {
-					api.addMonitor({foo: 1}, 'foo', {
+					api.addBinding({foo: 1}, 'foo', {
 						index: index,
 						interval: 0,
+						readonly: true,
 					});
 				},
 				expected: LabeledValueController,
@@ -68,8 +69,8 @@ describe(Pane.name, () => {
 					foo: 1,
 				};
 				const pane = createApi();
-				pane.addInput(params, 'foo');
-				pane.addInput(params, 'bar');
+				pane.addBinding(params, 'foo');
+				pane.addBinding(params, 'bar');
 				testCase.insert(pane, 1);
 
 				const cs = pane['controller_'].rackController.rack.children;

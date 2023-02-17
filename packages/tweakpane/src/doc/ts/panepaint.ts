@@ -116,7 +116,7 @@ export function createPane(container: HTMLElement, theme: Theme): any {
 		preset: '',
 	};
 	pane
-		.addInput(presetObj, 'preset', {
+		.addBinding(presetObj, 'preset', {
 			options: {
 				'Select...': '',
 				Default: 'default',
@@ -172,7 +172,7 @@ export function createPane(container: HTMLElement, theme: Theme): any {
 		group.props.forEach((prop) => {
 			const m = prop.match(/(.+):state$/);
 			if (!m) {
-				f.addInput(theme, prop as ThemeProperty, {
+				f.addBinding(theme, prop as ThemeProperty, {
 					label: group
 						.label(prop)
 						.replace('background', 'bg')
@@ -214,7 +214,7 @@ export function createPane(container: HTMLElement, theme: Theme): any {
 			const baseProp = m[1];
 			['active', 'focus', 'hover'].forEach((state) => {
 				const prop = [baseProp, state].join('-');
-				sf.addInput(theme, prop as ThemeProperty, {
+				sf.addBinding(theme, prop as ThemeProperty, {
 					label: group
 						.label(prop)
 						.replace('background', 'bg')

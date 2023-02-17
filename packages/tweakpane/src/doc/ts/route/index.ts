@@ -94,8 +94,8 @@ export function initIndex() {
 				container: container,
 				title: 'Parameters',
 			});
-			pane.addInput(ENV, 'color').on('change', updateBg);
-			pane.addInput(ENV, 'title').on('change', (ev) => {
+			pane.addBinding(ENV, 'color').on('change', updateBg);
+			pane.addBinding(ENV, 'title').on('change', (ev) => {
 				const titleElem = document.querySelector('.pageHeader_title');
 				if (titleElem) {
 					titleElem.textContent = ev.value;
@@ -105,29 +105,29 @@ export function initIndex() {
 				pages: [{title: 'Layout'}, {title: 'Presets'}],
 			});
 			const p0 = tab.pages[0];
-			p0.addInput(ENV, 'spacing', {
+			p0.addBinding(ENV, 'spacing', {
 				max: 48,
 				min: 24,
 			});
-			p0.addInput(ENV, 'range', {
+			p0.addBinding(ENV, 'range', {
 				max: 1,
 				min: 0,
 			});
-			p0.addInput(ENV, 'maxSize', {
+			p0.addBinding(ENV, 'maxSize', {
 				max: 128,
 				min: 5,
 			});
-			p0.addInput(ENV, 'freq', {
+			p0.addBinding(ENV, 'freq', {
 				x: {max: 64, min: 0},
 				y: {max: 32, min: 0},
 			});
-			p0.addInput(ENV, 'amp', {
+			p0.addBinding(ENV, 'amp', {
 				x: {max: 0.3, min: 0},
 				y: {max: 1, min: 0},
 			});
 
 			const p1 = tab.pages[1];
-			p1.addInput(HIDDEN_PARAMS, 'presetId', {
+			p1.addBinding(HIDDEN_PARAMS, 'presetId', {
 				label: 'preset',
 				options: {
 					'Import...': '',
@@ -143,9 +143,10 @@ export function initIndex() {
 					pane.importPreset(preset as any);
 				}
 			});
-			p1.addMonitor(HIDDEN_PARAMS, 'presetJson', {
+			p1.addBinding(HIDDEN_PARAMS, 'presetJson', {
 				label: 'data',
 				multiline: true,
+				readonly: true,
 				rows: 4,
 			});
 

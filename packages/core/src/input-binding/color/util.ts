@@ -27,6 +27,7 @@ export function parseColorInputParams(
 		}),
 		expanded: p.optional.boolean,
 		picker: p.optional.custom(parsePickerLayout),
+		readonly: p.optional.constant(false),
 	});
 }
 

@@ -51,28 +51,29 @@ function createPreviewPane(containerElem: HTMLElement, expanded = true) {
 		container: containerElem,
 		title: 'Preview',
 	});
-	pane.addInput(PARAMS, 'text');
-	pane.addInput(PARAMS, 'slider', {
+	pane.addBinding(PARAMS, 'text');
+	pane.addBinding(PARAMS, 'slider', {
 		max: 64,
 		min: 0,
 	});
-	pane.addInput(PARAMS, 'list', {
+	pane.addBinding(PARAMS, 'list', {
 		options: {item: 'item'},
 	});
-	pane.addInput(PARAMS, 'checkbox');
+	pane.addBinding(PARAMS, 'checkbox');
 	pane.addButton({
 		title: 'button',
 	});
 	pane.addSeparator();
-	pane.addMonitor(PARAMS, 'monitor', {
+	pane.addBinding(PARAMS, 'monitor', {
 		interval: 0,
 		multiline: true,
+		readonly: true,
 	});
 	pane
 		.addFolder({
 			title: 'folder',
 		})
-		.addInput(PARAMS, 'color', {
+		.addBinding(PARAMS, 'color', {
 			expanded: expanded,
 			picker: 'inline',
 		});
@@ -80,7 +81,7 @@ function createPreviewPane(containerElem: HTMLElement, expanded = true) {
 		.addFolder({
 			title: 'folder',
 		})
-		.addInput(PARAMS, 'point2d', {
+		.addBinding(PARAMS, 'point2d', {
 			expanded: expanded,
 			picker: 'inline',
 		});

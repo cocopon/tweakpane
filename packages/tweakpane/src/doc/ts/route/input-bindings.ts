@@ -22,15 +22,15 @@ export function initInputBindings() {
 			const nf = pane.addFolder({
 				title: 'Number',
 			});
-			nf.addInput(PARAMS, 'n', {
+			nf.addBinding(PARAMS, 'n', {
 				label: 'text',
 			});
-			nf.addInput(PARAMS, 'n', {
+			nf.addBinding(PARAMS, 'n', {
 				label: 'slider',
 				max: 100,
 				min: 0,
 			});
-			nf.addInput(PARAMS, 'n', {
+			nf.addBinding(PARAMS, 'n', {
 				label: 'list',
 				options: {
 					low: 0,
@@ -41,10 +41,10 @@ export function initInputBindings() {
 			const sf = pane.addFolder({
 				title: 'String',
 			});
-			sf.addInput(PARAMS, 's', {
+			sf.addBinding(PARAMS, 's', {
 				label: 'text',
 			});
-			sf.addInput(PARAMS, 'theme', {
+			sf.addBinding(PARAMS, 'theme', {
 				label: 'list',
 				options: {
 					dark: 'Dark',
@@ -54,19 +54,19 @@ export function initInputBindings() {
 			const bf = pane.addFolder({
 				title: 'Boolean',
 			});
-			bf.addInput(PARAMS, 'b', {
+			bf.addBinding(PARAMS, 'b', {
 				label: 'checkbox',
 			});
 			const mf = pane.addFolder({
 				title: 'Misc',
 			});
-			mf.addInput(PARAMS, 'c', {
+			mf.addBinding(PARAMS, 'c', {
 				label: 'color',
 			});
-			mf.addInput(PARAMS, 'v2', {
+			mf.addBinding(PARAMS, 'v2', {
 				label: '2d',
 			});
-			mf.addInput(PARAMS, 'v3', {
+			mf.addBinding(PARAMS, 'v3', {
 				label: '3d',
 			});
 		},
@@ -75,7 +75,7 @@ export function initInputBindings() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'value', {
+			pane.addBinding(PARAMS, 'value', {
 				label: 'text',
 			});
 		},
@@ -84,7 +84,7 @@ export function initInputBindings() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'value', {
+			pane.addBinding(PARAMS, 'value', {
 				label: 'slider',
 				max: 100,
 				min: 0,
@@ -98,10 +98,10 @@ export function initInputBindings() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'speed', {
+			pane.addBinding(PARAMS, 'speed', {
 				step: 0.1,
 			});
-			pane.addInput(PARAMS, 'count', {
+			pane.addBinding(PARAMS, 'count', {
 				label: 'count',
 				max: 100,
 				min: 0,
@@ -120,10 +120,11 @@ export function initInputBindings() {
 			const consolePane = new Pane({
 				container: consoleElem,
 			});
-			consolePane.addMonitor(log, 'json', {
+			consolePane.addBinding(log, 'json', {
 				interval: 0,
 				label: 'PARAMS',
 				multiline: true,
+				readonly: true,
 			});
 
 			const updateLog = () => {
@@ -135,7 +136,7 @@ export function initInputBindings() {
 				container: container,
 			});
 			pane
-				.addInput(PARAMS, 'quality', {
+				.addBinding(PARAMS, 'quality', {
 					options: {
 						low: 0,
 						medium: 50,
@@ -152,7 +153,7 @@ export function initInputBindings() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'value', {
+			pane.addBinding(PARAMS, 'value', {
 				format: (v) => v.toFixed(6),
 				label: 'k',
 			});
@@ -162,7 +163,7 @@ export function initInputBindings() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'value', {
+			pane.addBinding(PARAMS, 'value', {
 				label: 'message',
 			});
 		},
@@ -176,10 +177,11 @@ export function initInputBindings() {
 			const consolePane = new Pane({
 				container: consoleElem,
 			});
-			consolePane.addMonitor(log, 'json', {
+			consolePane.addBinding(log, 'json', {
 				interval: 0,
 				label: 'PARAMS',
 				multiline: true,
+				readonly: true,
 			});
 
 			const updateLog = () => {
@@ -191,7 +193,7 @@ export function initInputBindings() {
 				container: container,
 			});
 			pane
-				.addInput(PARAMS, 'theme', {
+				.addBinding(PARAMS, 'theme', {
 					options: {
 						none: '',
 						dark: 'dark-theme.json',
@@ -208,7 +210,7 @@ export function initInputBindings() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'value', {
+			pane.addBinding(PARAMS, 'value', {
 				label: 'hidden',
 			});
 		},
@@ -220,8 +222,8 @@ export function initInputBindings() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'background');
-			pane.addInput(PARAMS, 'tint');
+			pane.addBinding(PARAMS, 'background');
+			pane.addBinding(PARAMS, 'tint');
 		},
 		floatcolor: (container) => {
 			const PARAMS = {
@@ -230,7 +232,7 @@ export function initInputBindings() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'overlay', {
+			pane.addBinding(PARAMS, 'overlay', {
 				color: {type: 'float'},
 			});
 		},
@@ -242,8 +244,8 @@ export function initInputBindings() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'primary');
-			pane.addInput(PARAMS, 'secondary');
+			pane.addBinding(PARAMS, 'primary');
+			pane.addBinding(PARAMS, 'secondary');
 		},
 		numbercolor: (container) => {
 			const PARAMS = {
@@ -253,10 +255,10 @@ export function initInputBindings() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'background', {
+			pane.addBinding(PARAMS, 'background', {
 				view: 'color',
 			});
-			pane.addInput(PARAMS, 'tint', {
+			pane.addBinding(PARAMS, 'tint', {
 				color: {
 					alpha: true,
 				},
@@ -269,7 +271,7 @@ export function initInputBindings() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'hex', {
+			pane.addBinding(PARAMS, 'hex', {
 				view: 'text',
 			});
 		},
@@ -280,7 +282,7 @@ export function initInputBindings() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'key', {
+			pane.addBinding(PARAMS, 'key', {
 				expanded: true,
 				picker: 'inline',
 			});
@@ -290,7 +292,7 @@ export function initInputBindings() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'value', {
+			pane.addBinding(PARAMS, 'value', {
 				label: 'offset',
 			});
 		},
@@ -299,7 +301,7 @@ export function initInputBindings() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'value', {
+			pane.addBinding(PARAMS, 'value', {
 				label: 'offset',
 				x: {step: 20},
 				y: {min: 0, max: 100},
@@ -310,7 +312,7 @@ export function initInputBindings() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'value', {
+			pane.addBinding(PARAMS, 'value', {
 				label: 'offset',
 				y: {inverted: true},
 			});
@@ -320,7 +322,7 @@ export function initInputBindings() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'value', {
+			pane.addBinding(PARAMS, 'value', {
 				expanded: true,
 				label: 'offset',
 				picker: 'inline',
@@ -334,8 +336,8 @@ export function initInputBindings() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'source');
-			pane.addInput(PARAMS, 'camera', {
+			pane.addBinding(PARAMS, 'source');
+			pane.addBinding(PARAMS, 'camera', {
 				y: {step: 10},
 				z: {max: 0},
 			});
@@ -348,7 +350,7 @@ export function initInputBindings() {
 				container: container,
 			});
 			const copt = {min: 0, max: 1};
-			pane.addInput(PARAMS, 'color', {
+			pane.addBinding(PARAMS, 'color', {
 				x: copt,
 				y: copt,
 				z: copt,

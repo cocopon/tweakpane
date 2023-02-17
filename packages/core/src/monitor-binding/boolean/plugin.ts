@@ -33,6 +33,7 @@ export const BooleanMonitorPlugin: MonitorBindingPlugin<
 		}
 		const p = ParamsParsers;
 		const result = parseParams<BooleanMonitorParams>(params, {
+			readonly: p.required.constant(true),
 			rows: p.optional.number,
 		});
 		return result

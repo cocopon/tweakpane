@@ -11,7 +11,7 @@ const pane = new Pane({
 });
 pane.registerPlugin(TestInputPlugin);
 
-const input = pane.addInput(params, 'foo', {
+const input = pane.addBinding(params, 'foo', {
 	view: 'test',
 });
 const elem = input['controller_'].view.element.querySelector('.tp-tstv');

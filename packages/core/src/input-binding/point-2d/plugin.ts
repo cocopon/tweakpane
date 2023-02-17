@@ -157,6 +157,7 @@ export const Point2dInputPlugin: InputBindingPlugin<
 		const result = parseParams<Point2dInputParams>(params, {
 			expanded: p.optional.boolean,
 			picker: p.optional.custom(parsePickerLayout),
+			readonly: p.optional.constant(false),
 			x: p.optional.custom(parsePointDimensionParams),
 			y: p.optional.object<Point2dYParams & Record<string, unknown>>({
 				inverted: p.optional.boolean,

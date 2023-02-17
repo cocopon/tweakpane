@@ -49,6 +49,7 @@ export const StringInputPlugin: InputBindingPlugin<
 		}
 		const p = ParamsParsers;
 		const result = parseParams<StringInputParams>(params, {
+			readonly: p.optional.constant(false),
 			options: p.optional.custom<ListParamsOptions<string>>(parseListOptions),
 		});
 		return result

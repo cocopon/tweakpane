@@ -24,14 +24,14 @@ export function initPlugins() {
 			const fi = pane.addFolder({
 				title: 'Input bindings',
 			});
-			fi.addInput(params, 'interval', {
+			fi.addBinding(params, 'interval', {
 				min: 0,
 				max: 100,
 				step: 1,
 			});
 
 			const scales = [10, 20, 25, 50, 75, 100];
-			fi.addInput(params, 'radiogrid', {
+			fi.addBinding(params, 'radiogrid', {
 				groupName: 'scale',
 				label: 'radiogrid',
 				size: [3, 2],
@@ -91,11 +91,11 @@ export function initPlugins() {
 				container: container,
 			});
 			pane.registerPlugin(TweakpaneCamerakitPlugin);
-			pane.addInput(params, 'flen', {
+			pane.addBinding(params, 'flen', {
 				view: 'cameraring',
 				series: 0,
 			});
-			pane.addInput(params, 'fnum', {
+			pane.addBinding(params, 'fnum', {
 				view: 'cameraring',
 				series: 1,
 				unit: {
@@ -107,11 +107,11 @@ export function initPlugins() {
 				min: 1.4,
 				step: 0.02,
 			});
-			pane.addInput(params, 'flen', {
+			pane.addBinding(params, 'flen', {
 				view: 'cameraring',
 				series: 2,
 			});
-			pane.addInput(params, 'iso', {
+			pane.addBinding(params, 'iso', {
 				view: 'camerawheel',
 				amount: 10,
 				min: 100,

@@ -35,9 +35,9 @@ export function initQuickTour() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'factor');
-			pane.addInput(PARAMS, 'title');
-			pane.addInput(PARAMS, 'color');
+			pane.addBinding(PARAMS, 'factor');
+			pane.addBinding(PARAMS, 'title');
+			pane.addBinding(PARAMS, 'color');
 		},
 		inputparams: (container) => {
 			const PARAMS = {
@@ -47,12 +47,12 @@ export function initQuickTour() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'percentage', {
+			pane.addBinding(PARAMS, 'percentage', {
 				min: 0,
 				max: 100,
 				step: 10,
 			});
-			pane.addInput(PARAMS, 'theme', {
+			pane.addBinding(PARAMS, 'theme', {
 				options: {
 					Dark: 'dark',
 					Light: 'light',
@@ -68,13 +68,13 @@ export function initQuickTour() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'factor');
+			pane.addBinding(PARAMS, 'factor');
 			const f = pane.addFolder({
 				title: 'Title',
 				expanded: true,
 			});
-			f.addInput(PARAMS, 'text');
-			f.addInput(PARAMS, 'size', {
+			f.addBinding(PARAMS, 'text');
+			f.addBinding(PARAMS, 'size', {
 				min: 8,
 				max: 100,
 				step: 1,
@@ -90,13 +90,13 @@ export function initQuickTour() {
 				container: container,
 				title: 'Parameters',
 			});
-			pane.addInput(PARAMS, 'factor');
+			pane.addBinding(PARAMS, 'factor');
 			const f = pane.addFolder({
 				title: 'Title',
 				expanded: true,
 			});
-			f.addInput(PARAMS, 'text');
-			f.addInput(PARAMS, 'size', {
+			f.addBinding(PARAMS, 'text');
+			f.addBinding(PARAMS, 'size', {
 				min: 8,
 				max: 100,
 				step: 1,
@@ -116,10 +116,11 @@ export function initQuickTour() {
 			const consolePane = new Pane({
 				container: consoleElem,
 			});
-			consolePane.addMonitor(PARAMS, 'log', {
+			consolePane.addBinding(PARAMS, 'log', {
 				bufferSize: 100,
 				interval: 0,
 				label: 'console',
+				readonly: true,
 				rows: 5,
 			});
 
@@ -127,7 +128,7 @@ export function initQuickTour() {
 				container: container,
 			});
 			pane
-				.addInput(PARAMS, 'size', {
+				.addBinding(PARAMS, 'size', {
 					min: 8,
 					max: 100,
 					step: 1,
@@ -153,23 +154,24 @@ export function initQuickTour() {
 			const consolePane = new Pane({
 				container: consoleElem,
 			});
-			consolePane.addMonitor(PARAMS, 'log', {
+			consolePane.addBinding(PARAMS, 'log', {
 				interval: 0,
 				label: 'preset',
 				multiline: true,
+				readonly: true,
 				rows: 5,
 			});
 
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'factor', {
+			pane.addBinding(PARAMS, 'factor', {
 				min: 0,
 				max: 100,
 				step: 1,
 			});
-			pane.addInput(PARAMS, 'title');
-			pane.addInput(PARAMS, 'color');
+			pane.addBinding(PARAMS, 'title');
+			pane.addBinding(PARAMS, 'color');
 			pane.addSeparator();
 			pane
 				.addButton({
@@ -195,10 +197,11 @@ export function initQuickTour() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addMonitor(PARAMS, 'signal', {
-				view: 'graph',
+			pane.addBinding(PARAMS, 'signal', {
 				min: -1,
 				max: +1,
+				readonly: true,
+				view: 'graph',
 			});
 		},
 	};

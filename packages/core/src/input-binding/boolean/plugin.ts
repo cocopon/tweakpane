@@ -50,6 +50,7 @@ export const BooleanInputPlugin: InputBindingPlugin<
 		const p = ParamsParsers;
 		const result = parseParams<BooleanInputParams>(params, {
 			options: p.optional.custom<ListParamsOptions<boolean>>(parseListOptions),
+			readonly: p.optional.constant(false),
 		});
 		return result
 			? {

@@ -74,6 +74,7 @@ export const Point3dInputPlugin: InputBindingPlugin<
 		}
 		const p = ParamsParsers;
 		const result = parseParams<Point3dInputParams>(params, {
+			readonly: p.optional.constant(false),
 			x: p.optional.custom(parsePointDimensionParams),
 			y: p.optional.custom(parsePointDimensionParams),
 			z: p.optional.custom(parsePointDimensionParams),

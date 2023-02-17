@@ -50,7 +50,9 @@ const TestPlugin: MonitorBindingPlugin<string, BaseMonitorParams> = {
 		}
 		return {
 			initialValue: ex,
-			params: {},
+			params: {
+				readonly: true,
+			},
 		};
 	},
 	binding: {

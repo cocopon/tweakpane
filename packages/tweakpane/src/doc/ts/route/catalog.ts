@@ -20,8 +20,8 @@ function createThemePane(container: HTMLElement): Pane {
 		container: container,
 		title: 'Theme',
 	});
-	pane.addInput({text: 0}, 'text');
-	pane.addInput({slider: 0}, 'slider', {
+	pane.addBinding({text: 0}, 'text');
+	pane.addBinding({slider: 0}, 'slider', {
 		min: -1,
 		max: 1,
 	});
@@ -53,15 +53,15 @@ export function initCatalog() {
 				container: container,
 				title: 'Number',
 			});
-			pane.addInput(params, 'number', {
+			pane.addBinding(params, 'number', {
 				label: 'text',
 			});
-			pane.addInput(params, 'number', {
+			pane.addBinding(params, 'number', {
 				label: 'slider',
 				min: -100,
 				max: 100,
 			});
-			pane.addInput(params, 'number', {
+			pane.addBinding(params, 'number', {
 				label: 'list',
 				options: {
 					option: 0,
@@ -77,10 +77,10 @@ export function initCatalog() {
 				container: container,
 				title: 'String',
 			});
-			pane.addInput(params, 'string', {
+			pane.addBinding(params, 'string', {
 				label: 'text',
 			});
-			pane.addInput(params, 'string', {
+			pane.addBinding(params, 'string', {
 				label: 'list',
 				options: {
 					option: 'text',
@@ -96,7 +96,7 @@ export function initCatalog() {
 				container: container,
 				title: 'Boolean',
 			});
-			pane.addInput(params, 'bool', {
+			pane.addBinding(params, 'bool', {
 				label: 'checkbox',
 			});
 			return pane;
@@ -109,7 +109,7 @@ export function initCatalog() {
 				container: container,
 				title: 'Color',
 			});
-			pane.addInput(params, 'color', {
+			pane.addBinding(params, 'color', {
 				expanded: true,
 				label: 'picker',
 				picker: 'inline',
@@ -126,15 +126,15 @@ export function initCatalog() {
 				container: container,
 				title: 'Point',
 			});
-			pane.addInput(params, 'p2d', {
+			pane.addBinding(params, 'p2d', {
 				expanded: true,
 				label: '2d-picker',
 				picker: 'inline',
 			});
-			pane.addInput(params, 'p3d', {
+			pane.addBinding(params, 'p3d', {
 				label: '3d-text',
 			});
-			pane.addInput(params, 'p4d', {
+			pane.addBinding(params, 'p4d', {
 				label: '4d-text',
 			});
 			return pane;
@@ -153,14 +153,15 @@ export function initCatalog() {
 				container: container,
 				title: 'Number',
 			});
-			pane.addMonitor(params, 'number', {
+			pane.addBinding(params, 'number', {
 				label: 'text',
+				readonly: true,
 			});
-			pane.addMonitor(params, 'number', {
+			pane.addBinding(params, 'number', {
 				bufferSize: 10,
 				label: 'multiline',
 			});
-			pane.addMonitor(params, 'number', {
+			pane.addBinding(params, 'number', {
 				label: 'graph',
 				max: +1,
 				min: -1,
@@ -180,14 +181,16 @@ export function initCatalog() {
 				container: container,
 				title: 'String',
 			});
-			pane.addMonitor(params, 'string', {
+			pane.addBinding(params, 'string', {
 				interval: 1000,
 				label: 'text',
+				readonly: true,
 			});
-			pane.addMonitor(params, 'string', {
+			pane.addBinding(params, 'string', {
 				bufferSize: 10,
 				interval: 1000,
 				label: 'multiline',
+				readonly: true,
 			});
 			return pane;
 		},
@@ -203,14 +206,16 @@ export function initCatalog() {
 				container: container,
 				title: 'Boolean',
 			});
-			pane.addMonitor(params, 'bool', {
+			pane.addBinding(params, 'bool', {
 				interval: 1000,
 				label: 'text',
+				readonly: true,
 			});
-			pane.addMonitor(params, 'bool', {
+			pane.addBinding(params, 'bool', {
 				bufferSize: 10,
 				interval: 1000,
 				label: 'multiline',
+				readonly: true,
 			});
 			return pane;
 		},
@@ -222,11 +227,11 @@ export function initCatalog() {
 			const f = pane.addFolder({
 				title: 'Folder',
 			});
-			f.addInput({param: 0}, 'param');
+			f.addBinding({param: 0}, 'param');
 			const sf = f.addFolder({
 				title: 'Subfolder',
 			});
-			sf.addInput({param: 0}, 'param');
+			sf.addBinding({param: 0}, 'param');
 			return pane;
 		},
 		tab: (container) => {
@@ -237,11 +242,11 @@ export function initCatalog() {
 			const t = pane.addTab({
 				pages: [{title: 'Page'}, {title: 'Page'}],
 			});
-			t.pages[0].addInput({param: 0}, 'param');
+			t.pages[0].addBinding({param: 0}, 'param');
 			const st = t.pages[0].addTab({
 				pages: [{title: 'Page'}, {title: 'Page'}],
 			});
-			st.pages[0].addInput({param: 0}, 'param');
+			st.pages[0].addBinding({param: 0}, 'param');
 			return pane;
 		},
 		button: (container) => {
@@ -263,9 +268,9 @@ export function initCatalog() {
 				container: container,
 				title: 'Separator',
 			});
-			pane.addInput({param: 0}, 'param');
+			pane.addBinding({param: 0}, 'param');
 			pane.addSeparator();
-			pane.addInput({param: 0}, 'param');
+			pane.addBinding({param: 0}, 'param');
 			return pane;
 		},
 		icebergtheme: (container) => {
@@ -331,8 +336,8 @@ export function initCatalog() {
 			});
 
 			((f) => {
-				f.addInput({param: 0}, 'param');
-				f.addInput({param: 0}, 'param');
+				f.addBinding({param: 0}, 'param');
+				f.addBinding({param: 0}, 'param');
 			})(pane.addFolder({title: 'Root Folder'}));
 			return pane;
 		},
@@ -344,8 +349,8 @@ export function initCatalog() {
 			const t = pane.addTab({
 				pages: [{title: 'Root'}, {title: 'Tab'}],
 			});
-			t.pages[0].addInput({param: 0}, 'param');
-			t.pages[0].addInput({param: 0}, 'param');
+			t.pages[0].addBinding({param: 0}, 'param');
+			t.pages[0].addBinding({param: 0}, 'param');
 			return pane;
 		},
 		nestedfolders: (container) => {
@@ -356,12 +361,12 @@ export function initCatalog() {
 
 			((f) => {
 				((sf) => {
-					sf.addInput({param: 0}, 'param');
-					sf.addInput({param: 0}, 'param');
+					sf.addBinding({param: 0}, 'param');
+					sf.addBinding({param: 0}, 'param');
 				})(f.addFolder({title: 'Folder'}));
 				((sf) => {
-					sf.addInput({param: 0}, 'param');
-					sf.addInput({param: 0}, 'param');
+					sf.addBinding({param: 0}, 'param');
+					sf.addBinding({param: 0}, 'param');
 				})(f.addFolder({title: 'Folder'}));
 			})(pane.addFolder({title: 'Folder'}));
 			return pane;
@@ -375,13 +380,13 @@ export function initCatalog() {
 				title: 'Container List',
 			});
 			((f) => {
-				f.addInput({param: 0}, 'param');
+				f.addBinding({param: 0}, 'param');
 			})(rf.addFolder({title: 'Folder'}));
 			((t) => {
-				t.pages[0].addInput({param: 0}, 'param');
+				t.pages[0].addBinding({param: 0}, 'param');
 			})(rf.addTab({pages: [{title: 'Page'}, {title: 'Page'}]}));
 			((f) => {
-				f.addInput({param: 0}, 'param');
+				f.addBinding({param: 0}, 'param');
 			})(rf.addFolder({title: 'Folder'}));
 			return pane;
 		},
@@ -418,9 +423,9 @@ export function initCatalog() {
 			expanded: false,
 			title: 'Parameters',
 		});
-		pane.addInput(params, 'disabled');
+		pane.addBinding(params, 'disabled');
 		((f) => {
-			f.addInput(params.base, 'borderRadius', {
+			f.addBinding(params.base, 'borderRadius', {
 				label: 'border-radius',
 				min: 0,
 				max: 16,
@@ -428,19 +433,19 @@ export function initCatalog() {
 			});
 		})(pane.addFolder({title: 'base'}));
 		((f) => {
-			f.addInput(params.blade, 'borderRadius', {
+			f.addBinding(params.blade, 'borderRadius', {
 				label: 'border-radius',
 				min: 0,
 				max: 16,
 				step: 1,
 			});
-			f.addInput(params.blade, 'hPadding', {
+			f.addBinding(params.blade, 'hPadding', {
 				label: 'h-padding',
 				min: 0,
 				max: 16,
 				step: 1,
 			});
-			f.addInput(params.blade, 'valueWidth', {
+			f.addBinding(params.blade, 'valueWidth', {
 				label: 'value-width',
 				min: 100,
 				max: 200,
@@ -448,25 +453,25 @@ export function initCatalog() {
 			});
 		})(pane.addFolder({title: 'blade'}));
 		((f) => {
-			f.addInput(params.container, 'unitSize', {
+			f.addBinding(params.container, 'unitSize', {
 				label: 'unit-size',
 				min: 8,
 				max: 32,
 				step: 1,
 			});
-			f.addInput(params.container, 'unitSpacing', {
+			f.addBinding(params.container, 'unitSpacing', {
 				label: 'unit-spacing',
 				min: 0,
 				max: 16,
 				step: 1,
 			});
-			f.addInput(params.container, 'hPadding', {
+			f.addBinding(params.container, 'hPadding', {
 				label: 'h-padding',
 				min: 0,
 				max: 16,
 				step: 1,
 			});
-			f.addInput(params.container, 'vPadding', {
+			f.addBinding(params.container, 'vPadding', {
 				label: 'v-padding',
 				min: 0,
 				max: 16,

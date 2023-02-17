@@ -6,7 +6,7 @@ import {BindingApi} from './binding';
  * @template In The internal type.
  * @template Ex The external type.
  */
-export type InputBindingApi<In, Ex> = BindingApi<
+export type InputBindingApi<In = unknown, Ex = unknown> = BindingApi<
 	In,
 	Ex,
 	InputBindingController<In>

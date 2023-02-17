@@ -14,7 +14,7 @@ export function initUiComponents() {
 			const f = pane.addFolder({
 				title: 'Folder',
 			});
-			f.addInput({label: 0}, 'label');
+			f.addBinding({label: 0}, 'label');
 			f.addSeparator();
 			f.addButton({
 				title: 'Button',
@@ -22,7 +22,7 @@ export function initUiComponents() {
 			const tab = pane.addTab({
 				pages: [{title: 'Tab'}, {title: 'Tab'}],
 			});
-			tab.pages[0].addInput({label: 0}, 'label');
+			tab.pages[0].addBinding({label: 0}, 'label');
 			tab.pages[0].addButton({
 				label: 'label',
 				title: 'Button',
@@ -33,8 +33,8 @@ export function initUiComponents() {
 			sf.addButton({
 				title: 'Button',
 			});
-			tab.pages[1].addInput({label: 0}, 'label');
-			tab.pages[1].addInput({label: 0}, 'label');
+			tab.pages[1].addBinding({label: 0}, 'label');
+			tab.pages[1].addBinding({label: 0}, 'label');
 		},
 
 		folder: (container) => {
@@ -49,13 +49,13 @@ export function initUiComponents() {
 			const f1 = pane.addFolder({
 				title: 'Basic',
 			});
-			f1.addInput(PARAMS, 'speed');
+			f1.addBinding(PARAMS, 'speed');
 			const f2 = pane.addFolder({
 				expanded: false,
 				title: 'Advanced',
 			});
-			f2.addInput(PARAMS, 'acceleration');
-			f2.addInput(PARAMS, 'randomness');
+			f2.addBinding(PARAMS, 'acceleration');
+			f2.addBinding(PARAMS, 'randomness');
 		},
 
 		panetitle: (container) => {
@@ -68,18 +68,18 @@ export function initUiComponents() {
 				container: container,
 				title: 'Parameters',
 			});
-			pane.addInput(PARAMS, 'speed', {
+			pane.addBinding(PARAMS, 'speed', {
 				max: 1,
 				min: 0,
 			});
 			const f = pane.addFolder({
 				title: 'Advanced',
 			});
-			f.addInput(PARAMS, 'gravity', {
+			f.addBinding(PARAMS, 'gravity', {
 				max: 1,
 				min: 0,
 			});
-			f.addInput(PARAMS, 'bounce', {
+			f.addBinding(PARAMS, 'bounce', {
 				max: 1,
 				min: 0,
 			});
@@ -92,8 +92,9 @@ export function initUiComponents() {
 			const consolePane = new Pane({
 				container: consoleElem,
 			});
-			consolePane.addMonitor(PARAMS, 'count', {
+			consolePane.addBinding(PARAMS, 'count', {
 				interval: 0,
+				readonly: true,
 			});
 
 			const pane = new Pane({
@@ -117,8 +118,8 @@ export function initUiComponents() {
 			const tab = pane.addTab({
 				pages: [{title: 'Parameters'}, {title: 'Advanced'}],
 			});
-			tab.pages[0].addInput({seed: 50}, 'seed');
-			tab.pages[0].addInput({freq: 0.5}, 'freq', {
+			tab.pages[0].addBinding({seed: 50}, 'seed');
+			tab.pages[0].addBinding({freq: 0.5}, 'freq', {
 				min: 0,
 				max: 1,
 			});

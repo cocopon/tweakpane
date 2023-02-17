@@ -4,8 +4,7 @@ import {Emitter} from '../../../common/model/emitter';
 import {BaseBladeParams} from '../../../common/params';
 import {TpError} from '../../../common/tp-error';
 import {PluginPool} from '../../../plugin/pool';
-import {InputBindingApi} from '../../binding/api/input-binding';
-import {MonitorBindingApi} from '../../binding/api/monitor-binding';
+import {BindingApi} from '../../binding/api/binding';
 import {ButtonApi} from '../../button/api/button';
 import {FolderApi} from '../../folder/api/folder';
 import {SeparatorApi} from '../../separator/api/separator';
@@ -24,10 +23,9 @@ import {
 } from './container';
 import {isContainerBladeApi} from './container-blade';
 import {
+	BindingParams,
 	ButtonParams,
 	FolderParams,
-	InputParams,
-	MonitorParams,
 	SeparatorParams,
 	TabParams,
 } from './params';
@@ -97,37 +95,19 @@ export class RackApi implements ContainerApi {
 		);
 	}
 
-	public addInput<O extends Bindable, Key extends keyof O>(
+	public addBinding<O extends Bindable, Key extends keyof O>(
 		object: O,
 		key: Key,
-		opt_params?: InputParams,
-	): InputBindingApi<unknown, O[Key]> {
+		opt_params?: BindingParams,
+	): BindingApi<unknown, O[Key]> {
 		const params = opt_params ?? {};
 		const doc = this.controller_.element.ownerDocument;
-		const bc = this.pool_.createInput(
+		const bc = this.pool_.createBinding(
 			doc,
 			createBindingTarget(object, key),
 			params,
 		);
-		const api = this.pool_.createInputBindingApi(bc);
-		return this.add(api, params.index);
-	}
-
-	public addMonitor<O extends Bindable, Key extends keyof O>(
-		object: O,
-		key: Key,
-		opt_params?: MonitorParams,
-	): MonitorBindingApi<O[Key]> {
-		const params = opt_params ?? {};
-		const doc = this.controller_.element.ownerDocument;
-		const bc = this.pool_.createMonitor(
-			doc,
-			createBindingTarget(object, key),
-			params,
-		);
-		const api = this.pool_.createMonitorBindingApi(bc) as MonitorBindingApi<
-			O[Key]
-		>;
+		const api = this.pool_.createBindingApi(bc);
 		return this.add(api, params.index);
 	}
 
