@@ -149,6 +149,7 @@ export const NumberInputPlugin: InputBindingPlugin<
 			max: p.optional.number,
 			min: p.optional.number,
 			options: p.optional.custom<ListParamsOptions<number>>(parseListOptions),
+			readonly: p.optional.constant(false),
 			step: p.optional.number,
 		});
 		return result

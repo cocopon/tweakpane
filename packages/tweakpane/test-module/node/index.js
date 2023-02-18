@@ -25,7 +25,7 @@ const pane = new Pane({
 });
 
 // Add input
-const input = pane.addInput(PARAMS, 'foo', {
+const input = pane.addBinding(PARAMS, 'foo', {
 	max: 1,
 	min: 0,
 	step: 1,

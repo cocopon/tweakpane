@@ -8,6 +8,7 @@ import {
 	getCssVar,
 	ParamsParsers,
 	parseParams,
+	VERSION,
 	View,
 	ViewProps,
 } from '@tweakpane/core';
@@ -93,6 +94,7 @@ export const plugin: BladePlugin<PlaceholderBladeParams> = {
 	text-align: center;
 }
 `,
+	core: VERSION,
 	accept(params) {
 		const p = ParamsParsers;
 		const r = parseParams(params, {

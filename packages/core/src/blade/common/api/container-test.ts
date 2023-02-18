@@ -51,22 +51,35 @@ export function testBladeContainer(createApi: () => ContainerApi) {
 		assert.strictEqual(api.children[0], bapi2);
 	});
 
-	it('should implement addInput()', () => {
+	it('should implement addBinding() (input)', () => {
 		const api = createApi();
-		const bapi1 = api.addInput({foo: 1}, 'foo');
+		const bapi1 = api.addBinding({foo: 1}, 'foo');
 		assert.strictEqual(api.children[api.children.length - 1], bapi1);
 
-		const bapi2 = api.addInput({foo: 1}, 'foo', {index: 0});
+		const bapi2 = api.addBinding({foo: 1}, 'foo', {index: 0});
 		assert.strictEqual(api.children[0], bapi2);
 	});
 
-	it('should implement addMonitor()', () => {
+	it('should implement addBinding() (monitor)', () => {
 		const api = createApi();
-		const bapi1 = api.addMonitor({foo: 1}, 'foo');
+		const bapi1 = api.addBinding(
+			{
+				foo: 1,
+				readonly: true,
+			},
+			'foo',
+		);
 		assert.strictEqual(api.children[api.children.length - 1], bapi1);
 		bapi1.dispose();
 
-		const bapi2 = api.addInput({foo: 1}, 'foo', {index: 0});
+		const bapi2 = api.addBinding(
+			{
+				foo: 1,
+				readonly: true,
+			},
+			'foo',
+			{index: 0},
+		);
 		assert.strictEqual(api.children[0], bapi2);
 	});
 

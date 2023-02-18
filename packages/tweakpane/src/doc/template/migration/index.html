@@ -68,7 +68,7 @@ const PARAMS = {
 // Create a pane
 const gui = new <strong>dat.GUI</strong>();
 
-// Add inputs
+// Add bindings
 gui.<strong>add</strong>(PARAMS, 'level');
 gui.<strong>add</strong>(PARAMS, 'name');
 gui.<strong>add</strong>(PARAMS, 'active');</code></pre></div>
@@ -87,10 +87,10 @@ const pane = new <strong>Pane</strong>({
   title: 'Parameters',
 });
 
-// Add inputs
-pane.<strong>addInput</strong>(PARAMS, 'level');
-pane.<strong>addInput</strong>(PARAMS, 'name');
-pane.<strong>addInput</strong>(PARAMS, 'active');</code></pre></div>
+// Add bindings
+pane.<strong>addBinding</strong>(PARAMS, 'level');
+pane.<strong>addBinding</strong>(PARAMS, 'name');
+pane.<strong>addBinding</strong>(PARAMS, 'active');</code></pre></div>
 			</div>
 		</div>
 		<div class="comparison_results">
@@ -123,14 +123,14 @@ gui.add(PARAMS, 'weight', {
 			</div>
 			<div class="comparison_code">
 				<div class="codeBlock"><pre><code class="js">// Slider
-pane.addInput(PARAMS, 'size', {
+pane.addBinding(PARAMS, 'size', {
   <strong>min</strong>: 10,
   <strong>max</strong>: 100,
   <strong>step</strong>: 1,
 });
 
 // Dropdown
-pane.addInput(PARAMS, 'weight', {
+pane.addBinding(PARAMS, 'weight', {
   <strong>options</strong>: {
     Normal: 400,
     Bold: 700,
@@ -170,7 +170,7 @@ gui.<strong>addColor</strong>(PARAMS, 'color');</code></pre></div>
 
 // ...
 
-pane.<strong>addInput</strong>(PARAMS, 'color');
+pane.<strong>addBinding</strong>(PARAMS, 'color');
 </code></pre></div>
 			</div>
 		</div>
@@ -205,8 +205,8 @@ f.<strong>open</strong>();</code></pre></div>
   <strong>title</strong>: 'Font',
 });
 
-f.addInput(PARAMS, 'size');
-f.addInput(PARAMS, 'weight');
+f.addBinding(PARAMS, 'size');
+f.addBinding(PARAMS, 'weight');
 
 // Expand the folder
 f.<strong>expanded</strong> = true;</code></pre></div>
@@ -325,7 +325,8 @@ containerElem.appendChild(gui.<strong>domElement</strong>);</code></pre></div>
   .<strong>listen</strong>();</code></pre></div>
 			</div>
 			<div class="comparison_code">
-				<div class="codeBlock"><pre><code class="js">pane.<strong>addMonitor</strong>(PARAMS, 'wave', {
+				<div class="codeBlock"><pre><code class="js">pane.<strong>addBinding</strong>(PARAMS, 'wave', {
+  <strong>readonly</strong>: true,
   <strong>min</strong>: -1,
   <strong>max</strong>: +1,
   <strong>view</strong>: 'graph',

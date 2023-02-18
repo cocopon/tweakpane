@@ -93,9 +93,10 @@ export const NumberMonitorPlugin: MonitorBindingPlugin<
 		const p = ParamsParsers;
 		const result = parseParams<NumberMonitorParams>(params, {
 			format: p.optional.function as ParamsParser<Formatter<number>>,
-			rows: p.optional.number,
 			max: p.optional.number,
 			min: p.optional.number,
+			readonly: p.required.constant(true),
+			rows: p.optional.number,
 			view: p.optional.string,
 		});
 		return result

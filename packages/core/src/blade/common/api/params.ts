@@ -10,7 +10,7 @@ import {BooleanMonitorParams} from '../../../monitor-binding/boolean/plugin';
 import {NumberMonitorParams} from '../../../monitor-binding/number/plugin';
 import {StringMonitorParams} from '../../../monitor-binding/string/plugin';
 
-export type InputParams =
+type InputParams =
 	| BooleanInputParams
 	| ColorInputParams
 	| NumberInputParams
@@ -18,11 +18,11 @@ export type InputParams =
 	| Point3dInputParams
 	| Point4dInputParams
 	| StringInputParams;
-
-export type MonitorParams =
+type MonitorParams =
 	| BooleanMonitorParams
 	| NumberMonitorParams
 	| StringMonitorParams;
+export type BindingParams = InputParams | MonitorParams;
 
 export interface ButtonParams extends BaseParams {
 	title: string;

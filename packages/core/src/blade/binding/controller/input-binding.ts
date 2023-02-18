@@ -8,12 +8,12 @@ import {isValueBladeController} from '../../common/controller/value-blade';
 import {LabeledValueController} from '../../label/controller/value-label';
 
 export type InputBindingController<
-	In,
+	In = unknown,
 	Vc extends ValueController<In> = ValueController<In>,
 > = LabeledValueController<In, Vc, InputBindingValue<In>>;
 
 export function isInputBindingController(
 	bc: BladeController,
-): bc is InputBindingController<unknown> {
+): bc is InputBindingController {
 	return isValueBladeController(bc) && isInputBindingValue(bc.value);
 }

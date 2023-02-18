@@ -80,7 +80,7 @@ describe(TabApi.name, () => {
 		const api = new TabApi(c, pool);
 		api.addPage({title: ''});
 		api.addPage({title: ''});
-		const bapi = api.pages[1].addInput({foo: 1}, 'foo');
+		const bapi = api.pages[1].addBinding({foo: 1}, 'foo');
 
 		api.on('change', (ev) => {
 			assert.strictEqual(ev instanceof TpChangeEvent, true);
@@ -113,7 +113,7 @@ describe(TabApi.name, () => {
 			pages: [{title: ''}, {title: ''}],
 			view: 'tab',
 		}) as TabApi;
-		const bapi = tapi.pages[1].addInput({foo: 1}, 'foo');
+		const bapi = tapi.pages[1].addBinding({foo: 1}, 'foo');
 
 		api.on('change', (ev) => {
 			assert.strictEqual(ev instanceof TpChangeEvent, true);

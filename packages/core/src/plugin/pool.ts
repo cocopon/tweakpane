@@ -1,11 +1,20 @@
 import {BindingApi} from '../blade/binding/api/binding';
 import {InputBindingApi} from '../blade/binding/api/input-binding';
 import {MonitorBindingApi} from '../blade/binding/api/monitor-binding';
-import {isBindingController} from '../blade/binding/controller/binding';
-import {InputBindingController} from '../blade/binding/controller/input-binding';
-import {MonitorBindingController} from '../blade/binding/controller/monitor-binding';
+import {
+	BindingController,
+	isBindingController,
+} from '../blade/binding/controller/binding';
+import {
+	InputBindingController,
+	isInputBindingController,
+} from '../blade/binding/controller/input-binding';
+import {
+	isMonitorBindingController,
+	MonitorBindingController,
+} from '../blade/binding/controller/monitor-binding';
 import {BladeApi} from '../blade/common/api/blade';
-import {InputParams, MonitorParams} from '../blade/common/api/params';
+import {BindingParams} from '../blade/common/api/params';
 import {BladeController} from '../blade/common/controller/blade';
 import {BladePlugin, createBladeController} from '../blade/plugin';
 import {BindingTarget} from '../common/binding/target';
@@ -58,13 +67,48 @@ export class PluginPool {
 		}
 	}
 
-	public createInput(
+	private createInput_(
 		document: Document,
 		target: BindingTarget,
-		params: InputParams,
-	): InputBindingController<unknown> {
-		const initialValue = target.read();
+		params: BindingParams,
+	): InputBindingController | null {
+		return this.pluginsMap_.inputs.reduce(
+			(result: InputBindingController | null, plugin) =>
+				result ??
+				createInputBindingController(plugin, {
+					document: document,
+					target: target,
+					params: params,
+					presetKey:
+						typeof params.presetKey === 'string' ? params.presetKey : undefined,
+				}),
+			null,
+		);
+	}
 
+	private createMonitor_(
+		document: Document,
+		target: BindingTarget,
+		params: BindingParams,
+	): MonitorBindingController | null {
+		return this.pluginsMap_.monitors.reduce(
+			(result: MonitorBindingController | null, plugin) =>
+				result ??
+				createMonitorBindingController(plugin, {
+					document: document,
+					params: params,
+					target: target,
+				}),
+			null,
+		);
+	}
+
+	public createBinding(
+		doc: Document,
+		target: BindingTarget,
+		params: BindingParams,
+	): BindingController {
+		const initialValue = target.read();
 		if (isEmpty(initialValue)) {
 			throw new TpError({
 				context: {
@@ -74,46 +118,14 @@ export class PluginPool {
 			});
 		}
 
-		const bc = this.pluginsMap_.inputs.reduce(
-			(result: InputBindingController<unknown> | null, plugin) =>
-				result ??
-				createInputBindingController(plugin, {
-					document: document,
-					target: target,
-					params: params,
-					presetKey: params.presetKey,
-				}),
-			null,
-		);
-		if (bc) {
-			return bc;
+		const ic = this.createInput_(doc, target, params);
+		if (ic) {
+			return ic;
 		}
 
-		throw new TpError({
-			context: {
-				key: target.key,
-			},
-			type: 'nomatchingcontroller',
-		});
-	}
-
-	public createMonitor(
-		document: Document,
-		target: BindingTarget,
-		params: MonitorParams,
-	): MonitorBindingController<unknown> {
-		const bc = this.pluginsMap_.monitors.reduce(
-			(result: MonitorBindingController<unknown> | null, plugin) =>
-				result ??
-				createMonitorBindingController(plugin, {
-					document: document,
-					params: params,
-					target: target,
-				}),
-			null,
-		);
-		if (bc) {
-			return bc;
+		const mc = this.createMonitor_(doc, target, params);
+		if (mc) {
+			return mc as BindingController;
 		}
 
 		throw new TpError({
@@ -168,17 +180,35 @@ export class PluginPool {
 		return api;
 	}
 
-	public createInputBindingApi<In, Ex>(
-		bc: InputBindingController<In>,
-	): InputBindingApi<In, Ex> {
-		const api = this.pluginsMap_.inputs.reduce(
-			(result: InputBindingApi<In, Ex> | null, plugin) => {
+	private createInputBindingApi_(
+		bc: InputBindingController,
+	): InputBindingApi | null {
+		return this.pluginsMap_.inputs.reduce(
+			(result: InputBindingApi | null, plugin) => {
 				if (result) {
 					return result;
 				}
 				return (
 					plugin.api?.({
-						controller: bc as InputBindingController<unknown>,
+						controller: bc as InputBindingController,
+					}) ?? null
+				);
+			},
+			null,
+		);
+	}
+
+	private createMonitorBindingApi_(
+		bc: MonitorBindingController,
+	): MonitorBindingApi {
+		const api = this.pluginsMap_.monitors.reduce(
+			(result: MonitorBindingApi | null, plugin) => {
+				if (result) {
+					return result;
+				}
+				return (
+					plugin.api?.({
+						controller: bc as MonitorBindingController,
 					}) ?? null
 				);
 			},
@@ -187,22 +217,19 @@ export class PluginPool {
 		return api ?? new BindingApi(bc);
 	}
 
-	public createMonitorBindingApi<T>(
-		bc: MonitorBindingController<T>,
-	): MonitorBindingApi<T> {
-		const api = this.pluginsMap_.monitors.reduce(
-			(result: MonitorBindingApi<T> | null, plugin) => {
-				if (result) {
-					return result;
-				}
-				return (
-					plugin.api?.({
-						controller: bc as MonitorBindingController<unknown>,
-					}) ?? null
-				);
-			},
-			null,
-		);
-		return api ?? new BindingApi(bc);
+	public createBindingApi(bc: BindingController): BindingApi {
+		if (isInputBindingController(bc)) {
+			const api = this.createInputBindingApi_(bc);
+			if (api) {
+				return api;
+			}
+		}
+		if (isMonitorBindingController(bc)) {
+			const api = this.createMonitorBindingApi_(bc);
+			if (api) {
+				return api as BindingApi;
+			}
+		}
+		return new BindingApi(bc);
 	}
 }

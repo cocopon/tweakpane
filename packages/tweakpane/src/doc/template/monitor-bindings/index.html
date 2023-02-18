@@ -9,7 +9,7 @@
 	<div class="pageHeader_inner">
 		<div class="pageHeader_text">
 			<h1 class="pageHeader_title">{{ title }}</h1>
-			<p>Tweakpane also has a feature for monitoring value changes. Use <code>addMonitor()</code> to add components.</p>
+			<p>Tweakpane also has a feature for monitoring value changes.</p>
 		</div>
 		<div class="pageHeader_pane">
 			<div class="paneContainer" data-pane-monitor></div>
@@ -20,14 +20,32 @@
 
 
 {% block content %}
-<h2 id="multiline">Multiline</h2>
-<p><code>multiline</code> option provides a multiline log component. <code>rows</code> can change the number of display lines.</p>
+<p>To monitor primitive value changes, use <code>addBinding()</code> with the option <code>{readonly: true}</code>.</p>
 
 <div class="main_media">
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-pane.addMonitor(PARAMS, 'wave', {
+pane.addBinding(PARAMS, 'wave', {
+  <strong>readonly</strong>: true,
+});</code></pre></div>
+		</div>
+		<div class="demo_result">
+			<div class="paneContainer" data-pane-primitive></div>
+		</div>
+	</div>
+</div>
+
+
+<h2 id="multiline">Multiline</h2>
+<p><code>multiline</code> option provides a multiline log component. <code>rows</code> can change the display height.</p>
+
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
+pane.addBinding(PARAMS, 'wave', {
+  readonly: true,
   <strong>multiline</strong>: true,
   <strong>rows</strong>: 5,
 });</code></pre></div>
@@ -46,7 +64,8 @@ pane.addMonitor(PARAMS, 'wave', {
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-pane.addMonitor(PARAMS, 'wave', {
+pane.addBinding(PARAMS, 'wave', {
+  readonly: true,
   <strong>bufferSize</strong>: 10,
 });</code></pre></div>
 		</div>
@@ -64,7 +83,8 @@ pane.addMonitor(PARAMS, 'wave', {
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-pane.addMonitor(PARAMS, 'time', {
+pane.addBinding(PARAMS, 'time', {
+  readonly: true,
   <strong>interval</strong>: 1000,
 });</code></pre></div>
 		</div>
@@ -82,7 +102,8 @@ pane.addMonitor(PARAMS, 'time', {
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-pane.addMonitor(PARAMS, 'wave', {
+pane.addBinding(PARAMS, 'wave', {
+  readonly: true,
   <strong>view: 'graph'</strong>,
   min: -1,
   max: +1,

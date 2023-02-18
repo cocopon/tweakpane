@@ -32,6 +32,7 @@ export const StringMonitorPlugin: MonitorBindingPlugin<
 		const p = ParamsParsers;
 		const result = parseParams<StringMonitorParams>(params, {
 			multiline: p.optional.boolean,
+			readonly: p.required.constant(true),
 			rows: p.optional.number,
 		});
 		return result

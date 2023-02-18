@@ -15,9 +15,9 @@ export interface BindingApiEvents<Ex> {
  * @template Ex The external type.
  */
 export class BindingApi<
-	In,
-	Ex,
-	C extends BindingController<In>,
+	In = unknown,
+	Ex = unknown,
+	C extends BindingController<In> = BindingController<In>,
 > extends BladeApi<C> {
 	private readonly emitter_: Emitter<BindingApiEvents<Ex>>;
 

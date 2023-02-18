@@ -15,13 +15,13 @@ export type BufferedValueController<
 > = ValueController<TpBuffer<T>, Vw>;
 
 export type MonitorBindingController<
-	T,
+	T = unknown,
 	Vc extends BufferedValueController<T> = BufferedValueController<T>,
 > = LabeledValueController<TpBuffer<T>, Vc, MonitorBindingValue<T>>;
 
 export function isMonitorBindingController(
 	bc: BladeController,
-): bc is MonitorBindingController<unknown> {
+): bc is MonitorBindingController {
 	return (
 		isValueBladeController(bc) &&
 		isMonitorBindingValue(bc.value as BufferedValue<unknown>)

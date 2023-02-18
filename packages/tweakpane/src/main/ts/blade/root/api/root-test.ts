@@ -34,10 +34,11 @@ describe(RootApi.name, () => {
 			baz: 2,
 		};
 		const api = createApi();
-		api.addInput(PARAMS, 'foo');
-		api.addInput(PARAMS, 'bar');
-		api.addMonitor(PARAMS, 'baz', {
+		api.addBinding(PARAMS, 'foo');
+		api.addBinding(PARAMS, 'bar');
+		api.addBinding(PARAMS, 'baz', {
 			interval: 0,
+			readonly: true,
 		});
 		const preset = api.exportPreset();
 		assert.deepStrictEqual(preset, {
@@ -52,8 +53,8 @@ describe(RootApi.name, () => {
 			bar: 'hello',
 		};
 		const api = createApi();
-		api.addInput(PARAMS, 'foo');
-		api.addInput(PARAMS, 'bar');
+		api.addBinding(PARAMS, 'foo');
+		api.addBinding(PARAMS, 'bar');
 
 		api.importPreset({
 			foo: 123,
@@ -72,8 +73,8 @@ describe(RootApi.name, () => {
 			bar: 'hello',
 		};
 		const api = createApi();
-		const i1 = api.addInput(PARAMS, 'foo');
-		const i2 = api.addInput(PARAMS, 'bar');
+		const i1 = api.addBinding(PARAMS, 'foo');
+		const i2 = api.addBinding(PARAMS, 'bar');
 
 		api.importPreset({
 			foo: 123,
@@ -100,13 +101,14 @@ describe(RootApi.name, () => {
 			bar: 'bar',
 			baz: 123,
 		};
-		const i1 = api.addInput(obj, 'foo');
+		const i1 = api.addBinding(obj, 'foo');
 		const f = api.addFolder({
 			title: 'folder',
 		});
-		const i2 = f.addInput(obj, 'bar');
-		const m1 = api.addMonitor(obj, 'baz', {
+		const i2 = f.addBinding(obj, 'bar');
+		const m1 = api.addBinding(obj, 'baz', {
 			interval: 0,
+			readonly: true,
 		});
 
 		obj.foo = 2;

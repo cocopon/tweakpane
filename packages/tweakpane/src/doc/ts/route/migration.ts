@@ -48,24 +48,24 @@ export function initMigration() {
 				container: container,
 				title: 'Tweakpane',
 			});
-			pane.addInput(SHARED_PARAMS, 'size', {min: 10, max: 100, step: 1});
-			pane.addInput(SHARED_PARAMS, 'weight', {
+			pane.addBinding(SHARED_PARAMS, 'size', {min: 10, max: 100, step: 1});
+			pane.addBinding(SHARED_PARAMS, 'weight', {
 				options: {Normal: 400, Bold: 700},
 			});
 			pane.addSeparator();
-			pane.addInput(SHARED_PARAMS, 'name');
-			pane.addInput(SHARED_PARAMS, 'active');
-			pane.addInput(SHARED_PARAMS, 'color');
+			pane.addBinding(SHARED_PARAMS, 'name');
+			pane.addBinding(SHARED_PARAMS, 'active');
+			pane.addBinding(SHARED_PARAMS, 'color');
 			pane.addButton({title: 'Alert'}).on('click', SHARED_PARAMS.alert);
 			const tab = pane.addTab({
 				pages: [{title: 'Basic'}, {title: 'Advanced'}],
 			});
 			((t) => {
-				t.addInput({offset: {x: 0, y: 0}}, 'offset');
+				t.addBinding({offset: {x: 0, y: 0}}, 'offset');
 			})(tab.pages[0]);
 			((t) => {
-				t.addInput({point3d: {x: 0, y: 0, z: 0}}, 'point3d');
-				t.addInput({point4d: {w: 0, x: 0, y: 0, z: 0}}, 'point4d');
+				t.addBinding({point3d: {x: 0, y: 0, z: 0}}, 'point3d');
+				t.addBinding({point4d: {w: 0, x: 0, y: 0, z: 0}}, 'point4d');
 			})(tab.pages[1]);
 		},
 		basicsdat: (container) => {
@@ -82,9 +82,9 @@ export function initMigration() {
 				container: container,
 				title: 'Parameters',
 			});
-			pane.addInput(SHARED_PARAMS, 'level');
-			pane.addInput(SHARED_PARAMS, 'name');
-			pane.addInput(SHARED_PARAMS, 'active');
+			pane.addBinding(SHARED_PARAMS, 'level');
+			pane.addBinding(SHARED_PARAMS, 'name');
+			pane.addBinding(SHARED_PARAMS, 'active');
 		},
 		constraintsdat: (container) => {
 			const gui = new Dat.GUI({
@@ -102,12 +102,12 @@ export function initMigration() {
 				container: container,
 				title: 'Parameters',
 			});
-			pane.addInput(SHARED_PARAMS, 'size', {
+			pane.addBinding(SHARED_PARAMS, 'size', {
 				min: 10,
 				max: 100,
 				step: 1,
 			});
-			pane.addInput(SHARED_PARAMS, 'weight', {
+			pane.addBinding(SHARED_PARAMS, 'weight', {
 				options: {
 					Normal: 400,
 					Bold: 700,
@@ -126,7 +126,7 @@ export function initMigration() {
 				container: container,
 				title: 'Parameters',
 			});
-			pane.addInput(SHARED_PARAMS, 'color');
+			pane.addBinding(SHARED_PARAMS, 'color');
 		},
 		foldersdat: (container) => {
 			const gui = new Dat.GUI({
@@ -145,10 +145,10 @@ export function initMigration() {
 				container: container,
 				title: 'Parameters',
 			});
-			pane.addInput(SHARED_PARAMS, 'name');
+			pane.addBinding(SHARED_PARAMS, 'name');
 			((f) => {
-				f.addInput(SHARED_PARAMS, 'size', {min: 10, max: 100, step: 1});
-				f.addInput(SHARED_PARAMS, 'weight', {
+				f.addBinding(SHARED_PARAMS, 'size', {min: 10, max: 100, step: 1});
+				f.addBinding(SHARED_PARAMS, 'weight', {
 					options: {Normal: 400, Bold: 700},
 				});
 			})(pane.addFolder({title: 'Font'}));
@@ -177,10 +177,11 @@ export function initMigration() {
 			const consolePane = new Pane({
 				container: consoleElem,
 			});
-			consolePane.addMonitor(CONSOLE, 'log', {
+			consolePane.addBinding(CONSOLE, 'log', {
 				bufferSize: 10,
 				interval: 0,
 				label: 'console',
+				readonly: true,
 				rows: 5,
 			});
 
@@ -212,10 +213,11 @@ export function initMigration() {
 			const consolePane = new Pane({
 				container: consoleElem,
 			});
-			consolePane.addMonitor(CONSOLE, 'log', {
+			consolePane.addBinding(CONSOLE, 'log', {
 				bufferSize: 10,
 				interval: 0,
 				label: 'console',
+				readonly: true,
 				rows: 5,
 			});
 
@@ -224,7 +226,7 @@ export function initMigration() {
 				title: 'Parameters',
 			});
 			pane
-				.addInput(SHARED_PARAMS, 'size', {
+				.addBinding(SHARED_PARAMS, 'size', {
 					min: 10,
 					max: 100,
 					step: 1,
@@ -250,9 +252,10 @@ export function initMigration() {
 				container: container,
 				title: 'Parameters',
 			});
-			pane.addMonitor(SHARED_PARAMS, 'wave', {
+			pane.addBinding(SHARED_PARAMS, 'wave', {
 				max: +1,
 				min: -1,
+				readonly: true,
 				view: 'graph',
 			});
 		},
@@ -274,7 +277,7 @@ export function initMigration() {
 				container: container,
 				title: 'Parameters',
 			});
-			pane.addInput(SHARED_PARAMS, 'wave', {
+			pane.addBinding(SHARED_PARAMS, 'wave', {
 				max: +1,
 				min: -1,
 			});

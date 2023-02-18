@@ -113,15 +113,15 @@ describe(FolderApi.name, () => {
 			done();
 		});
 
-		const bapi = pane.addInput(PARAMS, 'foo');
+		const bapi = pane.addBinding(PARAMS, 'foo');
 		bapi['controller_'].value.rawValue = 2;
 	});
 
 	it('should dispose items', () => {
 		const PARAMS = {foo: 1};
 		const api = createApi();
-		const i = api.addInput(PARAMS, 'foo');
-		const m = api.addMonitor(PARAMS, 'foo');
+		const i = api.addBinding(PARAMS, 'foo');
+		const m = api.addBinding(PARAMS, 'foo', {readonly: true});
 
 		api.dispose();
 		assert.strictEqual(api['controller_'].viewProps.get('disposed'), true);
@@ -133,8 +133,8 @@ describe(FolderApi.name, () => {
 		const PARAMS = {foo: 1};
 		const api = createApi();
 		const f = api.addFolder({title: ''});
-		const i = f.addInput(PARAMS, 'foo');
-		const m = f.addMonitor(PARAMS, 'foo');
+		const i = f.addBinding(PARAMS, 'foo');
+		const m = f.addBinding(PARAMS, 'foo', {readonly: true});
 
 		assert.strictEqual(api['controller_'].viewProps.get('disposed'), false);
 		assert.strictEqual(i['controller_'].viewProps.get('disposed'), false);
@@ -153,7 +153,7 @@ describe(FolderApi.name, () => {
 			done();
 		});
 
-		const bapi = api.addInput(PARAMS, 'foo');
+		const bapi = api.addBinding(PARAMS, 'foo');
 		bapi['controller_'].value.rawValue = 2;
 	});
 
@@ -210,7 +210,7 @@ describe(FolderApi.name, () => {
 			it('should pass event for change event (local)', (done) => {
 				const api = createApi();
 				const obj = {foo: params.propertyValue};
-				const bapi = api.addInput(obj, 'foo');
+				const bapi = api.addBinding(obj, 'foo');
 
 				bapi.on('change', (ev) => {
 					assert.strictEqual(ev instanceof TpChangeEvent, true);
@@ -225,7 +225,7 @@ describe(FolderApi.name, () => {
 			it('should pass event for change event (global)', (done) => {
 				const api = createApi();
 				const obj = {foo: params.propertyValue};
-				const bapi = api.addInput(obj, 'foo');
+				const bapi = api.addBinding(obj, 'foo');
 
 				api.on('change', (ev) => {
 					assert.strictEqual(ev instanceof TpChangeEvent, true);

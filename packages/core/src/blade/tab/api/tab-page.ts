@@ -1,16 +1,14 @@
 import {Bindable} from '../../../common/binding/target';
 import {BaseBladeParams} from '../../../common/params';
-import {InputBindingApi} from '../../binding/api/input-binding';
-import {MonitorBindingApi} from '../../binding/api/monitor-binding';
+import {BindingApi} from '../../binding/api/binding';
 import {ButtonApi} from '../../button/api/button';
 import {BladeApi} from '../../common/api/blade';
 import {ContainerApi} from '../../common/api/container';
 import {ContainerBladeApi} from '../../common/api/container-blade';
 import {
+	BindingParams,
 	ButtonParams,
 	FolderParams,
-	InputParams,
-	MonitorParams,
 	SeparatorParams,
 	TabParams,
 } from '../../common/api/params';
@@ -67,20 +65,12 @@ export class TabPageApi
 		this.rackApi_.remove(api);
 	}
 
-	public addInput<O extends Bindable, Key extends keyof O>(
+	public addBinding<O extends Bindable, Key extends keyof O>(
 		object: O,
 		key: Key,
-		opt_params?: InputParams,
-	): InputBindingApi<unknown, O[Key]> {
-		return this.rackApi_.addInput(object, key, opt_params);
-	}
-
-	public addMonitor<O extends Bindable, Key extends keyof O>(
-		object: O,
-		key: Key,
-		opt_params?: MonitorParams,
-	): MonitorBindingApi<O[Key]> {
-		return this.rackApi_.addMonitor(object, key, opt_params);
+		opt_params?: BindingParams,
+	): BindingApi<unknown, O[Key]> {
+		return this.rackApi_.addBinding(object, key, opt_params);
 	}
 
 	public addBlade(params: BaseBladeParams): BladeApi {

@@ -21,6 +21,7 @@ export type PickerLayout = 'inline' | 'popup';
 export interface BaseInputParams extends BaseParams, Record<string, unknown> {
 	label?: string;
 	presetKey?: string;
+	readonly?: false;
 	view?: string;
 }
 
@@ -28,6 +29,7 @@ export interface BaseMonitorParams extends BaseParams, Record<string, unknown> {
 	bufferSize?: number;
 	interval?: number;
 	label?: string;
+	readonly: true;
 	view?: string;
 }
 

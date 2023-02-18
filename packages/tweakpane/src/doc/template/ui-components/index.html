@@ -31,14 +31,14 @@
 const f1 = pane.<strong>addFolder</strong>({
   title: 'Basic',
 });
-f1.addInput(PARAMS, 'speed');
+f1.addBinding(PARAMS, 'speed');
 
 const f2 = pane.<strong>addFolder</strong>({
   title: 'Advanced',
   expanded: false,   // optional
 });
-f2.addInput(PARAMS, 'acceleration');
-f2.addInput(PARAMS, 'randomness');</code></pre></div>
+f2.addBinding(PARAMS, 'acceleration');
+f2.addBinding(PARAMS, 'randomness');</code></pre></div>
 		</div>
 		<div class="demo_result">
 			<div class="paneContainer" data-pane-folder></div>
@@ -109,7 +109,7 @@ const tab = pane.<strong>addTab</strong>({
   ],
 });
 
-tab.<strong>pages[0]</strong>.addInput(...);
+tab.<strong>pages[0]</strong>.addBinding(...);
 </code></pre></div>
 		</div>
 		<div class="demo_result">

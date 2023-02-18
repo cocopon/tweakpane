@@ -19,6 +19,7 @@ describe(NumberMonitorPlugin.id, () => {
 			params: {
 				format: () => 'formatted',
 				interval: 0,
+				readonly: true,
 			},
 			target: new BindingTarget(obj, 'foo'),
 		}) as MonitorBindingController<number>;

@@ -1,17 +1,15 @@
 import {Bindable} from '../../../common/binding/target';
 import {BaseBladeParams} from '../../../common/params';
-import {InputBindingApi} from '../../binding/api/input-binding';
-import {MonitorBindingApi} from '../../binding/api/monitor-binding';
+import {BindingApi} from '../../binding/api/binding';
 import {ButtonApi} from '../../button/api/button';
 import {FolderApi} from '../../folder/api/folder';
 import {SeparatorApi} from '../../separator/api/separator';
 import {TabApi} from '../../tab/api/tab';
 import {BladeApi} from './blade';
 import {
+	BindingParams,
 	ButtonParams,
 	FolderParams,
-	InputParams,
-	MonitorParams,
 	SeparatorParams,
 	TabParams,
 } from './params';
@@ -30,30 +28,17 @@ export interface ContainerApi {
 	remove(api: BladeApi): void;
 
 	/**
-	 * Creates a new input binding and add it to the container.
+	 * Creates a new binding and add it to the container.
 	 * @param object The binding target.
 	 * @param key The key of the target property.
 	 * @param opt_params The options of a binding.
 	 * @return The API object.
 	 */
-	addInput<O extends Bindable, Key extends keyof O>(
+	addBinding<O extends Bindable, Key extends keyof O>(
 		object: O,
 		key: Key,
-		opt_params?: InputParams,
-	): InputBindingApi<unknown, O[Key]>;
-
-	/**
-	 * Creates a new monitor binding and add it to the container.
-	 * @param object The binding target.
-	 * @param key The key of the target property.
-	 * @param opt_params The options of a binding.
-	 * @return The API object.
-	 */
-	addMonitor<O extends Bindable, Key extends keyof O>(
-		object: O,
-		key: Key,
-		opt_params?: MonitorParams,
-	): MonitorBindingApi<O[Key]>;
+		opt_params?: BindingParams,
+	): BindingApi<unknown, O[Key]>;
 
 	/**
 	 * Creates a new blade and add it to the container.
