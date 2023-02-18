@@ -57,6 +57,14 @@ export function initMonitorBindings() {
 				readonly: true,
 			});
 		},
+		primitive: (container) => {
+			const pane = new Pane({
+				container: container,
+			});
+			pane.addBinding(SHARED_PARAMS, 'wave', {
+				readonly: true,
+			});
+		},
 		multiline: (container) => {
 			const PARAMS = {params: ''};
 			const pane = new Pane({

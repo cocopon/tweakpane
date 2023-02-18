@@ -1,6 +1,6 @@
 {% set pageId = 'monitor' %}
 {% set root = '../' %}
-{% set title = 'Readonly bindings' %}
+{% set title = 'Monitor bindings' %}
 {% extends "_template.html" %}
 
 
@@ -9,7 +9,7 @@
 	<div class="pageHeader_inner">
 		<div class="pageHeader_text">
 			<h1 class="pageHeader_title">{{ title }}</h1>
-			<p>Tweakpane also has a feature for monitoring value changes. Use <code>addBinding()</code> with the option <code>readonly: true</code>.</p>
+			<p>Tweakpane also has a feature for monitoring value changes.</p>
 		</div>
 		<div class="pageHeader_pane">
 			<div class="paneContainer" data-pane-monitor></div>
@@ -20,8 +20,25 @@
 
 
 {% block content %}
+<p>To monitor primitive value changes, use <code>addBinding()</code> with the option <code>{readonly: true}</code>.</p>
+
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
+pane.addBinding(PARAMS, 'wave', {
+  <strong>readonly</strong>: true,
+});</code></pre></div>
+		</div>
+		<div class="demo_result">
+			<div class="paneContainer" data-pane-primitive></div>
+		</div>
+	</div>
+</div>
+
+
 <h2 id="multiline">Multiline</h2>
-<p><code>multiline</code> option provides a multiline log component. <code>rows</code> can change the number of display lines.</p>
+<p><code>multiline</code> option provides a multiline log component. <code>rows</code> can change the display height.</p>
 
 <div class="main_media">
 	<div class="demo">
