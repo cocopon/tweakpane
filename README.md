@@ -20,16 +20,16 @@ value changes, inspired by [dat.GUI][].
 See the [official page][documents] for details.
 
 
-### [Input bindings](https://cocopon.github.io/tweakpane/input-bindings/)
+### [Bindings](https://cocopon.github.io/tweakpane/input-bindings/)
 Number, String, Boolean, Color, Point 2D/3D/4D
 
-![Input bindings](https://user-images.githubusercontent.com/602961/184479032-38f50be3-e235-4914-85c0-dce316b33ed2.png)
+![Bindings](https://user-images.githubusercontent.com/602961/184479032-38f50be3-e235-4914-85c0-dce316b33ed2.png)
 
 
-### [Monitor bindings](https://cocopon.github.io/tweakpane/monitor-bindings/)
+### [Readonly bindings](https://cocopon.github.io/tweakpane/monitor-bindings/)
 Number, String, Boolean
 
-![Monitor bindings](https://user-images.githubusercontent.com/602961/184479060-44fda993-9f40-4ef1-b363-18e9f9deff7f.png)
+![Readonly bindings](https://user-images.githubusercontent.com/602961/184479060-44fda993-9f40-4ef1-b363-18e9f9deff7f.png)
 
 
 ### [UI components](https://cocopon.github.io/tweakpane/ui-components/)

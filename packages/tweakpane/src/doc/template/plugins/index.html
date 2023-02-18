@@ -29,7 +29,7 @@
 };
 
 // Interval
-pane.addInput(PARAMS, 'interval', {
+pane.addBinding(PARAMS, 'interval', {
   min: 0,
   max: 100,
   step: 1,
@@ -75,7 +75,7 @@ function render() {
 
 // ...
 
-pane.addInput(PARAMS, 'fnum', {
+pane.addBinding(PARAMS, 'fnum', {
   // Use a ring view of Camerakit
   view: 'cameraring',
   // Appearance of the ring

@@ -24,7 +24,7 @@
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-pane.addInput(PARAMS, 'value')
+pane.addBinding(PARAMS, 'value')
   .<strong>on</strong>('change', (ev) =&gt; {
     console.log(ev.value.toFixed(2));
     if (ev.last) {
@@ -45,10 +45,10 @@ pane.addInput(PARAMS, 'value')
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-pane.addInput(PARAMS, 'boolean');
-pane.addInput(PARAMS, 'color');
-pane.addInput(PARAMS, 'number');
-pane.addInput(PARAMS, 'string');
+pane.addBinding(PARAMS, 'boolean');
+pane.addBinding(PARAMS, 'color');
+pane.addBinding(PARAMS, 'number');
+pane.addBinding(PARAMS, 'string');
 
 pane.<strong>on</strong>('change', (ev) =&gt; {
   console.log('changed: ' + JSON.stringify(ev.value));
@@ -70,8 +70,8 @@ pane.<strong>on</strong>('change', (ev) =&gt; {
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-// pane.addInput(PARAMS, ...);
-// pane.addInput(PARAMS, ...);
+// pane.addBinding(PARAMS, ...);
+// pane.addBinding(PARAMS, ...);
 
 const preset = pane.<strong>exportPreset</strong>();
 console.log(preset);
@@ -90,8 +90,8 @@ console.log(preset);
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-// pane.addInput(PARAMS, ...);
-// pane.addInput(PARAMS, ...);
+// pane.addBinding(PARAMS, ...);
+// pane.addBinding(PARAMS, ...);
 
 pane.<strong>importPreset</strong>(preset);
 </code></pre></div>
@@ -109,8 +109,8 @@ pane.<strong>importPreset</strong>(preset);
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-pane.addInput(PARAMS1, 'speed');
-pane.addInput(PARAMS2, 'speed', {
+pane.addBinding(PARAMS1, 'speed');
+pane.addBinding(PARAMS2, 'speed', {
   <strong>presetKey</strong>: 'speed2',
 });
 </code></pre></div>
@@ -148,10 +148,10 @@ pane.addInput(PARAMS2, 'speed', {
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-pane.addInput(PARAMS, 'initSpd', {
+pane.addBinding(PARAMS, 'initSpd', {
   <strong>label</strong>: 'Initial speed',
 });
-pane.addInput(PARAMS, 'size', {
+pane.addBinding(PARAMS, 'size', {
   <strong>label</strong>: 'Force field<strong>\n</strong>radius',
 });
 </code></pre></div>
@@ -170,8 +170,8 @@ pane.addInput(PARAMS, 'size', {
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-// pane.addInput(PARAMS, ...);
-// pane.addInput(PARAMS, ...);
+// pane.addBinding(PARAMS, ...);
+// pane.addBinding(PARAMS, ...);
 
 pane.<strong>refresh</strong>();
 </code></pre></div>
@@ -212,7 +212,7 @@ btn.on('click', () => {
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-const i = pane.addInput(PARAMS, 'param', {
+const i = pane.addBinding(PARAMS, 'param', {
   <strong>disabled</strong>: true,
   title: 'Advanced',
 });
@@ -238,7 +238,7 @@ btn.on('click', () => {
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-const i = pane.addInput(PARAMS, 'count');
+const i = pane.addBinding(PARAMS, 'count');
 
 // ...
 

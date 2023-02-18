@@ -20,9 +20,9 @@ export function initPlugins() {
 			});
 			pane.registerPlugin(TweakpaneEssentialsPlugin);
 
-			// Input bindings
+			// Bindings
 			const fi = pane.addFolder({
-				title: 'Input bindings',
+				title: 'Bindings',
 			});
 			fi.addBinding(params, 'interval', {
 				min: 0,
