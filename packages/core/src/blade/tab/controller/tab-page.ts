@@ -1,7 +1,9 @@
+import {parseRecord} from '../../../common/micro-parsers';
 import {bindValueMap} from '../../../common/model/reactive';
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {PlainView} from '../../../common/view/plain';
+import {BladeControllerState} from '../../common/controller/blade';
 import {ContainerBladeController} from '../../common/controller/container-blade';
 import {RackController} from '../../common/controller/rack';
 import {Blade} from '../../common/model/blade';
@@ -57,6 +59,29 @@ export class TabPageController extends ContainerBladeController<PlainView> {
 
 	get itemController(): TabItemController {
 		return this.ic_;
+	}
+
+	public import(state: BladeControllerState): void {
+		super.import(state);
+
+		const result = parseRecord(state, (p) => ({
+			selected: p.required.boolean,
+			title: p.required.string,
+		}));
+		if (!result) {
+			return;
+		}
+
+		this.ic_.props.set('selected', result.selected);
+		this.ic_.props.set('title', result.title);
+	}
+
+	public export(): BladeControllerState {
+		return {
+			...super.export(),
+			selected: this.ic_.props.get('selected'),
+			title: this.ic_.props.get('title'),
+		};
 	}
 
 	private onItemClick_(): void {

@@ -6,23 +6,38 @@ import {ViewProps} from '../../../common/model/view-props';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {TestUtil} from '../../../misc/test-util';
 import {createBlade} from '../../common/model/blade';
+import {TestKeyBladeController} from '../../test-util';
 import {TabItemPropsObject} from '../view/tab-item';
 import {TabPageController, TabPagePropsObject} from './tab-page';
+
+function createController(
+	doc: Document,
+	config: {
+		selected: boolean;
+		title: string;
+	},
+) {
+	return new TabPageController(doc, {
+		blade: createBlade(),
+		itemProps: ValueMap.fromObject<TabItemPropsObject>({
+			selected: config.selected,
+			title: config.title,
+		}),
+		props: ValueMap.fromObject<TabPagePropsObject>({
+			selected: config.selected,
+		}),
+		viewProps: ViewProps.create(),
+	});
+}
 
 describe(TabPageController.name, () => {
 	it('should apply initial props', () => {
 		const doc = createTestWindow().document;
-		const c = new TabPageController(doc, {
-			blade: createBlade(),
-			itemProps: ValueMap.fromObject<TabItemPropsObject>({
-				selected: false,
-				title: 'foo',
-			}),
-			props: ValueMap.fromObject<TabPagePropsObject>({
-				selected: false,
-			}),
-			viewProps: ViewProps.create(),
+		const c = createController(doc, {
+			selected: false,
+			title: 'foo',
 		});
+
 		assert.strictEqual(c.itemController.props.get('selected'), false);
 		assert.strictEqual(c.itemController.props.get('title'), 'foo');
 		assert.strictEqual(c.viewProps.get('hidden'), true);
@@ -30,16 +45,9 @@ describe(TabPageController.name, () => {
 
 	it('should apply props change', () => {
 		const doc = createTestWindow().document;
-		const c = new TabPageController(doc, {
-			blade: createBlade(),
-			itemProps: ValueMap.fromObject<TabItemPropsObject>({
-				selected: false,
-				title: 'foo',
-			}),
-			props: ValueMap.fromObject<TabPagePropsObject>({
-				selected: false,
-			}),
-			viewProps: ViewProps.create(),
+		const c = createController(doc, {
+			selected: false,
+			title: 'foo',
 		});
 
 		c.props.set('selected', true);
@@ -50,20 +58,53 @@ describe(TabPageController.name, () => {
 	it('should be selected by clicking', () => {
 		const win = createTestWindow();
 		const doc = win.document;
-		const c = new TabPageController(doc, {
-			blade: createBlade(),
-			itemProps: ValueMap.fromObject<TabItemPropsObject>({
-				selected: false,
-				title: 'foo',
-			}),
-			props: ValueMap.fromObject<TabPagePropsObject>({
-				selected: false,
-			}),
-			viewProps: ViewProps.create(),
+		const c = createController(doc, {
+			selected: false,
+			title: 'foo',
 		});
 
 		const ev = TestUtil.createEvent(win, 'click');
 		c.itemController.view.buttonElement.dispatchEvent(ev);
 		assert.strictEqual(c.props.get('selected'), true);
+	});
+
+	it('should export state', () => {
+		const doc = createTestWindow().document;
+		const c = createController(doc, {
+			selected: false,
+			title: 'foo',
+		});
+		const state = c.export();
+
+		assert.ok('disabled' in state);
+		assert.ok('hidden' in state);
+		assert.ok('children' in state);
+		assert.strictEqual(state.selected, false);
+		assert.strictEqual(state.title, 'foo');
+	});
+
+	it('should import state', () => {
+		const doc = createTestWindow().document;
+		const c = createController(doc, {
+			selected: false,
+			title: 'foo',
+		});
+		c.rackController.rack.add(new TestKeyBladeController(doc, 'bar'));
+		c.import({
+			disabled: true,
+			hidden: true,
+			children: [{key: 'baz'}],
+			selected: true,
+			title: 'qux',
+		});
+
+		assert.strictEqual(c.viewProps.get('disabled'), true);
+		assert.strictEqual(c.viewProps.get('hidden'), true);
+		assert.strictEqual(
+			(c.rackController.rack.children[0] as TestKeyBladeController).key,
+			'baz',
+		);
+		assert.strictEqual(c.itemController.props.get('title'), 'qux');
+		assert.strictEqual(c.itemController.props.get('selected'), true);
 	});
 });
