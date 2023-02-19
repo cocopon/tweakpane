@@ -3,7 +3,7 @@ import {
 	isInputBindingValue,
 } from '../../../common/binding/value/input-binding';
 import {ValueController} from '../../../common/controller/value';
-import {ParamsParsers, parseParams} from '../../../common/params-parsers';
+import {parseRecord} from '../../../common/micro-parsers';
 import {
 	BladeController,
 	BladeControllerState,
@@ -18,10 +18,9 @@ export class InputBindingController<
 	public import(state: BladeControllerState): void {
 		super.import(state);
 
-		const p = ParamsParsers;
-		const result = parseParams(state, {
+		const result = parseRecord(state, (p) => ({
 			value: p.required.raw,
-		});
+		}));
 		if (!result) {
 			return;
 		}

@@ -1,6 +1,6 @@
+import {parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
 import {BaseBladeParams} from '../../common/params';
-import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {VERSION} from '../../version';
 import {LabelController} from '../label/controller/label';
 import {BladePlugin} from '../plugin';
@@ -20,13 +20,12 @@ export const ButtonBladePlugin: BladePlugin<ButtonBladeParams> = {
 	type: 'blade',
 	core: VERSION,
 	accept(params) {
-		const p = ParamsParsers;
-		const result = parseParams<ButtonBladeParams>(params, {
+		const result = parseRecord<ButtonBladeParams>(params, (p) => ({
 			title: p.required.string,
 			view: p.required.constant('button'),
 
 			label: p.optional.string,
-		});
+		}));
 		return result ? {params: result} : null;
 	},
 	controller(args) {

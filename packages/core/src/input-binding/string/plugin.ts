@@ -9,9 +9,9 @@ import {ListConstraint} from '../../common/constraint/list';
 import {ListController} from '../../common/controller/list';
 import {TextController} from '../../common/controller/text';
 import {formatString, stringFromUnknown} from '../../common/converter/string';
+import {parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
 import {BaseInputParams, ListParamsOptions} from '../../common/params';
-import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {writePrimitive} from '../../common/primitive';
 import {createListConstraint, parseListOptions} from '../../common/util';
 import {VERSION} from '../../version';
@@ -47,11 +47,10 @@ export const StringInputPlugin: InputBindingPlugin<
 		if (typeof value !== 'string') {
 			return null;
 		}
-		const p = ParamsParsers;
-		const result = parseParams<StringInputParams>(params, {
+		const result = parseRecord<StringInputParams>(params, (p) => ({
 			readonly: p.optional.constant(false),
 			options: p.optional.custom<ListParamsOptions<string>>(parseListOptions),
-		});
+		}));
 		return result
 			? {
 					initialValue: value,

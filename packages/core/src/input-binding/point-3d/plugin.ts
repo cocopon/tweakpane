@@ -3,9 +3,9 @@ import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../common/converter/number';
+import {parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
 import {BaseInputParams, PointDimensionParams} from '../../common/params';
-import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {TpError} from '../../common/tp-error';
 import {
 	getBaseStep,
@@ -72,13 +72,12 @@ export const Point3dInputPlugin: InputBindingPlugin<
 		if (!Point3d.isObject(value)) {
 			return null;
 		}
-		const p = ParamsParsers;
-		const result = parseParams<Point3dInputParams>(params, {
+		const result = parseRecord<Point3dInputParams>(params, (p) => ({
 			readonly: p.optional.constant(false),
 			x: p.optional.custom(parsePointDimensionParams),
 			y: p.optional.custom(parsePointDimensionParams),
 			z: p.optional.custom(parsePointDimensionParams),
-		});
+		}));
 		return result
 			? {
 					initialValue: value,

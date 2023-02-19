@@ -1,9 +1,9 @@
 import * as assert from 'assert';
 import {describe as context, describe} from 'mocha';
 
-import {ParamsParsers} from './params-parsers';
+import {MicroParsers} from './micro-parsers';
 
-describe('ParamsParsers', () => {
+describe('MicroParsers', () => {
 	[
 		{
 			value: true,
@@ -16,7 +16,7 @@ describe('ParamsParsers', () => {
 	].forEach(({value, expected}) => {
 		context(`when ${JSON.stringify(value)}`, () => {
 			it('should parse optional parameter', () => {
-				assert.deepStrictEqual(ParamsParsers.optional.boolean(value), expected);
+				assert.deepStrictEqual(MicroParsers.optional.boolean(value), expected);
 			});
 		});
 	});
@@ -33,7 +33,7 @@ describe('ParamsParsers', () => {
 	].forEach(({value, expected}) => {
 		context(`when ${JSON.stringify(value)}`, () => {
 			it('should parse required parameter', () => {
-				assert.deepStrictEqual(ParamsParsers.required.boolean(value), expected);
+				assert.deepStrictEqual(MicroParsers.required.boolean(value), expected);
 			});
 		});
 	});
@@ -50,7 +50,7 @@ describe('ParamsParsers', () => {
 	].forEach(({value, expected}) => {
 		context(`when ${JSON.stringify(value)}`, () => {
 			it('should parse boolean parameter', () => {
-				assert.deepStrictEqual(ParamsParsers.required.boolean(value), expected);
+				assert.deepStrictEqual(MicroParsers.required.boolean(value), expected);
 			});
 		});
 	});
@@ -67,7 +67,7 @@ describe('ParamsParsers', () => {
 	].forEach(({value, expected}) => {
 		context(`when ${JSON.stringify(value)}`, () => {
 			it('should parse number parameter', () => {
-				assert.deepStrictEqual(ParamsParsers.required.number(value), expected);
+				assert.deepStrictEqual(MicroParsers.required.number(value), expected);
 			});
 		});
 	});
@@ -84,7 +84,7 @@ describe('ParamsParsers', () => {
 	].forEach(({value, expected}) => {
 		context(`when ${JSON.stringify(value)}`, () => {
 			it('should parse string parameter', () => {
-				assert.deepStrictEqual(ParamsParsers.required.string(value), expected);
+				assert.deepStrictEqual(MicroParsers.required.string(value), expected);
 			});
 		});
 	});
@@ -92,21 +92,21 @@ describe('ParamsParsers', () => {
 	[
 		{
 			params: {
-				parser: ParamsParsers.required.number,
+				parser: MicroParsers.required.number,
 				value: [1, 2, 3],
 			},
 			expected: {succeeded: true, value: [1, 2, 3]},
 		},
 		{
 			params: {
-				parser: ParamsParsers.required.number,
+				parser: MicroParsers.required.number,
 				value: 123,
 			},
 			expected: {succeeded: false, value: undefined},
 		},
 		{
 			params: {
-				parser: ParamsParsers.required.number,
+				parser: MicroParsers.required.number,
 				value: [1, 2, 'foo', 3],
 			},
 			expected: {succeeded: false, value: undefined},
@@ -115,7 +115,7 @@ describe('ParamsParsers', () => {
 		context(`when ${JSON.stringify(params)}`, () => {
 			it('should parse array parameter', () => {
 				assert.deepStrictEqual(
-					ParamsParsers.required.array(params.parser)(params.value),
+					MicroParsers.required.array(params.parser)(params.value),
 					expected,
 				);
 			});
@@ -126,8 +126,8 @@ describe('ParamsParsers', () => {
 		{
 			params: {
 				parser: {
-					foo: ParamsParsers.required.number,
-					bar: ParamsParsers.required.string,
+					foo: MicroParsers.required.number,
+					bar: MicroParsers.required.string,
 				},
 				value: {
 					foo: 123,
@@ -139,8 +139,8 @@ describe('ParamsParsers', () => {
 		{
 			params: {
 				parser: {
-					foo: ParamsParsers.required.number,
-					bar: ParamsParsers.required.string,
+					foo: MicroParsers.required.number,
+					bar: MicroParsers.required.string,
 				},
 				value: null,
 			},
@@ -149,8 +149,8 @@ describe('ParamsParsers', () => {
 		{
 			params: {
 				parser: {
-					foo: ParamsParsers.required.number,
-					bar: ParamsParsers.required.string,
+					foo: MicroParsers.required.number,
+					bar: MicroParsers.required.string,
 				},
 				value: {
 					foo: 123,
@@ -163,7 +163,7 @@ describe('ParamsParsers', () => {
 		context(`when ${JSON.stringify(params)}`, () => {
 			it('should parse object parameter', () => {
 				assert.deepStrictEqual(
-					ParamsParsers.required.object(params.parser)(params.value),
+					MicroParsers.required.object(params.parser)(params.value),
 					expected,
 				);
 			});

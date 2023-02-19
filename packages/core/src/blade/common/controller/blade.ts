@@ -1,7 +1,7 @@
 import {Controller} from '../../../common/controller/controller';
 import {disposeElement} from '../../../common/disposing-util';
+import {parseRecord} from '../../../common/micro-parsers';
 import {ViewProps} from '../../../common/model/view-props';
-import {ParamsParsers, parseParams} from '../../../common/params-parsers';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 import {Blade} from '../model/blade';
@@ -64,11 +64,10 @@ export class BladeController<V extends View = View> implements Controller<V> {
 	 * @param state The object to import.
 	 */
 	public import(state: BladeControllerState): void {
-		const p = ParamsParsers;
-		const result = parseParams(state, {
+		const result = parseRecord(state, (p) => ({
 			disabled: p.required.boolean,
 			hidden: p.required.boolean,
-		});
+		}));
 		if (!result) {
 			return;
 		}

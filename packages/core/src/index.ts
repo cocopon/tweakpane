@@ -105,8 +105,8 @@ export * from './common/view/view';
 
 export * from './common/compat';
 export * from './common/dom-util';
+export * from './common/micro-parsers';
 export * from './common/number-util';
-export * from './common/params-parsers';
 export * from './common/params';
 export * from './common/primitive';
 export * from './common/tp-error';

@@ -1,9 +1,9 @@
 import {Controller} from '../common/controller/controller';
+import {parseRecord} from '../common/micro-parsers';
 import {ValueMap} from '../common/model/value-map';
 import {createValue} from '../common/model/values';
 import {ViewProps} from '../common/model/view-props';
 import {BaseBladeParams} from '../common/params';
-import {ParamsParsers, parseParams} from '../common/params-parsers';
 import {PlainView} from '../common/view/plain';
 import {CheckboxController} from '../input-binding/boolean/controller/checkbox';
 import {VERSION} from '../version';
@@ -73,10 +73,9 @@ export const TestValueBladePlugin: BladePlugin<TestBladeParams> = {
 	type: 'blade',
 	core: VERSION,
 	accept(params) {
-		const p = ParamsParsers;
-		const r = parseParams(params, {
+		const r = parseRecord(params, (p) => ({
 			view: p.required.constant('test'),
-		});
+		}));
 		return r ? {params: r} : null;
 	},
 	controller(args) {
@@ -109,7 +108,7 @@ export const TestValueBladePlugin: BladePlugin<TestBladeParams> = {
 };
 
 export class TestKeyBladeController extends BladeController {
-	public key = '';
+	public key: string;
 
 	constructor(doc: Document, key: string) {
 		const viewProps = ViewProps.create();

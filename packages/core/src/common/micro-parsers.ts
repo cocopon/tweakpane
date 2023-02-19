@@ -1,6 +1,6 @@
 import {forceCast} from '../misc/type-util';
 
-type ParamsParsingResult<T> =
+type MicroParsingResult<T> =
 	| {
 			succeeded: true;
 			value: T | undefined;
@@ -9,12 +9,12 @@ type ParamsParsingResult<T> =
 			succeeded: false;
 			value: undefined;
 	  };
-export type ParamsParser<T> = (value: unknown) => ParamsParsingResult<T>;
+export type MicroParser<T> = (value: unknown) => MicroParsingResult<T>;
 
 function parseObject<O extends Record<string, unknown>>(
 	value: Record<string, unknown>,
 	keyToParserMap: {
-		[Key in keyof O]: ParamsParser<O[Key]>;
+		[Key in keyof O]: MicroParser<O[Key]>;
 	},
 ): O | undefined {
 	const keys: (keyof O)[] = Object.keys(keyToParserMap);
@@ -36,7 +36,7 @@ function parseObject<O extends Record<string, unknown>>(
 
 function parseArray<T>(
 	value: unknown[],
-	parseItem: ParamsParser<T>,
+	parseItem: MicroParser<T>,
 ): T[] | undefined {
 	return value.reduce((tmp: T[] | undefined, item) => {
 		if (tmp === undefined) {
@@ -58,11 +58,11 @@ function isObject(value: unknown): value is Record<string, unknown> {
 	return typeof value === 'object';
 }
 
-type ParamsParserBuilder<T> = (optional?: boolean) => ParamsParser<T>;
+type MicroParserBuilder<T> = (optional?: boolean) => MicroParser<T>;
 
-function createParamsParserBuilder<T>(
+function createMicroParserBuilder<T>(
 	parse: (value: unknown) => T | undefined,
-): ParamsParserBuilder<T> {
+): MicroParserBuilder<T> {
 	return (optional) => (v) => {
 		if (!optional && v === undefined) {
 			return {
@@ -90,48 +90,48 @@ function createParamsParserBuilder<T>(
 	};
 }
 
-function createParamsParserBuilders(optional: boolean) {
+function createMicroParserBuilders(optional: boolean) {
 	return {
 		custom: <T>(parse: (value: unknown) => T | undefined) =>
-			createParamsParserBuilder(parse)(optional),
+			createMicroParserBuilder(parse)(optional),
 
-		boolean: createParamsParserBuilder<boolean>((v) =>
+		boolean: createMicroParserBuilder<boolean>((v) =>
 			typeof v === 'boolean' ? v : undefined,
 		)(optional),
 
-		number: createParamsParserBuilder<number>((v) =>
+		number: createMicroParserBuilder<number>((v) =>
 			typeof v === 'number' ? v : undefined,
 		)(optional),
 
-		string: createParamsParserBuilder<string>((v) =>
+		string: createMicroParserBuilder<string>((v) =>
 			typeof v === 'string' ? v : undefined,
 		)(optional),
 
 		// eslint-disable-next-line @typescript-eslint/ban-types
-		function: createParamsParserBuilder<Function>((v) =>
+		function: createMicroParserBuilder<Function>((v) =>
 			// eslint-disable-next-line @typescript-eslint/ban-types
 			typeof v === 'function' ? v : undefined,
 		)(optional),
 
 		constant: <T>(value: T) =>
-			createParamsParserBuilder<T>((v) => (v === value ? value : undefined))(
+			createMicroParserBuilder<T>((v) => (v === value ? value : undefined))(
 				optional,
 			),
 
-		raw: createParamsParserBuilder((v: unknown) => v)(optional),
+		raw: createMicroParserBuilder((v: unknown) => v)(optional),
 
 		object: <O extends Record<string, unknown>>(keyToParserMap: {
-			[Key in keyof O]: ParamsParser<O[Key]>;
+			[Key in keyof O]: MicroParser<O[Key]>;
 		}) =>
-			createParamsParserBuilder<O>((v) => {
+			createMicroParserBuilder<O>((v) => {
 				if (!isObject(v)) {
 					return undefined;
 				}
 				return parseObject(v, keyToParserMap);
 			})(optional),
 
-		array: <T>(itemParser: ParamsParser<T>) =>
-			createParamsParserBuilder<T[]>((v) => {
+		array: <T>(itemParser: MicroParser<T>) =>
+			createMicroParserBuilder<T[]>((v) => {
 				if (!Array.isArray(v)) {
 					return undefined;
 				}
@@ -140,15 +140,18 @@ function createParamsParserBuilders(optional: boolean) {
 	};
 }
 
-export const ParamsParsers = {
-	optional: createParamsParserBuilders(true),
-	required: createParamsParserBuilders(false),
+export const MicroParsers = {
+	optional: createMicroParserBuilders(true),
+	required: createMicroParserBuilders(false),
 };
 
-export function parseParams<O extends Record<string, unknown>>(
+export function parseRecord<O extends Record<string, unknown>>(
 	value: Record<string, unknown>,
-	keyToParserMap: {[Key in keyof O]: ParamsParser<O[Key]>},
+	keyToParserMap: (p: typeof MicroParsers) => {
+		[Key in keyof O]: MicroParser<O[Key]>;
+	},
 ): O | undefined {
-	const result = ParamsParsers.required.object(keyToParserMap)(value);
+	const map = keyToParserMap(MicroParsers);
+	const result = MicroParsers.required.object(map)(value);
 	return result.succeeded ? result.value : undefined;
 }

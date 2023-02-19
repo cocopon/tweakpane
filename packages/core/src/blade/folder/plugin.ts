@@ -1,6 +1,6 @@
+import {parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
 import {BaseBladeParams} from '../../common/params';
-import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {VERSION} from '../../version';
 import {BladePlugin} from '../plugin';
 import {FolderApi} from './api/folder';
@@ -19,13 +19,12 @@ export const FolderBladePlugin: BladePlugin<FolderBladeParams> = {
 	type: 'blade',
 	core: VERSION,
 	accept(params) {
-		const p = ParamsParsers;
-		const result = parseParams<FolderBladeParams>(params, {
+		const result = parseRecord<FolderBladeParams>(params, (p) => ({
 			title: p.required.string,
 			view: p.required.constant('folder'),
 
 			expanded: p.optional.boolean,
-		});
+		}));
 		return result ? {params: result} : null;
 	},
 	controller(args) {

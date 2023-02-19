@@ -1,6 +1,6 @@
 import {ValueController} from '../../../common/controller/value';
+import {parseRecord} from '../../../common/micro-parsers';
 import {Value} from '../../../common/model/value';
-import {ParamsParsers, parseParams} from '../../../common/params-parsers';
 import {TpError} from '../../../common/tp-error';
 import {BladeControllerState} from '../../common/controller/blade';
 import {ValueBladeController} from '../../common/controller/value-blade';
@@ -46,10 +46,9 @@ export class LabeledValueController<
 	public import(state: BladeControllerState): void {
 		super.import(state);
 
-		const p = ParamsParsers;
-		const result = parseParams(state, {
+		const result = parseRecord(state, (p) => ({
 			label: p.required.string,
-		});
+		}));
 		if (!result) {
 			return;
 		}

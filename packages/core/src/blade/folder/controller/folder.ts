@@ -1,5 +1,5 @@
+import {parseRecord} from '../../../common/micro-parsers';
 import {ViewProps} from '../../../common/model/view-props';
-import {ParamsParsers, parseParams} from '../../../common/params-parsers';
 import {BladeControllerState} from '../../common/controller/blade';
 import {ContainerBladeController} from '../../common/controller/container-blade';
 import {RackController} from '../../common/controller/rack';
@@ -69,11 +69,10 @@ export class FolderController extends ContainerBladeController<FolderView> {
 	public import(state: BladeControllerState): void {
 		super.import(state);
 
-		const p = ParamsParsers;
-		const result = parseParams(state, {
+		const result = parseRecord(state, (p) => ({
 			expanded: p.required.boolean,
 			title: p.required.string,
-		});
+		}));
 		if (!result) {
 			return;
 		}

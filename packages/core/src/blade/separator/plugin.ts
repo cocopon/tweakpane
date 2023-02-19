@@ -1,6 +1,6 @@
 import {BladePlugin} from '../../blade/plugin';
+import {parseRecord} from '../../common/micro-parsers';
 import {BaseBladeParams} from '../../common/params';
-import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {VERSION} from '../../version';
 import {SeparatorApi} from './api/separator';
 import {SeparatorController} from './controller/separator';
@@ -14,10 +14,9 @@ export const SeparatorBladePlugin: BladePlugin<SeparatorBladeParams> = {
 	type: 'blade',
 	core: VERSION,
 	accept(params) {
-		const p = ParamsParsers;
-		const result = parseParams<SeparatorBladeParams>(params, {
+		const result = parseRecord<SeparatorBladeParams>(params, (p) => ({
 			view: p.required.constant('separator'),
-		});
+		}));
 		return result ? {params: result} : null;
 	},
 	controller(args) {

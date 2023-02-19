@@ -1,7 +1,7 @@
+import {parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
 import {ViewProps} from '../../common/model/view-props';
 import {BaseBladeParams} from '../../common/params';
-import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {VERSION} from '../../version';
 import {createBlade} from '../common/model/blade';
 import {BladePlugin} from '../plugin';
@@ -23,11 +23,10 @@ export const TabBladePlugin: BladePlugin<TabBladeParams> = {
 	type: 'blade',
 	core: VERSION,
 	accept(params) {
-		const p = ParamsParsers;
-		const result = parseParams<TabBladeParams>(params, {
+		const result = parseRecord<TabBladeParams>(params, (p) => ({
 			pages: p.required.array(p.required.object({title: p.required.string})),
 			view: p.required.constant('tab'),
-		});
+		}));
 		if (!result || result.pages.length === 0) {
 			return null;
 		}

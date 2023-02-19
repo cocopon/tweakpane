@@ -8,9 +8,9 @@ import {Constraint} from '../../common/constraint/constraint';
 import {ListConstraint} from '../../common/constraint/list';
 import {ListController} from '../../common/controller/list';
 import {boolFromUnknown} from '../../common/converter/boolean';
+import {parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
 import {BaseInputParams, ListParamsOptions} from '../../common/params';
-import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {writePrimitive} from '../../common/primitive';
 import {createListConstraint, parseListOptions} from '../../common/util';
 import {VERSION} from '../../version';
@@ -47,11 +47,10 @@ export const BooleanInputPlugin: InputBindingPlugin<
 		if (typeof value !== 'boolean') {
 			return null;
 		}
-		const p = ParamsParsers;
-		const result = parseParams<BooleanInputParams>(params, {
+		const result = parseRecord<BooleanInputParams>(params, (p) => ({
 			options: p.optional.custom<ListParamsOptions<boolean>>(parseListOptions),
 			readonly: p.optional.constant(false),
-		});
+		}));
 		return result
 			? {
 					initialValue: value,

@@ -2,8 +2,8 @@ import {
 	BooleanFormatter,
 	boolFromUnknown,
 } from '../../common/converter/boolean';
+import {parseRecord} from '../../common/micro-parsers';
 import {BaseMonitorParams} from '../../common/params';
-import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {Constants} from '../../misc/constants';
 import {VERSION} from '../../version';
 import {MultiLogController} from '../common/controller/multi-log';
@@ -31,11 +31,10 @@ export const BooleanMonitorPlugin: MonitorBindingPlugin<
 		if (typeof value !== 'boolean') {
 			return null;
 		}
-		const p = ParamsParsers;
-		const result = parseParams<BooleanMonitorParams>(params, {
+		const result = parseRecord<BooleanMonitorParams>(params, (p) => ({
 			readonly: p.required.constant(true),
 			rows: p.optional.number,
-		});
+		}));
 		return result
 			? {
 					initialValue: value,

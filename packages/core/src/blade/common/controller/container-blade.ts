@@ -1,4 +1,4 @@
-import {ParamsParsers, parseParams} from '../../../common/params-parsers';
+import {parseRecord} from '../../../common/micro-parsers';
 import {View} from '../../../common/view/view';
 import {Blade} from '../model/blade';
 import {BladeController, BladeControllerState} from './blade';
@@ -27,10 +27,9 @@ export class ContainerBladeController<
 	public import(state: BladeControllerState) {
 		super.import(state);
 
-		const p = ParamsParsers;
-		const result = parseParams(state, {
+		const result = parseRecord(state, (p) => ({
 			children: p.required.array(p.required.raw),
-		});
+		}));
 		if (!result) {
 			return;
 		}

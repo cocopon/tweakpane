@@ -1,6 +1,6 @@
+import {MicroParsers} from '../common/micro-parsers';
 import {ViewProps} from '../common/model/view-props';
 import {BaseBladeParams} from '../common/params';
-import {ParamsParsers} from '../common/params-parsers';
 import {forceCast} from '../misc/type-util';
 import {BasePlugin} from '../plugin/plugin';
 import {PluginPool} from '../plugin/pool';
@@ -49,10 +49,9 @@ export function createBladeController<P extends BaseBladeParams>(
 		return null;
 	}
 
-	const disabled = ParamsParsers.optional.boolean(
-		args.params['disabled'],
-	).value;
-	const hidden = ParamsParsers.optional.boolean(args.params['hidden']).value;
+	const p = MicroParsers;
+	const disabled = p.optional.boolean(args.params['disabled']).value;
+	const hidden = p.optional.boolean(args.params['hidden']).value;
 	return plugin.controller({
 		blade: createBlade(),
 		document: args.document,

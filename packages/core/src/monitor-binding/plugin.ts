@@ -13,10 +13,10 @@ import {IntervalTicker} from '../common/binding/ticker/interval';
 import {ManualTicker} from '../common/binding/ticker/manual';
 import {Ticker} from '../common/binding/ticker/ticker';
 import {MonitorBindingValue} from '../common/binding/value/monitor-binding';
+import {MicroParsers} from '../common/micro-parsers';
 import {ValueMap} from '../common/model/value-map';
 import {ViewProps} from '../common/model/view-props';
 import {BaseMonitorParams} from '../common/params';
-import {ParamsParsers} from '../common/params-parsers';
 import {Constants} from '../misc/constants';
 import {isEmpty} from '../misc/type-util';
 import {BasePlugin} from '../plugin/plugin';
@@ -134,7 +134,6 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 		target: BindingTarget;
 	},
 ): MonitorBindingController<T> | null {
-	const P = ParamsParsers;
 	const result = plugin.accept(args.target.read(), args.params);
 	if (isEmpty(result)) {
 		return null;
@@ -147,13 +146,14 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 	};
 
 	// Binding and value
+	const p = MicroParsers;
 	const reader = plugin.binding.reader(bindingArgs);
 	const bufferSize =
-		P.optional.number(args.params.bufferSize).value ??
+		p.optional.number(args.params.bufferSize).value ??
 		(plugin.binding.defaultBufferSize &&
 			plugin.binding.defaultBufferSize(result.params)) ??
 		1;
-	const interval = P.optional.number(args.params.interval).value;
+	const interval = p.optional.number(args.params.interval).value;
 	const value = new MonitorBindingValue({
 		binding: new ReadonlyBinding({
 			reader: reader,
@@ -164,8 +164,8 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 	});
 
 	// Value controller
-	const disabled = P.optional.boolean(args.params.disabled).value;
-	const hidden = P.optional.boolean(args.params.hidden).value;
+	const disabled = p.optional.boolean(args.params.disabled).value;
+	const hidden = p.optional.boolean(args.params.hidden).value;
 	const controller = plugin.controller({
 		document: args.document,
 		params: result.params,
@@ -181,7 +181,7 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 	});
 
 	// Monitor binding controller
-	const label = P.optional.string(args.params.label).value ?? args.target.key;
+	const label = p.optional.string(args.params.label).value ?? args.target.key;
 	return new LabeledValueController(args.document, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
