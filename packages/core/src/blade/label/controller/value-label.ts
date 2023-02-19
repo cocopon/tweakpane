@@ -1,6 +1,8 @@
 import {ValueController} from '../../../common/controller/value';
 import {Value} from '../../../common/model/value';
+import {ParamsParsers, parseParams} from '../../../common/params-parsers';
 import {TpError} from '../../../common/tp-error';
+import {BladeControllerState} from '../../common/controller/blade';
 import {ValueBladeController} from '../../common/controller/value-blade';
 import {Blade} from '../../common/model/blade';
 import {LabelProps, LabelView} from '../view/label';
@@ -39,5 +41,26 @@ export class LabeledValueController<
 		this.valueController = config.valueController;
 
 		this.view.valueElement.appendChild(this.valueController.view.element);
+	}
+
+	public import(state: BladeControllerState): void {
+		super.import(state);
+
+		const p = ParamsParsers;
+		const result = parseParams(state, {
+			label: p.required.string,
+		});
+		if (!result) {
+			return;
+		}
+
+		this.props.set('label', result.label);
+	}
+
+	public export(): BladeControllerState {
+		return {
+			...super.export(),
+			label: this.props.get('label'),
+		};
 	}
 }

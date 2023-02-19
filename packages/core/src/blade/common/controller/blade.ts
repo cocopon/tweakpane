@@ -1,6 +1,7 @@
 import {Controller} from '../../../common/controller/controller';
 import {disposeElement} from '../../../common/disposing-util';
 import {ViewProps} from '../../../common/model/view-props';
+import {ParamsParsers, parseParams} from '../../../common/params-parsers';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 import {Blade} from '../model/blade';
@@ -20,6 +21,8 @@ const POS_TO_CLASS_NAME_MAP: {[pos in BladePosition]: string} = {
 	last: 'lst',
 	verylast: 'vlst',
 };
+
+export type BladeControllerState = Record<string, unknown>;
 
 export class BladeController<V extends View = View> implements Controller<V> {
 	public readonly blade: Blade;
@@ -54,5 +57,34 @@ export class BladeController<V extends View = View> implements Controller<V> {
 	set parent(parent: Rack | null) {
 		this.parent_ = parent;
 		this.viewProps.set('parent', this.parent_ ? this.parent_.viewProps : null);
+	}
+
+	/**
+	 * Import a state from the object.
+	 * @param state The object to import.
+	 */
+	public import(state: BladeControllerState): void {
+		const p = ParamsParsers;
+		const result = parseParams(state, {
+			disabled: p.required.boolean,
+			hidden: p.required.boolean,
+		});
+		if (!result) {
+			return;
+		}
+
+		this.viewProps.set('disabled', result.disabled);
+		this.viewProps.set('hidden', result.hidden);
+	}
+
+	/**
+	 * Export a state to the object.
+	 * @return A state object.
+	 */
+	public export(): BladeControllerState {
+		return {
+			disabled: this.viewProps.get('disabled'),
+			hidden: this.viewProps.get('hidden'),
+		};
 	}
 }

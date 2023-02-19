@@ -33,4 +33,8 @@ export class ReadWriteBinding<In> implements Binding {
 	public write(value: In): void {
 		this.writer_(this.target, value);
 	}
+
+	public inject(value: unknown): void {
+		this.write(this.reader_(value));
+	}
 }

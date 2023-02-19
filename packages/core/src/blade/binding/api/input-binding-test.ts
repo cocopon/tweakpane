@@ -18,7 +18,6 @@ import {createTestWindow} from '../../../misc/dom-test-util';
 import {assertInitialState, assertUpdates} from '../../common/api/test-util';
 import {TpChangeEvent} from '../../common/api/tp-event';
 import {createBlade} from '../../common/model/blade';
-import {LabeledValueController} from '../../label/controller/value-label';
 import {LabelPropsObject} from '../../label/view/label';
 import {InputBindingController} from '../controller/input-binding';
 import {BindingApi} from './binding';
@@ -42,7 +41,7 @@ function createApi(target: BindingTarget): InputBindingApi<number, unknown> {
 		value: v,
 		viewProps: ViewProps.create(),
 	});
-	const bc: InputBindingController<number> = new LabeledValueController(doc, {
+	const bc = new InputBindingController<number>(doc, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: 'label',

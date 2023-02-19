@@ -17,6 +17,8 @@ export * from './blade/button/controller/button';
 export * from './blade/button/view/button';
 export * from './blade/button/plugin';
 
+export * from './blade/common/controller/container-blade';
+
 export * from './blade/common/controller/blade';
 export * from './blade/common/controller/value-blade';
 

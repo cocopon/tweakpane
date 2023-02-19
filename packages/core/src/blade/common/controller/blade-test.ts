@@ -67,4 +67,25 @@ describe(BladeController.name, () => {
 		c.parent = rack;
 		assert.strictEqual(c.viewProps.get('parent'), rack.viewProps);
 	});
+
+	it('should export state', () => {
+		const doc = createTestWindow().document;
+		const c = new TestController(doc);
+		const state = c.export();
+
+		assert.strictEqual(state.disabled, c.viewProps.get('disabled'));
+		assert.strictEqual(state.hidden, c.viewProps.get('hidden'));
+	});
+
+	it('should import state', () => {
+		const doc = createTestWindow().document;
+		const c = new TestController(doc);
+		c.import({
+			disabled: true,
+			hidden: true,
+		});
+
+		assert.strictEqual(c.viewProps.get('disabled'), true);
+		assert.strictEqual(c.viewProps.get('hidden'), true);
+	});
 });
