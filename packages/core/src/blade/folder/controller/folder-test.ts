@@ -6,10 +6,14 @@ import {ViewProps} from '../../../common/model/view-props';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {ButtonController} from '../../button/controller/button';
 import {ButtonPropsObject} from '../../button/view/button';
-import {BladeController} from '../../common/controller/blade';
+import {
+	BladeController,
+	BladeControllerState,
+} from '../../common/controller/blade';
 import {createBlade} from '../../common/model/blade';
 import {LabelController} from '../../label/controller/label';
 import {LabelPropsObject} from '../../label/view/label';
+import {TestKeyBladeController} from '../../test-util';
 import {FolderPropsObject} from '../view/folder';
 import {FolderController} from './folder';
 
@@ -155,5 +159,54 @@ describe(FolderController.name, () => {
 		c.viewProps.set('disposed', true);
 
 		assert.strictEqual(bc.viewProps.get('disposed'), true);
+	});
+
+	it('should export state', () => {
+		const doc = createTestWindow().document;
+		const c = new FolderController(doc, {
+			blade: createBlade(),
+			props: ValueMap.fromObject<FolderPropsObject>({
+				title: 'folder',
+			}),
+			viewProps: ViewProps.create(),
+		});
+		c.rackController.rack.add(new TestKeyBladeController(doc, 'foo'));
+
+		const state = c.export();
+		assert.ok('disabled' in state);
+		assert.ok('hidden' in state);
+		assert.strictEqual(state.expanded, true);
+		assert.strictEqual(state.title, 'folder');
+
+		const children = state.children as BladeControllerState[];
+		assert.strictEqual(children[0].key, 'foo');
+	});
+
+	it('should import state', () => {
+		const doc = createTestWindow().document;
+		const c = new FolderController(doc, {
+			blade: createBlade(),
+			props: ValueMap.fromObject<FolderPropsObject>({
+				title: 'folder',
+			}),
+			viewProps: ViewProps.create(),
+		});
+		c.rackController.rack.add(new TestKeyBladeController(doc, 'foo'));
+		c.import({
+			disabled: true,
+			expanded: false,
+			hidden: true,
+			title: 'renamed',
+			children: [{key: 'bar'}],
+		});
+
+		assert.strictEqual(c.viewProps.get('disabled'), true);
+		assert.strictEqual(c.viewProps.get('hidden'), true);
+		assert.strictEqual(c.props.get('title'), 'renamed');
+		assert.strictEqual(c.foldable.get('expanded'), false);
+		assert.strictEqual(
+			(c.rackController.rack.children[0] as TestKeyBladeController).key,
+			'bar',
+		);
 	});
 });

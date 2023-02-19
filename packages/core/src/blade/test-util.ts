@@ -8,7 +8,7 @@ import {PlainView} from '../common/view/plain';
 import {CheckboxController} from '../input-binding/boolean/controller/checkbox';
 import {VERSION} from '../version';
 import {BladeApi} from './common/api/blade';
-import {BladeController} from './common/controller/blade';
+import {BladeController, BladeControllerState} from './common/controller/blade';
 import {createBlade} from './common/model/blade';
 import {LabelController} from './label/controller/label';
 import {LabeledValueController} from './label/controller/value-label';
@@ -107,3 +107,32 @@ export const TestValueBladePlugin: BladePlugin<TestBladeParams> = {
 		return new TestValueBladeApi(args.controller);
 	},
 };
+
+export class TestKeyBladeController extends BladeController {
+	public key = '';
+
+	constructor(doc: Document, key: string) {
+		const viewProps = ViewProps.create();
+		const view = new PlainView(doc, {
+			viewName: '',
+			viewProps: viewProps,
+		});
+		super({
+			blade: createBlade(),
+			view: view,
+			viewProps: viewProps,
+		});
+
+		this.key = key;
+	}
+
+	public import(state: BladeControllerState): void {
+		this.key = String(state.key);
+	}
+
+	public export(): BladeControllerState {
+		return {
+			key: this.key,
+		};
+	}
+}

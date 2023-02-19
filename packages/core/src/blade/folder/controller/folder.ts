@@ -1,4 +1,6 @@
 import {ViewProps} from '../../../common/model/view-props';
+import {ParamsParsers, parseParams} from '../../../common/params-parsers';
+import {BladeControllerState} from '../../common/controller/blade';
 import {ContainerBladeController} from '../../common/controller/container-blade';
 import {RackController} from '../../common/controller/rack';
 import {Blade} from '../../common/model/blade';
@@ -62,6 +64,30 @@ export class FolderController extends ContainerBladeController<FolderView> {
 
 	get document(): Document {
 		return this.view.element.ownerDocument;
+	}
+
+	public import(state: BladeControllerState): void {
+		super.import(state);
+
+		const p = ParamsParsers;
+		const result = parseParams(state, {
+			expanded: p.required.boolean,
+			title: p.required.string,
+		});
+		if (!result) {
+			return;
+		}
+
+		this.foldable.set('expanded', result.expanded);
+		this.props.set('title', result.title);
+	}
+
+	public export(): BladeControllerState {
+		return {
+			...super.export(),
+			expanded: this.foldable.get('expanded'),
+			title: this.props.get('title'),
+		};
 	}
 
 	private onTitleClick_() {
