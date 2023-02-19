@@ -10,7 +10,7 @@ import {VERSION} from '../version';
 import {BladeApi} from './common/api/blade';
 import {BladeController, BladeControllerState} from './common/controller/blade';
 import {createBlade} from './common/model/blade';
-import {LabelController} from './label/controller/label';
+import {LabelBladeController} from './label/controller/label';
 import {LabeledValueController} from './label/controller/value-label';
 import {LabelPropsObject} from './label/view/label';
 import {BladePlugin} from './plugin';
@@ -32,7 +32,7 @@ export function createEmptyLabelableController(doc: Document) {
 }
 
 export function createLabelController(doc: Document, vc: LabelableController) {
-	return new LabelController(doc, {
+	return new LabelBladeController(doc, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({label: ''}),
 		valueController: vc,

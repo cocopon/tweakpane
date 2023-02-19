@@ -1,7 +1,7 @@
 import {
 	Class,
 	FolderController,
-	LabelController,
+	LabeledButtonController,
 	LabeledValueController,
 	SeparatorController,
 } from '@tweakpane/core';
@@ -41,7 +41,7 @@ describe(Pane.name, () => {
 				insert: (api, index) => {
 					api.addButton({index: index, title: 'button'});
 				},
-				expected: LabelController,
+				expected: LabeledButtonController,
 			},
 			{
 				insert: (api, index) => {

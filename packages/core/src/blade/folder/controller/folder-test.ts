@@ -11,14 +11,14 @@ import {
 	BladeControllerState,
 } from '../../common/controller/blade';
 import {createBlade} from '../../common/model/blade';
-import {LabelController} from '../../label/controller/label';
+import {LabelBladeController} from '../../label/controller/label';
 import {LabelPropsObject} from '../../label/view/label';
 import {TestKeyBladeController} from '../../test-util';
 import {FolderPropsObject} from '../view/folder';
 import {FolderController} from './folder';
 
 function createSomeBladeController(doc: Document): BladeController {
-	return new LabelController(doc, {
+	return new LabelBladeController(doc, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: undefined,

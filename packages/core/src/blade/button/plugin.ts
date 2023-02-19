@@ -2,10 +2,10 @@ import {parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
 import {BaseBladeParams} from '../../common/params';
 import {VERSION} from '../../version';
-import {LabelController} from '../label/controller/label';
 import {BladePlugin} from '../plugin';
 import {ButtonApi} from './api/button';
 import {ButtonController} from './controller/button';
+import {LabeledButtonController} from './controller/labeled-button';
 import {ButtonPropsObject} from './view/button';
 
 export interface ButtonBladeParams extends BaseBladeParams {
@@ -29,7 +29,7 @@ export const ButtonBladePlugin: BladePlugin<ButtonBladeParams> = {
 		return result ? {params: result} : null;
 	},
 	controller(args) {
-		return new LabelController(args.document, {
+		return new LabeledButtonController(args.document, {
 			blade: args.blade,
 			props: ValueMap.fromObject({
 				label: args.params.label,
@@ -43,12 +43,9 @@ export const ButtonBladePlugin: BladePlugin<ButtonBladeParams> = {
 		});
 	},
 	api(args) {
-		if (!(args.controller instanceof LabelController)) {
-			return null;
+		if (args.controller instanceof LabeledButtonController) {
+			return new ButtonApi(args.controller);
 		}
-		if (!(args.controller.valueController instanceof ButtonController)) {
-			return null;
-		}
-		return new ButtonApi(args.controller);
+		return null;
 	},
 };
