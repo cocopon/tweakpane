@@ -44,23 +44,71 @@ describe(ContainerBladeController.name, () => {
 		assert.strictEqual(children[1].key, 'bar');
 	});
 
+	it('should not import state', () => {
+		const doc = createTestWindow().document;
+		const c = createController(doc);
+
+		assert.strictEqual(c.import({}), false);
+		assert.strictEqual(
+			c.import({
+				disabled: false,
+				hidden: false,
+			}),
+			false,
+		);
+	});
+
 	it('should import state', () => {
 		const doc = createTestWindow().document;
 		const c = createController(doc);
 		c.rackController.rack.add(new TestKeyBladeController(doc, 'foo'));
 		c.rackController.rack.add(new TestKeyBladeController(doc, 'bar'));
 
-		c.import({
-			disabled: true,
-			hidden: true,
-			children: [{key: 'baz'}, {key: 'qux'}],
-		});
-
+		assert.strictEqual(
+			c.import({
+				disabled: true,
+				hidden: true,
+				children: [
+					{
+						disabled: false,
+						hidden: false,
+						key: 'baz',
+					},
+					{
+						disabled: false,
+						hidden: false,
+						key: 'qux',
+					},
+				],
+			}),
+			true,
+		);
 		assert.strictEqual(c.viewProps.get('disabled'), true);
 		assert.strictEqual(c.viewProps.get('hidden'), true);
 
 		const children = c.rackController.rack.children as TestKeyBladeController[];
 		assert.strictEqual(children[0].key, 'baz');
 		assert.strictEqual(children[1].key, 'qux');
+	});
+
+	it('should not import state with invalid children', () => {
+		const doc = createTestWindow().document;
+		const c = createController(doc);
+		c.rackController.rack.add(new TestKeyBladeController(doc, 'foo'));
+
+		assert.strictEqual(
+			c.import({
+				disabled: true,
+				hidden: true,
+				children: [
+					{
+						disabled: false,
+						hidden: false,
+						nonKey: 'baz',
+					},
+				],
+			}),
+			false,
+		);
 	});
 });

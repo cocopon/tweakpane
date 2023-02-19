@@ -37,8 +37,8 @@ export class BladeApi<C extends BladeController = BladeController> {
 		this.controller_.viewProps.set('disposed', true);
 	}
 
-	public import(state: BladeControllerState): void {
-		this.controller_.import(state);
+	public import(state: BladeControllerState): boolean {
+		return this.controller_.import(state);
 	}
 
 	public export(): BladeControllerState {

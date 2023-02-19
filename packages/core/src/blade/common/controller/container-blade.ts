@@ -24,18 +24,20 @@ export class ContainerBladeController<
 		this.rackController = config.rackController;
 	}
 
-	public import(state: BladeControllerState) {
-		super.import(state);
+	public import(state: BladeControllerState): boolean {
+		if (!super.import(state)) {
+			return false;
+		}
 
 		const result = parseRecord(state, (p) => ({
 			children: p.required.array(p.required.raw),
 		}));
 		if (!result) {
-			return;
+			return false;
 		}
 
-		this.rackController.rack.children.forEach((c, index) => {
-			c.import(result.children[index] as BladeControllerState);
+		return this.rackController.rack.children.every((c, index) => {
+			return c.import(result.children[index] as BladeControllerState);
 		});
 	}
 

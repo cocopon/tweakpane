@@ -77,14 +77,24 @@ describe(BladeController.name, () => {
 		assert.strictEqual(state.hidden, c.viewProps.get('hidden'));
 	});
 
+	it('should not import state', () => {
+		const doc = createTestWindow().document;
+		const c = new TestController(doc);
+
+		assert.strictEqual(c.import({}), false);
+	});
+
 	it('should import state', () => {
 		const doc = createTestWindow().document;
 		const c = new TestController(doc);
-		c.import({
-			disabled: true,
-			hidden: true,
-		});
 
+		assert.strictEqual(
+			c.import({
+				disabled: true,
+				hidden: true,
+			}),
+			true,
+		);
 		assert.strictEqual(c.viewProps.get('disabled'), true);
 		assert.strictEqual(c.viewProps.get('hidden'), true);
 	});

@@ -62,18 +62,20 @@ export class BladeController<V extends View = View> implements Controller<V> {
 	/**
 	 * Import a state from the object.
 	 * @param state The object to import.
+	 * @return true if succeeded, false otherwise.
 	 */
-	public import(state: BladeControllerState): void {
+	public import(state: BladeControllerState): boolean {
 		const result = parseRecord(state, (p) => ({
 			disabled: p.required.boolean,
 			hidden: p.required.boolean,
 		}));
 		if (!result) {
-			return;
+			return false;
 		}
 
 		this.viewProps.set('disabled', result.disabled);
 		this.viewProps.set('hidden', result.hidden);
+		return true;
 	}
 
 	/**

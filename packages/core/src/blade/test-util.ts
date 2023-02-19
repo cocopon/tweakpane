@@ -125,8 +125,20 @@ export class TestKeyBladeController extends BladeController {
 		this.key = key;
 	}
 
-	public import(state: BladeControllerState): void {
-		this.key = String(state.key);
+	public import(state: BladeControllerState): boolean {
+		if (!super.import(state)) {
+			return false;
+		}
+
+		const result = parseRecord(state, (p) => ({
+			key: p.required.string,
+		}));
+		if (!result) {
+			return false;
+		}
+
+		this.key = String(result.key);
+		return true;
 	}
 
 	public export(): BladeControllerState {

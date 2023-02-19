@@ -36,17 +36,20 @@ export class LabelBladeController<
 		this.view.valueElement.appendChild(this.valueController.view.element);
 	}
 
-	public import(state: BladeControllerState): void {
-		super.import(state);
+	public import(state: BladeControllerState): boolean {
+		if (!super.import(state)) {
+			return false;
+		}
 
 		const result = parseRecord(state, (p) => ({
 			label: p.required.string,
 		}));
 		if (!result) {
-			return;
+			return false;
 		}
 
 		this.props.set('label', result.label);
+		return true;
 	}
 
 	public export(): BladeControllerState {

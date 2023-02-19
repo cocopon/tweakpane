@@ -32,15 +32,26 @@ function createSomeBladeController(doc: Document): BladeController {
 	});
 }
 
+function createController(
+	doc: Document,
+	config: {
+		title: string;
+	},
+) {
+	return new FolderController(doc, {
+		blade: createBlade(),
+		props: ValueMap.fromObject<FolderPropsObject>({
+			title: config.title,
+		}),
+		viewProps: ViewProps.create(),
+	});
+}
+
 describe(FolderController.name, () => {
 	it('should toggle expanded by clicking title', (done) => {
 		const doc = createTestWindow().document;
-		const c = new FolderController(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<FolderPropsObject>({
-				title: '',
-			}),
-			viewProps: ViewProps.create(),
+		const c = createController(doc, {
+			title: '',
 		});
 
 		assert.strictEqual(c.foldable.get('expanded'), true);
@@ -55,12 +66,8 @@ describe(FolderController.name, () => {
 
 	it('should remove disposed blade view element', () => {
 		const doc = createTestWindow().document;
-		const c = new FolderController(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<FolderPropsObject>({
-				title: '',
-			}),
-			viewProps: ViewProps.create(),
+		const c = createController(doc, {
+			title: '',
 		});
 		const bc = createSomeBladeController(doc);
 		c.rackController.rack.add(bc);
@@ -72,12 +79,8 @@ describe(FolderController.name, () => {
 
 	it('should remove removed blade view element', () => {
 		const doc = createTestWindow().document;
-		const c = new FolderController(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<FolderPropsObject>({
-				title: '',
-			}),
-			viewProps: ViewProps.create(),
+		const c = createController(doc, {
+			title: '',
 		});
 		const bc = createSomeBladeController(doc);
 		c.rackController.rack.add(bc);
@@ -89,12 +92,8 @@ describe(FolderController.name, () => {
 
 	it('should add view element to subfolder', () => {
 		const doc = createTestWindow().document;
-		const c = new FolderController(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<FolderPropsObject>({
-				title: 'Folder',
-			}),
-			viewProps: ViewProps.create(),
+		const c = createController(doc, {
+			title: 'Folder',
 		});
 
 		const sc = new FolderController(doc, {
@@ -113,12 +112,8 @@ describe(FolderController.name, () => {
 
 	it('should dispose sub controllers', () => {
 		const doc = createTestWindow().document;
-		const c = new FolderController(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<FolderPropsObject>({
-				title: '',
-			}),
-			viewProps: ViewProps.create(),
+		const c = createController(doc, {
+			title: '',
 		});
 
 		const bcs = [
@@ -138,12 +133,8 @@ describe(FolderController.name, () => {
 
 	it('should dispose nested controllers', () => {
 		const doc = createTestWindow().document;
-		const c = new FolderController(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<FolderPropsObject>({
-				title: '',
-			}),
-			viewProps: ViewProps.create(),
+		const c = createController(doc, {
+			title: '',
 		});
 		const sc = new FolderController(doc, {
 			blade: createBlade(),
@@ -163,12 +154,8 @@ describe(FolderController.name, () => {
 
 	it('should export state', () => {
 		const doc = createTestWindow().document;
-		const c = new FolderController(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<FolderPropsObject>({
-				title: 'folder',
-			}),
-			viewProps: ViewProps.create(),
+		const c = createController(doc, {
+			title: 'folder',
 		});
 		c.rackController.rack.add(new TestKeyBladeController(doc, 'foo'));
 
@@ -182,24 +169,45 @@ describe(FolderController.name, () => {
 		assert.strictEqual(children[0].key, 'foo');
 	});
 
+	it('should not import state', () => {
+		const doc = createTestWindow().document;
+		const c = createController(doc, {
+			title: 'folder',
+		});
+		assert.strictEqual(c.import({}), false);
+		assert.strictEqual(
+			c.import({
+				children: [],
+				disabled: false,
+				hidden: false,
+			}),
+			false,
+		);
+	});
+
 	it('should import state', () => {
 		const doc = createTestWindow().document;
-		const c = new FolderController(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<FolderPropsObject>({
-				title: 'folder',
-			}),
-			viewProps: ViewProps.create(),
+		const c = createController(doc, {
+			title: 'folder',
 		});
 		c.rackController.rack.add(new TestKeyBladeController(doc, 'foo'));
-		c.import({
-			disabled: true,
-			expanded: false,
-			hidden: true,
-			title: 'renamed',
-			children: [{key: 'bar'}],
-		});
 
+		assert.strictEqual(
+			c.import({
+				disabled: true,
+				expanded: false,
+				hidden: true,
+				title: 'renamed',
+				children: [
+					{
+						disabled: false,
+						hidden: false,
+						key: 'bar',
+					},
+				],
+			}),
+			true,
+		);
 		assert.strictEqual(c.viewProps.get('disabled'), true);
 		assert.strictEqual(c.viewProps.get('hidden'), true);
 		assert.strictEqual(c.props.get('title'), 'renamed');

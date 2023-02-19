@@ -61,19 +61,22 @@ export class TabPageController extends ContainerBladeController<PlainView> {
 		return this.ic_;
 	}
 
-	public import(state: BladeControllerState): void {
-		super.import(state);
+	public import(state: BladeControllerState): boolean {
+		if (!super.import(state)) {
+			return false;
+		}
 
 		const result = parseRecord(state, (p) => ({
 			selected: p.required.boolean,
 			title: p.required.string,
 		}));
 		if (!result) {
-			return;
+			return false;
 		}
 
 		this.ic_.props.set('selected', result.selected);
 		this.ic_.props.set('title', result.title);
+		return true;
 	}
 
 	public export(): BladeControllerState {

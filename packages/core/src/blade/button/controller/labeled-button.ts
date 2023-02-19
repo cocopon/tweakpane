@@ -4,17 +4,18 @@ import {LabelBladeController} from '../../label/controller/label';
 import {ButtonController} from './button';
 
 export class LabeledButtonController extends LabelBladeController<ButtonController> {
-	public import(state: BladeControllerState): void {
+	public import(state: BladeControllerState): boolean {
 		super.import(state);
 
 		const result = parseRecord(state, (p) => ({
 			title: p.required.string,
 		}));
 		if (!result) {
-			return;
+			return false;
 		}
 
 		this.valueController.props.set('title', result.title);
+		return true;
 	}
 
 	public export(): BladeControllerState {

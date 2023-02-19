@@ -64,7 +64,7 @@ describe(InputBindingController.name, () => {
 		assert.strictEqual(bc.valueController, vc);
 	});
 
-	it('should export properties', () => {
+	it('should export state', () => {
 		const doc = createTestWindow().document;
 		const {controller: bc} = createController(doc);
 
@@ -75,16 +75,33 @@ describe(InputBindingController.name, () => {
 		assert.strictEqual(state.value, 0x112233);
 	});
 
-	it('should import properties', () => {
+	it('should not import state', () => {
 		const doc = createTestWindow().document;
 		const {controller: bc} = createController(doc);
-		bc.import({
-			disabled: true,
-			hidden: true,
-			label: 'bar',
-			value: 0x445566,
-		});
+		assert.strictEqual(bc.import({}), false);
+		assert.strictEqual(
+			bc.import({
+				disabled: false,
+				hidden: false,
+				label: '',
+			}),
+			false,
+		);
+	});
 
+	it('should import state', () => {
+		const doc = createTestWindow().document;
+		const {controller: bc} = createController(doc);
+
+		assert.strictEqual(
+			bc.import({
+				disabled: true,
+				hidden: true,
+				label: 'bar',
+				value: 0x445566,
+			}),
+			true,
+		);
 		assert.strictEqual(bc.viewProps.get('disabled'), true);
 		assert.strictEqual(bc.viewProps.get('hidden'), true);
 		assert.strictEqual(bc.props.get('label'), 'bar');

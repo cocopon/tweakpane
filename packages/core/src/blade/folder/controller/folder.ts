@@ -66,19 +66,22 @@ export class FolderController extends ContainerBladeController<FolderView> {
 		return this.view.element.ownerDocument;
 	}
 
-	public import(state: BladeControllerState): void {
-		super.import(state);
+	public import(state: BladeControllerState): boolean {
+		if (!super.import(state)) {
+			return false;
+		}
 
 		const result = parseRecord(state, (p) => ({
 			expanded: p.required.boolean,
 			title: p.optional.string,
 		}));
 		if (!result) {
-			return;
+			return false;
 		}
 
 		this.foldable.set('expanded', result.expanded);
 		this.props.set('title', result.title);
+		return true;
 	}
 
 	public export(): BladeControllerState {
