@@ -71,7 +71,7 @@ export class FolderController extends ContainerBladeController<FolderView> {
 
 		const result = parseRecord(state, (p) => ({
 			expanded: p.required.boolean,
-			title: p.required.string,
+			title: p.optional.string,
 		}));
 		if (!result) {
 			return;
