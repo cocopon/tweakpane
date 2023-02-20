@@ -44,20 +44,6 @@ describe(ContainerBladeController.name, () => {
 		assert.strictEqual(children[1].key, 'bar');
 	});
 
-	it('should not import state', () => {
-		const doc = createTestWindow().document;
-		const c = createController(doc);
-
-		assert.strictEqual(c.import({}), false);
-		assert.strictEqual(
-			c.import({
-				disabled: false,
-				hidden: false,
-			}),
-			false,
-		);
-	});
-
 	it('should import state', () => {
 		const doc = createTestWindow().document;
 		const c = createController(doc);
@@ -83,8 +69,6 @@ describe(ContainerBladeController.name, () => {
 			}),
 			true,
 		);
-		assert.strictEqual(c.viewProps.get('disabled'), true);
-		assert.strictEqual(c.viewProps.get('hidden'), true);
 
 		const children = c.rackController.rack.children as TestKeyBladeController[];
 		assert.strictEqual(children[0].key, 'baz');

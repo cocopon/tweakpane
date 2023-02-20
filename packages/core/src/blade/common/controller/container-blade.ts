@@ -1,7 +1,10 @@
-import {parseRecord} from '../../../common/micro-parsers';
 import {View} from '../../../common/view/view';
 import {Blade} from '../model/blade';
-import {BladeController, BladeControllerState} from './blade';
+import {
+	BladeController,
+	BladeControllerState,
+	importBladeControllerState,
+} from './blade';
 import {RackController} from './rack';
 
 interface Config<V extends View> {
@@ -25,20 +28,18 @@ export class ContainerBladeController<
 	}
 
 	public import(state: BladeControllerState): boolean {
-		if (!super.import(state)) {
-			return false;
-		}
-
-		const result = parseRecord(state, (p) => ({
-			children: p.required.array(p.required.raw),
-		}));
-		if (!result) {
-			return false;
-		}
-
-		return this.rackController.rack.children.every((c, index) => {
-			return c.import(result.children[index] as BladeControllerState);
-		});
+		return importBladeControllerState(
+			state,
+			(s) => super.import(s),
+			(p) => ({
+				children: p.required.array(p.required.raw),
+			}),
+			(result) => {
+				return this.rackController.rack.children.every((c, index) => {
+					return c.import(result.children[index] as BladeControllerState);
+				});
+			},
+		);
 	}
 
 	public export(): BladeControllerState {

@@ -8,7 +8,11 @@ import {PlainView} from '../common/view/plain';
 import {CheckboxController} from '../input-binding/boolean/controller/checkbox';
 import {VERSION} from '../version';
 import {BladeApi} from './common/api/blade';
-import {BladeController, BladeControllerState} from './common/controller/blade';
+import {
+	BladeController,
+	BladeControllerState,
+	importBladeControllerState,
+} from './common/controller/blade';
 import {createBlade} from './common/model/blade';
 import {LabelBladeController} from './label/controller/label';
 import {LabeledValueController} from './label/controller/value-label';
@@ -125,24 +129,23 @@ export class TestKeyBladeController extends BladeController {
 		this.key = key;
 	}
 
-	public import(state: BladeControllerState): boolean {
-		if (!super.import(state)) {
-			return false;
-		}
-
-		const result = parseRecord(state, (p) => ({
-			key: p.required.string,
-		}));
-		if (!result) {
-			return false;
-		}
-
-		this.key = String(result.key);
-		return true;
+	override import(state: BladeControllerState): boolean {
+		return importBladeControllerState(
+			state,
+			(s) => super.import(s),
+			(p) => ({
+				key: p.required.string,
+			}),
+			(result) => {
+				this.key = String(result.key);
+				return true;
+			},
+		);
 	}
 
-	public export(): BladeControllerState {
+	override export(): BladeControllerState {
 		return {
+			...super.export(),
 			key: this.key,
 		};
 	}

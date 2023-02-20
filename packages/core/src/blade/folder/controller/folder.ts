@@ -1,6 +1,8 @@
-import {parseRecord} from '../../../common/micro-parsers';
 import {ViewProps} from '../../../common/model/view-props';
-import {BladeControllerState} from '../../common/controller/blade';
+import {
+	BladeControllerState,
+	importBladeControllerState,
+} from '../../common/controller/blade';
 import {ContainerBladeController} from '../../common/controller/container-blade';
 import {RackController} from '../../common/controller/rack';
 import {Blade} from '../../common/model/blade';
@@ -66,25 +68,23 @@ export class FolderController extends ContainerBladeController<FolderView> {
 		return this.view.element.ownerDocument;
 	}
 
-	public import(state: BladeControllerState): boolean {
-		if (!super.import(state)) {
-			return false;
-		}
-
-		const result = parseRecord(state, (p) => ({
-			expanded: p.required.boolean,
-			title: p.optional.string,
-		}));
-		if (!result) {
-			return false;
-		}
-
-		this.foldable.set('expanded', result.expanded);
-		this.props.set('title', result.title);
-		return true;
+	override import(state: BladeControllerState): boolean {
+		return importBladeControllerState(
+			state,
+			(s) => super.import(s),
+			(p) => ({
+				expanded: p.required.boolean,
+				title: p.optional.string,
+			}),
+			(result) => {
+				this.foldable.set('expanded', result.expanded);
+				this.props.set('title', result.title);
+				return true;
+			},
+		);
 	}
 
-	public export(): BladeControllerState {
+	override export(): BladeControllerState {
 		return {
 			...super.export(),
 			expanded: this.foldable.get('expanded'),

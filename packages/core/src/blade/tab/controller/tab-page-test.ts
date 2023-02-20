@@ -83,23 +83,6 @@ describe(TabPageController.name, () => {
 		assert.strictEqual(state.title, 'foo');
 	});
 
-	it('should not import state', () => {
-		const doc = createTestWindow().document;
-		const c = createController(doc, {
-			selected: false,
-			title: 'foo',
-		});
-		assert.strictEqual(c.import({}), false);
-		assert.strictEqual(
-			c.import({
-				children: [],
-				disabled: false,
-				hidden: false,
-			}),
-			false,
-		);
-	});
-
 	it('should import state', () => {
 		const doc = createTestWindow().document;
 		const c = createController(doc, {
@@ -123,12 +106,6 @@ describe(TabPageController.name, () => {
 				title: 'qux',
 			}),
 			true,
-		);
-		assert.strictEqual(c.viewProps.get('disabled'), true);
-		assert.strictEqual(c.viewProps.get('hidden'), true);
-		assert.strictEqual(
-			(c.rackController.rack.children[0] as TestKeyBladeController).key,
-			'baz',
 		);
 		assert.strictEqual(c.itemController.props.get('title'), 'qux');
 		assert.strictEqual(c.itemController.props.get('selected'), true);

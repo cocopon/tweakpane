@@ -75,20 +75,6 @@ describe(InputBindingController.name, () => {
 		assert.strictEqual(state.value, 0x112233);
 	});
 
-	it('should not import state', () => {
-		const doc = createTestWindow().document;
-		const {controller: bc} = createController(doc);
-		assert.strictEqual(bc.import({}), false);
-		assert.strictEqual(
-			bc.import({
-				disabled: false,
-				hidden: false,
-				label: '',
-			}),
-			false,
-		);
-	});
-
 	it('should import state', () => {
 		const doc = createTestWindow().document;
 		const {controller: bc} = createController(doc);
@@ -102,10 +88,6 @@ describe(InputBindingController.name, () => {
 			}),
 			true,
 		);
-		assert.strictEqual(bc.viewProps.get('disabled'), true);
-		assert.strictEqual(bc.viewProps.get('hidden'), true);
-		assert.strictEqual(bc.props.get('label'), 'bar');
-
 		assert.deepStrictEqual(
 			bc.value.rawValue.getComponents(),
 			[0x44, 0x55, 0x66, 1],

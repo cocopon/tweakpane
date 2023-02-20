@@ -169,22 +169,6 @@ describe(FolderController.name, () => {
 		assert.strictEqual(children[0].key, 'foo');
 	});
 
-	it('should not import state', () => {
-		const doc = createTestWindow().document;
-		const c = createController(doc, {
-			title: 'folder',
-		});
-		assert.strictEqual(c.import({}), false);
-		assert.strictEqual(
-			c.import({
-				children: [],
-				disabled: false,
-				hidden: false,
-			}),
-			false,
-		);
-	});
-
 	it('should import state', () => {
 		const doc = createTestWindow().document;
 		const c = createController(doc, {
@@ -208,13 +192,7 @@ describe(FolderController.name, () => {
 			}),
 			true,
 		);
-		assert.strictEqual(c.viewProps.get('disabled'), true);
-		assert.strictEqual(c.viewProps.get('hidden'), true);
 		assert.strictEqual(c.props.get('title'), 'renamed');
 		assert.strictEqual(c.foldable.get('expanded'), false);
-		assert.strictEqual(
-			(c.rackController.rack.children[0] as TestKeyBladeController).key,
-			'bar',
-		);
 	});
 });

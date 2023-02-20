@@ -1,6 +1,10 @@
 import {Controller} from '../../../common/controller/controller';
 import {disposeElement} from '../../../common/disposing-util';
-import {parseRecord} from '../../../common/micro-parsers';
+import {
+	MicroParser,
+	MicroParsers,
+	parseRecord,
+} from '../../../common/micro-parsers';
 import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
@@ -88,4 +92,20 @@ export class BladeController<V extends View = View> implements Controller<V> {
 			hidden: this.viewProps.get('hidden'),
 		};
 	}
+}
+
+export function importBladeControllerState<O extends BladeControllerState>(
+	state: BladeControllerState,
+	superImport: (state: BladeControllerState) => boolean,
+	parser: (p: typeof MicroParsers) => {
+		[key in keyof O]: MicroParser<O[key]>;
+	},
+	callback: (o: O) => boolean,
+): boolean {
+	if (!superImport(state)) {
+		return false;
+	}
+
+	const result = parseRecord(state, parser);
+	return result ? callback(result) : false;
 }

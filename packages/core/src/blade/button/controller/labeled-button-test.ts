@@ -46,22 +46,6 @@ describe(LabeledButtonController.name, () => {
 		assert.strictEqual(state.title, 'bar');
 	});
 
-	it('should not import state', () => {
-		const doc = createTestWindow().document;
-		const c = createController(doc, {
-			label: 'foo',
-			title: 'bar',
-		});
-		assert.strictEqual(c.import({}), false);
-		assert.strictEqual(
-			c.import({
-				disabled: false,
-				hidden: false,
-			}),
-			false,
-		);
-	});
-
 	it('should import state', () => {
 		const doc = createTestWindow().document;
 		const c = createController(doc, {
@@ -78,9 +62,6 @@ describe(LabeledButtonController.name, () => {
 			}),
 			true,
 		);
-		assert.strictEqual(c.viewProps.get('disabled'), true);
-		assert.strictEqual(c.viewProps.get('hidden'), true);
-		assert.strictEqual(c.props.get('label'), 'baz');
 		assert.strictEqual(c.valueController.props.get('title'), 'qux');
 	});
 });

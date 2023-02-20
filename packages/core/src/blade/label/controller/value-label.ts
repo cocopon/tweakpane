@@ -1,8 +1,10 @@
 import {ValueController} from '../../../common/controller/value';
-import {parseRecord} from '../../../common/micro-parsers';
 import {Value} from '../../../common/model/value';
 import {TpError} from '../../../common/tp-error';
-import {BladeControllerState} from '../../common/controller/blade';
+import {
+	BladeControllerState,
+	importBladeControllerState,
+} from '../../common/controller/blade';
 import {ValueBladeController} from '../../common/controller/value-blade';
 import {Blade} from '../../common/model/blade';
 import {LabelProps, LabelView} from '../view/label';
@@ -43,27 +45,25 @@ export class LabeledValueController<
 		this.view.valueElement.appendChild(this.valueController.view.element);
 	}
 
-	public import(state: BladeControllerState): boolean {
-		if (!super.import(state)) {
-			return false;
-		}
-
-		const result = parseRecord(state, (p) => ({
-			label: p.required.string,
-			value: p.optional.raw,
-		}));
-		if (!result) {
-			return false;
-		}
-
-		this.props.set('label', result.label);
-		if (result.value) {
-			this.value.rawValue = result.value as T;
-		}
-		return true;
+	override import(state: BladeControllerState): boolean {
+		return importBladeControllerState(
+			state,
+			(s) => super.import(s),
+			(p) => ({
+				label: p.required.string,
+				value: p.optional.raw,
+			}),
+			(result) => {
+				this.props.set('label', result.label);
+				if (result.value) {
+					this.value.rawValue = result.value as T;
+				}
+				return true;
+			},
+		);
 	}
 
-	public export(): BladeControllerState {
+	override export(): BladeControllerState {
 		return {
 			...super.export(),
 			label: this.props.get('label'),

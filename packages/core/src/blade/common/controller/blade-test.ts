@@ -6,7 +6,7 @@ import {View} from '../../../common/view/view';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {createBlade} from '../model/blade';
 import {Rack} from '../model/rack';
-import {BladeController} from './blade';
+import {BladeController, importBladeControllerState} from './blade';
 
 class TestView implements View {
 	public readonly element: HTMLElement;
@@ -97,5 +97,25 @@ describe(BladeController.name, () => {
 		);
 		assert.strictEqual(c.viewProps.get('disabled'), true);
 		assert.strictEqual(c.viewProps.get('hidden'), true);
+	});
+});
+
+describe(importBladeControllerState.name, () => {
+	it('should not run callback if superImport is failed', () => {
+		assert.strictEqual(
+			importBladeControllerState(
+				{
+					foo: 'bar',
+				},
+				() => false,
+				(p) => ({
+					foo: p.required.string,
+				}),
+				() => {
+					assert.fail('should not be called');
+				},
+			),
+			false,
+		);
 	});
 });

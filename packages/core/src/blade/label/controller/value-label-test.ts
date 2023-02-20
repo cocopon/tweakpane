@@ -75,22 +75,6 @@ describe(LabeledValueController.name, () => {
 		assert.strictEqual(state.value, 123);
 	});
 
-	it('should not import state', () => {
-		const doc = createTestWindow().document;
-		const c = createController(doc, {
-			label: 'foo',
-			value: 0,
-		});
-		assert.strictEqual(c.import({}), false);
-		assert.strictEqual(
-			c.import({
-				disabled: false,
-				hidden: false,
-			}),
-			false,
-		);
-	});
-
 	it('should import state', () => {
 		const doc = createTestWindow().document;
 		const c = createController(doc, {
@@ -107,8 +91,6 @@ describe(LabeledValueController.name, () => {
 			}),
 			true,
 		);
-		assert.strictEqual(c.viewProps.get('disabled'), true);
-		assert.strictEqual(c.viewProps.get('hidden'), true);
 		assert.strictEqual(c.props.get('label'), 'bar');
 		assert.strictEqual(c.value.rawValue, 123);
 	});

@@ -1,9 +1,11 @@
-import {parseRecord} from '../../../common/micro-parsers';
 import {bindValueMap} from '../../../common/model/reactive';
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {PlainView} from '../../../common/view/plain';
-import {BladeControllerState} from '../../common/controller/blade';
+import {
+	BladeControllerState,
+	importBladeControllerState,
+} from '../../common/controller/blade';
 import {ContainerBladeController} from '../../common/controller/container-blade';
 import {RackController} from '../../common/controller/rack';
 import {Blade} from '../../common/model/blade';
@@ -61,25 +63,23 @@ export class TabPageController extends ContainerBladeController<PlainView> {
 		return this.ic_;
 	}
 
-	public import(state: BladeControllerState): boolean {
-		if (!super.import(state)) {
-			return false;
-		}
-
-		const result = parseRecord(state, (p) => ({
-			selected: p.required.boolean,
-			title: p.required.string,
-		}));
-		if (!result) {
-			return false;
-		}
-
-		this.ic_.props.set('selected', result.selected);
-		this.ic_.props.set('title', result.title);
-		return true;
+	override import(state: BladeControllerState): boolean {
+		return importBladeControllerState(
+			state,
+			(s) => super.import(s),
+			(p) => ({
+				selected: p.required.boolean,
+				title: p.required.string,
+			}),
+			(result) => {
+				this.ic_.props.set('selected', result.selected);
+				this.ic_.props.set('title', result.title);
+				return true;
+			},
+		);
 	}
 
-	public export(): BladeControllerState {
+	override export(): BladeControllerState {
 		return {
 			...super.export(),
 			selected: this.ic_.props.get('selected'),
