@@ -6,7 +6,8 @@ import {View} from '../../../common/view/view';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {createBlade} from '../model/blade';
 import {Rack} from '../model/rack';
-import {BladeController, importBladeControllerState} from './blade';
+import {BladeController} from './blade';
+import {importBladeState} from './blade-state';
 
 class TestView implements View {
 	public readonly element: HTMLElement;
@@ -71,7 +72,7 @@ describe(BladeController.name, () => {
 	it('should export state', () => {
 		const doc = createTestWindow().document;
 		const c = new TestController(doc);
-		const state = c.export();
+		const state = c.exportState();
 
 		assert.strictEqual(state.disabled, c.viewProps.get('disabled'));
 		assert.strictEqual(state.hidden, c.viewProps.get('hidden'));
@@ -81,7 +82,7 @@ describe(BladeController.name, () => {
 		const doc = createTestWindow().document;
 		const c = new TestController(doc);
 
-		assert.strictEqual(c.import({}), false);
+		assert.strictEqual(c.importState({}), false);
 	});
 
 	it('should import state', () => {
@@ -89,7 +90,7 @@ describe(BladeController.name, () => {
 		const c = new TestController(doc);
 
 		assert.strictEqual(
-			c.import({
+			c.importState({
 				disabled: true,
 				hidden: true,
 			}),
@@ -100,10 +101,10 @@ describe(BladeController.name, () => {
 	});
 });
 
-describe(importBladeControllerState.name, () => {
+describe(importBladeState.name, () => {
 	it('should not run callback if superImport is failed', () => {
 		assert.strictEqual(
-			importBladeControllerState(
+			importBladeState(
 				{
 					foo: 'bar',
 				},

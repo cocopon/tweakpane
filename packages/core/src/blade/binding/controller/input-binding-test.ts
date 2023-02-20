@@ -68,7 +68,7 @@ describe(InputBindingController.name, () => {
 		const doc = createTestWindow().document;
 		const {controller: bc} = createController(doc);
 
-		const state = bc.export();
+		const state = bc.exportState();
 		assert.ok('disabled' in state);
 		assert.ok('hidden' in state);
 		assert.ok('label' in state);
@@ -80,7 +80,7 @@ describe(InputBindingController.name, () => {
 		const {controller: bc} = createController(doc);
 
 		assert.strictEqual(
-			bc.import({
+			bc.importState({
 				disabled: true,
 				hidden: true,
 				label: 'bar',

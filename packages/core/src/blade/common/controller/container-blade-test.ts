@@ -6,7 +6,7 @@ import {PlainView} from '../../../common/view/plain';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {TestKeyBladeController} from '../../test-util';
 import {createBlade} from '../model/blade';
-import {BladeControllerState} from './blade';
+import {BladeState} from './blade-state';
 import {ContainerBladeController} from './container-blade';
 import {RackController} from './rack';
 
@@ -35,11 +35,11 @@ describe(ContainerBladeController.name, () => {
 		c.rackController.rack.add(new TestKeyBladeController(doc, 'foo'));
 		c.rackController.rack.add(new TestKeyBladeController(doc, 'bar'));
 
-		const state = c.export();
+		const state = c.exportState();
 		assert.ok('disabled' in state);
 		assert.ok('hidden' in state);
 
-		const children = state.children as BladeControllerState[];
+		const children = state.children as BladeState[];
 		assert.strictEqual(children[0].key, 'foo');
 		assert.strictEqual(children[1].key, 'bar');
 	});
@@ -51,7 +51,7 @@ describe(ContainerBladeController.name, () => {
 		c.rackController.rack.add(new TestKeyBladeController(doc, 'bar'));
 
 		assert.strictEqual(
-			c.import({
+			c.importState({
 				disabled: true,
 				hidden: true,
 				children: [
@@ -81,7 +81,7 @@ describe(ContainerBladeController.name, () => {
 		c.rackController.rack.add(new TestKeyBladeController(doc, 'foo'));
 
 		assert.strictEqual(
-			c.import({
+			c.importState({
 				disabled: true,
 				hidden: true,
 				children: [

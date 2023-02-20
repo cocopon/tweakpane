@@ -3,18 +3,16 @@ import {
 	isInputBindingValue,
 } from '../../../common/binding/value/input-binding';
 import {ValueController} from '../../../common/controller/value';
+import {BladeController} from '../../common/controller/blade';
 import {
-	BladeController,
-	BladeControllerState,
-	exportBladeControllerState,
-	importBladeControllerState,
-} from '../../common/controller/blade';
+	BladeState,
+	exportBladeState,
+	importBladeState,
+} from '../../common/controller/blade-state';
 import {isValueBladeController} from '../../common/controller/value-blade';
 import {LabeledValueController} from '../../label/controller/value-label';
 
-function excludeValue(
-	state: BladeControllerState,
-): Omit<BladeControllerState, 'value'> {
+function excludeValue(state: BladeState): Omit<BladeState, 'value'> {
 	const result = {
 		...state,
 	};
@@ -26,12 +24,12 @@ export class InputBindingController<
 	In = unknown,
 	Vc extends ValueController<In> = ValueController<In>,
 > extends LabeledValueController<In, Vc, InputBindingValue<In>> {
-	override import(state: BladeControllerState): boolean {
-		return importBladeControllerState(
+	override importState(state: BladeState): boolean {
+		return importBladeState(
 			state,
 			// Exclude `value` from super.import()
 			// value should be imported with binding
-			(_s) => super.import(excludeValue(state)),
+			(_s) => super.importState(excludeValue(state)),
 			(p) => ({
 				value: p.required.raw,
 			}),
@@ -43,8 +41,8 @@ export class InputBindingController<
 		);
 	}
 
-	override export(): BladeControllerState {
-		return exportBladeControllerState(() => super.export(), {
+	override exportState(): BladeState {
+		return exportBladeState(() => super.exportState(), {
 			key: this.value.binding.presetKey,
 			value: this.value.binding.target.read(),
 		});

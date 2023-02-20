@@ -1,11 +1,7 @@
 import {View} from '../../../common/view/view';
 import {Blade} from '../model/blade';
-import {
-	BladeController,
-	BladeControllerState,
-	exportBladeControllerState,
-	importBladeControllerState,
-} from './blade';
+import {BladeController} from './blade';
+import {BladeState, exportBladeState, importBladeState} from './blade-state';
 import {RackController} from './rack';
 
 interface Config<V extends View> {
@@ -28,24 +24,24 @@ export class ContainerBladeController<
 		this.rackController = config.rackController;
 	}
 
-	public import(state: BladeControllerState): boolean {
-		return importBladeControllerState(
+	public importState(state: BladeState): boolean {
+		return importBladeState(
 			state,
-			(s) => super.import(s),
+			(s) => super.importState(s),
 			(p) => ({
 				children: p.required.array(p.required.raw),
 			}),
 			(result) => {
 				return this.rackController.rack.children.every((c, index) => {
-					return c.import(result.children[index] as BladeControllerState);
+					return c.importState(result.children[index] as BladeState);
 				});
 			},
 		);
 	}
 
-	public export(): BladeControllerState {
-		return exportBladeControllerState(() => super.export(), {
-			children: this.rackController.rack.children.map((c) => c.export()),
+	public exportState(): BladeState {
+		return exportBladeState(() => super.exportState(), {
+			children: this.rackController.rack.children.map((c) => c.exportState()),
 		});
 	}
 }

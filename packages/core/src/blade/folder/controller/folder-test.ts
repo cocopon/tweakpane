@@ -6,10 +6,8 @@ import {ViewProps} from '../../../common/model/view-props';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {ButtonController} from '../../button/controller/button';
 import {ButtonPropsObject} from '../../button/view/button';
-import {
-	BladeController,
-	BladeControllerState,
-} from '../../common/controller/blade';
+import {BladeController} from '../../common/controller/blade';
+import {BladeState} from '../../common/controller/blade-state';
 import {createBlade} from '../../common/model/blade';
 import {LabelBladeController} from '../../label/controller/label';
 import {LabelPropsObject} from '../../label/view/label';
@@ -159,13 +157,13 @@ describe(FolderController.name, () => {
 		});
 		c.rackController.rack.add(new TestKeyBladeController(doc, 'foo'));
 
-		const state = c.export();
+		const state = c.exportState();
 		assert.ok('disabled' in state);
 		assert.ok('hidden' in state);
 		assert.strictEqual(state.expanded, true);
 		assert.strictEqual(state.title, 'folder');
 
-		const children = state.children as BladeControllerState[];
+		const children = state.children as BladeState[];
 		assert.strictEqual(children[0].key, 'foo');
 	});
 
@@ -177,7 +175,7 @@ describe(FolderController.name, () => {
 		c.rackController.rack.add(new TestKeyBladeController(doc, 'foo'));
 
 		assert.strictEqual(
-			c.import({
+			c.importState({
 				disabled: true,
 				expanded: false,
 				hidden: true,

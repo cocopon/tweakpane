@@ -3,10 +3,10 @@ import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {PlainView} from '../../../common/view/plain';
 import {
-	BladeControllerState,
-	exportBladeControllerState,
-	importBladeControllerState,
-} from '../../common/controller/blade';
+	BladeState,
+	exportBladeState,
+	importBladeState,
+} from '../../common/controller/blade-state';
 import {ContainerBladeController} from '../../common/controller/container-blade';
 import {RackController} from '../../common/controller/rack';
 import {Blade} from '../../common/model/blade';
@@ -64,10 +64,10 @@ export class TabPageController extends ContainerBladeController<PlainView> {
 		return this.ic_;
 	}
 
-	override import(state: BladeControllerState): boolean {
-		return importBladeControllerState(
+	override importState(state: BladeState): boolean {
+		return importBladeState(
 			state,
-			(s) => super.import(s),
+			(s) => super.importState(s),
 			(p) => ({
 				selected: p.required.boolean,
 				title: p.required.string,
@@ -80,8 +80,8 @@ export class TabPageController extends ContainerBladeController<PlainView> {
 		);
 	}
 
-	override export(): BladeControllerState {
-		return exportBladeControllerState(() => super.export(), {
+	override exportState(): BladeState {
+		return exportBladeState(() => super.exportState(), {
 			selected: this.ic_.props.get('selected'),
 			title: this.ic_.props.get('title'),
 		});

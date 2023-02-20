@@ -21,6 +21,7 @@ export * from './blade/button/plugin';
 export * from './blade/common/controller/container-blade';
 
 export * from './blade/common/controller/blade';
+export * from './blade/common/controller/blade-state';
 export * from './blade/common/controller/value-blade';
 
 export * from './blade/common/model/blade';

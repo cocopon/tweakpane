@@ -74,7 +74,7 @@ describe(TabPageController.name, () => {
 			selected: false,
 			title: 'foo',
 		});
-		const state = c.export();
+		const state = c.exportState();
 
 		assert.ok('disabled' in state);
 		assert.ok('hidden' in state);
@@ -92,7 +92,7 @@ describe(TabPageController.name, () => {
 		c.rackController.rack.add(new TestKeyBladeController(doc, 'bar'));
 
 		assert.strictEqual(
-			c.import({
+			c.importState({
 				disabled: true,
 				hidden: true,
 				children: [

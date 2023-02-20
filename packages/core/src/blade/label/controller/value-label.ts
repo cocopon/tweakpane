@@ -2,10 +2,10 @@ import {ValueController} from '../../../common/controller/value';
 import {Value} from '../../../common/model/value';
 import {TpError} from '../../../common/tp-error';
 import {
-	BladeControllerState,
-	exportBladeControllerState,
-	importBladeControllerState,
-} from '../../common/controller/blade';
+	BladeState,
+	exportBladeState,
+	importBladeState,
+} from '../../common/controller/blade-state';
 import {ValueBladeController} from '../../common/controller/value-blade';
 import {Blade} from '../../common/model/blade';
 import {LabelProps, LabelView} from '../view/label';
@@ -46,10 +46,10 @@ export class LabeledValueController<
 		this.view.valueElement.appendChild(this.valueController.view.element);
 	}
 
-	override import(state: BladeControllerState): boolean {
-		return importBladeControllerState(
+	override importState(state: BladeState): boolean {
+		return importBladeState(
 			state,
-			(s) => super.import(s),
+			(s) => super.importState(s),
 			(p) => ({
 				label: p.required.string,
 				value: p.optional.raw,
@@ -64,8 +64,8 @@ export class LabeledValueController<
 		);
 	}
 
-	override export(): BladeControllerState {
-		return exportBladeControllerState(() => super.export(), {
+	override exportState(): BladeState {
+		return exportBladeState(() => super.exportState(), {
 			label: this.props.get('label'),
 			value: this.value.rawValue,
 		});

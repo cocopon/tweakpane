@@ -8,12 +8,12 @@ import {PlainView} from '../common/view/plain';
 import {CheckboxController} from '../input-binding/boolean/controller/checkbox';
 import {VERSION} from '../version';
 import {BladeApi} from './common/api/blade';
+import {BladeController} from './common/controller/blade';
 import {
-	BladeController,
-	BladeControllerState,
-	exportBladeControllerState,
-	importBladeControllerState,
-} from './common/controller/blade';
+	BladeState,
+	exportBladeState,
+	importBladeState,
+} from './common/controller/blade-state';
 import {createBlade} from './common/model/blade';
 import {LabelBladeController} from './label/controller/label';
 import {LabeledValueController} from './label/controller/value-label';
@@ -130,10 +130,10 @@ export class TestKeyBladeController extends BladeController {
 		this.key = key;
 	}
 
-	override import(state: BladeControllerState): boolean {
-		return importBladeControllerState(
+	override importState(state: BladeState): boolean {
+		return importBladeState(
 			state,
-			(s) => super.import(s),
+			(s) => super.importState(s),
 			(p) => ({
 				key: p.required.string,
 			}),
@@ -144,8 +144,8 @@ export class TestKeyBladeController extends BladeController {
 		);
 	}
 
-	override export(): BladeControllerState {
-		return exportBladeControllerState(() => super.export(), {
+	override exportState(): BladeState {
+		return exportBladeState(() => super.exportState(), {
 			key: this.key,
 		});
 	}

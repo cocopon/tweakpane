@@ -1,10 +1,10 @@
 import {Controller} from '../../../common/controller/controller';
+import {BladeController} from '../../common/controller/blade';
 import {
-	BladeController,
-	BladeControllerState,
-	exportBladeControllerState,
-	importBladeControllerState,
-} from '../../common/controller/blade';
+	BladeState,
+	exportBladeState,
+	importBladeState,
+} from '../../common/controller/blade-state';
 import {Blade} from '../../common/model/blade';
 import {LabelProps, LabelView} from '../view/label';
 
@@ -37,10 +37,10 @@ export class LabelBladeController<
 		this.view.valueElement.appendChild(this.valueController.view.element);
 	}
 
-	override import(state: BladeControllerState): boolean {
-		return importBladeControllerState(
+	override importState(state: BladeState): boolean {
+		return importBladeState(
 			state,
-			(s) => super.import(s),
+			(s) => super.importState(s),
 			(p) => ({
 				label: p.required.string,
 			}),
@@ -51,8 +51,8 @@ export class LabelBladeController<
 		);
 	}
 
-	override export(): BladeControllerState {
-		return exportBladeControllerState(() => super.export(), {
+	override exportState(): BladeState {
+		return exportBladeState(() => super.exportState(), {
 			label: this.props.get('label'),
 		});
 	}

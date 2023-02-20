@@ -1,4 +1,5 @@
-import {BladeController, BladeControllerState} from '../controller/blade';
+import {BladeController} from '../controller/blade';
+import {BladeState} from '../controller/blade-state';
 
 export class BladeApi<C extends BladeController = BladeController> {
 	/**
@@ -37,11 +38,11 @@ export class BladeApi<C extends BladeController = BladeController> {
 		this.controller_.viewProps.set('disposed', true);
 	}
 
-	public import(state: BladeControllerState): boolean {
-		return this.controller_.import(state);
+	public importState(state: BladeState): boolean {
+		return this.controller_.importState(state);
 	}
 
-	public export(): BladeControllerState {
-		return this.controller_.export();
+	public exportState(): BladeState {
+		return this.controller_.exportState();
 	}
 }

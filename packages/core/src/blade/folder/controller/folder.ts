@@ -1,9 +1,9 @@
 import {ViewProps} from '../../../common/model/view-props';
 import {
-	BladeControllerState,
-	exportBladeControllerState,
-	importBladeControllerState,
-} from '../../common/controller/blade';
+	BladeState,
+	exportBladeState,
+	importBladeState,
+} from '../../common/controller/blade-state';
 import {ContainerBladeController} from '../../common/controller/container-blade';
 import {RackController} from '../../common/controller/rack';
 import {Blade} from '../../common/model/blade';
@@ -69,10 +69,10 @@ export class FolderController extends ContainerBladeController<FolderView> {
 		return this.view.element.ownerDocument;
 	}
 
-	override import(state: BladeControllerState): boolean {
-		return importBladeControllerState(
+	override importState(state: BladeState): boolean {
+		return importBladeState(
 			state,
-			(s) => super.import(s),
+			(s) => super.importState(s),
 			(p) => ({
 				expanded: p.required.boolean,
 				title: p.optional.string,
@@ -85,8 +85,8 @@ export class FolderController extends ContainerBladeController<FolderView> {
 		);
 	}
 
-	override export(): BladeControllerState {
-		return exportBladeControllerState(() => super.export(), {
+	override exportState(): BladeState {
+		return exportBladeState(() => super.exportState(), {
 			expanded: this.foldable.get('expanded'),
 			title: this.props.get('title'),
 		});

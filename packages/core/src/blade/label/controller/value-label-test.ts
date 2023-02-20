@@ -68,7 +68,7 @@ describe(LabeledValueController.name, () => {
 			value: 123,
 		});
 
-		const state = c.export();
+		const state = c.exportState();
 		assert.ok('disabled' in state);
 		assert.ok('hidden' in state);
 		assert.strictEqual(state.label, 'foo');
@@ -83,7 +83,7 @@ describe(LabeledValueController.name, () => {
 		});
 
 		assert.strictEqual(
-			c.import({
+			c.importState({
 				disabled: true,
 				hidden: true,
 				label: 'bar',
@@ -103,7 +103,7 @@ describe(LabeledValueController.name, () => {
 		});
 
 		assert.strictEqual(
-			c.import({
+			c.importState({
 				disabled: true,
 				hidden: true,
 				label: 'bar',

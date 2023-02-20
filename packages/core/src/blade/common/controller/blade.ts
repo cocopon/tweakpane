@@ -1,16 +1,12 @@
 import {Controller} from '../../../common/controller/controller';
 import {disposeElement} from '../../../common/disposing-util';
-import {
-	MicroParser,
-	MicroParsers,
-	parseRecord,
-} from '../../../common/micro-parsers';
 import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 import {Blade} from '../model/blade';
 import {BladePosition, getAllBladePositions} from '../model/blade-positions';
 import {Rack} from '../model/rack';
+import {BladeState, exportBladeState, importBladeState} from './blade-state';
 
 interface Config<V extends View> {
 	blade: Blade;
@@ -25,33 +21,6 @@ const POS_TO_CLASS_NAME_MAP: {[pos in BladePosition]: string} = {
 	last: 'lst',
 	verylast: 'vlst',
 };
-
-export type BladeControllerState = Record<string, unknown>;
-
-export function importBladeControllerState<O extends BladeControllerState>(
-	state: BladeControllerState,
-	superImport: (state: BladeControllerState) => boolean,
-	parser: (p: typeof MicroParsers) => {
-		[key in keyof O]: MicroParser<O[key]>;
-	},
-	callback: (o: O) => boolean,
-): boolean {
-	if (!superImport(state)) {
-		return false;
-	}
-	const result = parseRecord(state, parser);
-	return result ? callback(result) : false;
-}
-
-export function exportBladeControllerState(
-	superExport: () => BladeControllerState,
-	thisState: BladeControllerState,
-): BladeControllerState {
-	return {
-		...superExport(),
-		...thisState,
-	};
-}
 
 export class BladeController<V extends View = View> implements Controller<V> {
 	public readonly blade: Blade;
@@ -93,8 +62,8 @@ export class BladeController<V extends View = View> implements Controller<V> {
 	 * @param state The object to import.
 	 * @return true if succeeded, false otherwise.
 	 */
-	public import(state: BladeControllerState): boolean {
-		return importBladeControllerState(
+	public importState(state: BladeState): boolean {
+		return importBladeState(
 			state,
 			() => true,
 			(p) => ({
@@ -113,8 +82,8 @@ export class BladeController<V extends View = View> implements Controller<V> {
 	 * Export a state to the object.
 	 * @return A state object.
 	 */
-	public export(): BladeControllerState {
-		return exportBladeControllerState(() => ({}), {
+	public exportState(): BladeState {
+		return exportBladeState(() => ({}), {
 			disabled: this.viewProps.get('disabled'),
 			hidden: this.viewProps.get('hidden'),
 		});

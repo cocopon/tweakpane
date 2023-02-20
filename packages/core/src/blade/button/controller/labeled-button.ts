@@ -1,16 +1,16 @@
 import {
-	BladeControllerState,
-	exportBladeControllerState,
-	importBladeControllerState,
-} from '../../common/controller/blade';
+	BladeState,
+	exportBladeState,
+	importBladeState,
+} from '../../common/controller/blade-state';
 import {LabelBladeController} from '../../label/controller/label';
 import {ButtonController} from './button';
 
 export class LabeledButtonController extends LabelBladeController<ButtonController> {
-	override import(state: BladeControllerState): boolean {
-		return importBladeControllerState(
+	override importState(state: BladeState): boolean {
+		return importBladeState(
 			state,
-			(s) => super.import(s),
+			(s) => super.importState(s),
 			(p) => ({
 				title: p.required.string,
 			}),
@@ -21,8 +21,8 @@ export class LabeledButtonController extends LabelBladeController<ButtonControll
 		);
 	}
 
-	override export(): BladeControllerState {
-		return exportBladeControllerState(() => super.export(), {
+	override exportState(): BladeState {
+		return exportBladeState(() => super.exportState(), {
 			title: this.valueController.props.get('title'),
 		});
 	}

@@ -66,7 +66,7 @@ describe(LabelBladeController.name, () => {
 		const doc = createTestWindow().document;
 		const c = createController(doc, 'foo');
 
-		const state = c.export();
+		const state = c.exportState();
 		assert.ok('disabled' in state);
 		assert.ok('hidden' in state);
 		assert.strictEqual(state.label, 'foo');
@@ -77,7 +77,7 @@ describe(LabelBladeController.name, () => {
 		const c = createController(doc, 'foo');
 
 		assert.strictEqual(
-			c.import({
+			c.importState({
 				disabled: true,
 				hidden: true,
 				label: 'bar',
