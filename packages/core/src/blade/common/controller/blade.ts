@@ -28,6 +28,31 @@ const POS_TO_CLASS_NAME_MAP: {[pos in BladePosition]: string} = {
 
 export type BladeControllerState = Record<string, unknown>;
 
+export function importBladeControllerState<O extends BladeControllerState>(
+	state: BladeControllerState,
+	superImport: (state: BladeControllerState) => boolean,
+	parser: (p: typeof MicroParsers) => {
+		[key in keyof O]: MicroParser<O[key]>;
+	},
+	callback: (o: O) => boolean,
+): boolean {
+	if (!superImport(state)) {
+		return false;
+	}
+	const result = parseRecord(state, parser);
+	return result ? callback(result) : false;
+}
+
+export function exportBladeControllerState(
+	superExport: () => BladeControllerState,
+	thisState: BladeControllerState,
+): BladeControllerState {
+	return {
+		...superExport(),
+		...thisState,
+	};
+}
+
 export class BladeController<V extends View = View> implements Controller<V> {
 	public readonly blade: Blade;
 	public readonly view: V;
@@ -69,17 +94,19 @@ export class BladeController<V extends View = View> implements Controller<V> {
 	 * @return true if succeeded, false otherwise.
 	 */
 	public import(state: BladeControllerState): boolean {
-		const result = parseRecord(state, (p) => ({
-			disabled: p.required.boolean,
-			hidden: p.required.boolean,
-		}));
-		if (!result) {
-			return false;
-		}
-
-		this.viewProps.set('disabled', result.disabled);
-		this.viewProps.set('hidden', result.hidden);
-		return true;
+		return importBladeControllerState(
+			state,
+			() => true,
+			(p) => ({
+				disabled: p.required.boolean,
+				hidden: p.required.boolean,
+			}),
+			(result) => {
+				this.viewProps.set('disabled', result.disabled);
+				this.viewProps.set('hidden', result.hidden);
+				return true;
+			},
+		);
 	}
 
 	/**
@@ -87,25 +114,9 @@ export class BladeController<V extends View = View> implements Controller<V> {
 	 * @return A state object.
 	 */
 	public export(): BladeControllerState {
-		return {
+		return exportBladeControllerState(() => ({}), {
 			disabled: this.viewProps.get('disabled'),
 			hidden: this.viewProps.get('hidden'),
-		};
+		});
 	}
-}
-
-export function importBladeControllerState<O extends BladeControllerState>(
-	state: BladeControllerState,
-	superImport: (state: BladeControllerState) => boolean,
-	parser: (p: typeof MicroParsers) => {
-		[key in keyof O]: MicroParser<O[key]>;
-	},
-	callback: (o: O) => boolean,
-): boolean {
-	if (!superImport(state)) {
-		return false;
-	}
-
-	const result = parseRecord(state, parser);
-	return result ? callback(result) : false;
 }

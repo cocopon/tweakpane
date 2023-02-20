@@ -2,6 +2,7 @@ import {Controller} from '../../../common/controller/controller';
 import {
 	BladeController,
 	BladeControllerState,
+	exportBladeControllerState,
 	importBladeControllerState,
 } from '../../common/controller/blade';
 import {Blade} from '../../common/model/blade';
@@ -51,9 +52,8 @@ export class LabelBladeController<
 	}
 
 	override export(): BladeControllerState {
-		return {
-			...super.export(),
+		return exportBladeControllerState(() => super.export(), {
 			label: this.props.get('label'),
-		};
+		});
 	}
 }

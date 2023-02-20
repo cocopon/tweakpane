@@ -1,6 +1,7 @@
 import {ViewProps} from '../../../common/model/view-props';
 import {
 	BladeControllerState,
+	exportBladeControllerState,
 	importBladeControllerState,
 } from '../../common/controller/blade';
 import {ContainerBladeController} from '../../common/controller/container-blade';
@@ -85,11 +86,10 @@ export class FolderController extends ContainerBladeController<FolderView> {
 	}
 
 	override export(): BladeControllerState {
-		return {
-			...super.export(),
+		return exportBladeControllerState(() => super.export(), {
 			expanded: this.foldable.get('expanded'),
 			title: this.props.get('title'),
-		};
+		});
 	}
 
 	private onTitleClick_() {

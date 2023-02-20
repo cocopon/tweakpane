@@ -6,6 +6,7 @@ import {ValueController} from '../../../common/controller/value';
 import {
 	BladeController,
 	BladeControllerState,
+	exportBladeControllerState,
 	importBladeControllerState,
 } from '../../common/controller/blade';
 import {isValueBladeController} from '../../common/controller/value-blade';
@@ -43,11 +44,10 @@ export class InputBindingController<
 	}
 
 	override export(): BladeControllerState {
-		return {
-			...super.export(),
+		return exportBladeControllerState(() => super.export(), {
 			key: this.value.binding.presetKey,
 			value: this.value.binding.target.read(),
-		};
+		});
 	}
 }
 

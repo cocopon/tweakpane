@@ -4,6 +4,7 @@ import {ViewProps} from '../../../common/model/view-props';
 import {PlainView} from '../../../common/view/plain';
 import {
 	BladeControllerState,
+	exportBladeControllerState,
 	importBladeControllerState,
 } from '../../common/controller/blade';
 import {ContainerBladeController} from '../../common/controller/container-blade';
@@ -80,11 +81,10 @@ export class TabPageController extends ContainerBladeController<PlainView> {
 	}
 
 	override export(): BladeControllerState {
-		return {
-			...super.export(),
+		return exportBladeControllerState(() => super.export(), {
 			selected: this.ic_.props.get('selected'),
 			title: this.ic_.props.get('title'),
-		};
+		});
 	}
 
 	private onItemClick_(): void {

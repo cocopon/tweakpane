@@ -11,6 +11,7 @@ import {BladeApi} from './common/api/blade';
 import {
 	BladeController,
 	BladeControllerState,
+	exportBladeControllerState,
 	importBladeControllerState,
 } from './common/controller/blade';
 import {createBlade} from './common/model/blade';
@@ -144,9 +145,8 @@ export class TestKeyBladeController extends BladeController {
 	}
 
 	override export(): BladeControllerState {
-		return {
-			...super.export(),
+		return exportBladeControllerState(() => super.export(), {
 			key: this.key,
-		};
+		});
 	}
 }

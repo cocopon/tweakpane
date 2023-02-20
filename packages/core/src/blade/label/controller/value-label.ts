@@ -3,6 +3,7 @@ import {Value} from '../../../common/model/value';
 import {TpError} from '../../../common/tp-error';
 import {
 	BladeControllerState,
+	exportBladeControllerState,
 	importBladeControllerState,
 } from '../../common/controller/blade';
 import {ValueBladeController} from '../../common/controller/value-blade';
@@ -64,10 +65,9 @@ export class LabeledValueController<
 	}
 
 	override export(): BladeControllerState {
-		return {
-			...super.export(),
+		return exportBladeControllerState(() => super.export(), {
 			label: this.props.get('label'),
 			value: this.value.rawValue,
-		};
+		});
 	}
 }

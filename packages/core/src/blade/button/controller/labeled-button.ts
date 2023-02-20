@@ -1,5 +1,6 @@
 import {
 	BladeControllerState,
+	exportBladeControllerState,
 	importBladeControllerState,
 } from '../../common/controller/blade';
 import {LabelBladeController} from '../../label/controller/label';
@@ -21,9 +22,8 @@ export class LabeledButtonController extends LabelBladeController<ButtonControll
 	}
 
 	override export(): BladeControllerState {
-		return {
-			...super.export(),
+		return exportBladeControllerState(() => super.export(), {
 			title: this.valueController.props.get('title'),
-		};
+		});
 	}
 }

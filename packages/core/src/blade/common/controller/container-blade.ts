@@ -3,6 +3,7 @@ import {Blade} from '../model/blade';
 import {
 	BladeController,
 	BladeControllerState,
+	exportBladeControllerState,
 	importBladeControllerState,
 } from './blade';
 import {RackController} from './rack';
@@ -43,10 +44,9 @@ export class ContainerBladeController<
 	}
 
 	public export(): BladeControllerState {
-		return {
-			...super.export(),
+		return exportBladeControllerState(() => super.export(), {
 			children: this.rackController.rack.children.map((c) => c.export()),
-		};
+		});
 	}
 }
 
