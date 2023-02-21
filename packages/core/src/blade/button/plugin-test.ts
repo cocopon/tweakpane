@@ -59,7 +59,7 @@ describe(ButtonBladePlugin.id, () => {
 			},
 		}) as BladeController;
 		const pool = createDefaultPluginPool();
-		const api = pool.createBladeApi(bc) as ButtonApi;
+		const api = pool.createApi(bc) as ButtonApi;
 
 		assert.strictEqual(
 			api['controller_'].view.element.innerHTML.includes('initiallabel'),

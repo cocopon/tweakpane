@@ -104,7 +104,7 @@ describe(ListBladePlugin.id, () => {
 			} as ListBladeParams<number>,
 		}) as BladeController;
 		const pool = createPluginPool();
-		const api = pool.createBladeApi(bc) as ListBladeApi<number>;
+		const api = pool.createApi(bc) as ListBladeApi<number>;
 
 		assert.strictEqual(api.value, 123);
 		assert.deepStrictEqual(api.options[0], {text: 'foo', value: 1});

@@ -81,7 +81,7 @@ describe(TextBladePlugin.id, () => {
 			params: params,
 		}) as BladeController;
 		const pool = createPluginPool();
-		const api = pool.createBladeApi(bc) as TextBladeApi<string>;
+		const api = pool.createApi(bc) as TextBladeApi<string>;
 		assert.strictEqual(api.formatter, formatter);
 		assert.strictEqual(api.value, 'hello');
 		assert.strictEqual(

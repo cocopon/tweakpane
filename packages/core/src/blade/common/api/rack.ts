@@ -149,7 +149,7 @@ export class RackApi implements ContainerApi {
 	public addBlade(params: BaseBladeParams): BladeApi {
 		const doc = this.controller_.element.ownerDocument;
 		const bc = this.pool_.createBlade(doc, params);
-		const api = this.pool_.createBladeApi(bc);
+		const api = this.pool_.createApi(bc);
 		return this.add(api, params.index);
 	}
 
@@ -173,7 +173,7 @@ export class RackApi implements ContainerApi {
 		const api = this.apiSet_.find((api) => api['controller_'] === bc);
 		if (!api) {
 			// Auto-fill missing API
-			this.apiSet_.add(this.pool_.createBladeApi(bc));
+			this.apiSet_.add(this.pool_.createApi(bc));
 		}
 	}
 
