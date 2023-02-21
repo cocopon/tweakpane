@@ -27,68 +27,6 @@ function createApi(): RootApi {
 }
 
 describe(RootApi.name, () => {
-	it('should export inputs as preset', () => {
-		const PARAMS = {
-			foo: 1,
-			bar: 'hello',
-			baz: 2,
-		};
-		const api = createApi();
-		api.addBinding(PARAMS, 'foo');
-		api.addBinding(PARAMS, 'bar');
-		api.addBinding(PARAMS, 'baz', {
-			interval: 0,
-			readonly: true,
-		});
-		const preset = api.exportPreset();
-		assert.deepStrictEqual(preset, {
-			foo: 1,
-			bar: 'hello',
-		});
-	});
-
-	it('should apply imported preset to target', () => {
-		const PARAMS = {
-			foo: 1,
-			bar: 'hello',
-		};
-		const api = createApi();
-		api.addBinding(PARAMS, 'foo');
-		api.addBinding(PARAMS, 'bar');
-
-		api.importPreset({
-			foo: 123,
-			bar: 'world',
-		});
-
-		assert.deepStrictEqual(PARAMS, {
-			foo: 123,
-			bar: 'world',
-		});
-	});
-
-	it('should apply imported preset to views', () => {
-		const PARAMS = {
-			foo: 1,
-			bar: 'hello',
-		};
-		const api = createApi();
-		const i1 = api.addBinding(PARAMS, 'foo');
-		const i2 = api.addBinding(PARAMS, 'bar');
-
-		api.importPreset({
-			foo: 123,
-			bar: 'world',
-		});
-
-		const vcs = {
-			foo: i1['controller_'].valueController as NumberTextController,
-			bar: i2['controller_'].valueController as TextController<string>,
-		};
-		assert.strictEqual(vcs.foo.view.inputElement.value, '123.00');
-		assert.strictEqual(vcs.bar.view.inputElement.value, 'world');
-	});
-
 	it('should get element', () => {
 		const api = createApi();
 		assert.ok(api.element);

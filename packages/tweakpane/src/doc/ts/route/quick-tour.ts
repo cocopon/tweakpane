@@ -138,8 +138,8 @@ export function initQuickTour() {
 					consolePane.refresh();
 				});
 		},
-		preset: (container) => {
-			const consoleElem = selectContainer('presetconsole');
+		state: (container) => {
+			const consoleElem = selectContainer('stateconsole');
 			if (!consoleElem) {
 				return;
 			}
@@ -156,7 +156,7 @@ export function initQuickTour() {
 			});
 			consolePane.addBinding(PARAMS, 'log', {
 				interval: 0,
-				label: 'preset',
+				label: 'state',
 				multiline: true,
 				readonly: true,
 				rows: 5,
@@ -178,8 +178,8 @@ export function initQuickTour() {
 					title: 'Export',
 				})
 				.on('click', () => {
-					const preset = pane.exportPreset();
-					PARAMS.log = JSON.stringify(preset, undefined, 2);
+					const state = pane.exportState();
+					PARAMS.log = JSON.stringify(state, undefined, 2);
 					consolePane.refresh();
 				});
 		},

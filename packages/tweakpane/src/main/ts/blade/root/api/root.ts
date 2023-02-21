@@ -9,7 +9,6 @@ import {
 } from '@tweakpane/core';
 
 import {RootController} from '../controller/root';
-import {exportPresetJson, importPresetJson, PresetObject} from './preset';
 
 function findInputBindingValues(rack: Rack): BindingValue<unknown>[] {
 	const vcs = rack.find(isInputBindingController);
@@ -32,28 +31,6 @@ export class RootApi extends FolderApi {
 
 	get element(): HTMLElement {
 		return this.controller_.view.element;
-	}
-
-	/**
-	 * Imports a preset of all inputs.
-	 * @param preset The preset object to import.
-	 */
-	public importPreset(preset: PresetObject): void {
-		const values = findInputBindingValues(this.controller_.rackController.rack);
-		importPresetJson(
-			values.map((v) => v.binding),
-			preset,
-		);
-		this.refresh();
-	}
-
-	/**
-	 * Exports a preset of all inputs.
-	 * @return An exported preset object.
-	 */
-	public exportPreset(): PresetObject {
-		const values = findInputBindingValues(this.controller_.rackController.rack);
-		return exportPresetJson(values.map((v) => v.binding));
 	}
 
 	/**

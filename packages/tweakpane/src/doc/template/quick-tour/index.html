@@ -163,23 +163,23 @@ b.<strong>on</strong>('change', function(ev) {
 
 <p><a href="{{ root }}misc/#events">Global events</a> are also available to handle events of all components at once.</p>
 
-<h2 id="presets">Presets</h2>
-<p>Use <code>exportPreset()</code> to export the current bound values in JSON format.</p>
+<h2 id="state">State objects</h2>
+<p>Use <code>exportState()</code> to export a state of the pane.</p>
 
 <div class="main_media">
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock">
 				<pre><code class="js">btn.on('click', function() {
-  const preset = pane.<strong>exportPreset</strong>();
-  console.log(preset);
+  const state = pane.<strong>exportState</strong>();
+  console.log(state);
 });
 </code></pre>
 			</div>
 		</div>
 		<div class="demo_result">
-			<div class="paneContainer" data-pane-preset></div>
-			<div class="paneContainer paneContainer-console" data-pane-presetconsole></div>
+			<div class="paneContainer" data-pane-state></div>
+			<div class="paneContainer paneContainer-console" data-pane-stateconsole></div>
 		</div>
 	</div>
 </div>

@@ -116,7 +116,7 @@ export function initMisc() {
 				container: consoleElem,
 			});
 			consolePane.addBinding(IMEX_LOG, 'log', {
-				label: 'preset',
+				label: 'state',
 				multiline: true,
 				readonly: true,
 				rows: 5,
@@ -124,6 +124,7 @@ export function initMisc() {
 
 			const pane = new Pane({
 				container: container,
+				title: 'Values',
 			});
 			pane.addBinding(IMEX_PARAMS, 'name');
 			pane.addBinding(IMEX_PARAMS, 'size', {
@@ -132,13 +133,12 @@ export function initMisc() {
 			});
 			pane.addBinding(IMEX_PARAMS, 'color');
 
-			const updatePreset = () => {
-				const preset = pane.exportPreset();
-				IMEX_LOG.log = JSON.stringify(preset, null, 2);
+			const updateStateLog = () => {
+				IMEX_LOG.log = JSON.stringify(pane.exportState(), null, 2);
 			};
 
-			pane.on('change', updatePreset);
-			updatePreset();
+			pane.on('change', updateStateLog);
+			updateStateLog();
 		},
 
 		import: (container) => {
@@ -151,7 +151,7 @@ export function initMisc() {
 				container: consoleElem,
 			});
 			consolePane.addBinding(IMEX_LOG, 'log', {
-				label: 'preset',
+				label: 'state',
 				multiline: true,
 				readonly: true,
 				rows: 5,
@@ -166,64 +166,18 @@ export function initMisc() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane
-				.addButton({
-					label: 'preset',
-					title: 'Import',
-				})
-				.on('click', () => {
-					pane.importPreset(IMEX_PARAMS);
-				});
-			pane.addSeparator();
-			pane.addBinding(PARAMS, 'name');
-			pane.addBinding(PARAMS, 'size');
-			pane.addBinding(PARAMS, 'color');
-		},
-
-		presetkey: (container) => {
-			const consoleElem = selectContainer('presetkeyconsole');
-			if (!consoleElem) {
-				return;
-			}
-
-			const PARAMS = {
-				foo: {speed: 1 / 3},
-				bar: {speed: 2 / 3},
-				preset: '',
-			};
-
-			const consolePane = new Pane({
-				container: consoleElem,
+			const b = pane.addButton({
+				label: 'state',
+				title: 'Import',
 			});
-			consolePane.addBinding(PARAMS, 'preset', {
-				interval: 0,
-				label: 'preset',
-				multiline: true,
-				readonly: true,
-				rows: 4,
-			});
+			const f = pane.addFolder({title: 'Values'});
+			f.addBinding(PARAMS, 'name');
+			f.addBinding(PARAMS, 'size');
+			f.addBinding(PARAMS, 'color');
 
-			const pane = new Pane({
-				container: container,
+			b.on('click', () => {
+				f.importState(JSON.parse(IMEX_LOG.log));
 			});
-			pane.addBinding(PARAMS.foo, 'speed', {
-				max: 1,
-				min: 0,
-			});
-			pane.addBinding(PARAMS.bar, 'speed', {
-				max: 1,
-				min: 0,
-				presetKey: 'speed2',
-			});
-
-			const updatePreset = () => {
-				const preset = pane.exportPreset();
-				PARAMS.preset = JSON.stringify(preset, null, 2);
-				consolePane.refresh();
-			};
-
-			pane.on('change', updatePreset);
-			updatePreset();
 		},
 
 		label: (container) => {

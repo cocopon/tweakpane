@@ -4,6 +4,7 @@ import {
 	mapRange,
 	readIntColorString,
 } from '@tweakpane/core';
+import {presetToState, stateToPreset} from 'ts/preset';
 import {Pane} from 'tweakpane';
 
 import {Sketch} from '../sketch';
@@ -140,7 +141,7 @@ export function initIndex() {
 				const preset = PRESETS[ev.value];
 				if (preset) {
 					HIDDEN_PARAMS.presetId = '';
-					pane.importPreset(preset as any);
+					pane.importState(presetToState(pane.exportState(), preset as any));
 				}
 			});
 			p1.addBinding(HIDDEN_PARAMS, 'presetJson', {
@@ -152,7 +153,8 @@ export function initIndex() {
 
 			pane.on('change', () => {
 				sketch.reset();
-				HIDDEN_PARAMS.presetJson = JSON.stringify(pane.exportPreset(), null, 2);
+				const preset = stateToPreset(pane.exportState());
+				HIDDEN_PARAMS.presetJson = JSON.stringify(preset, null, 2);
 			});
 
 			pane.on('fold', () => {
