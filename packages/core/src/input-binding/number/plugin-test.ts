@@ -22,7 +22,6 @@ describe(NumberInputPlugin.id, () => {
 				min: 1,
 				step: 2,
 			},
-			presetKey: undefined,
 			target: new BindingTarget({foo: 1}, 'foo'),
 		});
 
@@ -44,7 +43,6 @@ describe(NumberInputPlugin.id, () => {
 			params: {
 				format: (v: number) => `foo ${v} bar`,
 			},
-			presetKey: undefined,
 			target: new BindingTarget({foo: 123}, 'foo'),
 		});
 

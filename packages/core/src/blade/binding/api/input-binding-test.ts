@@ -61,7 +61,7 @@ describe('InputBindingApi', () => {
 		api.on('change', (ev) => {
 			assert.strictEqual(ev instanceof TpChangeEvent, true);
 			assert.strictEqual(ev.target, api);
-			assert.strictEqual(ev.presetKey, 'foo');
+			assert.strictEqual(ev.key, 'foo');
 			assert.strictEqual(ev.value, 123);
 			done();
 		});

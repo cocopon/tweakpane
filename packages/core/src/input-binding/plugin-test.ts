@@ -65,7 +65,6 @@ describe(createInputBindingController.name, () => {
 		const bc = createInputBindingController(TestPlugin, {
 			document: createTestWindow().document,
 			params: {},
-			presetKey: undefined,
 			target: new BindingTarget({foo: 'bar'}, 'foo'),
 		});
 
@@ -81,7 +80,6 @@ describe(createInputBindingController.name, () => {
 				disabled: true,
 				hidden: true,
 			},
-			presetKey: undefined,
 			target: new BindingTarget({foo: 'bar'}, 'foo'),
 		});
 
@@ -93,21 +91,10 @@ describe(createInputBindingController.name, () => {
 		const bc = createInputBindingController(TestPlugin, {
 			document: createTestWindow().document,
 			params: {},
-			presetKey: undefined,
 			target: new BindingTarget({foo: 'bar'}, 'foo'),
 		});
 		const c = bc?.valueController as TestController;
 		bc?.viewProps.set('disposed', true);
 		assert.strictEqual(c.disposed, true);
-	});
-
-	it('should apply presetKey', () => {
-		const bc = createInputBindingController(TestPlugin, {
-			document: createTestWindow().document,
-			params: {},
-			presetKey: 'renamed',
-			target: new BindingTarget({foo: 'bar'}, 'foo'),
-		});
-		assert.strictEqual(bc?.value.binding.presetKey, 'renamed');
 	});
 });

@@ -21,9 +21,9 @@ export class TpEvent {
  */
 export class TpChangeEvent<T> extends TpEvent {
 	/**
-	 * The preset key of the event target.
+	 * The binding key of the event target.
 	 */
-	public readonly presetKey?: string;
+	public readonly key?: string;
 	/**
 	 * The value.
 	 */
@@ -36,11 +36,11 @@ export class TpChangeEvent<T> extends TpEvent {
 	/**
 	 * @hidden
 	 */
-	constructor(target: unknown, value: T, presetKey?: string, last?: boolean) {
+	constructor(target: unknown, value: T, key?: string, last?: boolean) {
 		super(target);
 
 		this.value = value;
-		this.presetKey = presetKey;
+		this.key = key;
 		this.last = last ?? true;
 	}
 }

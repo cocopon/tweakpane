@@ -127,7 +127,6 @@ describe(ObjectColorInputPlugin.id, () => {
 			const bc = createInputBindingController(ObjectColorInputPlugin, {
 				document: createTestWindow().document,
 				params: params.inputParams,
-				presetKey: undefined,
 				target: new BindingTarget(params, 'initialValue'),
 			});
 			const c = bc?.valueController as ColorController;
@@ -163,7 +162,6 @@ describe(ObjectColorInputPlugin.id, () => {
 			const bc = createInputBindingController(ObjectColorInputPlugin, {
 				document: win.document,
 				params: params.inputParams,
-				presetKey: undefined,
 				target: new BindingTarget(
 					{
 						color: {r: 0, g: 0, b: 0, a: 0},

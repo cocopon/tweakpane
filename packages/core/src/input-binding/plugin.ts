@@ -145,7 +145,6 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 	args: {
 		document: Document;
 		params: Record<string, unknown>;
-		presetKey: string | undefined;
 		target: BindingTarget;
 	},
 ): InputBindingController<In> | null {
@@ -168,7 +167,6 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 		? plugin.binding.constraint(valueArgs)
 		: undefined;
 	const binding = new ReadWriteBinding({
-		presetKey: args.presetKey,
 		reader: reader,
 		target: args.target,
 		writer: plugin.binding.writer(valueArgs),

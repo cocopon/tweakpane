@@ -33,7 +33,6 @@ describe(StringColorInputPlugin.id, () => {
 				const c = createInputBindingController(StringColorInputPlugin, {
 					document: doc,
 					params: {},
-					presetKey: undefined,
 					target: new BindingTarget({foo: testCase.params.input}, 'foo'),
 				});
 
@@ -103,7 +102,6 @@ describe(StringColorInputPlugin.id, () => {
 			const c = createInputBindingController(StringColorInputPlugin, {
 				document: doc,
 				params: {},
-				presetKey: undefined,
 				target: new BindingTarget(obj, 'foo'),
 			});
 

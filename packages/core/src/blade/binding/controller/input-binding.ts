@@ -43,7 +43,7 @@ export class InputBindingController<
 
 	override exportState(): BladeState {
 		return exportBladeState(() => super.exportState(), {
-			key: this.value.binding.presetKey,
+			key: this.value.binding.target.key,
 			value: this.value.binding.target.read(),
 		});
 	}

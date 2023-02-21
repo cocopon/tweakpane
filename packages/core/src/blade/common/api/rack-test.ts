@@ -37,7 +37,7 @@ describe(RackApi.name, () => {
 		const bapi = api.addBinding(obj, 'foo');
 
 		api.on('change', (ev) => {
-			assert.strictEqual(ev.presetKey, 'foo');
+			assert.strictEqual(ev.key, 'foo');
 			assert.strictEqual(ev.target, bapi);
 			assert.strictEqual(ev.value, 2);
 			done();
@@ -56,7 +56,7 @@ describe(RackApi.name, () => {
 		const bapi = fapi.addBinding(obj, 'foo');
 
 		api.on('change', (ev) => {
-			assert.strictEqual(ev.presetKey, 'foo');
+			assert.strictEqual(ev.key, 'foo');
 			assert.strictEqual(ev.target, bapi);
 			assert.strictEqual(ev.value, 2);
 			done();
@@ -85,7 +85,7 @@ describe(RackApi.name, () => {
 		api.add(bapi);
 
 		api.on('change', (ev) => {
-			assert.strictEqual(ev.presetKey, undefined);
+			assert.strictEqual(ev.key, undefined);
 			assert.strictEqual(ev.target, bapi);
 			assert.strictEqual(ev.value, true);
 			done();
