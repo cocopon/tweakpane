@@ -1,5 +1,10 @@
 import {Controller} from '../../../common/controller/controller';
 import {BladeController} from '../../common/controller/blade';
+import {
+	BladeState,
+	exportBladeState,
+	importBladeState,
+} from '../../common/controller/blade-state';
 import {Blade} from '../../common/model/blade';
 import {LabelProps, LabelView} from '../view/label';
 
@@ -9,7 +14,7 @@ interface Config<C extends Controller> {
 	valueController: C;
 }
 
-export class LabelController<
+export class LabelBladeController<
 	C extends Controller,
 > extends BladeController<LabelView> {
 	public readonly props: LabelProps;
@@ -30,5 +35,25 @@ export class LabelController<
 		this.valueController = config.valueController;
 
 		this.view.valueElement.appendChild(this.valueController.view.element);
+	}
+
+	override importState(state: BladeState): boolean {
+		return importBladeState(
+			state,
+			(s) => super.importState(s),
+			(p) => ({
+				label: p.required.string,
+			}),
+			(result) => {
+				this.props.set('label', result.label);
+				return true;
+			},
+		);
+	}
+
+	override exportState(): BladeState {
+		return exportBladeState(() => super.exportState(), {
+			label: this.props.get('label'),
+		});
 	}
 }

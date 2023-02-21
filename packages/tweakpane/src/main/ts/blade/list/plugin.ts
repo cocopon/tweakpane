@@ -6,11 +6,10 @@ import {
 	ListConstraint,
 	ListController,
 	ListParamsOptions,
+	MicroParser,
 	normalizeListOptions,
-	ParamsParser,
-	ParamsParsers,
 	parseListOptions,
-	parseParams,
+	parseRecord,
 	ValueMap,
 	VERSION,
 } from '@tweakpane/core';
@@ -33,14 +32,13 @@ export const ListBladePlugin = (function <T>(): BladePlugin<
 		type: 'blade',
 		core: VERSION,
 		accept(params) {
-			const p = ParamsParsers;
-			const result = parseParams<ListBladeParams<T>>(params, {
+			const result = parseRecord<ListBladeParams<T>>(params, (p) => ({
 				options: p.required.custom<ListParamsOptions<T>>(parseListOptions),
-				value: p.required.raw as ParamsParser<T>,
+				value: p.required.raw as MicroParser<T>,
 				view: p.required.constant('list'),
 
 				label: p.optional.string,
-			});
+			}));
 			return result ? {params: result} : null;
 		},
 		controller(args) {

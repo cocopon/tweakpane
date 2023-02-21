@@ -4,13 +4,13 @@ import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../common/converter/number';
+import {parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
 import {
 	BaseInputParams,
 	PickerLayout,
 	PointDimensionParams,
 } from '../../common/params';
-import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {TpError} from '../../common/tp-error';
 import {
 	getBaseStep,
@@ -153,8 +153,7 @@ export const Point2dInputPlugin: InputBindingPlugin<
 		if (!Point2d.isObject(value)) {
 			return null;
 		}
-		const p = ParamsParsers;
-		const result = parseParams<Point2dInputParams>(params, {
+		const result = parseRecord<Point2dInputParams>(params, (p) => ({
 			expanded: p.optional.boolean,
 			picker: p.optional.custom(parsePickerLayout),
 			readonly: p.optional.constant(false),
@@ -165,7 +164,7 @@ export const Point2dInputPlugin: InputBindingPlugin<
 				min: p.optional.number,
 				step: p.optional.number,
 			}),
-		});
+		}));
 		return result
 			? {
 					initialValue: value,

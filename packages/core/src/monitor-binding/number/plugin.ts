@@ -4,13 +4,9 @@ import {
 	createNumberFormatter,
 	numberFromUnknown,
 } from '../../common/converter/number';
+import {MicroParser, parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
 import {BaseMonitorParams} from '../../common/params';
-import {
-	ParamsParser,
-	ParamsParsers,
-	parseParams,
-} from '../../common/params-parsers';
 import {Constants} from '../../misc/constants';
 import {isEmpty} from '../../misc/type-util';
 import {VERSION} from '../../version';
@@ -90,15 +86,14 @@ export const NumberMonitorPlugin: MonitorBindingPlugin<
 		if (typeof value !== 'number') {
 			return null;
 		}
-		const p = ParamsParsers;
-		const result = parseParams<NumberMonitorParams>(params, {
-			format: p.optional.function as ParamsParser<Formatter<number>>,
+		const result = parseRecord<NumberMonitorParams>(params, (p) => ({
+			format: p.optional.function as MicroParser<Formatter<number>>,
 			max: p.optional.number,
 			min: p.optional.number,
 			readonly: p.required.constant(true),
 			rows: p.optional.number,
 			view: p.optional.string,
-		});
+		}));
 		return result
 			? {
 					initialValue: value,

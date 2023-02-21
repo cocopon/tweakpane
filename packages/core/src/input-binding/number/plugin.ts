@@ -16,15 +16,11 @@ import {
 	numberFromUnknown,
 	parseNumber,
 } from '../../common/converter/number';
+import {MicroParser, parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
 import {NumberTextController} from '../../common/number/controller/number-text';
 import {SliderTextController} from '../../common/number/controller/slider-text';
 import {BaseInputParams, ListParamsOptions} from '../../common/params';
-import {
-	ParamsParser,
-	ParamsParsers,
-	parseParams,
-} from '../../common/params-parsers';
 import {writePrimitive} from '../../common/primitive';
 import {
 	createListConstraint,
@@ -143,15 +139,14 @@ export const NumberInputPlugin: InputBindingPlugin<
 		if (typeof value !== 'number') {
 			return null;
 		}
-		const p = ParamsParsers;
-		const result = parseParams<NumberInputParams>(params, {
-			format: p.optional.function as ParamsParser<Formatter<number>>,
+		const result = parseRecord<NumberInputParams>(params, (p) => ({
+			format: p.optional.function as MicroParser<Formatter<number>>,
 			max: p.optional.number,
 			min: p.optional.number,
 			options: p.optional.custom<ListParamsOptions<number>>(parseListOptions),
 			readonly: p.optional.constant(false),
 			step: p.optional.number,
-		});
+		}));
 		return result
 			? {
 					initialValue: value,

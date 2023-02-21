@@ -198,7 +198,7 @@ export class RackApi implements ContainerApi {
 			new TpChangeEvent(
 				api,
 				binding ? binding.target.read() : bc.value.rawValue,
-				binding ? binding.presetKey : undefined,
+				binding ? binding.target.key : undefined,
 				ev.options.last,
 			),
 		);

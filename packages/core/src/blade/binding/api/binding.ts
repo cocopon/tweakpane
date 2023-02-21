@@ -64,7 +64,7 @@ export class BindingApi<
 			new TpChangeEvent(
 				this,
 				forceCast(value.binding.target.read()),
-				value.binding.presetKey,
+				value.binding.target.key,
 				ev.options.last,
 			),
 		);

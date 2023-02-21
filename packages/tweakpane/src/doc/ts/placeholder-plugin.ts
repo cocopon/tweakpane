@@ -6,8 +6,7 @@ import {
 	ClassName,
 	createBlade,
 	getCssVar,
-	ParamsParsers,
-	parseParams,
+	parseRecord,
 	VERSION,
 	View,
 	ViewProps,
@@ -96,12 +95,11 @@ export const plugin: BladePlugin<PlaceholderBladeParams> = {
 `,
 	core: VERSION,
 	accept(params) {
-		const p = ParamsParsers;
-		const r = parseParams(params, {
+		const r = parseRecord(params, (p) => ({
 			rows: p.optional.number,
 			title: p.required.string,
 			view: p.required.constant('placeholder'),
-		});
+		}));
 		return r ? {params: r} : null;
 	},
 	controller(args) {

@@ -1,6 +1,11 @@
 import {ValueController} from '../../../common/controller/value';
 import {Value} from '../../../common/model/value';
 import {TpError} from '../../../common/tp-error';
+import {
+	BladeState,
+	exportBladeState,
+	importBladeState,
+} from '../../common/controller/blade-state';
 import {ValueBladeController} from '../../common/controller/value-blade';
 import {Blade} from '../../common/model/blade';
 import {LabelProps, LabelView} from '../view/label';
@@ -39,5 +44,30 @@ export class LabeledValueController<
 		this.valueController = config.valueController;
 
 		this.view.valueElement.appendChild(this.valueController.view.element);
+	}
+
+	override importState(state: BladeState): boolean {
+		return importBladeState(
+			state,
+			(s) => super.importState(s),
+			(p) => ({
+				label: p.required.string,
+				value: p.optional.raw,
+			}),
+			(result) => {
+				this.props.set('label', result.label);
+				if (result.value) {
+					this.value.rawValue = result.value as T;
+				}
+				return true;
+			},
+		);
+	}
+
+	override exportState(): BladeState {
+		return exportBladeState(() => super.exportState(), {
+			label: this.props.get('label'),
+			value: this.value.rawValue,
+		});
 	}
 }

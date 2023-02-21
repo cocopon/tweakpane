@@ -1,7 +1,6 @@
 import {InputBindingApi} from '../blade/binding/api/input-binding';
 import {InputBindingController} from '../blade/binding/controller/input-binding';
 import {createBlade} from '../blade/common/model/blade';
-import {LabeledValueController} from '../blade/label/controller/value-label';
 import {LabelPropsObject} from '../blade/label/view/label';
 import {BindingReader, BindingWriter} from '../common/binding/binding';
 import {ReadWriteBinding} from '../common/binding/read-write';
@@ -9,12 +8,12 @@ import {BindingTarget} from '../common/binding/target';
 import {InputBindingValue} from '../common/binding/value/input-binding';
 import {Constraint} from '../common/constraint/constraint';
 import {ValueController} from '../common/controller/value';
+import {MicroParsers} from '../common/micro-parsers';
 import {Value} from '../common/model/value';
 import {ValueMap} from '../common/model/value-map';
 import {createValue} from '../common/model/values';
 import {ViewProps} from '../common/model/view-props';
 import {BaseInputParams} from '../common/params';
-import {ParamsParsers} from '../common/params-parsers';
 import {isEmpty} from '../misc/type-util';
 import {BasePlugin} from '../plugin/plugin';
 
@@ -146,7 +145,6 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 	args: {
 		document: Document;
 		params: Record<string, unknown>;
-		presetKey: string | undefined;
 		target: BindingTarget;
 	},
 ): InputBindingController<In> | null {
@@ -155,7 +153,7 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 		return null;
 	}
 
-	const p = ParamsParsers;
+	const p = MicroParsers;
 
 	const valueArgs = {
 		target: args.target,
@@ -169,7 +167,6 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 		? plugin.binding.constraint(valueArgs)
 		: undefined;
 	const binding = new ReadWriteBinding({
-		presetKey: args.presetKey,
 		reader: reader,
 		target: args.target,
 		writer: plugin.binding.writer(valueArgs),
@@ -199,7 +196,7 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 
 	// Input binding controller
 	const label = p.optional.string(args.params.label).value;
-	return new LabeledValueController(args.document, {
+	return new InputBindingController(args.document, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: label ?? args.target.key,

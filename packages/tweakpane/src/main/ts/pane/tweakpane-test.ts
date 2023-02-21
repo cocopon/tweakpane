@@ -2,8 +2,7 @@ import {
 	BaseInputParams,
 	formatString,
 	InputBindingPlugin,
-	ParamsParsers,
-	parseParams,
+	parseRecord,
 	stringFromUnknown,
 	TextController,
 	TpError,
@@ -102,10 +101,9 @@ describe('Tweakpane', () => {
 					if (typeof value !== 'string') {
 						return null;
 					}
-					const p = ParamsParsers;
-					const result = parseParams(params, {
+					const result = parseRecord(params, (p) => ({
 						view: p.required.constant('test'),
-					});
+					}));
 					return result
 						? {
 								initialValue: value,

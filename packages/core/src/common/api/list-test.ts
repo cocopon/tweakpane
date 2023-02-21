@@ -3,7 +3,6 @@ import {describe, it} from 'mocha';
 
 import {InputBindingController} from '../../blade/binding/controller/input-binding';
 import {createBlade} from '../../blade/common/model/blade';
-import {LabeledValueController} from '../../blade/label/controller/value-label';
 import {LabelPropsObject} from '../../blade/label/view/label';
 import {createTestWindow} from '../../misc/dom-test-util';
 import {ReadWriteBinding} from '../binding/read-write';
@@ -30,10 +29,7 @@ function createApi(config: {
 			writer: writePrimitive,
 		}),
 	);
-	const c: InputBindingController<
-		number,
-		ListController<number>
-	> = new LabeledValueController(doc, {
+	const c = new InputBindingController<number, ListController<number>>(doc, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: '',

@@ -1,16 +1,21 @@
 import {Controller} from '../common/controller/controller';
+import {parseRecord} from '../common/micro-parsers';
 import {ValueMap} from '../common/model/value-map';
 import {createValue} from '../common/model/values';
 import {ViewProps} from '../common/model/view-props';
 import {BaseBladeParams} from '../common/params';
-import {ParamsParsers, parseParams} from '../common/params-parsers';
 import {PlainView} from '../common/view/plain';
 import {CheckboxController} from '../input-binding/boolean/controller/checkbox';
 import {VERSION} from '../version';
 import {BladeApi} from './common/api/blade';
 import {BladeController} from './common/controller/blade';
+import {
+	BladeState,
+	exportBladeState,
+	importBladeState,
+} from './common/controller/blade-state';
 import {createBlade} from './common/model/blade';
-import {LabelController} from './label/controller/label';
+import {LabelBladeController} from './label/controller/label';
 import {LabeledValueController} from './label/controller/value-label';
 import {LabelPropsObject} from './label/view/label';
 import {BladePlugin} from './plugin';
@@ -32,7 +37,7 @@ export function createEmptyLabelableController(doc: Document) {
 }
 
 export function createLabelController(doc: Document, vc: LabelableController) {
-	return new LabelController(doc, {
+	return new LabelBladeController(doc, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({label: ''}),
 		valueController: vc,
@@ -73,10 +78,9 @@ export const TestValueBladePlugin: BladePlugin<TestBladeParams> = {
 	type: 'blade',
 	core: VERSION,
 	accept(params) {
-		const p = ParamsParsers;
-		const r = parseParams(params, {
+		const r = parseRecord(params, (p) => ({
 			view: p.required.constant('test'),
-		});
+		}));
 		return r ? {params: r} : null;
 	},
 	controller(args) {
@@ -107,3 +111,42 @@ export const TestValueBladePlugin: BladePlugin<TestBladeParams> = {
 		return new TestValueBladeApi(args.controller);
 	},
 };
+
+export class TestKeyBladeController extends BladeController {
+	public key: string;
+
+	constructor(doc: Document, key: string) {
+		const viewProps = ViewProps.create();
+		const view = new PlainView(doc, {
+			viewName: '',
+			viewProps: viewProps,
+		});
+		super({
+			blade: createBlade(),
+			view: view,
+			viewProps: viewProps,
+		});
+
+		this.key = key;
+	}
+
+	override importState(state: BladeState): boolean {
+		return importBladeState(
+			state,
+			(s) => super.importState(s),
+			(p) => ({
+				key: p.required.string,
+			}),
+			(result) => {
+				this.key = String(result.key);
+				return true;
+			},
+		);
+	}
+
+	override exportState(): BladeState {
+		return exportBladeState(() => super.exportState(), {
+			key: this.key,
+		});
+	}
+}

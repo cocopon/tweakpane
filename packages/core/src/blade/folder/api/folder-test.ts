@@ -215,7 +215,7 @@ describe(FolderApi.name, () => {
 				bapi.on('change', (ev) => {
 					assert.strictEqual(ev instanceof TpChangeEvent, true);
 					assert.strictEqual(ev.target, bapi);
-					assert.strictEqual(ev.presetKey, 'foo');
+					assert.strictEqual(ev.key, 'foo');
 					assert.strictEqual(ev.value, expected);
 					done();
 				});
@@ -229,7 +229,7 @@ describe(FolderApi.name, () => {
 
 				api.on('change', (ev) => {
 					assert.strictEqual(ev instanceof TpChangeEvent, true);
-					assert.strictEqual(ev.presetKey, 'foo');
+					assert.strictEqual(ev.key, 'foo');
 					assert.strictEqual(ev.value, expected);
 
 					if (!(ev.target instanceof BindingApi)) {

@@ -14,10 +14,14 @@ export * from './blade/binding/controller/monitor-binding';
 
 export * from './blade/button/api/button';
 export * from './blade/button/controller/button';
+export * from './blade/button/controller/labeled-button';
 export * from './blade/button/view/button';
 export * from './blade/button/plugin';
 
+export * from './blade/common/controller/container-blade';
+
 export * from './blade/common/controller/blade';
+export * from './blade/common/controller/blade-state';
 export * from './blade/common/controller/value-blade';
 
 export * from './blade/common/model/blade';
@@ -103,8 +107,8 @@ export * from './common/view/view';
 
 export * from './common/compat';
 export * from './common/dom-util';
+export * from './common/micro-parsers';
 export * from './common/number-util';
-export * from './common/params-parsers';
 export * from './common/params';
 export * from './common/primitive';
 export * from './common/tp-error';

@@ -20,7 +20,6 @@ export type PickerLayout = 'inline' | 'popup';
 
 export interface BaseInputParams extends BaseParams, Record<string, unknown> {
 	label?: string;
-	presetKey?: string;
 	readonly?: false;
 	view?: string;
 }

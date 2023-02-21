@@ -2,7 +2,6 @@ import {Binding, BindingReader, BindingWriter} from './binding';
 import {BindingTarget} from './target';
 
 interface Config<T> {
-	presetKey?: string | undefined;
 	reader: BindingReader<T>;
 	target: BindingTarget;
 	writer: BindingWriter<T>;
@@ -14,7 +13,6 @@ interface Config<T> {
  */
 export class ReadWriteBinding<In> implements Binding {
 	public readonly target: BindingTarget;
-	public readonly presetKey: string;
 	private readonly reader_: BindingReader<In>;
 	private readonly writer_: BindingWriter<In>;
 
@@ -22,8 +20,6 @@ export class ReadWriteBinding<In> implements Binding {
 		this.target = config.target;
 		this.reader_ = config.reader;
 		this.writer_ = config.writer;
-
-		this.presetKey = config.presetKey ?? this.target.key;
 	}
 
 	public read(): In {
@@ -32,5 +28,9 @@ export class ReadWriteBinding<In> implements Binding {
 
 	public write(value: In): void {
 		this.writer_(this.target, value);
+	}
+
+	public inject(value: unknown): void {
+		this.write(this.reader_(value));
 	}
 }

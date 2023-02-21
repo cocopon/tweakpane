@@ -149,7 +149,7 @@ describe(SliderBladeApi.name, () => {
 		const api = new SliderBladeApi(c);
 
 		api.on('change', (ev) => {
-			assert.strictEqual(ev.presetKey, undefined);
+			assert.strictEqual(ev.key, undefined);
 			assert.strictEqual(ev.target, api);
 			assert.strictEqual(ev.value, 100);
 			done();

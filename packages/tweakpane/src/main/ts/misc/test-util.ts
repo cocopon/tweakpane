@@ -4,7 +4,7 @@ import {
 	Controller,
 	createBlade,
 	forceCast,
-	LabelController,
+	LabelBladeController,
 	LabelPropsObject,
 	PlainView,
 	ValueMap,
@@ -34,7 +34,7 @@ export function createEmptyLabelableController(doc: Document) {
 }
 
 export function createLabelController(doc: Document, vc: LabelableController) {
-	return new LabelController(doc, {
+	return new LabelBladeController(doc, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({label: ''}),
 		valueController: vc,

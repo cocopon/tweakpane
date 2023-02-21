@@ -7,6 +7,7 @@ import {createTestWindow} from '../../../misc/dom-test-util';
 import {createBlade} from '../model/blade';
 import {Rack} from '../model/rack';
 import {BladeController} from './blade';
+import {importBladeState} from './blade-state';
 
 class TestView implements View {
 	public readonly element: HTMLElement;
@@ -66,5 +67,56 @@ describe(BladeController.name, () => {
 		});
 		c.parent = rack;
 		assert.strictEqual(c.viewProps.get('parent'), rack.viewProps);
+	});
+
+	it('should export state', () => {
+		const doc = createTestWindow().document;
+		const c = new TestController(doc);
+		const state = c.exportState();
+
+		assert.strictEqual(state.disabled, c.viewProps.get('disabled'));
+		assert.strictEqual(state.hidden, c.viewProps.get('hidden'));
+	});
+
+	it('should not import state', () => {
+		const doc = createTestWindow().document;
+		const c = new TestController(doc);
+
+		assert.strictEqual(c.importState({}), false);
+	});
+
+	it('should import state', () => {
+		const doc = createTestWindow().document;
+		const c = new TestController(doc);
+
+		assert.strictEqual(
+			c.importState({
+				disabled: true,
+				hidden: true,
+			}),
+			true,
+		);
+		assert.strictEqual(c.viewProps.get('disabled'), true);
+		assert.strictEqual(c.viewProps.get('hidden'), true);
+	});
+});
+
+describe(importBladeState.name, () => {
+	it('should not run callback if superImport is failed', () => {
+		assert.strictEqual(
+			importBladeState(
+				{
+					foo: 'bar',
+				},
+				() => false,
+				(p) => ({
+					foo: p.required.string,
+				}),
+				() => {
+					assert.fail('should not be called');
+				},
+			),
+			false,
+		);
 	});
 });

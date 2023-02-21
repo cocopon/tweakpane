@@ -118,7 +118,7 @@ describe(Pane.name, () => {
 				bapi.on('change', (ev) => {
 					assert.strictEqual(ev instanceof TpChangeEvent, true);
 					assert.strictEqual(ev.target, bapi);
-					assert.strictEqual(ev.presetKey, 'foo');
+					assert.strictEqual(ev.key, 'foo');
 					assert.strictEqual(ev.value, expected);
 					done();
 				});
@@ -132,7 +132,7 @@ describe(Pane.name, () => {
 
 				pane.on('change', (ev) => {
 					assert.strictEqual(ev instanceof TpChangeEvent, true);
-					assert.strictEqual(ev.presetKey, 'foo');
+					assert.strictEqual(ev.key, 'foo');
 					assert.strictEqual(ev.value, expected);
 					assert.strictEqual(ev.target, bapi);
 					done();

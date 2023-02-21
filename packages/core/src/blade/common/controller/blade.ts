@@ -6,6 +6,7 @@ import {View} from '../../../common/view/view';
 import {Blade} from '../model/blade';
 import {BladePosition, getAllBladePositions} from '../model/blade-positions';
 import {Rack} from '../model/rack';
+import {BladeState, exportBladeState, importBladeState} from './blade-state';
 
 interface Config<V extends View> {
 	blade: Blade;
@@ -54,5 +55,37 @@ export class BladeController<V extends View = View> implements Controller<V> {
 	set parent(parent: Rack | null) {
 		this.parent_ = parent;
 		this.viewProps.set('parent', this.parent_ ? this.parent_.viewProps : null);
+	}
+
+	/**
+	 * Import a state from the object.
+	 * @param state The object to import.
+	 * @return true if succeeded, false otherwise.
+	 */
+	public importState(state: BladeState): boolean {
+		return importBladeState(
+			state,
+			() => true,
+			(p) => ({
+				disabled: p.required.boolean,
+				hidden: p.required.boolean,
+			}),
+			(result) => {
+				this.viewProps.set('disabled', result.disabled);
+				this.viewProps.set('hidden', result.hidden);
+				return true;
+			},
+		);
+	}
+
+	/**
+	 * Export a state to the object.
+	 * @return A state object.
+	 */
+	public exportState(): BladeState {
+		return exportBladeState(() => ({}), {
+			disabled: this.viewProps.get('disabled'),
+			hidden: this.viewProps.get('hidden'),
+		});
 	}
 }

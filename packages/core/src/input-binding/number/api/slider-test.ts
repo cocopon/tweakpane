@@ -3,7 +3,6 @@ import {describe, it} from 'mocha';
 
 import {InputBindingController} from '../../../blade/binding/controller/input-binding';
 import {createBlade} from '../../../blade/common/model/blade';
-import {LabeledValueController} from '../../../blade/label/controller/value-label';
 import {LabelPropsObject} from '../../../blade/label/view/label';
 import {ReadWriteBinding} from '../../../common/binding/read-write';
 import {BindingTarget} from '../../../common/binding/target';
@@ -31,28 +30,27 @@ function createApi(config: {min: number; max: number}): SliderInputBindingApi {
 			writer: writePrimitive,
 		}),
 	);
-	const c: InputBindingController<number, SliderTextController> =
-		new LabeledValueController(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<LabelPropsObject>({
-				label: '',
+	const c = new InputBindingController<number, SliderTextController>(doc, {
+		blade: createBlade(),
+		props: ValueMap.fromObject<LabelPropsObject>({
+			label: '',
+		}),
+		value: v,
+		valueController: new SliderTextController(doc, {
+			baseStep: 1,
+			parser: parseNumber,
+			sliderProps: ValueMap.fromObject({
+				max: config.max,
+				min: config.min,
+			}),
+			textProps: ValueMap.fromObject({
+				draggingScale: 1,
+				formatter: createNumberFormatter(1),
 			}),
 			value: v,
-			valueController: new SliderTextController(doc, {
-				baseStep: 1,
-				parser: parseNumber,
-				sliderProps: ValueMap.fromObject({
-					max: config.max,
-					min: config.min,
-				}),
-				textProps: ValueMap.fromObject({
-					draggingScale: 1,
-					formatter: createNumberFormatter(1),
-				}),
-				value: v,
-				viewProps: ViewProps.create(),
-			}),
-		});
+			viewProps: ViewProps.create(),
+		}),
+	});
 	return new SliderInputBindingApi(c);
 }
 

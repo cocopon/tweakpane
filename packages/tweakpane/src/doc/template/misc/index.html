@@ -9,7 +9,7 @@
 	<div class="pageHeader_inner">
 		<div class="pageHeader_text">
 			<h1 class="pageHeader_title">{{ title }}</h1>
-			<p>Event handling, importing/exporting a preset, and some tips.</p>
+			<p>Event handling, importing/exporting a state, and some tips.</p>
 		</div>
 	</div>
 </div>
@@ -64,7 +64,7 @@ pane.<strong>on</strong>('change', (ev) =&gt; {
 
 
 <h2 id="imex">Import/Export</h2>
-<p>Tweakpane has a feature for importing/exporting bound values in JSON object. Use <code>exportPreset()</code> to export it.</p>
+<p>Tweakpane can import / export a blade state with <code>exportState()</code>.</p>
 
 <div class="main_media">
 	<div class="demo">
@@ -73,8 +73,8 @@ pane.<strong>on</strong>('change', (ev) =&gt; {
 // pane.addBinding(PARAMS, ...);
 // pane.addBinding(PARAMS, ...);
 
-const preset = pane.<strong>exportPreset</strong>();
-console.log(preset);
+const state = pane.<strong>exportState</strong>();
+console.log(state);
 </code></pre></div>
 		</div>
 		<div class="demo_result">
@@ -84,40 +84,26 @@ console.log(preset);
 	</div>
 </div>
 
-<p>To import an exported JSON object, pass it to <code>importPreset()</code>.</p>
+<p>To import an exported state, pass the state object to <code>importState()</code>.</p>
 
 <div class="main_media">
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-// pane.addBinding(PARAMS, ...);
-// pane.addBinding(PARAMS, ...);
+// ...
 
-pane.<strong>importPreset</strong>(preset);
+const f = pane.addFolder({
+  title: 'Values',
+});
+// f.addBinding(PARAMS, ...);
+// f.addBinding(PARAMS, ...);
+
+f.<strong>importState</strong>(state);
 </code></pre></div>
 		</div>
 		<div class="demo_result">
 			<div class="paneContainer paneContainer-console" data-pane-importconsole></div>
 			<div class="paneContainer" data-pane-import></div>
-		</div>
-	</div>
-</div>
-
-<p>If your pane contains parameters with the same name, specify <code>presetKey</code> to avoid the confliction.</p>
-
-<div class="main_media">
-	<div class="demo">
-		<div class="demo_code">
-			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-pane.addBinding(PARAMS1, 'speed');
-pane.addBinding(PARAMS2, 'speed', {
-  <strong>presetKey</strong>: 'speed2',
-});
-</code></pre></div>
-		</div>
-		<div class="demo_result">
-			<div class="paneContainer" data-pane-presetkey></div>
-			<div class="paneContainer paneContainer-console" data-pane-presetkeyconsole></div>
 		</div>
 	</div>
 </div>

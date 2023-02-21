@@ -1,5 +1,5 @@
+import {parseRecord} from '../../common/micro-parsers';
 import {BaseInputParams, PickerLayout} from '../../common/params';
-import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {parsePickerLayout} from '../../common/util';
 import {ColorType} from './model/color-model';
 
@@ -19,8 +19,7 @@ function parseColorType(value: unknown): ColorType | undefined {
 export function parseColorInputParams(
 	params: Record<string, unknown>,
 ): ColorInputParams | undefined {
-	const p = ParamsParsers;
-	return parseParams<ColorInputParams>(params, {
+	return parseRecord<ColorInputParams>(params, (p) => ({
 		color: p.optional.object({
 			alpha: p.optional.boolean,
 			type: p.optional.custom(parseColorType),
@@ -28,7 +27,7 @@ export function parseColorInputParams(
 		expanded: p.optional.boolean,
 		picker: p.optional.custom(parsePickerLayout),
 		readonly: p.optional.constant(false),
-	});
+	}));
 }
 
 /**

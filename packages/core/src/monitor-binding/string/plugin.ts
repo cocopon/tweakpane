@@ -1,6 +1,6 @@
 import {formatString, stringFromUnknown} from '../../common/converter/string';
+import {parseRecord} from '../../common/micro-parsers';
 import {BaseMonitorParams} from '../../common/params';
-import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {Constants} from '../../misc/constants';
 import {VERSION} from '../../version';
 import {MultiLogController} from '../common/controller/multi-log';
@@ -29,12 +29,11 @@ export const StringMonitorPlugin: MonitorBindingPlugin<
 		if (typeof value !== 'string') {
 			return null;
 		}
-		const p = ParamsParsers;
-		const result = parseParams<StringMonitorParams>(params, {
+		const result = parseRecord<StringMonitorParams>(params, (p) => ({
 			multiline: p.optional.boolean,
 			readonly: p.required.constant(true),
 			rows: p.optional.number,
-		});
+		}));
 		return result
 			? {
 					initialValue: value,

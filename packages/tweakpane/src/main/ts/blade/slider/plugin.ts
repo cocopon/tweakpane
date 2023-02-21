@@ -6,11 +6,10 @@ import {
 	Formatter,
 	getSuitableDraggingScale,
 	LabeledValueController,
+	MicroParser,
 	numberToString,
-	ParamsParser,
-	ParamsParsers,
 	parseNumber,
-	parseParams,
+	parseRecord,
 	SliderTextController,
 	ValueMap,
 	VERSION,
@@ -33,16 +32,15 @@ export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 	type: 'blade',
 	core: VERSION,
 	accept(params) {
-		const p = ParamsParsers;
-		const result = parseParams<SliderBladeParams>(params, {
+		const result = parseRecord<SliderBladeParams>(params, (p) => ({
 			max: p.required.number,
 			min: p.required.number,
 			view: p.required.constant('slider'),
 
-			format: p.optional.function as ParamsParser<Formatter<number>>,
+			format: p.optional.function as MicroParser<Formatter<number>>,
 			label: p.optional.string,
 			value: p.optional.number,
-		});
+		}));
 		return result ? {params: result} : null;
 	},
 	controller(args) {

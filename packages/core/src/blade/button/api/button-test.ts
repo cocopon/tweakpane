@@ -11,14 +11,14 @@ import {
 	assertUpdates,
 } from '../../common/api/test-util';
 import {createBlade} from '../../common/model/blade';
-import {LabelController} from '../../label/controller/label';
+import {LabelBladeController} from '../../label/controller/label';
 import {LabelPropsObject} from '../../label/view/label';
 import {ButtonController} from '../controller/button';
 import {ButtonPropsObject} from '../view/button';
 import {ButtonApi} from './button';
 
 function createApi(doc: Document): ButtonApi {
-	const c = new LabelController(doc, {
+	const c = new LabelBladeController(doc, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: undefined,

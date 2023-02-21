@@ -27,12 +27,11 @@ export interface BindingWriter<In> {
 
 export interface Binding {
 	readonly target: BindingTarget;
-	readonly presetKey: string;
 }
 
 export function isBinding(value: unknown): value is Binding {
 	if (!isObject(value)) {
 		return false;
 	}
-	return 'target' in value && 'presetKey' in value;
+	return 'target' in value;
 }

@@ -30,8 +30,8 @@
     "test:scss:static": "prettier --parser scss --list-different \"lib/sass/**/*.scss\"",
     "test:scss:dynamic": "sass lib/sass/_plugin-test.scss",
     "test:ts": "run-s test:ts:static test:ts:dynamic",
-    "test:ts:dynamic": "TS_NODE_PROJECT=\"src/tsconfig-cjs.json\" mocha --require ts-node/register \"src/**/*-test.ts\"",
-    "test:ts:dynamic:inspect": "TS_NODE_PROJECT=\"src/tsconfig-cjs.json\" mocha --require ts-node/register \"src/**/*-test.ts\" --inspect-brk",
+    "test:ts:dynamic": "TS_NODE_CACHE=false TS_NODE_PROJECT=\"src/tsconfig-cjs.json\" mocha --require ts-node/register \"src/**/*-test.ts\"",
+    "test:ts:dynamic:inspect": "TS_NODE_CACHE=false TS_NODE_PROJECT=\"src/tsconfig-cjs.json\" mocha --require ts-node/register \"src/**/*-test.ts\" --inspect-brk",
     "test:ts:static": "eslint --ext .ts \"src/**/*.ts\"",
     "watch": "run-p watch:*",
     "watch:ts": "onchange --initial --kill \"src/**/*.ts\" -- npm run build:ts"

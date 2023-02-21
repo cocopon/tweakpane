@@ -4,10 +4,9 @@ import {
 	createValue,
 	Formatter,
 	LabeledValueController,
-	ParamsParser,
-	ParamsParsers,
-	parseParams,
+	MicroParser,
 	Parser,
+	parseRecord,
 	TextController,
 	ValueMap,
 	VERSION,
@@ -32,15 +31,14 @@ export const TextBladePlugin = (function <T>(): BladePlugin<
 		type: 'blade',
 		core: VERSION,
 		accept(params) {
-			const p = ParamsParsers;
-			const result = parseParams<TextBladeParams<T>>(params, {
-				parse: p.required.function as ParamsParser<Parser<T>>,
-				value: p.required.raw as ParamsParser<T>,
+			const result = parseRecord<TextBladeParams<T>>(params, (p) => ({
+				parse: p.required.function as MicroParser<Parser<T>>,
+				value: p.required.raw as MicroParser<T>,
 				view: p.required.constant('text'),
 
-				format: p.optional.function as ParamsParser<Formatter<T>>,
+				format: p.optional.function as MicroParser<Formatter<T>>,
 				label: p.optional.string,
-			});
+			}));
 			return result ? {params: result} : null;
 		},
 		controller(args) {

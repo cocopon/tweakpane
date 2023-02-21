@@ -2,6 +2,11 @@ import {bindValueMap} from '../../../common/model/reactive';
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {PlainView} from '../../../common/view/plain';
+import {
+	BladeState,
+	exportBladeState,
+	importBladeState,
+} from '../../common/controller/blade-state';
 import {ContainerBladeController} from '../../common/controller/container-blade';
 import {RackController} from '../../common/controller/rack';
 import {Blade} from '../../common/model/blade';
@@ -57,6 +62,29 @@ export class TabPageController extends ContainerBladeController<PlainView> {
 
 	get itemController(): TabItemController {
 		return this.ic_;
+	}
+
+	override importState(state: BladeState): boolean {
+		return importBladeState(
+			state,
+			(s) => super.importState(s),
+			(p) => ({
+				selected: p.required.boolean,
+				title: p.required.string,
+			}),
+			(result) => {
+				this.ic_.props.set('selected', result.selected);
+				this.ic_.props.set('title', result.title);
+				return true;
+			},
+		);
+	}
+
+	override exportState(): BladeState {
+		return exportBladeState(() => super.exportState(), {
+			selected: this.ic_.props.get('selected'),
+			title: this.ic_.props.get('title'),
+		});
 	}
 
 	private onItemClick_(): void {

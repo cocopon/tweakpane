@@ -79,8 +79,6 @@ export class PluginPool {
 					document: document,
 					target: target,
 					params: params,
-					presetKey:
-						typeof params.presetKey === 'string' ? params.presetKey : undefined,
 				}),
 			null,
 		);
