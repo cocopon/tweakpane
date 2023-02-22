@@ -42,6 +42,13 @@ export class BindingApi<
 		this.controller_.props.set('label', label);
 	}
 
+	/**
+	 * The key of the bound value.
+	 */
+	get key(): string {
+		return this.controller_.value.binding.target.key;
+	}
+
 	public on<EventName extends keyof BindingApiEvents<Ex>>(
 		eventName: EventName,
 		handler: (ev: BindingApiEvents<Ex>[EventName]) => void,
@@ -64,7 +71,6 @@ export class BindingApi<
 			new TpChangeEvent(
 				this,
 				forceCast(value.binding.target.read()),
-				value.binding.target.key,
 				ev.options.last,
 			),
 		);

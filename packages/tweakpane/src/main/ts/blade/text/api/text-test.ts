@@ -125,7 +125,6 @@ describe(TextBladeApi.name, () => {
 		const api = new TextBladeApi(c);
 
 		api.on('change', (ev) => {
-			assert.strictEqual(ev.key, undefined);
 			assert.strictEqual(ev.target, api);
 			assert.strictEqual(ev.value, 'changed');
 			done();

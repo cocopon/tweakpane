@@ -84,7 +84,7 @@ describe(TabApi.name, () => {
 
 		api.on('change', (ev) => {
 			assert.strictEqual(ev instanceof TpChangeEvent, true);
-			assert.strictEqual(ev.key, 'foo');
+			assert.strictEqual((ev.target as BindingApi).key, 'foo');
 			assert.strictEqual(ev.value, 2);
 
 			if (!(ev.target instanceof BindingApi)) {
@@ -117,7 +117,7 @@ describe(TabApi.name, () => {
 
 		api.on('change', (ev) => {
 			assert.strictEqual(ev instanceof TpChangeEvent, true);
-			assert.strictEqual(ev.key, 'foo');
+			assert.strictEqual((ev.target as BindingApi).key, 'foo');
 			assert.strictEqual(ev.value, 2);
 
 			if (!(ev.target instanceof BindingApi)) {
