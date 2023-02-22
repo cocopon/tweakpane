@@ -18,18 +18,23 @@ export interface PointDimensionParams {
 
 export type PickerLayout = 'inline' | 'popup';
 
-export interface BaseInputParams extends BaseParams, Record<string, unknown> {
+interface BindingParams extends BaseParams {
 	label?: string;
-	readonly?: false;
 	view?: string;
 }
 
-export interface BaseMonitorParams extends BaseParams, Record<string, unknown> {
+export interface BaseInputParams
+	extends BindingParams,
+		Record<string, unknown> {
+	readonly?: false;
+}
+
+export interface BaseMonitorParams
+	extends BindingParams,
+		Record<string, unknown> {
 	bufferSize?: number;
 	interval?: number;
-	label?: string;
 	readonly: true;
-	view?: string;
 }
 
 export interface BaseBladeParams extends BaseParams, Record<string, unknown> {}
