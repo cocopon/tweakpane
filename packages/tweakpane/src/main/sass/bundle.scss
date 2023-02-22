@@ -33,7 +33,7 @@
 		transition-delay: 0s;
 		transition-duration: 0s;
 	}
-	&#{&}-not &_b {
+	&#{&}-not > &_b {
 		// no title
 		display: none;
 	}
