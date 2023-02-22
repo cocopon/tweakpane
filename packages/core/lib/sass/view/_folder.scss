@@ -7,9 +7,6 @@
 	&_b {
 		@extend %tp-folder_title;
 	}
-	&#{&}-not &_b {
-		display: none;
-	}
 	// Title
 	&_t {
 		padding-left: 4px;
