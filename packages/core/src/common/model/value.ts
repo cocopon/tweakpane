@@ -1,4 +1,4 @@
-import {Emitter} from './emitter';
+import { Emitter } from './emitter';
 
 /**
  * @hidden
@@ -12,6 +12,10 @@ export interface ValueChangeOptions {
 	 * The flag indicating whether the event is for the last change.
 	 */
 	last: boolean;
+
+	before?: boolean;
+
+	emit: boolean;
 }
 
 /**

@@ -1,6 +1,6 @@
-import {Constraint} from '../constraint/constraint';
-import {Emitter} from './emitter';
-import {Value, ValueChangeOptions, ValueEvents} from './value';
+import { Constraint } from '../constraint/constraint';
+import { Emitter } from './emitter';
+import { Value, ValueChangeOptions, ValueEvents } from './value';
 
 interface Config<T> {
 	constraint?: Constraint<T>;
@@ -31,6 +31,7 @@ export class BoundValue<T> implements Value<T> {
 	set rawValue(rawValue: T) {
 		this.setRawValue(rawValue, {
 			forceEmit: false,
+			emit: true,
 			last: true,
 		});
 	}
@@ -38,6 +39,7 @@ export class BoundValue<T> implements Value<T> {
 	public setRawValue(rawValue: T, options?: ValueChangeOptions): void {
 		const opts = options ?? {
 			forceEmit: false,
+			emit: true,
 			last: true,
 		};
 
@@ -56,12 +58,12 @@ export class BoundValue<T> implements Value<T> {
 		});
 
 		this.rawValue_ = constrainedValue;
-
 		this.emitter.emit('change', {
 			options: opts,
 			previousRawValue: prevValue,
 			rawValue: constrainedValue,
 			sender: this,
 		});
+
 	}
 }

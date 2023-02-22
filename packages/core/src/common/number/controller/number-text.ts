@@ -1,17 +1,17 @@
-import {forceCast, isEmpty} from '../../../misc/type-util';
-import {Controller} from '../../controller/controller';
-import {Parser} from '../../converter/parser';
-import {Value} from '../../model/value';
-import {createValue} from '../../model/values';
-import {ViewProps} from '../../model/view-props';
-import {getStepForKey, getVerticalStepKeys} from '../../ui';
+import { forceCast, isEmpty } from '../../../misc/type-util';
+import { Controller } from '../../controller/controller';
+import { Parser } from '../../converter/parser';
+import { Value } from '../../model/value';
+import { createValue } from '../../model/values';
+import { ViewProps } from '../../model/view-props';
+import { getStepForKey, getVerticalStepKeys } from '../../ui';
 import {
 	PointerData,
 	PointerHandler,
 	PointerHandlerEvent,
 } from '../../view/pointer-handler';
-import {NumberTextProps, NumberTextView} from '../view/number-text';
-import {SliderProps} from '../view/slider';
+import { NumberTextProps, NumberTextView } from '../view/number-text';
+import { SliderProps } from '../view/slider';
 
 interface Config {
 	baseStep: number;
@@ -102,7 +102,9 @@ export class NumberTextController implements Controller<NumberTextView> {
 		}
 		this.value.setRawValue(this.constrainValue_(this.value.rawValue + step), {
 			forceEmit: false,
+			emit:true,
 			last: false,
+			before: true
 		});
 	}
 
@@ -113,7 +115,9 @@ export class NumberTextController implements Controller<NumberTextView> {
 		}
 		this.value.setRawValue(this.value.rawValue, {
 			forceEmit: true,
+			emit:true,
 			last: true,
+			before: false
 		});
 	}
 
@@ -141,7 +145,9 @@ export class NumberTextController implements Controller<NumberTextView> {
 
 		this.value.setRawValue(v, {
 			forceEmit: false,
+			emit:true,
 			last: false,
+			before: false,
 		});
 		this.dragging_.rawValue = this.value.rawValue - this.originRawValue_;
 	}
@@ -155,6 +161,8 @@ export class NumberTextController implements Controller<NumberTextView> {
 		this.value.setRawValue(v, {
 			forceEmit: true,
 			last: true,
+			emit:true,
+			before: false
 		});
 		this.dragging_.rawValue = null;
 	}

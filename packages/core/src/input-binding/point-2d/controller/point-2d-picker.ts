@@ -100,6 +100,7 @@ export class Point2dPickerController implements Controller<Point2dPickerView> {
 	private onPointerDown_(ev: PointerHandlerEvents['down']): void {
 		this.handlePointerEvent_(ev.data, {
 			forceEmit: false,
+			emit:true,
 			last: false,
 		});
 	}
@@ -107,6 +108,7 @@ export class Point2dPickerController implements Controller<Point2dPickerView> {
 	private onPointerMove_(ev: PointerHandlerEvents['move']): void {
 		this.handlePointerEvent_(ev.data, {
 			forceEmit: false,
+			emit:true,
 			last: false,
 		});
 	}
@@ -114,6 +116,7 @@ export class Point2dPickerController implements Controller<Point2dPickerView> {
 	private onPointerUp_(ev: PointerHandlerEvents['up']): void {
 		this.handlePointerEvent_(ev.data, {
 			forceEmit: true,
+			emit:true,
 			last: true,
 		});
 	}
@@ -132,6 +135,7 @@ export class Point2dPickerController implements Controller<Point2dPickerView> {
 			new Point2d(this.value.rawValue.x + dx, this.value.rawValue.y + dy),
 			{
 				forceEmit: false,
+				emit:true,
 				last: false,
 			},
 		);
@@ -145,6 +149,7 @@ export class Point2dPickerController implements Controller<Point2dPickerView> {
 
 		this.value.setRawValue(this.value.rawValue, {
 			forceEmit: true,
+			emit:true,
 			last: true,
 		});
 	}

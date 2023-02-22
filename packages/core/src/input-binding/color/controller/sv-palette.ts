@@ -70,6 +70,7 @@ export class SvPaletteController implements Controller<SvPaletteView> {
 	private onPointerDown_(ev: PointerHandlerEvents['down']): void {
 		this.handlePointerEvent_(ev.data, {
 			forceEmit: false,
+			emit:true,
 			last: false,
 		});
 	}
@@ -77,6 +78,7 @@ export class SvPaletteController implements Controller<SvPaletteView> {
 	private onPointerMove_(ev: PointerHandlerEvents['move']): void {
 		this.handlePointerEvent_(ev.data, {
 			forceEmit: false,
+			emit:true,
 			last: false,
 		});
 	}
@@ -84,6 +86,7 @@ export class SvPaletteController implements Controller<SvPaletteView> {
 	private onPointerUp_(ev: PointerHandlerEvents['up']): void {
 		this.handlePointerEvent_(ev.data, {
 			forceEmit: true,
+			emit:true,
 			last: true,
 		});
 	}
@@ -103,6 +106,7 @@ export class SvPaletteController implements Controller<SvPaletteView> {
 
 		this.value.setRawValue(new Color([h, s + ds, v + dv, a], 'hsv'), {
 			forceEmit: false,
+			emit:true,
 			last: false,
 		});
 	}
@@ -117,6 +121,7 @@ export class SvPaletteController implements Controller<SvPaletteView> {
 
 		this.value.setRawValue(this.value.rawValue, {
 			forceEmit: true,
+			emit:true,
 			last: true,
 		});
 	}

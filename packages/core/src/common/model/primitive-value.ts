@@ -1,5 +1,5 @@
-import {Emitter} from './emitter';
-import {Value, ValueChangeOptions, ValueEvents} from './value';
+import { Emitter } from './emitter';
+import { Value, ValueChangeOptions, ValueEvents } from './value';
 
 export class PrimitiveValue<T> implements Value<T> {
 	public readonly emitter: Emitter<ValueEvents<T>>;
@@ -18,6 +18,7 @@ export class PrimitiveValue<T> implements Value<T> {
 		this.setRawValue(value, {
 			forceEmit: false,
 			last: true,
+			emit: true,
 		});
 	}
 
@@ -25,6 +26,7 @@ export class PrimitiveValue<T> implements Value<T> {
 		const opts = options ?? {
 			forceEmit: false,
 			last: true,
+			emit: true
 		};
 
 		const prevValue = this.value_;
@@ -37,12 +39,12 @@ export class PrimitiveValue<T> implements Value<T> {
 		});
 
 		this.value_ = value;
-
 		this.emitter.emit('change', {
 			options: opts,
 			previousRawValue: prevValue,
 			rawValue: this.value_,
 			sender: this,
 		});
+
 	}
 }

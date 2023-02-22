@@ -1,9 +1,9 @@
-import {InputBindingEvents} from '../../../common/binding/input';
-import {Emitter} from '../../../common/model/emitter';
-import {forceCast} from '../../../misc/type-util';
-import {BladeApi} from '../../common/api/blade';
-import {TpChangeEvent} from '../../common/api/tp-event';
-import {InputBindingController} from '../controller/input-binding';
+import { InputBindingEvents } from '../../../common/binding/input';
+import { Emitter } from '../../../common/model/emitter';
+import { forceCast } from '../../../misc/type-util';
+import { BladeApi } from '../../common/api/blade';
+import { TpChangeEvent } from '../../common/api/tp-event';
+import { InputBindingController } from '../controller/input-binding';
 
 export interface InputBindingApiEvents<Ex> {
 	change: {
@@ -53,19 +53,32 @@ export class InputBindingApi<In, Ex> extends BladeApi<
 		return this;
 	}
 
+	/**
+	 *  set value directly
+	 * 
+	 * @param rawValue raw value
+	 * @param emit true: emit 'change' event,false: not emit 'change' event
+	 */
+	public setValue(rawValue: In, emit: boolean = true): void {
+		this.controller_.binding.setValue(rawValue, emit);
+	}
+
 	public refresh(): void {
 		this.controller_.binding.read();
 	}
 
 	private onBindingChange_(ev: InputBindingEvents<In>['change']) {
 		const value = ev.sender.target.read();
-		this.emitter_.emit('change', {
-			event: new TpChangeEvent(
-				this,
-				forceCast(value),
-				this.controller_.binding.target.presetKey,
-				ev.options.last,
-			),
-		});
+		if (ev.options.emit) {
+			this.emitter_.emit('change', {
+				event: new TpChangeEvent(
+					this,
+					forceCast(value),
+					this.controller_.binding.target.presetKey,
+					ev.options.last,
+					ev.options.before
+				),
+			});
+		}
 	}
 }

@@ -1,6 +1,6 @@
-import {Pane} from 'tweakpane';
+import { Pane } from 'tweakpane';
 
-import {selectContainer} from '../util';
+import { selectContainer } from '../util';
 
 export function initInputBindings() {
 	const markerToFnMap: {
@@ -11,8 +11,8 @@ export function initInputBindings() {
 				b: true,
 				c: '#ff0055',
 				n: 50,
-				v2: {x: 12, y: 34},
-				v3: {x: 12, y: 34, z: 56},
+				v2: { x: 12, y: 34 },
+				v3: { x: 12, y: 34, z: 56 },
 				s: 'string',
 			};
 			const pane = new Pane({
@@ -70,16 +70,21 @@ export function initInputBindings() {
 			});
 		},
 		numbertext: (container) => {
-			const PARAMS = {value: 50};
+			const PARAMS = { value: 40 };
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'value', {
+			const numberPane = pane.addInput(PARAMS, 'value', {
 				label: 'text',
 			});
+			numberPane.on('change', (ev) => {
+				console.log(ev);
+			});
+			numberPane.setValue(200, false);
+			numberPane.setValue(400, true);
 		},
 		slider: (container) => {
-			const PARAMS = {value: 50};
+			const PARAMS = { value: 50 };
 			const pane = new Pane({
 				container: container,
 			});
@@ -147,7 +152,7 @@ export function initInputBindings() {
 			updateLog();
 		},
 		numberformatter: (container) => {
-			const PARAMS = {value: 0};
+			const PARAMS = { value: 0 };
 			const pane = new Pane({
 				container: container,
 			});
@@ -157,7 +162,7 @@ export function initInputBindings() {
 			});
 		},
 		stringtext: (container) => {
-			const PARAMS = {value: 'hello, world'};
+			const PARAMS = { value: 'hello, world' };
 			const pane = new Pane({
 				container: container,
 			});
@@ -166,7 +171,7 @@ export function initInputBindings() {
 			});
 		},
 		stringlist: (container) => {
-			const PARAMS = {theme: ''};
+			const PARAMS = { theme: '' };
 
 			const consoleElem = selectContainer('stringlist', true);
 			const log = {
@@ -203,7 +208,7 @@ export function initInputBindings() {
 			updateLog();
 		},
 		checkbox: (container) => {
-			const PARAMS = {value: true};
+			const PARAMS = { value: true };
 			const pane = new Pane({
 				container: container,
 			});
@@ -213,8 +218,8 @@ export function initInputBindings() {
 		},
 		objectcolor: (container) => {
 			const PARAMS = {
-				background: {r: 255, g: 0, b: 84},
-				tint: {r: 0, g: 255, b: 214, a: 0.5},
+				background: { r: 255, g: 0, b: 84 },
+				tint: { r: 0, g: 255, b: 214, a: 0.5 },
 			};
 			const pane = new Pane({
 				container: container,
@@ -224,13 +229,13 @@ export function initInputBindings() {
 		},
 		floatcolor: (container) => {
 			const PARAMS = {
-				overlay: {r: 1, g: 0, b: 0.33},
+				overlay: { r: 1, g: 0, b: 0.33 },
 			};
 			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'overlay', {
-				color: {type: 'float'},
+				color: { type: 'float' },
 			});
 		},
 		stringcolor: (container) => {
@@ -285,7 +290,7 @@ export function initInputBindings() {
 			});
 		},
 		point2d: (container) => {
-			const PARAMS = {value: {x: 50, y: 25}};
+			const PARAMS = { value: { x: 50, y: 25 } };
 			const pane = new Pane({
 				container: container,
 			});
@@ -294,28 +299,28 @@ export function initInputBindings() {
 			});
 		},
 		point2dparams: (container) => {
-			const PARAMS = {value: {x: 20, y: 30}};
+			const PARAMS = { value: { x: 20, y: 30 } };
 			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'value', {
 				label: 'offset',
-				x: {step: 20},
-				y: {min: 0, max: 100},
+				x: { step: 20 },
+				y: { min: 0, max: 100 },
 			});
 		},
 		point2dinvertedy: (container) => {
-			const PARAMS = {value: {x: 50, y: 50}};
+			const PARAMS = { value: { x: 50, y: 50 } };
 			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'value', {
 				label: 'offset',
-				y: {inverted: true},
+				y: { inverted: true },
 			});
 		},
 		point2dinline: (container) => {
-			const PARAMS = {value: {x: 50, y: 25}};
+			const PARAMS = { value: { x: 50, y: 25 } };
 			const pane = new Pane({
 				container: container,
 			});
@@ -327,26 +332,26 @@ export function initInputBindings() {
 		},
 		point3d: (container) => {
 			const PARAMS = {
-				camera: {x: 0, y: 20, z: -10},
-				source: {x: 0, y: 0, z: 0},
+				camera: { x: 0, y: 20, z: -10 },
+				source: { x: 0, y: 0, z: 0 },
 			};
 			const pane = new Pane({
 				container: container,
 			});
 			pane.addInput(PARAMS, 'source');
 			pane.addInput(PARAMS, 'camera', {
-				y: {step: 10},
-				z: {max: 0},
+				y: { step: 10 },
+				z: { max: 0 },
 			});
 		},
 		point4d: (container) => {
 			const PARAMS = {
-				color: {x: 0, y: 0, z: 0, w: 1},
+				color: { x: 0, y: 0, z: 0, w: 1 },
 			};
 			const pane = new Pane({
 				container: container,
 			});
-			const copt = {min: 0, max: 1};
+			const copt = { min: 0, max: 1 };
 			pane.addInput(PARAMS, 'color', {
 				x: copt,
 				y: copt,

@@ -64,6 +64,7 @@ export class APaletteController implements Controller<APaletteView> {
 	private onPointerDown_(ev: PointerHandlerEvents['down']): void {
 		this.handlePointerEvent_(ev.data, {
 			forceEmit: false,
+			emit:true,
 			last: false,
 		});
 	}
@@ -71,6 +72,7 @@ export class APaletteController implements Controller<APaletteView> {
 	private onPointerMove_(ev: PointerHandlerEvents['move']): void {
 		this.handlePointerEvent_(ev.data, {
 			forceEmit: false,
+			emit:true,
 			last: false,
 		});
 	}
@@ -78,6 +80,7 @@ export class APaletteController implements Controller<APaletteView> {
 	private onPointerUp_(ev: PointerHandlerEvents['up']): void {
 		this.handlePointerEvent_(ev.data, {
 			forceEmit: true,
+			emit:true,
 			last: true,
 		});
 	}
@@ -95,6 +98,7 @@ export class APaletteController implements Controller<APaletteView> {
 		const [h, s, v, a] = c.getComponents('hsv');
 		this.value.setRawValue(new Color([h, s, v, a + step], 'hsv'), {
 			forceEmit: false,
+			emit:true,
 			last: false,
 		});
 	}
@@ -110,6 +114,7 @@ export class APaletteController implements Controller<APaletteView> {
 
 		this.value.setRawValue(this.value.rawValue, {
 			forceEmit: true,
+			emit:true,
 			last: true,
 		});
 	}

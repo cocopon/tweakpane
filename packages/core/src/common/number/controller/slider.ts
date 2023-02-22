@@ -75,6 +75,7 @@ export class SliderController implements Controller<SliderView> {
 	private onPointerDownOrMove_(ev: PointerHandlerEvent): void {
 		this.handlePointerEvent_(ev.data, {
 			forceEmit: false,
+			emit:true,
 			last: false,
 		});
 	}
@@ -82,6 +83,7 @@ export class SliderController implements Controller<SliderView> {
 	private onPointerUp_(ev: PointerHandlerEvent): void {
 		this.handlePointerEvent_(ev.data, {
 			forceEmit: true,
+			emit:true,
 			last: true,
 		});
 	}
@@ -93,6 +95,7 @@ export class SliderController implements Controller<SliderView> {
 		}
 		this.value.setRawValue(this.value.rawValue + step, {
 			forceEmit: false,
+			emit:true,
 			last: false,
 		});
 	}
@@ -104,6 +107,7 @@ export class SliderController implements Controller<SliderView> {
 		}
 		this.value.setRawValue(this.value.rawValue, {
 			forceEmit: true,
+			emit:true,
 			last: true,
 		});
 	}

@@ -51,6 +51,7 @@ export function connectValues<T1, T2>({
 	preventFeedback(() => {
 		secondary.setRawValue(forward(primary, secondary), {
 			forceEmit: false,
+			emit:true,
 			last: true,
 		});
 	});

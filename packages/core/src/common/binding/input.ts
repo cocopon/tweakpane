@@ -1,7 +1,7 @@
-import {Emitter} from '../model/emitter';
-import {Value, ValueChangeOptions, ValueEvents} from '../model/value';
-import {BindingReader, BindingWriter} from './binding';
-import {BindingTarget} from './target';
+import { Emitter } from '../model/emitter';
+import { Value, ValueChangeOptions, ValueEvents } from '../model/value';
+import { BindingReader, BindingWriter } from './binding';
+import { BindingTarget } from './target';
 
 interface Config<In> {
 	reader: BindingReader<In>;
@@ -54,6 +54,14 @@ export class InputBinding<In> {
 
 	private write_(rawValue: In): void {
 		this.writer(this.target, rawValue);
+	}
+
+	public setValue(rawValue: In, isEmitt: boolean = false): void {
+		this.value.setRawValue(rawValue, {
+			forceEmit: false,
+			last: false,
+			emit: isEmitt
+		});
 	}
 
 	private onValueChange_(ev: ValueEvents<In>['change']): void {

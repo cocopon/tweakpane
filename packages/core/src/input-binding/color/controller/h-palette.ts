@@ -72,12 +72,14 @@ export class HPaletteController implements Controller<HPaletteView> {
 		this.handlePointerEvent_(ev.data, {
 			forceEmit: false,
 			last: false,
+			emit: true
 		});
 	}
 
 	private onPointerMove_(ev: PointerHandlerEvents['move']): void {
 		this.handlePointerEvent_(ev.data, {
 			forceEmit: false,
+			emit:true,
 			last: false,
 		});
 	}
@@ -85,6 +87,7 @@ export class HPaletteController implements Controller<HPaletteView> {
 	private onPointerUp_(ev: PointerHandlerEvents['up']): void {
 		this.handlePointerEvent_(ev.data, {
 			forceEmit: true,
+			emit:true,
 			last: true,
 		});
 	}
@@ -102,6 +105,7 @@ export class HPaletteController implements Controller<HPaletteView> {
 		const [h, s, v, a] = c.getComponents('hsv');
 		this.value.setRawValue(new Color([h + step, s, v, a], 'hsv'), {
 			forceEmit: false,
+			emit:true,
 			last: false,
 		});
 	}
@@ -117,6 +121,7 @@ export class HPaletteController implements Controller<HPaletteView> {
 
 		this.value.setRawValue(this.value.rawValue, {
 			forceEmit: true,
+			emit:true,
 			last: true,
 		});
 	}
