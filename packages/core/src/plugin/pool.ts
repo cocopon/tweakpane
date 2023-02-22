@@ -158,30 +158,8 @@ export class PluginPool {
 		return bc;
 	}
 
-	public createBladeApi(bc: BladeController): BladeApi {
-		if (isBindingController(bc)) {
-			return new BindingApi(bc);
-		}
-
-		const api = this.pluginsMap_.blades.reduce(
-			(result: BladeApi | null, plugin) =>
-				result ??
-				plugin.api({
-					controller: bc,
-					pool: this,
-				}),
-			null,
-		);
-		if (!api) {
-			throw TpError.shouldNeverHappen();
-		}
-		return api;
-	}
-
-	private createInputBindingApi_(
-		bc: InputBindingController,
-	): InputBindingApi | null {
-		return this.pluginsMap_.inputs.reduce(
+	private createInputBindingApi_(bc: InputBindingController): InputBindingApi {
+		const api = this.pluginsMap_.inputs.reduce(
 			(result: InputBindingApi | null, plugin) => {
 				if (result) {
 					return result;
@@ -194,6 +172,7 @@ export class PluginPool {
 			},
 			null,
 		);
+		return api ?? new BindingApi(bc);
 	}
 
 	private createMonitorBindingApi_(
@@ -217,17 +196,35 @@ export class PluginPool {
 
 	public createBindingApi(bc: BindingController): BindingApi {
 		if (isInputBindingController(bc)) {
-			const api = this.createInputBindingApi_(bc);
-			if (api) {
-				return api;
-			}
+			return this.createInputBindingApi_(bc);
 		}
+		/* istanbul ignore else */
 		if (isMonitorBindingController(bc)) {
-			const api = this.createMonitorBindingApi_(bc);
-			if (api) {
-				return api as BindingApi;
-			}
+			return this.createMonitorBindingApi_(bc) as BindingApi;
 		}
-		return new BindingApi(bc);
+		/* istanbul ignore next */
+		throw TpError.shouldNeverHappen();
+	}
+
+	public createApi(bc: BladeController): BladeApi {
+		if (isBindingController(bc)) {
+			return this.createBindingApi(bc);
+		}
+
+		const api = this.pluginsMap_.blades.reduce(
+			(result: BladeApi | null, plugin) =>
+				result ??
+				plugin.api({
+					controller: bc,
+					pool: this,
+				}),
+			null,
+		);
+		/* istanbul ignore else */
+		if (api) {
+			return api;
+		}
+		/* istanbul ignore next */
+		throw TpError.shouldNeverHappen();
 	}
 }

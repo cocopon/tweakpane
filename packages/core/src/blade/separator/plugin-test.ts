@@ -32,7 +32,7 @@ describe(SeparatorBladePlugin.id, () => {
 			},
 		});
 		const pool = createDefaultPluginPool();
-		const api = pool.createBladeApi(forceCast(bc)) as SeparatorApi;
+		const api = pool.createApi(forceCast(bc)) as SeparatorApi;
 		assert.notStrictEqual(api, null);
 	});
 

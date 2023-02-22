@@ -9,6 +9,7 @@ import {CheckboxController} from '../../../input-binding/boolean/controller/chec
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {forceCast} from '../../../misc/type-util';
 import {createDefaultPluginPool} from '../../../plugin/plugins';
+import {BindingApi} from '../../binding/api/binding';
 import {LabeledValueController} from '../../label/controller/value-label';
 import {LabelPropsObject} from '../../label/view/label';
 import {TestValueBladeApi, TestValueBladePlugin} from '../../test-util';
@@ -37,7 +38,7 @@ describe(RackApi.name, () => {
 		const bapi = api.addBinding(obj, 'foo');
 
 		api.on('change', (ev) => {
-			assert.strictEqual(ev.key, 'foo');
+			assert.strictEqual((ev.target as BindingApi).key, 'foo');
 			assert.strictEqual(ev.target, bapi);
 			assert.strictEqual(ev.value, 2);
 			done();
@@ -56,7 +57,7 @@ describe(RackApi.name, () => {
 		const bapi = fapi.addBinding(obj, 'foo');
 
 		api.on('change', (ev) => {
-			assert.strictEqual(ev.key, 'foo');
+			assert.strictEqual((ev.target as BindingApi).key, 'foo');
 			assert.strictEqual(ev.target, bapi);
 			assert.strictEqual(ev.value, 2);
 			done();
@@ -85,7 +86,6 @@ describe(RackApi.name, () => {
 		api.add(bapi);
 
 		api.on('change', (ev) => {
-			assert.strictEqual(ev.key, undefined);
 			assert.strictEqual(ev.target, bapi);
 			assert.strictEqual(ev.value, true);
 			done();

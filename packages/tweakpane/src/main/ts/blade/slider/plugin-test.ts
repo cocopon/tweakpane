@@ -80,7 +80,7 @@ describe(SliderBladePlugin.id, () => {
 			} as SliderBladeParams,
 		}) as BladeController;
 		const pool = createPluginPool();
-		const api = pool.createBladeApi(bc) as SliderBladeApi;
+		const api = pool.createApi(bc) as SliderBladeApi;
 
 		assert.strictEqual(api.max, 100);
 		assert.strictEqual(api.min, -100);

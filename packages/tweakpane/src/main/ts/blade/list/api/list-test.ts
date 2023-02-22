@@ -133,7 +133,6 @@ describe(ListBladeApi.name, () => {
 		const api = new ListBladeApi(c);
 
 		api.on('change', (ev) => {
-			assert.strictEqual(ev.key, undefined);
 			assert.strictEqual(ev.target, api);
 			assert.strictEqual(ev.value, 123);
 			done();
