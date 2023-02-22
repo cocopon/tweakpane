@@ -10,7 +10,7 @@ import {
 	importBladeState,
 } from '../../common/controller/blade-state';
 import {isValueBladeController} from '../../common/controller/value-blade';
-import {LabeledValueController} from '../../label/controller/value-label';
+import {BindingController} from './binding';
 
 function excludeValue(state: BladeState): Omit<BladeState, 'value'> {
 	const result = {
@@ -23,7 +23,7 @@ function excludeValue(state: BladeState): Omit<BladeState, 'value'> {
 export class InputBindingController<
 	In = unknown,
 	Vc extends ValueController<In> = ValueController<In>,
-> extends LabeledValueController<In, Vc, InputBindingValue<In>> {
+> extends BindingController<In, Vc, InputBindingValue<In>> {
 	override importState(state: BladeState): boolean {
 		return importBladeState(
 			state,

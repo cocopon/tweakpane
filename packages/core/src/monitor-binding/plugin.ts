@@ -1,10 +1,10 @@
 import {MonitorBindingApi} from '../blade/binding/api/monitor-binding';
+import {BindingController} from '../blade/binding/controller/binding';
 import {
 	BufferedValueController,
 	MonitorBindingController,
 } from '../blade/binding/controller/monitor-binding';
 import {createBlade} from '../blade/common/model/blade';
-import {LabeledValueController} from '../blade/label/controller/value-label';
 import {LabelPropsObject} from '../blade/label/view/label';
 import {BindingReader} from '../common/binding/binding';
 import {ReadonlyBinding} from '../common/binding/readonly';
@@ -185,7 +185,7 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 	});
 
 	// Monitor binding controller
-	return new LabeledValueController(args.document, {
+	return new BindingController(args.document, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: params?.label,

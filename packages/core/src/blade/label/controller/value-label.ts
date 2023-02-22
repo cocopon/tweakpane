@@ -16,6 +16,11 @@ interface Config<T, C extends ValueController<T>, Va extends Value<T>> {
 	value: Va;
 	valueController: C;
 }
+export type LabeledValueConfig<
+	T,
+	C extends ValueController<T>,
+	Va extends Value<T>,
+> = Config<T, C, Va>;
 
 export class LabeledValueController<
 	T,

@@ -1,8 +1,8 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
+import {BindingController} from '../../../blade/binding/controller/binding';
 import {createBlade} from '../../../blade/common/model/blade';
-import {LabeledValueController} from '../../../blade/label/controller/value-label';
 import {LabelPropsObject} from '../../../blade/label/view/label';
 import {ReadonlyBinding} from '../../../common/binding/readonly';
 import {BindingTarget} from '../../../common/binding/target';
@@ -32,7 +32,7 @@ function createApi(config: {
 		bufferSize: 10,
 		ticker: new ManualTicker(),
 	});
-	const c = new LabeledValueController<
+	const c = new BindingController<
 		TpBuffer<number>,
 		GraphLogController,
 		MonitorBindingValue<number>

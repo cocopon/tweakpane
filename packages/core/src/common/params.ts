@@ -20,6 +20,7 @@ export type PickerLayout = 'inline' | 'popup';
 
 interface BindingParams extends BaseParams {
 	label?: string;
+	tag?: string | undefined;
 	view?: string;
 }
 

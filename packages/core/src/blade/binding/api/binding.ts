@@ -49,6 +49,17 @@ export class BindingApi<
 		return this.controller_.value.binding.target.key;
 	}
 
+	/**
+	 * The generic tag with many uses.
+	 */
+	get tag(): string | undefined {
+		return this.controller_.tag;
+	}
+
+	set tag(tag: string | undefined) {
+		this.controller_.tag = tag;
+	}
+
 	public on<EventName extends keyof BindingApiEvents<Ex>>(
 		eventName: EventName,
 		handler: (ev: BindingApiEvents<Ex>[EventName]) => void,
