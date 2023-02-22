@@ -32,7 +32,7 @@ import {
 import {TpChangeEvent} from './tp-event';
 
 export interface RackApiEvents {
-	change: TpChangeEvent<unknown>;
+	change: TpChangeEvent<unknown, BladeApi>;
 }
 
 function findSubBladeApiSet(api: BladeApi): NestedOrderedSet<BladeApi> | null {

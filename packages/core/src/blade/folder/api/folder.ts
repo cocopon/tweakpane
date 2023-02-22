@@ -21,8 +21,8 @@ import {TabApi} from '../../tab/api/tab';
 import {FolderController} from '../controller/folder';
 
 export interface FolderApiEvents {
-	change: TpChangeEvent<unknown>;
-	fold: TpFoldEvent;
+	change: TpChangeEvent<unknown, BladeApi>;
+	fold: TpFoldEvent<FolderApi>;
 }
 
 export class FolderApi

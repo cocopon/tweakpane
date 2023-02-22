@@ -119,7 +119,7 @@ describe(Pane.name, () => {
 				bapi.on('change', (ev) => {
 					assert.strictEqual(ev instanceof TpChangeEvent, true);
 					assert.strictEqual(ev.target, bapi);
-					assert.strictEqual((ev.target as BindingApi).key, 'foo');
+					assert.strictEqual(ev.target.key, 'foo');
 					assert.strictEqual(ev.value, expected);
 					done();
 				});

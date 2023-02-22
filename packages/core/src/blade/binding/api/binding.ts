@@ -6,7 +6,7 @@ import {TpChangeEvent} from '../../common/api/tp-event';
 import {BindingController} from '../controller/binding';
 
 export interface BindingApiEvents<Ex> {
-	change: TpChangeEvent<Ex>;
+	change: TpChangeEvent<Ex, BindingApi>;
 }
 
 /**
@@ -69,7 +69,7 @@ export class BindingApi<
 		this.emitter_.emit(
 			'change',
 			new TpChangeEvent(
-				this,
+				this as BindingApi,
 				forceCast(value.binding.target.read()),
 				ev.options.last,
 			),
