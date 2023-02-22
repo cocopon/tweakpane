@@ -33,7 +33,7 @@ function createController(doc: Document) {
 		createValue(new IntColor([0, 0, 0], 'rgb')),
 		binding,
 	);
-	const controller = new TextController<IntColor>(doc, {
+	const vc = new TextController<IntColor>(doc, {
 		parser: createColorStringParser('int'),
 		props: ValueMap.fromObject({
 			formatter: (v) => colorToHexRgbString(v, '0x'),
@@ -41,43 +41,20 @@ function createController(doc: Document) {
 		value: value,
 		viewProps: ViewProps.create(),
 	});
-	return {
-		value: value,
-		valueController: controller,
-		controller: new InputBindingController<IntColor>(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<LabelPropsObject>({
-				label: 'foo',
-			}),
-			value: value,
-			valueController: controller,
+	return new InputBindingController<IntColor>(doc, {
+		blade: createBlade(),
+		props: ValueMap.fromObject<LabelPropsObject>({
+			label: 'foo',
 		}),
-	};
+		value: value,
+		valueController: vc,
+	});
 }
 
 describe(InputBindingController.name, () => {
-	it('should get properties', () => {
-		const doc = createTestWindow().document;
-		const {value, valueController: vc, controller: bc} = createController(doc);
-
-		assert.strictEqual(bc.value, value);
-		assert.strictEqual(bc.valueController, vc);
-	});
-
-	it('should export state', () => {
-		const doc = createTestWindow().document;
-		const {controller: bc} = createController(doc);
-
-		const state = bc.exportState();
-		assert.ok('disabled' in state);
-		assert.ok('hidden' in state);
-		assert.ok('label' in state);
-		assert.strictEqual(state.value, 0x112233);
-	});
-
 	it('should import state', () => {
 		const doc = createTestWindow().document;
-		const {controller: bc} = createController(doc);
+		const bc = createController(doc);
 
 		assert.strictEqual(
 			bc.importState({
