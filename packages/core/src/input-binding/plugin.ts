@@ -8,7 +8,7 @@ import {BindingTarget} from '../common/binding/target';
 import {InputBindingValue} from '../common/binding/value/input-binding';
 import {Constraint} from '../common/constraint/constraint';
 import {ValueController} from '../common/controller/value';
-import {MicroParsers} from '../common/micro-parsers';
+import {parseRecord} from '../common/micro-parsers';
 import {Value} from '../common/model/value';
 import {ValueMap} from '../common/model/value-map';
 import {createValue} from '../common/model/values';
@@ -153,13 +153,18 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 		return null;
 	}
 
-	const p = MicroParsers;
-
 	const valueArgs = {
 		target: args.target,
 		initialValue: result.initialValue,
 		params: result.params,
 	};
+
+	const params = parseRecord(args.params, (p) => ({
+		disabled: p.optional.boolean,
+		hidden: p.optional.boolean,
+		label: p.optional.string,
+		tag: p.optional.string,
+	}));
 
 	// Binding and value
 	const reader = plugin.binding.reader(valueArgs);
@@ -180,8 +185,6 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 	);
 
 	// Value controller
-	const disabled = p.optional.boolean(args.params.disabled).value;
-	const hidden = p.optional.boolean(args.params.hidden).value;
 	const controller = plugin.controller({
 		constraint: constraint,
 		document: args.document,
@@ -189,18 +192,18 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 		params: result.params,
 		value: value,
 		viewProps: ViewProps.create({
-			disabled: disabled,
-			hidden: hidden,
+			disabled: params?.disabled,
+			hidden: params?.hidden,
 		}),
 	});
 
 	// Input binding controller
-	const label = p.optional.string(args.params.label).value;
 	return new InputBindingController(args.document, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
-			label: label ?? args.target.key,
+			label: params?.label ?? args.target.key,
 		}),
+		tag: params?.tag,
 		value: value,
 		valueController: controller,
 	});

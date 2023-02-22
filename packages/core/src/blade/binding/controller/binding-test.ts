@@ -16,14 +16,19 @@ import {
 import {createColorNumberWriter} from '../../../input-binding/color/converter/writer';
 import {IntColor} from '../../../input-binding/color/model/int-color';
 import {createTestWindow} from '../../../misc/dom-test-util';
-import {InputBindingController} from '../../binding/controller/input-binding';
 import {createBlade} from '../../common/model/blade';
 import {LabelPropsObject} from '../../label/view/label';
+import {BindingController} from './binding';
+import {InputBindingController} from './input-binding';
 
-function createController(doc: Document) {
-	const obj = {
-		foo: 0x112233,
-	};
+function createController(
+	doc: Document,
+	config: {
+		tag?: string;
+		value: number;
+	},
+) {
+	const obj = {foo: config.value};
 	const binding = new ReadWriteBinding({
 		reader: colorFromRgbNumber,
 		target: new BindingTarget(obj, 'foo'),
@@ -41,33 +46,65 @@ function createController(doc: Document) {
 		value: value,
 		viewProps: ViewProps.create(),
 	});
-	return new InputBindingController<IntColor>(doc, {
-		blade: createBlade(),
-		props: ValueMap.fromObject<LabelPropsObject>({
-			label: 'foo',
-		}),
+	return {
 		value: value,
 		valueController: vc,
-	});
+		controller: new InputBindingController<IntColor>(doc, {
+			blade: createBlade(),
+			props: ValueMap.fromObject<LabelPropsObject>({
+				label: 'foo',
+			}),
+			tag: config.tag,
+			value: value,
+			valueController: vc,
+		}),
+	};
 }
 
-describe(InputBindingController.name, () => {
+describe(BindingController.name, () => {
+	it('should get properties', () => {
+		const doc = createTestWindow().document;
+		const {
+			value,
+			valueController: vc,
+			controller: bc,
+		} = createController(doc, {
+			value: 0x112233,
+		});
+
+		assert.strictEqual(bc.value, value);
+		assert.strictEqual(bc.valueController, vc);
+	});
+
+	it('should export state', () => {
+		const doc = createTestWindow().document;
+		const {controller: c} = createController(doc, {
+			tag: 'foo',
+			value: 0x112233,
+		});
+		const state = c.exportState();
+
+		assert.strictEqual(state.tag, 'foo');
+		assert.strictEqual(state.value, 0x112233);
+	});
+
 	it('should import state', () => {
 		const doc = createTestWindow().document;
-		const bc = createController(doc);
+		const {controller: c} = createController(doc, {
+			tag: 'foo',
+			value: 0x112233,
+		});
 
 		assert.strictEqual(
-			bc.importState({
+			c.importState({
 				disabled: true,
 				hidden: true,
-				label: 'bar',
-				value: 0x445566,
+				label: 'label',
+				tag: 'bar',
+				value: 0,
 			}),
 			true,
 		);
-		assert.deepStrictEqual(
-			bc.value.rawValue.getComponents(),
-			[0x44, 0x55, 0x66, 1],
-		);
+		assert.strictEqual(c.tag, 'bar');
 	});
 });

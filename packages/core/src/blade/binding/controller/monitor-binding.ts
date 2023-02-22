@@ -7,7 +7,7 @@ import {BufferedValue, TpBuffer} from '../../../common/model/buffered-value';
 import {View} from '../../../common/view/view';
 import {BladeController} from '../../common/controller/blade';
 import {isValueBladeController} from '../../common/controller/value-blade';
-import {LabeledValueController} from '../../label/controller/value-label';
+import {BindingController} from './binding';
 
 export type BufferedValueController<
 	T,
@@ -17,7 +17,7 @@ export type BufferedValueController<
 export type MonitorBindingController<
 	T = unknown,
 	Vc extends BufferedValueController<T> = BufferedValueController<T>,
-> = LabeledValueController<TpBuffer<T>, Vc, MonitorBindingValue<T>>;
+> = BindingController<TpBuffer<T>, Vc, MonitorBindingValue<T>>;
 
 export function isMonitorBindingController(
 	bc: BladeController,

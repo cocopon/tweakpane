@@ -1,4 +1,4 @@
-import {MicroParsers} from '../common/micro-parsers';
+import {parseRecord} from '../common/micro-parsers';
 import {ViewProps} from '../common/model/view-props';
 import {BaseBladeParams} from '../common/params';
 import {forceCast} from '../misc/type-util';
@@ -49,20 +49,22 @@ export function createBladeController<P extends BaseBladeParams>(
 		return null;
 	}
 
-	const p = MicroParsers;
-	const disabled = p.optional.boolean(args.params['disabled']).value;
-	const hidden = p.optional.boolean(args.params['hidden']).value;
+	const params = parseRecord(args.params, (p) => ({
+		disabled: p.optional.boolean,
+		hidden: p.optional.boolean,
+	}));
+
 	return plugin.controller({
 		blade: createBlade(),
 		document: args.document,
 		params: forceCast({
 			...ac.params,
-			disabled: disabled,
-			hidden: hidden,
+			disabled: params?.disabled,
+			hidden: params?.hidden,
 		}),
 		viewProps: ViewProps.create({
-			disabled: disabled,
-			hidden: hidden,
+			disabled: params?.disabled,
+			hidden: params?.hidden,
 		}),
 	});
 }
