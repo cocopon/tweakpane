@@ -108,17 +108,22 @@ $z-index-global-nav: 1003;
 	}
 	p {
 		line-height: 1.6;
-
+	}
+	p,
+	th,
+	td,
+	li {
 		code {
 			background-color: var(--bg-color-secondary);
 			border-radius: 2px;
 			color: var(--code-color);
 			font-weight: 500;
+			letter-spacing: -0.02em;
 			padding-left: 0.25em;
 			padding-right: 0.25em;
 		}
 	}
-	a {
+	:not(h1, h2, h3, h4, h5, h6) a {
 		color: var(--a-color);
 	}
 }

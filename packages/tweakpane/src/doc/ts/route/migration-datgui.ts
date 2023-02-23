@@ -3,7 +3,7 @@ import {Pane} from 'tweakpane';
 
 import {selectContainer, wave} from '../util';
 
-export function initMigration() {
+export function initMigrationDatgui() {
 	const SHARED_PARAMS = {
 		active: true,
 		alert: () => {

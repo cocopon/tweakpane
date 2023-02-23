@@ -1,0 +1,265 @@
+{% set pageId = 'v4' %}
+{% set root = '../../' %}
+{% set title = 'Version 3.x To 4.x' %}
+{% extends "_template.html" %}
+
+
+{% block pageHeader %}
+<div class="pageHeader">
+	<div class="pageHeader_inner">
+		<div class="pageHeader_text">
+			<h1 class="pageHeader_title">{{ title }}</h1>
+			<p>How to migrate outdated functionalities into the v4 structure. See the <a href="https://github.com/cocopon/tweakpane/releases/tag/4.0.0" target="_blank">release note</a> for new features.</p>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<h2>Bindings</h2>
+<p>
+	<code>addInput()</code> is now <code>addBinding()</code>.
+</p>
+<div class="main_media">
+	<div class="comparison">
+		<div class="comparison_codes">
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">// v3
+pane.<strong>addInput</strong>(PARAMS, 'size');</code></pre></div>
+			</div>
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">// v4
+pane.<strong>addBinding</strong>(PARAMS, 'size');</code></pre></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<p>
+	<code>addMonitor()</code> is merged into <code>addBinding()</code>, and needs an additional option <code>{readonly: true}</code>.
+</p>
+<div class="main_media">
+	<div class="comparison">
+		<div class="comparison_codes">
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">// v3
+pane.<strong>addMonitor</strong>(PARAMS, 'total');</code></pre></div>
+			</div>
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">// v4
+pane.<strong>addBinding</strong>(PARAMS, 'total', {
+  <strong>readonly</strong>: true,
+});</code></pre></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<h2>Event handling</h2>
+<p>If you uses <code>presetKey</code> of the event object, replace it with <code>target.key</code>.</p>
+<div class="main_media">
+	<div class="comparison">
+		<div class="comparison_codes">
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">// v3
+const b = pane.addInput(PARAMS, 'strength');
+
+b.on('change', (ev) => {
+  console.log(ev.<strong>presetKey</strong>);  // 'strength'
+});</code></pre></div>
+			</div>
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">// v4
+const b = pane.addBinding(PARAMS, 'strength');
+
+b.on('change', (ev) => {
+  console.log(ev.<strong>target.key</strong>);  // 'strength'
+});</code></pre></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<p>For monitor bindings, use the event name <code>change</code> instead of <code>update</code>.</p>
+<div class="main_media">
+	<div class="comparison">
+		<div class="comparison_codes">
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">// v3
+const b = pane.addMonitor(PARAMS, 'total');
+
+b.on('<strong>update</strong>', (ev) => {
+  // ...
+});</code></pre></div>
+			</div>
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">// v4
+const b = pane.addBinding(PARAMS, 'total', {readonly: true});
+
+b.on('<strong>change</strong>', (ev) => {
+  // ...
+});</code></pre></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<h2>Importing/Exporting a preset</h2>
+<p>v4 omits the preset functionality <code>importPreset()</code>, <code>exportPreset()</code>, and added <code>importState()</code>, <code>exportState()</code> instead.</p>
+<div class="main_media">
+	<div class="comparison">
+		<div class="comparison_codes">
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">// v3
+console.log(pane.<strong>exportPreset</strong>());</code></pre></div>
+			</div>
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">// v4
+console.log(pane.<strong>exportState</strong>());</code></pre></div>
+			</div>
+		</div>
+		<div class="comparison_results">
+			<div class="comparison_result">
+				<div class="paneContainer" data-pane-preset></div>
+				<div class="paneContainer paneContainer-console" data-pane-presetconsole></div>
+			</div>
+			<div class="comparison_result">
+				<div class="paneContainer" data-pane-state></div>
+				<div class="paneContainer paneContainer-console" data-pane-stateconsole></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<p>Do you prefer the classic preset style? You can convert a blade state into a preset with a small utility function. Refer <a href="https://github.com/cocopon/tweakpane/blob/a449650916d8c13ba24c822b7954aea73724804a/packages/tweakpane/src/doc/ts/preset.ts" target="_blank">preset.ts</a> to see the whole code written in TypeScript.</p>
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock"><pre><code class="js">function <strong>stateToPreset</strong>(state) {
+  if ('children' in state) {
+    return state.children.reduce((tmp, s) => {
+      return {...tmp, ...stateToPreset(s)};
+    }, {});
+  }
+  if ('key' in state && 'value' in state) {
+    return {[state.key]: state.value};
+  }
+  return {};
+}</code></pre></div>
+		</div>
+		<div class="demo_chip">.js</div>
+	</div>
+</div>
+
+<p>If you want to handle binding key collisions, generic <code>tag</code> option would be useful to identify each key.</p>
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock"><pre><code class="js">pane.addBinding(PARAMS, 'speed', {
+  <strong>tag</strong>: 'speed2',
+});</code></pre></div>
+		</div>
+		<div class="demo_result">
+			<div class="paneContainer" data-pane-tag></div>
+			<div class="paneContainer paneContainer-console" data-pane-tagconsole></div>
+		</div>
+	</div>
+</div>
+
+
+<h2>Blade API changes</h2>
+<p>All blade APIs are renamed.</p>
+<div class="main_media">
+	<div class="comparison">
+		<div class="comparison_codes">
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">// v3
+const b = pane.addBlade({
+  view: 'slider',
+  label: 'brightness',
+  min: 0,
+  max: 1,
+  value: 0.5,
+}) as <strong>SliderApi</strong>;</code></pre></div>
+			</div>
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">// v4
+const b = pane.addBlade({
+  view: 'slider',
+  label: 'brightness',
+  min: 0,
+  max: 1,
+  value: 0.5,
+}) as <strong>SliderBladeApi</strong>;</code></pre></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<p>Here is the list of the renamed blade APIs:</p>
+
+<div class="main_media">
+	<table>
+		<thead>
+			<tr>
+				<th>v3</th>
+				<th>v4</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><code>ListApi</code></td>
+				<td><code>ListBladeApi</code></td>
+			</tr>
+			<tr>
+				<td><code>SliderApi</code></td>
+				<td><code>SliderBladeApi</code></td>
+			</tr>
+			<tr>
+				<td><code>TextApi</code></td>
+				<td><code>TextBladeApi</code></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<p><code>minValue</code>, <code>maxValue</code> of the slider blade API is now <code>min</code> and <code>max</code>.</p>
+<div class="main_media">
+	<div class="comparison">
+		<div class="comparison_codes">
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">// v3
+const b = pane.addBlade({
+  view: 'slider',
+  label: 'brightness',
+  min: 0,
+  max: 1,
+  value: 0.5,
+}) as SliderApi;
+
+console.log(b.<strong>minValue</strong>, b.<strong>maxValue</strong>);</code></pre></div>
+			</div>
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">// v4
+const b = pane.addBlade({
+  view: 'slider',
+  label: 'brightness',
+  min: 0,
+  max: 1,
+  value: 0.5,
+}) as SliderBladeApi;
+
+console.log(b.<strong>min</strong>, b.<strong>max</strong>);</code></pre></div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block pluginScripts %}
+<script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.9/build/dat.gui.min.js" defer></script>
+{% endblock %}
