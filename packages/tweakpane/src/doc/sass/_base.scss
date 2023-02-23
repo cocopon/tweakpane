@@ -29,7 +29,7 @@
 		--fg-color-secondary: #{hsla(defs.$base-hue, 5%, 60%, 0.8)};
 
 		--a-color: #{hsl(defs.$base-hue - 10, 25%, 55%)};
-		--code-color: #{hsl(170, 25%, 55%)};
+		--code-color: #{hsl(170, 20%, 55%)};
 		--guide-color-comps: #{defs.$base-hue, 5%, 80%};
 		--heading-color: #{hsl(defs.$base-hue, 5%, 70%)};
 
@@ -59,11 +59,39 @@ h6 {
 	letter-spacing: 0.01em;
 
 	a {
+		color: var(--heading-color);
 		text-decoration: none;
 
 		&:hover {
 			text-decoration: underline;
 		}
+	}
+}
+table {
+	border: var(--bg-color-secondary) solid 2px;
+	border-collapse: separate;
+	border-radius: 6px;
+	border-spacing: 0;
+	width: 100%;
+}
+th {
+	background-color: var(--bg-color-secondary);
+	color: var(--heading-color);
+	font-weight: normal;
+	text-align: start;
+}
+th,
+td {
+	padding: 8px 16px;
+
+	&:not(:first-child) {
+		border-left: var(--bg-color-secondary) solid 2px;
+	}
+}
+tr:not(:first-child) {
+	th,
+	td {
+		border-top: var(--bg-color-secondary) solid 2px;
 	}
 }
 code {
@@ -74,6 +102,11 @@ pre {
 }
 strong {
 	color: var(---heading-color);
+	filter: brightness(0.9) saturate(1.2);
+
+	@media (prefers-color-scheme: dark) {
+		filter: brightness(1.2) saturate(1.2);
+	}
 }
 
 :root .tp-dfwv {

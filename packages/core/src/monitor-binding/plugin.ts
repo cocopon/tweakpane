@@ -188,7 +188,7 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 	return new BindingController(args.document, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
-			label: params?.label,
+			label: params?.label ?? args.target.key,
 		}),
 		value: value,
 		valueController: controller,
