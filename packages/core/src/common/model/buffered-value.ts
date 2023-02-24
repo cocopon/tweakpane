@@ -15,9 +15,6 @@ function fillBuffer<T>(buffer: TpBuffer<T>, bufferSize: number) {
 	}
 }
 
-/**
- * @hidden
- */
 export function initializeBuffer<T>(bufferSize: number): TpBuffer<T> {
 	const buffer: TpBuffer<T> = [];
 	fillBuffer(buffer, bufferSize);
@@ -29,9 +26,6 @@ function createTrimmedBuffer<T>(buffer: TpBuffer<T>): T[] {
 	return forceCast(index < 0 ? buffer : buffer.slice(0, index));
 }
 
-/**
- * @hidden
- */
 export function createPushedBuffer<T>(
 	buffer: TpBuffer<T>,
 	newValue: T,

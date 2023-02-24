@@ -2,9 +2,6 @@ import {mapRange} from '../../../common/number-util';
 import {removeAlphaComponent} from '../model/color-model';
 import {IntColor} from '../model/int-color';
 
-/**
- * @hidden
- */
 export function colorToRgbNumber(value: IntColor): number {
 	return removeAlphaComponent(value.getComponents('rgb')).reduce(
 		(result, comp) => {
@@ -14,9 +11,6 @@ export function colorToRgbNumber(value: IntColor): number {
 	);
 }
 
-/**
- * @hidden
- */
 export function colorToRgbaNumber(value: IntColor): number {
 	return (
 		value.getComponents('rgb').reduce((result, comp, index) => {
@@ -26,9 +20,6 @@ export function colorToRgbaNumber(value: IntColor): number {
 	);
 }
 
-/**
- * @hidden
- */
 export function numberToRgbColor(num: number): IntColor {
 	return new IntColor(
 		[(num >> 16) & 0xff, (num >> 8) & 0xff, num & 0xff],
@@ -36,9 +27,6 @@ export function numberToRgbColor(num: number): IntColor {
 	);
 }
 
-/**
- * @hidden
- */
 export function numberToRgbaColor(num: number): IntColor {
 	return new IntColor(
 		[
@@ -51,9 +39,6 @@ export function numberToRgbaColor(num: number): IntColor {
 	);
 }
 
-/**
- * @hidden
- */
 export function colorFromRgbNumber(value: unknown): IntColor {
 	if (typeof value !== 'number') {
 		return IntColor.black();
@@ -61,9 +46,6 @@ export function colorFromRgbNumber(value: unknown): IntColor {
 	return numberToRgbColor(value);
 }
 
-/**
- * @hidden
- */
 export function colorFromRgbaNumber(value: unknown): IntColor {
 	if (typeof value !== 'number') {
 		return IntColor.black();

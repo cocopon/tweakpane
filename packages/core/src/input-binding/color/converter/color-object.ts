@@ -8,9 +8,6 @@ import {mapColorType} from '../model/colors';
 import {FloatColor} from '../model/float-color';
 import {IntColor} from '../model/int-color';
 
-/**
- * @hidden
- */
 export function colorFromObject(value: unknown, type: 'int'): IntColor;
 export function colorFromObject(value: unknown, type: 'float'): FloatColor;
 export function colorFromObject(value: unknown, type: ColorType): Color;

@@ -69,9 +69,6 @@ export function equalsColor(v1: Color, v2: Color): boolean {
 	return true;
 }
 
-/**
- * @hidden
- */
 export function createColorComponentsFromRgbObject(
 	obj: RgbColorObject | RgbaColorObject,
 ): ColorComponents3 | ColorComponents4 {

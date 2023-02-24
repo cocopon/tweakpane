@@ -91,9 +91,6 @@ function findStep(constraint: Constraint<number> | undefined): number | null {
 	return c.step;
 }
 
-/**
- * @hidden
- */
 export function getSuitableDecimalDigits(
 	constraint: Constraint<number> | undefined,
 	rawValue: number,
@@ -106,9 +103,6 @@ export function getSuitableDecimalDigits(
 	return Math.max(getDecimalDigits(rawValue), 2);
 }
 
-/**
- * @hidden
- */
 export function getBaseStep(
 	constraint: Constraint<number> | undefined,
 ): number {
@@ -116,9 +110,6 @@ export function getBaseStep(
 	return step ?? 1;
 }
 
-/**
- * @hidden
- */
 export function getSuitableDraggingScale(
 	constraint: Constraint<number> | undefined,
 	rawValue: number,

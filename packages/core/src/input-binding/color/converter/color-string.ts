@@ -454,9 +454,6 @@ function zerofill(comp: number): string {
 	return hex.length === 1 ? `0${hex}` : hex;
 }
 
-/**
- * @hidden
- */
 export function colorToHexRgbString(value: IntColor, prefix = '#'): string {
 	const hexes = removeAlphaComponent(value.getComponents('rgb'))
 		.map(zerofill)
@@ -464,9 +461,6 @@ export function colorToHexRgbString(value: IntColor, prefix = '#'): string {
 	return `${prefix}${hexes}`;
 }
 
-/**
- * @hidden
- */
 export function colorToHexRgbaString(value: IntColor, prefix = '#'): string {
 	const rgbaComps = value.getComponents('rgb');
 	const hexes = [rgbaComps[0], rgbaComps[1], rgbaComps[2], rgbaComps[3] * 255]
@@ -475,9 +469,6 @@ export function colorToHexRgbaString(value: IntColor, prefix = '#'): string {
 	return `${prefix}${hexes}`;
 }
 
-/**
- * @hidden
- */
 export function colorToFunctionalRgbString(value: Color): string {
 	const formatter = createNumberFormatter(0);
 	const ci = mapColorType(value, 'int');
@@ -487,9 +478,6 @@ export function colorToFunctionalRgbString(value: Color): string {
 	return `rgb(${comps.join(', ')})`;
 }
 
-/**
- * @hidden
- */
 export function colorToFunctionalRgbaString(value: Color): string {
 	const aFormatter = createNumberFormatter(2);
 	const rgbFormatter = createNumberFormatter(0);
@@ -501,9 +489,6 @@ export function colorToFunctionalRgbaString(value: Color): string {
 	return `rgba(${comps.join(', ')})`;
 }
 
-/**
- * @hidden
- */
 export function colorToFunctionalHslString(value: Color): string {
 	const formatters = [
 		createNumberFormatter(0),
@@ -517,9 +502,6 @@ export function colorToFunctionalHslString(value: Color): string {
 	return `hsl(${comps.join(', ')})`;
 }
 
-/**
- * @hidden
- */
 export function colorToFunctionalHslaString(value: Color): string {
 	const formatters = [
 		createNumberFormatter(0),
@@ -534,9 +516,6 @@ export function colorToFunctionalHslaString(value: Color): string {
 	return `hsla(${comps.join(', ')})`;
 }
 
-/**
- * @hidden
- */
 export function colorToObjectRgbString(value: Color, type: ColorType): string {
 	const formatter = createNumberFormatter(type === 'float' ? 2 : 0);
 	const names = ['r', 'g', 'b'];
@@ -551,9 +530,6 @@ function createObjectRgbColorFormatter(type: ColorType): Formatter<Color> {
 	return (value) => colorToObjectRgbString(value, type);
 }
 
-/**
- * @hidden
- */
 export function colorToObjectRgbaString(value: Color, type: ColorType): string {
 	const aFormatter = createNumberFormatter(2);
 	const rgbFormatter = createNumberFormatter(type === 'float' ? 2 : 0);
