@@ -1,4 +1,4 @@
-import {ListApi, Pane, TextApi} from 'tweakpane';
+import {ListBladeApi, Pane, TextBladeApi} from 'tweakpane';
 
 import {selectContainer} from '../util';
 
@@ -49,9 +49,9 @@ export function initBlades() {
 					{text: 'field', value: 'FLD'},
 				],
 				value: 'LDG',
-			}) as ListApi<string>;
+			}) as ListBladeApi<string>;
 			api.on('change', (ev) => {
-				(conPane.children[0] as TextApi<string>).value = ev.value;
+				(conPane.children[0] as TextBladeApi<string>).value = ev.value;
 				conPane.refresh();
 			});
 		},

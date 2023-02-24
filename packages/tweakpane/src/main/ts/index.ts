@@ -39,11 +39,11 @@ export {
 	TpPluginBundle,
 } from '@tweakpane/core';
 
-export {ListBladeApi as ListApi} from './blade/list/api/list';
+export {ListBladeApi} from './blade/list/api/list';
 export {ListBladeParams} from './blade/list/plugin';
-export {SliderBladeApi as SliderApi} from './blade/slider/api/slider';
+export {SliderBladeApi} from './blade/slider/api/slider';
 export {SliderBladeParams} from './blade/slider/plugin';
-export {TextBladeApi as TextApi} from './blade/text/api/text';
+export {TextBladeApi} from './blade/text/api/text';
 export {TextBladeParams} from './blade/text/plugin';
 
 export {Pane} from './pane/pane';
