@@ -63,6 +63,9 @@ function findSubBladeControllerSet(
 		: null;
 }
 
+/**
+ * @hidden
+ */
 interface Config {
 	blade?: Blade;
 	viewProps: ViewProps;
@@ -70,6 +73,7 @@ interface Config {
 
 /**
  * A collection of blade controllers that manages positions and event propagation.
+ * @hidden
  */
 export class Rack {
 	public readonly emitter: Emitter<RackEvents> = new Emitter();

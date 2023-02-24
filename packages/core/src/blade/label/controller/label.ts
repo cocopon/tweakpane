@@ -8,12 +8,18 @@ import {
 import {Blade} from '../../common/model/blade';
 import {LabelProps, LabelView} from '../view/label';
 
+/**
+ * @hidden
+ */
 interface Config<C extends Controller> {
 	blade: Blade;
 	props: LabelProps;
 	valueController: C;
 }
 
+/**
+ * @hidden
+ */
 export class LabelBladeController<
 	C extends Controller,
 > extends BladeController<LabelView> {

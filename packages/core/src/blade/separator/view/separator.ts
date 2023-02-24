@@ -4,6 +4,9 @@ import {View} from '../../../common/view/view';
 
 const cn = ClassName('spr');
 
+/**
+ * @hidden
+ */
 interface Config {
 	viewProps: ViewProps;
 }

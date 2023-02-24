@@ -12,6 +12,9 @@ export interface ButtonEvents {
 	};
 }
 
+/**
+ * @hidden
+ */
 interface Config {
 	props: ButtonProps;
 	viewProps: ViewProps;
@@ -26,6 +29,9 @@ export class ButtonController implements Controller<ButtonView> {
 	public readonly view: ButtonView;
 	public readonly viewProps: ViewProps;
 
+	/**
+	 * @hidden
+	 */
 	constructor(doc: Document, config: Config) {
 		this.onClick_ = this.onClick_.bind(this);
 

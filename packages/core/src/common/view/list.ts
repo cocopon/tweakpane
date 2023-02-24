@@ -7,10 +7,16 @@ import {ViewProps} from '../model/view-props';
 import {ClassName} from './class-name';
 import {View} from './view';
 
+/**
+ * @hidden
+ */
 export type ListProps<T> = ValueMap<{
 	options: ListItem<T>[];
 }>;
 
+/**
+ * @hidden
+ */
 interface Config<T> {
 	props: ListProps<T>;
 	value: Value<T>;

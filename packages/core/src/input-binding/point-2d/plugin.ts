@@ -89,9 +89,6 @@ function getSuitableMaxDimensionValue(
 	return Math.max(Math.abs(step) * 10, Math.abs(rawValue) * 10);
 }
 
-/**
- * @hidden
- */
 export function getSuitableMax(
 	initialValue: Point2d,
 	constraint: Constraint<Point2d> | undefined,

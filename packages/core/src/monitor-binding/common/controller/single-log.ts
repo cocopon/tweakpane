@@ -1,5 +1,4 @@
 import {BufferedValueController} from '../../../blade/binding/controller/monitor-binding';
-import {MonitorBindingValue} from '../../../common/binding/value/monitor-binding';
 import {Formatter} from '../../../common/converter/formatter';
 import {BufferedValue} from '../../../common/model/buffered-value';
 import {ViewProps} from '../../../common/model/view-props';
@@ -7,7 +6,7 @@ import {SingleLogView} from '../view/single-log';
 
 interface Config<T> {
 	formatter: Formatter<T>;
-	value: MonitorBindingValue<T>;
+	value: BufferedValue<T>;
 	viewProps: ViewProps;
 }
 

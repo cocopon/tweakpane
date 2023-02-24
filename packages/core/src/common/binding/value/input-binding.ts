@@ -4,6 +4,9 @@ import {isBinding} from '../binding';
 import {ReadWriteBinding} from '../read-write';
 import {BindingValue} from './binding';
 
+/**
+ * @hidden
+ */
 export class InputBindingValue<T> implements BindingValue<T> {
 	public readonly binding: ReadWriteBinding<T>;
 	public readonly emitter: Emitter<ValueEvents<T>>;

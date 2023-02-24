@@ -3,9 +3,6 @@ import {ContainerBladeController} from '../controller/container-blade';
 import {BladeApi} from './blade';
 import {RackApi} from './rack';
 
-/**
- * @hidden
- */
 export class ContainerBladeApi<
 	C extends ContainerBladeController,
 > extends BladeApi<C> {
@@ -14,6 +11,9 @@ export class ContainerBladeApi<
 	 */
 	protected readonly rackApi_: RackApi;
 
+	/**
+	 * @hidden
+	 */
 	constructor(controller: C, pool: PluginPool) {
 		super(controller);
 

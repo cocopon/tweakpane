@@ -5,10 +5,16 @@ import {ViewProps} from '../model/view-props';
 import {ClassName} from './class-name';
 import {View} from './view';
 
+/**
+ * @hidden
+ */
 export type TextProps<T> = ValueMap<{
 	formatter: Formatter<T>;
 }>;
 
+/**
+ * @hidden
+ */
 interface Config<T> {
 	props: TextProps<T>;
 	value: Value<T>;

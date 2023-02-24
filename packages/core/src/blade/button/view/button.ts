@@ -4,12 +4,21 @@ import {ClassName} from '../../../common/view/class-name';
 import {bindValueToTextContent} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 
+/**
+ * @hidden
+ */
 export type ButtonPropsObject = {
 	title: string | undefined;
 };
 
+/**
+ * @hidden
+ */
 export type ButtonProps = ValueMap<ButtonPropsObject>;
 
+/**
+ * @hidden
+ */
 interface Config {
 	props: ButtonProps;
 	viewProps: ViewProps;

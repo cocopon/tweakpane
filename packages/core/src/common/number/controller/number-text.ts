@@ -13,6 +13,9 @@ import {
 import {NumberTextProps, NumberTextView} from '../view/number-text';
 import {SliderProps} from '../view/slider';
 
+/**
+ * @hidden
+ */
 interface Config {
 	baseStep: number;
 	parser: Parser<number>;

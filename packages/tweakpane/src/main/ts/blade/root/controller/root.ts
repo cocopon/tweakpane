@@ -1,5 +1,8 @@
 import {Blade, FolderController, FolderProps, ViewProps} from '@tweakpane/core';
 
+/**
+ * @hidden
+ */
 interface Config {
 	blade: Blade;
 	props: FolderProps;
@@ -9,6 +12,9 @@ interface Config {
 	title?: string;
 }
 
+/**
+ * @hidden
+ */
 export class RootController extends FolderController {
 	constructor(doc: Document, config: Config) {
 		super(doc, {

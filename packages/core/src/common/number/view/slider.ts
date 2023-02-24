@@ -5,11 +5,17 @@ import {constrainRange, mapRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 
+/**
+ * @hidden
+ */
 export type SliderProps = ValueMap<{
 	max: number;
 	min: number;
 }>;
 
+/**
+ * @hidden
+ */
 interface Config {
 	props: SliderProps;
 	value: Value<number>;

@@ -7,11 +7,17 @@ import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 import {Formatter} from '../../converter/formatter';
 
+/**
+ * @hidden
+ */
 export type NumberTextProps = ValueMap<{
 	draggingScale: number;
 	formatter: Formatter<number>;
 }>;
 
+/**
+ * @hidden
+ */
 interface NumberConfig {
 	dragging: Value<number | null>;
 	props: NumberTextProps;
@@ -23,6 +29,9 @@ interface NumberConfig {
 
 const cn = ClassName('txt');
 
+/**
+ * @hidden
+ */
 export class NumberTextView implements View {
 	public readonly inputElement: HTMLInputElement;
 	public readonly knobElement: HTMLElement;

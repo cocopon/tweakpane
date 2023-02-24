@@ -1,6 +1,9 @@
 import {Binding, BindingReader} from './binding';
 import {BindingTarget} from './target';
 
+/**
+ * @hidden
+ */
 interface Config<T> {
 	reader: BindingReader<T>;
 	target: BindingTarget;
@@ -8,6 +11,7 @@ interface Config<T> {
 
 /**
  * A binding that can read the target.
+ * @hidden
  * @template In The type of the internal value.
  */
 export class ReadonlyBinding<In> implements Binding {

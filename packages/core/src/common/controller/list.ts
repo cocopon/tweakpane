@@ -4,12 +4,18 @@ import {ViewProps} from '../model/view-props';
 import {ListProps, ListView} from '../view/list';
 import {ValueController} from './value';
 
+/**
+ * @hidden
+ */
 interface Config<T> {
 	props: ListProps<T>;
 	value: Value<T>;
 	viewProps: ViewProps;
 }
 
+/**
+ * @hidden
+ */
 export class ListController<T> implements ValueController<T, ListView<T>> {
 	public readonly value: Value<T>;
 	public readonly view: ListView<T>;

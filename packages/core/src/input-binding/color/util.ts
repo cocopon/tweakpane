@@ -30,16 +30,10 @@ export function parseColorInputParams(
 	}));
 }
 
-/**
- * @hidden
- */
 export function getBaseStepForColor(forAlpha: boolean): number {
 	return forAlpha ? 0.1 : 1;
 }
 
-/**
- * @hidden
- */
 export function extractColorType(
 	params: ColorInputParams,
 ): ColorType | undefined {

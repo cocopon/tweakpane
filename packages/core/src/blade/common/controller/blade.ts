@@ -8,6 +8,9 @@ import {BladePosition, getAllBladePositions} from '../model/blade-positions';
 import {Rack} from '../model/rack';
 import {BladeState, exportBladeState, importBladeState} from './blade-state';
 
+/**
+ * @hidden
+ */
 interface Config<V extends View> {
 	blade: Blade;
 	view: V;
@@ -22,6 +25,9 @@ const POS_TO_CLASS_NAME_MAP: {[pos in BladePosition]: string} = {
 	verylast: 'vlst',
 };
 
+/**
+ * @hidden
+ */
 export class BladeController<V extends View = View> implements Controller<V> {
 	public readonly blade: Blade;
 	public readonly view: V;

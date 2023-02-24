@@ -1,8 +1,5 @@
 import {Emitter} from './emitter';
 
-/**
- * @hidden
- */
 export interface ValueChangeOptions {
 	/**
 	 * The flag indicating whether an event should be fired even if the value doesn't change.
@@ -14,9 +11,6 @@ export interface ValueChangeOptions {
 	last: boolean;
 }
 
-/**
- * @hidden
- */
 export interface ValueEvents<T, V = Value<T>> {
 	beforechange: {
 		sender: V;
@@ -46,9 +40,6 @@ export interface Value<T> {
 	setRawValue(rawValue: T, options?: ValueChangeOptions): void;
 }
 
-/**
- * @hidden
- */
 export type ReadonlyValueEvents<T> = ValueEvents<T, ReadonlyValue<T>>;
 
 /**

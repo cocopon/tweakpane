@@ -13,6 +13,9 @@ export class ListBladeApi<T> extends BladeApi<
 > {
 	private readonly emitter_: Emitter<ApiChangeEvents<T>> = new Emitter();
 
+	/**
+	 * @hidden
+	 */
 	constructor(controller: LabeledValueController<T, ListController<T>>) {
 		super(controller);
 

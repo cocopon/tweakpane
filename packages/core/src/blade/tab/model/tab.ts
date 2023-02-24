@@ -3,6 +3,9 @@ import {createValue} from '../../../common/model/values';
 
 const INDEX_NOT_SELECTED = -1;
 
+/**
+ * @hidden
+ */
 export class Tab {
 	public readonly empty: Value<boolean>;
 	public readonly selectedIndex: Value<number>;

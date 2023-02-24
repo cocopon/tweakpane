@@ -7,6 +7,9 @@ import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
 import {isEmpty} from '../../../misc/type-util';
 
+/**
+ * @hidden
+ */
 type FoldableObject = {
 	completed: boolean;
 	expanded: boolean;

@@ -11,12 +11,21 @@ import {isEmpty} from '../../../misc/type-util';
 import {Foldable} from '../../common/model/foldable';
 import {bladeContainerClassName} from '../../common/view/blade-container';
 
+/**
+ * @hidden
+ */
 export type FolderPropsObject = {
 	title: string | undefined;
 };
 
+/**
+ * @hidden
+ */
 export type FolderProps = ValueMap<FolderPropsObject>;
 
+/**
+ * @hidden
+ */
 interface Config {
 	foldable: Foldable;
 	props: FolderProps;

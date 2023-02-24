@@ -19,7 +19,7 @@ const COLORS = {
 export function initIndex() {
 	const ENV: Environment = {
 		amp: {x: 0.1, y: 0.5},
-		color: 'hsl(0deg, 0, 0)',
+		color: 'hsl(0, 0, 0)',
 		freq: {
 			x: 17,
 			y: 6.3,
@@ -34,7 +34,7 @@ export function initIndex() {
 	const PRESETS: {[key: string]: Environment} = {
 		atmos: {
 			amp: {x: 0.1, y: 0.53},
-			color: '#cacbcd',
+			color: 'hsl(220, 0%, 70%)',
 			freq: {x: 45, y: 16},
 			maxSize: 128,
 			range: 0.77,
@@ -44,7 +44,7 @@ export function initIndex() {
 		},
 		bubble: {
 			amp: {x: 0.3, y: 0.51},
-			color: '#f2f2f2',
+			color: 'hsl(182, 15%, 45%)',
 			freq: {x: 64, y: 32},
 			maxSize: 128,
 			range: 0.5,
@@ -54,7 +54,7 @@ export function initIndex() {
 		},
 		cloud: {
 			amp: {x: 0.07, y: 0},
-			color: '#e4e4e7',
+			color: 'hsl(45, 12%, 80%)',
 			freq: {x: 22.25, y: 0},
 			maxSize: 105,
 			range: 0.63,
@@ -154,6 +154,7 @@ export function initIndex() {
 			pane.on('change', () => {
 				sketch.reset();
 				const preset = stateToPreset(pane.exportState());
+				delete preset.presetJson;
 				HIDDEN_PARAMS.presetJson = JSON.stringify(preset, null, 2);
 			});
 

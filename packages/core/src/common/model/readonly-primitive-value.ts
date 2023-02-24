@@ -1,6 +1,9 @@
 import {Emitter} from './emitter';
 import {ReadonlyValue, ReadonlyValueEvents, Value, ValueEvents} from './value';
 
+/**
+ * @hidden
+ */
 export class ReadonlyPrimitiveValue<T> implements ReadonlyValue<T> {
 	/**
 	 * The event emitter for value changes.

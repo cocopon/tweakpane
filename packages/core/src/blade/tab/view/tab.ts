@@ -6,6 +6,9 @@ import {valueToClassName} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 import {bladeContainerClassName} from '../../common/view/blade-container';
 
+/**
+ * @hidden
+ */
 interface Config {
 	empty: Value<boolean>;
 	viewProps: ViewProps;
@@ -13,6 +16,9 @@ interface Config {
 
 const cn = ClassName('tab');
 
+/**
+ * @hidden
+ */
 export class TabView implements View {
 	public readonly element: HTMLElement;
 	public readonly itemsElement: HTMLElement;

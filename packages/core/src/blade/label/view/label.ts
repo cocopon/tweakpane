@@ -6,12 +6,21 @@ import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 import {isEmpty} from '../../../misc/type-util';
 
+/**
+ * @hidden
+ */
 export type LabelPropsObject = {
 	label: string | undefined;
 };
 
+/**
+ * @hidden
+ */
 export type LabelProps = ValueMap<LabelPropsObject>;
 
+/**
+ * @hidden
+ */
 interface Config {
 	props: LabelProps;
 	viewProps: ViewProps;

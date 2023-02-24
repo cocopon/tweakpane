@@ -13,6 +13,9 @@ export class TextBladeApi<T> extends BladeApi<
 > {
 	private readonly emitter_: Emitter<ApiChangeEvents<T>> = new Emitter();
 
+	/**
+	 * @hidden
+	 */
 	constructor(controller: LabeledValueController<T, TextController<T>>) {
 		super(controller);
 

@@ -14,12 +14,21 @@ import {TabItemProps} from '../view/tab-item';
 import {TabPageView} from '../view/tab-page';
 import {TabItemController} from './tab-item';
 
+/**
+ * @hidden
+ */
 export type TabPagePropsObject = {
 	selected: boolean;
 };
 
+/**
+ * @hidden
+ */
 export type TabPageProps = ValueMap<TabPagePropsObject>;
 
+/**
+ * @hidden
+ */
 interface Config {
 	blade: Blade;
 	itemProps: TabItemProps;
@@ -27,6 +36,9 @@ interface Config {
 	viewProps: ViewProps;
 }
 
+/**
+ * @hidden
+ */
 export class TabPageController extends ContainerBladeController<PlainView> {
 	public readonly props: TabPageProps;
 	private readonly ic_: TabItemController;

@@ -14,6 +14,7 @@ import {ManualTicker} from '../common/binding/ticker/manual';
 import {Ticker} from '../common/binding/ticker/ticker';
 import {MonitorBindingValue} from '../common/binding/value/monitor-binding';
 import {parseRecord} from '../common/micro-parsers';
+import {BufferedValue} from '../common/model/buffered-value';
 import {ValueMap} from '../common/model/value-map';
 import {ViewProps} from '../common/model/view-props';
 import {BaseMonitorParams} from '../common/params';
@@ -35,7 +36,7 @@ export interface BindingArguments<T, P extends BaseMonitorParams> {
 interface ControllerArguments<T, P extends BaseMonitorParams> {
 	document: Document;
 	params: P;
-	value: MonitorBindingValue<T>;
+	value: BufferedValue<T>;
 	viewProps: ViewProps;
 }
 
