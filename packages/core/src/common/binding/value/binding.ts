@@ -2,6 +2,9 @@ import {isObject} from '../../../misc/type-util';
 import {Value} from '../../model/value';
 import {Binding, isBinding} from '../binding';
 
+/**
+ * @hidden
+ */
 export interface BindingValue<T> extends Value<T> {
 	readonly binding: Binding;
 	fetch(): void;

@@ -63,6 +63,9 @@ export class PointerHandler {
 	private readonly elem_: HTMLElement;
 	private lastTouch_: Touch | null = null;
 
+	/**
+	 * @hidden
+	 */
 	constructor(element: HTMLElement) {
 		this.onDocumentMouseMove_ = this.onDocumentMouseMove_.bind(this);
 		this.onDocumentMouseUp_ = this.onDocumentMouseUp_.bind(this);

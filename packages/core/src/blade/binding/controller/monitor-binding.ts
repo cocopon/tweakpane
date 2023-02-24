@@ -14,6 +14,9 @@ export type BufferedValueController<
 	Vw extends View = View,
 > = ValueController<TpBuffer<T>, Vw>;
 
+/**
+ * @hidden
+ */
 export type MonitorBindingController<
 	T = unknown,
 	Vc extends BufferedValueController<T> = BufferedValueController<T>,

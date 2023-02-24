@@ -2,6 +2,9 @@ import {ViewProps} from '../model/view-props';
 import {ClassName} from './class-name';
 import {View} from './view';
 
+/**
+ * @hidden
+ */
 interface Config {
 	viewName: string;
 	viewProps: ViewProps;
@@ -13,6 +16,9 @@ interface Config {
 export class PlainView implements View {
 	public readonly element: HTMLElement;
 
+	/**
+	 * @hidden
+	 */
 	constructor(doc: Document, config: Config) {
 		const cn = ClassName(config.viewName);
 		this.element = doc.createElement('div');

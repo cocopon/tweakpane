@@ -6,7 +6,7 @@ import {TpChangeEvent} from '../../common/api/tp-event';
 import {BindingController} from '../controller/binding';
 
 export interface BindingApiEvents<Ex> {
-	change: TpChangeEvent<Ex, BindingApi>;
+	change: TpChangeEvent<Ex, BindingApi<unknown, Ex>>;
 }
 
 /**

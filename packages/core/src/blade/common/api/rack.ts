@@ -31,7 +31,10 @@ import {
 } from './params';
 import {TpChangeEvent} from './tp-event';
 
-export interface RackApiEvents {
+/**
+ * @hidden
+ */
+interface RackApiEvents {
 	change: TpChangeEvent<unknown, BladeApi>;
 }
 
@@ -61,15 +64,15 @@ function createBindingTarget<O extends Bindable, Key extends keyof O>(
 	return new BindingTarget(obj, key as string);
 }
 
+/**
+ * @hidden
+ */
 export class RackApi implements ContainerApi {
 	private readonly controller_: RackController;
 	private readonly emitter_: Emitter<RackApiEvents>;
 	private readonly apiSet_: NestedOrderedSet<BladeApi>;
 	private readonly pool_: PluginPool;
 
-	/**
-	 * @hidden
-	 */
 	constructor(controller: RackController, pool: PluginPool) {
 		this.onRackAdd_ = this.onRackAdd_.bind(this);
 		this.onRackRemove_ = this.onRackRemove_.bind(this);

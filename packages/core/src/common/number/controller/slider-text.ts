@@ -8,6 +8,9 @@ import {SliderTextView} from '../view/slider-text';
 import {NumberTextController} from './number-text';
 import {SliderController} from './slider';
 
+/**
+ * @hidden
+ */
 interface Config {
 	baseStep: number;
 	parser: Parser<number>;
@@ -17,6 +20,9 @@ interface Config {
 	viewProps: ViewProps;
 }
 
+/**
+ * @hidden
+ */
 export class SliderTextController
 	implements ValueController<number, SliderTextView>
 {

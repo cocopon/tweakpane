@@ -11,6 +11,9 @@ import {
 import {isValueBladeController} from '../../common/controller/value-blade';
 import {BindingController} from './binding';
 
+/**
+ * @hidden
+ */
 export class InputBindingController<
 	In = unknown,
 	Vc extends ValueController<In> = ValueController<In>,

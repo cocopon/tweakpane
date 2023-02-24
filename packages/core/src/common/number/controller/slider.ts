@@ -10,6 +10,9 @@ import {
 } from '../../view/pointer-handler';
 import {SliderProps, SliderView} from '../view/slider';
 
+/**
+ * @hidden
+ */
 interface Config {
 	baseStep: number;
 	props: SliderProps;

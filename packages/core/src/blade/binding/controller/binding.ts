@@ -23,6 +23,9 @@ function excludeValue(state: BladeState): Omit<BladeState, 'value'> {
 	return result;
 }
 
+/**
+ * @hidden
+ */
 interface Config<
 	In,
 	Vc extends ValueController<In>,
@@ -31,6 +34,9 @@ interface Config<
 	tag?: string | undefined;
 }
 
+/**
+ * @hidden
+ */
 export class BindingController<
 	In = unknown,
 	Vc extends ValueController<In> = ValueController<In>,

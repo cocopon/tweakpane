@@ -3,6 +3,9 @@ import {ViewProps} from '../../../common/model/view-props';
 import {Blade} from '../model/blade';
 import {Rack, RackEvents} from '../model/rack';
 
+/**
+ * @hidden
+ */
 interface Config {
 	blade: Blade;
 	element: HTMLElement;
@@ -11,6 +14,9 @@ interface Config {
 	root?: boolean;
 }
 
+/**
+ * @hidden
+ */
 export class RackController {
 	public readonly element: HTMLElement;
 	public readonly rack: Rack;

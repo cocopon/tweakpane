@@ -1,6 +1,9 @@
 import {Emitter} from '../../../common/model/emitter';
 import {TpError} from '../../../common/tp-error';
 
+/**
+ * @hidden
+ */
 export interface NestedOrderedSetEvents<T> {
 	add: {
 		index: number;
@@ -16,8 +19,14 @@ export interface NestedOrderedSetEvents<T> {
 	};
 }
 
+/**
+ * @hidden
+ */
 type Extractor<T> = (item: T) => NestedOrderedSet<T> | null;
 
+/**
+ * @hidden
+ */
 export class NestedOrderedSet<T> {
 	public readonly emitter: Emitter<NestedOrderedSetEvents<T>> = new Emitter();
 	private readonly items_: T[] = [];

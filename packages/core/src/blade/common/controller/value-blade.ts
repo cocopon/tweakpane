@@ -4,6 +4,9 @@ import {View} from '../../../common/view/view';
 import {Blade} from '../model/blade';
 import {BladeController} from './blade';
 
+/**
+ * @hidden
+ */
 interface Config<T, Vw extends View, Va extends Value<T>> {
 	blade: Blade;
 	value: Va;
@@ -11,6 +14,9 @@ interface Config<T, Vw extends View, Va extends Value<T>> {
 	viewProps: ViewProps;
 }
 
+/**
+ * @hidden
+ */
 export class ValueBladeController<
 	T,
 	Vw extends View = View,

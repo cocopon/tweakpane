@@ -10,6 +10,9 @@ import {Blade} from '../../common/model/blade';
 import {bindFoldable, Foldable} from '../../common/model/foldable';
 import {FolderProps, FolderView} from '../view/folder';
 
+/**
+ * @hidden
+ */
 interface Config {
 	expanded?: boolean;
 	blade: Blade;
@@ -26,6 +29,9 @@ export class FolderController extends ContainerBladeController<FolderView> {
 	public readonly foldable: Foldable;
 	public readonly props: FolderProps;
 
+	/**
+	 * @hidden
+	 */
 	constructor(doc: Document, config: Config) {
 		const foldable = Foldable.create(config.expanded ?? true);
 		const view = new FolderView(doc, {

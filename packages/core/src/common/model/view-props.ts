@@ -32,6 +32,9 @@ export class ViewProps extends ValueMap<ViewPropsObject> {
 	private readonly globalDisabled_: ReadonlyValue<boolean>;
 	private readonly setGlobalDisabled_: SetRawValue<boolean>;
 
+	/**
+	 * @hidden
+	 */
 	constructor(valueMap: {
 		[Key in keyof ViewPropsObject]: Value<ViewPropsObject[Key]>;
 	}) {

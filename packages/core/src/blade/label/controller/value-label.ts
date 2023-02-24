@@ -10,18 +10,27 @@ import {ValueBladeController} from '../../common/controller/value-blade';
 import {Blade} from '../../common/model/blade';
 import {LabelProps, LabelView} from '../view/label';
 
+/**
+ * @hidden
+ */
 interface Config<T, C extends ValueController<T>, Va extends Value<T>> {
 	blade: Blade;
 	props: LabelProps;
 	value: Va;
 	valueController: C;
 }
+/**
+ * @hidden
+ */
 export type LabeledValueConfig<
 	T,
 	C extends ValueController<T>,
 	Va extends Value<T>,
 > = Config<T, C, Va>;
 
+/**
+ * @hidden
+ */
 export class LabeledValueController<
 	T,
 	C extends ValueController<T> = ValueController<T>,

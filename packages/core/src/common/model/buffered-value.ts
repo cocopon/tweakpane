@@ -3,17 +3,10 @@ import {Value, ValueEvents} from './value';
 
 /**
  * A buffer. Prefixed to avoid conflicts with the Node.js built-in class.
- * @hidden
  * @template T
  */
 export type TpBuffer<T> = (T | undefined)[];
-/**
- * @hidden
- */
 export type BufferedValue<T> = Value<TpBuffer<T>>;
-/**
- * @hidden
- */
 export type BufferedValueEvents<T> = ValueEvents<TpBuffer<T>>;
 
 function fillBuffer<T>(buffer: TpBuffer<T>, bufferSize: number) {

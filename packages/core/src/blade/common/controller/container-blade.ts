@@ -4,12 +4,18 @@ import {BladeController} from './blade';
 import {BladeState, exportBladeState, importBladeState} from './blade-state';
 import {RackController} from './rack';
 
+/**
+ * @hidden
+ */
 interface Config<V extends View> {
 	blade: Blade;
 	rackController: RackController;
 	view: V;
 }
 
+/**
+ * @hidden
+ */
 export class ContainerBladeController<
 	V extends View = View,
 > extends BladeController<V> {

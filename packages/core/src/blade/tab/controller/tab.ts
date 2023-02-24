@@ -8,11 +8,17 @@ import {Tab} from '../model/tab';
 import {TabView} from '../view/tab';
 import {TabPageController} from './tab-page';
 
+/**
+ * @hidden
+ */
 interface Config {
 	blade: Blade;
 	viewProps: ViewProps;
 }
 
+/**
+ * @hidden
+ */
 export class TabController extends ContainerBladeController<TabView> {
 	public readonly tab: Tab;
 

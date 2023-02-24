@@ -12,6 +12,9 @@ export class BindingTarget {
 	public readonly key: string;
 	private readonly obj_: Bindable;
 
+	/**
+	 * @hidden
+	 */
 	constructor(obj: Bindable, key: string) {
 		this.obj_ = obj;
 		this.key = key;

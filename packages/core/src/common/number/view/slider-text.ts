@@ -3,6 +3,9 @@ import {View} from '../../../common/view/view';
 import {NumberTextView} from './number-text';
 import {SliderView} from './slider';
 
+/**
+ * @hidden
+ */
 interface Config {
 	sliderView: SliderView;
 	textView: NumberTextView;

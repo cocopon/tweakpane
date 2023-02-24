@@ -13,12 +13,18 @@ import {ReadonlyBinding} from '../readonly';
 import {Ticker} from '../ticker/ticker';
 import {BindingValue} from './binding';
 
+/**
+ * @hidden
+ */
 interface Config<T> {
 	binding: ReadonlyBinding<T>;
 	bufferSize: number;
 	ticker: Ticker;
 }
 
+/**
+ * @hidden
+ */
 export class MonitorBindingValue<T> implements BindingValue<TpBuffer<T>> {
 	public readonly binding: ReadonlyBinding<T>;
 	public readonly emitter: Emitter<BufferedValueEvents<T>> = new Emitter();

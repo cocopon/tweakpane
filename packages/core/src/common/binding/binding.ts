@@ -25,6 +25,9 @@ export interface BindingWriter<In> {
 	(target: BindingTarget, inValue: In): void;
 }
 
+/**
+ * @hidden
+ */
 export interface Binding {
 	readonly target: BindingTarget;
 }

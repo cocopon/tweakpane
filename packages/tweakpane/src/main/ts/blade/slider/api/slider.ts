@@ -12,6 +12,9 @@ export class SliderBladeApi extends BladeApi<
 > {
 	private readonly emitter_: Emitter<ApiChangeEvents<number>> = new Emitter();
 
+	/**
+	 * @hidden
+	 */
 	constructor(
 		controller: LabeledValueController<number, SliderTextController>,
 	) {

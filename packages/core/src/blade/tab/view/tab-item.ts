@@ -5,13 +5,22 @@ import {ClassName} from '../../../common/view/class-name';
 import {bindValueToTextContent} from '../../../common/view/reactive';
 import {View} from '../../../common/view/view';
 
+/**
+ * @hidden
+ */
 export type TabItemPropsObject = {
 	selected: boolean;
 	title: string | undefined;
 };
 
+/**
+ * @hidden
+ */
 export type TabItemProps = ValueMap<TabItemPropsObject>;
 
+/**
+ * @hidden
+ */
 interface Config {
 	props: TabItemProps;
 	viewProps: ViewProps;
