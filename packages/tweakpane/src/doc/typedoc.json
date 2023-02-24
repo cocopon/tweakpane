@@ -1,7 +1,6 @@
 {
 	"entryPoints": [
 		"../../",
-		"../../../core/"
 	],
 	"entryPointStrategy": "packages",
 	"exclude": [
