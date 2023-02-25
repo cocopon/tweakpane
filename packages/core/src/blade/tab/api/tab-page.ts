@@ -9,11 +9,9 @@ import {
 	BindingParams,
 	ButtonParams,
 	FolderParams,
-	SeparatorParams,
 	TabParams,
 } from '../../common/api/params';
 import {FolderApi} from '../../folder/api/folder';
-import {SeparatorApi} from '../../separator/api/separator';
 import {TabPageController} from '../controller/tab-page';
 import {TabApi} from './tab';
 
@@ -47,10 +45,6 @@ export class TabPageApi
 
 	public addFolder(params: FolderParams): FolderApi {
 		return this.rackApi_.addFolder(params);
-	}
-
-	public addSeparator(opt_params?: SeparatorParams): SeparatorApi {
-		return this.rackApi_.addSeparator(opt_params);
 	}
 
 	public addTab(params: TabParams): TabApi {

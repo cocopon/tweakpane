@@ -36,8 +36,6 @@ export interface FolderParams extends BaseParams {
 	expanded?: boolean;
 }
 
-export type SeparatorParams = BaseParams;
-
 export interface TabParams extends BaseParams {
 	pages: {
 		title: string;

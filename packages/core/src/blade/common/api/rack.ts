@@ -7,7 +7,6 @@ import {PluginPool} from '../../../plugin/pool';
 import {BindingApi} from '../../binding/api/binding';
 import {ButtonApi} from '../../button/api/button';
 import {FolderApi} from '../../folder/api/folder';
-import {SeparatorApi} from '../../separator/api/separator';
 import {TabApi} from '../../tab/api/tab';
 import {BladeController} from '../controller/blade';
 import {RackController} from '../controller/rack';
@@ -17,18 +16,11 @@ import {BladeApi} from './blade';
 import {
 	addButtonAsBlade,
 	addFolderAsBlade,
-	addSeparatorAsBlade,
 	addTabAsBlade,
 	ContainerApi,
 } from './container';
 import {isContainerBladeApi} from './container-blade';
-import {
-	BindingParams,
-	ButtonParams,
-	FolderParams,
-	SeparatorParams,
-	TabParams,
-} from './params';
+import {BindingParams, ButtonParams, FolderParams, TabParams} from './params';
 import {TpChangeEvent} from './tp-event';
 
 /**
@@ -120,10 +112,6 @@ export class RackApi implements ContainerApi {
 
 	public addButton(params: ButtonParams): ButtonApi {
 		return addButtonAsBlade(this, params);
-	}
-
-	public addSeparator(opt_params?: SeparatorParams): SeparatorApi {
-		return addSeparatorAsBlade(this, opt_params);
 	}
 
 	public addTab(params: TabParams): TabApi {

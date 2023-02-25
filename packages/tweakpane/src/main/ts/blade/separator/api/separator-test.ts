@@ -1,9 +1,11 @@
+import {createBlade, ViewProps} from '@tweakpane/core';
 import {describe, it} from 'mocha';
 
-import {ViewProps} from '../../../common/model/view-props';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {assertInitialState, assertUpdates} from '../../common/api/test-util';
-import {createBlade} from '../../common/model/blade';
+import {
+	assertInitialState,
+	assertUpdates,
+	createTestWindow,
+} from '../../../misc/test-util';
 import {SeparatorController} from '../controller/separator';
 import {SeparatorApi} from './separator';
 

@@ -1,7 +1,10 @@
-import {BladePlugin} from '../../blade/plugin';
-import {parseRecord} from '../../common/micro-parsers';
-import {BaseBladeParams} from '../../common/params';
-import {VERSION} from '../../version';
+import {
+	BaseBladeParams,
+	BladePlugin,
+	parseRecord,
+	VERSION,
+} from '@tweakpane/core';
+
 import {SeparatorApi} from './api/separator';
 import {SeparatorController} from './controller/separator';
 

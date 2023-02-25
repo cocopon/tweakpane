@@ -12,11 +12,9 @@ import {
 	BindingParams,
 	ButtonParams,
 	FolderParams,
-	SeparatorParams,
 	TabParams,
 } from '../../common/api/params';
 import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event';
-import {SeparatorApi} from '../../separator/api/separator';
 import {TabApi} from '../../tab/api/tab';
 import {FolderController} from '../controller/folder';
 
@@ -84,10 +82,6 @@ export class FolderApi
 
 	public addButton(params: ButtonParams): ButtonApi {
 		return this.rackApi_.addButton(params);
-	}
-
-	public addSeparator(opt_params?: SeparatorParams): SeparatorApi {
-		return this.rackApi_.addSeparator(opt_params);
 	}
 
 	public addTab(params: TabParams): TabApi {

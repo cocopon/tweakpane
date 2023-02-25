@@ -1,6 +1,4 @@
-import {ViewProps} from '../../../common/model/view-props';
-import {ClassName} from '../../../common/view/class-name';
-import {View} from '../../../common/view/view';
+import {ClassName, View, ViewProps} from '@tweakpane/core';
 
 const cn = ClassName('spr');
 

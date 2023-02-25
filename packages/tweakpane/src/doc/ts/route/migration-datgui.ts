@@ -52,7 +52,7 @@ export function initMigrationDatgui() {
 			pane.addBinding(SHARED_PARAMS, 'weight', {
 				options: {Normal: 400, Bold: 700},
 			});
-			pane.addSeparator();
+			pane.addBlade({view: 'separator'});
 			pane.addBinding(SHARED_PARAMS, 'name');
 			pane.addBinding(SHARED_PARAMS, 'active');
 			pane.addBinding(SHARED_PARAMS, 'color');

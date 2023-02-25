@@ -3,16 +3,9 @@ import {BaseBladeParams} from '../../../common/params';
 import {BindingApi} from '../../binding/api/binding';
 import {ButtonApi} from '../../button/api/button';
 import {FolderApi} from '../../folder/api/folder';
-import {SeparatorApi} from '../../separator/api/separator';
 import {TabApi} from '../../tab/api/tab';
 import {BladeApi} from './blade';
-import {
-	BindingParams,
-	ButtonParams,
-	FolderParams,
-	SeparatorParams,
-	TabParams,
-} from './params';
+import {BindingParams, ButtonParams, FolderParams, TabParams} from './params';
 
 export interface ContainerApi {
 	/**
@@ -22,7 +15,6 @@ export interface ContainerApi {
 
 	addButton(params: ButtonParams): ButtonApi;
 	addFolder(params: FolderParams): FolderApi;
-	addSeparator(opt_params?: SeparatorParams): SeparatorApi;
 	addTab(params: TabParams): TabApi;
 	add(api: BladeApi, opt_index?: number): void;
 	remove(api: BladeApi): void;
@@ -65,17 +57,6 @@ export function addFolderAsBlade(
 		...params,
 		view: 'folder',
 	}) as FolderApi;
-}
-
-export function addSeparatorAsBlade(
-	api: ContainerApi,
-	opt_params?: SeparatorParams,
-): SeparatorApi {
-	const params = opt_params ?? {};
-	return api.addBlade({
-		...params,
-		view: 'separator',
-	});
 }
 
 export function addTabAsBlade(api: ContainerApi, params: TabParams): TabApi {

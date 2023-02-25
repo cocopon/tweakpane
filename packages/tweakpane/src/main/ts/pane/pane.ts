@@ -15,6 +15,7 @@ import {
 import {ListBladePlugin} from '../blade/list/plugin';
 import {RootApi} from '../blade/root/api/root';
 import {RootController} from '../blade/root/controller/root';
+import {SeparatorBladePlugin} from '../blade/separator/plugin';
 import {SliderBladePlugin} from '../blade/slider/plugin';
 import {TextBladePlugin} from '../blade/text/plugin';
 import {PaneConfig} from './pane-config';
@@ -128,8 +129,9 @@ export class Pane extends RootApi {
 
 		this.registerPlugin({
 			plugins: [
-				SliderBladePlugin,
 				ListBladePlugin,
+				SeparatorBladePlugin,
+				SliderBladePlugin,
 				TabBladePlugin,
 				TextBladePlugin,
 			],

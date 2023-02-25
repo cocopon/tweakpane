@@ -7,6 +7,7 @@ import {createTestWindow} from '../../../misc/dom-test-util';
 import {createDefaultPluginPool} from '../../../plugin/plugins';
 import {testBladeContainer} from '../../common/api/container-test';
 import {createBlade} from '../../common/model/blade';
+import {TestValueBladePlugin} from '../../test-util';
 import {TabPageController, TabPagePropsObject} from '../controller/tab-page';
 import {TabItemPropsObject} from '../view/tab-item';
 import {TabPageApi} from './tab-page';
@@ -25,6 +26,7 @@ function createApi() {
 		viewProps: ViewProps.create(),
 	});
 	const pool = createDefaultPluginPool();
+	pool.register(TestValueBladePlugin);
 	return new TabPageApi(c, pool);
 }
 
