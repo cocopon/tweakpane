@@ -39,7 +39,7 @@ export {
 
 export {ListBladeApi} from './blade/list/api/list';
 export {ListBladeParams} from './blade/list/plugin';
-export {SeparatorApi} from './blade/separator/api/separator';
+export {SeparatorBladeApi} from './blade/separator/api/separator';
 export {SeparatorBladeParams} from './blade/separator/plugin';
 export {SliderBladeApi} from './blade/slider/api/slider';
 export {SliderBladeParams} from './blade/slider/plugin';

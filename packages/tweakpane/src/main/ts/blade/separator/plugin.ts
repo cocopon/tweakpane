@@ -5,7 +5,7 @@ import {
 	VERSION,
 } from '@tweakpane/core';
 
-import {SeparatorApi} from './api/separator';
+import {SeparatorBladeApi} from './api/separator';
 import {SeparatorController} from './controller/separator';
 
 export interface SeparatorBladeParams extends BaseBladeParams {
@@ -32,6 +32,6 @@ export const SeparatorBladePlugin: BladePlugin<SeparatorBladeParams> = {
 		if (!(args.controller instanceof SeparatorController)) {
 			return null;
 		}
-		return new SeparatorApi(args.controller);
+		return new SeparatorBladeApi(args.controller);
 	},
 };

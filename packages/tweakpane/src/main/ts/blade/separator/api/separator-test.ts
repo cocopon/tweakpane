@@ -7,16 +7,16 @@ import {
 	createTestWindow,
 } from '../../../misc/test-util';
 import {SeparatorController} from '../controller/separator';
-import {SeparatorApi} from './separator';
+import {SeparatorBladeApi} from './separator';
 
-describe(SeparatorApi.name, () => {
+describe(SeparatorBladeApi.name, () => {
 	it('should have initial state', () => {
 		const doc = createTestWindow().document;
 		const c = new SeparatorController(doc, {
 			blade: createBlade(),
 			viewProps: ViewProps.create(),
 		});
-		const api = new SeparatorApi(c);
+		const api = new SeparatorBladeApi(c);
 		assertInitialState(api);
 	});
 
@@ -26,7 +26,7 @@ describe(SeparatorApi.name, () => {
 			blade: createBlade(),
 			viewProps: ViewProps.create(),
 		});
-		const api = new SeparatorApi(c);
+		const api = new SeparatorBladeApi(c);
 		assertUpdates(api);
 	});
 });
