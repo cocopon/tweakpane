@@ -1,15 +1,15 @@
 import Replace from '@rollup/plugin-replace';
 import Typescript from '@rollup/plugin-typescript';
 import Autoprefixer from 'autoprefixer';
-import NodeSass from 'node-sass';
 import Postcss from 'postcss';
 import Cleanup from 'rollup-plugin-cleanup';
 import {terser as Terser} from 'rollup-plugin-terser';
+import Sass from 'sass';
 
 import Package from './package.json';
 
 async function compileCss() {
-	const css = NodeSass.renderSync({
+	const css = Sass.renderSync({
 		file: 'lib/sass/bundle.scss',
 		outputStyle: 'compressed',
 	}).css.toString();
