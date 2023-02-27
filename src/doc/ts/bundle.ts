@@ -38,16 +38,16 @@ function setUpSpMenu() {
 
 (() => {
 	const router = new SimpleRouter();
-	router.add(/^(\/tweakpane)?\/getting-started\.html$/, initGettingStarted);
-	router.add(/^(\/tweakpane)?\/$/, initIndex);
-	router.add(/^(\/tweakpane)?\/catalog\.html$/, initCatalog);
-	router.add(/^(\/tweakpane)?\/input\.html$/, initInput);
-	router.add(/^(\/tweakpane)?\/misc\.html$/, initMisc);
-	router.add(/^(\/tweakpane)?\/monitor\.html$/, initMonitor);
-	router.add(/^(\/tweakpane)?\/theming\.html$/, initTheming);
-	router.add(/^(\/tweakpane)?\/plugins\.html$/, initPlugins);
-	router.add(/^(\/tweakpane)?\/quick-tour\.html$/, initQuickTour);
-	router.add(/^(\/tweakpane)?\/ui-components\.html$/, initUiComponents);
+	router.add(/\/getting-started\.html$/, initGettingStarted);
+	router.add(/\/$/, initIndex);
+	router.add(/\/catalog\.html$/, initCatalog);
+	router.add(/\/input\.html$/, initInput);
+	router.add(/\/misc\.html$/, initMisc);
+	router.add(/\/monitor\.html$/, initMonitor);
+	router.add(/\/theming\.html$/, initTheming);
+	router.add(/\/plugins\.html$/, initPlugins);
+	router.add(/\/quick-tour\.html$/, initQuickTour);
+	router.add(/\/ui-components\.html$/, initUiComponents);
 	router.route(location.pathname);
 
 	setUpScrews();
