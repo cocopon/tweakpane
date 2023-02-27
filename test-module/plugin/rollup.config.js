@@ -1,9 +1,9 @@
 import Replace from '@rollup/plugin-replace';
 import Typescript from '@rollup/plugin-typescript';
-import NodeSass from 'node-sass';
+import Sass from 'sass';
 
 export default () => {
-	const css = NodeSass.renderSync({
+	const css = Sass.renderSync({
 		file: 'plugin/src/plugin.scss',
 		outputStyle: 'compressed',
 	})
