@@ -3,10 +3,21 @@ import {it} from 'mocha';
 
 import {ContainerApi} from './container';
 
+function addSomeBladeApi(api: ContainerApi, opt_index?: number) {
+	return api.addBlade({
+		index: opt_index,
+		view: 'test',
+	});
+}
+
 export function testBladeContainer(createApi: () => ContainerApi) {
 	it('should implement children', () => {
 		const api = createApi();
-		const bapis = [api.addSeparator(), api.addSeparator(), api.addSeparator()];
+		const bapis = [
+			addSomeBladeApi(api),
+			addSomeBladeApi(api),
+			addSomeBladeApi(api),
+		];
 		api.add(bapis[0]);
 		api.add(bapis[1]);
 		api.add(bapis[2]);
@@ -30,15 +41,6 @@ export function testBladeContainer(createApi: () => ContainerApi) {
 		assert.strictEqual(bapi1.title, 'foo');
 
 		const bapi2 = api.addFolder({title: 'bar', index: 0});
-		assert.strictEqual(api.children[0], bapi2);
-	});
-
-	it('should implement addSeparator()', () => {
-		const api = createApi();
-		const bapi1 = api.addSeparator();
-		assert.strictEqual(api.children[api.children.length - 1], bapi1);
-
-		const bapi2 = api.addSeparator({index: 0});
 		assert.strictEqual(api.children[0], bapi2);
 	});
 
@@ -85,28 +87,23 @@ export function testBladeContainer(createApi: () => ContainerApi) {
 
 	it('should implement addBlade()', () => {
 		const api = createApi();
-		const bapi1 = api.addBlade({
-			view: 'separator',
-		});
+		const bapi1 = addSomeBladeApi(api);
 		assert.strictEqual(api.children[api.children.length - 1], bapi1);
 
-		const bapi2 = api.addBlade({
-			index: 0,
-			view: 'separator',
-		});
+		const bapi2 = addSomeBladeApi(api, 0);
 		assert.strictEqual(api.children[0], bapi2);
 	});
 
 	it('should implement remove()', () => {
 		const api = createApi();
-		const bapi = api.addSeparator();
+		const bapi = addSomeBladeApi(api);
 		api.remove(bapi);
 		assert.notStrictEqual(api.children[api.children.length - 1], bapi);
 	});
 
 	it('should implement add()', () => {
 		const api = createApi();
-		const bapi = api.addSeparator();
+		const bapi = addSomeBladeApi(api);
 		api.remove(bapi);
 
 		api.add(bapi);
@@ -119,8 +116,8 @@ export function testBladeContainer(createApi: () => ContainerApi) {
 
 	it('should move to the last when re-adding child', () => {
 		const api = createApi();
-		const bapi = api.addSeparator();
-		api.addSeparator();
+		const bapi = addSomeBladeApi(api);
+		addSomeBladeApi(api);
 		api.add(bapi);
 
 		assert.strictEqual(api.children.length, 2);
@@ -130,7 +127,7 @@ export function testBladeContainer(createApi: () => ContainerApi) {
 
 	it('should be removed from previous parent', () => {
 		const api1 = createApi();
-		const bapi = api1.addSeparator();
+		const bapi = addSomeBladeApi(api1);
 		api1.add(bapi);
 		const api2 = createApi();
 		api2.add(bapi);

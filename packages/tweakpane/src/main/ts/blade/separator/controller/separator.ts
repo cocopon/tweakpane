@@ -1,6 +1,5 @@
-import {ViewProps} from '../../../common/model/view-props';
-import {BladeController} from '../../common/controller/blade';
-import {Blade} from '../../common/model/blade';
+import {Blade, BladeController, ViewProps} from '@tweakpane/core';
+
 import {SeparatorView} from '../view/separator';
 
 /**

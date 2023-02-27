@@ -1,20 +1,22 @@
+import {createBlade, ViewProps} from '@tweakpane/core';
 import {describe, it} from 'mocha';
 
-import {ViewProps} from '../../../common/model/view-props';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {assertInitialState, assertUpdates} from '../../common/api/test-util';
-import {createBlade} from '../../common/model/blade';
+import {
+	assertInitialState,
+	assertUpdates,
+	createTestWindow,
+} from '../../../misc/test-util';
 import {SeparatorController} from '../controller/separator';
-import {SeparatorApi} from './separator';
+import {SeparatorBladeApi} from './separator';
 
-describe(SeparatorApi.name, () => {
+describe(SeparatorBladeApi.name, () => {
 	it('should have initial state', () => {
 		const doc = createTestWindow().document;
 		const c = new SeparatorController(doc, {
 			blade: createBlade(),
 			viewProps: ViewProps.create(),
 		});
-		const api = new SeparatorApi(c);
+		const api = new SeparatorBladeApi(c);
 		assertInitialState(api);
 	});
 
@@ -24,7 +26,7 @@ describe(SeparatorApi.name, () => {
 			blade: createBlade(),
 			viewProps: ViewProps.create(),
 		});
-		const api = new SeparatorApi(c);
+		const api = new SeparatorBladeApi(c);
 		assertUpdates(api);
 	});
 });

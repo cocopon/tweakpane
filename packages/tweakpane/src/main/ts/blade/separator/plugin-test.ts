@@ -1,12 +1,15 @@
+import {
+	BladeController,
+	createBladeController,
+	createDefaultPluginPool,
+} from '@tweakpane/core';
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
-import {createTestWindow} from '../../misc/dom-test-util';
-import {forceCast} from '../../misc/type-util';
-import {createDefaultPluginPool} from '../../plugin/plugins';
-import {createBladeController} from '../plugin';
-import {createEmptyBladeController} from '../test-util';
-import {SeparatorApi} from './api/separator';
+import {
+	createEmptyBladeController,
+	createTestWindow,
+} from '../../misc/test-util';
 import {SeparatorBladePlugin} from './plugin';
 
 describe(SeparatorBladePlugin.id, () => {
@@ -30,9 +33,11 @@ describe(SeparatorBladePlugin.id, () => {
 			params: {
 				view: 'separator',
 			},
+		}) as BladeController;
+		const api = SeparatorBladePlugin.api({
+			controller: bc,
+			pool: createDefaultPluginPool(),
 		});
-		const pool = createDefaultPluginPool();
-		const api = pool.createApi(forceCast(bc)) as SeparatorApi;
 		assert.notStrictEqual(api, null);
 	});
 

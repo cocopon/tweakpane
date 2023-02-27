@@ -38,10 +38,6 @@ export * from './blade/label/controller/label';
 export * from './blade/label/controller/value-label';
 export * from './blade/label/view/label';
 
-export * from './blade/separator/api/separator';
-export * from './blade/separator/controller/separator';
-export * from './blade/separator/plugin';
-
 export * from './blade/tab/api/tab';
 export * from './blade/tab/api/tab-page';
 export * from './blade/tab/controller/tab';

@@ -172,7 +172,7 @@ export function initQuickTour() {
 			});
 			pane.addBinding(PARAMS, 'title');
 			pane.addBinding(PARAMS, 'color');
-			pane.addSeparator();
+			pane.addBlade({view: 'separator'});
 			pane
 				.addButton({
 					title: 'Export',

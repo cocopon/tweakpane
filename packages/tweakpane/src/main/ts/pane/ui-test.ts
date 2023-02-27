@@ -3,7 +3,6 @@ import {
 	FolderController,
 	LabeledButtonController,
 	LabeledValueController,
-	SeparatorController,
 } from '@tweakpane/core';
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
@@ -48,14 +47,6 @@ describe(Pane.name, () => {
 					api.addFolder({index: index, title: 'folder'});
 				},
 				expected: FolderController,
-			},
-			{
-				insert: (api, index) => {
-					api.addSeparator({
-						index: index,
-					});
-				},
-				expected: SeparatorController,
 			},
 		] as {
 			insert: (api: Pane, index: number) => void;

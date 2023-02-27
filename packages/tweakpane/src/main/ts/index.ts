@@ -25,8 +25,6 @@ export {
 	Point3dInputParams,
 	Point4dInputParams,
 	Semver,
-	SeparatorApi,
-	SeparatorParams,
 	SliderInputBindingApi,
 	StringInputParams,
 	StringMonitorParams,
@@ -41,6 +39,8 @@ export {
 
 export {ListBladeApi} from './blade/list/api/list';
 export {ListBladeParams} from './blade/list/plugin';
+export {SeparatorBladeApi} from './blade/separator/api/separator';
+export {SeparatorBladeParams} from './blade/separator/plugin';
 export {SliderBladeApi} from './blade/slider/api/slider';
 export {SliderBladeParams} from './blade/slider/plugin';
 export {TextBladeApi} from './blade/text/api/text';

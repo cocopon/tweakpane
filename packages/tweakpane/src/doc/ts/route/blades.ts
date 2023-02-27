@@ -2,18 +2,10 @@ import {ListBladeApi, Pane, TextBladeApi} from 'tweakpane';
 
 import {selectContainer} from '../util';
 
-function hoge(markerToFnMap: {
-	[key: string]: (container: HTMLElement) => void;
-}) {
-	Object.keys(markerToFnMap).forEach((marker) => {
-		const initFn = markerToFnMap[marker];
-		const container = selectContainer(marker);
-		initFn(container);
-	});
-}
-
 export function initBlades() {
-	hoge({
+	const markerToFnMap: {
+		[key: string]: (container: HTMLElement) => void;
+	} = {
 		text(container) {
 			const pane = new Pane({
 				container: container,
@@ -67,5 +59,19 @@ export function initBlades() {
 				value: 0.5,
 			});
 		},
+		separator: (container) => {
+			const pane = new Pane({
+				container: container,
+			});
+			pane.addButton({title: 'Previous'});
+			pane.addButton({title: 'Next'});
+			pane.addBlade({view: 'separator'});
+			pane.addButton({title: 'Reset'});
+		},
+	};
+	Object.keys(markerToFnMap).forEach((marker) => {
+		const initFn = markerToFnMap[marker];
+		const container = selectContainer(marker);
+		initFn(container);
 	});
 }

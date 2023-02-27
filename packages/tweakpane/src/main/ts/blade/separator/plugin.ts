@@ -1,8 +1,11 @@
-import {BladePlugin} from '../../blade/plugin';
-import {parseRecord} from '../../common/micro-parsers';
-import {BaseBladeParams} from '../../common/params';
-import {VERSION} from '../../version';
-import {SeparatorApi} from './api/separator';
+import {
+	BaseBladeParams,
+	BladePlugin,
+	parseRecord,
+	VERSION,
+} from '@tweakpane/core';
+
+import {SeparatorBladeApi} from './api/separator';
 import {SeparatorController} from './controller/separator';
 
 export interface SeparatorBladeParams extends BaseBladeParams {
@@ -29,6 +32,6 @@ export const SeparatorBladePlugin: BladePlugin<SeparatorBladeParams> = {
 		if (!(args.controller instanceof SeparatorController)) {
 			return null;
 		}
-		return new SeparatorApi(args.controller);
+		return new SeparatorBladeApi(args.controller);
 	},
 };

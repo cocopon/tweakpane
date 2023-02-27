@@ -63,7 +63,7 @@ function createPreviewPane(containerElem: HTMLElement, expanded = true) {
 	pane.addButton({
 		title: 'button',
 	});
-	pane.addSeparator();
+	pane.addBlade({view: 'separator'});
 	pane.addBinding(PARAMS, 'monitor', {
 		interval: 0,
 		multiline: true,

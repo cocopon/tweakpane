@@ -1,7 +1,6 @@
 import {ButtonBladePlugin} from '../blade/button/plugin';
 import {FolderBladePlugin} from '../blade/folder/plugin';
 import {BladePlugin} from '../blade/plugin';
-import {SeparatorBladePlugin} from '../blade/separator/plugin';
 import {TabBladePlugin} from '../blade/tab/plugin';
 import {BooleanInputPlugin} from '../input-binding/boolean/plugin';
 import {NumberColorInputPlugin} from '../input-binding/color/plugin-number';
@@ -52,7 +51,6 @@ export function createDefaultPluginPool(): PluginPool {
 		// Blade
 		ButtonBladePlugin,
 		FolderBladePlugin,
-		SeparatorBladePlugin,
 		TabBladePlugin,
 	].forEach((p) => {
 		pool.register(p);

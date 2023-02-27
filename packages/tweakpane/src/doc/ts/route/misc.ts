@@ -242,7 +242,7 @@ export function initMisc() {
 				container: container,
 			});
 
-			pane.addSeparator();
+			pane.addBlade({view: 'separator'});
 			const i = pane.addBinding(PARAMS, 'input', {
 				disabled: true,
 			});

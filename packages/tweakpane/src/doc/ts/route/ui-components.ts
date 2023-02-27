@@ -15,7 +15,7 @@ export function initUiComponents() {
 				title: 'Folder',
 			});
 			f.addBinding({label: 0}, 'label');
-			f.addSeparator();
+			f.addBlade({view: 'separator'});
 			f.addButton({
 				title: 'Button',
 			});
@@ -36,7 +36,6 @@ export function initUiComponents() {
 			tab.pages[1].addBinding({label: 0}, 'label');
 			tab.pages[1].addBinding({label: 0}, 'label');
 		},
-
 		folder: (container) => {
 			const PARAMS = {
 				acceleration: 0,
@@ -57,7 +56,6 @@ export function initUiComponents() {
 			f2.addBinding(PARAMS, 'acceleration');
 			f2.addBinding(PARAMS, 'randomness');
 		},
-
 		panetitle: (container) => {
 			const PARAMS = {
 				bounce: 0.5,
@@ -84,7 +82,6 @@ export function initUiComponents() {
 				min: 0,
 			});
 		},
-
 		button: (container) => {
 			const PARAMS = {count: '0'};
 
@@ -110,7 +107,6 @@ export function initUiComponents() {
 					consolePane.refresh();
 				});
 		},
-
 		tab: (container) => {
 			const pane = new Pane({
 				container: container,
@@ -125,22 +121,6 @@ export function initUiComponents() {
 			});
 			tab.pages[1].addButton({
 				label: 'danger!',
-				title: 'Reset',
-			});
-		},
-
-		separator: (container) => {
-			const pane = new Pane({
-				container: container,
-			});
-			pane.addButton({
-				title: 'Previous',
-			});
-			pane.addButton({
-				title: 'Next',
-			});
-			pane.addSeparator();
-			pane.addButton({
 				title: 'Reset',
 			});
 		},

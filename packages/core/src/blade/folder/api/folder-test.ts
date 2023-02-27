@@ -11,6 +11,7 @@ import {testBladeContainer} from '../../common/api/container-test';
 import {assertUpdates} from '../../common/api/test-util';
 import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event';
 import {createBlade} from '../../common/model/blade';
+import {TestValueBladePlugin} from '../../test-util';
 import {FolderController} from '../controller/folder';
 import {FolderPropsObject} from '../view/folder';
 import {FolderApi} from './folder';
@@ -25,6 +26,7 @@ function createApi(opt_doc?: Document): FolderApi {
 		viewProps: ViewProps.create(),
 	});
 	const pool = createDefaultPluginPool();
+	pool.register(TestValueBladePlugin);
 	return new FolderApi(c, pool);
 }
 
@@ -65,16 +67,6 @@ describe(FolderApi.name, () => {
 
 		api['controller_'].view.buttonElement.click();
 		assert.strictEqual(api['controller_'].foldable.get('expanded'), false);
-	});
-
-	it('should dispose separator', () => {
-		const api = createApi();
-		const cs = api['controller_'].rackController.rack.children;
-
-		const s = api.addSeparator();
-		assert.strictEqual(cs.length, 1);
-		s.dispose();
-		assert.strictEqual(cs.length, 0);
 	});
 
 	it('should add folder', () => {

@@ -1,7 +1,6 @@
 import {
 	ButtonBladeParams,
 	FolderBladeParams,
-	SeparatorBladeParams,
 	TabBladeParams,
 } from '@tweakpane/core';
 import {toCss} from 'ts/panepaint';
@@ -9,6 +8,7 @@ import {createTheme, ThemeId} from 'ts/themes';
 import {
 	ListBladeParams,
 	Pane,
+	SeparatorBladeParams,
 	SliderBladeParams,
 	TextBladeParams,
 } from 'tweakpane';
@@ -269,7 +269,7 @@ export function initCatalog() {
 				title: 'Separator',
 			});
 			pane.addBinding({param: 0}, 'param');
-			pane.addSeparator();
+			pane.addBlade({view: 'separator'});
 			pane.addBinding({param: 0}, 'param');
 			return pane;
 		},
