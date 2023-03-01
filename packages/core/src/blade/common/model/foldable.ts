@@ -113,10 +113,10 @@ export function bindFoldable(foldable: Foldable, elem: HTMLElement): void {
 		foldable.set('completed', false);
 
 		if (isEmpty(foldable.get('expandedHeight'))) {
-			foldable.set(
-				'expandedHeight',
-				computeExpandedFolderHeight(foldable, elem),
-			);
+			const h = computeExpandedFolderHeight(foldable, elem);
+			if (h > 0) {
+				foldable.set('expandedHeight', h);
+			}
 		}
 
 		foldable.set('shouldFixHeight', true);

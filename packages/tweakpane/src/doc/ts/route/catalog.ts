@@ -351,6 +351,13 @@ export function initCatalog() {
 			});
 			t.pages[0].addBinding({param: 0}, 'param');
 			t.pages[0].addBinding({param: 0}, 'param');
+
+			// Test case for expanding a folder in the hidden container
+			((f) => {
+				f.addBinding({param: 0}, 'param');
+				f.expanded = true;
+			})(t.pages[1].addFolder({title: 'Folder', expanded: false}));
+
 			return pane;
 		},
 		nestedfolders: (container) => {
