@@ -25,12 +25,12 @@ export class RootApi extends FolderApi {
 	 * @param preset The preset object to import.
 	 */
 	public importPreset(preset: PresetObject): void {
-		const targets = this.controller_.rackController.rack
+		const bindings = this.controller_.rackController.rack
 			.find(InputBindingController)
 			.map((ibc) => {
-				return ibc.binding.target;
+				return ibc.binding;
 			});
-		importPresetJson(targets, preset);
+		importPresetJson(bindings, preset);
 		this.refresh();
 	}
 

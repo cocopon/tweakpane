@@ -1,4 +1,11 @@
-import {BindingTarget} from '@tweakpane/core';
+import {
+	BindingTarget,
+	createValue,
+	InputBinding,
+	numberFromUnknown,
+	stringFromUnknown,
+	writePrimitive,
+} from '@tweakpane/core';
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
@@ -27,15 +34,25 @@ describe('Preset', () => {
 			foo: 1,
 		};
 
-		const targets = [
-			new BindingTarget(PARAMS, 'foo'),
-			new BindingTarget(PARAMS, 'bar'),
+		const bindings = [
+			new InputBinding({
+				reader: numberFromUnknown,
+				target: new BindingTarget(PARAMS, 'foo'),
+				value: createValue(PARAMS.foo),
+				writer: writePrimitive,
+			}) as InputBinding<unknown>,
+			new InputBinding({
+				reader: stringFromUnknown,
+				target: new BindingTarget(PARAMS, 'bar'),
+				value: createValue(PARAMS.bar),
+				writer: writePrimitive,
+			}) as InputBinding<unknown>,
 		];
-		const preset = exportPresetJson(targets);
+		const preset = exportPresetJson(bindings.map((b) => b.target));
 		preset.foo = 123;
 		preset.bar = 'world';
 
-		importPresetJson(targets, preset);
+		importPresetJson(bindings, preset);
 
 		assert.strictEqual(PARAMS.foo, 123);
 		assert.strictEqual(PARAMS.bar, 'world');
