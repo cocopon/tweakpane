@@ -1,4 +1,4 @@
-import {BindingTarget} from '@tweakpane/core';
+import {BindingTarget, InputBinding} from '@tweakpane/core';
 
 export interface PresetObject {
 	[key: string]: unknown;
@@ -19,13 +19,13 @@ export function exportPresetJson(targets: BindingTarget[]): PresetObject {
  * @hidden
  */
 export function importPresetJson(
-	targets: BindingTarget[],
+	bindings: InputBinding<unknown>[],
 	preset: PresetObject,
 ): void {
-	targets.forEach((target) => {
-		const value = preset[target.presetKey];
+	bindings.forEach((binding) => {
+		const value = preset[binding.target.presetKey];
 		if (value !== undefined) {
-			target.write(value);
+			binding.writer(binding.target, value);
 		}
 	});
 }

@@ -47,6 +47,8 @@ export {BladePlugin, createBladeController} from './blade/plugin';
 export * from './common/binding/ticker/manual';
 export * from './common/binding/ticker/interval';
 export * from './common/binding/ticker/ticker';
+export * from './common/binding/input';
+export * from './common/binding/monitor';
 
 export * from './common/constraint/composite';
 export * from './common/constraint/constraint';

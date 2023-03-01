@@ -94,4 +94,17 @@ describe(RootApi.name, () => {
 		assert.strictEqual(i2.controller_.binding.value.rawValue, 'changed');
 		assert.strictEqual(m1.controller_.binding.value.rawValue[0], 456);
 	});
+
+	it('should not break bound value', () => {
+		const origin = {x: 0, y: 0};
+		const obj = {
+			origin: origin,
+		};
+		const api = createApi();
+		api.addInput(obj, 'origin');
+		api.importPreset({
+			origin: {x: 1, y: 2},
+		});
+		assert.strictEqual(origin, obj.origin);
+	});
 });
