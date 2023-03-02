@@ -64,7 +64,7 @@
     "main:test": "run-s main:test:scss main:test:ts",
     "main:test:scss": "prettier --parser scss --list-different \"src/main/sass/**/*.scss\"",
     "main:test:ts": "run-s main:test:ts:static main:test:ts:dynamic main:test:ts:module",
-    "main:test:ts:dynamic": "TS_NODE_PROJECT=\"src/main/tsconfig.json\" mocha --require ts-node/register \"src/main/ts/**/*-test.ts\"",
+    "main:test:ts:dynamic": "TS_NODE_CACHE=false TS_NODE_PROJECT=\"src/main/tsconfig.json\" mocha --require ts-node/register \"src/main/ts/**/*-test.ts\"",
     "main:test:ts:dynamic:inspect": "TS_NODE_PROJECT=\"src/main/tsconfig.json\" mocha --require ts-node/register \"src/main/ts/**/*-test.ts\" --inspect-brk",
     "main:test:ts:module": "npm pack && (cd ../core && npm pack) && node scripts/main-test-ts-module-pre.js && (cd test-module && rimraf ./node_modules/tweakpane && npm install && npm test)",
     "main:test:ts:static": "eslint --ext .ts \"src/main/ts/**/*.ts\"",
