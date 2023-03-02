@@ -25,7 +25,7 @@ export function importPresetJson(
 	bindings.forEach((binding) => {
 		const value = preset[binding.target.presetKey];
 		if (value !== undefined) {
-			binding.writer(binding.target, value);
+			binding.writer(binding.target, binding.reader(value));
 		}
 	});
 }

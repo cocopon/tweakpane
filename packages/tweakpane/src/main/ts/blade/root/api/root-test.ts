@@ -107,4 +107,34 @@ describe(RootApi.name, () => {
 		});
 		assert.strictEqual(origin, obj.origin);
 	});
+
+	[
+		{
+			params: {
+				value: '#ffffff',
+				options: undefined,
+			},
+		},
+		{
+			params: {
+				value: {x: 1, y: 2},
+				options: undefined,
+			},
+		},
+	].forEach(({params}) => {
+		describe(`when params=${JSON.stringify(params)}`, () => {
+			it('should import exported preset', () => {
+				const obj = {
+					key: params.value,
+				};
+				const api = createApi();
+				api.addInput(obj, 'key', params.options);
+
+				const preset = api.exportPreset();
+				assert.doesNotThrow(() => {
+					api.importPreset(preset);
+				});
+			});
+		});
+	});
 });
