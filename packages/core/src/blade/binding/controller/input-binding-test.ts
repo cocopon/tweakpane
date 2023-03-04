@@ -157,4 +157,31 @@ describe(InputBindingController.name, () => {
 		assert.ok(obj.foo instanceof Vector2);
 		assert.deepStrictEqual(obj.foo.toArray(), [3, 4]);
 	});
+
+	[
+		{
+			params: {
+				controller: (doc: Document) => createColorController(doc),
+				type: 'color',
+			},
+		},
+		{
+			params: {
+				controller: (doc: Document) => createPoint2dController(doc),
+				type: 'point2d',
+			},
+		},
+	].forEach(({params}) => {
+		describe(`when type=${JSON.stringify(params.type)}`, () => {
+			it('should import exported state without error', () => {
+				const doc = createTestWindow().document;
+				const {controller: bc} = params.controller(doc);
+
+				const state = bc.exportState();
+				assert.doesNotThrow(() => {
+					bc.importState(state);
+				});
+			});
+		});
+	});
 });
