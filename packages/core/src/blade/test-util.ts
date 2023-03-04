@@ -4,8 +4,10 @@ import {ValueMap} from '../common/model/value-map';
 import {createValue} from '../common/model/values';
 import {ViewProps} from '../common/model/view-props';
 import {BaseBladeParams} from '../common/params';
+import {TpError} from '../common/tp-error';
 import {PlainView} from '../common/view/plain';
 import {CheckboxController} from '../input-binding/boolean/controller/checkbox';
+import {createDefaultPluginPool} from '../plugin/plugins';
 import {VERSION} from '../version';
 import {BladeApi} from './common/api/blade';
 import {BladeController} from './common/controller/blade';
@@ -111,6 +113,32 @@ export const TestValueBladePlugin: BladePlugin<TestBladeParams> = {
 		return new TestValueBladeApi(args.controller);
 	},
 };
+
+export function createAppropriateBladeController(
+	doc: Document,
+): BladeController {
+	return TestValueBladePlugin.controller({
+		blade: createBlade(),
+		document: doc,
+		params: {
+			view: 'test',
+			disabled: false,
+			hidden: false,
+		},
+		viewProps: ViewProps.create(),
+	});
+}
+
+export function createAppropriateBladeApi(doc: Document): BladeApi {
+	const api = TestValueBladePlugin.api({
+		controller: createAppropriateBladeController(doc),
+		pool: createDefaultPluginPool(),
+	});
+	if (!api) {
+		throw TpError.shouldNeverHappen();
+	}
+	return api;
+}
 
 export class TestKeyBladeController extends BladeController {
 	public key: string;

@@ -61,7 +61,7 @@ export class TabApi extends ContainerBladeApi<TabController> {
 			}),
 			viewProps: ViewProps.create(),
 		});
-		const papi = new TabPageApi(pc, this.pool_);
+		const papi = this.pool_.createApi(pc) as TabPageApi;
 		return this.rackApi_.add(papi, params.index);
 	}
 

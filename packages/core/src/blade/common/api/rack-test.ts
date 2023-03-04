@@ -9,6 +9,7 @@ import {CheckboxController} from '../../../input-binding/boolean/controller/chec
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {forceCast} from '../../../misc/type-util';
 import {createDefaultPluginPool} from '../../../plugin/plugins';
+import {PluginPool} from '../../../plugin/pool';
 import {BindingApi} from '../../binding/api/binding';
 import {LabeledValueController} from '../../label/controller/value-label';
 import {LabelPropsObject} from '../../label/view/label';
@@ -17,15 +18,20 @@ import {RackController} from '../controller/rack';
 import {createBlade} from '../model/blade';
 import {RackApi} from './rack';
 
-function createApi(opt_doc?: Document) {
-	const doc = opt_doc ?? createTestWindow().document;
+function createApi(
+	config: {
+		document?: Document;
+		pool?: PluginPool;
+	} = {},
+) {
+	const doc = config.document ?? createTestWindow().document;
 	const c = new RackController({
 		blade: createBlade(),
 		element: doc.createElement('div'),
 		viewProps: ViewProps.create(),
 	});
 
-	const pool = createDefaultPluginPool();
+	const pool = config.pool ?? createDefaultPluginPool();
 	pool.register(TestValueBladePlugin);
 
 	return new RackApi(c, pool);
@@ -69,7 +75,11 @@ describe(RackApi.name, () => {
 
 	it('should handle global value events', (done) => {
 		const doc = createTestWindow().document;
-		const api = createApi(doc);
+		const pool = createDefaultPluginPool();
+		const api = createApi({
+			document: doc,
+			pool: pool,
+		});
 		const v = createValue<boolean>(false);
 		const c = new LabeledValueController<boolean, CheckboxController>(doc, {
 			blade: createBlade(),
@@ -82,7 +92,7 @@ describe(RackApi.name, () => {
 				viewProps: ViewProps.create(),
 			}),
 		});
-		const bapi = new TestValueBladeApi(c);
+		const bapi = pool.createApi(c) as TestValueBladeApi;
 		api.add(bapi);
 
 		api.on('change', (ev) => {
@@ -107,5 +117,28 @@ describe(RackApi.name, () => {
 		api.remove(item);
 		(item['controller_'].value as Value<number>).rawValue += 1;
 		assert.strictEqual(count, 1);
+	});
+
+	it('should have right target for nested racks', (done) => {
+		const doc = createTestWindow().document;
+		const pool = createDefaultPluginPool();
+		const api1 = createApi({
+			document: doc,
+			pool: pool,
+		});
+		const f = api1.addFolder({title: ''});
+		const b = f.addBinding({foo: 1}, 'foo');
+		const api2 = createApi({
+			document: doc,
+			pool: pool,
+		});
+		api2.add(f);
+
+		api2.on('change', (ev) => {
+			assert.strictEqual(ev.target, b);
+			done();
+		});
+
+		b['controller_'].value.rawValue = 2;
 	});
 });

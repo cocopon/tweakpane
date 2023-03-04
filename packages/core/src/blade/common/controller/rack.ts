@@ -46,14 +46,14 @@ export class RackController {
 	}
 
 	private onRackAdd_(ev: RackEvents['add']): void {
-		if (!ev.isRoot) {
+		if (!ev.root) {
 			return;
 		}
 		insertElementAt(this.element, ev.bladeController.view.element, ev.index);
 	}
 
 	private onRackRemove_(ev: RackEvents['remove']): void {
-		if (!ev.isRoot) {
+		if (!ev.root) {
 			return;
 		}
 		removeElement(ev.bladeController.view.element);
