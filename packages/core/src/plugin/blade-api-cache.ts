@@ -2,9 +2,10 @@ import {BladeApi} from '../blade/common/api/blade';
 import {BladeController} from '../blade/common/controller/blade';
 
 /**
+ * A cache that maps blade controllers and APIs.
  * @hidden
  */
-export class ApiCache {
+export class BladeApiCache {
 	private map_: Map<BladeController, BladeApi> = new Map();
 
 	public get(bc: BladeController): BladeApi | null {

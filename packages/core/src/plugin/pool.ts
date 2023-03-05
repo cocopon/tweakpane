@@ -30,14 +30,14 @@ import {
 	createMonitorBindingController,
 	MonitorBindingPlugin,
 } from '../monitor-binding/plugin';
-import {ApiCache} from './api-cache';
+import {BladeApiCache} from './blade-api-cache';
 import {TpPlugin} from './plugins';
 
 /**
  * @hidden
  */
 export class PluginPool {
-	private readonly cache_: ApiCache;
+	private readonly apiCache_: BladeApiCache;
 	private readonly pluginsMap_: {
 		blades: BladePlugin<any>[];
 		inputs: InputBindingPlugin<any, any, any>[];
@@ -48,8 +48,8 @@ export class PluginPool {
 		monitors: [],
 	};
 
-	constructor(cache: ApiCache) {
-		this.cache_ = cache;
+	constructor(apiCache: BladeApiCache) {
+		this.apiCache_ = apiCache;
 	}
 
 	public getAll(): TpPlugin[] {
@@ -179,7 +179,7 @@ export class PluginPool {
 			},
 			null,
 		);
-		return this.cache_.add(bc, api ?? new BindingApi(bc)) as InputBindingApi;
+		return this.apiCache_.add(bc, api ?? new BindingApi(bc)) as InputBindingApi;
 	}
 
 	private createMonitorBindingApi_(
@@ -198,7 +198,7 @@ export class PluginPool {
 			},
 			null,
 		);
-		return this.cache_.add(
+		return this.apiCache_.add(
 			bc,
 			api ??
 				new BindingApi<
@@ -210,8 +210,8 @@ export class PluginPool {
 	}
 
 	public createBindingApi(bc: BindingController): BindingApi {
-		if (this.cache_.has(bc)) {
-			return this.cache_.get(bc) as BindingApi;
+		if (this.apiCache_.has(bc)) {
+			return this.apiCache_.get(bc) as BindingApi;
 		}
 
 		if (isInputBindingController(bc)) {
@@ -226,8 +226,8 @@ export class PluginPool {
 	}
 
 	public createApi(bc: BladeController): BladeApi {
-		if (this.cache_.has(bc)) {
-			return this.cache_.get(bc) as BladeApi;
+		if (this.apiCache_.has(bc)) {
+			return this.apiCache_.get(bc) as BladeApi;
 		}
 
 		if (isBindingController(bc)) {
@@ -247,6 +247,6 @@ export class PluginPool {
 		if (!api) {
 			throw TpError.shouldNeverHappen();
 		}
-		return this.cache_.add(bc, api);
+		return this.apiCache_.add(bc, api);
 	}
 }

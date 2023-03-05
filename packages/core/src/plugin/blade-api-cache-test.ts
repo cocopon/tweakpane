@@ -6,14 +6,14 @@ import {
 	createAppropriateBladeController,
 } from '../blade/test-util';
 import {createTestWindow} from '../misc/dom-test-util';
-import {ApiCache} from './api-cache';
+import {BladeApiCache} from './blade-api-cache';
 
-describe(ApiCache.name, () => {
+describe(BladeApiCache.name, () => {
 	it('should add cache', () => {
 		const doc = createTestWindow().document;
 		const bc = createAppropriateBladeController(doc);
 		const api = createAppropriateBladeApi(doc);
-		const cache = new ApiCache();
+		const cache = new BladeApiCache();
 
 		assert.strictEqual(cache.get(bc), null);
 		cache.add(bc, api);
@@ -24,7 +24,7 @@ describe(ApiCache.name, () => {
 		const doc = createTestWindow().document;
 		const bc = createAppropriateBladeController(doc);
 		const api = createAppropriateBladeApi(doc);
-		const cache = new ApiCache();
+		const cache = new BladeApiCache();
 
 		assert.strictEqual(cache.has(bc), false);
 		cache.add(bc, api);
@@ -35,7 +35,7 @@ describe(ApiCache.name, () => {
 		const doc = createTestWindow().document;
 		const bc = createAppropriateBladeController(doc);
 		const api = createAppropriateBladeApi(doc);
-		const cache = new ApiCache();
+		const cache = new BladeApiCache();
 
 		api.dispose();
 		assert.strictEqual(cache.has(bc), false);
