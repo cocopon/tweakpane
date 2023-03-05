@@ -18,6 +18,7 @@ import {BindingParams} from '../blade/common/api/params';
 import {BladeController} from '../blade/common/controller/blade';
 import {BladePlugin, createBladeController} from '../blade/plugin';
 import {BindingTarget} from '../common/binding/target';
+import {TpBuffer} from '../common/model/buffered-value';
 import {TpError} from '../common/tp-error';
 import {isCompatible} from '../index';
 import {
@@ -29,12 +30,14 @@ import {
 	createMonitorBindingController,
 	MonitorBindingPlugin,
 } from '../monitor-binding/plugin';
+import {BladeApiCache} from './blade-api-cache';
 import {TpPlugin} from './plugins';
 
 /**
  * @hidden
  */
 export class PluginPool {
+	private readonly apiCache_: BladeApiCache;
 	private readonly pluginsMap_: {
 		blades: BladePlugin<any>[];
 		inputs: InputBindingPlugin<any, any, any>[];
@@ -44,6 +47,10 @@ export class PluginPool {
 		inputs: [],
 		monitors: [],
 	};
+
+	constructor(apiCache: BladeApiCache) {
+		this.apiCache_ = apiCache;
+	}
 
 	public getAll(): TpPlugin[] {
 		return [
@@ -172,7 +179,7 @@ export class PluginPool {
 			},
 			null,
 		);
-		return api ?? new BindingApi(bc);
+		return this.apiCache_.add(bc, api ?? new BindingApi(bc)) as InputBindingApi;
 	}
 
 	private createMonitorBindingApi_(
@@ -191,10 +198,22 @@ export class PluginPool {
 			},
 			null,
 		);
-		return api ?? new BindingApi(bc);
+		return this.apiCache_.add(
+			bc,
+			api ??
+				new BindingApi<
+					TpBuffer<unknown>,
+					unknown,
+					MonitorBindingController<unknown>
+				>(bc),
+		) as MonitorBindingApi;
 	}
 
 	public createBindingApi(bc: BindingController): BindingApi {
+		if (this.apiCache_.has(bc)) {
+			return this.apiCache_.get(bc) as BindingApi;
+		}
+
 		if (isInputBindingController(bc)) {
 			return this.createInputBindingApi_(bc);
 		}
@@ -207,6 +226,10 @@ export class PluginPool {
 	}
 
 	public createApi(bc: BladeController): BladeApi {
+		if (this.apiCache_.has(bc)) {
+			return this.apiCache_.get(bc) as BladeApi;
+		}
+
 		if (isBindingController(bc)) {
 			return this.createBindingApi(bc);
 		}
@@ -220,11 +243,10 @@ export class PluginPool {
 				}),
 			null,
 		);
-		/* istanbul ignore else */
-		if (api) {
-			return api;
-		}
 		/* istanbul ignore next */
-		throw TpError.shouldNeverHappen();
+		if (!api) {
+			throw TpError.shouldNeverHappen();
+		}
+		return this.apiCache_.add(bc, api);
 	}
 }

@@ -116,13 +116,11 @@ export function testBladeContainer(createApi: () => ContainerApi) {
 
 	it('should move to the last when re-adding child', () => {
 		const api = createApi();
-		const bapi = addSomeBladeApi(api);
-		addSomeBladeApi(api);
-		api.add(bapi);
+		const bapi1 = addSomeBladeApi(api);
+		const bapi2 = addSomeBladeApi(api);
+		api.add(bapi1);
 
-		assert.strictEqual(api.children.length, 2);
-		assert.notStrictEqual(api.children[0], bapi);
-		assert.strictEqual(api.children[1], bapi);
+		assert.deepStrictEqual(api.children, [bapi2, bapi1]);
 	});
 
 	it('should be removed from previous parent', () => {
@@ -132,7 +130,7 @@ export function testBladeContainer(createApi: () => ContainerApi) {
 		const api2 = createApi();
 		api2.add(bapi);
 
-		assert.strictEqual(api1.children.length, 0);
-		assert.strictEqual(api2.children[0], bapi);
+		assert.deepStrictEqual(api1.children, []);
+		assert.deepStrictEqual(api2.children, [bapi]);
 	});
 }

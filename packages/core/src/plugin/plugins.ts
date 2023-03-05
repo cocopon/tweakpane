@@ -16,6 +16,7 @@ import {BooleanMonitorPlugin} from '../monitor-binding/boolean/plugin';
 import {NumberMonitorPlugin} from '../monitor-binding/number/plugin';
 import {MonitorBindingPlugin} from '../monitor-binding/plugin';
 import {StringMonitorPlugin} from '../monitor-binding/string/plugin';
+import {BladeApiCache} from './blade-api-cache';
 import {PluginPool} from './pool';
 
 export type TpPlugin =
@@ -31,8 +32,11 @@ export type TpPluginBundle =
 			plugins: TpPlugin[];
 	  };
 
+// Shared API cache for the default pool allows blade flexibility between different panes.
+const sharedCache = new BladeApiCache();
+
 export function createDefaultPluginPool(): PluginPool {
-	const pool = new PluginPool();
+	const pool = new PluginPool(sharedCache);
 	[
 		// Input
 		Point2dInputPlugin,

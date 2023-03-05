@@ -23,12 +23,12 @@ export interface RackEvents {
 	add: {
 		bladeController: BladeController;
 		index: number;
-		isRoot: boolean;
+		root: boolean;
 		sender: Rack;
 	};
 	remove: {
 		bladeController: BladeController;
-		isRoot: boolean;
+		root: boolean;
 		sender: Rack;
 	};
 
@@ -129,15 +129,15 @@ export class Rack {
 	private onSetAdd_(ev: NestedOrderedSetEvents<BladeController>['add']) {
 		this.updatePositions_();
 
-		const isRoot = ev.target === ev.root;
+		const root = ev.target === ev.root;
 		this.emitter.emit('add', {
 			bladeController: ev.item,
 			index: ev.index,
-			isRoot: isRoot,
+			root: root,
 			sender: this,
 		});
 
-		if (!isRoot) {
+		if (!root) {
 			return;
 		}
 
@@ -163,14 +163,14 @@ export class Rack {
 	private onSetRemove_(ev: NestedOrderedSetEvents<BladeController>['remove']) {
 		this.updatePositions_();
 
-		const isRoot = ev.target === ev.root;
+		const root = ev.target === ev.root;
 		this.emitter.emit('remove', {
 			bladeController: ev.item,
-			isRoot: isRoot,
+			root: root,
 			sender: this,
 		});
 
-		if (!isRoot) {
+		if (!root) {
 			return;
 		}
 

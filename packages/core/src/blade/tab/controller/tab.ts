@@ -57,7 +57,7 @@ export class TabController extends ContainerBladeController<TabView> {
 	}
 
 	private onRackAdd_(ev: RackEvents['add']): void {
-		if (!ev.isRoot) {
+		if (!ev.root) {
 			return;
 		}
 
@@ -73,7 +73,7 @@ export class TabController extends ContainerBladeController<TabView> {
 	}
 
 	private onRackRemove_(ev: RackEvents['remove']): void {
-		if (!ev.isRoot) {
+		if (!ev.root) {
 			return;
 		}
 
