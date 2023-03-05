@@ -37,7 +37,7 @@ import {TpPlugin} from './plugins';
  * @hidden
  */
 export class PluginPool {
-	private cache_: ApiCache;
+	private readonly cache_: ApiCache;
 	private readonly pluginsMap_: {
 		blades: BladePlugin<any>[];
 		inputs: InputBindingPlugin<any, any, any>[];
@@ -48,8 +48,8 @@ export class PluginPool {
 		monitors: [],
 	};
 
-	constructor() {
-		this.cache_ = new ApiCache();
+	constructor(cache: ApiCache) {
+		this.cache_ = cache;
 	}
 
 	public getAll(): TpPlugin[] {

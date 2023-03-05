@@ -17,7 +17,7 @@ import {describe, it} from 'mocha';
 import {Pane} from '..';
 import {createTestWindow} from '../misc/test-util';
 
-describe('Tweakpane', () => {
+describe(Pane.name, () => {
 	it('should dispose with default container', () => {
 		const doc = createTestWindow().document;
 		const c = new Pane({
@@ -44,7 +44,7 @@ describe('Tweakpane', () => {
 		assert.strictEqual(containerElem.hasChildNodes(), false);
 	});
 
-	it("should throw 'alreadyDisposed' error", () => {
+	it("should throw 'alreadyDisposed' error for duplicate disposing", () => {
 		const doc = createTestWindow().document;
 		const c = new Pane({
 			document: doc,
@@ -129,5 +129,22 @@ describe('Tweakpane', () => {
 		});
 		const styleElem = doc.querySelector('style[data-tp-style=plugin-test]');
 		assert.strictEqual(styleElem?.textContent, css);
+	});
+
+	it('should handle blade created in other pane', (done) => {
+		const doc = createTestWindow().document;
+		const pane1 = new Pane({document: doc});
+		const f = pane1.addFolder({title: 'folder'});
+		const b = f.addBinding({foo: 1}, 'foo');
+		const pane2 = new Pane({document: doc});
+
+		// Indirectly add a blade that is created in other pane
+		pane2.add(f);
+		pane2.on('change', (ev) => {
+			assert.strictEqual(ev.target, b);
+			done();
+		});
+
+		b['controller_'].value.rawValue = 2;
 	});
 });
