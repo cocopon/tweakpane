@@ -77,8 +77,7 @@ export class BladeController<V extends View = View> implements Controller<V> {
 				hidden: p.required.boolean,
 			}),
 			(result) => {
-				this.viewProps.set('disabled', result.disabled);
-				this.viewProps.set('hidden', result.hidden);
+				this.viewProps.importState(result);
 				return true;
 			},
 		);
@@ -90,8 +89,7 @@ export class BladeController<V extends View = View> implements Controller<V> {
 	 */
 	public exportState(): BladeState {
 		return exportBladeState(() => ({}), {
-			disabled: this.viewProps.get('disabled'),
-			hidden: this.viewProps.get('hidden'),
+			...this.viewProps.exportState(),
 		});
 	}
 }

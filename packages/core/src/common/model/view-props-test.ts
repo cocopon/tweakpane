@@ -222,4 +222,25 @@ describe(ViewProps.name, () => {
 		p.set('hidden', true);
 		assert.ok(elem.classList.contains('tp-v-hidden'));
 	});
+
+	it('should export state', () => {
+		const p = ViewProps.create({
+			disabled: true,
+			hidden: true,
+		});
+		assert.deepStrictEqual(p.exportState(), {
+			disabled: true,
+			hidden: true,
+		});
+	});
+
+	it('should import state', () => {
+		const p = ViewProps.create();
+		p.importState({
+			disabled: true,
+			hidden: true,
+		});
+		assert.deepStrictEqual(p.get('disabled'), true);
+		assert.deepStrictEqual(p.get('hidden'), true);
+	});
 });
