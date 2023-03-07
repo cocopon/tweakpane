@@ -47,3 +47,8 @@ export function exportBladeState(
 		...thisState,
 	};
 }
+
+export interface BladeStatePortable {
+	importState: (state: BladeState) => boolean;
+	exportState: () => BladeState;
+}

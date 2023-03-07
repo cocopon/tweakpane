@@ -2,14 +2,24 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {TextController} from '../../../common/controller/text';
+import {ValueController} from '../../../common/controller/value';
 import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../../common/converter/number';
+import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
+import {PlainView} from '../../../common/view/plain';
 import {createTestWindow} from '../../../misc/dom-test-util';
+import {BladeController} from '../../common/controller/blade';
+import {
+	BladeState,
+	BladeStatePortable,
+	exportBladeState,
+	importBladeState,
+} from '../../common/controller/blade-state';
 import {createBlade} from '../../common/model/blade';
 import {LabelPropsObject} from '../view/label';
 import {LabeledValueController} from './value-label';
@@ -38,6 +48,47 @@ function createController(
 		value: value,
 		valueController: controller,
 	});
+}
+
+class TestPortableValueController
+	extends BladeController
+	implements ValueController<number>, BladeStatePortable
+{
+	public readonly value: Value<number>;
+	public opacity = 0;
+
+	constructor(doc: Document, value: Value<number>) {
+		const viewProps = ViewProps.create();
+		super({
+			blade: createBlade(),
+			view: new PlainView(doc, {
+				viewName: '',
+				viewProps: viewProps,
+			}),
+			viewProps: viewProps,
+		});
+		this.value = value;
+	}
+
+	public importState(state: BladeState): boolean {
+		return importBladeState(
+			state,
+			() => true,
+			(p) => ({
+				opacity: p.required.number,
+			}),
+			(result) => {
+				this.opacity = result.opacity;
+				return true;
+			},
+		);
+	}
+
+	public exportState(): BladeState {
+		return exportBladeState(() => ({}), {
+			opacity: this.opacity,
+		});
+	}
 }
 
 describe(LabeledValueController.name, () => {
@@ -110,5 +161,60 @@ describe(LabeledValueController.name, () => {
 			}),
 			true,
 		);
+	});
+
+	it('should apply imported state to value controller', () => {
+		const doc = createTestWindow().document;
+		const value = createValue(0);
+		const c = new LabeledValueController<number, TestPortableValueController>(
+			doc,
+			{
+				blade: createBlade(),
+				props: ValueMap.fromObject<LabelPropsObject>({
+					label: 'label',
+				}),
+				value: value,
+				valueController: new TestPortableValueController(doc, value),
+			},
+		);
+
+		assert.strictEqual(
+			c.importState({
+				disabled: false,
+				hidden: false,
+				label: 'label',
+				value: 0,
+
+				opacity: 0.75,
+			}),
+			true,
+		);
+		assert.strictEqual(c.valueController.opacity, 0.75);
+	});
+
+	it('should export value controller state', () => {
+		const doc = createTestWindow().document;
+		const value = createValue(0);
+		const c = new LabeledValueController<number, TestPortableValueController>(
+			doc,
+			{
+				blade: createBlade(),
+				props: ValueMap.fromObject<LabelPropsObject>({
+					label: 'label',
+				}),
+				value: value,
+				valueController: new TestPortableValueController(doc, value),
+			},
+		);
+		c.valueController.opacity = 0.25;
+
+		assert.deepStrictEqual(c.exportState(), {
+			disabled: false,
+			hidden: false,
+			label: 'label',
+			value: 0,
+
+			opacity: 0.25,
+		});
 	});
 });
