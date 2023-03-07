@@ -30,9 +30,7 @@ describe(SliderTextController.name, () => {
 		const doc = createTestWindow().document;
 		const c = createController(doc);
 
-		assert.deepStrictEqual(c.exportState(), {
-			disabled: false,
-			hidden: false,
+		assert.deepStrictEqual(c.exportProps(), {
 			max: 1,
 			min: 0,
 		});
@@ -43,16 +41,12 @@ describe(SliderTextController.name, () => {
 		const c = createController(doc);
 
 		assert.deepStrictEqual(
-			c.importState({
-				disabled: true,
-				hidden: true,
+			c.importProps({
 				max: 100,
 				min: 50,
 			}),
 			true,
 		);
-		assert.strictEqual(c.viewProps.get('disabled'), true);
-		assert.strictEqual(c.viewProps.get('hidden'), true);
 		assert.strictEqual(c.sliderController.props.get('max'), 100);
 		assert.strictEqual(c.sliderController.props.get('min'), 50);
 	});

@@ -4,9 +4,9 @@ import {TpError} from '../../../common/tp-error';
 import {BladeController} from '../../common/controller/blade';
 import {
 	BladeState,
-	BladeStatePortable,
 	exportBladeState,
 	importBladeState,
+	PropsPortable,
 } from '../../common/controller/blade-state';
 import {ValueBladeController} from '../../common/controller/value-blade';
 import {Blade} from '../../common/model/blade';
@@ -35,8 +35,7 @@ export type LabeledValueConfig<
  */
 export class LabeledValueController<
 		T,
-		C extends ValueController<T> &
-			Partial<BladeStatePortable> = ValueController<T>,
+		C extends ValueController<T> & Partial<PropsPortable> = ValueController<T>,
 		Va extends Value<T> = Value<T>,
 	>
 	extends BladeController<LabelView>
@@ -81,7 +80,7 @@ export class LabeledValueController<
 					this.value.rawValue = result.value as T;
 				}
 
-				return this.valueController.importState?.(state) ?? true;
+				return this.valueController.importProps?.(state) ?? true;
 			},
 		);
 	}
@@ -90,7 +89,7 @@ export class LabeledValueController<
 		return exportBladeState(() => super.exportState(), {
 			label: this.props.get('label'),
 			value: this.value.rawValue,
-			...(this.valueController.exportState?.() ?? {}),
+			...(this.valueController.exportProps?.() ?? {}),
 		});
 	}
 }

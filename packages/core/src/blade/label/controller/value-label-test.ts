@@ -16,7 +16,7 @@ import {createTestWindow} from '../../../misc/dom-test-util';
 import {BladeController} from '../../common/controller/blade';
 import {
 	BladeState,
-	BladeStatePortable,
+	PropsPortable,
 	exportBladeState,
 	importBladeState,
 } from '../../common/controller/blade-state';
@@ -52,7 +52,7 @@ function createController(
 
 class TestPortableValueController
 	extends BladeController
-	implements ValueController<number>, BladeStatePortable
+	implements ValueController<number>, PropsPortable
 {
 	public readonly value: Value<number>;
 	public opacity = 0;
@@ -70,7 +70,7 @@ class TestPortableValueController
 		this.value = value;
 	}
 
-	public importState(state: BladeState): boolean {
+	public importProps(state: BladeState): boolean {
 		return importBladeState(
 			state,
 			() => true,
@@ -84,7 +84,7 @@ class TestPortableValueController
 		);
 	}
 
-	public exportState(): BladeState {
+	public exportProps(): BladeState {
 		return exportBladeState(() => ({}), {
 			opacity: this.opacity,
 		});

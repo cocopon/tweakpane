@@ -48,7 +48,20 @@ export function exportBladeState(
 	};
 }
 
-export interface BladeStatePortable {
-	importState: (state: BladeState) => boolean;
-	exportState: () => BladeState;
+/**
+ * An interface that can import/export a state.
+ */
+export interface PropsPortable {
+	/**
+	 * Imports props.
+	 * @param state The state object.
+	 * @return true if successfully imported.
+	 */
+	importProps: (state: BladeState) => boolean;
+
+	/**
+	 * Exports props.
+	 * @return An exported object.
+	 */
+	exportProps: () => BladeState;
 }
