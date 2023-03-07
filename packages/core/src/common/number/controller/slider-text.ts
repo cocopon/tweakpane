@@ -74,7 +74,7 @@ export class SliderTextController
 	public importProps(state: BladeState): boolean {
 		return importBladeState(
 			state,
-			() => true,
+			null,
 			(p) => ({
 				max: p.required.number,
 				min: p.required.number,
@@ -90,7 +90,7 @@ export class SliderTextController
 
 	public exportProps(): BladeState {
 		const sliderProps = this.sliderC_.props;
-		return exportBladeState(() => ({}), {
+		return exportBladeState(null, {
 			max: sliderProps.get('max'),
 			min: sliderProps.get('min'),
 		});

@@ -61,7 +61,7 @@ export class ListController<T>
 	public importProps(state: BladeState): boolean {
 		return importBladeState(
 			state,
-			() => true,
+			null,
 			(p) => ({
 				options: p.required.custom<ListParamsOptions<T>>(parseListOptions),
 			}),
@@ -73,7 +73,7 @@ export class ListController<T>
 	}
 
 	public exportProps(): BladeState {
-		return exportBladeState(() => ({}), {
+		return exportBladeState(null, {
 			options: this.props.get('options'),
 		});
 	}

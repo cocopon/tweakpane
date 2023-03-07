@@ -16,9 +16,9 @@ import {createTestWindow} from '../../../misc/dom-test-util';
 import {BladeController} from '../../common/controller/blade';
 import {
 	BladeState,
-	PropsPortable,
 	exportBladeState,
 	importBladeState,
+	PropsPortable,
 } from '../../common/controller/blade-state';
 import {createBlade} from '../../common/model/blade';
 import {LabelPropsObject} from '../view/label';
@@ -73,7 +73,7 @@ class TestPortableValueController
 	public importProps(state: BladeState): boolean {
 		return importBladeState(
 			state,
-			() => true,
+			null,
 			(p) => ({
 				opacity: p.required.number,
 			}),
@@ -85,7 +85,7 @@ class TestPortableValueController
 	}
 
 	public exportProps(): BladeState {
-		return exportBladeState(() => ({}), {
+		return exportBladeState(null, {
 			opacity: this.opacity,
 		});
 	}

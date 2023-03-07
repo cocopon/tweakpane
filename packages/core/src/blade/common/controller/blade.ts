@@ -71,7 +71,7 @@ export class BladeController<V extends View = View> implements Controller<V> {
 	public importState(state: BladeState): boolean {
 		return importBladeState(
 			state,
-			() => true,
+			null,
 			(p) => ({
 				disabled: p.required.boolean,
 				hidden: p.required.boolean,
@@ -88,7 +88,7 @@ export class BladeController<V extends View = View> implements Controller<V> {
 	 * @return A state object.
 	 */
 	public exportState(): BladeState {
-		return exportBladeState(() => ({}), {
+		return exportBladeState(null, {
 			...this.viewProps.exportState(),
 		});
 	}
