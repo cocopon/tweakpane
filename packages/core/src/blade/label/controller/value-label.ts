@@ -1,6 +1,7 @@
 import {ValueController} from '../../../common/controller/value';
 import {Value} from '../../../common/model/value';
 import {TpError} from '../../../common/tp-error';
+import {BladeController} from '../../common/controller/blade';
 import {
 	BladeState,
 	exportBladeState,
@@ -32,11 +33,15 @@ export type LabeledValueConfig<
  * @hidden
  */
 export class LabeledValueController<
-	T,
-	C extends ValueController<T> = ValueController<T>,
-	Va extends Value<T> = Value<T>,
-> extends ValueBladeController<T, LabelView, Va> {
+		T,
+		C extends ValueController<T> = ValueController<T>,
+		Va extends Value<T> = Value<T>,
+	>
+	extends BladeController<LabelView>
+	implements ValueBladeController<T, LabelView, Va>
+{
 	public readonly props: LabelProps;
+	public readonly value: Va;
 	public readonly valueController: C;
 
 	constructor(doc: Document, config: Config<T, C, Va>) {
@@ -46,7 +51,6 @@ export class LabeledValueController<
 		const viewProps = config.valueController.viewProps;
 		super({
 			...config,
-			value: config.value,
 			view: new LabelView(doc, {
 				props: config.props,
 				viewProps: viewProps,
@@ -55,6 +59,7 @@ export class LabeledValueController<
 		});
 
 		this.props = config.props;
+		this.value = config.value;
 		this.valueController = config.valueController;
 
 		this.view.valueElement.appendChild(this.valueController.view.element);
