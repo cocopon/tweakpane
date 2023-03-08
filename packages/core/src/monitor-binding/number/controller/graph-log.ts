@@ -1,4 +1,10 @@
 import {BufferedValueController} from '../../../blade/binding/controller/monitor-binding';
+import {
+	BladeState,
+	exportBladeState,
+	importBladeState,
+	PropsPortable,
+} from '../../../blade/common/controller/blade-state';
 import {Formatter} from '../../../common/converter/formatter';
 import {supportsTouch} from '../../../common/dom-util';
 import {BufferedValue} from '../../../common/model/buffered-value';
@@ -24,7 +30,7 @@ interface Config {
  * @hidden
  */
 export class GraphLogController
-	implements BufferedValueController<number, GraphLogView>
+	implements BufferedValueController<number, GraphLogView>, PropsPortable
 {
 	public readonly props: GraphLogProps;
 	public readonly value: BufferedValue<number>;
@@ -62,6 +68,29 @@ export class GraphLogController
 			ph.emitter.on('move', this.onGraphPointerMove_);
 			ph.emitter.on('up', this.onGraphPointerUp_);
 		}
+	}
+
+	public importProps(state: BladeState): boolean {
+		return importBladeState(
+			state,
+			null,
+			(p) => ({
+				max: p.required.number,
+				min: p.required.number,
+			}),
+			(result) => {
+				this.props.set('max', result.max);
+				this.props.set('min', result.min);
+				return true;
+			},
+		);
+	}
+
+	public exportProps(): BladeState {
+		return exportBladeState(null, {
+			max: this.props.get('max'),
+			min: this.props.get('min'),
+		});
 	}
 
 	private onGraphMouseLeave_(): void {

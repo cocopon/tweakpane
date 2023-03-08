@@ -160,11 +160,13 @@ export function initCatalog() {
 			pane.addBinding(params, 'number', {
 				bufferSize: 10,
 				label: 'multiline',
+				readonly: true,
 			});
 			pane.addBinding(params, 'number', {
 				label: 'graph',
 				max: +1,
 				min: -1,
+				readonly: true,
 				view: 'graph',
 			});
 			return pane;

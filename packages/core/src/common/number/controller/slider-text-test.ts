@@ -26,7 +26,7 @@ function createController(doc: Document) {
 }
 
 describe(SliderTextController.name, () => {
-	it('should export state', () => {
+	it('should export props', () => {
 		const doc = createTestWindow().document;
 		const c = createController(doc);
 
@@ -36,7 +36,7 @@ describe(SliderTextController.name, () => {
 		});
 	});
 
-	it('should import state', () => {
+	it('should import props', () => {
 		const doc = createTestWindow().document;
 		const c = createController(doc);
 

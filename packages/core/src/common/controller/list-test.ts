@@ -88,7 +88,7 @@ describe(ListController.name, () => {
 		);
 	});
 
-	it('should export state', () => {
+	it('should export props', () => {
 		const doc = createTestWindow().document;
 		const {controller: c} = createController(doc, {
 			items: [
@@ -107,7 +107,7 @@ describe(ListController.name, () => {
 		});
 	});
 
-	it('should import state', () => {
+	it('should import props', () => {
 		const doc = createTestWindow().document;
 		const {controller: c} = createController(doc, {
 			items: [{text: 'foo', value: 0}],
