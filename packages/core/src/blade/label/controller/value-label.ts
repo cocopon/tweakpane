@@ -1,10 +1,12 @@
 import {ValueController} from '../../../common/controller/value';
 import {Value} from '../../../common/model/value';
 import {TpError} from '../../../common/tp-error';
+import {BladeController} from '../../common/controller/blade';
 import {
 	BladeState,
 	exportBladeState,
 	importBladeState,
+	PropsPortable,
 } from '../../common/controller/blade-state';
 import {ValueBladeController} from '../../common/controller/value-blade';
 import {Blade} from '../../common/model/blade';
@@ -32,11 +34,15 @@ export type LabeledValueConfig<
  * @hidden
  */
 export class LabeledValueController<
-	T,
-	C extends ValueController<T> = ValueController<T>,
-	Va extends Value<T> = Value<T>,
-> extends ValueBladeController<T, LabelView, Va> {
+		T,
+		C extends ValueController<T> & Partial<PropsPortable> = ValueController<T>,
+		Va extends Value<T> = Value<T>,
+	>
+	extends BladeController<LabelView>
+	implements ValueBladeController<T, LabelView, Va>
+{
 	public readonly props: LabelProps;
+	public readonly value: Va;
 	public readonly valueController: C;
 
 	constructor(doc: Document, config: Config<T, C, Va>) {
@@ -46,7 +52,6 @@ export class LabeledValueController<
 		const viewProps = config.valueController.viewProps;
 		super({
 			...config,
-			value: config.value,
 			view: new LabelView(doc, {
 				props: config.props,
 				viewProps: viewProps,
@@ -55,6 +60,7 @@ export class LabeledValueController<
 		});
 
 		this.props = config.props;
+		this.value = config.value;
 		this.valueController = config.valueController;
 
 		this.view.valueElement.appendChild(this.valueController.view.element);
@@ -73,7 +79,8 @@ export class LabeledValueController<
 				if (result.value) {
 					this.value.rawValue = result.value as T;
 				}
-				return true;
+
+				return this.valueController.importProps?.(state) ?? true;
 			},
 		);
 	}
@@ -82,6 +89,7 @@ export class LabeledValueController<
 		return exportBladeState(() => super.exportState(), {
 			label: this.props.get('label'),
 			value: this.value.rawValue,
+			...(this.valueController.exportProps?.() ?? {}),
 		});
 	}
 }

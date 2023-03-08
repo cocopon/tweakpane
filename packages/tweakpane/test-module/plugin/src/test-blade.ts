@@ -1,6 +1,7 @@
 import {
 	BaseBladeParams,
 	BladeApi,
+	BladeController,
 	BladePlugin,
 	BladeState,
 	createBlade,
@@ -16,7 +17,12 @@ import {
 
 import {TestView} from './test-view';
 
-class TestBladeController extends ValueBladeController<string, TestView> {
+class TestBladeController
+	extends BladeController<TestView>
+	implements ValueBladeController<string, TestView>
+{
+	public readonly value: Value<string>;
+
 	constructor(
 		doc: Document,
 		config: {
@@ -26,12 +32,12 @@ class TestBladeController extends ValueBladeController<string, TestView> {
 	) {
 		super({
 			blade: createBlade(),
-			value: config.value,
 			view: new TestView(doc, {
 				value: config.value,
 			}),
 			viewProps: config.viewProps,
 		});
+		this.value = config.value;
 	}
 
 	override importState(state: BladeState): boolean {

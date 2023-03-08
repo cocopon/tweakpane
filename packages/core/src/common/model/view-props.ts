@@ -28,6 +28,11 @@ interface Disableable {
 	disabled: boolean;
 }
 
+interface ViewPropsState {
+	disabled: boolean;
+	hidden: boolean;
+}
+
 export class ViewProps extends ValueMap<ViewPropsObject> {
 	private readonly globalDisabled_: ReadonlyValue<boolean>;
 	private readonly setGlobalDisabled_: SetRawValue<boolean>;
@@ -96,6 +101,18 @@ export class ViewProps extends ValueMap<ViewPropsObject> {
 				callback();
 			}
 		});
+	}
+
+	public importState(state: ViewPropsState): void {
+		this.set('disabled', state.disabled);
+		this.set('hidden', state.hidden);
+	}
+
+	public exportState(): ViewPropsState {
+		return {
+			disabled: this.get('disabled'),
+			hidden: this.get('hidden'),
+		};
 	}
 
 	/**

@@ -1,3 +1,9 @@
+import {
+	BladeState,
+	exportBladeState,
+	importBladeState,
+	PropsPortable,
+} from '../../../blade/common/controller/blade-state';
 import {ValueController} from '../../controller/value';
 import {Parser} from '../../converter/parser';
 import {Value} from '../../model/value';
@@ -24,7 +30,7 @@ interface Config {
  * @hidden
  */
 export class SliderTextController
-	implements ValueController<number, SliderTextView>
+	implements ValueController<number, SliderTextView>, PropsPortable
 {
 	public readonly value: Value<number>;
 	public readonly view: SliderTextView;
@@ -63,5 +69,30 @@ export class SliderTextController
 
 	public get textController(): NumberTextController {
 		return this.textC_;
+	}
+
+	public importProps(state: BladeState): boolean {
+		return importBladeState(
+			state,
+			null,
+			(p) => ({
+				max: p.required.number,
+				min: p.required.number,
+			}),
+			(result) => {
+				const sliderProps = this.sliderC_.props;
+				sliderProps.set('max', result.max);
+				sliderProps.set('min', result.min);
+				return true;
+			},
+		);
+	}
+
+	public exportProps(): BladeState {
+		const sliderProps = this.sliderC_.props;
+		return exportBladeState(null, {
+			max: sliderProps.get('max'),
+			min: sliderProps.get('min'),
+		});
 	}
 }
