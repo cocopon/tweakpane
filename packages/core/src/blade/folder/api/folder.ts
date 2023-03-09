@@ -115,4 +115,8 @@ export class FolderApi
 		});
 		return this;
 	}
+
+	public refresh(): void {
+		this.rackApi_.refresh();
+	}
 }

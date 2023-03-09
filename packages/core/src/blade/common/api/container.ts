@@ -6,8 +6,9 @@ import {FolderApi} from '../../folder/api/folder';
 import {TabApi} from '../../tab/api/tab';
 import {BladeApi} from './blade';
 import {BindingParams, ButtonParams, FolderParams, TabParams} from './params';
+import {Refreshable} from './refreshable';
 
-export interface ContainerApi {
+export interface ContainerApi extends Refreshable {
 	/**
 	 * Children of the container.
 	 */

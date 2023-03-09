@@ -11,6 +11,8 @@ import {forceCast} from '../../../misc/type-util';
 import {createDefaultPluginPool} from '../../../plugin/plugins';
 import {PluginPool} from '../../../plugin/pool';
 import {BindingApi} from '../../binding/api/binding';
+import {InputBindingApi} from '../../binding/api/input-binding';
+import {FolderApi} from '../../folder/api/folder';
 import {LabeledValueController} from '../../label/controller/value-label';
 import {LabelPropsObject} from '../../label/view/label';
 import {TestValueBladeApi, TestValueBladePlugin} from '../../test-util';
@@ -140,5 +142,32 @@ describe(RackApi.name, () => {
 		});
 
 		b['controller_'].value.rawValue = 2;
+	});
+
+	it('should refresh children', () => {
+		const doc = createTestWindow().document;
+		const api = createApi({document: doc});
+		const obj = {foo: 1};
+		api.addBinding(obj, 'foo');
+		obj.foo = 2;
+
+		const bapi = api.children[0] as InputBindingApi;
+		assert.strictEqual(bapi['controller_'].value.rawValue, 1);
+		api.refresh();
+		assert.strictEqual(bapi['controller_'].value.rawValue, 2);
+	});
+
+	it('should refresh nested children', () => {
+		const doc = createTestWindow().document;
+		const api = createApi({document: doc});
+		const obj = {foo: 1};
+		api.addFolder({title: ''}).addBinding(obj, 'foo');
+		obj.foo = 2;
+
+		const fapi = api.children[0] as FolderApi;
+		const bapi = fapi.children[0] as InputBindingApi;
+		assert.strictEqual(bapi['controller_'].value.rawValue, 1);
+		api.refresh();
+		assert.strictEqual(bapi['controller_'].value.rawValue, 2);
 	});
 });

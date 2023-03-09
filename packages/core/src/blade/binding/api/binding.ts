@@ -2,6 +2,7 @@ import {Emitter} from '../../../common/model/emitter';
 import {ValueEvents} from '../../../common/model/value';
 import {forceCast} from '../../../misc/type-util';
 import {BladeApi} from '../../common/api/blade';
+import {Refreshable} from '../../common/api/refreshable';
 import {TpChangeEvent} from '../../common/api/tp-event';
 import {BindingController} from '../controller/binding';
 
@@ -15,10 +16,13 @@ export interface BindingApiEvents<Ex> {
  * @template Ex The external type.
  */
 export class BindingApi<
-	In = unknown,
-	Ex = unknown,
-	C extends BindingController<In> = BindingController<In>,
-> extends BladeApi<C> {
+		In = unknown,
+		Ex = unknown,
+		C extends BindingController<In> = BindingController<In>,
+	>
+	extends BladeApi<C>
+	implements Refreshable
+{
 	private readonly emitter_: Emitter<BindingApiEvents<Ex>>;
 
 	/**

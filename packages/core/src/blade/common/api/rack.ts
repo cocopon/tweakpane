@@ -18,6 +18,7 @@ import {
 	ContainerApi,
 } from './container';
 import {BindingParams, ButtonParams, FolderParams, TabParams} from './params';
+import {isRefreshable} from './refreshable';
 import {TpChangeEvent} from './tp-event';
 
 /**
@@ -114,6 +115,14 @@ export class RackApi implements ContainerApi {
 			bh(ev);
 		});
 		return this;
+	}
+
+	public refresh(): void {
+		this.children.forEach((c) => {
+			if (isRefreshable(c)) {
+				c.refresh();
+			}
+		});
 	}
 
 	private onRackValueChange_(ev: RackEvents['valuechange']): void {
