@@ -2,18 +2,22 @@ import {ListApi, Pane, TextApi} from 'tweakpane';
 
 import {selectContainer} from '../util';
 
-function hoge(markerToFnMap: {
-	[key: string]: (container: HTMLElement) => void;
-}) {
-	Object.keys(markerToFnMap).forEach((marker) => {
-		const initFn = markerToFnMap[marker];
-		const container = selectContainer(marker);
-		initFn(container);
-	});
-}
-
 export function initBlades() {
-	hoge({
+	const markerToFnMap: {
+		[key: string]: (container: HTMLElement) => void;
+	} = {
+		blade(container) {
+			const pane = new Pane({
+				container: container,
+			});
+			pane.addBlade({
+				view: 'slider',
+				label: 'brightness',
+				min: 0,
+				max: 1,
+				value: 0.5,
+			});
+		},
 		text(container) {
 			const pane = new Pane({
 				container: container,
@@ -67,5 +71,10 @@ export function initBlades() {
 				value: 0.5,
 			});
 		},
+	};
+	Object.keys(markerToFnMap).forEach((marker) => {
+		const initFn = markerToFnMap[marker];
+		const container = selectContainer(marker);
+		initFn(container);
 	});
 }

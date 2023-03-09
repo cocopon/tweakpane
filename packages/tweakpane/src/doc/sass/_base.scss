@@ -66,6 +66,9 @@ h6 {
 		}
 	}
 }
+p + p {
+	margin-top: 1em;
+}
 code {
 	font-family: defs.$font-family-mono;
 }

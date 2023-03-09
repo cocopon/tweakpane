@@ -9,7 +9,6 @@
 	<div class="pageHeader_inner">
 		<div class="pageHeader_text">
 			<h1 class="pageHeader_title">{{ title }}</h1>
-			<p><code>addBlade()</code> can create a <a href="{{ root }}quick-tour/#blades">blade</a> without binding.</p>
 		</div>
 	</div>
 </div>
@@ -17,6 +16,45 @@
 
 
 {% block content %}
+<h2>Basics</h2>
+<p><code>addBlade()</code> can create a <a href="{{ root }}quick-tour/#blades">blade</a> without binding.</p>
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
+pane.<strong>addBlade</strong>({
+  <strong>view</strong>: <strong>'slider'</strong>,
+  label: 'brightness',
+  min: 0,
+  max: 1,
+  value: 0.5,
+});</code></pre></div>
+		</div>
+		<div class="demo_result">
+			<div class="paneContainer" data-pane-blade></div>
+		</div>
+	</div>
+</div>
+<p>Most of blades needs a specific <code>view</code> and other required parameters. See the sections below for details.</p>
+<p>If you are a TypeScript user, need to cast a created blade to a specific type to access full functionalities:</p>
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock"><pre><code class="js">const b = pane.addBlade({
+  view: 'slider',
+  label: 'brightness',
+  min: 0,
+  max: 1,
+  value: 0.5,
+}) <strong>as SliderApi</strong>;
+
+// Access slider-specific fields
+console.log(b.minValue, b.maxValue);</code></pre></div>
+		</div>
+	</div>
+</div>
+
+
 <h2 id="text">Text</h2>
 <p>
 	<a href="{{ root }}api/interfaces/tweakpane.TextBladeParams.html">Parameters</a> | <a href="{{ root }}api/classes/tweakpane.TextApi.html">API</a>
@@ -28,7 +66,7 @@
 pane.addBlade({
   view: 'text',
   label: 'name',
-  parse: (v) => String(v),
+  parse: (v) =&gt; String(v),
   value: 'sketch-01',
 });</code></pre></div>
 		</div>
