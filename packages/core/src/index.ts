@@ -103,6 +103,7 @@ export * from './common/view/view';
 
 export * from './common/compat';
 export * from './common/dom-util';
+export * from './common/list-util';
 export * from './common/micro-parsers';
 export * from './common/number-util';
 export * from './common/params';

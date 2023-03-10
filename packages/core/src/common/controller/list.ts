@@ -5,10 +5,10 @@ import {
 	PropsPortable,
 } from '../../blade/common/controller/blade-state';
 import {forceCast} from '../../misc/type-util';
+import {normalizeListOptions, parseListOptions} from '../list-util';
 import {Value} from '../model/value';
 import {ViewProps} from '../model/view-props';
 import {ListParamsOptions} from '../params';
-import {normalizeListOptions, parseListOptions} from '../util';
 import {ListProps, ListView} from '../view/list';
 import {ValueController} from './value';
 

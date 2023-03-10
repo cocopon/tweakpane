@@ -16,6 +16,7 @@ import {
 	numberFromUnknown,
 	parseNumber,
 } from '../../common/converter/number';
+import {createListConstraint, parseListOptions} from '../../common/list-util';
 import {MicroParser, parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
 import {NumberTextController} from '../../common/number/controller/number-text';
@@ -23,11 +24,9 @@ import {SliderTextController} from '../../common/number/controller/slider-text';
 import {BaseInputParams, ListParamsOptions} from '../../common/params';
 import {writePrimitive} from '../../common/primitive';
 import {
-	createListConstraint,
 	getBaseStep,
 	getSuitableDecimalDigits,
 	getSuitableDraggingScale,
-	parseListOptions,
 } from '../../common/util';
 import {isEmpty} from '../../misc/type-util';
 import {VERSION} from '../../version';
