@@ -17,7 +17,10 @@ import {
 	PointDimensionParams,
 } from '../../common/params';
 import {parsePickerLayout} from '../../common/picker-util';
-import {parsePointDimensionParams} from '../../common/point-nd-util';
+import {
+	createPointDimensionParser,
+	parsePointDimensionParams,
+} from '../../common/point-nd-util';
 import {createDimensionConstraint} from '../../common/point-nd-util';
 import {isEmpty} from '../../misc/type-util';
 import {VERSION} from '../../version';
@@ -128,12 +131,10 @@ export const Point2dInputPlugin: InputBindingPlugin<
 			return null;
 		}
 		const result = parseRecord<Point2dInputParams>(params, (p) => ({
+			...createPointDimensionParser(p),
 			expanded: p.optional.boolean,
-			max: p.optional.number,
-			min: p.optional.number,
 			picker: p.optional.custom(parsePickerLayout),
 			readonly: p.optional.constant(false),
-			step: p.optional.number,
 			x: p.optional.custom(parsePointDimensionParams),
 			y: p.optional.object<Point2dYParams & Record<string, unknown>>({
 				inverted: p.optional.boolean,

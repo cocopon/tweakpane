@@ -13,6 +13,7 @@ import {
 import {BaseInputParams, PointDimensionParams} from '../../common/params';
 import {
 	createDimensionConstraint,
+	createPointDimensionParser,
 	parsePointDimensionParams,
 } from '../../common/point-nd-util';
 import {TpError} from '../../common/tp-error';
@@ -79,10 +80,8 @@ export const Point4dInputPlugin: InputBindingPlugin<
 			return null;
 		}
 		const result = parseRecord<Point4dInputParams>(params, (p) => ({
-			max: p.optional.number,
-			min: p.optional.number,
+			...createPointDimensionParser(p),
 			readonly: p.optional.constant(false),
-			step: p.optional.number,
 			w: p.optional.custom(parsePointDimensionParams),
 			x: p.optional.custom(parsePointDimensionParams),
 			y: p.optional.custom(parsePointDimensionParams),
