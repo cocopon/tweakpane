@@ -36,9 +36,9 @@ function createConstraint(
 	return new PointNdConstraint({
 		assembly: Point3dAssembly,
 		components: [
-			createDimensionConstraint(params.x, initialValue.x),
-			createDimensionConstraint(params.y, initialValue.y),
-			createDimensionConstraint(params.z, initialValue.z),
+			createDimensionConstraint({...params, ...params.x}, initialValue.x),
+			createDimensionConstraint({...params, ...params.y}, initialValue.y),
+			createDimensionConstraint({...params, ...params.z}, initialValue.z),
 		],
 	});
 }
@@ -75,7 +75,10 @@ export const Point3dInputPlugin: InputBindingPlugin<
 			return null;
 		}
 		const result = parseRecord<Point3dInputParams>(params, (p) => ({
+			max: p.optional.number,
+			min: p.optional.number,
 			readonly: p.optional.constant(false),
+			step: p.optional.number,
 			x: p.optional.custom(parsePointDimensionParams),
 			y: p.optional.custom(parsePointDimensionParams),
 			z: p.optional.custom(parsePointDimensionParams),

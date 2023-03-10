@@ -143,66 +143,42 @@ describe(Point2dInputPlugin.id, () => {
 		{
 			params: {
 				params: {
-					x: {min: -1, max: 1, step: 0.1},
-					y: {min: -2, max: 2, step: 0.2},
-				},
-			},
-			expected: {
-				x: {min: -1, max: 1, step: 0.1},
-				y: {min: -2, max: 2, step: 0.2},
-			},
-		},
-		{
-			params: {
-				params: {
-					min: -1,
-					max: 1,
-					step: 0.1,
+					...{min: -1, max: 1, step: 0.1},
 					x: {min: -2, max: 2, step: 0.2},
 				},
 			},
-			expected: {
-				x: {min: -2, max: 2, step: 0.2},
-				y: {min: -1, max: 1, step: 0.1},
-			},
+			expected: [
+				{min: -2, max: 2, step: 0.2},
+				{min: -1, max: 1, step: 0.1},
+			],
 		},
 		{
 			params: {
 				params: {
-					min: -1,
-					max: 1,
-					step: 0.1,
+					...{min: -1, max: 1, step: 0.1},
 					y: {min: -2, max: 2, step: 0.2},
 				},
 			},
-			expected: {
-				x: {min: -1, max: 1, step: 0.1},
-				y: {min: -2, max: 2, step: 0.2},
-			},
+			expected: [
+				{min: -1, max: 1, step: 0.1},
+				{min: -2, max: 2, step: 0.2},
+			],
 		},
 	].forEach(({params, expected}) => {
 		describe(`when params=${JSON.stringify(params)}`, () => {
 			it('should propagate dimension params', () => {
 				const doc = createTestWindow().document;
-				const p = {x: 12, y: 34, hello: 'world'};
-				const obj = {p: p};
 				const c = createInputBindingController(Point2dInputPlugin, {
 					document: doc,
 					params: params.params,
-					target: new BindingTarget(obj, 'p'),
+					target: new BindingTarget({p: {x: 12, y: 34}}, 'p'),
 				}) as InputBindingController;
 
-				const constraint = getPoint2dConstraint(c.value);
-
-				const xp = getDimensionProps(
-					constraint.components[0] as Constraint<number>,
-				);
-				assert.deepStrictEqual(xp, expected.x);
-
-				const yp = getDimensionProps(
-					constraint.components[1] as Constraint<number>,
-				);
-				assert.deepStrictEqual(yp, expected.y);
+				const comps = getPoint2dConstraint(c.value).components;
+				[0, 1].forEach((i) => {
+					const p = getDimensionProps(comps[i] as Constraint<number>);
+					assert.deepStrictEqual(p, expected[i]);
+				});
 			});
 		});
 	});

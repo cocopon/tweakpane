@@ -47,20 +47,8 @@ function createConstraint(
 	return new PointNdConstraint({
 		assembly: Point2dAssembly,
 		components: [
-			createDimensionConstraint(
-				{
-					...params,
-					...params.x,
-				},
-				initialValue.x,
-			),
-			createDimensionConstraint(
-				{
-					...params,
-					...params.y,
-				},
-				initialValue.y,
-			),
+			createDimensionConstraint({...params, ...params.x}, initialValue.x),
+			createDimensionConstraint({...params, ...params.y}, initialValue.y),
 		],
 	});
 }
