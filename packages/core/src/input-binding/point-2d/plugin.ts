@@ -11,13 +11,12 @@ import {
 	PickerLayout,
 	PointDimensionParams,
 } from '../../common/params';
-import {TpError} from '../../common/tp-error';
+import {parsePointDimensionParams} from '../../common/pointnd-util';
 import {
 	getBaseStep,
 	getSuitableDecimalDigits,
 	getSuitableDraggingScale,
 	parsePickerLayout,
-	parsePointDimensionParams,
 } from '../../common/util';
 import {isEmpty} from '../../misc/type-util';
 import {VERSION} from '../../version';
@@ -36,7 +35,9 @@ interface Point2dYParams extends PointDimensionParams {
 	inverted?: boolean;
 }
 
-export interface Point2dInputParams extends BaseInputParams {
+export interface Point2dInputParams
+	extends BaseInputParams,
+		PointDimensionParams {
 	expanded?: boolean;
 	picker?: PickerLayout;
 	x?: PointDimensionParams;
@@ -70,8 +71,20 @@ function createConstraint(
 	return new PointNdConstraint({
 		assembly: Point2dAssembly,
 		components: [
-			createDimensionConstraint(params.x, initialValue.x),
-			createDimensionConstraint(params.y, initialValue.y),
+			createDimensionConstraint(
+				{
+					...params,
+					...params.x,
+				},
+				initialValue.x,
+			),
+			createDimensionConstraint(
+				{
+					...params,
+					...params.y,
+				},
+				initialValue.y,
+			),
 		],
 	});
 }
@@ -152,8 +165,11 @@ export const Point2dInputPlugin: InputBindingPlugin<
 		}
 		const result = parseRecord<Point2dInputParams>(params, (p) => ({
 			expanded: p.optional.boolean,
+			max: p.optional.number,
+			min: p.optional.number,
 			picker: p.optional.custom(parsePickerLayout),
 			readonly: p.optional.constant(false),
+			step: p.optional.number,
 			x: p.optional.custom(parsePointDimensionParams),
 			y: p.optional.object<Point2dYParams & Record<string, unknown>>({
 				inverted: p.optional.boolean,
@@ -170,19 +186,15 @@ export const Point2dInputPlugin: InputBindingPlugin<
 			: null;
 	},
 	binding: {
-		reader: (_args) => point2dFromUnknown,
+		reader: () => point2dFromUnknown,
 		constraint: (args) => createConstraint(args.params, args.initialValue),
 		equals: Point2d.equals,
-		writer: (_args) => writePoint2d,
+		writer: () => writePoint2d,
 	},
 	controller: (args) => {
 		const doc = args.document;
 		const value = args.value;
-		const c = args.constraint;
-		if (!(c instanceof PointNdConstraint)) {
-			throw TpError.shouldNeverHappen();
-		}
-
+		const c = args.constraint as PointNdConstraint<Point2d>;
 		return new Point2dController(doc, {
 			axes: [
 				createAxis(value.rawValue.x, c.components[0]),

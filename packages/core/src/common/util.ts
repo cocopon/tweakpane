@@ -1,4 +1,4 @@
-import {forceCast, isEmpty, isRecord} from '../misc/type-util';
+import {forceCast, isEmpty} from '../misc/type-util';
 import {findConstraint} from './constraint/composite';
 import {Constraint} from './constraint/constraint';
 import {ListConstraint, ListItem} from './constraint/list';
@@ -10,7 +10,6 @@ import {
 	ListParamsOptions,
 	ObjectStyleListOptions,
 	PickerLayout,
-	PointDimensionParams,
 } from './params';
 
 export function parseListOptions<T>(
@@ -39,19 +38,6 @@ export function parsePickerLayout(value: unknown): PickerLayout | undefined {
 		return value;
 	}
 	return undefined;
-}
-
-export function parsePointDimensionParams(
-	value: unknown,
-): PointDimensionParams | undefined {
-	if (!isRecord(value)) {
-		return undefined;
-	}
-	return parseRecord(value, (p) => ({
-		max: p.optional.number,
-		min: p.optional.number,
-		step: p.optional.number,
-	}));
 }
 
 export function normalizeListOptions<T>(

@@ -1,9 +1,11 @@
 import * as assert from 'assert';
-import {describe as context, describe, it} from 'mocha';
+import {describe, it} from 'mocha';
 
+import {InputBindingController} from '../../blade/binding/controller/input-binding';
 import {BindingTarget} from '../../common/binding/target';
 import {InputBindingValue} from '../../common/binding/value/input-binding';
 import {findConstraint} from '../../common/constraint/composite';
+import {Constraint} from '../../common/constraint/constraint';
 import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
 import {ComplexValue} from '../../common/model/complex-value';
@@ -15,6 +17,23 @@ import {findNumberRange} from '../number/plugin';
 import {createInputBindingController} from '../plugin';
 import {Point2d, Point2dAssembly} from './model/point-2d';
 import {getSuitableMax, Point2dInputPlugin} from './plugin';
+
+function getPoint2dConstraint(
+	v: InputBindingValue<unknown>,
+): PointNdConstraint<Point2d> {
+	return (getBoundValue(v) as ComplexValue<unknown>)
+		.constraint as PointNdConstraint<Point2d>;
+}
+
+function getDimensionProps(c: Constraint<number>) {
+	const [min, max] = findNumberRange(c);
+	const sc = findConstraint(c, StepConstraint);
+	return {
+		max: max,
+		min: min,
+		step: sc?.step,
+	};
+}
 
 describe(getSuitableMax.name, () => {
 	[
@@ -53,7 +72,7 @@ describe(getSuitableMax.name, () => {
 			},
 		},
 	].forEach((testCase) => {
-		context(`when params = ${JSON.stringify(testCase.params)}`, () => {
+		describe(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should return ${testCase.expected}`, () => {
 				const mv = getSuitableMax(
 					testCase.params.rawValue,
@@ -74,19 +93,13 @@ describe(Point2dInputPlugin.id, () => {
 				x: {step: 1},
 			},
 			target: new BindingTarget({foo: {x: 12, y: 34}}, 'foo'),
-		});
+		}) as InputBindingController;
 
-		const constraint = (
-			getBoundValue(
-				c?.value as InputBindingValue<unknown>,
-			) as ComplexValue<unknown>
-		).constraint as PointNdConstraint<Point2d>;
-		const xc = constraint.components[0];
-		if (!xc) {
-			assert.fail('Unexpected constraint');
-		}
-		const sc = findConstraint(xc, StepConstraint);
-		assert.strictEqual(sc && sc.step, 1);
+		const constraint = getPoint2dConstraint(c.value);
+		const xp = getDimensionProps(
+			constraint.components[0] as Constraint<number>,
+		);
+		assert.strictEqual(xp.step, 1);
 	});
 
 	it('should create appropriate range constraint', () => {
@@ -97,20 +110,13 @@ describe(Point2dInputPlugin.id, () => {
 				y: {max: 456, min: -123},
 			},
 			target: new BindingTarget({foo: {x: 12, y: 34}}, 'foo'),
-		});
+		}) as InputBindingController;
 
-		const constraint = (
-			getBoundValue(
-				c?.value as InputBindingValue<unknown>,
-			) as ComplexValue<unknown>
-		).constraint as PointNdConstraint<Point2d>;
-		const yc = constraint.components[1];
-		if (!yc) {
-			assert.fail('Unexpected constraint');
-		}
-		const [min, max] = findNumberRange(yc);
-		assert.strictEqual(min, -123);
-		assert.strictEqual(max, 456);
+		const constraint = getPoint2dConstraint(c.value);
+		const yp = getDimensionProps(
+			constraint.components[1] as Constraint<number>,
+		);
+		assert.deepStrictEqual([yp.min, yp.max], [-123, 456]);
 	});
 
 	it('should not break original object', () => {
@@ -131,5 +137,73 @@ describe(Point2dInputPlugin.id, () => {
 		assert.strictEqual(p.x, 56);
 		assert.strictEqual(p.y, 78);
 		assert.strictEqual(p.hello, 'world');
+	});
+
+	[
+		{
+			params: {
+				params: {
+					x: {min: -1, max: 1, step: 0.1},
+					y: {min: -2, max: 2, step: 0.2},
+				},
+			},
+			expected: {
+				x: {min: -1, max: 1, step: 0.1},
+				y: {min: -2, max: 2, step: 0.2},
+			},
+		},
+		{
+			params: {
+				params: {
+					min: -1,
+					max: 1,
+					step: 0.1,
+					x: {min: -2, max: 2, step: 0.2},
+				},
+			},
+			expected: {
+				x: {min: -2, max: 2, step: 0.2},
+				y: {min: -1, max: 1, step: 0.1},
+			},
+		},
+		{
+			params: {
+				params: {
+					min: -1,
+					max: 1,
+					step: 0.1,
+					y: {min: -2, max: 2, step: 0.2},
+				},
+			},
+			expected: {
+				x: {min: -1, max: 1, step: 0.1},
+				y: {min: -2, max: 2, step: 0.2},
+			},
+		},
+	].forEach(({params, expected}) => {
+		describe(`when params=${JSON.stringify(params)}`, () => {
+			it('should propagate dimension params', () => {
+				const doc = createTestWindow().document;
+				const p = {x: 12, y: 34, hello: 'world'};
+				const obj = {p: p};
+				const c = createInputBindingController(Point2dInputPlugin, {
+					document: doc,
+					params: params.params,
+					target: new BindingTarget(obj, 'p'),
+				}) as InputBindingController;
+
+				const constraint = getPoint2dConstraint(c.value);
+
+				const xp = getDimensionProps(
+					constraint.components[0] as Constraint<number>,
+				);
+				assert.deepStrictEqual(xp, expected.x);
+
+				const yp = getDimensionProps(
+					constraint.components[1] as Constraint<number>,
+				);
+				assert.deepStrictEqual(yp, expected.y);
+			});
+		});
 	});
 });

@@ -6,12 +6,12 @@ import {
 import {parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
 import {BaseInputParams, PointDimensionParams} from '../../common/params';
+import {parsePointDimensionParams} from '../../common/pointnd-util';
 import {TpError} from '../../common/tp-error';
 import {
 	getBaseStep,
 	getSuitableDecimalDigits,
 	getSuitableDraggingScale,
-	parsePointDimensionParams,
 } from '../../common/util';
 import {VERSION} from '../../version';
 import {PointNdConstraint} from '../common/constraint/point-nd';
