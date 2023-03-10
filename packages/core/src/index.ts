@@ -107,11 +107,11 @@ export * from './common/list-util';
 export * from './common/micro-parsers';
 export * from './common/number-util';
 export * from './common/params';
+export * from './common/picker-util';
 export * from './common/point-nd-util';
 export * from './common/primitive';
 export * from './common/tp-error';
 export * from './common/ui';
-export * from './common/util';
 
 export * from './input-binding/boolean/controller/checkbox';
 export * from './input-binding/boolean/plugin';

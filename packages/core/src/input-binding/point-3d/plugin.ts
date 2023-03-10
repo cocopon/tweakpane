@@ -5,14 +5,14 @@ import {
 } from '../../common/converter/number';
 import {parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
-import {BaseInputParams, PointDimensionParams} from '../../common/params';
-import {parsePointDimensionParams} from '../../common/point-nd-util';
-import {TpError} from '../../common/tp-error';
 import {
 	getBaseStep,
 	getSuitableDecimalDigits,
 	getSuitableDraggingScale,
-} from '../../common/util';
+} from '../../common/number-util';
+import {BaseInputParams, PointDimensionParams} from '../../common/params';
+import {parsePointDimensionParams} from '../../common/point-nd-util';
+import {TpError} from '../../common/tp-error';
 import {VERSION} from '../../version';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {PointNdTextController} from '../common/controller/point-nd-text';

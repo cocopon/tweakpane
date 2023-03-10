@@ -21,13 +21,13 @@ import {MicroParser, parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
 import {NumberTextController} from '../../common/number/controller/number-text';
 import {SliderTextController} from '../../common/number/controller/slider-text';
-import {BaseInputParams, ListParamsOptions} from '../../common/params';
-import {writePrimitive} from '../../common/primitive';
 import {
 	getBaseStep,
 	getSuitableDecimalDigits,
 	getSuitableDraggingScale,
-} from '../../common/util';
+} from '../../common/number-util';
+import {BaseInputParams, ListParamsOptions} from '../../common/params';
+import {writePrimitive} from '../../common/primitive';
 import {isEmpty} from '../../misc/type-util';
 import {VERSION} from '../../version';
 import {InputBindingPlugin} from '../plugin';

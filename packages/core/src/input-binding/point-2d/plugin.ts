@@ -7,17 +7,17 @@ import {
 import {parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
 import {
+	getBaseStep,
+	getSuitableDecimalDigits,
+	getSuitableDraggingScale,
+} from '../../common/number-util';
+import {
 	BaseInputParams,
 	PickerLayout,
 	PointDimensionParams,
 } from '../../common/params';
+import {parsePickerLayout} from '../../common/picker-util';
 import {parsePointDimensionParams} from '../../common/point-nd-util';
-import {
-	getBaseStep,
-	getSuitableDecimalDigits,
-	getSuitableDraggingScale,
-	parsePickerLayout,
-} from '../../common/util';
 import {isEmpty} from '../../misc/type-util';
 import {VERSION} from '../../version';
 import {PointNdConstraint} from '../common/constraint/point-nd';
