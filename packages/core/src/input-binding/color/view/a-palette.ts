@@ -1,6 +1,6 @@
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
-import {mapRange} from '../../../common/number-util';
+import {mapRange} from '../../../common/number/util';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 import {colorToFunctionalRgbaString} from '../converter/color-string';

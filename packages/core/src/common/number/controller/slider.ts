@@ -1,13 +1,13 @@
 import {ValueController} from '../../controller/value';
 import {Value, ValueChangeOptions} from '../../model/value';
 import {ViewProps} from '../../model/view-props';
-import {constrainRange, mapRange} from '../../number-util';
 import {getHorizontalStepKeys, getStepForKey} from '../../ui';
 import {
 	PointerData,
 	PointerHandler,
 	PointerHandlerEvent,
 } from '../../view/pointer-handler';
+import {constrainRange, mapRange} from '../util';
 import {SliderProps, SliderView} from '../view/slider';
 
 /**

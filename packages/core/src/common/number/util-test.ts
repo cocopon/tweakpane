@@ -1,15 +1,15 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
-import {TestUtil} from '../misc/test-util';
-import {StepConstraint} from './constraint/step';
+import {TestUtil} from '../../misc/test-util';
+import {StepConstraint} from '../constraint/step';
 import {
 	constrainRange,
 	getDecimalDigits,
 	getSuitableDraggingScale,
 	loopRange,
 	mapRange,
-} from './number-util';
+} from './util';
 
 const DELTA = 1e-5;
 

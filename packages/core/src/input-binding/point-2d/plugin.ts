@@ -1,4 +1,3 @@
-import {CompositeConstraint} from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
 import {
 	createNumberFormatter,
@@ -7,10 +6,11 @@ import {
 import {parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
 import {
+	findNumberRange,
 	getBaseStep,
 	getSuitableDecimalDigits,
 	getSuitableDraggingScale,
-} from '../../common/number-util';
+} from '../../common/number/util';
 import {
 	BaseInputParams,
 	PickerLayout,
@@ -18,14 +18,10 @@ import {
 } from '../../common/params';
 import {parsePickerLayout} from '../../common/picker-util';
 import {parsePointDimensionParams} from '../../common/point-nd-util';
+import {createDimensionConstraint} from '../../common/point-nd-util';
 import {isEmpty} from '../../misc/type-util';
 import {VERSION} from '../../version';
 import {PointNdConstraint} from '../common/constraint/point-nd';
-import {
-	createRangeConstraint,
-	createStepConstraint,
-	findNumberRange,
-} from '../number/plugin';
 import {InputBindingPlugin} from '../plugin';
 import {Point2dController} from './controller/point-2d';
 import {point2dFromUnknown, writePoint2d} from './converter/point-2d';
@@ -42,26 +38,6 @@ export interface Point2dInputParams
 	picker?: PickerLayout;
 	x?: PointDimensionParams;
 	y?: Point2dYParams;
-}
-
-export function createDimensionConstraint(
-	params: PointDimensionParams | undefined,
-	initialValue: number,
-): Constraint<number> | undefined {
-	if (!params) {
-		return undefined;
-	}
-
-	const constraints: Constraint<number>[] = [];
-	const cs = createStepConstraint(params, initialValue);
-	if (cs) {
-		constraints.push(cs);
-	}
-	const rs = createRangeConstraint(params);
-	if (rs) {
-		constraints.push(rs);
-	}
-	return new CompositeConstraint(constraints);
 }
 
 function createConstraint(

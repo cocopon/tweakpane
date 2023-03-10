@@ -11,7 +11,7 @@ import {BufferedValue} from '../../../common/model/buffered-value';
 import {Value} from '../../../common/model/value';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
-import {mapRange} from '../../../common/number-util';
+import {mapRange} from '../../../common/number/util';
 import {
 	PointerHandler,
 	PointerHandlerEvent,

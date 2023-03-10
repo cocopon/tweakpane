@@ -1,5 +1,8 @@
 import {isRecord} from '../misc/type-util';
+import {CompositeConstraint} from './constraint/composite';
+import {Constraint} from './constraint/constraint';
 import {parseRecord} from './micro-parsers';
+import {createRangeConstraint, createStepConstraint} from './number/util';
 import {PointDimensionParams} from './params';
 
 export function parsePointDimensionParams(
@@ -13,4 +16,24 @@ export function parsePointDimensionParams(
 		min: p.optional.number,
 		step: p.optional.number,
 	}));
+}
+
+export function createDimensionConstraint(
+	params: PointDimensionParams | undefined,
+	initialValue: number,
+): Constraint<number> | undefined {
+	if (!params) {
+		return undefined;
+	}
+
+	const constraints: Constraint<number>[] = [];
+	const cs = createStepConstraint(params, initialValue);
+	if (cs) {
+		constraints.push(cs);
+	}
+	const rs = createRangeConstraint(params);
+	if (rs) {
+		constraints.push(rs);
+	}
+	return new CompositeConstraint(constraints);
 }

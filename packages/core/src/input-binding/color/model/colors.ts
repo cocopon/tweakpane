@@ -1,4 +1,4 @@
-import {mapRange} from '../../../common/number-util';
+import {mapRange} from '../../../common/number/util';
 import {TpError} from '../../../common/tp-error';
 import {Color} from './color';
 import {

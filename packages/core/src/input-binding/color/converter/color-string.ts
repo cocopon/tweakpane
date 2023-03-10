@@ -2,7 +2,7 @@ import {Formatter} from '../../../common/converter/formatter';
 import {createNumberFormatter} from '../../../common/converter/number';
 import {composeParsers, Parser} from '../../../common/converter/parser';
 import {formatPercentage} from '../../../common/converter/percentage';
-import {constrainRange, mapRange} from '../../../common/number-util';
+import {constrainRange, mapRange} from '../../../common/number/util';
 import {Color} from '../model/color';
 import {
 	ColorComponents3,

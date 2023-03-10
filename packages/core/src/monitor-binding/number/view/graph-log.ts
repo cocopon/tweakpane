@@ -4,7 +4,7 @@ import {BufferedValue} from '../../../common/model/buffered-value';
 import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
-import {mapRange} from '../../../common/number-util';
+import {mapRange} from '../../../common/number/util';
 import {ClassName} from '../../../common/view/class-name';
 import {getCssVar} from '../../../common/view/css-vars';
 import {View} from '../../../common/view/view';

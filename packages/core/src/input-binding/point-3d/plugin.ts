@@ -9,15 +9,17 @@ import {
 	getBaseStep,
 	getSuitableDecimalDigits,
 	getSuitableDraggingScale,
-} from '../../common/number-util';
+} from '../../common/number/util';
 import {BaseInputParams, PointDimensionParams} from '../../common/params';
-import {parsePointDimensionParams} from '../../common/point-nd-util';
+import {
+	createDimensionConstraint,
+	parsePointDimensionParams,
+} from '../../common/point-nd-util';
 import {TpError} from '../../common/tp-error';
 import {VERSION} from '../../version';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {PointNdTextController} from '../common/controller/point-nd-text';
 import {InputBindingPlugin} from '../plugin';
-import {createDimensionConstraint} from '../point-2d/plugin';
 import {point3dFromUnknown, writePoint3d} from './converter/point-3d';
 import {Point3d, Point3dAssembly, Point3dObject} from './model/point-3d';
 

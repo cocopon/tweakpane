@@ -7,8 +7,6 @@ import {
 import {Constraint} from '../../common/constraint/constraint';
 import {DefiniteRangeConstraint} from '../../common/constraint/definite-range';
 import {ListConstraint} from '../../common/constraint/list';
-import {RangeConstraint} from '../../common/constraint/range';
-import {StepConstraint} from '../../common/constraint/step';
 import {ListController} from '../../common/controller/list';
 import {Formatter} from '../../common/converter/formatter';
 import {
@@ -22,13 +20,14 @@ import {ValueMap} from '../../common/model/value-map';
 import {NumberTextController} from '../../common/number/controller/number-text';
 import {SliderTextController} from '../../common/number/controller/slider-text';
 import {
+	createRangeConstraint,
+	createStepConstraint,
 	getBaseStep,
 	getSuitableDecimalDigits,
 	getSuitableDraggingScale,
-} from '../../common/number-util';
+} from '../../common/number/util';
 import {BaseInputParams, ListParamsOptions} from '../../common/params';
 import {writePrimitive} from '../../common/primitive';
-import {isEmpty} from '../../misc/type-util';
 import {VERSION} from '../../version';
 import {InputBindingPlugin} from '../plugin';
 import {SliderInputBindingApi} from './api/slider';
@@ -39,66 +38,6 @@ export interface NumberInputParams extends BaseInputParams {
 	min?: number;
 	options?: ListParamsOptions<number>;
 	step?: number;
-}
-
-/**
- * Tries to create a step constraint.
- * @param params The input parameters object.
- * @return A constraint or null if not found.
- */
-export function createStepConstraint(
-	params: {
-		step?: number;
-	},
-	initialValue?: number,
-): Constraint<number> | null {
-	if (!isEmpty(params.step)) {
-		return new StepConstraint(params.step, initialValue);
-	}
-	return null;
-}
-
-/**
- * Tries to create a range constraint.
- * @param params The input parameters object.
- * @return A constraint or null if not found.
- */
-export function createRangeConstraint(params: {
-	max?: number;
-	min?: number;
-}): Constraint<number> | null {
-	if (!isEmpty(params.max) && !isEmpty(params.min)) {
-		return new DefiniteRangeConstraint({
-			max: params.max,
-			min: params.min,
-		});
-	}
-	if (!isEmpty(params.max) || !isEmpty(params.min)) {
-		return new RangeConstraint({
-			max: params.max,
-			min: params.min,
-		});
-	}
-	return null;
-}
-
-/**
- * Finds a range from number constraint.
- * @param c The number constraint.
- * @return A list that contains a minimum value and a max value.
- */
-export function findNumberRange(
-	c: Constraint<number>,
-): [number | undefined, number | undefined] {
-	const drc = findConstraint(c, DefiniteRangeConstraint);
-	if (drc) {
-		return [drc.values.get('min'), drc.values.get('max')];
-	}
-	const rc = findConstraint(c, RangeConstraint);
-	if (rc) {
-		return [rc.values.get('min'), rc.values.get('max')];
-	}
-	return [undefined, undefined];
 }
 
 function createConstraint(
