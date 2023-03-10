@@ -5,23 +5,28 @@ import {
 } from '../../common/converter/number';
 import {parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
-import {BaseInputParams, PointDimensionParams} from '../../common/params';
-import {TpError} from '../../common/tp-error';
 import {
 	getBaseStep,
 	getSuitableDecimalDigits,
 	getSuitableDraggingScale,
+} from '../../common/number/util';
+import {BaseInputParams, PointDimensionParams} from '../../common/params';
+import {
+	createDimensionConstraint,
+	createPointDimensionParser,
 	parsePointDimensionParams,
-} from '../../common/util';
+} from '../../common/point-nd-util';
+import {TpError} from '../../common/tp-error';
 import {VERSION} from '../../version';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {PointNdTextController} from '../common/controller/point-nd-text';
 import {InputBindingPlugin} from '../plugin';
-import {createDimensionConstraint} from '../point-2d/plugin';
 import {point4dFromUnknown, writePoint4d} from './converter/point-4d';
 import {Point4d, Point4dAssembly, Point4dObject} from './model/point-4d';
 
-export interface Point4dInputParams extends BaseInputParams {
+export interface Point4dInputParams
+	extends BaseInputParams,
+		PointDimensionParams {
 	x?: PointDimensionParams;
 	y?: PointDimensionParams;
 	z?: PointDimensionParams;
@@ -35,10 +40,10 @@ function createConstraint(
 	return new PointNdConstraint({
 		assembly: Point4dAssembly,
 		components: [
-			createDimensionConstraint(params.x, initialValue.x),
-			createDimensionConstraint(params.y, initialValue.y),
-			createDimensionConstraint(params.z, initialValue.z),
-			createDimensionConstraint(params.w, initialValue.w),
+			createDimensionConstraint({...params, ...params.x}, initialValue.x),
+			createDimensionConstraint({...params, ...params.y}, initialValue.y),
+			createDimensionConstraint({...params, ...params.z}, initialValue.z),
+			createDimensionConstraint({...params, ...params.w}, initialValue.w),
 		],
 	});
 }
@@ -75,11 +80,12 @@ export const Point4dInputPlugin: InputBindingPlugin<
 			return null;
 		}
 		const result = parseRecord<Point4dInputParams>(params, (p) => ({
+			...createPointDimensionParser(p),
 			readonly: p.optional.constant(false),
+			w: p.optional.custom(parsePointDimensionParams),
 			x: p.optional.custom(parsePointDimensionParams),
 			y: p.optional.custom(parsePointDimensionParams),
 			z: p.optional.custom(parsePointDimensionParams),
-			w: p.optional.custom(parsePointDimensionParams),
 		}));
 		return result
 			? {

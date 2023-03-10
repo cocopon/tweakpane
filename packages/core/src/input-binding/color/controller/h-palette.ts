@@ -1,7 +1,7 @@
 import {ValueController} from '../../../common/controller/value';
 import {Value, ValueChangeOptions} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
-import {constrainRange, mapRange} from '../../../common/number-util';
+import {constrainRange, mapRange} from '../../../common/number/util';
 import {getHorizontalStepKeys, getStepForKey} from '../../../common/ui';
 import {
 	PointerData,

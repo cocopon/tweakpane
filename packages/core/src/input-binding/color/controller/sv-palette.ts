@@ -1,7 +1,7 @@
 import {ValueController} from '../../../common/controller/value';
 import {Value, ValueChangeOptions} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
-import {mapRange} from '../../../common/number-util';
+import {mapRange} from '../../../common/number/util';
 import {
 	getHorizontalStepKeys,
 	getStepForKey,

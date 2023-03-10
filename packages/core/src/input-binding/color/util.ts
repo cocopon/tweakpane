@@ -1,6 +1,6 @@
 import {parseRecord} from '../../common/micro-parsers';
 import {BaseInputParams, PickerLayout} from '../../common/params';
-import {parsePickerLayout} from '../../common/util';
+import {parsePickerLayout} from '../../common/picker-util';
 import {ColorType} from './model/color-model';
 
 export interface ColorInputParams extends BaseInputParams {

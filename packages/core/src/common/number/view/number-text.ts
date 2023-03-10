@@ -2,10 +2,10 @@ import {SVG_NS} from '../../../common/dom-util';
 import {Value, ValueEvents} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
-import {constrainRange} from '../../../common/number-util';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 import {Formatter} from '../../converter/formatter';
+import {constrainRange} from '../util';
 
 /**
  * @hidden

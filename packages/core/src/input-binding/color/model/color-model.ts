@@ -1,4 +1,4 @@
-import {constrainRange, loopRange} from '../../../common/number-util';
+import {constrainRange, loopRange} from '../../../common/number/util';
 import {Tuple3, Tuple4} from '../../../misc/type-util';
 
 export type ColorComponents3 = Tuple3<number>;

@@ -9,11 +9,11 @@ import {ListConstraint} from '../../common/constraint/list';
 import {ListController} from '../../common/controller/list';
 import {TextController} from '../../common/controller/text';
 import {formatString, stringFromUnknown} from '../../common/converter/string';
+import {createListConstraint, parseListOptions} from '../../common/list-util';
 import {parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
 import {BaseInputParams, ListParamsOptions} from '../../common/params';
 import {writePrimitive} from '../../common/primitive';
-import {createListConstraint, parseListOptions} from '../../common/util';
 import {VERSION} from '../../version';
 import {InputBindingPlugin} from '../plugin';
 

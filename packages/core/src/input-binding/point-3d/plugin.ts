@@ -5,23 +5,28 @@ import {
 } from '../../common/converter/number';
 import {parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
-import {BaseInputParams, PointDimensionParams} from '../../common/params';
-import {TpError} from '../../common/tp-error';
 import {
 	getBaseStep,
 	getSuitableDecimalDigits,
 	getSuitableDraggingScale,
+} from '../../common/number/util';
+import {BaseInputParams, PointDimensionParams} from '../../common/params';
+import {
+	createDimensionConstraint,
+	createPointDimensionParser,
 	parsePointDimensionParams,
-} from '../../common/util';
+} from '../../common/point-nd-util';
+import {TpError} from '../../common/tp-error';
 import {VERSION} from '../../version';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {PointNdTextController} from '../common/controller/point-nd-text';
 import {InputBindingPlugin} from '../plugin';
-import {createDimensionConstraint} from '../point-2d/plugin';
 import {point3dFromUnknown, writePoint3d} from './converter/point-3d';
 import {Point3d, Point3dAssembly, Point3dObject} from './model/point-3d';
 
-export interface Point3dInputParams extends BaseInputParams {
+export interface Point3dInputParams
+	extends BaseInputParams,
+		PointDimensionParams {
 	x?: PointDimensionParams;
 	y?: PointDimensionParams;
 	z?: PointDimensionParams;
@@ -34,9 +39,9 @@ function createConstraint(
 	return new PointNdConstraint({
 		assembly: Point3dAssembly,
 		components: [
-			createDimensionConstraint(params.x, initialValue.x),
-			createDimensionConstraint(params.y, initialValue.y),
-			createDimensionConstraint(params.z, initialValue.z),
+			createDimensionConstraint({...params, ...params.x}, initialValue.x),
+			createDimensionConstraint({...params, ...params.y}, initialValue.y),
+			createDimensionConstraint({...params, ...params.z}, initialValue.z),
 		],
 	});
 }
@@ -73,6 +78,7 @@ export const Point3dInputPlugin: InputBindingPlugin<
 			return null;
 		}
 		const result = parseRecord<Point3dInputParams>(params, (p) => ({
+			...createPointDimensionParser(p),
 			readonly: p.optional.constant(false),
 			x: p.optional.custom(parsePointDimensionParams),
 			y: p.optional.custom(parsePointDimensionParams),

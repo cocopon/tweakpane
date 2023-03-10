@@ -1,4 +1,4 @@
-import {mapRange} from '../../../common/number-util';
+import {mapRange} from '../../../common/number/util';
 import {removeAlphaComponent} from '../model/color-model';
 import {IntColor} from '../model/int-color';
 
