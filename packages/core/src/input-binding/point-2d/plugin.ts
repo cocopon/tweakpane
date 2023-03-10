@@ -1,28 +1,21 @@
 import {Constraint} from '../../common/constraint/constraint';
-import {
-	createNumberFormatter,
-	parseNumber,
-} from '../../common/converter/number';
+import {parseNumber} from '../../common/converter/number';
 import {parseRecord} from '../../common/micro-parsers';
-import {ValueMap} from '../../common/model/value-map';
-import {
-	findNumberRange,
-	getBaseStep,
-	getSuitableDecimalDigits,
-	getSuitableDraggingScale,
-} from '../../common/number/util';
+import {findNumberRange, getBaseStep} from '../../common/number/util';
 import {
 	BaseInputParams,
 	PickerLayout,
 	PointDimensionParams,
 } from '../../common/params';
 import {parsePickerLayout} from '../../common/picker-util';
+import {Axis} from '../../common/point-nd/axis';
 import {
+	createAxis,
 	createPointDimensionParser,
 	parsePointDimensionParams,
 } from '../../common/point-nd-util';
 import {createDimensionConstraint} from '../../common/point-nd-util';
-import {isEmpty} from '../../misc/type-util';
+import {isEmpty, Tuple2} from '../../misc/type-util';
 import {VERSION} from '../../version';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {InputBindingPlugin} from '../plugin';
@@ -86,22 +79,6 @@ export function getSuitableMax(
 	return Math.max(xr, yr);
 }
 
-function createAxis(
-	initialValue: number,
-	constraint: Constraint<number> | undefined,
-) {
-	return {
-		baseStep: getBaseStep(constraint),
-		constraint: constraint,
-		textProps: ValueMap.fromObject({
-			draggingScale: getSuitableDraggingScale(constraint, initialValue),
-			formatter: createNumberFormatter(
-				getSuitableDecimalDigits(constraint, initialValue),
-			),
-		}),
-	};
-}
-
 function shouldInvertY(params: Point2dInputParams): boolean {
 	if (!('y' in params)) {
 		return false;
@@ -161,10 +138,9 @@ export const Point2dInputPlugin: InputBindingPlugin<
 		const value = args.value;
 		const c = args.constraint as PointNdConstraint<Point2d>;
 		return new Point2dController(doc, {
-			axes: [
-				createAxis(value.rawValue.x, c.components[0]),
-				createAxis(value.rawValue.y, c.components[1]),
-			],
+			axes: value.rawValue
+				.getComponents()
+				.map((comp, i) => createAxis(comp, c.components[i])) as Tuple2<Axis>,
 			expanded: args.params.expanded ?? false,
 			invertsY: shouldInvertY(args.params),
 			max: getSuitableMax(value.rawValue, c),

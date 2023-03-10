@@ -1,17 +1,9 @@
 import {Constraint} from '../../common/constraint/constraint';
-import {
-	createNumberFormatter,
-	parseNumber,
-} from '../../common/converter/number';
+import {parseNumber} from '../../common/converter/number';
 import {parseRecord} from '../../common/micro-parsers';
-import {ValueMap} from '../../common/model/value-map';
-import {
-	getBaseStep,
-	getSuitableDecimalDigits,
-	getSuitableDraggingScale,
-} from '../../common/number/util';
 import {BaseInputParams, PointDimensionParams} from '../../common/params';
 import {
+	createAxis,
 	createDimensionConstraint,
 	createPointDimensionParser,
 	parsePointDimensionParams,
@@ -46,22 +38,6 @@ function createConstraint(
 			createDimensionConstraint({...params, ...params.w}, initialValue.w),
 		],
 	});
-}
-
-function createAxis(
-	initialValue: number,
-	constraint: Constraint<number> | undefined,
-) {
-	return {
-		baseStep: getBaseStep(constraint),
-		constraint: constraint,
-		textProps: ValueMap.fromObject({
-			draggingScale: getSuitableDraggingScale(constraint, initialValue),
-			formatter: createNumberFormatter(
-				getSuitableDecimalDigits(constraint, initialValue),
-			),
-		}),
-	};
 }
 
 /**
@@ -111,7 +87,7 @@ export const Point4dInputPlugin: InputBindingPlugin<
 			assembly: Point4dAssembly,
 			axes: value.rawValue
 				.getComponents()
-				.map((comp, index) => createAxis(comp, c.components[index])),
+				.map((comp, i) => createAxis(comp, c.components[i])),
 			parser: parseNumber,
 			value: value,
 			viewProps: args.viewProps,

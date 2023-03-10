@@ -1,5 +1,4 @@
 import {bindFoldable, Foldable} from '../../../blade/common/model/foldable';
-import {Constraint} from '../../../common/constraint/constraint';
 import {PopupController} from '../../../common/controller/popup';
 import {ValueController} from '../../../common/controller/value';
 import {Parser} from '../../../common/converter/parser';
@@ -7,19 +6,13 @@ import {findNextTarget, supportsTouch} from '../../../common/dom-util';
 import {Value} from '../../../common/model/value';
 import {connectValues} from '../../../common/model/value-sync';
 import {ViewProps} from '../../../common/model/view-props';
-import {NumberTextProps} from '../../../common/number/view/number-text';
 import {PickerLayout} from '../../../common/params';
+import {Axis} from '../../../common/point-nd/axis';
 import {forceCast} from '../../../misc/type-util';
 import {PointNdTextController} from '../../common/controller/point-nd-text';
 import {Point2d, Point2dAssembly} from '../model/point-2d';
 import {Point2dView} from '../view/point-2d';
 import {Point2dPickerController} from './point-2d-picker';
-
-interface Axis {
-	baseStep: number;
-	constraint: Constraint<number> | undefined;
-	textProps: NumberTextProps;
-}
 
 interface Config {
 	axes: [Axis, Axis];
