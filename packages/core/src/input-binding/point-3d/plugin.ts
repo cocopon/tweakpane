@@ -23,7 +23,9 @@ import {InputBindingPlugin} from '../plugin';
 import {point3dFromUnknown, writePoint3d} from './converter/point-3d';
 import {Point3d, Point3dAssembly, Point3dObject} from './model/point-3d';
 
-export interface Point3dInputParams extends BaseInputParams {
+export interface Point3dInputParams
+	extends BaseInputParams,
+		PointDimensionParams {
 	x?: PointDimensionParams;
 	y?: PointDimensionParams;
 	z?: PointDimensionParams;
