@@ -1,5 +1,5 @@
 import {Controller} from '../../../common/controller/controller';
-import {disposeElement} from '../../../common/disposing-util';
+import {removeElement} from '../../../common/dom-util';
 import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
@@ -50,7 +50,7 @@ export class BladeController<V extends View = View> implements Controller<V> {
 		});
 
 		this.viewProps.handleDispose(() => {
-			disposeElement(elem);
+			removeElement(elem);
 		});
 	}
 
