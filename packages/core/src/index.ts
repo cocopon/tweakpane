@@ -107,7 +107,7 @@ export * from './common/list-util';
 export * from './common/micro-parsers';
 export * from './common/number-util';
 export * from './common/params';
-export * from './common/pointnd-util';
+export * from './common/point-nd-util';
 export * from './common/primitive';
 export * from './common/tp-error';
 export * from './common/ui';

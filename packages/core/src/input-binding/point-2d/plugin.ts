@@ -11,7 +11,7 @@ import {
 	PickerLayout,
 	PointDimensionParams,
 } from '../../common/params';
-import {parsePointDimensionParams} from '../../common/pointnd-util';
+import {parsePointDimensionParams} from '../../common/point-nd-util';
 import {
 	getBaseStep,
 	getSuitableDecimalDigits,

@@ -6,7 +6,7 @@ import {
 import {parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
 import {BaseInputParams, PointDimensionParams} from '../../common/params';
-import {parsePointDimensionParams} from '../../common/pointnd-util';
+import {parsePointDimensionParams} from '../../common/point-nd-util';
 import {TpError} from '../../common/tp-error';
 import {
 	getBaseStep,
