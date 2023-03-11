@@ -2,7 +2,7 @@ import {Constraint} from '../../common/constraint/constraint';
 import {parseNumber} from '../../common/converter/number';
 import {parseRecord} from '../../common/micro-parsers';
 import {BaseInputParams, PointDimensionParams} from '../../common/params';
-import {createAxis} from '../../common/point-nd/axis';
+import {createPointAxis} from '../../common/point-nd/point-axis';
 import {
 	createDimensionConstraint,
 	createPointDimensionParser,
@@ -87,7 +87,7 @@ export const Point4dInputPlugin: InputBindingPlugin<
 		return new PointNdTextController(args.document, {
 			assembly: Point4dAssembly,
 			axes: value.rawValue.getComponents().map((comp, i) =>
-				createAxis({
+				createPointAxis({
 					constraint: c.components[i],
 					formatter: dParams[i]?.formatter ?? args.params.formatter,
 					initialValue: comp,

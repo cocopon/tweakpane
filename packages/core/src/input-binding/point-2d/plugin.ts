@@ -8,7 +8,7 @@ import {
 	PointDimensionParams,
 } from '../../common/params';
 import {parsePickerLayout} from '../../common/picker-util';
-import {Axis, createAxis} from '../../common/point-nd/axis';
+import {createPointAxis, PointAxis} from '../../common/point-nd/point-axis';
 import {
 	createPointDimensionParser,
 	parsePointDimensionParams,
@@ -137,12 +137,12 @@ export const Point2dInputPlugin: InputBindingPlugin<
 		const dParams = [args.params.x, args.params.y];
 		return new Point2dController(doc, {
 			axes: value.rawValue.getComponents().map((comp, i) =>
-				createAxis({
+				createPointAxis({
 					constraint: c.components[i],
 					formatter: dParams[i]?.formatter ?? args.params.formatter,
 					initialValue: comp,
 				}),
-			) as Tuple2<Axis>,
+			) as Tuple2<PointAxis>,
 			expanded: args.params.expanded ?? false,
 			invertsY: shouldInvertY(args.params),
 			max: getSuitableMax(value.rawValue, c),

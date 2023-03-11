@@ -5,13 +5,13 @@ import {connectValues} from '../../../common/model/value-sync';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from '../../../common/number/controller/number-text';
-import {Axis} from '../../../common/point-nd/axis';
+import {PointAxis} from '../../../common/point-nd/point-axis';
 import {PointNdAssembly} from '../model/point-nd';
 import {PointNdTextView} from '../view/point-nd-text';
 
 interface Config<PointNd> {
 	assembly: PointNdAssembly<PointNd>;
-	axes: Axis[];
+	axes: PointAxis[];
 	parser: Parser<number>;
 	value: Value<PointNd>;
 	viewProps: ViewProps;

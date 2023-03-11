@@ -9,15 +9,15 @@ import {connectValues} from '../../../common/model/value-sync';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
 import {PickerLayout} from '../../../common/params';
-import {Axis} from '../../../common/point-nd/axis';
-import {forceCast} from '../../../misc/type-util';
+import {PointAxis} from '../../../common/point-nd/point-axis';
+import {forceCast, Tuple2} from '../../../misc/type-util';
 import {PointNdTextController} from '../../common/controller/point-nd-text';
 import {Point2d, Point2dAssembly} from '../model/point-2d';
 import {Point2dView} from '../view/point-2d';
 import {Point2dPickerController} from './point-2d-picker';
 
 interface Config {
-	axes: [Axis, Axis];
+	axes: Tuple2<PointAxis>;
 	expanded: boolean;
 	invertsY: boolean;
 	max: number;
