@@ -89,7 +89,7 @@ export const Point4dInputPlugin: InputBindingPlugin<
 			axes: value.rawValue.getComponents().map((comp, i) =>
 				createPointAxis({
 					constraint: c.components[i],
-					formatter: dParams[i]?.formatter ?? args.params.formatter,
+					formatter: dParams[i]?.format ?? args.params.format,
 					initialValue: comp,
 				}),
 			),

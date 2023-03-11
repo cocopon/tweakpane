@@ -146,22 +146,22 @@ describe(Point3dInputPlugin.id, () => {
 		[
 			{
 				params: {
-					formatter: () => 'foo',
-					x: {formatter: () => 'bar'},
+					format: () => 'foo',
+					x: {format: () => 'bar'},
 				},
 				expected: ['bar', 'foo', 'foo'],
 			},
 			{
 				params: {
-					formatter: () => 'foo',
-					y: {formatter: () => 'bar'},
+					format: () => 'foo',
+					y: {format: () => 'bar'},
 				},
 				expected: ['foo', 'bar', 'foo'],
 			},
 			{
 				params: {
-					formatter: () => 'foo',
-					z: {formatter: () => 'bar'},
+					format: () => 'foo',
+					z: {format: () => 'bar'},
 				},
 				expected: ['foo', 'foo', 'bar'],
 			},
