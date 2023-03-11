@@ -6,7 +6,7 @@ import {StepConstraint} from '../constraint/step';
 import {
 	constrainRange,
 	getDecimalDigits,
-	getSuitableDraggingScale,
+	getSuitablePointerScale,
 	loopRange,
 	mapRange,
 } from './util';
@@ -150,7 +150,7 @@ describe('NumberUtil', () => {
 	});
 });
 
-describe(getSuitableDraggingScale.name, () => {
+describe(getSuitablePointerScale.name, () => {
 	[
 		{
 			params: {
@@ -192,7 +192,7 @@ describe(getSuitableDraggingScale.name, () => {
 			it('should estimate suitable scale', () => {
 				assert.ok(
 					TestUtil.closeTo(
-						getSuitableDraggingScale(params.constraint, params.rawValue),
+						getSuitablePointerScale(params.constraint, params.rawValue),
 						expected,
 						DELTA,
 					),

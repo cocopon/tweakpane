@@ -61,8 +61,8 @@ function createComponentController(
 		baseStep: getBaseStepForColor(false),
 		parser: config.parser,
 		props: ValueMap.fromObject({
-			draggingScale: config.colorType === 'float' ? 0.01 : 1,
 			formatter: createFormatter(config.colorType),
+			pointerScale: config.colorType === 'float' ? 0.01 : 1,
 		}),
 		value: createValue(0, {
 			constraint: createConstraint(config.colorMode, config.colorType, index),

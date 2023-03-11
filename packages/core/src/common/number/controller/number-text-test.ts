@@ -17,8 +17,8 @@ describe(NumberTextController.name, () => {
 			baseStep: 1,
 			parser: parseNumber,
 			props: ValueMap.fromObject({
-				draggingScale: 1,
 				formatter: createNumberFormatter(0),
+				pointerScale: 1,
 			}),
 			value: createValue(123),
 			viewProps: ViewProps.create(),
@@ -40,8 +40,8 @@ describe(NumberTextController.name, () => {
 			baseStep: 1,
 			parser: parseNumber,
 			props: ValueMap.fromObject({
-				draggingScale: 1,
 				formatter: createNumberFormatter(0),
+				pointerScale: 1,
 			}),
 			value: createValue(123),
 			viewProps: ViewProps.create(),

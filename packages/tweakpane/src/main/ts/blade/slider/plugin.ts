@@ -4,7 +4,7 @@ import {
 	createValue,
 	DefiniteRangeConstraint,
 	Formatter,
-	getSuitableDraggingScale,
+	getSuitablePointerScale,
 	LabeledValueController,
 	MicroParser,
 	numberToString,
@@ -60,8 +60,8 @@ export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 				min: drc.values.value('min'),
 			}),
 			textProps: ValueMap.fromObject({
-				draggingScale: getSuitableDraggingScale(undefined, initialValue),
 				formatter: args.params.format ?? numberToString,
+				pointerScale: getSuitablePointerScale(undefined, initialValue),
 			}),
 			value: v,
 			viewProps: args.viewProps,

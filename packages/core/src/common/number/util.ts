@@ -62,7 +62,7 @@ export function getBaseStep(
 	return step ?? 1;
 }
 
-export function getSuitableDraggingScale(
+export function getSuitablePointerScale(
 	constraint: Constraint<number> | undefined,
 	rawValue: number,
 ): number {

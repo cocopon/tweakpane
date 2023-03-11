@@ -4,7 +4,7 @@ import {ValueMap} from '../model/value-map';
 import {
 	getBaseStep,
 	getSuitableDecimalDigits,
-	getSuitableDraggingScale,
+	getSuitablePointerScale,
 } from '../number/util';
 import {NumberTextProps} from '../number/view/number-text';
 
@@ -22,10 +22,10 @@ export function createAxis(
 		baseStep: getBaseStep(constraint),
 		constraint: constraint,
 		textProps: ValueMap.fromObject({
-			draggingScale: getSuitableDraggingScale(constraint, initialValue),
 			formatter: createNumberFormatter(
 				getSuitableDecimalDigits(constraint, initialValue),
 			),
+			pointerScale: getSuitablePointerScale(constraint, initialValue),
 		}),
 	};
 }

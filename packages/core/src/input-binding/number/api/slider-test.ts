@@ -44,8 +44,8 @@ function createApi(config: {min: number; max: number}): SliderInputBindingApi {
 				min: config.min,
 			}),
 			textProps: ValueMap.fromObject({
-				draggingScale: 1,
 				formatter: createNumberFormatter(1),
+				pointerScale: 1,
 			}),
 			value: v,
 			viewProps: ViewProps.create(),

@@ -93,8 +93,8 @@ function createPoint2dController(doc: Document) {
 		baseStep: 1,
 		constraint: undefined,
 		textProps: ValueMap.fromObject({
-			draggingScale: 1,
 			formatter: createNumberFormatter(1),
+			pointerScale: 1,
 		}),
 	};
 	const vc = new Point2dController(doc, {

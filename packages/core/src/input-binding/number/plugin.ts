@@ -24,7 +24,7 @@ import {
 	createStepConstraint,
 	getBaseStep,
 	getSuitableDecimalDigits,
-	getSuitableDraggingScale,
+	getSuitablePointerScale,
 } from '../../common/number/util';
 import {BaseInputParams, ListParamsOptions} from '../../common/params';
 import {writePrimitive} from '../../common/primitive';
@@ -126,8 +126,8 @@ export const NumberInputPlugin: InputBindingPlugin<
 					min: drc.values.value('min'),
 				}),
 				textProps: ValueMap.fromObject({
-					draggingScale: getSuitableDraggingScale(c, value.rawValue),
 					formatter: formatter,
+					pointerScale: getSuitablePointerScale(c, value.rawValue),
 				}),
 				value: value,
 				viewProps: args.viewProps,
@@ -138,8 +138,8 @@ export const NumberInputPlugin: InputBindingPlugin<
 			baseStep: getBaseStep(c),
 			parser: parseNumber,
 			props: ValueMap.fromObject({
-				draggingScale: getSuitableDraggingScale(c, value.rawValue),
 				formatter: formatter,
+				pointerScale: getSuitablePointerScale(c, value.rawValue),
 			}),
 			value: value,
 			viewProps: args.viewProps,

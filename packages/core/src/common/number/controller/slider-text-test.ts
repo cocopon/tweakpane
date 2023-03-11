@@ -17,8 +17,8 @@ function createController(doc: Document) {
 			min: 0,
 		}),
 		textProps: ValueMap.fromObject({
-			draggingScale: 0.1,
 			formatter: createNumberFormatter(1),
+			pointerScale: 0.1,
 		}),
 		value: createValue(0),
 		viewProps: ViewProps.create(),

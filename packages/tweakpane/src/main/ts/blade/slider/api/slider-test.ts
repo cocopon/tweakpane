@@ -38,8 +38,8 @@ describe(SliderBladeApi.name, () => {
 					min: 0,
 				}),
 				textProps: ValueMap.fromObject({
-					draggingScale: 1,
 					formatter: numberToString,
+					pointerScale: 1,
 				}),
 				value: v,
 				viewProps: ViewProps.create(),
@@ -66,8 +66,8 @@ describe(SliderBladeApi.name, () => {
 					min: -100,
 				}),
 				textProps: ValueMap.fromObject({
-					draggingScale: 1,
 					formatter: numberToString,
+					pointerScale: 1,
 				}),
 				value: v,
 				viewProps: ViewProps.create(),
@@ -99,8 +99,8 @@ describe(SliderBladeApi.name, () => {
 					min: -100,
 				}),
 				textProps: ValueMap.fromObject({
-					draggingScale: 1,
 					formatter: numberToString,
+					pointerScale: 1,
 				}),
 				value: v,
 				viewProps: ViewProps.create(),
@@ -139,8 +139,8 @@ describe(SliderBladeApi.name, () => {
 					min: 0,
 				}),
 				textProps: ValueMap.fromObject({
-					draggingScale: 1,
 					formatter: numberToString,
+					pointerScale: 1,
 				}),
 				value: v,
 				viewProps: ViewProps.create(),

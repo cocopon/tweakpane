@@ -35,8 +35,8 @@ function createApi(target: BindingTarget): InputBindingApi<number, unknown> {
 		baseStep: 1,
 		parser: parseNumber,
 		props: ValueMap.fromObject({
-			draggingScale: 1,
 			formatter: createNumberFormatter(0),
+			pointerScale: 1,
 		}),
 		value: v,
 		viewProps: ViewProps.create(),

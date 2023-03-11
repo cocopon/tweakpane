@@ -11,8 +11,8 @@ import {constrainRange} from '../util';
  * @hidden
  */
 export type NumberTextProps = ValueMap<{
-	draggingScale: number;
 	formatter: Formatter<number>;
+	pointerScale: number;
 }>;
 
 /**
@@ -109,7 +109,7 @@ export class NumberTextView implements View {
 
 		this.element.classList.add(cn(undefined, 'drg'));
 
-		const x = ev.rawValue / this.props_.get('draggingScale');
+		const x = ev.rawValue / this.props_.get('pointerScale');
 		const aox = x + (x > 0 ? -1 : x < 0 ? +1 : 0);
 		const adx = constrainRange(-aox, -4, +4);
 		this.guideHeadElem_.setAttributeNS(

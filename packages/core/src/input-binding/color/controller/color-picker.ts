@@ -64,7 +64,7 @@ export class ColorPickerController
 						parser: parseNumber,
 						baseStep: 0.1,
 						props: ValueMap.fromObject({
-							draggingScale: 0.01,
+							pointerScale: 0.01,
 							formatter: createNumberFormatter(2),
 						}),
 						value: createValue(0, {

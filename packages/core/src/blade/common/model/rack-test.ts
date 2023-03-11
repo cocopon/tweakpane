@@ -98,8 +98,8 @@ function createValueBladeController(
 				min: 0,
 			}),
 			textProps: ValueMap.fromObject({
-				draggingScale: 1,
 				formatter: createNumberFormatter(2),
+				pointerScale: 1,
 			}),
 			value: v,
 			viewProps: ViewProps.create(),

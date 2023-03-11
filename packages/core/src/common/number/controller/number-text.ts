@@ -134,7 +134,7 @@ export class NumberTextController
 
 		const dx = data.point.x - data.bounds.width / 2;
 		return this.constrainValue_(
-			this.originRawValue_ + dx * this.props.get('draggingScale'),
+			this.originRawValue_ + dx * this.props.get('pointerScale'),
 		);
 	}
 
