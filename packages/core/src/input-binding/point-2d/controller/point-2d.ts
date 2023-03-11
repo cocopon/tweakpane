@@ -4,7 +4,9 @@ import {ValueController} from '../../../common/controller/value';
 import {Parser} from '../../../common/converter/parser';
 import {findNextTarget, supportsTouch} from '../../../common/dom-util';
 import {Value} from '../../../common/model/value';
+import {ValueMap} from '../../../common/model/value-map';
 import {connectValues} from '../../../common/model/value-sync';
+import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
 import {PickerLayout} from '../../../common/params';
 import {Axis} from '../../../common/point-nd/axis';
@@ -58,14 +60,13 @@ export class Point2dController
 				: null;
 
 		const padC = new Point2dPickerController(doc, {
-			// TODO: Synchronize
-			keyScales: [
-				config.axes[0].textProps.get('keyScale'),
-				config.axes[1].textProps.get('keyScale'),
-			],
-			invertsY: config.invertsY,
 			layout: config.pickerLayout,
-			max: config.max,
+			props: new ValueMap({
+				invertsY: createValue(config.invertsY),
+				max: createValue(config.max),
+				xKeyScale: config.axes[0].textProps.value('keyScale'),
+				yKeyScale: config.axes[1].textProps.value('keyScale'),
+			}),
 			value: this.value,
 			viewProps: this.viewProps,
 		});

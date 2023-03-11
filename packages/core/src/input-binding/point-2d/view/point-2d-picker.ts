@@ -1,5 +1,6 @@
 import {SVG_NS} from '../../../common/dom-util';
 import {Value} from '../../../common/model/value';
+import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {mapRange} from '../../../common/number/util';
 import {PickerLayout} from '../../../common/params';
@@ -7,10 +8,22 @@ import {ClassName} from '../../../common/view/class-name';
 import {View} from '../../../common/view/view';
 import {Point2d} from '../model/point-2d';
 
-interface Config {
+/**
+ * @hidden
+ */
+export type Point2dPickerProps = ValueMap<{
 	invertsY: boolean;
-	layout: PickerLayout;
 	max: number;
+	xKeyScale: number;
+	yKeyScale: number;
+}>;
+
+/**
+ * @hidden
+ */
+interface Config {
+	layout: PickerLayout;
+	props: Point2dPickerProps;
 	value: Value<Point2d>;
 	viewProps: ViewProps;
 }
@@ -24,18 +37,18 @@ export class Point2dPickerView implements View {
 	public readonly element: HTMLElement;
 	public readonly padElement: HTMLDivElement;
 	public readonly value: Value<Point2d>;
-	private readonly invertsY_: boolean;
-	private readonly max_: number;
+	private readonly props_: Point2dPickerProps;
 	private readonly svgElem_: Element;
 	private readonly lineElem_: Element;
 	private readonly markerElem_: HTMLElement;
 
 	constructor(doc: Document, config: Config) {
 		this.onFoldableChange_ = this.onFoldableChange_.bind(this);
+		this.onPropsChange_ = this.onPropsChange_.bind(this);
 		this.onValueChange_ = this.onValueChange_.bind(this);
 
-		this.invertsY_ = config.invertsY;
-		this.max_ = config.max;
+		this.props_ = config.props;
+		this.props_.emitter.on('change', this.onPropsChange_);
 
 		this.element = doc.createElement('div');
 		this.element.classList.add(cn());
@@ -95,10 +108,10 @@ export class Point2dPickerView implements View {
 
 	private update_(): void {
 		const [x, y] = this.value.rawValue.getComponents();
-		const max = this.max_;
+		const max = this.props_.get('max');
 		const px = mapRange(x, -max, +max, 0, 100);
 		const py = mapRange(y, -max, +max, 0, 100);
-		const ipy = this.invertsY_ ? 100 - py : py;
+		const ipy = this.props_.get('invertsY') ? 100 - py : py;
 		this.lineElem_.setAttributeNS(null, 'x2', `${px}%`);
 		this.lineElem_.setAttributeNS(null, 'y2', `${ipy}%`);
 		this.markerElem_.style.left = `${px}%`;
@@ -106,6 +119,10 @@ export class Point2dPickerView implements View {
 	}
 
 	private onValueChange_(): void {
+		this.update_();
+	}
+
+	private onPropsChange_(): void {
 		this.update_();
 	}
 
