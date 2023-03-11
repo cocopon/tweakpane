@@ -12,6 +12,7 @@ import {constrainRange} from '../util';
  */
 export type NumberTextProps = ValueMap<{
 	formatter: Formatter<number>;
+	keyScale: number;
 	pointerScale: number;
 }>;
 

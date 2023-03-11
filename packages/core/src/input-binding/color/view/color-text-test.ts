@@ -20,6 +20,7 @@ function createTextViews(
 				dragging: createValue<number | null>(0),
 				props: ValueMap.fromObject({
 					formatter: (v) => String(v),
+					keyScale: 1,
 					pointerScale: 1,
 				}),
 				value: createValue<number>(0),

@@ -12,6 +12,7 @@ import {
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
+import {Axis} from '../../../common/point-nd/axis';
 import {colorFromRgbNumber} from '../../../input-binding/color/converter/color-number';
 import {
 	colorToHexRgbString,
@@ -89,11 +90,11 @@ function createPoint2dController(doc: Document) {
 		writer: writePoint2d,
 	});
 	const value = new InputBindingValue(createValue(new Point2d(0, 0)), binding);
-	const axis = {
-		baseStep: 1,
+	const axis: Axis = {
 		constraint: undefined,
 		textProps: ValueMap.fromObject({
 			formatter: createNumberFormatter(1),
+			keyScale: 1,
 			pointerScale: 1,
 		}),
 	};

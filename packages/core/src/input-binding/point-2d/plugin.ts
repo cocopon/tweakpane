@@ -1,7 +1,7 @@
 import {Constraint} from '../../common/constraint/constraint';
 import {parseNumber} from '../../common/converter/number';
 import {parseRecord} from '../../common/micro-parsers';
-import {findNumberRange, getBaseStep} from '../../common/number/util';
+import {findNumberRange, getSuitableKeyScale} from '../../common/number/util';
 import {
 	BaseInputParams,
 	PickerLayout,
@@ -57,7 +57,7 @@ function getSuitableMaxDimensionValue(
 		return Math.max(Math.abs(min ?? 0), Math.abs(max ?? 0));
 	}
 
-	const step = getBaseStep(constraint);
+	const step = getSuitableKeyScale(constraint);
 	return Math.max(Math.abs(step) * 10, Math.abs(rawValue) * 10);
 }
 

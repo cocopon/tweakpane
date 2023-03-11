@@ -21,18 +21,18 @@ describe(PointNdTextController.name, () => {
 			assembly: Point2dAssembly,
 			axes: [
 				{
-					baseStep: 1,
 					constraint: undefined,
 					textProps: ValueMap.fromObject({
 						formatter: createNumberFormatter(0),
+						keyScale: 1,
 						pointerScale: 1,
 					}),
 				},
 				{
-					baseStep: 1,
 					constraint: undefined,
 					textProps: ValueMap.fromObject({
 						formatter: createNumberFormatter(0),
+						keyScale: 1,
 						pointerScale: 1,
 					}),
 				},

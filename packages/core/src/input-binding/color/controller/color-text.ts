@@ -20,7 +20,7 @@ import {
 } from '../model/color-model';
 import {createColor, mapColorType} from '../model/colors';
 import {IntColor} from '../model/int-color';
-import {getBaseStepForColor} from '../util';
+import {getKeyScaleForColor} from '../util';
 import {ColorTextView} from '../view/color-text';
 
 interface Config {
@@ -58,10 +58,10 @@ function createComponentController(
 ): NumberTextController {
 	return new NumberTextController(doc, {
 		arrayPosition: index === 0 ? 'fst' : index === 3 - 1 ? 'lst' : 'mid',
-		baseStep: getBaseStepForColor(false),
 		parser: config.parser,
 		props: ValueMap.fromObject({
 			formatter: createFormatter(config.colorType),
+			keyScale: getKeyScaleForColor(false),
 			pointerScale: config.colorType === 'float' ? 0.01 : 1,
 		}),
 		value: createValue(0, {

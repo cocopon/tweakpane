@@ -3,23 +3,20 @@ import {describe, it} from 'mocha';
 
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {createNumberFormatter, numberFromUnknown} from '../../converter/number';
-import {ValueMap} from '../../model/value-map';
 import {createValue} from '../../model/values';
 import {ViewProps} from '../../model/view-props';
-import {SliderTextController} from './slider-text';
+import {createSliderTextProps, SliderTextController} from './slider-text';
 
 function createController(doc: Document) {
 	return new SliderTextController(doc, {
-		baseStep: 1,
-		parser: numberFromUnknown,
-		sliderProps: ValueMap.fromObject({
-			max: 1,
-			min: 0,
-		}),
-		textProps: ValueMap.fromObject({
+		...createSliderTextProps({
 			formatter: createNumberFormatter(1),
+			max: createValue(1),
+			min: createValue(0),
+			keyScale: createValue(1),
 			pointerScale: 0.1,
 		}),
+		parser: numberFromUnknown,
 		value: createValue(0),
 		viewProps: ViewProps.create(),
 	});
@@ -49,5 +46,24 @@ describe(SliderTextController.name, () => {
 		);
 		assert.strictEqual(c.sliderController.props.get('max'), 100);
 		assert.strictEqual(c.sliderController.props.get('min'), 50);
+	});
+});
+
+describe(createSliderTextProps.name, () => {
+	it('should share key scale', () => {
+		const ks = createValue(1);
+		const props = createSliderTextProps({
+			formatter: createNumberFormatter(1),
+			keyScale: ks,
+			max: createValue(100),
+			min: createValue(0),
+			pointerScale: 1,
+		});
+
+		props.sliderProps.set('keyScale', 2);
+		assert.strictEqual(
+			props.sliderProps.value('keyScale').rawValue,
+			props.textProps.value('keyScale').rawValue,
+		);
 	});
 });

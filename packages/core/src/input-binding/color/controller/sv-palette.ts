@@ -14,7 +14,7 @@ import {
 	PointerHandlerEvents,
 } from '../../../common/view/pointer-handler';
 import {IntColor} from '../model/int-color';
-import {getBaseStepForColor} from '../util';
+import {getKeyScaleForColor} from '../util';
 import {SvPaletteView} from '../view/sv-palette';
 
 interface Config {
@@ -99,9 +99,9 @@ export class SvPaletteController
 		}
 
 		const [h, s, v, a] = this.value.rawValue.getComponents('hsv');
-		const baseStep = getBaseStepForColor(false);
-		const ds = getStepForKey(baseStep, getHorizontalStepKeys(ev));
-		const dv = getStepForKey(baseStep, getVerticalStepKeys(ev));
+		const keyScale = getKeyScaleForColor(false);
+		const ds = getStepForKey(keyScale, getHorizontalStepKeys(ev));
+		const dv = getStepForKey(keyScale, getVerticalStepKeys(ev));
 		if (ds === 0 && dv === 0) {
 			return;
 		}
@@ -113,9 +113,9 @@ export class SvPaletteController
 	}
 
 	private onKeyUp_(ev: KeyboardEvent): void {
-		const baseStep = getBaseStepForColor(false);
-		const ds = getStepForKey(baseStep, getHorizontalStepKeys(ev));
-		const dv = getStepForKey(baseStep, getVerticalStepKeys(ev));
+		const keyScale = getKeyScaleForColor(false);
+		const ds = getStepForKey(keyScale, getHorizontalStepKeys(ev));
+		const dv = getStepForKey(keyScale, getVerticalStepKeys(ev));
 		if (ds === 0 && dv === 0) {
 			return;
 		}

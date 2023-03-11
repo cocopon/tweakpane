@@ -15,7 +15,10 @@ import {
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
-import {SliderTextController} from '../../../common/number/controller/slider-text';
+import {
+	createSliderTextProps,
+	SliderTextController,
+} from '../../../common/number/controller/slider-text';
 import {writePrimitive} from '../../../common/primitive';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {SliderInputBindingApi} from './slider';
@@ -37,16 +40,14 @@ function createApi(config: {min: number; max: number}): SliderInputBindingApi {
 		}),
 		value: v,
 		valueController: new SliderTextController(doc, {
-			baseStep: 1,
-			parser: parseNumber,
-			sliderProps: ValueMap.fromObject({
-				max: config.max,
-				min: config.min,
-			}),
-			textProps: ValueMap.fromObject({
+			...createSliderTextProps({
 				formatter: createNumberFormatter(1),
+				keyScale: createValue(1),
+				max: createValue(config.max),
+				min: createValue(config.min),
 				pointerScale: 1,
 			}),
+			parser: parseNumber,
 			value: v,
 			viewProps: ViewProps.create(),
 		}),

@@ -32,10 +32,10 @@ function createApi(target: BindingTarget): InputBindingApi<number, unknown> {
 	});
 	const v = new InputBindingValue(createValue(0), binding);
 	const ic = new NumberTextController(doc, {
-		baseStep: 1,
 		parser: parseNumber,
 		props: ValueMap.fromObject({
 			formatter: createNumberFormatter(0),
+			keyScale: 1,
 			pointerScale: 1,
 		}),
 		value: v,

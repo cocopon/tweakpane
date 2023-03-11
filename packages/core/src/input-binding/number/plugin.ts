@@ -17,13 +17,17 @@ import {
 import {createListConstraint, parseListOptions} from '../../common/list-util';
 import {MicroParser, parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
+import {createValue} from '../../common/model/values';
 import {NumberTextController} from '../../common/number/controller/number-text';
-import {SliderTextController} from '../../common/number/controller/slider-text';
+import {
+	createSliderTextProps,
+	SliderTextController,
+} from '../../common/number/controller/slider-text';
 import {
 	createRangeConstraint,
 	createStepConstraint,
-	getBaseStep,
 	getSuitableDecimalDigits,
+	getSuitableKeyScale,
 	getSuitablePointerScale,
 } from '../../common/number/util';
 import {BaseInputParams, ListParamsOptions} from '../../common/params';
@@ -119,26 +123,24 @@ export const NumberInputPlugin: InputBindingPlugin<
 		const drc = c && findConstraint(c, DefiniteRangeConstraint);
 		if (drc) {
 			return new SliderTextController(args.document, {
-				baseStep: getBaseStep(c),
-				parser: parseNumber,
-				sliderProps: new ValueMap({
+				...createSliderTextProps({
+					formatter: formatter,
+					keyScale: createValue(getSuitableKeyScale(c)),
 					max: drc.values.value('max'),
 					min: drc.values.value('min'),
-				}),
-				textProps: ValueMap.fromObject({
-					formatter: formatter,
 					pointerScale: getSuitablePointerScale(c, value.rawValue),
 				}),
+				parser: parseNumber,
 				value: value,
 				viewProps: args.viewProps,
 			});
 		}
 
 		return new NumberTextController(args.document, {
-			baseStep: getBaseStep(c),
 			parser: parseNumber,
 			props: ValueMap.fromObject({
 				formatter: formatter,
+				keyScale: getSuitableKeyScale(c),
 				pointerScale: getSuitablePointerScale(c, value.rawValue),
 			}),
 			value: value,

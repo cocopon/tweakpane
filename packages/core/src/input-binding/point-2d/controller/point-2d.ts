@@ -58,7 +58,11 @@ export class Point2dController
 				: null;
 
 		const padC = new Point2dPickerController(doc, {
-			baseSteps: [config.axes[0].baseStep, config.axes[1].baseStep],
+			// TODO: Synchronize
+			keyScales: [
+				config.axes[0].textProps.get('keyScale'),
+				config.axes[1].textProps.get('keyScale'),
+			],
 			invertsY: config.invertsY,
 			layout: config.pickerLayout,
 			max: config.max,

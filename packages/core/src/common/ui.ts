@@ -5,8 +5,8 @@ interface StepKeys {
 	upKey: boolean;
 }
 
-export function getStepForKey(baseStep: number, keys: StepKeys): number {
-	const step = baseStep * (keys.altKey ? 0.1 : 1) * (keys.shiftKey ? 10 : 1);
+export function getStepForKey(keyScale: number, keys: StepKeys): number {
+	const step = keyScale * (keys.altKey ? 0.1 : 1) * (keys.shiftKey ? 10 : 1);
 
 	if (keys.upKey) {
 		return +step;

@@ -18,7 +18,7 @@ import {Point2d} from '../model/point-2d';
 import {Point2dPickerView} from '../view/point-2d-picker';
 
 interface Config {
-	baseSteps: [number, number];
+	keyScales: [number, number];
 	invertsY: boolean;
 	layout: PickerLayout;
 	max: number;
@@ -28,12 +28,12 @@ interface Config {
 
 function computeOffset(
 	ev: KeyboardEvent,
-	baseSteps: [number, number],
+	keyScales: [number, number],
 	invertsY: boolean,
 ): [number, number] {
 	return [
-		getStepForKey(baseSteps[0], getHorizontalStepKeys(ev)),
-		getStepForKey(baseSteps[1], getVerticalStepKeys(ev)) * (invertsY ? 1 : -1),
+		getStepForKey(keyScales[0], getHorizontalStepKeys(ev)),
+		getStepForKey(keyScales[1], getVerticalStepKeys(ev)) * (invertsY ? 1 : -1),
 	];
 }
 
@@ -46,7 +46,7 @@ export class Point2dPickerController
 	public readonly value: Value<Point2d>;
 	public readonly view: Point2dPickerView;
 	public readonly viewProps: ViewProps;
-	private readonly baseSteps_: [number, number];
+	private readonly keyScales_: [number, number];
 	private readonly ptHandler_: PointerHandler;
 	private readonly invertsY_: boolean;
 	private readonly max_: number;
@@ -61,7 +61,7 @@ export class Point2dPickerController
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 
-		this.baseSteps_ = config.baseSteps;
+		this.keyScales_ = config.keyScales;
 		this.max_ = config.max;
 		this.invertsY_ = config.invertsY;
 
@@ -125,7 +125,7 @@ export class Point2dPickerController
 			ev.preventDefault();
 		}
 
-		const [dx, dy] = computeOffset(ev, this.baseSteps_, this.invertsY_);
+		const [dx, dy] = computeOffset(ev, this.keyScales_, this.invertsY_);
 		if (dx === 0 && dy === 0) {
 			return;
 		}
@@ -140,7 +140,7 @@ export class Point2dPickerController
 	}
 
 	private onPadKeyUp_(ev: KeyboardEvent): void {
-		const [dx, dy] = computeOffset(ev, this.baseSteps_, this.invertsY_);
+		const [dx, dy] = computeOffset(ev, this.keyScales_, this.invertsY_);
 		if (dx === 0 && dy === 0) {
 			return;
 		}

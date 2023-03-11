@@ -8,10 +8,16 @@ import {constrainRange, mapRange} from '../util';
 /**
  * @hidden
  */
-export type SliderProps = ValueMap<{
+export type SliderPropsObject = {
+	keyScale: number;
 	max: number;
 	min: number;
-}>;
+};
+
+/**
+ * @hidden
+ */
+export type SliderProps = ValueMap<SliderPropsObject>;
 
 /**
  * @hidden
