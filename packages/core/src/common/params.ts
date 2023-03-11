@@ -13,7 +13,7 @@ export type ListParamsOptions<T> =
 	| ObjectStyleListOptions<T>;
 
 export interface PointDimensionParams {
-	formatter?: Formatter<number>;
+	format?: Formatter<number>;
 	max?: number;
 	min?: number;
 	step?: number;

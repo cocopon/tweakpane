@@ -8,7 +8,7 @@ import {PointDimensionParams} from '../params';
 
 export function createPointDimensionParser(p: typeof MicroParsers) {
 	return {
-		formatter: p.optional.function as MicroParser<Formatter<number>>,
+		format: p.optional.function as MicroParser<Formatter<number>>,
 		max: p.optional.number,
 		min: p.optional.number,
 		step: p.optional.number,

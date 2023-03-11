@@ -154,29 +154,29 @@ describe(Point4dInputPlugin.id, () => {
 		[
 			{
 				params: {
-					formatter: () => 'foo',
-					x: {formatter: () => 'bar'},
+					format: () => 'foo',
+					x: {format: () => 'bar'},
 				},
 				expected: ['bar', 'foo', 'foo', 'foo'],
 			},
 			{
 				params: {
-					formatter: () => 'foo',
-					y: {formatter: () => 'bar'},
+					format: () => 'foo',
+					y: {format: () => 'bar'},
 				},
 				expected: ['foo', 'bar', 'foo', 'foo'],
 			},
 			{
 				params: {
-					formatter: () => 'foo',
-					z: {formatter: () => 'bar'},
+					format: () => 'foo',
+					z: {format: () => 'bar'},
 				},
 				expected: ['foo', 'foo', 'bar', 'foo'],
 			},
 			{
 				params: {
-					formatter: () => 'foo',
-					w: {formatter: () => 'bar'},
+					format: () => 'foo',
+					w: {format: () => 'bar'},
 				},
 				expected: ['foo', 'foo', 'foo', 'bar'],
 			},
