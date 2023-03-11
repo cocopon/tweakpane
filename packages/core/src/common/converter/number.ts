@@ -28,6 +28,8 @@ export function numberToString(value: number): string {
 
 export function createNumberFormatter(digits: number): Formatter<number> {
 	return (value: number): string => {
+		// toFixed() of Safari doesn't support digits greater than 20
+		// https://github.com/cocopon/tweakpane/pull/19
 		return value.toFixed(Math.max(Math.min(digits, 20), 0));
 	};
 }

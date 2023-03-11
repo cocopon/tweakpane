@@ -1,4 +1,5 @@
 import {Constraint} from '../constraint/constraint';
+import {Formatter} from '../converter/formatter';
 import {createNumberFormatter} from '../converter/number';
 import {ValueMap} from '../model/value-map';
 import {
@@ -13,18 +14,25 @@ export interface Axis {
 	textProps: NumberTextProps;
 }
 
-export function createAxis(
-	initialValue: number,
-	constraint: Constraint<number> | undefined,
-): Axis {
+export function createAxis(config: {
+	constraint: Constraint<number> | undefined;
+	initialValue: number;
+
+	formatter?: Formatter<number>;
+}): Axis {
 	return {
-		constraint: constraint,
+		constraint: config.constraint,
 		textProps: ValueMap.fromObject({
-			formatter: createNumberFormatter(
-				getSuitableDecimalDigits(constraint, initialValue),
+			formatter:
+				config.formatter ??
+				createNumberFormatter(
+					getSuitableDecimalDigits(config.constraint, config.initialValue),
+				),
+			keyScale: getSuitableKeyScale(config.constraint),
+			pointerScale: getSuitablePointerScale(
+				config.constraint,
+				config.initialValue,
 			),
-			keyScale: getSuitableKeyScale(constraint),
-			pointerScale: getSuitablePointerScale(constraint, initialValue),
 		}),
 	};
 }

@@ -8,7 +8,6 @@ import {
 	createPointDimensionParser,
 	parsePointDimensionParams,
 } from '../../common/point-nd/util';
-import {TpError} from '../../common/tp-error';
 import {VERSION} from '../../version';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {PointNdTextController} from '../common/controller/point-nd-text';
@@ -78,16 +77,22 @@ export const Point4dInputPlugin: InputBindingPlugin<
 	},
 	controller: (args) => {
 		const value = args.value;
-		const c = args.constraint;
-		if (!(c instanceof PointNdConstraint)) {
-			throw TpError.shouldNeverHappen();
-		}
-
+		const c = args.constraint as PointNdConstraint<Point4d>;
+		const dParams = [
+			args.params.x,
+			args.params.y,
+			args.params.z,
+			args.params.w,
+		];
 		return new PointNdTextController(args.document, {
 			assembly: Point4dAssembly,
-			axes: value.rawValue
-				.getComponents()
-				.map((comp, i) => createAxis(comp, c.components[i])),
+			axes: value.rawValue.getComponents().map((comp, i) =>
+				createAxis({
+					constraint: c.components[i],
+					formatter: dParams[i]?.formatter ?? args.params.formatter,
+					initialValue: comp,
+				}),
+			),
 			parser: parseNumber,
 			value: value,
 			viewProps: args.viewProps,

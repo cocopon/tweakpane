@@ -110,6 +110,10 @@ export class Point2dController
 		}
 	}
 
+	get textController(): PointNdTextController<Point2d> {
+		return this.textC_;
+	}
+
 	private onPadButtonBlur_(e: FocusEvent) {
 		if (!this.popC_) {
 			return;

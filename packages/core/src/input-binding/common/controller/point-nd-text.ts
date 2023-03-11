@@ -71,4 +71,8 @@ export class PointNdTextController<PointNd>
 			textViews: this.acs_.map((ac) => ac.view),
 		});
 	}
+
+	get textControllers(): NumberTextController[] {
+		return this.acs_;
+	}
 }

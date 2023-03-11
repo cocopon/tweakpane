@@ -113,10 +113,8 @@ export const Point2dInputPlugin: InputBindingPlugin<
 			readonly: p.optional.constant(false),
 			x: p.optional.custom(parsePointDimensionParams),
 			y: p.optional.object<Point2dYParams & Record<string, unknown>>({
+				...createPointDimensionParser(p),
 				inverted: p.optional.boolean,
-				max: p.optional.number,
-				min: p.optional.number,
-				step: p.optional.number,
 			}),
 		}));
 		return result
@@ -136,10 +134,15 @@ export const Point2dInputPlugin: InputBindingPlugin<
 		const doc = args.document;
 		const value = args.value;
 		const c = args.constraint as PointNdConstraint<Point2d>;
+		const dParams = [args.params.x, args.params.y];
 		return new Point2dController(doc, {
-			axes: value.rawValue
-				.getComponents()
-				.map((comp, i) => createAxis(comp, c.components[i])) as Tuple2<Axis>,
+			axes: value.rawValue.getComponents().map((comp, i) =>
+				createAxis({
+					constraint: c.components[i],
+					formatter: dParams[i]?.formatter ?? args.params.formatter,
+					initialValue: comp,
+				}),
+			) as Tuple2<Axis>,
 			expanded: args.params.expanded ?? false,
 			invertsY: shouldInvertY(args.params),
 			max: getSuitableMax(value.rawValue, c),
