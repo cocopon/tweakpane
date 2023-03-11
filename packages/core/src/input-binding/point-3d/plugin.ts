@@ -2,12 +2,12 @@ import {Constraint} from '../../common/constraint/constraint';
 import {parseNumber} from '../../common/converter/number';
 import {parseRecord} from '../../common/micro-parsers';
 import {BaseInputParams, PointDimensionParams} from '../../common/params';
+import {createAxis} from '../../common/point-nd/axis';
 import {
-	createAxis,
 	createDimensionConstraint,
 	createPointDimensionParser,
 	parsePointDimensionParams,
-} from '../../common/point-nd-util';
+} from '../../common/point-nd/util';
 import {TpError} from '../../common/tp-error';
 import {VERSION} from '../../version';
 import {PointNdConstraint} from '../common/constraint/point-nd';

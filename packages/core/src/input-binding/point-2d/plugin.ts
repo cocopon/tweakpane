@@ -8,13 +8,12 @@ import {
 	PointDimensionParams,
 } from '../../common/params';
 import {parsePickerLayout} from '../../common/picker-util';
-import {Axis} from '../../common/point-nd/axis';
+import {Axis, createAxis} from '../../common/point-nd/axis';
 import {
-	createAxis,
 	createPointDimensionParser,
 	parsePointDimensionParams,
-} from '../../common/point-nd-util';
-import {createDimensionConstraint} from '../../common/point-nd-util';
+} from '../../common/point-nd/util';
+import {createDimensionConstraint} from '../../common/point-nd/util';
 import {isEmpty, Tuple2} from '../../misc/type-util';
 import {VERSION} from '../../version';
 import {PointNdConstraint} from '../common/constraint/point-nd';
