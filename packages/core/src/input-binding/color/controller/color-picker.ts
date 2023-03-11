@@ -62,9 +62,9 @@ export class ColorPickerController
 					}),
 					text: new NumberTextController(doc, {
 						parser: parseNumber,
-						baseStep: 0.1,
 						props: ValueMap.fromObject({
-							draggingScale: 0.01,
+							pointerScale: 0.01,
+							keyScale: 0.1,
 							formatter: createNumberFormatter(2),
 						}),
 						value: createValue(0, {

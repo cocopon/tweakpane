@@ -5,12 +5,13 @@ import {ValueMap} from '../../../common/model/value-map';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {createValue} from '../../model/values';
 import {ViewProps} from '../../model/view-props';
-import {SliderView} from './slider';
+import {SliderPropsObject, SliderView} from './slider';
 
 describe(SliderView.name, () => {
 	it('should apply initial value', () => {
 		const doc = createTestWindow().document;
-		const props = ValueMap.fromObject({
+		const props = ValueMap.fromObject<SliderPropsObject>({
+			keyScale: 1,
 			max: 200,
 			min: 0,
 		});
@@ -26,7 +27,8 @@ describe(SliderView.name, () => {
 
 	it('should apply value change', () => {
 		const doc = createTestWindow().document;
-		const props = ValueMap.fromObject({
+		const props = ValueMap.fromObject<SliderPropsObject>({
+			keyScale: 1,
 			max: 200,
 			min: 0,
 		});
@@ -44,7 +46,8 @@ describe(SliderView.name, () => {
 
 	it('should apply props change', () => {
 		const doc = createTestWindow().document;
-		const props = ValueMap.fromObject({
+		const props = ValueMap.fromObject<SliderPropsObject>({
+			keyScale: 1,
 			max: 200,
 			min: 0,
 		});

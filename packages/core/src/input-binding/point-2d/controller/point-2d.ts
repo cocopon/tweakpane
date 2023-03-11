@@ -1,28 +1,23 @@
 import {bindFoldable, Foldable} from '../../../blade/common/model/foldable';
-import {Constraint} from '../../../common/constraint/constraint';
 import {PopupController} from '../../../common/controller/popup';
 import {ValueController} from '../../../common/controller/value';
 import {Parser} from '../../../common/converter/parser';
 import {findNextTarget, supportsTouch} from '../../../common/dom-util';
 import {Value} from '../../../common/model/value';
+import {ValueMap} from '../../../common/model/value-map';
 import {connectValues} from '../../../common/model/value-sync';
+import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
-import {NumberTextProps} from '../../../common/number/view/number-text';
 import {PickerLayout} from '../../../common/params';
-import {forceCast} from '../../../misc/type-util';
+import {PointAxis} from '../../../common/point-nd/point-axis';
+import {forceCast, Tuple2} from '../../../misc/type-util';
 import {PointNdTextController} from '../../common/controller/point-nd-text';
 import {Point2d, Point2dAssembly} from '../model/point-2d';
 import {Point2dView} from '../view/point-2d';
 import {Point2dPickerController} from './point-2d-picker';
 
-interface Axis {
-	baseStep: number;
-	constraint: Constraint<number> | undefined;
-	textProps: NumberTextProps;
-}
-
 interface Config {
-	axes: [Axis, Axis];
+	axes: Tuple2<PointAxis>;
 	expanded: boolean;
 	invertsY: boolean;
 	max: number;
@@ -65,10 +60,13 @@ export class Point2dController
 				: null;
 
 		const padC = new Point2dPickerController(doc, {
-			baseSteps: [config.axes[0].baseStep, config.axes[1].baseStep],
-			invertsY: config.invertsY,
 			layout: config.pickerLayout,
-			max: config.max,
+			props: new ValueMap({
+				invertsY: createValue(config.invertsY),
+				max: createValue(config.max),
+				xKeyScale: config.axes[0].textProps.value('keyScale'),
+				yKeyScale: config.axes[1].textProps.value('keyScale'),
+			}),
 			value: this.value,
 			viewProps: this.viewProps,
 		});
@@ -110,6 +108,10 @@ export class Point2dController
 
 			bindFoldable(this.foldable_, this.view.pickerElement);
 		}
+	}
+
+	get textController(): PointNdTextController<Point2d> {
+		return this.textC_;
 	}
 
 	private onPadButtonBlur_(e: FocusEvent) {

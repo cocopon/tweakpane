@@ -11,11 +11,12 @@ import {ComplexValue} from '../../common/model/complex-value';
 import {getBoundValue} from '../../common/model/test-util';
 import {findNumberRange} from '../../common/number/util';
 import {createTestWindow} from '../../misc/dom-test-util';
+import {Tuple4} from '../../misc/type-util';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {PointNdTextController} from '../common/controller/point-nd-text';
 import {createInputBindingController} from '../plugin';
 import {Point4d} from './model/point-4d';
-import {Point4dInputPlugin} from './plugin';
+import {Point4dInputParams, Point4dInputPlugin} from './plugin';
 
 function getPoint4dConstraint(
 	v: InputBindingValue<unknown>,
@@ -145,6 +146,59 @@ describe(Point4dInputPlugin.id, () => {
 					const p = getDimensionProps(comps[i] as Constraint<number>);
 					assert.deepStrictEqual(p, expected[i]);
 				});
+			});
+		});
+	});
+
+	(
+		[
+			{
+				params: {
+					formatter: () => 'foo',
+					x: {formatter: () => 'bar'},
+				},
+				expected: ['bar', 'foo', 'foo', 'foo'],
+			},
+			{
+				params: {
+					formatter: () => 'foo',
+					y: {formatter: () => 'bar'},
+				},
+				expected: ['foo', 'bar', 'foo', 'foo'],
+			},
+			{
+				params: {
+					formatter: () => 'foo',
+					z: {formatter: () => 'bar'},
+				},
+				expected: ['foo', 'foo', 'bar', 'foo'],
+			},
+			{
+				params: {
+					formatter: () => 'foo',
+					w: {formatter: () => 'bar'},
+				},
+				expected: ['foo', 'foo', 'foo', 'bar'],
+			},
+		] as {
+			params: Point4dInputParams;
+			expected: Tuple4<string>;
+		}[]
+	).forEach(({params, expected}) => {
+		describe(`when params=${JSON.stringify(params)}`, () => {
+			it('should apply custom formatter', () => {
+				const doc = createTestWindow().document;
+				const c = createInputBindingController(Point4dInputPlugin, {
+					document: doc,
+					params: params,
+					target: new BindingTarget({p: {x: 12, y: 34, z: 56, w: 78}}, 'p'),
+				}) as InputBindingController;
+
+				const vc = c.valueController as PointNdTextController<Point4d>;
+				assert.deepStrictEqual(
+					vc.textControllers.map((tc) => tc.view.inputElement.value),
+					expected,
+				);
 			});
 		});
 	});

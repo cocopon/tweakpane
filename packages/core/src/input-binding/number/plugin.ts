@@ -17,14 +17,18 @@ import {
 import {createListConstraint, parseListOptions} from '../../common/list-util';
 import {MicroParser, parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
+import {createValue} from '../../common/model/values';
 import {NumberTextController} from '../../common/number/controller/number-text';
-import {SliderTextController} from '../../common/number/controller/slider-text';
+import {
+	createSliderTextProps,
+	SliderTextController,
+} from '../../common/number/controller/slider-text';
 import {
 	createRangeConstraint,
 	createStepConstraint,
-	getBaseStep,
 	getSuitableDecimalDigits,
-	getSuitableDraggingScale,
+	getSuitableKeyScale,
+	getSuitablePointerScale,
 } from '../../common/number/util';
 import {BaseInputParams, ListParamsOptions} from '../../common/params';
 import {writePrimitive} from '../../common/primitive';
@@ -119,27 +123,25 @@ export const NumberInputPlugin: InputBindingPlugin<
 		const drc = c && findConstraint(c, DefiniteRangeConstraint);
 		if (drc) {
 			return new SliderTextController(args.document, {
-				baseStep: getBaseStep(c),
-				parser: parseNumber,
-				sliderProps: new ValueMap({
+				...createSliderTextProps({
+					formatter: formatter,
+					keyScale: createValue(getSuitableKeyScale(c)),
 					max: drc.values.value('max'),
 					min: drc.values.value('min'),
+					pointerScale: getSuitablePointerScale(c, value.rawValue),
 				}),
-				textProps: ValueMap.fromObject({
-					draggingScale: getSuitableDraggingScale(c, value.rawValue),
-					formatter: formatter,
-				}),
+				parser: parseNumber,
 				value: value,
 				viewProps: args.viewProps,
 			});
 		}
 
 		return new NumberTextController(args.document, {
-			baseStep: getBaseStep(c),
 			parser: parseNumber,
 			props: ValueMap.fromObject({
-				draggingScale: getSuitableDraggingScale(c, value.rawValue),
 				formatter: formatter,
+				keyScale: getSuitableKeyScale(c),
+				pointerScale: getSuitablePointerScale(c, value.rawValue),
 			}),
 			value: value,
 			viewProps: args.viewProps,

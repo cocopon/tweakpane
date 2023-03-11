@@ -1,10 +1,11 @@
 import {
 	BaseBladeParams,
 	BladePlugin,
+	createSliderTextProps,
 	createValue,
 	DefiniteRangeConstraint,
 	Formatter,
-	getSuitableDraggingScale,
+	getSuitablePointerScale,
 	LabeledValueController,
 	MicroParser,
 	numberToString,
@@ -53,16 +54,14 @@ export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 			constraint: drc,
 		});
 		const vc = new SliderTextController(args.document, {
-			baseStep: 1,
-			parser: parseNumber,
-			sliderProps: new ValueMap({
+			...createSliderTextProps({
+				formatter: args.params.format ?? numberToString,
+				keyScale: createValue(1),
 				max: drc.values.value('max'),
 				min: drc.values.value('min'),
+				pointerScale: getSuitablePointerScale(undefined, initialValue),
 			}),
-			textProps: ValueMap.fromObject({
-				draggingScale: getSuitableDraggingScale(undefined, initialValue),
-				formatter: args.params.format ?? numberToString,
-			}),
+			parser: parseNumber,
 			value: v,
 			viewProps: args.viewProps,
 		});

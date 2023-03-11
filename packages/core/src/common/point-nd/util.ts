@@ -1,12 +1,14 @@
-import {isRecord} from '../misc/type-util';
-import {CompositeConstraint} from './constraint/composite';
-import {Constraint} from './constraint/constraint';
-import {MicroParsers, parseRecord} from './micro-parsers';
-import {createRangeConstraint, createStepConstraint} from './number/util';
-import {PointDimensionParams} from './params';
+import {isRecord} from '../../misc/type-util';
+import {CompositeConstraint} from '../constraint/composite';
+import {Constraint} from '../constraint/constraint';
+import {Formatter} from '../converter/formatter';
+import {MicroParser, MicroParsers, parseRecord} from '../micro-parsers';
+import {createRangeConstraint, createStepConstraint} from '../number/util';
+import {PointDimensionParams} from '../params';
 
 export function createPointDimensionParser(p: typeof MicroParsers) {
 	return {
+		formatter: p.optional.function as MicroParser<Formatter<number>>,
 		max: p.optional.number,
 		min: p.optional.number,
 		step: p.optional.number,

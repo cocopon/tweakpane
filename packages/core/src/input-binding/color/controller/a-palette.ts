@@ -8,7 +8,7 @@ import {
 	PointerHandlerEvents,
 } from '../../../common/view/pointer-handler';
 import {IntColor} from '../model/int-color';
-import {getBaseStepForColor} from '../util';
+import {getKeyScaleForColor} from '../util';
 import {APaletteView} from '../view/a-palette';
 
 interface Config {
@@ -86,7 +86,7 @@ export class APaletteController
 
 	private onKeyDown_(ev: KeyboardEvent): void {
 		const step = getStepForKey(
-			getBaseStepForColor(true),
+			getKeyScaleForColor(true),
 			getHorizontalStepKeys(ev),
 		);
 		if (step === 0) {
@@ -103,7 +103,7 @@ export class APaletteController
 
 	private onKeyUp_(ev: KeyboardEvent): void {
 		const step = getStepForKey(
-			getBaseStepForColor(true),
+			getKeyScaleForColor(true),
 			getHorizontalStepKeys(ev),
 		);
 		if (step === 0) {

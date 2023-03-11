@@ -5,8 +5,11 @@ import {
 	PropsPortable,
 } from '../../../blade/common/controller/blade-state';
 import {ValueController} from '../../controller/value';
+import {Formatter} from '../../converter/formatter';
 import {Parser} from '../../converter/parser';
 import {Value} from '../../model/value';
+import {ValueMap} from '../../model/value-map';
+import {createValue} from '../../model/values';
 import {ViewProps} from '../../model/view-props';
 import {NumberTextProps} from '../view/number-text';
 import {SliderProps} from '../view/slider';
@@ -18,7 +21,6 @@ import {SliderController} from './slider';
  * @hidden
  */
 interface Config {
-	baseStep: number;
 	parser: Parser<number>;
 	sliderProps: SliderProps;
 	textProps: NumberTextProps;
@@ -43,13 +45,11 @@ export class SliderTextController
 		this.viewProps = config.viewProps;
 
 		this.sliderC_ = new SliderController(doc, {
-			baseStep: config.baseStep,
 			props: config.sliderProps,
 			value: config.value,
 			viewProps: this.viewProps,
 		});
 		this.textC_ = new NumberTextController(doc, {
-			baseStep: config.baseStep,
 			parser: config.parser,
 			props: config.textProps,
 			sliderProps: config.sliderProps,
@@ -95,4 +95,28 @@ export class SliderTextController
 			min: sliderProps.get('min'),
 		});
 	}
+}
+
+export function createSliderTextProps(config: {
+	formatter: Formatter<number>;
+	keyScale: Value<number>;
+	max: Value<number>;
+	min: Value<number>;
+	pointerScale: number;
+}): {
+	sliderProps: SliderProps;
+	textProps: NumberTextProps;
+} {
+	return {
+		sliderProps: new ValueMap({
+			keyScale: config.keyScale,
+			max: config.max,
+			min: config.min,
+		}),
+		textProps: new ValueMap({
+			formatter: createValue(config.formatter),
+			keyScale: config.keyScale,
+			pointerScale: createValue(config.pointerScale),
+		}),
+	};
 }

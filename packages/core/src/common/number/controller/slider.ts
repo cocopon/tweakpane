@@ -14,7 +14,6 @@ import {SliderProps, SliderView} from '../view/slider';
  * @hidden
  */
 interface Config {
-	baseStep: number;
 	props: SliderProps;
 	value: Value<number>;
 	viewProps: ViewProps;
@@ -29,7 +28,6 @@ export class SliderController implements ValueController<number, SliderView> {
 	public readonly viewProps: ViewProps;
 	public readonly props: SliderProps;
 	private readonly ptHandler_: PointerHandler;
-	private readonly baseStep_: number;
 
 	constructor(doc: Document, config: Config) {
 		this.onKeyDown_ = this.onKeyDown_.bind(this);
@@ -37,7 +35,6 @@ export class SliderController implements ValueController<number, SliderView> {
 		this.onPointerDownOrMove_ = this.onPointerDownOrMove_.bind(this);
 		this.onPointerUp_ = this.onPointerUp_.bind(this);
 
-		this.baseStep_ = config.baseStep;
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 
@@ -90,7 +87,10 @@ export class SliderController implements ValueController<number, SliderView> {
 	}
 
 	private onKeyDown_(ev: KeyboardEvent): void {
-		const step = getStepForKey(this.baseStep_, getHorizontalStepKeys(ev));
+		const step = getStepForKey(
+			this.props.get('keyScale'),
+			getHorizontalStepKeys(ev),
+		);
 		if (step === 0) {
 			return;
 		}
@@ -101,7 +101,10 @@ export class SliderController implements ValueController<number, SliderView> {
 	}
 
 	private onKeyUp_(ev: KeyboardEvent): void {
-		const step = getStepForKey(this.baseStep_, getHorizontalStepKeys(ev));
+		const step = getStepForKey(
+			this.props.get('keyScale'),
+			getHorizontalStepKeys(ev),
+		);
 		if (step === 0) {
 			return;
 		}

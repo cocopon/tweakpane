@@ -55,14 +55,14 @@ export function getSuitableDecimalDigits(
 	return Math.max(getDecimalDigits(rawValue), 2);
 }
 
-export function getBaseStep(
+export function getSuitableKeyScale(
 	constraint: Constraint<number> | undefined,
 ): number {
 	const step = findStep(constraint);
 	return step ?? 1;
 }
 
-export function getSuitableDraggingScale(
+export function getSuitablePointerScale(
 	constraint: Constraint<number> | undefined,
 	rawValue: number,
 ): number {

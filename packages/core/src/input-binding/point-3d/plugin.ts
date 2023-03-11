@@ -1,22 +1,13 @@
 import {Constraint} from '../../common/constraint/constraint';
-import {
-	createNumberFormatter,
-	parseNumber,
-} from '../../common/converter/number';
+import {parseNumber} from '../../common/converter/number';
 import {parseRecord} from '../../common/micro-parsers';
-import {ValueMap} from '../../common/model/value-map';
-import {
-	getBaseStep,
-	getSuitableDecimalDigits,
-	getSuitableDraggingScale,
-} from '../../common/number/util';
 import {BaseInputParams, PointDimensionParams} from '../../common/params';
+import {createPointAxis} from '../../common/point-nd/point-axis';
 import {
 	createDimensionConstraint,
 	createPointDimensionParser,
 	parsePointDimensionParams,
-} from '../../common/point-nd-util';
-import {TpError} from '../../common/tp-error';
+} from '../../common/point-nd/util';
 import {VERSION} from '../../version';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {PointNdTextController} from '../common/controller/point-nd-text';
@@ -44,22 +35,6 @@ function createConstraint(
 			createDimensionConstraint({...params, ...params.z}, initialValue.z),
 		],
 	});
-}
-
-function createAxis(
-	initialValue: number,
-	constraint: Constraint<number> | undefined,
-) {
-	return {
-		baseStep: getBaseStep(constraint),
-		constraint: constraint,
-		textProps: ValueMap.fromObject({
-			draggingScale: getSuitableDraggingScale(constraint, initialValue),
-			formatter: createNumberFormatter(
-				getSuitableDecimalDigits(constraint, initialValue),
-			),
-		}),
-	};
 }
 
 /**
@@ -99,18 +74,17 @@ export const Point3dInputPlugin: InputBindingPlugin<
 	},
 	controller: (args) => {
 		const value = args.value;
-		const c = args.constraint;
-		if (!(c instanceof PointNdConstraint)) {
-			throw TpError.shouldNeverHappen();
-		}
-
+		const c = args.constraint as PointNdConstraint<Point3d>;
+		const dParams = [args.params.x, args.params.y, args.params.z];
 		return new PointNdTextController(args.document, {
 			assembly: Point3dAssembly,
-			axes: [
-				createAxis(value.rawValue.x, c.components[0]),
-				createAxis(value.rawValue.y, c.components[1]),
-				createAxis(value.rawValue.z, c.components[2]),
-			],
+			axes: value.rawValue.getComponents().map((comp, i) =>
+				createPointAxis({
+					constraint: c.components[i],
+					formatter: dParams[i]?.formatter ?? args.params.formatter,
+					initialValue: comp,
+				}),
+			),
 			parser: parseNumber,
 			value: value,
 			viewProps: args.viewProps,

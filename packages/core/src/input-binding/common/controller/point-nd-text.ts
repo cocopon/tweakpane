@@ -1,4 +1,3 @@
-import {Constraint} from '../../../common/constraint/constraint';
 import {ValueController} from '../../../common/controller/value';
 import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
@@ -6,19 +5,13 @@ import {connectValues} from '../../../common/model/value-sync';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from '../../../common/number/controller/number-text';
-import {NumberTextProps} from '../../../common/number/view/number-text';
+import {PointAxis} from '../../../common/point-nd/point-axis';
 import {PointNdAssembly} from '../model/point-nd';
 import {PointNdTextView} from '../view/point-nd-text';
 
-interface Axis {
-	baseStep: number;
-	constraint: Constraint<number> | undefined;
-	textProps: NumberTextProps;
-}
-
 interface Config<PointNd> {
 	assembly: PointNdAssembly<PointNd>;
-	axes: Axis[];
+	axes: PointAxis[];
 	parser: Parser<number>;
 	value: Value<PointNd>;
 	viewProps: ViewProps;
@@ -32,7 +25,6 @@ function createAxisController<PointNd>(
 	return new NumberTextController(doc, {
 		arrayPosition:
 			index === 0 ? 'fst' : index === config.axes.length - 1 ? 'lst' : 'mid',
-		baseStep: config.axes[index].baseStep,
 		parser: config.parser,
 		props: config.axes[index].textProps,
 		value: createValue(0, {
@@ -78,5 +70,9 @@ export class PointNdTextController<PointNd>
 		this.view = new PointNdTextView(doc, {
 			textViews: this.acs_.map((ac) => ac.view),
 		});
+	}
+
+	get textControllers(): NumberTextController[] {
+		return this.acs_;
 	}
 }

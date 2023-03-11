@@ -19,8 +19,9 @@ function createTextViews(
 			new NumberTextView(doc, {
 				dragging: createValue<number | null>(0),
 				props: ValueMap.fromObject({
-					draggingScale: 1,
 					formatter: (v) => String(v),
+					keyScale: 1,
+					pointerScale: 1,
 				}),
 				value: createValue<number>(0),
 				viewProps: viewProps,

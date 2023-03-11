@@ -16,7 +16,10 @@ import {stringFromUnknown} from '../../../common/converter/string';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
-import {SliderTextController} from '../../../common/number/controller/slider-text';
+import {
+	createSliderTextProps,
+	SliderTextController,
+} from '../../../common/number/controller/slider-text';
 import {writePrimitive} from '../../../common/primitive';
 import {CheckboxController} from '../../../input-binding/boolean/controller/checkbox';
 import {createTestWindow} from '../../../misc/dom-test-util';
@@ -91,16 +94,14 @@ function createValueBladeController(
 		}),
 		value: v,
 		valueController: new SliderTextController(doc, {
-			baseStep: 1,
-			parser: parseNumber,
-			sliderProps: ValueMap.fromObject({
-				max: 100,
-				min: 0,
-			}),
-			textProps: ValueMap.fromObject({
-				draggingScale: 1,
+			...createSliderTextProps({
 				formatter: createNumberFormatter(2),
+				max: createValue(100),
+				min: createValue(0),
+				keyScale: createValue(1),
+				pointerScale: 1,
 			}),
+			parser: parseNumber,
 			value: v,
 			viewProps: ViewProps.create(),
 		}),

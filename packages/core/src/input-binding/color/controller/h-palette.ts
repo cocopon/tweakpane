@@ -9,7 +9,7 @@ import {
 	PointerHandlerEvents,
 } from '../../../common/view/pointer-handler';
 import {IntColor} from '../model/int-color';
-import {getBaseStepForColor} from '../util';
+import {getKeyScaleForColor} from '../util';
 import {HPaletteView} from '../view/h-palette';
 
 interface Config {
@@ -93,7 +93,7 @@ export class HPaletteController
 
 	private onKeyDown_(ev: KeyboardEvent): void {
 		const step = getStepForKey(
-			getBaseStepForColor(false),
+			getKeyScaleForColor(false),
 			getHorizontalStepKeys(ev),
 		);
 		if (step === 0) {
@@ -110,7 +110,7 @@ export class HPaletteController
 
 	private onKeyUp_(ev: KeyboardEvent): void {
 		const step = getStepForKey(
-			getBaseStepForColor(false),
+			getKeyScaleForColor(false),
 			getHorizontalStepKeys(ev),
 		);
 		if (step === 0) {

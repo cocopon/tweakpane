@@ -1,3 +1,5 @@
+import {Formatter} from './converter/formatter';
+
 export interface BaseParams {
 	disabled?: boolean;
 	hidden?: boolean;
@@ -11,6 +13,7 @@ export type ListParamsOptions<T> =
 	| ObjectStyleListOptions<T>;
 
 export interface PointDimensionParams {
+	formatter?: Formatter<number>;
 	max?: number;
 	min?: number;
 	step?: number;

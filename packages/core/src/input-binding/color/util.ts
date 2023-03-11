@@ -30,7 +30,7 @@ export function parseColorInputParams(
 	}));
 }
 
-export function getBaseStepForColor(forAlpha: boolean): number {
+export function getKeyScaleForColor(forAlpha: boolean): number {
 	return forAlpha ? 0.1 : 1;
 }
 

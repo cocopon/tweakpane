@@ -1,28 +1,20 @@
 import {Constraint} from '../../common/constraint/constraint';
-import {
-	createNumberFormatter,
-	parseNumber,
-} from '../../common/converter/number';
+import {parseNumber} from '../../common/converter/number';
 import {parseRecord} from '../../common/micro-parsers';
-import {ValueMap} from '../../common/model/value-map';
-import {
-	findNumberRange,
-	getBaseStep,
-	getSuitableDecimalDigits,
-	getSuitableDraggingScale,
-} from '../../common/number/util';
+import {findNumberRange, getSuitableKeyScale} from '../../common/number/util';
 import {
 	BaseInputParams,
 	PickerLayout,
 	PointDimensionParams,
 } from '../../common/params';
 import {parsePickerLayout} from '../../common/picker-util';
+import {createPointAxis, PointAxis} from '../../common/point-nd/point-axis';
 import {
 	createPointDimensionParser,
 	parsePointDimensionParams,
-} from '../../common/point-nd-util';
-import {createDimensionConstraint} from '../../common/point-nd-util';
-import {isEmpty} from '../../misc/type-util';
+} from '../../common/point-nd/util';
+import {createDimensionConstraint} from '../../common/point-nd/util';
+import {isEmpty, Tuple2} from '../../misc/type-util';
 import {VERSION} from '../../version';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {InputBindingPlugin} from '../plugin';
@@ -65,7 +57,7 @@ function getSuitableMaxDimensionValue(
 		return Math.max(Math.abs(min ?? 0), Math.abs(max ?? 0));
 	}
 
-	const step = getBaseStep(constraint);
+	const step = getSuitableKeyScale(constraint);
 	return Math.max(Math.abs(step) * 10, Math.abs(rawValue) * 10);
 }
 
@@ -84,22 +76,6 @@ export function getSuitableMax(
 	const xr = getSuitableMaxDimensionValue(xc, initialValue.x);
 	const yr = getSuitableMaxDimensionValue(yc, initialValue.y);
 	return Math.max(xr, yr);
-}
-
-function createAxis(
-	initialValue: number,
-	constraint: Constraint<number> | undefined,
-) {
-	return {
-		baseStep: getBaseStep(constraint),
-		constraint: constraint,
-		textProps: ValueMap.fromObject({
-			draggingScale: getSuitableDraggingScale(constraint, initialValue),
-			formatter: createNumberFormatter(
-				getSuitableDecimalDigits(constraint, initialValue),
-			),
-		}),
-	};
 }
 
 function shouldInvertY(params: Point2dInputParams): boolean {
@@ -137,10 +113,8 @@ export const Point2dInputPlugin: InputBindingPlugin<
 			readonly: p.optional.constant(false),
 			x: p.optional.custom(parsePointDimensionParams),
 			y: p.optional.object<Point2dYParams & Record<string, unknown>>({
+				...createPointDimensionParser(p),
 				inverted: p.optional.boolean,
-				max: p.optional.number,
-				min: p.optional.number,
-				step: p.optional.number,
 			}),
 		}));
 		return result
@@ -160,11 +134,15 @@ export const Point2dInputPlugin: InputBindingPlugin<
 		const doc = args.document;
 		const value = args.value;
 		const c = args.constraint as PointNdConstraint<Point2d>;
+		const dParams = [args.params.x, args.params.y];
 		return new Point2dController(doc, {
-			axes: [
-				createAxis(value.rawValue.x, c.components[0]),
-				createAxis(value.rawValue.y, c.components[1]),
-			],
+			axes: value.rawValue.getComponents().map((comp, i) =>
+				createPointAxis({
+					constraint: c.components[i],
+					formatter: dParams[i]?.formatter ?? args.params.formatter,
+					initialValue: comp,
+				}),
+			) as Tuple2<PointAxis>,
 			expanded: args.params.expanded ?? false,
 			invertsY: shouldInvertY(args.params),
 			max: getSuitableMax(value.rawValue, c),

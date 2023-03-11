@@ -1,5 +1,6 @@
 import {
 	createBlade,
+	createSliderTextProps,
 	createValue,
 	LabeledValueController,
 	LabelPropsObject,
@@ -31,16 +32,14 @@ describe(SliderBladeApi.name, () => {
 			}),
 			value: v,
 			valueController: new SliderTextController(doc, {
-				baseStep: 1,
-				parser: parseNumber,
-				sliderProps: ValueMap.fromObject({
-					max: 100,
-					min: 0,
-				}),
-				textProps: ValueMap.fromObject({
-					draggingScale: 1,
+				...createSliderTextProps({
 					formatter: numberToString,
+					keyScale: createValue(1),
+					max: createValue(100),
+					min: createValue(0),
+					pointerScale: 1,
 				}),
+				parser: parseNumber,
 				value: v,
 				viewProps: ViewProps.create(),
 			}),
@@ -59,16 +58,14 @@ describe(SliderBladeApi.name, () => {
 			}),
 			value: v,
 			valueController: new SliderTextController(doc, {
-				baseStep: 1,
-				parser: parseNumber,
-				sliderProps: ValueMap.fromObject({
-					max: 100,
-					min: -100,
-				}),
-				textProps: ValueMap.fromObject({
-					draggingScale: 1,
+				...createSliderTextProps({
 					formatter: numberToString,
+					keyScale: createValue(1),
+					max: createValue(100),
+					min: createValue(-100),
+					pointerScale: 1,
 				}),
+				parser: parseNumber,
 				value: v,
 				viewProps: ViewProps.create(),
 			}),
@@ -92,16 +89,14 @@ describe(SliderBladeApi.name, () => {
 			}),
 			value: v,
 			valueController: new SliderTextController(doc, {
-				baseStep: 1,
-				parser: parseNumber,
-				sliderProps: ValueMap.fromObject({
-					max: 100,
-					min: -100,
-				}),
-				textProps: ValueMap.fromObject({
-					draggingScale: 1,
+				...createSliderTextProps({
 					formatter: numberToString,
+					max: createValue(100),
+					min: createValue(-100),
+					keyScale: createValue(1),
+					pointerScale: 1,
 				}),
+				parser: parseNumber,
 				value: v,
 				viewProps: ViewProps.create(),
 			}),
@@ -132,16 +127,14 @@ describe(SliderBladeApi.name, () => {
 			}),
 			value: v,
 			valueController: new SliderTextController(doc, {
-				baseStep: 1,
-				parser: parseNumber,
-				sliderProps: ValueMap.fromObject({
-					max: 100,
-					min: 0,
-				}),
-				textProps: ValueMap.fromObject({
-					draggingScale: 1,
+				...createSliderTextProps({
 					formatter: numberToString,
+					max: createValue(100),
+					min: createValue(0),
+					keyScale: createValue(1),
+					pointerScale: 1,
 				}),
+				parser: parseNumber,
 				value: v,
 				viewProps: ViewProps.create(),
 			}),

@@ -13,10 +13,12 @@ import {getBoundValue} from '../../common/model/test-util';
 import {Value} from '../../common/model/value';
 import {findNumberRange} from '../../common/number/util';
 import {createTestWindow} from '../../misc/dom-test-util';
+import {Tuple2} from '../../misc/type-util';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {createInputBindingController} from '../plugin';
+import {Point2dController} from './controller/point-2d';
 import {Point2d, Point2dAssembly} from './model/point-2d';
-import {getSuitableMax, Point2dInputPlugin} from './plugin';
+import {getSuitableMax, Point2dInputParams, Point2dInputPlugin} from './plugin';
 
 function getPoint2dConstraint(
 	v: InputBindingValue<unknown>,
@@ -179,6 +181,47 @@ describe(Point2dInputPlugin.id, () => {
 					const p = getDimensionProps(comps[i] as Constraint<number>);
 					assert.deepStrictEqual(p, expected[i]);
 				});
+			});
+		});
+	});
+
+	(
+		[
+			{
+				params: {
+					formatter: () => 'foo',
+					x: {formatter: () => 'bar'},
+				},
+				expected: ['bar', 'foo'],
+			},
+			{
+				params: {
+					formatter: () => 'foo',
+					y: {formatter: () => 'bar'},
+				},
+				expected: ['foo', 'bar'],
+			},
+		] as {
+			params: Point2dInputParams;
+			expected: Tuple2<string>;
+		}[]
+	).forEach(({params, expected}) => {
+		describe(`when params=${JSON.stringify(params)}`, () => {
+			it('should apply custom formatter', () => {
+				const doc = createTestWindow().document;
+				const c = createInputBindingController(Point2dInputPlugin, {
+					document: doc,
+					params: params,
+					target: new BindingTarget({p: {x: 12, y: 34}}, 'p'),
+				}) as InputBindingController;
+
+				const vc = c.valueController as Point2dController;
+				assert.deepStrictEqual(
+					vc.textController.textControllers.map(
+						(tc) => tc.view.inputElement.value,
+					),
+					expected,
+				);
 			});
 		});
 	});

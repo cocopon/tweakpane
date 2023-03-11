@@ -14,11 +14,11 @@ describe(NumberTextController.name, () => {
 		const win = createTestWindow();
 		const doc = win.document;
 		const c = new NumberTextController(doc, {
-			baseStep: 1,
 			parser: parseNumber,
 			props: ValueMap.fromObject({
-				draggingScale: 1,
 				formatter: createNumberFormatter(0),
+				keyScale: 1,
+				pointerScale: 1,
 			}),
 			value: createValue(123),
 			viewProps: ViewProps.create(),
@@ -37,11 +37,11 @@ describe(NumberTextController.name, () => {
 		const win = createTestWindow();
 		const doc = win.document;
 		const c = new NumberTextController(doc, {
-			baseStep: 1,
 			parser: parseNumber,
 			props: ValueMap.fromObject({
-				draggingScale: 1,
 				formatter: createNumberFormatter(0),
+				keyScale: 1,
+				pointerScale: 1,
 			}),
 			value: createValue(123),
 			viewProps: ViewProps.create(),
