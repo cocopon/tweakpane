@@ -133,5 +133,46 @@ describe(ColorTextsController.name, () => {
 				);
 			});
 		});
+
+		[
+			{
+				params: {mode: 'rgb'},
+				expected: ['255', '0', '0'],
+			},
+			{
+				params: {mode: 'hsl'},
+				expected: ['0', '100', '50'],
+			},
+			{
+				params: {mode: 'hsv'},
+				expected: ['0', '100', '100'],
+			},
+			{
+				params: {mode: 'hex'},
+				expected: ['#ff0000'],
+			},
+		].forEach(({params, expected}) => {
+			describe(`when params=${JSON.stringify(params)}`, () => {
+				it('should show component values', () => {
+					const win = createTestWindow();
+					const doc = win.document;
+					const value = createValue(new IntColor([255, 0, 0], 'rgb'));
+					const c = new ColorTextsController(doc, {
+						colorType: value.rawValue.type,
+						value: value,
+						viewProps: ViewProps.create(),
+					});
+
+					const selectElem = c.view.modeSelectElement;
+					selectElem.value = params.mode;
+					selectElem.dispatchEvent(TestUtil.createEvent(win, 'change'));
+
+					assert.deepStrictEqual(
+						c.view.inputViews.map((v) => v.inputElement.value),
+						expected,
+					);
+				});
+			});
+		});
 	});
 });

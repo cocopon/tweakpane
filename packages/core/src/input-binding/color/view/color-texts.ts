@@ -9,9 +9,11 @@ import {ClassName} from '../../../common/view/class-name';
 import {InputView, View} from '../../../common/view/view';
 import {ColorMode} from '../model/color-model';
 
+export type ColorTextsMode = ColorMode | 'hex';
+
 interface Config {
-	colorMode: Value<ColorMode>;
 	inputViews: InputView[];
+	mode: Value<ColorTextsMode>;
 	viewProps: ViewProps;
 }
 
@@ -23,6 +25,7 @@ function createModeSelectElement(doc: Document): HTMLSelectElement {
 		{text: 'RGB', value: 'rgb'},
 		{text: 'HSL', value: 'hsl'},
 		{text: 'HSV', value: 'hsv'},
+		{text: 'HEX', value: 'hex'},
 	];
 	selectElem.appendChild(
 		items.reduce((frag, item) => {
@@ -72,7 +75,7 @@ export class ColorTextsView implements View {
 		this.inputViews_ = config.inputViews;
 		this.applyInputViews_();
 
-		bindValue(config.colorMode, (mode) => {
+		bindValue(config.mode, (mode) => {
 			this.modeElem_.value = mode;
 		});
 	}

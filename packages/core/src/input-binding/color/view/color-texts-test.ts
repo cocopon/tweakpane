@@ -7,8 +7,7 @@ import {ViewProps} from '../../../common/model/view-props';
 import {NumberTextView} from '../../../common/number/view/number-text';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {Tuple3} from '../../../misc/type-util';
-import {ColorMode} from '../model/color-model';
-import {ColorTextsView} from './color-texts';
+import {ColorTextsMode, ColorTextsView} from './color-texts';
 
 function createTextViews(
 	doc: Document,
@@ -34,7 +33,7 @@ describe(ColorTextsView.name, () => {
 		const doc = createTestWindow().document;
 		const viewProps = ViewProps.create();
 		const v = new ColorTextsView(doc, {
-			colorMode: createValue<ColorMode>('rgb'),
+			mode: createValue<ColorTextsMode>('rgb'),
 			inputViews: createTextViews(doc, viewProps),
 			viewProps: viewProps,
 		});
