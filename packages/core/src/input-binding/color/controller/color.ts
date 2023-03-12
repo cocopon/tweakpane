@@ -102,8 +102,8 @@ export class ColorController implements ValueController<IntColor, ColorView> {
 			connectValues({
 				primary: this.foldable_.value('expanded'),
 				secondary: this.popC_.shows,
-				forward: (p) => p.rawValue,
-				backward: (_, s) => s.rawValue,
+				forward: (p) => p,
+				backward: (_, s) => s,
 			});
 		} else if (this.view.pickerElement) {
 			this.view.pickerElement.appendChild(this.pickerC_.view.element);

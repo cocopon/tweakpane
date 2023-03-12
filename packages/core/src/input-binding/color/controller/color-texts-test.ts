@@ -175,4 +175,24 @@ describe(ColorTextsController.name, () => {
 			});
 		});
 	});
+
+	it('should keep alpha when updating with hex value', () => {
+		const win = createTestWindow();
+		const doc = win.document;
+		const value = createValue(new IntColor([255, 0, 0, 0.5], 'rgb'));
+		const c = new ColorTextsController(doc, {
+			colorType: value.rawValue.type,
+			value: value,
+			viewProps: ViewProps.create(),
+		});
+
+		const selectElem = c.view.modeSelectElement;
+		selectElem.value = 'hex';
+		selectElem.dispatchEvent(TestUtil.createEvent(win, 'change'));
+
+		const inputElem = c.view.inputViews[0].inputElement;
+		inputElem.value = '#00f';
+		inputElem.dispatchEvent(TestUtil.createEvent(win, 'change'));
+		assert.deepStrictEqual(value.rawValue.getComponents(), [0, 0, 255, 0.5]);
+	});
 });

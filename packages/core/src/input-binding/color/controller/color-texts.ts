@@ -98,15 +98,15 @@ function createComponentControllers(
 		connectValues({
 			primary: config.value,
 			secondary: c.value,
-			forward: (p) => {
-				const mc = mapColorType(p.rawValue, config.colorType);
+			forward(p) {
+				const mc = mapColorType(p, config.colorType);
 				return mc.getComponents(config.colorMode)[i];
 			},
-			backward: (p, s) => {
+			backward(p, s) {
 				const pickedMode = config.colorMode;
-				const mc = mapColorType(p.rawValue, config.colorType);
+				const mc = mapColorType(p, config.colorType);
 				const comps = mc.getComponents(pickedMode);
-				comps[i] = s.rawValue;
+				comps[i] = s;
 				const c = createColor(
 					appendAlphaComponent(removeAlphaComponent(comps), comps[3]),
 					pickedMode,
@@ -117,6 +117,40 @@ function createComponentControllers(
 		});
 		return c;
 	});
+}
+
+function createHexController(
+	doc: Document,
+	config: {
+		value: Value<IntColor>;
+		viewProps: ViewProps;
+	},
+) {
+	const c = new TextController<IntColor>(doc, {
+		parser: createColorStringParser('int'),
+		props: ValueMap.fromObject({
+			formatter: colorToHexRgbString,
+		}),
+		value: createValue(IntColor.black()),
+		viewProps: config.viewProps,
+	});
+
+	connectValues({
+		primary: config.value,
+		secondary: c.value,
+		forward: (p) =>
+			new IntColor(removeAlphaComponent(p.getComponents()), p.mode),
+		backward: (p, s) =>
+			new IntColor(
+				appendAlphaComponent(
+					removeAlphaComponent(s.getComponents(p.mode)),
+					p.getComponents()[3],
+				),
+				p.mode,
+			),
+	});
+
+	return [c] as ComponentValueController[];
 }
 
 function isColorMode(mode: ColorTextsMode): mode is ColorMode {
@@ -171,16 +205,10 @@ export class ColorTextsController
 				viewProps: this.viewProps,
 			}) as ComponentValueController[];
 		}
-		return [
-			new TextController<IntColor>(doc, {
-				parser: createColorStringParser('int'),
-				props: ValueMap.fromObject({
-					formatter: colorToHexRgbString,
-				}),
-				value: this.value,
-				viewProps: this.viewProps,
-			}),
-		] as ComponentValueController[];
+		return createHexController(doc, {
+			value: this.value,
+			viewProps: this.viewProps,
+		});
 	}
 
 	private onModeSelectChange_(ev: Event) {
