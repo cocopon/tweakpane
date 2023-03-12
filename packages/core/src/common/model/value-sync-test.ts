@@ -15,11 +15,11 @@ describe(connectValues.name, () => {
 			secondary: sv,
 
 			forward: (p) => {
-				return p.rawValue.x;
+				return p.x;
 			},
 			backward: (p, s) => {
-				const comps = p.rawValue.getComponents();
-				comps[0] = s.rawValue;
+				const comps = p.getComponents();
+				comps[0] = s;
 				return new Point2d(...comps);
 			},
 		});
@@ -43,12 +43,10 @@ describe(connectValues.name, () => {
 			primary: pv,
 			secondary: sv,
 
-			forward: (p) => {
-				return p.rawValue.x;
-			},
+			forward: (p) => p.x,
 			backward: (p, s) => {
-				const comps = p.rawValue.getComponents();
-				comps[0] = s.rawValue;
+				const comps = p.getComponents();
+				comps[0] = s;
 				return new Point2d(...comps);
 			},
 		});

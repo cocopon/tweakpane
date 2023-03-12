@@ -56,12 +56,10 @@ export class PointNdTextController<PointNd>
 			connectValues({
 				primary: this.value,
 				secondary: c.value,
-				forward: (p) => {
-					return config.assembly.toComponents(p.rawValue)[index];
-				},
+				forward: (p) => config.assembly.toComponents(p)[index],
 				backward: (p, s) => {
-					const comps = config.assembly.toComponents(p.rawValue);
-					comps[index] = s.rawValue;
+					const comps = config.assembly.toComponents(p);
+					comps[index] = s;
 					return config.assembly.fromComponents(comps);
 				},
 			});

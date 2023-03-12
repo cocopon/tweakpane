@@ -78,13 +78,11 @@ export class ColorPickerController
 			connectValues({
 				primary: this.value,
 				secondary: this.alphaIcs_.text.value,
-				forward: (p) => {
-					return p.rawValue.getComponents()[3];
-				},
+				forward: (p) => p.getComponents()[3],
 				backward: (p, s) => {
-					const comps = p.rawValue.getComponents();
-					comps[3] = s.rawValue;
-					return new IntColor(comps, p.rawValue.mode);
+					const comps = p.getComponents();
+					comps[3] = s;
+					return new IntColor(comps, p.mode);
 				},
 			});
 		}

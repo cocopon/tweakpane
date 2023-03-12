@@ -99,14 +99,14 @@ function createComponentControllers(
 			primary: config.value,
 			secondary: c.value,
 			forward(p) {
-				const mc = mapColorType(p.rawValue, config.colorType);
+				const mc = mapColorType(p, config.colorType);
 				return mc.getComponents(config.colorMode)[i];
 			},
 			backward(p, s) {
 				const pickedMode = config.colorMode;
-				const mc = mapColorType(p.rawValue, config.colorType);
+				const mc = mapColorType(p, config.colorType);
 				const comps = mc.getComponents(pickedMode);
-				comps[i] = s.rawValue;
+				comps[i] = s;
 				const c = createColor(
 					appendAlphaComponent(removeAlphaComponent(comps), comps[3]),
 					pickedMode,
@@ -138,21 +138,16 @@ function createHexController(
 	connectValues({
 		primary: config.value,
 		secondary: c.value,
-		forward: (p) => {
-			const pc = p.rawValue;
-			return new IntColor(removeAlphaComponent(pc.getComponents()), pc.mode);
-		},
-		backward: (p, s) => {
-			const pc = p.rawValue;
-			const sc = s.rawValue;
-			return new IntColor(
+		forward: (p) =>
+			new IntColor(removeAlphaComponent(p.getComponents()), p.mode),
+		backward: (p, s) =>
+			new IntColor(
 				appendAlphaComponent(
-					removeAlphaComponent(sc.getComponents(pc.mode)),
-					pc.getComponents()[3],
+					removeAlphaComponent(s.getComponents(p.mode)),
+					p.getComponents()[3],
 				),
-				pc.mode,
-			);
-		},
+				p.mode,
+			),
 	});
 
 	return [c] as ComponentValueController[];
