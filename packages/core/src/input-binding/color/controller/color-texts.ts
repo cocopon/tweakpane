@@ -98,11 +98,11 @@ function createComponentControllers(
 		connectValues({
 			primary: config.value,
 			secondary: c.value,
-			forward: (p) => {
+			forward(p) {
 				const mc = mapColorType(p.rawValue, config.colorType);
 				return mc.getComponents(config.colorMode)[i];
 			},
-			backward: (p, s) => {
+			backward(p, s) {
 				const pickedMode = config.colorMode;
 				const mc = mapColorType(p.rawValue, config.colorType);
 				const comps = mc.getComponents(pickedMode);
@@ -117,6 +117,45 @@ function createComponentControllers(
 		});
 		return c;
 	});
+}
+
+function createHexController(
+	doc: Document,
+	config: {
+		value: Value<IntColor>;
+		viewProps: ViewProps;
+	},
+) {
+	const c = new TextController<IntColor>(doc, {
+		parser: createColorStringParser('int'),
+		props: ValueMap.fromObject({
+			formatter: colorToHexRgbString,
+		}),
+		value: createValue(IntColor.black()),
+		viewProps: config.viewProps,
+	});
+
+	connectValues({
+		primary: config.value,
+		secondary: c.value,
+		forward: (p) => {
+			const pc = p.rawValue;
+			return new IntColor(removeAlphaComponent(pc.getComponents()), pc.mode);
+		},
+		backward: (p, s) => {
+			const pc = p.rawValue;
+			const sc = s.rawValue;
+			return new IntColor(
+				appendAlphaComponent(
+					removeAlphaComponent(sc.getComponents(pc.mode)),
+					pc.getComponents()[3],
+				),
+				pc.mode,
+			);
+		},
+	});
+
+	return [c] as ComponentValueController[];
 }
 
 function isColorMode(mode: ColorTextsMode): mode is ColorMode {
@@ -171,16 +210,10 @@ export class ColorTextsController
 				viewProps: this.viewProps,
 			}) as ComponentValueController[];
 		}
-		return [
-			new TextController<IntColor>(doc, {
-				parser: createColorStringParser('int'),
-				props: ValueMap.fromObject({
-					formatter: colorToHexRgbString,
-				}),
-				value: this.value,
-				viewProps: this.viewProps,
-			}),
-		] as ComponentValueController[];
+		return createHexController(doc, {
+			value: this.value,
+			viewProps: this.viewProps,
+		});
 	}
 
 	private onModeSelectChange_(ev: Event) {
