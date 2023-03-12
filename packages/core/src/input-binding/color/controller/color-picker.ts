@@ -14,7 +14,7 @@ import {ColorType} from '../model/color-model';
 import {IntColor} from '../model/int-color';
 import {ColorPickerView} from '../view/color-picker';
 import {APaletteController} from './a-palette';
-import {ColorTextController} from './color-text';
+import {ColorTextsController} from './color-texts';
 import {HPaletteController} from './h-palette';
 import {SvPaletteController} from './sv-palette';
 
@@ -40,7 +40,7 @@ export class ColorPickerController
 	} | null;
 	private readonly hPaletteC_: HPaletteController;
 	private readonly svPaletteC_: SvPaletteController;
-	private readonly textC_: ColorTextController;
+	private readonly textsC_: ColorTextsController;
 
 	constructor(doc: Document, config: Config) {
 		this.value = config.value;
@@ -88,7 +88,7 @@ export class ColorPickerController
 				},
 			});
 		}
-		this.textC_ = new ColorTextController(doc, {
+		this.textsC_ = new ColorTextsController(doc, {
 			colorType: config.colorType,
 			parser: parseNumber,
 			value: this.value,
@@ -105,12 +105,12 @@ export class ColorPickerController
 			hPaletteView: this.hPaletteC_.view,
 			supportsAlpha: config.supportsAlpha,
 			svPaletteView: this.svPaletteC_.view,
-			textView: this.textC_.view,
+			textsView: this.textsC_.view,
 			viewProps: this.viewProps,
 		});
 	}
 
-	get textController(): ColorTextController {
-		return this.textC_;
+	get textsController(): ColorTextsController {
+		return this.textsC_;
 	}
 }

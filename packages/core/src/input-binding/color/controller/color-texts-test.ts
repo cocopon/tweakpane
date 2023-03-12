@@ -8,9 +8,9 @@ import {createTestWindow} from '../../../misc/dom-test-util';
 import {TestUtil} from '../../../misc/test-util';
 import {ColorComponents3} from '../model/color-model';
 import {IntColor} from '../model/int-color';
-import {ColorTextController} from './color-text';
+import {ColorTextsController} from './color-texts';
 
-describe(ColorTextController.name, () => {
+describe(ColorTextsController.name, () => {
 	[
 		{
 			expected: {r: 123, g: 0, b: 0, a: 1},
@@ -54,7 +54,7 @@ describe(ColorTextController.name, () => {
 
 				const win = createTestWindow();
 				const doc = win.document;
-				const c = new ColorTextController(doc, {
+				const c = new ColorTextsController(doc, {
 					colorType: value.rawValue.type,
 					parser: parseNumber,
 					value: value,
@@ -120,7 +120,7 @@ describe(ColorTextController.name, () => {
 
 				const win = createTestWindow();
 				const doc = win.document;
-				const c = new ColorTextController(doc, {
+				const c = new ColorTextsController(doc, {
 					colorType: value.rawValue.type,
 					parser: parseNumber,
 					value: value,

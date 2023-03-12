@@ -20,7 +20,7 @@ describe(ColorPickerController.name, () => {
 			viewProps: ViewProps.create(),
 		});
 
-		assert.strictEqual(c.textController.view.modeSelectElement.value, 'hsv');
+		assert.strictEqual(c.textsController.view.modeSelectElement.value, 'hsv');
 	});
 
 	it('should change hue of black in HSL', () => {
@@ -35,13 +35,13 @@ describe(ColorPickerController.name, () => {
 		});
 
 		// Change color mode to HSL
-		const modeSelectElem = c.textController.view.modeSelectElement;
+		const modeSelectElem = c.textsController.view.modeSelectElement;
 		modeSelectElem.value = 'hsl';
 		modeSelectElem.dispatchEvent(TestUtil.createEvent(win, 'change'));
-		assert.strictEqual(c.textController.colorMode.rawValue, 'hsl');
+		assert.strictEqual(c.textsController.colorMode.rawValue, 'hsl');
 
 		// Change hue value
-		const hInputElem = c.textController.view.inputViews[0].inputElement;
+		const hInputElem = c.textsController.view.inputViews[0].inputElement;
 		hInputElem.value = '10';
 		hInputElem.dispatchEvent(TestUtil.createEvent(win, 'change'));
 

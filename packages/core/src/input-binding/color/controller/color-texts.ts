@@ -20,7 +20,7 @@ import {
 import {createColor, mapColorType} from '../model/colors';
 import {IntColor} from '../model/int-color';
 import {getKeyScaleForColor} from '../util';
-import {ColorTextView} from '../view/color-text';
+import {ColorTextsView} from '../view/color-texts';
 
 interface Config {
 	colorType: ColorType;
@@ -73,12 +73,12 @@ function createComponentController(
 /**
  * @hidden
  */
-export class ColorTextController
-	implements ValueController<IntColor, ColorTextView>
+export class ColorTextsController
+	implements ValueController<IntColor, ColorTextsView>
 {
 	public readonly colorMode: Value<ColorMode>;
 	public readonly value: Value<IntColor>;
-	public readonly view: ColorTextView;
+	public readonly view: ColorTextsView;
 	public readonly viewProps: ViewProps;
 	private readonly parser_: Parser<number>;
 	private readonly colorType_: ColorType;
@@ -95,7 +95,7 @@ export class ColorTextController
 		this.colorMode = createValue(this.value.rawValue.mode);
 		this.ccs_ = this.createComponentControllers_(doc);
 
-		this.view = new ColorTextView(doc, {
+		this.view = new ColorTextsView(doc, {
 			colorMode: this.colorMode,
 			inputViews: [this.ccs_[0].view, this.ccs_[1].view, this.ccs_[2].view],
 			viewProps: this.viewProps,
