@@ -7,8 +7,7 @@ import {ViewProps} from '../../../common/model/view-props';
 import {NumberTextView} from '../../../common/number/view/number-text';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {Tuple3} from '../../../misc/type-util';
-import {ColorMode} from '../model/color-model';
-import {ColorTextView} from './color-text';
+import {ColorTextsMode, ColorTextsView} from './color-texts';
 
 function createTextViews(
 	doc: Document,
@@ -29,13 +28,13 @@ function createTextViews(
 	) as Tuple3<NumberTextView>;
 }
 
-describe(ColorTextView.name, () => {
+describe(ColorTextsView.name, () => {
 	it('should bind disabled', () => {
 		const doc = createTestWindow().document;
 		const viewProps = ViewProps.create();
-		const v = new ColorTextView(doc, {
-			colorMode: createValue<ColorMode>('rgb'),
-			textViews: createTextViews(doc, viewProps),
+		const v = new ColorTextsView(doc, {
+			mode: createValue<ColorTextsMode>('rgb'),
+			inputViews: createTextViews(doc, viewProps),
 			viewProps: viewProps,
 		});
 		assert.strictEqual(v.modeSelectElement.disabled, false);

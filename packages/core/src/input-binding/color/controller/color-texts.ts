@@ -1,8 +1,12 @@
 import {Constraint} from '../../../common/constraint/constraint';
 import {DefiniteRangeConstraint} from '../../../common/constraint/definite-range';
+import {TextController} from '../../../common/controller/text';
 import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
-import {createNumberFormatter} from '../../../common/converter/number';
+import {
+	createNumberFormatter,
+	parseNumber,
+} from '../../../common/converter/number';
 import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
@@ -10,7 +14,11 @@ import {connectValues} from '../../../common/model/value-sync';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from '../../../common/number/controller/number-text';
-import {Tuple3} from '../../../misc/type-util';
+import {InputView} from '../../../common/view/view';
+import {
+	colorToHexRgbString,
+	createColorStringParser,
+} from '../converter/color-string';
 import {
 	appendAlphaComponent,
 	ColorMode,
@@ -21,11 +29,10 @@ import {
 import {createColor, mapColorType} from '../model/colors';
 import {IntColor} from '../model/int-color';
 import {getKeyScaleForColor} from '../util';
-import {ColorTextView} from '../view/color-text';
+import {ColorTextsMode, ColorTextsView} from '../view/color-texts';
 
 interface Config {
 	colorType: ColorType;
-	parser: Parser<number>;
 	value: Value<IntColor>;
 	viewProps: ViewProps;
 }
@@ -71,34 +78,79 @@ function createComponentController(
 	});
 }
 
+function createComponentControllers(
+	doc: Document,
+	config: {
+		colorMode: ColorMode;
+		colorType: ColorType;
+		value: Value<IntColor>;
+		viewProps: ViewProps;
+	},
+): NumberTextController[] {
+	const cc = {
+		colorMode: config.colorMode,
+		colorType: config.colorType,
+		parser: parseNumber,
+		viewProps: config.viewProps,
+	};
+	return [0, 1, 2].map((i) => {
+		const c = createComponentController(doc, cc, i);
+		connectValues({
+			primary: config.value,
+			secondary: c.value,
+			forward: (p) => {
+				const mc = mapColorType(p.rawValue, config.colorType);
+				return mc.getComponents(config.colorMode)[i];
+			},
+			backward: (p, s) => {
+				const pickedMode = config.colorMode;
+				const mc = mapColorType(p.rawValue, config.colorType);
+				const comps = mc.getComponents(pickedMode);
+				comps[i] = s.rawValue;
+				const c = createColor(
+					appendAlphaComponent(removeAlphaComponent(comps), comps[3]),
+					pickedMode,
+					config.colorType,
+				);
+				return mapColorType(c, 'int');
+			},
+		});
+		return c;
+	});
+}
+
+function isColorMode(mode: ColorTextsMode): mode is ColorMode {
+	return mode !== 'hex';
+}
+
+type ComponentValueController = ValueController<unknown, InputView>;
+
 /**
  * @hidden
  */
-export class ColorTextController
-	implements ValueController<IntColor, ColorTextView>
+export class ColorTextsController
+	implements ValueController<IntColor, ColorTextsView>
 {
-	public readonly colorMode: Value<ColorMode>;
+	public readonly colorMode: Value<ColorTextsMode>;
 	public readonly value: Value<IntColor>;
-	public readonly view: ColorTextView;
+	public readonly view: ColorTextsView;
 	public readonly viewProps: ViewProps;
-	private readonly parser_: Parser<number>;
 	private readonly colorType_: ColorType;
-	private ccs_: Tuple3<NumberTextController>;
+	private ccs_: ComponentValueController[];
 
 	constructor(doc: Document, config: Config) {
 		this.onModeSelectChange_ = this.onModeSelectChange_.bind(this);
 
 		this.colorType_ = config.colorType;
-		this.parser_ = config.parser;
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 
-		this.colorMode = createValue(this.value.rawValue.mode);
+		this.colorMode = createValue(this.value.rawValue.mode as ColorTextsMode);
 		this.ccs_ = this.createComponentControllers_(doc);
 
-		this.view = new ColorTextView(doc, {
-			colorMode: this.colorMode,
-			textViews: [this.ccs_[0].view, this.ccs_[1].view, this.ccs_[2].view],
+		this.view = new ColorTextsView(doc, {
+			mode: this.colorMode,
+			inputViews: [this.ccs_[0].view, this.ccs_[1].view, this.ccs_[2].view],
 			viewProps: this.viewProps,
 		});
 		this.view.modeSelectElement.addEventListener(
@@ -109,41 +161,26 @@ export class ColorTextController
 
 	private createComponentControllers_(
 		doc: Document,
-	): [NumberTextController, NumberTextController, NumberTextController] {
-		const cc = {
-			colorMode: this.colorMode.rawValue,
-			colorType: this.colorType_,
-			parser: this.parser_,
-			viewProps: this.viewProps,
-		};
-		const ccs: Tuple3<NumberTextController> = [
-			createComponentController(doc, cc, 0),
-			createComponentController(doc, cc, 1),
-			createComponentController(doc, cc, 2),
-		];
-		ccs.forEach((cs, index) => {
-			connectValues({
-				primary: this.value,
-				secondary: cs.value,
-				forward: (p) => {
-					const mc = mapColorType(p.rawValue, this.colorType_);
-					return mc.getComponents(this.colorMode.rawValue)[index];
-				},
-				backward: (p, s) => {
-					const pickedMode = this.colorMode.rawValue;
-					const mc = mapColorType(p.rawValue, this.colorType_);
-					const comps = mc.getComponents(pickedMode);
-					comps[index] = s.rawValue;
-					const c = createColor(
-						appendAlphaComponent(removeAlphaComponent(comps), comps[3]),
-						pickedMode,
-						this.colorType_,
-					);
-					return mapColorType(c, 'int');
-				},
-			});
-		});
-		return ccs;
+	): ComponentValueController[] {
+		const mode = this.colorMode.rawValue;
+		if (isColorMode(mode)) {
+			return createComponentControllers(doc, {
+				colorMode: mode,
+				colorType: this.colorType_,
+				value: this.value,
+				viewProps: this.viewProps,
+			}) as ComponentValueController[];
+		}
+		return [
+			new TextController<IntColor>(doc, {
+				parser: createColorStringParser('int'),
+				props: ValueMap.fromObject({
+					formatter: colorToHexRgbString,
+				}),
+				value: this.value,
+				viewProps: this.viewProps,
+			}),
+		] as ComponentValueController[];
 	}
 
 	private onModeSelectChange_(ev: Event) {
@@ -153,10 +190,6 @@ export class ColorTextController
 		this.ccs_ = this.createComponentControllers_(
 			this.view.element.ownerDocument,
 		);
-		this.view.textViews = [
-			this.ccs_[0].view,
-			this.ccs_[1].view,
-			this.ccs_[2].view,
-		];
+		this.view.inputViews = this.ccs_.map((cc) => cc.view);
 	}
 }

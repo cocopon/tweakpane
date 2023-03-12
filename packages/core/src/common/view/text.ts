@@ -3,7 +3,7 @@ import {Value} from '../model/value';
 import {ValueMap} from '../model/value-map';
 import {ViewProps} from '../model/view-props';
 import {ClassName} from './class-name';
-import {View} from './view';
+import {InputView, View} from './view';
 
 /**
  * @hidden
@@ -26,7 +26,7 @@ const cn = ClassName('txt');
 /**
  * @hidden
  */
-export class TextView<T> implements View {
+export class TextView<T> implements View, InputView {
 	public readonly inputElement: HTMLInputElement;
 	public readonly element: HTMLElement;
 	private readonly props_: TextProps<T>;

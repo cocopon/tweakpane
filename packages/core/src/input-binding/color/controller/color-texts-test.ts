@@ -1,16 +1,15 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {parseNumber} from '../../../common/converter/number';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {TestUtil} from '../../../misc/test-util';
 import {ColorComponents3} from '../model/color-model';
 import {IntColor} from '../model/int-color';
-import {ColorTextController} from './color-text';
+import {ColorTextsController} from './color-texts';
 
-describe(ColorTextController.name, () => {
+describe(ColorTextsController.name, () => {
 	[
 		{
 			expected: {r: 123, g: 0, b: 0, a: 1},
@@ -54,14 +53,13 @@ describe(ColorTextController.name, () => {
 
 				const win = createTestWindow();
 				const doc = win.document;
-				const c = new ColorTextController(doc, {
+				const c = new ColorTextsController(doc, {
 					colorType: value.rawValue.type,
-					parser: parseNumber,
 					value: value,
 					viewProps: ViewProps.create(),
 				});
 
-				const inputElem = c.view.textViews[testCase.params.index].inputElement;
+				const inputElem = c.view.inputViews[testCase.params.index].inputElement;
 				inputElem.value = testCase.params.value;
 				inputElem.dispatchEvent(TestUtil.createEvent(win, 'change'));
 			});
@@ -120,20 +118,60 @@ describe(ColorTextController.name, () => {
 
 				const win = createTestWindow();
 				const doc = win.document;
-				const c = new ColorTextController(doc, {
+				const c = new ColorTextsController(doc, {
 					colorType: value.rawValue.type,
-					parser: parseNumber,
 					value: value,
 					viewProps: ViewProps.create(),
 				});
 
-				const inputElem = c.view.textViews[testCase.params.index].inputElement;
+				const inputElem = c.view.inputViews[testCase.params.index].inputElement;
 				inputElem.dispatchEvent(
 					TestUtil.createKeyboardEvent(win, 'keydown', {
 						key: testCase.params.keys.key,
 						shiftKey: !!testCase.params.keys.shift,
 					}),
 				);
+			});
+		});
+
+		[
+			{
+				params: {mode: 'rgb'},
+				expected: ['255', '0', '0'],
+			},
+			{
+				params: {mode: 'hsl'},
+				expected: ['0', '100', '50'],
+			},
+			{
+				params: {mode: 'hsv'},
+				expected: ['0', '100', '100'],
+			},
+			{
+				params: {mode: 'hex'},
+				expected: ['#ff0000'],
+			},
+		].forEach(({params, expected}) => {
+			describe(`when params=${JSON.stringify(params)}`, () => {
+				it('should show component values', () => {
+					const win = createTestWindow();
+					const doc = win.document;
+					const value = createValue(new IntColor([255, 0, 0], 'rgb'));
+					const c = new ColorTextsController(doc, {
+						colorType: value.rawValue.type,
+						value: value,
+						viewProps: ViewProps.create(),
+					});
+
+					const selectElem = c.view.modeSelectElement;
+					selectElem.value = params.mode;
+					selectElem.dispatchEvent(TestUtil.createEvent(win, 'change'));
+
+					assert.deepStrictEqual(
+						c.view.inputViews.map((v) => v.inputElement.value),
+						expected,
+					);
+				});
 			});
 		});
 	});
