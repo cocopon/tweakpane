@@ -90,7 +90,6 @@ export class ColorPickerController
 		}
 		this.textsC_ = new ColorTextsController(doc, {
 			colorType: config.colorType,
-			parser: parseNumber,
 			value: this.value,
 			viewProps: this.viewProps,
 		});

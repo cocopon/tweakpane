@@ -1,7 +1,6 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {parseNumber} from '../../../common/converter/number';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
 import {createTestWindow} from '../../../misc/dom-test-util';
@@ -56,7 +55,6 @@ describe(ColorTextsController.name, () => {
 				const doc = win.document;
 				const c = new ColorTextsController(doc, {
 					colorType: value.rawValue.type,
-					parser: parseNumber,
 					value: value,
 					viewProps: ViewProps.create(),
 				});
@@ -122,7 +120,6 @@ describe(ColorTextsController.name, () => {
 				const doc = win.document;
 				const c = new ColorTextsController(doc, {
 					colorType: value.rawValue.type,
-					parser: parseNumber,
 					value: value,
 					viewProps: ViewProps.create(),
 				});

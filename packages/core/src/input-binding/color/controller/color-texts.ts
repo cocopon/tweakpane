@@ -2,7 +2,10 @@ import {Constraint} from '../../../common/constraint/constraint';
 import {DefiniteRangeConstraint} from '../../../common/constraint/definite-range';
 import {ValueController} from '../../../common/controller/value';
 import {Formatter} from '../../../common/converter/formatter';
-import {createNumberFormatter} from '../../../common/converter/number';
+import {
+	createNumberFormatter,
+	parseNumber,
+} from '../../../common/converter/number';
 import {Parser} from '../../../common/converter/parser';
 import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
@@ -24,7 +27,6 @@ import {ColorTextsView} from '../view/color-texts';
 
 interface Config {
 	colorType: ColorType;
-	parser: Parser<number>;
 	value: Value<IntColor>;
 	viewProps: ViewProps;
 }
@@ -80,7 +82,6 @@ export class ColorTextsController
 	public readonly value: Value<IntColor>;
 	public readonly view: ColorTextsView;
 	public readonly viewProps: ViewProps;
-	private readonly parser_: Parser<number>;
 	private readonly colorType_: ColorType;
 	private ccs_: NumberTextController[];
 
@@ -88,7 +89,6 @@ export class ColorTextsController
 		this.onModeSelectChange_ = this.onModeSelectChange_.bind(this);
 
 		this.colorType_ = config.colorType;
-		this.parser_ = config.parser;
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 
@@ -110,7 +110,7 @@ export class ColorTextsController
 		const cc = {
 			colorMode: this.colorMode.rawValue,
 			colorType: this.colorType_,
-			parser: this.parser_,
+			parser: parseNumber,
 			viewProps: this.viewProps,
 		};
 		const ccs = [
