@@ -41,7 +41,7 @@ describe(ColorPickerController.name, () => {
 		assert.strictEqual(c.textController.colorMode.rawValue, 'hsl');
 
 		// Change hue value
-		const hInputElem = c.textController.view.textViews[0].inputElement;
+		const hInputElem = c.textController.view.inputViews[0].inputElement;
 		hInputElem.value = '10';
 		hInputElem.dispatchEvent(TestUtil.createEvent(win, 'change'));
 

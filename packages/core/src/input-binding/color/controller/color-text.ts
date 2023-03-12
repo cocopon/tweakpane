@@ -10,7 +10,6 @@ import {connectValues} from '../../../common/model/value-sync';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
 import {NumberTextController} from '../../../common/number/controller/number-text';
-import {Tuple3} from '../../../misc/type-util';
 import {
 	appendAlphaComponent,
 	ColorMode,
@@ -83,7 +82,7 @@ export class ColorTextController
 	public readonly viewProps: ViewProps;
 	private readonly parser_: Parser<number>;
 	private readonly colorType_: ColorType;
-	private ccs_: Tuple3<NumberTextController>;
+	private ccs_: NumberTextController[];
 
 	constructor(doc: Document, config: Config) {
 		this.onModeSelectChange_ = this.onModeSelectChange_.bind(this);
@@ -98,7 +97,7 @@ export class ColorTextController
 
 		this.view = new ColorTextView(doc, {
 			colorMode: this.colorMode,
-			textViews: [this.ccs_[0].view, this.ccs_[1].view, this.ccs_[2].view],
+			inputViews: [this.ccs_[0].view, this.ccs_[1].view, this.ccs_[2].view],
 			viewProps: this.viewProps,
 		});
 		this.view.modeSelectElement.addEventListener(
@@ -107,16 +106,14 @@ export class ColorTextController
 		);
 	}
 
-	private createComponentControllers_(
-		doc: Document,
-	): [NumberTextController, NumberTextController, NumberTextController] {
+	private createComponentControllers_(doc: Document): NumberTextController[] {
 		const cc = {
 			colorMode: this.colorMode.rawValue,
 			colorType: this.colorType_,
 			parser: this.parser_,
 			viewProps: this.viewProps,
 		};
-		const ccs: Tuple3<NumberTextController> = [
+		const ccs = [
 			createComponentController(doc, cc, 0),
 			createComponentController(doc, cc, 1),
 			createComponentController(doc, cc, 2),
@@ -153,7 +150,7 @@ export class ColorTextController
 		this.ccs_ = this.createComponentControllers_(
 			this.view.element.ownerDocument,
 		);
-		this.view.textViews = [
+		this.view.inputViews = [
 			this.ccs_[0].view,
 			this.ccs_[1].view,
 			this.ccs_[2].view,

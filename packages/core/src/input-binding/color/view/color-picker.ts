@@ -89,7 +89,7 @@ export class ColorPickerView implements View {
 			this.svPaletteView_.element,
 			this.hPaletteView_.element,
 			this.textView_.modeSelectElement,
-			...this.textView_.textViews.map((v) => v.inputElement),
+			...this.textView_.inputViews.map((v) => v.inputElement),
 		];
 		if (this.alphaViews_) {
 			elems.push(

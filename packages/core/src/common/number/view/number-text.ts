@@ -3,7 +3,7 @@ import {Value, ValueEvents} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {ClassName} from '../../../common/view/class-name';
-import {View} from '../../../common/view/view';
+import {InputView, View} from '../../../common/view/view';
 import {Formatter} from '../../converter/formatter';
 import {constrainRange} from '../util';
 
@@ -33,7 +33,7 @@ const cn = ClassName('txt');
 /**
  * @hidden
  */
-export class NumberTextView implements View {
+export class NumberTextView implements View, InputView {
 	public readonly inputElement: HTMLInputElement;
 	public readonly knobElement: HTMLElement;
 	public readonly element: HTMLElement;

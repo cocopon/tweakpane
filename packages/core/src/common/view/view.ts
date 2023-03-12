@@ -7,3 +7,10 @@ export interface View {
 	 */
 	readonly element: HTMLElement;
 }
+
+/**
+ * @hidden
+ */
+export interface InputView extends View {
+	readonly inputElement: HTMLInputElement;
+}

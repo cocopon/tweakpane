@@ -61,7 +61,7 @@ describe(ColorTextController.name, () => {
 					viewProps: ViewProps.create(),
 				});
 
-				const inputElem = c.view.textViews[testCase.params.index].inputElement;
+				const inputElem = c.view.inputViews[testCase.params.index].inputElement;
 				inputElem.value = testCase.params.value;
 				inputElem.dispatchEvent(TestUtil.createEvent(win, 'change'));
 			});
@@ -127,7 +127,7 @@ describe(ColorTextController.name, () => {
 					viewProps: ViewProps.create(),
 				});
 
-				const inputElem = c.view.textViews[testCase.params.index].inputElement;
+				const inputElem = c.view.inputViews[testCase.params.index].inputElement;
 				inputElem.dispatchEvent(
 					TestUtil.createKeyboardEvent(win, 'keydown', {
 						key: testCase.params.keys.key,

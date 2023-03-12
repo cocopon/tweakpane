@@ -35,7 +35,7 @@ describe(ColorTextView.name, () => {
 		const viewProps = ViewProps.create();
 		const v = new ColorTextView(doc, {
 			colorMode: createValue<ColorMode>('rgb'),
-			textViews: createTextViews(doc, viewProps),
+			inputViews: createTextViews(doc, viewProps),
 			viewProps: viewProps,
 		});
 		assert.strictEqual(v.modeSelectElement.disabled, false);

@@ -5,14 +5,13 @@ import {
 import {bindValue} from '../../../common/model/reactive';
 import {Value} from '../../../common/model/value';
 import {ViewProps} from '../../../common/model/view-props';
-import {NumberTextView} from '../../../common/number/view/number-text';
 import {ClassName} from '../../../common/view/class-name';
-import {View} from '../../../common/view/view';
+import {InputView, View} from '../../../common/view/view';
 import {ColorMode} from '../model/color-model';
 
 interface Config {
 	colorMode: Value<ColorMode>;
-	textViews: [NumberTextView, NumberTextView, NumberTextView];
+	inputViews: InputView[];
 	viewProps: ViewProps;
 }
 
@@ -43,8 +42,8 @@ function createModeSelectElement(doc: Document): HTMLSelectElement {
 export class ColorTextView implements View {
 	public readonly element: HTMLElement;
 	private readonly modeElem_: HTMLSelectElement;
-	private readonly textsElem_: HTMLElement;
-	private textViews_: [NumberTextView, NumberTextView, NumberTextView];
+	private readonly inputsElem_: HTMLElement;
+	private inputViews_: InputView[];
 
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
@@ -65,13 +64,13 @@ export class ColorTextView implements View {
 
 		this.element.appendChild(modeElem);
 
-		const textsElem = doc.createElement('div');
-		textsElem.classList.add(cn('w'));
-		this.element.appendChild(textsElem);
-		this.textsElem_ = textsElem;
+		const inputsElem = doc.createElement('div');
+		inputsElem.classList.add(cn('w'));
+		this.element.appendChild(inputsElem);
+		this.inputsElem_ = inputsElem;
 
-		this.textViews_ = config.textViews;
-		this.applyTextViews_();
+		this.inputViews_ = config.inputViews;
+		this.applyInputViews_();
 
 		bindValue(config.colorMode, (mode) => {
 			this.modeElem_.value = mode;
@@ -82,24 +81,24 @@ export class ColorTextView implements View {
 		return this.modeElem_;
 	}
 
-	get textViews(): [NumberTextView, NumberTextView, NumberTextView] {
-		return this.textViews_;
+	get inputViews(): InputView[] {
+		return this.inputViews_;
 	}
 
-	set textViews(textViews: [NumberTextView, NumberTextView, NumberTextView]) {
-		this.textViews_ = textViews;
-		this.applyTextViews_();
+	set inputViews(inputViews: InputView[]) {
+		this.inputViews_ = inputViews;
+		this.applyInputViews_();
 	}
 
-	private applyTextViews_() {
-		removeChildElements(this.textsElem_);
+	private applyInputViews_() {
+		removeChildElements(this.inputsElem_);
 
 		const doc = this.element.ownerDocument;
-		this.textViews_.forEach((v) => {
+		this.inputViews_.forEach((v) => {
 			const compElem = doc.createElement('div');
 			compElem.classList.add(cn('c'));
 			compElem.appendChild(v.element);
-			this.textsElem_.appendChild(compElem);
+			this.inputsElem_.appendChild(compElem);
 		});
 	}
 }
