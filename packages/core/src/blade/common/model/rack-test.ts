@@ -25,7 +25,6 @@ import {CheckboxController} from '../../../input-binding/boolean/controller/chec
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {forceCast} from '../../../misc/type-util';
 import {SingleLogController} from '../../../monitor-binding/common/controller/single-log';
-import {BindingController} from '../../binding/controller/binding';
 import {InputBindingController} from '../../binding/controller/input-binding';
 import {MonitorBindingController} from '../../binding/controller/monitor-binding';
 import {FolderController} from '../../folder/controller/folder';
@@ -69,7 +68,7 @@ function createMonitorBindingController(
 		bufferSize: 1,
 		ticker: new ManualTicker(),
 	});
-	return new BindingController(doc, {
+	return new MonitorBindingController(doc, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: '',
