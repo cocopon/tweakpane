@@ -6,6 +6,10 @@ import {ValueController} from '../../../common/controller/value';
 import {BufferedValue, TpBuffer} from '../../../common/model/buffered-value';
 import {View} from '../../../common/view/view';
 import {BladeController} from '../../common/controller/blade';
+import {
+	BladeState,
+	exportBladeState,
+} from '../../common/controller/blade-state';
 import {isValueBladeController} from '../../common/controller/value-blade';
 import {BindingController} from './binding';
 
@@ -17,10 +21,16 @@ export type BufferedValueController<
 /**
  * @hidden
  */
-export type MonitorBindingController<
+export class MonitorBindingController<
 	T = unknown,
 	Vc extends BufferedValueController<T> = BufferedValueController<T>,
-> = BindingController<TpBuffer<T>, Vc, MonitorBindingValue<T>>;
+> extends BindingController<TpBuffer<T>, Vc, MonitorBindingValue<T>> {
+	override exportState(): BladeState {
+		return exportBladeState(() => super.exportState(), {
+			readonly: true,
+		});
+	}
+}
 
 export function isMonitorBindingController(
 	bc: BladeController,

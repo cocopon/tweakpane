@@ -15,7 +15,6 @@ import {createTestWindow} from '../../../misc/dom-test-util';
 import {SingleLogController} from '../../../monitor-binding/common/controller/single-log';
 import {createBlade} from '../../common/model/blade';
 import {LabelPropsObject} from '../../label/view/label';
-import {BindingController} from './binding';
 import {MonitorBindingController} from './monitor-binding';
 
 function createController(
@@ -40,7 +39,7 @@ function createController(
 		value: value,
 		viewProps: ViewProps.create(),
 	});
-	return new BindingController(doc, {
+	return new MonitorBindingController(doc, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: 'foo',
@@ -48,10 +47,10 @@ function createController(
 		tag: config.tag,
 		value: value,
 		valueController: vc,
-	}) as MonitorBindingController<number>;
+	});
 }
 
-describe('MonitorBindingController', () => {
+describe(MonitorBindingController.name, () => {
 	it('should export state', () => {
 		const doc = createTestWindow().document;
 		const c = createController(doc, {
@@ -60,6 +59,7 @@ describe('MonitorBindingController', () => {
 		});
 		const state = c.exportState();
 
+		assert.strictEqual(state.readonly, true);
 		assert.strictEqual(state.tag, 'foo');
 		assert.strictEqual(state.value, 123);
 	});
