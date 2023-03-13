@@ -18,9 +18,9 @@ import {BindingParams} from '../blade/common/api/params';
 import {BladeController} from '../blade/common/controller/blade';
 import {BladePlugin, createBladeController} from '../blade/plugin';
 import {BindingTarget} from '../common/binding/target';
+import {isCompatible} from '../common/compat';
 import {TpBuffer} from '../common/model/buffered-value';
 import {TpError} from '../common/tp-error';
-import {isCompatible} from '../index';
 import {
 	createInputBindingController,
 	InputBindingPlugin,
