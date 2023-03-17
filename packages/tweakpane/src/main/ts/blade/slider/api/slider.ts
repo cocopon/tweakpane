@@ -25,11 +25,11 @@ export class SliderBladeApi extends BladeApi<
 		});
 	}
 
-	get label(): string | undefined {
+	get label(): string | null | undefined {
 		return this.controller_.props.get('label');
 	}
 
-	set label(label: string | undefined) {
+	set label(label: string | null | undefined) {
 		this.controller_.props.set('label', label);
 	}
 

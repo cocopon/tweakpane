@@ -1,6 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
+import {InputBindingController} from '../blade/binding/controller/input-binding';
 import {BindingTarget} from '../common/binding/target';
 import {ValueController} from '../common/controller/value';
 import {stringFromUnknown} from '../common/converter/string';
@@ -81,10 +82,11 @@ describe(createInputBindingController.name, () => {
 				hidden: true,
 			},
 			target: new BindingTarget({foo: 'bar'}, 'foo'),
-		});
+		}) as InputBindingController;
 
-		assert.strictEqual(bc?.viewProps.get('disabled'), true);
-		assert.strictEqual(bc?.viewProps.get('hidden'), true);
+		assert.strictEqual(bc.props.get('label'), 'foo');
+		assert.strictEqual(bc.viewProps.get('disabled'), true);
+		assert.strictEqual(bc.viewProps.get('hidden'), true);
 	});
 
 	it('should be able to handle disposing from plugin', () => {
@@ -96,5 +98,17 @@ describe(createInputBindingController.name, () => {
 		const c = bc?.valueController as TestController;
 		bc?.viewProps.set('disposed', true);
 		assert.strictEqual(c.disposed, true);
+	});
+
+	it('should hide when label is empty', () => {
+		const bc = createInputBindingController(TestPlugin, {
+			document: createTestWindow().document,
+			params: {
+				label: null,
+			},
+			target: new BindingTarget({foo: 'bar'}, 'foo'),
+		}) as InputBindingController;
+
+		assert.strictEqual(bc.props.get('label'), null);
 	});
 });

@@ -4,6 +4,7 @@ import {
 	createValue,
 	Formatter,
 	LabeledValueController,
+	LabelPropsObject,
 	MicroParser,
 	Parser,
 	parseRecord,
@@ -53,7 +54,7 @@ export const TextBladePlugin = (function <T>(): BladePlugin<
 			});
 			return new LabeledValueController<T, TextController<T>>(args.document, {
 				blade: args.blade,
-				props: ValueMap.fromObject({
+				props: ValueMap.fromObject<LabelPropsObject>({
 					label: args.params.label,
 				}),
 				value: v,

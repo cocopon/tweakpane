@@ -7,6 +7,7 @@ import {
 	Formatter,
 	getSuitablePointerScale,
 	LabeledValueController,
+	LabelPropsObject,
 	MicroParser,
 	numberToString,
 	parseNumber,
@@ -69,7 +70,7 @@ export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 			args.document,
 			{
 				blade: args.blade,
-				props: ValueMap.fromObject({
+				props: ValueMap.fromObject<LabelPropsObject>({
 					label: args.params.label,
 				}),
 				value: v,

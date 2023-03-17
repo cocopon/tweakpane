@@ -10,7 +10,7 @@ import {isEmpty} from '../../../misc/type-util';
  * @hidden
  */
 export type LabelPropsObject = {
-	label: string | undefined;
+	label: string | null | undefined;
 };
 
 /**
@@ -59,7 +59,7 @@ export class LabelView implements View {
 
 		const labelElem = doc.createElement('div');
 		labelElem.classList.add(cn('l'));
-		bindValueMap(config.props, 'label', (value: string | undefined) => {
+		bindValueMap(config.props, 'label', (value: string | null | undefined) => {
 			if (isEmpty(value)) {
 				this.element.classList.add(cn(undefined, 'nol'));
 			} else {
