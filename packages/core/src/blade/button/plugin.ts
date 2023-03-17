@@ -2,6 +2,7 @@ import {ValueMap} from '../../common/model/value-map';
 import {BaseBladeParams} from '../../common/params';
 import {ParamsParsers, parseParams} from '../../common/params-parsers';
 import {LabelController} from '../label/controller/label';
+import {LabelPropsObject} from '../label/view/label';
 import {BladePlugin} from '../plugin';
 import {ButtonApi} from './api/button';
 import {ButtonController} from './controller/button';
@@ -30,7 +31,7 @@ export const ButtonBladePlugin: BladePlugin<ButtonBladeParams> = {
 	controller(args) {
 		return new LabelController(args.document, {
 			blade: args.blade,
-			props: ValueMap.fromObject({
+			props: ValueMap.fromObject<LabelPropsObject>({
 				label: args.params.label,
 			}),
 			valueController: new ButtonController(args.document, {

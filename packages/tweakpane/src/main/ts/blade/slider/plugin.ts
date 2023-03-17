@@ -6,6 +6,7 @@ import {
 	Formatter,
 	getSuitableDraggingScale,
 	LabeledValueController,
+	LabelPropsObject,
 	numberToString,
 	ParamsParser,
 	ParamsParsers,
@@ -69,7 +70,7 @@ export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 			args.document,
 			{
 				blade: args.blade,
-				props: ValueMap.fromObject({
+				props: ValueMap.fromObject<LabelPropsObject>({
 					label: args.params.label,
 				}),
 				valueController: vc,

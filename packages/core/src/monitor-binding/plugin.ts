@@ -116,7 +116,7 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 		target: BindingTarget;
 	},
 ): MonitorBindingController<T> | null {
-	const P = ParamsParsers;
+	const p = ParamsParsers;
 	const result = plugin.accept(args.target.read(), args.params);
 	if (isEmpty(result)) {
 		return null;
@@ -130,11 +130,11 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 
 	const reader = plugin.binding.reader(bindingArgs);
 	const bufferSize =
-		P.optional.number(args.params.bufferSize).value ??
+		p.optional.number(args.params.bufferSize).value ??
 		(plugin.binding.defaultBufferSize &&
 			plugin.binding.defaultBufferSize(result.params)) ??
 		1;
-	const interval = P.optional.number(args.params.interval).value;
+	const interval = p.optional.number(args.params.interval).value;
 	const binding = new MonitorBinding({
 		reader: reader,
 		target: args.target,
@@ -142,8 +142,8 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 		value: initializeBuffer<T>(bufferSize),
 	});
 
-	const disabled = P.optional.boolean(args.params.disabled).value;
-	const hidden = P.optional.boolean(args.params.hidden).value;
+	const disabled = p.optional.boolean(args.params.disabled).value;
+	const hidden = p.optional.boolean(args.params.hidden).value;
 	const controller = plugin.controller({
 		document: args.document,
 		params: result.params,
@@ -154,12 +154,14 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 		}),
 	});
 
-	const label = P.optional.string(args.params.label).value ?? args.target.key;
 	return new MonitorBindingController(args.document, {
 		binding: binding,
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
-			label: label,
+			label:
+				'label' in args.params
+					? p.optional.string(args.params.label).value ?? null
+					: args.target.key,
 		}),
 		valueController: controller,
 	});
