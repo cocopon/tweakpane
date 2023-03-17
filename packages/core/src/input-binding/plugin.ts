@@ -201,7 +201,7 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 	return new InputBindingController(args.document, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
-			label: params?.label ?? args.target.key,
+			label: 'label' in args.params ? params?.label ?? null : args.target.key,
 		}),
 		tag: params?.tag,
 		value: value,

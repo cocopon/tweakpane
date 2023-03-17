@@ -94,6 +94,9 @@ tr:not(:first-child) {
 		border-top: var(--bg-color-secondary) solid 2px;
 	}
 }
+p + p {
+	margin-top: 1em;
+}
 code {
 	font-family: defs.$font-family-mono;
 }

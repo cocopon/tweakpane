@@ -1,7 +1,10 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {BufferedValueController} from '../blade/binding/controller/monitor-binding';
+import {
+	BufferedValueController,
+	MonitorBindingController,
+} from '../blade/binding/controller/monitor-binding';
 import {BindingTarget} from '../common/binding/target';
 import {stringFromUnknown} from '../common/converter/string';
 import {BufferedValue} from '../common/model/buffered-value';
@@ -89,11 +92,12 @@ describe(createMonitorBindingController.name, () => {
 				label: 'bar',
 			},
 			target: new BindingTarget({foo: 'bar'}, 'foo'),
-		});
+		}) as MonitorBindingController;
 
-		assert.strictEqual(bc?.viewProps.get('disabled'), true);
-		assert.strictEqual(bc?.viewProps.get('hidden'), true);
-		assert.strictEqual(bc?.props.get('label'), 'bar');
+		assert.strictEqual(bc.props.get('label'), 'bar');
+		assert.strictEqual(bc.viewProps.get('disabled'), true);
+		assert.strictEqual(bc.viewProps.get('hidden'), true);
+		assert.strictEqual(bc.props.get('label'), 'bar');
 		bc.viewProps.set('disposed', true);
 	});
 
@@ -118,5 +122,18 @@ describe(createMonitorBindingController.name, () => {
 		assert.strictEqual(bc?.value.ticker.disabled, false);
 		bc?.viewProps.set('disabled', true);
 		assert.strictEqual(bc?.value.ticker.disabled, true);
+	});
+
+	it('should hide when label is empty', () => {
+		const bc = createMonitorBindingController(TestPlugin, {
+			document: createTestWindow().document,
+			params: {
+				label: null,
+			},
+			target: new BindingTarget({foo: 'bar'}, 'foo'),
+		}) as MonitorBindingController;
+
+		assert.strictEqual(bc.props.get('label'), null);
+		bc.viewProps.set('disposed', true);
 	});
 });

@@ -6,6 +6,18 @@ export function initBlades() {
 	const markerToFnMap: {
 		[key: string]: (container: HTMLElement) => void;
 	} = {
+		blade(container) {
+			const pane = new Pane({
+				container: container,
+			});
+			pane.addBlade({
+				view: 'slider',
+				label: 'brightness',
+				min: 0,
+				max: 1,
+				value: 0.5,
+			});
+		},
 		text(container) {
 			const pane = new Pane({
 				container: container,
