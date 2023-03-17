@@ -1,6 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
+import {MonitorBindingController} from '../blade/monitor-binding/controller/monitor-binding';
 import {BindingTarget} from '../common/binding/target';
 import {Controller} from '../common/controller/controller';
 import {stringFromUnknown} from '../common/converter/string';
@@ -87,6 +88,7 @@ describe(createMonitorBindingController.name, () => {
 			target: new BindingTarget({foo: 'bar'}, 'foo'),
 		});
 
+		assert.strictEqual(bc?.props.get('label'), 'foo');
 		assert.strictEqual(bc?.viewProps.get('disabled'), true);
 		assert.strictEqual(bc?.viewProps.get('hidden'), true);
 		bc.viewProps.set('disposed', true);
@@ -102,5 +104,18 @@ describe(createMonitorBindingController.name, () => {
 		assert.strictEqual(c.disposed, false);
 		bc?.viewProps.set('disposed', true);
 		assert.strictEqual(c.disposed, true);
+	});
+
+	it('should hide when label is empty', () => {
+		const bc = createMonitorBindingController(TestPlugin, {
+			document: createTestWindow().document,
+			params: {
+				label: null,
+			},
+			target: new BindingTarget({foo: 'bar'}, 'foo'),
+		}) as MonitorBindingController<unknown>;
+
+		assert.strictEqual(bc.props.get('label'), null);
+		bc.viewProps.set('disposed', true);
 	});
 });

@@ -32,11 +32,11 @@ export class MonitorBindingApi<T> extends BladeApi<
 		this.controller_.binding.emitter.on('update', this.onBindingUpdate_);
 	}
 
-	get label(): string | undefined {
+	get label(): string | null | undefined {
 		return this.controller_.props.get('label');
 	}
 
-	set label(label: string | undefined) {
+	set label(label: string | null | undefined) {
 		this.controller_.props.set('label', label);
 	}
 

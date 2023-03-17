@@ -3,6 +3,7 @@ import {
 	BladePlugin,
 	createValue,
 	LabeledValueController,
+	LabelPropsObject,
 	ListConstraint,
 	ListController,
 	ListParamsOptions,
@@ -57,7 +58,7 @@ export const ListBladePlugin = (function <T>(): BladePlugin<
 			});
 			return new LabeledValueController<T, ListController<T>>(args.document, {
 				blade: args.blade,
-				props: ValueMap.fromObject({
+				props: ValueMap.fromObject<LabelPropsObject>({
 					label: args.params.label,
 				}),
 				valueController: ic,

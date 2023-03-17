@@ -173,12 +173,14 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 		}),
 	});
 
-	const label = p.optional.string(args.params.label).value;
 	return new InputBindingController(args.document, {
 		binding: binding,
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
-			label: label ?? args.target.key,
+			label:
+				'label' in args.params
+					? p.optional.string(args.params.label).value ?? null
+					: args.target.key,
 		}),
 		valueController: controller,
 	});
