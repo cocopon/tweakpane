@@ -21,13 +21,14 @@ function createController(
 	doc: Document,
 	config: {
 		tag?: string;
+		key: string;
 		value: number;
 	},
 ) {
-	const obj = {foo: config.value};
+	const obj = {[config.key]: config.value};
 	const binding = new ReadonlyBinding({
 		reader: numberFromUnknown,
-		target: new BindingTarget(obj, 'foo'),
+		target: new BindingTarget(obj, config.key),
 	});
 	const value = new MonitorBindingValue({
 		binding: binding,
@@ -54,13 +55,21 @@ describe(MonitorBindingController.name, () => {
 	it('should export state', () => {
 		const doc = createTestWindow().document;
 		const c = createController(doc, {
-			tag: 'foo',
+			key: 'foo',
+			tag: 'bar',
 			value: 123,
 		});
-		const state = c.exportState();
 
-		assert.strictEqual(state.readonly, true);
-		assert.strictEqual(state.tag, 'foo');
-		assert.strictEqual(state.value, 123);
+		assert.deepStrictEqual(c.exportState(), {
+			binding: {
+				key: 'foo',
+				readonly: true,
+				value: 123,
+			},
+			disabled: false,
+			hidden: false,
+			label: 'foo',
+			tag: 'bar',
+		});
 	});
 });

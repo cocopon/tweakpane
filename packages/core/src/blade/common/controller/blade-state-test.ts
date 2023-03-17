@@ -140,4 +140,26 @@ describe(exportBladeState.name, () => {
 			foo: 123,
 		});
 	});
+
+	it('should merge nested states', () => {
+		const state = exportBladeState(
+			() => ({
+				foo: {
+					bar: 1,
+				},
+			}),
+			{
+				foo: {
+					baz: 2,
+				},
+			},
+		);
+
+		assert.deepStrictEqual(state, {
+			foo: {
+				bar: 1,
+				baz: 2,
+			},
+		});
+	});
 });

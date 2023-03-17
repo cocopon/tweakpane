@@ -1,9 +1,9 @@
 import * as assert from 'assert';
-import {describe as context, describe, it} from 'mocha';
+import {describe, it} from 'mocha';
 
-import {deepEqualsArray, isPropertyWritable} from './type-util';
+import {deepEqualsArray, deepMerge, isPropertyWritable} from './type-util';
 
-describe('TypeUtil', () => {
+describe(deepEqualsArray.name, () => {
 	[
 		{
 			expected: true,
@@ -34,13 +34,15 @@ describe('TypeUtil', () => {
 			},
 		},
 	].forEach(({expected, params}) => {
-		context(`when ${JSON.stringify(params)}`, () => {
+		describe(`when ${JSON.stringify(params)}`, () => {
 			it('should compare array deeply', () => {
 				assert.strictEqual(deepEqualsArray(params.a1, params.a2), expected);
 			});
 		});
 	});
+});
 
+describe(isPropertyWritable.name, () => {
 	it('should detect setter of plain object', () => {
 		const obj = {foo: 0};
 		assert.strictEqual(isPropertyWritable(obj, 'foo'), true);
@@ -89,5 +91,57 @@ describe('TypeUtil', () => {
 		}
 		const wos = new WithoutSetter();
 		assert.strictEqual(isPropertyWritable(wos, 'foo'), false);
+	});
+});
+
+describe(deepMerge.name, () => {
+	[
+		{
+			params: {
+				obj1: {
+					foo: {bar: 1},
+				},
+				obj2: {
+					foo: {baz: 2},
+				},
+			},
+			expected: {
+				foo: {bar: 1, baz: 2},
+			},
+		},
+		{
+			params: {
+				obj1: {foo: 1},
+				obj2: {bar: 2},
+			},
+			expected: {foo: 1, bar: 2},
+		},
+		{
+			params: {
+				obj1: {foo: 1},
+				obj2: {foo: 2, bar: 3},
+			},
+			expected: {foo: 2, bar: 3},
+		},
+		{
+			params: {
+				obj1: {foo: 1},
+				obj2: {foo: null},
+			},
+			expected: {foo: null},
+		},
+		{
+			params: {
+				obj1: {foo: 1},
+				obj2: {foo: undefined},
+			},
+			expected: {foo: undefined},
+		},
+	].forEach(({params, expected}) => {
+		describe(`when params=${JSON.stringify(params)}`, () => {
+			it('should merge object deeply', () => {
+				assert.deepStrictEqual(deepMerge(params.obj1, params.obj2), expected);
+			});
+		});
 	});
 });

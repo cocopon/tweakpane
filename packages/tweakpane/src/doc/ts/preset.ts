@@ -15,9 +15,14 @@ export function stateToPreset(state: BladeState): PresetObject {
 		}, {});
 	}
 	// Binding
-	if ('key' in state && typeof state.key === 'string' && 'value' in state) {
+	const binding = (state.binding ?? {}) as Record<string, unknown>;
+	if (
+		'key' in binding &&
+		typeof binding.key === 'string' &&
+		'value' in binding
+	) {
 		return {
-			[state.key]: state.value,
+			[binding.key]: binding.value,
 		};
 	}
 	return {};
@@ -37,10 +42,18 @@ export function presetToState(
 		};
 	}
 	// Binding
-	if ('key' in state && typeof state.key === 'string' && 'value' in state) {
+	const binding = (state.binding ?? {}) as Record<string, unknown>;
+	if (
+		'key' in binding &&
+		typeof binding.key === 'string' &&
+		'value' in binding
+	) {
 		return {
 			...state,
-			value: preset[state.key] ?? state.value,
+			binding: {
+				...binding,
+				value: preset[binding.key] ?? state.value,
+			},
 		};
 	}
 	return state;

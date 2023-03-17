@@ -23,10 +23,12 @@ export class InputBindingController<
 			state,
 			(s) => super.importState(s),
 			(p) => ({
-				value: p.required.raw,
+				binding: p.required.object({
+					value: p.required.raw,
+				}),
 			}),
 			(result) => {
-				this.value.binding.inject(result.value);
+				this.value.binding.inject(result.binding.value);
 				this.value.fetch();
 				return true;
 			},

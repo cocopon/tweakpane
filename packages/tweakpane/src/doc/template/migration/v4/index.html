@@ -140,12 +140,13 @@ console.log(pane.<strong>exportState</strong>());</code></pre></div>
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">function <strong>stateToPreset</strong>(state) {
   if ('children' in state) {
-    return state.children.reduce((tmp, s) => {
+    return state.children.reduce((tmp, s) =&gt; {
       return {...tmp, ...stateToPreset(s)};
     }, {});
   }
-  if ('key' in state && 'value' in state) {
-    return {[state.key]: state.value};
+  const binding = state.binding ?? {};
+  if ('key' in binding && 'value' in binding) {
+    return {[binding.key]: binding.value};
   }
   return {};
 }</code></pre></div>

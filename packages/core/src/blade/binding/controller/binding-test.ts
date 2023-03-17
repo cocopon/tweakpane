@@ -24,14 +24,15 @@ import {InputBindingController} from './input-binding';
 function createController(
 	doc: Document,
 	config: {
+		key: string;
 		tag?: string;
 		value: number;
 	},
 ) {
-	const obj = {foo: config.value};
+	const obj = {[config.key]: config.value};
 	const binding = new ReadWriteBinding({
 		reader: colorFromRgbNumber,
-		target: new BindingTarget(obj, 'foo'),
+		target: new BindingTarget(obj, config.key),
 		writer: createColorNumberWriter(false),
 	});
 	const value = new InputBindingValue(
@@ -69,6 +70,7 @@ describe(BindingController.name, () => {
 			valueController: vc,
 			controller: bc,
 		} = createController(doc, {
+			key: 'foo',
 			value: 0x112233,
 		});
 
@@ -79,32 +81,44 @@ describe(BindingController.name, () => {
 	it('should export state', () => {
 		const doc = createTestWindow().document;
 		const {controller: c} = createController(doc, {
-			tag: 'foo',
+			key: 'foo',
+			tag: 'bar',
 			value: 0x112233,
 		});
-		const state = c.exportState();
 
-		assert.strictEqual(state.tag, 'foo');
-		assert.strictEqual(state.value, 0x112233);
+		assert.deepStrictEqual(c.exportState(), {
+			binding: {
+				key: 'foo',
+				value: 0x112233,
+			},
+			disabled: false,
+			hidden: false,
+			label: 'foo',
+			tag: 'bar',
+		});
 	});
 
 	it('should import state', () => {
 		const doc = createTestWindow().document;
 		const {controller: c} = createController(doc, {
-			tag: 'foo',
+			key: 'foo',
+			tag: 'bar',
 			value: 0x112233,
 		});
 
 		assert.strictEqual(
 			c.importState({
+				binding: {
+					key: 'foo',
+					value: 0,
+				},
 				disabled: true,
 				hidden: true,
 				label: 'label',
-				tag: 'bar',
-				value: 0,
+				tag: 'baz',
 			}),
 			true,
 		);
-		assert.strictEqual(c.tag, 'bar');
+		assert.strictEqual(c.tag, 'baz');
 	});
 });
