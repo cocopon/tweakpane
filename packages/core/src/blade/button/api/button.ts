@@ -1,15 +1,12 @@
 import {BladeApi} from '../../common/api/blade';
 import {TpEvent} from '../../common/api/tp-event';
-import {LabelBladeController} from '../../label/controller/label';
-import {ButtonController} from '../controller/button';
+import {ButtonBladeController} from '../controller/button-blade';
 
 export interface ButtonApiEvents {
 	click: TpEvent;
 }
 
-export class ButtonApi extends BladeApi<
-	LabelBladeController<ButtonController>
-> {
+export class ButtonApi extends BladeApi<ButtonBladeController> {
 	get label(): string | null | undefined {
 		return this.controller_.props.get('label');
 	}

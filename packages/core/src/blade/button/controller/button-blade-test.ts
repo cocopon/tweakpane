@@ -8,7 +8,7 @@ import {createBlade} from '../../common/model/blade';
 import {LabelPropsObject} from '../../label/view/label';
 import {ButtonPropsObject} from '../view/button';
 import {ButtonController} from './button';
-import {LabeledButtonController} from './labeled-button';
+import {ButtonBladeController} from './button-blade';
 
 function createController(
 	doc: Document,
@@ -17,7 +17,7 @@ function createController(
 		title: string;
 	},
 ) {
-	return new LabeledButtonController(doc, {
+	return new ButtonBladeController(doc, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: config.label,
@@ -31,7 +31,7 @@ function createController(
 	});
 }
 
-describe(LabeledButtonController.name, () => {
+describe(ButtonBladeController.name, () => {
 	it('should export state', () => {
 		const doc = createTestWindow().document;
 		const c = createController(doc, {

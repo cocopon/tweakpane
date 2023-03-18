@@ -6,7 +6,7 @@ import {
 import {LabelBladeController} from '../../label/controller/label';
 import {ButtonController} from './button';
 
-export class LabeledButtonController extends LabelBladeController<ButtonController> {
+export class ButtonBladeController extends LabelBladeController<ButtonController> {
 	override importState(state: BladeState): boolean {
 		return importBladeState(
 			state,

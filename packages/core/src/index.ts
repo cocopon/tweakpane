@@ -14,7 +14,7 @@ export * from './blade/binding/controller/monitor-binding';
 
 export * from './blade/button/api/button';
 export * from './blade/button/controller/button';
-export * from './blade/button/controller/labeled-button';
+export * from './blade/button/controller/button-blade';
 export * from './blade/button/view/button';
 export * from './blade/button/plugin';
 
