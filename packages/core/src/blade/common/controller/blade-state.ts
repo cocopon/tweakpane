@@ -3,6 +3,7 @@ import {
 	MicroParsers,
 	parseRecord,
 } from '../../../common/micro-parsers';
+import {deepMerge} from '../../../misc/type-util';
 
 /**
  * A state object for blades.
@@ -42,10 +43,7 @@ export function exportBladeState(
 	superExport: (() => BladeState) | null,
 	thisState: BladeState,
 ): BladeState {
-	return {
-		...superExport?.(),
-		...thisState,
-	};
+	return deepMerge(superExport?.() ?? {}, thisState);
 }
 
 /**

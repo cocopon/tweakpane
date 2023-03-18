@@ -67,10 +67,12 @@ export class BindingController<
 	}
 
 	override exportState(): BladeState {
-		return exportBladeState(() => super.exportState(), {
-			key: this.value.binding.target.key,
+		return exportBladeState(() => excludeValue(super.exportState()), {
+			binding: {
+				key: this.value.binding.target.key,
+				value: this.value.binding.target.read(),
+			},
 			tag: this.tag,
-			value: this.value.binding.target.read(),
 		});
 	}
 }

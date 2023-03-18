@@ -47,3 +47,25 @@ export function isPropertyWritable(obj: unknown, key: string): boolean {
 
 	return false;
 }
+
+export function deepMerge(
+	r1: Record<string, unknown>,
+	r2: Record<string, unknown>,
+): Record<string, unknown> {
+	const keys = Array.from(
+		new Set<string>([...Object.keys(r1), ...Object.keys(r2)]),
+	);
+	return keys.reduce((result, key) => {
+		const v1 = r1[key];
+		const v2 = r2[key];
+		return isRecord(v1) && isRecord(v2)
+			? {
+					...result,
+					[key]: deepMerge(v1, v2),
+			  }
+			: {
+					...result,
+					[key]: key in r2 ? v2 : v1,
+			  };
+	}, {});
+}

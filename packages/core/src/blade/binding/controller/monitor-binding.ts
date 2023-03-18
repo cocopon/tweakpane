@@ -27,7 +27,9 @@ export class MonitorBindingController<
 > extends BindingController<TpBuffer<T>, Vc, MonitorBindingValue<T>> {
 	override exportState(): BladeState {
 		return exportBladeState(() => super.exportState(), {
-			readonly: true,
+			binding: {
+				readonly: true,
+			},
 		});
 	}
 }

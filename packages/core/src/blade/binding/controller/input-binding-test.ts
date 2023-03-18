@@ -129,10 +129,12 @@ describe(InputBindingController.name, () => {
 
 		assert.strictEqual(
 			bc.importState({
+				binding: {
+					value: 0x445566,
+				},
 				disabled: true,
 				hidden: true,
 				label: 'bar',
-				value: 0x445566,
 			}),
 			true,
 		);
@@ -148,10 +150,12 @@ describe(InputBindingController.name, () => {
 
 		assert.strictEqual(
 			bc.importState({
+				binding: {
+					value: {x: 3, y: 4},
+				},
 				disabled: true,
 				hidden: true,
 				label: 'bar',
-				value: {x: 3, y: 4},
 			}),
 			true,
 		);

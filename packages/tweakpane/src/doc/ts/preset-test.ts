@@ -8,11 +8,11 @@ describe(stateToPreset.name, () => {
 		const preset = stateToPreset({
 			disabled: false,
 			children: [
-				{key: 'foo', value: 1, disabled: false},
+				{binding: {key: 'foo', value: 1}, disabled: false},
 				{disabled: false},
-				{key: 'bar', value: 'text', disabled: false},
+				{binding: {key: 'bar', value: 'text'}, disabled: false},
 				{
-					children: [{key: 'baz', value: true, disabled: false}],
+					children: [{binding: {key: 'baz', value: true}, disabled: false}],
 				},
 			],
 		});
@@ -30,11 +30,11 @@ describe(presetToState.name, () => {
 			{
 				disabled: false,
 				children: [
-					{key: 'foo', value: 0, disabled: false},
+					{binding: {key: 'foo', value: 0}, disabled: false},
 					{disabled: false},
-					{key: 'bar', value: '', disabled: false},
+					{binding: {key: 'bar', value: ''}, disabled: false},
 					{
-						children: [{key: 'baz', value: false, disabled: false}],
+						children: [{binding: {key: 'baz', value: false}, disabled: false}],
 					},
 				],
 			},
@@ -47,11 +47,11 @@ describe(presetToState.name, () => {
 		assert.deepStrictEqual(state, {
 			disabled: false,
 			children: [
-				{key: 'foo', value: 1, disabled: false},
+				{binding: {key: 'foo', value: 1}, disabled: false},
 				{disabled: false},
-				{key: 'bar', value: 'text', disabled: false},
+				{binding: {key: 'bar', value: 'text'}, disabled: false},
 				{
-					children: [{key: 'baz', value: true, disabled: false}],
+					children: [{binding: {key: 'baz', value: true}, disabled: false}],
 				},
 			],
 		});
