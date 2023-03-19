@@ -7,6 +7,7 @@ import {BindingTarget} from '../../../common/binding/target';
 import {ManualTicker} from '../../../common/binding/ticker/manual';
 import {InputBindingValue} from '../../../common/binding/value/input-binding';
 import {MonitorBindingValue} from '../../../common/binding/value/monitor-binding';
+import {ValueController} from '../../../common/controller/value';
 import {boolFromUnknown} from '../../../common/converter/boolean';
 import {
 	createNumberFormatter,
@@ -31,7 +32,7 @@ import {MonitorBindingController} from '../../binding/controller/monitor-binding
 import {FolderController} from '../../folder/controller/folder';
 import {FolderPropsObject} from '../../folder/view/folder';
 import {LabeledValueBladeController} from '../../label/controller/value';
-import {ValueBladeController} from '../controller/value-blade';
+import {BladeController} from '../controller/blade';
 import {createBlade} from './blade';
 import {Rack} from './rack';
 
@@ -84,7 +85,7 @@ function createMonitorBindingController(
 
 function createValueBladeController(
 	doc: Document,
-): ValueBladeController<number, LabelView> {
+): BladeController<LabelView> & ValueController<number> {
 	const v = createValue(123);
 	return new LabeledValueBladeController<number, SliderTextController>(doc, {
 		blade: createBlade(),

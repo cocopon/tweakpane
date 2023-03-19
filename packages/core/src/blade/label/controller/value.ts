@@ -10,7 +10,6 @@ import {
 	importBladeState,
 	PropsPortable,
 } from '../../common/controller/blade-state';
-import {ValueBladeController} from '../../common/controller/value-blade';
 import {Blade} from '../../common/model/blade';
 
 /**
@@ -40,7 +39,7 @@ export class LabeledValueBladeController<
 		Va extends Value<T> = Value<T>,
 	>
 	extends BladeController<LabelView>
-	implements ValueBladeController<T, LabelView, Va>
+	implements ValueController<T, LabelView, Va>
 {
 	public readonly value: Va;
 	public readonly labelController: LabelController<C>;
