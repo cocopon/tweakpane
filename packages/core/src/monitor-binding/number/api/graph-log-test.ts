@@ -3,7 +3,6 @@ import {describe, it} from 'mocha';
 
 import {BindingController} from '../../../blade/binding/controller/binding';
 import {createBlade} from '../../../blade/common/model/blade';
-import {LabelPropsObject} from '../../../common/label/view/label';
 import {ReadonlyBinding} from '../../../common/binding/readonly';
 import {BindingTarget} from '../../../common/binding/target';
 import {ManualTicker} from '../../../common/binding/ticker/manual';
@@ -12,6 +11,7 @@ import {
 	createNumberFormatter,
 	numberFromUnknown,
 } from '../../../common/converter/number';
+import {LabelPropsObject} from '../../../common/label/view/label';
 import {TpBuffer} from '../../../common/model/buffered-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';

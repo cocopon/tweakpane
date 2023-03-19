@@ -7,6 +7,7 @@ import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../../common/converter/number';
+import {LabelPropsObject} from '../../../common/label/view/label';
 import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
@@ -21,8 +22,7 @@ import {
 	PropsPortable,
 } from '../../common/controller/blade-state';
 import {createBlade} from '../../common/model/blade';
-import {LabelPropsObject} from '../../../common/label/view/label';
-import {LabeledValueBladeController} from './value-blade';
+import {LabeledValueBladeController} from './value';
 
 function createController(
 	doc: Document,

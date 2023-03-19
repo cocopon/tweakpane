@@ -13,7 +13,7 @@ import {isValueBladeController} from '../../common/controller/value-blade';
 import {
 	LabeledValueBladeConfig,
 	LabeledValueBladeController,
-} from '../../label/controller/value-blade';
+} from '../../label/controller/value';
 
 function excludeValue(state: BladeState): Omit<BladeState, 'value'> {
 	const result = {

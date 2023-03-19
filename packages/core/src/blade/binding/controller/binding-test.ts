@@ -5,6 +5,7 @@ import {ReadWriteBinding} from '../../../common/binding/read-write';
 import {BindingTarget} from '../../../common/binding/target';
 import {InputBindingValue} from '../../../common/binding/value/input-binding';
 import {TextController} from '../../../common/controller/text';
+import {LabelPropsObject} from '../../../common/label/view/label';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
@@ -17,7 +18,6 @@ import {createColorNumberWriter} from '../../../input-binding/color/converter/wr
 import {IntColor} from '../../../input-binding/color/model/int-color';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {createBlade} from '../../common/model/blade';
-import {LabelPropsObject} from '../../../common/label/view/label';
 import {BindingController} from './binding';
 import {InputBindingController} from './input-binding';
 

@@ -9,6 +9,7 @@ import {
 	createNumberFormatter,
 	numberFromUnknown,
 } from '../../../common/converter/number';
+import {LabelPropsObject} from '../../../common/label/view/label';
 import {TpBuffer} from '../../../common/model/buffered-value';
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
@@ -17,7 +18,6 @@ import {SingleLogController} from '../../../monitor-binding/common/controller/si
 import {assertInitialState, assertUpdates} from '../../common/api/test-util';
 import {TpChangeEvent} from '../../common/api/tp-event';
 import {createBlade} from '../../common/model/blade';
-import {LabelPropsObject} from '../../../common/label/view/label';
 import {MonitorBindingController} from '../controller/monitor-binding';
 import {BindingApi} from './binding';
 import {MonitorBindingApi} from './monitor-binding';

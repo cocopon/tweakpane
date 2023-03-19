@@ -35,7 +35,7 @@ export * from './blade/folder/view/folder';
 export * from './blade/folder/plugin';
 
 export * from './common/label/controller/label';
-export * from './blade/label/controller/value-blade';
+export * from './blade/label/controller/value';
 export * from './common/label/view/label';
 
 export * from './blade/tab/api/tab';

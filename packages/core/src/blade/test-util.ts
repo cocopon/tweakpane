@@ -1,4 +1,5 @@
 import {Controller} from '../common/controller/controller';
+import {LabelPropsObject} from '../common/label/view/label';
 import {parseRecord} from '../common/micro-parsers';
 import {ValueMap} from '../common/model/value-map';
 import {createValue} from '../common/model/values';
@@ -17,8 +18,7 @@ import {
 	importBladeState,
 } from './common/controller/blade-state';
 import {createBlade} from './common/model/blade';
-import {LabeledValueBladeController} from './label/controller/value-blade';
-import {LabelPropsObject} from '../common/label/view/label';
+import {LabeledValueBladeController} from './label/controller/value';
 import {BladePlugin} from './plugin';
 
 class LabelableController implements Controller {

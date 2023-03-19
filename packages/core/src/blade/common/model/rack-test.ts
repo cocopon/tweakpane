@@ -13,6 +13,7 @@ import {
 	parseNumber,
 } from '../../../common/converter/number';
 import {stringFromUnknown} from '../../../common/converter/string';
+import {LabelPropsObject, LabelView} from '../../../common/label/view/label';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
@@ -29,8 +30,7 @@ import {InputBindingController} from '../../binding/controller/input-binding';
 import {MonitorBindingController} from '../../binding/controller/monitor-binding';
 import {FolderController} from '../../folder/controller/folder';
 import {FolderPropsObject} from '../../folder/view/folder';
-import {LabeledValueBladeController} from '../../label/controller/value-blade';
-import {LabelPropsObject, LabelView} from '../../../common/label/view/label';
+import {LabeledValueBladeController} from '../../label/controller/value';
 import {ValueBladeController} from '../controller/value-blade';
 import {createBlade} from './blade';
 import {Rack} from './rack';

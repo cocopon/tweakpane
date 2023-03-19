@@ -1,6 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
+import {LabelPropsObject} from '../../../common/label/view/label';
 import {ValueMap} from '../../../common/model/value-map';
 import {ViewProps} from '../../../common/model/view-props';
 import {createTestWindow} from '../../../misc/dom-test-util';
@@ -9,7 +10,6 @@ import {ButtonPropsObject} from '../../button/view/button';
 import {BladeController} from '../../common/controller/blade';
 import {BladeState} from '../../common/controller/blade-state';
 import {createBlade} from '../../common/model/blade';
-import {LabelPropsObject} from '../../../common/label/view/label';
 import {TestKeyBladeController} from '../../test-util';
 import {FolderPropsObject} from '../view/folder';
 import {FolderController} from './folder';
