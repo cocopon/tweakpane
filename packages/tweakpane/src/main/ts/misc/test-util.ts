@@ -3,10 +3,13 @@ import {
 	BladeController,
 	Controller,
 	createBlade,
+	createValue,
 	forceCast,
-	LabelBladeController,
+	LabeledValueBladeController,
 	LabelPropsObject,
 	PlainView,
+	SliderController,
+	SliderPropsObject,
 	ValueMap,
 	ViewProps,
 } from '@tweakpane/core';
@@ -33,11 +36,21 @@ export function createEmptyLabelableController(doc: Document) {
 	return new LabelableController(doc);
 }
 
-export function createLabelController(doc: Document, vc: LabelableController) {
-	return new LabelBladeController(doc, {
+export function createLabeledValueBladeController(doc: Document) {
+	const vc = new SliderController(doc, {
+		props: ValueMap.fromObject<SliderPropsObject>({
+			keyScale: 1,
+			max: 1,
+			min: 0,
+		}),
+		value: createValue(0),
+		viewProps: ViewProps.create(),
+	});
+	return new LabeledValueBladeController(doc, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({label: ''}),
 		valueController: vc,
+		value: vc.value,
 	});
 }
 

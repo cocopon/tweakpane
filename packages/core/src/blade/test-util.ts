@@ -17,7 +17,6 @@ import {
 	importBladeState,
 } from './common/controller/blade-state';
 import {createBlade} from './common/model/blade';
-import {LabelBladeController} from './label/controller/label';
 import {LabeledValueBladeController} from './label/controller/value-blade';
 import {LabelPropsObject} from './label/view/label';
 import {BladePlugin} from './plugin';
@@ -36,14 +35,6 @@ class LabelableController implements Controller {
 
 export function createEmptyLabelableController(doc: Document) {
 	return new LabelableController(doc);
-}
-
-export function createLabelController(doc: Document, vc: LabelableController) {
-	return new LabelBladeController(doc, {
-		blade: createBlade(),
-		props: ValueMap.fromObject<LabelPropsObject>({label: ''}),
-		valueController: vc,
-	});
 }
 
 export function createEmptyBladeController(

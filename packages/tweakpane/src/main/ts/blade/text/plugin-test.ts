@@ -9,8 +9,7 @@ import {describe, it} from 'mocha';
 
 import {
 	createEmptyBladeController,
-	createEmptyLabelableController,
-	createLabelController,
+	createLabeledValueBladeController,
 	createTestWindow,
 } from '../../misc/test-util';
 import {TextBladeApi} from './api/text';
@@ -51,8 +50,7 @@ describe(TextBladePlugin.id, () => {
 
 	[
 		(doc: Document) => createEmptyBladeController(doc),
-		(doc: Document) =>
-			createLabelController(doc, createEmptyLabelableController(doc)),
+		(doc: Document) => createLabeledValueBladeController(doc),
 	].forEach((createController) => {
 		it('should not create API', () => {
 			const doc = createTestWindow().document;
