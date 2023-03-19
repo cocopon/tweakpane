@@ -79,7 +79,7 @@ describe(createMonitorBindingController.name, () => {
 
 		assert.strictEqual(bc?.viewProps.get('disabled'), false);
 		assert.strictEqual(bc?.viewProps.get('hidden'), false);
-		assert.strictEqual(bc.props.get('label'), 'foo');
+		assert.strictEqual(bc.labelController.props.get('label'), 'foo');
 		bc.viewProps.set('disposed', true);
 	});
 
@@ -94,10 +94,10 @@ describe(createMonitorBindingController.name, () => {
 			target: new BindingTarget({foo: 'bar'}, 'foo'),
 		}) as MonitorBindingController;
 
-		assert.strictEqual(bc.props.get('label'), 'bar');
+		assert.strictEqual(bc.labelController.props.get('label'), 'bar');
 		assert.strictEqual(bc.viewProps.get('disabled'), true);
 		assert.strictEqual(bc.viewProps.get('hidden'), true);
-		assert.strictEqual(bc.props.get('label'), 'bar');
+		assert.strictEqual(bc.labelController.props.get('label'), 'bar');
 		bc.viewProps.set('disposed', true);
 	});
 
@@ -133,7 +133,7 @@ describe(createMonitorBindingController.name, () => {
 			target: new BindingTarget({foo: 'bar'}, 'foo'),
 		}) as MonitorBindingController;
 
-		assert.strictEqual(bc.props.get('label'), null);
+		assert.strictEqual(bc.labelController.props.get('label'), null);
 		bc.viewProps.set('disposed', true);
 	});
 });

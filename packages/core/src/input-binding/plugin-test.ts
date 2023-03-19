@@ -84,7 +84,7 @@ describe(createInputBindingController.name, () => {
 			target: new BindingTarget({foo: 'bar'}, 'foo'),
 		}) as InputBindingController;
 
-		assert.strictEqual(bc.props.get('label'), 'foo');
+		assert.strictEqual(bc.labelController.props.get('label'), 'foo');
 		assert.strictEqual(bc.viewProps.get('disabled'), true);
 		assert.strictEqual(bc.viewProps.get('hidden'), true);
 	});
@@ -109,6 +109,6 @@ describe(createInputBindingController.name, () => {
 			target: new BindingTarget({foo: 'bar'}, 'foo'),
 		}) as InputBindingController;
 
-		assert.strictEqual(bc.props.get('label'), null);
+		assert.strictEqual(bc.labelController.props.get('label'), null);
 	});
 });

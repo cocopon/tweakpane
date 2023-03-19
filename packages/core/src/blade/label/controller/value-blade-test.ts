@@ -99,7 +99,7 @@ describe(LabeledValueBladeController.name, () => {
 			value: 0,
 		});
 
-		assert.strictEqual(c.props.get('label'), 'foo');
+		assert.strictEqual(c.labelController.props.get('label'), 'foo');
 	});
 
 	it('should apply properties to view', () => {
@@ -142,7 +142,7 @@ describe(LabeledValueBladeController.name, () => {
 			}),
 			true,
 		);
-		assert.strictEqual(c.props.get('label'), 'bar');
+		assert.strictEqual(c.labelController.props.get('label'), 'bar');
 		assert.strictEqual(c.value.rawValue, 123);
 	});
 

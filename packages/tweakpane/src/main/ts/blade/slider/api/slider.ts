@@ -26,11 +26,11 @@ export class SliderBladeApi extends BladeApi<
 	}
 
 	get label(): string | null | undefined {
-		return this.controller_.props.get('label');
+		return this.controller_.labelController.props.get('label');
 	}
 
 	set label(label: string | null | undefined) {
-		this.controller_.props.set('label', label);
+		this.controller_.labelController.props.set('label', label);
 	}
 
 	get max(): number {

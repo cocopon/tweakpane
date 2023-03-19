@@ -11,6 +11,7 @@ import {
 import {ValueBladeController} from '../../common/controller/value-blade';
 import {Blade} from '../../common/model/blade';
 import {LabelProps, LabelView} from '../view/label';
+import {LabelController} from './label';
 
 /**
  * @hidden
@@ -41,8 +42,8 @@ export class LabeledValueBladeController<
 	extends BladeController<LabelView>
 	implements ValueBladeController<T, LabelView, Va>
 {
-	public readonly props: LabelProps;
 	public readonly value: Va;
+	public readonly labelController: LabelController<C>;
 	public readonly valueController: C;
 
 	constructor(doc: Document, config: Config<T, C, Va>) {
@@ -50,6 +51,12 @@ export class LabeledValueBladeController<
 			throw TpError.shouldNeverHappen();
 		}
 		const viewProps = config.valueController.viewProps;
+		const lc = new LabelController(doc, {
+			blade: config.blade,
+			props: config.props,
+			valueController: config.valueController,
+		});
+
 		super({
 			...config,
 			view: new LabelView(doc, {
@@ -59,7 +66,7 @@ export class LabeledValueBladeController<
 			viewProps: viewProps,
 		});
 
-		this.props = config.props;
+		this.labelController = lc;
 		this.value = config.value;
 		this.valueController = config.valueController;
 
@@ -69,26 +76,26 @@ export class LabeledValueBladeController<
 	override importState(state: BladeState): boolean {
 		return importBladeState(
 			state,
-			(s) => super.importState(s),
+			(s) =>
+				super.importState(s) &&
+				this.labelController.importProps(s) &&
+				(this.valueController.importProps?.(state) ?? true),
 			(p) => ({
-				label: p.required.string,
 				value: p.optional.raw,
 			}),
 			(result) => {
-				this.props.set('label', result.label);
 				if (result.value) {
 					this.value.rawValue = result.value as T;
 				}
-
-				return this.valueController.importProps?.(state) ?? true;
+				return true;
 			},
 		);
 	}
 
 	override exportState(): BladeState {
 		return exportBladeState(() => super.exportState(), {
-			label: this.props.get('label'),
 			value: this.value.rawValue,
+			...this.labelController.exportProps(),
 			...(this.valueController.exportProps?.() ?? {}),
 		});
 	}
