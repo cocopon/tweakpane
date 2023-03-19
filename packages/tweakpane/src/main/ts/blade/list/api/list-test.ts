@@ -1,7 +1,7 @@
 import {
 	createBlade,
 	createValue,
-	LabeledValueController,
+	LabeledValueBladeController,
 	LabelPropsObject,
 	ListController,
 	ListItem,
@@ -23,22 +23,25 @@ describe(ListBladeApi.name, () => {
 	it('should dispose', () => {
 		const doc = createTestWindow().document;
 		const v = createValue(0);
-		const c = new LabeledValueController<number, ListController<number>>(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<LabelPropsObject>({
-				label: undefined,
-			}),
-			value: v,
-			valueController: new ListController(doc, {
-				props: ValueMap.fromObject<{
-					options: ListItem<number>[];
-				}>({
-					options: [],
+		const c = new LabeledValueBladeController<number, ListController<number>>(
+			doc,
+			{
+				blade: createBlade(),
+				props: ValueMap.fromObject<LabelPropsObject>({
+					label: undefined,
 				}),
 				value: v,
-				viewProps: ViewProps.create(),
-			}),
-		});
+				valueController: new ListController(doc, {
+					props: ValueMap.fromObject<{
+						options: ListItem<number>[];
+					}>({
+						options: [],
+					}),
+					value: v,
+					viewProps: ViewProps.create(),
+				}),
+			},
+		);
 		const api = new ListBladeApi(c);
 		assertDisposes(api);
 	});
@@ -46,23 +49,26 @@ describe(ListBladeApi.name, () => {
 	it('should have initial state', () => {
 		const doc = createTestWindow().document;
 		const v = createValue(0);
-		const c = new LabeledValueController<number, ListController<number>>(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<LabelPropsObject>({
-				label: undefined,
-			}),
-			value: v,
-			valueController: new ListController(doc, {
-				props: ValueMap.fromObject({
-					options: [
-						{text: 'foo', value: 123},
-						{text: 'bar', value: 456},
-					],
+		const c = new LabeledValueBladeController<number, ListController<number>>(
+			doc,
+			{
+				blade: createBlade(),
+				props: ValueMap.fromObject<LabelPropsObject>({
+					label: undefined,
 				}),
 				value: v,
-				viewProps: ViewProps.create(),
-			}),
-		});
+				valueController: new ListController(doc, {
+					props: ValueMap.fromObject({
+						options: [
+							{text: 'foo', value: 123},
+							{text: 'bar', value: 456},
+						],
+					}),
+					value: v,
+					viewProps: ViewProps.create(),
+				}),
+			},
+		);
 		const api = new ListBladeApi(c);
 
 		assertInitialState(api);
@@ -75,23 +81,26 @@ describe(ListBladeApi.name, () => {
 	it('should update properties', () => {
 		const doc = createTestWindow().document;
 		const v = createValue(0);
-		const c = new LabeledValueController<number, ListController<number>>(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<LabelPropsObject>({
-				label: undefined,
-			}),
-			value: v,
-			valueController: new ListController(doc, {
-				props: ValueMap.fromObject({
-					options: [
-						{text: 'foo', value: 123},
-						{text: 'bar', value: 456},
-					],
+		const c = new LabeledValueBladeController<number, ListController<number>>(
+			doc,
+			{
+				blade: createBlade(),
+				props: ValueMap.fromObject<LabelPropsObject>({
+					label: undefined,
 				}),
 				value: v,
-				viewProps: ViewProps.create(),
-			}),
-		});
+				valueController: new ListController(doc, {
+					props: ValueMap.fromObject({
+						options: [
+							{text: 'foo', value: 123},
+							{text: 'bar', value: 456},
+						],
+					}),
+					value: v,
+					viewProps: ViewProps.create(),
+				}),
+			},
+		);
 		const api = new ListBladeApi(c);
 
 		assertUpdates(api);
@@ -113,23 +122,26 @@ describe(ListBladeApi.name, () => {
 	it('should handle event', (done) => {
 		const doc = createTestWindow().document;
 		const v = createValue(0);
-		const c = new LabeledValueController<number, ListController<number>>(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<LabelPropsObject>({
-				label: undefined,
-			}),
-			value: v,
-			valueController: new ListController(doc, {
-				props: ValueMap.fromObject({
-					options: [
-						{text: 'foo', value: 123},
-						{text: 'bar', value: 456},
-					],
+		const c = new LabeledValueBladeController<number, ListController<number>>(
+			doc,
+			{
+				blade: createBlade(),
+				props: ValueMap.fromObject<LabelPropsObject>({
+					label: undefined,
 				}),
 				value: v,
-				viewProps: ViewProps.create(),
-			}),
-		});
+				valueController: new ListController(doc, {
+					props: ValueMap.fromObject({
+						options: [
+							{text: 'foo', value: 123},
+							{text: 'bar', value: 456},
+						],
+					}),
+					value: v,
+					viewProps: ViewProps.create(),
+				}),
+			},
+		);
 		const api = new ListBladeApi(c);
 
 		api.on('change', (ev) => {

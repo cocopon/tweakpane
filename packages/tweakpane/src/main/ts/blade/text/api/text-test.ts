@@ -1,7 +1,7 @@
 import {
 	createBlade,
 	createValue,
-	LabeledValueController,
+	LabeledValueBladeController,
 	LabelPropsObject,
 	TextController,
 	ValueMap,
@@ -22,21 +22,24 @@ describe(TextBladeApi.name, () => {
 	it('should dispose', () => {
 		const doc = createTestWindow().document;
 		const v = createValue('');
-		const c = new LabeledValueController<string, TextController<string>>(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<LabelPropsObject>({
-				label: undefined,
-			}),
-			value: v,
-			valueController: new TextController(doc, {
-				parser: (v: string) => v,
-				props: ValueMap.fromObject({
-					formatter: (v: string) => v,
+		const c = new LabeledValueBladeController<string, TextController<string>>(
+			doc,
+			{
+				blade: createBlade(),
+				props: ValueMap.fromObject<LabelPropsObject>({
+					label: undefined,
 				}),
 				value: v,
-				viewProps: ViewProps.create(),
-			}),
-		});
+				valueController: new TextController(doc, {
+					parser: (v: string) => v,
+					props: ValueMap.fromObject({
+						formatter: (v: string) => v,
+					}),
+					value: v,
+					viewProps: ViewProps.create(),
+				}),
+			},
+		);
 		const api = new TextBladeApi(c);
 
 		assertDisposes(api);
@@ -46,21 +49,24 @@ describe(TextBladeApi.name, () => {
 		const doc = createTestWindow().document;
 		const formatter = (v: string) => v;
 		const v = createValue('hello');
-		const c = new LabeledValueController<string, TextController<string>>(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<LabelPropsObject>({
-				label: 'foobar',
-			}),
-			value: v,
-			valueController: new TextController(doc, {
-				parser: (v: string) => v,
-				props: ValueMap.fromObject({
-					formatter: formatter,
+		const c = new LabeledValueBladeController<string, TextController<string>>(
+			doc,
+			{
+				blade: createBlade(),
+				props: ValueMap.fromObject<LabelPropsObject>({
+					label: 'foobar',
 				}),
 				value: v,
-				viewProps: ViewProps.create(),
-			}),
-		});
+				valueController: new TextController(doc, {
+					parser: (v: string) => v,
+					props: ValueMap.fromObject({
+						formatter: formatter,
+					}),
+					value: v,
+					viewProps: ViewProps.create(),
+				}),
+			},
+		);
 		const api = new TextBladeApi(c);
 
 		assertInitialState(api);
@@ -72,21 +78,24 @@ describe(TextBladeApi.name, () => {
 	it('should update properties', () => {
 		const doc = createTestWindow().document;
 		const v = createValue('hello');
-		const c = new LabeledValueController<string, TextController<string>>(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<LabelPropsObject>({
-				label: undefined,
-			}),
-			value: v,
-			valueController: new TextController(doc, {
-				parser: (v: string) => v,
-				props: ValueMap.fromObject({
-					formatter: (v: string) => v,
+		const c = new LabeledValueBladeController<string, TextController<string>>(
+			doc,
+			{
+				blade: createBlade(),
+				props: ValueMap.fromObject<LabelPropsObject>({
+					label: undefined,
 				}),
 				value: v,
-				viewProps: ViewProps.create(),
-			}),
-		});
+				valueController: new TextController(doc, {
+					parser: (v: string) => v,
+					props: ValueMap.fromObject({
+						formatter: (v: string) => v,
+					}),
+					value: v,
+					viewProps: ViewProps.create(),
+				}),
+			},
+		);
 		const api = new TextBladeApi(c);
 
 		assertUpdates(api);
@@ -107,21 +116,24 @@ describe(TextBladeApi.name, () => {
 	it('should handle event', (done) => {
 		const doc = createTestWindow().document;
 		const v = createValue('');
-		const c = new LabeledValueController<string, TextController<string>>(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<LabelPropsObject>({
-				label: undefined,
-			}),
-			value: v,
-			valueController: new TextController(doc, {
-				parser: (v: string) => v,
-				props: ValueMap.fromObject({
-					formatter: (v: string) => v,
+		const c = new LabeledValueBladeController<string, TextController<string>>(
+			doc,
+			{
+				blade: createBlade(),
+				props: ValueMap.fromObject<LabelPropsObject>({
+					label: undefined,
 				}),
 				value: v,
-				viewProps: ViewProps.create(),
-			}),
-		});
+				valueController: new TextController(doc, {
+					parser: (v: string) => v,
+					props: ValueMap.fromObject({
+						formatter: (v: string) => v,
+					}),
+					value: v,
+					viewProps: ViewProps.create(),
+				}),
+			},
+		);
 		const api = new TextBladeApi(c);
 
 		api.on('change', (ev) => {

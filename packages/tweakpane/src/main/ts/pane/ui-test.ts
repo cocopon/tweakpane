@@ -2,7 +2,7 @@ import {
 	ButtonBladeController,
 	Class,
 	FolderController,
-	LabeledValueController,
+	LabeledValueBladeController,
 } from '@tweakpane/core';
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
@@ -24,7 +24,7 @@ describe(Pane.name, () => {
 				insert: (api, index) => {
 					api.addBinding({foo: 1}, 'foo', {index: index});
 				},
-				expected: LabeledValueController,
+				expected: LabeledValueBladeController,
 			},
 			{
 				insert: (api, index) => {
@@ -34,7 +34,7 @@ describe(Pane.name, () => {
 						readonly: true,
 					});
 				},
-				expected: LabeledValueController,
+				expected: LabeledValueBladeController,
 			},
 			{
 				insert: (api, index) => {

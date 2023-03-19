@@ -13,7 +13,7 @@ import {PluginPool} from '../../../plugin/pool';
 import {BindingApi} from '../../binding/api/binding';
 import {InputBindingApi} from '../../binding/api/input-binding';
 import {FolderApi} from '../../folder/api/folder';
-import {LabeledValueController} from '../../label/controller/value-label';
+import {LabeledValueBladeController} from '../../label/controller/value-blade';
 import {LabelPropsObject} from '../../label/view/label';
 import {TestValueBladeApi, TestValueBladePlugin} from '../../test-util';
 import {RackController} from '../controller/rack';
@@ -83,17 +83,20 @@ describe(RackApi.name, () => {
 			pool: pool,
 		});
 		const v = createValue<boolean>(false);
-		const c = new LabeledValueController<boolean, CheckboxController>(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<LabelPropsObject>({
-				label: '',
-			}),
-			value: v,
-			valueController: new CheckboxController(doc, {
+		const c = new LabeledValueBladeController<boolean, CheckboxController>(
+			doc,
+			{
+				blade: createBlade(),
+				props: ValueMap.fromObject<LabelPropsObject>({
+					label: '',
+				}),
 				value: v,
-				viewProps: ViewProps.create(),
-			}),
-		});
+				valueController: new CheckboxController(doc, {
+					value: v,
+					viewProps: ViewProps.create(),
+				}),
+			},
+		);
 		const bapi = pool.createApi(c) as TestValueBladeApi;
 		api.add(bapi);
 

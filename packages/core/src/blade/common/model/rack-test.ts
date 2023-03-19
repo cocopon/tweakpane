@@ -29,7 +29,7 @@ import {InputBindingController} from '../../binding/controller/input-binding';
 import {MonitorBindingController} from '../../binding/controller/monitor-binding';
 import {FolderController} from '../../folder/controller/folder';
 import {FolderPropsObject} from '../../folder/view/folder';
-import {LabeledValueController} from '../../label/controller/value-label';
+import {LabeledValueBladeController} from '../../label/controller/value-blade';
 import {LabelPropsObject, LabelView} from '../../label/view/label';
 import {ValueBladeController} from '../controller/value-blade';
 import {createBlade} from './blade';
@@ -86,7 +86,7 @@ function createValueBladeController(
 	doc: Document,
 ): ValueBladeController<number, LabelView> {
 	const v = createValue(123);
-	return new LabeledValueController<number, SliderTextController>(doc, {
+	return new LabeledValueBladeController<number, SliderTextController>(doc, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: '',

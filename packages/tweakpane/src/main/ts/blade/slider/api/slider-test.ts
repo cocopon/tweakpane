@@ -2,7 +2,7 @@ import {
 	createBlade,
 	createSliderTextProps,
 	createValue,
-	LabeledValueController,
+	LabeledValueBladeController,
 	LabelPropsObject,
 	numberToString,
 	parseNumber,
@@ -25,25 +25,28 @@ describe(SliderBladeApi.name, () => {
 	it('should dispose', () => {
 		const doc = createTestWindow().document;
 		const v = createValue(0);
-		const c = new LabeledValueController<number, SliderTextController>(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<LabelPropsObject>({
-				label: undefined,
-			}),
-			value: v,
-			valueController: new SliderTextController(doc, {
-				...createSliderTextProps({
-					formatter: numberToString,
-					keyScale: createValue(1),
-					max: createValue(100),
-					min: createValue(0),
-					pointerScale: 1,
+		const c = new LabeledValueBladeController<number, SliderTextController>(
+			doc,
+			{
+				blade: createBlade(),
+				props: ValueMap.fromObject<LabelPropsObject>({
+					label: undefined,
 				}),
-				parser: parseNumber,
 				value: v,
-				viewProps: ViewProps.create(),
-			}),
-		});
+				valueController: new SliderTextController(doc, {
+					...createSliderTextProps({
+						formatter: numberToString,
+						keyScale: createValue(1),
+						max: createValue(100),
+						min: createValue(0),
+						pointerScale: 1,
+					}),
+					parser: parseNumber,
+					value: v,
+					viewProps: ViewProps.create(),
+				}),
+			},
+		);
 		const api = new SliderBladeApi(c);
 		assertDisposes(api);
 	});
@@ -51,25 +54,28 @@ describe(SliderBladeApi.name, () => {
 	it('should have initial state', () => {
 		const doc = createTestWindow().document;
 		const v = createValue(123);
-		const c = new LabeledValueController<number, SliderTextController>(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<LabelPropsObject>({
-				label: 'foobar',
-			}),
-			value: v,
-			valueController: new SliderTextController(doc, {
-				...createSliderTextProps({
-					formatter: numberToString,
-					keyScale: createValue(1),
-					max: createValue(100),
-					min: createValue(-100),
-					pointerScale: 1,
+		const c = new LabeledValueBladeController<number, SliderTextController>(
+			doc,
+			{
+				blade: createBlade(),
+				props: ValueMap.fromObject<LabelPropsObject>({
+					label: 'foobar',
 				}),
-				parser: parseNumber,
 				value: v,
-				viewProps: ViewProps.create(),
-			}),
-		});
+				valueController: new SliderTextController(doc, {
+					...createSliderTextProps({
+						formatter: numberToString,
+						keyScale: createValue(1),
+						max: createValue(100),
+						min: createValue(-100),
+						pointerScale: 1,
+					}),
+					parser: parseNumber,
+					value: v,
+					viewProps: ViewProps.create(),
+				}),
+			},
+		);
 		const api = new SliderBladeApi(c);
 
 		assertInitialState(api);
@@ -82,25 +88,28 @@ describe(SliderBladeApi.name, () => {
 	it('should update properties', () => {
 		const doc = createTestWindow().document;
 		const v = createValue(123);
-		const c = new LabeledValueController<number, SliderTextController>(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<LabelPropsObject>({
-				label: 'foobar',
-			}),
-			value: v,
-			valueController: new SliderTextController(doc, {
-				...createSliderTextProps({
-					formatter: numberToString,
-					max: createValue(100),
-					min: createValue(-100),
-					keyScale: createValue(1),
-					pointerScale: 1,
+		const c = new LabeledValueBladeController<number, SliderTextController>(
+			doc,
+			{
+				blade: createBlade(),
+				props: ValueMap.fromObject<LabelPropsObject>({
+					label: 'foobar',
 				}),
-				parser: parseNumber,
 				value: v,
-				viewProps: ViewProps.create(),
-			}),
-		});
+				valueController: new SliderTextController(doc, {
+					...createSliderTextProps({
+						formatter: numberToString,
+						max: createValue(100),
+						min: createValue(-100),
+						keyScale: createValue(1),
+						pointerScale: 1,
+					}),
+					parser: parseNumber,
+					value: v,
+					viewProps: ViewProps.create(),
+				}),
+			},
+		);
 		const api = new SliderBladeApi(c);
 
 		assertUpdates(api);
@@ -120,25 +129,28 @@ describe(SliderBladeApi.name, () => {
 	it('should handle event', (done) => {
 		const doc = createTestWindow().document;
 		const v = createValue(0);
-		const c = new LabeledValueController<number, SliderTextController>(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<LabelPropsObject>({
-				label: undefined,
-			}),
-			value: v,
-			valueController: new SliderTextController(doc, {
-				...createSliderTextProps({
-					formatter: numberToString,
-					max: createValue(100),
-					min: createValue(0),
-					keyScale: createValue(1),
-					pointerScale: 1,
+		const c = new LabeledValueBladeController<number, SliderTextController>(
+			doc,
+			{
+				blade: createBlade(),
+				props: ValueMap.fromObject<LabelPropsObject>({
+					label: undefined,
 				}),
-				parser: parseNumber,
 				value: v,
-				viewProps: ViewProps.create(),
-			}),
-		});
+				valueController: new SliderTextController(doc, {
+					...createSliderTextProps({
+						formatter: numberToString,
+						max: createValue(100),
+						min: createValue(0),
+						keyScale: createValue(1),
+						pointerScale: 1,
+					}),
+					parser: parseNumber,
+					value: v,
+					viewProps: ViewProps.create(),
+				}),
+			},
+		);
 		const api = new SliderBladeApi(c);
 
 		api.on('change', (ev) => {

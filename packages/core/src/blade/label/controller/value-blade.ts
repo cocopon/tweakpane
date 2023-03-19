@@ -24,7 +24,7 @@ interface Config<T, C extends ValueController<T>, Va extends Value<T>> {
 /**
  * @hidden
  */
-export type LabeledValueConfig<
+export type LabeledValueBladeConfig<
 	T,
 	C extends ValueController<T>,
 	Va extends Value<T>,
@@ -33,7 +33,7 @@ export type LabeledValueConfig<
 /**
  * @hidden
  */
-export class LabeledValueController<
+export class LabeledValueBladeController<
 		T,
 		C extends ValueController<T> & Partial<PropsPortable> = ValueController<T>,
 		Va extends Value<T> = Value<T>,

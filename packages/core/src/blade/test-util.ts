@@ -18,7 +18,7 @@ import {
 } from './common/controller/blade-state';
 import {createBlade} from './common/model/blade';
 import {LabelBladeController} from './label/controller/label';
-import {LabeledValueController} from './label/controller/value-label';
+import {LabeledValueBladeController} from './label/controller/value-blade';
 import {LabelPropsObject} from './label/view/label';
 import {BladePlugin} from './plugin';
 
@@ -60,7 +60,7 @@ export function createEmptyBladeController(
 }
 
 export class TestValueBladeApi extends BladeApi<
-	LabeledValueController<boolean, CheckboxController>
+	LabeledValueBladeController<boolean, CheckboxController>
 > {
 	get value(): boolean {
 		return this.controller_.value.rawValue;
@@ -87,7 +87,7 @@ export const TestValueBladePlugin: BladePlugin<TestBladeParams> = {
 	},
 	controller(args) {
 		const v = createValue<boolean>(false);
-		return new LabeledValueController<boolean, CheckboxController>(
+		return new LabeledValueBladeController<boolean, CheckboxController>(
 			args.document,
 			{
 				blade: createBlade(),
@@ -103,7 +103,7 @@ export const TestValueBladePlugin: BladePlugin<TestBladeParams> = {
 		);
 	},
 	api(args) {
-		if (!(args.controller instanceof LabeledValueController)) {
+		if (!(args.controller instanceof LabeledValueBladeController)) {
 			return null;
 		}
 		const vc = args.controller.valueController;
