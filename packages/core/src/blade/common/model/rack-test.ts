@@ -30,7 +30,7 @@ import {MonitorBindingController} from '../../binding/controller/monitor-binding
 import {FolderController} from '../../folder/controller/folder';
 import {FolderPropsObject} from '../../folder/view/folder';
 import {LabeledValueBladeController} from '../../label/controller/value-blade';
-import {LabelPropsObject, LabelView} from '../../label/view/label';
+import {LabelPropsObject, LabelView} from '../../../common/label/view/label';
 import {ValueBladeController} from '../controller/value-blade';
 import {createBlade} from './blade';
 import {Rack} from './rack';

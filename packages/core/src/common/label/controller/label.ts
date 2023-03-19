@@ -1,12 +1,12 @@
-import {Controller} from '../../../common/controller/controller';
-import {ViewProps} from '../../../common/model/view-props';
 import {
 	BladeState,
 	exportBladeState,
 	importBladeState,
 	PropsPortable,
-} from '../../common/controller/blade-state';
-import {Blade} from '../../common/model/blade';
+} from '../../../blade/common/controller/blade-state';
+import {Blade} from '../../../blade/common/model/blade';
+import {Controller} from '../../controller/controller';
+import {ViewProps} from '../../model/view-props';
 import {LabelProps, LabelView} from '../view/label';
 
 /**

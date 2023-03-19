@@ -14,7 +14,7 @@ import {BindingApi} from '../../binding/api/binding';
 import {InputBindingApi} from '../../binding/api/input-binding';
 import {FolderApi} from '../../folder/api/folder';
 import {LabeledValueBladeController} from '../../label/controller/value-blade';
-import {LabelPropsObject} from '../../label/view/label';
+import {LabelPropsObject} from '../../../common/label/view/label';
 import {TestValueBladeApi, TestValueBladePlugin} from '../../test-util';
 import {RackController} from '../controller/rack';
 import {createBlade} from '../model/blade';

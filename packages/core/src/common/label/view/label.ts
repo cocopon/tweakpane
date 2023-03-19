@@ -1,10 +1,10 @@
-import {removeChildNodes} from '../../../common/dom-util';
-import {bindValueMap} from '../../../common/model/reactive';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {ClassName} from '../../../common/view/class-name';
-import {View} from '../../../common/view/view';
 import {isEmpty} from '../../../misc/type-util';
+import {removeChildNodes} from '../../dom-util';
+import {bindValueMap} from '../../model/reactive';
+import {ValueMap} from '../../model/value-map';
+import {ViewProps} from '../../model/view-props';
+import {ClassName} from '../../view/class-name';
+import {View} from '../../view/view';
 
 /**
  * @hidden

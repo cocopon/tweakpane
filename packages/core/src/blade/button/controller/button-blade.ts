@@ -1,3 +1,5 @@
+import {LabelController} from '../../../common/label/controller/label';
+import {LabelProps, LabelView} from '../../../common/label/view/label';
 import {ViewProps} from '../../../common/model/view-props';
 import {BladeController} from '../../common/controller/blade';
 import {
@@ -6,8 +8,6 @@ import {
 	importBladeState,
 } from '../../common/controller/blade-state';
 import {Blade} from '../../common/model/blade';
-import {LabelController} from '../../label/controller/label';
-import {LabelProps, LabelView} from '../../label/view/label';
 import {ButtonProps} from '../view/button';
 import {ButtonController} from './button';
 

@@ -9,7 +9,7 @@ import {ButtonPropsObject} from '../../button/view/button';
 import {BladeController} from '../../common/controller/blade';
 import {BladeState} from '../../common/controller/blade-state';
 import {createBlade} from '../../common/model/blade';
-import {LabelPropsObject} from '../../label/view/label';
+import {LabelPropsObject} from '../../../common/label/view/label';
 import {TestKeyBladeController} from '../../test-util';
 import {FolderPropsObject} from '../view/folder';
 import {FolderController} from './folder';

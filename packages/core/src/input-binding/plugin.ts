@@ -1,7 +1,7 @@
 import {InputBindingApi} from '../blade/binding/api/input-binding';
 import {InputBindingController} from '../blade/binding/controller/input-binding';
 import {createBlade} from '../blade/common/model/blade';
-import {LabelPropsObject} from '../blade/label/view/label';
+import {LabelPropsObject} from '../common/label/view/label';
 import {BindingReader, BindingWriter} from '../common/binding/binding';
 import {ReadWriteBinding} from '../common/binding/read-write';
 import {BindingTarget} from '../common/binding/target';

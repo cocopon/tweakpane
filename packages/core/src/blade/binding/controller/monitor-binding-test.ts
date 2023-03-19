@@ -14,7 +14,7 @@ import {ViewProps} from '../../../common/model/view-props';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {SingleLogController} from '../../../monitor-binding/common/controller/single-log';
 import {createBlade} from '../../common/model/blade';
-import {LabelPropsObject} from '../../label/view/label';
+import {LabelPropsObject} from '../../../common/label/view/label';
 import {MonitorBindingController} from './monitor-binding';
 
 function createController(

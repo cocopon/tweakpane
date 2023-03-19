@@ -11,7 +11,7 @@ import {
 	assertUpdates,
 } from '../../common/api/test-util';
 import {createBlade} from '../../common/model/blade';
-import {LabelPropsObject} from '../../label/view/label';
+import {LabelPropsObject} from '../../../common/label/view/label';
 import {ButtonBladeController} from '../controller/button-blade';
 import {ButtonPropsObject} from '../view/button';
 import {ButtonApi} from './button';

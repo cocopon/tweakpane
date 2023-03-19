@@ -29,7 +29,7 @@ import {Point2d} from '../../../input-binding/point-2d/model/point-2d';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {InputBindingController} from '../../binding/controller/input-binding';
 import {createBlade} from '../../common/model/blade';
-import {LabelPropsObject} from '../../label/view/label';
+import {LabelPropsObject} from '../../../common/label/view/label';
 
 function createColorController(doc: Document) {
 	const obj = {

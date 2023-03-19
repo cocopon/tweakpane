@@ -17,7 +17,7 @@ import {createColorNumberWriter} from '../../../input-binding/color/converter/wr
 import {IntColor} from '../../../input-binding/color/model/int-color';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {createBlade} from '../../common/model/blade';
-import {LabelPropsObject} from '../../label/view/label';
+import {LabelPropsObject} from '../../../common/label/view/label';
 import {BindingController} from './binding';
 import {InputBindingController} from './input-binding';
 

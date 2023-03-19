@@ -18,7 +18,7 @@ import {createTestWindow} from '../../../misc/dom-test-util';
 import {assertInitialState, assertUpdates} from '../../common/api/test-util';
 import {TpChangeEvent} from '../../common/api/tp-event';
 import {createBlade} from '../../common/model/blade';
-import {LabelPropsObject} from '../../label/view/label';
+import {LabelPropsObject} from '../../../common/label/view/label';
 import {InputBindingController} from '../controller/input-binding';
 import {BindingApi} from './binding';
 import {InputBindingApi} from './input-binding';

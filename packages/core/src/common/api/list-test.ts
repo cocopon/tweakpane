@@ -3,7 +3,7 @@ import {describe, it} from 'mocha';
 
 import {InputBindingController} from '../../blade/binding/controller/input-binding';
 import {createBlade} from '../../blade/common/model/blade';
-import {LabelPropsObject} from '../../blade/label/view/label';
+import {LabelPropsObject} from '../label/view/label';
 import {createTestWindow} from '../../misc/dom-test-util';
 import {ReadWriteBinding} from '../binding/read-write';
 import {BindingTarget} from '../binding/target';

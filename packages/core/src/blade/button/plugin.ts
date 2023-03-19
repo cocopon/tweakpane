@@ -2,7 +2,7 @@ import {parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
 import {BaseBladeParams} from '../../common/params';
 import {VERSION} from '../../version';
-import {LabelPropsObject} from '../label/view/label';
+import {LabelPropsObject} from '../../common/label/view/label';
 import {BladePlugin} from '../plugin';
 import {ButtonApi} from './api/button';
 import {ButtonBladeController} from './controller/button-blade';

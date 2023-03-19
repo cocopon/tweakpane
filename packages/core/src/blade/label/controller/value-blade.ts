@@ -1,4 +1,6 @@
 import {ValueController} from '../../../common/controller/value';
+import {LabelController} from '../../../common/label/controller/label';
+import {LabelProps, LabelView} from '../../../common/label/view/label';
 import {Value} from '../../../common/model/value';
 import {TpError} from '../../../common/tp-error';
 import {BladeController} from '../../common/controller/blade';
@@ -10,8 +12,6 @@ import {
 } from '../../common/controller/blade-state';
 import {ValueBladeController} from '../../common/controller/value-blade';
 import {Blade} from '../../common/model/blade';
-import {LabelProps, LabelView} from '../view/label';
-import {LabelController} from './label';
 
 /**
  * @hidden

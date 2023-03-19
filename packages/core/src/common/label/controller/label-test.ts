@@ -1,12 +1,12 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {Controller} from '../../../common/controller/controller';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {View} from '../../../common/view/view';
+import {createBlade} from '../../../blade/common/model/blade';
 import {createTestWindow} from '../../../misc/dom-test-util';
-import {createBlade} from '../../common/model/blade';
+import {Controller} from '../../controller/controller';
+import {ValueMap} from '../../model/value-map';
+import {ViewProps} from '../../model/view-props';
+import {View} from '../../view/view';
 import {LabelPropsObject} from '../view/label';
 import {LabelController} from './label';
 

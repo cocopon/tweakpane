@@ -17,7 +17,7 @@ import {SingleLogController} from '../../../monitor-binding/common/controller/si
 import {assertInitialState, assertUpdates} from '../../common/api/test-util';
 import {TpChangeEvent} from '../../common/api/tp-event';
 import {createBlade} from '../../common/model/blade';
-import {LabelPropsObject} from '../../label/view/label';
+import {LabelPropsObject} from '../../../common/label/view/label';
 import {MonitorBindingController} from '../controller/monitor-binding';
 import {BindingApi} from './binding';
 import {MonitorBindingApi} from './monitor-binding';

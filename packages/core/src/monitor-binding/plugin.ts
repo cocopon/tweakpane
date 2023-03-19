@@ -4,7 +4,7 @@ import {
 	MonitorBindingController,
 } from '../blade/binding/controller/monitor-binding';
 import {createBlade} from '../blade/common/model/blade';
-import {LabelPropsObject} from '../blade/label/view/label';
+import {LabelPropsObject} from '../common/label/view/label';
 import {BindingReader} from '../common/binding/binding';
 import {ReadonlyBinding} from '../common/binding/readonly';
 import {BindingTarget} from '../common/binding/target';

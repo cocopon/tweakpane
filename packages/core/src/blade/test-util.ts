@@ -18,7 +18,7 @@ import {
 } from './common/controller/blade-state';
 import {createBlade} from './common/model/blade';
 import {LabeledValueBladeController} from './label/controller/value-blade';
-import {LabelPropsObject} from './label/view/label';
+import {LabelPropsObject} from '../common/label/view/label';
 import {BladePlugin} from './plugin';
 
 class LabelableController implements Controller {

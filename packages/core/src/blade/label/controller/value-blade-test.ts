@@ -21,7 +21,7 @@ import {
 	PropsPortable,
 } from '../../common/controller/blade-state';
 import {createBlade} from '../../common/model/blade';
-import {LabelPropsObject} from '../view/label';
+import {LabelPropsObject} from '../../../common/label/view/label';
 import {LabeledValueBladeController} from './value-blade';
 
 function createController(
