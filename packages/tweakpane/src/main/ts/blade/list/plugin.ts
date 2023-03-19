@@ -2,7 +2,7 @@ import {
 	BaseBladeParams,
 	BladePlugin,
 	createValue,
-	LabeledValueController,
+	LabeledValueBladeController,
 	LabelPropsObject,
 	ListConstraint,
 	ListController,
@@ -56,17 +56,20 @@ export const ListBladePlugin = (function <T>(): BladePlugin<
 				value: value,
 				viewProps: args.viewProps,
 			});
-			return new LabeledValueController<T, ListController<T>>(args.document, {
-				blade: args.blade,
-				props: ValueMap.fromObject<LabelPropsObject>({
-					label: args.params.label,
-				}),
-				value: value,
-				valueController: ic,
-			});
+			return new LabeledValueBladeController<T, ListController<T>>(
+				args.document,
+				{
+					blade: args.blade,
+					props: ValueMap.fromObject<LabelPropsObject>({
+						label: args.params.label,
+					}),
+					value: value,
+					valueController: ic,
+				},
+			);
 		},
 		api(args) {
-			if (!(args.controller instanceof LabeledValueController)) {
+			if (!(args.controller instanceof LabeledValueBladeController)) {
 				return null;
 			}
 			if (!(args.controller.valueController instanceof ListController)) {

@@ -9,6 +9,7 @@ import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../../common/converter/number';
+import {LabelPropsObject} from '../../../common/label/view/label';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
@@ -29,7 +30,6 @@ import {Point2d} from '../../../input-binding/point-2d/model/point-2d';
 import {createTestWindow} from '../../../misc/dom-test-util';
 import {InputBindingController} from '../../binding/controller/input-binding';
 import {createBlade} from '../../common/model/blade';
-import {LabelPropsObject} from '../../label/view/label';
 
 function createColorController(doc: Document) {
 	const obj = {

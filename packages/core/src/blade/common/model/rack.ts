@@ -1,3 +1,4 @@
+import {ValueController} from '../../../common/controller/value';
 import {Emitter} from '../../../common/model/emitter';
 import {
 	Value,
@@ -8,10 +9,7 @@ import {ViewProps, ViewPropsEvents} from '../../../common/model/view-props';
 import {TpError} from '../../../common/tp-error';
 import {BladeController} from '../controller/blade';
 import {isContainerBladeController} from '../controller/container-blade';
-import {
-	isValueBladeController,
-	ValueBladeController,
-} from '../controller/value-blade';
+import {isValueBladeController} from '../controller/value-blade';
 import {Blade} from './blade';
 import {BladePosition} from './blade-positions';
 import {NestedOrderedSet, NestedOrderedSetEvents} from './nested-ordered-set';
@@ -33,7 +31,7 @@ export interface RackEvents {
 	};
 
 	valuechange: {
-		bladeController: ValueBladeController<unknown>;
+		bladeController: BladeController & ValueController<unknown>;
 		options: ValueChangeOptions;
 		sender: Rack;
 	};
@@ -43,9 +41,9 @@ export interface RackEvents {
 }
 
 function findValueBladeController(
-	bcs: ValueBladeController<unknown>[],
+	bcs: BladeController[],
 	v: Value<unknown>,
-): ValueBladeController<unknown> | null {
+): (BladeController & ValueController<unknown>) | null {
 	for (let i = 0; i < bcs.length; i++) {
 		const bc = bcs[i];
 		if (isValueBladeController(bc) && bc.value === v) {

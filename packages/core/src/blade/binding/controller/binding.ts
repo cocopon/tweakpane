@@ -11,9 +11,9 @@ import {
 } from '../../common/controller/blade-state';
 import {isValueBladeController} from '../../common/controller/value-blade';
 import {
-	LabeledValueConfig,
-	LabeledValueController,
-} from '../../label/controller/value-label';
+	LabeledValueBladeConfig,
+	LabeledValueBladeController,
+} from '../../label/controller/value';
 
 function excludeValue(state: BladeState): Omit<BladeState, 'value'> {
 	const result = {
@@ -30,7 +30,7 @@ interface Config<
 	In,
 	Vc extends ValueController<In>,
 	Va extends BindingValue<In>,
-> extends LabeledValueConfig<In, Vc, Va> {
+> extends LabeledValueBladeConfig<In, Vc, Va> {
 	tag?: string | undefined;
 }
 
@@ -41,7 +41,7 @@ export class BindingController<
 	In = unknown,
 	Vc extends ValueController<In> = ValueController<In>,
 	Va extends BindingValue<In> = BindingValue<In>,
-> extends LabeledValueController<In, Vc, Va> {
+> extends LabeledValueBladeController<In, Vc, Va> {
 	public tag: string | undefined;
 
 	constructor(doc: Document, config: Config<In, Vc, Va>) {

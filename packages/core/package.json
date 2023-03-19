@@ -21,7 +21,7 @@
     "build:ts:cjs": "tsc --project src/tsconfig-cjs.json && node scripts/replace-version.js dist/cjs/version.js",
     "build:ts:es6": "tsc --project src/tsconfig-es6.json && node scripts/replace-version.js dist/es6/version.js",
     "clean": "rimraf .nyc_output dist tweakpane-core.tgz tweakpane-core-*.tgz",
-    "coverage": "nyc --reporter=text --extension \".ts\" --exclude \"**/*-test.ts\" npm run test:ts:dynamic",
+    "coverage": "nyc --reporter=text --extension \".ts\" --exclude \"**/*-test.ts\" --exclude \"dist/**/*\" npm run test:ts:dynamic",
     "format": "run-p format:*",
     "format:scss": "prettier --parser scss --write \"lib/sass/**/*.scss\"",
     "format:ts": "eslint --ext .ts --fix \"src/**/*.ts\"",

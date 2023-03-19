@@ -9,8 +9,7 @@ import {describe, it} from 'mocha';
 
 import {
 	createEmptyBladeController,
-	createEmptyLabelableController,
-	createLabelController,
+	createLabeledValueBladeController,
 	createTestWindow,
 } from '../../misc/test-util';
 import {ListBladeApi} from './api/list';
@@ -75,12 +74,11 @@ describe(ListBladePlugin.id, () => {
 
 	[
 		(doc: Document) => createEmptyBladeController(doc),
-		(doc: Document) =>
-			createLabelController(doc, createEmptyLabelableController(doc)),
+		(doc: Document) => createLabeledValueBladeController(doc),
 	].forEach((createController) => {
 		it('should not create API', () => {
 			const doc = createTestWindow().document;
-			const c = createController(doc);
+			const c = createController(doc) as BladeController;
 			const api = ListBladePlugin.api({
 				controller: c,
 				pool: createPluginPool(),

@@ -1,15 +1,12 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
+import {createLabeledValueBladeController} from '../../../../tweakpane/src/main/ts/misc/test-util';
 import {createTestWindow} from '../../misc/dom-test-util';
 import {createDefaultPluginPool} from '../../plugin/plugins';
 import {BladeController} from '../common/controller/blade';
 import {createBladeController} from '../plugin';
-import {
-	createEmptyBladeController,
-	createEmptyLabelableController,
-	createLabelController,
-} from '../test-util';
+import {createEmptyBladeController} from '../test-util';
 import {ButtonApi} from './api/button';
 import {ButtonBladePlugin} from './plugin';
 
@@ -34,12 +31,11 @@ describe(ButtonBladePlugin.id, () => {
 
 	[
 		(doc: Document) => createEmptyBladeController(doc),
-		(doc: Document) =>
-			createLabelController(doc, createEmptyLabelableController(doc)),
+		(doc: Document) => createLabeledValueBladeController(doc),
 	].forEach((createController) => {
 		it('should not create API', () => {
 			const doc = createTestWindow().document;
-			const c = createController(doc);
+			const c = createController(doc) as BladeController;
 			const api = ButtonBladePlugin.api({
 				controller: c,
 				pool: createDefaultPluginPool(),

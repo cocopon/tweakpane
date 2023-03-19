@@ -1,6 +1,12 @@
 import {Controller} from '../../../common/controller/controller';
 import {Emitter} from '../../../common/model/emitter';
 import {ViewProps} from '../../../common/model/view-props';
+import {
+	BladeState,
+	exportBladeState,
+	importBladeState,
+	PropsPortable,
+} from '../../common/controller/blade-state';
 import {ButtonProps, ButtonView} from '../view/button';
 
 /**
@@ -23,7 +29,7 @@ interface Config {
 /**
  * @hidden
  */
-export class ButtonController implements Controller<ButtonView> {
+export class ButtonController implements Controller<ButtonView>, PropsPortable {
 	public readonly emitter: Emitter<ButtonEvents> = new Emitter();
 	public readonly props: ButtonProps;
 	public readonly view: ButtonView;
@@ -43,6 +49,26 @@ export class ButtonController implements Controller<ButtonView> {
 			viewProps: this.viewProps,
 		});
 		this.view.buttonElement.addEventListener('click', this.onClick_);
+	}
+
+	public importProps(state: BladeState): boolean {
+		return importBladeState(
+			state,
+			null,
+			(p) => ({
+				title: p.optional.string,
+			}),
+			(result) => {
+				this.props.set('title', result.title);
+				return true;
+			},
+		);
+	}
+
+	public exportProps(): BladeState {
+		return exportBladeState(null, {
+			title: this.props.get('title'),
+		});
 	}
 
 	private onClick_(): void {

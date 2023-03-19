@@ -3,20 +3,20 @@ import {
 	BladeApi,
 	Emitter,
 	Formatter,
-	LabeledValueController,
+	LabeledValueBladeController,
 	TextController,
 	TpChangeEvent,
 } from '@tweakpane/core';
 
 export class TextBladeApi<T> extends BladeApi<
-	LabeledValueController<T, TextController<T>>
+	LabeledValueBladeController<T, TextController<T>>
 > {
 	private readonly emitter_: Emitter<ApiChangeEvents<T>> = new Emitter();
 
 	/**
 	 * @hidden
 	 */
-	constructor(controller: LabeledValueController<T, TextController<T>>) {
+	constructor(controller: LabeledValueBladeController<T, TextController<T>>) {
 		super(controller);
 
 		this.controller_.value.emitter.on('change', (ev) => {
@@ -25,11 +25,11 @@ export class TextBladeApi<T> extends BladeApi<
 	}
 
 	get label(): string | null | undefined {
-		return this.controller_.props.get('label');
+		return this.controller_.labelController.props.get('label');
 	}
 
 	set label(label: string | null | undefined) {
-		this.controller_.props.set('label', label);
+		this.controller_.labelController.props.set('label', label);
 	}
 
 	get formatter(): Formatter<T> {

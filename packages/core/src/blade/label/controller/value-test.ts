@@ -7,6 +7,7 @@ import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../../common/converter/number';
+import {LabelPropsObject} from '../../../common/label/view/label';
 import {Value} from '../../../common/model/value';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
@@ -21,8 +22,7 @@ import {
 	PropsPortable,
 } from '../../common/controller/blade-state';
 import {createBlade} from '../../common/model/blade';
-import {LabelPropsObject} from '../view/label';
-import {LabeledValueController} from './value-label';
+import {LabeledValueBladeController} from './value';
 
 function createController(
 	doc: Document,
@@ -30,7 +30,7 @@ function createController(
 		label: string;
 		value: number;
 	},
-): LabeledValueController<number> {
+): LabeledValueBladeController<number> {
 	const value = createValue(config.value);
 	const controller = new TextController(doc, {
 		parser: parseNumber,
@@ -40,7 +40,7 @@ function createController(
 		value: value,
 		viewProps: ViewProps.create(),
 	});
-	return new LabeledValueController<number>(doc, {
+	return new LabeledValueBladeController<number>(doc, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: config.label,
@@ -91,7 +91,7 @@ class TestPortableValueController
 	}
 }
 
-describe(LabeledValueController.name, () => {
+describe(LabeledValueBladeController.name, () => {
 	it('should get properties', () => {
 		const doc = createTestWindow().document;
 		const c = createController(doc, {
@@ -99,7 +99,7 @@ describe(LabeledValueController.name, () => {
 			value: 0,
 		});
 
-		assert.strictEqual(c.props.get('label'), 'foo');
+		assert.strictEqual(c.labelController.props.get('label'), 'foo');
 	});
 
 	it('should apply properties to view', () => {
@@ -142,7 +142,7 @@ describe(LabeledValueController.name, () => {
 			}),
 			true,
 		);
-		assert.strictEqual(c.props.get('label'), 'bar');
+		assert.strictEqual(c.labelController.props.get('label'), 'bar');
 		assert.strictEqual(c.value.rawValue, 123);
 	});
 
@@ -166,17 +166,17 @@ describe(LabeledValueController.name, () => {
 	it('should apply imported state to value controller', () => {
 		const doc = createTestWindow().document;
 		const value = createValue(0);
-		const c = new LabeledValueController<number, TestPortableValueController>(
-			doc,
-			{
-				blade: createBlade(),
-				props: ValueMap.fromObject<LabelPropsObject>({
-					label: 'label',
-				}),
-				value: value,
-				valueController: new TestPortableValueController(doc, value),
-			},
-		);
+		const c = new LabeledValueBladeController<
+			number,
+			TestPortableValueController
+		>(doc, {
+			blade: createBlade(),
+			props: ValueMap.fromObject<LabelPropsObject>({
+				label: 'label',
+			}),
+			value: value,
+			valueController: new TestPortableValueController(doc, value),
+		});
 
 		assert.strictEqual(
 			c.importState({
@@ -195,17 +195,17 @@ describe(LabeledValueController.name, () => {
 	it('should export value controller state', () => {
 		const doc = createTestWindow().document;
 		const value = createValue(0);
-		const c = new LabeledValueController<number, TestPortableValueController>(
-			doc,
-			{
-				blade: createBlade(),
-				props: ValueMap.fromObject<LabelPropsObject>({
-					label: 'label',
-				}),
-				value: value,
-				valueController: new TestPortableValueController(doc, value),
-			},
-		);
+		const c = new LabeledValueBladeController<
+			number,
+			TestPortableValueController
+		>(doc, {
+			blade: createBlade(),
+			props: ValueMap.fromObject<LabelPropsObject>({
+				label: 'label',
+			}),
+			value: value,
+			valueController: new TestPortableValueController(doc, value),
+		});
 		c.valueController.opacity = 0.25;
 
 		assert.deepStrictEqual(c.exportState(), {

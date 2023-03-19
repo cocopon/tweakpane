@@ -3,7 +3,6 @@ import {describe, it} from 'mocha';
 
 import {InputBindingController} from '../../../blade/binding/controller/input-binding';
 import {createBlade} from '../../../blade/common/model/blade';
-import {LabelPropsObject} from '../../../blade/label/view/label';
 import {ReadWriteBinding} from '../../../common/binding/read-write';
 import {BindingTarget} from '../../../common/binding/target';
 import {InputBindingValue} from '../../../common/binding/value/input-binding';
@@ -12,6 +11,7 @@ import {
 	numberFromUnknown,
 	parseNumber,
 } from '../../../common/converter/number';
+import {LabelPropsObject} from '../../../common/label/view/label';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';

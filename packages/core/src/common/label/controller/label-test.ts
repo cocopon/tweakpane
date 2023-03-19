@@ -1,14 +1,14 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {Controller} from '../../../common/controller/controller';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {View} from '../../../common/view/view';
+import {createBlade} from '../../../blade/common/model/blade';
 import {createTestWindow} from '../../../misc/dom-test-util';
-import {createBlade} from '../../common/model/blade';
+import {Controller} from '../../controller/controller';
+import {ValueMap} from '../../model/value-map';
+import {ViewProps} from '../../model/view-props';
+import {View} from '../../view/view';
 import {LabelPropsObject} from '../view/label';
-import {LabelBladeController} from './label';
+import {LabelController} from './label';
 
 class TestView implements View {
 	public readonly element: HTMLElement;
@@ -34,7 +34,7 @@ class TestController implements Controller<TestView> {
 }
 
 function createController(doc: Document, label: string) {
-	return new LabelBladeController(doc, {
+	return new LabelController(doc, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: label,
@@ -45,7 +45,7 @@ function createController(doc: Document, label: string) {
 	});
 }
 
-describe(LabelBladeController.name, () => {
+describe(LabelController.name, () => {
 	it('should have initial state', () => {
 		const doc = createTestWindow().document;
 		const c = createController(doc, 'hello');
@@ -66,10 +66,9 @@ describe(LabelBladeController.name, () => {
 		const doc = createTestWindow().document;
 		const c = createController(doc, 'foo');
 
-		const state = c.exportState();
-		assert.ok('disabled' in state);
-		assert.ok('hidden' in state);
-		assert.strictEqual(state.label, 'foo');
+		assert.deepStrictEqual(c.exportProps(), {
+			label: 'foo',
+		});
 	});
 
 	it('should import state', () => {
@@ -77,9 +76,7 @@ describe(LabelBladeController.name, () => {
 		const c = createController(doc, 'foo');
 
 		assert.strictEqual(
-			c.importState({
-				disabled: true,
-				hidden: true,
+			c.importProps({
 				label: 'bar',
 			}),
 			true,

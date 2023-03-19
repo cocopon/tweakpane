@@ -14,7 +14,7 @@ export * from './blade/binding/controller/monitor-binding';
 
 export * from './blade/button/api/button';
 export * from './blade/button/controller/button';
-export * from './blade/button/controller/labeled-button';
+export * from './blade/button/controller/button-blade';
 export * from './blade/button/view/button';
 export * from './blade/button/plugin';
 
@@ -34,9 +34,9 @@ export * from './blade/folder/controller/folder';
 export * from './blade/folder/view/folder';
 export * from './blade/folder/plugin';
 
-export * from './blade/label/controller/label';
-export * from './blade/label/controller/value-label';
-export * from './blade/label/view/label';
+export * from './common/label/controller/label';
+export * from './blade/label/controller/value';
+export * from './common/label/view/label';
 
 export * from './blade/tab/api/tab';
 export * from './blade/tab/api/tab-page';

@@ -1,4 +1,5 @@
 import {Controller} from '../common/controller/controller';
+import {LabelPropsObject} from '../common/label/view/label';
 import {parseRecord} from '../common/micro-parsers';
 import {ValueMap} from '../common/model/value-map';
 import {createValue} from '../common/model/values';
@@ -17,9 +18,7 @@ import {
 	importBladeState,
 } from './common/controller/blade-state';
 import {createBlade} from './common/model/blade';
-import {LabelBladeController} from './label/controller/label';
-import {LabeledValueController} from './label/controller/value-label';
-import {LabelPropsObject} from './label/view/label';
+import {LabeledValueBladeController} from './label/controller/value';
 import {BladePlugin} from './plugin';
 
 class LabelableController implements Controller {
@@ -38,14 +37,6 @@ export function createEmptyLabelableController(doc: Document) {
 	return new LabelableController(doc);
 }
 
-export function createLabelController(doc: Document, vc: LabelableController) {
-	return new LabelBladeController(doc, {
-		blade: createBlade(),
-		props: ValueMap.fromObject<LabelPropsObject>({label: ''}),
-		valueController: vc,
-	});
-}
-
 export function createEmptyBladeController(
 	doc: Document,
 ): BladeController<PlainView> {
@@ -60,7 +51,7 @@ export function createEmptyBladeController(
 }
 
 export class TestValueBladeApi extends BladeApi<
-	LabeledValueController<boolean, CheckboxController>
+	LabeledValueBladeController<boolean, CheckboxController>
 > {
 	get value(): boolean {
 		return this.controller_.value.rawValue;
@@ -87,7 +78,7 @@ export const TestValueBladePlugin: BladePlugin<TestBladeParams> = {
 	},
 	controller(args) {
 		const v = createValue<boolean>(false);
-		return new LabeledValueController<boolean, CheckboxController>(
+		return new LabeledValueBladeController<boolean, CheckboxController>(
 			args.document,
 			{
 				blade: createBlade(),
@@ -103,7 +94,7 @@ export const TestValueBladePlugin: BladePlugin<TestBladeParams> = {
 		);
 	},
 	api(args) {
-		if (!(args.controller instanceof LabeledValueController)) {
+		if (!(args.controller instanceof LabeledValueBladeController)) {
 			return null;
 		}
 		const vc = args.controller.valueController;

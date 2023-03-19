@@ -2,21 +2,21 @@ import {
 	ApiChangeEvents,
 	BladeApi,
 	Emitter,
-	LabeledValueController,
+	LabeledValueBladeController,
 	ListController,
 	ListItem,
 	TpChangeEvent,
 } from '@tweakpane/core';
 
 export class ListBladeApi<T> extends BladeApi<
-	LabeledValueController<T, ListController<T>>
+	LabeledValueBladeController<T, ListController<T>>
 > {
 	private readonly emitter_: Emitter<ApiChangeEvents<T>> = new Emitter();
 
 	/**
 	 * @hidden
 	 */
-	constructor(controller: LabeledValueController<T, ListController<T>>) {
+	constructor(controller: LabeledValueBladeController<T, ListController<T>>) {
 		super(controller);
 
 		this.controller_.value.emitter.on('change', (ev) => {
@@ -25,11 +25,11 @@ export class ListBladeApi<T> extends BladeApi<
 	}
 
 	get label(): string | null | undefined {
-		return this.controller_.props.get('label');
+		return this.controller_.labelController.props.get('label');
 	}
 
 	set label(label: string | null | undefined) {
-		this.controller_.props.set('label', label);
+		this.controller_.labelController.props.set('label', label);
 	}
 
 	get options(): ListItem<T>[] {

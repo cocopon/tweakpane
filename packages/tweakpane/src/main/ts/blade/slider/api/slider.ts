@@ -2,13 +2,13 @@ import {
 	ApiChangeEvents,
 	BladeApi,
 	Emitter,
-	LabeledValueController,
+	LabeledValueBladeController,
 	SliderTextController,
 	TpChangeEvent,
 } from '@tweakpane/core';
 
 export class SliderBladeApi extends BladeApi<
-	LabeledValueController<number, SliderTextController>
+	LabeledValueBladeController<number, SliderTextController>
 > {
 	private readonly emitter_: Emitter<ApiChangeEvents<number>> = new Emitter();
 
@@ -16,7 +16,7 @@ export class SliderBladeApi extends BladeApi<
 	 * @hidden
 	 */
 	constructor(
-		controller: LabeledValueController<number, SliderTextController>,
+		controller: LabeledValueBladeController<number, SliderTextController>,
 	) {
 		super(controller);
 
@@ -26,11 +26,11 @@ export class SliderBladeApi extends BladeApi<
 	}
 
 	get label(): string | null | undefined {
-		return this.controller_.props.get('label');
+		return this.controller_.labelController.props.get('label');
 	}
 
 	set label(label: string | null | undefined) {
-		this.controller_.props.set('label', label);
+		this.controller_.labelController.props.set('label', label);
 	}
 
 	get max(): number {

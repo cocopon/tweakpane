@@ -3,7 +3,7 @@ import {
 	BladePlugin,
 	createValue,
 	Formatter,
-	LabeledValueController,
+	LabeledValueBladeController,
 	LabelPropsObject,
 	MicroParser,
 	Parser,
@@ -52,17 +52,20 @@ export const TextBladePlugin = (function <T>(): BladePlugin<
 				value: v,
 				viewProps: args.viewProps,
 			});
-			return new LabeledValueController<T, TextController<T>>(args.document, {
-				blade: args.blade,
-				props: ValueMap.fromObject<LabelPropsObject>({
-					label: args.params.label,
-				}),
-				value: v,
-				valueController: ic,
-			});
+			return new LabeledValueBladeController<T, TextController<T>>(
+				args.document,
+				{
+					blade: args.blade,
+					props: ValueMap.fromObject<LabelPropsObject>({
+						label: args.params.label,
+					}),
+					value: v,
+					valueController: ic,
+				},
+			);
 		},
 		api(args) {
-			if (!(args.controller instanceof LabeledValueController)) {
+			if (!(args.controller instanceof LabeledValueBladeController)) {
 				return null;
 			}
 			if (!(args.controller.valueController instanceof TextController)) {

@@ -7,12 +7,14 @@ import {BindingTarget} from '../../../common/binding/target';
 import {ManualTicker} from '../../../common/binding/ticker/manual';
 import {InputBindingValue} from '../../../common/binding/value/input-binding';
 import {MonitorBindingValue} from '../../../common/binding/value/monitor-binding';
+import {ValueController} from '../../../common/controller/value';
 import {boolFromUnknown} from '../../../common/converter/boolean';
 import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../../common/converter/number';
 import {stringFromUnknown} from '../../../common/converter/string';
+import {LabelPropsObject, LabelView} from '../../../common/label/view/label';
 import {ValueMap} from '../../../common/model/value-map';
 import {createValue} from '../../../common/model/values';
 import {ViewProps} from '../../../common/model/view-props';
@@ -29,9 +31,8 @@ import {InputBindingController} from '../../binding/controller/input-binding';
 import {MonitorBindingController} from '../../binding/controller/monitor-binding';
 import {FolderController} from '../../folder/controller/folder';
 import {FolderPropsObject} from '../../folder/view/folder';
-import {LabeledValueController} from '../../label/controller/value-label';
-import {LabelPropsObject, LabelView} from '../../label/view/label';
-import {ValueBladeController} from '../controller/value-blade';
+import {LabeledValueBladeController} from '../../label/controller/value';
+import {BladeController} from '../controller/blade';
 import {createBlade} from './blade';
 import {Rack} from './rack';
 
@@ -84,9 +85,9 @@ function createMonitorBindingController(
 
 function createValueBladeController(
 	doc: Document,
-): ValueBladeController<number, LabelView> {
+): BladeController<LabelView> & ValueController<number> {
 	const v = createValue(123);
-	return new LabeledValueController<number, SliderTextController>(doc, {
+	return new LabeledValueBladeController<number, SliderTextController>(doc, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: '',

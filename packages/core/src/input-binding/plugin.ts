@@ -1,13 +1,13 @@
 import {InputBindingApi} from '../blade/binding/api/input-binding';
 import {InputBindingController} from '../blade/binding/controller/input-binding';
 import {createBlade} from '../blade/common/model/blade';
-import {LabelPropsObject} from '../blade/label/view/label';
 import {BindingReader, BindingWriter} from '../common/binding/binding';
 import {ReadWriteBinding} from '../common/binding/read-write';
 import {BindingTarget} from '../common/binding/target';
 import {InputBindingValue} from '../common/binding/value/input-binding';
 import {Constraint} from '../common/constraint/constraint';
 import {ValueController} from '../common/controller/value';
+import {LabelPropsObject} from '../common/label/view/label';
 import {parseRecord} from '../common/micro-parsers';
 import {Value} from '../common/model/value';
 import {ValueMap} from '../common/model/value-map';
