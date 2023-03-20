@@ -1,3 +1,4 @@
+import {NumberTextInputParams} from '../../input-binding/number/plugin';
 import {isEmpty} from '../../misc/type-util';
 import {findConstraint} from '../constraint/composite';
 import {Constraint} from '../constraint/constraint';
@@ -63,12 +64,10 @@ export function getSuitableKeyScale(
 }
 
 export function getSuitablePointerScale(
-	constraint: Constraint<number> | undefined,
+	params: NumberTextInputParams,
 	rawValue: number,
 ): number {
-	const sc = constraint && findConstraint(constraint, StepConstraint);
-	const base = Math.abs(sc?.step ?? rawValue);
-
+	const base = Math.abs(params.step ?? rawValue);
 	return base === 0 ? 0.1 : Math.pow(10, Math.floor(Math.log10(base)) - 1);
 }
 

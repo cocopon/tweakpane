@@ -36,12 +36,17 @@ import {VERSION} from '../../version';
 import {InputBindingPlugin} from '../plugin';
 import {SliderInputBindingApi} from './api/slider';
 
-export interface NumberInputParams extends BaseInputParams {
+export interface NumberTextInputParams {
 	format?: Formatter<number>;
 	max?: number;
 	min?: number;
-	options?: ListParamsOptions<number>;
 	step?: number;
+}
+
+export interface NumberInputParams
+	extends BaseInputParams,
+		NumberTextInputParams {
+	options?: ListParamsOptions<number>;
 }
 
 function createConstraint(
@@ -128,7 +133,7 @@ export const NumberInputPlugin: InputBindingPlugin<
 					keyScale: createValue(getSuitableKeyScale(c)),
 					max: drc.values.value('max'),
 					min: drc.values.value('min'),
-					pointerScale: getSuitablePointerScale(c, value.rawValue),
+					pointerScale: getSuitablePointerScale(args.params, value.rawValue),
 				}),
 				parser: parseNumber,
 				value: value,
@@ -141,7 +146,7 @@ export const NumberInputPlugin: InputBindingPlugin<
 			props: ValueMap.fromObject({
 				formatter: formatter,
 				keyScale: getSuitableKeyScale(c),
-				pointerScale: getSuitablePointerScale(c, value.rawValue),
+				pointerScale: getSuitablePointerScale(args.params, value.rawValue),
 			}),
 			value: value,
 			viewProps: args.viewProps,

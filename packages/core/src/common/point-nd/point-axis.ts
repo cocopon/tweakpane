@@ -1,5 +1,4 @@
 import {Constraint} from '../constraint/constraint';
-import {Formatter} from '../converter/formatter';
 import {createNumberFormatter} from '../converter/number';
 import {ValueMap} from '../model/value-map';
 import {
@@ -8,6 +7,7 @@ import {
 	getSuitablePointerScale,
 } from '../number/util';
 import {NumberTextProps} from '../number/view/number-text';
+import {PointDimensionParams} from '../params';
 
 export interface PointAxis {
 	constraint: Constraint<number> | undefined;
@@ -17,22 +17,18 @@ export interface PointAxis {
 export function createPointAxis(config: {
 	constraint: Constraint<number> | undefined;
 	initialValue: number;
-
-	formatter?: Formatter<number>;
+	params: PointDimensionParams;
 }): PointAxis {
 	return {
 		constraint: config.constraint,
 		textProps: ValueMap.fromObject({
 			formatter:
-				config.formatter ??
+				config.params.format ??
 				createNumberFormatter(
 					getSuitableDecimalDigits(config.constraint, config.initialValue),
 				),
 			keyScale: getSuitableKeyScale(config.constraint),
-			pointerScale: getSuitablePointerScale(
-				config.constraint,
-				config.initialValue,
-			),
+			pointerScale: getSuitablePointerScale(config.params, config.initialValue),
 		}),
 	};
 }

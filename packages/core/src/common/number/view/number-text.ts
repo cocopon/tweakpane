@@ -7,14 +7,16 @@ import {InputView, View} from '../../../common/view/view';
 import {Formatter} from '../../converter/formatter';
 import {constrainRange} from '../util';
 
-/**
- * @hidden
- */
-export type NumberTextProps = ValueMap<{
+export type NumberTextPropsObject = {
 	formatter: Formatter<number>;
 	keyScale: number;
 	pointerScale: number;
-}>;
+};
+
+/**
+ * @hidden
+ */
+export type NumberTextProps = ValueMap<NumberTextPropsObject>;
 
 /**
  * @hidden

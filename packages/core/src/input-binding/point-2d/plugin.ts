@@ -14,7 +14,7 @@ import {
 	parsePointDimensionParams,
 } from '../../common/point-nd/util';
 import {createDimensionConstraint} from '../../common/point-nd/util';
-import {isEmpty, Tuple2} from '../../misc/type-util';
+import {deepMerge, isEmpty, Tuple2} from '../../misc/type-util';
 import {VERSION} from '../../version';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {InputBindingPlugin} from '../plugin';
@@ -139,8 +139,11 @@ export const Point2dInputPlugin: InputBindingPlugin<
 			axes: value.rawValue.getComponents().map((comp, i) =>
 				createPointAxis({
 					constraint: c.components[i],
-					formatter: dParams[i]?.format ?? args.params.format,
 					initialValue: comp,
+					params: deepMerge(
+						args.params,
+						(dParams[i] ?? {}) as Record<string, unknown>,
+					),
 				}),
 			) as Tuple2<PointAxis>,
 			expanded: args.params.expanded ?? false,

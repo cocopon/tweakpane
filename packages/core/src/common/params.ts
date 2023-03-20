@@ -1,4 +1,4 @@
-import {Formatter} from './converter/formatter';
+import {NumberTextInputParams} from '../input-binding/number/plugin';
 
 export interface BaseParams {
 	disabled?: boolean;
@@ -12,12 +12,7 @@ export type ListParamsOptions<T> =
 	| ArrayStyleListOptions<T>
 	| ObjectStyleListOptions<T>;
 
-export interface PointDimensionParams {
-	format?: Formatter<number>;
-	max?: number;
-	min?: number;
-	step?: number;
-}
+export type PointDimensionParams = NumberTextInputParams;
 
 export type PickerLayout = 'inline' | 'popup';
 

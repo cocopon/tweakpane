@@ -8,6 +8,7 @@ import {
 	createPointDimensionParser,
 	parsePointDimensionParams,
 } from '../../common/point-nd/util';
+import {deepMerge} from '../../misc/type-util';
 import {VERSION} from '../../version';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {PointNdTextController} from '../common/controller/point-nd-text';
@@ -89,8 +90,11 @@ export const Point4dInputPlugin: InputBindingPlugin<
 			axes: value.rawValue.getComponents().map((comp, i) =>
 				createPointAxis({
 					constraint: c.components[i],
-					formatter: dParams[i]?.format ?? args.params.format,
 					initialValue: comp,
+					params: deepMerge(
+						args.params,
+						(dParams[i] ?? {}) as Record<string, unknown>,
+					),
 				}),
 			),
 			parser: parseNumber,
