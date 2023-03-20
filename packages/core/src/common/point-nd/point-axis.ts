@@ -1,11 +1,6 @@
 import {Constraint} from '../constraint/constraint';
-import {createNumberFormatter} from '../converter/number';
 import {ValueMap} from '../model/value-map';
-import {
-	getSuitableDecimalDigits,
-	getSuitableKeyScale,
-	getSuitablePointerScale,
-} from '../number/util';
+import {createNumberTextPropsObject} from '../number/util';
 import {NumberTextProps} from '../number/view/number-text';
 import {PointDimensionParams} from '../params';
 
@@ -21,14 +16,8 @@ export function createPointAxis(config: {
 }): PointAxis {
 	return {
 		constraint: config.constraint,
-		textProps: ValueMap.fromObject({
-			formatter:
-				config.params.format ??
-				createNumberFormatter(
-					getSuitableDecimalDigits(config.params, config.initialValue),
-				),
-			keyScale: getSuitableKeyScale(config.params),
-			pointerScale: getSuitablePointerScale(config.params, config.initialValue),
-		}),
+		textProps: ValueMap.fromObject(
+			createNumberTextPropsObject(config.params, config.initialValue),
+		),
 	};
 }

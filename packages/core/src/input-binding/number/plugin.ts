@@ -9,11 +9,7 @@ import {DefiniteRangeConstraint} from '../../common/constraint/definite-range';
 import {ListConstraint} from '../../common/constraint/list';
 import {ListController} from '../../common/controller/list';
 import {Formatter} from '../../common/converter/formatter';
-import {
-	createNumberFormatter,
-	numberFromUnknown,
-	parseNumber,
-} from '../../common/converter/number';
+import {numberFromUnknown, parseNumber} from '../../common/converter/number';
 import {createListConstraint, parseListOptions} from '../../common/list-util';
 import {MicroParser, parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
@@ -24,11 +20,9 @@ import {
 	SliderTextController,
 } from '../../common/number/controller/slider-text';
 import {
+	createNumberTextPropsObject,
 	createRangeConstraint,
 	createStepConstraint,
-	getSuitableDecimalDigits,
-	getSuitableKeyScale,
-	getSuitablePointerScale,
 } from '../../common/number/util';
 import {BaseInputParams, ListParamsOptions} from '../../common/params';
 import {writePrimitive} from '../../common/primitive';
@@ -121,21 +115,19 @@ export const NumberInputPlugin: InputBindingPlugin<
 			});
 		}
 
-		const formatter =
-			args.params.format ??
-			createNumberFormatter(
-				getSuitableDecimalDigits(args.params, value.rawValue),
-			);
+		const textPropsObj = createNumberTextPropsObject(
+			args.params,
+			value.rawValue,
+		);
 
 		const drc = c && findConstraint(c, DefiniteRangeConstraint);
 		if (drc) {
 			return new SliderTextController(args.document, {
 				...createSliderTextProps({
-					formatter: formatter,
-					keyScale: createValue(getSuitableKeyScale(args.params)),
+					...textPropsObj,
+					keyScale: createValue(textPropsObj.keyScale),
 					max: drc.values.value('max'),
 					min: drc.values.value('min'),
-					pointerScale: getSuitablePointerScale(args.params, value.rawValue),
 				}),
 				parser: parseNumber,
 				value: value,
@@ -145,11 +137,7 @@ export const NumberInputPlugin: InputBindingPlugin<
 
 		return new NumberTextController(args.document, {
 			parser: parseNumber,
-			props: ValueMap.fromObject({
-				formatter: formatter,
-				keyScale: getSuitableKeyScale(args.params),
-				pointerScale: getSuitablePointerScale(args.params, value.rawValue),
-			}),
+			props: ValueMap.fromObject(textPropsObj),
 			value: value,
 			viewProps: args.viewProps,
 		});

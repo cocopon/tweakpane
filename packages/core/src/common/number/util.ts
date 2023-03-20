@@ -4,6 +4,8 @@ import {Constraint} from '../constraint/constraint';
 import {DefiniteRangeConstraint} from '../constraint/definite-range';
 import {RangeConstraint} from '../constraint/range';
 import {StepConstraint} from '../constraint/step';
+import {createNumberFormatter} from '../converter/number';
+import {NumberTextPropsObject} from './view/number-text';
 
 export function mapRange(
 	value: number,
@@ -94,4 +96,17 @@ export function createRangeConstraint(params: {
 		});
 	}
 	return null;
+}
+
+export function createNumberTextPropsObject(
+	params: NumberTextInputParams,
+	initialValue: number,
+): NumberTextPropsObject {
+	return {
+		formatter:
+			params.format ??
+			createNumberFormatter(getSuitableDecimalDigits(params, initialValue)),
+		keyScale: getSuitableKeyScale(params),
+		pointerScale: getSuitablePointerScale(params, initialValue),
+	};
 }
