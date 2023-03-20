@@ -130,7 +130,7 @@ export const NumberInputPlugin: InputBindingPlugin<
 			return new SliderTextController(args.document, {
 				...createSliderTextProps({
 					formatter: formatter,
-					keyScale: createValue(getSuitableKeyScale(c)),
+					keyScale: createValue(getSuitableKeyScale(args.params)),
 					max: drc.values.value('max'),
 					min: drc.values.value('min'),
 					pointerScale: getSuitablePointerScale(args.params, value.rawValue),
@@ -145,7 +145,7 @@ export const NumberInputPlugin: InputBindingPlugin<
 			parser: parseNumber,
 			props: ValueMap.fromObject({
 				formatter: formatter,
-				keyScale: getSuitableKeyScale(c),
+				keyScale: getSuitableKeyScale(args.params),
 				pointerScale: getSuitablePointerScale(args.params, value.rawValue),
 			}),
 			value: value,

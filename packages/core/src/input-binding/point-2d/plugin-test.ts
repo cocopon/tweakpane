@@ -6,7 +6,6 @@ import {BindingTarget} from '../../common/binding/target';
 import {InputBindingValue} from '../../common/binding/value/input-binding';
 import {findConstraint} from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
-import {RangeConstraint} from '../../common/constraint/range';
 import {StepConstraint} from '../../common/constraint/step';
 import {ComplexValue} from '../../common/model/complex-value';
 import {getBoundValue} from '../../common/model/test-util';
@@ -17,7 +16,7 @@ import {Tuple2} from '../../misc/type-util';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {createInputBindingController} from '../plugin';
 import {Point2dController} from './controller/point-2d';
-import {Point2d, Point2dAssembly} from './model/point-2d';
+import {Point2d} from './model/point-2d';
 import {getSuitableMax, Point2dInputParams, Point2dInputPlugin} from './plugin';
 
 function getPoint2dConstraint(
@@ -42,34 +41,32 @@ describe(getSuitableMax.name, () => {
 		{
 			expected: 10,
 			params: {
-				constraint: undefined,
+				params: {},
 				rawValue: new Point2d(),
 			},
 		},
 		{
 			expected: 340,
 			params: {
-				constraint: undefined,
+				params: {},
 				rawValue: new Point2d(12, 34),
 			},
 		},
 		{
 			expected: 10,
 			params: {
-				constraint: new PointNdConstraint({
-					assembly: Point2dAssembly,
-					components: [new RangeConstraint({min: 0, max: 10})],
-				}),
+				params: {
+					x: {min: 0, max: 10},
+				},
 				rawValue: new Point2d(),
 			},
 		},
 		{
 			expected: 100,
 			params: {
-				constraint: new PointNdConstraint({
-					assembly: Point2dAssembly,
-					components: [undefined, new RangeConstraint({min: -100, max: 0})],
-				}),
+				params: {
+					y: {min: -100, max: 0},
+				},
 				rawValue: new Point2d(),
 			},
 		},
@@ -77,8 +74,8 @@ describe(getSuitableMax.name, () => {
 		describe(`when params = ${JSON.stringify(testCase.params)}`, () => {
 			it(`should return ${testCase.expected}`, () => {
 				const mv = getSuitableMax(
+					testCase.params.params,
 					testCase.params.rawValue,
-					testCase.params.constraint,
 				);
 				assert.strictEqual(mv, testCase.expected);
 			});

@@ -27,7 +27,7 @@ export function createPointAxis(config: {
 				createNumberFormatter(
 					getSuitableDecimalDigits(config.constraint, config.initialValue),
 				),
-			keyScale: getSuitableKeyScale(config.constraint),
+			keyScale: getSuitableKeyScale(config.params),
 			pointerScale: getSuitablePointerScale(config.params, config.initialValue),
 		}),
 	};

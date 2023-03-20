@@ -35,15 +35,6 @@ export function loopRange(value: number, max: number): number {
 	return ((value % max) + max) % max;
 }
 
-function findStep(constraint: Constraint<number> | undefined): number | null {
-	const c = constraint ? findConstraint(constraint, StepConstraint) : null;
-	if (!c) {
-		return null;
-	}
-
-	return c.step;
-}
-
 export function getSuitableDecimalDigits(
 	constraint: Constraint<number> | undefined,
 	rawValue: number,
@@ -56,11 +47,8 @@ export function getSuitableDecimalDigits(
 	return Math.max(getDecimalDigits(rawValue), 2);
 }
 
-export function getSuitableKeyScale(
-	constraint: Constraint<number> | undefined,
-): number {
-	const step = findStep(constraint);
-	return step ?? 1;
+export function getSuitableKeyScale(params: NumberTextInputParams): number {
+	return params.step ?? 1;
 }
 
 export function getSuitablePointerScale(
