@@ -1,6 +1,5 @@
 import {NumberTextInputParams} from '../../input-binding/number/plugin';
 import {isEmpty} from '../../misc/type-util';
-import {findConstraint} from '../constraint/composite';
 import {Constraint} from '../constraint/constraint';
 import {DefiniteRangeConstraint} from '../constraint/definite-range';
 import {RangeConstraint} from '../constraint/range';
@@ -95,23 +94,4 @@ export function createRangeConstraint(params: {
 		});
 	}
 	return null;
-}
-
-/**
- * Finds a range from number constraint.
- * @param c The number constraint.
- * @return A list that contains a minimum value and a max value.
- */
-export function findNumberRange(
-	c: Constraint<number>,
-): [number | undefined, number | undefined] {
-	const drc = findConstraint(c, DefiniteRangeConstraint);
-	if (drc) {
-		return [drc.values.get('min'), drc.values.get('max')];
-	}
-	const rc = findConstraint(c, RangeConstraint);
-	if (rc) {
-		return [rc.values.get('min'), rc.values.get('max')];
-	}
-	return [undefined, undefined];
 }

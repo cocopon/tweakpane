@@ -4,12 +4,10 @@ import {describe, it} from 'mocha';
 import {InputBindingController} from '../../blade/binding/controller/input-binding';
 import {BindingTarget} from '../../common/binding/target';
 import {InputBindingValue} from '../../common/binding/value/input-binding';
-import {findConstraint} from '../../common/constraint/composite';
 import {Constraint} from '../../common/constraint/constraint';
-import {StepConstraint} from '../../common/constraint/step';
 import {ComplexValue} from '../../common/model/complex-value';
 import {getBoundValue} from '../../common/model/test-util';
-import {findNumberRange} from '../../common/number/util';
+import {getDimensionProps} from '../../common/point-nd/test-util';
 import {createTestWindow} from '../../misc/dom-test-util';
 import {Tuple4} from '../../misc/type-util';
 import {PointNdConstraint} from '../common/constraint/point-nd';
@@ -23,16 +21,6 @@ function getPoint4dConstraint(
 ): PointNdConstraint<Point4d> {
 	return (getBoundValue(v) as ComplexValue<unknown>)
 		.constraint as PointNdConstraint<Point4d>;
-}
-
-function getDimensionProps(c: Constraint<number>) {
-	const [min, max] = findNumberRange(c);
-	const sc = findConstraint(c, StepConstraint);
-	return {
-		max: max,
-		min: min,
-		step: sc?.step,
-	};
 }
 
 describe(Point4dInputPlugin.id, () => {
