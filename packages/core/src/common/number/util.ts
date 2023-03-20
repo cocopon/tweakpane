@@ -36,15 +36,12 @@ export function loopRange(value: number, max: number): number {
 }
 
 export function getSuitableDecimalDigits(
-	constraint: Constraint<number> | undefined,
+	params: NumberTextInputParams,
 	rawValue: number,
 ): number {
-	const sc = constraint && findConstraint(constraint, StepConstraint);
-	if (sc) {
-		return getDecimalDigits(sc.step);
-	}
-
-	return Math.max(getDecimalDigits(rawValue), 2);
+	return !isEmpty(params.step)
+		? getDecimalDigits(params.step)
+		: Math.max(getDecimalDigits(rawValue), 2);
 }
 
 export function getSuitableKeyScale(params: NumberTextInputParams): number {

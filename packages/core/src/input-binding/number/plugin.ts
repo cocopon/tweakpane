@@ -123,7 +123,9 @@ export const NumberInputPlugin: InputBindingPlugin<
 
 		const formatter =
 			args.params.format ??
-			createNumberFormatter(getSuitableDecimalDigits(c, value.rawValue));
+			createNumberFormatter(
+				getSuitableDecimalDigits(args.params, value.rawValue),
+			);
 
 		const drc = c && findConstraint(c, DefiniteRangeConstraint);
 		if (drc) {
