@@ -20,7 +20,7 @@
 
 	a#{&}_anchor {
 		align-items: center;
-		background-color: var(--bg-color-secondary);
+		background-color: var(--bg-color-action);
 		border-radius: 6px;
 		color: var(--fg-color);
 		display: flex;
@@ -30,7 +30,7 @@
 
 		&:focus,
 		&:hover {
-			background-color: var(--bg-color-secondary-action);
+			background-color: var(--bg-color-action-active);
 		}
 	}
 	&_icon {

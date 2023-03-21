@@ -14,7 +14,6 @@ $global-nav-width: 240px;
 
 // Colors
 $base-hue: 230;
-$pane-bg-color: hsl($base-hue, 7%, 17%);
 
 // Z-index
 $z-index-global-header: 1002;
@@ -114,7 +113,7 @@ $z-index-global-nav: 1003;
 	td,
 	li {
 		code {
-			background-color: var(--bg-color-secondary);
+			background-color: var(--bg-color-action);
 			border-radius: 2px;
 			color: var(--code-color);
 			font-weight: 500;
