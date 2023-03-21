@@ -108,7 +108,7 @@ export function createNumberTextPropsObject(
 		formatter:
 			params.format ??
 			createNumberFormatter(getSuitableDecimalDigits(params, initialValue)),
-		keyScale: getSuitableKeyScale(params),
+		keyScale: params.keyScale ?? getSuitableKeyScale(params),
 		pointerScale:
 			params.pointerScale ?? getSuitablePointerScale(params, initialValue),
 	};
@@ -117,6 +117,7 @@ export function createNumberTextPropsObject(
 export function createNumberTextInputParamsParser(p: typeof MicroParsers) {
 	return {
 		format: p.optional.function as MicroParser<Formatter<number>>,
+		keyScale: p.optional.number,
 		max: p.optional.number,
 		min: p.optional.number,
 		pointerScale: p.optional.number,

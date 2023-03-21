@@ -63,4 +63,18 @@ describe(NumberInputPlugin.id, () => {
 		const vc = c?.valueController as NumberTextController;
 		assert.strictEqual(vc.props.get('pointerScale'), 123);
 	});
+
+	it('should apply keyScale', () => {
+		const doc = createTestWindow().document;
+		const c = createInputBindingController(NumberInputPlugin, {
+			document: doc,
+			params: {
+				keyScale: 123,
+			},
+			target: new BindingTarget({foo: 123}, 'foo'),
+		});
+
+		const vc = c?.valueController as NumberTextController;
+		assert.strictEqual(vc.props.get('keyScale'), 123);
+	});
 });

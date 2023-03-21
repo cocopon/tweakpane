@@ -33,6 +33,7 @@ import {SliderInputBindingApi} from './api/slider';
 
 export interface NumberTextInputParams {
 	format?: Formatter<number>;
+	keyScale?: number;
 	max?: number;
 	min?: number;
 	pointerScale?: number;
