@@ -60,7 +60,7 @@ export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 				keyScale: createValue(1),
 				max: drc.values.value('max'),
 				min: drc.values.value('min'),
-				pointerScale: getSuitablePointerScale(undefined, initialValue),
+				pointerScale: getSuitablePointerScale(args.params, initialValue),
 			}),
 			parser: parseNumber,
 			value: v,

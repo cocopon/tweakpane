@@ -37,7 +37,7 @@ export class FolderApi
 
 		this.emitter_ = new Emitter();
 
-		this.controller_.foldable
+		this.controller.foldable
 			.value('expanded')
 			.emitter.on('change', (ev: ValueEvents<boolean>['change']) => {
 				this.emitter_.emit('fold', new TpFoldEvent(this, ev.sender.rawValue));
@@ -49,19 +49,19 @@ export class FolderApi
 	}
 
 	get expanded(): boolean {
-		return this.controller_.foldable.get('expanded');
+		return this.controller.foldable.get('expanded');
 	}
 
 	set expanded(expanded: boolean) {
-		this.controller_.foldable.set('expanded', expanded);
+		this.controller.foldable.set('expanded', expanded);
 	}
 
 	get title(): string | undefined {
-		return this.controller_.props.get('title');
+		return this.controller.props.get('title');
 	}
 
 	set title(title: string | undefined) {
-		this.controller_.props.set('title', title);
+		this.controller.props.set('title', title);
 	}
 
 	get children(): BladeApi[] {

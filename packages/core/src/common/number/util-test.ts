@@ -2,7 +2,6 @@ import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
 import {TestUtil} from '../../misc/test-util';
-import {StepConstraint} from '../constraint/step';
 import {
 	constrainRange,
 	getDecimalDigits,
@@ -154,35 +153,35 @@ describe(getSuitablePointerScale.name, () => {
 	[
 		{
 			params: {
-				constraint: undefined,
+				params: {},
 				rawValue: -10,
 			},
 			expected: 1,
 		},
 		{
 			params: {
-				constraint: undefined,
+				params: {},
 				rawValue: 1,
 			},
 			expected: 0.1,
 		},
 		{
 			params: {
-				constraint: undefined,
+				params: {},
 				rawValue: 0.02,
 			},
 			expected: 0.001,
 		},
 		{
 			params: {
-				constraint: undefined,
+				params: {},
 				rawValue: 0,
 			},
 			expected: 0.1,
 		},
 		{
 			params: {
-				constraint: new StepConstraint(1),
+				params: {step: 1},
 				rawValue: 123,
 			},
 			expected: 0.1,
@@ -192,7 +191,7 @@ describe(getSuitablePointerScale.name, () => {
 			it('should estimate suitable scale', () => {
 				assert.ok(
 					TestUtil.closeTo(
-						getSuitablePointerScale(params.constraint, params.rawValue),
+						getSuitablePointerScale(params.params, params.rawValue),
 						expected,
 						DELTA,
 					),

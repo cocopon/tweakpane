@@ -1,16 +1,7 @@
+import {ColorInputParams} from '../../blade/common/api/params';
 import {parseRecord} from '../../common/micro-parsers';
-import {BaseInputParams, PickerLayout} from '../../common/params';
 import {parsePickerLayout} from '../../common/picker-util';
 import {ColorType} from './model/color-model';
-
-export interface ColorInputParams extends BaseInputParams {
-	color?: {
-		alpha?: boolean;
-		type?: ColorType;
-	};
-	expanded?: boolean;
-	picker?: PickerLayout;
-}
 
 function parseColorType(value: unknown): ColorType | undefined {
 	return value === 'int' ? 'int' : value === 'float' ? 'float' : undefined;

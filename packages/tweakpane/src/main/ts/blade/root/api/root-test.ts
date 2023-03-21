@@ -56,9 +56,9 @@ describe(RootApi.name, () => {
 		api.refresh();
 
 		const vcs = {
-			foo: i1['controller_'].valueController as NumberTextController,
-			bar: i2['controller_'].valueController as TextController<string>,
-			baz: m1['controller_'].valueController as SingleLogController<number>,
+			foo: i1.controller.valueController as NumberTextController,
+			bar: i2.controller.valueController as TextController<string>,
+			baz: m1.controller.valueController as SingleLogController<number>,
 		};
 		assert.strictEqual(vcs.foo.view.inputElement.value, '2.00', 'foo');
 		assert.strictEqual(vcs.bar.view.inputElement.value, 'changed', 'bar');

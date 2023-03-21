@@ -83,7 +83,7 @@ describe(TextBladePlugin.id, () => {
 		assert.strictEqual(api.formatter, formatter);
 		assert.strictEqual(api.value, 'hello');
 		assert.strictEqual(
-			api['controller_'].view.element.querySelector('.tp-lblv_l')?.textContent,
+			api.controller.view.element.querySelector('.tp-lblv_l')?.textContent,
 			'hello',
 		);
 	});

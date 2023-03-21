@@ -1,4 +1,5 @@
 import {InputBindingController} from '../../blade/binding/controller/input-binding';
+import {StringInputParams} from '../../blade/common/api/params';
 import {ListInputBindingApi} from '../../common/api/list';
 import {
 	CompositeConstraint,
@@ -12,14 +13,10 @@ import {formatString, stringFromUnknown} from '../../common/converter/string';
 import {createListConstraint, parseListOptions} from '../../common/list-util';
 import {parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
-import {BaseInputParams, ListParamsOptions} from '../../common/params';
+import {ListParamsOptions} from '../../common/params';
 import {writePrimitive} from '../../common/primitive';
 import {VERSION} from '../../version';
 import {InputBindingPlugin} from '../plugin';
-
-export interface StringInputParams extends BaseInputParams {
-	options?: ListParamsOptions<string>;
-}
 
 function createConstraint(params: StringInputParams): Constraint<string> {
 	const constraints: Constraint<string>[] = [];

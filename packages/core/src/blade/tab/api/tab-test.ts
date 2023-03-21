@@ -90,12 +90,12 @@ describe(TabApi.name, () => {
 			if (!(ev.target instanceof BindingApi)) {
 				assert.fail('unexpected target');
 			}
-			assert.strictEqual(ev.target['controller_'], bapi['controller_']);
+			assert.strictEqual(ev.target.controller, bapi.controller);
 
 			done();
 		});
 
-		const value = bapi['controller_'].value as Value<number>;
+		const value = bapi.controller.value as Value<number>;
 		value.rawValue += 1;
 	});
 
@@ -123,12 +123,12 @@ describe(TabApi.name, () => {
 			if (!(ev.target instanceof BindingApi)) {
 				assert.fail('unexpected target');
 			}
-			assert.strictEqual(ev.target['controller_'], bapi['controller_']);
+			assert.strictEqual(ev.target.controller, bapi.controller);
 
 			done();
 		});
 
-		const value = bapi['controller_'].value as Value<number>;
+		const value = bapi.controller.value as Value<number>;
 		value.rawValue += 1;
 	});
 

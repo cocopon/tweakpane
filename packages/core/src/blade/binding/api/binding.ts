@@ -35,33 +35,33 @@ export class BindingApi<
 
 		this.emitter_ = new Emitter();
 
-		this.controller_.value.emitter.on('change', this.onValueChange_);
+		this.controller.value.emitter.on('change', this.onValueChange_);
 	}
 
 	get label(): string | null | undefined {
-		return this.controller_.labelController.props.get('label');
+		return this.controller.labelController.props.get('label');
 	}
 
 	set label(label: string | null | undefined) {
-		this.controller_.labelController.props.set('label', label);
+		this.controller.labelController.props.set('label', label);
 	}
 
 	/**
 	 * The key of the bound value.
 	 */
 	get key(): string {
-		return this.controller_.value.binding.target.key;
+		return this.controller.value.binding.target.key;
 	}
 
 	/**
 	 * The generic tag with many uses.
 	 */
 	get tag(): string | undefined {
-		return this.controller_.tag;
+		return this.controller.tag;
 	}
 
 	set tag(tag: string | undefined) {
-		this.controller_.tag = tag;
+		this.controller.tag = tag;
 	}
 
 	public on<EventName extends keyof BindingApiEvents<Ex>>(
@@ -76,11 +76,11 @@ export class BindingApi<
 	}
 
 	public refresh(): void {
-		this.controller_.value.fetch();
+		this.controller.value.fetch();
 	}
 
 	private onValueChange_(ev: ValueEvents<In>['change']) {
-		const value = this.controller_.value;
+		const value = this.controller.value;
 		this.emitter_.emit(
 			'change',
 			new TpChangeEvent(

@@ -1,4 +1,5 @@
 import {InputBindingController} from '../../blade/binding/controller/input-binding';
+import {NumberInputParams} from '../../blade/common/api/params';
 import {ListInputBindingApi} from '../../common/api/list';
 import {
 	CompositeConstraint,
@@ -8,14 +9,9 @@ import {Constraint} from '../../common/constraint/constraint';
 import {DefiniteRangeConstraint} from '../../common/constraint/definite-range';
 import {ListConstraint} from '../../common/constraint/list';
 import {ListController} from '../../common/controller/list';
-import {Formatter} from '../../common/converter/formatter';
-import {
-	createNumberFormatter,
-	numberFromUnknown,
-	parseNumber,
-} from '../../common/converter/number';
+import {numberFromUnknown, parseNumber} from '../../common/converter/number';
 import {createListConstraint, parseListOptions} from '../../common/list-util';
-import {MicroParser, parseRecord} from '../../common/micro-parsers';
+import {parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
 import {createValue} from '../../common/model/values';
 import {NumberTextController} from '../../common/number/controller/number-text';
@@ -24,25 +20,16 @@ import {
 	SliderTextController,
 } from '../../common/number/controller/slider-text';
 import {
+	createNumberTextInputParamsParser,
+	createNumberTextPropsObject,
 	createRangeConstraint,
 	createStepConstraint,
-	getSuitableDecimalDigits,
-	getSuitableKeyScale,
-	getSuitablePointerScale,
 } from '../../common/number/util';
-import {BaseInputParams, ListParamsOptions} from '../../common/params';
+import {ListParamsOptions} from '../../common/params';
 import {writePrimitive} from '../../common/primitive';
 import {VERSION} from '../../version';
 import {InputBindingPlugin} from '../plugin';
 import {SliderInputBindingApi} from './api/slider';
-
-export interface NumberInputParams extends BaseInputParams {
-	format?: Formatter<number>;
-	max?: number;
-	min?: number;
-	options?: ListParamsOptions<number>;
-	step?: number;
-}
 
 function createConstraint(
 	params: NumberInputParams,
@@ -82,12 +69,9 @@ export const NumberInputPlugin: InputBindingPlugin<
 			return null;
 		}
 		const result = parseRecord<NumberInputParams>(params, (p) => ({
-			format: p.optional.function as MicroParser<Formatter<number>>,
-			max: p.optional.number,
-			min: p.optional.number,
+			...createNumberTextInputParamsParser(p),
 			options: p.optional.custom<ListParamsOptions<number>>(parseListOptions),
 			readonly: p.optional.constant(false),
-			step: p.optional.number,
 		}));
 		return result
 			? {
@@ -116,19 +100,19 @@ export const NumberInputPlugin: InputBindingPlugin<
 			});
 		}
 
-		const formatter =
-			args.params.format ??
-			createNumberFormatter(getSuitableDecimalDigits(c, value.rawValue));
+		const textPropsObj = createNumberTextPropsObject(
+			args.params,
+			value.rawValue,
+		);
 
 		const drc = c && findConstraint(c, DefiniteRangeConstraint);
 		if (drc) {
 			return new SliderTextController(args.document, {
 				...createSliderTextProps({
-					formatter: formatter,
-					keyScale: createValue(getSuitableKeyScale(c)),
+					...textPropsObj,
+					keyScale: createValue(textPropsObj.keyScale),
 					max: drc.values.value('max'),
 					min: drc.values.value('min'),
-					pointerScale: getSuitablePointerScale(c, value.rawValue),
 				}),
 				parser: parseNumber,
 				value: value,
@@ -138,11 +122,7 @@ export const NumberInputPlugin: InputBindingPlugin<
 
 		return new NumberTextController(args.document, {
 			parser: parseNumber,
-			props: ValueMap.fromObject({
-				formatter: formatter,
-				keyScale: getSuitableKeyScale(c),
-				pointerScale: getSuitablePointerScale(c, value.rawValue),
-			}),
+			props: ValueMap.fromObject(textPropsObj),
 			value: value,
 			viewProps: args.viewProps,
 		});

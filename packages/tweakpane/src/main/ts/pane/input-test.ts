@@ -123,7 +123,7 @@ describe(Pane.name, () => {
 					assert.strictEqual(ev.value, expected);
 					done();
 				});
-				bapi['controller_'].value.rawValue = params.newInternalValue;
+				bapi.controller.value.rawValue = params.newInternalValue;
 			});
 
 			it('should pass right argument for change event (global)', (done) => {
@@ -138,7 +138,7 @@ describe(Pane.name, () => {
 					assert.strictEqual(ev.target, bapi);
 					done();
 				});
-				bapi['controller_'].value.rawValue = params.newInternalValue;
+				bapi.controller.value.rawValue = params.newInternalValue;
 			});
 		});
 	});
@@ -149,7 +149,7 @@ describe(Pane.name, () => {
 		const bapi = pane.addBinding(PARAMS, 'foo');
 		bapi.dispose();
 		assert.strictEqual(
-			pane['controller_'].view.element.querySelector('.tp-lblv'),
+			pane.controller.view.element.querySelector('.tp-lblv'),
 			null,
 		);
 	});
@@ -162,7 +162,7 @@ describe(Pane.name, () => {
 			assert.strictEqual(this, bapi);
 			done();
 		});
-		bapi['controller_'].value.rawValue = 2;
+		bapi.controller.value.rawValue = 2;
 	});
 
 	[
@@ -379,7 +379,7 @@ describe(Pane.name, () => {
 				const obj = {foo: args.value};
 				const bapi = pane.addBinding(obj, 'foo', forceCast(args.params));
 				assert.strictEqual(
-					bapi['controller_'].valueController instanceof expected.controller,
+					bapi.controller.valueController instanceof expected.controller,
 					true,
 				);
 			});
@@ -403,7 +403,7 @@ describe(Pane.name, () => {
 			bapi.on('change', () => {
 				bapi.dispose();
 			});
-			bapi['controller_'].value.rawValue = 2;
+			bapi.controller.value.rawValue = 2;
 		} catch (err: unknown) {
 			assert.strictEqual((err as TpError<any>).type, 'alreadydisposed');
 			done();

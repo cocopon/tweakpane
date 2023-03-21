@@ -10,7 +10,7 @@ import {
 	importBladeState,
 	parseRecord,
 	Value,
-	ValueBladeController,
+	ValueController,
 	VERSION,
 	ViewProps,
 } from '@tweakpane/core';
@@ -19,7 +19,7 @@ import {TestView} from './test-view';
 
 class TestBladeController
 	extends BladeController<TestView>
-	implements ValueBladeController<string, TestView>
+	implements ValueController<string>
 {
 	public readonly value: Value<string>;
 

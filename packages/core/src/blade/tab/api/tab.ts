@@ -41,7 +41,7 @@ export class TabApi extends ContainerBladeApi<TabController> {
 			this.emitter_.emit('change', ev);
 		});
 
-		this.controller_.tab.selectedIndex.emitter.on('change', this.onSelect_);
+		this.controller.tab.selectedIndex.emitter.on('change', this.onSelect_);
 	}
 
 	get pages(): TabPageApi[] {
@@ -49,7 +49,7 @@ export class TabApi extends ContainerBladeApi<TabController> {
 	}
 
 	public addPage(params: TabPageParams): TabPageApi {
-		const doc = this.controller_.view.element.ownerDocument;
+		const doc = this.controller.view.element.ownerDocument;
 		const pc = new TabPageController(doc, {
 			blade: createBlade(),
 			itemProps: ValueMap.fromObject<TabItemPropsObject>({

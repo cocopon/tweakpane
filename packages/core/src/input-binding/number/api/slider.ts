@@ -12,18 +12,18 @@ export class SliderInputBindingApi
 	implements InputBindingApi<number, number>
 {
 	get max(): number {
-		return this.controller_.valueController.sliderController.props.get('max');
+		return this.controller.valueController.sliderController.props.get('max');
 	}
 
 	set max(max: number) {
-		this.controller_.valueController.sliderController.props.set('max', max);
+		this.controller.valueController.sliderController.props.set('max', max);
 	}
 
 	get min(): number {
-		return this.controller_.valueController.sliderController.props.get('min');
+		return this.controller.valueController.sliderController.props.get('min');
 	}
 
 	set min(max: number) {
-		this.controller_.valueController.sliderController.props.set('min', max);
+		this.controller.valueController.sliderController.props.set('min', max);
 	}
 }

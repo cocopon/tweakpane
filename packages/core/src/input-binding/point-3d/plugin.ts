@@ -1,27 +1,20 @@
+import {Point3dInputParams} from '../../blade/common/api/params';
 import {Constraint} from '../../common/constraint/constraint';
 import {parseNumber} from '../../common/converter/number';
 import {parseRecord} from '../../common/micro-parsers';
-import {BaseInputParams, PointDimensionParams} from '../../common/params';
 import {createPointAxis} from '../../common/point-nd/point-axis';
 import {
 	createDimensionConstraint,
 	createPointDimensionParser,
 	parsePointDimensionParams,
 } from '../../common/point-nd/util';
+import {deepMerge} from '../../misc/type-util';
 import {VERSION} from '../../version';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {PointNdTextController} from '../common/controller/point-nd-text';
 import {InputBindingPlugin} from '../plugin';
 import {point3dFromUnknown, writePoint3d} from './converter/point-3d';
 import {Point3d, Point3dAssembly, Point3dObject} from './model/point-3d';
-
-export interface Point3dInputParams
-	extends BaseInputParams,
-		PointDimensionParams {
-	x?: PointDimensionParams;
-	y?: PointDimensionParams;
-	z?: PointDimensionParams;
-}
 
 function createConstraint(
 	params: Point3dInputParams,
@@ -81,8 +74,11 @@ export const Point3dInputPlugin: InputBindingPlugin<
 			axes: value.rawValue.getComponents().map((comp, i) =>
 				createPointAxis({
 					constraint: c.components[i],
-					formatter: dParams[i]?.format ?? args.params.format,
 					initialValue: comp,
+					params: deepMerge(
+						args.params,
+						(dParams[i] ?? {}) as Record<string, unknown>,
+					),
 				}),
 			),
 			parser: parseNumber,

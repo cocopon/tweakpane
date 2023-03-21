@@ -20,41 +20,41 @@ export class SliderBladeApi extends BladeApi<
 	) {
 		super(controller);
 
-		this.controller_.value.emitter.on('change', (ev) => {
+		this.controller.value.emitter.on('change', (ev) => {
 			this.emitter_.emit('change', new TpChangeEvent(this, ev.rawValue));
 		});
 	}
 
 	get label(): string | null | undefined {
-		return this.controller_.labelController.props.get('label');
+		return this.controller.labelController.props.get('label');
 	}
 
 	set label(label: string | null | undefined) {
-		this.controller_.labelController.props.set('label', label);
+		this.controller.labelController.props.set('label', label);
 	}
 
 	get max(): number {
-		return this.controller_.valueController.sliderController.props.get('max');
+		return this.controller.valueController.sliderController.props.get('max');
 	}
 
 	set max(max: number) {
-		this.controller_.valueController.sliderController.props.set('max', max);
+		this.controller.valueController.sliderController.props.set('max', max);
 	}
 
 	get min(): number {
-		return this.controller_.valueController.sliderController.props.get('min');
+		return this.controller.valueController.sliderController.props.get('min');
 	}
 
 	set min(min: number) {
-		this.controller_.valueController.sliderController.props.set('min', min);
+		this.controller.valueController.sliderController.props.set('min', min);
 	}
 
 	get value(): number {
-		return this.controller_.value.rawValue;
+		return this.controller.value.rawValue;
 	}
 
 	set value(value: number) {
-		this.controller_.value.rawValue = value;
+		this.controller.value.rawValue = value;
 	}
 
 	public on<EventName extends keyof ApiChangeEvents<number>>(

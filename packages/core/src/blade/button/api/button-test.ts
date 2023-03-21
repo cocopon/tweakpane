@@ -37,7 +37,7 @@ describe(ButtonApi.name, () => {
 
 		assertInitialState(api);
 
-		const c = api['controller_'].buttonController;
+		const c = api.controller.buttonController;
 		assert.strictEqual(c.view.buttonElement.disabled, false);
 		assert.strictEqual(api.title, 'Button');
 		assert.strictEqual(c.view.buttonElement.textContent, 'Button');
@@ -46,7 +46,7 @@ describe(ButtonApi.name, () => {
 	it('should update properties', () => {
 		const doc = createTestWindow().document;
 		const api = createApi(doc);
-		const c = api['controller_'].buttonController;
+		const c = api.controller.buttonController;
 
 		assertUpdates(api);
 		assert.strictEqual(c.view.buttonElement.disabled, true);
@@ -58,7 +58,7 @@ describe(ButtonApi.name, () => {
 		api.label = 'updated';
 		assert.strictEqual(api.label, 'updated');
 		assert.strictEqual(
-			api['controller_'].labelController.props.get('label'),
+			api.controller.labelController.props.get('label'),
 			'updated',
 		);
 	});
@@ -71,7 +71,7 @@ describe(ButtonApi.name, () => {
 			assert.strictEqual(ev.target, api);
 			done();
 		});
-		api['controller_'].buttonController.view.buttonElement.dispatchEvent(
+		api.controller.buttonController.view.buttonElement.dispatchEvent(
 			TestUtil.createEvent(win, 'click'),
 		);
 	});
@@ -91,7 +91,7 @@ describe(ButtonApi.name, () => {
 			assert.strictEqual(this, api);
 			done();
 		});
-		api['controller_'].buttonController.view.buttonElement.dispatchEvent(
+		api.controller.buttonController.view.buttonElement.dispatchEvent(
 			TestUtil.createEvent(win, 'click'),
 		);
 	});

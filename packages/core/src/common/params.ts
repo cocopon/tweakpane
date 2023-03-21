@@ -12,13 +12,6 @@ export type ListParamsOptions<T> =
 	| ArrayStyleListOptions<T>
 	| ObjectStyleListOptions<T>;
 
-export interface PointDimensionParams {
-	format?: Formatter<number>;
-	max?: number;
-	min?: number;
-	step?: number;
-}
-
 export type PickerLayout = 'inline' | 'popup';
 
 interface BindingParams extends BaseParams {
@@ -42,3 +35,20 @@ export interface BaseMonitorParams
 }
 
 export interface BaseBladeParams extends BaseParams, Record<string, unknown> {}
+
+export interface NumberTextInputParams {
+	format?: Formatter<number>;
+	/**
+	 * The unit scale for key input.
+	 */
+	keyScale?: number;
+	max?: number;
+	min?: number;
+	/**
+	 * The unit scale for pointer input.
+	 */
+	pointerScale?: number;
+	step?: number;
+}
+
+export type PointDimensionParams = NumberTextInputParams;

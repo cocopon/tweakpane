@@ -61,7 +61,7 @@ describe(Pane.name, () => {
 			document: doc,
 			title: 'Title',
 		});
-		assert.strictEqual(c['controller_'].foldable?.get('expanded'), true);
+		assert.strictEqual(c.controller.foldable?.get('expanded'), true);
 	});
 
 	it('should shrink by default with `expanded: false` option', () => {
@@ -71,7 +71,7 @@ describe(Pane.name, () => {
 			expanded: false,
 			title: 'Title',
 		});
-		assert.strictEqual(c['controller_'].foldable?.get('expanded'), false);
+		assert.strictEqual(c.controller.foldable?.get('expanded'), false);
 	});
 
 	it('should embed default style', () => {
@@ -145,6 +145,6 @@ describe(Pane.name, () => {
 			done();
 		});
 
-		b['controller_'].value.rawValue = 2;
+		b.controller.value.rawValue = 2;
 	});
 });

@@ -1,9 +1,13 @@
 import {isEmpty} from '../../misc/type-util';
-import {findConstraint} from '../constraint/composite';
 import {Constraint} from '../constraint/constraint';
 import {DefiniteRangeConstraint} from '../constraint/definite-range';
 import {RangeConstraint} from '../constraint/range';
 import {StepConstraint} from '../constraint/step';
+import {Formatter} from '../converter/formatter';
+import {createNumberFormatter} from '../converter/number';
+import {MicroParser, MicroParsers} from '../micro-parsers';
+import {NumberTextInputParams} from '../params';
+import {NumberTextPropsObject} from './view/number-text';
 
 export function mapRange(
 	value: number,
@@ -34,41 +38,24 @@ export function loopRange(value: number, max: number): number {
 	return ((value % max) + max) % max;
 }
 
-function findStep(constraint: Constraint<number> | undefined): number | null {
-	const c = constraint ? findConstraint(constraint, StepConstraint) : null;
-	if (!c) {
-		return null;
-	}
-
-	return c.step;
-}
-
 export function getSuitableDecimalDigits(
-	constraint: Constraint<number> | undefined,
+	params: NumberTextInputParams,
 	rawValue: number,
 ): number {
-	const sc = constraint && findConstraint(constraint, StepConstraint);
-	if (sc) {
-		return getDecimalDigits(sc.step);
-	}
-
-	return Math.max(getDecimalDigits(rawValue), 2);
+	return !isEmpty(params.step)
+		? getDecimalDigits(params.step)
+		: Math.max(getDecimalDigits(rawValue), 2);
 }
 
-export function getSuitableKeyScale(
-	constraint: Constraint<number> | undefined,
-): number {
-	const step = findStep(constraint);
-	return step ?? 1;
+export function getSuitableKeyScale(params: NumberTextInputParams): number {
+	return params.step ?? 1;
 }
 
 export function getSuitablePointerScale(
-	constraint: Constraint<number> | undefined,
+	params: NumberTextInputParams,
 	rawValue: number,
 ): number {
-	const sc = constraint && findConstraint(constraint, StepConstraint);
-	const base = Math.abs(sc?.step ?? rawValue);
-
+	const base = Math.abs(params.step ?? rawValue);
 	return base === 0 ? 0.1 : Math.pow(10, Math.floor(Math.log10(base)) - 1);
 }
 
@@ -113,21 +100,27 @@ export function createRangeConstraint(params: {
 	return null;
 }
 
-/**
- * Finds a range from number constraint.
- * @param c The number constraint.
- * @return A list that contains a minimum value and a max value.
- */
-export function findNumberRange(
-	c: Constraint<number>,
-): [number | undefined, number | undefined] {
-	const drc = findConstraint(c, DefiniteRangeConstraint);
-	if (drc) {
-		return [drc.values.get('min'), drc.values.get('max')];
-	}
-	const rc = findConstraint(c, RangeConstraint);
-	if (rc) {
-		return [rc.values.get('min'), rc.values.get('max')];
-	}
-	return [undefined, undefined];
+export function createNumberTextPropsObject(
+	params: NumberTextInputParams,
+	initialValue: number,
+): NumberTextPropsObject {
+	return {
+		formatter:
+			params.format ??
+			createNumberFormatter(getSuitableDecimalDigits(params, initialValue)),
+		keyScale: params.keyScale ?? getSuitableKeyScale(params),
+		pointerScale:
+			params.pointerScale ?? getSuitablePointerScale(params, initialValue),
+	};
+}
+
+export function createNumberTextInputParamsParser(p: typeof MicroParsers) {
+	return {
+		format: p.optional.function as MicroParser<Formatter<number>>,
+		keyScale: p.optional.number,
+		max: p.optional.number,
+		min: p.optional.number,
+		pointerScale: p.optional.number,
+		step: p.optional.number,
+	};
 }

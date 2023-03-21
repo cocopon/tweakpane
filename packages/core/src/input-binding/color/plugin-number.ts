@@ -1,3 +1,4 @@
+import {ColorInputParams} from '../../blade/common/api/params';
 import {Formatter} from '../../common/converter/formatter';
 import {VERSION} from '../../version';
 import {InputBindingPlugin} from '../plugin';
@@ -14,7 +15,7 @@ import {
 import {createColorNumberWriter} from './converter/writer';
 import {equalsColor} from './model/color';
 import {IntColor} from './model/int-color';
-import {ColorInputParams, parseColorInputParams} from './util';
+import {parseColorInputParams} from './util';
 
 function shouldSupportAlpha(inputParams: ColorInputParams): boolean {
 	if (inputParams?.color?.alpha) {

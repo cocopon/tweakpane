@@ -1,39 +1,24 @@
+import {
+	Point2dInputParams,
+	Point2dYParams,
+} from '../../blade/common/api/params';
 import {Constraint} from '../../common/constraint/constraint';
 import {parseNumber} from '../../common/converter/number';
 import {parseRecord} from '../../common/micro-parsers';
-import {findNumberRange, getSuitableKeyScale} from '../../common/number/util';
-import {
-	BaseInputParams,
-	PickerLayout,
-	PointDimensionParams,
-} from '../../common/params';
+import {getSuitableKeyScale} from '../../common/number/util';
+import {NumberTextInputParams} from '../../common/params';
 import {parsePickerLayout} from '../../common/picker-util';
 import {createPointAxis, PointAxis} from '../../common/point-nd/point-axis';
-import {
-	createPointDimensionParser,
-	parsePointDimensionParams,
-} from '../../common/point-nd/util';
+import {createPointDimensionParser} from '../../common/point-nd/util';
+import {parsePointDimensionParams} from '../../common/point-nd/util';
 import {createDimensionConstraint} from '../../common/point-nd/util';
-import {isEmpty, Tuple2} from '../../misc/type-util';
+import {deepMerge, isEmpty, Tuple2} from '../../misc/type-util';
 import {VERSION} from '../../version';
 import {PointNdConstraint} from '../common/constraint/point-nd';
 import {InputBindingPlugin} from '../plugin';
 import {Point2dController} from './controller/point-2d';
 import {point2dFromUnknown, writePoint2d} from './converter/point-2d';
 import {Point2d, Point2dAssembly, Point2dObject} from './model/point-2d';
-
-interface Point2dYParams extends PointDimensionParams {
-	inverted?: boolean;
-}
-
-export interface Point2dInputParams
-	extends BaseInputParams,
-		PointDimensionParams {
-	expanded?: boolean;
-	picker?: PickerLayout;
-	x?: PointDimensionParams;
-	y?: Point2dYParams;
-}
 
 function createConstraint(
 	params: Point2dInputParams,
@@ -49,32 +34,29 @@ function createConstraint(
 }
 
 function getSuitableMaxDimensionValue(
-	constraint: Constraint<number> | undefined,
+	params: NumberTextInputParams,
 	rawValue: number,
 ): number {
-	const [min, max] = constraint ? findNumberRange(constraint) : [];
-	if (!isEmpty(min) || !isEmpty(max)) {
-		return Math.max(Math.abs(min ?? 0), Math.abs(max ?? 0));
+	if (!isEmpty(params.min) || !isEmpty(params.max)) {
+		return Math.max(Math.abs(params.min ?? 0), Math.abs(params.max ?? 0));
 	}
 
-	const step = getSuitableKeyScale(constraint);
+	const step = getSuitableKeyScale(params);
 	return Math.max(Math.abs(step) * 10, Math.abs(rawValue) * 10);
 }
 
 export function getSuitableMax(
+	params: Point2dInputParams,
 	initialValue: Point2d,
-	constraint: Constraint<Point2d> | undefined,
 ): number {
-	const xc =
-		constraint instanceof PointNdConstraint
-			? constraint.components[0]
-			: undefined;
-	const yc =
-		constraint instanceof PointNdConstraint
-			? constraint.components[1]
-			: undefined;
-	const xr = getSuitableMaxDimensionValue(xc, initialValue.x);
-	const yr = getSuitableMaxDimensionValue(yc, initialValue.y);
+	const xr = getSuitableMaxDimensionValue(
+		deepMerge(params, (params.x ?? {}) as Record<string, unknown>),
+		initialValue.x,
+	);
+	const yr = getSuitableMaxDimensionValue(
+		deepMerge(params, (params.y ?? {}) as Record<string, unknown>),
+		initialValue.y,
+	);
 	return Math.max(xr, yr);
 }
 
@@ -139,13 +121,16 @@ export const Point2dInputPlugin: InputBindingPlugin<
 			axes: value.rawValue.getComponents().map((comp, i) =>
 				createPointAxis({
 					constraint: c.components[i],
-					formatter: dParams[i]?.format ?? args.params.format,
 					initialValue: comp,
+					params: deepMerge(
+						args.params,
+						(dParams[i] ?? {}) as Record<string, unknown>,
+					),
 				}),
 			) as Tuple2<PointAxis>,
 			expanded: args.params.expanded ?? false,
 			invertsY: shouldInvertY(args.params),
-			max: getSuitableMax(value.rawValue, c),
+			max: getSuitableMax(args.params, value.rawValue),
 			parser: parseNumber,
 			pickerLayout: args.params.picker ?? 'popup',
 			value: value,
