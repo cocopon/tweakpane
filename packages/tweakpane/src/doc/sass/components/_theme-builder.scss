@@ -6,6 +6,8 @@
 	overflow: hidden;
 
 	&_gui {
+		border-bottom: var(--bg-color) solid 2px;
+
 		@include defs.wide() {
 			display: flex;
 		}
@@ -13,7 +15,7 @@
 	&_controller {
 		--tp-base-border-radius: 0px;
 		--tp-base-shadow-color: transparent;
-		background-color: defs.$pane-bg-color;
+		background-color: var(--bg-color-secondary);
 
 		@include defs.nonwide() {
 			--tp-blade-value-width: 60vw;

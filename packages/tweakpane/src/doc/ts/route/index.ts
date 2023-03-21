@@ -12,8 +12,8 @@ import {Environment} from '../sketch';
 import {selectContainer} from '../util';
 
 const COLORS = {
-	dark: 'hsl(200deg, 5%, 16%)',
-	light: 'hsl(200deg, 7%, 90%)',
+	dark: 'hsl(230deg, 7%, 10%)',
+	light: 'hsl(230deg, 7%, 90%)',
 };
 
 export function initIndex() {

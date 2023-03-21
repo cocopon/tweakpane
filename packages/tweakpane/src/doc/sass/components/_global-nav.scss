@@ -28,7 +28,7 @@
 	}
 
 	&_logo {
-		border-bottom: var(--bg-color-secondary) solid 2px;
+		border-bottom: var(--bg-color-action) solid 2px;
 		height: defs.$global-header-height;
 		line-height: defs.$global-header-height;
 		padding-left: 32px;
@@ -68,11 +68,11 @@
 		}
 
 		&#{&}-active {
-			background-color: var(--bg-color-secondary);
+			background-color: var(--bg-color-action);
 			color: var(--fg-color);
 		}
 		&:hover {
-			background-color: var(--bg-color-secondary);
+			background-color: var(--bg-color-action);
 		}
 
 		.material-icons {
@@ -108,10 +108,10 @@
 		}
 
 		&#{&}-active {
-			background-color: var(--bg-color-secondary);
+			background-color: var(--bg-color-action);
 		}
 		&:hover {
-			background-color: var(--bg-color-secondary);
+			background-color: var(--bg-color-action);
 			color: var(--fg-color);
 		}
 	}
