@@ -1,4 +1,4 @@
-import {NumberTextInputParams} from '../input-binding/number/plugin';
+import {Formatter} from './converter/formatter';
 
 export interface BaseParams {
 	disabled?: boolean;
@@ -11,8 +11,6 @@ export type ObjectStyleListOptions<T> = {[text: string]: T};
 export type ListParamsOptions<T> =
 	| ArrayStyleListOptions<T>
 	| ObjectStyleListOptions<T>;
-
-export type PointDimensionParams = NumberTextInputParams;
 
 export type PickerLayout = 'inline' | 'popup';
 
@@ -37,3 +35,20 @@ export interface BaseMonitorParams
 }
 
 export interface BaseBladeParams extends BaseParams, Record<string, unknown> {}
+
+export interface NumberTextInputParams {
+	format?: Formatter<number>;
+	/**
+	 * The unit scale for key input.
+	 */
+	keyScale?: number;
+	max?: number;
+	min?: number;
+	/**
+	 * The unit scale for pointer input.
+	 */
+	pointerScale?: number;
+	step?: number;
+}
+
+export type PointDimensionParams = NumberTextInputParams;

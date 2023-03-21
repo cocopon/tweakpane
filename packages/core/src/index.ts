@@ -124,7 +124,6 @@ export * from './input-binding/color/model/int-color';
 export * from './input-binding/color/plugin-number';
 export * from './input-binding/color/plugin-object';
 export * from './input-binding/color/plugin-string';
-export {ColorInputParams} from './input-binding/color/util';
 export * from './input-binding/common/constraint/point-nd';
 export * from './input-binding/common/controller/point-nd-text';
 export * from './input-binding/number/api/slider';

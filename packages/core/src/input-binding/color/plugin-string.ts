@@ -1,3 +1,4 @@
+import {ColorInputParams} from '../../blade/common/api/params';
 import {Formatter} from '../../common/converter/formatter';
 import {TpError} from '../../common/tp-error';
 import {VERSION} from '../../version';
@@ -13,11 +14,7 @@ import {
 import {createColorStringWriter} from './converter/writer';
 import {Color, equalsColor} from './model/color';
 import {IntColor} from './model/int-color';
-import {
-	ColorInputParams,
-	extractColorType,
-	parseColorInputParams,
-} from './util';
+import {extractColorType, parseColorInputParams} from './util';
 
 interface StringColorInputParams extends ColorInputParams {
 	format: StringColorFormat;

@@ -1,12 +1,12 @@
+import {
+	Point2dInputParams,
+	Point2dYParams,
+} from '../../blade/common/api/params';
 import {Constraint} from '../../common/constraint/constraint';
 import {parseNumber} from '../../common/converter/number';
 import {parseRecord} from '../../common/micro-parsers';
 import {getSuitableKeyScale} from '../../common/number/util';
-import {
-	BaseInputParams,
-	PickerLayout,
-	PointDimensionParams,
-} from '../../common/params';
+import {NumberTextInputParams} from '../../common/params';
 import {parsePickerLayout} from '../../common/picker-util';
 import {createPointAxis, PointAxis} from '../../common/point-nd/point-axis';
 import {createPointDimensionParser} from '../../common/point-nd/util';
@@ -15,24 +15,10 @@ import {createDimensionConstraint} from '../../common/point-nd/util';
 import {deepMerge, isEmpty, Tuple2} from '../../misc/type-util';
 import {VERSION} from '../../version';
 import {PointNdConstraint} from '../common/constraint/point-nd';
-import {NumberTextInputParams} from '../number/plugin';
 import {InputBindingPlugin} from '../plugin';
 import {Point2dController} from './controller/point-2d';
 import {point2dFromUnknown, writePoint2d} from './converter/point-2d';
 import {Point2d, Point2dAssembly, Point2dObject} from './model/point-2d';
-
-interface Point2dYParams extends PointDimensionParams {
-	inverted?: boolean;
-}
-
-export interface Point2dInputParams
-	extends BaseInputParams,
-		PointDimensionParams {
-	expanded?: boolean;
-	picker?: PickerLayout;
-	x?: PointDimensionParams;
-	y?: Point2dYParams;
-}
 
 function createConstraint(
 	params: Point2dInputParams,

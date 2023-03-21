@@ -1,4 +1,5 @@
 import {MonitorBindingController} from '../../blade/binding/controller/monitor-binding';
+import {NumberMonitorParams} from '../../blade/common/api/params';
 import {Formatter} from '../../common/converter/formatter';
 import {
 	createNumberFormatter,
@@ -6,7 +7,6 @@ import {
 } from '../../common/converter/number';
 import {MicroParser, parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
-import {BaseMonitorParams} from '../../common/params';
 import {Constants} from '../../misc/constants';
 import {isEmpty} from '../../misc/type-util';
 import {VERSION} from '../../version';
@@ -15,16 +15,6 @@ import {SingleLogController} from '../common/controller/single-log';
 import {MonitorBindingPlugin} from '../plugin';
 import {GraphLogMonitorBindingApi} from './api/graph-log';
 import {GraphLogController} from './controller/graph-log';
-
-export interface NumberMonitorParams extends BaseMonitorParams {
-	format?: Formatter<number>;
-	max?: number;
-	min?: number;
-	/**
-	 * Number of rows for visual height.
-	 */
-	rows?: number;
-}
 
 function createFormatter(params: NumberMonitorParams): Formatter<number> {
 	return !isEmpty(params.format) ? params.format : createNumberFormatter(2);

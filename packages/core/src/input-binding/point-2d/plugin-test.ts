@@ -2,6 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {InputBindingController} from '../../blade/binding/controller/input-binding';
+import {Point2dInputParams} from '../../blade/common/api/params';
 import {BindingTarget} from '../../common/binding/target';
 import {InputBindingValue} from '../../common/binding/value/input-binding';
 import {Constraint} from '../../common/constraint/constraint';
@@ -15,7 +16,7 @@ import {PointNdConstraint} from '../common/constraint/point-nd';
 import {createInputBindingController} from '../plugin';
 import {Point2dController} from './controller/point-2d';
 import {Point2d} from './model/point-2d';
-import {getSuitableMax, Point2dInputParams, Point2dInputPlugin} from './plugin';
+import {getSuitableMax, Point2dInputPlugin} from './plugin';
 
 function getPoint2dConstraint(
 	v: InputBindingValue<unknown>,

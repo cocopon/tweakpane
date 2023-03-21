@@ -1,4 +1,3 @@
-import {NumberTextInputParams} from '../../input-binding/number/plugin';
 import {isEmpty} from '../../misc/type-util';
 import {Constraint} from '../constraint/constraint';
 import {DefiniteRangeConstraint} from '../constraint/definite-range';
@@ -7,6 +6,7 @@ import {StepConstraint} from '../constraint/step';
 import {Formatter} from '../converter/formatter';
 import {createNumberFormatter} from '../converter/number';
 import {MicroParser, MicroParsers} from '../micro-parsers';
+import {NumberTextInputParams} from '../params';
 import {NumberTextPropsObject} from './view/number-text';
 
 export function mapRange(

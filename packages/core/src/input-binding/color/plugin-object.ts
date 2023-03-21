@@ -1,3 +1,4 @@
+import {ColorInputParams} from '../../blade/common/api/params';
 import {BindingReader} from '../../common/binding/binding';
 import {Formatter} from '../../common/converter/formatter';
 import {VERSION} from '../../version';
@@ -21,11 +22,7 @@ import {
 import {ColorType} from './model/color-model';
 import {mapColorType} from './model/colors';
 import {IntColor} from './model/int-color';
-import {
-	ColorInputParams,
-	extractColorType,
-	parseColorInputParams,
-} from './util';
+import {extractColorType, parseColorInputParams} from './util';
 
 function shouldSupportAlpha(
 	initialValue: RgbColorObject | RgbaColorObject,

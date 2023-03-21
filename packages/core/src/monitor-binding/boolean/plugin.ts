@@ -1,21 +1,14 @@
+import {BooleanMonitorParams} from '../../blade/common/api/params';
 import {
 	BooleanFormatter,
 	boolFromUnknown,
 } from '../../common/converter/boolean';
 import {parseRecord} from '../../common/micro-parsers';
-import {BaseMonitorParams} from '../../common/params';
 import {Constants} from '../../misc/constants';
 import {VERSION} from '../../version';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogController} from '../common/controller/single-log';
 import {MonitorBindingPlugin} from '../plugin';
-
-export interface BooleanMonitorParams extends BaseMonitorParams {
-	/**
-	 * Number of rows for visual height.
-	 */
-	rows?: number;
-}
 
 /**
  * @hidden

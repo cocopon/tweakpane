@@ -1,4 +1,5 @@
 import {InputBindingController} from '../../blade/binding/controller/input-binding';
+import {NumberInputParams} from '../../blade/common/api/params';
 import {ListInputBindingApi} from '../../common/api/list';
 import {
 	CompositeConstraint,
@@ -8,7 +9,6 @@ import {Constraint} from '../../common/constraint/constraint';
 import {DefiniteRangeConstraint} from '../../common/constraint/definite-range';
 import {ListConstraint} from '../../common/constraint/list';
 import {ListController} from '../../common/controller/list';
-import {Formatter} from '../../common/converter/formatter';
 import {numberFromUnknown, parseNumber} from '../../common/converter/number';
 import {createListConstraint, parseListOptions} from '../../common/list-util';
 import {parseRecord} from '../../common/micro-parsers';
@@ -25,26 +25,11 @@ import {
 	createRangeConstraint,
 	createStepConstraint,
 } from '../../common/number/util';
-import {BaseInputParams, ListParamsOptions} from '../../common/params';
+import {ListParamsOptions} from '../../common/params';
 import {writePrimitive} from '../../common/primitive';
 import {VERSION} from '../../version';
 import {InputBindingPlugin} from '../plugin';
 import {SliderInputBindingApi} from './api/slider';
-
-export interface NumberTextInputParams {
-	format?: Formatter<number>;
-	keyScale?: number;
-	max?: number;
-	min?: number;
-	pointerScale?: number;
-	step?: number;
-}
-
-export interface NumberInputParams
-	extends BaseInputParams,
-		NumberTextInputParams {
-	options?: ListParamsOptions<number>;
-}
 
 function createConstraint(
 	params: NumberInputParams,

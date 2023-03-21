@@ -1,7 +1,7 @@
+import {Point4dInputParams} from '../../blade/common/api/params';
 import {Constraint} from '../../common/constraint/constraint';
 import {parseNumber} from '../../common/converter/number';
 import {parseRecord} from '../../common/micro-parsers';
-import {BaseInputParams, PointDimensionParams} from '../../common/params';
 import {createPointAxis} from '../../common/point-nd/point-axis';
 import {
 	createDimensionConstraint,
@@ -15,15 +15,6 @@ import {PointNdTextController} from '../common/controller/point-nd-text';
 import {InputBindingPlugin} from '../plugin';
 import {point4dFromUnknown, writePoint4d} from './converter/point-4d';
 import {Point4d, Point4dAssembly, Point4dObject} from './model/point-4d';
-
-export interface Point4dInputParams
-	extends BaseInputParams,
-		PointDimensionParams {
-	x?: PointDimensionParams;
-	y?: PointDimensionParams;
-	z?: PointDimensionParams;
-	w?: PointDimensionParams;
-}
 
 function createConstraint(
 	params: Point4dInputParams,

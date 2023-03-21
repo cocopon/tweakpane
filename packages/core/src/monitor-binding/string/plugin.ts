@@ -1,19 +1,11 @@
+import {StringMonitorParams} from '../../blade/common/api/params';
 import {formatString, stringFromUnknown} from '../../common/converter/string';
 import {parseRecord} from '../../common/micro-parsers';
-import {BaseMonitorParams} from '../../common/params';
 import {Constants} from '../../misc/constants';
 import {VERSION} from '../../version';
 import {MultiLogController} from '../common/controller/multi-log';
 import {SingleLogController} from '../common/controller/single-log';
 import {MonitorBindingPlugin} from '../plugin';
-
-export interface StringMonitorParams extends BaseMonitorParams {
-	multiline?: boolean;
-	/**
-	 * Number of rows for visual height.
-	 */
-	rows?: number;
-}
 
 /**
  * @hidden
