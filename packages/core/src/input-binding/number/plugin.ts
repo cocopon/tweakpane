@@ -11,7 +11,7 @@ import {ListController} from '../../common/controller/list';
 import {Formatter} from '../../common/converter/formatter';
 import {numberFromUnknown, parseNumber} from '../../common/converter/number';
 import {createListConstraint, parseListOptions} from '../../common/list-util';
-import {MicroParser, parseRecord} from '../../common/micro-parsers';
+import {parseRecord} from '../../common/micro-parsers';
 import {ValueMap} from '../../common/model/value-map';
 import {createValue} from '../../common/model/values';
 import {NumberTextController} from '../../common/number/controller/number-text';
@@ -20,6 +20,7 @@ import {
 	SliderTextController,
 } from '../../common/number/controller/slider-text';
 import {
+	createNumberTextInputParamsParser,
 	createNumberTextPropsObject,
 	createRangeConstraint,
 	createStepConstraint,
@@ -34,6 +35,7 @@ export interface NumberTextInputParams {
 	format?: Formatter<number>;
 	max?: number;
 	min?: number;
+	pointerScale?: number;
 	step?: number;
 }
 
@@ -81,12 +83,9 @@ export const NumberInputPlugin: InputBindingPlugin<
 			return null;
 		}
 		const result = parseRecord<NumberInputParams>(params, (p) => ({
-			format: p.optional.function as MicroParser<Formatter<number>>,
-			max: p.optional.number,
-			min: p.optional.number,
+			...createNumberTextInputParamsParser(p),
 			options: p.optional.custom<ListParamsOptions<number>>(parseListOptions),
 			readonly: p.optional.constant(false),
-			step: p.optional.number,
 		}));
 		return result
 			? {

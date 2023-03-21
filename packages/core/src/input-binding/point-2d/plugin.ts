@@ -9,10 +9,8 @@ import {
 } from '../../common/params';
 import {parsePickerLayout} from '../../common/picker-util';
 import {createPointAxis, PointAxis} from '../../common/point-nd/point-axis';
-import {
-	createPointDimensionParser,
-	parsePointDimensionParams,
-} from '../../common/point-nd/util';
+import {createPointDimensionParser} from '../../common/point-nd/util';
+import {parsePointDimensionParams} from '../../common/point-nd/util';
 import {createDimensionConstraint} from '../../common/point-nd/util';
 import {deepMerge, isEmpty, Tuple2} from '../../misc/type-util';
 import {VERSION} from '../../version';

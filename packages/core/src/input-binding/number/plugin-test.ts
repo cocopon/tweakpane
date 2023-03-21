@@ -36,7 +36,7 @@ describe(NumberInputPlugin.id, () => {
 		assert.strictEqual(constraint?.origin, 1);
 	});
 
-	it('should use specified formatter', () => {
+	it('should apply format', () => {
 		const doc = createTestWindow().document;
 		const c = createInputBindingController(NumberInputPlugin, {
 			document: doc,
@@ -47,10 +47,20 @@ describe(NumberInputPlugin.id, () => {
 		});
 
 		const vc = c?.valueController as NumberTextController;
-		if (!(vc instanceof NumberTextController)) {
-			assert.fail('unexpected controller');
-		}
-
 		assert.strictEqual(vc.view.inputElement.value, 'foo 123 bar');
+	});
+
+	it('should apply pointerScale', () => {
+		const doc = createTestWindow().document;
+		const c = createInputBindingController(NumberInputPlugin, {
+			document: doc,
+			params: {
+				pointerScale: 123,
+			},
+			target: new BindingTarget({foo: 123}, 'foo'),
+		});
+
+		const vc = c?.valueController as NumberTextController;
+		assert.strictEqual(vc.props.get('pointerScale'), 123);
 	});
 });

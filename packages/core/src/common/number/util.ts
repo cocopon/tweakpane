@@ -4,7 +4,9 @@ import {Constraint} from '../constraint/constraint';
 import {DefiniteRangeConstraint} from '../constraint/definite-range';
 import {RangeConstraint} from '../constraint/range';
 import {StepConstraint} from '../constraint/step';
+import {Formatter} from '../converter/formatter';
 import {createNumberFormatter} from '../converter/number';
+import {MicroParser, MicroParsers} from '../micro-parsers';
 import {NumberTextPropsObject} from './view/number-text';
 
 export function mapRange(
@@ -107,6 +109,17 @@ export function createNumberTextPropsObject(
 			params.format ??
 			createNumberFormatter(getSuitableDecimalDigits(params, initialValue)),
 		keyScale: getSuitableKeyScale(params),
-		pointerScale: getSuitablePointerScale(params, initialValue),
+		pointerScale:
+			params.pointerScale ?? getSuitablePointerScale(params, initialValue),
+	};
+}
+
+export function createNumberTextInputParamsParser(p: typeof MicroParsers) {
+	return {
+		format: p.optional.function as MicroParser<Formatter<number>>,
+		max: p.optional.number,
+		min: p.optional.number,
+		pointerScale: p.optional.number,
+		step: p.optional.number,
 	};
 }
