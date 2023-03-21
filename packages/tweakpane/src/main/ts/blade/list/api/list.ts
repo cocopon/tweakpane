@@ -19,33 +19,33 @@ export class ListBladeApi<T> extends BladeApi<
 	constructor(controller: LabeledValueBladeController<T, ListController<T>>) {
 		super(controller);
 
-		this.controller_.value.emitter.on('change', (ev) => {
+		this.controller.value.emitter.on('change', (ev) => {
 			this.emitter_.emit('change', new TpChangeEvent(this, ev.rawValue));
 		});
 	}
 
 	get label(): string | null | undefined {
-		return this.controller_.labelController.props.get('label');
+		return this.controller.labelController.props.get('label');
 	}
 
 	set label(label: string | null | undefined) {
-		this.controller_.labelController.props.set('label', label);
+		this.controller.labelController.props.set('label', label);
 	}
 
 	get options(): ListItem<T>[] {
-		return this.controller_.valueController.props.get('options');
+		return this.controller.valueController.props.get('options');
 	}
 
 	set options(options: ListItem<T>[]) {
-		this.controller_.valueController.props.set('options', options);
+		this.controller.valueController.props.set('options', options);
 	}
 
 	get value(): T {
-		return this.controller_.value.rawValue;
+		return this.controller.value.rawValue;
 	}
 
 	set value(value: T) {
-		this.controller_.value.rawValue = value;
+		this.controller.value.rawValue = value;
 	}
 
 	public on<EventName extends keyof ApiChangeEvents<T>>(

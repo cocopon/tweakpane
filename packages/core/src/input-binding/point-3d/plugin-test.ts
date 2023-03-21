@@ -2,6 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {InputBindingController} from '../../blade/binding/controller/input-binding';
+import {Point3dInputParams} from '../../blade/common/api/params';
 import {BindingTarget} from '../../common/binding/target';
 import {InputBindingValue} from '../../common/binding/value/input-binding';
 import {findConstraint} from '../../common/constraint/composite';
@@ -16,7 +17,7 @@ import {PointNdConstraint} from '../common/constraint/point-nd';
 import {PointNdTextController} from '../common/controller/point-nd-text';
 import {createInputBindingController} from '../plugin';
 import {Point3d} from './model/point-3d';
-import {Point3dInputParams, Point3dInputPlugin} from './plugin';
+import {Point3dInputPlugin} from './plugin';
 
 function getPoint3dConstraint(
 	v: InputBindingValue<unknown>,

@@ -100,7 +100,7 @@ describe(TextBladeApi.name, () => {
 
 		assertUpdates(api);
 
-		const inputElem = api['controller_'].valueController.view.inputElement;
+		const inputElem = api.controller.valueController.view.inputElement;
 		const formatter = (v: string) => `${v}, world`;
 		api.formatter = formatter;
 		assert.strictEqual(api.formatter, formatter);

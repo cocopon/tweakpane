@@ -9,10 +9,10 @@ export class ListInputBindingApi<T>
 	implements InputBindingApi<T, T>
 {
 	get options(): ListItem<T>[] {
-		return this.controller_.valueController.props.get('options');
+		return this.controller.valueController.props.get('options');
 	}
 
 	set options(options: ListItem<T>[]) {
-		this.controller_.valueController.props.set('options', options);
+		this.controller.valueController.props.set('options', options);
 	}
 }

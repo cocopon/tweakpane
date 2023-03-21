@@ -11,6 +11,6 @@ export class RootApi extends FolderApi {
 	}
 
 	get element(): HTMLElement {
-		return this.controller_.view.element;
+		return this.controller.view.element;
 	}
 }

@@ -54,11 +54,11 @@ export class TestValueBladeApi extends BladeApi<
 	LabeledValueBladeController<boolean, CheckboxController>
 > {
 	get value(): boolean {
-		return this.controller_.value.rawValue;
+		return this.controller.value.rawValue;
 	}
 
 	set value(value: boolean) {
-		this.controller_.value.rawValue = value;
+		this.controller.value.rawValue = value;
 	}
 }
 

@@ -64,7 +64,7 @@ describe(Pane.name, () => {
 				pane.addBinding(params, 'bar');
 				testCase.insert(pane, 1);
 
-				const cs = pane['controller_'].rackController.rack.children;
+				const cs = pane.controller.rackController.rack.children;
 				assert.strictEqual(cs[1] instanceof testCase.expected, true);
 			});
 		});

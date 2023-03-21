@@ -17,7 +17,7 @@ describe(Pane.name, () => {
 			done();
 		});
 
-		const folder = pane['controller_'].foldable;
+		const folder = pane.controller.foldable;
 		if (folder) {
 			folder.set('expanded', false);
 		}

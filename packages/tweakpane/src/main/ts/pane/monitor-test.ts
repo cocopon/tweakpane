@@ -22,7 +22,7 @@ function createPane(): Pane {
 }
 
 function getTicker(bapi: BindingApi): ManualTicker {
-	const v = bapi['controller_'].value as MonitorBindingValue<unknown>;
+	const v = bapi.controller.value as MonitorBindingValue<unknown>;
 	return v.ticker as ManualTicker;
 }
 
@@ -146,7 +146,7 @@ describe(Pane.name, () => {
 		});
 		bapi.dispose();
 		assert.strictEqual(
-			pane['controller_'].view.element.querySelector('.tp-lblv'),
+			pane.controller.view.element.querySelector('.tp-lblv'),
 			null,
 		);
 	});
@@ -177,7 +177,7 @@ describe(Pane.name, () => {
 			readonly: true,
 		});
 
-		const v = bapi['controller_'].value;
+		const v = bapi.controller.value;
 		assert.deepStrictEqual(v.rawValue, [
 			123,
 			undefined,
@@ -280,7 +280,7 @@ describe(Pane.name, () => {
 				const obj = {foo: args.value};
 				const bapi = pane.addBinding(obj, 'foo', args.params);
 				assert.strictEqual(
-					bapi['controller_'].valueController instanceof expected.controller,
+					bapi.controller.valueController instanceof expected.controller,
 					true,
 				);
 				bapi.dispose();

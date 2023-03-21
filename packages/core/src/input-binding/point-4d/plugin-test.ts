@@ -2,6 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {InputBindingController} from '../../blade/binding/controller/input-binding';
+import {Point4dInputParams} from '../../blade/common/api/params';
 import {BindingTarget} from '../../common/binding/target';
 import {InputBindingValue} from '../../common/binding/value/input-binding';
 import {Constraint} from '../../common/constraint/constraint';
@@ -14,7 +15,7 @@ import {PointNdConstraint} from '../common/constraint/point-nd';
 import {PointNdTextController} from '../common/controller/point-nd-text';
 import {createInputBindingController} from '../plugin';
 import {Point4d} from './model/point-4d';
-import {Point4dInputParams, Point4dInputPlugin} from './plugin';
+import {Point4dInputPlugin} from './plugin';
 
 function getPoint4dConstraint(
 	v: InputBindingValue<unknown>,

@@ -108,7 +108,7 @@ describe(ListBladePlugin.id, () => {
 		assert.deepStrictEqual(api.options[0], {text: 'foo', value: 1});
 		assert.deepStrictEqual(api.options[1], {text: 'bar', value: 2});
 		assert.strictEqual(
-			api['controller_'].view.element.querySelector('.tp-lblv_l')?.textContent,
+			api.controller.view.element.querySelector('.tp-lblv_l')?.textContent,
 			'hello',
 		);
 	});

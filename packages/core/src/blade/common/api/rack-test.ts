@@ -52,7 +52,7 @@ describe(RackApi.name, () => {
 			done();
 		});
 
-		const value: Value<number> = forceCast(bapi['controller_'].value);
+		const value: Value<number> = forceCast(bapi.controller.value);
 		value.rawValue += 1;
 	});
 
@@ -71,7 +71,7 @@ describe(RackApi.name, () => {
 			done();
 		});
 
-		const value: Value<number> = forceCast(bapi['controller_'].value);
+		const value: Value<number> = forceCast(bapi.controller.value);
 		value.rawValue += 1;
 	});
 
@@ -118,9 +118,9 @@ describe(RackApi.name, () => {
 		});
 
 		const item = api.addBinding({foo: 0}, 'foo');
-		(item['controller_'].value as Value<number>).rawValue += 1;
+		(item.controller.value as Value<number>).rawValue += 1;
 		api.remove(item);
-		(item['controller_'].value as Value<number>).rawValue += 1;
+		(item.controller.value as Value<number>).rawValue += 1;
 		assert.strictEqual(count, 1);
 	});
 
@@ -144,7 +144,7 @@ describe(RackApi.name, () => {
 			done();
 		});
 
-		b['controller_'].value.rawValue = 2;
+		b.controller.value.rawValue = 2;
 	});
 
 	it('should refresh children', () => {
@@ -155,9 +155,9 @@ describe(RackApi.name, () => {
 		obj.foo = 2;
 
 		const bapi = api.children[0] as InputBindingApi;
-		assert.strictEqual(bapi['controller_'].value.rawValue, 1);
+		assert.strictEqual(bapi.controller.value.rawValue, 1);
 		api.refresh();
-		assert.strictEqual(bapi['controller_'].value.rawValue, 2);
+		assert.strictEqual(bapi.controller.value.rawValue, 2);
 	});
 
 	it('should refresh nested children', () => {
@@ -169,8 +169,8 @@ describe(RackApi.name, () => {
 
 		const fapi = api.children[0] as FolderApi;
 		const bapi = fapi.children[0] as InputBindingApi;
-		assert.strictEqual(bapi['controller_'].value.rawValue, 1);
+		assert.strictEqual(bapi.controller.value.rawValue, 1);
 		api.refresh();
-		assert.strictEqual(bapi['controller_'].value.rawValue, 2);
+		assert.strictEqual(bapi.controller.value.rawValue, 2);
 	});
 });

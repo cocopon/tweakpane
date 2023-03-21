@@ -13,18 +13,18 @@ export class GraphLogMonitorBindingApi
 	implements MonitorBindingApi<number>
 {
 	get max(): number {
-		return this.controller_.valueController.props.get('max');
+		return this.controller.valueController.props.get('max');
 	}
 
 	set max(max: number) {
-		this.controller_.valueController.props.set('max', max);
+		this.controller.valueController.props.set('max', max);
 	}
 
 	get min(): number {
-		return this.controller_.valueController.props.get('min');
+		return this.controller.valueController.props.get('min');
 	}
 
 	set min(min: number) {
-		this.controller_.valueController.props.set('min', min);
+		this.controller.valueController.props.set('min', min);
 	}
 }

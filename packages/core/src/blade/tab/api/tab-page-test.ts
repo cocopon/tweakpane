@@ -45,9 +45,7 @@ describe(TabPageApi.name, () => {
 		api.title = 'changed';
 		assert.strictEqual(api.title, 'changed');
 		assert.strictEqual(
-			api['controller_'].itemController.view.element.innerHTML.includes(
-				'changed',
-			),
+			api.controller.itemController.view.element.innerHTML.includes('changed'),
 			true,
 		);
 

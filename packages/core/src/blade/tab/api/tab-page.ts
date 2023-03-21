@@ -20,19 +20,19 @@ export class TabPageApi
 	implements ContainerApi
 {
 	get title(): string {
-		return this.controller_.itemController.props.get('title') ?? '';
+		return this.controller.itemController.props.get('title') ?? '';
 	}
 
 	set title(title: string) {
-		this.controller_.itemController.props.set('title', title);
+		this.controller.itemController.props.set('title', title);
 	}
 
 	get selected(): boolean {
-		return this.controller_.props.get('selected');
+		return this.controller.props.get('selected');
 	}
 
 	set selected(selected: boolean) {
-		this.controller_.props.set('selected', selected);
+		this.controller.props.set('selected', selected);
 	}
 
 	get children(): BladeApi[] {

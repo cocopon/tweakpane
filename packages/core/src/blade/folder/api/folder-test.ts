@@ -36,7 +36,7 @@ describe(FolderApi.name, () => {
 	it('should have initial state', () => {
 		const api = createApi();
 		assert.strictEqual(api.expanded, true);
-		assert.strictEqual(api['controller_'].foldable.get('expanded'), true);
+		assert.strictEqual(api.controller.foldable.get('expanded'), true);
 		assert.strictEqual(api.hidden, false);
 		assert.strictEqual(api.title, 'Folder');
 	});
@@ -47,26 +47,23 @@ describe(FolderApi.name, () => {
 		assertUpdates(api);
 
 		api.expanded = true;
-		assert.strictEqual(api['controller_'].foldable.get('expanded'), true);
+		assert.strictEqual(api.controller.foldable.get('expanded'), true);
 
 		api.title = 'changed';
-		assert.strictEqual(
-			api['controller_'].view.titleElement.textContent,
-			'changed',
-		);
+		assert.strictEqual(api.controller.view.titleElement.textContent, 'changed');
 	});
 
 	it('should dispose', () => {
 		const api = createApi();
 		api.dispose();
-		assert.strictEqual(api['controller_'].viewProps.get('disposed'), true);
+		assert.strictEqual(api.controller.viewProps.get('disposed'), true);
 	});
 
 	it('should toggle expanded when clicking title element', () => {
 		const api = createApi();
 
-		api['controller_'].view.buttonElement.click();
-		assert.strictEqual(api['controller_'].foldable.get('expanded'), false);
+		api.controller.view.buttonElement.click();
+		assert.strictEqual(api.controller.foldable.get('expanded'), false);
 	});
 
 	it('should add folder', () => {
@@ -74,8 +71,8 @@ describe(FolderApi.name, () => {
 		const f = pane.addFolder({
 			title: 'folder',
 		});
-		assert.strictEqual(f['controller_'].props.get('title'), 'folder');
-		assert.strictEqual(f['controller_'].foldable.get('expanded'), true);
+		assert.strictEqual(f.controller.props.get('title'), 'folder');
+		assert.strictEqual(f.controller.foldable.get('expanded'), true);
 	});
 
 	it('should add collapsed folder', () => {
@@ -84,7 +81,7 @@ describe(FolderApi.name, () => {
 			expanded: false,
 			title: 'folder',
 		});
-		assert.strictEqual(f['controller_'].foldable.get('expanded'), false);
+		assert.strictEqual(f.controller.foldable.get('expanded'), false);
 	});
 
 	it('should handle fold event', (done) => {
@@ -94,7 +91,7 @@ describe(FolderApi.name, () => {
 			assert.strictEqual(ev.expanded, false);
 			done();
 		});
-		api['controller_'].foldable.set('expanded', false);
+		api.controller.foldable.set('expanded', false);
 	});
 
 	it('should bind `this` within handler to pane', (done) => {
@@ -106,7 +103,7 @@ describe(FolderApi.name, () => {
 		});
 
 		const bapi = pane.addBinding(PARAMS, 'foo');
-		bapi['controller_'].value.rawValue = 2;
+		bapi.controller.value.rawValue = 2;
 	});
 
 	it('should dispose items', () => {
@@ -116,9 +113,9 @@ describe(FolderApi.name, () => {
 		const m = api.addBinding(PARAMS, 'foo', {readonly: true});
 
 		api.dispose();
-		assert.strictEqual(api['controller_'].viewProps.get('disposed'), true);
-		assert.strictEqual(i['controller_'].viewProps.get('disposed'), true);
-		assert.strictEqual(m['controller_'].viewProps.get('disposed'), true);
+		assert.strictEqual(api.controller.viewProps.get('disposed'), true);
+		assert.strictEqual(i.controller.viewProps.get('disposed'), true);
+		assert.strictEqual(m.controller.viewProps.get('disposed'), true);
 	});
 
 	it('should dispose items (nested)', () => {
@@ -128,13 +125,13 @@ describe(FolderApi.name, () => {
 		const i = f.addBinding(PARAMS, 'foo');
 		const m = f.addBinding(PARAMS, 'foo', {readonly: true});
 
-		assert.strictEqual(api['controller_'].viewProps.get('disposed'), false);
-		assert.strictEqual(i['controller_'].viewProps.get('disposed'), false);
-		assert.strictEqual(m['controller_'].viewProps.get('disposed'), false);
+		assert.strictEqual(api.controller.viewProps.get('disposed'), false);
+		assert.strictEqual(i.controller.viewProps.get('disposed'), false);
+		assert.strictEqual(m.controller.viewProps.get('disposed'), false);
 		api.dispose();
-		assert.strictEqual(api['controller_'].viewProps.get('disposed'), true);
-		assert.strictEqual(i['controller_'].viewProps.get('disposed'), true);
-		assert.strictEqual(m['controller_'].viewProps.get('disposed'), true);
+		assert.strictEqual(api.controller.viewProps.get('disposed'), true);
+		assert.strictEqual(i.controller.viewProps.get('disposed'), true);
+		assert.strictEqual(m.controller.viewProps.get('disposed'), true);
 	});
 
 	it('should bind `this` within handler to folder', (done) => {
@@ -146,7 +143,7 @@ describe(FolderApi.name, () => {
 		});
 
 		const bapi = api.addBinding(PARAMS, 'foo');
-		bapi['controller_'].value.rawValue = 2;
+		bapi.controller.value.rawValue = 2;
 	});
 
 	it('should have right target', (done) => {
@@ -155,9 +152,9 @@ describe(FolderApi.name, () => {
 			assert.strictEqual(ev.target, api);
 			done();
 		});
-		api['controller_'].foldable.set(
+		api.controller.foldable.set(
 			'expanded',
-			!api['controller_'].foldable.get('expanded'),
+			!api.controller.foldable.get('expanded'),
 		);
 	});
 
@@ -211,7 +208,7 @@ describe(FolderApi.name, () => {
 					assert.strictEqual(ev.value, expected);
 					done();
 				});
-				bapi['controller_'].value.rawValue = params.newInternalValue;
+				bapi.controller.value.rawValue = params.newInternalValue;
 			});
 
 			it('should pass event for change event (global)', (done) => {
@@ -227,11 +224,11 @@ describe(FolderApi.name, () => {
 					if (!(ev.target instanceof BindingApi)) {
 						assert.fail('unexpected target');
 					}
-					assert.strictEqual(ev.target['controller_'], bapi['controller_']);
+					assert.strictEqual(ev.target.controller, bapi.controller);
 
 					done();
 				});
-				bapi['controller_'].value.rawValue = params.newInternalValue;
+				bapi.controller.value.rawValue = params.newInternalValue;
 			});
 		});
 	});

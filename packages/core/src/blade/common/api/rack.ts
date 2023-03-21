@@ -90,13 +90,13 @@ export class RackApi implements ContainerApi {
 	}
 
 	public add<A extends BladeApi>(api: A, opt_index?: number): A {
-		const bc = api['controller_'];
+		const bc = api.controller;
 		this.controller_.rack.add(bc, opt_index);
 		return api;
 	}
 
 	public remove(api: BladeApi): void {
-		this.controller_.rack.remove(api['controller_']);
+		this.controller_.rack.remove(api.controller);
 	}
 
 	public addBlade(params: BaseBladeParams): BladeApi {
