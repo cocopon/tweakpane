@@ -20,7 +20,7 @@ export class BindingTarget {
 		if (obj === null) {
 			return false;
 		}
-		if (typeof obj !== 'object') {
+		if (typeof obj !== 'object' && typeof obj !== 'function') {
 			return false;
 		}
 		return true;

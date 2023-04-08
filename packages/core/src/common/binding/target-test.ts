@@ -29,4 +29,22 @@ describe(BindingTarget.name, () => {
 		target.write('wrote');
 		assert.strictEqual(obj.foo, 'wrote');
 	});
+
+	it('should bind static class field', () => {
+		class Test {
+			static foo = 1;
+		}
+
+		assert.doesNotThrow(() => {
+			new BindingTarget(Test, 'foo');
+		});
+	});
+
+	it('should determine class is bindable', () => {
+		class Test {
+			static foo = 1;
+		}
+
+		assert.strictEqual(BindingTarget.isBindable(Test), true);
+	});
 });
