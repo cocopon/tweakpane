@@ -1,8 +1,8 @@
-import {BindingApi} from '../../blade/binding/api/binding';
-import {InputBindingApi} from '../../blade/binding/api/input-binding';
-import {InputBindingController} from '../../blade/binding/controller/input-binding';
-import {ListItem} from '../constraint/list';
-import {ListController} from '../controller/list';
+import {BindingApi} from '../../blade/binding/api/binding.js';
+import {InputBindingApi} from '../../blade/binding/api/input-binding.js';
+import {InputBindingController} from '../../blade/binding/controller/input-binding.js';
+import {ListItem} from '../constraint/list.js';
+import {ListController} from '../controller/list.js';
 
 export class ListInputBindingApi<T>
 	extends BindingApi<T, T, InputBindingController<T, ListController<T>>>

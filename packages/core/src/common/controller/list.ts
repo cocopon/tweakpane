@@ -3,14 +3,14 @@ import {
 	exportBladeState,
 	importBladeState,
 	PropsPortable,
-} from '../../blade/common/controller/blade-state';
-import {forceCast} from '../../misc/type-util';
-import {normalizeListOptions, parseListOptions} from '../list-util';
-import {Value} from '../model/value';
-import {ViewProps} from '../model/view-props';
-import {ListParamsOptions} from '../params';
-import {ListProps, ListView} from '../view/list';
-import {ValueController} from './value';
+} from '../../blade/common/controller/blade-state.js';
+import {forceCast} from '../../misc/type-util.js';
+import {normalizeListOptions, parseListOptions} from '../list-util.js';
+import {Value} from '../model/value.js';
+import {ViewProps} from '../model/view-props.js';
+import {ListParamsOptions} from '../params.js';
+import {ListProps, ListView} from '../view/list.js';
+import {ValueController} from './value.js';
 
 /**
  * @hidden

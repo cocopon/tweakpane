@@ -1,17 +1,17 @@
 import {
 	isMonitorBindingValue,
 	MonitorBindingValue,
-} from '../../../common/binding/value/monitor-binding';
-import {ValueController} from '../../../common/controller/value';
-import {BufferedValue, TpBuffer} from '../../../common/model/buffered-value';
-import {View} from '../../../common/view/view';
-import {BladeController} from '../../common/controller/blade';
+} from '../../../common/binding/value/monitor-binding.js';
+import {ValueController} from '../../../common/controller/value.js';
+import {BufferedValue, TpBuffer} from '../../../common/model/buffered-value.js';
+import {View} from '../../../common/view/view.js';
+import {BladeController} from '../../common/controller/blade.js';
 import {
 	BladeState,
 	exportBladeState,
-} from '../../common/controller/blade-state';
-import {isValueBladeController} from '../../common/controller/value-blade';
-import {BindingController} from './binding';
+} from '../../common/controller/blade-state.js';
+import {isValueBladeController} from '../../common/controller/value-blade.js';
+import {BindingController} from './binding.js';
 
 export type BufferedValueController<
 	T,

@@ -1,22 +1,28 @@
-import {InputBindingController} from '../../blade/binding/controller/input-binding';
-import {StringInputParams} from '../../blade/common/api/params';
-import {ListInputBindingApi} from '../../common/api/list';
+import {InputBindingController} from '../../blade/binding/controller/input-binding.js';
+import {StringInputParams} from '../../blade/common/api/params.js';
+import {ListInputBindingApi} from '../../common/api/list.js';
 import {
 	CompositeConstraint,
 	findConstraint,
-} from '../../common/constraint/composite';
-import {Constraint} from '../../common/constraint/constraint';
-import {ListConstraint} from '../../common/constraint/list';
-import {ListController} from '../../common/controller/list';
-import {TextController} from '../../common/controller/text';
-import {formatString, stringFromUnknown} from '../../common/converter/string';
-import {createListConstraint, parseListOptions} from '../../common/list-util';
-import {parseRecord} from '../../common/micro-parsers';
-import {ValueMap} from '../../common/model/value-map';
-import {ListParamsOptions} from '../../common/params';
-import {writePrimitive} from '../../common/primitive';
-import {VERSION} from '../../version';
-import {InputBindingPlugin} from '../plugin';
+} from '../../common/constraint/composite.js';
+import {Constraint} from '../../common/constraint/constraint.js';
+import {ListConstraint} from '../../common/constraint/list.js';
+import {ListController} from '../../common/controller/list.js';
+import {TextController} from '../../common/controller/text.js';
+import {
+	formatString,
+	stringFromUnknown,
+} from '../../common/converter/string.js';
+import {
+	createListConstraint,
+	parseListOptions,
+} from '../../common/list-util.js';
+import {parseRecord} from '../../common/micro-parsers.js';
+import {ValueMap} from '../../common/model/value-map.js';
+import {ListParamsOptions} from '../../common/params.js';
+import {writePrimitive} from '../../common/primitive.js';
+import {VERSION} from '../../version.js';
+import {InputBindingPlugin} from '../plugin.js';
 
 function createConstraint(params: StringInputParams): Constraint<string> {
 	const constraints: Constraint<string>[] = [];

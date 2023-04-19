@@ -1,6 +1,6 @@
-import {createPane, Theme, toCss} from '../panepaint';
+import {createPane, Theme, toCss} from '../panepaint.js';
 import {createTheme} from '../themes';
-import {selectContainer} from '../util';
+import {selectContainer} from '../util.js';
 
 declare let hljs: any;
 import {Pane} from 'tweakpane';

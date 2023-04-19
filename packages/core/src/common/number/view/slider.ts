@@ -1,9 +1,9 @@
-import {Value} from '../../../common/model/value';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {ClassName} from '../../../common/view/class-name';
-import {View} from '../../../common/view/view';
-import {constrainRange, mapRange} from '../util';
+import {Value} from '../../../common/model/value.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {ClassName} from '../../../common/view/class-name.js';
+import {View} from '../../../common/view/view.js';
+import {constrainRange, mapRange} from '../util.js';
 
 /**
  * @hidden

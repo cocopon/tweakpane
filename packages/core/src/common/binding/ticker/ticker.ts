@@ -1,4 +1,4 @@
-import {Emitter} from '../../model/emitter';
+import {Emitter} from '../../model/emitter.js';
 
 /**
  * @hidden

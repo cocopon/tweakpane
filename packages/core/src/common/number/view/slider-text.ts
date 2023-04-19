@@ -1,7 +1,7 @@
-import {ClassName} from '../../../common/view/class-name';
-import {View} from '../../../common/view/view';
-import {NumberTextView} from './number-text';
-import {SliderView} from './slider';
+import {ClassName} from '../../../common/view/class-name.js';
+import {View} from '../../../common/view/view.js';
+import {NumberTextView} from './number-text.js';
+import {SliderView} from './slider.js';
 
 /**
  * @hidden

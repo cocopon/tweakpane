@@ -1,8 +1,8 @@
-import {Constraint} from '../constraint/constraint';
-import {ValueMap} from '../model/value-map';
-import {createNumberTextPropsObject} from '../number/util';
-import {NumberTextProps} from '../number/view/number-text';
-import {PointDimensionParams} from '../params';
+import {Constraint} from '../constraint/constraint.js';
+import {ValueMap} from '../model/value-map.js';
+import {createNumberTextPropsObject} from '../number/util.js';
+import {NumberTextProps} from '../number/view/number-text.js';
+import {PointDimensionParams} from '../params.js';
 
 export interface PointAxis {
 	constraint: Constraint<number> | undefined;

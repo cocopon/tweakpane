@@ -1,13 +1,13 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {createValue} from '../../../common/model/values';
-import {ViewProps} from '../../../common/model/view-props';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {TestUtil} from '../../../misc/test-util';
-import {ColorComponents3} from '../model/color-model';
-import {IntColor} from '../model/int-color';
-import {ColorTextsController} from './color-texts';
+import {createValue} from '../../../common/model/values.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {TestUtil} from '../../../misc/test-util.js';
+import {ColorComponents3} from '../model/color-model.js';
+import {IntColor} from '../model/int-color.js';
+import {ColorTextsController} from './color-texts.js';
 
 describe(ColorTextsController.name, () => {
 	[

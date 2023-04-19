@@ -1,11 +1,14 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {createNumberFormatter, numberFromUnknown} from '../../converter/number';
-import {createValue} from '../../model/values';
-import {ViewProps} from '../../model/view-props';
-import {createSliderTextProps, SliderTextController} from './slider-text';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {
+	createNumberFormatter,
+	numberFromUnknown,
+} from '../../converter/number.js';
+import {createValue} from '../../model/values.js';
+import {ViewProps} from '../../model/view-props.js';
+import {createSliderTextProps, SliderTextController} from './slider-text.js';
 
 function createController(doc: Document) {
 	return new SliderTextController(doc, {

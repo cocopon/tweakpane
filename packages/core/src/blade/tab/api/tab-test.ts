@@ -1,15 +1,15 @@
 import * as assert from 'assert';
 import {describe} from 'mocha';
 
-import {Value} from '../../../common/model/value';
-import {ViewProps} from '../../../common/model/view-props';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {createDefaultPluginPool} from '../../../plugin/plugins';
-import {BindingApi} from '../../binding/api/binding';
-import {TpChangeEvent} from '../../common/api/tp-event';
-import {createBlade} from '../../common/model/blade';
-import {TabController} from '../controller/tab';
-import {TabApi} from './tab';
+import {Value} from '../../../common/model/value.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {createDefaultPluginPool} from '../../../plugin/plugins.js';
+import {BindingApi} from '../../binding/api/binding.js';
+import {TpChangeEvent} from '../../common/api/tp-event.js';
+import {createBlade} from '../../common/model/blade.js';
+import {TabController} from '../controller/tab.js';
+import {TabApi} from './tab.js';
 
 describe(TabApi.name, () => {
 	it('should have initial state', () => {

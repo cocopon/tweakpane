@@ -1,19 +1,19 @@
 import {
 	BindingValue,
 	isBindingValue,
-} from '../../../common/binding/value/binding';
-import {ValueController} from '../../../common/controller/value';
-import {BladeController} from '../../common/controller/blade';
+} from '../../../common/binding/value/binding.js';
+import {ValueController} from '../../../common/controller/value.js';
+import {BladeController} from '../../common/controller/blade.js';
 import {
 	BladeState,
 	exportBladeState,
 	importBladeState,
-} from '../../common/controller/blade-state';
-import {isValueBladeController} from '../../common/controller/value-blade';
+} from '../../common/controller/blade-state.js';
+import {isValueBladeController} from '../../common/controller/value-blade.js';
 import {
 	LabeledValueBladeConfig,
 	LabeledValueBladeController,
-} from '../../label/controller/value';
+} from '../../label/controller/value.js';
 
 function excludeValue(state: BladeState): Omit<BladeState, 'value'> {
 	const result = {

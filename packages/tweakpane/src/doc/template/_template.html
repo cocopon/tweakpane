@@ -42,8 +42,18 @@
 		</div>
 	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
-	<script src="{{ root }}assets/tweakpane.js" defer></script>
+	<script src="{{ root }}assets/tweakpane.js" type="module" defer></script>
+	<script type="module">
+		const m = await import('{{ root }}assets/tweakpane.js');
+		
+		// Load Tweakpane ES module and make it global variable
+		window.Tweakpane = m;
+
+		// Load document script	
+		const scriptElem = document.createElement('script');
+		scriptElem.src = '{{ root }}assets/bundle.js';
+		document.body.appendChild(scriptElem);
+	</script>
 	{% block pluginScripts %}{% endblock %}
-	<script src="{{ root }}assets/bundle.js" defer></script>
 </body>
 </html>

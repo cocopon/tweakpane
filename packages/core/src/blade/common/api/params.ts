@@ -1,4 +1,4 @@
-import {Formatter} from '../../../common/converter/formatter';
+import {Formatter} from '../../../common/converter/formatter.js';
 import {
 	BaseInputParams,
 	BaseMonitorParams,
@@ -7,8 +7,8 @@ import {
 	NumberTextInputParams,
 	PickerLayout,
 	PointDimensionParams,
-} from '../../../common/params';
-import {ColorType} from '../../../input-binding/color/model/color-model';
+} from '../../../common/params.js';
+import {ColorType} from '../../../input-binding/color/model/color-model.js';
 
 export interface BooleanInputParams extends BaseInputParams {
 	options?: ListParamsOptions<boolean>;

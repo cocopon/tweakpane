@@ -1,5 +1,5 @@
-import {InputBindingController} from '../controller/input-binding';
-import {BindingApi} from './binding';
+import {InputBindingController} from '../controller/input-binding.js';
+import {BindingApi} from './binding.js';
 
 /**
  * The API for input binding between the parameter and the pane.

@@ -1,25 +1,25 @@
-import {Controller} from '../common/controller/controller';
-import {LabelPropsObject} from '../common/label/view/label';
-import {parseRecord} from '../common/micro-parsers';
-import {ValueMap} from '../common/model/value-map';
-import {createValue} from '../common/model/values';
-import {ViewProps} from '../common/model/view-props';
-import {BaseBladeParams} from '../common/params';
-import {TpError} from '../common/tp-error';
-import {PlainView} from '../common/view/plain';
-import {CheckboxController} from '../input-binding/boolean/controller/checkbox';
-import {createDefaultPluginPool} from '../plugin/plugins';
-import {VERSION} from '../version';
-import {BladeApi} from './common/api/blade';
-import {BladeController} from './common/controller/blade';
+import {Controller} from '../common/controller/controller.js';
+import {LabelPropsObject} from '../common/label/view/label.js';
+import {parseRecord} from '../common/micro-parsers.js';
+import {ValueMap} from '../common/model/value-map.js';
+import {createValue} from '../common/model/values.js';
+import {ViewProps} from '../common/model/view-props.js';
+import {BaseBladeParams} from '../common/params.js';
+import {TpError} from '../common/tp-error.js';
+import {PlainView} from '../common/view/plain.js';
+import {CheckboxController} from '../input-binding/boolean/controller/checkbox.js';
+import {createDefaultPluginPool} from '../plugin/plugins.js';
+import {VERSION} from '../version.js';
+import {BladeApi} from './common/api/blade.js';
+import {BladeController} from './common/controller/blade.js';
 import {
 	BladeState,
 	exportBladeState,
 	importBladeState,
-} from './common/controller/blade-state';
-import {createBlade} from './common/model/blade';
-import {LabeledValueBladeController} from './label/controller/value';
-import {BladePlugin} from './plugin';
+} from './common/controller/blade-state.js';
+import {createBlade} from './common/model/blade.js';
+import {LabeledValueBladeController} from './label/controller/value.js';
+import {BladePlugin} from './plugin.js';
 
 class LabelableController implements Controller {
 	public readonly viewProps = ViewProps.create();

@@ -1,12 +1,12 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {createValue} from '../../../common/model/values';
-import {ViewProps} from '../../../common/model/view-props';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {TestUtil} from '../../../misc/test-util';
-import {IntColor} from '../model/int-color';
-import {ColorPickerController} from './color-picker';
+import {createValue} from '../../../common/model/values.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {TestUtil} from '../../../misc/test-util.js';
+import {IntColor} from '../model/int-color.js';
+import {ColorPickerController} from './color-picker.js';
 
 describe(ColorPickerController.name, () => {
 	it('should set initial color mode', () => {

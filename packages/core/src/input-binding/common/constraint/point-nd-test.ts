@@ -1,14 +1,14 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
-import {Constraint} from '../../../common/constraint/constraint';
-import {RangeConstraint} from '../../../common/constraint/range';
+import {Constraint} from '../../../common/constraint/constraint.js';
+import {RangeConstraint} from '../../../common/constraint/range.js';
 import {
 	Point2d,
 	Point2dAssembly,
 	Point2dObject,
-} from '../../point-2d/model/point-2d';
-import {PointNdConstraint} from './point-nd';
+} from '../../point-2d/model/point-2d.js';
+import {PointNdConstraint} from './point-nd.js';
 
 interface TestCase {
 	expected: Point2dObject;

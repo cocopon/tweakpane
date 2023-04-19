@@ -1,8 +1,8 @@
-import {BindingApi} from '../../../blade/binding/api/binding';
-import {MonitorBindingApi} from '../../../blade/binding/api/monitor-binding';
-import {MonitorBindingController} from '../../../blade/binding/controller/monitor-binding';
-import {TpBuffer} from '../../../common/model/buffered-value';
-import {GraphLogController} from '../controller/graph-log';
+import {BindingApi} from '../../../blade/binding/api/binding.js';
+import {MonitorBindingApi} from '../../../blade/binding/api/monitor-binding.js';
+import {MonitorBindingController} from '../../../blade/binding/controller/monitor-binding.js';
+import {TpBuffer} from '../../../common/model/buffered-value.js';
+import {GraphLogController} from '../controller/graph-log.js';
 
 export class GraphLogMonitorBindingApi
 	extends BindingApi<

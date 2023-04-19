@@ -1,13 +1,13 @@
 import * as assert from 'assert';
 import {describe} from 'mocha';
 
-import {ValueMap} from '../../../common/model/value-map';
-import {createValue} from '../../../common/model/values';
-import {ViewProps} from '../../../common/model/view-props';
-import {NumberTextView} from '../../../common/number/view/number-text';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {Tuple3} from '../../../misc/type-util';
-import {ColorTextsMode, ColorTextsView} from './color-texts';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {createValue} from '../../../common/model/values.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {NumberTextView} from '../../../common/number/view/number-text.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {Tuple3} from '../../../misc/type-util.js';
+import {ColorTextsMode, ColorTextsView} from './color-texts.js';
 
 function createTextViews(
 	doc: Document,

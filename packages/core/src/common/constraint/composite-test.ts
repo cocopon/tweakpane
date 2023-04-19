@@ -1,11 +1,11 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {CompositeConstraint, findConstraint} from './composite';
-import {Constraint} from './constraint';
-import {ListConstraint} from './list';
-import {RangeConstraint} from './range';
-import {StepConstraint} from './step';
+import {CompositeConstraint, findConstraint} from './composite.js';
+import {Constraint} from './constraint.js';
+import {ListConstraint} from './list.js';
+import {RangeConstraint} from './range.js';
+import {StepConstraint} from './step.js';
 
 class DoubleConstraint implements Constraint<number> {
 	public constrain(value: number): number {

@@ -1,12 +1,17 @@
-import {Bindable} from '../../../common/binding/target';
-import {BaseBladeParams} from '../../../common/params';
-import {BindingApi} from '../../binding/api/binding';
-import {ButtonApi} from '../../button/api/button';
-import {FolderApi} from '../../folder/api/folder';
-import {TabApi} from '../../tab/api/tab';
-import {BladeApi} from './blade';
-import {BindingParams, ButtonParams, FolderParams, TabParams} from './params';
-import {Refreshable} from './refreshable';
+import {Bindable} from '../../../common/binding/target.js';
+import {BaseBladeParams} from '../../../common/params.js';
+import {BindingApi} from '../../binding/api/binding.js';
+import {ButtonApi} from '../../button/api/button.js';
+import {FolderApi} from '../../folder/api/folder.js';
+import {TabApi} from '../../tab/api/tab.js';
+import {BladeApi} from './blade.js';
+import {
+	BindingParams,
+	ButtonParams,
+	FolderParams,
+	TabParams,
+} from './params.js';
+import {Refreshable} from './refreshable.js';
 
 export interface ContainerApi extends Refreshable {
 	/**

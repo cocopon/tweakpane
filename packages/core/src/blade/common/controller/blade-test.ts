@@ -1,13 +1,13 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {ViewProps} from '../../../common/model/view-props';
-import {View} from '../../../common/view/view';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {createBlade} from '../model/blade';
-import {Rack} from '../model/rack';
-import {BladeController} from './blade';
-import {importBladeState} from './blade-state';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {View} from '../../../common/view/view.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {createBlade} from '../model/blade.js';
+import {Rack} from '../model/rack.js';
+import {BladeController} from './blade.js';
+import {importBladeState} from './blade-state.js';
 
 class TestView implements View {
 	public readonly element: HTMLElement;

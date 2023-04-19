@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {composeParsers} from './parser';
+import {composeParsers} from './parser.js';
 
 describe(composeParsers.name, () => {
 	it('should use the first parser', () => {

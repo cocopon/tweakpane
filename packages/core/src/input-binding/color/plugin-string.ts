@@ -1,20 +1,20 @@
-import {ColorInputParams} from '../../blade/common/api/params';
-import {Formatter} from '../../common/converter/formatter';
-import {TpError} from '../../common/tp-error';
-import {VERSION} from '../../version';
-import {InputBindingPlugin} from '../plugin';
-import {ColorController} from './controller/color';
+import {ColorInputParams} from '../../blade/common/api/params.js';
+import {Formatter} from '../../common/converter/formatter.js';
+import {TpError} from '../../common/tp-error.js';
+import {VERSION} from '../../version.js';
+import {InputBindingPlugin} from '../plugin.js';
+import {ColorController} from './controller/color.js';
 import {
 	createColorStringParser,
 	detectStringColorFormat,
 	findColorStringifier,
 	readIntColorString,
 	StringColorFormat,
-} from './converter/color-string';
-import {createColorStringWriter} from './converter/writer';
-import {Color, equalsColor} from './model/color';
-import {IntColor} from './model/int-color';
-import {extractColorType, parseColorInputParams} from './util';
+} from './converter/color-string.js';
+import {createColorStringWriter} from './converter/writer.js';
+import {Color, equalsColor} from './model/color.js';
+import {IntColor} from './model/int-color.js';
+import {extractColorType, parseColorInputParams} from './util.js';
 
 interface StringColorInputParams extends ColorInputParams {
 	format: StringColorFormat;

@@ -1,18 +1,18 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {TestUtil} from '../../../misc/test-util';
-import {Class} from '../../../misc/type-util';
-import {Color} from './color';
+import {TestUtil} from '../../../misc/test-util.js';
+import {Class} from '../../../misc/type-util.js';
+import {Color} from './color.js';
 import {
 	ColorComponents3,
 	ColorComponents4,
 	ColorMode,
 	ColorType,
-} from './color-model';
-import {createColor, mapColorType} from './colors';
-import {FloatColor} from './float-color';
-import {IntColor} from './int-color';
+} from './color-model.js';
+import {createColor, mapColorType} from './colors.js';
+import {FloatColor} from './float-color.js';
+import {IntColor} from './int-color.js';
 
 const DELTA = 1e-5;
 

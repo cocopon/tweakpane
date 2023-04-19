@@ -1,40 +1,40 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {ReadWriteBinding} from '../../../common/binding/read-write';
-import {ReadonlyBinding} from '../../../common/binding/readonly';
-import {BindingTarget} from '../../../common/binding/target';
-import {ManualTicker} from '../../../common/binding/ticker/manual';
-import {InputBindingValue} from '../../../common/binding/value/input-binding';
-import {MonitorBindingValue} from '../../../common/binding/value/monitor-binding';
-import {ValueController} from '../../../common/controller/value';
-import {boolFromUnknown} from '../../../common/converter/boolean';
+import {ReadWriteBinding} from '../../../common/binding/read-write.js';
+import {ReadonlyBinding} from '../../../common/binding/readonly.js';
+import {BindingTarget} from '../../../common/binding/target.js';
+import {ManualTicker} from '../../../common/binding/ticker/manual.js';
+import {InputBindingValue} from '../../../common/binding/value/input-binding.js';
+import {MonitorBindingValue} from '../../../common/binding/value/monitor-binding.js';
+import {ValueController} from '../../../common/controller/value.js';
+import {boolFromUnknown} from '../../../common/converter/boolean.js';
 import {
 	createNumberFormatter,
 	parseNumber,
-} from '../../../common/converter/number';
-import {stringFromUnknown} from '../../../common/converter/string';
-import {LabelPropsObject, LabelView} from '../../../common/label/view/label';
-import {ValueMap} from '../../../common/model/value-map';
-import {createValue} from '../../../common/model/values';
-import {ViewProps} from '../../../common/model/view-props';
+} from '../../../common/converter/number.js';
+import {stringFromUnknown} from '../../../common/converter/string.js';
+import {LabelPropsObject, LabelView} from '../../../common/label/view/label.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {createValue} from '../../../common/model/values.js';
+import {ViewProps} from '../../../common/model/view-props.js';
 import {
 	createSliderTextProps,
 	SliderTextController,
-} from '../../../common/number/controller/slider-text';
-import {writePrimitive} from '../../../common/primitive';
-import {CheckboxController} from '../../../input-binding/boolean/controller/checkbox';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {forceCast} from '../../../misc/type-util';
-import {SingleLogController} from '../../../monitor-binding/common/controller/single-log';
-import {InputBindingController} from '../../binding/controller/input-binding';
-import {MonitorBindingController} from '../../binding/controller/monitor-binding';
-import {FolderController} from '../../folder/controller/folder';
-import {FolderPropsObject} from '../../folder/view/folder';
-import {LabeledValueBladeController} from '../../label/controller/value';
-import {BladeController} from '../controller/blade';
-import {createBlade} from './blade';
-import {Rack} from './rack';
+} from '../../../common/number/controller/slider-text.js';
+import {writePrimitive} from '../../../common/primitive.js';
+import {CheckboxController} from '../../../input-binding/boolean/controller/checkbox.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {forceCast} from '../../../misc/type-util.js';
+import {SingleLogController} from '../../../monitor-binding/common/controller/single-log.js';
+import {InputBindingController} from '../../binding/controller/input-binding.js';
+import {MonitorBindingController} from '../../binding/controller/monitor-binding.js';
+import {FolderController} from '../../folder/controller/folder.js';
+import {FolderPropsObject} from '../../folder/view/folder.js';
+import {LabeledValueBladeController} from '../../label/controller/value.js';
+import {BladeController} from '../controller/blade.js';
+import {createBlade} from './blade.js';
+import {Rack} from './rack.js';
 
 function createInputBindingController(
 	doc: Document,

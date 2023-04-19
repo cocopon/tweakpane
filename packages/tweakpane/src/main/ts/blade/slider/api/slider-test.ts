@@ -18,8 +18,8 @@ import {
 	assertInitialState,
 	assertUpdates,
 	createTestWindow,
-} from '../../../misc/test-util';
-import {SliderBladeApi} from './slider';
+} from '../../../misc/test-util.js';
+import {SliderBladeApi} from './slider.js';
 
 describe(SliderBladeApi.name, () => {
 	it('should dispose', () => {

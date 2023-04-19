@@ -1,21 +1,21 @@
-import {ValueController} from '../../../common/controller/value';
-import {Value, ValueChangeOptions} from '../../../common/model/value';
-import {ViewProps} from '../../../common/model/view-props';
-import {mapRange} from '../../../common/number/util';
+import {ValueController} from '../../../common/controller/value.js';
+import {Value, ValueChangeOptions} from '../../../common/model/value.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {mapRange} from '../../../common/number/util.js';
 import {
 	getHorizontalStepKeys,
 	getStepForKey,
 	getVerticalStepKeys,
 	isArrowKey,
-} from '../../../common/ui';
+} from '../../../common/ui.js';
 import {
 	PointerData,
 	PointerHandler,
 	PointerHandlerEvents,
-} from '../../../common/view/pointer-handler';
-import {IntColor} from '../model/int-color';
-import {getKeyScaleForColor} from '../util';
-import {SvPaletteView} from '../view/sv-palette';
+} from '../../../common/view/pointer-handler.js';
+import {IntColor} from '../model/int-color.js';
+import {getKeyScaleForColor} from '../util.js';
+import {SvPaletteView} from '../view/sv-palette.js';
 
 interface Config {
 	value: Value<IntColor>;

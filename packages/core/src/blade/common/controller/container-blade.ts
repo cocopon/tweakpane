@@ -1,8 +1,8 @@
-import {View} from '../../../common/view/view';
-import {Blade} from '../model/blade';
-import {BladeController} from './blade';
-import {BladeState, exportBladeState, importBladeState} from './blade-state';
-import {RackController} from './rack';
+import {View} from '../../../common/view/view.js';
+import {Blade} from '../model/blade.js';
+import {BladeController} from './blade.js';
+import {BladeState, exportBladeState, importBladeState} from './blade-state.js';
+import {RackController} from './rack.js';
 
 /**
  * @hidden

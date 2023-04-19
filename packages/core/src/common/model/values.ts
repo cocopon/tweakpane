@@ -1,8 +1,8 @@
-import {Constraint} from '../constraint/constraint';
-import {ComplexValue} from './complex-value';
-import {PrimitiveValue} from './primitive-value';
-import {ReadonlyPrimitiveValue} from './readonly-primitive-value';
-import {ReadonlyValue, Value, ValueChangeOptions} from './value';
+import {Constraint} from '../constraint/constraint.js';
+import {ComplexValue} from './complex-value.js';
+import {PrimitiveValue} from './primitive-value.js';
+import {ReadonlyPrimitiveValue} from './readonly-primitive-value.js';
+import {ReadonlyValue, Value, ValueChangeOptions} from './value.js';
 
 interface Config<T> {
 	constraint?: Constraint<T>;

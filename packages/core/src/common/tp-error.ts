@@ -1,4 +1,4 @@
-import {forceCast} from '../misc/type-util';
+import {forceCast} from '../misc/type-util.js';
 
 interface ErrorContext {
 	alreadydisposed: undefined;

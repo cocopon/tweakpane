@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
-import {createPushedBuffer, initializeBuffer} from './buffered-value';
+import {createPushedBuffer, initializeBuffer} from './buffered-value.js';
 
 describe(initializeBuffer.name, () => {
 	[

@@ -1,20 +1,20 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {IntColor} from '../../../input-binding/color/model/int-color';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {createDefaultPluginPool} from '../../../plugin/plugins';
-import {BindingApi} from '../../binding/api/binding';
-import {testBladeContainer} from '../../common/api/container-test';
-import {assertUpdates} from '../../common/api/test-util';
-import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event';
-import {createBlade} from '../../common/model/blade';
-import {TestValueBladePlugin} from '../../test-util';
-import {FolderController} from '../controller/folder';
-import {FolderPropsObject} from '../view/folder';
-import {FolderApi} from './folder';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {IntColor} from '../../../input-binding/color/model/int-color.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {createDefaultPluginPool} from '../../../plugin/plugins.js';
+import {BindingApi} from '../../binding/api/binding.js';
+import {testBladeContainer} from '../../common/api/container-test.js';
+import {assertUpdates} from '../../common/api/test-util.js';
+import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event.js';
+import {createBlade} from '../../common/model/blade.js';
+import {TestValueBladePlugin} from '../../test-util.js';
+import {FolderController} from '../controller/folder.js';
+import {FolderPropsObject} from '../view/folder.js';
+import {FolderApi} from './folder.js';
 
 function createApi(opt_doc?: Document): FolderApi {
 	const doc = opt_doc ?? createTestWindow().document;

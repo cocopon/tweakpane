@@ -1,17 +1,17 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {InputBindingController} from '../blade/binding/controller/input-binding';
-import {BindingTarget} from '../common/binding/target';
-import {ValueController} from '../common/controller/value';
-import {stringFromUnknown} from '../common/converter/string';
-import {Value} from '../common/model/value';
-import {ViewProps} from '../common/model/view-props';
-import {BaseInputParams} from '../common/params';
-import {writePrimitive} from '../common/primitive';
-import {View} from '../common/view/view';
-import {createTestWindow} from '../misc/dom-test-util';
-import {createInputBindingController, InputBindingPlugin} from './plugin';
+import {InputBindingController} from '../blade/binding/controller/input-binding.js';
+import {BindingTarget} from '../common/binding/target.js';
+import {ValueController} from '../common/controller/value.js';
+import {stringFromUnknown} from '../common/converter/string.js';
+import {Value} from '../common/model/value.js';
+import {ViewProps} from '../common/model/view-props.js';
+import {BaseInputParams} from '../common/params.js';
+import {writePrimitive} from '../common/primitive.js';
+import {View} from '../common/view/view.js';
+import {createTestWindow} from '../misc/dom-test-util.js';
+import {createInputBindingController, InputBindingPlugin} from './plugin.js';
 
 class TestView implements View {
 	public readonly element: HTMLElement;

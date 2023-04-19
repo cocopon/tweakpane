@@ -1,5 +1,10 @@
-import {Emitter} from './emitter';
-import {ReadonlyValue, ReadonlyValueEvents, Value, ValueEvents} from './value';
+import {Emitter} from './emitter.js';
+import {
+	ReadonlyValue,
+	ReadonlyValueEvents,
+	Value,
+	ValueEvents,
+} from './value.js';
 
 /**
  * @hidden

@@ -1,5 +1,5 @@
-import {isEmpty} from '../../../misc/type-util';
-import {PointNdAssembly} from '../../common/model/point-nd';
+import {isEmpty} from '../../../misc/type-util.js';
+import {PointNdAssembly} from '../../common/model/point-nd.js';
 
 export interface Point3dObject {
 	x: number;

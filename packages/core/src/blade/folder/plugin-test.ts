@@ -1,10 +1,10 @@
 import * as assert from 'assert';
 import {describe} from 'mocha';
 
-import {createTestWindow} from '../../misc/dom-test-util';
-import {createDefaultPluginPool} from '../../plugin/plugins';
-import {createEmptyBladeController} from '../test-util';
-import {FolderBladePlugin} from './plugin';
+import {createTestWindow} from '../../misc/dom-test-util.js';
+import {createDefaultPluginPool} from '../../plugin/plugins.js';
+import {createEmptyBladeController} from '../test-util.js';
+import {FolderBladePlugin} from './plugin.js';
 
 describe(FolderBladePlugin.id, () => {
 	[(doc: Document) => createEmptyBladeController(doc)].forEach(

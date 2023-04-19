@@ -1,18 +1,18 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {LabelPropsObject} from '../../../common/label/view/label';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {ButtonBladeController} from '../../button/controller/button-blade';
-import {ButtonPropsObject} from '../../button/view/button';
-import {BladeController} from '../../common/controller/blade';
-import {BladeState} from '../../common/controller/blade-state';
-import {createBlade} from '../../common/model/blade';
-import {TestKeyBladeController} from '../../test-util';
-import {FolderPropsObject} from '../view/folder';
-import {FolderController} from './folder';
+import {LabelPropsObject} from '../../../common/label/view/label.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {ButtonBladeController} from '../../button/controller/button-blade.js';
+import {ButtonPropsObject} from '../../button/view/button.js';
+import {BladeController} from '../../common/controller/blade.js';
+import {BladeState} from '../../common/controller/blade-state.js';
+import {createBlade} from '../../common/model/blade.js';
+import {TestKeyBladeController} from '../../test-util.js';
+import {FolderPropsObject} from '../view/folder.js';
+import {FolderController} from './folder.js';
 
 function createSomeBladeController(doc: Document): BladeController {
 	return new ButtonBladeController(doc, {

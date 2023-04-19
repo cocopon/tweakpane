@@ -1,13 +1,13 @@
 import {
 	createSvgIconElement,
 	removeChildElements,
-} from '../../../common/dom-util';
-import {bindValue} from '../../../common/model/reactive';
-import {Value} from '../../../common/model/value';
-import {ViewProps} from '../../../common/model/view-props';
-import {ClassName} from '../../../common/view/class-name';
-import {InputView, View} from '../../../common/view/view';
-import {ColorMode} from '../model/color-model';
+} from '../../../common/dom-util.js';
+import {bindValue} from '../../../common/model/reactive.js';
+import {Value} from '../../../common/model/value.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {ClassName} from '../../../common/view/class-name.js';
+import {InputView, View} from '../../../common/view/view.js';
+import {ColorMode} from '../model/color-model.js';
 
 export type ColorTextsMode = ColorMode | 'hex';
 

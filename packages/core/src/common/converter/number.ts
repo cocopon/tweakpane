@@ -1,6 +1,6 @@
-import {isEmpty} from '../../misc/type-util';
-import {parseEcmaNumberExpression} from './ecma/parser';
-import {Formatter} from './formatter';
+import {isEmpty} from '../../misc/type-util.js';
+import {parseEcmaNumberExpression} from './ecma/parser.js';
+import {Formatter} from './formatter.js';
 
 export function parseNumber(text: string): number | null {
 	const r = parseEcmaNumberExpression(text);

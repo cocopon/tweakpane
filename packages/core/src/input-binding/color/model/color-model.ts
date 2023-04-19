@@ -1,5 +1,5 @@
-import {constrainRange, loopRange} from '../../../common/number/util';
-import {Tuple3, Tuple4} from '../../../misc/type-util';
+import {constrainRange, loopRange} from '../../../common/number/util.js';
+import {Tuple3, Tuple4} from '../../../misc/type-util.js';
 
 export type ColorComponents3 = Tuple3<number>;
 export type ColorComponents4 = Tuple4<number>;

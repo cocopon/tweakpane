@@ -1,6 +1,6 @@
 import {FolderApi, PluginPool} from '@tweakpane/core';
 
-import {RootController} from '../controller/root';
+import {RootController} from '../controller/root.js';
 
 export class RootApi extends FolderApi {
 	/**

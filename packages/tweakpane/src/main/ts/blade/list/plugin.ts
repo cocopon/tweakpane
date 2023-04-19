@@ -15,7 +15,7 @@ import {
 	VERSION,
 } from '@tweakpane/core';
 
-import {ListBladeApi} from './api/list';
+import {ListBladeApi} from './api/list.js';
 
 export interface ListBladeParams<T> extends BaseBladeParams {
 	options: ListParamsOptions<T>;

@@ -1,8 +1,8 @@
-import {Formatter} from '../../../common/converter/formatter';
-import {BufferedValue} from '../../../common/model/buffered-value';
-import {ViewProps} from '../../../common/model/view-props';
-import {ClassName} from '../../../common/view/class-name';
-import {View} from '../../../common/view/view';
+import {Formatter} from '../../../common/converter/formatter.js';
+import {BufferedValue} from '../../../common/model/buffered-value.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {ClassName} from '../../../common/view/class-name.js';
+import {View} from '../../../common/view/view.js';
 
 interface Config<T> {
 	formatter: Formatter<T>;

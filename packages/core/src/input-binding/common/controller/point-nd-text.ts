@@ -1,13 +1,13 @@
-import {ValueController} from '../../../common/controller/value';
-import {Parser} from '../../../common/converter/parser';
-import {Value} from '../../../common/model/value';
-import {connectValues} from '../../../common/model/value-sync';
-import {createValue} from '../../../common/model/values';
-import {ViewProps} from '../../../common/model/view-props';
-import {NumberTextController} from '../../../common/number/controller/number-text';
-import {PointAxis} from '../../../common/point-nd/point-axis';
-import {PointNdAssembly} from '../model/point-nd';
-import {PointNdTextView} from '../view/point-nd-text';
+import {ValueController} from '../../../common/controller/value.js';
+import {Parser} from '../../../common/converter/parser.js';
+import {Value} from '../../../common/model/value.js';
+import {connectValues} from '../../../common/model/value-sync.js';
+import {createValue} from '../../../common/model/values.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {NumberTextController} from '../../../common/number/controller/number-text.js';
+import {PointAxis} from '../../../common/point-nd/point-axis.js';
+import {PointNdAssembly} from '../model/point-nd.js';
+import {PointNdTextView} from '../view/point-nd-text.js';
 
 interface Config<PointNd> {
 	assembly: PointNdAssembly<PointNd>;

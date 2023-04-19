@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {ManualTicker} from './manual';
+import {ManualTicker} from './manual.js';
 
 describe(ManualTicker.name, () => {
 	it('should be enabled by default', () => {

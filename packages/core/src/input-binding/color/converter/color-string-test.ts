@@ -1,13 +1,13 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
-import {TestUtil} from '../../../misc/test-util';
+import {TestUtil} from '../../../misc/test-util.js';
 import {
 	ColorComponents3,
 	ColorComponents4,
 	ColorMode,
-} from '../model/color-model';
-import {IntColor} from '../model/int-color';
+} from '../model/color-model.js';
+import {IntColor} from '../model/int-color.js';
 import {
 	colorToFunctionalHslaString,
 	colorToFunctionalHslString,
@@ -18,7 +18,7 @@ import {
 	colorToObjectRgbString,
 	createColorStringParser,
 	readIntColorString,
-} from './color-string';
+} from './color-string.js';
 
 const DELTA = 1e-5;
 

@@ -2,8 +2,7 @@
 	"extends": "../../../tsconfig.json",
 	"compilerOptions": {
 		"declaration": true,
-		"moduleResolution": "Node",
-		"outDir": "../dist/es6"
+		"outDir": "../dist/esm"
 	},
 	"exclude": ["**/*-test.ts"]
 }

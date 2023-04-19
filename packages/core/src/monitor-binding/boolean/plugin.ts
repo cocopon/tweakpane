@@ -1,14 +1,14 @@
-import {BooleanMonitorParams} from '../../blade/common/api/params';
+import {BooleanMonitorParams} from '../../blade/common/api/params.js';
 import {
 	BooleanFormatter,
 	boolFromUnknown,
-} from '../../common/converter/boolean';
-import {parseRecord} from '../../common/micro-parsers';
-import {Constants} from '../../misc/constants';
-import {VERSION} from '../../version';
-import {MultiLogController} from '../common/controller/multi-log';
-import {SingleLogController} from '../common/controller/single-log';
-import {MonitorBindingPlugin} from '../plugin';
+} from '../../common/converter/boolean.js';
+import {parseRecord} from '../../common/micro-parsers.js';
+import {Constants} from '../../misc/constants.js';
+import {VERSION} from '../../version.js';
+import {MultiLogController} from '../common/controller/multi-log.js';
+import {SingleLogController} from '../common/controller/single-log.js';
+import {MonitorBindingPlugin} from '../plugin.js';
 
 /**
  * @hidden

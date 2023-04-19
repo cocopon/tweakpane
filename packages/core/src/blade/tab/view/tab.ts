@@ -1,10 +1,10 @@
-import {bindValue} from '../../../common/model/reactive';
-import {Value} from '../../../common/model/value';
-import {ViewProps} from '../../../common/model/view-props';
-import {ClassName} from '../../../common/view/class-name';
-import {valueToClassName} from '../../../common/view/reactive';
-import {View} from '../../../common/view/view';
-import {bladeContainerClassName} from '../../common/view/blade-container';
+import {bindValue} from '../../../common/model/reactive.js';
+import {Value} from '../../../common/model/value.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {ClassName} from '../../../common/view/class-name.js';
+import {valueToClassName} from '../../../common/view/reactive.js';
+import {View} from '../../../common/view/view.js';
+import {bladeContainerClassName} from '../../common/view/blade-container.js';
 
 /**
  * @hidden

@@ -15,8 +15,8 @@ import {
 	assertInitialState,
 	assertUpdates,
 	createTestWindow,
-} from '../../../misc/test-util';
-import {TextBladeApi} from './text';
+} from '../../../misc/test-util.js';
+import {TextBladeApi} from './text.js';
 
 describe(TextBladeApi.name, () => {
 	it('should dispose', () => {

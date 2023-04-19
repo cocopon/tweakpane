@@ -1,12 +1,12 @@
-import {parseRecord} from '../common/micro-parsers';
-import {ViewProps} from '../common/model/view-props';
-import {BaseBladeParams} from '../common/params';
-import {forceCast} from '../misc/type-util';
-import {BasePlugin} from '../plugin/plugin';
-import {PluginPool} from '../plugin/pool';
-import {BladeApi} from './common/api/blade';
-import {BladeController} from './common/controller/blade';
-import {Blade, createBlade} from './common/model/blade';
+import {parseRecord} from '../common/micro-parsers.js';
+import {ViewProps} from '../common/model/view-props.js';
+import {BaseBladeParams} from '../common/params.js';
+import {forceCast} from '../misc/type-util.js';
+import {BasePlugin} from '../plugin/plugin.js';
+import {PluginPool} from '../plugin/pool.js';
+import {BladeApi} from './common/api/blade.js';
+import {BladeController} from './common/controller/blade.js';
+import {Blade, createBlade} from './common/model/blade.js';
 
 interface Acceptance<P extends BaseBladeParams> {
 	params: Omit<P, 'disabled' | 'hidden'>;

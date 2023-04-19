@@ -1,13 +1,13 @@
-import {Formatter} from '../../../common/converter/formatter';
-import {forceReflow, SVG_NS} from '../../../common/dom-util';
-import {BufferedValue} from '../../../common/model/buffered-value';
-import {Value} from '../../../common/model/value';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {mapRange} from '../../../common/number/util';
-import {ClassName} from '../../../common/view/class-name';
-import {getCssVar} from '../../../common/view/css-vars';
-import {View} from '../../../common/view/view';
+import {Formatter} from '../../../common/converter/formatter.js';
+import {forceReflow, SVG_NS} from '../../../common/dom-util.js';
+import {BufferedValue} from '../../../common/model/buffered-value.js';
+import {Value} from '../../../common/model/value.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {mapRange} from '../../../common/number/util.js';
+import {ClassName} from '../../../common/view/class-name.js';
+import {getCssVar} from '../../../common/view/css-vars.js';
+import {View} from '../../../common/view/view.js';
 
 export type GraphLogProps = ValueMap<{
 	max: number;

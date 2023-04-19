@@ -1,14 +1,14 @@
-import {ValueController} from '../../controller/value';
-import {Value, ValueChangeOptions} from '../../model/value';
-import {ViewProps} from '../../model/view-props';
-import {getHorizontalStepKeys, getStepForKey} from '../../ui';
+import {ValueController} from '../../controller/value.js';
+import {Value, ValueChangeOptions} from '../../model/value.js';
+import {ViewProps} from '../../model/view-props.js';
+import {getHorizontalStepKeys, getStepForKey} from '../../ui.js';
 import {
 	PointerData,
 	PointerHandler,
 	PointerHandlerEvent,
-} from '../../view/pointer-handler';
-import {constrainRange, mapRange} from '../util';
-import {SliderProps, SliderView} from '../view/slider';
+} from '../../view/pointer-handler.js';
+import {constrainRange, mapRange} from '../util.js';
+import {SliderProps, SliderView} from '../view/slider.js';
 
 /**
  * @hidden

@@ -1,6 +1,6 @@
-import {mapRange} from '../../../common/number/util';
-import {removeAlphaComponent} from '../model/color-model';
-import {IntColor} from '../model/int-color';
+import {mapRange} from '../../../common/number/util.js';
+import {removeAlphaComponent} from '../model/color-model.js';
+import {IntColor} from '../model/int-color.js';
 
 export function colorToRgbNumber(value: IntColor): number {
 	return removeAlphaComponent(value.getComponents('rgb')).reduce(

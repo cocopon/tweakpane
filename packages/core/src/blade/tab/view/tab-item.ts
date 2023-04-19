@@ -1,9 +1,9 @@
-import {bindValueMap} from '../../../common/model/reactive';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {ClassName} from '../../../common/view/class-name';
-import {bindValueToTextContent} from '../../../common/view/reactive';
-import {View} from '../../../common/view/view';
+import {bindValueMap} from '../../../common/model/reactive.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {ClassName} from '../../../common/view/class-name.js';
+import {bindValueToTextContent} from '../../../common/view/reactive.js';
+import {View} from '../../../common/view/view.js';
 
 /**
  * @hidden

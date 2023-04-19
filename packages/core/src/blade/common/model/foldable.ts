@@ -1,11 +1,11 @@
 import {
 	disableTransitionTemporarily,
 	forceReflow,
-} from '../../../common/dom-util';
-import {bindValueMap} from '../../../common/model/reactive';
-import {Value} from '../../../common/model/value';
-import {ValueMap} from '../../../common/model/value-map';
-import {isEmpty} from '../../../misc/type-util';
+} from '../../../common/dom-util.js';
+import {bindValueMap} from '../../../common/model/reactive.js';
+import {Value} from '../../../common/model/value.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {isEmpty} from '../../../misc/type-util.js';
 
 /**
  * @hidden

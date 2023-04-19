@@ -1,4 +1,4 @@
-import {Semver} from '../misc/semver';
+import {Semver} from '../misc/semver.js';
 
 export type PluginType = 'blade' | 'input' | 'monitor';
 

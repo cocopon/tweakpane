@@ -2,8 +2,8 @@ import {
 	MicroParser,
 	MicroParsers,
 	parseRecord,
-} from '../../../common/micro-parsers';
-import {deepMerge} from '../../../misc/type-util';
+} from '../../../common/micro-parsers.js';
+import {deepMerge} from '../../../misc/type-util.js';
 
 /**
  * A state object for blades.

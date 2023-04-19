@@ -17,7 +17,7 @@ import {
 	VERSION,
 } from '@tweakpane/core';
 
-import {SliderBladeApi} from './api/slider';
+import {SliderBladeApi} from './api/slider.js';
 
 export interface SliderBladeParams extends BaseBladeParams {
 	max: number;

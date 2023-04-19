@@ -5,9 +5,9 @@ import {
 	assertInitialState,
 	assertUpdates,
 	createTestWindow,
-} from '../../../misc/test-util';
-import {SeparatorController} from '../controller/separator';
-import {SeparatorBladeApi} from './separator';
+} from '../../../misc/test-util.js';
+import {SeparatorController} from '../controller/separator.js';
+import {SeparatorBladeApi} from './separator.js';
 
 describe(SeparatorBladeApi.name, () => {
 	it('should have initial state', () => {

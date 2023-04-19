@@ -1,12 +1,13 @@
-/* eslint-disable no-console, @typescript-eslint/no-var-requires */
+/* eslint-disable no-console */
 /* eslint-env node */
 
-'use strict';
+import Fs from 'fs';
+import Glob from 'glob';
+import Path from 'path';
 
-const Fs = require('fs-extra');
-const Glob = require('glob');
-const Path = require('path');
-const Package = require('../package');
+const Package = JSON.parse(
+	Fs.readFileSync(new URL('../package.json', import.meta.url)),
+);
 
 const PATTERN = 'dist/*';
 
@@ -23,5 +24,5 @@ paths.forEach((path) => {
 		Path.dirname(path),
 		`${base}-${Package.version}${ext}`,
 	);
-	Fs.rename(path, versionedPath);
+	Fs.renameSync(path, versionedPath);
 });

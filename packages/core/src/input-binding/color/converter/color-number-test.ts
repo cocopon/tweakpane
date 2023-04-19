@@ -1,14 +1,14 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {IntColor} from '../model/int-color';
+import {IntColor} from '../model/int-color.js';
 import {
 	colorFromRgbaNumber,
 	colorFromRgbNumber,
 	colorToRgbaNumber,
 	colorToRgbNumber,
 	numberToRgbColor,
-} from './color-number';
+} from './color-number.js';
 
 describe(colorToRgbaNumber.name, () => {
 	[

@@ -1,9 +1,9 @@
-import {Foldable} from '../../../blade/common/model/foldable';
-import {bindValueMap} from '../../../common/model/reactive';
-import {PickerLayout} from '../../../common/params';
-import {ClassName} from '../../../common/view/class-name';
-import {valueToClassName} from '../../../common/view/reactive';
-import {View} from '../../../common/view/view';
+import {Foldable} from '../../../blade/common/model/foldable.js';
+import {bindValueMap} from '../../../common/model/reactive.js';
+import {PickerLayout} from '../../../common/params.js';
+import {ClassName} from '../../../common/view/class-name.js';
+import {valueToClassName} from '../../../common/view/reactive.js';
+import {View} from '../../../common/view/view.js';
 
 interface Config {
 	foldable: Foldable;

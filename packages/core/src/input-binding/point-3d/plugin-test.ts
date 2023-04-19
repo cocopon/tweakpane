@@ -1,23 +1,23 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {InputBindingController} from '../../blade/binding/controller/input-binding';
-import {Point3dInputParams} from '../../blade/common/api/params';
-import {BindingTarget} from '../../common/binding/target';
-import {InputBindingValue} from '../../common/binding/value/input-binding';
-import {findConstraint} from '../../common/constraint/composite';
-import {Constraint} from '../../common/constraint/constraint';
-import {StepConstraint} from '../../common/constraint/step';
-import {ComplexValue} from '../../common/model/complex-value';
-import {getBoundValue} from '../../common/model/test-util';
-import {getDimensionProps} from '../../common/point-nd/test-util';
-import {createTestWindow} from '../../misc/dom-test-util';
-import {Tuple3} from '../../misc/type-util';
-import {PointNdConstraint} from '../common/constraint/point-nd';
-import {PointNdTextController} from '../common/controller/point-nd-text';
-import {createInputBindingController} from '../plugin';
-import {Point3d} from './model/point-3d';
-import {Point3dInputPlugin} from './plugin';
+import {InputBindingController} from '../../blade/binding/controller/input-binding.js';
+import {Point3dInputParams} from '../../blade/common/api/params.js';
+import {BindingTarget} from '../../common/binding/target.js';
+import {InputBindingValue} from '../../common/binding/value/input-binding.js';
+import {findConstraint} from '../../common/constraint/composite.js';
+import {Constraint} from '../../common/constraint/constraint.js';
+import {StepConstraint} from '../../common/constraint/step.js';
+import {ComplexValue} from '../../common/model/complex-value.js';
+import {getBoundValue} from '../../common/model/test-util.js';
+import {getDimensionProps} from '../../common/point-nd/test-util.js';
+import {createTestWindow} from '../../misc/dom-test-util.js';
+import {Tuple3} from '../../misc/type-util.js';
+import {PointNdConstraint} from '../common/constraint/point-nd.js';
+import {PointNdTextController} from '../common/controller/point-nd-text.js';
+import {createInputBindingController} from '../plugin.js';
+import {Point3d} from './model/point-3d.js';
+import {Point3dInputPlugin} from './plugin.js';
 
 function getPoint3dConstraint(
 	v: InputBindingValue<unknown>,

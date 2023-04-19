@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {boolFromUnknown, boolToString} from './boolean';
+import {boolFromUnknown, boolToString} from './boolean.js';
 
 describe('booleanConverter', () => {
 	it('should convert boolean to string', () => {

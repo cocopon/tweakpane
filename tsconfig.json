@@ -1,6 +1,7 @@
 {
 	"compilerOptions": {
 		"lib": ["DOM", "ES2015"],
+		"module": "node16",
 		"noImplicitAny": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,

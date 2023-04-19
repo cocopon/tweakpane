@@ -1,7 +1,7 @@
 import * as Dat from 'dat.gui';
 import {Pane} from 'tweakpane';
 
-import {selectContainer, wave} from '../util';
+import {selectContainer, wave} from '../util.js';
 
 export function initMigrationDatgui() {
 	const SHARED_PARAMS = {

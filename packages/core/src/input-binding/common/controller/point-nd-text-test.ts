@@ -4,14 +4,14 @@ import {describe, it} from 'mocha';
 import {
 	createNumberFormatter,
 	parseNumber,
-} from '../../../common/converter/number';
-import {ValueMap} from '../../../common/model/value-map';
-import {createValue} from '../../../common/model/values';
-import {ViewProps} from '../../../common/model/view-props';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {TestUtil} from '../../../misc/test-util';
-import {Point2d, Point2dAssembly} from '../../point-2d/model/point-2d';
-import {PointNdTextController} from './point-nd-text';
+} from '../../../common/converter/number.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {createValue} from '../../../common/model/values.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {TestUtil} from '../../../misc/test-util.js';
+import {Point2d, Point2dAssembly} from '../../point-2d/model/point-2d.js';
+import {PointNdTextController} from './point-nd-text.js';
 
 describe(PointNdTextController.name, () => {
 	it('should update value with user operation', () => {

@@ -1,17 +1,17 @@
-import {forceCast, isEmpty} from '../../../misc/type-util';
-import {ValueController} from '../../controller/value';
-import {Parser} from '../../converter/parser';
-import {Value} from '../../model/value';
-import {createValue} from '../../model/values';
-import {ViewProps} from '../../model/view-props';
-import {getStepForKey, getVerticalStepKeys} from '../../ui';
+import {forceCast, isEmpty} from '../../../misc/type-util.js';
+import {ValueController} from '../../controller/value.js';
+import {Parser} from '../../converter/parser.js';
+import {Value} from '../../model/value.js';
+import {createValue} from '../../model/values.js';
+import {ViewProps} from '../../model/view-props.js';
+import {getStepForKey, getVerticalStepKeys} from '../../ui.js';
 import {
 	PointerData,
 	PointerHandler,
 	PointerHandlerEvent,
-} from '../../view/pointer-handler';
-import {NumberTextProps, NumberTextView} from '../view/number-text';
-import {SliderProps} from '../view/slider';
+} from '../../view/pointer-handler.js';
+import {NumberTextProps, NumberTextView} from '../view/number-text.js';
+import {SliderProps} from '../view/slider.js';
 
 /**
  * @hidden

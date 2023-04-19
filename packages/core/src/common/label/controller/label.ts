@@ -3,11 +3,11 @@ import {
 	exportBladeState,
 	importBladeState,
 	PropsPortable,
-} from '../../../blade/common/controller/blade-state';
-import {Blade} from '../../../blade/common/model/blade';
-import {Controller} from '../../controller/controller';
-import {ViewProps} from '../../model/view-props';
-import {LabelProps, LabelView} from '../view/label';
+} from '../../../blade/common/controller/blade-state.js';
+import {Blade} from '../../../blade/common/model/blade.js';
+import {Controller} from '../../controller/controller.js';
+import {ViewProps} from '../../model/view-props.js';
+import {LabelProps, LabelView} from '../view/label.js';
 
 /**
  * @hidden

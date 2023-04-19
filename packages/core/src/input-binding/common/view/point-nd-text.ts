@@ -1,6 +1,6 @@
-import {NumberTextView} from '../../../common/number/view/number-text';
-import {ClassName} from '../../../common/view/class-name';
-import {View} from '../../../common/view/view';
+import {NumberTextView} from '../../../common/number/view/number-text.js';
+import {ClassName} from '../../../common/view/class-name.js';
+import {View} from '../../../common/view/view.js';
 
 interface Config {
 	textViews: NumberTextView[];

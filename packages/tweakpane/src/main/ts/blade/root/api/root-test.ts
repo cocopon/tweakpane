@@ -11,9 +11,9 @@ import {
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {createTestWindow} from '../../../misc/test-util';
-import {RootController} from '../controller/root';
-import {RootApi} from './root';
+import {createTestWindow} from '../../../misc/test-util.js';
+import {RootController} from '../controller/root.js';
+import {RootApi} from './root.js';
 
 function createApi(): RootApi {
 	const c = new RootController(createTestWindow().document, {

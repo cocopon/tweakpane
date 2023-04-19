@@ -1,5 +1,5 @@
-import {Binding, BindingReader, BindingWriter} from './binding';
-import {BindingTarget} from './target';
+import {Binding, BindingReader, BindingWriter} from './binding.js';
+import {BindingTarget} from './target.js';
 
 /**
  * @hidden

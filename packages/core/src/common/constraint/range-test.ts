@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {RangeConstraint} from './range';
+import {RangeConstraint} from './range.js';
 
 describe(RangeConstraint.name, () => {
 	it('should constrain value with minimum value', () => {

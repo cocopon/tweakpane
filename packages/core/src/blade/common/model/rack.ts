@@ -1,18 +1,21 @@
-import {ValueController} from '../../../common/controller/value';
-import {Emitter} from '../../../common/model/emitter';
+import {ValueController} from '../../../common/controller/value.js';
+import {Emitter} from '../../../common/model/emitter.js';
 import {
 	Value,
 	ValueChangeOptions,
 	ValueEvents,
-} from '../../../common/model/value';
-import {ViewProps, ViewPropsEvents} from '../../../common/model/view-props';
-import {TpError} from '../../../common/tp-error';
-import {BladeController} from '../controller/blade';
-import {isContainerBladeController} from '../controller/container-blade';
-import {isValueBladeController} from '../controller/value-blade';
-import {Blade} from './blade';
-import {BladePosition} from './blade-positions';
-import {NestedOrderedSet, NestedOrderedSetEvents} from './nested-ordered-set';
+} from '../../../common/model/value.js';
+import {ViewProps, ViewPropsEvents} from '../../../common/model/view-props.js';
+import {TpError} from '../../../common/tp-error.js';
+import {BladeController} from '../controller/blade.js';
+import {isContainerBladeController} from '../controller/container-blade.js';
+import {isValueBladeController} from '../controller/value-blade.js';
+import {Blade} from './blade.js';
+import {BladePosition} from './blade-positions.js';
+import {
+	NestedOrderedSet,
+	NestedOrderedSetEvents,
+} from './nested-ordered-set.js';
 
 /**
  * @hidden

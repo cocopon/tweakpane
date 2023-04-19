@@ -1,13 +1,13 @@
-import {Controller} from '../../../common/controller/controller';
-import {Emitter} from '../../../common/model/emitter';
-import {ViewProps} from '../../../common/model/view-props';
+import {Controller} from '../../../common/controller/controller.js';
+import {Emitter} from '../../../common/model/emitter.js';
+import {ViewProps} from '../../../common/model/view-props.js';
 import {
 	BladeState,
 	exportBladeState,
 	importBladeState,
 	PropsPortable,
-} from '../../common/controller/blade-state';
-import {ButtonProps, ButtonView} from '../view/button';
+} from '../../common/controller/blade-state.js';
+import {ButtonProps, ButtonView} from '../view/button.js';
 
 /**
  * @hidden

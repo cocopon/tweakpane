@@ -1,8 +1,9 @@
-/* eslint-disable no-console, @typescript-eslint/no-var-requires */
+/* eslint-disable no-console */
 /* eslint-env node */
-const Jsdom = require('jsdom').JSDOM;
-const {Pane} = require('tweakpane');
-const TestPlugin = require('../dist/bundle');
+import {JSDOM as Jsdom} from 'jsdom';
+import {Pane} from 'tweakpane';
+
+import * as TestPlugin from '../dist/bundle.js';
 
 const doc = new Jsdom('').window.document;
 const params = {foo: 'hello, world'};

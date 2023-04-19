@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {PrimitiveValue} from './primitive-value';
+import {PrimitiveValue} from './primitive-value.js';
 
 describe(PrimitiveValue.name, () => {
 	it('should get raw value', () => {

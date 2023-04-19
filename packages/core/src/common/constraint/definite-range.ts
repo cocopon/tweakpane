@@ -1,5 +1,5 @@
-import {ValueMap} from '../model/value-map';
-import {Constraint} from './constraint';
+import {ValueMap} from '../model/value-map.js';
+import {Constraint} from './constraint.js';
 
 interface Config {
 	max: number;

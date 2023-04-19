@@ -11,9 +11,9 @@ import {
 	createEmptyBladeController,
 	createLabeledValueBladeController,
 	createTestWindow,
-} from '../../misc/test-util';
-import {ListBladeApi} from './api/list';
-import {ListBladeParams, ListBladePlugin} from './plugin';
+} from '../../misc/test-util.js';
+import {ListBladeApi} from './api/list.js';
+import {ListBladeParams, ListBladePlugin} from './plugin.js';
 
 function createPluginPool(): PluginPool {
 	const pool = createDefaultPluginPool();

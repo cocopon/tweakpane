@@ -1,26 +1,26 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {ReadonlyBinding} from '../../../common/binding/readonly';
-import {BindingTarget} from '../../../common/binding/target';
-import {ManualTicker} from '../../../common/binding/ticker/manual';
-import {MonitorBindingValue} from '../../../common/binding/value/monitor-binding';
+import {ReadonlyBinding} from '../../../common/binding/readonly.js';
+import {BindingTarget} from '../../../common/binding/target.js';
+import {ManualTicker} from '../../../common/binding/ticker/manual.js';
+import {MonitorBindingValue} from '../../../common/binding/value/monitor-binding.js';
 import {
 	createNumberFormatter,
 	numberFromUnknown,
-} from '../../../common/converter/number';
-import {LabelPropsObject} from '../../../common/label/view/label';
-import {TpBuffer} from '../../../common/model/buffered-value';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {SingleLogController} from '../../../monitor-binding/common/controller/single-log';
-import {assertInitialState, assertUpdates} from '../../common/api/test-util';
-import {TpChangeEvent} from '../../common/api/tp-event';
-import {createBlade} from '../../common/model/blade';
-import {MonitorBindingController} from '../controller/monitor-binding';
-import {BindingApi} from './binding';
-import {MonitorBindingApi} from './monitor-binding';
+} from '../../../common/converter/number.js';
+import {LabelPropsObject} from '../../../common/label/view/label.js';
+import {TpBuffer} from '../../../common/model/buffered-value.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {SingleLogController} from '../../../monitor-binding/common/controller/single-log.js';
+import {assertInitialState, assertUpdates} from '../../common/api/test-util.js';
+import {TpChangeEvent} from '../../common/api/tp-event.js';
+import {createBlade} from '../../common/model/blade.js';
+import {MonitorBindingController} from '../controller/monitor-binding.js';
+import {BindingApi} from './binding.js';
+import {MonitorBindingApi} from './monitor-binding.js';
 
 function createApi(target: BindingTarget): MonitorBindingApi<number> {
 	const doc = createTestWindow().document;

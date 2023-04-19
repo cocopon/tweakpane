@@ -1,6 +1,6 @@
-import {isObject} from '../../../misc/type-util';
-import {Value} from '../../model/value';
-import {Binding, isBinding} from '../binding';
+import {isObject} from '../../../misc/type-util.js';
+import {Value} from '../../model/value.js';
+import {Binding, isBinding} from '../binding.js';
 
 /**
  * @hidden

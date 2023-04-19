@@ -1,7 +1,7 @@
 import {Pane} from 'tweakpane';
 
-import * as PlaceholderPlugin from '../placeholder-plugin';
-import {selectContainer, wave} from '../util';
+import * as PlaceholderPlugin from '../placeholder-plugin.js';
+import {selectContainer, wave} from '../util.js';
 
 export function initQuickTour() {
 	const markerToFnMap: {

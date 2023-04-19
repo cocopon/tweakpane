@@ -1,11 +1,11 @@
 import * as assert from 'assert';
 import {describe} from 'mocha';
 
-import {ValueMap} from '../../../common/model/value-map';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {createValue} from '../../model/values';
-import {ViewProps} from '../../model/view-props';
-import {SliderPropsObject, SliderView} from './slider';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {createValue} from '../../model/values.js';
+import {ViewProps} from '../../model/view-props.js';
+import {SliderPropsObject, SliderView} from './slider.js';
 
 describe(SliderView.name, () => {
 	it('should apply initial value', () => {

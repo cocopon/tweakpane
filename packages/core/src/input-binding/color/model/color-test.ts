@@ -1,9 +1,9 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {equalsColor, isRgbaColorObject, isRgbColorObject} from './color';
-import {FloatColor} from './float-color';
-import {IntColor} from './int-color';
+import {equalsColor, isRgbaColorObject, isRgbColorObject} from './color.js';
+import {FloatColor} from './float-color.js';
+import {IntColor} from './int-color.js';
 
 describe(isRgbColorObject.name, () => {
 	[

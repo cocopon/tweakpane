@@ -1,28 +1,28 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {TextController} from '../../../common/controller/text';
-import {ValueController} from '../../../common/controller/value';
+import {TextController} from '../../../common/controller/text.js';
+import {ValueController} from '../../../common/controller/value.js';
 import {
 	createNumberFormatter,
 	parseNumber,
-} from '../../../common/converter/number';
-import {LabelPropsObject} from '../../../common/label/view/label';
-import {Value} from '../../../common/model/value';
-import {ValueMap} from '../../../common/model/value-map';
-import {createValue} from '../../../common/model/values';
-import {ViewProps} from '../../../common/model/view-props';
-import {PlainView} from '../../../common/view/plain';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {BladeController} from '../../common/controller/blade';
+} from '../../../common/converter/number.js';
+import {LabelPropsObject} from '../../../common/label/view/label.js';
+import {Value} from '../../../common/model/value.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {createValue} from '../../../common/model/values.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {PlainView} from '../../../common/view/plain.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {BladeController} from '../../common/controller/blade.js';
 import {
 	BladeState,
 	exportBladeState,
 	importBladeState,
 	PropsPortable,
-} from '../../common/controller/blade-state';
-import {createBlade} from '../../common/model/blade';
-import {LabeledValueBladeController} from './value';
+} from '../../common/controller/blade-state.js';
+import {createBlade} from '../../common/model/blade.js';
+import {LabeledValueBladeController} from './value.js';
 
 function createController(
 	doc: Document,

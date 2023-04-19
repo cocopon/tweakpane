@@ -1,25 +1,25 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {ReadWriteBinding} from '../../../common/binding/read-write';
-import {BindingTarget} from '../../../common/binding/target';
-import {InputBindingValue} from '../../../common/binding/value/input-binding';
-import {TextController} from '../../../common/controller/text';
-import {LabelPropsObject} from '../../../common/label/view/label';
-import {ValueMap} from '../../../common/model/value-map';
-import {createValue} from '../../../common/model/values';
-import {ViewProps} from '../../../common/model/view-props';
-import {colorFromRgbNumber} from '../../../input-binding/color/converter/color-number';
+import {ReadWriteBinding} from '../../../common/binding/read-write.js';
+import {BindingTarget} from '../../../common/binding/target.js';
+import {InputBindingValue} from '../../../common/binding/value/input-binding.js';
+import {TextController} from '../../../common/controller/text.js';
+import {LabelPropsObject} from '../../../common/label/view/label.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {createValue} from '../../../common/model/values.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {colorFromRgbNumber} from '../../../input-binding/color/converter/color-number.js';
 import {
 	colorToHexRgbString,
 	createColorStringParser,
-} from '../../../input-binding/color/converter/color-string';
-import {createColorNumberWriter} from '../../../input-binding/color/converter/writer';
-import {IntColor} from '../../../input-binding/color/model/int-color';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {createBlade} from '../../common/model/blade';
-import {BindingController} from './binding';
-import {InputBindingController} from './input-binding';
+} from '../../../input-binding/color/converter/color-string.js';
+import {createColorNumberWriter} from '../../../input-binding/color/converter/writer.js';
+import {IntColor} from '../../../input-binding/color/model/int-color.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {createBlade} from '../../common/model/blade.js';
+import {BindingController} from './binding.js';
+import {InputBindingController} from './input-binding.js';
 
 function createController(
 	doc: Document,

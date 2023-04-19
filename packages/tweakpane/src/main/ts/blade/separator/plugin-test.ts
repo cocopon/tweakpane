@@ -9,8 +9,8 @@ import {describe as context, describe, it} from 'mocha';
 import {
 	createEmptyBladeController,
 	createTestWindow,
-} from '../../misc/test-util';
-import {SeparatorBladePlugin} from './plugin';
+} from '../../misc/test-util.js';
+import {SeparatorBladePlugin} from './plugin.js';
 
 describe(SeparatorBladePlugin.id, () => {
 	[{}].forEach((params) => {

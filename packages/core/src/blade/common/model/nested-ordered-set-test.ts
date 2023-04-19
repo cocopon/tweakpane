@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {NestedOrderedSet} from './nested-ordered-set';
+import {NestedOrderedSet} from './nested-ordered-set.js';
 
 class Item {
 	public readonly id: string;

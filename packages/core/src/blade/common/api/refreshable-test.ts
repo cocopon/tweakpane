@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {isRefreshable} from './refreshable';
+import {isRefreshable} from './refreshable.js';
 
 describe(isRefreshable.name, () => {
 	it('should determine Refreshable', () => {

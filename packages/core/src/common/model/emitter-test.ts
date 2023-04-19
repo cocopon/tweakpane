@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {Emitter} from './emitter';
+import {Emitter} from './emitter.js';
 
 describe(Emitter.name, () => {
 	it('should emit event', (done) => {

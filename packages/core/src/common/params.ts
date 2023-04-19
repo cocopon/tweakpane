@@ -1,4 +1,4 @@
-import {Formatter} from './converter/formatter';
+import {Formatter} from './converter/formatter.js';
 
 export interface BaseParams {
 	disabled?: boolean;

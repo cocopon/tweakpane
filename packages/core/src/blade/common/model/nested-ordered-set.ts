@@ -1,5 +1,5 @@
-import {Emitter} from '../../../common/model/emitter';
-import {TpError} from '../../../common/tp-error';
+import {Emitter} from '../../../common/model/emitter.js';
+import {TpError} from '../../../common/tp-error.js';
 
 /**
  * @hidden

@@ -1,8 +1,8 @@
-import {BufferedValueController} from '../../../blade/binding/controller/monitor-binding';
-import {Formatter} from '../../../common/converter/formatter';
-import {BufferedValue} from '../../../common/model/buffered-value';
-import {ViewProps} from '../../../common/model/view-props';
-import {SingleLogView} from '../view/single-log';
+import {BufferedValueController} from '../../../blade/binding/controller/monitor-binding.js';
+import {Formatter} from '../../../common/converter/formatter.js';
+import {BufferedValue} from '../../../common/model/buffered-value.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {SingleLogView} from '../view/single-log.js';
 
 interface Config<T> {
 	formatter: Formatter<T>;

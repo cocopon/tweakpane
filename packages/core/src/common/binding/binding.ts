@@ -1,5 +1,5 @@
-import {isObject} from '../../misc/type-util';
-import {BindingTarget} from './target';
+import {isObject} from '../../misc/type-util.js';
+import {BindingTarget} from './target.js';
 
 /**
  * Converts an external unknown value into the internal value.

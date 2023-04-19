@@ -1,4 +1,4 @@
-import {TpError} from '../tp-error';
+import {TpError} from '../tp-error.js';
 
 export type Bindable = Record<string, any>;
 

@@ -1,13 +1,13 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {createNumberFormatter} from '../../../common/converter/number';
-import {initializeBuffer} from '../../../common/model/buffered-value';
-import {ValueMap} from '../../../common/model/value-map';
-import {createValue} from '../../../common/model/values';
-import {ViewProps} from '../../../common/model/view-props';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {GraphLogController} from './graph-log';
+import {createNumberFormatter} from '../../../common/converter/number.js';
+import {initializeBuffer} from '../../../common/model/buffered-value.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {createValue} from '../../../common/model/values.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {GraphLogController} from './graph-log.js';
 
 function createController(
 	doc: Document,

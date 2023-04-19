@@ -1,27 +1,27 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {InputBindingController} from '../../../blade/binding/controller/input-binding';
-import {createBlade} from '../../../blade/common/model/blade';
-import {ReadWriteBinding} from '../../../common/binding/read-write';
-import {BindingTarget} from '../../../common/binding/target';
-import {InputBindingValue} from '../../../common/binding/value/input-binding';
+import {InputBindingController} from '../../../blade/binding/controller/input-binding.js';
+import {createBlade} from '../../../blade/common/model/blade.js';
+import {ReadWriteBinding} from '../../../common/binding/read-write.js';
+import {BindingTarget} from '../../../common/binding/target.js';
+import {InputBindingValue} from '../../../common/binding/value/input-binding.js';
 import {
 	createNumberFormatter,
 	numberFromUnknown,
 	parseNumber,
-} from '../../../common/converter/number';
-import {LabelPropsObject} from '../../../common/label/view/label';
-import {ValueMap} from '../../../common/model/value-map';
-import {createValue} from '../../../common/model/values';
-import {ViewProps} from '../../../common/model/view-props';
+} from '../../../common/converter/number.js';
+import {LabelPropsObject} from '../../../common/label/view/label.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {createValue} from '../../../common/model/values.js';
+import {ViewProps} from '../../../common/model/view-props.js';
 import {
 	createSliderTextProps,
 	SliderTextController,
-} from '../../../common/number/controller/slider-text';
-import {writePrimitive} from '../../../common/primitive';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {SliderInputBindingApi} from './slider';
+} from '../../../common/number/controller/slider-text.js';
+import {writePrimitive} from '../../../common/primitive.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {SliderInputBindingApi} from './slider.js';
 
 function createApi(config: {min: number; max: number}): SliderInputBindingApi {
 	const doc = createTestWindow().document;

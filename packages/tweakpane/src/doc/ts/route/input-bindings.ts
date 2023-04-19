@@ -1,6 +1,6 @@
 import {Pane} from 'tweakpane';
 
-import {selectContainer} from '../util';
+import {selectContainer} from '../util.js';
 
 export function initInputBindings() {
 	const markerToFnMap: {

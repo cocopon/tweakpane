@@ -1,7 +1,7 @@
 import {describe, it} from 'mocha';
 
-import {createTestWindow} from '../misc/test-util';
-import {Pane} from './pane';
+import {createTestWindow} from '../misc/test-util.js';
+import {Pane} from './pane.js';
 
 function createPane(): Pane {
 	return new Pane({

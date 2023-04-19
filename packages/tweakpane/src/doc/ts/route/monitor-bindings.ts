@@ -1,6 +1,6 @@
 import {Pane} from 'tweakpane';
 
-import {selectContainer, wave} from '../util';
+import {selectContainer, wave} from '../util.js';
 
 export function initMonitorBindings() {
 	const SHARED_PARAMS = {

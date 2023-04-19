@@ -1,7 +1,7 @@
-import {ColorInputParams} from '../../blade/common/api/params';
-import {parseRecord} from '../../common/micro-parsers';
-import {parsePickerLayout} from '../../common/picker-util';
-import {ColorType} from './model/color-model';
+import {ColorInputParams} from '../../blade/common/api/params.js';
+import {parseRecord} from '../../common/micro-parsers.js';
+import {parsePickerLayout} from '../../common/picker-util.js';
+import {ColorType} from './model/color-model.js';
 
 function parseColorType(value: unknown): ColorType | undefined {
 	return value === 'int' ? 'int' : value === 'float' ? 'float' : undefined;

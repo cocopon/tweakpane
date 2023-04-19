@@ -1,5 +1,5 @@
-import {forceCast} from '../../misc/type-util';
-import {Value, ValueEvents} from './value';
+import {forceCast} from '../../misc/type-util.js';
+import {Value, ValueEvents} from './value.js';
 
 /**
  * A buffer. Prefixed to avoid conflicts with the Node.js built-in class.

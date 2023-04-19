@@ -1,15 +1,15 @@
-import {parseRecord} from '../../common/micro-parsers';
-import {ValueMap} from '../../common/model/value-map';
-import {ViewProps} from '../../common/model/view-props';
-import {BaseBladeParams} from '../../common/params';
-import {VERSION} from '../../version';
-import {createBlade} from '../common/model/blade';
-import {BladePlugin} from '../plugin';
-import {TabApi} from './api/tab';
-import {TabPageApi} from './api/tab-page';
-import {TabController} from './controller/tab';
-import {TabPageController, TabPagePropsObject} from './controller/tab-page';
-import {TabItemPropsObject} from './view/tab-item';
+import {parseRecord} from '../../common/micro-parsers.js';
+import {ValueMap} from '../../common/model/value-map.js';
+import {ViewProps} from '../../common/model/view-props.js';
+import {BaseBladeParams} from '../../common/params.js';
+import {VERSION} from '../../version.js';
+import {createBlade} from '../common/model/blade.js';
+import {BladePlugin} from '../plugin.js';
+import {TabApi} from './api/tab.js';
+import {TabPageApi} from './api/tab-page.js';
+import {TabController} from './controller/tab.js';
+import {TabPageController, TabPagePropsObject} from './controller/tab-page.js';
+import {TabItemPropsObject} from './view/tab-item.js';
 
 export interface TabBladeParams extends BaseBladeParams {
 	pages: {

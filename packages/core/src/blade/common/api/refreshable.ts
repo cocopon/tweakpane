@@ -1,4 +1,4 @@
-import {isObject} from '../../../misc/type-util';
+import {isObject} from '../../../misc/type-util.js';
 
 export interface Refreshable {
 	/**

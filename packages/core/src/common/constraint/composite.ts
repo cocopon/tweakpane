@@ -1,5 +1,5 @@
-import {Class} from '../../misc/type-util';
-import {Constraint} from './constraint';
+import {Class} from '../../misc/type-util.js';
+import {Constraint} from './constraint.js';
 
 /**
  * A constraint to combine multiple constraints.

@@ -1,13 +1,14 @@
-/* eslint-disable no-console, @typescript-eslint/no-var-requires */
+/* eslint-disable no-console */
 /* eslint-env node */
 
-'use strict';
-
-const Jsdom = require('jsdom').JSDOM;
+import Fs from 'fs';
+import {JSDOM as Jsdom} from 'jsdom';
 // Require default module
-const {Pane, VERSION} = require('tweakpane');
+import {Pane, VERSION} from 'tweakpane';
 
-const Package = require('../../package.json');
+const Package = JSON.parse(
+	Fs.readFileSync(new URL('../../package.json', import.meta.url)),
+);
 
 // Check version
 if (VERSION.toString() !== Package.version) {

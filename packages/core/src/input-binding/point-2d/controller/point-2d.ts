@@ -1,20 +1,20 @@
-import {bindFoldable, Foldable} from '../../../blade/common/model/foldable';
-import {PopupController} from '../../../common/controller/popup';
-import {ValueController} from '../../../common/controller/value';
-import {Parser} from '../../../common/converter/parser';
-import {findNextTarget, supportsTouch} from '../../../common/dom-util';
-import {Value} from '../../../common/model/value';
-import {ValueMap} from '../../../common/model/value-map';
-import {connectValues} from '../../../common/model/value-sync';
-import {createValue} from '../../../common/model/values';
-import {ViewProps} from '../../../common/model/view-props';
-import {PickerLayout} from '../../../common/params';
-import {PointAxis} from '../../../common/point-nd/point-axis';
-import {forceCast, Tuple2} from '../../../misc/type-util';
-import {PointNdTextController} from '../../common/controller/point-nd-text';
-import {Point2d, Point2dAssembly} from '../model/point-2d';
-import {Point2dView} from '../view/point-2d';
-import {Point2dPickerController} from './point-2d-picker';
+import {bindFoldable, Foldable} from '../../../blade/common/model/foldable.js';
+import {PopupController} from '../../../common/controller/popup.js';
+import {ValueController} from '../../../common/controller/value.js';
+import {Parser} from '../../../common/converter/parser.js';
+import {findNextTarget, supportsTouch} from '../../../common/dom-util.js';
+import {Value} from '../../../common/model/value.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {connectValues} from '../../../common/model/value-sync.js';
+import {createValue} from '../../../common/model/values.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {PickerLayout} from '../../../common/params.js';
+import {PointAxis} from '../../../common/point-nd/point-axis.js';
+import {forceCast, Tuple2} from '../../../misc/type-util.js';
+import {PointNdTextController} from '../../common/controller/point-nd-text.js';
+import {Point2d, Point2dAssembly} from '../model/point-2d.js';
+import {Point2dView} from '../view/point-2d.js';
+import {Point2dPickerController} from './point-2d-picker.js';
 
 interface Config {
 	axes: Tuple2<PointAxis>;

@@ -1,35 +1,35 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {ReadWriteBinding} from '../../../common/binding/read-write';
-import {BindingTarget} from '../../../common/binding/target';
-import {InputBindingValue} from '../../../common/binding/value/input-binding';
-import {TextController} from '../../../common/controller/text';
+import {ReadWriteBinding} from '../../../common/binding/read-write.js';
+import {BindingTarget} from '../../../common/binding/target.js';
+import {InputBindingValue} from '../../../common/binding/value/input-binding.js';
+import {TextController} from '../../../common/controller/text.js';
 import {
 	createNumberFormatter,
 	parseNumber,
-} from '../../../common/converter/number';
-import {LabelPropsObject} from '../../../common/label/view/label';
-import {ValueMap} from '../../../common/model/value-map';
-import {createValue} from '../../../common/model/values';
-import {ViewProps} from '../../../common/model/view-props';
-import {PointAxis} from '../../../common/point-nd/point-axis';
-import {colorFromRgbNumber} from '../../../input-binding/color/converter/color-number';
+} from '../../../common/converter/number.js';
+import {LabelPropsObject} from '../../../common/label/view/label.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {createValue} from '../../../common/model/values.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {PointAxis} from '../../../common/point-nd/point-axis.js';
+import {colorFromRgbNumber} from '../../../input-binding/color/converter/color-number.js';
 import {
 	colorToHexRgbString,
 	createColorStringParser,
-} from '../../../input-binding/color/converter/color-string';
-import {createColorNumberWriter} from '../../../input-binding/color/converter/writer';
-import {IntColor} from '../../../input-binding/color/model/int-color';
-import {Point2dController} from '../../../input-binding/point-2d/controller/point-2d';
+} from '../../../input-binding/color/converter/color-string.js';
+import {createColorNumberWriter} from '../../../input-binding/color/converter/writer.js';
+import {IntColor} from '../../../input-binding/color/model/int-color.js';
+import {Point2dController} from '../../../input-binding/point-2d/controller/point-2d.js';
 import {
 	point2dFromUnknown,
 	writePoint2d,
-} from '../../../input-binding/point-2d/converter/point-2d';
-import {Point2d} from '../../../input-binding/point-2d/model/point-2d';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {InputBindingController} from '../../binding/controller/input-binding';
-import {createBlade} from '../../common/model/blade';
+} from '../../../input-binding/point-2d/converter/point-2d.js';
+import {Point2d} from '../../../input-binding/point-2d/model/point-2d.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {InputBindingController} from '../../binding/controller/input-binding.js';
+import {createBlade} from '../../common/model/blade.js';
 
 function createColorController(doc: Document) {
 	const obj = {

@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {createReadonlyValue, createValue} from './values';
+import {createReadonlyValue, createValue} from './values.js';
 
 describe(createReadonlyValue.name, () => {
 	it('should get raw value', () => {

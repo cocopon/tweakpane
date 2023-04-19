@@ -1,6 +1,6 @@
-import {BladeApi} from '../../common/api/blade';
-import {TpEvent} from '../../common/api/tp-event';
-import {ButtonBladeController} from '../controller/button-blade';
+import {BladeApi} from '../../common/api/blade.js';
+import {TpEvent} from '../../common/api/tp-event.js';
+import {ButtonBladeController} from '../controller/button-blade.js';
 
 export interface ButtonApiEvents {
 	click: TpEvent;

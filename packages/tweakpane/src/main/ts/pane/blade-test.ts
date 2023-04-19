@@ -1,9 +1,9 @@
 import {TpError} from '@tweakpane/core';
 import * as assert from 'assert';
 
-import {SliderBladeApi} from '../blade/slider/api/slider';
-import {createTestWindow} from '../misc/test-util';
-import {Pane} from './pane';
+import {SliderBladeApi} from '../blade/slider/api/slider.js';
+import {createTestWindow} from '../misc/test-util.js';
+import {Pane} from './pane.js';
 
 describe(Pane.name, () => {
 	it('should apply initial view properties', () => {
