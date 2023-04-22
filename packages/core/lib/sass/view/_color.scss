@@ -24,7 +24,7 @@
 			opacity tp.$fold-transition-duration linear,
 			margin tp.$fold-transition-duration ease-in-out;
 	}
-	&#{&}-cpl &_p {
+	&#{&}-expanded#{&}-cpl &_p {
 		overflow: visible;
 	}
 	&#{&}-expanded &_p {
