@@ -1,18 +1,18 @@
-import {bindValueMap} from '../../../common/model/reactive';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {PlainView} from '../../../common/view/plain';
+import {bindValueMap} from '../../../common/model/reactive.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {PlainView} from '../../../common/view/plain.js';
 import {
 	BladeState,
 	exportBladeState,
 	importBladeState,
-} from '../../common/controller/blade-state';
-import {ContainerBladeController} from '../../common/controller/container-blade';
-import {RackController} from '../../common/controller/rack';
-import {Blade} from '../../common/model/blade';
-import {TabItemProps} from '../view/tab-item';
-import {TabPageView} from '../view/tab-page';
-import {TabItemController} from './tab-item';
+} from '../../common/controller/blade-state.js';
+import {ContainerBladeController} from '../../common/controller/container-blade.js';
+import {RackController} from '../../common/controller/rack.js';
+import {Blade} from '../../common/model/blade.js';
+import {TabItemProps} from '../view/tab-item.js';
+import {TabPageView} from '../view/tab-page.js';
+import {TabItemController} from './tab-item.js';
 
 /**
  * @hidden

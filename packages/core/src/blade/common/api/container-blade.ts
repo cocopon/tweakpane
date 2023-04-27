@@ -1,7 +1,7 @@
-import {PluginPool} from '../../../plugin/pool';
-import {ContainerBladeController} from '../controller/container-blade';
-import {BladeApi} from './blade';
-import {RackApi} from './rack';
+import {PluginPool} from '../../../plugin/pool.js';
+import {ContainerBladeController} from '../controller/container-blade.js';
+import {BladeApi} from './blade.js';
+import {RackApi} from './rack.js';
 
 export class ContainerBladeApi<
 	C extends ContainerBladeController,

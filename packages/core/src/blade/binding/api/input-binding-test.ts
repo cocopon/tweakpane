@@ -1,27 +1,27 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {ReadWriteBinding} from '../../../common/binding/read-write';
-import {BindingTarget} from '../../../common/binding/target';
-import {InputBindingValue} from '../../../common/binding/value/input-binding';
+import {ReadWriteBinding} from '../../../common/binding/read-write.js';
+import {BindingTarget} from '../../../common/binding/target.js';
+import {InputBindingValue} from '../../../common/binding/value/input-binding.js';
 import {
 	createNumberFormatter,
 	numberFromUnknown,
 	parseNumber,
-} from '../../../common/converter/number';
-import {LabelPropsObject} from '../../../common/label/view/label';
-import {ValueMap} from '../../../common/model/value-map';
-import {createValue} from '../../../common/model/values';
-import {ViewProps} from '../../../common/model/view-props';
-import {NumberTextController} from '../../../common/number/controller/number-text';
-import {writePrimitive} from '../../../common/primitive';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {assertInitialState, assertUpdates} from '../../common/api/test-util';
-import {TpChangeEvent} from '../../common/api/tp-event';
-import {createBlade} from '../../common/model/blade';
-import {InputBindingController} from '../controller/input-binding';
-import {BindingApi} from './binding';
-import {InputBindingApi} from './input-binding';
+} from '../../../common/converter/number.js';
+import {LabelPropsObject} from '../../../common/label/view/label.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {createValue} from '../../../common/model/values.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {NumberTextController} from '../../../common/number/controller/number-text.js';
+import {writePrimitive} from '../../../common/primitive.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {assertInitialState, assertUpdates} from '../../common/api/test-util.js';
+import {TpChangeEvent} from '../../common/api/tp-event.js';
+import {createBlade} from '../../common/model/blade.js';
+import {InputBindingController} from '../controller/input-binding.js';
+import {BindingApi} from './binding.js';
+import {InputBindingApi} from './input-binding.js';
 
 function createApi(target: BindingTarget): InputBindingApi<number, unknown> {
 	const doc = createTestWindow().document;

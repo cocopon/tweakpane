@@ -1,21 +1,21 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {ReadonlyBinding} from '../../../common/binding/readonly';
-import {BindingTarget} from '../../../common/binding/target';
-import {ManualTicker} from '../../../common/binding/ticker/manual';
-import {MonitorBindingValue} from '../../../common/binding/value/monitor-binding';
+import {ReadonlyBinding} from '../../../common/binding/readonly.js';
+import {BindingTarget} from '../../../common/binding/target.js';
+import {ManualTicker} from '../../../common/binding/ticker/manual.js';
+import {MonitorBindingValue} from '../../../common/binding/value/monitor-binding.js';
 import {
 	createNumberFormatter,
 	numberFromUnknown,
-} from '../../../common/converter/number';
-import {LabelPropsObject} from '../../../common/label/view/label';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {SingleLogController} from '../../../monitor-binding/common/controller/single-log';
-import {createBlade} from '../../common/model/blade';
-import {MonitorBindingController} from './monitor-binding';
+} from '../../../common/converter/number.js';
+import {LabelPropsObject} from '../../../common/label/view/label.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {SingleLogController} from '../../../monitor-binding/common/controller/single-log.js';
+import {createBlade} from '../../common/model/blade.js';
+import {MonitorBindingController} from './monitor-binding.js';
 
 function createController(
 	doc: Document,

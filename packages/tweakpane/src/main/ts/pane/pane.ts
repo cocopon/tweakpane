@@ -12,13 +12,13 @@ import {
 	ViewProps,
 } from '@tweakpane/core';
 
-import {ListBladePlugin} from '../blade/list/plugin';
-import {RootApi} from '../blade/root/api/root';
-import {RootController} from '../blade/root/controller/root';
-import {SeparatorBladePlugin} from '../blade/separator/plugin';
-import {SliderBladePlugin} from '../blade/slider/plugin';
-import {TextBladePlugin} from '../blade/text/plugin';
-import {PaneConfig} from './pane-config';
+import {ListBladePlugin} from '../blade/list/plugin.js';
+import {RootApi} from '../blade/root/api/root.js';
+import {RootController} from '../blade/root/controller/root.js';
+import {SeparatorBladePlugin} from '../blade/separator/plugin.js';
+import {SliderBladePlugin} from '../blade/slider/plugin.js';
+import {TextBladePlugin} from '../blade/text/plugin.js';
+import {PaneConfig} from './pane-config.js';
 
 function createDefaultWrapperElement(doc: Document): HTMLElement {
 	const elem = doc.createElement('div');

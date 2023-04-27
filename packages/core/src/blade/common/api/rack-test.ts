@@ -1,24 +1,24 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {LabelPropsObject} from '../../../common/label/view/label';
-import {Value} from '../../../common/model/value';
-import {ValueMap} from '../../../common/model/value-map';
-import {createValue} from '../../../common/model/values';
-import {ViewProps} from '../../../common/model/view-props';
-import {CheckboxController} from '../../../input-binding/boolean/controller/checkbox';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {forceCast} from '../../../misc/type-util';
-import {createDefaultPluginPool} from '../../../plugin/plugins';
-import {PluginPool} from '../../../plugin/pool';
-import {BindingApi} from '../../binding/api/binding';
-import {InputBindingApi} from '../../binding/api/input-binding';
-import {FolderApi} from '../../folder/api/folder';
-import {LabeledValueBladeController} from '../../label/controller/value';
-import {TestValueBladeApi, TestValueBladePlugin} from '../../test-util';
-import {RackController} from '../controller/rack';
-import {createBlade} from '../model/blade';
-import {RackApi} from './rack';
+import {LabelPropsObject} from '../../../common/label/view/label.js';
+import {Value} from '../../../common/model/value.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {createValue} from '../../../common/model/values.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {CheckboxController} from '../../../input-binding/boolean/controller/checkbox.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {forceCast} from '../../../misc/type-util.js';
+import {createDefaultPluginPool} from '../../../plugin/plugins.js';
+import {PluginPool} from '../../../plugin/pool.js';
+import {BindingApi} from '../../binding/api/binding.js';
+import {InputBindingApi} from '../../binding/api/input-binding.js';
+import {FolderApi} from '../../folder/api/folder.js';
+import {LabeledValueBladeController} from '../../label/controller/value.js';
+import {TestValueBladeApi, TestValueBladePlugin} from '../../test-util.js';
+import {RackController} from '../controller/rack.js';
+import {createBlade} from '../model/blade.js';
+import {RackApi} from './rack.js';
 
 function createApi(
 	config: {

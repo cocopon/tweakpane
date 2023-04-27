@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {parseEcmaNumberExpression} from './parser';
+import {parseEcmaNumberExpression} from './parser.js';
 
 describe(parseEcmaNumberExpression.name, () => {
 	[

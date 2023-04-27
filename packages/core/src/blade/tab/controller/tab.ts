@@ -1,12 +1,12 @@
-import {insertElementAt, removeElement} from '../../../common/dom-util';
-import {ViewProps} from '../../../common/model/view-props';
-import {ContainerBladeController} from '../../common/controller/container-blade';
-import {RackController} from '../../common/controller/rack';
-import {Blade} from '../../common/model/blade';
-import {RackEvents} from '../../common/model/rack';
-import {Tab} from '../model/tab';
-import {TabView} from '../view/tab';
-import {TabPageController} from './tab-page';
+import {insertElementAt, removeElement} from '../../../common/dom-util.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {ContainerBladeController} from '../../common/controller/container-blade.js';
+import {RackController} from '../../common/controller/rack.js';
+import {Blade} from '../../common/model/blade.js';
+import {RackEvents} from '../../common/model/rack.js';
+import {Tab} from '../model/tab.js';
+import {TabView} from '../view/tab.js';
+import {TabPageController} from './tab-page.js';
 
 /**
  * @hidden

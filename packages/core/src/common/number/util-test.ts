@@ -1,14 +1,14 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
-import {TestUtil} from '../../misc/test-util';
+import {TestUtil} from '../../misc/test-util.js';
 import {
 	constrainRange,
 	getDecimalDigits,
 	getSuitablePointerScale,
 	loopRange,
 	mapRange,
-} from './util';
+} from './util.js';
 
 const DELTA = 1e-5;
 

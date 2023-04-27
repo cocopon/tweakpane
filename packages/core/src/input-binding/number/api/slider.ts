@@ -1,7 +1,7 @@
-import {BindingApi} from '../../../blade/binding/api/binding';
-import {InputBindingApi} from '../../../blade/binding/api/input-binding';
-import {InputBindingController} from '../../../blade/binding/controller/input-binding';
-import {SliderTextController} from '../../../common/number/controller/slider-text';
+import {BindingApi} from '../../../blade/binding/api/binding.js';
+import {InputBindingApi} from '../../../blade/binding/api/input-binding.js';
+import {InputBindingController} from '../../../blade/binding/controller/input-binding.js';
+import {SliderTextController} from '../../../common/number/controller/slider-text.js';
 
 export class SliderInputBindingApi
 	extends BindingApi<

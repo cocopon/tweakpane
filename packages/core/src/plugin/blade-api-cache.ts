@@ -1,5 +1,5 @@
-import {BladeApi} from '../blade/common/api/blade';
-import {BladeController} from '../blade/common/controller/blade';
+import {BladeApi} from '../blade/common/api/blade.js';
+import {BladeController} from '../blade/common/controller/blade.js';
 
 /**
  * A cache that maps blade controllers and APIs.

@@ -16,8 +16,8 @@ import {
 	assertInitialState,
 	assertUpdates,
 	createTestWindow,
-} from '../../../misc/test-util';
-import {ListBladeApi} from './list';
+} from '../../../misc/test-util.js';
+import {ListBladeApi} from './list.js';
 
 describe(ListBladeApi.name, () => {
 	it('should dispose', () => {

@@ -1,21 +1,21 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {InputBindingController} from '../../blade/binding/controller/input-binding';
-import {createBlade} from '../../blade/common/model/blade';
-import {createTestWindow} from '../../misc/dom-test-util';
-import {ReadWriteBinding} from '../binding/read-write';
-import {BindingTarget} from '../binding/target';
-import {InputBindingValue} from '../binding/value/input-binding';
-import {ListItem} from '../constraint/list';
-import {ListController} from '../controller/list';
-import {numberFromUnknown} from '../converter/number';
-import {LabelPropsObject} from '../label/view/label';
-import {ValueMap} from '../model/value-map';
-import {createValue} from '../model/values';
-import {ViewProps} from '../model/view-props';
-import {writePrimitive} from '../primitive';
-import {ListInputBindingApi} from './list';
+import {InputBindingController} from '../../blade/binding/controller/input-binding.js';
+import {createBlade} from '../../blade/common/model/blade.js';
+import {createTestWindow} from '../../misc/dom-test-util.js';
+import {ReadWriteBinding} from '../binding/read-write.js';
+import {BindingTarget} from '../binding/target.js';
+import {InputBindingValue} from '../binding/value/input-binding.js';
+import {ListItem} from '../constraint/list.js';
+import {ListController} from '../controller/list.js';
+import {numberFromUnknown} from '../converter/number.js';
+import {LabelPropsObject} from '../label/view/label.js';
+import {ValueMap} from '../model/value-map.js';
+import {createValue} from '../model/values.js';
+import {ViewProps} from '../model/view-props.js';
+import {writePrimitive} from '../primitive.js';
+import {ListInputBindingApi} from './list.js';
 
 function createApi(config: {
 	options: ListItem<number>[];

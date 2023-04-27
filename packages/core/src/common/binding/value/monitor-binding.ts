@@ -4,14 +4,14 @@ import {
 	createPushedBuffer,
 	initializeBuffer,
 	TpBuffer,
-} from '../../model/buffered-value';
-import {Emitter} from '../../model/emitter';
-import {ValueChangeOptions} from '../../model/value';
-import {createValue} from '../../model/values';
-import {isBinding} from '../binding';
-import {ReadonlyBinding} from '../readonly';
-import {Ticker} from '../ticker/ticker';
-import {BindingValue} from './binding';
+} from '../../model/buffered-value.js';
+import {Emitter} from '../../model/emitter.js';
+import {ValueChangeOptions} from '../../model/value.js';
+import {createValue} from '../../model/values.js';
+import {isBinding} from '../binding.js';
+import {ReadonlyBinding} from '../readonly.js';
+import {Ticker} from '../ticker/ticker.js';
+import {BindingValue} from './binding.js';
 
 /**
  * @hidden

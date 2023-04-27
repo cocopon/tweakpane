@@ -1,22 +1,22 @@
-import {DefiniteRangeConstraint} from '../../../common/constraint/definite-range';
-import {ValueController} from '../../../common/controller/value';
+import {DefiniteRangeConstraint} from '../../../common/constraint/definite-range.js';
+import {ValueController} from '../../../common/controller/value.js';
 import {
 	createNumberFormatter,
 	parseNumber,
-} from '../../../common/converter/number';
-import {Value} from '../../../common/model/value';
-import {ValueMap} from '../../../common/model/value-map';
-import {connectValues} from '../../../common/model/value-sync';
-import {createValue} from '../../../common/model/values';
-import {ViewProps} from '../../../common/model/view-props';
-import {NumberTextController} from '../../../common/number/controller/number-text';
-import {ColorType} from '../model/color-model';
-import {IntColor} from '../model/int-color';
-import {ColorPickerView} from '../view/color-picker';
-import {APaletteController} from './a-palette';
-import {ColorTextsController} from './color-texts';
-import {HPaletteController} from './h-palette';
-import {SvPaletteController} from './sv-palette';
+} from '../../../common/converter/number.js';
+import {Value} from '../../../common/model/value.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {connectValues} from '../../../common/model/value-sync.js';
+import {createValue} from '../../../common/model/values.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {NumberTextController} from '../../../common/number/controller/number-text.js';
+import {ColorType} from '../model/color-model.js';
+import {IntColor} from '../model/int-color.js';
+import {ColorPickerView} from '../view/color-picker.js';
+import {APaletteController} from './a-palette.js';
+import {ColorTextsController} from './color-texts.js';
+import {HPaletteController} from './h-palette.js';
+import {SvPaletteController} from './sv-palette.js';
 
 interface Config {
 	colorType: ColorType;

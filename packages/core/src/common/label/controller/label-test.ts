@@ -1,14 +1,14 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {createBlade} from '../../../blade/common/model/blade';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {Controller} from '../../controller/controller';
-import {ValueMap} from '../../model/value-map';
-import {ViewProps} from '../../model/view-props';
-import {View} from '../../view/view';
-import {LabelPropsObject} from '../view/label';
-import {LabelController} from './label';
+import {createBlade} from '../../../blade/common/model/blade.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {Controller} from '../../controller/controller.js';
+import {ValueMap} from '../../model/value-map.js';
+import {ViewProps} from '../../model/view-props.js';
+import {View} from '../../view/view.js';
+import {LabelPropsObject} from '../view/label.js';
+import {LabelController} from './label.js';
 
 class TestView implements View {
 	public readonly element: HTMLElement;

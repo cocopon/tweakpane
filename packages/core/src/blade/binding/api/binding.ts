@@ -1,10 +1,10 @@
-import {Emitter} from '../../../common/model/emitter';
-import {ValueEvents} from '../../../common/model/value';
-import {forceCast} from '../../../misc/type-util';
-import {BladeApi} from '../../common/api/blade';
-import {Refreshable} from '../../common/api/refreshable';
-import {TpChangeEvent} from '../../common/api/tp-event';
-import {BindingController} from '../controller/binding';
+import {Emitter} from '../../../common/model/emitter.js';
+import {ValueEvents} from '../../../common/model/value.js';
+import {forceCast} from '../../../misc/type-util.js';
+import {BladeApi} from '../../common/api/blade.js';
+import {Refreshable} from '../../common/api/refreshable.js';
+import {TpChangeEvent} from '../../common/api/tp-event.js';
+import {BindingController} from '../controller/binding.js';
 
 export interface BindingApiEvents<Ex> {
 	change: TpChangeEvent<Ex, BindingApi<unknown, Ex>>;

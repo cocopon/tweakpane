@@ -1,16 +1,16 @@
-import {ColorInputParams} from '../../blade/common/api/params';
-import {BindingReader} from '../../common/binding/binding';
-import {Formatter} from '../../common/converter/formatter';
-import {VERSION} from '../../version';
-import {InputBindingPlugin} from '../plugin';
-import {ColorController} from './controller/color';
-import {colorFromObject} from './converter/color-object';
+import {ColorInputParams} from '../../blade/common/api/params.js';
+import {BindingReader} from '../../common/binding/binding.js';
+import {Formatter} from '../../common/converter/formatter.js';
+import {VERSION} from '../../version.js';
+import {InputBindingPlugin} from '../plugin.js';
+import {ColorController} from './controller/color.js';
+import {colorFromObject} from './converter/color-object.js';
 import {
 	colorToObjectRgbaString,
 	colorToObjectRgbString,
 	createColorStringParser,
-} from './converter/color-string';
-import {createColorObjectWriter} from './converter/writer';
+} from './converter/color-string.js';
+import {createColorObjectWriter} from './converter/writer.js';
 import {
 	Color,
 	equalsColor,
@@ -18,11 +18,11 @@ import {
 	isRgbaColorObject,
 	RgbaColorObject,
 	RgbColorObject,
-} from './model/color';
-import {ColorType} from './model/color-model';
-import {mapColorType} from './model/colors';
-import {IntColor} from './model/int-color';
-import {extractColorType, parseColorInputParams} from './util';
+} from './model/color.js';
+import {ColorType} from './model/color-model.js';
+import {mapColorType} from './model/colors.js';
+import {IntColor} from './model/int-color.js';
+import {extractColorType, parseColorInputParams} from './util.js';
 
 function shouldSupportAlpha(
 	initialValue: RgbColorObject | RgbaColorObject,

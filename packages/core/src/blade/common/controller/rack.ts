@@ -1,7 +1,7 @@
-import {insertElementAt, removeElement} from '../../../common/dom-util';
-import {ViewProps} from '../../../common/model/view-props';
-import {Blade} from '../model/blade';
-import {Rack, RackEvents} from '../model/rack';
+import {insertElementAt, removeElement} from '../../../common/dom-util.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {Blade} from '../model/blade.js';
+import {Rack, RackEvents} from '../model/rack.js';
 
 /**
  * @hidden

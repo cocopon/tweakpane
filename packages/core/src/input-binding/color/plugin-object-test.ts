@@ -1,13 +1,13 @@
 import * as assert from 'assert';
 import {describe as context, describe} from 'mocha';
 
-import {BindingTarget} from '../../common/binding/target';
-import {createTestWindow} from '../../misc/dom-test-util';
-import {TestUtil} from '../../misc/test-util';
-import {createInputBindingController} from '../plugin';
-import {ColorController} from './controller/color';
-import {IntColor} from './model/int-color';
-import {ObjectColorInputPlugin} from './plugin-object';
+import {BindingTarget} from '../../common/binding/target.js';
+import {createTestWindow} from '../../misc/dom-test-util.js';
+import {TestUtil} from '../../misc/test-util.js';
+import {createInputBindingController} from '../plugin.js';
+import {ColorController} from './controller/color.js';
+import {IntColor} from './model/int-color.js';
+import {ObjectColorInputPlugin} from './plugin-object.js';
 
 const DELTA = 1e-5;
 

@@ -1,7 +1,7 @@
 import {TpPluginBundle} from '@tweakpane/core';
 import {Pane} from 'tweakpane';
 
-import {selectContainer} from '../util';
+import {selectContainer} from '../util.js';
 
 declare const TweakpaneCamerakitPlugin: TpPluginBundle;
 declare const TweakpaneEssentialsPlugin: TpPluginBundle;

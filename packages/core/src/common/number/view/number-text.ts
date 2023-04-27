@@ -1,11 +1,11 @@
-import {SVG_NS} from '../../../common/dom-util';
-import {Value, ValueEvents} from '../../../common/model/value';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {ClassName} from '../../../common/view/class-name';
-import {InputView, View} from '../../../common/view/view';
-import {Formatter} from '../../converter/formatter';
-import {constrainRange} from '../util';
+import {SVG_NS} from '../../../common/dom-util.js';
+import {Value, ValueEvents} from '../../../common/model/value.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {ClassName} from '../../../common/view/class-name.js';
+import {InputView, View} from '../../../common/view/view.js';
+import {Formatter} from '../../converter/formatter.js';
+import {constrainRange} from '../util.js';
 
 export type NumberTextPropsObject = {
 	formatter: Formatter<number>;

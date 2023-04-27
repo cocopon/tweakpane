@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {formatPercentage} from './percentage';
+import {formatPercentage} from './percentage.js';
 
 describe('converter/percentage', () => {
 	[

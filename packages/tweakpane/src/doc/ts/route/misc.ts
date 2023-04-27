@@ -1,6 +1,6 @@
 import {Pane} from 'tweakpane';
 
-import {selectContainer, wave} from '../util';
+import {selectContainer, wave} from '../util.js';
 
 export function initMisc() {
 	const IMEX_PARAMS = {

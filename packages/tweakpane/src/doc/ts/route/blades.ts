@@ -1,6 +1,6 @@
 import {ListBladeApi, Pane, TextBladeApi} from 'tweakpane';
 
-import {selectContainer} from '../util';
+import {selectContainer} from '../util.js';
 
 export function initBlades() {
 	const markerToFnMap: {

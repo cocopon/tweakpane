@@ -7,9 +7,9 @@ import {
 import {presetToState, stateToPreset} from 'ts/preset';
 import {Pane} from 'tweakpane';
 
-import {Sketch} from '../sketch';
-import {Environment} from '../sketch';
-import {selectContainer} from '../util';
+import {Sketch} from '../sketch.js';
+import {Environment} from '../sketch.js';
+import {selectContainer} from '../util.js';
 
 const COLORS = {
 	dark: 'hsl(230deg, 7%, 10%)',

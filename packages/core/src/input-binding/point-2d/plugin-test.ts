@@ -1,22 +1,22 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {InputBindingController} from '../../blade/binding/controller/input-binding';
-import {Point2dInputParams} from '../../blade/common/api/params';
-import {BindingTarget} from '../../common/binding/target';
-import {InputBindingValue} from '../../common/binding/value/input-binding';
-import {Constraint} from '../../common/constraint/constraint';
-import {ComplexValue} from '../../common/model/complex-value';
-import {getBoundValue} from '../../common/model/test-util';
-import {Value} from '../../common/model/value';
-import {getDimensionProps} from '../../common/point-nd/test-util';
-import {createTestWindow} from '../../misc/dom-test-util';
-import {Tuple2} from '../../misc/type-util';
-import {PointNdConstraint} from '../common/constraint/point-nd';
-import {createInputBindingController} from '../plugin';
-import {Point2dController} from './controller/point-2d';
-import {Point2d} from './model/point-2d';
-import {getSuitableMax, Point2dInputPlugin} from './plugin';
+import {InputBindingController} from '../../blade/binding/controller/input-binding.js';
+import {Point2dInputParams} from '../../blade/common/api/params.js';
+import {BindingTarget} from '../../common/binding/target.js';
+import {InputBindingValue} from '../../common/binding/value/input-binding.js';
+import {Constraint} from '../../common/constraint/constraint.js';
+import {ComplexValue} from '../../common/model/complex-value.js';
+import {getBoundValue} from '../../common/model/test-util.js';
+import {Value} from '../../common/model/value.js';
+import {getDimensionProps} from '../../common/point-nd/test-util.js';
+import {createTestWindow} from '../../misc/dom-test-util.js';
+import {Tuple2} from '../../misc/type-util.js';
+import {PointNdConstraint} from '../common/constraint/point-nd.js';
+import {createInputBindingController} from '../plugin.js';
+import {Point2dController} from './controller/point-2d.js';
+import {Point2d} from './model/point-2d.js';
+import {getSuitableMax, Point2dInputPlugin} from './plugin.js';
 
 function getPoint2dConstraint(
 	v: InputBindingValue<unknown>,

@@ -1,20 +1,20 @@
-import {Point4dInputParams} from '../../blade/common/api/params';
-import {Constraint} from '../../common/constraint/constraint';
-import {parseNumber} from '../../common/converter/number';
-import {parseRecord} from '../../common/micro-parsers';
-import {createPointAxis} from '../../common/point-nd/point-axis';
+import {Point4dInputParams} from '../../blade/common/api/params.js';
+import {Constraint} from '../../common/constraint/constraint.js';
+import {parseNumber} from '../../common/converter/number.js';
+import {parseRecord} from '../../common/micro-parsers.js';
+import {createPointAxis} from '../../common/point-nd/point-axis.js';
 import {
 	createDimensionConstraint,
 	createPointDimensionParser,
 	parsePointDimensionParams,
-} from '../../common/point-nd/util';
-import {deepMerge} from '../../misc/type-util';
-import {VERSION} from '../../version';
-import {PointNdConstraint} from '../common/constraint/point-nd';
-import {PointNdTextController} from '../common/controller/point-nd-text';
-import {InputBindingPlugin} from '../plugin';
-import {point4dFromUnknown, writePoint4d} from './converter/point-4d';
-import {Point4d, Point4dAssembly, Point4dObject} from './model/point-4d';
+} from '../../common/point-nd/util.js';
+import {deepMerge} from '../../misc/type-util.js';
+import {VERSION} from '../../version.js';
+import {PointNdConstraint} from '../common/constraint/point-nd.js';
+import {PointNdTextController} from '../common/controller/point-nd-text.js';
+import {InputBindingPlugin} from '../plugin.js';
+import {point4dFromUnknown, writePoint4d} from './converter/point-4d.js';
+import {Point4d, Point4dAssembly, Point4dObject} from './model/point-4d.js';
 
 function createConstraint(
 	params: Point4dInputParams,

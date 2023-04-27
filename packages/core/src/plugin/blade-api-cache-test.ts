@@ -4,9 +4,9 @@ import {describe, it} from 'mocha';
 import {
 	createAppropriateBladeApi,
 	createAppropriateBladeController,
-} from '../blade/test-util';
-import {createTestWindow} from '../misc/dom-test-util';
-import {BladeApiCache} from './blade-api-cache';
+} from '../blade/test-util.js';
+import {createTestWindow} from '../misc/dom-test-util.js';
+import {BladeApiCache} from './blade-api-cache.js';
 
 describe(BladeApiCache.name, () => {
 	it('should add cache', () => {

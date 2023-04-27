@@ -1,25 +1,25 @@
-import {MonitorBindingApi} from '../blade/binding/api/monitor-binding';
+import {MonitorBindingApi} from '../blade/binding/api/monitor-binding.js';
 import {
 	BufferedValueController,
 	MonitorBindingController,
-} from '../blade/binding/controller/monitor-binding';
-import {createBlade} from '../blade/common/model/blade';
-import {BindingReader} from '../common/binding/binding';
-import {ReadonlyBinding} from '../common/binding/readonly';
-import {BindingTarget} from '../common/binding/target';
-import {IntervalTicker} from '../common/binding/ticker/interval';
-import {ManualTicker} from '../common/binding/ticker/manual';
-import {Ticker} from '../common/binding/ticker/ticker';
-import {MonitorBindingValue} from '../common/binding/value/monitor-binding';
-import {LabelPropsObject} from '../common/label/view/label';
-import {parseRecord} from '../common/micro-parsers';
-import {BufferedValue} from '../common/model/buffered-value';
-import {ValueMap} from '../common/model/value-map';
-import {ViewProps} from '../common/model/view-props';
-import {BaseMonitorParams} from '../common/params';
-import {Constants} from '../misc/constants';
-import {isEmpty} from '../misc/type-util';
-import {BasePlugin} from '../plugin/plugin';
+} from '../blade/binding/controller/monitor-binding.js';
+import {createBlade} from '../blade/common/model/blade.js';
+import {BindingReader} from '../common/binding/binding.js';
+import {ReadonlyBinding} from '../common/binding/readonly.js';
+import {BindingTarget} from '../common/binding/target.js';
+import {IntervalTicker} from '../common/binding/ticker/interval.js';
+import {ManualTicker} from '../common/binding/ticker/manual.js';
+import {Ticker} from '../common/binding/ticker/ticker.js';
+import {MonitorBindingValue} from '../common/binding/value/monitor-binding.js';
+import {LabelPropsObject} from '../common/label/view/label.js';
+import {parseRecord} from '../common/micro-parsers.js';
+import {BufferedValue} from '../common/model/buffered-value.js';
+import {ValueMap} from '../common/model/value-map.js';
+import {ViewProps} from '../common/model/view-props.js';
+import {BaseMonitorParams} from '../common/params.js';
+import {Constants} from '../misc/constants.js';
+import {isEmpty} from '../misc/type-util.js';
+import {BasePlugin} from '../plugin/plugin.js';
 
 interface Acceptance<T, P extends BaseMonitorParams> {
 	initialValue: T;

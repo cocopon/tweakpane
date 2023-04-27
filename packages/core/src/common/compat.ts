@@ -1,5 +1,5 @@
-import {Semver} from '../misc/semver';
-import {VERSION} from '../version';
+import {Semver} from '../misc/semver.js';
+import {VERSION} from '../version.js';
 
 export function warnDeprecation(info: {
 	name: string;

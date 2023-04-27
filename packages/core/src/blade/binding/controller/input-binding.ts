@@ -1,15 +1,15 @@
 import {
 	InputBindingValue,
 	isInputBindingValue,
-} from '../../../common/binding/value/input-binding';
-import {ValueController} from '../../../common/controller/value';
-import {BladeController} from '../../common/controller/blade';
+} from '../../../common/binding/value/input-binding.js';
+import {ValueController} from '../../../common/controller/value.js';
+import {BladeController} from '../../common/controller/blade.js';
 import {
 	BladeState,
 	importBladeState,
-} from '../../common/controller/blade-state';
-import {isValueBladeController} from '../../common/controller/value-blade';
-import {BindingController} from './binding';
+} from '../../common/controller/blade-state.js';
+import {isValueBladeController} from '../../common/controller/value-blade.js';
+import {BindingController} from './binding.js';
 
 /**
  * @hidden

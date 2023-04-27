@@ -1,23 +1,23 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {BindingController} from '../../../blade/binding/controller/binding';
-import {createBlade} from '../../../blade/common/model/blade';
-import {ReadonlyBinding} from '../../../common/binding/readonly';
-import {BindingTarget} from '../../../common/binding/target';
-import {ManualTicker} from '../../../common/binding/ticker/manual';
-import {MonitorBindingValue} from '../../../common/binding/value/monitor-binding';
+import {BindingController} from '../../../blade/binding/controller/binding.js';
+import {createBlade} from '../../../blade/common/model/blade.js';
+import {ReadonlyBinding} from '../../../common/binding/readonly.js';
+import {BindingTarget} from '../../../common/binding/target.js';
+import {ManualTicker} from '../../../common/binding/ticker/manual.js';
+import {MonitorBindingValue} from '../../../common/binding/value/monitor-binding.js';
 import {
 	createNumberFormatter,
 	numberFromUnknown,
-} from '../../../common/converter/number';
-import {LabelPropsObject} from '../../../common/label/view/label';
-import {TpBuffer} from '../../../common/model/buffered-value';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {GraphLogController} from '../controller/graph-log';
-import {GraphLogMonitorBindingApi} from './graph-log';
+} from '../../../common/converter/number.js';
+import {LabelPropsObject} from '../../../common/label/view/label.js';
+import {TpBuffer} from '../../../common/model/buffered-value.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {GraphLogController} from '../controller/graph-log.js';
+import {GraphLogMonitorBindingApi} from './graph-log.js';
 
 function createApi(config: {
 	min: number;

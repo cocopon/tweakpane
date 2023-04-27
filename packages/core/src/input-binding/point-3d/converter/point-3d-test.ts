@@ -1,9 +1,9 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {BindingTarget} from '../../../common/binding/target';
-import {Point3d} from '../model/point-3d';
-import {writePoint3d} from './point-3d';
+import {BindingTarget} from '../../../common/binding/target.js';
+import {Point3d} from '../model/point-3d.js';
+import {writePoint3d} from './point-3d.js';
 
 describe(writePoint3d.name, () => {
 	it('should write value without destruction', () => {

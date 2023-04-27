@@ -1,12 +1,12 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
-import {BindingTarget} from '../../common/binding/target';
-import {createTestWindow} from '../../misc/dom-test-util';
-import {TestUtil} from '../../misc/test-util';
-import {createInputBindingController} from '../plugin';
-import {ColorController} from './controller/color';
-import {StringColorInputPlugin} from './plugin-string';
+import {BindingTarget} from '../../common/binding/target.js';
+import {createTestWindow} from '../../misc/dom-test-util.js';
+import {TestUtil} from '../../misc/test-util.js';
+import {createInputBindingController} from '../plugin.js';
+import {ColorController} from './controller/color.js';
+import {StringColorInputPlugin} from './plugin-string.js';
 
 describe(StringColorInputPlugin.id, () => {
 	[

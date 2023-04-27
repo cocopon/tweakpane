@@ -1,6 +1,6 @@
 import {Blade, BladeController, ViewProps} from '@tweakpane/core';
 
-import {SeparatorView} from '../view/separator';
+import {SeparatorView} from '../view/separator.js';
 
 /**
  * @hidden

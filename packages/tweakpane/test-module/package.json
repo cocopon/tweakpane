@@ -2,6 +2,7 @@
   "name": "tweakpane-test-module",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "private": true,
   "scripts": {
     "test": " run-p test:*",

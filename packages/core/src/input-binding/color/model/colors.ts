@@ -1,15 +1,15 @@
-import {mapRange} from '../../../common/number/util';
-import {TpError} from '../../../common/tp-error';
-import {Color} from './color';
+import {mapRange} from '../../../common/number/util.js';
+import {TpError} from '../../../common/tp-error.js';
+import {Color} from './color.js';
 import {
 	ColorComponents3,
 	ColorComponents4,
 	ColorMode,
 	ColorType,
 	getColorMaxComponents,
-} from './color-model';
-import {FloatColor} from './float-color';
-import {IntColor} from './int-color';
+} from './color-model.js';
+import {FloatColor} from './float-color.js';
+import {IntColor} from './int-color.js';
 
 const TYPE_TO_CONSTRUCTOR_MAP: {
 	[type in ColorType]: (

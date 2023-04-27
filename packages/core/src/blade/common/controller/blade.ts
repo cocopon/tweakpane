@@ -1,12 +1,12 @@
-import {Controller} from '../../../common/controller/controller';
-import {removeElement} from '../../../common/dom-util';
-import {ViewProps} from '../../../common/model/view-props';
-import {ClassName} from '../../../common/view/class-name';
-import {View} from '../../../common/view/view';
-import {Blade} from '../model/blade';
-import {BladePosition, getAllBladePositions} from '../model/blade-positions';
-import {Rack} from '../model/rack';
-import {BladeState, exportBladeState, importBladeState} from './blade-state';
+import {Controller} from '../../../common/controller/controller.js';
+import {removeElement} from '../../../common/dom-util.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {ClassName} from '../../../common/view/class-name.js';
+import {View} from '../../../common/view/view.js';
+import {Blade} from '../model/blade.js';
+import {BladePosition, getAllBladePositions} from '../model/blade-positions.js';
+import {Rack} from '../model/rack.js';
+import {BladeState, exportBladeState, importBladeState} from './blade-state.js';
 
 /**
  * @hidden

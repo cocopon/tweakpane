@@ -1,9 +1,9 @@
-import {bindValue} from '../model/reactive';
-import {Value} from '../model/value';
-import {ViewProps} from '../model/view-props';
-import {ClassName} from './class-name';
-import {valueToClassName} from './reactive';
-import {View} from './view';
+import {bindValue} from '../model/reactive.js';
+import {Value} from '../model/value.js';
+import {ViewProps} from '../model/view-props.js';
+import {ClassName} from './class-name.js';
+import {valueToClassName} from './reactive.js';
+import {View} from './view.js';
 
 interface Config {
 	shows: Value<boolean>;

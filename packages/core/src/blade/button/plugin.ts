@@ -1,12 +1,12 @@
-import {LabelPropsObject} from '../../common/label/view/label';
-import {parseRecord} from '../../common/micro-parsers';
-import {ValueMap} from '../../common/model/value-map';
-import {BaseBladeParams} from '../../common/params';
-import {VERSION} from '../../version';
-import {BladePlugin} from '../plugin';
-import {ButtonApi} from './api/button';
-import {ButtonBladeController} from './controller/button-blade';
-import {ButtonPropsObject} from './view/button';
+import {LabelPropsObject} from '../../common/label/view/label.js';
+import {parseRecord} from '../../common/micro-parsers.js';
+import {ValueMap} from '../../common/model/value-map.js';
+import {BaseBladeParams} from '../../common/params.js';
+import {VERSION} from '../../version.js';
+import {BladePlugin} from '../plugin.js';
+import {ButtonApi} from './api/button.js';
+import {ButtonBladeController} from './controller/button-blade.js';
+import {ButtonPropsObject} from './view/button.js';
 
 export interface ButtonBladeParams extends BaseBladeParams {
 	title: string;

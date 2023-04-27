@@ -1,24 +1,24 @@
 import {
 	Point2dInputParams,
 	Point2dYParams,
-} from '../../blade/common/api/params';
-import {Constraint} from '../../common/constraint/constraint';
-import {parseNumber} from '../../common/converter/number';
-import {parseRecord} from '../../common/micro-parsers';
-import {getSuitableKeyScale} from '../../common/number/util';
-import {NumberTextInputParams} from '../../common/params';
-import {parsePickerLayout} from '../../common/picker-util';
-import {createPointAxis, PointAxis} from '../../common/point-nd/point-axis';
-import {createPointDimensionParser} from '../../common/point-nd/util';
-import {parsePointDimensionParams} from '../../common/point-nd/util';
-import {createDimensionConstraint} from '../../common/point-nd/util';
-import {deepMerge, isEmpty, Tuple2} from '../../misc/type-util';
-import {VERSION} from '../../version';
-import {PointNdConstraint} from '../common/constraint/point-nd';
-import {InputBindingPlugin} from '../plugin';
-import {Point2dController} from './controller/point-2d';
-import {point2dFromUnknown, writePoint2d} from './converter/point-2d';
-import {Point2d, Point2dAssembly, Point2dObject} from './model/point-2d';
+} from '../../blade/common/api/params.js';
+import {Constraint} from '../../common/constraint/constraint.js';
+import {parseNumber} from '../../common/converter/number.js';
+import {parseRecord} from '../../common/micro-parsers.js';
+import {getSuitableKeyScale} from '../../common/number/util.js';
+import {NumberTextInputParams} from '../../common/params.js';
+import {parsePickerLayout} from '../../common/picker-util.js';
+import {createPointAxis, PointAxis} from '../../common/point-nd/point-axis.js';
+import {createPointDimensionParser} from '../../common/point-nd/util.js';
+import {parsePointDimensionParams} from '../../common/point-nd/util.js';
+import {createDimensionConstraint} from '../../common/point-nd/util.js';
+import {deepMerge, isEmpty, Tuple2} from '../../misc/type-util.js';
+import {VERSION} from '../../version.js';
+import {PointNdConstraint} from '../common/constraint/point-nd.js';
+import {InputBindingPlugin} from '../plugin.js';
+import {Point2dController} from './controller/point-2d.js';
+import {point2dFromUnknown, writePoint2d} from './converter/point-2d.js';
+import {Point2d, Point2dAssembly, Point2dObject} from './model/point-2d.js';
 
 function createConstraint(
 	params: Point2dInputParams,

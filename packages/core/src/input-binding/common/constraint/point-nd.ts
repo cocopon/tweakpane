@@ -1,5 +1,5 @@
-import {Constraint} from '../../../common/constraint/constraint';
-import {PointNdAssembly} from '../model/point-nd';
+import {Constraint} from '../../../common/constraint/constraint.js';
+import {PointNdAssembly} from '../model/point-nd.js';
 
 interface Config<PointNd> {
 	assembly: PointNdAssembly<PointNd>;

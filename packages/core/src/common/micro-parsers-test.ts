@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe as context, describe} from 'mocha';
 
-import {MicroParsers} from './micro-parsers';
+import {MicroParsers} from './micro-parsers.js';
 
 describe('MicroParsers', () => {
 	[

@@ -1,22 +1,22 @@
-import {Bindable} from '../../../common/binding/target';
-import {Emitter} from '../../../common/model/emitter';
-import {ValueEvents} from '../../../common/model/value';
-import {BaseBladeParams} from '../../../common/params';
-import {PluginPool} from '../../../plugin/pool';
-import {BindingApi} from '../../binding/api/binding';
-import {ButtonApi} from '../../button/api/button';
-import {BladeApi} from '../../common/api/blade';
-import {ContainerApi} from '../../common/api/container';
-import {ContainerBladeApi} from '../../common/api/container-blade';
+import {Bindable} from '../../../common/binding/target.js';
+import {Emitter} from '../../../common/model/emitter.js';
+import {ValueEvents} from '../../../common/model/value.js';
+import {BaseBladeParams} from '../../../common/params.js';
+import {PluginPool} from '../../../plugin/pool.js';
+import {BindingApi} from '../../binding/api/binding.js';
+import {ButtonApi} from '../../button/api/button.js';
+import {BladeApi} from '../../common/api/blade.js';
+import {ContainerApi} from '../../common/api/container.js';
+import {ContainerBladeApi} from '../../common/api/container-blade.js';
 import {
 	BindingParams,
 	ButtonParams,
 	FolderParams,
 	TabParams,
-} from '../../common/api/params';
-import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event';
-import {TabApi} from '../../tab/api/tab';
-import {FolderController} from '../controller/folder';
+} from '../../common/api/params.js';
+import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event.js';
+import {TabApi} from '../../tab/api/tab.js';
+import {FolderController} from '../controller/folder.js';
 
 export interface FolderApiEvents {
 	change: TpChangeEvent<unknown, BladeApi>;

@@ -1,11 +1,14 @@
-/* eslint-disable no-console, @typescript-eslint/no-var-requires */
+/* eslint-disable no-console */
 /* eslint-env node */
 
-'use strict';
+import Fs from 'fs';
 
-const Fs = require('fs-extra');
-const corePackage = require('../../core/package');
-const panePackage = require('../package');
+const corePackage = JSON.parse(
+	Fs.readFileSync(new URL('../../core/package.json', import.meta.url)),
+);
+const panePackage = JSON.parse(
+	Fs.readFileSync(new URL('../package.json', import.meta.url)),
+);
 
 // Remove version of core tgz file
 process.chdir('../core');

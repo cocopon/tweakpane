@@ -3,8 +3,8 @@ import {
 	ReadonlyValueEvents,
 	Value,
 	ValueEvents,
-} from '../model/value';
-import {ValueMap} from '../model/value-map';
+} from '../model/value.js';
+import {ValueMap} from '../model/value-map.js';
 
 export function bindValue<T>(
 	value: Value<T> | ReadonlyValue<T>,

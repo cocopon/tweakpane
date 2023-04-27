@@ -1,22 +1,25 @@
-import {ValueController} from '../../../common/controller/value';
-import {Value, ValueChangeOptions} from '../../../common/model/value';
-import {ViewProps} from '../../../common/model/view-props';
-import {mapRange} from '../../../common/number/util';
-import {PickerLayout} from '../../../common/params';
+import {ValueController} from '../../../common/controller/value.js';
+import {Value, ValueChangeOptions} from '../../../common/model/value.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {mapRange} from '../../../common/number/util.js';
+import {PickerLayout} from '../../../common/params.js';
 import {
 	getHorizontalStepKeys,
 	getStepForKey,
 	getVerticalStepKeys,
 	isArrowKey,
-} from '../../../common/ui';
+} from '../../../common/ui.js';
 import {
 	PointerData,
 	PointerHandler,
 	PointerHandlerEvents,
-} from '../../../common/view/pointer-handler';
-import {Tuple2} from '../../../misc/type-util';
-import {Point2d} from '../model/point-2d';
-import {Point2dPickerProps, Point2dPickerView} from '../view/point-2d-picker';
+} from '../../../common/view/pointer-handler.js';
+import {Tuple2} from '../../../misc/type-util.js';
+import {Point2d} from '../model/point-2d.js';
+import {
+	Point2dPickerProps,
+	Point2dPickerView,
+} from '../view/point-2d-picker.js';
 
 interface Config {
 	layout: PickerLayout;

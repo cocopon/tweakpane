@@ -1,10 +1,10 @@
-import {isEmpty} from '../../../misc/type-util';
+import {isEmpty} from '../../../misc/type-util.js';
 import {
 	ColorComponents3,
 	ColorComponents4,
 	ColorMode,
 	ColorType,
-} from './color-model';
+} from './color-model.js';
 
 export interface RgbColorObject {
 	r: number;

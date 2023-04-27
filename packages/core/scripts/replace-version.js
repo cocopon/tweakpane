@@ -1,10 +1,11 @@
-/* eslint-disable no-console, @typescript-eslint/no-var-requires */
+/* eslint-disable no-console */
 /* eslint-env node */
 
-'use strict';
+import Fs from 'fs';
 
-const Fs = require('fs');
-const Package = require('../package.json');
+const Package = JSON.parse(
+	Fs.readFileSync(new URL('../package.json', import.meta.url)),
+);
 
 const path = process.argv[2];
 const f = Fs.readFileSync(path, 'utf-8');

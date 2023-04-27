@@ -1,16 +1,16 @@
-import {Emitter} from '../../../common/model/emitter';
-import {ValueEvents} from '../../../common/model/value';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {PluginPool} from '../../../plugin/pool';
-import {BladeApi} from '../../common/api/blade';
-import {ContainerBladeApi} from '../../common/api/container-blade';
-import {TpChangeEvent, TpTabSelectEvent} from '../../common/api/tp-event';
-import {createBlade} from '../../common/model/blade';
-import {TabController} from '../controller/tab';
-import {TabPageController, TabPagePropsObject} from '../controller/tab-page';
-import {TabItemPropsObject} from '../view/tab-item';
-import {TabPageApi} from './tab-page';
+import {Emitter} from '../../../common/model/emitter.js';
+import {ValueEvents} from '../../../common/model/value.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {PluginPool} from '../../../plugin/pool.js';
+import {BladeApi} from '../../common/api/blade.js';
+import {ContainerBladeApi} from '../../common/api/container-blade.js';
+import {TpChangeEvent, TpTabSelectEvent} from '../../common/api/tp-event.js';
+import {createBlade} from '../../common/model/blade.js';
+import {TabController} from '../controller/tab.js';
+import {TabPageController, TabPagePropsObject} from '../controller/tab-page.js';
+import {TabItemPropsObject} from '../view/tab-item.js';
+import {TabPageApi} from './tab-page.js';
 
 interface TabApiEvents {
 	change: TpChangeEvent<unknown, BladeApi>;

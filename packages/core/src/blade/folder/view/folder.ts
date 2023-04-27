@@ -1,15 +1,15 @@
-import {bindValueMap} from '../../../common/model/reactive';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {ClassName} from '../../../common/view/class-name';
+import {bindValueMap} from '../../../common/model/reactive.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {ClassName} from '../../../common/view/class-name.js';
 import {
 	bindValueToTextContent,
 	valueToClassName,
-} from '../../../common/view/reactive';
-import {View} from '../../../common/view/view';
-import {isEmpty} from '../../../misc/type-util';
-import {Foldable} from '../../common/model/foldable';
-import {bladeContainerClassName} from '../../common/view/blade-container';
+} from '../../../common/view/reactive.js';
+import {View} from '../../../common/view/view.js';
+import {isEmpty} from '../../../misc/type-util.js';
+import {Foldable} from '../../common/model/foldable.js';
+import {bladeContainerClassName} from '../../common/view/blade-container.js';
 
 /**
  * @hidden

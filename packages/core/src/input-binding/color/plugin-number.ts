@@ -1,21 +1,21 @@
-import {ColorInputParams} from '../../blade/common/api/params';
-import {Formatter} from '../../common/converter/formatter';
-import {VERSION} from '../../version';
-import {InputBindingPlugin} from '../plugin';
-import {ColorController} from './controller/color';
+import {ColorInputParams} from '../../blade/common/api/params.js';
+import {Formatter} from '../../common/converter/formatter.js';
+import {VERSION} from '../../version.js';
+import {InputBindingPlugin} from '../plugin.js';
+import {ColorController} from './controller/color.js';
 import {
 	colorFromRgbaNumber,
 	colorFromRgbNumber,
-} from './converter/color-number';
+} from './converter/color-number.js';
 import {
 	colorToHexRgbaString,
 	colorToHexRgbString,
 	createColorStringParser,
-} from './converter/color-string';
-import {createColorNumberWriter} from './converter/writer';
-import {equalsColor} from './model/color';
-import {IntColor} from './model/int-color';
-import {parseColorInputParams} from './util';
+} from './converter/color-string.js';
+import {createColorNumberWriter} from './converter/writer.js';
+import {equalsColor} from './model/color.js';
+import {IntColor} from './model/int-color.js';
+import {parseColorInputParams} from './util.js';
 
 function shouldSupportAlpha(inputParams: ColorInputParams): boolean {
 	if (inputParams?.color?.alpha) {

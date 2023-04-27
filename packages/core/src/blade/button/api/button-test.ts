@@ -1,20 +1,20 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {LabelPropsObject} from '../../../common/label/view/label';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {TestUtil} from '../../../misc/test-util';
+import {LabelPropsObject} from '../../../common/label/view/label.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {TestUtil} from '../../../misc/test-util.js';
 import {
 	assertDisposes,
 	assertInitialState,
 	assertUpdates,
-} from '../../common/api/test-util';
-import {createBlade} from '../../common/model/blade';
-import {ButtonBladeController} from '../controller/button-blade';
-import {ButtonPropsObject} from '../view/button';
-import {ButtonApi} from './button';
+} from '../../common/api/test-util.js';
+import {createBlade} from '../../common/model/blade.js';
+import {ButtonBladeController} from '../controller/button-blade.js';
+import {ButtonPropsObject} from '../view/button.js';
+import {ButtonApi} from './button.js';
 
 function createApi(doc: Document): ButtonApi {
 	const c = new ButtonBladeController(doc, {

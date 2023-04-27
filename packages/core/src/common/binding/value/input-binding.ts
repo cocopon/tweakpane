@@ -1,8 +1,8 @@
-import {Emitter} from '../../model/emitter';
-import {Value, ValueChangeOptions, ValueEvents} from '../../model/value';
-import {isBinding} from '../binding';
-import {ReadWriteBinding} from '../read-write';
-import {BindingValue} from './binding';
+import {Emitter} from '../../model/emitter.js';
+import {Value, ValueChangeOptions, ValueEvents} from '../../model/value.js';
+import {isBinding} from '../binding.js';
+import {ReadWriteBinding} from '../read-write.js';
+import {BindingValue} from './binding.js';
 
 /**
  * @hidden

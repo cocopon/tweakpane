@@ -1,5 +1,5 @@
-import {Emitter} from './emitter';
-import {Value, ValueChangeOptions, ValueEvents} from './value';
+import {Emitter} from './emitter.js';
+import {Value, ValueChangeOptions, ValueEvents} from './value.js';
 
 /**
  * A value that has a primitive raw value.

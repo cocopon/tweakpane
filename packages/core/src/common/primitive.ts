@@ -1,4 +1,4 @@
-import {BindingTarget} from './binding/target';
+import {BindingTarget} from './binding/target.js';
 
 /**
  * The union of primitive types.

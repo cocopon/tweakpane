@@ -1,14 +1,16 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
-import {createLabeledValueBladeController} from '../../../../tweakpane/src/main/ts/misc/test-util';
-import {createTestWindow} from '../../misc/dom-test-util';
-import {createDefaultPluginPool} from '../../plugin/plugins';
-import {BladeController} from '../common/controller/blade';
-import {createBladeController} from '../plugin';
-import {createEmptyBladeController} from '../test-util';
-import {ButtonApi} from './api/button';
-import {ButtonBladePlugin} from './plugin';
+import {createTestWindow} from '../../misc/dom-test-util.js';
+import {createDefaultPluginPool} from '../../plugin/plugins.js';
+import {BladeController} from '../common/controller/blade.js';
+import {createBladeController} from '../plugin.js';
+import {
+	createAppropriateBladeController,
+	createEmptyBladeController,
+} from '../test-util.js';
+import {ButtonApi} from './api/button.js';
+import {ButtonBladePlugin} from './plugin.js';
 
 describe(ButtonBladePlugin.id, () => {
 	[
@@ -31,7 +33,7 @@ describe(ButtonBladePlugin.id, () => {
 
 	[
 		(doc: Document) => createEmptyBladeController(doc),
-		(doc: Document) => createLabeledValueBladeController(doc),
+		(doc: Document) => createAppropriateBladeController(doc),
 	].forEach((createController) => {
 		it('should not create API', () => {
 			const doc = createTestWindow().document;

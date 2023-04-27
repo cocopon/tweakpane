@@ -11,9 +11,9 @@ import {
 	createEmptyBladeController,
 	createLabeledValueBladeController,
 	createTestWindow,
-} from '../../misc/test-util';
-import {SliderBladeApi} from './api/slider';
-import {SliderBladeParams, SliderBladePlugin} from './plugin';
+} from '../../misc/test-util.js';
+import {SliderBladeApi} from './api/slider.js';
+import {SliderBladeParams, SliderBladePlugin} from './plugin.js';
 
 function createPluginPool(): PluginPool {
 	const pool = createDefaultPluginPool();

@@ -1,4 +1,4 @@
-import {Constraint} from './constraint';
+import {Constraint} from './constraint.js';
 
 /**
  * A number step range constraint.

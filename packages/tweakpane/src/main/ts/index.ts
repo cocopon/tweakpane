@@ -37,15 +37,15 @@ export {
 	TpPluginBundle,
 } from '@tweakpane/core';
 
-export {ListBladeApi} from './blade/list/api/list';
-export {ListBladeParams} from './blade/list/plugin';
-export {SeparatorBladeApi} from './blade/separator/api/separator';
-export {SeparatorBladeParams} from './blade/separator/plugin';
-export {SliderBladeApi} from './blade/slider/api/slider';
-export {SliderBladeParams} from './blade/slider/plugin';
-export {TextBladeApi} from './blade/text/api/text';
-export {TextBladeParams} from './blade/text/plugin';
+export {ListBladeApi} from './blade/list/api/list.js';
+export {ListBladeParams} from './blade/list/plugin.js';
+export {SeparatorBladeApi} from './blade/separator/api/separator.js';
+export {SeparatorBladeParams} from './blade/separator/plugin.js';
+export {SliderBladeApi} from './blade/slider/api/slider.js';
+export {SliderBladeParams} from './blade/slider/plugin.js';
+export {TextBladeApi} from './blade/text/api/text.js';
+export {TextBladeParams} from './blade/text/plugin.js';
 
-export {Pane} from './pane/pane';
+export {Pane} from './pane/pane.js';
 
 export const VERSION = new Semver('0.0.0-tweakpane.0');

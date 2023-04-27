@@ -1,12 +1,12 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {TestUtil} from '../../../misc/test-util';
-import {TabItemPropsObject} from '../view/tab-item';
-import {TabItemController} from './tab-item';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {TestUtil} from '../../../misc/test-util.js';
+import {TabItemPropsObject} from '../view/tab-item.js';
+import {TabItemController} from './tab-item.js';
 
 describe(TabItemController.name, () => {
 	it('should apply initial props', () => {

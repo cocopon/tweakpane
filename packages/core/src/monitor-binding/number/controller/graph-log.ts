@@ -1,22 +1,22 @@
-import {BufferedValueController} from '../../../blade/binding/controller/monitor-binding';
+import {BufferedValueController} from '../../../blade/binding/controller/monitor-binding.js';
 import {
 	BladeState,
 	exportBladeState,
 	importBladeState,
 	PropsPortable,
-} from '../../../blade/common/controller/blade-state';
-import {Formatter} from '../../../common/converter/formatter';
-import {supportsTouch} from '../../../common/dom-util';
-import {BufferedValue} from '../../../common/model/buffered-value';
-import {Value} from '../../../common/model/value';
-import {createValue} from '../../../common/model/values';
-import {ViewProps} from '../../../common/model/view-props';
-import {mapRange} from '../../../common/number/util';
+} from '../../../blade/common/controller/blade-state.js';
+import {Formatter} from '../../../common/converter/formatter.js';
+import {supportsTouch} from '../../../common/dom-util.js';
+import {BufferedValue} from '../../../common/model/buffered-value.js';
+import {Value} from '../../../common/model/value.js';
+import {createValue} from '../../../common/model/values.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {mapRange} from '../../../common/number/util.js';
 import {
 	PointerHandler,
 	PointerHandlerEvent,
-} from '../../../common/view/pointer-handler';
-import {GraphLogProps, GraphLogView} from '../view/graph-log';
+} from '../../../common/view/pointer-handler.js';
+import {GraphLogProps, GraphLogView} from '../view/graph-log.js';
 
 interface Config {
 	formatter: Formatter<number>;

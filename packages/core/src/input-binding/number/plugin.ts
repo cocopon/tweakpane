@@ -1,35 +1,38 @@
-import {InputBindingController} from '../../blade/binding/controller/input-binding';
-import {NumberInputParams} from '../../blade/common/api/params';
-import {ListInputBindingApi} from '../../common/api/list';
+import {InputBindingController} from '../../blade/binding/controller/input-binding.js';
+import {NumberInputParams} from '../../blade/common/api/params.js';
+import {ListInputBindingApi} from '../../common/api/list.js';
 import {
 	CompositeConstraint,
 	findConstraint,
-} from '../../common/constraint/composite';
-import {Constraint} from '../../common/constraint/constraint';
-import {DefiniteRangeConstraint} from '../../common/constraint/definite-range';
-import {ListConstraint} from '../../common/constraint/list';
-import {ListController} from '../../common/controller/list';
-import {numberFromUnknown, parseNumber} from '../../common/converter/number';
-import {createListConstraint, parseListOptions} from '../../common/list-util';
-import {parseRecord} from '../../common/micro-parsers';
-import {ValueMap} from '../../common/model/value-map';
-import {createValue} from '../../common/model/values';
-import {NumberTextController} from '../../common/number/controller/number-text';
+} from '../../common/constraint/composite.js';
+import {Constraint} from '../../common/constraint/constraint.js';
+import {DefiniteRangeConstraint} from '../../common/constraint/definite-range.js';
+import {ListConstraint} from '../../common/constraint/list.js';
+import {ListController} from '../../common/controller/list.js';
+import {numberFromUnknown, parseNumber} from '../../common/converter/number.js';
+import {
+	createListConstraint,
+	parseListOptions,
+} from '../../common/list-util.js';
+import {parseRecord} from '../../common/micro-parsers.js';
+import {ValueMap} from '../../common/model/value-map.js';
+import {createValue} from '../../common/model/values.js';
+import {NumberTextController} from '../../common/number/controller/number-text.js';
 import {
 	createSliderTextProps,
 	SliderTextController,
-} from '../../common/number/controller/slider-text';
+} from '../../common/number/controller/slider-text.js';
 import {
 	createNumberTextInputParamsParser,
 	createNumberTextPropsObject,
 	createRangeConstraint,
 	createStepConstraint,
-} from '../../common/number/util';
-import {ListParamsOptions} from '../../common/params';
-import {writePrimitive} from '../../common/primitive';
-import {VERSION} from '../../version';
-import {InputBindingPlugin} from '../plugin';
-import {SliderInputBindingApi} from './api/slider';
+} from '../../common/number/util.js';
+import {ListParamsOptions} from '../../common/params.js';
+import {writePrimitive} from '../../common/primitive.js';
+import {VERSION} from '../../version.js';
+import {InputBindingPlugin} from '../plugin.js';
+import {SliderInputBindingApi} from './api/slider.js';
 
 function createConstraint(
 	params: NumberInputParams,

@@ -1,10 +1,10 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {ReadonlyBinding} from '../readonly';
-import {BindingTarget} from '../target';
-import {ManualTicker} from '../ticker/manual';
-import {MonitorBindingValue} from './monitor-binding';
+import {ReadonlyBinding} from '../readonly.js';
+import {BindingTarget} from '../target.js';
+import {ManualTicker} from '../ticker/manual.js';
+import {MonitorBindingValue} from './monitor-binding.js';
 
 describe(MonitorBindingValue.name, () => {
 	it('should set up initial value', () => {

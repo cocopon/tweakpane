@@ -1,4 +1,4 @@
-import {Color, RgbaColorObject} from './color';
+import {Color, RgbaColorObject} from './color.js';
 import {
 	appendAlphaComponent,
 	ColorComponents3,
@@ -8,7 +8,7 @@ import {
 	constrainColorComponents,
 	convertColor,
 	removeAlphaComponent,
-} from './color-model';
+} from './color-model.js';
 
 export class IntColor implements Color {
 	public static black(): IntColor {

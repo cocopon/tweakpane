@@ -1,7 +1,7 @@
-import {Controller} from '../../../common/controller/controller';
-import {Emitter} from '../../../common/model/emitter';
-import {ViewProps} from '../../../common/model/view-props';
-import {TabItemProps, TabItemView} from '../view/tab-item';
+import {Controller} from '../../../common/controller/controller.js';
+import {Emitter} from '../../../common/model/emitter.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {TabItemProps, TabItemView} from '../view/tab-item.js';
 
 /**
  * @hidden

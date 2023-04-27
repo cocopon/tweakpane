@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
-import {Semver} from './semver';
+import {Semver} from './semver.js';
 
 describe(Semver.name, () => {
 	[

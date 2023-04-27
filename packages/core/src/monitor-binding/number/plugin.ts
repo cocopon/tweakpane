@@ -1,20 +1,20 @@
-import {MonitorBindingController} from '../../blade/binding/controller/monitor-binding';
-import {NumberMonitorParams} from '../../blade/common/api/params';
-import {Formatter} from '../../common/converter/formatter';
+import {MonitorBindingController} from '../../blade/binding/controller/monitor-binding.js';
+import {NumberMonitorParams} from '../../blade/common/api/params.js';
+import {Formatter} from '../../common/converter/formatter.js';
 import {
 	createNumberFormatter,
 	numberFromUnknown,
-} from '../../common/converter/number';
-import {MicroParser, parseRecord} from '../../common/micro-parsers';
-import {ValueMap} from '../../common/model/value-map';
-import {Constants} from '../../misc/constants';
-import {isEmpty} from '../../misc/type-util';
-import {VERSION} from '../../version';
-import {MultiLogController} from '../common/controller/multi-log';
-import {SingleLogController} from '../common/controller/single-log';
-import {MonitorBindingPlugin} from '../plugin';
-import {GraphLogMonitorBindingApi} from './api/graph-log';
-import {GraphLogController} from './controller/graph-log';
+} from '../../common/converter/number.js';
+import {MicroParser, parseRecord} from '../../common/micro-parsers.js';
+import {ValueMap} from '../../common/model/value-map.js';
+import {Constants} from '../../misc/constants.js';
+import {isEmpty} from '../../misc/type-util.js';
+import {VERSION} from '../../version.js';
+import {MultiLogController} from '../common/controller/multi-log.js';
+import {SingleLogController} from '../common/controller/single-log.js';
+import {MonitorBindingPlugin} from '../plugin.js';
+import {GraphLogMonitorBindingApi} from './api/graph-log.js';
+import {GraphLogController} from './controller/graph-log.js';
 
 function createFormatter(params: NumberMonitorParams): Formatter<number> {
 	return !isEmpty(params.format) ? params.format : createNumberFormatter(2);

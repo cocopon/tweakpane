@@ -1,25 +1,30 @@
-import {Bindable, BindingTarget} from '../../../common/binding/target';
-import {isBindingValue} from '../../../common/binding/value/binding';
-import {Emitter} from '../../../common/model/emitter';
-import {BaseBladeParams} from '../../../common/params';
-import {TpError} from '../../../common/tp-error';
-import {PluginPool} from '../../../plugin/pool';
-import {BindingApi} from '../../binding/api/binding';
-import {ButtonApi} from '../../button/api/button';
-import {FolderApi} from '../../folder/api/folder';
-import {TabApi} from '../../tab/api/tab';
-import {RackController} from '../controller/rack';
-import {RackEvents} from '../model/rack';
-import {BladeApi} from './blade';
+import {Bindable, BindingTarget} from '../../../common/binding/target.js';
+import {isBindingValue} from '../../../common/binding/value/binding.js';
+import {Emitter} from '../../../common/model/emitter.js';
+import {BaseBladeParams} from '../../../common/params.js';
+import {TpError} from '../../../common/tp-error.js';
+import {PluginPool} from '../../../plugin/pool.js';
+import {BindingApi} from '../../binding/api/binding.js';
+import {ButtonApi} from '../../button/api/button.js';
+import {FolderApi} from '../../folder/api/folder.js';
+import {TabApi} from '../../tab/api/tab.js';
+import {RackController} from '../controller/rack.js';
+import {RackEvents} from '../model/rack.js';
+import {BladeApi} from './blade.js';
 import {
 	addButtonAsBlade,
 	addFolderAsBlade,
 	addTabAsBlade,
 	ContainerApi,
-} from './container';
-import {BindingParams, ButtonParams, FolderParams, TabParams} from './params';
-import {isRefreshable} from './refreshable';
-import {TpChangeEvent} from './tp-event';
+} from './container.js';
+import {
+	BindingParams,
+	ButtonParams,
+	FolderParams,
+	TabParams,
+} from './params.js';
+import {isRefreshable} from './refreshable.js';
+import {TpChangeEvent} from './tp-event.js';
 
 /**
  * @hidden

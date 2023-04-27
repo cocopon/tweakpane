@@ -1,37 +1,37 @@
-import {BindingApi} from '../blade/binding/api/binding';
-import {InputBindingApi} from '../blade/binding/api/input-binding';
-import {MonitorBindingApi} from '../blade/binding/api/monitor-binding';
+import {BindingApi} from '../blade/binding/api/binding.js';
+import {InputBindingApi} from '../blade/binding/api/input-binding.js';
+import {MonitorBindingApi} from '../blade/binding/api/monitor-binding.js';
 import {
 	BindingController,
 	isBindingController,
-} from '../blade/binding/controller/binding';
+} from '../blade/binding/controller/binding.js';
 import {
 	InputBindingController,
 	isInputBindingController,
-} from '../blade/binding/controller/input-binding';
+} from '../blade/binding/controller/input-binding.js';
 import {
 	isMonitorBindingController,
 	MonitorBindingController,
-} from '../blade/binding/controller/monitor-binding';
-import {BladeApi} from '../blade/common/api/blade';
-import {BindingParams} from '../blade/common/api/params';
-import {BladeController} from '../blade/common/controller/blade';
-import {BladePlugin, createBladeController} from '../blade/plugin';
-import {BindingTarget} from '../common/binding/target';
-import {isCompatible} from '../common/compat';
-import {TpBuffer} from '../common/model/buffered-value';
-import {TpError} from '../common/tp-error';
+} from '../blade/binding/controller/monitor-binding.js';
+import {BladeApi} from '../blade/common/api/blade.js';
+import {BindingParams} from '../blade/common/api/params.js';
+import {BladeController} from '../blade/common/controller/blade.js';
+import {BladePlugin, createBladeController} from '../blade/plugin.js';
+import {BindingTarget} from '../common/binding/target.js';
+import {isCompatible} from '../common/compat.js';
+import {TpBuffer} from '../common/model/buffered-value.js';
+import {TpError} from '../common/tp-error.js';
 import {
 	createInputBindingController,
 	InputBindingPlugin,
-} from '../input-binding/plugin';
-import {isEmpty} from '../misc/type-util';
+} from '../input-binding/plugin.js';
+import {isEmpty} from '../misc/type-util.js';
 import {
 	createMonitorBindingController,
 	MonitorBindingPlugin,
-} from '../monitor-binding/plugin';
-import {BladeApiCache} from './blade-api-cache';
-import {TpPlugin} from './plugins';
+} from '../monitor-binding/plugin.js';
+import {BladeApiCache} from './blade-api-cache.js';
+import {TpPlugin} from './plugins.js';
 
 /**
  * @hidden

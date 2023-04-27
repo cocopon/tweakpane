@@ -1,6 +1,6 @@
-import {Value} from '../model/value';
-import {View} from '../view/view';
-import {Controller} from './controller';
+import {Value} from '../model/value.js';
+import {View} from '../view/view.js';
+import {Controller} from './controller.js';
 
 export interface ValueController<
 	T,

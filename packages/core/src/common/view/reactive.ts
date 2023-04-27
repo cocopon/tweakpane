@@ -1,5 +1,5 @@
-import {bindValue} from '../model/reactive';
-import {Value} from '../model/value';
+import {bindValue} from '../model/reactive.js';
+import {Value} from '../model/value.js';
 
 function applyClass(elem: HTMLElement, className: string, active: boolean) {
 	if (active) {

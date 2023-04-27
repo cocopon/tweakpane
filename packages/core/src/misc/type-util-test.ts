@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {deepEqualsArray, deepMerge, isPropertyWritable} from './type-util';
+import {deepEqualsArray, deepMerge, isPropertyWritable} from './type-util.js';
 
 describe(deepEqualsArray.name, () => {
 	[

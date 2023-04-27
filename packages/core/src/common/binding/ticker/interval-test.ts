@@ -1,8 +1,8 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {IntervalTicker} from './interval';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {IntervalTicker} from './interval.js';
 
 describe(IntervalTicker.name, () => {
 	it('should not create timer for negative interval', (done) => {

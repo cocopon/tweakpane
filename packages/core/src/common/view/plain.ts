@@ -1,6 +1,6 @@
-import {ViewProps} from '../model/view-props';
-import {ClassName} from './class-name';
-import {View} from './view';
+import {ViewProps} from '../model/view-props.js';
+import {ClassName} from './class-name.js';
+import {View} from './view.js';
 
 /**
  * @hidden

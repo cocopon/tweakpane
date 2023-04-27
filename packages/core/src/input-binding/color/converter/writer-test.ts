@@ -1,9 +1,9 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {BindingTarget} from '../../../common/binding/target';
-import {IntColor} from '../model/int-color';
-import {writeRgbaColorObject, writeRgbColorObject} from './writer';
+import {BindingTarget} from '../../../common/binding/target.js';
+import {IntColor} from '../model/int-color.js';
+import {writeRgbaColorObject, writeRgbColorObject} from './writer.js';
 
 describe('writer/color', () => {
 	it('should write RGBA color object value without destruction', () => {

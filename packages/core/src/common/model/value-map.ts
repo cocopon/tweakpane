@@ -1,6 +1,6 @@
-import {Emitter} from './emitter';
-import {Value} from './value';
-import {createValue} from './values';
+import {Emitter} from './emitter.js';
+import {Value} from './value.js';
+import {createValue} from './values.js';
 
 export interface ValueMapEvents<O extends Record<string, unknown>> {
 	change: {

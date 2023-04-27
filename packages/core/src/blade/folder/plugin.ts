@@ -1,11 +1,11 @@
-import {parseRecord} from '../../common/micro-parsers';
-import {ValueMap} from '../../common/model/value-map';
-import {BaseBladeParams} from '../../common/params';
-import {VERSION} from '../../version';
-import {BladePlugin} from '../plugin';
-import {FolderApi} from './api/folder';
-import {FolderController} from './controller/folder';
-import {FolderPropsObject} from './view/folder';
+import {parseRecord} from '../../common/micro-parsers.js';
+import {ValueMap} from '../../common/model/value-map.js';
+import {BaseBladeParams} from '../../common/params.js';
+import {VERSION} from '../../version.js';
+import {BladePlugin} from '../plugin.js';
+import {FolderApi} from './api/folder.js';
+import {FolderController} from './controller/folder.js';
+import {FolderPropsObject} from './view/folder.js';
 
 export interface FolderBladeParams extends BaseBladeParams {
 	title: string;

@@ -13,7 +13,7 @@ import {
 	TextBladeParams,
 } from 'tweakpane';
 
-import {selectContainer, wave} from '../util';
+import {selectContainer, wave} from '../util.js';
 
 function createThemePane(container: HTMLElement): Pane {
 	const pane = new Pane({

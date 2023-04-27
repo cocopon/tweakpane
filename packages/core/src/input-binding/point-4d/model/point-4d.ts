@@ -1,5 +1,5 @@
-import {isEmpty, Tuple4} from '../../../misc/type-util';
-import {PointNdAssembly} from '../../common/model/point-nd';
+import {isEmpty, Tuple4} from '../../../misc/type-util.js';
+import {PointNdAssembly} from '../../common/model/point-nd.js';
 
 export interface Point4dObject {
 	x: number;

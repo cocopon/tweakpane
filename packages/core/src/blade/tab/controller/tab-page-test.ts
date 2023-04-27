@@ -1,14 +1,14 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {TestUtil} from '../../../misc/test-util';
-import {createBlade} from '../../common/model/blade';
-import {TestKeyBladeController} from '../../test-util';
-import {TabItemPropsObject} from '../view/tab-item';
-import {TabPageController, TabPagePropsObject} from './tab-page';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {TestUtil} from '../../../misc/test-util.js';
+import {createBlade} from '../../common/model/blade.js';
+import {TestKeyBladeController} from '../../test-util.js';
+import {TabItemPropsObject} from '../view/tab-item.js';
+import {TabPageController, TabPagePropsObject} from './tab-page.js';
 
 function createController(
 	doc: Document,

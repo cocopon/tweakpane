@@ -1,10 +1,10 @@
-import {Value} from '../../../common/model/value';
-import {ViewProps} from '../../../common/model/view-props';
-import {mapRange} from '../../../common/number/util';
-import {ClassName} from '../../../common/view/class-name';
-import {View} from '../../../common/view/view';
-import {colorToFunctionalRgbaString} from '../converter/color-string';
-import {IntColor} from '../model/int-color';
+import {Value} from '../../../common/model/value.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {mapRange} from '../../../common/number/util.js';
+import {ClassName} from '../../../common/view/class-name.js';
+import {View} from '../../../common/view/view.js';
+import {colorToFunctionalRgbaString} from '../converter/color-string.js';
+import {IntColor} from '../model/int-color.js';
 
 const cn = ClassName('apl');
 

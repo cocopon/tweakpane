@@ -1,21 +1,21 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {InputBindingController} from '../../blade/binding/controller/input-binding';
-import {Point4dInputParams} from '../../blade/common/api/params';
-import {BindingTarget} from '../../common/binding/target';
-import {InputBindingValue} from '../../common/binding/value/input-binding';
-import {Constraint} from '../../common/constraint/constraint';
-import {ComplexValue} from '../../common/model/complex-value';
-import {getBoundValue} from '../../common/model/test-util';
-import {getDimensionProps} from '../../common/point-nd/test-util';
-import {createTestWindow} from '../../misc/dom-test-util';
-import {Tuple4} from '../../misc/type-util';
-import {PointNdConstraint} from '../common/constraint/point-nd';
-import {PointNdTextController} from '../common/controller/point-nd-text';
-import {createInputBindingController} from '../plugin';
-import {Point4d} from './model/point-4d';
-import {Point4dInputPlugin} from './plugin';
+import {InputBindingController} from '../../blade/binding/controller/input-binding.js';
+import {Point4dInputParams} from '../../blade/common/api/params.js';
+import {BindingTarget} from '../../common/binding/target.js';
+import {InputBindingValue} from '../../common/binding/value/input-binding.js';
+import {Constraint} from '../../common/constraint/constraint.js';
+import {ComplexValue} from '../../common/model/complex-value.js';
+import {getBoundValue} from '../../common/model/test-util.js';
+import {getDimensionProps} from '../../common/point-nd/test-util.js';
+import {createTestWindow} from '../../misc/dom-test-util.js';
+import {Tuple4} from '../../misc/type-util.js';
+import {PointNdConstraint} from '../common/constraint/point-nd.js';
+import {PointNdTextController} from '../common/controller/point-nd-text.js';
+import {createInputBindingController} from '../plugin.js';
+import {Point4d} from './model/point-4d.js';
+import {Point4dInputPlugin} from './plugin.js';
 
 function getPoint4dConstraint(
 	v: InputBindingValue<unknown>,

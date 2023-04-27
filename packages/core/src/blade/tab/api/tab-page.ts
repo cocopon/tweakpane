@@ -1,19 +1,19 @@
-import {Bindable} from '../../../common/binding/target';
-import {BaseBladeParams} from '../../../common/params';
-import {BindingApi} from '../../binding/api/binding';
-import {ButtonApi} from '../../button/api/button';
-import {BladeApi} from '../../common/api/blade';
-import {ContainerApi} from '../../common/api/container';
-import {ContainerBladeApi} from '../../common/api/container-blade';
+import {Bindable} from '../../../common/binding/target.js';
+import {BaseBladeParams} from '../../../common/params.js';
+import {BindingApi} from '../../binding/api/binding.js';
+import {ButtonApi} from '../../button/api/button.js';
+import {BladeApi} from '../../common/api/blade.js';
+import {ContainerApi} from '../../common/api/container.js';
+import {ContainerBladeApi} from '../../common/api/container-blade.js';
 import {
 	BindingParams,
 	ButtonParams,
 	FolderParams,
 	TabParams,
-} from '../../common/api/params';
-import {FolderApi} from '../../folder/api/folder';
-import {TabPageController} from '../controller/tab-page';
-import {TabApi} from './tab';
+} from '../../common/api/params.js';
+import {FolderApi} from '../../folder/api/folder.js';
+import {TabPageController} from '../controller/tab-page.js';
+import {TabApi} from './tab.js';
 
 export class TabPageApi
 	extends ContainerBladeApi<TabPageController>

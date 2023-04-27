@@ -1,17 +1,17 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {BindingTarget} from '../../common/binding/target';
-import {InputBindingValue} from '../../common/binding/value/input-binding';
-import {findConstraint} from '../../common/constraint/composite';
-import {Constraint} from '../../common/constraint/constraint';
-import {StepConstraint} from '../../common/constraint/step';
-import {ComplexValue} from '../../common/model/complex-value';
-import {getBoundValue} from '../../common/model/test-util';
-import {NumberTextController} from '../../common/number/controller/number-text';
-import {createTestWindow} from '../../misc/dom-test-util';
-import {createInputBindingController} from '../plugin';
-import {NumberInputPlugin} from './plugin';
+import {BindingTarget} from '../../common/binding/target.js';
+import {InputBindingValue} from '../../common/binding/value/input-binding.js';
+import {findConstraint} from '../../common/constraint/composite.js';
+import {Constraint} from '../../common/constraint/constraint.js';
+import {StepConstraint} from '../../common/constraint/step.js';
+import {ComplexValue} from '../../common/model/complex-value.js';
+import {getBoundValue} from '../../common/model/test-util.js';
+import {NumberTextController} from '../../common/number/controller/number-text.js';
+import {createTestWindow} from '../../misc/dom-test-util.js';
+import {createInputBindingController} from '../plugin.js';
+import {NumberInputPlugin} from './plugin.js';
 
 describe(NumberInputPlugin.id, () => {
 	it('should return appropriate step constraint', () => {

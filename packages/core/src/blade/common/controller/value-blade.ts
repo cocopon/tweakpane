@@ -1,5 +1,5 @@
-import {ValueController} from '../../../common/controller/value';
-import {BladeController} from './blade';
+import {ValueController} from '../../../common/controller/value.js';
+import {BladeController} from './blade.js';
 
 export function isValueBladeController(
 	bc: BladeController,

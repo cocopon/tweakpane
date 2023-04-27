@@ -1,19 +1,19 @@
-import {Formatter} from '../../../common/converter/formatter';
-import {createNumberFormatter} from '../../../common/converter/number';
-import {composeParsers, Parser} from '../../../common/converter/parser';
-import {formatPercentage} from '../../../common/converter/percentage';
-import {constrainRange, mapRange} from '../../../common/number/util';
-import {Color} from '../model/color';
+import {Formatter} from '../../../common/converter/formatter.js';
+import {createNumberFormatter} from '../../../common/converter/number.js';
+import {composeParsers, Parser} from '../../../common/converter/parser.js';
+import {formatPercentage} from '../../../common/converter/percentage.js';
+import {constrainRange, mapRange} from '../../../common/number/util.js';
+import {Color} from '../model/color.js';
 import {
 	ColorComponents3,
 	ColorComponents4,
 	ColorMode,
 	ColorType,
 	removeAlphaComponent,
-} from '../model/color-model';
-import {createColor, mapColorType} from '../model/colors';
-import {FloatColor} from '../model/float-color';
-import {IntColor} from '../model/int-color';
+} from '../model/color-model.js';
+import {createColor, mapColorType} from '../model/colors.js';
+import {FloatColor} from '../model/float-color.js';
+import {IntColor} from '../model/int-color.js';
 
 type StringColorNotation = 'func' | 'hex' | 'object';
 

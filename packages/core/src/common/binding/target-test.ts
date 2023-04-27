@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {BindingTarget} from './target';
+import {BindingTarget} from './target.js';
 
 describe(BindingTarget.name, () => {
 	it('should get properties', () => {

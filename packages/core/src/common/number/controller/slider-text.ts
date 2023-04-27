@@ -3,19 +3,19 @@ import {
 	exportBladeState,
 	importBladeState,
 	PropsPortable,
-} from '../../../blade/common/controller/blade-state';
-import {ValueController} from '../../controller/value';
-import {Formatter} from '../../converter/formatter';
-import {Parser} from '../../converter/parser';
-import {Value} from '../../model/value';
-import {ValueMap} from '../../model/value-map';
-import {createValue} from '../../model/values';
-import {ViewProps} from '../../model/view-props';
-import {NumberTextProps} from '../view/number-text';
-import {SliderProps} from '../view/slider';
-import {SliderTextView} from '../view/slider-text';
-import {NumberTextController} from './number-text';
-import {SliderController} from './slider';
+} from '../../../blade/common/controller/blade-state.js';
+import {ValueController} from '../../controller/value.js';
+import {Formatter} from '../../converter/formatter.js';
+import {Parser} from '../../converter/parser.js';
+import {Value} from '../../model/value.js';
+import {ValueMap} from '../../model/value-map.js';
+import {createValue} from '../../model/values.js';
+import {ViewProps} from '../../model/view-props.js';
+import {NumberTextProps} from '../view/number-text.js';
+import {SliderProps} from '../view/slider.js';
+import {SliderTextView} from '../view/slider-text.js';
+import {NumberTextController} from './number-text.js';
+import {SliderController} from './slider.js';
 
 /**
  * @hidden

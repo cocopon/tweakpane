@@ -13,7 +13,7 @@ import {
 	VERSION,
 } from '@tweakpane/core';
 
-import {TextBladeApi} from './api/text';
+import {TextBladeApi} from './api/text.js';
 
 export interface TextBladeParams<T> extends BaseBladeParams {
 	parse: Parser<T>;

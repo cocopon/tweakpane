@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 
-import {BladeApi} from './blade';
+import {BladeApi} from './blade.js';
 
 export function assertInitialState(api: BladeApi) {
 	assert.strictEqual(api.disabled, false);

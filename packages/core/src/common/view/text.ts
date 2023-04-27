@@ -1,9 +1,9 @@
-import {Formatter} from '../converter/formatter';
-import {Value} from '../model/value';
-import {ValueMap} from '../model/value-map';
-import {ViewProps} from '../model/view-props';
-import {ClassName} from './class-name';
-import {InputView, View} from './view';
+import {Formatter} from '../converter/formatter.js';
+import {Value} from '../model/value.js';
+import {ValueMap} from '../model/value-map.js';
+import {ViewProps} from '../model/view-props.js';
+import {ClassName} from './class-name.js';
+import {InputView, View} from './view.js';
 
 /**
  * @hidden

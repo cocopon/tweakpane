@@ -1,6 +1,6 @@
-import {isEmpty} from '../../misc/type-util';
-import {ValueMap} from '../model/value-map';
-import {Constraint} from './constraint';
+import {isEmpty} from '../../misc/type-util.js';
+import {ValueMap} from '../model/value-map.js';
+import {Constraint} from './constraint.js';
 
 interface Config {
 	max?: number;

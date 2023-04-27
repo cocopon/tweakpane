@@ -1,11 +1,11 @@
-import {forceCast, isEmpty} from '../misc/type-util';
-import {ListConstraint, ListItem} from './constraint/list';
-import {MicroParser, MicroParsers, parseRecord} from './micro-parsers';
+import {forceCast, isEmpty} from '../misc/type-util.js';
+import {ListConstraint, ListItem} from './constraint/list.js';
+import {MicroParser, MicroParsers, parseRecord} from './micro-parsers.js';
 import {
 	ArrayStyleListOptions,
 	ListParamsOptions,
 	ObjectStyleListOptions,
-} from './params';
+} from './params.js';
 
 export function parseListOptions<T>(
 	value: unknown,

@@ -1,4 +1,4 @@
-import {createNumberFormatter} from './number';
+import {createNumberFormatter} from './number.js';
 
 const innerFormatter = createNumberFormatter(0);
 

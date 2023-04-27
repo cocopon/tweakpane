@@ -1,13 +1,13 @@
 import * as assert from 'assert';
 import {describe} from 'mocha';
 
-import {createTestWindow} from '../../misc/dom-test-util';
-import {createDefaultPluginPool} from '../../plugin/plugins';
-import {createBladeController} from '../plugin';
-import {createEmptyBladeController} from '../test-util';
-import {TabApi} from './api/tab';
-import {TabController} from './controller/tab';
-import {TabBladeParams, TabBladePlugin} from './plugin';
+import {createTestWindow} from '../../misc/dom-test-util.js';
+import {createDefaultPluginPool} from '../../plugin/plugins.js';
+import {createBladeController} from '../plugin.js';
+import {createEmptyBladeController} from '../test-util.js';
+import {TabApi} from './api/tab.js';
+import {TabController} from './controller/tab.js';
+import {TabBladeParams, TabBladePlugin} from './plugin.js';
 
 describe(TabBladePlugin.id, () => {
 	[

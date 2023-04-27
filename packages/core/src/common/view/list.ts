@@ -1,11 +1,11 @@
-import {ListItem} from '../constraint/list';
-import {createSvgIconElement, removeChildElements} from '../dom-util';
-import {bindValueMap} from '../model/reactive';
-import {Value} from '../model/value';
-import {ValueMap} from '../model/value-map';
-import {ViewProps} from '../model/view-props';
-import {ClassName} from './class-name';
-import {View} from './view';
+import {ListItem} from '../constraint/list.js';
+import {createSvgIconElement, removeChildElements} from '../dom-util.js';
+import {bindValueMap} from '../model/reactive.js';
+import {Value} from '../model/value.js';
+import {ValueMap} from '../model/value-map.js';
+import {ViewProps} from '../model/view-props.js';
+import {ClassName} from './class-name.js';
+import {View} from './view.js';
 
 /**
  * @hidden

@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {exportBladeState, importBladeState} from './blade-state';
+import {exportBladeState, importBladeState} from './blade-state.js';
 
 describe(importBladeState.name, () => {
 	it('should pass state to super', (done) => {

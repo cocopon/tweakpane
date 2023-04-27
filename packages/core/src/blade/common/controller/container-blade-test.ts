@@ -1,14 +1,14 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {ViewProps} from '../../../common/model/view-props';
-import {PlainView} from '../../../common/view/plain';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {TestKeyBladeController} from '../../test-util';
-import {createBlade} from '../model/blade';
-import {BladeState} from './blade-state';
-import {ContainerBladeController} from './container-blade';
-import {RackController} from './rack';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {PlainView} from '../../../common/view/plain.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {TestKeyBladeController} from '../../test-util.js';
+import {createBlade} from '../model/blade.js';
+import {BladeState} from './blade-state.js';
+import {ContainerBladeController} from './container-blade.js';
+import {RackController} from './rack.js';
 
 function createController(doc: Document): ContainerBladeController {
 	const b = createBlade();

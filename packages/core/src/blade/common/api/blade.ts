@@ -1,5 +1,5 @@
-import {BladeController} from '../controller/blade';
-import {BladeState} from '../controller/blade-state';
+import {BladeController} from '../controller/blade.js';
+import {BladeState} from '../controller/blade-state.js';
 
 export class BladeApi<C extends BladeController = BladeController> {
 	/**

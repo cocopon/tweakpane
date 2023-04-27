@@ -1,10 +1,10 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {Point2d} from '../../input-binding/point-2d/model/point-2d';
-import {Constraint} from '../constraint/constraint';
-import {connectValues} from './value-sync';
-import {createValue} from './values';
+import {Point2d} from '../../input-binding/point-2d/model/point-2d.js';
+import {Constraint} from '../constraint/constraint.js';
+import {connectValues} from './value-sync.js';
+import {createValue} from './values.js';
 
 describe(connectValues.name, () => {
 	it('should set initial value', () => {

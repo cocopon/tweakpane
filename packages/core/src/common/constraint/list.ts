@@ -1,5 +1,5 @@
-import {ValueMap} from '../model/value-map';
-import {Constraint} from './constraint';
+import {ValueMap} from '../model/value-map.js';
+import {Constraint} from './constraint.js';
 
 export interface ListItem<T> {
 	text: string;

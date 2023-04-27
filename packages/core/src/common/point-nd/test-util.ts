@@ -1,8 +1,8 @@
-import {findConstraint} from '../constraint/composite';
-import {Constraint} from '../constraint/constraint';
-import {DefiniteRangeConstraint} from '../constraint/definite-range';
-import {RangeConstraint} from '../constraint/range';
-import {StepConstraint} from '../constraint/step';
+import {findConstraint} from '../constraint/composite.js';
+import {Constraint} from '../constraint/constraint.js';
+import {DefiniteRangeConstraint} from '../constraint/definite-range.js';
+import {RangeConstraint} from '../constraint/range.js';
+import {StepConstraint} from '../constraint/step.js';
 
 /**
  * Finds a range from number constraint.

@@ -1,6 +1,6 @@
-import {Constraint} from '../constraint/constraint';
-import {Emitter} from './emitter';
-import {Value, ValueChangeOptions, ValueEvents} from './value';
+import {Constraint} from '../constraint/constraint.js';
+import {Emitter} from './emitter.js';
+import {Value, ValueChangeOptions, ValueEvents} from './value.js';
 
 interface Config<T> {
 	constraint?: Constraint<T>;

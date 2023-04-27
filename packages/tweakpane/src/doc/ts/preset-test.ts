@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {presetToState, stateToPreset} from './preset';
+import {presetToState, stateToPreset} from './preset.js';
 
 describe(stateToPreset.name, () => {
 	it('should convert state into preset', () => {

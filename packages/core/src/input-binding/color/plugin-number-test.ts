@@ -1,8 +1,8 @@
 import * as assert from 'assert';
 import {describe} from 'mocha';
 
-import {BindingTarget} from '../../common/binding/target';
-import {NumberColorInputPlugin} from './plugin-number';
+import {BindingTarget} from '../../common/binding/target.js';
+import {NumberColorInputPlugin} from './plugin-number.js';
 
 describe('NumberColorInputPlugin', () => {
 	[

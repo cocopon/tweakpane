@@ -1,10 +1,10 @@
-import {ClassName} from '../view/class-name';
-import {valueToClassName} from '../view/reactive';
-import {bindValue, bindValueMap} from './reactive';
-import {ReadonlyValue, Value, ValueEvents} from './value';
-import {ValueMap, ValueMapEvents} from './value-map';
-import {SetRawValue} from './values';
-import {createReadonlyValue, createValue} from './values';
+import {ClassName} from '../view/class-name.js';
+import {valueToClassName} from '../view/reactive.js';
+import {bindValue, bindValueMap} from './reactive.js';
+import {ReadonlyValue, Value, ValueEvents} from './value.js';
+import {ValueMap, ValueMapEvents} from './value-map.js';
+import {SetRawValue} from './values.js';
+import {createReadonlyValue, createValue} from './values.js';
 
 export type ViewPropsObject = {
 	disabled: boolean;

@@ -14,8 +14,8 @@ import {
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {Pane} from '..';
-import {createTestWindow} from '../misc/test-util';
+import {createTestWindow} from '../misc/test-util.js';
+import {Pane} from './pane.js';
 
 describe(Pane.name, () => {
 	it('should dispose with default container', () => {

@@ -1,16 +1,16 @@
-import {ValueController} from '../../../common/controller/value';
-import {LabelController} from '../../../common/label/controller/label';
-import {LabelProps, LabelView} from '../../../common/label/view/label';
-import {Value} from '../../../common/model/value';
-import {TpError} from '../../../common/tp-error';
-import {BladeController} from '../../common/controller/blade';
+import {ValueController} from '../../../common/controller/value.js';
+import {LabelController} from '../../../common/label/controller/label.js';
+import {LabelProps, LabelView} from '../../../common/label/view/label.js';
+import {Value} from '../../../common/model/value.js';
+import {TpError} from '../../../common/tp-error.js';
+import {BladeController} from '../../common/controller/blade.js';
 import {
 	BladeState,
 	exportBladeState,
 	importBladeState,
 	PropsPortable,
-} from '../../common/controller/blade-state';
-import {Blade} from '../../common/model/blade';
+} from '../../common/controller/blade-state.js';
+import {Blade} from '../../common/model/blade.js';
 
 /**
  * @hidden

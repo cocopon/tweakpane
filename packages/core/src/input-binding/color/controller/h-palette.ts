@@ -1,16 +1,16 @@
-import {ValueController} from '../../../common/controller/value';
-import {Value, ValueChangeOptions} from '../../../common/model/value';
-import {ViewProps} from '../../../common/model/view-props';
-import {constrainRange, mapRange} from '../../../common/number/util';
-import {getHorizontalStepKeys, getStepForKey} from '../../../common/ui';
+import {ValueController} from '../../../common/controller/value.js';
+import {Value, ValueChangeOptions} from '../../../common/model/value.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {constrainRange, mapRange} from '../../../common/number/util.js';
+import {getHorizontalStepKeys, getStepForKey} from '../../../common/ui.js';
 import {
 	PointerData,
 	PointerHandler,
 	PointerHandlerEvents,
-} from '../../../common/view/pointer-handler';
-import {IntColor} from '../model/int-color';
-import {getKeyScaleForColor} from '../util';
-import {HPaletteView} from '../view/h-palette';
+} from '../../../common/view/pointer-handler.js';
+import {IntColor} from '../model/int-color.js';
+import {getKeyScaleForColor} from '../util.js';
+import {HPaletteView} from '../view/h-palette.js';
 
 interface Config {
 	value: Value<IntColor>;

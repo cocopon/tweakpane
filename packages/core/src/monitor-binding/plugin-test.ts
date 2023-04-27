@@ -4,15 +4,18 @@ import {describe, it} from 'mocha';
 import {
 	BufferedValueController,
 	MonitorBindingController,
-} from '../blade/binding/controller/monitor-binding';
-import {BindingTarget} from '../common/binding/target';
-import {stringFromUnknown} from '../common/converter/string';
-import {BufferedValue} from '../common/model/buffered-value';
-import {ViewProps} from '../common/model/view-props';
-import {BaseMonitorParams} from '../common/params';
-import {View} from '../common/view/view';
-import {createTestWindow} from '../misc/dom-test-util';
-import {createMonitorBindingController, MonitorBindingPlugin} from './plugin';
+} from '../blade/binding/controller/monitor-binding.js';
+import {BindingTarget} from '../common/binding/target.js';
+import {stringFromUnknown} from '../common/converter/string.js';
+import {BufferedValue} from '../common/model/buffered-value.js';
+import {ViewProps} from '../common/model/view-props.js';
+import {BaseMonitorParams} from '../common/params.js';
+import {View} from '../common/view/view.js';
+import {createTestWindow} from '../misc/dom-test-util.js';
+import {
+	createMonitorBindingController,
+	MonitorBindingPlugin,
+} from './plugin.js';
 
 class TestView implements View {
 	public readonly element: HTMLElement;

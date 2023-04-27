@@ -5,8 +5,8 @@ import {
 	VERSION,
 } from '@tweakpane/core';
 
-import {SeparatorBladeApi} from './api/separator';
-import {SeparatorController} from './controller/separator';
+import {SeparatorBladeApi} from './api/separator.js';
+import {SeparatorController} from './controller/separator.js';
 
 export interface SeparatorBladeParams extends BaseBladeParams {
 	view: 'separator';

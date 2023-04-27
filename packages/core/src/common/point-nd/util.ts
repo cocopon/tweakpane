@@ -1,13 +1,13 @@
-import {isRecord} from '../../misc/type-util';
-import {CompositeConstraint} from '../constraint/composite';
-import {Constraint} from '../constraint/constraint';
-import {MicroParsers, parseRecord} from '../micro-parsers';
+import {isRecord} from '../../misc/type-util.js';
+import {CompositeConstraint} from '../constraint/composite.js';
+import {Constraint} from '../constraint/constraint.js';
+import {MicroParsers, parseRecord} from '../micro-parsers.js';
 import {
 	createNumberTextInputParamsParser,
 	createRangeConstraint,
 	createStepConstraint,
-} from '../number/util';
-import {PointDimensionParams} from '../params';
+} from '../number/util.js';
+import {PointDimensionParams} from '../params.js';
 
 export function createPointDimensionParser(p: typeof MicroParsers) {
 	return createNumberTextInputParamsParser(p);

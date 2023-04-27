@@ -1,35 +1,35 @@
-import {Constraint} from '../../../common/constraint/constraint';
-import {DefiniteRangeConstraint} from '../../../common/constraint/definite-range';
-import {TextController} from '../../../common/controller/text';
-import {ValueController} from '../../../common/controller/value';
-import {Formatter} from '../../../common/converter/formatter';
+import {Constraint} from '../../../common/constraint/constraint.js';
+import {DefiniteRangeConstraint} from '../../../common/constraint/definite-range.js';
+import {TextController} from '../../../common/controller/text.js';
+import {ValueController} from '../../../common/controller/value.js';
+import {Formatter} from '../../../common/converter/formatter.js';
 import {
 	createNumberFormatter,
 	parseNumber,
-} from '../../../common/converter/number';
-import {Parser} from '../../../common/converter/parser';
-import {Value} from '../../../common/model/value';
-import {ValueMap} from '../../../common/model/value-map';
-import {connectValues} from '../../../common/model/value-sync';
-import {createValue} from '../../../common/model/values';
-import {ViewProps} from '../../../common/model/view-props';
-import {NumberTextController} from '../../../common/number/controller/number-text';
-import {InputView} from '../../../common/view/view';
+} from '../../../common/converter/number.js';
+import {Parser} from '../../../common/converter/parser.js';
+import {Value} from '../../../common/model/value.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {connectValues} from '../../../common/model/value-sync.js';
+import {createValue} from '../../../common/model/values.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {NumberTextController} from '../../../common/number/controller/number-text.js';
+import {InputView} from '../../../common/view/view.js';
 import {
 	colorToHexRgbString,
 	createColorStringParser,
-} from '../converter/color-string';
+} from '../converter/color-string.js';
 import {
 	appendAlphaComponent,
 	ColorMode,
 	ColorType,
 	getColorMaxComponents,
 	removeAlphaComponent,
-} from '../model/color-model';
-import {createColor, mapColorType} from '../model/colors';
-import {IntColor} from '../model/int-color';
-import {getKeyScaleForColor} from '../util';
-import {ColorTextsMode, ColorTextsView} from '../view/color-texts';
+} from '../model/color-model.js';
+import {createColor, mapColorType} from '../model/colors.js';
+import {IntColor} from '../model/int-color.js';
+import {getKeyScaleForColor} from '../util.js';
+import {ColorTextsMode, ColorTextsView} from '../view/color-texts.js';
 
 interface Config {
 	colorType: ColorType;

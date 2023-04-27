@@ -1,14 +1,14 @@
-import {ViewProps} from '../../../common/model/view-props';
+import {ViewProps} from '../../../common/model/view-props.js';
 import {
 	BladeState,
 	exportBladeState,
 	importBladeState,
-} from '../../common/controller/blade-state';
-import {ContainerBladeController} from '../../common/controller/container-blade';
-import {RackController} from '../../common/controller/rack';
-import {Blade} from '../../common/model/blade';
-import {bindFoldable, Foldable} from '../../common/model/foldable';
-import {FolderProps, FolderView} from '../view/folder';
+} from '../../common/controller/blade-state.js';
+import {ContainerBladeController} from '../../common/controller/container-blade.js';
+import {RackController} from '../../common/controller/rack.js';
+import {Blade} from '../../common/model/blade.js';
+import {bindFoldable, Foldable} from '../../common/model/foldable.js';
+import {FolderProps, FolderView} from '../view/folder.js';
 
 /**
  * @hidden

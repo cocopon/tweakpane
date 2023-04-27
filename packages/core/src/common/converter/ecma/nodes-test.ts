@@ -5,7 +5,7 @@ import {
 	BinaryOperationNode,
 	NumberLiteralNode,
 	UnaryOperationNode,
-} from './nodes';
+} from './nodes.js';
 
 describe(NumberLiteralNode.name, () => {
 	context('evaluate', () => {

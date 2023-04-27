@@ -1,12 +1,12 @@
-import {SVG_NS} from '../../../common/dom-util';
-import {Value} from '../../../common/model/value';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {mapRange} from '../../../common/number/util';
-import {PickerLayout} from '../../../common/params';
-import {ClassName} from '../../../common/view/class-name';
-import {View} from '../../../common/view/view';
-import {Point2d} from '../model/point-2d';
+import {SVG_NS} from '../../../common/dom-util.js';
+import {Value} from '../../../common/model/value.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {mapRange} from '../../../common/number/util.js';
+import {PickerLayout} from '../../../common/params.js';
+import {ClassName} from '../../../common/view/class-name.js';
+import {View} from '../../../common/view/view.js';
+import {Point2d} from '../model/point-2d.js';
 
 /**
  * @hidden
