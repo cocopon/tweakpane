@@ -53,6 +53,14 @@ Folder, Tab, Button, Separator
 
 
 ## Development
+
+
+### CommonJS and ES modules
+From version 4, Tweakpane has been migrated to ES modules. If you are looking for a CommonJS version of the package, use version 3.x.
+
+
+### Build your own Tweakpane
+
 ```
 $ npm install
 $ npm run setup

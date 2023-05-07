@@ -72,6 +72,23 @@ h6 {
 			text-decoration: underline;
 		}
 	}
+
+	.material-icons {
+		position: relative;
+		text-decoration: none;
+		vertical-align: bottom;
+
+		&:hover {
+			opacity: 0.75;
+		}
+
+		@include defs.wide() {
+			top: -3px;
+		}
+		@include defs.nonwide() {
+			top: -1px;
+		}
+	}
 }
 table {
 	border: var(--bg-color-secondary) solid 2px;

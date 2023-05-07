@@ -17,9 +17,54 @@
 
 
 {% block content %}
+<h2 id="binding"><a href="#binding">ES modules</a></h2>
+<p>Tweakpane has been migrated to ES modules from v4.</p>
+<div class="main_media">
+	<div class="comparison">
+		<div class="comparison_codes">
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="html">&lt;!-- v3 --&gt;
+&lt;script src=&quot;./path/to/tweakpane.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  const pane = new <strong>Tweakpane.</strong>Pane();
+  // ...
+&lt;/script&gt;</code></pre></div>
+			</div>
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="html">&lt;!-- v4 --&gt;
+&lt;script <strong>type=&quot;module&quot;</strong>&gt;
+  <strong>import</strong> {Pane} <strong>from</strong> './path/to/tweakpane.js';
+
+  const pane = new Pane();
+  // ...
+&lt;/script&gt;</code></pre></div>
+			</div>
+		</div>
+	</div>
+</div>
+<p>If you want to keep an existing code, you can export an ES module as a global variable.</p>
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock"><pre><code class="html">&lt;script type=&quot;module&quot;&gt;
+  // Import ES module
+  import * as Tweakpane from './path/to/tweakpane.js';
+
+  // Export it as a global variable
+  <strong>window.Tweakpane</strong> = Tweakpane;
+&lt;/script&gt;
+&lt;script&gt;
+  const pane = new Tweakpane.Pane();
+  // ...
+&lt;/script&gt;</code></pre></div>
+		</div>
+	</div>
+</div>
+
+
 <h2 id="binding"><a href="#binding">Bindings</a></h2>
 <p>
-	<code>addInput()</code> is now <code>addBinding()</code>.
+	<code>addInput()</code> is now <code>addBinding()</code>. The new name more accurately describes its functionality.
 </p>
 <div class="main_media">
 	<div class="comparison">
@@ -36,9 +81,7 @@ pane.<strong>addBinding</strong>(PARAMS, 'size');</code></pre></div>
 	</div>
 </div>
 
-<p>
-	<code>addMonitor()</code> is merged into <code>addBinding()</code>, and needs an additional option <code>{readonly: true}</code>.
-</p>
+<p><code>addMonitor()</code> is merged into <code>addBinding()</code>, and needs an additional option <code>{readonly: true}</code>.</p>
 <div class="main_media">
 	<div class="comparison">
 		<div class="comparison_codes">
@@ -108,7 +151,7 @@ b.on('<strong>change</strong>', (ev) => {
 
 
 <h2 id="preset"><a href="#preset">Importing/Exporting a preset</a></h2>
-<p>v4 omits the preset functionality <code>importPreset()</code>, <code>exportPreset()</code>, and added <code>importState()</code>, <code>exportState()</code> instead.</p>
+<p>v4 omits the preset functionality <code>importPreset()</code>, <code>exportPreset()</code>, and added <code>importState()</code>, <code>exportState()</code> instead. Exported state has more information about blades.</p>
 <div class="main_media">
 	<div class="comparison">
 		<div class="comparison_codes">
@@ -245,7 +288,7 @@ const b = pane.addBlade({
 	</table>
 </div>
 
-<p><code>minValue</code>, <code>maxValue</code> of the slider blade API is now <code>min</code> and <code>max</code>.</p>
+<p>Additionally, <code>minValue</code>, <code>maxValue</code> of the slider blade API is now <code>min</code> and <code>max</code>.</p>
 <div class="main_media">
 	<div class="comparison">
 		<div class="comparison_codes">

@@ -60,5 +60,5 @@ function setUpSpMenu() {
 	setUpScrews();
 	setUpSpMenu();
 
-	hljs.initHighlightingOnLoad();
+	hljs.highlightAll();
 })();

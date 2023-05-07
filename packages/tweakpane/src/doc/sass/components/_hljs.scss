@@ -1,5 +1,8 @@
 $prefix: 'hljs';
 
+.#{$prefix}-attr {
+	color: var(--fg-color);
+}
 .#{$prefix}-comment {
 	color: var(--hl-comment);
 }
@@ -12,4 +15,7 @@ $prefix: 'hljs';
 }
 .#{$prefix}-string {
 	color: var(--hl-string);
+}
+.#{$prefix}-tag {
+	color: var(--hl-keyword);
 }

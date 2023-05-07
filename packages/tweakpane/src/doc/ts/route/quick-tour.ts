@@ -27,17 +27,41 @@ export function initQuickTour() {
 			});
 		},
 		inputs: (container) => {
+			const consoleElem = selectContainer('inputsconsole');
+			if (!consoleElem) {
+				return;
+			}
+
 			const PARAMS = {
 				factor: 123,
 				title: 'hello',
 				color: '#ff0055',
 			};
+
+			const consolePane = new Pane({
+				container: consoleElem,
+			});
+			const LOG = {
+				log: JSON.stringify(PARAMS, undefined, 2),
+			};
+			consolePane.addBinding(LOG, 'log', {
+				interval: 0,
+				label: 'PARAMS',
+				multiline: true,
+				readonly: true,
+				rows: 5,
+			});
+
 			const pane = new Pane({
 				container: container,
 			});
 			pane.addBinding(PARAMS, 'factor');
 			pane.addBinding(PARAMS, 'title');
 			pane.addBinding(PARAMS, 'color');
+			pane.on('change', () => {
+				LOG.log = JSON.stringify(PARAMS, undefined, 2);
+				consolePane.refresh();
+			});
 		},
 		inputparams: (container) => {
 			const PARAMS = {
