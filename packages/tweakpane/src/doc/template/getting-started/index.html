@@ -25,7 +25,10 @@
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock">
-				<pre><code class="html">&lt;script src=&quot;<strong>https://cdn.jsdelivr.net/npm/tweakpane@{{ version }}/dist/tweakpane.min.js</strong>&quot;&gt;&lt;/script&gt;</code></pre>
+				<pre><code class="html">&lt;script type=&quot;<strong>module</strong>&quot;&gt;
+  import {Pane} from '<strong>https://cdn.jsdelivr.net/npm/tweakpane@{{ version }}/dist/tweakpane.min.js</strong>';
+  // ...
+&lt;/script&gt;</code></pre>
 			</div>
 		</div>
 		<div class="demo_chip">.html</div>
@@ -38,7 +41,10 @@
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock">
-				<pre><code class="html">&lt;script src=&quot;path/to/tweakpane-{{ version }}.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+				<pre><code class="html">&lt;script type=&quot;<strong>module</strong>&quot;&gt;
+  import {Pane} from './path/to/tweakpane-{{ version }}.min.js';
+  // ...
+&lt;/script&gt;</code></pre>
 			</div>
 		</div>
 		<div class="demo_chip">.html</div>
@@ -64,7 +70,8 @@ $ npm install --save-dev @tweakpane/core</code></pre>
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock">
-				<pre><code class="js">import {Pane} from 'tweakpane';</code></pre>
+				<pre><code class="js">import {Pane} from 'tweakpane';
+// ...</code></pre>
 			</div>
 		</div>
 		<div class="demo_chip">.js</div>
@@ -73,17 +80,13 @@ $ npm install --save-dev @tweakpane/core</code></pre>
 
 
 <h2>2. Create a pane</h2>
-<p>Create an instance of a pane by <code>new</code>.</p>
+<p>Create an instance of a pane by <code>new Pane()</code>.</p>
 
 <div class="main_media">
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock">
-				<pre><code class="js">// CDN
-const pane = new Tweakpane.Pane();
-
-// npm
-const pane = new Pane();</code></pre>
+				<pre><code class="js">const pane = new Pane();</code></pre>
 			</div>
 		</div>
 		<div class="demo_result">

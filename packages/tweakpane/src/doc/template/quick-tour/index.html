@@ -18,7 +18,7 @@
 
 
 {% block content %}
-<h2 id="blades">Blades</h2>
+<h2 id="blades"><a href="#blades">Blades</a></h2>
 <p>You can add controls as rows to the pane. Tweakpane calls each row a &ldquo;<strong>blade</strong>&rdquo;.</p>
 
 <div class="main_media">
@@ -32,7 +32,7 @@
 <p>There are various types of blades: <a href="#inputs">bindings</a>, <a href="#folders">folders</a>, <a href="{{ root }}ui-components/">etc</a>. It can also be extended with the <a href="{{ root }}plugins/">plugin system</a>.</p>
 
 
-<h2 id="inputs">Bindings</h2>
+<h2 id="inputs"><a href="#inputs">Bindings</a></h2>
 <p>Use <code>addBinding()</code> to modify parameter values.</p>
 
 <div class="main_media">
@@ -55,6 +55,7 @@ pane.<strong>addBinding</strong>(PARAMS, 'color');
 		</div>
 		<div class="demo_result">
 			<div class="paneContainer" data-pane-inputs></div>
+			<div class="paneContainer paneContainer-console" data-pane-inputsconsole></div>
 		</div>
 	</div>
 </div>
@@ -92,7 +93,7 @@ pane.addBinding(
 
 <p>See <a href="{{ root }}input-bindings/">Bindings</a> section or <a href="{{ root }}api/classes/Pane.html#addBinding">API reference</a> for details.</p>
 
-<h2 id="folders">Folders</h2>
+<h2 id="folders"><a href="#folders">Folders</a></h2>
 <p>Use <code>addFolder()</code> to organize blades.</p>
 
 <div class="main_media">
@@ -136,7 +137,7 @@ f.addBinding(PARAMS, 'size');
 
 <p>See <a href="{{ root }}ui-components/">UI components</a> section for additional useful components.</p>
 
-<h2 id="events">Events</h2>
+<h2 id="events"><a href="#events">Events</a></h2>
 <p>Use <code>on()</code> of the binding to handle change events.</p>
 
 <div class="main_media">
@@ -163,7 +164,7 @@ b.<strong>on</strong>('change', function(ev) {
 
 <p><a href="{{ root }}misc/#events">Global events</a> are also available to handle events of all components at once.</p>
 
-<h2 id="state">State objects</h2>
+<h2 id="state"><a href="#state">State objects</a></h2>
 <p>Use <code>exportState()</code> to export a state of the pane.</p>
 
 <div class="main_media">
@@ -186,7 +187,7 @@ b.<strong>on</strong>('change', function(ev) {
 
 <p>See <a href="{{ root }}misc/#imex">Import/Export</a> section for details. </p>
 
-<h2 id="monitors">Monitor bindings</h2>
+<h2 id="monitors"><a href="#monitors">Monitor bindings</a></h2>
 <p>Use <code>addBinding()</code> with the option <code>{readonly: true}</code> to monitor value changes.</p>
 
 <div class="main_media">
