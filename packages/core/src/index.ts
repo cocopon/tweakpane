@@ -1,10 +1,7 @@
-export * from './blade/common/api/blade.js';
-export * from './blade/common/api/events.js';
-export * from './blade/common/api/params.js';
-export * from './blade/common/api/tp-event.js';
-
 export * from './common/binding/binding.js';
 export * from './common/binding/target.js';
+
+export * from './common/point-nd/point-axis.js';
 
 export * from './blade/binding/api/binding.js';
 export * from './blade/binding/api/input-binding.js';
@@ -18,16 +15,24 @@ export * from './blade/button/controller/button-blade.js';
 export * from './blade/button/view/button.js';
 export * from './blade/button/plugin.js';
 
-export * from './blade/common/controller/container-blade.js';
+export * from './blade/common/api/blade.js';
+export * from './blade/common/api/container-blade.js';
+export * from './blade/common/api/container.js';
+export * from './blade/common/api/events.js';
+export * from './blade/common/api/params.js';
+export * from './blade/common/api/rack.js';
+export * from './blade/common/api/tp-event.js';
 
-export * from './blade/common/controller/blade.js';
 export * from './blade/common/controller/blade-state.js';
+export * from './blade/common/controller/blade.js';
+export * from './blade/common/controller/container-blade.js';
+export * from './blade/common/controller/rack.js';
 export * from './blade/common/controller/value-blade.js';
 
-export * from './blade/common/model/blade.js';
 export * from './blade/common/model/blade-positions.js';
-export * from './blade/common/model/rack.js';
+export * from './blade/common/model/blade.js';
 export * from './blade/common/model/foldable.js';
+export * from './blade/common/model/rack.js';
 
 export * from './blade/folder/api/folder.js';
 export * from './blade/folder/controller/folder.js';
@@ -126,6 +131,7 @@ export * from './input-binding/color/plugin-object.js';
 export * from './input-binding/color/plugin-string.js';
 export * from './input-binding/common/constraint/point-nd.js';
 export * from './input-binding/common/controller/point-nd-text.js';
+export * from './input-binding/common/model/point-nd.js';
 export * from './input-binding/number/api/slider.js';
 export * from './input-binding/number/plugin.js';
 export * from './input-binding/point-2d/controller/point-2d.js';
