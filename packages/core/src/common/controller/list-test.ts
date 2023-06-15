@@ -50,7 +50,7 @@ describe(ListController.name, () => {
 			viewProps: ViewProps.create(),
 		});
 
-		c.view.selectElement.value = '34';
+		c.view.selectElement.selectedIndex = 1;
 		c.view.selectElement.dispatchEvent(TestUtil.createEvent(win, 'change'));
 
 		assert.strictEqual(c.value.rawValue, 34);
@@ -65,8 +65,8 @@ describe(ListController.name, () => {
 		const value = createValue(0, {
 			constraint: constraint,
 		});
-		const doc = createTestWindow().document;
-		const c = new ListController(doc, {
+		const win = createTestWindow();
+		const c = new ListController(win.document, {
 			props: new ValueMap({
 				options: constraint.values.value('options'),
 			}),
@@ -79,14 +79,11 @@ describe(ListController.name, () => {
 			{text: 'world', value: 22},
 		]);
 		assert.strictEqual(c.view.selectElement.children[0].textContent, 'hello');
-		assert.strictEqual(
-			c.view.selectElement.children[0].getAttribute('value'),
-			'11',
-		);
 		assert.strictEqual(c.view.selectElement.children[1].textContent, 'world');
-		assert.strictEqual(
-			c.view.selectElement.children[1].getAttribute('value'),
-			'22',
-		);
+
+		c.view.selectElement.selectedIndex = 1;
+		c.view.selectElement.dispatchEvent(TestUtil.createEvent(win, 'change'));
+
+		assert.strictEqual(c.value.rawValue, 22);
 	});
 });
