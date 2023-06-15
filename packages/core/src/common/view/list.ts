@@ -39,17 +39,6 @@ export class ListView<T> implements View {
 
 		const selectElem = doc.createElement('select');
 		selectElem.classList.add(className('s'));
-		bindValueMap(this.props_, 'options', (opts) => {
-			removeChildElements(selectElem);
-
-			opts.forEach((item, index) => {
-				const optionElem = doc.createElement('option');
-				optionElem.dataset.index = String(index);
-				optionElem.textContent = item.text;
-				optionElem.value = String(item.value);
-				selectElem.appendChild(optionElem);
-			});
-		});
 		config.viewProps.bindDisabled(selectElem);
 		this.element.appendChild(selectElem);
 		this.selectElement = selectElem;
@@ -62,11 +51,21 @@ export class ListView<T> implements View {
 		config.value.emitter.on('change', this.onValueChange_);
 		this.value_ = config.value;
 
-		this.update_();
+		bindValueMap(this.props_, 'options', (opts) => {
+			removeChildElements(this.selectElement);
+
+			opts.forEach((item) => {
+				const optionElem = doc.createElement('option');
+				optionElem.textContent = item.text;
+				this.selectElement.appendChild(optionElem);
+			});
+			this.update_();
+		});
 	}
 
 	private update_(): void {
-		this.selectElement.value = String(this.value_.rawValue);
+		const values = this.props_.get('options').map((o) => o.value);
+		this.selectElement.selectedIndex = values.indexOf(this.value_.rawValue);
 	}
 
 	private onValueChange_(): void {
