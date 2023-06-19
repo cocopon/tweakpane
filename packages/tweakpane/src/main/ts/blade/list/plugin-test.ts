@@ -112,4 +112,33 @@ describe(ListBladePlugin.id, () => {
 			'hello',
 		);
 	});
+
+	it('should support complex value', () => {
+		const doc = createTestWindow().document;
+		const bc = createBladeController(ListBladePlugin, {
+			document: doc,
+			params: {
+				label: 'hello',
+				options: [
+					{text: 'foo', value: {id: 'foo'}},
+					{text: 'bar', value: {id: 'bar'}},
+				],
+				value: {id: 'foo'},
+				view: 'list',
+			} as ListBladeParams<{id: string}>,
+		}) as BladeController;
+		const pool = createPluginPool();
+		const api = pool.createApi(bc) as ListBladeApi<{id: string}>;
+
+		const selectElem = api.controller.valueController.view.selectElement;
+		assert.strictEqual(
+			(selectElem.querySelector('option') as HTMLOptionElement).value,
+			'foo',
+		);
+		assert.strictEqual(
+			(selectElem.querySelector('option:nth-child(2)') as HTMLOptionElement)
+				.value,
+			'bar',
+		);
+	});
 });

@@ -56,20 +56,28 @@ describe(ListController.name, () => {
 			],
 		});
 
-		c.view.selectElement.value = '34';
+		c.view.selectElement.selectedIndex = 1;
 		c.view.selectElement.dispatchEvent(TestUtil.createEvent(win, 'change'));
 
 		assert.strictEqual(c.value.rawValue, 34);
 	});
 
 	it('should update properties', () => {
-		const doc = createTestWindow().document;
-		const {controller: c} = createController(doc, {
-			items: [
-				{text: 'foo', value: 12},
-				{text: 'bar', value: 34},
-				{text: 'baz', value: 56},
-			],
+		const constraint = new ListConstraint([
+			{text: 'foo', value: 12},
+			{text: 'bar', value: 34},
+			{text: 'baz', value: 56},
+		]);
+		const value = createValue(0, {
+			constraint: constraint,
+		});
+		const win = createTestWindow();
+		const c = new ListController(win.document, {
+			props: new ValueMap({
+				options: constraint.values.value('options'),
+			}),
+			value: value,
+			viewProps: ViewProps.create(),
 		});
 		c.props.set('options', [
 			{text: 'hello', value: 11},
@@ -77,15 +85,12 @@ describe(ListController.name, () => {
 		]);
 
 		assert.strictEqual(c.view.selectElement.children[0].textContent, 'hello');
-		assert.strictEqual(
-			c.view.selectElement.children[0].getAttribute('value'),
-			'11',
-		);
 		assert.strictEqual(c.view.selectElement.children[1].textContent, 'world');
-		assert.strictEqual(
-			c.view.selectElement.children[1].getAttribute('value'),
-			'22',
-		);
+
+		c.view.selectElement.selectedIndex = 1;
+		c.view.selectElement.dispatchEvent(TestUtil.createEvent(win, 'change'));
+
+		assert.strictEqual(c.value.rawValue, 22);
 	});
 
 	it('should export props', () => {
