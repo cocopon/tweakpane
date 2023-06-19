@@ -49,13 +49,8 @@ export class ListController<T>
 
 	private onSelectChange_(e: Event): void {
 		const selectElem: HTMLSelectElement = forceCast(e.currentTarget);
-		const optElem = selectElem.selectedOptions.item(0);
-		if (!optElem) {
-			return;
-		}
-
-		const itemIndex = Number(optElem.dataset.index);
-		this.value.rawValue = this.props.get('options')[itemIndex].value;
+		this.value.rawValue =
+			this.props.get('options')[selectElem.selectedIndex].value;
 	}
 
 	public importProps(state: BladeState): boolean {
