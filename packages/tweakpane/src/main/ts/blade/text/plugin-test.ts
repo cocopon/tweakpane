@@ -17,7 +17,7 @@ import {TextBladeParams, TextBladePlugin} from './plugin.js';
 
 function createPluginPool(): PluginPool {
 	const pool = createDefaultPluginPool();
-	pool.register(TextBladePlugin);
+	pool.register('test', TextBladePlugin);
 	return pool;
 }
 

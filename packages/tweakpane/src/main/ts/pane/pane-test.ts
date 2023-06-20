@@ -80,7 +80,7 @@ describe(Pane.name, () => {
 			document: doc,
 		});
 		assert.notStrictEqual(
-			doc.querySelector('style[data-tp-style=default]'),
+			doc.querySelector('style[data-tp-style=plugin-default]'),
 			null,
 		);
 	});
@@ -92,10 +92,11 @@ describe(Pane.name, () => {
 			document: doc,
 		});
 		pane.registerPlugin({
+			id: 'test',
+			css: css,
 			plugin: {
 				id: 'test',
 				type: 'input',
-				css: css,
 				core: VERSION,
 				accept: (value, params) => {
 					if (typeof value !== 'string') {

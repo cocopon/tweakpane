@@ -26,7 +26,7 @@ function createApi(opt_doc?: Document): FolderApi {
 		viewProps: ViewProps.create(),
 	});
 	const pool = createDefaultPluginPool();
-	pool.register(TestValueBladePlugin);
+	pool.register('test', TestValueBladePlugin);
 	return new FolderApi(c, pool);
 }
 

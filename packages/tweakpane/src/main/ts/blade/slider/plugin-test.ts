@@ -17,7 +17,7 @@ import {SliderBladeParams, SliderBladePlugin} from './plugin.js';
 
 function createPluginPool(): PluginPool {
 	const pool = createDefaultPluginPool();
-	pool.register(SliderBladePlugin);
+	pool.register('test', SliderBladePlugin);
 	return pool;
 }
 

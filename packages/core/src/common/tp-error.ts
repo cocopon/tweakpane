@@ -44,11 +44,14 @@ export class TpError<T extends ErrorType> {
 		});
 	}
 
-	public static notCompatible(id: string): TpError<'notcompatible'> {
+	public static notCompatible(
+		bundleId: string,
+		id: string,
+	): TpError<'notcompatible'> {
 		return new TpError({
 			type: 'notcompatible',
 			context: {
-				id: id,
+				id: `${bundleId}.${id}`,
 			},
 		});
 	}

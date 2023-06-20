@@ -17,11 +17,6 @@ export interface BasePlugin {
 	type: PluginType;
 
 	/**
-	 * The custom CSS for the plugin.
-	 */
-	css?: string;
-
-	/**
 	 * The version of the core used for this plugin.
 	 */
 	core?: Semver;

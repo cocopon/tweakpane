@@ -60,9 +60,9 @@ export class PluginPool {
 		];
 	}
 
-	public register(r: TpPlugin): void {
+	public register(bundleId: string, r: TpPlugin): void {
 		if (!isCompatible(r.core)) {
-			throw TpError.notCompatible(r.id);
+			throw TpError.notCompatible(bundleId, r.id);
 		}
 
 		if (r.type === 'blade') {

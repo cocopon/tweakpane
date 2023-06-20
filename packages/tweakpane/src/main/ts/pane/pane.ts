@@ -6,7 +6,6 @@ import {
 	PluginPool,
 	TabBladePlugin,
 	TpError,
-	TpPlugin,
 	TpPluginBundle,
 	ValueMap,
 	ViewProps,
@@ -101,6 +100,10 @@ export class Pane extends RootApi {
 	}
 
 	public registerPlugin(bundle: TpPluginBundle): void {
+		if (bundle.css) {
+			embedStyle(this.document, `plugin-${bundle.id}`, bundle.css);
+		}
+
 		const plugins =
 			'plugin' in bundle
 				? [bundle.plugin]
@@ -108,26 +111,15 @@ export class Pane extends RootApi {
 				? bundle.plugins
 				: [];
 		plugins.forEach((p) => {
-			this.pool_.register(p);
-			this.embedPluginStyle_(p);
+			this.pool_.register(bundle.id, p);
 		});
-	}
-
-	private embedPluginStyle_(plugin: TpPlugin): void {
-		if (plugin.css) {
-			embedStyle(this.document, `plugin-${plugin.id}`, plugin.css);
-		}
 	}
 
 	private setUpDefaultPlugins_() {
-		// NOTE: This string literal will be replaced with the default CSS by Rollup at the compilation time
-		embedStyle(this.document, 'default', '__css__');
-
-		this.pool_.getAll().forEach((plugin) => {
-			this.embedPluginStyle_(plugin);
-		});
-
 		this.registerPlugin({
+			id: 'default',
+			// NOTE: This string literal will be replaced with the default CSS by Rollup at the compilation time
+			css: '__css__',
 			plugins: [
 				ListBladePlugin,
 				SeparatorBladePlugin,
