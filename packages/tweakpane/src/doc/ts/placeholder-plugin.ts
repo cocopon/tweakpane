@@ -62,10 +62,8 @@ interface PlaceholderBladeParams extends BaseBladeParams {
 	view: 'placeholder';
 }
 
-export const plugin: BladePlugin<PlaceholderBladeParams> = {
-	id: 'placeholder',
-	type: 'blade',
-	css: `.tp-phv {
+export const id = 'placeholder';
+export const css = `.tp-phv {
 	align-items: center;
 	display: flex;
 	height: var(--cnt-usz);
@@ -91,8 +89,10 @@ export const plugin: BladePlugin<PlaceholderBladeParams> = {
 	flex: 1;
 	padding: 4px;
 	text-align: center;
-}
-`,
+}`;
+export const plugin: BladePlugin<PlaceholderBladeParams> = {
+	id: 'placeholder',
+	type: 'blade',
 	core: VERSION,
 	accept(params) {
 		const r = parseRecord(params, (p) => ({
