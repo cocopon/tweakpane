@@ -26,9 +26,29 @@ export type TpPlugin =
 
 export type TpPluginBundle =
 	| {
+			/**
+			 * The custom CSS for the bundle.
+			 */
+			css?: string;
+
+			/**
+			 * The identifier of the bundle.
+			 */
+			id: string;
+
 			plugin: TpPlugin;
 	  }
 	| {
+			/**
+			 * The custom CSS for the bundle.
+			 */
+			css?: string;
+
+			/**
+			 * The identifier of the bundle.
+			 */
+			id: string;
+
 			plugins: TpPlugin[];
 	  };
 
@@ -57,7 +77,7 @@ export function createDefaultPluginPool(): PluginPool {
 		FolderBladePlugin,
 		TabBladePlugin,
 	].forEach((p) => {
-		pool.register(p);
+		pool.register('core', p);
 	});
 	return pool;
 }

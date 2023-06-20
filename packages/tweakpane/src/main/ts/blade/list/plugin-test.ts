@@ -17,7 +17,7 @@ import {ListBladeParams, ListBladePlugin} from './plugin.js';
 
 function createPluginPool(): PluginPool {
 	const pool = createDefaultPluginPool();
-	pool.register(ListBladePlugin);
+	pool.register('test', ListBladePlugin);
 	return pool;
 }
 

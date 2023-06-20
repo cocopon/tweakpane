@@ -34,7 +34,7 @@ function createApi(
 	});
 
 	const pool = config.pool ?? createDefaultPluginPool();
-	pool.register(TestValueBladePlugin);
+	pool.register('test', TestValueBladePlugin);
 
 	return new RackApi(c, pool);
 }
