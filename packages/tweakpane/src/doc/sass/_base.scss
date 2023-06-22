@@ -16,8 +16,8 @@
 	--heading-color: #{hsl(defs.$base-hue, 5%, 20%)};
 
 	--hl-comment: #{hsl(defs.$base-hue, 7%, 60%)};
+	--hl-constant: var(--hl-string);
 	--hl-keyword: #{hsl(225, 40%, 47%)};
-	--hl-constant: #{hsl(340, 35%, 55%)};
 	--hl-string: #{hsl(defs.$base-hue, 15%, 50%)};
 
 	@media (prefers-color-scheme: dark) {
@@ -36,9 +36,9 @@
 		--heading-color: #{hsl(defs.$base-hue, 7%, 75%)};
 
 		--hl-comment: #{hsl(defs.$base-hue, 7%, 40%)};
-		--hl-keyword: #{hsl(220, 35%, 65%)};
-		--hl-constant: #{hsl(340, 15%, 60%)};
-		--hl-string: #{hsl(170, 15%, 60%)};
+		--hl-constant: var(--hl-string);
+		--hl-keyword: #{hsl(220, 30%, 60%)};
+		--hl-string: #{hsl(170, 20%, 60%)};
 	}
 }
 
