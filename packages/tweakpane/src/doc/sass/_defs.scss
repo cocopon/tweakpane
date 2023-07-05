@@ -22,22 +22,22 @@ $z-index-global-nav: 1003;
 // Mixins
 
 @mixin wide() {
-	@media screen and (min-width: ($tablet-width + 1)) {
+	@media (min-width: ($tablet-width + 1)) {
 		@content;
 	}
 }
 @mixin nonwide() {
-	@media screen and (max-width: $tablet-width) {
+	@media (max-width: $tablet-width) {
 		@content;
 	}
 }
 @mixin middle() {
-	@media screen and (min-width: ($sp-width + 1)) and (max-width: $tablet-width) {
+	@media (min-width: ($sp-width + 1)) and (max-width: $tablet-width) {
 		@content;
 	}
 }
 @mixin narrow() {
-	@media screen and (max-width: $sp-width) {
+	@media (max-width: $sp-width) {
 		@content;
 	}
 }
