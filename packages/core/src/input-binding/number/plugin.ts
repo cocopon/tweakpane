@@ -30,7 +30,7 @@ import {
 } from '../../common/number/util.js';
 import {ListParamsOptions} from '../../common/params.js';
 import {writePrimitive} from '../../common/primitive.js';
-import {VERSION} from '../../version.js';
+import {createPlugin} from '../../plugin/plugin.js';
 import {InputBindingPlugin} from '../plugin.js';
 import {SliderInputBindingApi} from './api/slider.js';
 
@@ -63,10 +63,9 @@ export const NumberInputPlugin: InputBindingPlugin<
 	number,
 	number,
 	NumberInputParams
-> = {
+> = createPlugin({
 	id: 'input-number',
 	type: 'input',
-	core: VERSION,
 	accept: (value, params) => {
 		if (typeof value !== 'number') {
 			return null;
@@ -151,4 +150,4 @@ export const NumberInputPlugin: InputBindingPlugin<
 
 		return null;
 	},
-};
+});

@@ -1,4 +1,5 @@
 import {Semver} from '../misc/semver.js';
+import {VERSION} from '../version.js';
 
 export type PluginType = 'blade' | 'input' | 'monitor';
 
@@ -20,4 +21,16 @@ export interface BasePlugin {
 	 * The version of the core used for this plugin.
 	 */
 	core?: Semver;
+}
+
+/**
+ * Creates a plugin with the current core.
+ * @param plugin The plugin without the core version.
+ * @return A plugin with the core version.
+ */
+export function createPlugin<P extends BasePlugin>(plugin: Omit<P, 'core'>): P {
+	return {
+		core: VERSION,
+		...plugin,
+	} as P;
 }

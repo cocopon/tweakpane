@@ -9,7 +9,7 @@ import {
 	parsePointDimensionParams,
 } from '../../common/point-nd/util.js';
 import {deepMerge} from '../../misc/type-util.js';
-import {VERSION} from '../../version.js';
+import {createPlugin} from '../../plugin/plugin.js';
 import {PointNdConstraint} from '../common/constraint/point-nd.js';
 import {PointNdTextController} from '../common/controller/point-nd-text.js';
 import {InputBindingPlugin} from '../plugin.js';
@@ -38,10 +38,9 @@ export const Point4dInputPlugin: InputBindingPlugin<
 	Point4d,
 	Point4dObject,
 	Point4dInputParams
-> = {
+> = createPlugin({
 	id: 'input-point4d',
 	type: 'input',
-	core: VERSION,
 	accept: (value, params) => {
 		if (!Point4d.isObject(value)) {
 			return null;
@@ -93,4 +92,4 @@ export const Point4dInputPlugin: InputBindingPlugin<
 			viewProps: args.viewProps,
 		});
 	},
-};
+});

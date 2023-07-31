@@ -1,7 +1,7 @@
 import {ColorInputParams} from '../../blade/common/api/params.js';
 import {Formatter} from '../../common/converter/formatter.js';
 import {TpError} from '../../common/tp-error.js';
-import {VERSION} from '../../version.js';
+import {createPlugin} from '../../plugin/plugin.js';
 import {InputBindingPlugin} from '../plugin.js';
 import {ColorController} from './controller/color.js';
 import {
@@ -28,10 +28,9 @@ export const StringColorInputPlugin: InputBindingPlugin<
 	IntColor,
 	string,
 	StringColorInputParams
-> = {
+> = createPlugin({
 	id: 'input-color-string',
 	type: 'input',
-	core: VERSION,
 	accept: (value, params) => {
 		if (typeof value !== 'string') {
 			return null;
@@ -83,4 +82,4 @@ export const StringColorInputPlugin: InputBindingPlugin<
 			viewProps: args.viewProps,
 		});
 	},
-};
+});
