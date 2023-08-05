@@ -1,7 +1,7 @@
 import {parseRecord} from '../../common/micro-parsers.js';
 import {ValueMap} from '../../common/model/value-map.js';
 import {BaseBladeParams} from '../../common/params.js';
-import {VERSION} from '../../version.js';
+import {createPlugin} from '../../plugin/plugin.js';
 import {BladePlugin} from '../plugin.js';
 import {FolderApi} from './api/folder.js';
 import {FolderController} from './controller/folder.js';
@@ -14,10 +14,9 @@ export interface FolderBladeParams extends BaseBladeParams {
 	expanded?: boolean;
 }
 
-export const FolderBladePlugin: BladePlugin<FolderBladeParams> = {
+export const FolderBladePlugin: BladePlugin<FolderBladeParams> = createPlugin({
 	id: 'folder',
 	type: 'blade',
-	core: VERSION,
 	accept(params) {
 		const result = parseRecord<FolderBladeParams>(params, (p) => ({
 			title: p.required.string,
@@ -43,4 +42,4 @@ export const FolderBladePlugin: BladePlugin<FolderBladeParams> = {
 		}
 		return new FolderApi(args.controller, args.pool);
 	},
-};
+});

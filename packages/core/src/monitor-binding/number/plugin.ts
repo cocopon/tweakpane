@@ -9,7 +9,7 @@ import {MicroParser, parseRecord} from '../../common/micro-parsers.js';
 import {ValueMap} from '../../common/model/value-map.js';
 import {Constants} from '../../misc/constants.js';
 import {isEmpty} from '../../misc/type-util.js';
-import {VERSION} from '../../version.js';
+import {createPlugin} from '../../plugin/plugin.js';
 import {MultiLogController} from '../common/controller/multi-log.js';
 import {SingleLogController} from '../common/controller/single-log.js';
 import {MonitorBindingPlugin} from '../plugin.js';
@@ -68,10 +68,9 @@ function shouldShowGraph(params: NumberMonitorParams): boolean {
 export const NumberMonitorPlugin: MonitorBindingPlugin<
 	number,
 	NumberMonitorParams
-> = {
+> = createPlugin({
 	id: 'monitor-number',
 	type: 'monitor',
-	core: VERSION,
 	accept: (value, params) => {
 		if (typeof value !== 'number') {
 			return null;
@@ -109,4 +108,4 @@ export const NumberMonitorPlugin: MonitorBindingPlugin<
 		}
 		return null;
 	},
-};
+});

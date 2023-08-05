@@ -1,6 +1,6 @@
 import {ColorInputParams} from '../../blade/common/api/params.js';
 import {Formatter} from '../../common/converter/formatter.js';
-import {VERSION} from '../../version.js';
+import {createPlugin} from '../../plugin/plugin.js';
 import {InputBindingPlugin} from '../plugin.js';
 import {ColorController} from './controller/color.js';
 import {
@@ -51,10 +51,9 @@ export const NumberColorInputPlugin: InputBindingPlugin<
 	IntColor,
 	number,
 	NumberColorInputParams
-> = {
+> = createPlugin({
 	id: 'input-color-number',
 	type: 'input',
-	core: VERSION,
 	accept: (value, params) => {
 		if (typeof value !== 'number') {
 			return null;
@@ -97,4 +96,4 @@ export const NumberColorInputPlugin: InputBindingPlugin<
 			viewProps: args.viewProps,
 		});
 	},
-};
+});

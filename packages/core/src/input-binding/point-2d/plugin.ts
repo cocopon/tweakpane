@@ -13,7 +13,7 @@ import {createPointDimensionParser} from '../../common/point-nd/util.js';
 import {parsePointDimensionParams} from '../../common/point-nd/util.js';
 import {createDimensionConstraint} from '../../common/point-nd/util.js';
 import {deepMerge, isEmpty, Tuple2} from '../../misc/type-util.js';
-import {VERSION} from '../../version.js';
+import {createPlugin} from '../../plugin/plugin.js';
 import {PointNdConstraint} from '../common/constraint/point-nd.js';
 import {InputBindingPlugin} from '../plugin.js';
 import {Point2dController} from './controller/point-2d.js';
@@ -80,10 +80,9 @@ export const Point2dInputPlugin: InputBindingPlugin<
 	Point2d,
 	Point2dObject,
 	Point2dInputParams
-> = {
+> = createPlugin({
 	id: 'input-point2d',
 	type: 'input',
-	core: VERSION,
 	accept: (value, params) => {
 		if (!Point2d.isObject(value)) {
 			return null;
@@ -137,4 +136,4 @@ export const Point2dInputPlugin: InputBindingPlugin<
 			viewProps: args.viewProps,
 		});
 	},
-};
+});

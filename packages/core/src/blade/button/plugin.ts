@@ -2,7 +2,7 @@ import {LabelPropsObject} from '../../common/label/view/label.js';
 import {parseRecord} from '../../common/micro-parsers.js';
 import {ValueMap} from '../../common/model/value-map.js';
 import {BaseBladeParams} from '../../common/params.js';
-import {VERSION} from '../../version.js';
+import {createPlugin} from '../../plugin/plugin.js';
 import {BladePlugin} from '../plugin.js';
 import {ButtonApi} from './api/button.js';
 import {ButtonBladeController} from './controller/button-blade.js';
@@ -15,10 +15,9 @@ export interface ButtonBladeParams extends BaseBladeParams {
 	label?: string;
 }
 
-export const ButtonBladePlugin: BladePlugin<ButtonBladeParams> = {
+export const ButtonBladePlugin: BladePlugin<ButtonBladeParams> = createPlugin({
 	id: 'button',
 	type: 'blade',
-	core: VERSION,
 	accept(params) {
 		const result = parseRecord<ButtonBladeParams>(params, (p) => ({
 			title: p.required.string,
@@ -46,4 +45,4 @@ export const ButtonBladePlugin: BladePlugin<ButtonBladeParams> = {
 		}
 		return null;
 	},
-};
+});

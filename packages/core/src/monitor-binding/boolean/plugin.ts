@@ -5,7 +5,7 @@ import {
 } from '../../common/converter/boolean.js';
 import {parseRecord} from '../../common/micro-parsers.js';
 import {Constants} from '../../misc/constants.js';
-import {VERSION} from '../../version.js';
+import {createPlugin} from '../../plugin/plugin.js';
 import {MultiLogController} from '../common/controller/multi-log.js';
 import {SingleLogController} from '../common/controller/single-log.js';
 import {MonitorBindingPlugin} from '../plugin.js';
@@ -16,10 +16,9 @@ import {MonitorBindingPlugin} from '../plugin.js';
 export const BooleanMonitorPlugin: MonitorBindingPlugin<
 	boolean,
 	BooleanMonitorParams
-> = {
+> = createPlugin({
 	id: 'monitor-bool',
 	type: 'monitor',
-	core: VERSION,
 	accept: (value, params) => {
 		if (typeof value !== 'boolean') {
 			return null;
@@ -54,4 +53,4 @@ export const BooleanMonitorPlugin: MonitorBindingPlugin<
 			viewProps: args.viewProps,
 		});
 	},
-};
+});

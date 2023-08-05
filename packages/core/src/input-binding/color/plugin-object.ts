@@ -1,7 +1,7 @@
 import {ColorInputParams} from '../../blade/common/api/params.js';
 import {BindingReader} from '../../common/binding/binding.js';
 import {Formatter} from '../../common/converter/formatter.js';
-import {VERSION} from '../../version.js';
+import {createPlugin} from '../../plugin/plugin.js';
 import {InputBindingPlugin} from '../plugin.js';
 import {ColorController} from './controller/color.js';
 import {colorFromObject} from './converter/color-object.js';
@@ -62,10 +62,9 @@ export const ObjectColorInputPlugin: InputBindingPlugin<
 	IntColor,
 	RgbColorObject | RgbaColorObject,
 	ObjectColorInputParams
-> = {
+> = createPlugin({
 	id: 'input-color-object',
 	type: 'input',
-	core: VERSION,
 	accept: (value, params) => {
 		if (!isColorObject(value)) {
 			return null;
@@ -106,4 +105,4 @@ export const ObjectColorInputPlugin: InputBindingPlugin<
 			viewProps: args.viewProps,
 		});
 	},
-};
+});

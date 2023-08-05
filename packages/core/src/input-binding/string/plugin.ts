@@ -21,7 +21,7 @@ import {parseRecord} from '../../common/micro-parsers.js';
 import {ValueMap} from '../../common/model/value-map.js';
 import {ListParamsOptions} from '../../common/params.js';
 import {writePrimitive} from '../../common/primitive.js';
-import {VERSION} from '../../version.js';
+import {createPlugin} from '../../plugin/plugin.js';
 import {InputBindingPlugin} from '../plugin.js';
 
 function createConstraint(params: StringInputParams): Constraint<string> {
@@ -42,10 +42,9 @@ export const StringInputPlugin: InputBindingPlugin<
 	string,
 	string,
 	StringInputParams
-> = {
+> = createPlugin({
 	id: 'input-string',
 	type: 'input',
-	core: VERSION,
 	accept: (value, params) => {
 		if (typeof value !== 'string') {
 			return null;
@@ -107,4 +106,4 @@ export const StringInputPlugin: InputBindingPlugin<
 
 		return null;
 	},
-};
+});

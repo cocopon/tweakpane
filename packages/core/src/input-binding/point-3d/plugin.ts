@@ -9,7 +9,7 @@ import {
 	parsePointDimensionParams,
 } from '../../common/point-nd/util.js';
 import {deepMerge} from '../../misc/type-util.js';
-import {VERSION} from '../../version.js';
+import {createPlugin} from '../../plugin/plugin.js';
 import {PointNdConstraint} from '../common/constraint/point-nd.js';
 import {PointNdTextController} from '../common/controller/point-nd-text.js';
 import {InputBindingPlugin} from '../plugin.js';
@@ -37,10 +37,9 @@ export const Point3dInputPlugin: InputBindingPlugin<
 	Point3d,
 	Point3dObject,
 	Point3dInputParams
-> = {
+> = createPlugin({
 	id: 'input-point3d',
 	type: 'input',
-	core: VERSION,
 	accept: (value, params) => {
 		if (!Point3d.isObject(value)) {
 			return null;
@@ -86,4 +85,4 @@ export const Point3dInputPlugin: InputBindingPlugin<
 			viewProps: args.viewProps,
 		});
 	},
-};
+});
