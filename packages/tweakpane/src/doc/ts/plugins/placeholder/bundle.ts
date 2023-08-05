@@ -5,9 +5,10 @@ import {
 	BladePlugin,
 	ClassName,
 	createBlade,
+	createPlugin,
 	getCssVar,
 	parseRecord,
-	VERSION,
+	TpPluginBundle,
 	View,
 	ViewProps,
 } from '@tweakpane/core';
@@ -62,8 +63,37 @@ interface PlaceholderBladeParams extends BaseBladeParams {
 	view: 'placeholder';
 }
 
-export const id = 'placeholder';
-export const css = `.tp-phv {
+const plugin: BladePlugin<PlaceholderBladeParams> = createPlugin({
+	id: 'placeholder',
+	type: 'blade',
+	accept(params) {
+		const r = parseRecord(params, (p) => ({
+			rows: p.optional.number,
+			title: p.required.string,
+			view: p.required.constant('placeholder'),
+		}));
+		return r ? {params: r} : null;
+	},
+	controller(args) {
+		return new PlaceholderController(args.document, {
+			rows: args.params.rows ?? 1,
+			title: args.params.title,
+			viewProps: args.viewProps,
+		});
+	},
+	api(args) {
+		if (!(args.controller instanceof PlaceholderController)) {
+			return null;
+		}
+		return new BladeApi(args.controller);
+	},
+});
+
+export const PlaceholderPluginBundle: TpPluginBundle = {
+	id: 'placeholder',
+	plugin: plugin,
+
+	css: `.tp-phv {
 	align-items: center;
 	display: flex;
 	height: var(--cnt-usz);
@@ -89,30 +119,5 @@ export const css = `.tp-phv {
 	flex: 1;
 	padding: 4px;
 	text-align: center;
-}`;
-export const plugin: BladePlugin<PlaceholderBladeParams> = {
-	id: 'placeholder',
-	type: 'blade',
-	core: VERSION,
-	accept(params) {
-		const r = parseRecord(params, (p) => ({
-			rows: p.optional.number,
-			title: p.required.string,
-			view: p.required.constant('placeholder'),
-		}));
-		return r ? {params: r} : null;
-	},
-	controller(args) {
-		return new PlaceholderController(args.document, {
-			rows: args.params.rows ?? 1,
-			title: args.params.title,
-			viewProps: args.viewProps,
-		});
-	},
-	api(args) {
-		if (!(args.controller instanceof PlaceholderController)) {
-			return null;
-		}
-		return new BladeApi(args.controller);
-	},
+}`,
 };

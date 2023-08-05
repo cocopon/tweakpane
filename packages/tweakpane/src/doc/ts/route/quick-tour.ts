@@ -1,6 +1,6 @@
+import {PlaceholderPluginBundle} from 'ts/plugins/placeholder/bundle.js';
 import {Pane} from 'tweakpane';
 
-import * as PlaceholderPlugin from '../placeholder-plugin.js';
 import {selectContainer, wave} from '../util.js';
 
 export function initQuickTour() {
@@ -11,7 +11,7 @@ export function initQuickTour() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.registerPlugin(PlaceholderPlugin);
+			pane.registerPlugin(PlaceholderPluginBundle);
 			pane.addBlade({
 				title: 'blade',
 				view: 'placeholder',

@@ -8,6 +8,7 @@ import {initMigrationV4} from './route/migration-v4.js';
 import {initMisc} from './route/misc.js';
 import {initMonitorBindings} from './route/monitor-bindings';
 import {initPlugins} from './route/plugins';
+import {initPluginsDev} from './route/plugins-dev';
 import {initQuickTour} from './route/quick-tour.js';
 import {initTheming} from './route/theming.js';
 import {initUiComponents} from './route/ui-components';
@@ -49,6 +50,7 @@ function setUpSpMenu() {
 	router.add(/\/migration\/v4\/$/, initMigrationV4);
 	router.add(/\/monitor-bindings\/$/, initMonitorBindings);
 	router.add(/\/theming\/$/, initTheming);
+	router.add(/\/plugins\/dev\/$/, initPluginsDev);
 	router.add(/\/plugins\/$/, initPlugins);
 	router.add(/\/quick-tour\/$/, initQuickTour);
 	router.add(/\/ui-components\/$/, initUiComponents);
