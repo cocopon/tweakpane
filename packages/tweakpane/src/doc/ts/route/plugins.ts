@@ -1,7 +1,6 @@
-import {TpPluginBundle} from '@tweakpane/core';
-import {Pane} from 'tweakpane';
+import {Pane, TpPluginBundle} from 'tweakpane';
 
-import {selectContainer} from '../util';
+import {selectContainer} from '../util.js';
 
 declare const TweakpaneCamerakitPlugin: TpPluginBundle;
 declare const TweakpaneEssentialsPlugin: TpPluginBundle;
@@ -20,18 +19,18 @@ export function initPlugins() {
 			});
 			pane.registerPlugin(TweakpaneEssentialsPlugin);
 
-			// Input bindings
+			// Bindings
 			const fi = pane.addFolder({
-				title: 'Input bindings',
+				title: 'Bindings',
 			});
-			fi.addInput(params, 'interval', {
+			fi.addBinding(params, 'interval', {
 				min: 0,
 				max: 100,
 				step: 1,
 			});
 
 			const scales = [10, 20, 25, 50, 75, 100];
-			fi.addInput(params, 'radiogrid', {
+			fi.addBinding(params, 'radiogrid', {
 				groupName: 'scale',
 				label: 'radiogrid',
 				size: [3, 2],
@@ -48,7 +47,7 @@ export function initPlugins() {
 			});
 			const fpsGraph: any = fb.addBlade({
 				label: 'fpsgraph',
-				lineCount: 2,
+				rows: 2,
 				view: 'fpsgraph',
 			});
 			function render() {
@@ -91,11 +90,11 @@ export function initPlugins() {
 				container: container,
 			});
 			pane.registerPlugin(TweakpaneCamerakitPlugin);
-			pane.addInput(params, 'flen', {
+			pane.addBinding(params, 'flen', {
 				view: 'cameraring',
 				series: 0,
 			});
-			pane.addInput(params, 'fnum', {
+			pane.addBinding(params, 'fnum', {
 				view: 'cameraring',
 				series: 1,
 				unit: {
@@ -107,11 +106,11 @@ export function initPlugins() {
 				min: 1.4,
 				step: 0.02,
 			});
-			pane.addInput(params, 'flen', {
+			pane.addBinding(params, 'flen', {
 				view: 'cameraring',
 				series: 2,
 			});
-			pane.addInput(params, 'iso', {
+			pane.addBinding(params, 'iso', {
 				view: 'camerawheel',
 				amount: 10,
 				min: 100,

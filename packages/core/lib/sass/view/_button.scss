@@ -1,6 +1,8 @@
-.#{$prefix}-btnv {
+@use '../tp';
+
+.#{tp.$prefix}-btnv {
 	&_b {
-		@extend %button;
+		@extend %tp-button;
 
 		width: 100%;
 	}

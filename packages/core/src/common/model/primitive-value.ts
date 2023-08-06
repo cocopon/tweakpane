@@ -1,6 +1,10 @@
-import {Emitter} from './emitter';
-import {Value, ValueChangeOptions, ValueEvents} from './value';
+import {Emitter} from './emitter.js';
+import {Value, ValueChangeOptions, ValueEvents} from './value.js';
 
+/**
+ * A value that has a primitive raw value.
+ * @template T the type of the raw value.
+ */
 export class PrimitiveValue<T> implements Value<T> {
 	public readonly emitter: Emitter<ValueEvents<T>>;
 	private value_: T;

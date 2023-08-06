@@ -1,17 +1,19 @@
-import {Controller} from '../../controller/controller';
-import {Value, ValueChangeOptions} from '../../model/value';
-import {ViewProps} from '../../model/view-props';
-import {constrainRange, mapRange} from '../../number-util';
-import {getHorizontalStepKeys, getStepForKey} from '../../ui';
+import {ValueController} from '../../controller/value.js';
+import {Value, ValueChangeOptions} from '../../model/value.js';
+import {ViewProps} from '../../model/view-props.js';
+import {getHorizontalStepKeys, getStepForKey} from '../../ui.js';
 import {
 	PointerData,
 	PointerHandler,
 	PointerHandlerEvent,
-} from '../../view/pointer-handler';
-import {SliderProps, SliderView} from '../view/slider';
+} from '../../view/pointer-handler.js';
+import {constrainRange, mapRange} from '../util.js';
+import {SliderProps, SliderView} from '../view/slider.js';
 
+/**
+ * @hidden
+ */
 interface Config {
-	baseStep: number;
 	props: SliderProps;
 	value: Value<number>;
 	viewProps: ViewProps;
@@ -20,13 +22,12 @@ interface Config {
 /**
  * @hidden
  */
-export class SliderController implements Controller<SliderView> {
+export class SliderController implements ValueController<number, SliderView> {
 	public readonly value: Value<number>;
 	public readonly view: SliderView;
 	public readonly viewProps: ViewProps;
 	public readonly props: SliderProps;
 	private readonly ptHandler_: PointerHandler;
-	private readonly baseStep_: number;
 
 	constructor(doc: Document, config: Config) {
 		this.onKeyDown_ = this.onKeyDown_.bind(this);
@@ -34,7 +35,6 @@ export class SliderController implements Controller<SliderView> {
 		this.onPointerDownOrMove_ = this.onPointerDownOrMove_.bind(this);
 		this.onPointerUp_ = this.onPointerUp_.bind(this);
 
-		this.baseStep_ = config.baseStep;
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 
@@ -65,8 +65,8 @@ export class SliderController implements Controller<SliderView> {
 				constrainRange(d.point.x, 0, d.bounds.width),
 				0,
 				d.bounds.width,
-				this.props.get('minValue'),
-				this.props.get('maxValue'),
+				this.props.get('min'),
+				this.props.get('max'),
 			),
 			opts,
 		);
@@ -87,7 +87,10 @@ export class SliderController implements Controller<SliderView> {
 	}
 
 	private onKeyDown_(ev: KeyboardEvent): void {
-		const step = getStepForKey(this.baseStep_, getHorizontalStepKeys(ev));
+		const step = getStepForKey(
+			this.props.get('keyScale'),
+			getHorizontalStepKeys(ev),
+		);
 		if (step === 0) {
 			return;
 		}
@@ -98,7 +101,10 @@ export class SliderController implements Controller<SliderView> {
 	}
 
 	private onKeyUp_(ev: KeyboardEvent): void {
-		const step = getStepForKey(this.baseStep_, getHorizontalStepKeys(ev));
+		const step = getStepForKey(
+			this.props.get('keyScale'),
+			getHorizontalStepKeys(ev),
+		);
 		if (step === 0) {
 			return;
 		}

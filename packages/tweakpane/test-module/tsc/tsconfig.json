@@ -2,6 +2,7 @@
 	"compilerOptions": {
 		"esModuleInterop": true,
 		"lib": ["DOM", "ES2015"],
+		"module": "node16",
 		"outDir": "dist",
 		"strict": true,
 		"target": "ES5"

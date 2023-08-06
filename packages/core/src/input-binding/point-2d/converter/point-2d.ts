@@ -1,5 +1,5 @@
-import {BindingTarget} from '../../../common/binding/target';
-import {Point2d} from '../model/point-2d';
+import {BindingTarget} from '../../../common/binding/target.js';
+import {Point2d} from '../model/point-2d.js';
 
 export function point2dFromUnknown(value: unknown): Point2d {
 	return Point2d.isObject(value)

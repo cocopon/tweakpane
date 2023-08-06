@@ -1,111 +1,42 @@
+import {InputBindingController} from '../../blade/binding/controller/input-binding.js';
+import {NumberInputParams} from '../../blade/common/api/params.js';
+import {ListInputBindingApi} from '../../common/api/list.js';
 import {
 	CompositeConstraint,
 	findConstraint,
-} from '../../common/constraint/composite';
-import {Constraint} from '../../common/constraint/constraint';
-import {DefiniteRangeConstraint} from '../../common/constraint/definite-range';
-import {ListConstraint} from '../../common/constraint/list';
-import {RangeConstraint} from '../../common/constraint/range';
-import {StepConstraint} from '../../common/constraint/step';
-import {ListController} from '../../common/controller/list';
-import {Formatter} from '../../common/converter/formatter';
-import {
-	createNumberFormatter,
-	numberFromUnknown,
-	parseNumber,
-} from '../../common/converter/number';
-import {ValueMap} from '../../common/model/value-map';
-import {NumberTextController} from '../../common/number/controller/number-text';
-import {SliderTextController} from '../../common/number/controller/slider-text';
-import {BaseInputParams, ListParamsOptions} from '../../common/params';
-import {
-	ParamsParser,
-	ParamsParsers,
-	parseParams,
-} from '../../common/params-parsers';
-import {writePrimitive} from '../../common/primitive';
+} from '../../common/constraint/composite.js';
+import {Constraint} from '../../common/constraint/constraint.js';
+import {DefiniteRangeConstraint} from '../../common/constraint/definite-range.js';
+import {ListConstraint} from '../../common/constraint/list.js';
+import {ListController} from '../../common/controller/list.js';
+import {numberFromUnknown, parseNumber} from '../../common/converter/number.js';
 import {
 	createListConstraint,
-	getBaseStep,
-	getSuitableDecimalDigits,
-	getSuitableDraggingScale,
 	parseListOptions,
-} from '../../common/util';
-import {isEmpty} from '../../misc/type-util';
-import {InputBindingPlugin} from '../plugin';
-
-export interface NumberInputParams extends BaseInputParams {
-	format?: Formatter<number>;
-	max?: number;
-	min?: number;
-	options?: ListParamsOptions<number>;
-	step?: number;
-}
-
-/**
- * Tries to create a step constraint.
- * @param params The input parameters object.
- * @return A constraint or null if not found.
- */
-export function createStepConstraint(
-	params: {
-		step?: number;
-	},
-	initialValue?: number,
-): Constraint<number> | null {
-	if ('step' in params && !isEmpty(params.step)) {
-		return new StepConstraint(params.step, initialValue);
-	}
-	return null;
-}
-
-/**
- * Tries to create a range constraint.
- * @param params The input parameters object.
- * @return A constraint or null if not found.
- */
-export function createRangeConstraint(params: {
-	max?: number;
-	min?: number;
-}): Constraint<number> | null {
-	if (!isEmpty(params.max) && !isEmpty(params.min)) {
-		return new DefiniteRangeConstraint({
-			max: params.max,
-			min: params.min,
-		});
-	}
-	if (!isEmpty(params.max) || !isEmpty(params.min)) {
-		return new RangeConstraint({
-			max: params.max,
-			min: params.min,
-		});
-	}
-	return null;
-}
-
-/**
- * Finds a range from number constraint.
- * @param c The number constraint.
- * @return A list that contains a minimum value and a max value.
- */
-export function findNumberRange(
-	c: Constraint<number>,
-): [number | undefined, number | undefined] {
-	const drc = findConstraint(c, DefiniteRangeConstraint);
-	if (drc) {
-		return [drc.values.get('min'), drc.values.get('max')];
-	}
-	const rc = findConstraint(c, RangeConstraint);
-	if (rc) {
-		return [rc.minValue, rc.maxValue];
-	}
-	return [undefined, undefined];
-}
+} from '../../common/list-util.js';
+import {parseRecord} from '../../common/micro-parsers.js';
+import {ValueMap} from '../../common/model/value-map.js';
+import {createValue} from '../../common/model/values.js';
+import {NumberTextController} from '../../common/number/controller/number-text.js';
+import {
+	createSliderTextProps,
+	SliderTextController,
+} from '../../common/number/controller/slider-text.js';
+import {
+	createNumberTextInputParamsParser,
+	createNumberTextPropsObject,
+	createRangeConstraint,
+	createStepConstraint,
+} from '../../common/number/util.js';
+import {ListParamsOptions} from '../../common/params.js';
+import {writePrimitive} from '../../common/primitive.js';
+import {createPlugin} from '../../plugin/plugin.js';
+import {InputBindingPlugin} from '../plugin.js';
+import {SliderInputBindingApi} from './api/slider.js';
 
 function createConstraint(
 	params: NumberInputParams,
-	// TODO: Make it required in the next version
-	initialValue?: number,
+	initialValue: number,
 ): Constraint<number> {
 	const constraints: Constraint<number>[] = [];
 
@@ -132,21 +63,18 @@ export const NumberInputPlugin: InputBindingPlugin<
 	number,
 	number,
 	NumberInputParams
-> = {
+> = createPlugin({
 	id: 'input-number',
 	type: 'input',
 	accept: (value, params) => {
 		if (typeof value !== 'number') {
 			return null;
 		}
-		const p = ParamsParsers;
-		const result = parseParams<NumberInputParams>(params, {
-			format: p.optional.function as ParamsParser<Formatter<number>>,
-			max: p.optional.number,
-			min: p.optional.number,
+		const result = parseRecord<NumberInputParams>(params, (p) => ({
+			...createNumberTextInputParamsParser(p),
 			options: p.optional.custom<ListParamsOptions<number>>(parseListOptions),
-			step: p.optional.number,
-		});
+			readonly: p.optional.constant(false),
+		}));
 		return result
 			? {
 					initialValue: value,
@@ -174,37 +102,52 @@ export const NumberInputPlugin: InputBindingPlugin<
 			});
 		}
 
-		const formatter =
-			('format' in args.params ? args.params.format : undefined) ??
-			createNumberFormatter(getSuitableDecimalDigits(c, value.rawValue));
+		const textPropsObj = createNumberTextPropsObject(
+			args.params,
+			value.rawValue,
+		);
 
 		const drc = c && findConstraint(c, DefiniteRangeConstraint);
 		if (drc) {
 			return new SliderTextController(args.document, {
-				baseStep: getBaseStep(c),
+				...createSliderTextProps({
+					...textPropsObj,
+					keyScale: createValue(textPropsObj.keyScale),
+					max: drc.values.value('max'),
+					min: drc.values.value('min'),
+				}),
 				parser: parseNumber,
-				sliderProps: new ValueMap({
-					maxValue: drc.values.value('max'),
-					minValue: drc.values.value('min'),
-				}),
-				textProps: ValueMap.fromObject({
-					draggingScale: getSuitableDraggingScale(c, value.rawValue),
-					formatter: formatter,
-				}),
 				value: value,
 				viewProps: args.viewProps,
 			});
 		}
 
 		return new NumberTextController(args.document, {
-			baseStep: getBaseStep(c),
 			parser: parseNumber,
-			props: ValueMap.fromObject({
-				draggingScale: getSuitableDraggingScale(c, value.rawValue),
-				formatter: formatter,
-			}),
+			props: ValueMap.fromObject(textPropsObj),
 			value: value,
 			viewProps: args.viewProps,
 		});
 	},
-};
+	api(args) {
+		if (typeof args.controller.value.rawValue !== 'number') {
+			return null;
+		}
+
+		if (args.controller.valueController instanceof SliderTextController) {
+			return new SliderInputBindingApi(
+				args.controller as InputBindingController<number, SliderTextController>,
+			);
+		}
+		if (args.controller.valueController instanceof ListController) {
+			return new ListInputBindingApi(
+				args.controller as InputBindingController<
+					number,
+					ListController<number>
+				>,
+			);
+		}
+
+		return null;
+	},
+});

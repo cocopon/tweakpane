@@ -1,42 +1,42 @@
-import {bindFoldable, Foldable} from '../../../blade/common/model/foldable';
-import {Controller} from '../../../common/controller/controller';
-import {PopupController} from '../../../common/controller/popup';
-import {TextController} from '../../../common/controller/text';
-import {Formatter} from '../../../common/converter/formatter';
-import {Parser} from '../../../common/converter/parser';
-import {findNextTarget, supportsTouch} from '../../../common/dom-util';
-import {Value} from '../../../common/model/value';
-import {ValueMap} from '../../../common/model/value-map';
-import {connectValues} from '../../../common/model/value-sync';
-import {ViewProps} from '../../../common/model/view-props';
-import {PickerLayout} from '../../../common/params';
-import {forceCast} from '../../../misc/type-util';
-import {Color} from '../model/color';
-import {ColorType} from '../model/color-model';
-import {ColorView} from '../view/color';
-import {ColorPickerController} from './color-picker';
-import {ColorSwatchController} from './color-swatch';
+import {bindFoldable, Foldable} from '../../../blade/common/model/foldable.js';
+import {PopupController} from '../../../common/controller/popup.js';
+import {TextController} from '../../../common/controller/text.js';
+import {ValueController} from '../../../common/controller/value.js';
+import {Formatter} from '../../../common/converter/formatter.js';
+import {Parser} from '../../../common/converter/parser.js';
+import {findNextTarget, supportsTouch} from '../../../common/dom-util.js';
+import {Value} from '../../../common/model/value.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {connectValues} from '../../../common/model/value-sync.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {PickerLayout} from '../../../common/params.js';
+import {forceCast} from '../../../misc/type-util.js';
+import {ColorType} from '../model/color-model.js';
+import {IntColor} from '../model/int-color.js';
+import {ColorView} from '../view/color.js';
+import {ColorPickerController} from './color-picker.js';
+import {ColorSwatchController} from './color-swatch.js';
 
 interface Config {
 	colorType: ColorType;
 	expanded: boolean;
-	formatter: Formatter<Color>;
-	parser: Parser<Color>;
+	formatter: Formatter<IntColor>;
+	parser: Parser<IntColor>;
 	pickerLayout: PickerLayout;
 	supportsAlpha: boolean;
-	value: Value<Color>;
+	value: Value<IntColor>;
 	viewProps: ViewProps;
 }
 
 /**
  * @hidden
  */
-export class ColorController implements Controller<ColorView> {
-	public readonly value: Value<Color>;
+export class ColorController implements ValueController<IntColor, ColorView> {
+	public readonly value: Value<IntColor>;
 	public readonly view: ColorView;
 	public readonly viewProps: ViewProps;
 	private readonly swatchC_: ColorSwatchController;
-	private readonly textC_: TextController<Color>;
+	private readonly textC_: TextController<IntColor>;
 	private readonly pickerC_: ColorPickerController;
 	private readonly popC_: PopupController | null;
 	private readonly foldable_: Foldable;
@@ -102,8 +102,8 @@ export class ColorController implements Controller<ColorView> {
 			connectValues({
 				primary: this.foldable_.value('expanded'),
 				secondary: this.popC_.shows,
-				forward: (p) => p.rawValue,
-				backward: (_, s) => s.rawValue,
+				forward: (p) => p,
+				backward: (_, s) => s,
 			});
 		} else if (this.view.pickerElement) {
 			this.view.pickerElement.appendChild(this.pickerC_.view.element);
@@ -112,7 +112,7 @@ export class ColorController implements Controller<ColorView> {
 		}
 	}
 
-	get textController(): TextController<Color> {
+	get textController(): TextController<IntColor> {
 		return this.textC_;
 	}
 

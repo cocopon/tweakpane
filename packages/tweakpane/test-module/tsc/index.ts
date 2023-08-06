@@ -1,4 +1,6 @@
-import {TpChangeEvent, TpUpdateEvent} from '@tweakpane/core';
+/* eslint-disable no-console */
+
+import {TpChangeEvent} from '@tweakpane/core';
 import {JSDOM} from 'jsdom';
 import {Pane} from 'tweakpane';
 
@@ -21,7 +23,7 @@ const pane = new Pane({
 
 // Add input
 pane
-	.addInput(PARAMS, 'num', {
+	.addBinding(PARAMS, 'num', {
 		max: 1,
 		min: 0,
 		step: 1,
@@ -29,23 +31,25 @@ pane
 	.on('change', (ev: TpChangeEvent<number>) => {
 		console.log(ev);
 	});
-pane.addInput(PARAMS, 'xy').on('change', (ev: TpChangeEvent<V2dObj>) => {
+pane.addBinding(PARAMS, 'xy').on('change', (ev: TpChangeEvent<V2dObj>) => {
 	console.log(ev);
 });
 
 // Add monitor
 pane
-	.addMonitor(PARAMS, 'num', {
+	.addBinding(PARAMS, 'num', {
 		interval: 0,
+		readonly: true,
 	})
-	.on('update', (ev: TpUpdateEvent<number>) => {
+	.on('change', (ev: TpChangeEvent<number>) => {
 		console.log(ev);
 	});
 pane
-	.addMonitor(PARAMS, 'text', {
+	.addBinding(PARAMS, 'text', {
 		interval: 0,
+		readonly: true,
 	})
-	.on('update', (ev: TpUpdateEvent<string>) => {
+	.on('change', (ev: TpChangeEvent<string>) => {
 		console.log(ev);
 	});
 
@@ -53,23 +57,23 @@ pane
 const f1 = pane.addFolder({
 	title: 'folder',
 });
-f1.addInput(PARAMS, 'num').on('change', (ev: TpChangeEvent<number>) => {
+f1.addBinding(PARAMS, 'num').on('change', (ev: TpChangeEvent<number>) => {
 	console.log(ev);
 });
-f1.addInput(PARAMS, 'xy').on('change', (ev: TpChangeEvent<V2dObj>) => {
+f1.addBinding(PARAMS, 'xy').on('change', (ev: TpChangeEvent<V2dObj>) => {
 	console.log(ev);
 });
-f1.addMonitor(PARAMS, 'num', {interval: 0}).on(
-	'update',
-	(ev: TpUpdateEvent<number>) => {
-		console.log(ev);
-	},
-);
-f1.addMonitor(PARAMS, 'text', {interval: 0}).on(
-	'update',
-	(ev: TpUpdateEvent<string>) => {
-		console.log(ev);
-	},
-);
+f1.addBinding(PARAMS, 'num', {
+	interval: 0,
+	readonly: true,
+}).on('change', (ev: TpChangeEvent<number>) => {
+	console.log(ev);
+});
+f1.addBinding(PARAMS, 'text', {
+	interval: 0,
+	readonly: true,
+}).on('change', (ev: TpChangeEvent<string>) => {
+	console.log(ev);
+});
 
 console.log(pane);

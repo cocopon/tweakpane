@@ -1,6 +1,6 @@
 import {Pane} from 'tweakpane';
 
-import {selectContainer, wave} from '../util';
+import {selectContainer, wave} from '../util.js';
 
 export function initMonitorBindings() {
 	const SHARED_PARAMS = {
@@ -33,24 +33,36 @@ export function initMonitorBindings() {
 			const nf = pane.addFolder({
 				title: 'Number',
 			});
-			nf.addMonitor(SHARED_PARAMS, 'wave', {
+			nf.addBinding(SHARED_PARAMS, 'wave', {
 				label: 'text',
+				readonly: true,
 			});
-			nf.addMonitor(SHARED_PARAMS, 'wave', {
+			nf.addBinding(SHARED_PARAMS, 'wave', {
 				bufferSize: 10,
 				label: 'multiline',
+				readonly: true,
 			});
-			nf.addMonitor(SHARED_PARAMS, 'wave', {
+			nf.addBinding(SHARED_PARAMS, 'wave', {
 				label: 'graph',
 				max: +1,
 				min: -1,
+				readonly: true,
 				view: 'graph',
 			});
 			const bf = pane.addFolder({
 				title: 'Boolean',
 			});
-			bf.addMonitor(SHARED_PARAMS, 'positive', {
+			bf.addBinding(SHARED_PARAMS, 'positive', {
 				label: 'positive',
+				readonly: true,
+			});
+		},
+		primitive: (container) => {
+			const pane = new Pane({
+				container: container,
+			});
+			pane.addBinding(SHARED_PARAMS, 'wave', {
+				readonly: true,
 			});
 		},
 		multiline: (container) => {
@@ -59,11 +71,12 @@ export function initMonitorBindings() {
 				container: container,
 			});
 			pane
-				.addMonitor(PARAMS, 'params', {
-					lineCount: 5,
+				.addBinding(PARAMS, 'params', {
 					multiline: true,
+					readonly: true,
+					rows: 5,
 				})
-				.on('update', () => {
+				.on('change', () => {
 					PARAMS.params = JSON.stringify(SHARED_PARAMS, null, 2);
 				});
 		},
@@ -72,8 +85,9 @@ export function initMonitorBindings() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addMonitor(SHARED_PARAMS, 'wave', {
+			pane.addBinding(SHARED_PARAMS, 'wave', {
 				bufferSize: 10,
+				readonly: true,
 			});
 		},
 
@@ -81,8 +95,9 @@ export function initMonitorBindings() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addMonitor(SHARED_PARAMS, 'time', {
+			pane.addBinding(SHARED_PARAMS, 'time', {
 				interval: 1000,
+				readonly: true,
 			});
 		},
 
@@ -90,9 +105,10 @@ export function initMonitorBindings() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addMonitor(SHARED_PARAMS, 'wave', {
+			pane.addBinding(SHARED_PARAMS, 'wave', {
 				max: +1,
 				min: -1,
+				readonly: true,
 				view: 'graph',
 			});
 		},

@@ -1,4 +1,5 @@
-import {BindingTarget} from './target';
+import {isObject} from '../../misc/type-util.js';
+import {BindingTarget} from './target.js';
 
 /**
  * Converts an external unknown value into the internal value.
@@ -22,4 +23,18 @@ export interface BindingWriter<In> {
 	 * @param inValue The value to write.
 	 */
 	(target: BindingTarget, inValue: In): void;
+}
+
+/**
+ * @hidden
+ */
+export interface Binding {
+	readonly target: BindingTarget;
+}
+
+export function isBinding(value: unknown): value is Binding {
+	if (!isObject(value)) {
+		return false;
+	}
+	return 'target' in value;
 }

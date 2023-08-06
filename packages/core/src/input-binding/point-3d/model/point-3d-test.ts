@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
-import {Point3d} from './point-3d';
+import {Point3d} from './point-3d.js';
 
 describe(Point3d.name, () => {
 	[

@@ -3,17 +3,17 @@ import {
 	BladePlugin,
 	createValue,
 	Formatter,
-	LabeledValueController,
+	LabeledValueBladeController,
 	LabelPropsObject,
-	ParamsParser,
-	ParamsParsers,
-	parseParams,
+	MicroParser,
 	Parser,
+	parseRecord,
 	TextController,
 	ValueMap,
+	VERSION,
 } from '@tweakpane/core';
 
-import {TextApi} from './api/text';
+import {TextBladeApi} from './api/text.js';
 
 export interface TextBladeParams<T> extends BaseBladeParams {
 	parse: Parser<T>;
@@ -30,43 +30,48 @@ export const TextBladePlugin = (function <T>(): BladePlugin<
 	return {
 		id: 'text',
 		type: 'blade',
+		core: VERSION,
 		accept(params) {
-			const p = ParamsParsers;
-			const result = parseParams<TextBladeParams<T>>(params, {
-				parse: p.required.function as ParamsParser<Parser<T>>,
-				value: p.required.raw as ParamsParser<T>,
+			const result = parseRecord<TextBladeParams<T>>(params, (p) => ({
+				parse: p.required.function as MicroParser<Parser<T>>,
+				value: p.required.raw as MicroParser<T>,
 				view: p.required.constant('text'),
 
-				format: p.optional.function as ParamsParser<Formatter<T>>,
+				format: p.optional.function as MicroParser<Formatter<T>>,
 				label: p.optional.string,
-			});
+			}));
 			return result ? {params: result} : null;
 		},
 		controller(args) {
+			const v = createValue(args.params.value);
 			const ic = new TextController(args.document, {
 				parser: args.params.parse,
 				props: ValueMap.fromObject({
 					formatter: args.params.format ?? ((v: T) => String(v)),
 				}),
-				value: createValue(args.params.value),
+				value: v,
 				viewProps: args.viewProps,
 			});
-			return new LabeledValueController<T, TextController<T>>(args.document, {
-				blade: args.blade,
-				props: ValueMap.fromObject<LabelPropsObject>({
-					label: args.params.label,
-				}),
-				valueController: ic,
-			});
+			return new LabeledValueBladeController<T, TextController<T>>(
+				args.document,
+				{
+					blade: args.blade,
+					props: ValueMap.fromObject<LabelPropsObject>({
+						label: args.params.label,
+					}),
+					value: v,
+					valueController: ic,
+				},
+			);
 		},
 		api(args) {
-			if (!(args.controller instanceof LabeledValueController)) {
+			if (!(args.controller instanceof LabeledValueBladeController)) {
 				return null;
 			}
 			if (!(args.controller.valueController instanceof TextController)) {
 				return null;
 			}
-			return new TextApi(args.controller);
+			return new TextBladeApi(args.controller);
 		},
 	};
 })();

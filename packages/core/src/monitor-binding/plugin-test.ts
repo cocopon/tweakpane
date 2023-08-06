@@ -1,16 +1,21 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {MonitorBindingController} from '../blade/monitor-binding/controller/monitor-binding';
-import {BindingTarget} from '../common/binding/target';
-import {Controller} from '../common/controller/controller';
-import {stringFromUnknown} from '../common/converter/string';
-import {BufferedValue} from '../common/model/buffered-value';
-import {ViewProps} from '../common/model/view-props';
-import {BaseMonitorParams} from '../common/params';
-import {View} from '../common/view/view';
-import {createTestWindow} from '../misc/dom-test-util';
-import {createMonitorBindingController, MonitorBindingPlugin} from './plugin';
+import {
+	BufferedValueController,
+	MonitorBindingController,
+} from '../blade/binding/controller/monitor-binding.js';
+import {BindingTarget} from '../common/binding/target.js';
+import {stringFromUnknown} from '../common/converter/string.js';
+import {BufferedValue} from '../common/model/buffered-value.js';
+import {ViewProps} from '../common/model/view-props.js';
+import {BaseMonitorParams} from '../common/params.js';
+import {View} from '../common/view/view.js';
+import {createTestWindow} from '../misc/dom-test-util.js';
+import {
+	createMonitorBindingController,
+	MonitorBindingPlugin,
+} from './plugin.js';
 
 class TestView implements View {
 	public readonly element: HTMLElement;
@@ -20,7 +25,7 @@ class TestView implements View {
 	}
 }
 
-class TestController implements Controller<TestView> {
+class TestController implements BufferedValueController<string, TestView> {
 	public readonly value: BufferedValue<string>;
 	public readonly view: TestView;
 	public readonly viewProps: ViewProps;
@@ -51,7 +56,9 @@ const TestPlugin: MonitorBindingPlugin<string, BaseMonitorParams> = {
 		}
 		return {
 			initialValue: ex,
-			params: {},
+			params: {
+				readonly: true,
+			},
 		};
 	},
 	binding: {
@@ -75,6 +82,7 @@ describe(createMonitorBindingController.name, () => {
 
 		assert.strictEqual(bc?.viewProps.get('disabled'), false);
 		assert.strictEqual(bc?.viewProps.get('hidden'), false);
+		assert.strictEqual(bc.labelController.props.get('label'), 'foo');
 		bc.viewProps.set('disposed', true);
 	});
 
@@ -84,13 +92,15 @@ describe(createMonitorBindingController.name, () => {
 			params: {
 				disabled: true,
 				hidden: true,
+				label: 'bar',
 			},
 			target: new BindingTarget({foo: 'bar'}, 'foo'),
-		});
+		}) as MonitorBindingController;
 
-		assert.strictEqual(bc?.props.get('label'), 'foo');
-		assert.strictEqual(bc?.viewProps.get('disabled'), true);
-		assert.strictEqual(bc?.viewProps.get('hidden'), true);
+		assert.strictEqual(bc.labelController.props.get('label'), 'bar');
+		assert.strictEqual(bc.viewProps.get('disabled'), true);
+		assert.strictEqual(bc.viewProps.get('hidden'), true);
+		assert.strictEqual(bc.labelController.props.get('label'), 'bar');
 		bc.viewProps.set('disposed', true);
 	});
 
@@ -106,6 +116,17 @@ describe(createMonitorBindingController.name, () => {
 		assert.strictEqual(c.disposed, true);
 	});
 
+	it('should disable ticker', () => {
+		const bc = createMonitorBindingController(TestPlugin, {
+			document: createTestWindow().document,
+			params: {},
+			target: new BindingTarget({foo: 'bar'}, 'foo'),
+		});
+		assert.strictEqual(bc?.value.ticker.disabled, false);
+		bc?.viewProps.set('disabled', true);
+		assert.strictEqual(bc?.value.ticker.disabled, true);
+	});
+
 	it('should hide when label is empty', () => {
 		const bc = createMonitorBindingController(TestPlugin, {
 			document: createTestWindow().document,
@@ -113,9 +134,9 @@ describe(createMonitorBindingController.name, () => {
 				label: null,
 			},
 			target: new BindingTarget({foo: 'bar'}, 'foo'),
-		}) as MonitorBindingController<unknown>;
+		}) as MonitorBindingController;
 
-		assert.strictEqual(bc.props.get('label'), null);
+		assert.strictEqual(bc.labelController.props.get('label'), null);
 		bc.viewProps.set('disposed', true);
 	});
 });

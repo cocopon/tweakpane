@@ -1,10 +1,20 @@
 <div class="menu">
 	<div class="menu_logo">
-		<a class="logo" href="{{ root }}">
-			<div class="logo_symbol"></div>
-			Tweakpane
-			<div class="logo_version">{{ version }}</div>
-		</a>
+		<div class="logo">
+			<a class="logo_main" href="{{ root }}">
+				<div class="logo_symbol"></div>
+				<div class="logo_text">Tweakpane</div>
+			</a>
+			<div class="logo_version">
+				<div class="logoSwitcher">
+					<select class="logoSwitcher_select">
+						<option value="">{{ version }}</option>
+						<option value="{{ root }}../v3/">3.x</option>
+					</select>
+					<div class="logoSwitcher_arrow"></div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<ul class="menu_list">
 		<li class="menuItem">
@@ -14,7 +24,7 @@
 			<a class="menuItem_anchor" href="{{ root }}quick-tour/">Quick tour</a>
 		</li>
 		<li class="menuItem">
-			<a class="menuItem_anchor" href="{{ root }}input-bindings/">Input bindings</a>
+			<a class="menuItem_anchor" href="{{ root }}input-bindings/">Bindings</a>
 		</li>
 		<li class="menuItem">
 			<ul class="submenu">
@@ -68,9 +78,6 @@
 				<li class="submenuItem">
 					<a class="submenuItem_anchor" href="{{ root }}ui-components/#tab">Tab</a>
 				</li>
-				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="{{ root }}ui-components/#separator">Separator</a>
-				</li>
 			</ul>
 		</li>
 		<li class="menuItem">
@@ -86,6 +93,9 @@
 				</li>
 				<li class="submenuItem">
 					<a class="submenuItem_anchor" href="{{ root }}blades/#slider">Slider</a>
+				</li>
+				<li class="submenuItem">
+					<a class="submenuItem_anchor" href="{{ root }}blades/#separator">Separator</a>
 				</li>
 			</ul>
 		</li>
@@ -103,6 +113,13 @@
 			<a class="menuItem_anchor" href="{{ root }}plugins/">Plugins</a>
 		</li>
 		<li class="menuItem">
+			<ul class="submenu">
+				<li class="submenuItem">
+					<a class="submenuItem_anchor" href="{{ root }}plugins/dev/">Plugin development</a>
+				</li>
+			</ul>
+		</li>
+		<li class="menuItem">
 			<a class="menuItem_anchor" href="{{ root }}misc/">Misc</a>
 		</li>
 		<li class="menuItem">
@@ -111,7 +128,7 @@
 					<a class="submenuItem_anchor" href="{{ root }}misc/#events">Events</a>
 				</li>
 				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="{{ root }}misc/#imex">Import/Export</a>
+					<a class="submenuItem_anchor" href="{{ root }}misc/#state">Import/Export</a>
 				</li>
 				<li class="submenuItem">
 					<a class="submenuItem_anchor" href="{{ root }}misc/#tips">Tips</a>
@@ -124,12 +141,15 @@
 		<li class="menuItem">
 			<ul class="submenu">
 				<li class="submenuItem">
-					<a class="submenuItem_anchor" href="{{ root }}migration/#datgui">dat.GUI</a>
+					<a class="submenuItem_anchor" href="{{ root }}migration/v4/">Version 4.x</a>
+				</li>
+				<li class="submenuItem">
+					<a class="submenuItem_anchor" href="{{ root }}migration/datgui/">dat.GUI</a>
 				</li>
 			</ul>
 		</li>
 		<li class="menuItem">
-			<a class="menuItem_anchor" href="{{ root }}api/classes/tweakpane.Pane.html" target="_blank">
+			<a class="menuItem_anchor" href="{{ root }}api/classes/Pane.html" target="_blank">
 				API reference
 				<span class="material-icons">open_in_new</span>
 			</a>

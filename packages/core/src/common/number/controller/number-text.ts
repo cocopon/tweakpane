@@ -1,20 +1,22 @@
-import {forceCast, isEmpty} from '../../../misc/type-util';
-import {Controller} from '../../controller/controller';
-import {Parser} from '../../converter/parser';
-import {Value} from '../../model/value';
-import {createValue} from '../../model/values';
-import {ViewProps} from '../../model/view-props';
-import {getStepForKey, getVerticalStepKeys} from '../../ui';
+import {forceCast, isEmpty} from '../../../misc/type-util.js';
+import {ValueController} from '../../controller/value.js';
+import {Parser} from '../../converter/parser.js';
+import {Value} from '../../model/value.js';
+import {createValue} from '../../model/values.js';
+import {ViewProps} from '../../model/view-props.js';
+import {getStepForKey, getVerticalStepKeys} from '../../ui.js';
 import {
 	PointerData,
 	PointerHandler,
 	PointerHandlerEvent,
-} from '../../view/pointer-handler';
-import {NumberTextProps, NumberTextView} from '../view/number-text';
-import {SliderProps} from '../view/slider';
+} from '../../view/pointer-handler.js';
+import {NumberTextProps, NumberTextView} from '../view/number-text.js';
+import {SliderProps} from '../view/slider.js';
 
+/**
+ * @hidden
+ */
 interface Config {
-	baseStep: number;
 	parser: Parser<number>;
 	props: NumberTextProps;
 	sliderProps?: SliderProps;
@@ -27,13 +29,14 @@ interface Config {
 /**
  * @hidden
  */
-export class NumberTextController implements Controller<NumberTextView> {
+export class NumberTextController
+	implements ValueController<number, NumberTextView>
+{
 	public readonly props: NumberTextProps;
 	public readonly value: Value<number>;
 	public readonly view: NumberTextView;
 	public readonly viewProps: ViewProps;
 	private readonly sliderProps_: SliderProps | null;
-	private readonly baseStep_: number;
 	private readonly parser_: Parser<number>;
 	private readonly dragging_: Value<number | null>;
 	private originRawValue_ = 0;
@@ -46,7 +49,6 @@ export class NumberTextController implements Controller<NumberTextView> {
 		this.onPointerMove_ = this.onPointerMove_.bind(this);
 		this.onPointerUp_ = this.onPointerUp_.bind(this);
 
-		this.baseStep_ = config.baseStep;
 		this.parser_ = config.parser;
 		this.props = config.props;
 		this.sliderProps_ = config.sliderProps ?? null;
@@ -72,8 +74,8 @@ export class NumberTextController implements Controller<NumberTextView> {
 	}
 
 	private constrainValue_(value: number): number {
-		const min = this.sliderProps_?.get('minValue');
-		const max = this.sliderProps_?.get('maxValue');
+		const min = this.sliderProps_?.get('min');
+		const max = this.sliderProps_?.get('max');
 		let v = value;
 		if (min !== undefined) {
 			v = Math.max(v, min);
@@ -96,7 +98,10 @@ export class NumberTextController implements Controller<NumberTextView> {
 	}
 
 	private onInputKeyDown_(ev: KeyboardEvent): void {
-		const step = getStepForKey(this.baseStep_, getVerticalStepKeys(ev));
+		const step = getStepForKey(
+			this.props.get('keyScale'),
+			getVerticalStepKeys(ev),
+		);
 		if (step === 0) {
 			return;
 		}
@@ -107,7 +112,10 @@ export class NumberTextController implements Controller<NumberTextView> {
 	}
 
 	private onInputKeyUp_(ev: KeyboardEvent): void {
-		const step = getStepForKey(this.baseStep_, getVerticalStepKeys(ev));
+		const step = getStepForKey(
+			this.props.get('keyScale'),
+			getVerticalStepKeys(ev),
+		);
 		if (step === 0) {
 			return;
 		}
@@ -129,7 +137,7 @@ export class NumberTextController implements Controller<NumberTextView> {
 
 		const dx = data.point.x - data.bounds.width / 2;
 		return this.constrainValue_(
-			this.originRawValue_ + dx * this.props.get('draggingScale'),
+			this.originRawValue_ + dx * this.props.get('pointerScale'),
 		);
 	}
 

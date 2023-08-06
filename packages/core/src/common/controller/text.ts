@@ -1,9 +1,9 @@
-import {forceCast, isEmpty} from '../../misc/type-util';
-import {Parser} from '../converter/parser';
-import {Value} from '../model/value';
-import {ViewProps} from '../model/view-props';
-import {TextProps, TextView} from '../view/text';
-import {ValueController} from './value';
+import {forceCast, isEmpty} from '../../misc/type-util.js';
+import {Parser} from '../converter/parser.js';
+import {Value} from '../model/value.js';
+import {ViewProps} from '../model/view-props.js';
+import {TextProps, TextView} from '../view/text.js';
+import {ValueController} from './value.js';
 
 /**
  * @hidden
@@ -15,6 +15,9 @@ export interface Config<T> {
 	viewProps: ViewProps;
 }
 
+/**
+ * @hidden
+ */
 export class TextController<T> implements ValueController<T, TextView<T>> {
 	public readonly props: TextProps<T>;
 	public readonly value: Value<T>;

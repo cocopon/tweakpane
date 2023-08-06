@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {ListConstraint} from './list';
+import {ListConstraint} from './list.js';
 
 describe(ListConstraint.name, () => {
 	it('should get list options', () => {
@@ -11,7 +11,7 @@ describe(ListConstraint.name, () => {
 			{text: 'baz', value: 3.14},
 		];
 		const c = new ListConstraint(options);
-		assert.deepStrictEqual(options, c.options);
+		assert.deepStrictEqual(options, c.values.get('options'));
 	});
 
 	it('should constrain value with list options', () => {

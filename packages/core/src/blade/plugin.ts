@@ -1,13 +1,12 @@
-import {ViewProps} from '../common/model/view-props';
-import {BaseBladeParams} from '../common/params';
-import {ParamsParsers} from '../common/params-parsers';
-import {View} from '../common/view/view';
-import {forceCast} from '../misc/type-util';
-import {BasePlugin} from '../plugin/plugin';
-import {PluginPool} from '../plugin/pool';
-import {BladeApi} from './common/api/blade';
-import {BladeController} from './common/controller/blade';
-import {Blade, createBlade} from './common/model/blade';
+import {parseRecord} from '../common/micro-parsers.js';
+import {ViewProps} from '../common/model/view-props.js';
+import {BaseBladeParams} from '../common/params.js';
+import {forceCast} from '../misc/type-util.js';
+import {BasePlugin} from '../plugin/plugin.js';
+import {PluginPool} from '../plugin/pool.js';
+import {BladeApi} from './common/api/blade.js';
+import {BladeController} from './common/controller/blade.js';
+import {Blade, createBlade} from './common/model/blade.js';
 
 interface Acceptance<P extends BaseBladeParams> {
 	params: Omit<P, 'disabled' | 'hidden'>;
@@ -21,7 +20,7 @@ interface ControllerArguments<P extends BaseBladeParams> {
 }
 
 interface ApiArguments {
-	controller: BladeController<View>;
+	controller: BladeController;
 	pool: PluginPool;
 }
 
@@ -31,10 +30,10 @@ export interface BladePlugin<P extends BaseBladeParams> extends BasePlugin {
 		(params: Record<string, unknown>): Acceptance<P> | null;
 	};
 	controller: {
-		(args: ControllerArguments<P>): BladeController<View>;
+		(args: ControllerArguments<P>): BladeController;
 	};
 	api: {
-		(args: ApiArguments): BladeApi<BladeController<View>> | null;
+		(args: ApiArguments): BladeApi | null;
 	};
 }
 
@@ -44,27 +43,28 @@ export function createBladeController<P extends BaseBladeParams>(
 		document: Document;
 		params: Record<string, unknown>;
 	},
-): BladeController<View> | null {
+): BladeController | null {
 	const ac = plugin.accept(args.params);
 	if (!ac) {
 		return null;
 	}
 
-	const disabled = ParamsParsers.optional.boolean(
-		args.params['disabled'],
-	).value;
-	const hidden = ParamsParsers.optional.boolean(args.params['hidden']).value;
+	const params = parseRecord(args.params, (p) => ({
+		disabled: p.optional.boolean,
+		hidden: p.optional.boolean,
+	}));
+
 	return plugin.controller({
 		blade: createBlade(),
 		document: args.document,
 		params: forceCast({
 			...ac.params,
-			disabled: disabled,
-			hidden: hidden,
+			disabled: params?.disabled,
+			hidden: params?.hidden,
 		}),
 		viewProps: ViewProps.create({
-			disabled: disabled,
-			hidden: hidden,
+			disabled: params?.disabled,
+			hidden: params?.hidden,
 		}),
 	});
 }

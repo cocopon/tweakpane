@@ -1,18 +1,20 @@
 import {initBlades} from './route/blades';
-import {initCatalog} from './route/catalog';
-import {initGettingStarted} from './route/getting-started';
-import {initIndex} from './route/index';
+import {initCatalog} from './route/catalog.js';
+import {initGettingStarted} from './route/getting-started.js';
+import {initIndex} from './route/index.js';
 import {initInputBindings} from './route/input-bindings';
-import {initMigration} from './route/migration';
-import {initMisc} from './route/misc';
+import {initMigrationDatgui} from './route/migration-datgui.js';
+import {initMigrationV4} from './route/migration-v4.js';
+import {initMisc} from './route/misc.js';
 import {initMonitorBindings} from './route/monitor-bindings';
 import {initPlugins} from './route/plugins';
-import {initQuickTour} from './route/quick-tour';
-import {initTheming} from './route/theming';
+import {initPluginsDev} from './route/plugins-dev';
+import {initQuickTour} from './route/quick-tour.js';
+import {initTheming} from './route/theming.js';
 import {initUiComponents} from './route/ui-components';
-import {Screw} from './screw';
-import {SimpleRouter} from './simple-router';
-import {SpMenu} from './sp-menu';
+import {Screw} from './screw.js';
+import {SimpleRouter} from './simple-router.js';
+import {SpMenu} from './sp-menu.js';
 
 declare let hljs: any;
 
@@ -37,6 +39,27 @@ function setUpSpMenu() {
 	});
 }
 
+function setUpVersionSwitcher() {
+	const selectElem: HTMLSelectElement | null = document.querySelector(
+		'.logoSwitcher select',
+	);
+	if (!selectElem) {
+		return;
+	}
+	selectElem.value = '';
+
+	if (location.hostname === 'localhost' && !location.search.includes('debug')) {
+		selectElem.disabled = true;
+	}
+
+	selectElem.addEventListener('change', (ev) => {
+		const href = (ev.currentTarget as HTMLSelectElement).value;
+		if (href) {
+			location.href = href;
+		}
+	});
+}
+
 (() => {
 	const router = new SimpleRouter();
 	router.add(/\/getting-started\/$/, initGettingStarted);
@@ -44,9 +67,11 @@ function setUpSpMenu() {
 	router.add(/\/catalog\.html$/, initCatalog);
 	router.add(/\/input-bindings\/$/, initInputBindings);
 	router.add(/\/misc\/$/, initMisc);
-	router.add(/\/migration\/$/, initMigration);
+	router.add(/\/migration\/datgui\/$/, initMigrationDatgui);
+	router.add(/\/migration\/v4\/$/, initMigrationV4);
 	router.add(/\/monitor-bindings\/$/, initMonitorBindings);
 	router.add(/\/theming\/$/, initTheming);
+	router.add(/\/plugins\/dev\/$/, initPluginsDev);
 	router.add(/\/plugins\/$/, initPlugins);
 	router.add(/\/quick-tour\/$/, initQuickTour);
 	router.add(/\/ui-components\/$/, initUiComponents);
@@ -57,6 +82,7 @@ function setUpSpMenu() {
 
 	setUpScrews();
 	setUpSpMenu();
+	setUpVersionSwitcher();
 
-	hljs.initHighlightingOnLoad();
+	hljs.highlightAll();
 })();

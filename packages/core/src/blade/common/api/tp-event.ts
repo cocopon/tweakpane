@@ -1,29 +1,27 @@
 /**
- * A base class of Tweakpane API events.
+ * A base class for Tweakpane API events.
+ * @template Target The event target.
  */
-export class TpEvent {
+export class TpEvent<Target = unknown> {
 	/**
 	 * The event dispatcher.
 	 */
-	public readonly target: unknown;
+	public readonly target: Target;
 
 	/**
 	 * @hidden
 	 */
-	constructor(target: unknown) {
+	constructor(target: Target) {
 		this.target = target;
 	}
 }
 
 /**
- * An event class for value changes of input bindings.
+ * An event class for value changes.
  * @template T The type of the value.
+ * @template Target The event target.
  */
-export class TpChangeEvent<T> extends TpEvent {
-	/**
-	 * The preset key of the event target.
-	 */
-	public readonly presetKey?: string;
+export class TpChangeEvent<T, Target = unknown> extends TpEvent<Target> {
 	/**
 	 * The value.
 	 */
@@ -36,44 +34,19 @@ export class TpChangeEvent<T> extends TpEvent {
 	/**
 	 * @hidden
 	 */
-	constructor(target: unknown, value: T, presetKey?: string, last?: boolean) {
+	constructor(target: Target, value: T, last?: boolean) {
 		super(target);
 
 		this.value = value;
-		this.presetKey = presetKey;
 		this.last = last ?? true;
 	}
 }
 
 /**
- * An event class for value updates of monitor bindings.
- * @template T The type of the value.
- */
-export class TpUpdateEvent<T> extends TpEvent {
-	/**
-	 * The preset key of the event target.
-	 */
-	public readonly presetKey: string;
-	/**
-	 * The value.
-	 */
-	public readonly value: T;
-
-	/**
-	 * @hidden
-	 */
-	constructor(target: unknown, value: T, presetKey: string) {
-		super(target);
-
-		this.value = value;
-		this.presetKey = presetKey;
-	}
-}
-
-/**
  * An event class for folder.
+ * @template Target The event target.
  */
-export class TpFoldEvent extends TpEvent {
+export class TpFoldEvent<Target> extends TpEvent<Target> {
 	/**
 	 * The current state of the folder expansion.
 	 */
@@ -82,7 +55,7 @@ export class TpFoldEvent extends TpEvent {
 	/**
 	 * @hidden
 	 */
-	constructor(target: unknown, expanded: boolean) {
+	constructor(target: Target, expanded: boolean) {
 		super(target);
 
 		this.expanded = expanded;
@@ -91,8 +64,9 @@ export class TpFoldEvent extends TpEvent {
 
 /**
  * An event class for tab selection.
+ * @template Target The event target.
  */
-export class TpTabSelectEvent extends TpEvent {
+export class TpTabSelectEvent<Target> extends TpEvent<Target> {
 	/**
 	 * The selected index of the tab item.
 	 */
@@ -101,7 +75,7 @@ export class TpTabSelectEvent extends TpEvent {
 	/**
 	 * @hidden
 	 */
-	constructor(target: unknown, index: number) {
+	constructor(target: Target, index: number) {
 		super(target);
 
 		this.index = index;

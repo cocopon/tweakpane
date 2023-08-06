@@ -1,8 +1,8 @@
-import {Formatter} from '../../../common/converter/formatter';
-import {BufferedValue} from '../../../common/model/buffered-value';
-import {ViewProps} from '../../../common/model/view-props';
-import {ClassName} from '../../../common/view/class-name';
-import {View} from '../../../common/view/view';
+import {Formatter} from '../../../common/converter/formatter.js';
+import {BufferedValue} from '../../../common/model/buffered-value.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {ClassName} from '../../../common/view/class-name.js';
+import {View} from '../../../common/view/view.js';
 
 interface Config<T> {
 	formatter: Formatter<T>;
@@ -10,7 +10,7 @@ interface Config<T> {
 	viewProps: ViewProps;
 }
 
-const className = ClassName('sgl');
+const cn = ClassName('sgl');
 
 /**
  * @hidden
@@ -27,11 +27,11 @@ export class SingleLogView<T> implements View {
 		this.formatter_ = config.formatter;
 
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 
 		const inputElem = doc.createElement('input');
-		inputElem.classList.add(className('i'));
+		inputElem.classList.add(cn('i'));
 		inputElem.readOnly = true;
 		inputElem.type = 'text';
 		config.viewProps.bindDisabled(inputElem);

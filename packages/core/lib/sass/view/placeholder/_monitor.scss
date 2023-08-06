@@ -1,0 +1,28 @@
+@use '../../common/defs';
+
+%tp-monitor {
+	@extend %tp-resetUserAgent;
+
+	background-color: defs.cssVar('monitor-bg');
+	border-radius: defs.cssVar('blade-border-radius');
+	box-sizing: border-box;
+	color: defs.cssVar('monitor-fg');
+	height: defs.cssVar('container-unit-size');
+	scrollbar-color: currentColor transparent;
+	scrollbar-width: thin;
+	width: 100%;
+
+	&::-webkit-scrollbar {
+		height: 8px;
+		width: 8px;
+	}
+	&::-webkit-scrollbar-corner {
+		background-color: transparent;
+	}
+	&::-webkit-scrollbar-thumb {
+		background-clip: padding-box;
+		background-color: currentColor;
+		border: transparent solid 2px;
+		border-radius: 4px;
+	}
+}

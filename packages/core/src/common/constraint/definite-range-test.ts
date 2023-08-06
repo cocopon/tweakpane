@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {DefiniteRangeConstraint} from './definite-range';
+import {DefiniteRangeConstraint} from './definite-range.js';
 
 describe(DefiniteRangeConstraint.name, () => {
 	it('should constrain value with minimun and maximum value', () => {

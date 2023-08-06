@@ -1,9 +1,0 @@
-{
-	"extends": "../../../tsconfig.json",
-	"compilerOptions": {
-		"declaration": true,
-		"moduleResolution": "Node",
-		"outDir": "../dist/es6"
-	},
-	"exclude": ["**/*-test.ts"]
-}

@@ -1,8 +1,11 @@
-import {Value, ValueEvents} from '../../../common/model/value';
-import {createValue} from '../../../common/model/values';
+import {Value, ValueEvents} from '../../../common/model/value.js';
+import {createValue} from '../../../common/model/values.js';
 
 const INDEX_NOT_SELECTED = -1;
 
+/**
+ * @hidden
+ */
 export class Tab {
 	public readonly empty: Value<boolean>;
 	public readonly selectedIndex: Value<number>;

@@ -1,6 +1,6 @@
 {% set pageId = 'input' %}
 {% set root = '../' %}
-{% set title = 'Input bindings' %}
+{% set title = 'Bindings' %}
 {% extends "_template.html" %}
 
 
@@ -9,7 +9,7 @@
 	<div class="pageHeader_inner">
 		<div class="pageHeader_text">
 			<h1 class="pageHeader_title">{{ title }}</h1>
-			<p>For fine-tuning parameters, use <code>addInput()</code> of the pane to add components. Tweakpane checks specified parameter types and provides suitable components.</p>
+			<p>For fine-tuning parameters, use <code>addBinding()</code> of the pane to add components. Tweakpane provides suitable components for bound values.</p>
 		</div>
 		<div class="pageHeader_pane">
 			<div class="paneContainer" data-pane-input></div>
@@ -20,8 +20,8 @@
 
 
 {% block content %}
-<h2 id="number">Number</h2>
-<p>Tweakpane provides a text input for number parameters by default.</p>
+<h2 id="number"><a href="#number">Number</a></h2>
+<p>For number parameters, Tweakpane provides a text input by default.</p>
 
 <div class="main_media">
 	<div class="demo">
@@ -31,7 +31,7 @@
 };
 
 const pane = new Pane();
-pane.addInput(PARAMS, 'speed');</code></pre></div>
+pane.addBinding(PARAMS, 'speed');</code></pre></div>
 		</div>
 		<div class="demo_result">
 			<div class="paneContainer" data-pane-numbertext></div>
@@ -40,7 +40,7 @@ pane.addInput(PARAMS, 'speed');</code></pre></div>
 </div>
 
 
-<h3 id="number_range">Range</h3>
+<h3 id="number_range"><a href="#number_range">Range</a></h3>
 <p>You can specify a range of number by <code>min</code> and <code>max</code>. If you specify both of them, slider control will be created.</p>
 
 <div class="main_media">
@@ -51,7 +51,7 @@ pane.addInput(PARAMS, 'speed');</code></pre></div>
 };
 
 const pane = new Pane();
-pane.addInput(PARAMS, 'speed', {
+pane.addBinding(PARAMS, 'speed', {
   <strong>min</strong>: 0,
   <strong>max</strong>: 100,
 });</code></pre></div>
@@ -63,7 +63,7 @@ pane.addInput(PARAMS, 'speed', {
 </div>
 
 
-<h3 id="number_step">Step</h3>
+<h3 id="number_step"><a href="#number_step">Step</a></h3>
 <p><code>step</code> constraints step of changes.</p>
 
 <div class="main_media">
@@ -75,10 +75,10 @@ pane.addInput(PARAMS, 'speed', {
 };
 
 const pane = new Pane();
-pane.addInput(PARAMS, 'speed', {
+pane.addBinding(PARAMS, 'speed', {
   <strong>step</strong>: 0.1,
 });
-pane.addInput(PARAMS, 'count', {
+pane.addBinding(PARAMS, 'count', {
   <strong>step</strong>: 10,
   min: 0,
   max: 100,
@@ -91,7 +91,7 @@ pane.addInput(PARAMS, 'count', {
 </div>
 
 
-<h3 id="number_list">Number list</h3>
+<h3 id="number_list"><a href="#number_list">Number list</a></h3>
 <p>If you want to choose a value from presets, use <code>options</code>.</p>
 
 <div class="main_media">
@@ -102,7 +102,7 @@ pane.addInput(PARAMS, 'count', {
 };
 
 const pane = new Pane();
-pane.addInput(PARAMS, 'quality', {
+pane.addBinding(PARAMS, 'quality', {
   <strong>options</strong>: {
     low: 0,
     medium: 50,
@@ -118,7 +118,7 @@ pane.addInput(PARAMS, 'quality', {
 </div>
 
 
-<h3 id="number_formatter">Formatter</h3>
+<h3 id="number_formatter"><a href="#number_formatter">Formatter</a></h3>
 <p>You can use a custom number formatter with <code>format</code>.</p>
 
 <div class="main_media">
@@ -129,7 +129,7 @@ pane.addInput(PARAMS, 'quality', {
 };
 
 const pane = new Pane();
-pane.addInput(PARAMS, 'k', {
+pane.addBinding(PARAMS, 'k', {
   <strong>format</strong>: (v) => v.toFixed(6),
 });</code></pre></div>
 		</div>
@@ -140,7 +140,7 @@ pane.addInput(PARAMS, 'k', {
 </div>
 
 
-<h2 id="string">String</h2>
+<h2 id="string"><a href="#string">String</a></h2>
 <p>For string parameters, text input will be provided by default.</p>
 
 <div class="main_media">
@@ -151,7 +151,7 @@ pane.addInput(PARAMS, 'k', {
 };
 
 const pane = new Pane();
-pane.addInput(PARAMS, 'message');</code></pre></div>
+pane.addBinding(PARAMS, 'message');</code></pre></div>
 		</div>
 		<div class="demo_result">
 			<div class="paneContainer" data-pane-stringtext></div>
@@ -160,7 +160,7 @@ pane.addInput(PARAMS, 'message');</code></pre></div>
 </div>
 
 
-<h3>String list</h3>
+<h3 id="string_list"><a href="#string_list">String list</a></h3>
 <p>Same as for number properties, <code>options</code> provides a list component.</p>
 
 <div class="main_media">
@@ -171,7 +171,7 @@ pane.addInput(PARAMS, 'message');</code></pre></div>
 };
 
 const pane = new Pane();
-pane.addInput(PARAMS, 'theme', {
+pane.addBinding(PARAMS, 'theme', {
   <strong>options</strong>: {
     none: '',
     dark: 'dark-theme.json',
@@ -187,7 +187,7 @@ pane.addInput(PARAMS, 'theme', {
 </div>
 
 
-<h2 id="boolean">Boolean</h2>
+<h2 id="boolean"><a href="#boolean">Boolean</a></h2>
 <p>For boolean parameters, checkbox field component will be provided.</p>
 
 <div class="main_media">
@@ -198,7 +198,7 @@ pane.addInput(PARAMS, 'theme', {
 };
 
 const pane = new Pane();
-pane.addInput(PARAMS, 'hidden');</code></pre></div>
+pane.addBinding(PARAMS, 'hidden');</code></pre></div>
 		</div>
 		<div class="demo_result">
 			<div class="paneContainer" data-pane-checkbox></div>
@@ -207,7 +207,7 @@ pane.addInput(PARAMS, 'hidden');</code></pre></div>
 </div>
 
 
-<h2 id="color">Color</h2>
+<h2 id="color"><a href="#color">Color</a></h2>
 <p>For object parameters that have components key <code>r</code>, <code>g</code>, and <code>b</code> (and optional <code>a</code>), text field with a color swatch will be provided. You can choose a color from a color picker by clicking the swatch.</p>
 
 <div class="main_media">
@@ -219,8 +219,8 @@ pane.addInput(PARAMS, 'hidden');</code></pre></div>
 };
 
 const pane = new Pane();
-pane.addInput(PARAMS, 'background');
-pane.addInput(PARAMS, 'tint');</code></pre></div>
+pane.addBinding(PARAMS, 'background');
+pane.addBinding(PARAMS, 'tint');</code></pre></div>
 		</div>
 		<div class="demo_result">
 			<div class="paneContainer" data-pane-objectcolor></div>
@@ -238,7 +238,7 @@ pane.addInput(PARAMS, 'tint');</code></pre></div>
 };
 
 const pane = new Pane();
-pane.addInput(PARAMS, 'overlay', {
+pane.addBinding(PARAMS, 'overlay', {
   <strong>color: {type: 'float'}</strong>,
 });</code></pre></div>
 		</div>
@@ -259,8 +259,8 @@ pane.addInput(PARAMS, 'overlay', {
 };
 
 const pane = new Pane();
-pane.addInput(PARAMS, 'primary');
-pane.addInput(PARAMS, 'secondary');</code></pre></div>
+pane.addBinding(PARAMS, 'primary');
+pane.addBinding(PARAMS, 'secondary');</code></pre></div>
 		</div>
 		<div class="demo_result">
 			<div class="paneContainer" data-pane-stringcolor></div>
@@ -279,10 +279,10 @@ pane.addInput(PARAMS, 'secondary');</code></pre></div>
 };
 
 const pane = new Pane();
-pane.addInput(PARAMS, 'background', {
+pane.addBinding(PARAMS, 'background', {
   <strong>view: 'color'</strong>,
 });
-pane.addInput(PARAMS, 'tint', {
+pane.addBinding(PARAMS, 'tint', {
   <strong>view: 'color'</strong>,
   <strong>color: {alpha: true}</strong>,
 });</code></pre></div>
@@ -303,7 +303,7 @@ pane.addInput(PARAMS, 'tint', {
 };
 
 const pane = new Pane();
-pane.addInput(PARAMS, 'hex', {
+pane.addBinding(PARAMS, 'hex', {
   <strong>view: 'text'</strong>,
 });</code></pre></div>
 		</div>
@@ -323,7 +323,7 @@ pane.addInput(PARAMS, 'hex', {
 };
 
 const pane = new Pane();
-pane.addInput(PARAMS, 'key', {
+pane.addBinding(PARAMS, 'key', {
   <strong>picker: 'inline'</strong>,
   expanded: true,
 });</code></pre></div>
@@ -335,10 +335,10 @@ pane.addInput(PARAMS, 'key', {
 </div>
 
 
-<h2 id="point">Point</h2>
+<h2 id="point"><a href="#point">Point</a></h2>
 
 
-<h3 id="point2d">Point 2D</h3>
+<h3 id="point2d"><a href="#point2d">Point 2D</a></h3>
 <p>For object parameters that have number properties <code>x</code> and <code>y</code>, text fields and a picker will be provided.</p>
 
 <div class="main_media">
@@ -349,7 +349,7 @@ pane.addInput(PARAMS, 'key', {
 };
 
 const pane = new Pane();
-pane.addInput(PARAMS, 'offset');</code></pre></div>
+pane.addBinding(PARAMS, 'offset');</code></pre></div>
 		</div>
 		<div class="demo_result">
 			<div class="paneContainer" data-pane-point2d></div>
@@ -367,7 +367,7 @@ pane.addInput(PARAMS, 'offset');</code></pre></div>
 };
 
 const pane = new Pane();
-pane.addInput(PARAMS, 'offset', {
+pane.addBinding(PARAMS, 'offset', {
   x: {<strong>step</strong>: 20},
   y: {<strong>min</strong>: 0, <strong>max</strong>: 100},
 });</code></pre></div>
@@ -378,7 +378,7 @@ pane.addInput(PARAMS, 'offset', {
 	</div>
 </div>
 
-<p><code>inverted: true</code> inverts Y-axis.</p>
+<p><code>{inverted: true}</code> inverts Y-axis.</p>
 
 <div class="main_media">
 	<div class="demo">
@@ -388,7 +388,7 @@ pane.addInput(PARAMS, 'offset', {
 };
 
 const pane = new Pane();
-pane.addInput(PARAMS, 'offset', {
+pane.addBinding(PARAMS, 'offset', {
   y: {<strong>inverted</strong>: true},
 });</code></pre></div>
 		</div>
@@ -408,7 +408,7 @@ pane.addInput(PARAMS, 'offset', {
 };
 
 const pane = new Pane();
-pane.addInput(PARAMS, 'offset', {
+pane.addBinding(PARAMS, 'offset', {
   <strong>picker: 'inline'</strong>,
   expanded: true,
 });</code></pre></div>
@@ -420,7 +420,7 @@ pane.addInput(PARAMS, 'offset', {
 </div>
 
 
-<h3 id="pointnd">Point 3D/4D</h3>
+<h3 id="pointnd"><a href="#pointnd">Point 3D/4D</a></h3>
 <p>Tweakpane also has a support for 3D and 4D vector object. You can constrain each axis same as Point 2D.</p>
 
 <div class="main_media">
@@ -434,14 +434,14 @@ pane.addInput(PARAMS, 'offset', {
 
 // 3d
 const pane = new Pane();
-pane.addInput(PARAMS, 'source');
-pane.addInput(PARAMS, 'camera', {
+pane.addBinding(PARAMS, 'source');
+pane.addBinding(PARAMS, 'camera', {
   y: {step: 10},
   z: {max: 0},
 });
 
 // 4d
-pane.addInput(PARAMS, 'color', {
+pane.addBinding(PARAMS, 'color', {
   x: {min: 0, max: 1},
   y: {min: 0, max: 1},
   z: {min: 0, max: 1},

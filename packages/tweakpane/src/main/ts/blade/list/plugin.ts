@@ -2,20 +2,20 @@ import {
 	BaseBladeParams,
 	BladePlugin,
 	createValue,
-	LabeledValueController,
+	LabeledValueBladeController,
 	LabelPropsObject,
 	ListConstraint,
 	ListController,
 	ListParamsOptions,
+	MicroParser,
 	normalizeListOptions,
-	ParamsParser,
-	ParamsParsers,
 	parseListOptions,
-	parseParams,
+	parseRecord,
 	ValueMap,
+	VERSION,
 } from '@tweakpane/core';
 
-import {ListApi} from './api/list';
+import {ListBladeApi} from './api/list.js';
 
 export interface ListBladeParams<T> extends BaseBladeParams {
 	options: ListParamsOptions<T>;
@@ -31,15 +31,15 @@ export const ListBladePlugin = (function <T>(): BladePlugin<
 	return {
 		id: 'list',
 		type: 'blade',
+		core: VERSION,
 		accept(params) {
-			const p = ParamsParsers;
-			const result = parseParams<ListBladeParams<T>>(params, {
+			const result = parseRecord<ListBladeParams<T>>(params, (p) => ({
 				options: p.required.custom<ListParamsOptions<T>>(parseListOptions),
-				value: p.required.raw as ParamsParser<T>,
+				value: p.required.raw as MicroParser<T>,
 				view: p.required.constant('list'),
 
 				label: p.optional.string,
-			});
+			}));
 			return result ? {params: result} : null;
 		},
 		controller(args) {
@@ -56,22 +56,26 @@ export const ListBladePlugin = (function <T>(): BladePlugin<
 				value: value,
 				viewProps: args.viewProps,
 			});
-			return new LabeledValueController<T, ListController<T>>(args.document, {
-				blade: args.blade,
-				props: ValueMap.fromObject<LabelPropsObject>({
-					label: args.params.label,
-				}),
-				valueController: ic,
-			});
+			return new LabeledValueBladeController<T, ListController<T>>(
+				args.document,
+				{
+					blade: args.blade,
+					props: ValueMap.fromObject<LabelPropsObject>({
+						label: args.params.label,
+					}),
+					value: value,
+					valueController: ic,
+				},
+			);
 		},
 		api(args) {
-			if (!(args.controller instanceof LabeledValueController)) {
+			if (!(args.controller instanceof LabeledValueBladeController)) {
 				return null;
 			}
 			if (!(args.controller.valueController instanceof ListController)) {
 				return null;
 			}
-			return new ListApi(args.controller);
+			return new ListBladeApi(args.controller);
 		},
 	};
 })();

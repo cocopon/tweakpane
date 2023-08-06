@@ -1,34 +1,31 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {TestUtil} from '../../../misc/test-util';
+import {LabelPropsObject} from '../../../common/label/view/label.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {TestUtil} from '../../../misc/test-util.js';
 import {
 	assertDisposes,
 	assertInitialState,
 	assertUpdates,
-} from '../../common/api/test-util';
-import {createBlade} from '../../common/model/blade';
-import {LabelController} from '../../label/controller/label';
-import {LabelPropsObject} from '../../label/view/label';
-import {ButtonController} from '../controller/button';
-import {ButtonPropsObject} from '../view/button';
-import {ButtonApi} from './button';
+} from '../../common/api/test-util.js';
+import {createBlade} from '../../common/model/blade.js';
+import {ButtonBladeController} from '../controller/button-blade.js';
+import {ButtonPropsObject} from '../view/button.js';
+import {ButtonApi} from './button.js';
 
 function createApi(doc: Document): ButtonApi {
-	const c = new LabelController(doc, {
+	const c = new ButtonBladeController(doc, {
 		blade: createBlade(),
-		props: ValueMap.fromObject<LabelPropsObject>({
+		buttonProps: ValueMap.fromObject<ButtonPropsObject>({
+			title: 'Button',
+		}),
+		labelProps: ValueMap.fromObject<LabelPropsObject>({
 			label: undefined,
 		}),
-		valueController: new ButtonController(doc, {
-			props: ValueMap.fromObject<ButtonPropsObject>({
-				title: 'Button',
-			}),
-			viewProps: ViewProps.create(),
-		}),
+		viewProps: ViewProps.create(),
 	});
 	return new ButtonApi(c);
 }
@@ -40,7 +37,7 @@ describe(ButtonApi.name, () => {
 
 		assertInitialState(api);
 
-		const c = api.controller_.valueController as ButtonController;
+		const c = api.controller.buttonController;
 		assert.strictEqual(c.view.buttonElement.disabled, false);
 		assert.strictEqual(api.title, 'Button');
 		assert.strictEqual(c.view.buttonElement.textContent, 'Button');
@@ -49,7 +46,7 @@ describe(ButtonApi.name, () => {
 	it('should update properties', () => {
 		const doc = createTestWindow().document;
 		const api = createApi(doc);
-		const c = api.controller_.valueController as ButtonController;
+		const c = api.controller.buttonController;
 
 		assertUpdates(api);
 		assert.strictEqual(c.view.buttonElement.disabled, true);
@@ -60,7 +57,10 @@ describe(ButtonApi.name, () => {
 
 		api.label = 'updated';
 		assert.strictEqual(api.label, 'updated');
-		assert.strictEqual(api.controller_.props.get('label'), 'updated');
+		assert.strictEqual(
+			api.controller.labelController.props.get('label'),
+			'updated',
+		);
 	});
 
 	it('should listen click event', (done) => {
@@ -71,7 +71,7 @@ describe(ButtonApi.name, () => {
 			assert.strictEqual(ev.target, api);
 			done();
 		});
-		api.controller_.valueController.view.buttonElement.dispatchEvent(
+		api.controller.buttonController.view.buttonElement.dispatchEvent(
 			TestUtil.createEvent(win, 'click'),
 		);
 	});
@@ -91,7 +91,7 @@ describe(ButtonApi.name, () => {
 			assert.strictEqual(this, api);
 			done();
 		});
-		api.controller_.valueController.view.buttonElement.dispatchEvent(
+		api.controller.buttonController.view.buttonElement.dispatchEvent(
 			TestUtil.createEvent(win, 'click'),
 		);
 	});

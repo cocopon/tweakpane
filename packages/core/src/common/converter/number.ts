@@ -1,18 +1,12 @@
-import {isEmpty} from '../../misc/type-util';
-import {parseEcmaNumberExpression} from './ecma/parser';
-import {Formatter} from './formatter';
+import {isEmpty} from '../../misc/type-util.js';
+import {parseEcmaNumberExpression} from './ecma/parser.js';
+import {Formatter} from './formatter.js';
 
-/**
- * @hidden
- */
 export function parseNumber(text: string): number | null {
 	const r = parseEcmaNumberExpression(text);
 	return r?.evaluate() ?? null;
 }
 
-/**
- * @hidden
- */
 export function numberFromUnknown(value: unknown): number {
 	if (typeof value === 'number') {
 		return value;
@@ -28,18 +22,14 @@ export function numberFromUnknown(value: unknown): number {
 	return 0;
 }
 
-/**
- * @hidden
- */
 export function numberToString(value: number): string {
 	return String(value);
 }
 
-/**
- * @hidden
- */
 export function createNumberFormatter(digits: number): Formatter<number> {
 	return (value: number): string => {
+		// toFixed() of Safari doesn't support digits greater than 20
+		// https://github.com/cocopon/tweakpane/pull/19
 		return value.toFixed(Math.max(Math.min(digits, 20), 0));
 	};
 }

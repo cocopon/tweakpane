@@ -1,3 +1,5 @@
+import {Formatter} from './converter/formatter.js';
+
 export interface BaseParams {
 	disabled?: boolean;
 	hidden?: boolean;
@@ -10,25 +12,43 @@ export type ListParamsOptions<T> =
 	| ArrayStyleListOptions<T>
 	| ObjectStyleListOptions<T>;
 
-export interface PointDimensionParams {
-	max?: number;
-	min?: number;
-	step?: number;
-}
-
 export type PickerLayout = 'inline' | 'popup';
 
-export interface BaseInputParams extends BaseParams, Record<string, unknown> {
+interface BindingParams extends BaseParams {
 	label?: string;
-	presetKey?: string;
+	tag?: string | undefined;
 	view?: string;
 }
 
-export interface BaseMonitorParams extends BaseParams, Record<string, unknown> {
+export interface BaseInputParams
+	extends BindingParams,
+		Record<string, unknown> {
+	readonly?: false;
+}
+
+export interface BaseMonitorParams
+	extends BindingParams,
+		Record<string, unknown> {
 	bufferSize?: number;
 	interval?: number;
-	label?: string;
-	view?: string;
+	readonly: true;
 }
 
 export interface BaseBladeParams extends BaseParams, Record<string, unknown> {}
+
+export interface NumberTextInputParams {
+	format?: Formatter<number>;
+	/**
+	 * The unit scale for key input.
+	 */
+	keyScale?: number;
+	max?: number;
+	min?: number;
+	/**
+	 * The unit scale for pointer input.
+	 */
+	pointerScale?: number;
+	step?: number;
+}
+
+export type PointDimensionParams = NumberTextInputParams;

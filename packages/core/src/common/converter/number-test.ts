@@ -6,7 +6,7 @@ import {
 	numberFromUnknown,
 	numberToString,
 	parseNumber,
-} from './number';
+} from './number.js';
 
 describe('converter/number', () => {
 	[

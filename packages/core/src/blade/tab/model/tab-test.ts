@@ -1,8 +1,8 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {createValue} from '../../../common/model/values';
-import {Tab} from './tab';
+import {createValue} from '../../../common/model/values.js';
+import {Tab} from './tab.js';
 
 describe(Tab.name, () => {
 	it('should have initial state', () => {

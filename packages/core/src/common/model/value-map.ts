@@ -1,6 +1,6 @@
-import {Emitter} from './emitter';
-import {Value} from './value';
-import {createValue} from './values';
+import {Emitter} from './emitter.js';
+import {Value} from './value.js';
+import {createValue} from './values.js';
 
 export interface ValueMapEvents<O extends Record<string, unknown>> {
 	change: {
@@ -17,6 +17,9 @@ export class ValueMap<O extends Record<string, unknown>> {
 	public readonly emitter: Emitter<ValueMapEvents<O>> = new Emitter();
 	private readonly valMap_: ValueMapCore<O>;
 
+	/**
+	 * @hidden
+	 */
 	constructor(valueMap: ValueMapCore<O>) {
 		this.valMap_ = valueMap;
 

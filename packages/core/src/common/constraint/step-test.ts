@@ -1,8 +1,8 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {TestUtil} from '../../misc/test-util';
-import {StepConstraint} from './step';
+import {TestUtil} from '../../misc/test-util.js';
+import {StepConstraint} from './step.js';
 
 const DELTA = 1e-5;
 

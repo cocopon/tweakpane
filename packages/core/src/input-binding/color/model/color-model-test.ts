@@ -1,8 +1,8 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
-import {TestUtil} from '../../../misc/test-util';
-import {convertColor} from './color-model';
+import {TestUtil} from '../../../misc/test-util.js';
+import {convertColor} from './color-model.js';
 
 const DELTA = 2;
 

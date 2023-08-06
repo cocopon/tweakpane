@@ -1,15 +1,17 @@
-.#{$prefix}-lstv {
-	@extend %list;
+@use '../tp';
+
+.#{tp.$prefix}-lstv {
+	@extend %tp-list;
 
 	&_s {
-		@extend %list_select;
+		@extend %tp-list_select;
 
-		padding: 0 (16px + 2px * 2) 0 4px;
+		padding: 0 (16px + 2px * 2) 0 tp.cssVar('blade-h-padding');
 		width: 100%;
 	}
 	&_m {
-		@extend %list_arrow;
+		@extend %tp-list_arrow;
 
-		color: var(--btn-fg);
+		color: tp.cssVar('button-fg');
 	}
 }

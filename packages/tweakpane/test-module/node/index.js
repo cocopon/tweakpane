@@ -1,10 +1,14 @@
-'use strict';
+/* eslint-disable no-console */
+/* eslint-env node */
 
-const Jsdom = require('jsdom').JSDOM;
+import Fs from 'fs';
+import {JSDOM as Jsdom} from 'jsdom';
 // Require default module
-const {Pane, VERSION} = require('tweakpane');
+import {Pane, VERSION} from 'tweakpane';
 
-const Package = require('../../package.json');
+const Package = JSON.parse(
+	Fs.readFileSync(new URL('../../package.json', import.meta.url)),
+);
 
 // Check version
 if (VERSION.toString() !== Package.version) {
@@ -22,7 +26,7 @@ const pane = new Pane({
 });
 
 // Add input
-const input = pane.addInput(PARAMS, 'foo', {
+const input = pane.addBinding(PARAMS, 'foo', {
 	max: 1,
 	min: 0,
 	step: 1,

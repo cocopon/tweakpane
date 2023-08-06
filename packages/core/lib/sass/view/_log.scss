@@ -1,26 +1,30 @@
-.#{$prefix}-sglv {
-	&_i {
-		@extend %monitor;
+@use '../tp';
 
-		padding: 0 4px;
+.#{tp.$prefix}-sglv {
+	&_i {
+		@extend %tp-monitor;
+
+		padding-left: tp.cssVar('blade-h-padding');
+		padding-right: tp.cssVar('blade-h-padding');
 	}
-	&.#{$prefix}-v-disabled &_i {
+	&.#{tp.$disabled} &_i {
 		opacity: 0.5;
 	}
 }
 
-.#{$prefix}-mllv {
+.#{tp.$prefix}-mllv {
 	&_i {
-		@extend %monitor;
+		@extend %tp-monitor;
 
 		display: block;
-		height: calc(var(--bld-us) * 3);
-		line-height: var(--bld-us);
-		padding: 0 4px;
+		height: calc(#{tp.cssVar('container-unit-size')} * 3);
+		line-height: tp.cssVar('container-unit-size');
+		padding-left: tp.cssVar('blade-h-padding');
+		padding-right: tp.cssVar('blade-h-padding');
 		resize: none;
 		white-space: pre;
 	}
-	&.#{$prefix}-v-disabled &_i {
+	&.#{tp.$disabled} &_i {
 		opacity: 0.5;
 	}
 }

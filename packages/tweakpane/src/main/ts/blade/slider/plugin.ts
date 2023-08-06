@@ -1,22 +1,23 @@
 import {
 	BaseBladeParams,
 	BladePlugin,
+	createSliderTextProps,
 	createValue,
 	DefiniteRangeConstraint,
 	Formatter,
-	getSuitableDraggingScale,
-	LabeledValueController,
+	getSuitablePointerScale,
+	LabeledValueBladeController,
 	LabelPropsObject,
+	MicroParser,
 	numberToString,
-	ParamsParser,
-	ParamsParsers,
 	parseNumber,
-	parseParams,
+	parseRecord,
 	SliderTextController,
 	ValueMap,
+	VERSION,
 } from '@tweakpane/core';
 
-import {SliderApi} from './api/slider';
+import {SliderBladeApi} from './api/slider.js';
 
 export interface SliderBladeParams extends BaseBladeParams {
 	max: number;
@@ -31,17 +32,17 @@ export interface SliderBladeParams extends BaseBladeParams {
 export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 	id: 'slider',
 	type: 'blade',
+	core: VERSION,
 	accept(params) {
-		const p = ParamsParsers;
-		const result = parseParams<SliderBladeParams>(params, {
+		const result = parseRecord<SliderBladeParams>(params, (p) => ({
 			max: p.required.number,
 			min: p.required.number,
 			view: p.required.constant('slider'),
 
-			format: p.optional.function as ParamsParser<Formatter<number>>,
+			format: p.optional.function as MicroParser<Formatter<number>>,
 			label: p.optional.string,
 			value: p.optional.number,
-		});
+		}));
 		return result ? {params: result} : null;
 	},
 	controller(args) {
@@ -50,40 +51,40 @@ export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 			max: args.params.max,
 			min: args.params.min,
 		});
+		const v = createValue(initialValue, {
+			constraint: drc,
+		});
 		const vc = new SliderTextController(args.document, {
-			baseStep: 1,
-			parser: parseNumber,
-			sliderProps: new ValueMap({
-				maxValue: drc.values.value('max'),
-				minValue: drc.values.value('min'),
-			}),
-			textProps: ValueMap.fromObject({
-				draggingScale: getSuitableDraggingScale(undefined, initialValue),
+			...createSliderTextProps({
 				formatter: args.params.format ?? numberToString,
+				keyScale: createValue(1),
+				max: drc.values.value('max'),
+				min: drc.values.value('min'),
+				pointerScale: getSuitablePointerScale(args.params, initialValue),
 			}),
-			value: createValue(initialValue, {
-				constraint: drc,
-			}),
+			parser: parseNumber,
+			value: v,
 			viewProps: args.viewProps,
 		});
-		return new LabeledValueController<number, SliderTextController>(
+		return new LabeledValueBladeController<number, SliderTextController>(
 			args.document,
 			{
 				blade: args.blade,
 				props: ValueMap.fromObject<LabelPropsObject>({
 					label: args.params.label,
 				}),
+				value: v,
 				valueController: vc,
 			},
 		);
 	},
 	api(args) {
-		if (!(args.controller instanceof LabeledValueController)) {
+		if (!(args.controller instanceof LabeledValueBladeController)) {
 			return null;
 		}
 		if (!(args.controller.valueController instanceof SliderTextController)) {
 			return null;
 		}
-		return new SliderApi(args.controller);
+		return new SliderBladeApi(args.controller);
 	},
 };

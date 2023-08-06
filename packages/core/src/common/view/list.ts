@@ -1,23 +1,29 @@
-import {ListItem} from '../constraint/list';
-import {createSvgIconElement, removeChildElements} from '../dom-util';
-import {bindValueMap} from '../model/reactive';
-import {Value} from '../model/value';
-import {ValueMap} from '../model/value-map';
-import {ViewProps} from '../model/view-props';
-import {ClassName} from './class-name';
-import {View} from './view';
+import {ListItem} from '../constraint/list.js';
+import {createSvgIconElement, removeChildElements} from '../dom-util.js';
+import {bindValueMap} from '../model/reactive.js';
+import {Value} from '../model/value.js';
+import {ValueMap} from '../model/value-map.js';
+import {ViewProps} from '../model/view-props.js';
+import {ClassName} from './class-name.js';
+import {View} from './view.js';
 
+/**
+ * @hidden
+ */
 export type ListProps<T> = ValueMap<{
 	options: ListItem<T>[];
 }>;
 
+/**
+ * @hidden
+ */
 interface Config<T> {
 	props: ListProps<T>;
 	value: Value<T>;
 	viewProps: ViewProps;
 }
 
-const className = ClassName('lst');
+const cn = ClassName('lst');
 
 /**
  * @hidden
@@ -34,17 +40,17 @@ export class ListView<T> implements View {
 		this.props_ = config.props;
 
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 
 		const selectElem = doc.createElement('select');
-		selectElem.classList.add(className('s'));
+		selectElem.classList.add(cn('s'));
 		config.viewProps.bindDisabled(selectElem);
 		this.element.appendChild(selectElem);
 		this.selectElement = selectElem;
 
 		const markElem = doc.createElement('div');
-		markElem.classList.add(className('m'));
+		markElem.classList.add(cn('m'));
 		markElem.appendChild(createSvgIconElement(doc, 'dropdown'));
 		this.element.appendChild(markElem);
 

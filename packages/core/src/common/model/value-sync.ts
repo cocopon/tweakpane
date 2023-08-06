@@ -1,4 +1,4 @@
-import {Value} from './value';
+import {Value} from './value.js';
 
 /**
  * Synchronizes two values.
@@ -11,8 +11,8 @@ export function connectValues<T1, T2>({
 }: {
 	primary: Value<T1>;
 	secondary: Value<T2>;
-	forward: (primary: Value<T1>, secondary: Value<T2>) => T2;
-	backward: (primary: Value<T1>, secondary: Value<T2>) => T1;
+	forward: (primary: T1, secondary: T2) => T2;
+	backward: (primary: T1, secondary: T2) => T1;
 }) {
 	// Prevents an event firing loop
 	// e.g.
@@ -33,23 +33,32 @@ export function connectValues<T1, T2>({
 
 	primary.emitter.on('change', (ev) => {
 		preventFeedback(() => {
-			secondary.setRawValue(forward(primary, secondary), ev.options);
+			secondary.setRawValue(
+				forward(primary.rawValue, secondary.rawValue),
+				ev.options,
+			);
 		});
 	});
 	secondary.emitter.on('change', (ev) => {
 		preventFeedback(() => {
-			primary.setRawValue(backward(primary, secondary), ev.options);
+			primary.setRawValue(
+				backward(primary.rawValue, secondary.rawValue),
+				ev.options,
+			);
 		});
 
 		// Re-update secondary value
 		// to apply change from constraint of primary value
 		preventFeedback(() => {
-			secondary.setRawValue(forward(primary, secondary), ev.options);
+			secondary.setRawValue(
+				forward(primary.rawValue, secondary.rawValue),
+				ev.options,
+			);
 		});
 	});
 
 	preventFeedback(() => {
-		secondary.setRawValue(forward(primary, secondary), {
+		secondary.setRawValue(forward(primary.rawValue, secondary.rawValue), {
 			forceEmit: false,
 			last: true,
 		});

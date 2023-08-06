@@ -1,0 +1,15 @@
+@use '../../../../../../node_modules/@tweakpane/core/lib/sass/tp';
+
+.#{tp.$prefix}-sprv {
+	&_r {
+		background-color: tp.cssVar('groove-fg');
+		border-width: 0;
+		display: block;
+		height: tp.$separator-width;
+		margin: 0;
+		width: 100%;
+	}
+	&.#{tp.$disabled} &_r {
+		opacity: 0.5;
+	}
+}

@@ -1,8 +1,8 @@
-import {Value} from '../model/value';
-import {createValue} from '../model/values';
-import {ViewProps} from '../model/view-props';
-import {PopupView} from '../view/popup';
-import {Controller} from './controller';
+import {Value} from '../model/value.js';
+import {createValue} from '../model/values.js';
+import {ViewProps} from '../model/view-props.js';
+import {PopupView} from '../view/popup.js';
+import {Controller} from './controller.js';
 
 interface Config {
 	viewProps: ViewProps;

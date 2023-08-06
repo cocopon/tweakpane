@@ -1,31 +1,26 @@
-import {bindFoldable, Foldable} from '../../../blade/common/model/foldable';
-import {Constraint} from '../../../common/constraint/constraint';
-import {Controller} from '../../../common/controller/controller';
-import {PopupController} from '../../../common/controller/popup';
-import {Parser} from '../../../common/converter/parser';
-import {findNextTarget, supportsTouch} from '../../../common/dom-util';
-import {Value} from '../../../common/model/value';
-import {connectValues} from '../../../common/model/value-sync';
-import {ViewProps} from '../../../common/model/view-props';
-import {NumberTextProps} from '../../../common/number/view/number-text';
-import {PickerLayout} from '../../../common/params';
-import {forceCast} from '../../../misc/type-util';
-import {PointNdTextController} from '../../common/controller/point-nd-text';
-import {Point2d, Point2dAssembly} from '../model/point-2d';
-import {Point2dView} from '../view/point-2d';
-import {Point2dPickerController} from './point-2d-picker';
-
-interface Axis {
-	baseStep: number;
-	constraint: Constraint<number> | undefined;
-	textProps: NumberTextProps;
-}
+import {bindFoldable, Foldable} from '../../../blade/common/model/foldable.js';
+import {PopupController} from '../../../common/controller/popup.js';
+import {ValueController} from '../../../common/controller/value.js';
+import {Parser} from '../../../common/converter/parser.js';
+import {findNextTarget, supportsTouch} from '../../../common/dom-util.js';
+import {Value} from '../../../common/model/value.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {connectValues} from '../../../common/model/value-sync.js';
+import {createValue} from '../../../common/model/values.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {PickerLayout} from '../../../common/params.js';
+import {PointAxis} from '../../../common/point-nd/point-axis.js';
+import {forceCast, Tuple2} from '../../../misc/type-util.js';
+import {PointNdTextController} from '../../common/controller/point-nd-text.js';
+import {Point2d, Point2dAssembly} from '../model/point-2d.js';
+import {Point2dView} from '../view/point-2d.js';
+import {Point2dPickerController} from './point-2d-picker.js';
 
 interface Config {
-	axes: [Axis, Axis];
+	axes: Tuple2<PointAxis>;
 	expanded: boolean;
 	invertsY: boolean;
-	maxValue: number;
+	max: number;
 	parser: Parser<number>;
 	pickerLayout: PickerLayout;
 	value: Value<Point2d>;
@@ -35,7 +30,9 @@ interface Config {
 /**
  * @hidden
  */
-export class Point2dController implements Controller<Point2dView> {
+export class Point2dController
+	implements ValueController<Point2d, Point2dView>
+{
 	public readonly value: Value<Point2d>;
 	public readonly view: Point2dView;
 	public readonly viewProps: ViewProps;
@@ -63,10 +60,13 @@ export class Point2dController implements Controller<Point2dView> {
 				: null;
 
 		const padC = new Point2dPickerController(doc, {
-			baseSteps: [config.axes[0].baseStep, config.axes[1].baseStep],
-			invertsY: config.invertsY,
 			layout: config.pickerLayout,
-			maxValue: config.maxValue,
+			props: new ValueMap({
+				invertsY: createValue(config.invertsY),
+				max: createValue(config.max),
+				xKeyScale: config.axes[0].textProps.value('keyScale'),
+				yKeyScale: config.axes[1].textProps.value('keyScale'),
+			}),
 			value: this.value,
 			viewProps: this.viewProps,
 		});
@@ -100,14 +100,18 @@ export class Point2dController implements Controller<Point2dView> {
 			connectValues({
 				primary: this.foldable_.value('expanded'),
 				secondary: this.popC_.shows,
-				forward: (p) => p.rawValue,
-				backward: (_, s) => s.rawValue,
+				forward: (p) => p,
+				backward: (_, s) => s,
 			});
 		} else if (this.view.pickerElement) {
 			this.view.pickerElement.appendChild(this.pickerC_.view.element);
 
 			bindFoldable(this.foldable_, this.view.pickerElement);
 		}
+	}
+
+	get textController(): PointNdTextController<Point2d> {
+		return this.textC_;
 	}
 
 	private onPadButtonBlur_(e: FocusEvent) {

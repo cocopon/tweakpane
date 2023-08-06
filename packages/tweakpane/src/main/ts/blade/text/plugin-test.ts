@@ -2,24 +2,22 @@ import {
 	BladeController,
 	createBladeController,
 	createDefaultPluginPool,
-	View,
+	PluginPool,
 } from '@tweakpane/core';
-import {PluginPool} from '@tweakpane/core/dist/cjs/plugin/pool';
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {
 	createEmptyBladeController,
-	createEmptyLabelableController,
-	createLabelController,
+	createLabeledValueBladeController,
 	createTestWindow,
-} from '../../misc/test-util';
-import {TextApi} from './api/text';
-import {TextBladeParams, TextBladePlugin} from './plugin';
+} from '../../misc/test-util.js';
+import {TextBladeApi} from './api/text.js';
+import {TextBladeParams, TextBladePlugin} from './plugin.js';
 
 function createPluginPool(): PluginPool {
 	const pool = createDefaultPluginPool();
-	pool.register(TextBladePlugin);
+	pool.register('test', TextBladePlugin);
 	return pool;
 }
 
@@ -52,8 +50,7 @@ describe(TextBladePlugin.id, () => {
 
 	[
 		(doc: Document) => createEmptyBladeController(doc),
-		(doc: Document) =>
-			createLabelController(doc, createEmptyLabelableController(doc)),
+		(doc: Document) => createLabeledValueBladeController(doc),
 	].forEach((createController) => {
 		it('should not create API', () => {
 			const doc = createTestWindow().document;
@@ -80,13 +77,13 @@ describe(TextBladePlugin.id, () => {
 		const bc = createBladeController(TextBladePlugin, {
 			document: doc,
 			params: params,
-		}) as BladeController<View>;
+		}) as BladeController;
 		const pool = createPluginPool();
-		const api = pool.createBladeApi(bc) as TextApi<string>;
+		const api = pool.createApi(bc) as TextBladeApi<string>;
 		assert.strictEqual(api.formatter, formatter);
 		assert.strictEqual(api.value, 'hello');
 		assert.strictEqual(
-			api.controller_.view.element.querySelector('.tp-lblv_l')?.textContent,
+			api.controller.view.element.querySelector('.tp-lblv_l')?.textContent,
 			'hello',
 		);
 	});

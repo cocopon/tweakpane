@@ -1,13 +1,14 @@
-/* eslint-disable no-console, @typescript-eslint/no-var-requires */
+/* eslint-disable no-console */
 /* eslint-env node */
 
-'use strict';
+import Fs from 'fs-extra';
+import Glob from 'glob';
+import Nunjucks from 'nunjucks';
+import Path from 'path';
 
-const Fs = require('fs-extra');
-const Glob = require('glob');
-const Nunjucks = require('nunjucks');
-const Path = require('path');
-const Package = require('../package');
+const Package = JSON.parse(
+	Fs.readFileSync(new URL('../package.json', import.meta.url)),
+);
 
 const context = {
 	description: Package.description,

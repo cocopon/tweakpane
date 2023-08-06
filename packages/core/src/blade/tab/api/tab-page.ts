@@ -1,52 +1,41 @@
-import {Bindable} from '../../../common/binding/target';
-import {BaseBladeParams} from '../../../common/params';
-import {View} from '../../../common/view/view';
-import {ButtonApi} from '../../button/api/button';
-import {BladeApi} from '../../common/api/blade';
-import {BladeRackApi} from '../../common/api/blade-rack';
+import {Bindable} from '../../../common/binding/target.js';
+import {BaseBladeParams} from '../../../common/params.js';
+import {BindingApi} from '../../binding/api/binding.js';
+import {ButtonApi} from '../../button/api/button.js';
+import {BladeApi} from '../../common/api/blade.js';
+import {ContainerApi} from '../../common/api/container.js';
+import {ContainerBladeApi} from '../../common/api/container-blade.js';
 import {
+	BindingParams,
 	ButtonParams,
 	FolderParams,
-	InputParams,
-	MonitorParams,
-	SeparatorParams,
 	TabParams,
-} from '../../common/api/params';
-import {BladeController} from '../../common/controller/blade';
-import {FolderApi} from '../../folder/api/folder';
-import {InputBindingApi} from '../../input-binding/api/input-binding';
-import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
-import {RackApi} from '../../rack/api/rack';
-import {SeparatorApi} from '../../separator/api/separator';
-import {TabPageController} from '../controller/tab-page';
-import {TabApi} from './tab';
+} from '../../common/api/params.js';
+import {FolderApi} from '../../folder/api/folder.js';
+import {TabPageController} from '../controller/tab-page.js';
+import {TabApi} from './tab.js';
 
-export class TabPageApi implements BladeRackApi {
-	public readonly controller_: TabPageController;
-	private readonly rackApi_: RackApi;
-
-	constructor(controller: TabPageController, contentRackApi: RackApi) {
-		this.controller_ = controller;
-		this.rackApi_ = contentRackApi;
-	}
-
+export class TabPageApi
+	extends ContainerBladeApi<TabPageController>
+	implements ContainerApi
+{
 	get title(): string {
-		return this.controller_.itemController.props.get('title') ?? '';
+		return this.controller.itemController.props.get('title') ?? '';
 	}
 
 	set title(title: string) {
-		this.controller_.itemController.props.set('title', title);
+		this.controller.itemController.props.set('title', title);
 	}
 
 	get selected(): boolean {
-		return this.controller_.props.get('selected');
+		return this.controller.props.get('selected');
 	}
 
 	set selected(selected: boolean) {
-		this.controller_.props.set('selected', selected);
+		this.controller.props.set('selected', selected);
 	}
 
-	get children(): BladeApi<BladeController<View>>[] {
+	get children(): BladeApi[] {
 		return this.rackApi_.children;
 	}
 
@@ -58,39 +47,31 @@ export class TabPageApi implements BladeRackApi {
 		return this.rackApi_.addFolder(params);
 	}
 
-	public addSeparator(opt_params?: SeparatorParams): SeparatorApi {
-		return this.rackApi_.addSeparator(opt_params);
-	}
-
 	public addTab(params: TabParams): TabApi {
 		return this.rackApi_.addTab(params);
 	}
 
-	public add(api: BladeApi<BladeController<View>>, opt_index?: number): void {
+	public add(api: BladeApi, opt_index?: number): void {
 		this.rackApi_.add(api, opt_index);
 	}
 
-	public remove(api: BladeApi<BladeController<View>>): void {
+	public remove(api: BladeApi): void {
 		this.rackApi_.remove(api);
 	}
 
-	public addInput<O extends Bindable, Key extends keyof O>(
+	public addBinding<O extends Bindable, Key extends keyof O>(
 		object: O,
 		key: Key,
-		opt_params?: InputParams,
-	): InputBindingApi<unknown, O[Key]> {
-		return this.rackApi_.addInput(object, key, opt_params);
+		opt_params?: BindingParams,
+	): BindingApi<unknown, O[Key]> {
+		return this.rackApi_.addBinding(object, key, opt_params);
 	}
 
-	public addMonitor<O extends Bindable, Key extends keyof O>(
-		object: O,
-		key: Key,
-		opt_params?: MonitorParams,
-	): MonitorBindingApi<O[Key]> {
-		return this.rackApi_.addMonitor(object, key, opt_params);
-	}
-
-	public addBlade(params: BaseBladeParams): BladeApi<BladeController<View>> {
+	public addBlade(params: BaseBladeParams): BladeApi {
 		return this.rackApi_.addBlade(params);
+	}
+
+	public refresh(): void {
+		this.rackApi_.refresh();
 	}
 }

@@ -1,0 +1,146 @@
+@use 'sass:map';
+@use '../../common/defs';
+
+@mixin themeVariable($key, $ex-name, $value) {
+	$in-name: map.get(defs.$css-vars, $key);
+	@if $in-name == null {
+		@error 'Short CSS variable for \'#{$key}\' not found.';
+	}
+	--#{$in-name}: var(--#{defs.$prefix}-#{$ex-name}, #{$value});
+}
+
+%tp-theming {
+	$base-hue: 230;
+	$color-exdark: hsl($base-hue, 7%, 0%);
+	$color-dark: hsl($base-hue, 7%, 17%);
+	$color-light: hsl($base-hue, 7%, 70%);
+	$color-exlight: hsl($base-hue, 7%, 75%);
+	$bg-color: $color-dark;
+	$fg-color: $color-exlight;
+
+	// Base
+	@include themeVariable('base-bg', 'base-background-color', $bg-color);
+	@include themeVariable('base-border-radius', 'base-border-radius', 6px);
+	@include themeVariable(
+		'base-font',
+		'base-font-family',
+		('Roboto Mono', 'Source Code Pro', Menlo, Courier, monospace)
+	);
+	@include themeVariable('base-shadow', 'base-shadow-color', rgba(black, 0.2));
+
+	// Blade
+	@include themeVariable('blade-border-radius', 'blade-border-radius', 2px);
+	@include themeVariable('blade-h-padding', 'blade-horizontal-padding', 4px);
+	@include themeVariable('blade-value-width', 'blade-value-width', 160px);
+
+	// Button
+	@include themeVariable('button-bg', 'button-background-color', $color-light);
+	@include themeVariable(
+		'button-bg-active',
+		'button-background-color-active',
+		lighten($color-light, 15%)
+	);
+	@include themeVariable(
+		'button-bg-focus',
+		'button-background-color-focus',
+		lighten($color-light, 10%)
+	);
+	@include themeVariable(
+		'button-bg-hover',
+		'button-background-color-hover',
+		lighten($color-light, 5%)
+	);
+	@include themeVariable('button-fg', 'button-foreground-color', $bg-color);
+
+	// Container
+	@include themeVariable(
+		'container-bg',
+		'container-background-color',
+		rgba($fg-color, 0.1)
+	);
+	@include themeVariable(
+		'container-bg-active',
+		'container-background-color-active',
+		rgba($fg-color, 0.25)
+	);
+	@include themeVariable(
+		'container-bg-focus',
+		'container-background-color-focus',
+		rgba($fg-color, 0.2)
+	);
+	@include themeVariable(
+		'container-bg-hover',
+		'container-background-color-hover',
+		rgba($fg-color, 0.15)
+	);
+	@include themeVariable(
+		'container-fg',
+		'container-foreground-color',
+		$fg-color
+	);
+	@include themeVariable(
+		'container-h-padding',
+		'container-horizontal-padding',
+		4px
+	);
+	@include themeVariable(
+		'container-v-padding',
+		'container-vertical-padding',
+		4px
+	);
+	@include themeVariable(
+		'container-unit-spacing',
+		'container-unit-spacing',
+		4px
+	);
+	@include themeVariable('container-unit-size', 'container-unit-size', 20px);
+
+	// Input
+	@include themeVariable(
+		'input-bg',
+		'input-background-color',
+		rgba($fg-color, 0.1)
+	);
+	@include themeVariable(
+		'input-bg-active',
+		'input-background-color-active',
+		rgba($fg-color, 0.25)
+	);
+	@include themeVariable(
+		'input-bg-focus',
+		'input-background-color-focus',
+		rgba($fg-color, 0.2)
+	);
+	@include themeVariable(
+		'input-bg-hover',
+		'input-background-color-hover',
+		rgba($fg-color, 0.15)
+	);
+	@include themeVariable('input-fg', 'input-foreground-color', $fg-color);
+
+	// Label
+	@include themeVariable(
+		'label-fg',
+		'label-foreground-color',
+		rgba($fg-color, 0.7)
+	);
+
+	// Monitor
+	@include themeVariable(
+		'monitor-bg',
+		'monitor-background-color',
+		rgba($color-exdark, 0.2)
+	);
+	@include themeVariable(
+		'monitor-fg',
+		'monitor-foreground-color',
+		rgba($fg-color, 0.7)
+	);
+
+	// Groove
+	@include themeVariable(
+		'groove-fg',
+		'groove-foreground-color',
+		rgba($fg-color, 0.1)
+	);
+}

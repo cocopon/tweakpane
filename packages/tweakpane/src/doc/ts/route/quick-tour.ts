@@ -1,7 +1,7 @@
+import {PlaceholderPluginBundle} from 'ts/plugins/placeholder/bundle.js';
 import {Pane} from 'tweakpane';
 
-import * as PlaceholderPlugin from '../placeholder-plugin';
-import {selectContainer, wave} from '../util';
+import {selectContainer, wave} from '../util.js';
 
 export function initQuickTour() {
 	const markerToFnMap: {
@@ -11,7 +11,7 @@ export function initQuickTour() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.registerPlugin(PlaceholderPlugin);
+			pane.registerPlugin(PlaceholderPluginBundle);
 			pane.addBlade({
 				title: 'blade',
 				view: 'placeholder',
@@ -21,23 +21,47 @@ export function initQuickTour() {
 				view: 'placeholder',
 			});
 			pane.addBlade({
-				lineCount: 3,
+				rows: 3,
 				title: 'blade',
 				view: 'placeholder',
 			});
 		},
 		inputs: (container) => {
+			const consoleElem = selectContainer('inputsconsole');
+			if (!consoleElem) {
+				return;
+			}
+
 			const PARAMS = {
 				factor: 123,
 				title: 'hello',
 				color: '#ff0055',
 			};
+
+			const consolePane = new Pane({
+				container: consoleElem,
+			});
+			const LOG = {
+				log: JSON.stringify(PARAMS, undefined, 2),
+			};
+			consolePane.addBinding(LOG, 'log', {
+				interval: 0,
+				label: 'PARAMS',
+				multiline: true,
+				readonly: true,
+				rows: 5,
+			});
+
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'factor');
-			pane.addInput(PARAMS, 'title');
-			pane.addInput(PARAMS, 'color');
+			pane.addBinding(PARAMS, 'factor');
+			pane.addBinding(PARAMS, 'title');
+			pane.addBinding(PARAMS, 'color');
+			pane.on('change', () => {
+				LOG.log = JSON.stringify(PARAMS, undefined, 2);
+				consolePane.refresh();
+			});
 		},
 		inputparams: (container) => {
 			const PARAMS = {
@@ -47,12 +71,12 @@ export function initQuickTour() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'percentage', {
+			pane.addBinding(PARAMS, 'percentage', {
 				min: 0,
 				max: 100,
 				step: 10,
 			});
-			pane.addInput(PARAMS, 'theme', {
+			pane.addBinding(PARAMS, 'theme', {
 				options: {
 					Dark: 'dark',
 					Light: 'light',
@@ -68,13 +92,13 @@ export function initQuickTour() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'factor');
+			pane.addBinding(PARAMS, 'factor');
 			const f = pane.addFolder({
 				title: 'Title',
 				expanded: true,
 			});
-			f.addInput(PARAMS, 'text');
-			f.addInput(PARAMS, 'size', {
+			f.addBinding(PARAMS, 'text');
+			f.addBinding(PARAMS, 'size', {
 				min: 8,
 				max: 100,
 				step: 1,
@@ -90,13 +114,13 @@ export function initQuickTour() {
 				container: container,
 				title: 'Parameters',
 			});
-			pane.addInput(PARAMS, 'factor');
+			pane.addBinding(PARAMS, 'factor');
 			const f = pane.addFolder({
 				title: 'Title',
 				expanded: true,
 			});
-			f.addInput(PARAMS, 'text');
-			f.addInput(PARAMS, 'size', {
+			f.addBinding(PARAMS, 'text');
+			f.addBinding(PARAMS, 'size', {
 				min: 8,
 				max: 100,
 				step: 1,
@@ -116,18 +140,19 @@ export function initQuickTour() {
 			const consolePane = new Pane({
 				container: consoleElem,
 			});
-			consolePane.addMonitor(PARAMS, 'log', {
+			consolePane.addBinding(PARAMS, 'log', {
 				bufferSize: 100,
 				interval: 0,
 				label: 'console',
-				lineCount: 5,
+				readonly: true,
+				rows: 5,
 			});
 
 			const pane = new Pane({
 				container: container,
 			});
 			pane
-				.addInput(PARAMS, 'size', {
+				.addBinding(PARAMS, 'size', {
 					min: 8,
 					max: 100,
 					step: 1,
@@ -137,8 +162,8 @@ export function initQuickTour() {
 					consolePane.refresh();
 				});
 		},
-		preset: (container) => {
-			const consoleElem = selectContainer('presetconsole');
+		state: (container) => {
+			const consoleElem = selectContainer('stateconsole');
 			if (!consoleElem) {
 				return;
 			}
@@ -153,31 +178,32 @@ export function initQuickTour() {
 			const consolePane = new Pane({
 				container: consoleElem,
 			});
-			consolePane.addMonitor(PARAMS, 'log', {
+			consolePane.addBinding(PARAMS, 'log', {
 				interval: 0,
-				label: 'preset',
-				lineCount: 5,
+				label: 'state',
 				multiline: true,
+				readonly: true,
+				rows: 5,
 			});
 
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'factor', {
+			pane.addBinding(PARAMS, 'factor', {
 				min: 0,
 				max: 100,
 				step: 1,
 			});
-			pane.addInput(PARAMS, 'title');
-			pane.addInput(PARAMS, 'color');
-			pane.addSeparator();
+			pane.addBinding(PARAMS, 'title');
+			pane.addBinding(PARAMS, 'color');
+			pane.addBlade({view: 'separator'});
 			pane
 				.addButton({
 					title: 'Export',
 				})
 				.on('click', () => {
-					const preset = pane.exportPreset();
-					PARAMS.log = JSON.stringify(preset, undefined, 2);
+					const state = pane.exportState();
+					PARAMS.log = JSON.stringify(state, undefined, 2);
 					consolePane.refresh();
 				});
 		},
@@ -195,10 +221,11 @@ export function initQuickTour() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addMonitor(PARAMS, 'signal', {
-				view: 'graph',
+			pane.addBinding(PARAMS, 'signal', {
 				min: -1,
 				max: +1,
+				readonly: true,
+				view: 'graph',
 			});
 		},
 	};

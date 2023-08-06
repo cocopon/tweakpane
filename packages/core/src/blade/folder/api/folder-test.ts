@@ -1,19 +1,20 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {Color} from '../../../input-binding/color/model/color';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {createDefaultPluginPool} from '../../../plugin/plugins';
-import {testBladeContainer} from '../../common/api/blade-rack-test';
-import {assertUpdates} from '../../common/api/test-util';
-import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event';
-import {createBlade} from '../../common/model/blade';
-import {InputBindingApi} from '../../input-binding/api/input-binding';
-import {FolderController} from '../controller/folder';
-import {FolderPropsObject} from '../view/folder';
-import {FolderApi} from './folder';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {IntColor} from '../../../input-binding/color/model/int-color.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {createDefaultPluginPool} from '../../../plugin/plugins.js';
+import {BindingApi} from '../../binding/api/binding.js';
+import {testBladeContainer} from '../../common/api/container-test.js';
+import {assertUpdates} from '../../common/api/test-util.js';
+import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event.js';
+import {createBlade} from '../../common/model/blade.js';
+import {TestValueBladePlugin} from '../../test-util.js';
+import {FolderController} from '../controller/folder.js';
+import {FolderPropsObject} from '../view/folder.js';
+import {FolderApi} from './folder.js';
 
 function createApi(opt_doc?: Document): FolderApi {
 	const doc = opt_doc ?? createTestWindow().document;
@@ -25,6 +26,7 @@ function createApi(opt_doc?: Document): FolderApi {
 		viewProps: ViewProps.create(),
 	});
 	const pool = createDefaultPluginPool();
+	pool.register('test', TestValueBladePlugin);
 	return new FolderApi(c, pool);
 }
 
@@ -34,7 +36,7 @@ describe(FolderApi.name, () => {
 	it('should have initial state', () => {
 		const api = createApi();
 		assert.strictEqual(api.expanded, true);
-		assert.strictEqual(api.controller_.foldable.get('expanded'), true);
+		assert.strictEqual(api.controller.foldable.get('expanded'), true);
 		assert.strictEqual(api.hidden, false);
 		assert.strictEqual(api.title, 'Folder');
 	});
@@ -45,36 +47,23 @@ describe(FolderApi.name, () => {
 		assertUpdates(api);
 
 		api.expanded = true;
-		assert.strictEqual(api.controller_.foldable.get('expanded'), true);
+		assert.strictEqual(api.controller.foldable.get('expanded'), true);
 
 		api.title = 'changed';
-		assert.strictEqual(
-			api.controller_.view.titleElement.textContent,
-			'changed',
-		);
+		assert.strictEqual(api.controller.view.titleElement.textContent, 'changed');
 	});
 
 	it('should dispose', () => {
 		const api = createApi();
 		api.dispose();
-		assert.strictEqual(api.controller_.viewProps.get('disposed'), true);
+		assert.strictEqual(api.controller.viewProps.get('disposed'), true);
 	});
 
 	it('should toggle expanded when clicking title element', () => {
 		const api = createApi();
 
-		api.controller_.view.buttonElement.click();
-		assert.strictEqual(api.controller_.foldable.get('expanded'), false);
-	});
-
-	it('should dispose separator', () => {
-		const api = createApi();
-		const cs = api.controller_.rackController.rack.children;
-
-		const s = api.addSeparator();
-		assert.strictEqual(cs.length, 1);
-		s.dispose();
-		assert.strictEqual(cs.length, 0);
+		api.controller.view.buttonElement.click();
+		assert.strictEqual(api.controller.foldable.get('expanded'), false);
 	});
 
 	it('should add folder', () => {
@@ -82,8 +71,8 @@ describe(FolderApi.name, () => {
 		const f = pane.addFolder({
 			title: 'folder',
 		});
-		assert.strictEqual(f.controller_.props.get('title'), 'folder');
-		assert.strictEqual(f.controller_.foldable.get('expanded'), true);
+		assert.strictEqual(f.controller.props.get('title'), 'folder');
+		assert.strictEqual(f.controller.foldable.get('expanded'), true);
 	});
 
 	it('should add collapsed folder', () => {
@@ -92,7 +81,7 @@ describe(FolderApi.name, () => {
 			expanded: false,
 			title: 'folder',
 		});
-		assert.strictEqual(f.controller_.foldable.get('expanded'), false);
+		assert.strictEqual(f.controller.foldable.get('expanded'), false);
 	});
 
 	it('should handle fold event', (done) => {
@@ -102,7 +91,7 @@ describe(FolderApi.name, () => {
 			assert.strictEqual(ev.expanded, false);
 			done();
 		});
-		api.controller_.foldable.set('expanded', false);
+		api.controller.foldable.set('expanded', false);
 	});
 
 	it('should bind `this` within handler to pane', (done) => {
@@ -113,36 +102,36 @@ describe(FolderApi.name, () => {
 			done();
 		});
 
-		const bapi = pane.addInput(PARAMS, 'foo');
-		bapi.controller_.binding.value.rawValue = 2;
+		const bapi = pane.addBinding(PARAMS, 'foo');
+		bapi.controller.value.rawValue = 2;
 	});
 
 	it('should dispose items', () => {
 		const PARAMS = {foo: 1};
 		const api = createApi();
-		const i = api.addInput(PARAMS, 'foo');
-		const m = api.addMonitor(PARAMS, 'foo');
+		const i = api.addBinding(PARAMS, 'foo');
+		const m = api.addBinding(PARAMS, 'foo', {readonly: true});
 
 		api.dispose();
-		assert.strictEqual(api.controller_.viewProps.get('disposed'), true);
-		assert.strictEqual(i.controller_.viewProps.get('disposed'), true);
-		assert.strictEqual(m.controller_.viewProps.get('disposed'), true);
+		assert.strictEqual(api.controller.viewProps.get('disposed'), true);
+		assert.strictEqual(i.controller.viewProps.get('disposed'), true);
+		assert.strictEqual(m.controller.viewProps.get('disposed'), true);
 	});
 
 	it('should dispose items (nested)', () => {
 		const PARAMS = {foo: 1};
 		const api = createApi();
 		const f = api.addFolder({title: ''});
-		const i = f.addInput(PARAMS, 'foo');
-		const m = f.addMonitor(PARAMS, 'foo');
+		const i = f.addBinding(PARAMS, 'foo');
+		const m = f.addBinding(PARAMS, 'foo', {readonly: true});
 
-		assert.strictEqual(api.controller_.viewProps.get('disposed'), false);
-		assert.strictEqual(i.controller_.viewProps.get('disposed'), false);
-		assert.strictEqual(m.controller_.viewProps.get('disposed'), false);
+		assert.strictEqual(api.controller.viewProps.get('disposed'), false);
+		assert.strictEqual(i.controller.viewProps.get('disposed'), false);
+		assert.strictEqual(m.controller.viewProps.get('disposed'), false);
 		api.dispose();
-		assert.strictEqual(api.controller_.viewProps.get('disposed'), true);
-		assert.strictEqual(i.controller_.viewProps.get('disposed'), true);
-		assert.strictEqual(m.controller_.viewProps.get('disposed'), true);
+		assert.strictEqual(api.controller.viewProps.get('disposed'), true);
+		assert.strictEqual(i.controller.viewProps.get('disposed'), true);
+		assert.strictEqual(m.controller.viewProps.get('disposed'), true);
 	});
 
 	it('should bind `this` within handler to folder', (done) => {
@@ -153,8 +142,8 @@ describe(FolderApi.name, () => {
 			done();
 		});
 
-		const bapi = api.addInput(PARAMS, 'foo');
-		bapi.controller_.binding.value.rawValue = 2;
+		const bapi = api.addBinding(PARAMS, 'foo');
+		bapi.controller.value.rawValue = 2;
 	});
 
 	it('should have right target', (done) => {
@@ -163,9 +152,9 @@ describe(FolderApi.name, () => {
 			assert.strictEqual(ev.target, api);
 			done();
 		});
-		api.controller_.foldable.set(
+		api.controller.foldable.set(
 			'expanded',
-			!api.controller_.foldable.get('expanded'),
+			!api.controller.foldable.get('expanded'),
 		);
 	});
 
@@ -195,14 +184,14 @@ describe(FolderApi.name, () => {
 			expected: '#224488',
 			params: {
 				propertyValue: '#123',
-				newInternalValue: new Color([0x22, 0x44, 0x88], 'rgb'),
+				newInternalValue: new IntColor([0x22, 0x44, 0x88], 'rgb'),
 			},
 		},
 		{
 			expected: 'rgb(0, 127, 255)',
 			params: {
 				propertyValue: 'rgb(10, 20, 30)',
-				newInternalValue: new Color([0, 127, 255], 'rgb'),
+				newInternalValue: new IntColor([0, 127, 255], 'rgb'),
 			},
 		},
 	].forEach(({expected, params}) => {
@@ -210,36 +199,36 @@ describe(FolderApi.name, () => {
 			it('should pass event for change event (local)', (done) => {
 				const api = createApi();
 				const obj = {foo: params.propertyValue};
-				const bapi = api.addInput(obj, 'foo');
+				const bapi = api.addBinding(obj, 'foo');
 
 				bapi.on('change', (ev) => {
 					assert.strictEqual(ev instanceof TpChangeEvent, true);
 					assert.strictEqual(ev.target, bapi);
-					assert.strictEqual(ev.presetKey, 'foo');
+					assert.strictEqual(ev.target.key, 'foo');
 					assert.strictEqual(ev.value, expected);
 					done();
 				});
-				bapi.controller_.binding.value.rawValue = params.newInternalValue;
+				bapi.controller.value.rawValue = params.newInternalValue;
 			});
 
 			it('should pass event for change event (global)', (done) => {
 				const api = createApi();
 				const obj = {foo: params.propertyValue};
-				const bapi = api.addInput(obj, 'foo');
+				const bapi = api.addBinding(obj, 'foo');
 
 				api.on('change', (ev) => {
 					assert.strictEqual(ev instanceof TpChangeEvent, true);
-					assert.strictEqual(ev.presetKey, 'foo');
+					assert.strictEqual((ev.target as BindingApi).key, 'foo');
 					assert.strictEqual(ev.value, expected);
 
-					if (!(ev.target instanceof InputBindingApi)) {
+					if (!(ev.target instanceof BindingApi)) {
 						assert.fail('unexpected target');
 					}
-					assert.strictEqual(ev.target.controller_, bapi.controller_);
+					assert.strictEqual(ev.target.controller, bapi.controller);
 
 					done();
 				});
-				bapi.controller_.binding.value.rawValue = params.newInternalValue;
+				bapi.controller.value.rawValue = params.newInternalValue;
 			});
 		});
 	});

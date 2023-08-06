@@ -1,19 +1,21 @@
-import {Controller} from '../../../common/controller/controller';
-import {Value} from '../../../common/model/value';
-import {ViewProps} from '../../../common/model/view-props';
-import {Color} from '../model/color';
-import {ColorSwatchView} from '../view/color-swatch';
+import {ValueController} from '../../../common/controller/value.js';
+import {Value} from '../../../common/model/value.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {IntColor} from '../model/int-color.js';
+import {ColorSwatchView} from '../view/color-swatch.js';
 
 interface Config {
-	value: Value<Color>;
+	value: Value<IntColor>;
 	viewProps: ViewProps;
 }
 
 /**
  * @hidden
  */
-export class ColorSwatchController implements Controller<ColorSwatchView> {
-	public readonly value: Value<Color>;
+export class ColorSwatchController
+	implements ValueController<IntColor, ColorSwatchView>
+{
+	public readonly value: Value<IntColor>;
 	public readonly view: ColorSwatchView;
 	public readonly viewProps: ViewProps;
 

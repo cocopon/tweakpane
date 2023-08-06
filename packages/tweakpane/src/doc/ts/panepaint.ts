@@ -1,7 +1,7 @@
 import {
-	Color,
-	colorFromString,
 	colorToFunctionalRgbaString,
+	IntColor,
+	readIntColorString,
 } from '@tweakpane/core';
 import {Pane} from 'tweakpane';
 
@@ -113,10 +113,10 @@ export function createPane(container: HTMLElement, theme: Theme): any {
 	});
 
 	const presetObj = {
-		preset: 'Select...',
+		preset: '',
 	};
 	pane
-		.addInput(presetObj, 'preset', {
+		.addBinding(presetObj, 'preset', {
 			options: {
 				'Select...': '',
 				Default: 'default',
@@ -172,7 +172,7 @@ export function createPane(container: HTMLElement, theme: Theme): any {
 		group.props.forEach((prop) => {
 			const m = prop.match(/(.+):state$/);
 			if (!m) {
-				f.addInput(theme, prop as ThemeProperty, {
+				f.addBinding(theme, prop as ThemeProperty, {
 					label: group
 						.label(prop)
 						.replace('background', 'bg')
@@ -188,23 +188,23 @@ export function createPane(container: HTMLElement, theme: Theme): any {
 				title: 'Autofill',
 			}).on('click', () => {
 				const value = theme[m[1] as ThemeProperty];
-				const c = colorFromString(value);
+				const c = readIntColorString(value);
 				const hslComps = c.getComponents('hsl');
 				const sign = hslComps[2] > 50 ? -1 : +1;
 				theme[`${m[1]}-hover` as ThemeProperty] = colorToFunctionalRgbaString(
-					new Color(
+					new IntColor(
 						[hslComps[0], hslComps[1], hslComps[2] + 5 * sign, hslComps[3]],
 						'hsl',
 					),
 				);
 				theme[`${m[1]}-focus` as ThemeProperty] = colorToFunctionalRgbaString(
-					new Color(
+					new IntColor(
 						[hslComps[0], hslComps[1], hslComps[2] + 10 * sign, hslComps[3]],
 						'hsl',
 					),
 				);
 				theme[`${m[1]}-active` as ThemeProperty] = colorToFunctionalRgbaString(
-					new Color(
+					new IntColor(
 						[hslComps[0], hslComps[1], hslComps[2] + 15 * sign, hslComps[3]],
 						'hsl',
 					),
@@ -214,7 +214,7 @@ export function createPane(container: HTMLElement, theme: Theme): any {
 			const baseProp = m[1];
 			['active', 'focus', 'hover'].forEach((state) => {
 				const prop = [baseProp, state].join('-');
-				sf.addInput(theme, prop as ThemeProperty, {
+				sf.addBinding(theme, prop as ThemeProperty, {
 					label: group
 						.label(prop)
 						.replace('background', 'bg')

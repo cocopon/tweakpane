@@ -18,7 +18,7 @@
 
 
 {% block content %}
-<h2 id="blades">Blades</h2>
+<h2 id="blades"><a href="#blades">Blades</a></h2>
 <p>You can add controls as rows to the pane. Tweakpane calls each row a &ldquo;<strong>blade</strong>&rdquo;.</p>
 
 <div class="main_media">
@@ -29,11 +29,11 @@
 	</div>
 </div>
 
-<p>There are various types of blades: <a href="#inputs">input bindings</a>, <a href="#folders">folders</a>, <a href="{{ root }}ui-components/">etc</a>. It can also be extended with the <a href="{{ root }}plugins/">plugin system</a>.</p>
+<p>There are various types of blades: <a href="#inputs">bindings</a>, <a href="#folders">folders</a>, <a href="{{ root }}ui-components/">etc</a>. It can also be extended with the <a href="{{ root }}plugins/">plugin system</a>.</p>
 
 
-<h2 id="inputs">Input bindings</h2>
-<p>Use <code>addInput()</code> to modify parameter values.</p>
+<h2 id="inputs"><a href="#inputs">Bindings</a></h2>
+<p>Use <code>addBinding()</code> to modify parameter values.</p>
 
 <div class="main_media">
 	<div class="demo">
@@ -47,14 +47,15 @@
 
 const pane = new Pane();
 
-pane.<strong>addInput</strong>(PARAMS, 'factor');
-pane.<strong>addInput</strong>(PARAMS, 'title');
-pane.<strong>addInput</strong>(PARAMS, 'color');
+pane.<strong>addBinding</strong>(PARAMS, 'factor');
+pane.<strong>addBinding</strong>(PARAMS, 'title');
+pane.<strong>addBinding</strong>(PARAMS, 'color');
 </code></pre>
 			</div>
 		</div>
 		<div class="demo_result">
 			<div class="paneContainer" data-pane-inputs></div>
+			<div class="paneContainer paneContainer-console" data-pane-inputsconsole></div>
 		</div>
 	</div>
 </div>
@@ -71,13 +72,13 @@ pane.<strong>addInput</strong>(PARAMS, 'color');
 };
 
 // `min` and `max`: slider
-pane.addInput(
+pane.addBinding(
   PARAMS, 'percentage',
   <strong>{min: 0, max: 100, step: 10}</strong>
 );
 
 // `options`: list
-pane.addInput(
+pane.addBinding(
   PARAMS, 'theme',
   <strong>{options: {Dark: 'dark', Light: 'light'}}</strong>
 );
@@ -90,9 +91,9 @@ pane.addInput(
 	</div>
 </div>
 
-<p>See <a href="{{ root }}input-bindings/">Input bindings</a> section or <a href="{{ root }}api/classes/tweakpane.Pane.html#addInput">API reference</a> for details.</p>
+<p>See <a href="{{ root }}input-bindings/">Bindings</a> section or <a href="{{ root }}api/classes/Pane.html#addBinding">API reference</a> for details.</p>
 
-<h2 id="folders">Folders</h2>
+<h2 id="folders"><a href="#folders">Folders</a></h2>
 <p>Use <code>addFolder()</code> to organize blades.</p>
 
 <div class="main_media">
@@ -104,8 +105,8 @@ pane.addInput(
   expanded: true,
 });
 
-f.addInput(PARAMS, 'text');
-f.addInput(PARAMS, 'size');
+f.addBinding(PARAMS, 'text');
+f.addBinding(PARAMS, 'size');
 </code></pre>
 			</div>
 		</div>
@@ -136,19 +137,19 @@ f.addInput(PARAMS, 'size');
 
 <p>See <a href="{{ root }}ui-components/">UI components</a> section for additional useful components.</p>
 
-<h2 id="events">Events</h2>
-<p>Use <code>on()</code> of the input to handle change events.</p>
+<h2 id="events"><a href="#events">Events</a></h2>
+<p>Use <code>on()</code> of the binding to handle change events.</p>
 
 <div class="main_media">
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock">
-				<pre><code class="js">const input = pane.addInput(
+				<pre><code class="js">const b = pane.addBinding(
   PARAMS, 'size',
   {min: 8, max: 100, step: 1}
 );
 
-input.<strong>on</strong>('change', function(ev) {
+b.<strong>on</strong>('change', function(ev) {
   console.log(`change: ${ev.value}`);
 });
 </code></pre>
@@ -163,37 +164,38 @@ input.<strong>on</strong>('change', function(ev) {
 
 <p><a href="{{ root }}misc/#events">Global events</a> are also available to handle events of all components at once.</p>
 
-<h2 id="presets">Presets</h2>
-<p>Use <code>exportPreset()</code> to export the current bound values in JSON format.</p>
+<h2 id="state"><a href="#state">State objects</a></h2>
+<p>Use <code>exportState()</code> to export a state of the pane.</p>
 
 <div class="main_media">
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock">
 				<pre><code class="js">btn.on('click', function() {
-  const preset = pane.<strong>exportPreset</strong>();
-  console.log(preset);
+  const state = pane.<strong>exportState</strong>();
+  console.log(state);
 });
 </code></pre>
 			</div>
 		</div>
 		<div class="demo_result">
-			<div class="paneContainer" data-pane-preset></div>
-			<div class="paneContainer paneContainer-console" data-pane-presetconsole></div>
+			<div class="paneContainer" data-pane-state></div>
+			<div class="paneContainer paneContainer-console" data-pane-stateconsole></div>
 		</div>
 	</div>
 </div>
 
-<p>See <a href="{{ root }}misc/#imex">Import/Export</a> section for details. </p>
+<p>See <a href="{{ root }}misc/#state">Import/Export</a> section for details. </p>
 
-<h2 id="monitors">Monitor bindings</h2>
-<p>Use <code>addMonitor()</code> to monitor value changes.</p>
+<h2 id="monitors"><a href="#monitors">Monitor bindings</a></h2>
+<p>Use <code>addBinding()</code> with the option <code>{readonly: true}</code> to monitor value changes.</p>
 
 <div class="main_media">
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock">
-				<pre><code class="js">pane.<strong>addMonitor</strong>(sketch, 'signal', {
+				<pre><code class="js">pane.<strong>addBinding</strong>(sketch, 'signal', {
+  <strong>readonly</strong>: true,
   view: 'graph',
   interval: 200,
   min: -1,
@@ -215,10 +217,10 @@ input.<strong>on</strong>('change', function(ev) {
 		<a class="relItem_anchor" href="{{ root }}input-bindings/">
 			<div class="relItem_text">
 				<div class="relItem_title">
-					Input bindings
+					Bindings
 				</div>
 				<div class="relItem_detail">
-					components for fine-tuning parameter values
+					fine-tuning parameter values
 				</div>
 			</div>
 			<div class="relItem_icon relItem_icon-circle">
@@ -233,7 +235,7 @@ input.<strong>on</strong>('change', function(ev) {
 					Monitor bindings
 				</div>
 				<div class="relItem_detail">
-					components for monitoring value changes
+					monitoring value changes
 				</div>
 			</div>
 			<div class="relItem_icon relItem_icon-circle">

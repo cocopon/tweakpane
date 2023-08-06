@@ -1,0 +1,374 @@
+{% set pageId = 'datgui' %}
+{% set root = '../../' %}
+{% set title = 'From dat.GUI' %}
+{% extends "_template.html" %}
+
+
+{% block pageHeader %}
+<div class="pageHeader">
+	<div class="pageHeader_inner">
+		<div class="pageHeader_text">
+			<h1 class="pageHeader_title">{{ title }}</h1>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<h2 id="datgui"><a href="#datgui">dat.GUI</a></h2>
+<p>
+	<a href="https://github.com/dataarts/dat.gui" target="_blank" rel="noreferrer">dat.GUI</a> is the most famous library for tuning parameter values, but regrettably it seems to be inactive at the moment.
+</p>
+<div class="main_media">
+	<div class="comparison">
+		<div class="comparison_results">
+			<div class="comparison_result">
+				<div class="paneContainer paneContainer-dat" data-pane-dat></div>
+			</div>
+			<div class="comparison_result">
+				<div class="paneContainer" data-pane-tp></div>
+			</div>
+		</div>
+		<div class="comparison_texts">
+			<div class="comparison_text">
+				<ul>
+					<li>Popular, many examples can be found on the internet</li>
+					<li>Less file size</li>
+					<li>Built-in preset feature</li>
+				</ul>
+			</div>
+			<div class="comparison_text">
+				<ul>
+					<li>Consistent appearance and API</li>
+					<li>More inputs / UI components</li>
+					<li>Extensible with the <a href="{{ root }}plugins/">plugin system</a></li>
+					<li><a href="{{ root }}theming/">Theming</a> support</li>
+					<li>...etc.</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<h3><a href="{{ root }}input-bindings/">Basics</a></h3>
+<div class="main_media">
+	<div class="comparison">
+		<div class="comparison_codes">
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">import <strong>* as dat</strong> from 'dat.gui';
+
+const PARAMS = {
+  level: 0,
+  name: 'Sketch',
+  active: true,
+};
+
+// Create a pane
+const gui = new <strong>dat.GUI</strong>();
+
+// Add bindings
+gui.<strong>add</strong>(PARAMS, 'level');
+gui.<strong>add</strong>(PARAMS, 'name');
+gui.<strong>add</strong>(PARAMS, 'active');</code></pre></div>
+			</div>
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">import {<strong>Pane</strong>} from 'tweakpane';
+
+const PARAMS = {
+  level: 0,
+  name: 'Sketch',
+  active: true,
+};
+
+// Create a pane
+const pane = new <strong>Pane</strong>({
+  title: 'Parameters',
+});
+
+// Add bindings
+pane.<strong>addBinding</strong>(PARAMS, 'level');
+pane.<strong>addBinding</strong>(PARAMS, 'name');
+pane.<strong>addBinding</strong>(PARAMS, 'active');</code></pre></div>
+			</div>
+		</div>
+		<div class="comparison_results">
+			<div class="comparison_result">
+				<div class="paneContainer paneContainer-dat" data-pane-basicsdat></div>
+			</div>
+			<div class="comparison_result">
+				<div class="paneContainer" data-pane-basicstp></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<h3><a href="{{ root }}input-bindings/">Slider and dropdown</a></h3>
+<div class="main_media">
+	<div class="comparison">
+		<div class="comparison_codes">
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">// Slider
+gui.add(PARAMS, 'size')
+  .<strong>min</strong>(10)
+  .<strong>max</strong>(100)
+  .<strong>step</strong>(1);
+
+// Dropdown
+gui.add(PARAMS, 'weight', {
+  Normal: 400,
+  Bold: 700,
+})</code></pre></div>
+			</div>
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">// Slider
+pane.addBinding(PARAMS, 'size', {
+  <strong>min</strong>: 10,
+  <strong>max</strong>: 100,
+  <strong>step</strong>: 1,
+});
+
+// Dropdown
+pane.addBinding(PARAMS, 'weight', {
+  <strong>options</strong>: {
+    Normal: 400,
+    Bold: 700,
+  },
+});</code></pre></div>
+			</div>
+		</div>
+		<div class="comparison_results">
+			<div class="comparison_result">
+				<div class="paneContainer paneContainer-dat" data-pane-constraintsdat></div>
+			</div>
+			<div class="comparison_result">
+				<div class="paneContainer" data-pane-constraintstp></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<h3><a href="{{ root }}input-bindings/#color">Color</a></h3>
+
+<div class="main_media">
+	<div class="comparison">
+		<div class="comparison_codes">
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  color: '#ff0055',
+};
+
+// ...
+
+gui.<strong>addColor</strong>(PARAMS, 'color');</code></pre></div>
+			</div>
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  color: '#ff0055',
+};
+
+// ...
+
+pane.<strong>addBinding</strong>(PARAMS, 'color');
+</code></pre></div>
+			</div>
+		</div>
+		<div class="comparison_results">
+			<div class="comparison_result">
+				<div class="paneContainer paneContainer-dat" data-pane-colordat></div>
+			</div>
+			<div class="comparison_result">
+				<div class="paneContainer" data-pane-colortp></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<h3><a href="{{ root }}ui-components/#folder">Folders</a></h3>
+<div class="main_media">
+	<div class="comparison">
+		<div class="comparison_codes">
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">const f = gui.addFolder('Font');
+// Folder is shrinked by default
+
+f.add(PARAMS, 'size');
+f.add(PARAMS, 'weight');
+
+// Expand the folder
+f.<strong>open</strong>();</code></pre></div>
+			</div>
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">const f = pane.addFolder({
+  <strong>expanded</strong>: false,
+  <strong>title</strong>: 'Font',
+});
+
+f.addBinding(PARAMS, 'size');
+f.addBinding(PARAMS, 'weight');
+
+// Expand the folder
+f.<strong>expanded</strong> = true;</code></pre></div>
+			</div>
+		</div>
+		<div class="comparison_results">
+			<div class="comparison_result">
+				<div class="paneContainer paneContainer-dat" data-pane-foldersdat></div>
+			</div>
+			<div class="comparison_result">
+				<div class="paneContainer" data-pane-folderstp></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<h3><a href="{{ root }}ui-components/#button">Buttons</a></h3>
+<div class="main_media">
+	<div class="comparison">
+		<div class="comparison_codes">
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">const PARAMS = {
+  alert: () => {
+    alert('Button pressed!');
+  },
+};
+
+// Add a function same as other parameters
+gui.add(PARAMS, 'alert');</code></pre></div>
+			</div>
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">// Add a button, and pass a function
+// as a click event handler
+pane.<strong>addButton</strong>({title: 'Alert'})
+  .on('click', () => {
+    alert('Button pressed!');
+  });
+				</code></pre></div>
+			</div>
+		</div>
+		<div class="comparison_results">
+			<div class="comparison_result">
+				<div class="paneContainer paneContainer-dat" data-pane-buttonsdat></div>
+			</div>
+			<div class="comparison_result">
+				<div class="paneContainer" data-pane-buttonstp></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<h3><a href="{{ root }}misc/#events">Events</a></h3>
+<div class="main_media">
+	<div class="comparison">
+		<div class="comparison_codes">
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">gui.add(PARAMS, 'size')
+  .<strong>onChange</strong>((v) => {
+    console.log(`${<strong>v</strong>}`);
+  })
+  .<strong>onFinishChange</strong>((v) => {
+    console.log(`${<strong>v</strong>} (last)`);
+  });</code></pre></div>
+			</div>
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">pane.add(PARAMS, 'size')
+  .<strong>on</strong>('change', (ev) => {
+    if (!<strong>ev.last</strong>) {
+      console.log(`${<strong>ev.value</strong>}`);
+    } else {
+      console.log(`${<strong>ev.value</strong>} (last)`);
+    }
+  });</code></pre></div>
+			</div>
+		</div>
+		<div class="comparison_results">
+			<div class="comparison_result">
+				<div class="paneContainer paneContainer-dat" data-pane-eventsdat></div>
+				<div class="paneContainer paneContainer-dat paneContainer-console" data-pane-eventsdatconsole></div>
+			</div>
+			<div class="comparison_result">
+				<div class="paneContainer" data-pane-eventstp></div>
+				<div class="paneContainer paneContainer-console" data-pane-eventstpconsole></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<h3><a href="{{ root }}misc/#container">Custom placement</a></h3>
+<div class="main_media">
+	<div class="comparison">
+		<div class="comparison_codes">
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">const gui = new dat.GUI({
+  <strong>autoPlace</strong>: false,
+});
+containerElem.appendChild(gui.<strong>domElement</strong>);</code></pre></div>
+			</div>
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">const pane = new Pane({
+  <strong>container</strong>: containerElem,
+});</code></pre></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<h3><a href="{{ root }}monitor-bindings/">Monitoring values</a></h3>
+<div class="main_media">
+	<div class="comparison">
+		<div class="comparison_codes">
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">gui.add(PARAMS, 'wave')
+  .<strong>min</strong>(-1)
+  .<strong>max</strong>(+1)
+  .<strong>listen</strong>();</code></pre></div>
+			</div>
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">pane.<strong>addBinding</strong>(PARAMS, 'wave', {
+  <strong>readonly</strong>: true,
+  <strong>min</strong>: -1,
+  <strong>max</strong>: +1,
+  <strong>view</strong>: 'graph',
+});</code></pre></div>
+			</div>
+		</div>
+		<div class="comparison_results">
+			<div class="comparison_result">
+				<div class="paneContainer paneContainer-dat" data-pane-monitordat></div>
+			</div>
+			<div class="comparison_result">
+				<div class="paneContainer" data-pane-monitortp></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<h3><a href="{{ root }}misc/#refresh">Updating inputs manually</a></h3>
+<div class="main_media">
+	<div class="comparison">
+		<div class="comparison_codes">
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">gui.__controllers.forEach((c) => {
+  c.<strong>updateDisplay</strong>();
+});</code></pre></div>
+			</div>
+			<div class="comparison_code">
+				<div class="codeBlock"><pre><code class="js">pane.<strong>refresh</strong>();</code></pre></div>
+			</div>
+		</div>
+		<div class="comparison_results">
+			<div class="comparison_result">
+				<div class="paneContainer paneContainer-dat" data-pane-refreshdat></div>
+			</div>
+			<div class="comparison_result">
+				<div class="paneContainer" data-pane-refreshtp></div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block pluginScripts %}
+<script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.9/build/dat.gui.min.js" defer></script>
+{% endblock %}

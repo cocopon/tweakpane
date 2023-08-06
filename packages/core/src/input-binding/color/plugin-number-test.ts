@@ -1,8 +1,8 @@
 import * as assert from 'assert';
 import {describe} from 'mocha';
 
-import {BindingTarget} from '../../common/binding/target';
-import {NumberColorInputPlugin} from './plugin-number';
+import {BindingTarget} from '../../common/binding/target.js';
+import {NumberColorInputPlugin} from './plugin-number.js';
 
 describe('NumberColorInputPlugin', () => {
 	[
@@ -37,13 +37,6 @@ describe('NumberColorInputPlugin', () => {
 		},
 		{
 			params: {
-				alpha: true,
-				view: 'color',
-			},
-			expected: 0,
-		},
-		{
-			params: {
 				color: {
 					alpha: true,
 				},
@@ -67,7 +60,7 @@ describe('NumberColorInputPlugin', () => {
 
 			it('should apply alpha', () => {
 				const c = reader(input.color);
-				assert.strictEqual(c.getComponents('rgb', 'int')[3], expected);
+				assert.strictEqual(c.getComponents('rgb')[3], expected);
 			});
 		});
 	});

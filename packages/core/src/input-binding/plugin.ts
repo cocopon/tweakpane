@@ -1,20 +1,21 @@
-import {createBlade} from '../blade/common/model/blade';
-import {InputBindingController} from '../blade/input-binding/controller/input-binding';
-import {LabelPropsObject} from '../blade/label/view/label';
-import {BindingReader, BindingWriter} from '../common/binding/binding';
-import {InputBinding} from '../common/binding/input';
-import {BindingTarget} from '../common/binding/target';
-import {Constraint} from '../common/constraint/constraint';
-import {Controller} from '../common/controller/controller';
-import {Value} from '../common/model/value';
-import {ValueMap} from '../common/model/value-map';
-import {createValue} from '../common/model/values';
-import {ViewProps} from '../common/model/view-props';
-import {BaseInputParams} from '../common/params';
-import {ParamsParsers} from '../common/params-parsers';
-import {View} from '../common/view/view';
-import {isEmpty} from '../misc/type-util';
-import {BasePlugin} from '../plugin/plugin';
+import {InputBindingApi} from '../blade/binding/api/input-binding.js';
+import {InputBindingController} from '../blade/binding/controller/input-binding.js';
+import {createBlade} from '../blade/common/model/blade.js';
+import {BindingReader, BindingWriter} from '../common/binding/binding.js';
+import {ReadWriteBinding} from '../common/binding/read-write.js';
+import {BindingTarget} from '../common/binding/target.js';
+import {InputBindingValue} from '../common/binding/value/input-binding.js';
+import {Constraint} from '../common/constraint/constraint.js';
+import {ValueController} from '../common/controller/value.js';
+import {LabelPropsObject} from '../common/label/view/label.js';
+import {parseRecord} from '../common/micro-parsers.js';
+import {Value} from '../common/model/value.js';
+import {ValueMap} from '../common/model/value-map.js';
+import {createValue} from '../common/model/values.js';
+import {ViewProps} from '../common/model/view-props.js';
+import {BaseInputParams} from '../common/params.js';
+import {isEmpty} from '../misc/type-util.js';
+import {BasePlugin} from '../plugin/plugin.js';
 
 interface Acceptance<T, P extends BaseInputParams> {
 	initialValue: T;
@@ -34,6 +35,10 @@ interface ControllerArguments<In, Ex, P extends BaseInputParams> {
 	params: P;
 	value: Value<In>;
 	viewProps: ViewProps;
+}
+
+interface ApiArguments {
+	controller: InputBindingController<unknown>;
 }
 
 /**
@@ -120,7 +125,18 @@ export interface InputBindingPlugin<In, Ex, P extends BaseInputParams>
 		 * @param args The arguments for creating a controller.
 		 * @return A custom controller that contains a custom view.
 		 */
-		(args: ControllerArguments<In, Ex, P>): Controller<View>;
+		(args: ControllerArguments<In, Ex, P>): ValueController<In>;
+	};
+
+	/**
+	 * Creates a custom API for the plugin if available.
+	 */
+	api?: {
+		/**
+		 * @param args The arguments for creating an API.
+		 * @return A custom API for the specified controller, or null if there is no suitable API.
+		 */
+		(args: ApiArguments): InputBindingApi<In, Ex> | null;
 	};
 }
 
@@ -137,51 +153,58 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 		return null;
 	}
 
-	const p = ParamsParsers;
-
 	const valueArgs = {
 		target: args.target,
 		initialValue: result.initialValue,
 		params: result.params,
 	};
 
+	const params = parseRecord(args.params, (p) => ({
+		disabled: p.optional.boolean,
+		hidden: p.optional.boolean,
+		label: p.optional.string,
+		tag: p.optional.string,
+	}));
+
+	// Binding and value
 	const reader = plugin.binding.reader(valueArgs);
 	const constraint = plugin.binding.constraint
 		? plugin.binding.constraint(valueArgs)
 		: undefined;
-	const value = createValue(reader(result.initialValue), {
-		constraint: constraint,
-		equals: plugin.binding.equals,
-	});
-	const binding = new InputBinding({
+	const binding = new ReadWriteBinding({
 		reader: reader,
 		target: args.target,
-		value: value,
 		writer: plugin.binding.writer(valueArgs),
 	});
-	const disabled = p.optional.boolean(args.params.disabled).value;
-	const hidden = p.optional.boolean(args.params.hidden).value;
+	const value = new InputBindingValue(
+		createValue(reader(result.initialValue), {
+			constraint: constraint,
+			equals: plugin.binding.equals,
+		}),
+		binding,
+	);
+
+	// Value controller
 	const controller = plugin.controller({
 		constraint: constraint,
 		document: args.document,
 		initialValue: result.initialValue,
 		params: result.params,
-		value: binding.value,
+		value: value,
 		viewProps: ViewProps.create({
-			disabled: disabled,
-			hidden: hidden,
+			disabled: params?.disabled,
+			hidden: params?.hidden,
 		}),
 	});
 
+	// Input binding controller
 	return new InputBindingController(args.document, {
-		binding: binding,
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
-			label:
-				'label' in args.params
-					? p.optional.string(args.params.label).value ?? null
-					: args.target.key,
+			label: 'label' in args.params ? params?.label ?? null : args.target.key,
 		}),
+		tag: params?.tag,
+		value: value,
 		valueController: controller,
 	});
 }

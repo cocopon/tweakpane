@@ -1,0 +1,498 @@
+{% set pageId = 'plugindev' %}
+{% set root = '../../' %}
+{% set title = 'Plugin development' %}
+{% extends "_template.html" %}
+
+
+{% block pageHeader %}
+<div class="pageHeader">
+	<div class="pageHeader_inner">
+		<div class="pageHeader_text">
+			<h1 class="pageHeader_title">{{ title }}</h1>
+			<p>Create your own plugins and share them with the world.</p>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<h2 id="whatisplugin"><a href="#whatisplugin">What is the plugin?</a></h2>
+<p>
+	Tweakpane can be extended with the plugin system. For example, <a href="https://github.com/tweakpane/plugin-essentials" target="_blank">Essentials plugin</a> adds support for various useful components to the pane.
+</p>
+
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock">
+				<pre><code class="js">import {Pane} from 'tweakpane';
+import * as EssentialsPlugin from '@tweakpane/plugin-essentials';
+
+const pane = new Pane();
+
+// Register plugin to the pane
+pane.registerPlugin(EssentialsPlugin);
+
+// Add a FPS graph
+const fpsGraph = pane.addBlade({
+  view: 'fpsgraph',
+  label: 'fps',
+});
+
+// ...</code></pre>
+			</div>
+		</div>
+		<div class="demo_result">
+			<div class="paneContainer" data-pane-essentials></div>
+		</div>
+	</div>
+</div>
+
+
+<h2 id="howitworks"><a href="#howitworks">How it works</a></h2>
+<p>Let's learn about the basics of the plugin by looking at a practical example. The goal of this section is creating a plugin that provides a custom binding control for the option <code>view: 'counter'</code>. This control can simply increment the bound value.</p>
+
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock">
+				<pre><code class="js">import {Pane} from 'tweakpane';
+
+const PARAMS = {count: 0};
+
+const pane = new Pane();
+pane.registerPlugin(CounterInputPlugin);
+
+// Add a custom binding control
+// for `view: 'counter'`
+pane.addBinding(PARAMS, 'count', {
+  view: 'counter',
+});</code></pre>
+			</div>
+		</div>
+		<div class="demo_result">
+			<div class="paneContainer" data-pane-counter></div>
+		</div>
+	</div>
+</div>
+
+
+<h3>Plugin pool</h3>
+<p>All views of the pane will be created using the plugin. The pane has a plugin pool which comes with pre-installed plugins by default.</p>
+
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock codeBlock-fig">
+				<pre><code class="text">  Plugin pool
+
++------------------------------------+
+|                                    |
+| plugins[0]: Point2dInputPlugin     |
+| plugins[1]: Point3dInputPlugin     |
+| plugins[2]: Point4dInputPlugin     |
+| plugins[3]: StringInputPlugin      |
+| plugins[4]: NumberInputPlugin      |
+| plugins[5]: StringColorInputPlugin |
+| plugins[6]: ObjectColorInputPlugin |
+| plugins[7]: NumberColorInputPlugin |
+| plugins[8]: BooleanInputPlugin     |
+| ...                                |
+|                                    |
++------------------------------------+</code></pre>
+			</div>
+		</div>
+	</div>
+</div>
+
+<p><code>registerPlugin()</code> can add specified plugins to the pool.</p>
+
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock">
+				<pre><code class="ts">const CounterPluginBundle: <a href="{{ root }}api/types/TpPluginBundle.html">TpPluginBundle</a> = {
+  // Identifier of the plugin bundle
+  id: 'counter',
+  // Plugins that should be registered
+  plugins: [
+    <strong>CounterInputPlugin</strong>,
+  ],
+  // Additional CSS for this bundle
+  css: `
+    .tp-counter {align-items: center; display: flex;}
+    .tp-counter div {color: #00ffd680; flex: 1;}
+    .tp-counter button {background-color: #00ffd6c0; border-radius: 2px; color: black; height: 20px; width: 20px;}
+  `,
+};
+pane.<strong>registerPlugin</strong>(CounterPluginBundle);</code></pre>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock codeBlock-fig">
+				<pre><code class="text">  Plugin pool
+
++------------------------------------+
+|                                    |
+| plugins[0]: <strong>CounterInputPlugin</strong> ... &lt;-- Added
+|                                    |
+| plugins[1]: Point2dInputPlugin     |
+| plugins[2]: Point3dInputPlugin     |
+| plugins[3]: Point4dInputPlugin     |
+| plugins[4]: StringInputPlugin      |
+| plugins[5]: NumberInputPlugin      |
+| plugins[6]: StringColorInputPlugin |
+| plugins[7]: ObjectColorInputPlugin |
+| plugins[8]: NumberColorInputPlugin |
+| plugins[9]: BooleanInputPlugin     |
+| ...                                |
+|                                    |
++------------------------------------+</code></pre>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<h3>Plugin structure</h3>
+<p>Tweakpane plugin should be an object of the type <a href="{{ root }}api/types/TpPlugin.html"><code>TpPlugin</code></a>.</p>
+
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock">
+				<pre><code class="ts">const CounterInputPlugin: <a href="{{ root }}api/types/TpPlugin.html">TpPlugin</a> = createPlugin({
+  id: 'counter',
+  <a href="#type">type</a>: 'input',
+  <a href="#accept">accept</a>: () => {...},
+  <a href="#binding">binding</a>: {
+    reader: () => {...},
+    writer: () => {...},
+  },
+  <a href="#controller">controller</a>: () => {...},
+});</code></pre>
+			</div>
+		</div>
+	</div>
+</div>
+
+<p>
+	When user calls <code>addBinding()</code>, the pane passes the value and the options to each plugin to see if it can handle this binding by its <code>accept()</code>.
+</p>
+
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock codeBlock-fig">
+				<pre><code class="text">              +--------------------------------------------------------------------------------+
+              | Pane                                                                           |
+              |                                                        Plugin pool             |
+              |                                                                                |
+              |                                                      +------------------+      |
+              |                                                      | plugins[0]       |      |
++------+      |                       Can you handle this binding?   |                  |      |
+| User | *--&gt; | addBinding() *------+------------------------------&gt; | accept() ....... &lt; NO.. |
++------+      |                     |                                |                  |      |
+              |                     |                                +------------------+      |
+              |                     |                                                          |
+              |                     |                                +------------------+      |
+              |                     |                                | plugins[1]       |      |
+              |                     | How about you?                 |                  |      |
+              |                     +------------------------------&gt; | accept() ....... &lt; NO.. |
+              |                     |                                |                  |      |
+              |                     |                                +------------------+      |
+              |                     |                                                          |
+              |                     |                                +------------------+      |
+              |                     |                                | plugins[2]       |      |
+              |                     | How about you?                 |                  |      |
+              |                     +------------------------------&gt; | accept() ....... &lt; YES! |
+              |                                                      |                  |      |
+              |                         Please create a binding      |                  |      |
+              |                         for the specified value      |                  |      |
+              |                       *----------------------------&gt; | binding.reader() |      |
+              |                                                      |        .writer() |      |
+              |                         Please create a controller   |                  |      |
+              |                         (and a view)                 |                  |      |
+              |                         for the bound value          |                  |      |
+              |                       *----------------------------&gt; | controller()     |      |
+              |                                                      |                  |      |
+              |                                                      +------------------+      |
+              |                                                                                |
+              +--------------------------------------------------------------------------------+</code></pre>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<h3 id="type"><a href="#type"><code>type</code></a></h3>
+<p>
+	There are 3 types of plugins for Tweakpane: <code>input</code>, <code>monitor</code>, and <code>blade</code>.
+</p>
+
+<div class="main_media">
+	<table>
+		<tbody>
+			<tr>
+				<th>Type</th>
+				<th>Description</th>
+				<th>Target</th>
+			</tr>
+			<tr>
+				<td><code>input</code></td>
+				<td>Provides a view for <a href="../../input-bindings/">binding</a></td>
+				<td><code>addBinding()</code></td>
+			</tr>
+			<tr>
+				<td><code>monitor</code></td>
+				<td>Provides a view for <a href="../../monitor-bindings/">readonly binding</a></td>
+				<td><code>addBinding()</code> with <code>{readonly: true}</code></td>
+			</tr>
+			<tr>
+				<td><code>blade</code></td>
+				<td>Provides a <a href="../../blades/">view without binding</a></td>
+				<td><code>addBlade()</code></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<p>From here on, we will choose <code>input</code> to provide a custom view for the binding.</p>
+
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock">
+				<pre><code class="ts">const CounterInputPlugin = {
+  // ...
+
+  <strong>type</strong>: 'input',
+
+  // ...
+};</code></pre>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<h3 id="accept"><a href="#accept"><code>accept()</code></a></h3>
+<p>Decides whether the plugin accepts the specified parameters. Returns a typed value and parameters if the plugin accepts the specified parameters, or <code>null</code> if the plugin sees them off and pass them to the next plugin. (<a href="{{ root }}api/interfaces/_internal_.InputBindingPlugin.html#accept">Reference</a>)</p>
+
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock">
+				<pre><code class="ts">const CounterInputPlugin = {
+  // ...
+
+  <strong>accept</strong>(value: unknown, params: Record&lt;string, unknown&gt;) {
+    if (typeof value !== 'number') {
+      return null;
+    }
+    if (params.view !== 'counter') {
+      return null;
+    }
+    return {
+      initialValue: value,
+      params: params,
+    };
+  },
+
+  // ...
+};</code></pre>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<h3 id="binding"><a href="#binding"><code>binding</code></a></h3>
+<p>Configurations of the binding. Tweakpane can convert the external (= input) value into an internal value for certain reasons. For example, string color value <code>'#112233'</code> is inconvenient when modifying color components in various color spaces. Tweakpane converts it into the internal color class using this configuration.</p>
+<p>If you want to handle a primitive value (<code>number</code>, <code>string</code>, or <code>boolean</code>), you don't have to convert a value here. (<a href="{{ root }}api/interfaces/_internal_.InputBindingPlugin.html#binding">Reference</a>)</p>
+
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock">
+				<pre><code class="ts">const CounterInputPlugin = {
+  // ...
+
+  <strong>binding</strong>: {
+    reader: () => (value: unknown) => Number(value),
+    writer: () => (target: BindingTarget, value: number) => {
+      target.write(value);
+    },
+  },
+
+  // ...
+};</code></pre>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<h3 id="controller"><a href="#controller"><code>controller()</code></a></h3>
+<p>Create a controller and a view for the binding.</p>
+
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock">
+				<pre><code class="ts">const CounterInputPlugin = {
+  // ...
+
+  <strong>controller</strong>(args) {
+    return new CounterController(args.document, {
+      value: args.value,
+      viewProps: args.viewProps,
+    });
+  },
+
+  // ...
+};</code></pre>
+			</div>
+		</div>
+	</div>
+</div>
+
+<p>Tweakpane adopts good old MVC structure. <code>Controller</code> creates a view, handle user interaction, and update models (in this case, the bound value).</p>
+
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock codeBlock-compact">
+				<pre><code class="ts">import {Value, ValueController, ViewProps} from '@tweakpane/core';
+import {CounterView} from './view';
+
+interface Config {
+  value: Value&lt;number&gt;;
+  viewProps: ViewProps;
+}
+
+export class <strong>CounterController</strong> implements ValueController&lt;number, CounterView&gt; {
+  public readonly value: Value&lt;number&gt;;
+  public readonly view: CounterView;
+  public readonly viewProps: ViewProps;
+
+  constructor(doc: Document, config: Config) {
+    // Models
+    this.value = config.value;
+    this.viewProps = config.viewProps;
+
+    // Create a view
+    this.view = new CounterView(doc, {
+      value: config.value,
+      viewProps: this.viewProps,
+    });
+
+    // Handle user interaction
+    this.view.buttonElement.addEventListener('click', () => {
+      // Update a model
+      this.value.rawValue += 1;
+    });
+  }
+}</code></pre>
+			</div>
+		</div>
+	</div>
+</div>
+
+<p><code>View</code> creates DOM elements and apply value changes to them.</p>
+
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock codeBlock-compact">
+				<pre><code class="ts">import {Value, View, ViewProps} from '@tweakpane/core';
+
+interface Config {
+  value: Value&lt;number&gt;;
+  viewProps: ViewProps;
+}
+
+export class <strong>CounterView</strong> implements View {
+  public readonly element: HTMLElement;
+  public readonly buttonElement: HTMLButtonElement;
+
+  constructor(doc: Document, config: Config) {
+    // Create view elements
+    this.element = doc.createElement('div');
+    this.element.classList.add('tp-counter');
+
+    // Apply value changes to the preview element
+    const previewElem = doc.createElement('div');
+    const value = config.value;
+    value.emitter.on('change', () => {
+      previewElem.textContent = String(value.rawValue);
+    });
+    previewElem.textContent = String(value.rawValue);
+    this.element.appendChild(previewElem);
+
+    // Create a button element for user interaction
+    const buttonElem = doc.createElement('button');
+    buttonElem.textContent = '+';
+    this.element.appendChild(buttonElem);
+    this.buttonElement = buttonElem;
+  }
+}</code></pre>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<h3>Priority of the plugin</h3>
+<p>Newer plugins have higher priority and manually registered plugins have higher priority than pre-installed plugins.</p>
+
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock codeBlock-fig">
+				<pre><code class="text">  Plugin pool
++------------------------------------+
+|                                    |
+| plugins[0]: CounterInputPlugin     |  ^  Newer, higher priority
+|                                    |  |
+| plugins[1]: Point2dInputPlugin     |  |
+| plugins[2]: Point3dInputPlugin     |  |
+| plugins[3]: Point4dInputPlugin     |  |
+| plugins[4]: StringInputPlugin      |  |
+| plugins[5]: NumberInputPlugin      |  |
+| plugins[6]: StringColorInputPlugin |  |
+| plugins[7]: ObjectColorInputPlugin |  |
+| plugins[8]: NumberColorInputPlugin |  |
+| plugins[9]: BooleanInputPlugin     |  |
+| ...                                |  *  Older, lower priority
+|                                    |
++------------------------------------+</code></pre>
+			</div>
+		</div>
+	</div>
+</div>
+
+<p>It implies that you should be cautious not to accept an excessibely wide range of parameters. <code>view</code> option can be useful for this purpose. </p>
+
+
+<h2>Next step</h2>
+<p>That concludes the basics of the plugin structure. There are many other practices and useful methods for the plugin development. See <a href="https://github.com/tweakpane/plugin-template" target="_blank">@tweakpane/plugin-template</a> for the first step of your development. Additionally, <a href="https://github.com/tweakpane/plugin-essentials" target="_blank">@tweakpane/plugin-essentials</a> can also serve as a practical example.</p>
+{% endblock %}
+
+
+{% block pluginScripts %}
+<script type="module">
+	window.DocModules.push(
+		async () => {
+			const m = await import('https://esm.run/@tweakpane/plugin-essentials@0.2.0-beta.0');
+			window.TweakpaneEssentialsPlugin = m;
+		},
+	);
+</script>
+{% endblock %}

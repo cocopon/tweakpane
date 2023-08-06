@@ -1,22 +1,8 @@
-import {mapRange} from '../../../common/number-util';
-import {Color} from '../model/color';
-import {ColorType, removeAlphaComponent} from '../model/color-model';
+import {mapRange} from '../../../common/number/util.js';
+import {removeAlphaComponent} from '../model/color-model.js';
+import {IntColor} from '../model/int-color.js';
 
-// TODO: Make type required in the next major version
-/**
- * @hidden
- */
-export function colorFromObject(value: unknown, opt_type?: ColorType): Color {
-	if (Color.isColorObject(value)) {
-		return Color.fromObject(value, opt_type);
-	}
-	return Color.black(opt_type);
-}
-
-/**
- * @hidden
- */
-export function colorToRgbNumber(value: Color): number {
+export function colorToRgbNumber(value: IntColor): number {
 	return removeAlphaComponent(value.getComponents('rgb')).reduce(
 		(result, comp) => {
 			return (result << 8) | (Math.floor(comp) & 0xff);
@@ -25,10 +11,7 @@ export function colorToRgbNumber(value: Color): number {
 	);
 }
 
-/**
- * @hidden
- */
-export function colorToRgbaNumber(value: Color): number {
+export function colorToRgbaNumber(value: IntColor): number {
 	return (
 		value.getComponents('rgb').reduce((result, comp, index) => {
 			const hex = Math.floor(index === 3 ? comp * 255 : comp) & 0xff;
@@ -37,18 +20,15 @@ export function colorToRgbaNumber(value: Color): number {
 	);
 }
 
-/**
- * @hidden
- */
-export function numberToRgbColor(num: number): Color {
-	return new Color([(num >> 16) & 0xff, (num >> 8) & 0xff, num & 0xff], 'rgb');
+export function numberToRgbColor(num: number): IntColor {
+	return new IntColor(
+		[(num >> 16) & 0xff, (num >> 8) & 0xff, num & 0xff],
+		'rgb',
+	);
 }
 
-/**
- * @hidden
- */
-export function numberToRgbaColor(num: number): Color {
-	return new Color(
+export function numberToRgbaColor(num: number): IntColor {
+	return new IntColor(
 		[
 			(num >> 24) & 0xff,
 			(num >> 16) & 0xff,
@@ -59,22 +39,16 @@ export function numberToRgbaColor(num: number): Color {
 	);
 }
 
-/**
- * @hidden
- */
-export function colorFromRgbNumber(value: unknown): Color {
+export function colorFromRgbNumber(value: unknown): IntColor {
 	if (typeof value !== 'number') {
-		return Color.black();
+		return IntColor.black();
 	}
 	return numberToRgbColor(value);
 }
 
-/**
- * @hidden
- */
-export function colorFromRgbaNumber(value: unknown): Color {
+export function colorFromRgbaNumber(value: unknown): IntColor {
 	if (typeof value !== 'number') {
-		return Color.black();
+		return IntColor.black();
 	}
 	return numberToRgbaColor(value);
 }

@@ -3,6 +3,12 @@
 .codeBlock {
 	position: relative;
 
+	&#{&}-compact {
+		@media screen {
+			max-height: 256px;
+		}
+	}
+
 	pre {
 		overflow: auto;
 		padding: 32px;
@@ -14,6 +20,14 @@
 		code {
 			font-size: 0.9rem;
 			font-weight: 500;
+		}
+	}
+	&#{&}-fig {
+		pre {
+			line-height: 0.9;
+		}
+		pre code {
+			font-size: 0.8rem;
 		}
 	}
 }

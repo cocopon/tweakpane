@@ -1,21 +1,27 @@
-import {Controller} from '../../../common/controller/controller';
-import {Formatter} from '../../../common/converter/formatter';
-import {supportsTouch} from '../../../common/dom-util';
-import {BufferedValue} from '../../../common/model/buffered-value';
-import {Value} from '../../../common/model/value';
-import {createValue} from '../../../common/model/values';
-import {ViewProps} from '../../../common/model/view-props';
-import {mapRange} from '../../../common/number-util';
+import {BufferedValueController} from '../../../blade/binding/controller/monitor-binding.js';
+import {
+	BladeState,
+	exportBladeState,
+	importBladeState,
+	PropsPortable,
+} from '../../../blade/common/controller/blade-state.js';
+import {Formatter} from '../../../common/converter/formatter.js';
+import {supportsTouch} from '../../../common/dom-util.js';
+import {BufferedValue} from '../../../common/model/buffered-value.js';
+import {Value} from '../../../common/model/value.js';
+import {createValue} from '../../../common/model/values.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {mapRange} from '../../../common/number/util.js';
 import {
 	PointerHandler,
 	PointerHandlerEvent,
-} from '../../../common/view/pointer-handler';
-import {GraphLogProps, GraphLogView} from '../view/graph-log';
+} from '../../../common/view/pointer-handler.js';
+import {GraphLogProps, GraphLogView} from '../view/graph-log.js';
 
 interface Config {
 	formatter: Formatter<number>;
-	lineCount: number;
 	props: GraphLogProps;
+	rows: number;
 	value: BufferedValue<number>;
 	viewProps: ViewProps;
 }
@@ -23,12 +29,14 @@ interface Config {
 /**
  * @hidden
  */
-export class GraphLogController implements Controller<GraphLogView> {
+export class GraphLogController
+	implements BufferedValueController<number, GraphLogView>, PropsPortable
+{
+	public readonly props: GraphLogProps;
 	public readonly value: BufferedValue<number>;
 	public readonly view: GraphLogView;
 	public readonly viewProps: ViewProps;
 	private readonly cursor_: Value<number>;
-	private readonly props_: GraphLogProps;
 
 	constructor(doc: Document, config: Config) {
 		this.onGraphMouseMove_ = this.onGraphMouseMove_.bind(this);
@@ -37,7 +45,7 @@ export class GraphLogController implements Controller<GraphLogView> {
 		this.onGraphPointerMove_ = this.onGraphPointerMove_.bind(this);
 		this.onGraphPointerUp_ = this.onGraphPointerUp_.bind(this);
 
-		this.props_ = config.props;
+		this.props = config.props;
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 		this.cursor_ = createValue(-1);
@@ -45,8 +53,8 @@ export class GraphLogController implements Controller<GraphLogView> {
 		this.view = new GraphLogView(doc, {
 			cursor: this.cursor_,
 			formatter: config.formatter,
-			lineCount: config.lineCount,
-			props: this.props_,
+			rows: config.rows,
+			props: this.props,
 			value: this.value,
 			viewProps: this.viewProps,
 		});
@@ -60,6 +68,29 @@ export class GraphLogController implements Controller<GraphLogView> {
 			ph.emitter.on('move', this.onGraphPointerMove_);
 			ph.emitter.on('up', this.onGraphPointerUp_);
 		}
+	}
+
+	public importProps(state: BladeState): boolean {
+		return importBladeState(
+			state,
+			null,
+			(p) => ({
+				max: p.required.number,
+				min: p.required.number,
+			}),
+			(result) => {
+				this.props.set('max', result.max);
+				this.props.set('min', result.min);
+				return true;
+			},
+		);
+	}
+
+	public exportProps(): BladeState {
+		return exportBladeState(null, {
+			max: this.props.get('max'),
+			min: this.props.get('min'),
+		});
 	}
 
 	private onGraphMouseLeave_(): void {

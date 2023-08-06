@@ -1,12 +1,11 @@
-.#{$prefix}-fldv {
+@use '../tp';
+
+.#{tp.$prefix}-fldv {
 	position: relative;
 
 	// Title button
 	&_b {
-		@extend %folder_title;
-	}
-	&#{&}-not &_b {
-		display: none;
+		@extend %tp-folder_title;
 	}
 	// Title
 	&_t {
@@ -14,37 +13,37 @@
 	}
 	// Marker
 	&_m {
-		@extend %folder_mark;
+		@extend %tp-folder_mark;
 	}
 	&_b:disabled &_m {
 		display: none;
 	}
 	&#{&}-expanded > &_b > &_m {
-		@extend %folder_mark-expanded;
+		@extend %tp-folder_mark-expanded;
 	}
 	// Container
 	&_c {
-		@extend %folder_container;
-		@extend %bladeRack-children;
-		@extend %bladeRack-subcontainers;
+		@extend %tp-folder_container;
+		@extend %tp-container_children;
+		@extend %tp-container_subcontainers;
 
 		padding-left: 4px;
 	}
 	&#{&}-expanded > &_c {
-		@extend %folder_container-expanded;
+		@extend %tp-folder_container-expanded;
 	}
 	&#{&}-cpl:not(#{&}-expanded) > &_c {
-		@extend %folder_container-shrinkedCompletely;
+		@extend %tp-folder_container-shrinkedCompletely;
 	}
 	// Indent
 	&_i {
 		bottom: 0;
-		color: var(--cnt-bg);
+		color: tp.cssVar('container-bg');
 		left: 0;
 		overflow: hidden;
 		position: absolute;
-		top: calc(var(--bld-us) + 4px);
-		width: var(--bs-br);
+		top: calc(#{tp.cssVar('container-unit-size')} + 4px);
+		width: max(tp.cssVar('base-border-radius'), 4px);
 
 		&::before {
 			background-color: currentColor;
@@ -57,15 +56,15 @@
 		}
 	}
 	&_b:hover + &_i {
-		color: var(--cnt-bg-h);
+		color: tp.cssVar('container-bg-hover');
 	}
 	&_b:focus + &_i {
-		color: var(--cnt-bg-f);
+		color: tp.cssVar('container-bg-focus');
 	}
 	&_b:active + &_i {
-		color: var(--cnt-bg-a);
+		color: tp.cssVar('container-bg-active');
 	}
-	&.#{$prefix}-v-disabled > &_i {
+	&.#{tp.$disabled} > &_i {
 		opacity: 0.5;
 	}
 }

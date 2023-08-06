@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe} from 'mocha';
 
-import {ValueMap} from './value-map';
+import {ValueMap} from './value-map.js';
 
 describe(ValueMap.name, () => {
 	it('should get initial value', () => {

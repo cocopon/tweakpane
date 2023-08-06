@@ -1,17 +1,14 @@
+import {BooleanMonitorParams} from '../../blade/common/api/params.js';
 import {
 	BooleanFormatter,
 	boolFromUnknown,
-} from '../../common/converter/boolean';
-import {BaseMonitorParams} from '../../common/params';
-import {ParamsParsers, parseParams} from '../../common/params-parsers';
-import {Constants} from '../../misc/constants';
-import {MultiLogController} from '../common/controller/multi-log';
-import {SingleLogController} from '../common/controller/single-log';
-import {MonitorBindingPlugin} from '../plugin';
-
-export interface BooleanMonitorParams extends BaseMonitorParams {
-	lineCount?: number;
-}
+} from '../../common/converter/boolean.js';
+import {parseRecord} from '../../common/micro-parsers.js';
+import {Constants} from '../../misc/constants.js';
+import {createPlugin} from '../../plugin/plugin.js';
+import {MultiLogController} from '../common/controller/multi-log.js';
+import {SingleLogController} from '../common/controller/single-log.js';
+import {MonitorBindingPlugin} from '../plugin.js';
 
 /**
  * @hidden
@@ -19,17 +16,17 @@ export interface BooleanMonitorParams extends BaseMonitorParams {
 export const BooleanMonitorPlugin: MonitorBindingPlugin<
 	boolean,
 	BooleanMonitorParams
-> = {
+> = createPlugin({
 	id: 'monitor-bool',
 	type: 'monitor',
 	accept: (value, params) => {
 		if (typeof value !== 'boolean') {
 			return null;
 		}
-		const p = ParamsParsers;
-		const result = parseParams<BooleanMonitorParams>(params, {
-			lineCount: p.optional.number,
-		});
+		const result = parseRecord<BooleanMonitorParams>(params, (p) => ({
+			readonly: p.required.constant(true),
+			rows: p.optional.number,
+		}));
 		return result
 			? {
 					initialValue: value,
@@ -51,9 +48,9 @@ export const BooleanMonitorPlugin: MonitorBindingPlugin<
 
 		return new MultiLogController(args.document, {
 			formatter: BooleanFormatter,
-			lineCount: args.params.lineCount ?? Constants.monitor.defaultLineCount,
+			rows: args.params.rows ?? Constants.monitor.defaultRows,
 			value: args.value,
 			viewProps: args.viewProps,
 		});
 	},
-};
+});

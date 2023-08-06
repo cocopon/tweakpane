@@ -1,5 +1,8 @@
 type Handler<E> = (ev: E) => void;
 
+/**
+ * @hidden
+ */
 interface Observer<E> {
 	handler: Handler<E>;
 }

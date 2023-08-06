@@ -1,16 +1,15 @@
 import * as assert from 'assert';
 import {describe} from 'mocha';
 
-import {Value} from '../../../common/model/value';
-import {ViewProps} from '../../../common/model/view-props';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {forceCast} from '../../../misc/type-util';
-import {createDefaultPluginPool} from '../../../plugin/plugins';
-import {TpChangeEvent} from '../../common/api/tp-event';
-import {createBlade} from '../../common/model/blade';
-import {InputBindingApi} from '../../input-binding/api/input-binding';
-import {TabController} from '../controller/tab';
-import {TabApi} from './tab';
+import {Value} from '../../../common/model/value.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {createDefaultPluginPool} from '../../../plugin/plugins.js';
+import {BindingApi} from '../../binding/api/binding.js';
+import {TpChangeEvent} from '../../common/api/tp-event.js';
+import {createBlade} from '../../common/model/blade.js';
+import {TabController} from '../controller/tab.js';
+import {TabApi} from './tab.js';
 
 describe(TabApi.name, () => {
 	it('should have initial state', () => {
@@ -81,22 +80,22 @@ describe(TabApi.name, () => {
 		const api = new TabApi(c, pool);
 		api.addPage({title: ''});
 		api.addPage({title: ''});
-		const bapi = api.pages[1].addInput({foo: 1}, 'foo');
+		const bapi = api.pages[1].addBinding({foo: 1}, 'foo');
 
 		api.on('change', (ev) => {
 			assert.strictEqual(ev instanceof TpChangeEvent, true);
-			assert.strictEqual(ev.presetKey, 'foo');
+			assert.strictEqual((ev.target as BindingApi).key, 'foo');
 			assert.strictEqual(ev.value, 2);
 
-			if (!(ev.target instanceof InputBindingApi)) {
+			if (!(ev.target instanceof BindingApi)) {
 				assert.fail('unexpected target');
 			}
-			assert.strictEqual(ev.target.controller_, bapi.controller_);
+			assert.strictEqual(ev.target.controller, bapi.controller);
 
 			done();
 		});
 
-		const value: Value<number> = forceCast(bapi.controller_.binding.value);
+		const value = bapi.controller.value as Value<number>;
 		value.rawValue += 1;
 	});
 
@@ -114,22 +113,22 @@ describe(TabApi.name, () => {
 			pages: [{title: ''}, {title: ''}],
 			view: 'tab',
 		}) as TabApi;
-		const bapi = tapi.pages[1].addInput({foo: 1}, 'foo');
+		const bapi = tapi.pages[1].addBinding({foo: 1}, 'foo');
 
 		api.on('change', (ev) => {
 			assert.strictEqual(ev instanceof TpChangeEvent, true);
-			assert.strictEqual(ev.presetKey, 'foo');
+			assert.strictEqual((ev.target as BindingApi).key, 'foo');
 			assert.strictEqual(ev.value, 2);
 
-			if (!(ev.target instanceof InputBindingApi)) {
+			if (!(ev.target instanceof BindingApi)) {
 				assert.fail('unexpected target');
 			}
-			assert.strictEqual(ev.target.controller_, bapi.controller_);
+			assert.strictEqual(ev.target.controller, bapi.controller);
 
 			done();
 		});
 
-		const value: Value<number> = forceCast(bapi.controller_.binding.value);
+		const value = bapi.controller.value as Value<number>;
 		value.rawValue += 1;
 	});
 

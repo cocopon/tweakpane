@@ -1,12 +1,12 @@
-import {Controller} from '../../../common/controller/controller';
-import {Formatter} from '../../../common/converter/formatter';
-import {BufferedValue} from '../../../common/model/buffered-value';
-import {ViewProps} from '../../../common/model/view-props';
-import {MultiLogView} from '../view/multi-log';
+import {BufferedValueController} from '../../../blade/binding/controller/monitor-binding.js';
+import {Formatter} from '../../../common/converter/formatter.js';
+import {BufferedValue} from '../../../common/model/buffered-value.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {MultiLogView} from '../view/multi-log.js';
 
 interface Config<T> {
 	formatter: Formatter<T>;
-	lineCount: number;
+	rows: number;
 	value: BufferedValue<T>;
 	viewProps: ViewProps;
 }
@@ -14,7 +14,9 @@ interface Config<T> {
 /**
  * @hidden
  */
-export class MultiLogController<T> implements Controller<MultiLogView<T>> {
+export class MultiLogController<T>
+	implements BufferedValueController<T, MultiLogView<T>>
+{
 	public readonly value: BufferedValue<T>;
 	public readonly view: MultiLogView<T>;
 	public readonly viewProps: ViewProps;
@@ -25,7 +27,7 @@ export class MultiLogController<T> implements Controller<MultiLogView<T>> {
 
 		this.view = new MultiLogView(doc, {
 			formatter: config.formatter,
-			lineCount: config.lineCount,
+			rows: config.rows,
 			value: this.value,
 			viewProps: this.viewProps,
 		});

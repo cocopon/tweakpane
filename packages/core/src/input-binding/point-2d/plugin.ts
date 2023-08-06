@@ -1,66 +1,24 @@
-import {CompositeConstraint} from '../../common/constraint/composite';
-import {Constraint} from '../../common/constraint/constraint';
 import {
-	createNumberFormatter,
-	parseNumber,
-} from '../../common/converter/number';
-import {ValueMap} from '../../common/model/value-map';
-import {
-	BaseInputParams,
-	PickerLayout,
-	PointDimensionParams,
-} from '../../common/params';
-import {ParamsParsers, parseParams} from '../../common/params-parsers';
-import {TpError} from '../../common/tp-error';
-import {
-	getBaseStep,
-	getSuitableDecimalDigits,
-	getSuitableDraggingScale,
-	parsePickerLayout,
-	parsePointDimensionParams,
-} from '../../common/util';
-import {isEmpty} from '../../index';
-import {PointNdConstraint} from '../common/constraint/point-nd';
-import {
-	createRangeConstraint,
-	createStepConstraint,
-	findNumberRange,
-} from '../number/plugin';
-import {InputBindingPlugin} from '../plugin';
-import {Point2dController} from './controller/point-2d';
-import {point2dFromUnknown, writePoint2d} from './converter/point-2d';
-import {Point2d, Point2dAssembly, Point2dObject} from './model/point-2d';
-
-interface Point2dYParams extends PointDimensionParams {
-	inverted?: boolean;
-}
-
-export interface Point2dInputParams extends BaseInputParams {
-	expanded?: boolean;
-	picker?: PickerLayout;
-	x?: PointDimensionParams;
-	y?: Point2dYParams;
-}
-
-export function createDimensionConstraint(
-	params: PointDimensionParams | undefined,
-	initialValue: number,
-): Constraint<number> | undefined {
-	if (!params) {
-		return undefined;
-	}
-
-	const constraints: Constraint<number>[] = [];
-	const cs = createStepConstraint(params, initialValue);
-	if (cs) {
-		constraints.push(cs);
-	}
-	const rs = createRangeConstraint(params);
-	if (rs) {
-		constraints.push(rs);
-	}
-	return new CompositeConstraint(constraints);
-}
+	Point2dInputParams,
+	Point2dYParams,
+} from '../../blade/common/api/params.js';
+import {Constraint} from '../../common/constraint/constraint.js';
+import {parseNumber} from '../../common/converter/number.js';
+import {parseRecord} from '../../common/micro-parsers.js';
+import {getSuitableKeyScale} from '../../common/number/util.js';
+import {NumberTextInputParams} from '../../common/params.js';
+import {parsePickerLayout} from '../../common/picker-util.js';
+import {createPointAxis, PointAxis} from '../../common/point-nd/point-axis.js';
+import {createPointDimensionParser} from '../../common/point-nd/util.js';
+import {parsePointDimensionParams} from '../../common/point-nd/util.js';
+import {createDimensionConstraint} from '../../common/point-nd/util.js';
+import {deepMerge, isEmpty, Tuple2} from '../../misc/type-util.js';
+import {createPlugin} from '../../plugin/plugin.js';
+import {PointNdConstraint} from '../common/constraint/point-nd.js';
+import {InputBindingPlugin} from '../plugin.js';
+import {Point2dController} from './controller/point-2d.js';
+import {point2dFromUnknown, writePoint2d} from './converter/point-2d.js';
+import {Point2d, Point2dAssembly, Point2dObject} from './model/point-2d.js';
 
 function createConstraint(
 	params: Point2dInputParams,
@@ -69,65 +27,37 @@ function createConstraint(
 	return new PointNdConstraint({
 		assembly: Point2dAssembly,
 		components: [
-			createDimensionConstraint(
-				'x' in params ? params.x : undefined,
-				initialValue.x,
-			),
-			createDimensionConstraint(
-				'y' in params ? params.y : undefined,
-				initialValue.y,
-			),
+			createDimensionConstraint({...params, ...params.x}, initialValue.x),
+			createDimensionConstraint({...params, ...params.y}, initialValue.y),
 		],
 	});
 }
 
 function getSuitableMaxDimensionValue(
-	constraint: Constraint<number> | undefined,
+	params: NumberTextInputParams,
 	rawValue: number,
 ): number {
-	const [min, max] = constraint ? findNumberRange(constraint) : [];
-	if (!isEmpty(min) || !isEmpty(max)) {
-		return Math.max(Math.abs(min ?? 0), Math.abs(max ?? 0));
+	if (!isEmpty(params.min) || !isEmpty(params.max)) {
+		return Math.max(Math.abs(params.min ?? 0), Math.abs(params.max ?? 0));
 	}
 
-	const step = getBaseStep(constraint);
+	const step = getSuitableKeyScale(params);
 	return Math.max(Math.abs(step) * 10, Math.abs(rawValue) * 10);
 }
 
-/**
- * @hidden
- */
-export function getSuitableMaxValue(
+export function getSuitableMax(
+	params: Point2dInputParams,
 	initialValue: Point2d,
-	constraint: Constraint<Point2d> | undefined,
 ): number {
-	const xc =
-		constraint instanceof PointNdConstraint
-			? constraint.components[0]
-			: undefined;
-	const yc =
-		constraint instanceof PointNdConstraint
-			? constraint.components[1]
-			: undefined;
-	const xr = getSuitableMaxDimensionValue(xc, initialValue.x);
-	const yr = getSuitableMaxDimensionValue(yc, initialValue.y);
+	const xr = getSuitableMaxDimensionValue(
+		deepMerge(params, (params.x ?? {}) as Record<string, unknown>),
+		initialValue.x,
+	);
+	const yr = getSuitableMaxDimensionValue(
+		deepMerge(params, (params.y ?? {}) as Record<string, unknown>),
+		initialValue.y,
+	);
 	return Math.max(xr, yr);
-}
-
-function createAxis(
-	initialValue: number,
-	constraint: Constraint<number> | undefined,
-) {
-	return {
-		baseStep: getBaseStep(constraint),
-		constraint: constraint,
-		textProps: ValueMap.fromObject({
-			draggingScale: getSuitableDraggingScale(constraint, initialValue),
-			formatter: createNumberFormatter(
-				getSuitableDecimalDigits(constraint, initialValue),
-			),
-		}),
-	};
 }
 
 function shouldInvertY(params: Point2dInputParams): boolean {
@@ -150,25 +80,24 @@ export const Point2dInputPlugin: InputBindingPlugin<
 	Point2d,
 	Point2dObject,
 	Point2dInputParams
-> = {
+> = createPlugin({
 	id: 'input-point2d',
 	type: 'input',
 	accept: (value, params) => {
 		if (!Point2d.isObject(value)) {
 			return null;
 		}
-		const p = ParamsParsers;
-		const result = parseParams<Point2dInputParams>(params, {
+		const result = parseRecord<Point2dInputParams>(params, (p) => ({
+			...createPointDimensionParser(p),
 			expanded: p.optional.boolean,
 			picker: p.optional.custom(parsePickerLayout),
+			readonly: p.optional.constant(false),
 			x: p.optional.custom(parsePointDimensionParams),
 			y: p.optional.object<Point2dYParams & Record<string, unknown>>({
+				...createPointDimensionParser(p),
 				inverted: p.optional.boolean,
-				max: p.optional.number,
-				min: p.optional.number,
-				step: p.optional.number,
 			}),
-		});
+		}));
 		return result
 			? {
 					initialValue: value,
@@ -177,34 +106,34 @@ export const Point2dInputPlugin: InputBindingPlugin<
 			: null;
 	},
 	binding: {
-		reader: (_args) => point2dFromUnknown,
+		reader: () => point2dFromUnknown,
 		constraint: (args) => createConstraint(args.params, args.initialValue),
 		equals: Point2d.equals,
-		writer: (_args) => writePoint2d,
+		writer: () => writePoint2d,
 	},
 	controller: (args) => {
 		const doc = args.document;
 		const value = args.value;
-		const c = args.constraint;
-		if (!(c instanceof PointNdConstraint)) {
-			throw TpError.shouldNeverHappen();
-		}
-
-		const expanded =
-			'expanded' in args.params ? args.params.expanded : undefined;
-		const picker = 'picker' in args.params ? args.params.picker : undefined;
+		const c = args.constraint as PointNdConstraint<Point2d>;
+		const dParams = [args.params.x, args.params.y];
 		return new Point2dController(doc, {
-			axes: [
-				createAxis(value.rawValue.x, c.components[0]),
-				createAxis(value.rawValue.y, c.components[1]),
-			],
-			expanded: expanded ?? false,
+			axes: value.rawValue.getComponents().map((comp, i) =>
+				createPointAxis({
+					constraint: c.components[i],
+					initialValue: comp,
+					params: deepMerge(
+						args.params,
+						(dParams[i] ?? {}) as Record<string, unknown>,
+					),
+				}),
+			) as Tuple2<PointAxis>,
+			expanded: args.params.expanded ?? false,
 			invertsY: shouldInvertY(args.params),
-			maxValue: getSuitableMaxValue(value.rawValue, c),
+			max: getSuitableMax(args.params, value.rawValue),
 			parser: parseNumber,
-			pickerLayout: picker ?? 'popup',
+			pickerLayout: args.params.picker ?? 'popup',
 			value: value,
 			viewProps: args.viewProps,
 		});
 	},
-};
+});

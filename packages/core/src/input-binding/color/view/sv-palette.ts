@@ -1,16 +1,16 @@
-import {getCanvasContext} from '../../../common/dom-util';
-import {Value} from '../../../common/model/value';
-import {ViewProps} from '../../../common/model/view-props';
-import {mapRange} from '../../../common/number-util';
-import {ClassName} from '../../../common/view/class-name';
-import {View} from '../../../common/view/view';
-import {Color} from '../model/color';
-import {hsvToRgbInt} from '../model/color-model';
+import {getCanvasContext} from '../../../common/dom-util.js';
+import {Value} from '../../../common/model/value.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {mapRange} from '../../../common/number/util.js';
+import {ClassName} from '../../../common/view/class-name.js';
+import {View} from '../../../common/view/view.js';
+import {hsvToRgbInt} from '../model/color-model.js';
+import {IntColor} from '../model/int-color.js';
 
-const className = ClassName('svp');
+const cn = ClassName('svp');
 
 interface Config {
-	value: Value<Color>;
+	value: Value<IntColor>;
 	viewProps: ViewProps;
 }
 
@@ -21,7 +21,7 @@ const CANVAS_RESOL = 64;
  */
 export class SvPaletteView implements View {
 	public readonly element: HTMLElement;
-	public readonly value: Value<Color>;
+	public readonly value: Value<IntColor>;
 	public readonly canvasElement: HTMLCanvasElement;
 	private readonly markerElem_: HTMLDivElement;
 
@@ -32,19 +32,19 @@ export class SvPaletteView implements View {
 		this.value.emitter.on('change', this.onValueChange_);
 
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 		config.viewProps.bindTabIndex(this.element);
 
 		const canvasElem = doc.createElement('canvas');
 		canvasElem.height = CANVAS_RESOL;
 		canvasElem.width = CANVAS_RESOL;
-		canvasElem.classList.add(className('c'));
+		canvasElem.classList.add(cn('c'));
 		this.element.appendChild(canvasElem);
 		this.canvasElement = canvasElem;
 
 		const markerElem = doc.createElement('div');
-		markerElem.classList.add(className('m'));
+		markerElem.classList.add(cn('m'));
 		this.element.appendChild(markerElem);
 		this.markerElem_ = markerElem;
 

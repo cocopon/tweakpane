@@ -1,22 +1,34 @@
-import {Value} from '../../../common/model/value';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {constrainRange, mapRange} from '../../../common/number-util';
-import {ClassName} from '../../../common/view/class-name';
-import {View} from '../../../common/view/view';
+import {Value} from '../../../common/model/value.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {ClassName} from '../../../common/view/class-name.js';
+import {View} from '../../../common/view/view.js';
+import {constrainRange, mapRange} from '../util.js';
 
-export type SliderProps = ValueMap<{
-	maxValue: number;
-	minValue: number;
-}>;
+/**
+ * @hidden
+ */
+export type SliderPropsObject = {
+	keyScale: number;
+	max: number;
+	min: number;
+};
 
+/**
+ * @hidden
+ */
+export type SliderProps = ValueMap<SliderPropsObject>;
+
+/**
+ * @hidden
+ */
 interface Config {
 	props: SliderProps;
 	value: Value<number>;
 	viewProps: ViewProps;
 }
 
-const className = ClassName('sld');
+const cn = ClassName('sld');
 
 /**
  * @hidden
@@ -35,17 +47,17 @@ export class SliderView implements View {
 		this.props_.emitter.on('change', this.onChange_);
 
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 
 		const trackElem = doc.createElement('div');
-		trackElem.classList.add(className('t'));
+		trackElem.classList.add(cn('t'));
 		config.viewProps.bindTabIndex(trackElem);
 		this.element.appendChild(trackElem);
 		this.trackElement = trackElem;
 
 		const knobElem = doc.createElement('div');
-		knobElem.classList.add(className('k'));
+		knobElem.classList.add(cn('k'));
 		this.trackElement.appendChild(knobElem);
 		this.knobElement = knobElem;
 
@@ -59,8 +71,8 @@ export class SliderView implements View {
 		const p = constrainRange(
 			mapRange(
 				this.value.rawValue,
-				this.props_.get('minValue'),
-				this.props_.get('maxValue'),
+				this.props_.get('min'),
+				this.props_.get('max'),
 				0,
 				100,
 			),

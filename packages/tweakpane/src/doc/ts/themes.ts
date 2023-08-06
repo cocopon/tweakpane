@@ -1,4 +1,4 @@
-import {Theme} from './panepaint';
+import {Theme} from './panepaint.js';
 
 export type ThemeId =
 	| 'default'

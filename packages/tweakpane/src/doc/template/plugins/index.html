@@ -10,7 +10,7 @@
 	<div class="pageHeader_inner">
 		<div class="pageHeader_text">
 			<h1 class="pageHeader_title">{{ title }}</h1>
-			<p>Expand Tweakpane world.</p>
+			<p>Expand the Tweakpane world.</p>
 		</div>
 	</div>
 </div>
@@ -18,7 +18,10 @@
 
 
 {% block content %}
-<h2 id="essentials"><a href="https://github.com/tweakpane/plugin-essentials">Essentials</a></h2>
+<h2 id="essentials">
+	<a href="#essentials">Essentials</a>
+	<a href="https://github.com/tweakpane/plugin-essentials" target="_blank"><span class="material-icons">open_in_new</span></a>
+</h2>
 <p>Essential components.</p>
 <div class="main_media">
 	<div class="demo">
@@ -29,7 +32,7 @@
 };
 
 // Interval
-pane.addInput(PARAMS, 'interval', {
+pane.addBinding(PARAMS, 'interval', {
   min: 0,
   max: 100,
   step: 1,
@@ -61,7 +64,10 @@ function render() {
 </div>
 
 
-<h2 id="camerakit"><a href="https://github.com/tweakpane/plugin-camerakit">Camerakit</a></h2>
+<h2 id="camerakit">
+	<a href="#camerakit">Camerakit</a>
+	<a href="https://github.com/tweakpane/plugin-camerakit" target="_blank"><span class="material-icons">open_in_new</span></a>
+</h2>
 <p>Enjoyable camera flavored controls.</p>
 <div class="main_media">
 	<div class="demo">
@@ -75,7 +81,7 @@ function render() {
 
 // ...
 
-pane.addInput(PARAMS, 'fnum', {
+pane.addBinding(PARAMS, 'fnum', {
   // Use a ring view of Camerakit
   view: 'cameraring',
   // Appearance of the ring
@@ -100,32 +106,41 @@ pane.addInput(PARAMS, 'fnum', {
 
 
 <h2 id="3rdparty">Find 3rd party plugins</h2>
-<p><a href="https://github.com/topics/tweakpane">#tweakpane</a> topic on GitHub may be useful to search 3rd party plugins.</p>
+<p><a href="https://github.com/topics/tweakpane" target="_blank">#tweakpane</a> topic on GitHub may be useful to search 3rd party plugins.</p>
 
 
-<h2 id="create">Create your own plugin</h2>
-<p>From version 2.0.0, you can provide custom components with the plugin system.</p>
-
-<div class="main_media">
-	<div class="demo">
-		<div class="demo_code">
-			<div class="codeBlock">
-				<pre><code class="js">pane.registerPlugin({
-  plugin: {
-    ...
-  },
-});</code></pre>
+<h2>What's next</h2>
+<div class="rel">
+	<div class="relItem">
+		<a class="relItem_anchor" href="{{ root }}plugins/dev/">
+			<div class="relItem_text">
+				<div class="relItem_title">
+					Plugin development
+				</div>
+				<div class="relItem_detail">
+					create your own plugin
+				</div>
 			</div>
-		</div>
-		<div class="demo_chip">.js</div>
+			<div class="relItem_icon relItem_icon-circle">
+				<span class="material-icons">arrow_forward</span>
+			</div>
+		</a>
 	</div>
 </div>
-
-<p>See the <a href="https://github.com/tweakpane/plugin-template">template repository</a> for details.</p>
 {% endblock %}
 
 
 {% block pluginScripts %}
-<script src="https://cdn.jsdelivr.net/npm/@tweakpane/plugin-essentials@0.1.0/dist/tweakpane-plugin-essentials.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@tweakpane/plugin-camerakit@0.2.0/dist/tweakpane-plugin-camerakit.min.js"></script>
+<script type="module">
+	window.DocModules.push(
+		async () => {
+			const m = await import('https://esm.run/@tweakpane/plugin-essentials@0.2.0-beta.0');
+			window.TweakpaneEssentialsPlugin = m;
+		},
+		async () => {
+			const m = await import('https://esm.run/@tweakpane/plugin-camerakit@0.3.0-beta.0');
+			window.TweakpaneCamerakitPlugin = m;
+		},
+	);
+</script>
 {% endblock %}

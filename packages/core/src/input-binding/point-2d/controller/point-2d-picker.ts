@@ -1,53 +1,55 @@
-import {Controller} from '../../../common/controller/controller';
-import {Value, ValueChangeOptions} from '../../../common/model/value';
-import {ViewProps} from '../../../common/model/view-props';
-import {mapRange} from '../../../common/number-util';
-import {PickerLayout} from '../../../common/params';
+import {ValueController} from '../../../common/controller/value.js';
+import {Value, ValueChangeOptions} from '../../../common/model/value.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {mapRange} from '../../../common/number/util.js';
+import {PickerLayout} from '../../../common/params.js';
 import {
 	getHorizontalStepKeys,
 	getStepForKey,
 	getVerticalStepKeys,
 	isArrowKey,
-} from '../../../common/ui';
+} from '../../../common/ui.js';
 import {
 	PointerData,
 	PointerHandler,
 	PointerHandlerEvents,
-} from '../../../common/view/pointer-handler';
-import {Point2d} from '../model/point-2d';
-import {Point2dPickerView} from '../view/point-2d-picker';
+} from '../../../common/view/pointer-handler.js';
+import {Tuple2} from '../../../misc/type-util.js';
+import {Point2d} from '../model/point-2d.js';
+import {
+	Point2dPickerProps,
+	Point2dPickerView,
+} from '../view/point-2d-picker.js';
 
 interface Config {
-	baseSteps: [number, number];
-	invertsY: boolean;
 	layout: PickerLayout;
-	maxValue: number;
+	props: Point2dPickerProps;
 	value: Value<Point2d>;
 	viewProps: ViewProps;
 }
 
 function computeOffset(
 	ev: KeyboardEvent,
-	baseSteps: [number, number],
+	keyScales: Tuple2<number>,
 	invertsY: boolean,
 ): [number, number] {
 	return [
-		getStepForKey(baseSteps[0], getHorizontalStepKeys(ev)),
-		getStepForKey(baseSteps[1], getVerticalStepKeys(ev)) * (invertsY ? 1 : -1),
+		getStepForKey(keyScales[0], getHorizontalStepKeys(ev)),
+		getStepForKey(keyScales[1], getVerticalStepKeys(ev)) * (invertsY ? 1 : -1),
 	];
 }
 
 /**
  * @hidden
  */
-export class Point2dPickerController implements Controller<Point2dPickerView> {
+export class Point2dPickerController
+	implements ValueController<Point2d, Point2dPickerView>
+{
+	public readonly props: Point2dPickerProps;
 	public readonly value: Value<Point2d>;
 	public readonly view: Point2dPickerView;
 	public readonly viewProps: ViewProps;
-	private readonly baseSteps_: [number, number];
 	private readonly ptHandler_: PointerHandler;
-	private readonly invertsY_: boolean;
-	private readonly maxValue_: number;
 
 	constructor(doc: Document, config: Config) {
 		this.onPadKeyDown_ = this.onPadKeyDown_.bind(this);
@@ -56,17 +58,13 @@ export class Point2dPickerController implements Controller<Point2dPickerView> {
 		this.onPointerMove_ = this.onPointerMove_.bind(this);
 		this.onPointerUp_ = this.onPointerUp_.bind(this);
 
+		this.props = config.props;
 		this.value = config.value;
 		this.viewProps = config.viewProps;
 
-		this.baseSteps_ = config.baseSteps;
-		this.maxValue_ = config.maxValue;
-		this.invertsY_ = config.invertsY;
-
 		this.view = new Point2dPickerView(doc, {
-			invertsY: this.invertsY_,
 			layout: config.layout,
-			maxValue: this.maxValue_,
+			props: this.props,
 			value: this.value,
 			viewProps: this.viewProps,
 		});
@@ -85,10 +83,10 @@ export class Point2dPickerController implements Controller<Point2dPickerView> {
 			return;
 		}
 
-		const max = this.maxValue_;
+		const max = this.props.get('max');
 		const px = mapRange(d.point.x, 0, d.bounds.width, -max, +max);
 		const py = mapRange(
-			this.invertsY_ ? d.bounds.height - d.point.y : d.point.y,
+			this.props.get('invertsY') ? d.bounds.height - d.point.y : d.point.y,
 			0,
 			d.bounds.height,
 			-max,
@@ -123,7 +121,11 @@ export class Point2dPickerController implements Controller<Point2dPickerView> {
 			ev.preventDefault();
 		}
 
-		const [dx, dy] = computeOffset(ev, this.baseSteps_, this.invertsY_);
+		const [dx, dy] = computeOffset(
+			ev,
+			[this.props.get('xKeyScale'), this.props.get('yKeyScale')],
+			this.props.get('invertsY'),
+		);
 		if (dx === 0 && dy === 0) {
 			return;
 		}
@@ -138,7 +140,11 @@ export class Point2dPickerController implements Controller<Point2dPickerView> {
 	}
 
 	private onPadKeyUp_(ev: KeyboardEvent): void {
-		const [dx, dy] = computeOffset(ev, this.baseSteps_, this.invertsY_);
+		const [dx, dy] = computeOffset(
+			ev,
+			[this.props.get('xKeyScale'), this.props.get('yKeyScale')],
+			this.props.get('invertsY'),
+		);
 		if (dx === 0 && dy === 0) {
 			return;
 		}

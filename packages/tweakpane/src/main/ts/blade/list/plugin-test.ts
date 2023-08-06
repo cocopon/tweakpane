@@ -2,24 +2,22 @@ import {
 	BladeController,
 	createBladeController,
 	createDefaultPluginPool,
-	View,
+	PluginPool,
 } from '@tweakpane/core';
-import {PluginPool} from '@tweakpane/core/dist/cjs/plugin/pool';
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {
 	createEmptyBladeController,
-	createEmptyLabelableController,
-	createLabelController,
+	createLabeledValueBladeController,
 	createTestWindow,
-} from '../../misc/test-util';
-import {ListApi} from './api/list';
-import {ListBladeParams, ListBladePlugin} from './plugin';
+} from '../../misc/test-util.js';
+import {ListBladeApi} from './api/list.js';
+import {ListBladeParams, ListBladePlugin} from './plugin.js';
 
 function createPluginPool(): PluginPool {
 	const pool = createDefaultPluginPool();
-	pool.register(ListBladePlugin);
+	pool.register('test', ListBladePlugin);
 	return pool;
 }
 
@@ -76,12 +74,11 @@ describe(ListBladePlugin.id, () => {
 
 	[
 		(doc: Document) => createEmptyBladeController(doc),
-		(doc: Document) =>
-			createLabelController(doc, createEmptyLabelableController(doc)),
+		(doc: Document) => createLabeledValueBladeController(doc),
 	].forEach((createController) => {
 		it('should not create API', () => {
 			const doc = createTestWindow().document;
-			const c = createController(doc);
+			const c = createController(doc) as BladeController;
 			const api = ListBladePlugin.api({
 				controller: c,
 				pool: createPluginPool(),
@@ -103,15 +100,15 @@ describe(ListBladePlugin.id, () => {
 				value: 123,
 				view: 'list',
 			} as ListBladeParams<number>,
-		}) as BladeController<View>;
+		}) as BladeController;
 		const pool = createPluginPool();
-		const api = pool.createBladeApi(bc) as ListApi<number>;
+		const api = pool.createApi(bc) as ListBladeApi<number>;
 
 		assert.strictEqual(api.value, 123);
 		assert.deepStrictEqual(api.options[0], {text: 'foo', value: 1});
 		assert.deepStrictEqual(api.options[1], {text: 'bar', value: 2});
 		assert.strictEqual(
-			api.controller_.view.element.querySelector('.tp-lblv_l')?.textContent,
+			api.controller.view.element.querySelector('.tp-lblv_l')?.textContent,
 			'hello',
 		);
 	});
@@ -129,11 +126,11 @@ describe(ListBladePlugin.id, () => {
 				value: {id: 'foo'},
 				view: 'list',
 			} as ListBladeParams<{id: string}>,
-		}) as BladeController<View>;
+		}) as BladeController;
 		const pool = createPluginPool();
-		const api = pool.createBladeApi(bc) as ListApi<{id: string}>;
+		const api = pool.createApi(bc) as ListBladeApi<{id: string}>;
 
-		const selectElem = api.controller_.valueController.view.selectElement;
+		const selectElem = api.controller.valueController.view.selectElement;
 		assert.strictEqual(
 			(selectElem.querySelector('option') as HTMLOptionElement).value,
 			'foo',

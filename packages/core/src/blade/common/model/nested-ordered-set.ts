@@ -1,6 +1,9 @@
-import {Emitter} from '../../../common/model/emitter';
-import {TpError} from '../../../common/tp-error';
+import {Emitter} from '../../../common/model/emitter.js';
+import {TpError} from '../../../common/tp-error.js';
 
+/**
+ * @hidden
+ */
 export interface NestedOrderedSetEvents<T> {
 	add: {
 		index: number;
@@ -16,8 +19,14 @@ export interface NestedOrderedSetEvents<T> {
 	};
 }
 
+/**
+ * @hidden
+ */
 type Extractor<T> = (item: T) => NestedOrderedSet<T> | null;
 
+/**
+ * @hidden
+ */
 export class NestedOrderedSet<T> {
 	public readonly emitter: Emitter<NestedOrderedSetEvents<T>> = new Emitter();
 	private readonly items_: T[] = [];
@@ -66,8 +75,8 @@ export class NestedOrderedSet<T> {
 			subList.emitter.on('add', this.onSubListAdd_);
 			subList.emitter.on('remove', this.onSubListRemove_);
 
-			subList.allItems().forEach((item) => {
-				this.cache_.add(item);
+			subList.allItems().forEach((i) => {
+				this.cache_.add(i);
 			});
 		}
 
@@ -90,6 +99,10 @@ export class NestedOrderedSet<T> {
 
 		const subList = this.extract_(item);
 		if (subList) {
+			subList.allItems().forEach((i) => {
+				this.cache_.delete(i);
+			});
+
 			subList.emitter.off('add', this.onSubListAdd_);
 			subList.emitter.off('remove', this.onSubListRemove_);
 		}

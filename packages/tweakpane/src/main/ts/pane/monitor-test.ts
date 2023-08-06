@@ -1,21 +1,29 @@
 import {
+	BindingApi,
 	GraphLogController,
+	GraphLogMonitorBindingApi,
 	ManualTicker,
+	MonitorBindingValue,
 	MultiLogController,
 	SingleLogController,
+	TpChangeEvent,
 	TpError,
-	TpUpdateEvent,
 } from '@tweakpane/core';
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {Pane} from '..';
-import {createTestWindow} from '../misc/test-util';
+import {createTestWindow} from '../misc/test-util.js';
+import {Pane} from './pane.js';
 
 function createPane(): Pane {
 	return new Pane({
 		document: createTestWindow().document,
 	});
+}
+
+function getTicker(bapi: BindingApi): ManualTicker {
+	const v = bapi.controller.value as MonitorBindingValue<unknown>;
+	return v.ticker as ManualTicker;
 }
 
 describe(Pane.name, () => {
@@ -53,8 +61,9 @@ describe(Pane.name, () => {
 					const pane = createPane();
 
 					try {
-						pane.addMonitor(testCase.obj, testCase.key as any, {
+						pane.addBinding(testCase.obj, testCase.key as any, {
 							interval: 0,
+							readonly: true,
 						});
 						assert.fail('should not be called');
 					} catch (err) {
@@ -93,35 +102,37 @@ describe(Pane.name, () => {
 			it('should pass event argument for update event (local)', (done) => {
 				const pane = createPane();
 				const obj = {foo: params.propertyValue};
-				const bapi = pane.addMonitor(obj, 'foo', {
+				const bapi = pane.addBinding(obj, 'foo', {
 					interval: 0,
+					readonly: true,
 				});
-				bapi.on('update', (ev) => {
-					assert.strictEqual(ev instanceof TpUpdateEvent, true);
+				bapi.on('change', (ev) => {
+					assert.strictEqual(ev instanceof TpChangeEvent, true);
 					assert.strictEqual(ev.value, expected);
 					bapi.dispose();
 					done();
 				});
 
 				obj.foo = params.newInternalValue;
-				(bapi.controller_.binding.ticker as ManualTicker).tick();
+				getTicker(bapi).tick();
 			});
 
 			it('should pass event for update event (global)', (done) => {
 				const pane = createPane();
 				const obj = {foo: params.propertyValue};
-				const bapi = pane.addMonitor(obj, 'foo', {
+				const bapi = pane.addBinding(obj, 'foo', {
 					interval: 0,
+					readonly: true,
 				});
-				pane.on('update', (ev) => {
-					assert.strictEqual(ev instanceof TpUpdateEvent, true);
+				pane.on('change', (ev) => {
+					assert.strictEqual(ev instanceof TpChangeEvent, true);
 					assert.strictEqual(ev.value, expected);
 					bapi.dispose();
 					done();
 				});
 
 				obj.foo = params.newInternalValue;
-				(bapi.controller_.binding.ticker as ManualTicker).tick();
+				getTicker(bapi).tick();
 			});
 		});
 	});
@@ -129,12 +140,13 @@ describe(Pane.name, () => {
 	it('should dispose monitor', () => {
 		const PARAMS = {foo: 1};
 		const pane = createPane();
-		const bapi = pane.addMonitor(PARAMS, 'foo', {
+		const bapi = pane.addBinding(PARAMS, 'foo', {
 			interval: 0,
+			readonly: true,
 		});
 		bapi.dispose();
 		assert.strictEqual(
-			pane.controller_.view.element.querySelector('.tp-lblv'),
+			pane.controller.view.element.querySelector('.tp-lblv'),
 			null,
 		);
 	});
@@ -142,28 +154,30 @@ describe(Pane.name, () => {
 	it('should bind `this` within handler to monitor itself', (done) => {
 		const PARAMS = {foo: 1};
 		const pane = createPane();
-		const bapi = pane.addMonitor(PARAMS, 'foo', {
+		const bapi = pane.addBinding(PARAMS, 'foo', {
 			interval: 0,
+			readonly: true,
 		});
-		bapi.on('update', function (this: any) {
+		bapi.on('change', function (this: any) {
 			bapi.dispose();
 			assert.strictEqual(this, bapi);
 			done();
 		});
 
 		PARAMS.foo = 2;
-		(bapi.controller_.binding.ticker as ManualTicker).tick();
+		getTicker(bapi).tick();
 	});
 
 	it('should have right initial buffer', () => {
 		const pane = createPane();
 		const obj = {foo: 123};
-		const bapi = pane.addMonitor(obj, 'foo', {
+		const bapi = pane.addBinding(obj, 'foo', {
 			bufferSize: 5,
 			interval: 0,
+			readonly: true,
 		});
 
-		const v = bapi.controller_.binding.value;
+		const v = bapi.controller.value;
 		assert.deepStrictEqual(v.rawValue, [
 			123,
 			undefined,
@@ -178,88 +192,124 @@ describe(Pane.name, () => {
 		{
 			args: {
 				value: 123,
-				params: {},
+				params: {
+					readonly: true,
+				},
 			},
-			expectedClass: SingleLogController,
+			expected: {
+				controller: SingleLogController,
+			},
 		},
 		{
 			args: {
 				value: 123,
 				params: {
 					bufferSize: 10,
+					readonly: true,
 				},
 			},
-			expectedClass: MultiLogController,
+			expected: {
+				controller: MultiLogController,
+			},
 		},
 		{
 			args: {
 				value: 123,
 				params: {
+					readonly: true,
 					view: 'graph',
 				},
 			},
-			expectedClass: GraphLogController,
+			expected: {
+				controller: GraphLogController,
+				api: GraphLogMonitorBindingApi,
+			},
 		},
 		// String
 		{
 			args: {
 				value: 'foobar',
-				params: {},
+				params: {
+					readonly: true,
+				},
 			},
-			expectedClass: SingleLogController,
+			expected: {
+				controller: SingleLogController,
+			},
 		},
 		{
 			args: {
 				value: 'foobar',
 				params: {
 					bufferSize: 10,
+					readonly: true,
 				},
 			},
-			expectedClass: MultiLogController,
+			expected: {
+				controller: MultiLogController,
+			},
 		},
 		// Boolean
 		{
 			args: {
 				value: true,
-				params: {},
+				params: {
+					readonly: true,
+				},
 			},
-			expectedClass: SingleLogController,
+			expected: {
+				controller: SingleLogController,
+			},
 		},
 		{
 			args: {
 				value: true,
 				params: {
 					bufferSize: 10,
+					readonly: true,
 				},
 			},
-			expectedClass: MultiLogController,
+			expected: {
+				controller: MultiLogController,
+			},
 		},
-	].forEach((testCase) => {
-		context(`when ${JSON.stringify(testCase.args)}`, () => {
-			it(`should return controller: ${testCase.expectedClass.name}`, () => {
+	].forEach(({args, expected}) => {
+		context(`when ${JSON.stringify(args)}`, () => {
+			it(`should return controller: ${expected.controller.name}`, () => {
 				const pane = createPane();
-				const obj = {foo: testCase.args.value};
-				const bapi = pane.addMonitor(obj, 'foo', testCase.args.params);
+				const obj = {foo: args.value};
+				const bapi = pane.addBinding(obj, 'foo', args.params);
 				assert.strictEqual(
-					bapi.controller_.valueController instanceof testCase.expectedClass,
+					bapi.controller.valueController instanceof expected.controller,
 					true,
 				);
 				bapi.dispose();
 			});
+
+			if (expected.api) {
+				it(`should return api: ${expected.api.name}`, () => {
+					const pane = createPane();
+					const obj = {foo: args.value};
+					const bapi = pane.addBinding(obj, 'foo', args.params);
+					assert.strictEqual(bapi instanceof expected.api, true);
+					bapi.dispose();
+				});
+			}
 		});
 	});
 
 	it('should throw `alreadydisposed` error when calling dispose() inside monitor change event', (done) => {
 		const pane = createPane();
-		const bapi = pane.addMonitor({foo: 1}, 'foo', {
+		const bapi = pane.addBinding({foo: 1}, 'foo', {
 			interval: 0,
+			readonly: true,
 		});
 
 		try {
-			bapi.on('update', () => {
+			bapi.on('change', () => {
 				bapi.dispose();
 			});
-			(bapi.controller_.binding.ticker as ManualTicker).tick();
+			getTicker(bapi).tick();
 		} catch (err) {
 			assert.strictEqual((err as TpError<any>).type, 'alreadydisposed');
 			done();

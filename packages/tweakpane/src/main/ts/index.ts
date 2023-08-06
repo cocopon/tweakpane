@@ -1,9 +1,11 @@
-import {Semver} from './misc/semver';
+import {Semver} from '@tweakpane/core';
 
 export {
 	ArrayStyleListOptions,
 	BaseParams,
 	BaseBladeParams,
+	BindingApiEvents,
+	BindingParams,
 	BladeApi,
 	BooleanInputParams,
 	BooleanMonitorParams,
@@ -13,20 +15,17 @@ export {
 	FolderApi,
 	FolderParams,
 	InputBindingApi,
-	InputBindingApiEvents,
-	InputParams,
+	ListInputBindingApi,
 	ListParamsOptions,
 	MonitorBindingApi,
-	MonitorBindingApiEvents,
-	MonitorParams,
 	NumberInputParams,
 	NumberMonitorParams,
 	ObjectStyleListOptions,
 	Point2dInputParams,
 	Point3dInputParams,
 	Point4dInputParams,
-	SeparatorApi,
-	SeparatorParams,
+	Semver,
+	SliderInputBindingApi,
 	StringInputParams,
 	StringMonitorParams,
 	TabApi,
@@ -38,13 +37,15 @@ export {
 	TpPluginBundle,
 } from '@tweakpane/core';
 
-export {ListApi} from './blade/list/api/list';
-export {ListBladeParams} from './blade/list/plugin';
-export {SliderApi} from './blade/slider/api/slider';
-export {SliderBladeParams} from './blade/slider/plugin';
-export {TextApi} from './blade/text/api/text';
-export {TextBladeParams} from './blade/text/plugin';
+export {ListBladeApi} from './blade/list/api/list.js';
+export {ListBladeParams} from './blade/list/plugin.js';
+export {SeparatorBladeApi} from './blade/separator/api/separator.js';
+export {SeparatorBladeParams} from './blade/separator/plugin.js';
+export {SliderBladeApi} from './blade/slider/api/slider.js';
+export {SliderBladeParams} from './blade/slider/plugin.js';
+export {TextBladeApi} from './blade/text/api/text.js';
+export {TextBladeParams} from './blade/text/plugin.js';
 
-export {Pane} from './pane/pane';
+export {Pane} from './pane/pane.js';
 
-export const VERSION = new Semver('3.14.16');
+export const VERSION = new Semver('0.0.0-tweakpane.0');

@@ -1,21 +1,27 @@
-import {Controller} from '../common/controller/controller';
-import {ValueMap} from '../common/model/value-map';
-import {createValue} from '../common/model/values';
-import {ViewProps} from '../common/model/view-props';
-import {BaseBladeParams} from '../common/params';
-import {ParamsParsers, parseParams} from '../common/params-parsers';
-import {PlainView} from '../common/view/plain';
-import {View} from '../common/view/view';
-import {CheckboxController} from '../input-binding/boolean/controller/checkbox';
-import {BladeApi} from './common/api/blade';
-import {BladeController} from './common/controller/blade';
-import {createBlade} from './common/model/blade';
-import {LabelController} from './label/controller/label';
-import {LabeledValueController} from './label/controller/value-label';
-import {LabelPropsObject} from './label/view/label';
-import {BladePlugin} from './plugin';
+import {Controller} from '../common/controller/controller.js';
+import {LabelPropsObject} from '../common/label/view/label.js';
+import {parseRecord} from '../common/micro-parsers.js';
+import {ValueMap} from '../common/model/value-map.js';
+import {createValue} from '../common/model/values.js';
+import {ViewProps} from '../common/model/view-props.js';
+import {BaseBladeParams} from '../common/params.js';
+import {TpError} from '../common/tp-error.js';
+import {PlainView} from '../common/view/plain.js';
+import {CheckboxController} from '../input-binding/boolean/controller/checkbox.js';
+import {createDefaultPluginPool} from '../plugin/plugins.js';
+import {VERSION} from '../version.js';
+import {BladeApi} from './common/api/blade.js';
+import {BladeController} from './common/controller/blade.js';
+import {
+	BladeState,
+	exportBladeState,
+	importBladeState,
+} from './common/controller/blade-state.js';
+import {createBlade} from './common/model/blade.js';
+import {LabeledValueBladeController} from './label/controller/value.js';
+import {BladePlugin} from './plugin.js';
 
-class LabelableController implements Controller<View> {
+class LabelableController implements Controller {
 	public readonly viewProps = ViewProps.create();
 	public readonly view: PlainView;
 
@@ -29,14 +35,6 @@ class LabelableController implements Controller<View> {
 
 export function createEmptyLabelableController(doc: Document) {
 	return new LabelableController(doc);
-}
-
-export function createLabelController(doc: Document, vc: LabelableController) {
-	return new LabelController(doc, {
-		blade: createBlade(),
-		props: ValueMap.fromObject<LabelPropsObject>({label: ''}),
-		valueController: vc,
-	});
 }
 
 export function createEmptyBladeController(
@@ -53,14 +51,14 @@ export function createEmptyBladeController(
 }
 
 export class TestValueBladeApi extends BladeApi<
-	LabelController<CheckboxController>
+	LabeledValueBladeController<boolean, CheckboxController>
 > {
 	get value(): boolean {
-		return this.controller_.valueController.value.rawValue;
+		return this.controller.value.rawValue;
 	}
 
 	set value(value: boolean) {
-		this.controller_.valueController.value.rawValue = value;
+		this.controller.value.rawValue = value;
 	}
 }
 
@@ -71,30 +69,32 @@ interface TestBladeParams extends BaseBladeParams {
 export const TestValueBladePlugin: BladePlugin<TestBladeParams> = {
 	id: 'test',
 	type: 'blade',
+	core: VERSION,
 	accept(params) {
-		const p = ParamsParsers;
-		const r = parseParams(params, {
+		const r = parseRecord(params, (p) => ({
 			view: p.required.constant('test'),
-		});
+		}));
 		return r ? {params: r} : null;
 	},
 	controller(args) {
-		return new LabeledValueController<boolean, CheckboxController>(
+		const v = createValue<boolean>(false);
+		return new LabeledValueBladeController<boolean, CheckboxController>(
 			args.document,
 			{
 				blade: createBlade(),
 				props: ValueMap.fromObject<LabelPropsObject>({
 					label: '',
 				}),
+				value: v,
 				valueController: new CheckboxController(args.document, {
-					value: createValue<boolean>(false),
+					value: v,
 					viewProps: args.viewProps,
 				}),
 			},
 		);
 	},
 	api(args) {
-		if (!(args.controller instanceof LabeledValueController)) {
+		if (!(args.controller instanceof LabeledValueBladeController)) {
 			return null;
 		}
 		const vc = args.controller.valueController;
@@ -104,3 +104,68 @@ export const TestValueBladePlugin: BladePlugin<TestBladeParams> = {
 		return new TestValueBladeApi(args.controller);
 	},
 };
+
+export function createAppropriateBladeController(
+	doc: Document,
+): BladeController {
+	return TestValueBladePlugin.controller({
+		blade: createBlade(),
+		document: doc,
+		params: {
+			view: 'test',
+			disabled: false,
+			hidden: false,
+		},
+		viewProps: ViewProps.create(),
+	});
+}
+
+export function createAppropriateBladeApi(doc: Document): BladeApi {
+	const api = TestValueBladePlugin.api({
+		controller: createAppropriateBladeController(doc),
+		pool: createDefaultPluginPool(),
+	});
+	if (!api) {
+		throw TpError.shouldNeverHappen();
+	}
+	return api;
+}
+
+export class TestKeyBladeController extends BladeController {
+	public key: string;
+
+	constructor(doc: Document, key: string) {
+		const viewProps = ViewProps.create();
+		const view = new PlainView(doc, {
+			viewName: '',
+			viewProps: viewProps,
+		});
+		super({
+			blade: createBlade(),
+			view: view,
+			viewProps: viewProps,
+		});
+
+		this.key = key;
+	}
+
+	override importState(state: BladeState): boolean {
+		return importBladeState(
+			state,
+			(s) => super.importState(s),
+			(p) => ({
+				key: p.required.string,
+			}),
+			(result) => {
+				this.key = String(result.key);
+				return true;
+			},
+		);
+	}
+
+	override exportState(): BladeState {
+		return exportBladeState(() => super.exportState(), {
+			key: this.key,
+		});
+	}
+}

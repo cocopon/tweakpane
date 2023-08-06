@@ -1,24 +1,25 @@
 import {
-	Color,
-	colorFromString,
 	colorToFunctionalRgbaString,
+	IntColor,
 	mapRange,
+	readIntColorString,
 } from '@tweakpane/core';
+import {presetToState, stateToPreset} from 'ts/preset';
 import {Pane} from 'tweakpane';
 
-import {Sketch} from '../sketch';
-import {Environment} from '../sketch';
-import {selectContainer} from '../util';
+import {Sketch} from '../sketch.js';
+import {Environment} from '../sketch.js';
+import {selectContainer} from '../util.js';
 
 const COLORS = {
-	dark: 'hsl(200deg, 5%, 16%)',
-	light: 'hsl(200deg, 7%, 90%)',
+	dark: 'hsl(230deg, 7%, 10%)',
+	light: 'hsl(230deg, 7%, 90%)',
 };
 
 export function initIndex() {
 	const ENV: Environment = {
 		amp: {x: 0.1, y: 0.5},
-		color: 'hsl(0deg, 0, 0)',
+		color: 'hsl(0, 0, 0)',
 		freq: {
 			x: 17,
 			y: 6.3,
@@ -33,7 +34,7 @@ export function initIndex() {
 	const PRESETS: {[key: string]: Environment} = {
 		atmos: {
 			amp: {x: 0.1, y: 0.53},
-			color: '#cacbcd',
+			color: 'hsl(220, 0%, 70%)',
 			freq: {x: 45, y: 16},
 			maxSize: 128,
 			range: 0.77,
@@ -43,7 +44,7 @@ export function initIndex() {
 		},
 		bubble: {
 			amp: {x: 0.3, y: 0.51},
-			color: '#f2f2f2',
+			color: 'hsl(182, 15%, 45%)',
 			freq: {x: 64, y: 32},
 			maxSize: 128,
 			range: 0.5,
@@ -53,7 +54,7 @@ export function initIndex() {
 		},
 		cloud: {
 			amp: {x: 0.07, y: 0},
-			color: '#e4e4e7',
+			color: 'hsl(45, 12%, 80%)',
 			freq: {x: 22.25, y: 0},
 			maxSize: 105,
 			range: 0.63,
@@ -81,8 +82,8 @@ export function initIndex() {
 			return;
 		}
 
-		const [h, s, l] = colorFromString(ENV.color).getComponents('hsl');
-		const bg = new Color([h + 30, s, l < 50 ? l - 4 : l + 5], 'hsl');
+		const [h, s, l] = readIntColorString(ENV.color).getComponents('hsl');
+		const bg = new IntColor([h + 30, s, l < 50 ? l - 4 : l + 5], 'hsl');
 		headerElem.style.backgroundColor = colorToFunctionalRgbaString(bg);
 	};
 
@@ -94,8 +95,8 @@ export function initIndex() {
 				container: container,
 				title: 'Parameters',
 			});
-			pane.addInput(ENV, 'color').on('change', updateBg);
-			pane.addInput(ENV, 'title').on('change', (ev) => {
+			pane.addBinding(ENV, 'color').on('change', updateBg);
+			pane.addBinding(ENV, 'title').on('change', (ev) => {
 				const titleElem = document.querySelector('.pageHeader_title');
 				if (titleElem) {
 					titleElem.textContent = ev.value;
@@ -105,29 +106,29 @@ export function initIndex() {
 				pages: [{title: 'Layout'}, {title: 'Presets'}],
 			});
 			const p0 = tab.pages[0];
-			p0.addInput(ENV, 'spacing', {
+			p0.addBinding(ENV, 'spacing', {
 				max: 48,
 				min: 24,
 			});
-			p0.addInput(ENV, 'range', {
+			p0.addBinding(ENV, 'range', {
 				max: 1,
 				min: 0,
 			});
-			p0.addInput(ENV, 'maxSize', {
+			p0.addBinding(ENV, 'maxSize', {
 				max: 128,
 				min: 5,
 			});
-			p0.addInput(ENV, 'freq', {
+			p0.addBinding(ENV, 'freq', {
 				x: {max: 64, min: 0},
 				y: {max: 32, min: 0},
 			});
-			p0.addInput(ENV, 'amp', {
+			p0.addBinding(ENV, 'amp', {
 				x: {max: 0.3, min: 0},
 				y: {max: 1, min: 0},
 			});
 
 			const p1 = tab.pages[1];
-			p1.addInput(HIDDEN_PARAMS, 'presetId', {
+			p1.addBinding(HIDDEN_PARAMS, 'presetId', {
 				label: 'preset',
 				options: {
 					'Import...': '',
@@ -140,18 +141,21 @@ export function initIndex() {
 				const preset = PRESETS[ev.value];
 				if (preset) {
 					HIDDEN_PARAMS.presetId = '';
-					pane.importPreset(preset as any);
+					pane.importState(presetToState(pane.exportState(), preset as any));
 				}
 			});
-			p1.addMonitor(HIDDEN_PARAMS, 'presetJson', {
+			p1.addBinding(HIDDEN_PARAMS, 'presetJson', {
 				label: 'data',
-				lineCount: 4,
 				multiline: true,
+				readonly: true,
+				rows: 4,
 			});
 
 			pane.on('change', () => {
 				sketch.reset();
-				HIDDEN_PARAMS.presetJson = JSON.stringify(pane.exportPreset(), null, 2);
+				const preset = stateToPreset(pane.exportState());
+				delete preset.presetJson;
+				HIDDEN_PARAMS.presetJson = JSON.stringify(preset, null, 2);
 			});
 
 			pane.on('fold', () => {

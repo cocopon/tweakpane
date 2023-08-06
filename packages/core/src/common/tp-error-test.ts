@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {TpError} from './tp-error';
+import {TpError} from './tp-error.js';
 
 describe(TpError.name, () => {
 	it('should instanciate for invalid parameters', () => {
@@ -13,5 +13,10 @@ describe(TpError.name, () => {
 		});
 
 		assert.strictEqual(e.type, 'invalidparams');
+	});
+
+	it('should use message for toString()', () => {
+		const e = TpError.shouldNeverHappen();
+		assert.strictEqual(e.message, e.toString());
 	});
 });

@@ -1,17 +1,17 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {InputBindingController} from '../blade/input-binding/controller/input-binding';
-import {BindingTarget} from '../common/binding/target';
-import {Controller} from '../common/controller/controller';
-import {stringFromUnknown} from '../common/converter/string';
-import {Value} from '../common/model/value';
-import {ViewProps} from '../common/model/view-props';
-import {BaseInputParams} from '../common/params';
-import {writePrimitive} from '../common/primitive';
-import {View} from '../common/view/view';
-import {createTestWindow} from '../misc/dom-test-util';
-import {createInputBindingController, InputBindingPlugin} from './plugin';
+import {InputBindingController} from '../blade/binding/controller/input-binding.js';
+import {BindingTarget} from '../common/binding/target.js';
+import {ValueController} from '../common/controller/value.js';
+import {stringFromUnknown} from '../common/converter/string.js';
+import {Value} from '../common/model/value.js';
+import {ViewProps} from '../common/model/view-props.js';
+import {BaseInputParams} from '../common/params.js';
+import {writePrimitive} from '../common/primitive.js';
+import {View} from '../common/view/view.js';
+import {createTestWindow} from '../misc/dom-test-util.js';
+import {createInputBindingController, InputBindingPlugin} from './plugin.js';
 
 class TestView implements View {
 	public readonly element: HTMLElement;
@@ -21,7 +21,7 @@ class TestView implements View {
 	}
 }
 
-class TestController implements Controller<TestView> {
+class TestController implements ValueController<string, TestView> {
 	public readonly value: Value<string>;
 	public readonly view: TestView;
 	public readonly viewProps: ViewProps;
@@ -69,8 +69,9 @@ describe(createInputBindingController.name, () => {
 			target: new BindingTarget({foo: 'bar'}, 'foo'),
 		});
 
-		assert.strictEqual(bc?.viewProps.get('disabled'), false);
-		assert.strictEqual(bc?.viewProps.get('hidden'), false);
+		assert.strictEqual(bc?.viewProps.get('disabled'), false, 'disabled');
+		assert.strictEqual(bc?.viewProps.get('disposed'), false, 'disposed');
+		assert.strictEqual(bc?.viewProps.get('hidden'), false, 'hidden');
 	});
 
 	it('should apply initial state', () => {
@@ -81,11 +82,11 @@ describe(createInputBindingController.name, () => {
 				hidden: true,
 			},
 			target: new BindingTarget({foo: 'bar'}, 'foo'),
-		});
+		}) as InputBindingController;
 
-		assert.strictEqual(bc?.props.get('label'), 'foo');
-		assert.strictEqual(bc?.viewProps.get('disabled'), true);
-		assert.strictEqual(bc?.viewProps.get('hidden'), true);
+		assert.strictEqual(bc.labelController.props.get('label'), 'foo');
+		assert.strictEqual(bc.viewProps.get('disabled'), true);
+		assert.strictEqual(bc.viewProps.get('hidden'), true);
 	});
 
 	it('should be able to handle disposing from plugin', () => {
@@ -95,7 +96,6 @@ describe(createInputBindingController.name, () => {
 			target: new BindingTarget({foo: 'bar'}, 'foo'),
 		});
 		const c = bc?.valueController as TestController;
-		assert.strictEqual(c.disposed, false);
 		bc?.viewProps.set('disposed', true);
 		assert.strictEqual(c.disposed, true);
 	});
@@ -107,8 +107,8 @@ describe(createInputBindingController.name, () => {
 				label: null,
 			},
 			target: new BindingTarget({foo: 'bar'}, 'foo'),
-		}) as InputBindingController<unknown>;
+		}) as InputBindingController;
 
-		assert.strictEqual(bc.props.get('label'), null);
+		assert.strictEqual(bc.labelController.props.get('label'), null);
 	});
 });

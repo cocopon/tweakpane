@@ -1,6 +1,6 @@
 import {Pane} from 'tweakpane';
 
-import {selectContainer, wave} from '../util';
+import {selectContainer, wave} from '../util.js';
 
 export function initMisc() {
 	const IMEX_PARAMS = {
@@ -29,18 +29,19 @@ export function initMisc() {
 			const consolePane = new Pane({
 				container: consoleElem,
 			});
-			consolePane.addMonitor(PARAMS, 'log', {
+			consolePane.addBinding(PARAMS, 'log', {
 				bufferSize: 10,
 				interval: 0,
 				label: 'console',
-				lineCount: 5,
+				readonly: true,
+				rows: 5,
 			});
 
 			const pane = new Pane({
 				container: container,
 			});
 			pane
-				.addInput(PARAMS, 'value', {
+				.addBinding(PARAMS, 'value', {
 					max: 100,
 					min: 0,
 				})
@@ -73,27 +74,28 @@ export function initMisc() {
 			const consolePane = new Pane({
 				container: consoleElem,
 			});
-			consolePane.addMonitor(PARAMS, 'log', {
+			consolePane.addBinding(PARAMS, 'log', {
 				bufferSize: 10,
 				interval: 0,
 				label: 'console',
-				lineCount: 5,
+				readonly: true,
+				rows: 5,
 			});
 
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'boolean');
-			pane.addInput(PARAMS, 'color');
+			pane.addBinding(PARAMS, 'boolean');
+			pane.addBinding(PARAMS, 'color');
 			const f = pane.addFolder({
 				title: 'Folder',
 			});
-			f.addInput(PARAMS, 'number', {
+			f.addBinding(PARAMS, 'number', {
 				max: 100,
 				min: 0,
 			});
-			f.addInput(PARAMS, 'point2d');
-			f.addInput(PARAMS, 'string');
+			f.addBinding(PARAMS, 'point2d');
+			f.addBinding(PARAMS, 'string');
 			pane.on('change', (ev) => {
 				const v =
 					typeof ev.value === 'number'
@@ -113,29 +115,30 @@ export function initMisc() {
 			const consolePane = new Pane({
 				container: consoleElem,
 			});
-			consolePane.addMonitor(IMEX_LOG, 'log', {
-				label: 'preset',
-				lineCount: 5,
+			consolePane.addBinding(IMEX_LOG, 'log', {
+				label: 'state',
 				multiline: true,
+				readonly: true,
+				rows: 5,
 			});
 
 			const pane = new Pane({
 				container: container,
+				title: 'Values',
 			});
-			pane.addInput(IMEX_PARAMS, 'name');
-			pane.addInput(IMEX_PARAMS, 'size', {
+			pane.addBinding(IMEX_PARAMS, 'name');
+			pane.addBinding(IMEX_PARAMS, 'size', {
 				max: 100,
 				min: 0,
 			});
-			pane.addInput(IMEX_PARAMS, 'color');
+			pane.addBinding(IMEX_PARAMS, 'color');
 
-			const updatePreset = () => {
-				const preset = pane.exportPreset();
-				IMEX_LOG.log = JSON.stringify(preset, null, 2);
+			const updateStateLog = () => {
+				IMEX_LOG.log = JSON.stringify(pane.exportState(), null, 2);
 			};
 
-			pane.on('change', updatePreset);
-			updatePreset();
+			pane.on('change', updateStateLog);
+			updateStateLog();
 		},
 
 		import: (container) => {
@@ -147,10 +150,11 @@ export function initMisc() {
 			const consolePane = new Pane({
 				container: consoleElem,
 			});
-			consolePane.addMonitor(IMEX_LOG, 'log', {
-				label: 'preset',
-				lineCount: 5,
+			consolePane.addBinding(IMEX_LOG, 'log', {
+				label: 'state',
 				multiline: true,
+				readonly: true,
+				rows: 5,
 			});
 
 			const PARAMS = {
@@ -162,63 +166,18 @@ export function initMisc() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane
-				.addButton({
-					label: 'preset',
-					title: 'Import',
-				})
-				.on('click', () => {
-					pane.importPreset(IMEX_PARAMS);
-				});
-			pane.addSeparator();
-			pane.addInput(PARAMS, 'name');
-			pane.addInput(PARAMS, 'size');
-			pane.addInput(PARAMS, 'color');
-		},
-
-		presetkey: (container) => {
-			const consoleElem = selectContainer('presetkeyconsole');
-			if (!consoleElem) {
-				return;
-			}
-
-			const PARAMS = {
-				foo: {speed: 1 / 3},
-				bar: {speed: 2 / 3},
-				preset: '',
-			};
-
-			const consolePane = new Pane({
-				container: consoleElem,
+			const b = pane.addButton({
+				label: 'state',
+				title: 'Import',
 			});
-			consolePane.addMonitor(PARAMS, 'preset', {
-				interval: 0,
-				label: 'preset',
-				lineCount: 4,
-				multiline: true,
-			});
+			const f = pane.addFolder({title: 'Values'});
+			f.addBinding(PARAMS, 'name');
+			f.addBinding(PARAMS, 'size');
+			f.addBinding(PARAMS, 'color');
 
-			const pane = new Pane({
-				container: container,
+			b.on('click', () => {
+				f.importState(JSON.parse(IMEX_LOG.log));
 			});
-			pane.addInput(PARAMS.foo, 'speed', {
-				max: 1,
-				min: 0,
-			});
-			pane.addInput(PARAMS.bar, 'speed', {
-				max: 1,
-				min: 0,
-				presetKey: 'speed2',
-			});
-
-			const updatePreset = () => {
-				const preset = pane.exportPreset();
-				PARAMS.preset = JSON.stringify(preset, null, 2);
-				consolePane.refresh();
-			};
-
-			pane.on('change', updatePreset);
-			updatePreset();
 		},
 
 		label: (container) => {
@@ -229,10 +188,10 @@ export function initMisc() {
 			const pane = new Pane({
 				container: container,
 			});
-			pane.addInput(PARAMS, 'initSpd', {
+			pane.addBinding(PARAMS, 'initSpd', {
 				label: 'Initial speed',
 			});
-			pane.addInput(PARAMS, 'size', {
+			pane.addBinding(PARAMS, 'size', {
 				label: 'Force field\nradius',
 			});
 		},
@@ -255,7 +214,7 @@ export function initMisc() {
 			});
 
 			const f = pane.addFolder({title: 'Advanced'});
-			f.addInput(PARAMS, 'seed');
+			f.addBinding(PARAMS, 'seed');
 
 			pane
 				.addButton({
@@ -283,12 +242,13 @@ export function initMisc() {
 				container: container,
 			});
 
-			pane.addSeparator();
-			const i = pane.addInput(PARAMS, 'input', {
+			pane.addBlade({view: 'separator'});
+			const i = pane.addBinding(PARAMS, 'input', {
 				disabled: true,
 			});
-			const m = pane.addMonitor(PARAMS, 'monitor', {
+			const m = pane.addBinding(PARAMS, 'monitor', {
 				disabled: true,
+				readonly: true,
 			});
 			const btn = pane.addButton({
 				disabled: true,

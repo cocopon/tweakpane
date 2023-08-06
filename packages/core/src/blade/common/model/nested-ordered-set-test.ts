@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {NestedOrderedSet} from './nested-ordered-set';
+import {NestedOrderedSet} from './nested-ordered-set.js';
 
 class Item {
 	public readonly id: string;
@@ -163,16 +163,15 @@ describe(NestedOrderedSet.name, () => {
 
 	it('should find item', () => {
 		const s = new NestedOrderedSet(extractor);
-
 		s.add(new Item('foo'));
 		const ibar = new Item('bar');
 		s.add(ibar);
 		s.add(new Item('baz'));
+
 		assert.strictEqual(
 			s.find((i) => i.id === 'bar'),
 			ibar,
 		);
-
 		assert.strictEqual(
 			s.find((i) => i.id === 'qux'),
 			null,
@@ -181,9 +180,7 @@ describe(NestedOrderedSet.name, () => {
 
 	it('should find item (nested)', () => {
 		const s = new NestedOrderedSet(extractor);
-
 		s.add(new Item('foo'));
-
 		const icon = new ContainerItem(
 			'container',
 			new NestedOrderedSet(extractor),
@@ -192,9 +189,25 @@ describe(NestedOrderedSet.name, () => {
 		icon.subitems.add(ibar);
 		s.add(icon);
 		s.add(new Item('baz'));
+
 		assert.strictEqual(
 			s.find((i) => i.id === 'bar'),
 			ibar,
+		);
+	});
+
+	it('should not find child for removed container', () => {
+		const cs = new NestedOrderedSet(extractor);
+		const icon = new ContainerItem('container', cs);
+		icon.subitems.add(new Item('foo'));
+
+		const s = new NestedOrderedSet(extractor);
+		s.add(icon);
+		s.remove(icon);
+
+		assert.strictEqual(
+			s.find((i) => i.id === 'foo'),
+			null,
 		);
 	});
 });

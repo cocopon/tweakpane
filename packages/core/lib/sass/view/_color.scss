@@ -1,4 +1,6 @@
-.#{$prefix}-colv {
+@use '../tp';
+
+.#{tp.$prefix}-colv {
 	position: relative;
 
 	&_h {
@@ -7,7 +9,7 @@
 	&_s {
 		flex-grow: 0;
 		flex-shrink: 0;
-		width: var(--bld-us);
+		width: tp.cssVar('container-unit-size');
 	}
 	&_t {
 		flex: 1;
@@ -18,21 +20,21 @@
 		margin-top: 0;
 		opacity: 0;
 		overflow: hidden;
-		transition: height $fold-transition-duration ease-in-out,
-			opacity $fold-transition-duration linear,
-			margin $fold-transition-duration ease-in-out;
+		transition: height tp.$fold-transition-duration ease-in-out,
+			opacity tp.$fold-transition-duration linear,
+			margin tp.$fold-transition-duration ease-in-out;
 	}
 	&#{&}-expanded#{&}-cpl &_p {
 		overflow: visible;
 	}
 	&#{&}-expanded &_p {
-		margin-top: var(--bld-s);
+		margin-top: tp.cssVar('container-unit-spacing');
 		opacity: 1;
 	}
 
-	.#{$prefix}-popv {
-		left: calc(-1 * var(--cnt-h-p));
-		right: calc(-1 * var(--cnt-h-p));
-		top: var(--bld-us);
+	.#{tp.$prefix}-popv {
+		left: calc(-1 * #{tp.cssVar('container-h-padding')});
+		right: calc(-1 * #{tp.cssVar('container-h-padding')});
+		top: tp.cssVar('container-unit-size');
 	}
 }

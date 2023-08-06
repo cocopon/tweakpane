@@ -4,7 +4,8 @@
 	--bg-color: white;
 	--bg-color-translucent: #{rgba(white, 0.9)};
 	--bg-color-secondary: #{hsl(defs.$base-hue, 7%, 95%)};
-	--bg-color-secondary-action: #{hsl(defs.$base-hue, 7%, 93%)};
+	--bg-color-action: #{hsl(defs.$base-hue, 7%, 95%)};
+	--bg-color-action-active: #{hsl(defs.$base-hue, 7%, 93%)};
 	--fg-color: #{hsl(defs.$base-hue, 5%, 35%)};
 	--fg-color-action: #{hsla(defs.$base-hue, 5%, 35%, 0.8)};
 	--fg-color-secondary: #{hsla(defs.$base-hue, 5%, 35%, 0.7)};
@@ -15,28 +16,29 @@
 	--heading-color: #{hsl(defs.$base-hue, 5%, 20%)};
 
 	--hl-comment: #{hsl(defs.$base-hue, 7%, 60%)};
+	--hl-constant: var(--hl-string);
 	--hl-keyword: #{hsl(225, 40%, 47%)};
-	--hl-constant: #{hsl(340, 35%, 55%)};
 	--hl-string: #{hsl(defs.$base-hue, 15%, 50%)};
 
 	@media (prefers-color-scheme: dark) {
-		--bg-color: #{hsl(defs.$base-hue, 5%, 10%)};
+		--bg-color: #{hsl(defs.$base-hue, 7%, 17%)};
 		--bg-color-translucent: #{rgba(black, 0.9)};
-		--bg-color-secondary: #{hsl(defs.$base-hue, 5%, 12%)};
-		--bg-color-secondary-action: #{hsl(defs.$base-hue, 5%, 14%)};
-		--fg-color: #{hsl(defs.$base-hue, 5%, 60%)};
-		--fg-color-action: #{hsl(defs.$base-hue, 5%, 65%)};
-		--fg-color-secondary: #{hsla(defs.$base-hue, 5%, 60%, 0.8)};
+		--bg-color-secondary: #{hsl(defs.$base-hue, 7%, 10%)};
+		--bg-color-action: #{hsl(defs.$base-hue, 7%, 22%)};
+		--bg-color-action-active: #{hsl(defs.$base-hue, 7%, 25%)};
+		--fg-color: #{hsl(defs.$base-hue, 7%, 75%)};
+		--fg-color-action: #{hsl(defs.$base-hue, 7%, 80%)};
+		--fg-color-secondary: #{hsla(defs.$base-hue, 7%, 75%, 0.8)};
 
-		--a-color: #{hsl(defs.$base-hue - 10, 25%, 55%)};
-		--code-color: #{hsl(170, 25%, 55%)};
+		--a-color: #{hsl(defs.$base-hue - 10, 40%, 60%)};
+		--code-color: #{hsl(170, 20%, 55%)};
 		--guide-color-comps: #{defs.$base-hue, 5%, 80%};
-		--heading-color: #{hsl(defs.$base-hue, 5%, 70%)};
+		--heading-color: #{hsl(defs.$base-hue, 7%, 75%)};
 
 		--hl-comment: #{hsl(defs.$base-hue, 7%, 40%)};
-		--hl-keyword: #{hsl(220, 25%, 55%)};
-		--hl-constant: #{hsl(340, 15%, 55%)};
-		--hl-string: #{hsl(170, 12%, 50%)};
+		--hl-constant: var(--hl-string);
+		--hl-keyword: #{hsl(220, 30%, 60%)};
+		--hl-string: #{hsl(170, 20%, 60%)};
 	}
 }
 
@@ -44,6 +46,10 @@ html {
 	color: var(--fg-color);
 	font-family: defs.$font-family;
 	font-size: 16px;
+
+	@media (prefers-color-scheme: dark) {
+		color-scheme: dark;
+	}
 }
 body {
 	background-color: var(--bg-color);
@@ -59,11 +65,56 @@ h6 {
 	letter-spacing: 0.01em;
 
 	a {
+		color: var(--heading-color);
 		text-decoration: none;
 
 		&:hover {
 			text-decoration: underline;
 		}
+	}
+
+	.material-icons {
+		position: relative;
+		text-decoration: none;
+		vertical-align: bottom;
+
+		&:hover {
+			opacity: 0.75;
+		}
+
+		@include defs.wide() {
+			top: -3px;
+		}
+		@include defs.nonwide() {
+			top: -1px;
+		}
+	}
+}
+table {
+	border: var(--bg-color-secondary) solid 2px;
+	border-collapse: separate;
+	border-radius: 6px;
+	border-spacing: 0;
+	width: 100%;
+}
+th {
+	background-color: var(--bg-color-secondary);
+	color: var(--heading-color);
+	font-weight: normal;
+	text-align: start;
+}
+th,
+td {
+	padding: 8px 16px;
+
+	&:not(:first-child) {
+		border-left: var(--bg-color-secondary) solid 2px;
+	}
+}
+tr:not(:first-child) {
+	th,
+	td {
+		border-top: var(--bg-color-secondary) solid 2px;
 	}
 }
 p + p {
@@ -77,6 +128,11 @@ pre {
 }
 strong {
 	color: var(---heading-color);
+	filter: brightness(0.9) saturate(1.2);
+
+	@media (prefers-color-scheme: dark) {
+		filter: brightness(1.1) saturate(1.1);
+	}
 }
 
 :root .tp-dfwv {

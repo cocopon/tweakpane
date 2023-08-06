@@ -10,6 +10,9 @@
 		@include defs.nonwide() {
 			height: defs.$global-header-height;
 		}
+		@media print {
+			display: none;
+		}
 	}
 	&_wrap {
 		@include defs.responsiveContainer();
@@ -27,6 +30,9 @@
 		@include defs.nonwide() {
 			margin-right: 0;
 			width: 0;
+		}
+		@media print {
+			display: none;
 		}
 	}
 	&_main {
@@ -75,7 +81,7 @@
 		}
 	}
 	&_media {
-		margin-bottom: 1em;
-		margin-top: 1em;
+		margin-bottom: 1.5em;
+		margin-top: 1.5em;
 	}
 }

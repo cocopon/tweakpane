@@ -1,15 +1,15 @@
-import {Value} from '../../../common/model/value';
-import {ViewProps} from '../../../common/model/view-props';
-import {mapRange} from '../../../common/number-util';
-import {ClassName} from '../../../common/view/class-name';
-import {View} from '../../../common/view/view';
-import {colorToFunctionalRgbString} from '../converter/color-string';
-import {Color} from '../model/color';
+import {Value} from '../../../common/model/value.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {mapRange} from '../../../common/number/util.js';
+import {ClassName} from '../../../common/view/class-name.js';
+import {View} from '../../../common/view/view.js';
+import {colorToFunctionalRgbString} from '../converter/color-string.js';
+import {IntColor} from '../model/int-color.js';
 
-const className = ClassName('hpl');
+const cn = ClassName('hpl');
 
 interface Config {
-	value: Value<Color>;
+	value: Value<IntColor>;
 	viewProps: ViewProps;
 }
 
@@ -18,7 +18,7 @@ interface Config {
  */
 export class HPaletteView implements View {
 	public readonly element: HTMLElement;
-	public readonly value: Value<Color>;
+	public readonly value: Value<IntColor>;
 	private readonly markerElem_: HTMLDivElement;
 
 	constructor(doc: Document, config: Config) {
@@ -28,16 +28,16 @@ export class HPaletteView implements View {
 		this.value.emitter.on('change', this.onValueChange_);
 
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 		config.viewProps.bindTabIndex(this.element);
 
 		const colorElem = doc.createElement('div');
-		colorElem.classList.add(className('c'));
+		colorElem.classList.add(cn('c'));
 		this.element.appendChild(colorElem);
 
 		const markerElem = doc.createElement('div');
-		markerElem.classList.add(className('m'));
+		markerElem.classList.add(cn('m'));
 		this.element.appendChild(markerElem);
 		this.markerElem_ = markerElem;
 
@@ -48,7 +48,7 @@ export class HPaletteView implements View {
 		const c = this.value.rawValue;
 		const [h] = c.getComponents('hsv');
 		this.markerElem_.style.backgroundColor = colorToFunctionalRgbString(
-			new Color([h, 100, 100], 'hsv'),
+			new IntColor([h, 100, 100], 'hsv'),
 		);
 		const left = mapRange(h, 0, 360, 0, 100);
 		this.markerElem_.style.left = `${left}%`;

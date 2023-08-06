@@ -1,35 +1,37 @@
-import {DefiniteRangeConstraint} from '../../../common/constraint/definite-range';
-import {Controller} from '../../../common/controller/controller';
+import {DefiniteRangeConstraint} from '../../../common/constraint/definite-range.js';
+import {ValueController} from '../../../common/controller/value.js';
 import {
 	createNumberFormatter,
 	parseNumber,
-} from '../../../common/converter/number';
-import {Value} from '../../../common/model/value';
-import {ValueMap} from '../../../common/model/value-map';
-import {connectValues} from '../../../common/model/value-sync';
-import {createValue} from '../../../common/model/values';
-import {ViewProps} from '../../../common/model/view-props';
-import {NumberTextController} from '../../../common/number/controller/number-text';
-import {Color} from '../model/color';
-import {ColorType} from '../model/color-model';
-import {ColorPickerView} from '../view/color-picker';
-import {APaletteController} from './a-palette';
-import {ColorTextController} from './color-text';
-import {HPaletteController} from './h-palette';
-import {SvPaletteController} from './sv-palette';
+} from '../../../common/converter/number.js';
+import {Value} from '../../../common/model/value.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {connectValues} from '../../../common/model/value-sync.js';
+import {createValue} from '../../../common/model/values.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {NumberTextController} from '../../../common/number/controller/number-text.js';
+import {ColorType} from '../model/color-model.js';
+import {IntColor} from '../model/int-color.js';
+import {ColorPickerView} from '../view/color-picker.js';
+import {APaletteController} from './a-palette.js';
+import {ColorTextsController} from './color-texts.js';
+import {HPaletteController} from './h-palette.js';
+import {SvPaletteController} from './sv-palette.js';
 
 interface Config {
 	colorType: ColorType;
 	supportsAlpha: boolean;
-	value: Value<Color>;
+	value: Value<IntColor>;
 	viewProps: ViewProps;
 }
 
 /**
  * @hidden
  */
-export class ColorPickerController implements Controller<ColorPickerView> {
-	public readonly value: Value<Color>;
+export class ColorPickerController
+	implements ValueController<IntColor, ColorPickerView>
+{
+	public readonly value: Value<IntColor>;
 	public readonly view: ColorPickerView;
 	public readonly viewProps: ViewProps;
 	private readonly alphaIcs_: {
@@ -38,7 +40,7 @@ export class ColorPickerController implements Controller<ColorPickerView> {
 	} | null;
 	private readonly hPaletteC_: HPaletteController;
 	private readonly svPaletteC_: SvPaletteController;
-	private readonly textC_: ColorTextController;
+	private readonly textsC_: ColorTextsController;
 
 	constructor(doc: Document, config: Config) {
 		this.value = config.value;
@@ -60,9 +62,9 @@ export class ColorPickerController implements Controller<ColorPickerView> {
 					}),
 					text: new NumberTextController(doc, {
 						parser: parseNumber,
-						baseStep: 0.1,
 						props: ValueMap.fromObject({
-							draggingScale: 0.01,
+							pointerScale: 0.01,
+							keyScale: 0.1,
 							formatter: createNumberFormatter(2),
 						}),
 						value: createValue(0, {
@@ -76,19 +78,16 @@ export class ColorPickerController implements Controller<ColorPickerView> {
 			connectValues({
 				primary: this.value,
 				secondary: this.alphaIcs_.text.value,
-				forward: (p) => {
-					return p.rawValue.getComponents()[3];
-				},
+				forward: (p) => p.getComponents()[3],
 				backward: (p, s) => {
-					const comps = p.rawValue.getComponents();
-					comps[3] = s.rawValue;
-					return new Color(comps, p.rawValue.mode);
+					const comps = p.getComponents();
+					comps[3] = s;
+					return new IntColor(comps, p.mode);
 				},
 			});
 		}
-		this.textC_ = new ColorTextController(doc, {
+		this.textsC_ = new ColorTextsController(doc, {
 			colorType: config.colorType,
-			parser: parseNumber,
 			value: this.value,
 			viewProps: this.viewProps,
 		});
@@ -103,12 +102,12 @@ export class ColorPickerController implements Controller<ColorPickerView> {
 			hPaletteView: this.hPaletteC_.view,
 			supportsAlpha: config.supportsAlpha,
 			svPaletteView: this.svPaletteC_.view,
-			textView: this.textC_.view,
+			textsView: this.textsC_.view,
 			viewProps: this.viewProps,
 		});
 	}
 
-	get textController(): ColorTextController {
-		return this.textC_;
+	get textsController(): ColorTextsController {
+		return this.textsC_;
 	}
 }

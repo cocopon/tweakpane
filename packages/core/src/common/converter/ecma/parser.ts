@@ -3,8 +3,8 @@ import {
 	Evaluable,
 	NumberLiteralNode,
 	UnaryOperationNode,
-} from './nodes';
-import {readNumericLiteral, readWhitespace} from './reader';
+} from './nodes.js';
+import {readNumericLiteral, readWhitespace} from './reader.js';
 
 interface ParsingResult {
 	cursor: number;

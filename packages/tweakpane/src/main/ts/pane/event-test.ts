@@ -1,7 +1,7 @@
 import {describe, it} from 'mocha';
 
-import {createTestWindow} from '../misc/test-util';
-import {Pane} from './pane';
+import {createTestWindow} from '../misc/test-util.js';
+import {Pane} from './pane.js';
 
 function createPane(): Pane {
 	return new Pane({
@@ -17,7 +17,7 @@ describe(Pane.name, () => {
 			done();
 		});
 
-		const folder = pane.controller_.foldable;
+		const folder = pane.controller.foldable;
 		if (folder) {
 			folder.set('expanded', false);
 		}

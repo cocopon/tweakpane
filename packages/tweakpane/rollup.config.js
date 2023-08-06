@@ -19,7 +19,7 @@ async function compileCss() {
 	const result = await Postcss([Autoprefixer]).process(css, {
 		from: undefined,
 	});
-	return result.css.replace(/'/g, "\\'").trim();
+	return result.css.replace(/\n/g, '').replace(/'/g, "\\'").trim();
 }
 
 function getPlugins(css, shouldMinify) {
@@ -28,7 +28,7 @@ function getPlugins(css, shouldMinify) {
 			entries: [
 				{
 					find: '@tweakpane/core',
-					replacement: '../../node_modules/@tweakpane/core/dist/es6/index.js',
+					replacement: '../../node_modules/@tweakpane/core/dist/index.js',
 				},
 			],
 		}),
@@ -40,7 +40,7 @@ function getPlugins(css, shouldMinify) {
 		}),
 		Replace({
 			__css__: css,
-			'3.14.16': Package.version,
+			'0.0.0-tweakpane.0': Package.version,
 			preventAssignment: true,
 		}),
 	];
@@ -67,7 +67,7 @@ export default async () => {
 		output: {
 			banner: `/*! Tweakpane ${Package.version} (c) 2016 cocopon, licensed under the MIT license. */`,
 			file: `docs/assets/tweakpane${postfix}.js`,
-			format: 'umd',
+			format: 'esm',
 			name: 'Tweakpane',
 		},
 		plugins: getPlugins(css, production),

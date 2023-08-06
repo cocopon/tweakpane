@@ -1,13 +1,13 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
-import {TestUtil} from '../../../misc/test-util';
-import {Color} from '../model/color';
+import {TestUtil} from '../../../misc/test-util.js';
 import {
 	ColorComponents3,
 	ColorComponents4,
 	ColorMode,
-} from '../model/color-model';
+} from '../model/color-model.js';
+import {IntColor} from '../model/int-color.js';
 import {
 	colorToFunctionalHslaString,
 	colorToFunctionalHslString,
@@ -16,10 +16,9 @@ import {
 	colorToHexRgbaString,
 	colorToHexRgbString,
 	colorToObjectRgbString,
-	createColorStringBindingReader,
 	createColorStringParser,
-	getColorNotation,
-} from './color-string';
+	readIntColorString,
+} from './color-string.js';
 
 const DELTA = 1e-5;
 
@@ -79,34 +78,6 @@ describe(createColorStringParser.name, () => {
 	].forEach((text) => {
 		it(`should not parse invalid string '${text}'`, () => {
 			assert.strictEqual(createColorStringParser('int')(text), null);
-		});
-	});
-
-	[
-		{
-			expected: 'hex.rgb',
-			input: '0x009aff',
-		},
-		{
-			expected: 'hex.rgb',
-			input: '#009aff',
-		},
-		{
-			expected: 'func.rgb',
-			input: 'rgb(17,34,51)',
-		},
-		{
-			expected: null,
-			input: 'foobar',
-		},
-	].forEach((testCase) => {
-		context(`when ${JSON.stringify(testCase.input)}`, () => {
-			it(`it should detect notation as ${JSON.stringify(
-				testCase.expected,
-			)}`, () => {
-				const actual = getColorNotation(testCase.input);
-				assert.deepStrictEqual(actual, testCase.expected);
-			});
 		});
 	});
 
@@ -208,32 +179,24 @@ describe(createColorStringParser.name, () => {
 		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
 			it('should convert string to color', () => {
 				assert.deepStrictEqual(
-					createColorStringBindingReader('int')(testCase.input).toRgbaObject(),
+					readIntColorString(testCase.input).toRgbaObject(),
 					testCase.expected,
 				);
 			});
 		});
 	});
 
-	it('should format color with specified stringifier', () => {
-		const stringifier = (color: Color): string => {
-			return String(color);
-		};
-		const c = new Color([0, 127, 255], 'rgb');
-		assert.strictEqual(stringifier(c), stringifier(c));
-	});
-
 	[
 		{
-			input: new Color([0, 0, 0], 'rgb'),
+			input: new IntColor([0, 0, 0], 'rgb'),
 			expected: '#000000',
 		},
 		{
-			input: new Color([0, 127, 255], 'rgb'),
+			input: new IntColor([0, 127, 255], 'rgb'),
 			expected: '#007fff',
 		},
 		{
-			input: new Color([255, 255, 255], 'rgb'),
+			input: new IntColor([255, 255, 255], 'rgb'),
 			expected: '#ffffff',
 		},
 	].forEach((testCase) => {
@@ -249,17 +212,17 @@ describe(createColorStringParser.name, () => {
 
 	[
 		{
-			input: new Color([0, 0, 0, 1], 'rgb'),
+			input: new IntColor([0, 0, 0, 1], 'rgb'),
 			frgba: 'rgba(0, 0, 0, 1.00)',
 			number: 0x000000ff,
 		},
 		{
-			input: new Color([0, 127, 255, 0.5], 'rgb'),
+			input: new IntColor([0, 127, 255, 0.5], 'rgb'),
 			frgba: 'rgba(0, 127, 255, 0.50)',
 			number: 0x007fff7f,
 		},
 		{
-			input: new Color([255, 255, 255, 0], 'rgb'),
+			input: new IntColor([255, 255, 255, 0], 'rgb'),
 			frgba: 'rgba(255, 255, 255, 0.00)',
 			number: 0xffffff00,
 		},
@@ -276,55 +239,22 @@ describe(createColorStringParser.name, () => {
 
 	[
 		{
-			input: new Color([0, 0, 0], 'rgb'),
-			expected: {
-				int: 'rgb(0, 0, 0)',
-				float: 'rgb(0.00, 0.00, 0.00)',
-			},
+			input: new IntColor([0, 0, 0], 'rgb'),
+			expected: 'rgb(0, 0, 0)',
 		},
 		{
-			input: new Color([0, 127, 255], 'rgb'),
-			expected: {
-				int: 'rgb(0, 127, 255)',
-				float: 'rgb(0.00, 0.50, 1.00)',
-			},
+			input: new IntColor([0, 127, 255], 'rgb'),
+			expected: 'rgb(0, 127, 255)',
 		},
 		{
-			input: new Color([255, 255, 255], 'rgb'),
-			expected: {
-				int: 'rgb(255, 255, 255)',
-				float: 'rgb(1.00, 1.00, 1.00)',
-			},
+			input: new IntColor([255, 255, 255], 'rgb'),
+			expected: 'rgb(255, 255, 255)',
 		},
 	].forEach((testCase) => {
 		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
 			it('should convert color to RGB string', () => {
 				assert.strictEqual(
 					colorToFunctionalRgbString(testCase.input),
-					testCase.expected.int,
-				);
-				assert.strictEqual(
-					colorToFunctionalRgbString(testCase.input, 'float'),
-					testCase.expected.float,
-				);
-			});
-		});
-	});
-
-	[
-		{
-			input: new Color([0, 0, 0, 1], 'rgb', 'int'),
-			expected: 'rgba(0.00, 0.00, 0.00, 1.00)',
-		},
-		{
-			input: new Color([0, 127, 255, 1], 'rgb', 'int'),
-			expected: 'rgba(0.00, 0.50, 1.00, 1.00)',
-		},
-	].forEach((testCase) => {
-		context(`when input = ${JSON.stringify(testCase.input)}`, () => {
-			it('should convert color to float RGBA string', () => {
-				assert.strictEqual(
-					colorToFunctionalRgbaString(testCase.input, 'float'),
 					testCase.expected,
 				);
 			});
@@ -333,14 +263,14 @@ describe(createColorStringParser.name, () => {
 
 	[
 		{
-			input: new Color([0, 0, 0], 'rgb', 'int'),
+			input: new IntColor([0, 0, 0], 'rgb'),
 			expected: {
 				int: '{r: 0, g: 0, b: 0}',
 				float: '{r: 0.00, g: 0.00, b: 0.00}',
 			},
 		},
 		{
-			input: new Color([0, 127, 255], 'rgb', 'int'),
+			input: new IntColor([0, 127, 255], 'rgb'),
 			expected: {
 				int: '{r: 0, g: 127, b: 255}',
 				float: '{r: 0.00, g: 0.50, b: 1.00}',
@@ -363,21 +293,21 @@ describe(createColorStringParser.name, () => {
 
 	[
 		{
-			input: new Color([0, 0, 0], 'hsl'),
+			input: new IntColor([0, 0, 0], 'hsl'),
 			expected: {
 				hsl: 'hsl(0, 0%, 0%)',
 				hsla: 'hsla(0, 0%, 0%, 1.00)',
 			},
 		},
 		{
-			input: new Color([0, 127, 255], 'hsl'),
+			input: new IntColor([0, 127, 255], 'hsl'),
 			expected: {
 				hsl: 'hsl(0, 100%, 100%)',
 				hsla: 'hsla(0, 100%, 100%, 1.00)',
 			},
 		},
 		{
-			input: new Color([255, 11, 22], 'hsl'),
+			input: new IntColor([255, 11, 22], 'hsl'),
 			expected: {
 				hsl: 'hsl(255, 11%, 22%)',
 				hsla: 'hsla(255, 11%, 22%, 1.00)',
@@ -443,7 +373,7 @@ describe(createColorStringParser.name, () => {
 	).forEach((testCase) => {
 		context(`when ${JSON.stringify(testCase.components)}`, () => {
 			it(`it should format to ${JSON.stringify(testCase.hex)}`, () => {
-				const c = new Color(testCase.components, 'rgb');
+				const c = new IntColor(testCase.components, 'rgb');
 				const f =
 					testCase.components.length === 3
 						? colorToHexRgbString
@@ -453,7 +383,7 @@ describe(createColorStringParser.name, () => {
 
 			it(`it should format to ${JSON.stringify(testCase.rgb)}`, () => {
 				const comps = testCase.components;
-				const c = new Color(comps, 'rgb');
+				const c = new IntColor(comps, 'rgb');
 
 				if (comps.length === 3) {
 					assert.strictEqual(colorToFunctionalRgbString(c), testCase.rgb);
@@ -467,7 +397,7 @@ describe(createColorStringParser.name, () => {
 	});
 
 	it('should format color with prefix', () => {
-		const c = new Color([0x12, 0x34, 0x56, 1], 'rgb');
+		const c = new IntColor([0x12, 0x34, 0x56, 1], 'rgb');
 		assert.strictEqual(colorToHexRgbString(c, '0x'), '0x123456');
 		assert.strictEqual(colorToHexRgbaString(c, '0x'), '0x123456ff');
 	});

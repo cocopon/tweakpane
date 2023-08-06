@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 @mixin checkerboard($size) {
 	$checkerboard-color-dark: #ddd;
 	$checkerboard-color-light: white;
@@ -18,5 +20,5 @@
 			$checkerboard-color-dark 75%
 		);
 	background-size: $size $size;
-	background-position: 0 0, ($size / 2) ($size / 2);
+	background-position: 0 0, math.div($size, 2) math.div($size, 2);
 }

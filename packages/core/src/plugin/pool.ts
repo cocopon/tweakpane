@@ -1,31 +1,43 @@
-import {BladeApi} from '../blade/common/api/blade';
-import {InputParams, MonitorParams} from '../blade/common/api/params';
-import {BladeController} from '../blade/common/controller/blade';
-import {InputBindingApi} from '../blade/input-binding/api/input-binding';
-import {InputBindingController} from '../blade/input-binding/controller/input-binding';
-import {MonitorBindingApi} from '../blade/monitor-binding/api/monitor-binding';
-import {MonitorBindingController} from '../blade/monitor-binding/controller/monitor-binding';
-import {BladePlugin, createBladeController} from '../blade/plugin';
-import {RackApi} from '../blade/rack/api/rack';
-import {RackController} from '../blade/rack/controller/rack';
-import {BindingTarget} from '../common/binding/target';
-import {TpError} from '../common/tp-error';
-import {View} from '../common/view/view';
+import {BindingApi} from '../blade/binding/api/binding.js';
+import {InputBindingApi} from '../blade/binding/api/input-binding.js';
+import {MonitorBindingApi} from '../blade/binding/api/monitor-binding.js';
+import {
+	BindingController,
+	isBindingController,
+} from '../blade/binding/controller/binding.js';
+import {
+	InputBindingController,
+	isInputBindingController,
+} from '../blade/binding/controller/input-binding.js';
+import {
+	isMonitorBindingController,
+	MonitorBindingController,
+} from '../blade/binding/controller/monitor-binding.js';
+import {BladeApi} from '../blade/common/api/blade.js';
+import {BindingParams} from '../blade/common/api/params.js';
+import {BladeController} from '../blade/common/controller/blade.js';
+import {BladePlugin, createBladeController} from '../blade/plugin.js';
+import {BindingTarget} from '../common/binding/target.js';
+import {isCompatible} from '../common/compat.js';
+import {TpBuffer} from '../common/model/buffered-value.js';
+import {TpError} from '../common/tp-error.js';
 import {
 	createInputBindingController,
 	InputBindingPlugin,
-} from '../input-binding/plugin';
-import {isEmpty} from '../misc/type-util';
+} from '../input-binding/plugin.js';
+import {isEmpty} from '../misc/type-util.js';
 import {
 	createMonitorBindingController,
 	MonitorBindingPlugin,
-} from '../monitor-binding/plugin';
-import {TpPlugin} from './plugins';
+} from '../monitor-binding/plugin.js';
+import {BladeApiCache} from './blade-api-cache.js';
+import {TpPlugin} from './plugins.js';
 
 /**
  * @hidden
  */
 export class PluginPool {
+	private readonly apiCache_: BladeApiCache;
 	private readonly pluginsMap_: {
 		blades: BladePlugin<any>[];
 		inputs: InputBindingPlugin<any, any, any>[];
@@ -36,6 +48,10 @@ export class PluginPool {
 		monitors: [],
 	};
 
+	constructor(apiCache: BladeApiCache) {
+		this.apiCache_ = apiCache;
+	}
+
 	public getAll(): TpPlugin[] {
 		return [
 			...this.pluginsMap_.blades,
@@ -44,7 +60,11 @@ export class PluginPool {
 		];
 	}
 
-	public register(r: TpPlugin): void {
+	public register(bundleId: string, r: TpPlugin): void {
+		if (!isCompatible(r.core)) {
+			throw TpError.notCompatible(bundleId, r.id);
+		}
+
 		if (r.type === 'blade') {
 			this.pluginsMap_.blades.unshift(r);
 		} else if (r.type === 'input') {
@@ -54,13 +74,46 @@ export class PluginPool {
 		}
 	}
 
-	public createInput(
+	private createInput_(
 		document: Document,
 		target: BindingTarget,
-		params: InputParams,
-	): InputBindingController<unknown> {
-		const initialValue = target.read();
+		params: BindingParams,
+	): InputBindingController | null {
+		return this.pluginsMap_.inputs.reduce(
+			(result: InputBindingController | null, plugin) =>
+				result ??
+				createInputBindingController(plugin, {
+					document: document,
+					target: target,
+					params: params,
+				}),
+			null,
+		);
+	}
 
+	private createMonitor_(
+		document: Document,
+		target: BindingTarget,
+		params: BindingParams,
+	): MonitorBindingController | null {
+		return this.pluginsMap_.monitors.reduce(
+			(result: MonitorBindingController | null, plugin) =>
+				result ??
+				createMonitorBindingController(plugin, {
+					document: document,
+					params: params,
+					target: target,
+				}),
+			null,
+		);
+	}
+
+	public createBinding(
+		doc: Document,
+		target: BindingTarget,
+		params: BindingParams,
+	): BindingController {
+		const initialValue = target.read();
 		if (isEmpty(initialValue)) {
 			throw new TpError({
 				context: {
@@ -70,45 +123,14 @@ export class PluginPool {
 			});
 		}
 
-		const bc = this.pluginsMap_.inputs.reduce(
-			(result: InputBindingController<unknown> | null, plugin) =>
-				result ??
-				createInputBindingController(plugin, {
-					document: document,
-					target: target,
-					params: params,
-				}),
-			null,
-		);
-		if (bc) {
-			return bc;
+		const ic = this.createInput_(doc, target, params);
+		if (ic) {
+			return ic;
 		}
 
-		throw new TpError({
-			context: {
-				key: target.key,
-			},
-			type: 'nomatchingcontroller',
-		});
-	}
-
-	public createMonitor(
-		document: Document,
-		target: BindingTarget,
-		params: MonitorParams,
-	): MonitorBindingController<unknown> {
-		const bc = this.pluginsMap_.monitors.reduce(
-			(result: MonitorBindingController<unknown> | null, plugin) =>
-				result ??
-				createMonitorBindingController(plugin, {
-					document: document,
-					params: params,
-					target: target,
-				}),
-			null,
-		);
-		if (bc) {
-			return bc;
+		const mc = this.createMonitor_(doc, target, params);
+		if (mc) {
+			return mc as BindingController;
 		}
 
 		throw new TpError({
@@ -122,9 +144,9 @@ export class PluginPool {
 	public createBlade(
 		document: Document,
 		params: Record<string, unknown>,
-	): BladeController<View> {
+	): BladeController {
 		const bc = this.pluginsMap_.blades.reduce(
-			(result: BladeController<View> | null, plugin) =>
+			(result: BladeController | null, plugin) =>
 				result ??
 				createBladeController(plugin, {
 					document: document,
@@ -143,21 +165,77 @@ export class PluginPool {
 		return bc;
 	}
 
-	public createBladeApi(
-		bc: BladeController<View>,
-	): BladeApi<BladeController<View>> {
-		if (bc instanceof InputBindingController) {
-			return new InputBindingApi(bc);
+	private createInputBindingApi_(bc: InputBindingController): InputBindingApi {
+		const api = this.pluginsMap_.inputs.reduce(
+			(result: InputBindingApi | null, plugin) => {
+				if (result) {
+					return result;
+				}
+				return (
+					plugin.api?.({
+						controller: bc as InputBindingController,
+					}) ?? null
+				);
+			},
+			null,
+		);
+		return this.apiCache_.add(bc, api ?? new BindingApi(bc)) as InputBindingApi;
+	}
+
+	private createMonitorBindingApi_(
+		bc: MonitorBindingController,
+	): MonitorBindingApi {
+		const api = this.pluginsMap_.monitors.reduce(
+			(result: MonitorBindingApi | null, plugin) => {
+				if (result) {
+					return result;
+				}
+				return (
+					plugin.api?.({
+						controller: bc as MonitorBindingController,
+					}) ?? null
+				);
+			},
+			null,
+		);
+		return this.apiCache_.add(
+			bc,
+			api ??
+				new BindingApi<
+					TpBuffer<unknown>,
+					unknown,
+					MonitorBindingController<unknown>
+				>(bc),
+		) as MonitorBindingApi;
+	}
+
+	public createBindingApi(bc: BindingController): BindingApi {
+		if (this.apiCache_.has(bc)) {
+			return this.apiCache_.get(bc) as BindingApi;
 		}
-		if (bc instanceof MonitorBindingController) {
-			return new MonitorBindingApi(bc);
+
+		if (isInputBindingController(bc)) {
+			return this.createInputBindingApi_(bc);
 		}
-		if (bc instanceof RackController) {
-			return new RackApi(bc, this);
+		/* istanbul ignore else */
+		if (isMonitorBindingController(bc)) {
+			return this.createMonitorBindingApi_(bc) as BindingApi;
+		}
+		/* istanbul ignore next */
+		throw TpError.shouldNeverHappen();
+	}
+
+	public createApi(bc: BladeController): BladeApi {
+		if (this.apiCache_.has(bc)) {
+			return this.apiCache_.get(bc) as BladeApi;
+		}
+
+		if (isBindingController(bc)) {
+			return this.createBindingApi(bc);
 		}
 
 		const api = this.pluginsMap_.blades.reduce(
-			(result: BladeApi<BladeController<View>> | null, plugin) =>
+			(result: BladeApi | null, plugin) =>
 				result ??
 				plugin.api({
 					controller: bc,
@@ -165,9 +243,10 @@ export class PluginPool {
 				}),
 			null,
 		);
+		/* istanbul ignore next */
 		if (!api) {
 			throw TpError.shouldNeverHappen();
 		}
-		return api;
+		return this.apiCache_.add(bc, api);
 	}
 }

@@ -1,9 +1,9 @@
 import {TpError} from '@tweakpane/core';
 import * as assert from 'assert';
 
-import {SliderApi} from '../blade/slider/api/slider';
-import {createTestWindow} from '../misc/test-util';
-import {Pane} from './pane';
+import {SliderBladeApi} from '../blade/slider/api/slider.js';
+import {createTestWindow} from '../misc/test-util.js';
+import {Pane} from './pane.js';
 
 describe(Pane.name, () => {
 	it('should apply initial view properties', () => {
@@ -38,13 +38,13 @@ describe(Pane.name, () => {
 			max: 100,
 			min: 0,
 			view: 'slider',
-		}) as SliderApi;
+		}) as SliderBladeApi;
 
 		try {
 			b.on('change', () => {
 				b.dispose();
 			});
-			b.controller_.value.rawValue = 1;
+			b.controller.value.rawValue = 1;
 		} catch (err) {
 			assert.strictEqual((err as TpError<any>).type, 'alreadydisposed');
 			done();

@@ -1,13 +1,15 @@
-.#{$prefix}-popv {
-	background-color: var(--bs-bg);
-	border-radius: 6px;
-	box-shadow: 0 2px 4px var(--bs-sh);
+@use '../tp';
+
+.#{tp.$prefix}-popv {
+	background-color: tp.cssVar('base-bg');
+	border-radius: tp.cssVar('base-border-radius');
+	box-shadow: 0 2px 4px tp.cssVar('base-shadow');
 	display: none;
-	max-width: 160px + 2 * 4px;
-	padding: var(--cnt-v-p) var(--cnt-h-p);
+	max-width: tp.cssVar('blade-value-width');
+	padding: tp.cssVar('container-v-padding') tp.cssVar('container-h-padding');
 	position: absolute;
 	visibility: hidden;
-	z-index: $z-index-picker;
+	z-index: tp.$z-index-picker;
 
 	&#{&}-v {
 		display: block;

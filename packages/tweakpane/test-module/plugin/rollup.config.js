@@ -1,5 +1,5 @@
 import Alias from '@rollup/plugin-alias';
-import {nodeResolve} from '@rollup/plugin-node-resolve'
+import {nodeResolve} from '@rollup/plugin-node-resolve';
 import Typescript from '@rollup/plugin-typescript';
 
 export default () => {
@@ -8,7 +8,7 @@ export default () => {
 		external: ['tweakpane'],
 		output: {
 			file: 'plugin/dist/bundle.js',
-			format: 'umd',
+			format: 'esm',
 			globals: {
 				tweakpane: 'Tweakpane',
 			},
@@ -19,7 +19,7 @@ export default () => {
 				entries: [
 					{
 						find: '@tweakpane/core',
-						replacement: './node_modules/@tweakpane/core/dist/es6/index.js'
+						replacement: './node_modules/@tweakpane/core/dist/index.js',
 					},
 				],
 			}),

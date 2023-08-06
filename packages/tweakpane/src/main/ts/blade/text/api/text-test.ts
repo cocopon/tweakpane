@@ -1,7 +1,7 @@
 import {
 	createBlade,
 	createValue,
-	LabelController,
+	LabeledValueBladeController,
 	LabelPropsObject,
 	TextController,
 	ValueMap,
@@ -15,27 +15,32 @@ import {
 	assertInitialState,
 	assertUpdates,
 	createTestWindow,
-} from '../../../misc/test-util';
-import {TextApi} from './text';
+} from '../../../misc/test-util.js';
+import {TextBladeApi} from './text.js';
 
-describe(TextApi.name, () => {
+describe(TextBladeApi.name, () => {
 	it('should dispose', () => {
 		const doc = createTestWindow().document;
-		const c = new LabelController(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<LabelPropsObject>({
-				label: undefined,
-			}),
-			valueController: new TextController(doc, {
-				parser: (v: string) => v,
-				props: ValueMap.fromObject({
-					formatter: (v: string) => v,
+		const v = createValue('');
+		const c = new LabeledValueBladeController<string, TextController<string>>(
+			doc,
+			{
+				blade: createBlade(),
+				props: ValueMap.fromObject<LabelPropsObject>({
+					label: undefined,
 				}),
-				value: createValue(''),
-				viewProps: ViewProps.create(),
-			}),
-		});
-		const api = new TextApi(c);
+				value: v,
+				valueController: new TextController(doc, {
+					parser: (v: string) => v,
+					props: ValueMap.fromObject({
+						formatter: (v: string) => v,
+					}),
+					value: v,
+					viewProps: ViewProps.create(),
+				}),
+			},
+		);
+		const api = new TextBladeApi(c);
 
 		assertDisposes(api);
 	});
@@ -43,21 +48,26 @@ describe(TextApi.name, () => {
 	it('should have initial state', () => {
 		const doc = createTestWindow().document;
 		const formatter = (v: string) => v;
-		const c = new LabelController(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<LabelPropsObject>({
-				label: 'foobar',
-			}),
-			valueController: new TextController(doc, {
-				parser: (v: string) => v,
-				props: ValueMap.fromObject({
-					formatter: formatter,
+		const v = createValue('hello');
+		const c = new LabeledValueBladeController<string, TextController<string>>(
+			doc,
+			{
+				blade: createBlade(),
+				props: ValueMap.fromObject<LabelPropsObject>({
+					label: 'foobar',
 				}),
-				value: createValue('hello'),
-				viewProps: ViewProps.create(),
-			}),
-		});
-		const api = new TextApi(c);
+				value: v,
+				valueController: new TextController(doc, {
+					parser: (v: string) => v,
+					props: ValueMap.fromObject({
+						formatter: formatter,
+					}),
+					value: v,
+					viewProps: ViewProps.create(),
+				}),
+			},
+		);
+		const api = new TextBladeApi(c);
 
 		assertInitialState(api);
 		assert.strictEqual(api.formatter, formatter);
@@ -67,25 +77,30 @@ describe(TextApi.name, () => {
 
 	it('should update properties', () => {
 		const doc = createTestWindow().document;
-		const c = new LabelController(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<LabelPropsObject>({
-				label: undefined,
-			}),
-			valueController: new TextController(doc, {
-				parser: (v: string) => v,
-				props: ValueMap.fromObject({
-					formatter: (v: string) => v,
+		const v = createValue('hello');
+		const c = new LabeledValueBladeController<string, TextController<string>>(
+			doc,
+			{
+				blade: createBlade(),
+				props: ValueMap.fromObject<LabelPropsObject>({
+					label: undefined,
 				}),
-				value: createValue('hello'),
-				viewProps: ViewProps.create(),
-			}),
-		});
-		const api = new TextApi(c);
+				value: v,
+				valueController: new TextController(doc, {
+					parser: (v: string) => v,
+					props: ValueMap.fromObject({
+						formatter: (v: string) => v,
+					}),
+					value: v,
+					viewProps: ViewProps.create(),
+				}),
+			},
+		);
+		const api = new TextBladeApi(c);
 
 		assertUpdates(api);
 
-		const inputElem = api.controller_.valueController.view.inputElement;
+		const inputElem = api.controller.valueController.view.inputElement;
 		const formatter = (v: string) => `${v}, world`;
 		api.formatter = formatter;
 		assert.strictEqual(api.formatter, formatter);
@@ -100,24 +115,28 @@ describe(TextApi.name, () => {
 
 	it('should handle event', (done) => {
 		const doc = createTestWindow().document;
-		const c = new LabelController(doc, {
-			blade: createBlade(),
-			props: ValueMap.fromObject<LabelPropsObject>({
-				label: undefined,
-			}),
-			valueController: new TextController(doc, {
-				parser: (v: string) => v,
-				props: ValueMap.fromObject({
-					formatter: (v: string) => v,
+		const v = createValue('');
+		const c = new LabeledValueBladeController<string, TextController<string>>(
+			doc,
+			{
+				blade: createBlade(),
+				props: ValueMap.fromObject<LabelPropsObject>({
+					label: undefined,
 				}),
-				value: createValue(''),
-				viewProps: ViewProps.create(),
-			}),
-		});
-		const api = new TextApi(c);
+				value: v,
+				valueController: new TextController(doc, {
+					parser: (v: string) => v,
+					props: ValueMap.fromObject({
+						formatter: (v: string) => v,
+					}),
+					value: v,
+					viewProps: ViewProps.create(),
+				}),
+			},
+		);
+		const api = new TextBladeApi(c);
 
 		api.on('change', (ev) => {
-			assert.strictEqual(ev.presetKey, undefined);
 			assert.strictEqual(ev.target, api);
 			assert.strictEqual(ev.value, 'changed');
 			done();

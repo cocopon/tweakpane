@@ -1,49 +1,31 @@
-import {Bindable} from '../../../common/binding/target';
-import {Emitter} from '../../../common/model/emitter';
-import {ValueEvents} from '../../../common/model/value';
-import {BaseBladeParams} from '../../../common/params';
-import {View} from '../../../common/view/view';
-import {PluginPool} from '../../../plugin/pool';
-import {ButtonApi} from '../../button/api/button';
-import {BladeApi} from '../../common/api/blade';
-import {BladeRackApi} from '../../common/api/blade-rack';
+import {Bindable} from '../../../common/binding/target.js';
+import {Emitter} from '../../../common/model/emitter.js';
+import {ValueEvents} from '../../../common/model/value.js';
+import {BaseBladeParams} from '../../../common/params.js';
+import {PluginPool} from '../../../plugin/pool.js';
+import {BindingApi} from '../../binding/api/binding.js';
+import {ButtonApi} from '../../button/api/button.js';
+import {BladeApi} from '../../common/api/blade.js';
+import {ContainerApi} from '../../common/api/container.js';
+import {ContainerBladeApi} from '../../common/api/container-blade.js';
 import {
+	BindingParams,
 	ButtonParams,
 	FolderParams,
-	InputParams,
-	MonitorParams,
-	SeparatorParams,
 	TabParams,
-} from '../../common/api/params';
-import {RackLikeApi} from '../../common/api/rack-like-api';
-import {
-	TpChangeEvent,
-	TpFoldEvent,
-	TpUpdateEvent,
-} from '../../common/api/tp-event';
-import {BladeController} from '../../common/controller/blade';
-import {InputBindingApi} from '../../input-binding/api/input-binding';
-import {MonitorBindingApi} from '../../monitor-binding/api/monitor-binding';
-import {RackApi} from '../../rack/api/rack';
-import {SeparatorApi} from '../../separator/api/separator';
-import {TabApi} from '../../tab/api/tab';
-import {FolderController} from '../controller/folder';
+} from '../../common/api/params.js';
+import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event.js';
+import {TabApi} from '../../tab/api/tab.js';
+import {FolderController} from '../controller/folder.js';
 
 export interface FolderApiEvents {
-	change: {
-		event: TpChangeEvent<unknown>;
-	};
-	fold: {
-		event: TpFoldEvent;
-	};
-	update: {
-		event: TpUpdateEvent<unknown>;
-	};
+	change: TpChangeEvent<unknown, BladeApi>;
+	fold: TpFoldEvent<FolderApi>;
 }
 
 export class FolderApi
-	extends RackLikeApi<FolderController>
-	implements BladeRackApi
+	extends ContainerBladeApi<FolderController>
+	implements ContainerApi
 {
 	private readonly emitter_: Emitter<FolderApiEvents>;
 
@@ -51,64 +33,47 @@ export class FolderApi
 	 * @hidden
 	 */
 	constructor(controller: FolderController, pool: PluginPool) {
-		super(controller, new RackApi(controller.rackController, pool));
+		super(controller, pool);
 
 		this.emitter_ = new Emitter();
 
-		this.controller_.foldable
+		this.controller.foldable
 			.value('expanded')
 			.emitter.on('change', (ev: ValueEvents<boolean>['change']) => {
-				this.emitter_.emit('fold', {
-					event: new TpFoldEvent(this, ev.sender.rawValue),
-				});
+				this.emitter_.emit('fold', new TpFoldEvent(this, ev.sender.rawValue));
 			});
 
 		this.rackApi_.on('change', (ev) => {
-			this.emitter_.emit('change', {
-				event: ev,
-			});
-		});
-		this.rackApi_.on('update', (ev) => {
-			this.emitter_.emit('update', {
-				event: ev,
-			});
+			this.emitter_.emit('change', ev);
 		});
 	}
 
 	get expanded(): boolean {
-		return this.controller_.foldable.get('expanded');
+		return this.controller.foldable.get('expanded');
 	}
 
 	set expanded(expanded: boolean) {
-		this.controller_.foldable.set('expanded', expanded);
+		this.controller.foldable.set('expanded', expanded);
 	}
 
 	get title(): string | undefined {
-		return this.controller_.props.get('title');
+		return this.controller.props.get('title');
 	}
 
 	set title(title: string | undefined) {
-		this.controller_.props.set('title', title);
+		this.controller.props.set('title', title);
 	}
 
-	get children(): BladeApi<BladeController<View>>[] {
+	get children(): BladeApi[] {
 		return this.rackApi_.children;
 	}
 
-	public addInput<O extends Bindable, Key extends keyof O>(
+	public addBinding<O extends Bindable, Key extends keyof O>(
 		object: O,
 		key: Key,
-		opt_params?: InputParams,
-	): InputBindingApi<unknown, O[Key]> {
-		return this.rackApi_.addInput(object, key, opt_params);
-	}
-
-	public addMonitor<O extends Bindable, Key extends keyof O>(
-		object: O,
-		key: Key,
-		opt_params?: MonitorParams,
-	): MonitorBindingApi<O[Key]> {
-		return this.rackApi_.addMonitor(object, key, opt_params);
+		opt_params?: BindingParams,
+	): BindingApi<unknown, O[Key]> {
+		return this.rackApi_.addBinding(object, key, opt_params);
 	}
 
 	public addFolder(params: FolderParams): FolderApi {
@@ -119,26 +84,19 @@ export class FolderApi
 		return this.rackApi_.addButton(params);
 	}
 
-	public addSeparator(opt_params?: SeparatorParams): SeparatorApi {
-		return this.rackApi_.addSeparator(opt_params);
-	}
-
 	public addTab(params: TabParams): TabApi {
 		return this.rackApi_.addTab(params);
 	}
 
-	public add<A extends BladeApi<BladeController<View>>>(
-		api: A,
-		opt_index?: number,
-	): A {
+	public add<A extends BladeApi>(api: A, opt_index?: number): A {
 		return this.rackApi_.add(api, opt_index);
 	}
 
-	public remove(api: BladeApi<BladeController<View>>): void {
+	public remove(api: BladeApi): void {
 		this.rackApi_.remove(api);
 	}
 
-	public addBlade(params: BaseBladeParams): BladeApi<BladeController<View>> {
+	public addBlade(params: BaseBladeParams): BladeApi {
 		return this.rackApi_.addBlade(params);
 	}
 
@@ -149,12 +107,16 @@ export class FolderApi
 	 */
 	public on<EventName extends keyof FolderApiEvents>(
 		eventName: EventName,
-		handler: (ev: FolderApiEvents[EventName]['event']) => void,
+		handler: (ev: FolderApiEvents[EventName]) => void,
 	): FolderApi {
 		const bh = handler.bind(this);
 		this.emitter_.on(eventName, (ev) => {
-			bh(ev.event);
+			bh(ev);
 		});
 		return this;
+	}
+
+	public refresh(): void {
+		this.rackApi_.refresh();
 	}
 }

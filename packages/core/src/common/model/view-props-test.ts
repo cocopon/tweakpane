@@ -1,8 +1,8 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {createTestWindow} from '../../misc/dom-test-util';
-import {ViewProps, ViewPropsObject} from './view-props';
+import {createTestWindow} from '../../misc/dom-test-util.js';
+import {ViewProps, ViewPropsObject} from './view-props.js';
 
 describe(ViewProps.name, () => {
 	(
@@ -221,5 +221,26 @@ describe(ViewProps.name, () => {
 		assert.ok(!elem.classList.contains('tp-v-hidden'));
 		p.set('hidden', true);
 		assert.ok(elem.classList.contains('tp-v-hidden'));
+	});
+
+	it('should export state', () => {
+		const p = ViewProps.create({
+			disabled: true,
+			hidden: true,
+		});
+		assert.deepStrictEqual(p.exportState(), {
+			disabled: true,
+			hidden: true,
+		});
+	});
+
+	it('should import state', () => {
+		const p = ViewProps.create();
+		p.importState({
+			disabled: true,
+			hidden: true,
+		});
+		assert.deepStrictEqual(p.get('disabled'), true);
+		assert.deepStrictEqual(p.get('hidden'), true);
 	});
 });

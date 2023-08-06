@@ -2,24 +2,22 @@ import {
 	BladeController,
 	createBladeController,
 	createDefaultPluginPool,
-	View,
+	PluginPool,
 } from '@tweakpane/core';
-import {PluginPool} from '@tweakpane/core/dist/cjs/plugin/pool';
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {
 	createEmptyBladeController,
-	createEmptyLabelableController,
-	createLabelController,
+	createLabeledValueBladeController,
 	createTestWindow,
-} from '../../misc/test-util';
-import {SliderApi} from './api/slider';
-import {SliderBladeParams, SliderBladePlugin} from './plugin';
+} from '../../misc/test-util.js';
+import {SliderBladeApi} from './api/slider.js';
+import {SliderBladeParams, SliderBladePlugin} from './plugin.js';
 
 function createPluginPool(): PluginPool {
 	const pool = createDefaultPluginPool();
-	pool.register(SliderBladePlugin);
+	pool.register('test', SliderBladePlugin);
 	return pool;
 }
 
@@ -52,8 +50,7 @@ describe(SliderBladePlugin.id, () => {
 
 	[
 		(doc: Document) => createEmptyBladeController(doc),
-		(doc: Document) =>
-			createLabelController(doc, createEmptyLabelableController(doc)),
+		(doc: Document) => createLabeledValueBladeController(doc),
 	].forEach((createController) => {
 		it('should not create API', () => {
 			const doc = createTestWindow().document;
@@ -79,16 +76,16 @@ describe(SliderBladePlugin.id, () => {
 				value: 50,
 				view: 'slider',
 			} as SliderBladeParams,
-		}) as BladeController<View>;
+		}) as BladeController;
 		const pool = createPluginPool();
-		const api = pool.createBladeApi(bc) as SliderApi;
+		const api = pool.createApi(bc) as SliderBladeApi;
 
-		assert.strictEqual(api.maxValue, 100);
-		assert.strictEqual(api.minValue, -100);
+		assert.strictEqual(api.max, 100);
+		assert.strictEqual(api.min, -100);
 		assert.strictEqual(api.value, 50);
 
 		assert.strictEqual(
-			api.controller_.view.element.querySelector('.tp-lblv_l')?.textContent,
+			api.controller.view.element.querySelector('.tp-lblv_l')?.textContent,
 			'hello',
 		);
 	});

@@ -1,0 +1,11 @@
+%tp-texts {
+	display: flex;
+}
+
+%tp-texts_item {
+	width: 100%;
+
+	& + & {
+		margin-left: 2px;
+	}
+}

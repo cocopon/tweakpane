@@ -1,9 +1,9 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
-import {BindingTarget} from '../../../common/binding/target';
-import {Point2d} from '../model/point-2d';
-import {point2dFromUnknown, writePoint2d} from './point-2d';
+import {BindingTarget} from '../../../common/binding/target.js';
+import {Point2d} from '../model/point-2d.js';
+import {point2dFromUnknown, writePoint2d} from './point-2d.js';
 
 describe(point2dFromUnknown.name, () => {
 	[

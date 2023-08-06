@@ -1,22 +1,24 @@
-.#{$prefix}-tabv {
+@use '../tp';
+
+.#{tp.$prefix}-tabv {
 	position: relative;
 
 	// Title
 	&_t {
 		align-items: flex-end;
-		color: var(--cnt-bg);
+		color: tp.cssVar('container-bg');
 		display: flex;
 		overflow: hidden;
 		position: relative;
 
 		&:hover {
-			color: var(--cnt-bg-h);
+			color: tp.cssVar('container-bg-hover');
 		}
 		&:has(*:focus) {
-			color: var(--cnt-bg-f);
+			color: tp.cssVar('container-bg-focus');
 		}
 		&:has(*:active) {
-			color: var(--cnt-bg-a);
+			color: tp.cssVar('container-bg-active');
 		}
 
 		// Title border
@@ -31,16 +33,16 @@
 			right: 0;
 		}
 	}
-	&.#{$prefix}-v-disabled &_t::before {
+	&.#{tp.$disabled} &_t::before {
 		opacity: 0.5;
 	}
 	// Title without page
 	&#{&}-nop &_t {
-		height: calc(var(--bld-us) + 4px);
+		height: calc(#{tp.cssVar('container-unit-size')} + 4px);
 		position: relative;
 
 		&::before {
-			background-color: var(--cnt-bg);
+			background-color: tp.cssVar('container-bg');
 			bottom: 0;
 			content: '';
 			height: 2px;
@@ -49,26 +51,15 @@
 			right: 0;
 		}
 	}
-	// Container
-	&_c {
-		padding-bottom: var(--cnt-v-p);
-		padding-left: 4px;
-		padding-top: var(--cnt-v-p);
-
-		.#{$prefix}-brkv {
-			@extend %bladeRack-children;
-			@extend %bladeRack-subcontainers;
-		}
-	}
 	// Indent
 	&_i {
 		bottom: 0;
-		color: var(--cnt-bg);
+		color: tp.cssVar('container-bg');
 		left: 0;
 		overflow: hidden;
 		position: absolute;
-		top: calc(var(--bld-us) + 4px);
-		width: var(--bs-br);
+		top: calc(#{tp.cssVar('container-unit-size')} + 4px);
+		width: max(tp.cssVar('base-border-radius'), 4px);
 
 		&::before {
 			background-color: currentColor;
@@ -81,19 +72,19 @@
 		}
 	}
 	&_t:hover + &_i {
-		color: var(--cnt-bg-h);
+		color: tp.cssVar('container-bg-hover');
 	}
 	&_t:has(*:focus) + &_i {
-		color: var(--cnt-bg-f);
+		color: tp.cssVar('container-bg-focus');
 	}
 	&_t:has(*:active) + &_i {
-		color: var(--cnt-bg-a);
+		color: tp.cssVar('container-bg-active');
 	}
-	&.#{$prefix}-v-disabled > &_i {
+	&.#{tp.$disabled} > &_i {
 		opacity: 0.5;
 	}
 }
-.#{$prefix}-tbiv {
+.#{tp.$prefix}-tbiv {
 	flex: 1;
 	min-width: 0;
 	position: relative;
@@ -101,16 +92,16 @@
 	& + & {
 		margin-left: 2px;
 	}
-	& + &.#{$prefix}-v-disabled::before {
+	& + &.#{tp.$disabled}::before {
 		opacity: 0.5;
 	}
 
 	&_b {
-		@extend %resetUserAgent;
+		@extend %tp-resetUserAgent;
 
 		display: block;
-		padding-left: calc(var(--cnt-h-p) + 4px);
-		padding-right: calc(var(--cnt-h-p) + 4px);
+		padding-left: calc(#{tp.cssVar('container-h-padding')} + 4px);
+		padding-right: calc(#{tp.cssVar('container-h-padding')} + 4px);
 		position: relative;
 		width: 100%;
 
@@ -119,7 +110,7 @@
 		}
 
 		&::before {
-			background-color: var(--cnt-bg);
+			background-color: tp.cssVar('container-bg');
 			bottom: 2px;
 			content: '';
 			left: 0;
@@ -129,24 +120,35 @@
 			top: 0;
 		}
 		&:hover::before {
-			background-color: var(--cnt-bg-h);
+			background-color: tp.cssVar('container-bg-hover');
 		}
 		&:focus::before {
-			background-color: var(--cnt-bg-f);
+			background-color: tp.cssVar('container-bg-focus');
 		}
 		&:active::before {
-			background-color: var(--cnt-bg-a);
+			background-color: tp.cssVar('container-bg-active');
 		}
 	}
 	&_t {
-		color: var(--cnt-fg);
-		height: calc(var(--bld-us) + 4px);
-		line-height: calc(var(--bld-us) + 4px);
+		color: tp.cssVar('container-fg');
+		height: calc(#{tp.cssVar('container-unit-size')} + 4px);
+		line-height: calc(#{tp.cssVar('container-unit-size')} + 4px);
 		opacity: 0.5;
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 	&#{&}-sel &_t {
 		opacity: 1;
+	}
+}
+.#{tp.$prefix}-tbpv {
+	// Container
+	&_c {
+		@extend %tp-container_children;
+		@extend %tp-container_subcontainers;
+
+		padding-bottom: tp.cssVar('container-v-padding');
+		padding-left: 4px;
+		padding-top: tp.cssVar('container-v-padding');
 	}
 }

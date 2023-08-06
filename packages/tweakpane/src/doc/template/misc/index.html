@@ -9,7 +9,7 @@
 	<div class="pageHeader_inner">
 		<div class="pageHeader_text">
 			<h1 class="pageHeader_title">{{ title }}</h1>
-			<p>Event handling, importing/exporting a preset, and some tips.</p>
+			<p>Event handling, importing/exporting a state, and some tips.</p>
 		</div>
 	</div>
 </div>
@@ -17,14 +17,14 @@
 
 
 {% block content %}
-<h2 id="events">Events</h2>
-<p>Use <code>on()</code> of specific components to listen its changes. Input components will emit <code>change</code> events. The first argument of the event handler is the <a href="{{ root }}api/classes/tweakpane.TpChangeEvent.html">event object</a> that contains a value.</p>
+<h2 id="events"><a href="#events">Events</a></h2>
+<p>Use <code>on()</code> of specific components to listen its changes. Input components will emit <code>change</code> events. The first argument of the event handler is the <a href="{{ root }}api/classes/TpChangeEvent.html">event object</a> that contains a value.</p>
 
 <div class="main_media">
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-pane.addInput(PARAMS, 'value')
+pane.addBinding(PARAMS, 'value')
   .<strong>on</strong>('change', (ev) =&gt; {
     console.log(ev.value.toFixed(2));
     if (ev.last) {
@@ -45,10 +45,10 @@ pane.addInput(PARAMS, 'value')
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-pane.addInput(PARAMS, 'boolean');
-pane.addInput(PARAMS, 'color');
-pane.addInput(PARAMS, 'number');
-pane.addInput(PARAMS, 'string');
+pane.addBinding(PARAMS, 'boolean');
+pane.addBinding(PARAMS, 'color');
+pane.addBinding(PARAMS, 'number');
+pane.addBinding(PARAMS, 'string');
 
 pane.<strong>on</strong>('change', (ev) =&gt; {
   console.log('changed: ' + JSON.stringify(ev.value));
@@ -63,18 +63,18 @@ pane.<strong>on</strong>('change', (ev) =&gt; {
 </div>
 
 
-<h2 id="imex">Import/Export</h2>
-<p>Tweakpane has a feature for importing/exporting bound values in JSON object. Use <code>exportPreset()</code> to export it.</p>
+<h2 id="state"><a href="#state">Import/Export</a></h2>
+<p>Tweakpane can import/export a blade state with <code>exportState()</code>.</p>
 
 <div class="main_media">
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-// pane.addInput(PARAMS, ...);
-// pane.addInput(PARAMS, ...);
+// pane.addBinding(PARAMS, ...);
+// pane.addBinding(PARAMS, ...);
 
-const preset = pane.<strong>exportPreset</strong>();
-console.log(preset);
+const state = pane.<strong>exportState</strong>();
+console.log(state);
 </code></pre></div>
 		</div>
 		<div class="demo_result">
@@ -84,16 +84,21 @@ console.log(preset);
 	</div>
 </div>
 
-<p>To import an exported JSON object, pass it to <code>importPreset()</code>.</p>
+<p>To import an exported state, pass the state object to <code>importState()</code>.</p>
 
 <div class="main_media">
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-// pane.addInput(PARAMS, ...);
-// pane.addInput(PARAMS, ...);
+// ...
 
-pane.<strong>importPreset</strong>(preset);
+const f = pane.addFolder({
+  title: 'Values',
+});
+// f.addBinding(PARAMS, ...);
+// f.addBinding(PARAMS, ...);
+
+f.<strong>importState</strong>(state);
 </code></pre></div>
 		</div>
 		<div class="demo_result">
@@ -103,30 +108,11 @@ pane.<strong>importPreset</strong>(preset);
 	</div>
 </div>
 
-<p>If your pane contains parameters with the same name, specify <code>presetKey</code> to avoid the confliction.</p>
 
-<div class="main_media">
-	<div class="demo">
-		<div class="demo_code">
-			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-pane.addInput(PARAMS1, 'speed');
-pane.addInput(PARAMS2, 'speed', {
-  <strong>presetKey</strong>: 'speed2',
-});
-</code></pre></div>
-		</div>
-		<div class="demo_result">
-			<div class="paneContainer" data-pane-presetkey></div>
-			<div class="paneContainer paneContainer-console" data-pane-presetkeyconsole></div>
-		</div>
-	</div>
-</div>
+<h2 id="tips"><a href="#tips">Tips</a></h2>
 
 
-<h2 id="tips">Tips</h2>
-
-
-<h3 id="container">Custom container</h3>
+<h3 id="container"><a href="#container">Custom container</a></h3>
 <p>If you want to put a pane into the specific element, pass it as <code>container</code> option of the pane.</p>
 
 <div class="main_media">
@@ -141,17 +127,17 @@ pane.addInput(PARAMS2, 'speed', {
 </div>
 
 
-<h3 id="label">Custom label</h3>
+<h3 id="label"><a href="#label">Custom label</a></h3>
 <p>You can set a label of components by <code>label</code> option.</p>
 
 <div class="main_media">
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-pane.addInput(PARAMS, 'initSpd', {
+pane.addBinding(PARAMS, 'initSpd', {
   <strong>label</strong>: 'Initial speed',
 });
-pane.addInput(PARAMS, 'size', {
+pane.addBinding(PARAMS, 'size', {
   <strong>label</strong>: 'Force field<strong>\n</strong>radius',
 });
 </code></pre></div>
@@ -163,15 +149,15 @@ pane.addInput(PARAMS, 'size', {
 </div>
 
 
-<h3 id="refresh">Refresh manually</h3>
+<h3 id="refresh"><a href="#refresh">Refresh manually</a></h3>
 <p>By default, Tweakpane doesn't detect changes of bound parameters. Use <code>refresh()</code> to force-update all input/monitor components.</p>
 
 <div class="main_media">
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-// pane.addInput(PARAMS, ...);
-// pane.addInput(PARAMS, ...);
+// pane.addBinding(PARAMS, ...);
+// pane.addBinding(PARAMS, ...);
 
 pane.<strong>refresh</strong>();
 </code></pre></div>
@@ -180,7 +166,7 @@ pane.<strong>refresh</strong>();
 </div>
 
 
-<h3 id="visibility">Visibility</h3>
+<h3 id="visibility"><a href="#visibility">Visibility</a></h3>
 <p>Toggle <code>hidden</code> property to show/hide components.</p>
 
 <div class="main_media">
@@ -205,14 +191,14 @@ btn.on('click', () => {
 </div>
 
 
-<h3 id="disabled">Disabled</h3>
+<h3 id="disabled"><a href="#disabled">Disabled</a></h3>
 <p>Use <code>disabled</code> property to disable a view temporarily.</p>
 
 <div class="main_media">
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-const i = pane.addInput(PARAMS, 'param', {
+const i = pane.addBinding(PARAMS, 'param', {
   <strong>disabled</strong>: true,
   title: 'Advanced',
 });
@@ -231,14 +217,14 @@ btn.on('click', () => {
 </div>
 
 
-<h3 id="disposing">Disposing</h3>
+<h3 id="disposing"><a href="#disposing">Disposing</a></h3>
 <p>If you want to dispose a pane manually, call <code>dispose()</code> of the pane. You can also dispose each component in the same way.</p>
 
 <div class="main_media">
 	<div class="demo">
 		<div class="demo_code">
 			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
-const i = pane.addInput(PARAMS, 'count');
+const i = pane.addBinding(PARAMS, 'count');
 
 // ...
 
@@ -253,7 +239,7 @@ pane.<strong>dispose</strong>();
 </div>
 
 
-<h3 id="insert">Adding input/monitor at a specific position</h3>
+<h3 id="insert"><a href="#insert">Adding input/monitor at a specific position</a></h3>
 <p>Use <code>index</code> option to specify an index.</p>
 
 <div class="main_media">

@@ -1,22 +1,25 @@
+import {InputBindingController} from '../../blade/binding/controller/input-binding.js';
+import {BooleanInputParams} from '../../blade/common/api/params.js';
+import {ListInputBindingApi} from '../../common/api/list.js';
 import {
 	CompositeConstraint,
 	findConstraint,
-} from '../../common/constraint/composite';
-import {Constraint} from '../../common/constraint/constraint';
-import {ListConstraint} from '../../common/constraint/list';
-import {ListController} from '../../common/controller/list';
-import {boolFromUnknown} from '../../common/converter/boolean';
-import {ValueMap} from '../../common/model/value-map';
-import {BaseInputParams, ListParamsOptions} from '../../common/params';
-import {ParamsParsers, parseParams} from '../../common/params-parsers';
-import {writePrimitive} from '../../common/primitive';
-import {createListConstraint, parseListOptions} from '../../common/util';
-import {InputBindingPlugin} from '../plugin';
-import {CheckboxController} from './controller/checkbox';
-
-export interface BooleanInputParams extends BaseInputParams {
-	options?: ListParamsOptions<boolean>;
-}
+} from '../../common/constraint/composite.js';
+import {Constraint} from '../../common/constraint/constraint.js';
+import {ListConstraint} from '../../common/constraint/list.js';
+import {ListController} from '../../common/controller/list.js';
+import {boolFromUnknown} from '../../common/converter/boolean.js';
+import {
+	createListConstraint,
+	parseListOptions,
+} from '../../common/list-util.js';
+import {parseRecord} from '../../common/micro-parsers.js';
+import {ValueMap} from '../../common/model/value-map.js';
+import {ListParamsOptions} from '../../common/params.js';
+import {writePrimitive} from '../../common/primitive.js';
+import {createPlugin} from '../../plugin/plugin.js';
+import {InputBindingPlugin} from '../plugin.js';
+import {CheckboxController} from './controller/checkbox.js';
 
 function createConstraint(params: BooleanInputParams): Constraint<boolean> {
 	const constraints: Constraint<boolean>[] = [];
@@ -36,17 +39,17 @@ export const BooleanInputPlugin: InputBindingPlugin<
 	boolean,
 	boolean,
 	BooleanInputParams
-> = {
+> = createPlugin({
 	id: 'input-bool',
 	type: 'input',
 	accept: (value, params) => {
 		if (typeof value !== 'boolean') {
 			return null;
 		}
-		const p = ParamsParsers;
-		const result = parseParams<BooleanInputParams>(params, {
+		const result = parseRecord<BooleanInputParams>(params, (p) => ({
 			options: p.optional.custom<ListParamsOptions<boolean>>(parseListOptions),
-		});
+			readonly: p.optional.constant(false),
+		}));
 		return result
 			? {
 					initialValue: value,
@@ -80,4 +83,20 @@ export const BooleanInputPlugin: InputBindingPlugin<
 			viewProps: args.viewProps,
 		});
 	},
-};
+	api(args) {
+		if (typeof args.controller.value.rawValue !== 'boolean') {
+			return null;
+		}
+
+		if (args.controller.valueController instanceof ListController) {
+			return new ListInputBindingApi(
+				args.controller as InputBindingController<
+					boolean,
+					ListController<boolean>
+				>,
+			);
+		}
+
+		return null;
+	},
+});

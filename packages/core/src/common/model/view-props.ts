@@ -1,10 +1,10 @@
-import {ClassName} from '../view/class-name';
-import {valueToClassName} from '../view/reactive';
-import {bindValue, bindValueMap} from './reactive';
-import {ReadonlyValue, SetRawValue} from './readonly-value';
-import {Value, ValueEvents} from './value';
-import {ValueMap, ValueMapEvents} from './value-map';
-import {createValue} from './values';
+import {ClassName} from '../view/class-name.js';
+import {valueToClassName} from '../view/reactive.js';
+import {bindValue, bindValueMap} from './reactive.js';
+import {ReadonlyValue, Value, ValueEvents} from './value.js';
+import {ValueMap, ValueMapEvents} from './value-map.js';
+import {SetRawValue} from './values.js';
+import {createReadonlyValue, createValue} from './values.js';
 
 export type ViewPropsObject = {
 	disabled: boolean;
@@ -15,22 +15,31 @@ export type ViewPropsObject = {
 
 export type ViewPropsEvents = ValueMapEvents<ViewPropsObject>;
 
-const className = ClassName('');
+const cn = ClassName('');
+
 function valueToModifier(
 	elem: HTMLElement,
 	modifier: string,
 ): (value: boolean) => void {
-	return valueToClassName(elem, className(undefined, modifier));
+	return valueToClassName(elem, cn(undefined, modifier));
 }
 
 interface Disableable {
 	disabled: boolean;
 }
 
+interface ViewPropsState {
+	disabled: boolean;
+	hidden: boolean;
+}
+
 export class ViewProps extends ValueMap<ViewPropsObject> {
 	private readonly globalDisabled_: ReadonlyValue<boolean>;
 	private readonly setGlobalDisabled_: SetRawValue<boolean>;
 
+	/**
+	 * @hidden
+	 */
 	constructor(valueMap: {
 		[Key in keyof ViewPropsObject]: Value<ViewPropsObject[Key]>;
 	}) {
@@ -41,7 +50,7 @@ export class ViewProps extends ValueMap<ViewPropsObject> {
 		this.onParentGlobalDisabledChange_ =
 			this.onParentGlobalDisabledChange_.bind(this);
 
-		[this.globalDisabled_, this.setGlobalDisabled_] = ReadonlyValue.create(
+		[this.globalDisabled_, this.setGlobalDisabled_] = createReadonlyValue(
 			createValue(this.getGlobalDisabled_()),
 		);
 
@@ -92,6 +101,18 @@ export class ViewProps extends ValueMap<ViewPropsObject> {
 				callback();
 			}
 		});
+	}
+
+	public importState(state: ViewPropsState): void {
+		this.set('disabled', state.disabled);
+		this.set('hidden', state.hidden);
+	}
+
+	public exportState(): ViewPropsState {
+		return {
+			disabled: this.get('disabled'),
+			hidden: this.get('hidden'),
+		};
 	}
 
 	/**

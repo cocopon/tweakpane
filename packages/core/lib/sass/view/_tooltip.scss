@@ -1,7 +1,10 @@
-.#{$prefix}-ttv {
-	background-color: var(--in-fg);
-	border-radius: var(--elm-br);
-	color: var(--bs-bg);
+@use 'sass:math';
+@use '../tp';
+
+.#{tp.$prefix}-ttv {
+	background-color: tp.cssVar('input-fg');
+	border-radius: tp.cssVar('blade-border-radius');
+	color: tp.cssVar('base-bg');
 	padding: 2px 4px;
 	pointer-events: none;
 	position: absolute;
@@ -10,15 +13,15 @@
 	&::before {
 		$size: 4px;
 
-		border-color: var(--in-fg) transparent transparent transparent;
+		border-color: tp.cssVar('input-fg') transparent transparent transparent;
 		border-style: solid;
-		border-width: $size / 2;
+		border-width: math.div($size, 2);
 		box-sizing: border-box;
 		content: '';
 		font-size: 0.9em;
 		height: $size;
 		left: 50%;
-		margin-left: -$size / 2;
+		margin-left: math.div(-$size, 2);
 		position: absolute;
 		top: 100%;
 		width: $size;

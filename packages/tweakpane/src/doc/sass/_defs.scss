@@ -14,7 +14,6 @@ $global-nav-width: 240px;
 
 // Colors
 $base-hue: 230;
-$pane-bg-color: hsl($base-hue, 7%, 17%);
 
 // Z-index
 $z-index-global-header: 1002;
@@ -23,22 +22,22 @@ $z-index-global-nav: 1003;
 // Mixins
 
 @mixin wide() {
-	@media screen and (min-width: ($tablet-width + 1)) {
+	@media (min-width: ($tablet-width + 1)) {
 		@content;
 	}
 }
 @mixin nonwide() {
-	@media screen and (max-width: $tablet-width) {
+	@media (max-width: $tablet-width) {
 		@content;
 	}
 }
 @mixin middle() {
-	@media screen and (min-width: ($sp-width + 1)) and (max-width: $tablet-width) {
+	@media (min-width: ($sp-width + 1)) and (max-width: $tablet-width) {
 		@content;
 	}
 }
 @mixin narrow() {
-	@media screen and (max-width: $sp-width) {
+	@media (max-width: $sp-width) {
 		@content;
 	}
 }
@@ -108,17 +107,22 @@ $z-index-global-nav: 1003;
 	}
 	p {
 		line-height: 1.6;
-
+	}
+	p,
+	th,
+	td,
+	li {
 		code {
-			background-color: var(--bg-color-secondary);
+			background-color: var(--bg-color-action);
 			border-radius: 2px;
 			color: var(--code-color);
 			font-weight: 500;
+			letter-spacing: -0.02em;
 			padding-left: 0.25em;
 			padding-right: 0.25em;
 		}
 	}
-	a {
+	:not(h1, h2, h3, h4, h5, h6) a {
 		color: var(--a-color);
 	}
 }

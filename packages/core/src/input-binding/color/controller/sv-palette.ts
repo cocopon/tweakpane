@@ -1,32 +1,34 @@
-import {Controller} from '../../../common/controller/controller';
-import {Value, ValueChangeOptions} from '../../../common/model/value';
-import {ViewProps} from '../../../common/model/view-props';
-import {mapRange} from '../../../common/number-util';
+import {ValueController} from '../../../common/controller/value.js';
+import {Value, ValueChangeOptions} from '../../../common/model/value.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {mapRange} from '../../../common/number/util.js';
 import {
 	getHorizontalStepKeys,
 	getStepForKey,
 	getVerticalStepKeys,
 	isArrowKey,
-} from '../../../common/ui';
+} from '../../../common/ui.js';
 import {
 	PointerData,
 	PointerHandler,
 	PointerHandlerEvents,
-} from '../../../common/view/pointer-handler';
-import {Color} from '../model/color';
-import {getBaseStepForColor} from '../util';
-import {SvPaletteView} from '../view/sv-palette';
+} from '../../../common/view/pointer-handler.js';
+import {IntColor} from '../model/int-color.js';
+import {getKeyScaleForColor} from '../util.js';
+import {SvPaletteView} from '../view/sv-palette.js';
 
 interface Config {
-	value: Value<Color>;
+	value: Value<IntColor>;
 	viewProps: ViewProps;
 }
 
 /**
  * @hidden
  */
-export class SvPaletteController implements Controller<SvPaletteView> {
-	public readonly value: Value<Color>;
+export class SvPaletteController
+	implements ValueController<IntColor, SvPaletteView>
+{
+	public readonly value: Value<IntColor>;
 	public readonly view: SvPaletteView;
 	public readonly viewProps: ViewProps;
 	private readonly ptHandler_: PointerHandler;
@@ -64,7 +66,10 @@ export class SvPaletteController implements Controller<SvPaletteView> {
 		const value = mapRange(d.point.y, 0, d.bounds.height, 100, 0);
 
 		const [h, , , a] = this.value.rawValue.getComponents('hsv');
-		this.value.setRawValue(new Color([h, saturation, value, a], 'hsv'), opts);
+		this.value.setRawValue(
+			new IntColor([h, saturation, value, a], 'hsv'),
+			opts,
+		);
 	}
 
 	private onPointerDown_(ev: PointerHandlerEvents['down']): void {
@@ -94,23 +99,23 @@ export class SvPaletteController implements Controller<SvPaletteView> {
 		}
 
 		const [h, s, v, a] = this.value.rawValue.getComponents('hsv');
-		const baseStep = getBaseStepForColor(false);
-		const ds = getStepForKey(baseStep, getHorizontalStepKeys(ev));
-		const dv = getStepForKey(baseStep, getVerticalStepKeys(ev));
+		const keyScale = getKeyScaleForColor(false);
+		const ds = getStepForKey(keyScale, getHorizontalStepKeys(ev));
+		const dv = getStepForKey(keyScale, getVerticalStepKeys(ev));
 		if (ds === 0 && dv === 0) {
 			return;
 		}
 
-		this.value.setRawValue(new Color([h, s + ds, v + dv, a], 'hsv'), {
+		this.value.setRawValue(new IntColor([h, s + ds, v + dv, a], 'hsv'), {
 			forceEmit: false,
 			last: false,
 		});
 	}
 
 	private onKeyUp_(ev: KeyboardEvent): void {
-		const baseStep = getBaseStepForColor(false);
-		const ds = getStepForKey(baseStep, getHorizontalStepKeys(ev));
-		const dv = getStepForKey(baseStep, getVerticalStepKeys(ev));
+		const keyScale = getKeyScaleForColor(false);
+		const ds = getStepForKey(keyScale, getHorizontalStepKeys(ev));
+		const dv = getStepForKey(keyScale, getVerticalStepKeys(ev));
 		if (ds === 0 && dv === 0) {
 			return;
 		}

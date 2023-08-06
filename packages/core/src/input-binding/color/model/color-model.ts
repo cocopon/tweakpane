@@ -1,5 +1,5 @@
-import {constrainRange, loopRange} from '../../../common/number-util';
-import {Tuple3, Tuple4} from '../../../misc/type-util';
+import {constrainRange, loopRange} from '../../../common/number/util.js';
+import {Tuple3, Tuple4} from '../../../misc/type-util.js';
 
 export type ColorComponents3 = Tuple3<number>;
 export type ColorComponents4 = Tuple4<number>;
@@ -92,9 +92,6 @@ function rgbToHsvInt(r: number, g: number, b: number): ColorComponents3 {
 	return [h, s * 100, v * 100];
 }
 
-/**
- * @hidden
- */
 export function hsvToRgbInt(h: number, s: number, v: number): ColorComponents3 {
 	const hp = loopRange(h, 360);
 	const sp = constrainRange(s / 100, 0, 1);
@@ -122,9 +119,6 @@ export function hsvToRgbInt(h: number, s: number, v: number): ColorComponents3 {
 	return [(rp + m) * 255, (gp + m) * 255, (bp + m) * 255];
 }
 
-/**
- * @hidden
- */
 export function hslToHsvInt(h: number, s: number, l: number): ColorComponents3 {
 	const sd = l + (s * (100 - Math.abs(2 * l - 100))) / (2 * 100);
 	return [
@@ -134,26 +128,17 @@ export function hslToHsvInt(h: number, s: number, l: number): ColorComponents3 {
 	];
 }
 
-/**
- * @hidden
- */
 export function hsvToHslInt(h: number, s: number, v: number): ColorComponents3 {
 	const sd = 100 - Math.abs((v * (200 - s)) / 100 - 100);
 	return [h, sd !== 0 ? (s * v) / sd : 0, (v * (200 - s)) / (2 * 100)];
 }
 
-/**
- * @hidden
- */
 export function removeAlphaComponent(
 	comps: ColorComponents4,
 ): ColorComponents3 {
 	return [comps[0], comps[1], comps[2]];
 }
 
-/**
- * @hidden
- */
 export function appendAlphaComponent(
 	comps: ColorComponents3,
 	alpha: number,
@@ -187,9 +172,6 @@ const MODE_CONVERTER_MAP: {
 	},
 };
 
-/**
- * @hidden
- */
 export function getColorMaxComponents(
 	mode: ColorMode,
 	type: ColorType,
@@ -206,9 +188,6 @@ function loopHueRange(hue: number, max: number): number {
 	return hue === max ? max : loopRange(hue, max);
 }
 
-/**
- * @hidden
- */
 export function constrainColorComponents(
 	components: ColorComponents3 | ColorComponents4,
 	mode: ColorMode,
@@ -238,9 +217,6 @@ function convertColorType(
 	) as ColorComponents3;
 }
 
-/**
- * @hidden
- */
 export function convertColor(
 	components: ColorComponents3,
 	from: {mode: ColorMode; type: ColorType},

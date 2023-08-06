@@ -1,27 +1,29 @@
-import {Controller} from '../../../common/controller/controller';
-import {Value, ValueChangeOptions} from '../../../common/model/value';
-import {ViewProps} from '../../../common/model/view-props';
-import {constrainRange, mapRange} from '../../../common/number-util';
-import {getHorizontalStepKeys, getStepForKey} from '../../../common/ui';
+import {ValueController} from '../../../common/controller/value.js';
+import {Value, ValueChangeOptions} from '../../../common/model/value.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {constrainRange, mapRange} from '../../../common/number/util.js';
+import {getHorizontalStepKeys, getStepForKey} from '../../../common/ui.js';
 import {
 	PointerData,
 	PointerHandler,
 	PointerHandlerEvents,
-} from '../../../common/view/pointer-handler';
-import {Color} from '../model/color';
-import {getBaseStepForColor} from '../util';
-import {HPaletteView} from '../view/h-palette';
+} from '../../../common/view/pointer-handler.js';
+import {IntColor} from '../model/int-color.js';
+import {getKeyScaleForColor} from '../util.js';
+import {HPaletteView} from '../view/h-palette.js';
 
 interface Config {
-	value: Value<Color>;
+	value: Value<IntColor>;
 	viewProps: ViewProps;
 }
 
 /**
  * @hidden
  */
-export class HPaletteController implements Controller<HPaletteView> {
-	public readonly value: Value<Color>;
+export class HPaletteController
+	implements ValueController<IntColor, HPaletteView>
+{
+	public readonly value: Value<IntColor>;
 	public readonly view: HPaletteView;
 	public readonly viewProps: ViewProps;
 	private readonly ptHandler_: PointerHandler;
@@ -65,7 +67,7 @@ export class HPaletteController implements Controller<HPaletteView> {
 
 		const c = this.value.rawValue;
 		const [, s, v, a] = c.getComponents('hsv');
-		this.value.setRawValue(new Color([hue, s, v, a], 'hsv'), opts);
+		this.value.setRawValue(new IntColor([hue, s, v, a], 'hsv'), opts);
 	}
 
 	private onPointerDown_(ev: PointerHandlerEvents['down']): void {
@@ -91,7 +93,7 @@ export class HPaletteController implements Controller<HPaletteView> {
 
 	private onKeyDown_(ev: KeyboardEvent): void {
 		const step = getStepForKey(
-			getBaseStepForColor(false),
+			getKeyScaleForColor(false),
 			getHorizontalStepKeys(ev),
 		);
 		if (step === 0) {
@@ -100,7 +102,7 @@ export class HPaletteController implements Controller<HPaletteView> {
 
 		const c = this.value.rawValue;
 		const [h, s, v, a] = c.getComponents('hsv');
-		this.value.setRawValue(new Color([h + step, s, v, a], 'hsv'), {
+		this.value.setRawValue(new IntColor([h + step, s, v, a], 'hsv'), {
 			forceEmit: false,
 			last: false,
 		});
@@ -108,7 +110,7 @@ export class HPaletteController implements Controller<HPaletteView> {
 
 	private onKeyUp_(ev: KeyboardEvent): void {
 		const step = getStepForKey(
-			getBaseStepForColor(false),
+			getKeyScaleForColor(false),
 			getHorizontalStepKeys(ev),
 		);
 		if (step === 0) {

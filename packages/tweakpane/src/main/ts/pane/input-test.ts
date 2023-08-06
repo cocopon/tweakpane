@@ -1,12 +1,15 @@
 import {
+	BindingApi,
 	CheckboxController,
-	Color,
 	ColorController,
 	forceCast,
+	IntColor,
 	ListController,
+	ListInputBindingApi,
 	NumberTextController,
 	Point2dController,
 	PointNdTextController,
+	SliderInputBindingApi,
 	SliderTextController,
 	TextController,
 	TpChangeEvent,
@@ -15,8 +18,8 @@ import {
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
-import {Pane} from '..';
-import {createTestWindow} from '../misc/test-util';
+import {createTestWindow} from '../misc/test-util.js';
+import {Pane} from './pane.js';
 
 function createPane(): Pane {
 	return new Pane({
@@ -59,7 +62,7 @@ describe(Pane.name, () => {
 					const pane = createPane();
 
 					try {
-						pane.addInput(testCase.obj, testCase.key as any);
+						pane.addBinding(testCase.obj, testCase.key as any);
 						assert.fail('should not be called');
 					} catch (ev) {
 						assert.strictEqual(ev instanceof TpError, true);
@@ -96,14 +99,14 @@ describe(Pane.name, () => {
 			expected: '#224488',
 			params: {
 				propertyValue: '#123',
-				newInternalValue: new Color([0x22, 0x44, 0x88], 'rgb'),
+				newInternalValue: new IntColor([0x22, 0x44, 0x88], 'rgb'),
 			},
 		},
 		{
 			expected: 'rgb(0, 127, 255)',
 			params: {
 				propertyValue: 'rgb(10, 20, 30)',
-				newInternalValue: new Color([0, 127, 255], 'rgb'),
+				newInternalValue: new IntColor([0, 127, 255], 'rgb'),
 			},
 		},
 	].forEach(({expected, params}) => {
@@ -111,31 +114,31 @@ describe(Pane.name, () => {
 			it('should pass right argument for change event (local)', (done) => {
 				const pane = createPane();
 				const obj = {foo: params.propertyValue};
-				const bapi = pane.addInput(obj, 'foo');
+				const bapi = pane.addBinding(obj, 'foo');
 
 				bapi.on('change', (ev) => {
 					assert.strictEqual(ev instanceof TpChangeEvent, true);
 					assert.strictEqual(ev.target, bapi);
-					assert.strictEqual(ev.presetKey, 'foo');
+					assert.strictEqual(ev.target.key, 'foo');
 					assert.strictEqual(ev.value, expected);
 					done();
 				});
-				bapi.controller_.binding.value.rawValue = params.newInternalValue;
+				bapi.controller.value.rawValue = params.newInternalValue;
 			});
 
 			it('should pass right argument for change event (global)', (done) => {
 				const pane = createPane();
 				const obj = {foo: params.propertyValue};
-				const bapi = pane.addInput(obj, 'foo');
+				const bapi = pane.addBinding(obj, 'foo');
 
 				pane.on('change', (ev) => {
 					assert.strictEqual(ev instanceof TpChangeEvent, true);
-					assert.strictEqual(ev.presetKey, 'foo');
+					assert.strictEqual((ev.target as BindingApi).key, 'foo');
 					assert.strictEqual(ev.value, expected);
 					assert.strictEqual(ev.target, bapi);
 					done();
 				});
-				bapi.controller_.binding.value.rawValue = params.newInternalValue;
+				bapi.controller.value.rawValue = params.newInternalValue;
 			});
 		});
 	});
@@ -143,10 +146,10 @@ describe(Pane.name, () => {
 	it('should dispose input', () => {
 		const PARAMS = {foo: 1};
 		const pane = createPane();
-		const bapi = pane.addInput(PARAMS, 'foo');
+		const bapi = pane.addBinding(PARAMS, 'foo');
 		bapi.dispose();
 		assert.strictEqual(
-			pane.controller_.view.element.querySelector('.tp-lblv'),
+			pane.controller.view.element.querySelector('.tp-lblv'),
 			null,
 		);
 	});
@@ -154,12 +157,12 @@ describe(Pane.name, () => {
 	it('should bind `this` within handler to input itself', (done) => {
 		const PARAMS = {foo: 1};
 		const pane = createPane();
-		const bapi = pane.addInput(PARAMS, 'foo');
+		const bapi = pane.addBinding(PARAMS, 'foo');
 		bapi.on('change', function (this: any) {
 			assert.strictEqual(this, bapi);
 			done();
 		});
-		bapi.controller_.binding.value.rawValue = 2;
+		bapi.controller.value.rawValue = 2;
 	});
 
 	[
@@ -169,35 +172,47 @@ describe(Pane.name, () => {
 				value: 3.14,
 				params: {},
 			},
-			expectedClass: NumberTextController,
+			expected: {
+				controller: NumberTextController,
+			},
 		},
 		{
 			args: {
 				value: 3.14,
 				params: {min: 0},
 			},
-			expectedClass: NumberTextController,
+			expected: {
+				controller: NumberTextController,
+			},
 		},
 		{
 			args: {
 				value: 3.14,
 				params: {max: 100},
 			},
-			expectedClass: NumberTextController,
+			expected: {
+				controller: NumberTextController,
+			},
 		},
 		{
 			args: {
 				value: 3.14,
 				params: {min: 0, max: 100},
 			},
-			expectedClass: SliderTextController,
+			expected: {
+				controller: SliderTextController,
+				api: SliderInputBindingApi,
+			},
 		},
 		{
 			args: {
 				value: 3.14,
 				params: {options: {bar: 1, foo: 0}},
 			},
-			expectedClass: ListController,
+			expected: {
+				controller: ListController,
+				api: ListInputBindingApi,
+			},
 		},
 		{
 			args: {
@@ -209,7 +224,10 @@ describe(Pane.name, () => {
 					],
 				},
 			},
-			expectedClass: ListController,
+			expected: {
+				controller: ListController,
+				api: ListInputBindingApi,
+			},
 		},
 		// String
 		{
@@ -217,7 +235,9 @@ describe(Pane.name, () => {
 				value: 'foobar',
 				params: {},
 			},
-			expectedClass: TextController,
+			expected: {
+				controller: TextController,
+			},
 		},
 		{
 			args: {
@@ -226,21 +246,28 @@ describe(Pane.name, () => {
 					options: {baz: 'qux', foo: 'bar'},
 				},
 			},
-			expectedClass: ListController,
+			expected: {
+				controller: ListController,
+				api: ListInputBindingApi,
+			},
 		},
 		{
 			args: {
 				value: '#112233',
 				params: {view: 'text'},
 			},
-			expectedClass: TextController,
+			expected: {
+				controller: TextController,
+			},
 		},
 		{
 			args: {
 				value: 'rgb(0, 100, 200)',
 				params: {view: 'text'},
 			},
-			expectedClass: TextController,
+			expected: {
+				controller: TextController,
+			},
 		},
 		// Boolean
 		{
@@ -248,7 +275,9 @@ describe(Pane.name, () => {
 				value: false,
 				params: {},
 			},
-			expectedClass: CheckboxController,
+			expected: {
+				controller: CheckboxController,
+			},
 		},
 		{
 			args: {
@@ -257,7 +286,10 @@ describe(Pane.name, () => {
 					options: {off: false, on: true},
 				},
 			},
-			expectedClass: ListController,
+			expected: {
+				controller: ListController,
+				api: ListInputBindingApi,
+			},
 		},
 		// Color
 		{
@@ -265,7 +297,9 @@ describe(Pane.name, () => {
 				value: '#00ff00',
 				params: {},
 			},
-			expectedClass: ColorController,
+			expected: {
+				controller: ColorController,
+			},
 		},
 		{
 			args: {
@@ -274,7 +308,9 @@ describe(Pane.name, () => {
 					view: 'color',
 				},
 			},
-			expectedClass: ColorController,
+			expected: {
+				controller: ColorController,
+			},
 		},
 		{
 			args: {
@@ -284,21 +320,27 @@ describe(Pane.name, () => {
 					view: 'color',
 				},
 			},
-			expectedClass: ColorController,
+			expected: {
+				controller: ColorController,
+			},
 		},
 		{
 			args: {
 				value: {r: 0, g: 127, b: 255},
 				params: {},
 			},
-			expectedClass: ColorController,
+			expected: {
+				controller: ColorController,
+			},
 		},
 		{
 			args: {
 				value: {r: 0, g: 127, b: 255, a: 0.5},
 				params: {},
 			},
-			expectedClass: ColorController,
+			expected: {
+				controller: ColorController,
+			},
 		},
 		// Point2d
 		{
@@ -306,7 +348,9 @@ describe(Pane.name, () => {
 				value: {x: 12, y: 34},
 				params: {},
 			},
-			expectedClass: Point2dController,
+			expected: {
+				controller: Point2dController,
+			},
 		},
 		// Point3d
 		{
@@ -314,7 +358,9 @@ describe(Pane.name, () => {
 				value: {x: 12, y: 34, z: 56},
 				params: {},
 			},
-			expectedClass: PointNdTextController,
+			expected: {
+				controller: PointNdTextController,
+			},
 		},
 		// Point4d
 		{
@@ -322,31 +368,42 @@ describe(Pane.name, () => {
 				value: {x: 12, y: 34, z: 56, w: 78},
 				params: {},
 			},
-			expectedClass: PointNdTextController,
+			expected: {
+				controller: PointNdTextController,
+			},
 		},
-	].forEach(({args, expectedClass}) => {
+	].forEach(({args, expected}) => {
 		context(`when params = ${JSON.stringify(args.params)}`, () => {
-			it(`should return controller: ${expectedClass.name}`, () => {
+			it(`should return controller: ${expected.controller.name}`, () => {
 				const pane = createPane();
 				const obj = {foo: args.value};
-				const bapi = pane.addInput(obj, 'foo', forceCast(args.params));
+				const bapi = pane.addBinding(obj, 'foo', forceCast(args.params));
 				assert.strictEqual(
-					bapi.controller_.valueController instanceof expectedClass,
+					bapi.controller.valueController instanceof expected.controller,
 					true,
 				);
 			});
+
+			if (expected.api) {
+				it(`should return api: ${expected.api.name}`, () => {
+					const pane = createPane();
+					const obj = {foo: args.value};
+					const bapi = pane.addBinding(obj, 'foo', forceCast(args.params));
+					assert.strictEqual(bapi instanceof expected.api, true);
+				});
+			}
 		});
 	});
 
 	it('should throw `alreadydisposed` error when calling dispose() inside input change event', (done) => {
 		const pane = createPane();
-		const bapi = pane.addInput({foo: 1}, 'foo');
+		const bapi = pane.addBinding({foo: 1}, 'foo');
 
 		try {
 			bapi.on('change', () => {
 				bapi.dispose();
 			});
-			bapi.controller_.binding.value.rawValue = 2;
+			bapi.controller.value.rawValue = 2;
 		} catch (err: unknown) {
 			assert.strictEqual((err as TpError<any>).type, 'alreadydisposed');
 			done();

@@ -1,7 +1,6 @@
 import {
 	ButtonBladeParams,
 	FolderBladeParams,
-	SeparatorBladeParams,
 	TabBladeParams,
 } from '@tweakpane/core';
 import {toCss} from 'ts/panepaint';
@@ -9,19 +8,20 @@ import {createTheme, ThemeId} from 'ts/themes';
 import {
 	ListBladeParams,
 	Pane,
+	SeparatorBladeParams,
 	SliderBladeParams,
 	TextBladeParams,
 } from 'tweakpane';
 
-import {selectContainer, wave} from '../util';
+import {selectContainer, wave} from '../util.js';
 
 function createThemePane(container: HTMLElement): Pane {
 	const pane = new Pane({
 		container: container,
 		title: 'Theme',
 	});
-	pane.addInput({text: 0}, 'text');
-	pane.addInput({slider: 0}, 'slider', {
+	pane.addBinding({text: 0}, 'text');
+	pane.addBinding({slider: 0}, 'slider', {
 		min: -1,
 		max: 1,
 	});
@@ -30,8 +30,6 @@ function createThemePane(container: HTMLElement): Pane {
 }
 
 export function initCatalog() {
-	const disabled = location.search.includes('disabled');
-
 	if (location.search.includes('readme')) {
 		// Preparing for readme images
 		document.documentElement.classList.add('readme');
@@ -55,18 +53,15 @@ export function initCatalog() {
 				container: container,
 				title: 'Number',
 			});
-			pane.addInput(params, 'number', {
-				disabled: disabled,
+			pane.addBinding(params, 'number', {
 				label: 'text',
 			});
-			pane.addInput(params, 'number', {
-				disabled: disabled,
+			pane.addBinding(params, 'number', {
 				label: 'slider',
 				min: -100,
 				max: 100,
 			});
-			pane.addInput(params, 'number', {
-				disabled: disabled,
+			pane.addBinding(params, 'number', {
 				label: 'list',
 				options: {
 					option: 0,
@@ -82,12 +77,10 @@ export function initCatalog() {
 				container: container,
 				title: 'String',
 			});
-			pane.addInput(params, 'string', {
-				disabled: disabled,
+			pane.addBinding(params, 'string', {
 				label: 'text',
 			});
-			pane.addInput(params, 'string', {
-				disabled: disabled,
+			pane.addBinding(params, 'string', {
 				label: 'list',
 				options: {
 					option: 'text',
@@ -103,8 +96,7 @@ export function initCatalog() {
 				container: container,
 				title: 'Boolean',
 			});
-			pane.addInput(params, 'bool', {
-				disabled: disabled,
+			pane.addBinding(params, 'bool', {
 				label: 'checkbox',
 			});
 			return pane;
@@ -117,8 +109,7 @@ export function initCatalog() {
 				container: container,
 				title: 'Color',
 			});
-			pane.addInput(params, 'color', {
-				disabled: disabled,
+			pane.addBinding(params, 'color', {
 				expanded: true,
 				label: 'picker',
 				picker: 'inline',
@@ -135,18 +126,15 @@ export function initCatalog() {
 				container: container,
 				title: 'Point',
 			});
-			pane.addInput(params, 'p2d', {
-				disabled: disabled,
+			pane.addBinding(params, 'p2d', {
 				expanded: true,
 				label: '2d-picker',
 				picker: 'inline',
 			});
-			pane.addInput(params, 'p3d', {
-				disabled: disabled,
+			pane.addBinding(params, 'p3d', {
 				label: '3d-text',
 			});
-			pane.addInput(params, 'p4d', {
-				disabled: disabled,
+			pane.addBinding(params, 'p4d', {
 				label: '4d-text',
 			});
 			return pane;
@@ -165,20 +153,20 @@ export function initCatalog() {
 				container: container,
 				title: 'Number',
 			});
-			pane.addMonitor(params, 'number', {
-				disabled: disabled,
+			pane.addBinding(params, 'number', {
 				label: 'text',
+				readonly: true,
 			});
-			pane.addMonitor(params, 'number', {
+			pane.addBinding(params, 'number', {
 				bufferSize: 10,
-				disabled: disabled,
 				label: 'multiline',
+				readonly: true,
 			});
-			pane.addMonitor(params, 'number', {
-				disabled: disabled,
+			pane.addBinding(params, 'number', {
 				label: 'graph',
 				max: +1,
 				min: -1,
+				readonly: true,
 				view: 'graph',
 			});
 			return pane;
@@ -195,16 +183,16 @@ export function initCatalog() {
 				container: container,
 				title: 'String',
 			});
-			pane.addMonitor(params, 'string', {
-				disabled: disabled,
+			pane.addBinding(params, 'string', {
 				interval: 1000,
 				label: 'text',
+				readonly: true,
 			});
-			pane.addMonitor(params, 'string', {
+			pane.addBinding(params, 'string', {
 				bufferSize: 10,
-				disabled: disabled,
 				interval: 1000,
 				label: 'multiline',
+				readonly: true,
 			});
 			return pane;
 		},
@@ -220,16 +208,16 @@ export function initCatalog() {
 				container: container,
 				title: 'Boolean',
 			});
-			pane.addMonitor(params, 'bool', {
-				disabled: disabled,
+			pane.addBinding(params, 'bool', {
 				interval: 1000,
 				label: 'text',
+				readonly: true,
 			});
-			pane.addMonitor(params, 'bool', {
+			pane.addBinding(params, 'bool', {
 				bufferSize: 10,
-				disabled: disabled,
 				interval: 1000,
 				label: 'multiline',
+				readonly: true,
 			});
 			return pane;
 		},
@@ -241,11 +229,11 @@ export function initCatalog() {
 			const f = pane.addFolder({
 				title: 'Folder',
 			});
-			f.addInput({param: 0}, 'param', {disabled: disabled});
+			f.addBinding({param: 0}, 'param');
 			const sf = f.addFolder({
 				title: 'Subfolder',
 			});
-			sf.addInput({param: 0}, 'param', {disabled: disabled});
+			sf.addBinding({param: 0}, 'param');
 			return pane;
 		},
 		tab: (container) => {
@@ -256,11 +244,11 @@ export function initCatalog() {
 			const t = pane.addTab({
 				pages: [{title: 'Page'}, {title: 'Page'}],
 			});
-			t.pages[0].addInput({param: 0}, 'param', {disabled: disabled});
+			t.pages[0].addBinding({param: 0}, 'param');
 			const st = t.pages[0].addTab({
 				pages: [{title: 'Page'}, {title: 'Page'}],
 			});
-			st.pages[0].addInput({param: 0}, 'param', {disabled: disabled});
+			st.pages[0].addBinding({param: 0}, 'param');
 			return pane;
 		},
 		button: (container) => {
@@ -269,12 +257,10 @@ export function initCatalog() {
 				title: 'Button',
 			});
 			pane.addButton({
-				disabled: disabled,
 				label: 'label',
 				title: 'Button',
 			});
 			pane.addButton({
-				disabled: disabled,
 				title: 'Button',
 			});
 			return pane;
@@ -284,9 +270,9 @@ export function initCatalog() {
 				container: container,
 				title: 'Separator',
 			});
-			pane.addInput({param: 0}, 'param', {disabled: disabled});
-			pane.addSeparator();
-			pane.addInput({param: 0}, 'param', {disabled: disabled});
+			pane.addBinding({param: 0}, 'param');
+			pane.addBlade({view: 'separator'});
+			pane.addBinding({param: 0}, 'param');
 			return pane;
 		},
 		icebergtheme: (container) => {
@@ -306,37 +292,31 @@ export function initCatalog() {
 
 			[
 				{
-					disabled: disabled,
 					label: 'label',
 					title: 'Button',
 					view: 'button',
 				} as ButtonBladeParams,
 				{
-					disabled: disabled,
 					view: 'separator',
 				} as SeparatorBladeParams,
 				{
-					disabled: disabled,
 					expanded: false,
 					title: 'Folder',
 					view: 'folder',
 				} as FolderBladeParams,
 				{
-					disabled: disabled,
 					label: 'label',
 					parse: (v: string) => v,
 					value: 'text',
 					view: 'text',
 				} as TextBladeParams<string>,
 				{
-					disabled: disabled,
 					label: 'label',
 					options: {option: 0},
 					value: 0,
 					view: 'list',
 				} as ListBladeParams<number>,
 				{
-					disabled: disabled,
 					label: 'label',
 					max: 100,
 					min: 0,
@@ -344,7 +324,6 @@ export function initCatalog() {
 					view: 'slider',
 				} as SliderBladeParams,
 				{
-					disabled: disabled,
 					pages: [{title: 'Tab'}, {title: 'Tab'}],
 					view: 'tab',
 				} as TabBladeParams,
@@ -359,8 +338,8 @@ export function initCatalog() {
 			});
 
 			((f) => {
-				f.addInput({param: 0}, 'param');
-				f.addInput({param: 0}, 'param');
+				f.addBinding({param: 0}, 'param');
+				f.addBinding({param: 0}, 'param');
 			})(pane.addFolder({title: 'Root Folder'}));
 			return pane;
 		},
@@ -372,12 +351,12 @@ export function initCatalog() {
 			const t = pane.addTab({
 				pages: [{title: 'Root'}, {title: 'Tab'}],
 			});
-			t.pages[0].addInput({param: 0}, 'param');
-			t.pages[0].addInput({param: 0}, 'param');
+			t.pages[0].addBinding({param: 0}, 'param');
+			t.pages[0].addBinding({param: 0}, 'param');
 
 			// Test case for expanding a folder in the hidden container
 			((f) => {
-				f.addInput({param: 0}, 'param');
+				f.addBinding({param: 0}, 'param');
 				f.expanded = true;
 			})(t.pages[1].addFolder({title: 'Folder', expanded: false}));
 
@@ -391,12 +370,12 @@ export function initCatalog() {
 
 			((f) => {
 				((sf) => {
-					sf.addInput({param: 0}, 'param');
-					sf.addInput({param: 0}, 'param');
+					sf.addBinding({param: 0}, 'param');
+					sf.addBinding({param: 0}, 'param');
 				})(f.addFolder({title: 'Folder'}));
 				((sf) => {
-					sf.addInput({param: 0}, 'param');
-					sf.addInput({param: 0}, 'param');
+					sf.addBinding({param: 0}, 'param');
+					sf.addBinding({param: 0}, 'param');
 				})(f.addFolder({title: 'Folder'}));
 			})(pane.addFolder({title: 'Folder'}));
 			return pane;
@@ -410,13 +389,13 @@ export function initCatalog() {
 				title: 'Container List',
 			});
 			((f) => {
-				f.addInput({param: 0}, 'param');
+				f.addBinding({param: 0}, 'param');
 			})(rf.addFolder({title: 'Folder'}));
 			((t) => {
-				t.pages[0].addInput({param: 0}, 'param');
+				t.pages[0].addBinding({param: 0}, 'param');
 			})(rf.addTab({pages: [{title: 'Page'}, {title: 'Page'}]}));
 			((f) => {
-				f.addInput({param: 0}, 'param');
+				f.addBinding({param: 0}, 'param');
 			})(rf.addFolder({title: 'Folder'}));
 			return pane;
 		},
@@ -430,4 +409,101 @@ export function initCatalog() {
 		panes[marker] = pane;
 	});
 	(window as any).panes = panes;
+
+	(() => {
+		const params = {
+			base: {
+				borderRadius: 6,
+			},
+			blade: {
+				borderRadius: 2,
+				hPadding: 4,
+				valueWidth: 160,
+			},
+			container: {
+				hPadding: 4,
+				unitSize: 20,
+				unitSpacing: 4,
+				vPadding: 4,
+			},
+			disabled: false,
+		};
+		const pane = new Pane({
+			expanded: false,
+			title: 'Parameters',
+		});
+		pane.addBinding(params, 'disabled');
+		((f) => {
+			f.addBinding(params.base, 'borderRadius', {
+				label: 'border-radius',
+				min: 0,
+				max: 16,
+				step: 1,
+			});
+		})(pane.addFolder({title: 'base'}));
+		((f) => {
+			f.addBinding(params.blade, 'borderRadius', {
+				label: 'border-radius',
+				min: 0,
+				max: 16,
+				step: 1,
+			});
+			f.addBinding(params.blade, 'hPadding', {
+				label: 'h-padding',
+				min: 0,
+				max: 16,
+				step: 1,
+			});
+			f.addBinding(params.blade, 'valueWidth', {
+				label: 'value-width',
+				min: 100,
+				max: 200,
+				step: 1,
+			});
+		})(pane.addFolder({title: 'blade'}));
+		((f) => {
+			f.addBinding(params.container, 'unitSize', {
+				label: 'unit-size',
+				min: 8,
+				max: 32,
+				step: 1,
+			});
+			f.addBinding(params.container, 'unitSpacing', {
+				label: 'unit-spacing',
+				min: 0,
+				max: 16,
+				step: 1,
+			});
+			f.addBinding(params.container, 'hPadding', {
+				label: 'h-padding',
+				min: 0,
+				max: 16,
+				step: 1,
+			});
+			f.addBinding(params.container, 'vPadding', {
+				label: 'v-padding',
+				min: 0,
+				max: 16,
+				step: 1,
+			});
+		})(pane.addFolder({title: 'container'}));
+
+		const styleElem = document.createElement('style');
+		document.head.appendChild(styleElem);
+		pane.on('change', () => {
+			const decls = [
+				`--tp-base-border-radius:${params.base.borderRadius}px`,
+				`--tp-blade-border-radius:${params.blade.borderRadius}px`,
+				`--tp-blade-horizontal-padding:${params.blade.hPadding}px`,
+				`--tp-blade-value-width:${params.blade.valueWidth}px`,
+				`--tp-container-horizontal-padding:${params.container.hPadding}px`,
+				`--tp-container-unit-size:${params.container.unitSize}px`,
+				`--tp-container-unit-spacing:${params.container.unitSpacing}px`,
+				`--tp-container-vertical-padding:${params.container.vPadding}px`,
+			];
+			styleElem.textContent = `.paneContainer{${decls.join(';')}}`;
+
+			Object.values(panes).forEach((p) => (p.disabled = params.disabled));
+		});
+	})();
 }

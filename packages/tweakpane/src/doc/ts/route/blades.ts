@@ -1,6 +1,6 @@
-import {ListApi, Pane, TextApi} from 'tweakpane';
+import {ListBladeApi, Pane, TextBladeApi} from 'tweakpane';
 
-import {selectContainer} from '../util';
+import {selectContainer} from '../util.js';
 
 export function initBlades() {
 	const markerToFnMap: {
@@ -53,9 +53,9 @@ export function initBlades() {
 					{text: 'field', value: 'FLD'},
 				],
 				value: 'LDG',
-			}) as ListApi<string>;
+			}) as ListBladeApi<string>;
 			api.on('change', (ev) => {
-				(conPane.children[0] as TextApi<string>).value = ev.value;
+				(conPane.children[0] as TextBladeApi<string>).value = ev.value;
 				conPane.refresh();
 			});
 		},
@@ -70,6 +70,15 @@ export function initBlades() {
 				max: 1,
 				value: 0.5,
 			});
+		},
+		separator: (container) => {
+			const pane = new Pane({
+				container: container,
+			});
+			pane.addButton({title: 'Previous'});
+			pane.addButton({title: 'Next'});
+			pane.addBlade({view: 'separator'});
+			pane.addButton({title: 'Reset'});
 		},
 	};
 	Object.keys(markerToFnMap).forEach((marker) => {

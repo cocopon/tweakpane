@@ -1,18 +1,21 @@
 import * as assert from 'assert';
 import {describe} from 'mocha';
 
-import {ValueMap} from '../../../common/model/value-map';
-import {createTestWindow} from '../../../misc/dom-test-util';
-import {createDefaultPluginPool} from '../../../plugin/plugins';
-import {testBladeContainer} from '../../common/api/blade-rack-test';
-import {RackApi} from '../../rack/api/rack';
-import {TabPageController, TabPagePropsObject} from '../controller/tab-page';
-import {TabItemPropsObject} from '../view/tab-item';
-import {TabPageApi} from './tab-page';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {createTestWindow} from '../../../misc/dom-test-util.js';
+import {createDefaultPluginPool} from '../../../plugin/plugins.js';
+import {testBladeContainer} from '../../common/api/container-test.js';
+import {createBlade} from '../../common/model/blade.js';
+import {TestValueBladePlugin} from '../../test-util.js';
+import {TabPageController, TabPagePropsObject} from '../controller/tab-page.js';
+import {TabItemPropsObject} from '../view/tab-item.js';
+import {TabPageApi} from './tab-page.js';
 
 function createApi() {
 	const doc = createTestWindow().document;
 	const c = new TabPageController(doc, {
+		blade: createBlade(),
 		itemProps: ValueMap.fromObject<TabItemPropsObject>({
 			selected: false,
 			title: 'foo',
@@ -20,9 +23,11 @@ function createApi() {
 		props: ValueMap.fromObject<TabPagePropsObject>({
 			selected: false,
 		}),
+		viewProps: ViewProps.create(),
 	});
 	const pool = createDefaultPluginPool();
-	return new TabPageApi(c, new RackApi(c.contentController, pool));
+	pool.register('test', TestValueBladePlugin);
+	return new TabPageApi(c, pool);
 }
 
 describe(TabPageApi.name, () => {
@@ -40,7 +45,7 @@ describe(TabPageApi.name, () => {
 		api.title = 'changed';
 		assert.strictEqual(api.title, 'changed');
 		assert.strictEqual(
-			api.controller_.itemController.view.element.innerHTML.includes('changed'),
+			api.controller.itemController.view.element.innerHTML.includes('changed'),
 			true,
 		);
 

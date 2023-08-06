@@ -1,22 +1,25 @@
-import {createBlade} from '../blade/common/model/blade';
-import {LabelPropsObject} from '../blade/label/view/label';
-import {MonitorBindingController} from '../blade/monitor-binding/controller/monitor-binding';
-import {BindingReader} from '../common/binding/binding';
-import {MonitorBinding} from '../common/binding/monitor';
-import {BindingTarget} from '../common/binding/target';
-import {IntervalTicker} from '../common/binding/ticker/interval';
-import {ManualTicker} from '../common/binding/ticker/manual';
-import {Ticker} from '../common/binding/ticker/ticker';
-import {Controller} from '../common/controller/controller';
-import {BufferedValue, initializeBuffer} from '../common/model/buffered-value';
-import {ValueMap} from '../common/model/value-map';
-import {ViewProps} from '../common/model/view-props';
-import {BaseMonitorParams} from '../common/params';
-import {ParamsParsers} from '../common/params-parsers';
-import {View} from '../common/view/view';
-import {Constants} from '../misc/constants';
-import {isEmpty} from '../misc/type-util';
-import {BasePlugin} from '../plugin/plugin';
+import {MonitorBindingApi} from '../blade/binding/api/monitor-binding.js';
+import {
+	BufferedValueController,
+	MonitorBindingController,
+} from '../blade/binding/controller/monitor-binding.js';
+import {createBlade} from '../blade/common/model/blade.js';
+import {BindingReader} from '../common/binding/binding.js';
+import {ReadonlyBinding} from '../common/binding/readonly.js';
+import {BindingTarget} from '../common/binding/target.js';
+import {IntervalTicker} from '../common/binding/ticker/interval.js';
+import {ManualTicker} from '../common/binding/ticker/manual.js';
+import {Ticker} from '../common/binding/ticker/ticker.js';
+import {MonitorBindingValue} from '../common/binding/value/monitor-binding.js';
+import {LabelPropsObject} from '../common/label/view/label.js';
+import {parseRecord} from '../common/micro-parsers.js';
+import {BufferedValue} from '../common/model/buffered-value.js';
+import {ValueMap} from '../common/model/value-map.js';
+import {ViewProps} from '../common/model/view-props.js';
+import {BaseMonitorParams} from '../common/params.js';
+import {Constants} from '../misc/constants.js';
+import {isEmpty} from '../misc/type-util.js';
+import {BasePlugin} from '../plugin/plugin.js';
 
 interface Acceptance<T, P extends BaseMonitorParams> {
 	initialValue: T;
@@ -34,6 +37,10 @@ interface ControllerArguments<T, P extends BaseMonitorParams> {
 	params: P;
 	value: BufferedValue<T>;
 	viewProps: ViewProps;
+}
+
+interface ApiArguments {
+	controller: MonitorBindingController<unknown>;
 }
 
 /**
@@ -92,7 +99,18 @@ export interface MonitorBindingPlugin<T, P extends BaseMonitorParams>
 		 * @param args The arguments for creating a controller.
 		 * @return A custom controller that contains a custom view.
 		 */
-		(args: ControllerArguments<T, P>): Controller<View>;
+		(args: ControllerArguments<T, P>): BufferedValueController<T>;
+	};
+
+	/**
+	 * Creates a custom API for the plugin if available.
+	 */
+	api?: {
+		/**
+		 * @param args The arguments for creating an API.
+		 * @return A custom API for the specified controller, or null if there is no suitable API.
+		 */
+		(args: ApiArguments): MonitorBindingApi<T> | null;
 	};
 }
 
@@ -116,7 +134,6 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 		target: BindingTarget;
 	},
 ): MonitorBindingController<T> | null {
-	const p = ParamsParsers;
 	const result = plugin.accept(args.target.read(), args.params);
 	if (isEmpty(result)) {
 		return null;
@@ -128,41 +145,52 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 		params: result.params,
 	};
 
+	const params = parseRecord(args.params, (p) => ({
+		bufferSize: p.optional.number,
+		disabled: p.optional.boolean,
+		hidden: p.optional.boolean,
+		interval: p.optional.number,
+		label: p.optional.string,
+	}));
+
+	// Binding and value
 	const reader = plugin.binding.reader(bindingArgs);
 	const bufferSize =
-		p.optional.number(args.params.bufferSize).value ??
+		params?.bufferSize ??
 		(plugin.binding.defaultBufferSize &&
 			plugin.binding.defaultBufferSize(result.params)) ??
 		1;
-	const interval = p.optional.number(args.params.interval).value;
-	const binding = new MonitorBinding({
-		reader: reader,
-		target: args.target,
-		ticker: createTicker(args.document, interval),
-		value: initializeBuffer<T>(bufferSize),
+	const value = new MonitorBindingValue({
+		binding: new ReadonlyBinding({
+			reader: reader,
+			target: args.target,
+		}),
+		bufferSize: bufferSize,
+		ticker: createTicker(args.document, params?.interval),
 	});
 
-	const disabled = p.optional.boolean(args.params.disabled).value;
-	const hidden = p.optional.boolean(args.params.hidden).value;
+	// Value controller
 	const controller = plugin.controller({
 		document: args.document,
 		params: result.params,
-		value: binding.value,
+		value: value,
 		viewProps: ViewProps.create({
-			disabled: disabled,
-			hidden: hidden,
+			disabled: params?.disabled,
+			hidden: params?.hidden,
 		}),
 	});
+	controller.viewProps.bindDisabled(value.ticker);
+	controller.viewProps.handleDispose(() => {
+		value.ticker.dispose();
+	});
 
+	// Monitor binding controller
 	return new MonitorBindingController(args.document, {
-		binding: binding,
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
-			label:
-				'label' in args.params
-					? p.optional.string(args.params.label).value ?? null
-					: args.target.key,
+			label: 'label' in args.params ? params?.label ?? null : args.target.key,
 		}),
+		value: value,
 		valueController: controller,
 	});
 }

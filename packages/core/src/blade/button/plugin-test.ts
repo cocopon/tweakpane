@@ -1,18 +1,16 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
-import {View} from '../../common/view/view';
-import {createTestWindow} from '../../misc/dom-test-util';
-import {createDefaultPluginPool} from '../../plugin/plugins';
-import {BladeController} from '../common/controller/blade';
-import {createBladeController} from '../plugin';
+import {createTestWindow} from '../../misc/dom-test-util.js';
+import {createDefaultPluginPool} from '../../plugin/plugins.js';
+import {BladeController} from '../common/controller/blade.js';
+import {createBladeController} from '../plugin.js';
 import {
+	createAppropriateBladeController,
 	createEmptyBladeController,
-	createEmptyLabelableController,
-	createLabelController,
-} from '../test-util';
-import {ButtonApi} from './api/button';
-import {ButtonBladePlugin} from './plugin';
+} from '../test-util.js';
+import {ButtonApi} from './api/button.js';
+import {ButtonBladePlugin} from './plugin.js';
 
 describe(ButtonBladePlugin.id, () => {
 	[
@@ -35,12 +33,11 @@ describe(ButtonBladePlugin.id, () => {
 
 	[
 		(doc: Document) => createEmptyBladeController(doc),
-		(doc: Document) =>
-			createLabelController(doc, createEmptyLabelableController(doc)),
+		(doc: Document) => createAppropriateBladeController(doc),
 	].forEach((createController) => {
 		it('should not create API', () => {
 			const doc = createTestWindow().document;
-			const c = createController(doc);
+			const c = createController(doc) as BladeController;
 			const api = ButtonBladePlugin.api({
 				controller: c,
 				pool: createDefaultPluginPool(),
@@ -58,12 +55,12 @@ describe(ButtonBladePlugin.id, () => {
 				title: 'Title',
 				view: 'button',
 			},
-		}) as BladeController<View>;
+		}) as BladeController;
 		const pool = createDefaultPluginPool();
-		const api = pool.createBladeApi(bc) as ButtonApi;
+		const api = pool.createApi(bc) as ButtonApi;
 
 		assert.strictEqual(
-			api.controller_.view.element.innerHTML.includes('initiallabel'),
+			api.controller.view.element.innerHTML.includes('initiallabel'),
 			true,
 		);
 	});

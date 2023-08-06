@@ -1,26 +1,32 @@
-import {Formatter} from '../converter/formatter';
-import {Value} from '../model/value';
-import {ValueMap} from '../model/value-map';
-import {ViewProps} from '../model/view-props';
-import {ClassName} from './class-name';
-import {View} from './view';
+import {Formatter} from '../converter/formatter.js';
+import {Value} from '../model/value.js';
+import {ValueMap} from '../model/value-map.js';
+import {ViewProps} from '../model/view-props.js';
+import {ClassName} from './class-name.js';
+import {InputView, View} from './view.js';
 
+/**
+ * @hidden
+ */
 export type TextProps<T> = ValueMap<{
 	formatter: Formatter<T>;
 }>;
 
+/**
+ * @hidden
+ */
 interface Config<T> {
 	props: TextProps<T>;
 	value: Value<T>;
 	viewProps: ViewProps;
 }
 
-const className = ClassName('txt');
+const cn = ClassName('txt');
 
 /**
  * @hidden
  */
-export class TextView<T> implements View {
+export class TextView<T> implements View, InputView {
 	public readonly inputElement: HTMLInputElement;
 	public readonly element: HTMLElement;
 	private readonly props_: TextProps<T>;
@@ -30,14 +36,14 @@ export class TextView<T> implements View {
 		this.onChange_ = this.onChange_.bind(this);
 
 		this.element = doc.createElement('div');
-		this.element.classList.add(className());
+		this.element.classList.add(cn());
 		config.viewProps.bindClassModifiers(this.element);
 
 		this.props_ = config.props;
 		this.props_.emitter.on('change', this.onChange_);
 
 		const inputElem = doc.createElement('input');
-		inputElem.classList.add(className('i'));
+		inputElem.classList.add(cn('i'));
 		inputElem.type = 'text';
 		config.viewProps.bindDisabled(inputElem);
 		this.element.appendChild(inputElem);

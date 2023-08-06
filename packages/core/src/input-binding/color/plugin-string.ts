@@ -1,35 +1,41 @@
-import {TpError} from '../../common/tp-error';
-import {InputBindingPlugin} from '../plugin';
-import {ColorController} from './controller/color';
+import {ColorInputParams} from '../../blade/common/api/params.js';
+import {Formatter} from '../../common/converter/formatter.js';
+import {TpError} from '../../common/tp-error.js';
+import {createPlugin} from '../../plugin/plugin.js';
+import {InputBindingPlugin} from '../plugin.js';
+import {ColorController} from './controller/color.js';
 import {
-	createColorStringBindingReader,
 	createColorStringParser,
 	detectStringColorFormat,
 	findColorStringifier,
-} from './converter/color-string';
-import {createColorStringWriter} from './converter/writer';
-import {Color} from './model/color';
-import {
-	ColorInputParams,
-	extractColorType,
-	parseColorInputParams,
-} from './util';
+	readIntColorString,
+	StringColorFormat,
+} from './converter/color-string.js';
+import {createColorStringWriter} from './converter/writer.js';
+import {Color, equalsColor} from './model/color.js';
+import {IntColor} from './model/int-color.js';
+import {extractColorType, parseColorInputParams} from './util.js';
+
+interface StringColorInputParams extends ColorInputParams {
+	format: StringColorFormat;
+	stringifier: Formatter<Color>;
+}
 
 /**
  * @hidden
  */
 export const StringColorInputPlugin: InputBindingPlugin<
-	Color,
+	IntColor,
 	string,
-	ColorInputParams
-> = {
+	StringColorInputParams
+> = createPlugin({
 	id: 'input-color-string',
 	type: 'input',
 	accept: (value, params) => {
 		if (typeof value !== 'string') {
 			return null;
 		}
-		if ('view' in params && params.view === 'text') {
+		if (params.view === 'text') {
 			return null;
 		}
 		const format = detectStringColorFormat(value, extractColorType(params));
@@ -45,23 +51,19 @@ export const StringColorInputPlugin: InputBindingPlugin<
 		return result
 			? {
 					initialValue: value,
-					params: result,
+					params: {
+						...result,
+						format: format,
+						stringifier: stringifier,
+					},
 			  }
 			: null;
 	},
 	binding: {
-		reader: (args) =>
-			createColorStringBindingReader(extractColorType(args.params) ?? 'int'),
-		equals: Color.equals,
+		reader: () => readIntColorString,
+		equals: equalsColor,
 		writer: (args) => {
-			const format = detectStringColorFormat(
-				args.initialValue,
-				extractColorType(args.params),
-			);
-			if (!format) {
-				throw TpError.shouldNeverHappen();
-			}
-			const writer = createColorStringWriter(format);
+			const writer = createColorStringWriter(args.params.format);
 			if (!writer) {
 				throw TpError.notBindable();
 			}
@@ -69,30 +71,15 @@ export const StringColorInputPlugin: InputBindingPlugin<
 		},
 	},
 	controller: (args) => {
-		const format = detectStringColorFormat(
-			args.initialValue,
-			extractColorType(args.params),
-		);
-		if (!format) {
-			throw TpError.shouldNeverHappen();
-		}
-		const stringifier = findColorStringifier(format);
-		if (!stringifier) {
-			throw TpError.shouldNeverHappen();
-		}
-
-		const expanded =
-			'expanded' in args.params ? args.params.expanded : undefined;
-		const picker = 'picker' in args.params ? args.params.picker : undefined;
 		return new ColorController(args.document, {
-			colorType: format.type,
-			expanded: expanded ?? false,
-			formatter: stringifier,
-			parser: createColorStringParser(format.type),
-			pickerLayout: picker ?? 'popup',
-			supportsAlpha: format.alpha,
+			colorType: args.params.format.type,
+			expanded: args.params.expanded ?? false,
+			formatter: args.params.stringifier,
+			parser: createColorStringParser('int'),
+			pickerLayout: args.params.picker ?? 'popup',
+			supportsAlpha: args.params.format.alpha,
 			value: args.value,
 			viewProps: args.viewProps,
 		});
 	},
-};
+});

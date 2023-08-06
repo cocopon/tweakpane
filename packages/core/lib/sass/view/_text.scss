@@ -1,10 +1,14 @@
-.#{$prefix}-txtv {
+@use 'sass:math';
+@use '../tp';
+
+.#{tp.$prefix}-txtv {
 	position: relative;
 
 	&_i {
-		@extend %input;
+		@extend %tp-input;
 
-		padding: 0 4px;
+		padding-left: tp.cssVar('blade-h-padding');
+		padding-right: tp.cssVar('blade-h-padding');
 	}
 	&#{&}-fst &_i {
 		border-bottom-right-radius: 0;
@@ -20,7 +24,7 @@
 }
 
 // number-text
-.#{$prefix}-txtv {
+.#{tp.$prefix}-txtv {
 	$knob-bounds-width: 12px;
 	$knob-visual-width: 2px;
 
@@ -33,20 +37,25 @@
 	&_k {
 		cursor: pointer;
 		height: 100%;
-		left: 2px - (($knob-bounds-width - $knob-visual-width) / 2);
+		left: calc(
+			#{tp.cssVar('blade-h-padding')} - #{math.div(
+					$knob-bounds-width - $knob-visual-width,
+					2
+				)}
+		);
 		position: absolute;
 		top: 0;
 		width: $knob-bounds-width;
 
 		&::before {
-			background-color: var(--in-fg);
-			border-radius: $knob-visual-width / 2;
+			background-color: tp.cssVar('input-fg');
+			border-radius: math.div($knob-visual-width, 2);
 			bottom: 0;
 			content: '';
-			height: calc(var(--bld-us) - 4px);
+			height: calc(#{tp.cssVar('container-unit-size')} - 4px);
 			left: 50%;
 			margin-bottom: auto;
-			margin-left: -($knob-visual-width / 2);
+			margin-left: math.div(-$knob-visual-width, 2);
 			margin-top: auto;
 			opacity: 0.1;
 			position: absolute;
@@ -62,7 +71,7 @@
 	&#{&}-drg &_k::before {
 		border-radius: 50%;
 		height: 4px;
-		transform: translateX(($knob-visual-width - 4px) / 2);
+		transform: translateX(math.div($knob-visual-width - 4px, 2));
 		width: 4px;
 	}
 	&_g {
@@ -83,19 +92,19 @@
 	}
 	&_gb {
 		fill: none;
-		stroke: var(--in-fg);
+		stroke: tp.cssVar('input-fg');
 		stroke-dasharray: 1;
 	}
 	&_gh {
 		fill: none;
-		stroke: var(--in-fg);
+		stroke: tp.cssVar('input-fg');
 	}
 
-	.#{$prefix}-ttv {
-		margin-left: $knob-bounds-width / 2;
+	.#{tp.$prefix}-ttv {
+		margin-left: math.div($knob-bounds-width, 2);
 		visibility: hidden;
 	}
-	&#{&}-drg .#{$prefix}-ttv {
+	&#{&}-drg .#{tp.$prefix}-ttv {
 		visibility: visible;
 	}
 }

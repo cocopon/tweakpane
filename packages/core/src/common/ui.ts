@@ -5,11 +5,8 @@ interface StepKeys {
 	upKey: boolean;
 }
 
-/**
- * @hidden
- */
-export function getStepForKey(baseStep: number, keys: StepKeys): number {
-	const step = baseStep * (keys.altKey ? 0.1 : 1) * (keys.shiftKey ? 10 : 1);
+export function getStepForKey(keyScale: number, keys: StepKeys): number {
+	const step = keyScale * (keys.altKey ? 0.1 : 1) * (keys.shiftKey ? 10 : 1);
 
 	if (keys.upKey) {
 		return +step;
@@ -19,9 +16,6 @@ export function getStepForKey(baseStep: number, keys: StepKeys): number {
 	return 0;
 }
 
-/**
- * @hidden
- */
 export function getVerticalStepKeys(ev: KeyboardEvent): StepKeys {
 	return {
 		altKey: ev.altKey,
@@ -31,9 +25,6 @@ export function getVerticalStepKeys(ev: KeyboardEvent): StepKeys {
 	};
 }
 
-/**
- * @hidden
- */
 export function getHorizontalStepKeys(ev: KeyboardEvent): StepKeys {
 	return {
 		altKey: ev.altKey,
@@ -43,16 +34,10 @@ export function getHorizontalStepKeys(ev: KeyboardEvent): StepKeys {
 	};
 }
 
-/**
- * @hidden
- */
 export function isVerticalArrowKey(key: string): boolean {
 	return key === 'ArrowUp' || key === 'ArrowDown';
 }
 
-/**
- * @hidden
- */
 export function isArrowKey(key: string): boolean {
 	return isVerticalArrowKey(key) || key === 'ArrowLeft' || key === 'ArrowRight';
 }

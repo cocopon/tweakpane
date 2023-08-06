@@ -1,4 +1,7 @@
-.#{$prefix}-p2dv {
+@use 'sass:math';
+@use '../tp';
+
+.#{tp.$prefix}-p2dv {
 	position: relative;
 
 	// Head
@@ -7,19 +10,19 @@
 	}
 	// Button
 	&_b {
-		@extend %button;
+		@extend %tp-button;
 
-		height: var(--bld-us);
+		height: tp.cssVar('container-unit-size');
 		margin-right: 4px;
 		position: relative;
-		width: var(--bld-us);
+		width: tp.cssVar('container-unit-size');
 
 		svg {
 			display: block;
 			height: 16px;
 			left: 50%;
-			margin-left: -(16px / 2);
-			margin-top: -(16px / 2);
+			margin-left: math.div(-16px, 2);
+			margin-top: math.div(-16px, 2);
 			position: absolute;
 			top: 50%;
 			width: 16px;
@@ -43,19 +46,19 @@
 		margin-top: 0;
 		opacity: 0;
 		overflow: hidden;
-		transition: height $fold-transition-duration ease-in-out,
-			opacity $fold-transition-duration linear,
-			margin $fold-transition-duration ease-in-out;
+		transition: height tp.$fold-transition-duration ease-in-out,
+			opacity tp.$fold-transition-duration linear,
+			margin tp.$fold-transition-duration ease-in-out;
 	}
 	&#{&}-expanded &_p {
-		margin-top: var(--bld-s);
+		margin-top: tp.cssVar('container-unit-spacing');
 		opacity: 1;
 	}
 
 	// Popup
-	.#{$prefix}-popv {
-		left: calc(-1 * var(--cnt-h-p));
-		right: calc(-1 * var(--cnt-h-p));
-		top: var(--bld-us);
+	.#{tp.$prefix}-popv {
+		left: calc(-1 * #{tp.cssVar('container-h-padding')});
+		right: calc(-1 * #{tp.cssVar('container-h-padding')});
+		top: tp.cssVar('container-unit-size');
 	}
 }

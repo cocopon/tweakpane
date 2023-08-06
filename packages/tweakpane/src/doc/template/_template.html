@@ -41,9 +41,25 @@
 			</div>
 		</div>
 	</div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
-	<script src="{{ root }}assets/tweakpane.js" defer></script>
+	<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10/build/highlight.min.js" defer></script>
+	<script src="{{ root }}assets/tweakpane.js" type="module" defer></script>
+	<script type="module">
+		window.DocModules = [
+			async () => {
+				const m = await import('{{ root }}assets/tweakpane.js');
+				window.Tweakpane = m;
+			},
+		];
+	</script>
 	{% block pluginScripts %}{% endblock %}
-	<script src="{{ root }}assets/bundle.js" defer></script>
+	<script type="module">
+		// Load Tweakpane module and make it global variable
+		await Promise.all(window.DocModules.map((f) => f()));
+
+		// Load document script	
+		const scriptElem = document.createElement('script');
+		scriptElem.src = '{{ root }}assets/bundle.js';
+		document.body.appendChild(scriptElem);
+	</script>
 </body>
 </html>

@@ -6,18 +6,18 @@ import {
 	PluginPool,
 	TabBladePlugin,
 	TpError,
-	TpPlugin,
 	TpPluginBundle,
 	ValueMap,
 	ViewProps,
 } from '@tweakpane/core';
 
-import {ListBladePlugin} from '../blade/list/plugin';
-import {RootApi} from '../blade/root/api/root';
-import {RootController} from '../blade/root/controller/root';
-import {SliderBladePlugin} from '../blade/slider/plugin';
-import {TextBladePlugin} from '../blade/text/plugin';
-import {PaneConfig} from './pane-config';
+import {ListBladePlugin} from '../blade/list/plugin.js';
+import {RootApi} from '../blade/root/api/root.js';
+import {RootController} from '../blade/root/controller/root.js';
+import {SeparatorBladePlugin} from '../blade/separator/plugin.js';
+import {SliderBladePlugin} from '../blade/slider/plugin.js';
+import {TextBladePlugin} from '../blade/text/plugin.js';
+import {PaneConfig} from './pane-config.js';
 
 function createDefaultWrapperElement(doc: Document): HTMLElement {
 	const elem = doc.createElement('div');
@@ -100,6 +100,10 @@ export class Pane extends RootApi {
 	}
 
 	public registerPlugin(bundle: TpPluginBundle): void {
+		if (bundle.css) {
+			embedStyle(this.document, `plugin-${bundle.id}`, bundle.css);
+		}
+
 		const plugins =
 			'plugin' in bundle
 				? [bundle.plugin]
@@ -107,29 +111,19 @@ export class Pane extends RootApi {
 				? bundle.plugins
 				: [];
 		plugins.forEach((p) => {
-			this.pool_.register(p);
-			this.embedPluginStyle_(p);
+			this.pool_.register(bundle.id, p);
 		});
-	}
-
-	private embedPluginStyle_(plugin: TpPlugin): void {
-		if (plugin.css) {
-			embedStyle(this.document, `plugin-${plugin.id}`, plugin.css);
-		}
 	}
 
 	private setUpDefaultPlugins_() {
-		// NOTE: This string literal will be replaced with the default CSS by Rollup at the compilation time
-		embedStyle(this.document, 'default', '__css__');
-
-		this.pool_.getAll().forEach((plugin) => {
-			this.embedPluginStyle_(plugin);
-		});
-
 		this.registerPlugin({
+			id: 'default',
+			// NOTE: This string literal will be replaced with the default CSS by Rollup at the compilation time
+			css: '__css__',
 			plugins: [
-				SliderBladePlugin,
 				ListBladePlugin,
+				SeparatorBladePlugin,
+				SliderBladePlugin,
 				TabBladePlugin,
 				TextBladePlugin,
 			],

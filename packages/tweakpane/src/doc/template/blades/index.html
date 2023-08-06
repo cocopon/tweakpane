@@ -16,7 +16,7 @@
 
 
 {% block content %}
-<h2>Basics</h2>
+<h2 id="basics"><a href="#basics">Basics</a></h2>
 <p><code>addBlade()</code> can create a <a href="{{ root }}quick-tour/#blades">blade</a> without binding.</p>
 <div class="main_media">
 	<div class="demo">
@@ -35,7 +35,7 @@ pane.<strong>addBlade</strong>({
 		</div>
 	</div>
 </div>
-<p>Most of blades needs a specific <code>view</code> and other required parameters. See the sections below for details.</p>
+<p>Most of blades need a specific <code>view</code> and other required parameters. See the sections below for details.</p>
 <p>If you are a TypeScript user, need to cast a created blade to a specific type to access full functionalities:</p>
 <div class="main_media">
 	<div class="demo">
@@ -46,18 +46,19 @@ pane.<strong>addBlade</strong>({
   min: 0,
   max: 1,
   value: 0.5,
-}) <strong>as SliderApi</strong>;
+}) <strong>as SliderBladeApi</strong>;
 
 // Access slider-specific fields
-console.log(b.minValue, b.maxValue);</code></pre></div>
+console.log(b.min, b.max);</code></pre></div>
 		</div>
+		<div class="demo_chip">.ts</div>
 	</div>
 </div>
 
 
-<h2 id="text">Text</h2>
+<h2 id="text"><a href="#text">Text</a></h2>
 <p>
-	<a href="{{ root }}api/interfaces/tweakpane.TextBladeParams.html">Parameters</a> | <a href="{{ root }}api/classes/tweakpane.TextApi.html">API</a>
+	<a href="{{ root }}api/interfaces/TextBladeParams.html">Parameters</a> | <a href="{{ root }}api/classes/TextBladeApi.html">API</a>
 </p>
 <div class="main_media">
 	<div class="demo">
@@ -77,9 +78,9 @@ pane.addBlade({
 </div>
 
 
-<h2 id="list">List</h2>
+<h2 id="list"><a href="#list">List</a></h2>
 <p>
-	<a href="{{ root }}api/interfaces/tweakpane.ListBladeParams.html">Parameters</a> | <a href="{{ root }}api/classes/tweakpane.ListApi.html">API</a>
+	<a href="{{ root }}api/interfaces/ListBladeParams.html">Parameters</a> | <a href="{{ root }}api/classes/ListBladeApi.html">API</a>
 </p>
 <div class="main_media">
 	<div class="demo">
@@ -104,9 +105,9 @@ pane.addBlade({
 </div>
 
 
-<h2 id="slider">Slider</h2>
+<h2 id="slider"><a href="#slider">Slider</a></h2>
 <p>
-	<a href="{{ root }}api/interfaces/tweakpane.SliderBladeParams.html">Parameters</a> | <a href="{{ root }}api/classes/tweakpane.SliderApi.html">API</a>
+	<a href="{{ root }}api/interfaces/SliderBladeParams.html">Parameters</a> | <a href="{{ root }}api/classes/SliderBladeApi.html">API</a>
 </p>
 <div class="main_media">
 	<div class="demo">
@@ -123,6 +124,27 @@ pane.addBlade({
 		<div class="demo_result">
 			<div class="paneContainer" data-pane-slider></div>
 			<div class="paneContainer paneContainer-console" data-pane-sliderconsole></div>
+		</div>
+	</div>
+</div>
+
+
+<h2 id="separator"><a href="#separator">Separator</a></h2>
+<p>
+	<a href="{{ root }}api/interfaces/SeparatorBladeParams.html">Parameters</a> | <a href="{{ root }}api/classes/SeparatorBladeApi.html">API</a>
+</p>
+<div class="main_media">
+	<div class="demo">
+		<div class="demo_code">
+			<div class="codeBlock"><pre><code class="js">const pane = new Pane();
+// ...
+pane.addBlade({
+  view: 'separator',
+});
+// ...</code></pre></div>
+		</div>
+		<div class="demo_result">
+			<div class="paneContainer" data-pane-separator></div>
 		</div>
 	</div>
 </div>

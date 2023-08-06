@@ -1,24 +1,17 @@
-import {Constraint} from '../../../common/constraint/constraint';
-import {Controller} from '../../../common/controller/controller';
-import {Parser} from '../../../common/converter/parser';
-import {Value} from '../../../common/model/value';
-import {connectValues} from '../../../common/model/value-sync';
-import {createValue} from '../../../common/model/values';
-import {ViewProps} from '../../../common/model/view-props';
-import {NumberTextController} from '../../../common/number/controller/number-text';
-import {NumberTextProps} from '../../../common/number/view/number-text';
-import {PointNdAssembly} from '../model/point-nd';
-import {PointNdTextView} from '../view/point-nd-text';
-
-interface Axis {
-	baseStep: number;
-	constraint: Constraint<number> | undefined;
-	textProps: NumberTextProps;
-}
+import {ValueController} from '../../../common/controller/value.js';
+import {Parser} from '../../../common/converter/parser.js';
+import {Value} from '../../../common/model/value.js';
+import {connectValues} from '../../../common/model/value-sync.js';
+import {createValue} from '../../../common/model/values.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {NumberTextController} from '../../../common/number/controller/number-text.js';
+import {PointAxis} from '../../../common/point-nd/point-axis.js';
+import {PointNdAssembly} from '../model/point-nd.js';
+import {PointNdTextView} from '../view/point-nd-text.js';
 
 interface Config<PointNd> {
 	assembly: PointNdAssembly<PointNd>;
-	axes: Axis[];
+	axes: PointAxis[];
 	parser: Parser<number>;
 	value: Value<PointNd>;
 	viewProps: ViewProps;
@@ -32,7 +25,6 @@ function createAxisController<PointNd>(
 	return new NumberTextController(doc, {
 		arrayPosition:
 			index === 0 ? 'fst' : index === config.axes.length - 1 ? 'lst' : 'mid',
-		baseStep: config.axes[index].baseStep,
 		parser: config.parser,
 		props: config.axes[index].textProps,
 		value: createValue(0, {
@@ -46,7 +38,7 @@ function createAxisController<PointNd>(
  * @hidden
  */
 export class PointNdTextController<PointNd>
-	implements Controller<PointNdTextView>
+	implements ValueController<PointNd, PointNdTextView>
 {
 	public readonly value: Value<PointNd>;
 	public readonly view: PointNdTextView;
@@ -64,12 +56,10 @@ export class PointNdTextController<PointNd>
 			connectValues({
 				primary: this.value,
 				secondary: c.value,
-				forward: (p) => {
-					return config.assembly.toComponents(p.rawValue)[index];
-				},
+				forward: (p) => config.assembly.toComponents(p)[index],
 				backward: (p, s) => {
-					const comps = config.assembly.toComponents(p.rawValue);
-					comps[index] = s.rawValue;
+					const comps = config.assembly.toComponents(p);
+					comps[index] = s;
 					return config.assembly.fromComponents(comps);
 				},
 			});
@@ -78,5 +68,9 @@ export class PointNdTextController<PointNd>
 		this.view = new PointNdTextView(doc, {
 			textViews: this.acs_.map((ac) => ac.view),
 		});
+	}
+
+	get textControllers(): NumberTextController[] {
+		return this.acs_;
 	}
 }

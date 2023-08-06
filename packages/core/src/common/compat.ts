@@ -1,3 +1,6 @@
+import {Semver} from '../misc/semver.js';
+import {VERSION} from '../version.js';
+
 export function warnDeprecation(info: {
 	name: string;
 	alternative?: string;
@@ -23,4 +26,12 @@ export function warnMissing(info: {
 			'Please rebuild plugins with the latest core package.',
 		].join(' '),
 	);
+}
+
+export function isCompatible(ver: Semver | undefined): boolean {
+	if (!ver) {
+		// Version 1.x
+		return false;
+	}
+	return ver.major === VERSION.major;
 }

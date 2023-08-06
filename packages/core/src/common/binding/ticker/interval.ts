@@ -1,5 +1,5 @@
-import {Emitter} from '../../model/emitter';
-import {Ticker, TickerEvents} from './ticker';
+import {Emitter} from '../../model/emitter.js';
+import {Ticker, TickerEvents} from './ticker.js';
 
 /**
  * @hidden

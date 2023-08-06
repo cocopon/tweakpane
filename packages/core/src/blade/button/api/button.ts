@@ -1,37 +1,34 @@
-import {BladeApi} from '../../common/api/blade';
-import {TpEvent} from '../../common/api/tp-event';
-import {LabelController} from '../../label/controller/label';
-import {ButtonController} from '../controller/button';
+import {BladeApi} from '../../common/api/blade.js';
+import {TpEvent} from '../../common/api/tp-event.js';
+import {ButtonBladeController} from '../controller/button-blade.js';
 
 export interface ButtonApiEvents {
-	click: {
-		event: TpEvent;
-	};
+	click: TpEvent;
 }
 
-export class ButtonApi extends BladeApi<LabelController<ButtonController>> {
+export class ButtonApi extends BladeApi<ButtonBladeController> {
 	get label(): string | null | undefined {
-		return this.controller_.props.get('label');
+		return this.controller.labelController.props.get('label');
 	}
 
 	set label(label: string | null | undefined) {
-		this.controller_.props.set('label', label);
+		this.controller.labelController.props.set('label', label);
 	}
 
 	get title(): string {
-		return this.controller_.valueController.props.get('title') ?? '';
+		return this.controller.buttonController.props.get('title') ?? '';
 	}
 
 	set title(title: string) {
-		this.controller_.valueController.props.set('title', title);
+		this.controller.buttonController.props.set('title', title);
 	}
 
 	public on<EventName extends keyof ButtonApiEvents>(
 		eventName: EventName,
-		handler: (ev: ButtonApiEvents[EventName]['event']) => void,
+		handler: (ev: ButtonApiEvents[EventName]) => void,
 	): ButtonApi {
 		const bh = handler.bind(this);
-		const emitter = this.controller_.valueController.emitter;
+		const emitter = this.controller.buttonController.emitter;
 		emitter.on(eventName, () => {
 			bh(new TpEvent(this));
 		});

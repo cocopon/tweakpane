@@ -1,10 +1,18 @@
-import {ViewProps} from '../../../common/model/view-props';
-import {RackLikeController} from '../../common/controller/rack-like';
-import {Blade} from '../../common/model/blade';
-import {bindFoldable, Foldable} from '../../common/model/foldable';
-import {RackController} from '../../rack/controller/rack';
-import {FolderProps, FolderView} from '../view/folder';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {
+	BladeState,
+	exportBladeState,
+	importBladeState,
+} from '../../common/controller/blade-state.js';
+import {ContainerBladeController} from '../../common/controller/container-blade.js';
+import {RackController} from '../../common/controller/rack.js';
+import {Blade} from '../../common/model/blade.js';
+import {bindFoldable, Foldable} from '../../common/model/foldable.js';
+import {FolderProps, FolderView} from '../view/folder.js';
 
+/**
+ * @hidden
+ */
 interface Config {
 	expanded?: boolean;
 	blade: Blade;
@@ -17,27 +25,30 @@ interface Config {
 /**
  * @hidden
  */
-export class FolderController extends RackLikeController<FolderView> {
+export class FolderController extends ContainerBladeController<FolderView> {
 	public readonly foldable: Foldable;
 	public readonly props: FolderProps;
 
+	/**
+	 * @hidden
+	 */
 	constructor(doc: Document, config: Config) {
 		const foldable = Foldable.create(config.expanded ?? true);
-		const rc = new RackController(doc, {
-			blade: config.blade,
-			root: config.root,
+		const view = new FolderView(doc, {
+			foldable: foldable,
+			props: config.props,
+			viewName: config.root ? 'rot' : undefined,
 			viewProps: config.viewProps,
 		});
 		super({
 			...config,
-			rackController: rc,
-			view: new FolderView(doc, {
-				containerElement: rc.view.element,
-				foldable: foldable,
-				props: config.props,
-				viewName: config.root ? 'rot' : undefined,
+			rackController: new RackController({
+				blade: config.blade,
+				element: view.containerElement,
+				root: config.root,
 				viewProps: config.viewProps,
 			}),
+			view: view,
 		});
 
 		this.onTitleClick_ = this.onTitleClick_.bind(this);
@@ -62,6 +73,29 @@ export class FolderController extends RackLikeController<FolderView> {
 
 	get document(): Document {
 		return this.view.element.ownerDocument;
+	}
+
+	override importState(state: BladeState): boolean {
+		return importBladeState(
+			state,
+			(s) => super.importState(s),
+			(p) => ({
+				expanded: p.required.boolean,
+				title: p.optional.string,
+			}),
+			(result) => {
+				this.foldable.set('expanded', result.expanded);
+				this.props.set('title', result.title);
+				return true;
+			},
+		);
+	}
+
+	override exportState(): BladeState {
+		return exportBladeState(() => super.exportState(), {
+			expanded: this.foldable.get('expanded'),
+			title: this.props.get('title'),
+		});
 	}
 
 	private onTitleClick_() {

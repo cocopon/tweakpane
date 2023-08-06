@@ -1,17 +1,26 @@
-import {SVG_NS} from '../../../common/dom-util';
-import {Value, ValueEvents} from '../../../common/model/value';
-import {ValueMap} from '../../../common/model/value-map';
-import {ViewProps} from '../../../common/model/view-props';
-import {constrainRange} from '../../../common/number-util';
-import {ClassName} from '../../../common/view/class-name';
-import {View} from '../../../common/view/view';
-import {Formatter} from '../../converter/formatter';
+import {SVG_NS} from '../../../common/dom-util.js';
+import {Value, ValueEvents} from '../../../common/model/value.js';
+import {ValueMap} from '../../../common/model/value-map.js';
+import {ViewProps} from '../../../common/model/view-props.js';
+import {ClassName} from '../../../common/view/class-name.js';
+import {InputView, View} from '../../../common/view/view.js';
+import {Formatter} from '../../converter/formatter.js';
+import {constrainRange} from '../util.js';
 
-export type NumberTextProps = ValueMap<{
-	draggingScale: number;
+export type NumberTextPropsObject = {
 	formatter: Formatter<number>;
-}>;
+	keyScale: number;
+	pointerScale: number;
+};
 
+/**
+ * @hidden
+ */
+export type NumberTextProps = ValueMap<NumberTextPropsObject>;
+
+/**
+ * @hidden
+ */
 interface NumberConfig {
 	dragging: Value<number | null>;
 	props: NumberTextProps;
@@ -21,9 +30,12 @@ interface NumberConfig {
 	arrayPosition?: 'fst' | 'mid' | 'lst';
 }
 
-const className = ClassName('txt');
+const cn = ClassName('txt');
 
-export class NumberTextView implements View {
+/**
+ * @hidden
+ */
+export class NumberTextView implements View, InputView {
 	public readonly inputElement: HTMLInputElement;
 	public readonly knobElement: HTMLElement;
 	public readonly element: HTMLElement;
@@ -41,14 +53,14 @@ export class NumberTextView implements View {
 		this.props_.emitter.on('change', this.onChange_);
 
 		this.element = doc.createElement('div');
-		this.element.classList.add(className(), className(undefined, 'num'));
+		this.element.classList.add(cn(), cn(undefined, 'num'));
 		if (config.arrayPosition) {
-			this.element.classList.add(className(undefined, config.arrayPosition));
+			this.element.classList.add(cn(undefined, config.arrayPosition));
 		}
 		config.viewProps.bindClassModifiers(this.element);
 
 		const inputElem = doc.createElement('input');
-		inputElem.classList.add(className('i'));
+		inputElem.classList.add(cn('i'));
 		inputElem.type = 'text';
 		config.viewProps.bindDisabled(inputElem);
 		this.element.appendChild(inputElem);
@@ -59,25 +71,25 @@ export class NumberTextView implements View {
 		this.dragging_ = config.dragging;
 		this.dragging_.emitter.on('change', this.onDraggingChange_);
 
-		this.element.classList.add(className());
-		this.inputElement.classList.add(className('i'));
+		this.element.classList.add(cn());
+		this.inputElement.classList.add(cn('i'));
 
 		const knobElem = doc.createElement('div');
-		knobElem.classList.add(className('k'));
+		knobElem.classList.add(cn('k'));
 		this.element.appendChild(knobElem);
 		this.knobElement = knobElem;
 
 		const guideElem = doc.createElementNS(SVG_NS, 'svg');
-		guideElem.classList.add(className('g'));
+		guideElem.classList.add(cn('g'));
 		this.knobElement.appendChild(guideElem);
 
 		const bodyElem = doc.createElementNS(SVG_NS, 'path');
-		bodyElem.classList.add(className('gb'));
+		bodyElem.classList.add(cn('gb'));
 		guideElem.appendChild(bodyElem);
 		this.guideBodyElem_ = bodyElem;
 
 		const headElem = doc.createElementNS(SVG_NS, 'path');
-		headElem.classList.add(className('gh'));
+		headElem.classList.add(cn('gh'));
 		guideElem.appendChild(headElem);
 		this.guideHeadElem_ = headElem;
 
@@ -94,13 +106,13 @@ export class NumberTextView implements View {
 
 	private onDraggingChange_(ev: ValueEvents<number | null>['change']) {
 		if (ev.rawValue === null) {
-			this.element.classList.remove(className(undefined, 'drg'));
+			this.element.classList.remove(cn(undefined, 'drg'));
 			return;
 		}
 
-		this.element.classList.add(className(undefined, 'drg'));
+		this.element.classList.add(cn(undefined, 'drg'));
 
-		const x = ev.rawValue / this.props_.get('draggingScale');
+		const x = ev.rawValue / this.props_.get('pointerScale');
 		const aox = x + (x > 0 ? -1 : x < 0 ? +1 : 0);
 		const adx = constrainRange(-aox, -4, +4);
 		this.guideHeadElem_.setAttributeNS(

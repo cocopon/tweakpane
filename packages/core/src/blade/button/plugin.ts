@@ -1,12 +1,12 @@
-import {ValueMap} from '../../common/model/value-map';
-import {BaseBladeParams} from '../../common/params';
-import {ParamsParsers, parseParams} from '../../common/params-parsers';
-import {LabelController} from '../label/controller/label';
-import {LabelPropsObject} from '../label/view/label';
-import {BladePlugin} from '../plugin';
-import {ButtonApi} from './api/button';
-import {ButtonController} from './controller/button';
-import {ButtonPropsObject} from './view/button';
+import {LabelPropsObject} from '../../common/label/view/label.js';
+import {parseRecord} from '../../common/micro-parsers.js';
+import {ValueMap} from '../../common/model/value-map.js';
+import {BaseBladeParams} from '../../common/params.js';
+import {createPlugin} from '../../plugin/plugin.js';
+import {BladePlugin} from '../plugin.js';
+import {ButtonApi} from './api/button.js';
+import {ButtonBladeController} from './controller/button-blade.js';
+import {ButtonPropsObject} from './view/button.js';
 
 export interface ButtonBladeParams extends BaseBladeParams {
 	title: string;
@@ -15,40 +15,34 @@ export interface ButtonBladeParams extends BaseBladeParams {
 	label?: string;
 }
 
-export const ButtonBladePlugin: BladePlugin<ButtonBladeParams> = {
+export const ButtonBladePlugin: BladePlugin<ButtonBladeParams> = createPlugin({
 	id: 'button',
 	type: 'blade',
 	accept(params) {
-		const p = ParamsParsers;
-		const result = parseParams<ButtonBladeParams>(params, {
+		const result = parseRecord<ButtonBladeParams>(params, (p) => ({
 			title: p.required.string,
 			view: p.required.constant('button'),
 
 			label: p.optional.string,
-		});
+		}));
 		return result ? {params: result} : null;
 	},
 	controller(args) {
-		return new LabelController(args.document, {
+		return new ButtonBladeController(args.document, {
 			blade: args.blade,
-			props: ValueMap.fromObject<LabelPropsObject>({
+			buttonProps: ValueMap.fromObject<ButtonPropsObject>({
+				title: args.params.title,
+			}),
+			labelProps: ValueMap.fromObject<LabelPropsObject>({
 				label: args.params.label,
 			}),
-			valueController: new ButtonController(args.document, {
-				props: ValueMap.fromObject<ButtonPropsObject>({
-					title: args.params.title,
-				}),
-				viewProps: args.viewProps,
-			}),
+			viewProps: args.viewProps,
 		});
 	},
 	api(args) {
-		if (!(args.controller instanceof LabelController)) {
-			return null;
+		if (args.controller instanceof ButtonBladeController) {
+			return new ButtonApi(args.controller);
 		}
-		if (!(args.controller.valueController instanceof ButtonController)) {
-			return null;
-		}
-		return new ButtonApi(args.controller);
+		return null;
 	},
-};
+});

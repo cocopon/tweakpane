@@ -1,5 +1,5 @@
-import {ValueMap} from '../model/value-map';
-import {Constraint} from './constraint';
+import {ValueMap} from '../model/value-map.js';
+import {Constraint} from './constraint.js';
 
 export interface ListItem<T> {
 	text: string;
@@ -19,14 +19,6 @@ export class ListConstraint<T> implements Constraint<T> {
 		this.values = ValueMap.fromObject({
 			options: options,
 		});
-	}
-
-	// TODO: Remove property in the next major version
-	/**
-	 * @deprecated Use values.get('options') instead.
-	 */
-	get options(): ListItem<T>[] {
-		return this.values.get('options');
 	}
 
 	public constrain(value: T): T {
