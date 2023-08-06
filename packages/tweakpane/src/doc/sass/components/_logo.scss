@@ -50,13 +50,58 @@
 		white-space: nowrap;
 	}
 	&_version {
-		border: var(--fg-color-secondary) solid 1px;
-		border-radius: 2px;
-		color: var(--fg-color-secondary);
-		display: inline-block;
-		font-size: 0.8rem;
 		margin-left: 12px + 8px;
-		padding: 0 4px;
+		margin-top: 2px;
+	}
+}
+
+.logoSwitcher {
+	display: inline-block;
+	position: relative;
+
+	&_select {
+		appearance: none;
+		background-color: var(--bg-color-action);
+		border-radius: 2px;
+		border-width: 0;
+		color: var(--fg-color-secondary);
+		font-family: inherit;
+		font-size: 0.8rem;
+		padding: 2px 18px 2px 4px;
 		white-space: nowrap;
+
+		&:disabled {
+			background-color: var(--bg-color-secondary);
+			padding-right: 4px;
+		}
+		&:not(:disabled) {
+			cursor: pointer;
+		}
+		&:not(:disabled):hover,
+		&:focus {
+			background-color: var(--bg-color-action-active);
+		}
+		&:focus {
+			outline: none;
+		}
+	}
+
+	&_arrow {
+		border-color: currentColor transparent transparent;
+		border-style: solid;
+		border-width: 4px;
+		bottom: 0;
+		box-sizing: border-box;
+		height: 8px;
+		margin: auto;
+		opacity: 0.5;
+		pointer-events: none;
+		position: absolute;
+		right: 6px;
+		top: 6px;
+		width: 8px;
+	}
+	&_select:disabled + &_arrow {
+		display: none;
 	}
 }

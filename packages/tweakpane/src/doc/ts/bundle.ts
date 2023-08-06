@@ -39,6 +39,27 @@ function setUpSpMenu() {
 	});
 }
 
+function setUpVersionSwitcher() {
+	const selectElem: HTMLSelectElement | null = document.querySelector(
+		'.logoSwitcher select',
+	);
+	if (!selectElem) {
+		return;
+	}
+	selectElem.value = '';
+
+	if (location.hostname === 'localhost' && !location.search.includes('debug')) {
+		selectElem.disabled = true;
+	}
+
+	selectElem.addEventListener('change', (ev) => {
+		const href = (ev.currentTarget as HTMLSelectElement).value;
+		if (href) {
+			location.href = href;
+		}
+	});
+}
+
 (() => {
 	const router = new SimpleRouter();
 	router.add(/\/getting-started\/$/, initGettingStarted);
@@ -61,6 +82,7 @@ function setUpSpMenu() {
 
 	setUpScrews();
 	setUpSpMenu();
+	setUpVersionSwitcher();
 
 	hljs.highlightAll();
 })();
