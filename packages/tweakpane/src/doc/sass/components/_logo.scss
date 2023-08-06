@@ -2,19 +2,20 @@
 	$logo-color: var(--fg-color);
 	$logo-hover-color: var(--fg-color-action);
 
-	color: $logo-color;
 	display: block;
-	font-weight: 500;
-	padding-left: 12px + 8px;
 	position: relative;
-	text-decoration: none;
-	white-space: nowrap;
 
-	&:hover {
-		color: $logo-hover-color;
+	&_main {
+		align-items: center;
+		color: $logo-color;
+		display: flex;
 		text-decoration: none;
-	}
 
+		&:hover {
+			color: $logo-hover-color;
+			text-decoration: none;
+		}
+	}
 	&_symbol {
 		background: linear-gradient(
 			to left,
@@ -26,15 +27,8 @@
 			$logo-color
 		);
 		border-radius: 4px;
-		bottom: 2px;
-		content: '';
 		display: block;
 		height: 12px;
-		left: 0;
-		margin-bottom: auto;
-		margin-top: auto;
-		position: absolute;
-		top: 0;
 		transition: transform 0.05s ease-out;
 		width: 12px;
 	}
@@ -49,14 +43,19 @@
 			$logo-hover-color
 		);
 	}
+	&_text {
+		font-weight: 500;
+		line-height: 24px;
+		margin-left: 8px;
+		white-space: nowrap;
+	}
 	&_version {
 		border: var(--fg-color-secondary) solid 1px;
 		border-radius: 2px;
 		color: var(--fg-color-secondary);
-		display: inline;
+		display: inline-block;
 		font-size: 0.8rem;
-		font-weight: normal;
-		margin-left: 2px;
+		margin-left: 12px + 8px;
 		padding: 0 4px;
 		white-space: nowrap;
 	}

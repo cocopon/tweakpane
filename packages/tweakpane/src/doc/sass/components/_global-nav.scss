@@ -29,8 +29,7 @@
 
 	&_logo {
 		border-bottom: var(--bg-color-action) solid 2px;
-		height: defs.$global-header-height;
-		line-height: defs.$global-header-height;
+		padding-bottom: 16px;;
 		padding-left: 32px;
 		padding-right: 32px;
 
