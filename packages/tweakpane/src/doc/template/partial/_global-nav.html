@@ -1,10 +1,20 @@
 <div class="menu">
 	<div class="menu_logo">
-		<a class="logo" href="{{ root }}">
-			<div class="logo_symbol"></div>
-			Tweakpane
-			<div class="logo_version">{{ version }}</div>
-		</a>
+		<div class="logo">
+			<a class="logo_main" href="{{ root }}">
+				<div class="logo_symbol"></div>
+				<div class="logo_text">Tweakpane</div>
+			</a>
+			<div class="logo_version">
+				<div class="logoSwitcher">
+					<select class="logoSwitcher_select">
+						<option value="">{{ version }}</option>
+						<option value="{{ root }}../v3/">3.x</option>
+					</select>
+					<div class="logoSwitcher_arrow"></div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<ul class="menu_list">
 		<li class="menuItem">

@@ -2,19 +2,20 @@
 	$logo-color: var(--fg-color);
 	$logo-hover-color: var(--fg-color-action);
 
-	color: $logo-color;
 	display: block;
-	font-weight: 500;
-	padding-left: 12px + 8px;
 	position: relative;
-	text-decoration: none;
-	white-space: nowrap;
 
-	&:hover {
-		color: $logo-hover-color;
+	&_main {
+		align-items: center;
+		color: $logo-color;
+		display: flex;
 		text-decoration: none;
-	}
 
+		&:hover {
+			color: $logo-hover-color;
+			text-decoration: none;
+		}
+	}
 	&_symbol {
 		background: linear-gradient(
 			to left,
@@ -26,15 +27,8 @@
 			$logo-color
 		);
 		border-radius: 4px;
-		bottom: 2px;
-		content: '';
 		display: block;
 		height: 12px;
-		left: 0;
-		margin-bottom: auto;
-		margin-top: auto;
-		position: absolute;
-		top: 0;
 		transition: transform 0.05s ease-out;
 		width: 12px;
 	}
@@ -49,15 +43,65 @@
 			$logo-hover-color
 		);
 	}
-	&_version {
-		border: var(--fg-color-secondary) solid 1px;
-		border-radius: 2px;
-		color: var(--fg-color-secondary);
-		display: inline;
-		font-size: 0.8rem;
-		font-weight: normal;
-		margin-left: 2px;
-		padding: 0 4px;
+	&_text {
+		font-weight: 500;
+		line-height: 24px;
+		margin-left: 8px;
 		white-space: nowrap;
+	}
+	&_version {
+		margin-left: 12px + 8px;
+		margin-top: 2px;
+	}
+}
+
+.logoSwitcher {
+	display: inline-block;
+	position: relative;
+
+	&_select {
+		appearance: none;
+		background-color: var(--bg-color-action);
+		border-radius: 2px;
+		border-width: 0;
+		color: var(--fg-color-secondary);
+		font-family: inherit;
+		font-size: 0.8rem;
+		padding: 2px 18px 2px 4px;
+		white-space: nowrap;
+
+		&:disabled {
+			background-color: var(--bg-color-secondary);
+			padding-right: 4px;
+		}
+		&:not(:disabled) {
+			cursor: pointer;
+		}
+		&:not(:disabled):hover,
+		&:focus {
+			background-color: var(--bg-color-action-active);
+		}
+		&:focus {
+			outline: none;
+		}
+	}
+
+	&_arrow {
+		border-color: currentColor transparent transparent;
+		border-style: solid;
+		border-width: 4px;
+		bottom: 0;
+		box-sizing: border-box;
+		height: 8px;
+		margin: auto;
+		opacity: 0.5;
+		pointer-events: none;
+		position: absolute;
+		right: 6px;
+		top: 6px;
+		width: 8px;
+	}
+	&_select:disabled + &_arrow {
+		display: none;
 	}
 }
