@@ -4,7 +4,7 @@
   "description": "A compact pane for fine-tuning parameters and monitoring value changes",
   "author": "cocopon",
   "license": "MIT",
-  "homepage": "https://cocopon.github.io/tweakpane/",
+  "homepage": "https://tweakpane.github.io/docs/",
   "main": "dist/tweakpane.js",
   "type": "module",
   "types": "dist/types/index.d.ts",
