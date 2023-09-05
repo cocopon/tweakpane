@@ -153,4 +153,25 @@ describe(TabApi.name, () => {
 		api.pages[0].selected = true;
 		assert.deepStrictEqual(selectedIndexes, [1, 2, 0]);
 	});
+
+	it('should refresh pages', () => {
+		const doc = createTestWindow().document;
+		const c = new TabController(doc, {
+			blade: createBlade(),
+			viewProps: ViewProps.create(),
+		});
+		const pool = createDefaultPluginPool();
+		const api = new TabApi(c, pool);
+		api.addPage({title: 'foo'});
+		api.addPage({title: 'bar'});
+
+		const PARAMS = {param: 1};
+		const i0 = api.pages[0].addBinding(PARAMS, 'param');
+		const i1 = api.pages[1].addBinding(PARAMS, 'param');
+		PARAMS.param += 1;
+		api.refresh();
+
+		assert.strictEqual(i0.controller.value.rawValue, 2);
+		assert.strictEqual(i1.controller.value.rawValue, 2);
+	});
 });

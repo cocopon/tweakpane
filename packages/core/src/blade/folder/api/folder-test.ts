@@ -232,4 +232,13 @@ describe(FolderApi.name, () => {
 			});
 		});
 	});
+
+	it('should refresh items', () => {
+		const api = createApi();
+		const PARAMS = {param: 1};
+		const i = api.addBinding(PARAMS, 'param');
+		PARAMS.param += 1;
+		api.refresh();
+		assert.strictEqual(i.controller.value.rawValue, 2);
+	});
 });
