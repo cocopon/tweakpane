@@ -70,8 +70,4 @@ export class TabPageApi
 	public addBlade(params: BaseBladeParams): BladeApi {
 		return this.rackApi_.addBlade(params);
 	}
-
-	public refresh(): void {
-		this.rackApi_.refresh();
-	}
 }
