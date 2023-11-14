@@ -80,7 +80,7 @@ export class GraphLogView implements View {
 	}
 
 	private update_(): void {
-		const bounds = this.svgElem_.getBoundingClientRect();
+		const {clientWidth: w, clientHeight: h} = this.element;
 
 		// Graph
 		const maxIndex = this.value.rawValue.length - 1;
@@ -91,8 +91,8 @@ export class GraphLogView implements View {
 			if (v === undefined) {
 				return;
 			}
-			const x = mapRange(index, 0, maxIndex, 0, bounds.width);
-			const y = mapRange(v, min, max, bounds.height, 0);
+			const x = mapRange(index, 0, maxIndex, 0, w);
+			const y = mapRange(v, min, max, h, 0);
 			points.push([x, y].join(','));
 		});
 		this.lineElem_.setAttributeNS(null, 'points', points.join(' '));
@@ -105,8 +105,8 @@ export class GraphLogView implements View {
 			return;
 		}
 
-		const tx = mapRange(this.cursor_.rawValue, 0, maxIndex, 0, bounds.width);
-		const ty = mapRange(value, min, max, bounds.height, 0);
+		const tx = mapRange(this.cursor_.rawValue, 0, maxIndex, 0, w);
+		const ty = mapRange(value, min, max, h, 0);
 		tooltipElem.style.left = `${tx}px`;
 		tooltipElem.style.top = `${ty}px`;
 		tooltipElem.textContent = `${this.formatter_(value)}`;
