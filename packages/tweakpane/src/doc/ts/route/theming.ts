@@ -78,10 +78,10 @@ function createPreviewPane(containerElem: HTMLElement, expanded = true) {
 			picker: 'inline',
 		});
 	pane
-		.addFolder({
-			title: 'folder',
+		.addTab({
+			pages: [{title: 'tab'}, {title: 'tab'}],
 		})
-		.addBinding(PARAMS, 'point2d', {
+		.pages[0].addBinding(PARAMS, 'point2d', {
 			expanded: expanded,
 			picker: 'inline',
 		});
