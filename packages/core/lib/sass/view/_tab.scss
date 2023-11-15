@@ -135,6 +135,7 @@
 		line-height: calc(#{tp.cssVar('container-unit-size')} + 4px);
 		opacity: 0.5;
 		overflow: hidden;
+		position: relative;
 		text-overflow: ellipsis;
 	}
 	&#{&}-sel &_t {
