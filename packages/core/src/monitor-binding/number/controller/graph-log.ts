@@ -98,9 +98,10 @@ export class GraphLogController
 	}
 
 	private onGraphMouseMove_(ev: MouseEvent): void {
-		const bounds = this.view.element.getBoundingClientRect();
+		const {clientWidth: w} = this.view.element;
+
 		this.cursor_.rawValue = Math.floor(
-			mapRange(ev.offsetX, 0, bounds.width, 0, this.value.rawValue.length),
+			mapRange(ev.offsetX, 0, w, 0, this.value.rawValue.length),
 		);
 	}
 
