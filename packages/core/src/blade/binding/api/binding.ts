@@ -2,6 +2,7 @@ import {Emitter} from '../../../common/model/emitter.js';
 import {ValueEvents} from '../../../common/model/value.js';
 import {forceCast} from '../../../misc/type-util.js';
 import {BladeApi} from '../../common/api/blade.js';
+import {EventListenable} from '../../common/api/event-listenable.js';
 import {Refreshable} from '../../common/api/refreshable.js';
 import {TpChangeEvent} from '../../common/api/tp-event.js';
 import {BindingController} from '../controller/binding.js';
@@ -21,7 +22,7 @@ export class BindingApi<
 		C extends BindingController<In> = BindingController<In>,
 	>
 	extends BladeApi<C>
-	implements Refreshable
+	implements EventListenable<BindingApiEvents<Ex>>, Refreshable
 {
 	private readonly emitter_: Emitter<BindingApiEvents<Ex>>;
 
@@ -69,9 +70,23 @@ export class BindingApi<
 		handler: (ev: BindingApiEvents<Ex>[EventName]) => void,
 	): this {
 		const bh = handler.bind(this);
-		this.emitter_.on(eventName, (ev) => {
-			bh(ev);
-		});
+		this.emitter_.on(
+			eventName,
+			(ev) => {
+				bh(ev);
+			},
+			{
+				key: handler,
+			},
+		);
+		return this;
+	}
+
+	public off<EventName extends keyof BindingApiEvents<Ex>>(
+		eventName: EventName,
+		handler: (ev: BindingApiEvents<Ex>[EventName]) => void,
+	): this {
+		this.emitter_.off(eventName, handler);
 		return this;
 	}
 
