@@ -2,15 +2,17 @@ import {
 	ApiChangeEvents,
 	BladeApi,
 	Emitter,
+	EventListenable,
 	Formatter,
 	LabeledValueBladeController,
 	TextController,
 	TpChangeEvent,
 } from '@tweakpane/core';
 
-export class TextBladeApi<T> extends BladeApi<
-	LabeledValueBladeController<T, TextController<T>>
-> {
+export class TextBladeApi<T>
+	extends BladeApi<LabeledValueBladeController<T, TextController<T>>>
+	implements EventListenable<ApiChangeEvents<T>>
+{
 	private readonly emitter_: Emitter<ApiChangeEvents<T>> = new Emitter();
 
 	/**
@@ -53,9 +55,23 @@ export class TextBladeApi<T> extends BladeApi<
 		handler: (ev: ApiChangeEvents<T>[EventName]) => void,
 	): this {
 		const bh = handler.bind(this);
-		this.emitter_.on(eventName, (ev) => {
-			bh(ev);
-		});
+		this.emitter_.on(
+			eventName,
+			(ev) => {
+				bh(ev);
+			},
+			{
+				key: handler,
+			},
+		);
+		return this;
+	}
+
+	public off<EventName extends keyof ApiChangeEvents<T>>(
+		eventName: EventName,
+		handler: (ev: ApiChangeEvents<T>[EventName]) => void,
+	): this {
+		this.emitter_.off(eventName, handler);
 		return this;
 	}
 }

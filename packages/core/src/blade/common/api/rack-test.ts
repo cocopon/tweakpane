@@ -147,6 +147,20 @@ describe(RackApi.name, () => {
 		b.controller.value.rawValue = 2;
 	});
 
+	it('should unlisten change event', () => {
+		const api = createApi();
+		const obj = {foo: 1};
+		const bapi = api.addBinding(obj, 'foo');
+		const handler = () => {
+			assert.fail('should not be called');
+		};
+		api.on('change', handler);
+		api.off('change', handler);
+
+		const value: Value<number> = forceCast(bapi.controller.value);
+		value.rawValue += 1;
+	});
+
 	it('should refresh children', () => {
 		const doc = createTestWindow().document;
 		const api = createApi({document: doc});

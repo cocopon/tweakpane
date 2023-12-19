@@ -5,6 +5,7 @@ import {ViewProps} from '../../../common/model/view-props.js';
 import {PluginPool} from '../../../plugin/pool.js';
 import {BladeApi} from '../../common/api/blade.js';
 import {ContainerBladeApi} from '../../common/api/container-blade.js';
+import {EventListenable} from '../../common/api/event-listenable.js';
 import {TpChangeEvent, TpTabSelectEvent} from '../../common/api/tp-event.js';
 import {createBlade} from '../../common/model/blade.js';
 import {TabController} from '../controller/tab.js';
@@ -23,7 +24,10 @@ export interface TabPageParams {
 	index?: number;
 }
 
-export class TabApi extends ContainerBladeApi<TabController> {
+export class TabApi
+	extends ContainerBladeApi<TabController>
+	implements EventListenable<TabApiEvents>
+{
 	private readonly emitter_: Emitter<TabApiEvents> = new Emitter();
 	private readonly pool_: PluginPool;
 
@@ -72,11 +76,25 @@ export class TabApi extends ContainerBladeApi<TabController> {
 	public on<EventName extends keyof TabApiEvents>(
 		eventName: EventName,
 		handler: (ev: TabApiEvents[EventName]) => void,
-	): TabApi {
+	): this {
 		const bh = handler.bind(this);
-		this.emitter_.on(eventName, (ev) => {
-			bh(ev);
-		});
+		this.emitter_.on(
+			eventName,
+			(ev) => {
+				bh(ev);
+			},
+			{
+				key: handler,
+			},
+		);
+		return this;
+	}
+
+	public off<EventName extends keyof TabApiEvents>(
+		eventName: EventName,
+		handler: (ev: TabApiEvents[EventName]) => void,
+	): this {
+		this.emitter_.off(eventName, handler);
 		return this;
 	}
 

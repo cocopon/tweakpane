@@ -233,6 +233,18 @@ describe(FolderApi.name, () => {
 		});
 	});
 
+	it('should unlisten event', () => {
+		const api = createApi();
+		const obj = {foo: 1};
+		const bapi = api.addBinding(obj, 'foo');
+		const handler = () => {
+			assert.fail('should not be called');
+		};
+		api.on('change', handler);
+		api.off('change', handler);
+		bapi.controller.value.rawValue = 2;
+	});
+
 	it('should refresh items', () => {
 		const api = createApi();
 		const PARAMS = {param: 1};

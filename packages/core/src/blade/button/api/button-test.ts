@@ -76,6 +76,19 @@ describe(ButtonApi.name, () => {
 		);
 	});
 
+	it('should unlisten click event', () => {
+		const win = createTestWindow();
+		const doc = win.document;
+		const api = createApi(doc);
+		const handler = () => {
+			assert.fail('should not be called');
+		};
+		api.on('click', handler);
+		api.controller.buttonController.view.buttonElement.dispatchEvent(
+			TestUtil.createEvent(win, 'click'),
+		);
+	});
+
 	it('should have chainable event handling', () => {
 		const doc = createTestWindow().document;
 		const api = createApi(doc);

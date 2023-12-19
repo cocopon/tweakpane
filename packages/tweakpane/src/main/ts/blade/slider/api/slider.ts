@@ -2,14 +2,16 @@ import {
 	ApiChangeEvents,
 	BladeApi,
 	Emitter,
+	EventListenable,
 	LabeledValueBladeController,
 	SliderTextController,
 	TpChangeEvent,
 } from '@tweakpane/core';
 
-export class SliderBladeApi extends BladeApi<
-	LabeledValueBladeController<number, SliderTextController>
-> {
+export class SliderBladeApi
+	extends BladeApi<LabeledValueBladeController<number, SliderTextController>>
+	implements EventListenable<ApiChangeEvents<number>>
+{
 	private readonly emitter_: Emitter<ApiChangeEvents<number>> = new Emitter();
 
 	/**
@@ -62,9 +64,23 @@ export class SliderBladeApi extends BladeApi<
 		handler: (ev: ApiChangeEvents<number>[EventName]) => void,
 	): this {
 		const bh = handler.bind(this);
-		this.emitter_.on(eventName, (ev) => {
-			bh(ev);
-		});
+		this.emitter_.on(
+			eventName,
+			(ev) => {
+				bh(ev);
+			},
+			{
+				key: handler,
+			},
+		);
+		return this;
+	}
+
+	public off<EventName extends keyof ApiChangeEvents<number>>(
+		eventName: EventName,
+		handler: (ev: ApiChangeEvents<number>[EventName]) => void,
+	): this {
+		this.emitter_.off(eventName, handler);
 		return this;
 	}
 }
