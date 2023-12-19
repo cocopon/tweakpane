@@ -5,6 +5,7 @@ import {
 	LabelPropsObject,
 	ListController,
 	ListItem,
+	ListProps,
 	ValueMap,
 	ViewProps,
 } from '@tweakpane/core';
@@ -19,57 +20,53 @@ import {
 } from '../../../misc/test-util.js';
 import {ListBladeApi} from './list.js';
 
+function createApi(
+	doc: Document,
+	initialValue: number,
+	props: ListProps<number>,
+): ListBladeApi<number> {
+	const v = createValue(initialValue);
+	const c = new LabeledValueBladeController<number, ListController<number>>(
+		doc,
+		{
+			blade: createBlade(),
+			props: ValueMap.fromObject<LabelPropsObject>({
+				label: undefined,
+			}),
+			value: v,
+			valueController: new ListController(doc, {
+				props: props,
+				value: v,
+				viewProps: ViewProps.create(),
+			}),
+		},
+	);
+	return new ListBladeApi(c);
+}
+
 describe(ListBladeApi.name, () => {
 	it('should dispose', () => {
 		const doc = createTestWindow().document;
-		const v = createValue(0);
-		const c = new LabeledValueBladeController<number, ListController<number>>(
+		const api = createApi(
 			doc,
-			{
-				blade: createBlade(),
-				props: ValueMap.fromObject<LabelPropsObject>({
-					label: undefined,
-				}),
-				value: v,
-				valueController: new ListController(doc, {
-					props: ValueMap.fromObject<{
-						options: ListItem<number>[];
-					}>({
-						options: [],
-					}),
-					value: v,
-					viewProps: ViewProps.create(),
-				}),
-			},
+			0,
+			ValueMap.fromObject<{options: ListItem<number>[]}>({options: []}),
 		);
-		const api = new ListBladeApi(c);
 		assertDisposes(api);
 	});
 
 	it('should have initial state', () => {
 		const doc = createTestWindow().document;
-		const v = createValue(0);
-		const c = new LabeledValueBladeController<number, ListController<number>>(
+		const api = createApi(
 			doc,
-			{
-				blade: createBlade(),
-				props: ValueMap.fromObject<LabelPropsObject>({
-					label: undefined,
-				}),
-				value: v,
-				valueController: new ListController(doc, {
-					props: ValueMap.fromObject({
-						options: [
-							{text: 'foo', value: 123},
-							{text: 'bar', value: 456},
-						],
-					}),
-					value: v,
-					viewProps: ViewProps.create(),
-				}),
-			},
+			0,
+			ValueMap.fromObject({
+				options: [
+					{text: 'foo', value: 123},
+					{text: 'bar', value: 456},
+				],
+			}),
 		);
-		const api = new ListBladeApi(c);
 
 		assertInitialState(api);
 		assert.strictEqual(api.label, undefined);
@@ -80,28 +77,16 @@ describe(ListBladeApi.name, () => {
 
 	it('should update properties', () => {
 		const doc = createTestWindow().document;
-		const v = createValue(0);
-		const c = new LabeledValueBladeController<number, ListController<number>>(
+		const api = createApi(
 			doc,
-			{
-				blade: createBlade(),
-				props: ValueMap.fromObject<LabelPropsObject>({
-					label: undefined,
-				}),
-				value: v,
-				valueController: new ListController(doc, {
-					props: ValueMap.fromObject({
-						options: [
-							{text: 'foo', value: 123},
-							{text: 'bar', value: 456},
-						],
-					}),
-					value: v,
-					viewProps: ViewProps.create(),
-				}),
-			},
+			0,
+			ValueMap.fromObject({
+				options: [
+					{text: 'foo', value: 123},
+					{text: 'bar', value: 456},
+				],
+			}),
 		);
-		const api = new ListBladeApi(c);
 
 		assertUpdates(api);
 
@@ -121,34 +106,43 @@ describe(ListBladeApi.name, () => {
 
 	it('should handle event', (done) => {
 		const doc = createTestWindow().document;
-		const v = createValue(0);
-		const c = new LabeledValueBladeController<number, ListController<number>>(
+		const api = createApi(
 			doc,
-			{
-				blade: createBlade(),
-				props: ValueMap.fromObject<LabelPropsObject>({
-					label: undefined,
-				}),
-				value: v,
-				valueController: new ListController(doc, {
-					props: ValueMap.fromObject({
-						options: [
-							{text: 'foo', value: 123},
-							{text: 'bar', value: 456},
-						],
-					}),
-					value: v,
-					viewProps: ViewProps.create(),
-				}),
-			},
+			0,
+			ValueMap.fromObject({
+				options: [
+					{text: 'foo', value: 123},
+					{text: 'bar', value: 456},
+				],
+			}),
 		);
-		const api = new ListBladeApi(c);
 
 		api.on('change', (ev) => {
 			assert.strictEqual(ev.target, api);
 			assert.strictEqual(ev.value, 123);
 			done();
 		});
+		api.value = 123;
+	});
+
+	it('should unlisten event', () => {
+		const doc = createTestWindow().document;
+		const api = createApi(
+			doc,
+			0,
+			ValueMap.fromObject({
+				options: [
+					{text: 'foo', value: 123},
+					{text: 'bar', value: 456},
+				],
+			}),
+		);
+
+		const handler = () => {
+			assert.fail('should not be called');
+		};
+		api.on('change', handler);
+		api.off('change', handler);
 		api.value = 123;
 	});
 });

@@ -17,6 +17,7 @@ import {
 	addTabAsBlade,
 	ContainerApi,
 } from './container.js';
+import {EventListenable} from './event-listenable.js';
 import {
 	BindingParams,
 	ButtonParams,
@@ -46,7 +47,7 @@ function createBindingTarget<O extends Bindable, Key extends keyof O>(
 /**
  * @hidden
  */
-export class RackApi implements ContainerApi {
+export class RackApi implements ContainerApi, EventListenable<RackApiEvents> {
 	private readonly controller_: RackController;
 	private readonly emitter_: Emitter<RackApiEvents>;
 	private readonly pool_: PluginPool;
@@ -116,9 +117,23 @@ export class RackApi implements ContainerApi {
 		handler: (ev: RackApiEvents[EventName]) => void,
 	): this {
 		const bh = handler.bind(this);
-		this.emitter_.on(eventName, (ev) => {
-			bh(ev);
-		});
+		this.emitter_.on(
+			eventName,
+			(ev) => {
+				bh(ev);
+			},
+			{
+				key: handler,
+			},
+		);
+		return this;
+	}
+
+	public off<EventName extends keyof RackApiEvents>(
+		eventName: EventName,
+		handler: (ev: RackApiEvents[EventName]) => void,
+	): this {
+		this.emitter_.off(eventName, handler);
 		return this;
 	}
 

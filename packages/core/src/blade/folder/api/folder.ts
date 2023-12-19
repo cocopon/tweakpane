@@ -8,6 +8,7 @@ import {ButtonApi} from '../../button/api/button.js';
 import {BladeApi} from '../../common/api/blade.js';
 import {ContainerApi} from '../../common/api/container.js';
 import {ContainerBladeApi} from '../../common/api/container-blade.js';
+import {EventListenable} from '../../common/api/event-listenable.js';
 import {
 	BindingParams,
 	ButtonParams,
@@ -25,7 +26,7 @@ export interface FolderApiEvents {
 
 export class FolderApi
 	extends ContainerBladeApi<FolderController>
-	implements ContainerApi
+	implements ContainerApi, EventListenable<FolderApiEvents>
 {
 	private readonly emitter_: Emitter<FolderApiEvents>;
 
@@ -103,16 +104,37 @@ export class FolderApi
 	/**
 	 * Adds a global event listener. It handles all events of child inputs/monitors.
 	 * @param eventName The event name to listen.
+	 * @param handler The event handler.
 	 * @return The API object itself.
 	 */
 	public on<EventName extends keyof FolderApiEvents>(
 		eventName: EventName,
 		handler: (ev: FolderApiEvents[EventName]) => void,
-	): FolderApi {
+	): this {
 		const bh = handler.bind(this);
-		this.emitter_.on(eventName, (ev) => {
-			bh(ev);
-		});
+		this.emitter_.on(
+			eventName,
+			(ev) => {
+				bh(ev);
+			},
+			{
+				key: handler,
+			},
+		);
+		return this;
+	}
+
+	/**
+	 * Removes a global event listener.
+	 * @param eventName The event name to listen.
+	 * @param handler The event handler.
+	 * @returns The API object itself.
+	 */
+	public off<EventName extends keyof FolderApiEvents>(
+		eventName: EventName,
+		handler: (ev: FolderApiEvents[EventName]) => void,
+	): this {
+		this.emitter_.off(eventName, handler);
 		return this;
 	}
 }

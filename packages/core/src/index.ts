@@ -18,6 +18,7 @@ export * from './blade/button/plugin.js';
 export * from './blade/common/api/blade.js';
 export * from './blade/common/api/container-blade.js';
 export * from './blade/common/api/container.js';
+export * from './blade/common/api/event-listenable.js';
 export * from './blade/common/api/events.js';
 export * from './blade/common/api/params.js';
 export * from './blade/common/api/rack.js';

@@ -132,6 +132,27 @@ describe(TabApi.name, () => {
 		value.rawValue += 1;
 	});
 
+	it('should unlisten event', () => {
+		const doc = createTestWindow().document;
+		const c = new TabController(doc, {
+			blade: createBlade(),
+			viewProps: ViewProps.create(),
+		});
+		const pool = createDefaultPluginPool();
+		const api = new TabApi(c, pool);
+		api.addPage({title: ''});
+		const bapi = api.pages[0].addBinding({foo: 1}, 'foo');
+
+		const handler = () => {
+			assert.fail('should not be called');
+		};
+		api.on('change', handler);
+		api.off('change', handler);
+
+		const value = bapi.controller.value as Value<number>;
+		value.rawValue += 1;
+	});
+
 	it('should emit select event', () => {
 		const doc = createTestWindow().document;
 		const c = new TabController(doc, {

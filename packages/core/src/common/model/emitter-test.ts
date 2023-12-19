@@ -56,4 +56,26 @@ describe(Emitter.name, () => {
 
 		e.emit('change', {sender: e});
 	});
+
+	it('should remove listener with key', () => {
+		const e = new Emitter<{
+			change: {
+				sender: unknown;
+			};
+		}>();
+
+		const handler = () => {
+			assert.fail('should not be called');
+		};
+		const wrappedHandler = () => {
+			handler();
+		};
+
+		e.on('change', wrappedHandler, {
+			key: handler,
+		});
+		e.off('change', handler);
+
+		e.emit('change', {sender: e});
+	});
 });
