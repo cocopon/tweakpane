@@ -3,11 +3,6 @@ on:
   pull_request:
   release:
     types: [released]
-  workflow_dispatch:
-    inputs:
-      deploy:
-        required: false
-        type: boolean
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -26,21 +21,3 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: ./coverage/lcov.info
-  deploy:
-    needs: test
-    if: startsWith(github.ref, 'refs/tags/') || github.event.inputs.deploy
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '16.1.0'
-      - run: npm install
-      - run: npm run setup
-      - uses: peaceiris/actions-gh-pages@v2
-        env:
-          PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: ./packages/tweakpane/docs
-        with:
-          commitMessage: 'Deploy to GitHub Pages (Actions: ${{ github.sha }})'
