@@ -1,6 +1,7 @@
 /.vscode/
 /coverage/
 /packages/core/dist/
+/packages/tweakpane/README.md
 /packages/tweakpane/dist/
 /packages/tweakpane/docs/
 /packages/tweakpane/test-module/*/dist/
