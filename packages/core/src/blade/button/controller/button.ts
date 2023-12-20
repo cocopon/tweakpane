@@ -14,6 +14,7 @@ import {ButtonProps, ButtonView} from '../view/button.js';
  */
 export interface ButtonEvents {
 	click: {
+		nativeEvent: MouseEvent;
 		sender: ButtonController;
 	};
 }
@@ -71,8 +72,9 @@ export class ButtonController implements Controller<ButtonView>, PropsPortable {
 		});
 	}
 
-	private onClick_(): void {
+	private onClick_(ev: MouseEvent): void {
 		this.emitter.emit('click', {
+			nativeEvent: ev,
 			sender: this,
 		});
 	}

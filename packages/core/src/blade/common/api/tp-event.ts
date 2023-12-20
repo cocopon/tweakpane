@@ -81,3 +81,23 @@ export class TpTabSelectEvent<Target> extends TpEvent<Target> {
 		this.index = index;
 	}
 }
+
+/**
+ * An event class for mouse events.
+ * @template Target The event target.
+ */
+export class TpMouseEvent<Target> extends TpEvent<Target> {
+	/**
+	 * The native mouse event.
+	 */
+	public readonly native: MouseEvent;
+
+	/**
+	 * @hidden
+	 */
+	constructor(target: Target, nativeEvent: MouseEvent) {
+		super(target);
+
+		this.native = nativeEvent;
+	}
+}
