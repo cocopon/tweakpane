@@ -7,13 +7,16 @@
 
 Tweakpane is a compact pane library for fine-tuning parameters and monitoring
 value changes, inspired by [dat.GUI][].
-(dat.GUI user? The [migration guide](https://tweakpane.github.io/docs/migration/#datgui) can be helpful)
 
-
-## Concept
 - Clean and simple design
 - Dependency-free
 - Extensible
+
+(dat.GUI user? The [migration guide](https://tweakpane.github.io/docs/migration/#datgui) can be helpful)
+
+
+## Installation
+Refer to the [Getting Started](https://tweakpane.github.io/docs/getting-started/) section for concrete steps. Remember to install `@tweakpane/core` if you are developing with TypeScript.
 
 
 ## Features
