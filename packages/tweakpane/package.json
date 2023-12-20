@@ -27,7 +27,7 @@
     "start": "npm-run-all main:build:dev doc:build --parallel main:watch doc:watch doc:server",
     "test": "run-s doc:test main:test",
     "assets": "npm-run-all clean main:build --serial assets:dist assets:version assets:zip",
-    "assets:dist": "mkdirp dist && cp docs/assets/tweakpane*.js dist",
+    "assets:dist": "mkdirp dist && cp docs/assets/tweakpane*.js dist && cp ../../README.md .",
     "assets:version": "node scripts/assets-version.js",
     "assets:zip": "zip -x \"*types*\" -j -r tweakpane-$(cat package.json | npx json version).zip dist",
     "build": "run-s main:build doc:build",
