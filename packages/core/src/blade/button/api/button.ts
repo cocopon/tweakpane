@@ -1,10 +1,10 @@
 import {BladeApi} from '../../common/api/blade.js';
 import {EventListenable} from '../../common/api/event-listenable.js';
-import {TpEvent} from '../../common/api/tp-event.js';
+import {TpMouseEvent} from '../../common/api/tp-event.js';
 import {ButtonBladeController} from '../controller/button-blade.js';
 
 export interface ButtonApiEvents {
-	click: TpEvent;
+	click: TpMouseEvent<ButtonApi>;
 }
 
 export class ButtonApi
@@ -33,8 +33,8 @@ export class ButtonApi
 	): this {
 		const bh = handler.bind(this);
 		const emitter = this.controller.buttonController.emitter;
-		emitter.on(eventName, () => {
-			bh(new TpEvent(this));
+		emitter.on(eventName, (ev) => {
+			bh(new TpMouseEvent(this, ev.nativeEvent));
 		});
 		return this;
 	}

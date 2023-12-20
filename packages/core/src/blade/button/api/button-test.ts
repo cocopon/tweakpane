@@ -67,13 +67,13 @@ describe(ButtonApi.name, () => {
 		const win = createTestWindow();
 		const doc = win.document;
 		const api = createApi(doc);
-		api.on('click', (ev) => {
-			assert.strictEqual(ev.target, api);
+		const ev = TestUtil.createEvent(win, 'click');
+		api.on('click', (e) => {
+			assert.strictEqual(e.target, api);
+			assert.strictEqual(e.native, ev);
 			done();
 		});
-		api.controller.buttonController.view.buttonElement.dispatchEvent(
-			TestUtil.createEvent(win, 'click'),
-		);
+		api.controller.buttonController.view.buttonElement.dispatchEvent(ev);
 	});
 
 	it('should unlisten click event', () => {
