@@ -17,6 +17,7 @@ const cn = ClassName('ckb');
 export class CheckboxView implements View {
 	public readonly element: HTMLElement;
 	public readonly inputElement: HTMLInputElement;
+	public readonly labelElement: HTMLLabelElement;
 	public readonly value: Value<boolean>;
 
 	constructor(doc: Document, config: Config) {
@@ -29,17 +30,18 @@ export class CheckboxView implements View {
 		const labelElem = doc.createElement('label');
 		labelElem.classList.add(cn('l'));
 		this.element.appendChild(labelElem);
+		this.labelElement = labelElem;
 
 		const inputElem = doc.createElement('input');
 		inputElem.classList.add(cn('i'));
 		inputElem.type = 'checkbox';
-		labelElem.appendChild(inputElem);
+		this.labelElement.appendChild(inputElem);
 		this.inputElement = inputElem;
 		config.viewProps.bindDisabled(this.inputElement);
 
 		const wrapperElem = doc.createElement('div');
 		wrapperElem.classList.add(cn('w'));
-		labelElem.appendChild(wrapperElem);
+		this.labelElement.appendChild(wrapperElem);
 
 		const markElem = createSvgIconElement(doc, 'check');
 		wrapperElem.appendChild(markElem);
