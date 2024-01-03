@@ -75,6 +75,15 @@ The above commands start a web server for the document, build source files, and
 watch for changes. Open `http://localhost:8080/` to browse the document.
 
 
+## Other resources
+
+
+### [Design Kit](https://www.figma.com/community/file/1324202557355874089)
+Includes the basics, styles and components for Tweakpane, providing a practical resource for creating your own plugin.
+
+[![image](https://github.com/cocopon/tweakpane/assets/602961/78cfd81f-d950-48e3-a0f1-6b6a14caaca4)](https://www.figma.com/community/file/1324202557355874089)
+
+
 ## License
 MIT License. See `LICENSE.txt` for more information.
 
