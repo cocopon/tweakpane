@@ -46,11 +46,8 @@
 		background: url(https://source.unsplash.com/74ft3aciAY0/900x1600) no-repeat
 			center;
 		background-size: cover;
-		bottom: -16px;
-		left: -16px;
+		inset: -16px;
 		position: absolute;
-		right: -16px;
-		top: -16px;
 
 		&::before {
 			background-image: radial-gradient(
@@ -59,12 +56,9 @@
 			);
 			background-position: center;
 			background-size: 16px 16px;
-			bottom: 0;
 			content: '';
-			left: 0;
+			inset: 0;
 			position: absolute;
-			right: 0;
-			top: 0;
 		}
 	}
 }

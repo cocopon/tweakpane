@@ -111,13 +111,10 @@
 
 		&::before {
 			background-color: tp.cssVar('container-bg');
-			bottom: 2px;
 			content: '';
-			left: 0;
+			inset: 0 0 2px;
 			pointer-events: none;
 			position: absolute;
-			right: 0;
-			top: 0;
 		}
 		&:hover::before {
 			background-color: tp.cssVar('container-bg-hover');

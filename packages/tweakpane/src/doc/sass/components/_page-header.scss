@@ -14,12 +14,9 @@
 		}
 	}
 	&_sketchContainer {
-		bottom: 0;
-		left: 0;
+		inset: 0;
 		overflow: hidden;
 		position: absolute;
-		right: 0;
-		top: 0;
 
 		svg {
 			display: block;
