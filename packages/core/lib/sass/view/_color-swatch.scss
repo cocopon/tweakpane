@@ -30,13 +30,10 @@
 		&:focus::after {
 			border: rgba(white, 0.75) solid 2px;
 			border-radius: tp.cssVar('blade-border-radius');
-			bottom: 0;
 			content: '';
 			display: block;
-			left: 0;
+			inset: 0;
 			position: absolute;
-			right: 0;
-			top: 0;
 		}
 	}
 }

@@ -17,15 +17,12 @@
 		&::before {
 			background-color: tp.cssVar('input-bg');
 			border-radius: 1px;
-			bottom: 0;
 			content: '';
 			display: block;
 			height: 2px;
-			left: 0;
+			inset: 0;
 			margin: auto;
 			position: absolute;
-			right: 0;
-			top: 0;
 		}
 	}
 	&_k {
@@ -37,16 +34,13 @@
 		&::before {
 			background-color: tp.cssVar('input-fg');
 			border-radius: 1px;
-			bottom: 0;
 			content: '';
 			display: block;
 			height: 2px;
-			left: 0;
+			inset: 0;
 			margin-bottom: auto;
 			margin-top: auto;
 			position: absolute;
-			right: 0;
-			top: 0;
 		}
 		&::after {
 			background-color: tp.cssVar('button-bg');

@@ -162,11 +162,8 @@ $track-width: 4px;
 		width: 100%;
 	}
 	&_c {
-		bottom: 0;
-		left: 0;
+		inset: 0;
 		position: absolute;
-		right: 0;
-		top: 0;
 	}
 	&_m {
 		@include color.checkerboard(tp.$slider-knob-size);
@@ -187,11 +184,8 @@ $track-width: 4px;
 		border-radius: tp.cssVar('blade-border-radius');
 		border: $marker-border-color solid 2px;
 		box-sizing: border-box;
-		bottom: 0;
-		left: 0;
+		inset: 0;
 		position: absolute;
-		right: 0;
-		top: 0;
 	}
 	&:focus &_p {
 		border-color: $marker-border-color-focus;
