@@ -208,7 +208,7 @@ function parseHexRgbColor(text: string): IntColor | null {
 
 function parseHexRgbaColorComponents(text: string): ColorComponents4 | null {
 	const mRgb = text.match(
-		/^#?([0-9A-Fa-f])([0-9A-Fa-f])([0-9A-Fa-f])([0-9A-Fa-f])$/,
+		/^#([0-9A-Fa-f])([0-9A-Fa-f])([0-9A-Fa-f])([0-9A-Fa-f])$/,
 	);
 	if (mRgb) {
 		return [

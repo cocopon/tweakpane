@@ -64,6 +64,7 @@ describe(createColorStringParser.name, () => {
 	[
 		'0x123',
 		'601',
+		'3200',
 		'112233',
 		'foobar',
 		'#eeffgg',
