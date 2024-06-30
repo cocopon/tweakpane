@@ -1,6 +1,6 @@
 {
   "name": "tweakpane",
-  "version": "4.0.3",
+  "version": "4.0.4",
   "description": "A compact pane for fine-tuning parameters and monitoring value changes",
   "author": "cocopon",
   "license": "MIT",
