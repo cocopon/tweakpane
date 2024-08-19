@@ -40,7 +40,7 @@
 		height: 12px;
 		transition: transform 0.05s ease-out;
 		animation: rotateAnimation 1s linear both;
-		animation-timeline: scroll(root block);
+		animation-timeline: scroll(root);
 		width: 12px;
 	}
 	&:hover &_symbol {
