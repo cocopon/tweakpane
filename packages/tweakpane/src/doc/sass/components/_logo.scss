@@ -38,8 +38,7 @@
 		border-radius: 4px;
 		display: block;
 		height: 12px;
-		transition: transform 0.05s ease-out;
-		animation: rotateAnimation 1s linear both;
+		animation: rotateAnimation auto linear;
 		animation-timeline: scroll(root);
 		width: 12px;
 	}
