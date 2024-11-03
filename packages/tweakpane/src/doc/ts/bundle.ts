@@ -12,10 +12,18 @@ import {initPluginsDev} from './route/plugins-dev';
 import {initQuickTour} from './route/quick-tour.js';
 import {initTheming} from './route/theming.js';
 import {initUiComponents} from './route/ui-components';
+import {Screw} from './screw.js';
 import {SimpleRouter} from './simple-router.js';
 import {SpMenu} from './sp-menu.js';
 
 declare let hljs: any;
+
+function setUpScrews() {
+	const screwElems = document.querySelectorAll('.logo_symbol');
+	screwElems.forEach((elem: Element) => {
+		new Screw(elem as HTMLElement);
+	});
+}
 
 function setUpSpMenu() {
 	const buttonElem: HTMLElement | null =
@@ -73,6 +81,9 @@ function setUpVersionSwitcher() {
 	router.route(location.pathname);
 
 	setUpSpMenu();
+	if (!CSS.supports('animation-timeline', 'scroll()')) {
+		setUpScrews();
+	}
 	setUpVersionSwitcher();
 
 	hljs.highlightAll();
