@@ -80,8 +80,10 @@ function setUpVersionSwitcher() {
 	}, initIndex);
 	router.route(location.pathname);
 
-	setUpScrews();
 	setUpSpMenu();
+	if (!CSS.supports('animation-timeline', 'scroll()')) {
+		setUpScrews();
+	}
 	setUpVersionSwitcher();
 
 	hljs.highlightAll();

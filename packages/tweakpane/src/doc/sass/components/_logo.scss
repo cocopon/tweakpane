@@ -1,3 +1,12 @@
+@keyframes rotateAnimation {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
 .logo {
 	$logo-color: var(--fg-color);
 	$logo-hover-color: var(--fg-color-action);
@@ -29,7 +38,8 @@
 		border-radius: 4px;
 		display: block;
 		height: 12px;
-		transition: transform 0.05s ease-out;
+		animation: rotateAnimation auto linear;
+		animation-timeline: scroll(root);
 		width: 12px;
 	}
 	&:hover &_symbol {
