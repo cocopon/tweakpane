@@ -33,9 +33,13 @@ export class ButtonApi
 	): this {
 		const bh = handler.bind(this);
 		const emitter = this.controller.buttonController.emitter;
-		emitter.on(eventName, (ev) => {
-			bh(new TpMouseEvent(this, ev.nativeEvent));
-		});
+		emitter.on(
+			eventName,
+			(ev) => {
+				bh(new TpMouseEvent(this, ev.nativeEvent));
+			},
+			{key: handler},
+		);
 		return this;
 	}
 
