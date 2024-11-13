@@ -76,17 +76,19 @@ describe(ButtonApi.name, () => {
 		api.controller.buttonController.view.buttonElement.dispatchEvent(ev);
 	});
 
-	it('should unlisten click event', () => {
+	it('should unlisten click event', (done) => {
 		const win = createTestWindow();
 		const doc = win.document;
 		const api = createApi(doc);
 		const handler = () => {
-			assert.fail('should not be called');
+			done(new Error('should not be called'));
 		};
 		api.on('click', handler);
+		api.off('click', handler);
 		api.controller.buttonController.view.buttonElement.dispatchEvent(
 			TestUtil.createEvent(win, 'click'),
 		);
+		done();
 	});
 
 	it('should have chainable event handling', () => {
