@@ -47,8 +47,11 @@ export class SingleLogView<T> implements View {
 	private update_(): void {
 		const values = this.value.rawValue;
 		const lastValue = values[values.length - 1];
-		this.inputElement.value =
+		const formattedValue =
 			lastValue !== undefined ? this.formatter_(lastValue) : '';
+		if (this.inputElement.value !== formattedValue) {
+			this.inputElement.value = formattedValue;
+		}
 	}
 
 	private onValueUpdate_(): void {

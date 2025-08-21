@@ -59,7 +59,10 @@ export class MultiLogView<T> implements View {
 				lines.push(this.formatter_(value));
 			}
 		});
-		elem.textContent = lines.join('\n');
+		const newValue = lines.join('\n');
+		if (elem.textContent !== newValue) {
+			elem.textContent = newValue;
+		}
 
 		if (shouldScroll) {
 			elem.scrollTop = elem.scrollHeight;
