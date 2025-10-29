@@ -38,12 +38,16 @@ export class ValueMap<O extends Record<string, unknown>> {
 		initialValue: O,
 	): ValueMapCore<O> {
 		const keys: (keyof O)[] = Object.keys(initialValue);
-		return keys.reduce((o, key) => {
-			key;
-			return Object.assign(o, {
-				[key]: createValue(initialValue[key]),
-			});
-		}, {} as {[Key in keyof O]: Value<O[Key]>});
+		return keys.reduce(
+			(o, key) => {
+				// eslint-disable-next-line @typescript-eslint/no-unused-expressions
+				key;
+				return Object.assign(o, {
+					[key]: createValue(initialValue[key]),
+				});
+			},
+			{} as {[Key in keyof O]: Value<O[Key]>},
+		);
 	}
 
 	public static fromObject<O extends Record<string, unknown>>(

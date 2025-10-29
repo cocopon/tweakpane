@@ -3,6 +3,7 @@ import {forceCast} from '../misc/type-util.js';
 export const SVG_NS = 'http://www.w3.org/2000/svg';
 
 export function forceReflow(element: HTMLElement): void {
+	// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 	element.offsetHeight;
 }
 
@@ -44,7 +45,7 @@ export function getCanvasContext(
 	return isBrowser
 		? canvasElement.getContext('2d', {
 				willReadFrequently: true,
-		  } as CanvasRenderingContext2DSettings)
+			} as CanvasRenderingContext2DSettings)
 		: null;
 }
 

@@ -2,7 +2,7 @@
 /* eslint-env node */
 
 import Fs from 'fs-extra';
-import Glob from 'glob';
+import {globSync} from 'glob';
 import Nunjucks from 'nunjucks';
 import Path from 'path';
 
@@ -21,7 +21,7 @@ const DST_DIR = 'docs';
 
 Fs.mkdirsSync(DST_DIR);
 
-const srcPaths = Glob.sync(SRC_PATTERN).filter((path) => {
+const srcPaths = globSync(SRC_PATTERN).filter((path) => {
 	return Path.basename(path).match(/^_.+$/) === null;
 });
 console.log('Found sources:');

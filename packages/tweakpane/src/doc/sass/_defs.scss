@@ -128,7 +128,8 @@ $z-index-global-nav: 1003;
 }
 
 @mixin dotGrid() {
-	background-image: radial-gradient(
+	background-image:
+		radial-gradient(
 			#{unquote('hsla(var(--guide-color-comps), 0.08)')} 1px,
 			transparent 0
 		),
@@ -136,6 +137,8 @@ $z-index-global-nav: 1003;
 			#{unquote('hsla(var(--guide-color-comps), 0.04)')} 1px,
 			transparent 0
 		);
-	background-size: 32px 32px, 8px 8px;
+	background-size:
+		32px 32px,
+		8px 8px;
 	background-position: center;
 }

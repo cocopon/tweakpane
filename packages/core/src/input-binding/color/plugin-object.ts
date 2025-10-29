@@ -77,7 +77,7 @@ export const ObjectColorInputPlugin: InputBindingPlugin<
 						...result,
 						colorType: extractColorType(params) ?? 'int',
 					},
-			  }
+				}
 			: null;
 	},
 	binding: {

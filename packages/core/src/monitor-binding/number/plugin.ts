@@ -87,7 +87,7 @@ export const NumberMonitorPlugin: MonitorBindingPlugin<
 			? {
 					initialValue: value,
 					params: result,
-			  }
+				}
 			: null;
 	},
 	binding: {

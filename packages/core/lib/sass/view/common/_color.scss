@@ -5,7 +5,8 @@
 	$checkerboard-color-light: white;
 
 	background-color: $checkerboard-color-light;
-	background-image: linear-gradient(
+	background-image:
+		linear-gradient(
 			to top right,
 			$checkerboard-color-dark 25%,
 			transparent 25%,
@@ -20,5 +21,7 @@
 			$checkerboard-color-dark 75%
 		);
 	background-size: $size $size;
-	background-position: 0 0, math.div($size, 2) math.div($size, 2);
+	background-position:
+		0 0,
+		math.div($size, 2) math.div($size, 2);
 }

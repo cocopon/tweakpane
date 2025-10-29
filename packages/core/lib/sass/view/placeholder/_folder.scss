@@ -12,9 +12,8 @@
 	overflow: hidden;
 	padding-left: defs.cssVar('container-h-padding');
 	padding-right: calc(
-		2px * 2 + #{defs.cssVar('container-unit-size')} + #{defs.cssVar(
-				'container-h-padding'
-			)}
+		2px * 2 + #{defs.cssVar('container-unit-size')} +
+			#{defs.cssVar('container-h-padding')}
 	);
 	position: relative;
 	text-align: left;
@@ -57,9 +56,8 @@
 	display: block;
 	height: $size;
 	right: calc(
-		#{defs.cssVar('container-h-padding')} + (
-				#{defs.cssVar('container-unit-size')} + 4px - #{$size}
-			) / 2 - 2px
+		#{defs.cssVar('container-h-padding')} +
+			(#{defs.cssVar('container-unit-size')} + 4px - #{$size}) / 2 - 2px
 	);
 	margin: auto;
 	opacity: 0.5;
@@ -82,7 +80,8 @@
 	padding-bottom: 0;
 	padding-top: 0;
 	position: relative;
-	transition: height defs.$fold-transition-duration ease-in-out,
+	transition:
+		height defs.$fold-transition-duration ease-in-out,
 		opacity defs.$fold-transition-duration linear,
 		padding defs.$fold-transition-duration ease-in-out;
 }
@@ -99,7 +98,8 @@
 	overflow: visible;
 
 	// Delay opacity transition to avoid overflow contents
-	transition: height defs.$fold-transition-duration ease-in-out,
+	transition:
+		height defs.$fold-transition-duration ease-in-out,
 		opacity defs.$fold-transition-duration linear defs.$fold-transition-duration,
 		padding defs.$fold-transition-duration ease-in-out;
 }

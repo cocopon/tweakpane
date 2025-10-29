@@ -112,7 +112,7 @@ describe(ViewProps.name, () => {
 					params.parentDisabled !== null
 						? ViewProps.create({
 								disabled: params.parentDisabled,
-						  })
+							})
 						: null,
 				);
 				assert.strictEqual(p.globalDisabled.rawValue, expected);

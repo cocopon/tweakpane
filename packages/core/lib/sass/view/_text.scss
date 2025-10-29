@@ -38,10 +38,8 @@
 		cursor: pointer;
 		height: 100%;
 		left: calc(
-			#{tp.cssVar('blade-h-padding')} - #{math.div(
-					$knob-bounds-width - $knob-visual-width,
-					2
-				)}
+			#{tp.cssVar('blade-h-padding')} -
+				#{math.div($knob-bounds-width - $knob-visual-width, 2)}
 		);
 		position: absolute;
 		top: 0;
@@ -60,7 +58,11 @@
 			opacity: 0.1;
 			position: absolute;
 			top: 0;
-			transition: border-radius 0.1s, height 0.1s, transform 0.1s, width 0.1s;
+			transition:
+				border-radius 0.1s,
+				height 0.1s,
+				transform 0.1s,
+				width 0.1s;
 			width: $knob-visual-width;
 		}
 	}

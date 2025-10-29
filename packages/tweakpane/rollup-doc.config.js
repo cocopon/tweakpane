@@ -2,7 +2,7 @@ import Alias from '@rollup/plugin-alias';
 import {nodeResolve} from '@rollup/plugin-node-resolve';
 import Typescript from '@rollup/plugin-typescript';
 import Cleanup from 'rollup-plugin-cleanup';
-import {terser as Terser} from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 
 export default async () => {
 	return {
@@ -31,7 +31,7 @@ export default async () => {
 			nodeResolve({
 				preferBuiltins: false,
 			}),
-			Terser(),
+			terser(),
 			// https://github.com/microsoft/tslib/issues/47
 			Cleanup({
 				comments: 'none',

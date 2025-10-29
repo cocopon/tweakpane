@@ -57,7 +57,7 @@ export const StringInputPlugin: InputBindingPlugin<
 			? {
 					initialValue: value,
 					params: result,
-			  }
+				}
 			: null;
 	},
 	binding: {

@@ -56,7 +56,7 @@ export const StringColorInputPlugin: InputBindingPlugin<
 						format: format,
 						stringifier: stringifier,
 					},
-			  }
+				}
 			: null;
 	},
 	binding: {

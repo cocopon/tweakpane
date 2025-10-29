@@ -17,7 +17,9 @@
 	}
 	&_t {
 		margin-top: -4px;
-		transition: left 0.05s, top 0.05s;
+		transition:
+			left 0.05s,
+			top 0.05s;
 		visibility: hidden;
 
 		&#{&}-a {

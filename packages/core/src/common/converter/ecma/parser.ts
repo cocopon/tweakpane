@@ -145,7 +145,7 @@ function createBinaryOperationExpressionParser(
 			? {
 					cursor: cursor,
 					evaluable: expr,
-			  }
+				}
 			: null;
 	};
 }

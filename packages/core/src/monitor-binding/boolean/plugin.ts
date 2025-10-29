@@ -31,7 +31,7 @@ export const BooleanMonitorPlugin: MonitorBindingPlugin<
 			? {
 					initialValue: value,
 					params: result,
-			  }
+				}
 			: null;
 	},
 	binding: {

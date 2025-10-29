@@ -98,7 +98,7 @@ export class PointerHandler {
 				? {
 						x: offset.x,
 						y: offset.y,
-				  }
+					}
 				: null,
 		};
 	}
@@ -156,7 +156,7 @@ export class PointerHandler {
 					? {
 							x: touch.clientX - rect.left,
 							y: touch.clientY - rect.top,
-					  }
+						}
 					: undefined,
 			),
 			sender: this,
@@ -175,7 +175,7 @@ export class PointerHandler {
 					? {
 							x: touch.clientX - rect.left,
 							y: touch.clientY - rect.top,
-					  }
+						}
 					: undefined,
 			),
 			sender: this,
@@ -194,7 +194,7 @@ export class PointerHandler {
 					? {
 							x: touch.clientX - rect.left,
 							y: touch.clientY - rect.top,
-					  }
+						}
 					: undefined,
 			),
 			sender: this,

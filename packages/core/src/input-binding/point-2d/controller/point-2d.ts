@@ -56,7 +56,7 @@ export class Point2dController
 			config.pickerLayout === 'popup'
 				? new PopupController(doc, {
 						viewProps: this.viewProps,
-				  })
+					})
 				: null;
 
 		const padC = new Point2dPickerController(doc, {

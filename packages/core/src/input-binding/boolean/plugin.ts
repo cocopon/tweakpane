@@ -54,7 +54,7 @@ export const BooleanInputPlugin: InputBindingPlugin<
 			? {
 					initialValue: value,
 					params: result,
-			  }
+				}
 			: null;
 	},
 	binding: {

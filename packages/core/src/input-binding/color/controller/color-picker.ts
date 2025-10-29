@@ -72,7 +72,7 @@ export class ColorPickerController
 						}),
 						viewProps: this.viewProps,
 					}),
-			  }
+				}
 			: null;
 		if (this.alphaIcs_) {
 			connectValues({
@@ -97,7 +97,7 @@ export class ColorPickerController
 				? {
 						palette: this.alphaIcs_.palette.view,
 						text: this.alphaIcs_.text.view,
-				  }
+					}
 				: null,
 			hPaletteView: this.hPaletteC_.view,
 			supportsAlpha: config.supportsAlpha,

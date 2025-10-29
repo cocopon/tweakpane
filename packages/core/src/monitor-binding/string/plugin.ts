@@ -32,7 +32,7 @@ export const StringMonitorPlugin: MonitorBindingPlugin<
 			? {
 					initialValue: value,
 					params: result,
-			  }
+				}
 			: null;
 	},
 	binding: {

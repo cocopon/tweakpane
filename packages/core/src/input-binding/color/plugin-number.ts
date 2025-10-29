@@ -70,7 +70,7 @@ export const NumberColorInputPlugin: InputBindingPlugin<
 						...result,
 						supportsAlpha: shouldSupportAlpha(params),
 					},
-			  }
+				}
 			: null;
 	},
 	binding: {

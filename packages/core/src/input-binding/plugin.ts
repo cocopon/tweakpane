@@ -60,10 +60,10 @@ export interface InputBindingPlugin<In, Ex, P extends BaseInputParams>
 		 * @param params The additional parameters specified by users.
 		 * @return A typed value if the plugin accepts the input, or null if the plugin sees them off and pass them to the next plugin.
 		 */
-		(exValue: unknown, params: Record<string, unknown>): Acceptance<
-			Ex,
-			P
-		> | null;
+		(
+			exValue: unknown,
+			params: Record<string, unknown>,
+		): Acceptance<Ex, P> | null;
 	};
 
 	/**
@@ -201,7 +201,7 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 	return new InputBindingController(args.document, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
-			label: 'label' in args.params ? params?.label ?? null : args.target.key,
+			label: 'label' in args.params ? (params?.label ?? null) : args.target.key,
 		}),
 		tag: params?.tag,
 		value: value,

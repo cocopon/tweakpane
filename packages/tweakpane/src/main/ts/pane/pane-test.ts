@@ -109,7 +109,7 @@ describe(Pane.name, () => {
 						? {
 								initialValue: value,
 								params: result,
-						  }
+							}
 						: null;
 				},
 				binding: {

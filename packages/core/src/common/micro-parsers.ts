@@ -18,19 +18,22 @@ function parseObject<O extends Record<string, unknown>>(
 	},
 ): O | undefined {
 	const keys: (keyof O)[] = Object.keys(keyToParserMap);
-	const result = keys.reduce((tmp, key) => {
-		if (tmp === undefined) {
-			return undefined;
-		}
-		const parser = keyToParserMap[key];
-		const result = parser(value[key as string]);
-		return result.succeeded
-			? {
-					...tmp,
-					[key]: result.value,
-			  }
-			: undefined;
-	}, {} as {[Key in keyof O]: O[Key] | undefined} | undefined);
+	const result = keys.reduce(
+		(tmp, key) => {
+			if (tmp === undefined) {
+				return undefined;
+			}
+			const parser = keyToParserMap[key];
+			const result = parser(value[key as string]);
+			return result.succeeded
+				? {
+						...tmp,
+						[key]: result.value,
+					}
+				: undefined;
+		},
+		{} as {[Key in keyof O]: O[Key] | undefined} | undefined,
+	);
 	return forceCast(result);
 }
 
@@ -82,11 +85,11 @@ function createMicroParserBuilder<T>(
 			? {
 					succeeded: true,
 					value: result,
-			  }
+				}
 			: {
 					succeeded: false,
 					value: undefined,
-			  };
+				};
 	};
 }
 
@@ -107,9 +110,8 @@ function createMicroParserBuilders(optional: boolean) {
 			typeof v === 'string' ? v : undefined,
 		)(optional),
 
-		// eslint-disable-next-line @typescript-eslint/ban-types
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 		function: createMicroParserBuilder<Function>((v) =>
-			// eslint-disable-next-line @typescript-eslint/ban-types
 			typeof v === 'function' ? v : undefined,
 		)(optional),
 

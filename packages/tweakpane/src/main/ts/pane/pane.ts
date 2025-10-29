@@ -108,8 +108,8 @@ export class Pane extends RootApi {
 			'plugin' in bundle
 				? [bundle.plugin]
 				: 'plugins' in bundle
-				? bundle.plugins
-				: [];
+					? bundle.plugins
+					: [];
 		plugins.forEach((p) => {
 			this.pool_.register(bundle.id, p);
 		});

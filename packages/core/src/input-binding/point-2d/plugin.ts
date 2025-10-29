@@ -102,7 +102,7 @@ export const Point2dInputPlugin: InputBindingPlugin<
 			? {
 					initialValue: value,
 					params: result,
-			  }
+				}
 			: null;
 	},
 	binding: {

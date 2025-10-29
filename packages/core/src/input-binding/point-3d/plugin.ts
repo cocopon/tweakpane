@@ -55,7 +55,7 @@ export const Point3dInputPlugin: InputBindingPlugin<
 			? {
 					initialValue: value,
 					params: result,
-			  }
+				}
 			: null;
 	},
 	binding: {

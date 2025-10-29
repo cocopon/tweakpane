@@ -19,7 +19,7 @@ export class SimpleRouter {
 				matcher instanceof RegExp
 					? (pathname: string): boolean => {
 							return matcher.test(pathname);
-					  }
+						}
 					: matcher,
 		});
 	}

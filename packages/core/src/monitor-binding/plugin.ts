@@ -58,10 +58,10 @@ export interface MonitorBindingPlugin<T, P extends BaseMonitorParams>
 		 * @param params The additional parameters specified by users.
 		 * @return A typed value if the plugin accepts the input, or null if the plugin sees them off and pass them to the next plugin.
 		 */
-		(exValue: unknown, params: Record<string, unknown>): Acceptance<
-			T,
-			P
-		> | null;
+		(
+			exValue: unknown,
+			params: Record<string, unknown>,
+		): Acceptance<T, P> | null;
 	};
 
 	/**
@@ -123,7 +123,7 @@ function createTicker(
 		: new IntervalTicker(
 				document,
 				interval ?? Constants.monitor.defaultInterval,
-		  );
+			);
 }
 
 export function createMonitorBindingController<T, P extends BaseMonitorParams>(
@@ -188,7 +188,7 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 	return new MonitorBindingController(args.document, {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
-			label: 'label' in args.params ? params?.label ?? null : args.target.key,
+			label: 'label' in args.params ? (params?.label ?? null) : args.target.key,
 		}),
 		value: value,
 		valueController: controller,

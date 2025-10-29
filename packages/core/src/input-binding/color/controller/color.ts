@@ -80,7 +80,7 @@ export class ColorController implements ValueController<IntColor, ColorView> {
 			config.pickerLayout === 'popup'
 				? new PopupController(doc, {
 						viewProps: this.viewProps,
-				  })
+					})
 				: null;
 
 		const pickerC = new ColorPickerController(doc, {

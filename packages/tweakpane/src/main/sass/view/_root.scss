@@ -20,9 +20,8 @@
 		border-top-left-radius: tp.cssVar('base-border-radius');
 		border-top-right-radius: tp.cssVar('base-border-radius');
 		padding-left: calc(
-			2px * 2 + #{tp.cssVar('container-unit-size')} + #{tp.cssVar(
-					'container-h-padding'
-				)}
+			2px * 2 + #{tp.cssVar('container-unit-size')} +
+				#{tp.cssVar('container-h-padding')}
 		);
 		text-align: center;
 	}

@@ -79,7 +79,7 @@ export const NumberInputPlugin: InputBindingPlugin<
 			? {
 					initialValue: value,
 					params: result,
-			  }
+				}
 			: null;
 	},
 	binding: {

@@ -20,7 +20,8 @@
 		margin-top: 0;
 		opacity: 0;
 		overflow: hidden;
-		transition: height tp.$fold-transition-duration ease-in-out,
+		transition:
+			height tp.$fold-transition-duration ease-in-out,
 			opacity tp.$fold-transition-duration linear,
 			margin tp.$fold-transition-duration ease-in-out;
 	}

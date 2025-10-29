@@ -62,10 +62,10 @@ export function deepMerge(
 			? {
 					...result,
 					[key]: deepMerge(v1, v2),
-			  }
+				}
 			: {
 					...result,
 					[key]: key in r2 ? v2 : v1,
-			  };
+				};
 	}, {});
 }

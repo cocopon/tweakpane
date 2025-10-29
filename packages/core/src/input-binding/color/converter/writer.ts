@@ -21,7 +21,7 @@ export function createColorStringWriter(
 	return stringify
 		? (target, value) => {
 				writePrimitive(target, stringify(value));
-		  }
+			}
 		: null;
 }
 
