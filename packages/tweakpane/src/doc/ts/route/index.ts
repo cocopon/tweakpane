@@ -4,7 +4,7 @@ import {
 	mapRange,
 	readIntColorString,
 } from '@tweakpane/core';
-import {presetToState, stateToPreset} from 'ts/preset';
+import {presetToState, stateToPreset} from '../preset';
 import {Pane} from 'tweakpane';
 
 import {Sketch} from '../sketch.js';

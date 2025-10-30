@@ -5,7 +5,8 @@
 		"moduleResolution": "Node",
 		"paths": {
 			"@tweakpane/core": ["../../../core/src/index"],
-			"tweakpane": ["../main/ts/index"]
+			"tweakpane": ["../main/ts/index"],
+			"ts/*": ["./ts/*"]
 		}
 	}
 }

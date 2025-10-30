@@ -1,4 +1,4 @@
-import {CounterPluginBundle} from 'ts/plugins/counter/bundle.js';
+import {CounterPluginBundle} from '../plugins/counter/bundle.js';
 import {Pane, TpPluginBundle} from 'tweakpane';
 
 import {selectContainer} from '../util.js';

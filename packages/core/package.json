@@ -8,10 +8,6 @@
   "type": "module",
   "types": "dist/index.d.ts",
   "prettier": "../../prettier.config.js",
-  "typedoc": {
-    "entryPoint": "./src/index.ts",
-    "tsconfig": "./src/tsconfig.json"
-  },
   "scripts": {
     "prepack": "run-s clean build",
     "prepublishOnly": "npm test",
@@ -35,5 +31,11 @@
     "watch": "run-p watch:*",
     "watch:ts": "onchange --initial --kill \"src/**/*.ts\" -- npm run build:ts"
   },
-  "devDependencies": {}
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  }
 }

@@ -1,6 +1,7 @@
 {
 	"entryPoints": [
-		"../../",
+		"packages/core",
+		"packages/tweakpane"
 	],
 	"entryPointStrategy": "packages",
 	"exclude": [
@@ -8,13 +9,6 @@
 		"**/*-test.ts"
 	],
 	"excludePrivate": true,
-	"intentionallyNotExported": [
-		"BindingController",
-		"BindingValue",
-		"BladeController",
-		"InputBindingController",
-		"MonitorBindingController"
-	],
 	"out": "../../docs/api",
 	"plugin": ["typedoc-plugin-missing-exports"],
 	"readme": "none"

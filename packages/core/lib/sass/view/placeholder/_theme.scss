@@ -1,4 +1,5 @@
 @use 'sass:map';
+@use 'sass:color';
 @use '../../common/defs';
 
 @mixin themeVariable($key, $ex-name, $value) {
@@ -38,17 +39,18 @@
 	@include themeVariable(
 		'button-bg-active',
 		'button-background-color-active',
-		lighten($color-light, 15%)
+		// lighten($color-light, 15%)
+		color.adjust($color-light, $lightness: 15%)
 	);
 	@include themeVariable(
 		'button-bg-focus',
 		'button-background-color-focus',
-		lighten($color-light, 10%)
+		color.adjust($color-light, $lightness: 10%)
 	);
 	@include themeVariable(
 		'button-bg-hover',
 		'button-background-color-hover',
-		lighten($color-light, 5%)
+		color.adjust($color-light, $lightness: 5%)
 	);
 	@include themeVariable('button-fg', 'button-foreground-color', $bg-color);
 

@@ -3,8 +3,8 @@ import {
 	FolderBladeParams,
 	TabBladeParams,
 } from '@tweakpane/core';
-import {toCss} from 'ts/panepaint';
-import {createTheme, ThemeId} from 'ts/themes';
+import {toCss} from '../panepaint';
+import {createTheme, ThemeId} from '../themes';
 import {
 	ListBladeParams,
 	Pane,

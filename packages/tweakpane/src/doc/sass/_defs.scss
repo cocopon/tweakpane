@@ -1,3 +1,4 @@
+@use 'sass:string';
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700');
 @import url('https://fonts.googleapis.com/css?family=Rubik:400,500,700');
 @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,700');
@@ -130,11 +131,11 @@ $z-index-global-nav: 1003;
 @mixin dotGrid() {
 	background-image:
 		radial-gradient(
-			#{unquote('hsla(var(--guide-color-comps), 0.08)')} 1px,
+			#{string.unquote('hsla(var(--guide-color-comps), 0.08)')} 1px,
 			transparent 0
 		),
 		radial-gradient(
-			#{unquote('hsla(var(--guide-color-comps), 0.04)')} 1px,
+			#{string.unquote('hsla(var(--guide-color-comps), 0.04)')} 1px,
 			transparent 0
 		);
 	background-size:

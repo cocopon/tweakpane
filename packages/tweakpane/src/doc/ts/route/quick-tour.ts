@@ -1,4 +1,4 @@
-import {PlaceholderPluginBundle} from 'ts/plugins/placeholder/bundle.js';
+import {PlaceholderPluginBundle} from '../plugins/placeholder/bundle.js';
 import {Pane} from 'tweakpane';
 
 import {selectContainer, wave} from '../util.js';

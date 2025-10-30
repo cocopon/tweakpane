@@ -17,10 +17,6 @@
   "files": [
     "dist"
   ],
-  "typedoc": {
-    "entryPoint": "./src/main/ts/index.ts",
-    "tsconfig": "./src/doc/tsconfig.json"
-  },
   "scripts": {
     "prepack": "run-s clean main:prepare",
     "prepublishOnly": "npm test",
@@ -39,7 +35,7 @@
     "doc:build:html": "node scripts/doc-build-html.js",
     "doc:build:img": "mkdirp docs/assets && cp -r src/doc/img/* docs/assets",
     "doc:build:ts": "rollup --config rollup-doc.config.js",
-    "doc:build:refs": "typedoc --options src/doc/typedoc.json",
+    "doc:build:refs": "typedoc --options ../../typedoc.json",
     "doc:format": "run-p doc:format:*",
     "doc:format:scss": "prettier --parser scss --write \"src/doc/sass/**/*.scss\"",
     "doc:format:ts": "eslint --ext .ts --fix \"src/doc/ts/**/*.ts\"",
@@ -95,5 +91,12 @@
     "@rollup/plugin-terser": "^0.4.4",
     "typedoc": "^0.28.14",
     "typedoc-plugin-missing-exports": "^4.1.2"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/tweakpane.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./package.json": "./package.json"
   }
 }

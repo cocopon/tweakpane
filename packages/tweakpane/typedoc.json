@@ -1,0 +1,4 @@
+{
+	"entryPoints": ["src/doc/ts/bundle.ts", "src/main/ts/index.ts"],
+	"tsconfig": "src/doc/tsconfig.json"
+}

@@ -1,7 +1,8 @@
 {
 	"compilerOptions": {
 		"lib": ["DOM", "ES2015"],
-		"module": "node16",
+		"module": "esnext",
+		"moduleResolution": "bundler",
 		"noImplicitAny": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,

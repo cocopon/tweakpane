@@ -1,8 +1,12 @@
+import { resolve } from 'path';
+import { fileURLToPath } from 'url';
 import Alias from '@rollup/plugin-alias';
 import {nodeResolve} from '@rollup/plugin-node-resolve';
 import Typescript from '@rollup/plugin-typescript';
 import Cleanup from 'rollup-plugin-cleanup';
 import terser from '@rollup/plugin-terser';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 export default async () => {
 	return {
@@ -21,7 +25,7 @@ export default async () => {
 				entries: [
 					{
 						find: '@tweakpane/core',
-						replacement: '../../node_modules/@tweakpane/core/dist/index.js',
+						replacement: resolve(dirname, '../../node_modules/@tweakpane/core/dist/index.js'),
 					},
 				],
 			}),
