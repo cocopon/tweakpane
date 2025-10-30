@@ -5,7 +5,7 @@ import {ReadWriteBinding} from '../../../common/binding/read-write.js';
 import {BindingTarget} from '../../../common/binding/target.js';
 import {InputBindingValue} from '../../../common/binding/value/input-binding.js';
 import {TextController} from '../../../common/controller/text.js';
-import {LabelPropsObject} from '../../../common/label/view/label.js';
+import type {LabelPropsObject} from '../../../common/label/view/label.js';
 import {ValueMap} from '../../../common/model/value-map.js';
 import {createValue} from '../../../common/model/values.js';
 import {ViewProps} from '../../../common/model/view-props.js';

@@ -1,6 +1,6 @@
 import {
 	ButtonBladeController,
-	Class,
+	type Class,
 	FolderController,
 	LabeledValueBladeController,
 } from '@tweakpane/core';

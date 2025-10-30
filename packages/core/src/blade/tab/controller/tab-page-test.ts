@@ -7,8 +7,8 @@ import {createTestWindow} from '../../../misc/dom-test-util.js';
 import {TestUtil} from '../../../misc/test-util.js';
 import {createBlade} from '../../common/model/blade.js';
 import {TestKeyBladeController} from '../../test-util.js';
-import {TabItemPropsObject} from '../view/tab-item.js';
-import {TabPageController, TabPagePropsObject} from './tab-page.js';
+import type {TabItemPropsObject} from '../view/tab-item.js';
+import {TabPageController, type TabPagePropsObject} from './tab-page.js';
 
 function createController(
 	doc: Document,

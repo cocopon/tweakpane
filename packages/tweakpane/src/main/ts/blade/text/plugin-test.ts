@@ -13,7 +13,7 @@ import {
 	createTestWindow,
 } from '../../misc/test-util.js';
 import {TextBladeApi} from './api/text.js';
-import {TextBladeParams, TextBladePlugin} from './plugin.js';
+import {type TextBladeParams, TextBladePlugin} from './plugin.js';
 
 function createPluginPool(): PluginPool {
 	const pool = createDefaultPluginPool();

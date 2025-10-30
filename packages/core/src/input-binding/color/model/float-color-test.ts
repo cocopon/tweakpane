@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {TestUtil} from '../../../misc/test-util.js';
-import {ColorComponents4, ColorMode} from './color-model.js';
+import type {ColorComponents4, ColorMode} from './color-model.js';
 import {FloatColor} from './float-color.js';
 
 const DELTA = 1e-5;

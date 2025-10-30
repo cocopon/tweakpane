@@ -6,7 +6,7 @@ import {PlainView} from '../../../common/view/plain.js';
 import {createTestWindow} from '../../../misc/dom-test-util.js';
 import {TestKeyBladeController} from '../../test-util.js';
 import {createBlade} from '../model/blade.js';
-import {BladeState} from './blade-state.js';
+import type {BladeState} from './blade-state.js';
 import {ContainerBladeController} from './container-blade.js';
 import {RackController} from './rack.js';
 

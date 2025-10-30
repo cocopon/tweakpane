@@ -8,8 +8,11 @@ import {createDefaultPluginPool} from '../../../plugin/plugins.js';
 import {testBladeContainer} from '../../common/api/container-test.js';
 import {createBlade} from '../../common/model/blade.js';
 import {TestValueBladePlugin} from '../../test-util.js';
-import {TabPageController, TabPagePropsObject} from '../controller/tab-page.js';
-import {TabItemPropsObject} from '../view/tab-item.js';
+import {
+	TabPageController,
+	type TabPagePropsObject,
+} from '../controller/tab-page.js';
+import type {TabItemPropsObject} from '../view/tab-item.js';
 import {TabPageApi} from './tab-page.js';
 
 function createApi() {

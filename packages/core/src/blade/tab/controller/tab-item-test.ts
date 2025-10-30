@@ -5,7 +5,7 @@ import {ValueMap} from '../../../common/model/value-map.js';
 import {ViewProps} from '../../../common/model/view-props.js';
 import {createTestWindow} from '../../../misc/dom-test-util.js';
 import {TestUtil} from '../../../misc/test-util.js';
-import {TabItemPropsObject} from '../view/tab-item.js';
+import type {TabItemPropsObject} from '../view/tab-item.js';
 import {TabItemController} from './tab-item.js';
 
 describe(TabItemController.name, () => {

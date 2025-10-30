@@ -2,15 +2,15 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {InputBindingController} from '../../blade/binding/controller/input-binding.js';
-import {Point4dInputParams} from '../../blade/common/api/params.js';
+import type {Point4dInputParams} from '../../blade/common/api/params.js';
 import {BindingTarget} from '../../common/binding/target.js';
 import {InputBindingValue} from '../../common/binding/value/input-binding.js';
-import {Constraint} from '../../common/constraint/constraint.js';
+import type {Constraint} from '../../common/constraint/constraint.js';
 import {ComplexValue} from '../../common/model/complex-value.js';
 import {getBoundValue} from '../../common/model/test-util.js';
 import {getDimensionProps} from '../../common/point-nd/test-util.js';
 import {createTestWindow} from '../../misc/dom-test-util.js';
-import {Tuple4} from '../../misc/type-util.js';
+import type {Tuple4} from '../../misc/type-util.js';
 import {PointNdConstraint} from '../common/constraint/point-nd.js';
 import {PointNdTextController} from '../common/controller/point-nd-text.js';
 import {createInputBindingController} from '../plugin.js';

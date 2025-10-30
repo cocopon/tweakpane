@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
 import {TestUtil} from '../../../misc/test-util.js';
-import {
+import type {
 	ColorComponents3,
 	ColorComponents4,
 	ColorMode,

@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {Color} from '../model/color.js';
+import type {Color} from '../model/color.js';
 import {colorFromObject} from './color-object.js';
 
 describe(colorFromObject.name, () => {

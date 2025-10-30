@@ -5,7 +5,7 @@ import {ValueMap} from '../../../common/model/value-map.js';
 import {createTestWindow} from '../../../misc/dom-test-util.js';
 import {createValue} from '../../model/values.js';
 import {ViewProps} from '../../model/view-props.js';
-import {SliderPropsObject, SliderView} from './slider.js';
+import {type SliderPropsObject, SliderView} from './slider.js';
 
 describe(SliderView.name, () => {
 	it('should apply initial value', () => {

@@ -3,11 +3,11 @@ import {describe, it} from 'mocha';
 
 import {createBlade} from '../../../blade/common/model/blade.js';
 import {createTestWindow} from '../../../misc/dom-test-util.js';
-import {Controller} from '../../controller/controller.js';
+import type {Controller} from '../../controller/controller.js';
 import {ValueMap} from '../../model/value-map.js';
 import {ViewProps} from '../../model/view-props.js';
-import {View} from '../../view/view.js';
-import {LabelPropsObject} from '../view/label.js';
+import type {View} from '../../view/view.js';
+import type {LabelPropsObject} from '../view/label.js';
 import {LabelController} from './label.js';
 
 class TestView implements View {

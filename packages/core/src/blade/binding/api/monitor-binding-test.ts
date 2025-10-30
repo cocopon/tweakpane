@@ -9,8 +9,8 @@ import {
 	createNumberFormatter,
 	numberFromUnknown,
 } from '../../../common/converter/number.js';
-import {LabelPropsObject} from '../../../common/label/view/label.js';
-import {TpBuffer} from '../../../common/model/buffered-value.js';
+import type {LabelPropsObject} from '../../../common/label/view/label.js';
+import type {TpBuffer} from '../../../common/model/buffered-value.js';
 import {ValueMap} from '../../../common/model/value-map.js';
 import {ViewProps} from '../../../common/model/view-props.js';
 import {createTestWindow} from '../../../misc/dom-test-util.js';
@@ -20,7 +20,7 @@ import {TpChangeEvent} from '../../common/api/tp-event.js';
 import {createBlade} from '../../common/model/blade.js';
 import {MonitorBindingController} from '../controller/monitor-binding.js';
 import {BindingApi} from './binding.js';
-import {MonitorBindingApi} from './monitor-binding.js';
+import type {MonitorBindingApi} from './monitor-binding.js';
 
 function createApi(target: BindingTarget): MonitorBindingApi<number> {
 	const doc = createTestWindow().document;

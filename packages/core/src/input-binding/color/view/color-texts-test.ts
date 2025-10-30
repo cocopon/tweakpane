@@ -6,8 +6,8 @@ import {createValue} from '../../../common/model/values.js';
 import {ViewProps} from '../../../common/model/view-props.js';
 import {NumberTextView} from '../../../common/number/view/number-text.js';
 import {createTestWindow} from '../../../misc/dom-test-util.js';
-import {Tuple3} from '../../../misc/type-util.js';
-import {ColorTextsMode, ColorTextsView} from './color-texts.js';
+import type {Tuple3} from '../../../misc/type-util.js';
+import {type ColorTextsMode, ColorTextsView} from './color-texts.js';
 
 function createTextViews(
 	doc: Document,

@@ -13,7 +13,7 @@ import {
 	createTestWindow,
 } from '../../misc/test-util.js';
 import {ListBladeApi} from './api/list.js';
-import {ListBladeParams, ListBladePlugin} from './plugin.js';
+import {type ListBladeParams, ListBladePlugin} from './plugin.js';
 
 function createPluginPool(): PluginPool {
 	const pool = createDefaultPluginPool();

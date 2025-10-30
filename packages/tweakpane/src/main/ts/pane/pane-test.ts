@@ -1,7 +1,7 @@
 import {
-	BaseInputParams,
+	type BaseInputParams,
 	formatString,
-	InputBindingPlugin,
+	type InputBindingPlugin,
 	parseRecord,
 	stringFromUnknown,
 	TextController,

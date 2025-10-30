@@ -9,11 +9,11 @@ import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../../common/converter/number.js';
-import {LabelPropsObject} from '../../../common/label/view/label.js';
+import type {LabelPropsObject} from '../../../common/label/view/label.js';
 import {ValueMap} from '../../../common/model/value-map.js';
 import {createValue} from '../../../common/model/values.js';
 import {ViewProps} from '../../../common/model/view-props.js';
-import {PointAxis} from '../../../common/point-nd/point-axis.js';
+import type {PointAxis} from '../../../common/point-nd/point-axis.js';
 import {colorFromRgbNumber} from '../../../input-binding/color/converter/color-number.js';
 import {
 	colorToHexRgbString,

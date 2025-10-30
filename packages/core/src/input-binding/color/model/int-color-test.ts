@@ -2,8 +2,12 @@ import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
 import {TestUtil} from '../../../misc/test-util.js';
-import {RgbaColorObject} from './color.js';
-import {ColorComponents3, ColorComponents4, ColorMode} from './color-model.js';
+import type {RgbaColorObject} from './color.js';
+import type {
+	ColorComponents3,
+	ColorComponents4,
+	ColorMode,
+} from './color-model.js';
 import {IntColor} from './int-color.js';
 
 const DELTA = 1e-5;

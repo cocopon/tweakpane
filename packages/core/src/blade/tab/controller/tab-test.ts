@@ -5,9 +5,9 @@ import {ValueMap} from '../../../common/model/value-map.js';
 import {ViewProps} from '../../../common/model/view-props.js';
 import {createTestWindow} from '../../../misc/dom-test-util.js';
 import {createBlade} from '../../common/model/blade.js';
-import {TabItemPropsObject} from '../view/tab-item.js';
+import type {TabItemPropsObject} from '../view/tab-item.js';
 import {TabController} from './tab.js';
-import {TabPageController, TabPagePropsObject} from './tab-page.js';
+import {TabPageController, type TabPagePropsObject} from './tab-page.js';
 
 function createTabPage(doc: Document, title: string) {
 	return new TabPageController(doc, {

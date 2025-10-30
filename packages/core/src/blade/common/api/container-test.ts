@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {it} from 'mocha';
 
-import {ContainerApi} from './container.js';
+import type {ContainerApi} from './container.js';
 
 function addSomeBladeApi(api: ContainerApi, opt_index?: number) {
 	return api.addBlade({

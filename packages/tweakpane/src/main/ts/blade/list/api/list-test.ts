@@ -2,10 +2,10 @@ import {
 	createBlade,
 	createValue,
 	LabeledValueBladeController,
-	LabelPropsObject,
+	type LabelPropsObject,
 	ListController,
-	ListItem,
-	ListProps,
+	type ListItem,
+	type ListProps,
 	ValueMap,
 	ViewProps,
 } from '@tweakpane/core';

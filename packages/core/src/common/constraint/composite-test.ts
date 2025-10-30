@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {CompositeConstraint, findConstraint} from './composite.js';
-import {Constraint} from './constraint.js';
+import type {Constraint} from './constraint.js';
 import {ListConstraint} from './list.js';
 import {RangeConstraint} from './range.js';
 import {StepConstraint} from './step.js';

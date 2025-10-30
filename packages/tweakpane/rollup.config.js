@@ -1,5 +1,5 @@
-import { resolve } from 'path';
-import { fileURLToPath } from 'url';
+import {resolve} from 'node:path';
+import {fileURLToPath} from 'node:url';
 import Alias from '@rollup/plugin-alias';
 import {nodeResolve} from '@rollup/plugin-node-resolve';
 import Replace from '@rollup/plugin-replace';

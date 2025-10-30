@@ -7,14 +7,15 @@ import {BindingTarget} from '../../../common/binding/target.js';
 import {ManualTicker} from '../../../common/binding/ticker/manual.js';
 import {InputBindingValue} from '../../../common/binding/value/input-binding.js';
 import {MonitorBindingValue} from '../../../common/binding/value/monitor-binding.js';
-import {ValueController} from '../../../common/controller/value.js';
+import type {ValueController} from '../../../common/controller/value.js';
 import {boolFromUnknown} from '../../../common/converter/boolean.js';
 import {
 	createNumberFormatter,
 	parseNumber,
 } from '../../../common/converter/number.js';
 import {stringFromUnknown} from '../../../common/converter/string.js';
-import {LabelPropsObject, LabelView} from '../../../common/label/view/label.js';
+import type {LabelPropsObject} from '../../../common/label/view/label.js';
+import {LabelView} from '../../../common/label/view/label.js';
 import {ValueMap} from '../../../common/model/value-map.js';
 import {createValue} from '../../../common/model/values.js';
 import {ViewProps} from '../../../common/model/view-props.js';
@@ -30,7 +31,7 @@ import {SingleLogController} from '../../../monitor-binding/common/controller/si
 import {InputBindingController} from '../../binding/controller/input-binding.js';
 import {MonitorBindingController} from '../../binding/controller/monitor-binding.js';
 import {FolderController} from '../../folder/controller/folder.js';
-import {FolderPropsObject} from '../../folder/view/folder.js';
+import type {FolderPropsObject} from '../../folder/view/folder.js';
 import {LabeledValueBladeController} from '../../label/controller/value.js';
 import {BladeController} from '../controller/blade.js';
 import {createBlade} from './blade.js';

@@ -1,12 +1,12 @@
 import * as assert from 'assert';
 import {describe as context, describe, it} from 'mocha';
 
-import {Constraint} from '../../../common/constraint/constraint.js';
+import type {Constraint} from '../../../common/constraint/constraint.js';
 import {RangeConstraint} from '../../../common/constraint/range.js';
 import {
 	Point2d,
 	Point2dAssembly,
-	Point2dObject,
+	type Point2dObject,
 } from '../../point-2d/model/point-2d.js';
 import {PointNdConstraint} from './point-nd.js';
 

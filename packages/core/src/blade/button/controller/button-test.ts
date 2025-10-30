@@ -4,7 +4,7 @@ import {describe, it} from 'mocha';
 import {ValueMap} from '../../../common/model/value-map.js';
 import {ViewProps} from '../../../common/model/view-props.js';
 import {createTestWindow} from '../../../misc/dom-test-util.js';
-import {ButtonPropsObject} from '../view/button.js';
+import type {ButtonPropsObject} from '../view/button.js';
 import {ButtonController} from './button.js';
 
 function createController(doc: Document, title: string) {

@@ -7,7 +7,7 @@ import {createBladeController} from '../plugin.js';
 import {createEmptyBladeController} from '../test-util.js';
 import {TabApi} from './api/tab.js';
 import {TabController} from './controller/tab.js';
-import {TabBladeParams, TabBladePlugin} from './plugin.js';
+import {type TabBladeParams, TabBladePlugin} from './plugin.js';
 
 describe(TabBladePlugin.id, () => {
 	[

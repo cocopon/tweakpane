@@ -1,9 +1,9 @@
 import {
 	createBlade,
 	createValue,
-	Formatter,
+	type Formatter,
 	LabeledValueBladeController,
-	LabelPropsObject,
+	type LabelPropsObject,
 	TextController,
 	ValueMap,
 	ViewProps,

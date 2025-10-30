@@ -1,7 +1,7 @@
 import {
 	createBlade,
 	createDefaultPluginPool,
-	FolderPropsObject,
+	type FolderPropsObject,
 	NumberTextController,
 	SingleLogController,
 	TextController,

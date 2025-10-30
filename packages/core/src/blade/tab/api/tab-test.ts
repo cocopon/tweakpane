@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {describe} from 'mocha';
 
-import {Value} from '../../../common/model/value.js';
+import type {Value} from '../../../common/model/value.js';
 import {ViewProps} from '../../../common/model/view-props.js';
 import {createTestWindow} from '../../../misc/dom-test-util.js';
 import {createDefaultPluginPool} from '../../../plugin/plugins.js';

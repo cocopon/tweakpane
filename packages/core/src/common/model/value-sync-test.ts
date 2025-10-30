@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {Point2d} from '../../input-binding/point-2d/model/point-2d.js';
-import {Constraint} from '../constraint/constraint.js';
+import type {Constraint} from '../constraint/constraint.js';
 import {connectValues} from './value-sync.js';
 import {createValue} from './values.js';
 

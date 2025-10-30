@@ -9,7 +9,7 @@ import {
 	numberFromUnknown,
 	parseNumber,
 } from '../../../common/converter/number.js';
-import {LabelPropsObject} from '../../../common/label/view/label.js';
+import type {LabelPropsObject} from '../../../common/label/view/label.js';
 import {ValueMap} from '../../../common/model/value-map.js';
 import {createValue} from '../../../common/model/values.js';
 import {ViewProps} from '../../../common/model/view-props.js';
@@ -21,7 +21,7 @@ import {TpChangeEvent} from '../../common/api/tp-event.js';
 import {createBlade} from '../../common/model/blade.js';
 import {InputBindingController} from '../controller/input-binding.js';
 import {BindingApi} from './binding.js';
-import {InputBindingApi} from './input-binding.js';
+import type {InputBindingApi} from './input-binding.js';
 
 function createApi(target: BindingTarget): InputBindingApi<number, unknown> {
 	const doc = createTestWindow().document;

@@ -3,15 +3,18 @@ import {describe, it} from 'mocha';
 
 import {InputBindingController} from '../blade/binding/controller/input-binding.js';
 import {BindingTarget} from '../common/binding/target.js';
-import {ValueController} from '../common/controller/value.js';
+import type {ValueController} from '../common/controller/value.js';
 import {stringFromUnknown} from '../common/converter/string.js';
-import {Value} from '../common/model/value.js';
+import type {Value} from '../common/model/value.js';
 import {ViewProps} from '../common/model/view-props.js';
-import {BaseInputParams} from '../common/params.js';
+import type {BaseInputParams} from '../common/params.js';
 import {writePrimitive} from '../common/primitive.js';
-import {View} from '../common/view/view.js';
+import type {View} from '../common/view/view.js';
 import {createTestWindow} from '../misc/dom-test-util.js';
-import {createInputBindingController, InputBindingPlugin} from './plugin.js';
+import {
+	createInputBindingController,
+	type InputBindingPlugin,
+} from './plugin.js';
 
 class TestView implements View {
 	public readonly element: HTMLElement;

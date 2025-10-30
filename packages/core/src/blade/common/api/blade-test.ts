@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {ViewProps} from '../../../common/model/view-props.js';
-import {View} from '../../../common/view/view.js';
+import type {View} from '../../../common/view/view.js';
 import {createTestWindow} from '../../../misc/dom-test-util.js';
 import {BladeController} from '../controller/blade.js';
 import {createBlade} from '../model/blade.js';

@@ -13,7 +13,7 @@ import {TpChangeEvent, TpFoldEvent} from '../../common/api/tp-event.js';
 import {createBlade} from '../../common/model/blade.js';
 import {TestValueBladePlugin} from '../../test-util.js';
 import {FolderController} from '../controller/folder.js';
-import {FolderPropsObject} from '../view/folder.js';
+import type {FolderPropsObject} from '../view/folder.js';
 import {FolderApi} from './folder.js';
 
 function createApi(opt_doc?: Document): FolderApi {

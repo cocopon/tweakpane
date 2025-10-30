@@ -4,7 +4,7 @@ import {describe, it} from 'mocha';
 import {BindingTarget} from '../../common/binding/target.js';
 import {InputBindingValue} from '../../common/binding/value/input-binding.js';
 import {findConstraint} from '../../common/constraint/composite.js';
-import {Constraint} from '../../common/constraint/constraint.js';
+import type {Constraint} from '../../common/constraint/constraint.js';
 import {StepConstraint} from '../../common/constraint/step.js';
 import {ComplexValue} from '../../common/model/complex-value.js';
 import {getBoundValue} from '../../common/model/test-util.js';

@@ -1,8 +1,8 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {LabelPropsObject} from '../../../common/label/view/label.js';
-import {Value} from '../../../common/model/value.js';
+import type {LabelPropsObject} from '../../../common/label/view/label.js';
+import type {Value} from '../../../common/model/value.js';
 import {ValueMap} from '../../../common/model/value-map.js';
 import {createValue} from '../../../common/model/values.js';
 import {ViewProps} from '../../../common/model/view-props.js';
@@ -12,7 +12,7 @@ import {forceCast} from '../../../misc/type-util.js';
 import {createDefaultPluginPool} from '../../../plugin/plugins.js';
 import {PluginPool} from '../../../plugin/pool.js';
 import {BindingApi} from '../../binding/api/binding.js';
-import {InputBindingApi} from '../../binding/api/input-binding.js';
+import type {InputBindingApi} from '../../binding/api/input-binding.js';
 import {FolderApi} from '../../folder/api/folder.js';
 import {LabeledValueBladeController} from '../../label/controller/value.js';
 import {TestValueBladeApi, TestValueBladePlugin} from '../../test-util.js';

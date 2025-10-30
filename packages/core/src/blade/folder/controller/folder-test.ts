@@ -1,17 +1,17 @@
 import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
-import {LabelPropsObject} from '../../../common/label/view/label.js';
+import type {LabelPropsObject} from '../../../common/label/view/label.js';
 import {ValueMap} from '../../../common/model/value-map.js';
 import {ViewProps} from '../../../common/model/view-props.js';
 import {createTestWindow} from '../../../misc/dom-test-util.js';
 import {ButtonBladeController} from '../../button/controller/button-blade.js';
-import {ButtonPropsObject} from '../../button/view/button.js';
+import type {ButtonPropsObject} from '../../button/view/button.js';
 import {BladeController} from '../../common/controller/blade.js';
-import {BladeState} from '../../common/controller/blade-state.js';
+import type {BladeState} from '../../common/controller/blade-state.js';
 import {createBlade} from '../../common/model/blade.js';
 import {TestKeyBladeController} from '../../test-util.js';
-import {FolderPropsObject} from '../view/folder.js';
+import type {FolderPropsObject} from '../view/folder.js';
 import {FolderController} from './folder.js';
 
 function createSomeBladeController(doc: Document): BladeController {

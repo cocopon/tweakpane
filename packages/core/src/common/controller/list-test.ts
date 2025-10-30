@@ -3,7 +3,7 @@ import {describe, it} from 'mocha';
 
 import {createTestWindow} from '../../misc/dom-test-util.js';
 import {TestUtil} from '../../misc/test-util.js';
-import {ListConstraint, ListItem} from '../constraint/list.js';
+import {ListConstraint, type ListItem} from '../constraint/list.js';
 import {ValueMap} from '../model/value-map.js';
 import {createValue} from '../model/values.js';
 import {ViewProps} from '../model/view-props.js';

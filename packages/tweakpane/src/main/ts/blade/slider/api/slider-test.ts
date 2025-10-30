@@ -3,7 +3,7 @@ import {
 	createSliderTextProps,
 	createValue,
 	LabeledValueBladeController,
-	LabelPropsObject,
+	type LabelPropsObject,
 	numberToString,
 	parseNumber,
 	SliderTextController,

@@ -13,7 +13,7 @@ import {
 	createTestWindow,
 } from '../../misc/test-util.js';
 import {SliderBladeApi} from './api/slider.js';
-import {SliderBladeParams, SliderBladePlugin} from './plugin.js';
+import {type SliderBladeParams, SliderBladePlugin} from './plugin.js';
 
 function createPluginPool(): PluginPool {
 	const pool = createDefaultPluginPool();

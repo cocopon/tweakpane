@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 
 import {createTestWindow} from '../../misc/dom-test-util.js';
-import {ViewProps, ViewPropsObject} from './view-props.js';
+import {ViewProps, type ViewPropsObject} from './view-props.js';
 
 describe(ViewProps.name, () => {
 	(
