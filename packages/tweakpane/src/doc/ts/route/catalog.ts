@@ -3,8 +3,6 @@ import {
 	FolderBladeParams,
 	TabBladeParams,
 } from '@tweakpane/core';
-import {toCss} from '../panepaint';
-import {createTheme, ThemeId} from '../themes';
 import {
 	ListBladeParams,
 	Pane,
@@ -13,6 +11,8 @@ import {
 	TextBladeParams,
 } from 'tweakpane';
 
+import {toCss} from '../panepaint';
+import {createTheme, ThemeId} from '../themes';
 import {selectContainer, wave} from '../util.js';
 
 function createThemePane(container: HTMLElement): Pane {

@@ -84,7 +84,9 @@
 			)};
 
 		.tp-rotv {
-			border: #{string.unquote('hsla(var(--guide-color-comps), 0.05) solid 1px')};
+			border: #{string.unquote(
+					'hsla(var(--guide-color-comps), 0.05) solid 1px'
+				)};
 		}
 	}
 }

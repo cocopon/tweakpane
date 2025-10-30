@@ -1,6 +1,6 @@
-import {CounterPluginBundle} from '../plugins/counter/bundle.js';
 import {Pane, TpPluginBundle} from 'tweakpane';
 
+import {CounterPluginBundle} from '../plugins/counter/bundle.js';
 import {selectContainer} from '../util.js';
 
 declare const TweakpaneEssentialsPlugin: TpPluginBundle;

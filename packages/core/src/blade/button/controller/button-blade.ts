@@ -45,6 +45,9 @@ export class ButtonBladeController extends BladeController<LabelView> {
 		this.labelController = lc;
 	}
 
+	/**
+	 * @hidden
+	 */
 	override importState(state: BladeState): boolean {
 		return importBladeState(
 			state,
@@ -57,6 +60,9 @@ export class ButtonBladeController extends BladeController<LabelView> {
 		);
 	}
 
+	/**
+	 * @hidden
+	 */
 	override exportState(): BladeState {
 		return exportBladeState(() => super.exportState(), {
 			...this.buttonController.exportProps(),

@@ -1,6 +1,6 @@
-import {PlaceholderPluginBundle} from '../plugins/placeholder/bundle.js';
 import {Pane} from 'tweakpane';
 
+import {PlaceholderPluginBundle} from '../plugins/placeholder/bundle.js';
 import {selectContainer, wave} from '../util.js';
 
 export function initQuickTour() {
