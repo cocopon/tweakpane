@@ -163,6 +163,7 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 		disabled: p.optional.boolean,
 		hidden: p.optional.boolean,
 		label: p.optional.string,
+		description: p.optional.string,
 		tag: p.optional.string,
 	}));
 
@@ -202,6 +203,8 @@ export function createInputBindingController<In, Ex, P extends BaseInputParams>(
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: 'label' in args.params ? params?.label ?? null : args.target.key,
+			description:
+				'description' in args.params ? params?.description ?? null : null,
 		}),
 		tag: params?.tag,
 		value: value,

@@ -49,6 +49,7 @@ function createInputBindingController(
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: '',
+			description: '',
 		}),
 		value: v,
 		valueController: new CheckboxController(doc, {
@@ -73,6 +74,7 @@ function createMonitorBindingController(
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: '',
+			description: '',
 		}),
 		value: v,
 		valueController: new SingleLogController(doc, {
@@ -91,6 +93,7 @@ function createValueBladeController(
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: '',
+			description: '',
 		}),
 		value: v,
 		valueController: new SliderTextController(doc, {

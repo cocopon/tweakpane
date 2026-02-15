@@ -48,7 +48,7 @@ export function createLabeledValueBladeController(doc: Document) {
 	});
 	return new LabeledValueBladeController(doc, {
 		blade: createBlade(),
-		props: ValueMap.fromObject<LabelPropsObject>({label: ''}),
+		props: ValueMap.fromObject<LabelPropsObject>({label: '', description: ''}),
 		valueController: vc,
 		value: vc.value,
 	});

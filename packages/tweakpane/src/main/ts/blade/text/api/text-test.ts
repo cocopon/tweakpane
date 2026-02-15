@@ -25,6 +25,7 @@ function createApi(
 		formatter: Formatter<string>;
 		initialValue: string;
 		label: string | null | undefined;
+		description: string | null | undefined;
 	},
 ): TextBladeApi<string> {
 	const v = createValue(config.initialValue);
@@ -34,6 +35,7 @@ function createApi(
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: config.label,
+				description: config.description,
 			}),
 			value: v,
 			valueController: new TextController(doc, {
@@ -59,6 +61,7 @@ describe(TextBladeApi.name, () => {
 				blade: createBlade(),
 				props: ValueMap.fromObject<LabelPropsObject>({
 					label: undefined,
+					description: undefined,
 				}),
 				value: v,
 				valueController: new TextController(doc, {
@@ -83,11 +86,14 @@ describe(TextBladeApi.name, () => {
 			formatter: formatter,
 			initialValue: 'hello',
 			label: 'foobar',
+			description: 'barbaz',
 		});
 
 		assertInitialState(api);
 		assert.strictEqual(api.formatter, formatter);
 		assert.strictEqual(api.label, 'foobar');
+		assert.strictEqual(api.description, 'barbaz');
+
 		assert.strictEqual(api.value, 'hello');
 	});
 
@@ -97,6 +103,7 @@ describe(TextBladeApi.name, () => {
 			formatter: (v: string) => v,
 			initialValue: 'hello',
 			label: undefined,
+			description: undefined,
 		});
 
 		assertUpdates(api);
@@ -120,6 +127,7 @@ describe(TextBladeApi.name, () => {
 			formatter: (v: string) => v,
 			initialValue: '',
 			label: undefined,
+			description: undefined,
 		});
 
 		api.on('change', (ev) => {
@@ -136,6 +144,7 @@ describe(TextBladeApi.name, () => {
 			formatter: (v: string) => v,
 			initialValue: '',
 			label: undefined,
+			description: undefined,
 		});
 		const handler = () => {
 			assert.fail('should not be called');

@@ -41,6 +41,7 @@ function createApi(target: BindingTarget): MonitorBindingApi<number> {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: 'label',
+			description: 'description',
 		}),
 		value: v,
 		valueController: mc,

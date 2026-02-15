@@ -24,6 +24,7 @@ function createApi(doc: Document): ButtonApi {
 		}),
 		labelProps: ValueMap.fromObject<LabelPropsObject>({
 			label: undefined,
+			description: undefined,
 		}),
 		viewProps: ViewProps.create(),
 	});

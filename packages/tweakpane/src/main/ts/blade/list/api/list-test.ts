@@ -32,6 +32,7 @@ function createApi(
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: undefined,
+				description: undefined,
 			}),
 			value: v,
 			valueController: new ListController(doc, {

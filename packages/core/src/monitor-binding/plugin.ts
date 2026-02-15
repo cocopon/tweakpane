@@ -151,6 +151,7 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 		hidden: p.optional.boolean,
 		interval: p.optional.number,
 		label: p.optional.string,
+		description: p.optional.string,
 	}));
 
 	// Binding and value
@@ -189,6 +190,8 @@ export function createMonitorBindingController<T, P extends BaseMonitorParams>(
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: 'label' in args.params ? params?.label ?? null : args.target.key,
+			description:
+				'description' in args.params ? params?.description ?? null : null,
 		}),
 		value: value,
 		valueController: controller,

@@ -22,6 +22,7 @@ export interface TextBladeParams<T> extends BaseBladeParams {
 
 	format?: Formatter<T>;
 	label?: string;
+	description?: string;
 }
 
 export const TextBladePlugin = (function <T>(): BladePlugin<
@@ -58,6 +59,7 @@ export const TextBladePlugin = (function <T>(): BladePlugin<
 					blade: args.blade,
 					props: ValueMap.fromObject<LabelPropsObject>({
 						label: args.params.label,
+						description: args.params.description,
 					}),
 					value: v,
 					valueController: ic,

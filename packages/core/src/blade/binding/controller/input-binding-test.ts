@@ -56,6 +56,7 @@ function createColorController(doc: Document) {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: 'foo',
+			description: 'foo-description',
 		}),
 		value: value,
 		valueController: vc,
@@ -112,6 +113,7 @@ function createPoint2dController(doc: Document) {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: 'foo',
+			description: 'foo-description',
 		}),
 		value: value,
 		valueController: vc,

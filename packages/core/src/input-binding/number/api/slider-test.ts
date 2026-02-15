@@ -37,6 +37,7 @@ function createApi(config: {min: number; max: number}): SliderInputBindingApi {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: '',
+			description: '',
 		}),
 		value: v,
 		valueController: new SliderTextController(doc, {

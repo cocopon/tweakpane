@@ -40,6 +40,7 @@ function createApi(config: {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: '',
+			description: '',
 		}),
 		value: v,
 		valueController: new GraphLogController(doc, {

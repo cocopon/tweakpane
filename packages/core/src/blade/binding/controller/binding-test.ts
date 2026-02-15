@@ -54,6 +54,7 @@ function createController(
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: 'foo',
+				description: 'foo-description',
 			}),
 			tag: config.tag,
 			value: value,
@@ -94,6 +95,7 @@ describe(BindingController.name, () => {
 			disabled: false,
 			hidden: false,
 			label: 'foo',
+			description: 'foo-description',
 			tag: 'bar',
 		});
 	});
@@ -115,6 +117,7 @@ describe(BindingController.name, () => {
 				disabled: true,
 				hidden: true,
 				label: 'label',
+				description: 'foo-description',
 				tag: 'baz',
 			}),
 			true,

@@ -43,6 +43,7 @@ function createApi(target: BindingTarget): InputBindingApi<number, unknown> {
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: 'label',
+			description: 'description',
 		}),
 		value: v,
 		valueController: ic,

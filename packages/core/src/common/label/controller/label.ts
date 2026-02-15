@@ -47,9 +47,11 @@ export class LabelController<C extends Controller>
 			null,
 			(p) => ({
 				label: p.optional.string,
+				description: p.optional.string,
 			}),
 			(result) => {
 				this.props.set('label', result.label);
+				this.props.set('description', result.description);
 				return true;
 			},
 		);
@@ -58,6 +60,7 @@ export class LabelController<C extends Controller>
 	public exportProps(): BladeState {
 		return exportBladeState(null, {
 			label: this.props.get('label'),
+			description: this.props.get('description'),
 		});
 	}
 }

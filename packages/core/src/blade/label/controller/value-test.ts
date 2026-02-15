@@ -28,6 +28,7 @@ function createController(
 	doc: Document,
 	config: {
 		label: string;
+		description: string;
 		value: number;
 	},
 ): LabeledValueBladeController<number> {
@@ -44,6 +45,7 @@ function createController(
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: config.label,
+			description: config.description,
 		}),
 		value: value,
 		valueController: controller,
@@ -96,6 +98,7 @@ describe(LabeledValueBladeController.name, () => {
 		const doc = createTestWindow().document;
 		const c = createController(doc, {
 			label: 'foo',
+			description: 'bar',
 			value: 0,
 		});
 
@@ -106,6 +109,7 @@ describe(LabeledValueBladeController.name, () => {
 		const doc = createTestWindow().document;
 		const c = createController(doc, {
 			label: 'foo',
+			description: 'bar',
 			value: 0,
 		});
 
@@ -116,6 +120,7 @@ describe(LabeledValueBladeController.name, () => {
 		const doc = createTestWindow().document;
 		const c = createController(doc, {
 			label: 'foo',
+			description: 'bar',
 			value: 123,
 		});
 
@@ -130,6 +135,7 @@ describe(LabeledValueBladeController.name, () => {
 		const doc = createTestWindow().document;
 		const c = createController(doc, {
 			label: 'foo',
+			description: 'bar',
 			value: 0,
 		});
 
@@ -150,6 +156,7 @@ describe(LabeledValueBladeController.name, () => {
 		const doc = createTestWindow().document;
 		const c = createController(doc, {
 			label: 'foo',
+			description: 'foo-description',
 			value: 123,
 		});
 
@@ -158,6 +165,7 @@ describe(LabeledValueBladeController.name, () => {
 				disabled: true,
 				hidden: true,
 				label: 'bar',
+				description: 'bar-description',
 			}),
 			true,
 		);
@@ -173,6 +181,7 @@ describe(LabeledValueBladeController.name, () => {
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: 'label',
+				description: 'bar',
 			}),
 			value: value,
 			valueController: new TestPortableValueController(doc, value),
@@ -202,6 +211,7 @@ describe(LabeledValueBladeController.name, () => {
 			blade: createBlade(),
 			props: ValueMap.fromObject<LabelPropsObject>({
 				label: 'label',
+				description: 'description',
 			}),
 			value: value,
 			valueController: new TestPortableValueController(doc, value),
@@ -212,6 +222,7 @@ describe(LabeledValueBladeController.name, () => {
 			disabled: false,
 			hidden: false,
 			label: 'label',
+			description: 'description',
 			value: 0,
 
 			opacity: 0.25,
