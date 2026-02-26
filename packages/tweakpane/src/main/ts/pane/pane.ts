@@ -64,7 +64,10 @@ export class Pane extends RootApi {
 
 		this.pool_ = pool;
 
-		this.containerElem_ = config.container ?? createDefaultWrapperElement(doc);
+		this.containerElem_ =
+			(typeof config.container === 'string'
+				? document.querySelector(config.container)
+				: config.container) ?? createDefaultWrapperElement(doc);
 		this.containerElem_.appendChild(this.element);
 
 		this.doc_ = doc;

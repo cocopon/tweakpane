@@ -2,7 +2,7 @@ export interface PaneConfig {
 	/**
 	 * The custom container element of the pane.
 	 */
-	container?: HTMLElement;
+	container?: HTMLElement | string;
 	/**
 	 * The default expansion of the pane.
 	 */
