@@ -12,7 +12,7 @@ jobs:
         with:
           # https://github.com/npm/cli/issues/3847
           node-version: '16.1.0'
-      - run: npm install
+      - run: npm ci
       - run: npm run setup
       - run: npm run test --workspaces
       - run: npm run coverage
