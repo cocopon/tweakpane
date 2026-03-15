@@ -16,20 +16,23 @@
     "coverage:merge:core": "nyc merge packages/core/.nyc_output .nyc_output/core.json",
     "coverage:merge:tweakpane": "nyc merge packages/tweakpane/.nyc_output .nyc_output/tweakpane.json",
     "coverage:package": "run-s coverage:package:*",
-    "coverage:package:core": "(cd packages/core && npm install && npm run coverage)",
-    "coverage:package:tweakpane": "(cd packages/tweakpane && npm install && npm run coverage)",
+    "coverage:package:core": "(cd packages/core && npm run coverage)",
+    "coverage:package:tweakpane": "(cd packages/tweakpane && npm run coverage)",
     "coverage:prepare": "mkdirp .nyc_output",
     "coverage:report": "nyc report --reporter=lcov",
     "lint": "(cd packages/core && npm run lint) && (cd packages/tweakpane && npm run lint)",
     "setup": "run-s setup:core setup:tweakpane",
-    "setup:core": "(cd packages/core && npm install && npm run build)",
-    "setup:tweakpane": "(cd packages/tweakpane && npm install && npm run build)"
+    "setup:core": "(cd packages/core && npm run build)",
+    "setup:tweakpane": "(cd packages/tweakpane && npm run build)"
+  },
+  "overrides": {
+    "@types/node": "10.17.60"
   },
   "devDependencies": {
     "@types/assert": "^1.5.4",
     "@types/jsdom": "^16.2.13",
     "@types/mocha": "^9.1.1",
-    "@types/node": "^10.12.18",
+    "@types/node": "10.17.60",
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
     "assert": "^2.0.0",

@@ -65,7 +65,7 @@ From version 4, Tweakpane has been migrated to ES modules. If you are looking fo
 ### Build your own Tweakpane
 
 ```
-$ npm install
+$ npm ci
 $ npm run setup
 $ cd packages/tweakpane
 $ npm start

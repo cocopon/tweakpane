@@ -84,6 +84,7 @@ describe(ButtonApi.name, () => {
 			assert.fail('should not be called');
 		};
 		api.on('click', handler);
+		api.off('click', handler);
 		api.controller.buttonController.view.buttonElement.dispatchEvent(
 			TestUtil.createEvent(win, 'click'),
 		);
