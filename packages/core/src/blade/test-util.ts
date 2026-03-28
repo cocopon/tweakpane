@@ -84,6 +84,7 @@ export const TestValueBladePlugin: BladePlugin<TestBladeParams> = {
 				blade: createBlade(),
 				props: ValueMap.fromObject<LabelPropsObject>({
 					label: '',
+					description: '',
 				}),
 				value: v,
 				valueController: new CheckboxController(args.document, {

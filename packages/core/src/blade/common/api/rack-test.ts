@@ -89,6 +89,7 @@ describe(RackApi.name, () => {
 				blade: createBlade(),
 				props: ValueMap.fromObject<LabelPropsObject>({
 					label: '',
+					description: '',
 				}),
 				value: v,
 				valueController: new CheckboxController(doc, {

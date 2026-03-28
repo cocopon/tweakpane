@@ -11,6 +11,7 @@ import {View} from '../../view/view.js';
  */
 export type LabelPropsObject = {
 	label: string | null | undefined;
+	description: string | null | undefined;
 };
 
 /**
@@ -68,6 +69,18 @@ export class LabelView implements View {
 				labelElem.appendChild(createLabelNode(doc, value));
 			}
 		});
+
+		bindValueMap(
+			config.props,
+			'description',
+			(value: string | null | undefined) => {
+				if (isEmpty(value)) {
+					labelElem.title = '';
+				} else {
+					labelElem.title = value;
+				}
+			},
+		);
 		this.element.appendChild(labelElem);
 		this.labelElement = labelElem;
 

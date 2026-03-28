@@ -44,6 +44,7 @@ function createController(
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: 'foo',
+			description: 'foo-description',
 		}),
 		tag: config.tag,
 		value: value,
@@ -69,6 +70,7 @@ describe(MonitorBindingController.name, () => {
 			disabled: false,
 			hidden: false,
 			label: 'foo',
+			description: 'foo-description',
 			tag: 'bar',
 		});
 	});

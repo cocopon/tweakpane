@@ -26,6 +26,7 @@ export interface SliderBladeParams extends BaseBladeParams {
 
 	format?: Formatter<number>;
 	label?: string;
+	description?: string;
 	value?: number;
 }
 
@@ -72,6 +73,7 @@ export const SliderBladePlugin: BladePlugin<SliderBladeParams> = {
 				blade: args.blade,
 				props: ValueMap.fromObject<LabelPropsObject>({
 					label: args.params.label,
+					description: args.params.description,
 				}),
 				value: v,
 				valueController: vc,

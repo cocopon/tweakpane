@@ -23,6 +23,7 @@ export interface ListBladeParams<T> extends BaseBladeParams {
 	view: 'list';
 
 	label?: string;
+	description?: string;
 }
 
 export const ListBladePlugin = (function <T>(): BladePlugin<
@@ -62,6 +63,7 @@ export const ListBladePlugin = (function <T>(): BladePlugin<
 					blade: args.blade,
 					props: ValueMap.fromObject<LabelPropsObject>({
 						label: args.params.label,
+						description: args.params.description,
 					}),
 					value: value,
 					valueController: ic,

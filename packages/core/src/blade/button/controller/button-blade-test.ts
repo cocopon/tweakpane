@@ -13,6 +13,7 @@ function createController(
 	doc: Document,
 	config: {
 		label: string;
+		description: string;
 		title: string;
 	},
 ) {
@@ -23,6 +24,7 @@ function createController(
 		}),
 		labelProps: ValueMap.fromObject<LabelPropsObject>({
 			label: config.label,
+			description: config.description,
 		}),
 		viewProps: ViewProps.create(),
 	});
@@ -34,6 +36,7 @@ describe(ButtonBladeController.name, () => {
 		const c = createController(doc, {
 			label: 'foo',
 			title: 'bar',
+			description: 'baz',
 		});
 
 		assert.deepStrictEqual(c.exportState(), {
@@ -41,6 +44,7 @@ describe(ButtonBladeController.name, () => {
 			hidden: false,
 			label: 'foo',
 			title: 'bar',
+			description: 'baz',
 		});
 	});
 
@@ -49,6 +53,7 @@ describe(ButtonBladeController.name, () => {
 		const c = createController(doc, {
 			label: 'foo',
 			title: 'bar',
+			description: 'baz',
 		});
 
 		assert.strictEqual(

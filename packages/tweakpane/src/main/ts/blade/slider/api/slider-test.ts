@@ -26,6 +26,7 @@ function createApi(
 	config: {
 		initialValue: number;
 		label: string | null | undefined;
+		description: string | null | undefined;
 		max: number;
 		min: number;
 	},
@@ -35,6 +36,7 @@ function createApi(
 		blade: createBlade(),
 		props: ValueMap.fromObject<LabelPropsObject>({
 			label: config.label,
+			description: config.description,
 		}),
 		value: v,
 		valueController: new SliderTextController(doc, {
@@ -59,6 +61,7 @@ describe(SliderBladeApi.name, () => {
 		const api = createApi(doc, {
 			initialValue: 0,
 			label: undefined,
+			description: undefined,
 			min: 0,
 			max: 100,
 		});
@@ -70,6 +73,7 @@ describe(SliderBladeApi.name, () => {
 		const api = createApi(doc, {
 			initialValue: 123,
 			label: 'foobar',
+			description: 'barbaz',
 			min: -100,
 			max: +100,
 		});
@@ -86,6 +90,7 @@ describe(SliderBladeApi.name, () => {
 		const api = createApi(doc, {
 			initialValue: 123,
 			label: 'foobar',
+			description: 'barbaz',
 			min: -100,
 			max: +100,
 		});
@@ -109,6 +114,7 @@ describe(SliderBladeApi.name, () => {
 		const api = createApi(doc, {
 			initialValue: 0,
 			label: undefined,
+			description: undefined,
 			min: 0,
 			max: 100,
 		});
@@ -126,6 +132,7 @@ describe(SliderBladeApi.name, () => {
 		const api = createApi(doc, {
 			initialValue: 0,
 			label: undefined,
+			description: undefined,
 			min: 0,
 			max: 100,
 		});

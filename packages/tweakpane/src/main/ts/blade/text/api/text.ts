@@ -34,6 +34,14 @@ export class TextBladeApi<T>
 		this.controller.labelController.props.set('label', label);
 	}
 
+	get description(): string | null | undefined {
+		return this.controller.labelController.props.get('description');
+	}
+
+	set description(description: string | null | undefined) {
+		this.controller.labelController.props.set('description', description);
+	}
+
 	get formatter(): Formatter<T> {
 		return this.controller.valueController.props.get('formatter');
 	}

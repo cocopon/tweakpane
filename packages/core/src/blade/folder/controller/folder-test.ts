@@ -22,6 +22,7 @@ function createSomeBladeController(doc: Document): BladeController {
 		}),
 		labelProps: ValueMap.fromObject<LabelPropsObject>({
 			label: undefined,
+			description: undefined,
 		}),
 		viewProps: ViewProps.create(),
 	});

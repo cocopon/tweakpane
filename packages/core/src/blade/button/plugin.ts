@@ -13,6 +13,7 @@ export interface ButtonBladeParams extends BaseBladeParams {
 	view: 'button';
 
 	label?: string;
+	description?: string;
 }
 
 export const ButtonBladePlugin: BladePlugin<ButtonBladeParams> = createPlugin({
@@ -35,6 +36,7 @@ export const ButtonBladePlugin: BladePlugin<ButtonBladeParams> = createPlugin({
 			}),
 			labelProps: ValueMap.fromObject<LabelPropsObject>({
 				label: args.params.label,
+				description: args.params.description,
 			}),
 			viewProps: args.viewProps,
 		});
